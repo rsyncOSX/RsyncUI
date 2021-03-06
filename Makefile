@@ -1,8 +1,8 @@
 all: release
 debug:
-	xcodebuild -derivedDataPath $(PWD) -configuration Debug -scheme RsyncSwiftUI
+	xcodebuild -derivedDataPath $(PWD) -configuration Debug -scheme RsyncUI
 release:
-	xcodebuild -derivedDataPath $(PWD) -configuration Release -scheme RsyncSwiftUI
+	xcodebuild -derivedDataPath $(PWD) -configuration Release -scheme RsyncUI
 clean:
 	rm -Rf Build
 	rm -Rf ModuleCache.noindex
