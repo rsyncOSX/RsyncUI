@@ -12,7 +12,6 @@
 		E985C5D125F3AC0800CB895C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CF25F3AC0800CB895C /* Main.storyboard */; };
 		E985C5DD25F3AC0800CB895C /* RsyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5DC25F3AC0800CB895C /* RsyncUITests.swift */; };
 		E985C5E825F3AC0800CB895C /* RsyncUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5E725F3AC0800CB895C /* RsyncUIUITests.swift */; };
-		E985C60225F3AD5800CB895C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C60125F3AD5800CB895C /* Assets.xcassets */; };
 		E985C65425F3AD8400CB895C /* SidebarRsyncCommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60B25F3AD8400CB895C /* SidebarRsyncCommandView.swift */; };
 		E985C65525F3AD8400CB895C /* SidebarEstimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60C25F3AD8400CB895C /* SidebarEstimationView.swift */; };
 		E985C65625F3AD8400CB895C /* RsyncUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60D25F3AD8400CB895C /* RsyncUIView.swift */; };
@@ -189,6 +188,7 @@
 		E985C79825F3AD9700CB895C /* RsyncProcessCmdClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72525F3AD9700CB895C /* RsyncProcessCmdClosure.swift */; };
 		E985C79E25F3AF9C00CB895C /* ShellOut in Frameworks */ = {isa = PBXBuildFile; productRef = E985C79D25F3AF9C00CB895C /* ShellOut */; };
 		E985C7A425F3AFDE00CB895C /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = E985C7A325F3AFDE00CB895C /* Files */; };
+		E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FDDD4825F3D0610050718C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,7 +221,6 @@
 		E985C5E325F3AC0800CB895C /* RsyncUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RsyncUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5E725F3AC0800CB895C /* RsyncUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIUITests.swift; sourceTree = "<group>"; };
 		E985C5E925F3AC0800CB895C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E985C60125F3AD5800CB895C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../GitHubRsyncOSX/RsyncSwiftUI/RsyncSwiftUI/Assets.xcassets; sourceTree = "<group>"; };
 		E985C60B25F3AD8400CB895C /* SidebarRsyncCommandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarRsyncCommandView.swift; sourceTree = "<group>"; };
 		E985C60C25F3AD8400CB895C /* SidebarEstimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarEstimationView.swift; sourceTree = "<group>"; };
 		E985C60D25F3AD8400CB895C /* RsyncUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncUIView.swift; sourceTree = "<group>"; };
@@ -397,6 +396,7 @@
 		E985C72325F3AD9700CB895C /* OtherProcessCmdClosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherProcessCmdClosure.swift; sourceTree = "<group>"; };
 		E985C72425F3AD9700CB895C /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
 		E985C72525F3AD9700CB895C /* RsyncProcessCmdClosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncProcessCmdClosure.swift; sourceTree = "<group>"; };
+		E9FDDD4825F3D0610050718C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -449,13 +449,13 @@
 		E985C5C525F3AC0700CB895C /* RsyncUI */ = {
 			isa = PBXGroup;
 			children = (
-				E985C69225F3AD9600CB895C /* Model */,
-				E985C60925F3AD8400CB895C /* Views */,
 				E985C5C625F3AC0700CB895C /* AppDelegate.swift */,
-				E985C60125F3AD5800CB895C /* Assets.xcassets */,
+				E9FDDD4825F3D0610050718C /* Assets.xcassets */,
 				E985C5CF25F3AC0800CB895C /* Main.storyboard */,
 				E985C5D225F3AC0800CB895C /* Info.plist */,
 				E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */,
+				E985C60925F3AD8400CB895C /* Views */,
+				E985C69225F3AD9600CB895C /* Model */,
 				E985C5CC25F3AC0800CB895C /* Preview Content */,
 			);
 			path = RsyncUI;
@@ -1158,7 +1158,7 @@
 			files = (
 				E985C5D125F3AC0800CB895C /* Main.storyboard in Resources */,
 				E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */,
-				E985C60225F3AD5800CB895C /* Assets.xcassets in Resources */,
+				E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
