@@ -1,0 +1,133 @@
+//
+//  Schedules.swift
+//  RsyncSwiftUI
+//
+//  Created by Thomas Evensen on 05/03/2021.
+//
+// swiftlint:disable trailing_comma line_length
+
+import Foundation
+
+enum ScheduleError: LocalizedError {
+    case notselectedconfig
+
+    var errorDescription: String? {
+        switch self {
+        case .notselectedconfig:
+            return NSLocalizedString("Please select a configuration", comment: "ScheduleError") + "..."
+        }
+    }
+}
+
+class UpdateSchedules {
+    private var structschedules: [ConfigurationSchedule]?
+    private var localeprofile: String?
+    // private var localehiddenID: Int?
+
+    func add(_ hiddenID: Int?, _ schedule: EnumScheduleDatePicker, _ startdate: Date) -> Bool {
+        do {
+            let validdate = try validateschedule(hiddenID, schedule, startdate)
+            guard validdate == true else { return false }
+            addschedule(hiddenID, schedule, startdate)
+            return true
+        } catch let e {
+            let error = e
+            self.propogateerror(error: error)
+        }
+        return false
+    }
+
+    // Function adds new Shcedules (plans). Functions writes
+    // schedule plans to permanent store.
+    func addschedule(_ hiddenID: Int?, _ schedule: EnumScheduleDatePicker, _ startdate: Date) {
+        var stop: Date?
+        var scheduletype: Scheduletype = .once
+        if schedule == .once {
+            stop = startdate
+        } else {
+            stop = "01 Jan 2100 00:00".en_us_date_from_string()
+        }
+        switch schedule {
+        case .once:
+            scheduletype = .once
+        case .daily:
+            scheduletype = .daily
+        case .weekly:
+            scheduletype = .weekly
+        }
+        let dict: NSDictionary = [
+            DictionaryStrings.hiddenID.rawValue: hiddenID ?? -1,
+            DictionaryStrings.dateStart.rawValue: startdate.en_us_string_from_date(),
+            DictionaryStrings.dateStop.rawValue: stop!.en_us_string_from_date(),
+            DictionaryStrings.schedule.rawValue: scheduletype.rawValue,
+        ]
+        let newschedule = ConfigurationSchedule(dictionary: dict, log: nil)
+        structschedules?.append(newschedule)
+        PersistentStorage(profile: localeprofile,
+                          whattoreadorwrite: .schedule,
+                          readonly: false,
+                          configurations: nil,
+                          schedules: structschedules)
+            .saveMemoryToPersistentStore()
+    }
+
+    func validateschedule(_ hiddenID: Int?, _: EnumScheduleDatePicker, _: Date) throws -> Bool {
+        if hiddenID == nil {
+            throw ScheduleError.notselectedconfig
+        } else {
+            return true
+        }
+    }
+
+    func stop(uuids: Set<UUID>) {
+        if let structschedules = structschedules {
+            var selectedschedules = structschedules.filter { uuids.contains($0.id) }
+            guard selectedschedules.count > 0 else { return }
+            for i in 0 ..< selectedschedules.count {
+                selectedschedules[i].schedule = Scheduletype.stopped.rawValue
+                selectedschedules[i].dateStop = Date().en_us_string_from_date()
+            }
+        }
+        PersistentStorage(profile: localeprofile,
+                          whattoreadorwrite: .schedule,
+                          readonly: false,
+                          configurations: nil,
+                          schedules: structschedules)
+            .saveMemoryToPersistentStore()
+    }
+
+    func delete(uuids: Set<UUID>) {
+        if let structschedules = structschedules {
+            let selectedschedules = structschedules.filter { uuids.contains($0.id) }
+            guard selectedschedules.count > 0 else { return }
+            for i in 0 ..< selectedschedules.count {
+                removeschedule(uuid: selectedschedules[i].id)
+            }
+        }
+        PersistentStorage(profile: localeprofile,
+                          whattoreadorwrite: .schedule,
+                          readonly: false,
+                          configurations: nil,
+                          schedules: structschedules)
+            .saveMemoryToPersistentStore()
+    }
+
+    private func removeschedule(uuid: UUID) {
+        if let index = structschedules?.firstIndex(where: { $0.id == uuid }) {
+            structschedules?.remove(at: index)
+        }
+    }
+
+    init(profile: String?,
+         scheduleConfigurations: [ConfigurationSchedule]?)
+    {
+        localeprofile = profile
+        structschedules = scheduleConfigurations
+    }
+}
+
+extension UpdateSchedules: PropogateError {
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.propogateerror(error: error)
+    }
+}

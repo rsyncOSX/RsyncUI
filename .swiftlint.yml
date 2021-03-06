@@ -1,0 +1,5 @@
+disabled_rules: # rule identifiers to exclude from running
+  - identifier_name
+  - opening_brace
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - SourcePackages/*
