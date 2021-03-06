@@ -2,9 +2,9 @@
 
 The code is in development and may be unstable. The execution part is stable. For more info check the link below.
 
-This is the repository of the **SwiftUI based version of RsyncOSX**, the next major release of RsyncOSX. The development commenced in December 2020 and the next release of RsyncOSX will be sometime before summer 2021. The current version of RsyncOSX is a Swift and Storyboard (View Controllers) developed macOS application. SwiftUI is a framework for UI and it replaces the Storyboards and the code for the View Controllers.
+The development commenced in December 2020 and the next release of RsyncOSX will be sometime before summer 2021. The next version is build for **macOS Big Sur** only. The name of the next version is **RsyncUI**. It is built for macOS Big Sur and later, that is why it will be released as a new appliction and not replace the current version of RsyncOSX.
 
-There is some more info about [the SwiftUI version](https://rsyncosx.netlify.app/post/swiftui/) and the progress.
+The current version of RsyncOSX is a Swift and Storyboard (View Controllers) developed macOS application. SwiftUI is a framework for UI and it replaces the Storyboards and the code for the View Controllers. There is some more info about [the SwiftUI version](https://rsyncosx.netlify.app/post/swiftui/) and the progress.
 
 ## Dependencies
 
@@ -32,20 +32,6 @@ All the above tools, except Xcode are installed by using [Homebrew](https://brew
 ## Signing and notarizing
 
 The app is signed with my Apple ID developer certificate and [notarized](https://support.apple.com/en-us/HT202491) by Apple. See [signing and notarizing](https://rsyncosx.netlify.app/post/notarized/) for info. Signing and notarizing is required to run on macOS Catalina.
-
-## Localization
-
-The new version will be localized. Most of the localization will be imported from the current version.
-
-[RsyncOSX speaks new languages](https://rsyncosx.netlify.app/post/localization/). RsyncOSX is localized to:
-- Chinese (Simplified) -  by [StringKe (Chen)](https://github.com/StringKe)
-- German - by [Andre Voigtmann](https://github.com/andre68723)
-- Norwegian - by me
-- English - the base language of RsyncOSX
-- Italian - by [Stefano Steve Cutelle'](https://github.com/stefanocutelle)
-- Dutch - by [Marcellino Santoso](https://github.com/maebs)
-
-Localization is done by utilizing [Crowdin](https://crowdin.com/project/rsyncosx) to translate the xliff files which are imported into Xcode after translating. Xcode then creates the required language strings. [Crowdin is free for open source projects](https://crowdin.com/page/open-source-project-setup-request).
 
 ## Version of rsync
 
