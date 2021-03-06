@@ -36,14 +36,18 @@ class PersistentStorageSchedulingJSON: ReadWriteJSON {
             if let schedules = self.schedules {
                 structscodable = [CodableConfigurationSchedule]()
                 for i in 0 ..< schedules.count {
-                    structscodable?.append(CodableConfigurationSchedule(schedule: schedules[i]))
+                    if schedules[i].delete != true {
+                        structscodable?.append(CodableConfigurationSchedule(schedule: schedules[i]))
+                    }
                 }
             }
         } else {
             if let schedules = schedules {
                 structscodable = [CodableConfigurationSchedule]()
                 for i in 0 ..< schedules.count {
-                    structscodable?.append(CodableConfigurationSchedule(schedule: schedules[i]))
+                    if schedules[i].delete != true {
+                        structscodable?.append(CodableConfigurationSchedule(schedule: schedules[i]))
+                    }
                 }
             }
         }

@@ -62,7 +62,7 @@ struct SchedulesView: View {
                 Button(NSLocalizedString("Stop", comment: "Stop button")) { stop() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Delete", comment: "Delete button")) {}
+                Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
                     .buttonStyle(AbortButtonStyle())
             }
         }
@@ -106,6 +106,13 @@ extension SchedulesView {
         let stopschedule = UpdateSchedules(profile: selectedprofile,
                                            scheduleConfigurations: rsyncOSXData.schedulesandlogs)
         stopschedule.stop(uuids: selecteduuids)
+        reload = true
+    }
+
+    func delete() {
+        let deleteschedule = UpdateSchedules(profile: selectedprofile,
+                                             scheduleConfigurations: rsyncOSXData.schedulesandlogs)
+        deleteschedule.delete(uuids: selecteduuids)
         reload = true
     }
 }

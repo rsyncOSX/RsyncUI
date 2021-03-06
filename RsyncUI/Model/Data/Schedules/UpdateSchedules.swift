@@ -101,11 +101,15 @@ class UpdateSchedules {
     }
 
     func delete(uuids: Set<UUID>) {
-        if let structschedules = structschedules {
-            let selectedschedules = structschedules.filter { uuids.contains($0.id) }
-            guard selectedschedules.count > 0 else { return }
-            for i in 0 ..< selectedschedules.count {
-                removeschedule(uuid: selectedschedules[i].id)
+        if let schedules = structschedules {
+            var indexset = IndexSet()
+            for i in 0 ..< uuids.count {
+                if let index = schedules.firstIndex(where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: i)] }) {
+                    indexset.insert(index)
+                }
+            }
+            for index in indexset {
+                structschedules?[index].delete = true
             }
         }
         PersistentStorage(profile: localeprofile,
@@ -114,12 +118,6 @@ class UpdateSchedules {
                           configurations: nil,
                           schedules: structschedules)
             .saveMemoryToPersistentStore()
-    }
-
-    private func removeschedule(uuid: UUID) {
-        if let index = structschedules?.firstIndex(where: { $0.id == uuid }) {
-            structschedules?.remove(at: index)
-        }
     }
 
     init(profile: String?,
