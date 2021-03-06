@@ -679,7 +679,6 @@
 				E985C69325F3AD9600CB895C /* Userconfiguration */,
 				E985C69525F3AD9600CB895C /* FilesAndCatalogs */,
 				E985C69A25F3AD9600CB895C /* Snapshots */,
-				E985C69E25F3AD9600CB895C /* RsyncOSXSwiftUI */,
 				E985C69F25F3AD9600CB895C /* Output */,
 				E985C6A225F3AD9600CB895C /* Utils */,
 				E985C6BF25F3AD9600CB895C /* Storage */,
@@ -725,13 +724,6 @@
 				E985C69D25F3AD9600CB895C /* Snapshotlogsandcatalogs.swift */,
 			);
 			path = Snapshots;
-			sourceTree = "<group>";
-		};
-		E985C69E25F3AD9600CB895C /* RsyncOSXSwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RsyncOSXSwiftUI;
 			sourceTree = "<group>";
 		};
 		E985C69F25F3AD9600CB895C /* Output */ = {
@@ -991,17 +983,9 @@
 			isa = PBXGroup;
 			children = (
 				E985C70F25F3AD9700CB895C /* UpdateSchedules.swift */,
-				E985C71025F3AD9700CB895C /* RsyncOSXSwiftUI */,
 				E985C71125F3AD9700CB895C /* Reorgschedule.swift */,
 			);
 			path = Schedules;
-			sourceTree = "<group>";
-		};
-		E985C71025F3AD9700CB895C /* RsyncOSXSwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RsyncOSXSwiftUI;
 			sourceTree = "<group>";
 		};
 		E985C71725F3AD9700CB895C /* AddParametersRsync */ = {

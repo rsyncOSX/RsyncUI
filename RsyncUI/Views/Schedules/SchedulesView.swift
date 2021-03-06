@@ -59,7 +59,7 @@ struct SchedulesView: View {
                 Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Stop", comment: "Stop button")) {}
+                Button(NSLocalizedString("Stop", comment: "Stop button")) { stop() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 Button(NSLocalizedString("Delete", comment: "Delete button")) {}
@@ -100,6 +100,13 @@ extension SchedulesView {
         if add == true {
             reload = true
         }
+    }
+
+    func stop() {
+        let stopschedule = UpdateSchedules(profile: selectedprofile,
+                                           scheduleConfigurations: rsyncOSXData.schedulesandlogs)
+        stopschedule.stop(uuids: selecteduuids)
+        reload = true
     }
 }
 

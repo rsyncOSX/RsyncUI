@@ -81,19 +81,29 @@ class UpdateSchedules {
 
     func stop(uuids: Set<UUID>) {
         if let structschedules = structschedules {
-            var selectedschedules = structschedules.filter { uuids.contains($0.id) }
-            guard selectedschedules.count > 0 else { return }
-            for i in 0 ..< selectedschedules.count {
-                selectedschedules[i].schedule = Scheduletype.stopped.rawValue
-                selectedschedules[i].dateStop = Date().en_us_string_from_date()
+            var indexset = IndexSet()
+            for i in 0 ..< uuids.count {
+                if let index = structschedules.firstIndex(where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: i)] }) {
+                    indexset.insert(index)
+                }
             }
+            print(indexset)
+            /*
+                 var selectedschedules = structschedules.filter { uuids.contains($0.id) }
+                 guard selectedschedules.count > 0 else { return }
+                 for i in 0 ..< selectedschedules.count {
+                     selectedschedules[i].schedule = Scheduletype.stopped.rawValue
+                     selectedschedules[i].dateStop = Date().en_us_string_from_date()
+                 }
+             }
+             PersistentStorage(profile: localeprofile,
+                               whattoreadorwrite: .schedule,
+                               readonly: false,
+                               configurations: nil,
+                               schedules: structschedules)
+                 .saveMemoryToPersistentStore()
+             */
         }
-        PersistentStorage(profile: localeprofile,
-                          whattoreadorwrite: .schedule,
-                          readonly: false,
-                          configurations: nil,
-                          schedules: structschedules)
-            .saveMemoryToPersistentStore()
     }
 
     func delete(uuids: Set<UUID>) {
