@@ -34,13 +34,13 @@ struct SchedulesList: View {
     var header: some View {
         HStack {
             Text(NSLocalizedString("Schedule", comment: "SchedulesList"))
-                .modifier(FixedTag(70, .center))
+                .modifier(FixedTag(50, .center))
             Text(NSLocalizedString("Start", comment: "SchedulesList"))
-                .modifier(FixedTag(135, .center))
+                .modifier(FixedTag(100, .center))
             Text(NSLocalizedString("Stop", comment: "SchedulesList"))
-                .modifier(FixedTag(135, .center))
+                .modifier(FixedTag(100, .center))
             Text(NSLocalizedString("Logs", comment: "SchedulesList"))
-                .modifier(FixedTag(70, .trailing))
+                .modifier(FixedTag(50, .trailing))
         }
     }
 }

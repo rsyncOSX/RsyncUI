@@ -49,6 +49,7 @@ struct SidebarSchedulesView: View {
 
                 Spacer()
             }
+            .padding()
         }
 
         // Buttons in right down corner

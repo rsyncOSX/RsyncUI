@@ -19,11 +19,11 @@ struct ScheduleRowSchedules: View {
             selected
 
             Text(configschedule.schedule)
-                .modifier(FixedTag(70, .leading))
+                .modifier(FixedTag(50, .leading))
             Text(configschedule.dateStart)
-                .modifier(FixedTag(150, .leading))
+                .modifier(FixedTag(100, .leading))
             Text(configschedule.dateStop ?? NSLocalizedString("no stopdate", comment: "ScheduleRowSchedules"))
-                .modifier(FixedTag(150, .leading))
+                .modifier(FixedTag(100, .leading))
             Text(String(configschedule.logrecords?.count ?? 0))
                 .modifier(FixedTag(35, .leading))
 

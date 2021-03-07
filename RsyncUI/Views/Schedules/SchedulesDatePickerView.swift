@@ -22,24 +22,24 @@ struct SchedulesDatePickerView: View {
     @Binding var selectedscheduletype: EnumScheduleDatePicker
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Picker(NSLocalizedString("Schedule", comment: "SchedulesDatePickerView") + ":",
-                   selection: $selectedscheduletype) {
-                ForEach(EnumScheduleDatePicker.allCases) { Text($0.description)
-                    .tag($0)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .frame(width: 250)
-
-            DatePicker(NSLocalizedString("Date", comment: "SchedulesDatePickerView") + ":",
-                       selection: $selecteddate,
+        HStack {
+            DatePicker("", selection: $selecteddate,
                        in: Date()...,
                        displayedComponents: [.date, .hourAndMinute])
                 .datePickerStyle(GraphicalDatePickerStyle())
 
-            Text(startdate + "\(selecteddate.localized_string_from_date())")
-            Text(schedule + "\(selectedscheduletype.rawValue)")
+            VStack(alignment: .leading) {
+                Picker("", selection: $selectedscheduletype) {
+                    ForEach(EnumScheduleDatePicker.allCases) { Text($0.description)
+                        .tag($0)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(width: 200)
+
+                Text(startdate + "\(selecteddate.localized_string_from_date())")
+                Text(schedule + "\(selectedscheduletype.rawValue)")
+            }
         }
     }
 
