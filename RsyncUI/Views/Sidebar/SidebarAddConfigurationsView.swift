@@ -27,7 +27,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
     var description: String { rawValue.localizedLowercase }
 }
 
-struct AddConfigurationsView: View {
+struct SidebarAddConfigurationsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var profilenames: Profilenames
     @EnvironmentObject var errorhandling: ErrorHandling
@@ -377,7 +377,7 @@ struct AddConfigurationsView: View {
     }
 }
 
-extension AddConfigurationsView {
+extension SidebarAddConfigurationsView {
     func selectconfig() {
         resetform()
         presentsheet = true

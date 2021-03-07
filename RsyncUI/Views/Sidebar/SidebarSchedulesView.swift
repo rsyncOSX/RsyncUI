@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SchedulesView: View {
+struct SidebarSchedulesView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
 
     @Binding var selectedprofile: String?
@@ -91,7 +91,7 @@ struct SchedulesView: View {
     }
 }
 
-extension SchedulesView {
+extension SidebarSchedulesView {
     func select() {
         if let schedule = selectedschedule {
             if selecteduuids.contains(schedule.id) {

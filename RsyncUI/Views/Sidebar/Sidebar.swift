@@ -52,15 +52,15 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: AddConfigurationsView(selectedprofile: $selectedprofile,
-                                                                  reload: $reload),
+                NavigationLink(destination: SidebarAddConfigurationsView(selectedprofile: $selectedprofile,
+                                                                         reload: $reload),
                                tag: NavigationItem.configurations,
                                selection: $selection) {
                     Label(NSLocalizedString("Configurations", comment: "sidebar"), systemImage: "text.badge.plus")
                 }
                 .tag(NavigationItem.configurations)
 
-                NavigationLink(destination: SchedulesView(selectedprofile: $selectedprofile, reload: $reload),
+                NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile, reload: $reload),
                                tag: NavigationItem.schedules,
                                selection: $selection) {
                     Label(NSLocalizedString("Schedules", comment: "sidebar"), systemImage: "text.badge.plus")
