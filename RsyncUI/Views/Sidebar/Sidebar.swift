@@ -17,7 +17,8 @@ struct Sidebar: View {
         case settings
         case none
         case snapshots
-        case add
+        case configurations
+        case schedules
     }
 
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
@@ -46,19 +47,26 @@ struct Sidebar: View {
                           systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.singletasks)
-
-                NavigationLink(destination: SidebarAddView(reload: $reload,
-                                                           selectedprofile: $selectedprofile),
-                               tag: NavigationItem.add,
-                               selection: $selection) {
-                    Label(NSLocalizedString("Add or edit", comment: "sidebar"), systemImage: "text.badge.plus")
-                }
-                .tag(NavigationItem.add)
             }
 
             Divider()
 
             Group {
+                NavigationLink(destination: AddConfigurationsView(selectedprofile: $selectedprofile,
+                                                                  reload: $reload),
+                               tag: NavigationItem.configurations,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Configurations", comment: "sidebar"), systemImage: "text.badge.plus")
+                }
+                .tag(NavigationItem.configurations)
+
+                NavigationLink(destination: SchedulesView(selectedprofile: $selectedprofile, reload: $reload),
+                               tag: NavigationItem.schedules,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Schedules", comment: "sidebar"), systemImage: "text.badge.plus")
+                }
+                .tag(NavigationItem.schedules)
+
                 NavigationLink(destination: SidebarSnapshotsView(reload: $reload),
                                tag: NavigationItem.snapshots,
                                selection: $selection) {

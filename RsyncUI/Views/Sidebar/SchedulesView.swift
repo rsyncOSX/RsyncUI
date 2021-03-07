@@ -30,50 +30,62 @@ struct SchedulesView: View {
     @State private var showAlertfordelete = false
 
     var body: some View {
-        Form {
-            VStack(alignment: .leading) {
-                ConfigurationsList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
-                                   selecteduuids: $selecteduuids,
-                                   inwork: $inwork,
-                                   selectable: $selectable)
-                HStack {
-                    Spacer()
+        VStack {
+            headingtitle
 
-                    SchedulesDatePickerView(selecteddate: $selecteddate,
-                                            selectedscheduletype: $selectedscheduletype)
-
-                    SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
-                                  selectedschedule: $selectedschedule,
-                                  selecteduuids: $selecteduuids)
-
-                    Spacer()
-                }
-            }
-
-            // Buttons in right down corner
-            Spacer()
-
+            ConfigurationsList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               selectable: $selectable)
             HStack {
                 Spacer()
 
-                Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
-                    .buttonStyle(PrimaryButtonStyle())
+                SchedulesDatePickerView(selecteddate: $selecteddate,
+                                        selectedscheduletype: $selectedscheduletype)
 
-                Button(NSLocalizedString("Select", comment: "Select button")) { select() }
-                    .buttonStyle(PrimaryButtonStyle())
+                SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+                              selectedschedule: $selectedschedule,
+                              selecteduuids: $selecteduuids)
 
-                Button(NSLocalizedString("Stop", comment: "Stop button")) { stop() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
-                    .buttonStyle(AbortButtonStyle())
-                    .sheet(isPresented: $showAlertfordelete) {
-                        DeleteSchedulesView(selecteduuids: $selecteduuids,
-                                            isPresented: $showAlertfordelete,
-                                            reload: $reload,
-                                            selectedprofile: $selectedprofile)
-                    }
+                Spacer()
             }
+        }
+
+        // Buttons in right down corner
+        Spacer()
+
+        HStack {
+            Spacer()
+
+            Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Stop", comment: "Stop button")) { stop() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
+                .buttonStyle(AbortButtonStyle())
+                .sheet(isPresented: $showAlertfordelete) {
+                    DeleteSchedulesView(selecteduuids: $selecteduuids,
+                                        isPresented: $showAlertfordelete,
+                                        reload: $reload,
+                                        selectedprofile: $selectedprofile)
+                }
+        }.padding()
+    }
+
+    var headingtitle: some View {
+        HStack {
+            VStack {
+                Text(NSLocalizedString("Schedules", comment: "SidebarLogsView"))
+                    .modifier(Tagheading(.title2, .leading))
+                    .foregroundColor(Color.blue)
+            }
+
+            Spacer()
         }
         .padding()
     }

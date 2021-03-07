@@ -62,146 +62,140 @@ struct AddConfigurationsView: View {
     @State private var created = false
 
     var body: some View {
-        Form {
-            Spacer()
+        VStack {
+            headingtitle
 
-            HStack {
-                Spacer()
+            VStack(alignment: .leading) {
+                HStack {
+                    pickerselecttypeoftask
 
-                VStack(alignment: .leading) {
-                    HStack {
-                        pickerselecttypeoftask
-
-                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
-                    }
-
-                    VStack(alignment: .leading) {
-                        Section(header: headerlocalremote) {
-                            // localcatalog
-                            if selectedconfig == nil { setlocalcatalog } else {
-                                EditValue(250, nil, $localcatalog)
-                                    .onAppear(perform: {
-                                        if let catalog = selectedconfig?.localCatalog {
-                                            localcatalog = catalog
-                                        }
-                                    })
-                            }
-                            // remotecatalog
-                            if selectedconfig == nil { setremotecatalog } else {
-                                EditValue(250, nil, $remotecatalog)
-                                    .onAppear(perform: {
-                                        if let catalog = selectedconfig?.offsiteCatalog {
-                                            remotecatalog = catalog
-                                        }
-                                    })
-                            }
-                        }
-                    }
-
-                    VStack(alignment: .leading) {
-                        Section(header: headerID) {
-                            // Backup ID
-                            if selectedconfig == nil { setID } else {
-                                EditValue(250, nil, $backupID)
-                                    .onAppear(perform: {
-                                        if let id = selectedconfig?.backupID {
-                                            backupID = id
-                                        }
-                                    })
-                            }
-                        }
-                    }
-
-                    VStack(alignment: .leading) {
-                        Section(header: headerremote) {
-                            // Remote user
-                            if selectedconfig == nil { setremoteuser } else {
-                                EditValue(250, nil, $remoteuser)
-                                    .onAppear(perform: {
-                                        if let user = selectedconfig?.offsiteUsername {
-                                            remoteuser = user
-                                        }
-                                    })
-                            }
-                            // Remote server
-                            if selectedconfig == nil { setremoteserver } else {
-                                EditValue(250, nil, $remoteserver)
-                                    .onAppear(perform: {
-                                        if let server = selectedconfig?.offsiteServer {
-                                            remoteserver = server
-                                        }
-                                    })
-                            }
-                        }
-                    }
+                    ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
                 }
 
-                Spacer()
-
                 VStack(alignment: .leading) {
-                    Section(header: headerprepost) {
-                        HStack {
-                            // Enable pretask
-                            if selectedconfig == nil { disablepretask } else {
-                                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepre)
-                                    .onAppear(perform: {
-                                        if selectedconfig?.executepretask == 1 {
-                                            enablepre = true
-                                        } else {
-                                            enablepre = false
-                                        }
-                                    })
-                            }
-
-                            // Pretask
-                            if selectedconfig == nil { setpretask } else {
-                                EditValue(250, nil, $pretask)
-                                    .onAppear(perform: {
-                                        if let task = selectedconfig?.pretask {
-                                            pretask = task
-                                        }
-                                    })
-                            }
-                        }
-
-                        HStack {
-                            // Enable posttask
-                            if selectedconfig == nil { disableposttask } else {
-                                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
-                                    .onAppear(perform: {
-                                        if selectedconfig?.executeposttask == 1 {
-                                            enablepost = true
-                                        } else {
-                                            enablepost = false
-                                        }
-                                    })
-                            }
-
-                            // Posttask
-                            if selectedconfig == nil { setposttask } else {
-                                EditValue(250, nil, $posttask)
-                                    .onAppear(perform: {
-                                        if let task = selectedconfig?.posttask {
-                                            posttask = task
-                                        }
-                                    })
-                            }
-                        }
-                        // Halt posttask on error
-                        if selectedconfig == nil { disablehaltshelltasksonerror } else {
-                            ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+                    Section(header: headerlocalremote) {
+                        // localcatalog
+                        if selectedconfig == nil { setlocalcatalog } else {
+                            EditValue(250, nil, $localcatalog)
                                 .onAppear(perform: {
-                                    if selectedconfig?.haltshelltasksonerror == 1 {
-                                        haltshelltasksonerror = true
-                                    } else {
-                                        haltshelltasksonerror = false
+                                    if let catalog = selectedconfig?.localCatalog {
+                                        localcatalog = catalog
+                                    }
+                                })
+                        }
+                        // remotecatalog
+                        if selectedconfig == nil { setremotecatalog } else {
+                            EditValue(250, nil, $remotecatalog)
+                                .onAppear(perform: {
+                                    if let catalog = selectedconfig?.offsiteCatalog {
+                                        remotecatalog = catalog
                                     }
                                 })
                         }
                     }
                 }
 
-                Spacer()
+                VStack(alignment: .leading) {
+                    Section(header: headerID) {
+                        // Backup ID
+                        if selectedconfig == nil { setID } else {
+                            EditValue(250, nil, $backupID)
+                                .onAppear(perform: {
+                                    if let id = selectedconfig?.backupID {
+                                        backupID = id
+                                    }
+                                })
+                        }
+                    }
+                }
+
+                VStack(alignment: .leading) {
+                    Section(header: headerremote) {
+                        // Remote user
+                        if selectedconfig == nil { setremoteuser } else {
+                            EditValue(250, nil, $remoteuser)
+                                .onAppear(perform: {
+                                    if let user = selectedconfig?.offsiteUsername {
+                                        remoteuser = user
+                                    }
+                                })
+                        }
+                        // Remote server
+                        if selectedconfig == nil { setremoteserver } else {
+                            EditValue(250, nil, $remoteserver)
+                                .onAppear(perform: {
+                                    if let server = selectedconfig?.offsiteServer {
+                                        remoteserver = server
+                                    }
+                                })
+                        }
+                    }
+                }
+            }
+
+            Spacer()
+
+            VStack(alignment: .leading) {
+                Section(header: headerprepost) {
+                    HStack {
+                        // Enable pretask
+                        if selectedconfig == nil { disablepretask } else {
+                            ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepre)
+                                .onAppear(perform: {
+                                    if selectedconfig?.executepretask == 1 {
+                                        enablepre = true
+                                    } else {
+                                        enablepre = false
+                                    }
+                                })
+                        }
+
+                        // Pretask
+                        if selectedconfig == nil { setpretask } else {
+                            EditValue(250, nil, $pretask)
+                                .onAppear(perform: {
+                                    if let task = selectedconfig?.pretask {
+                                        pretask = task
+                                    }
+                                })
+                        }
+                    }
+
+                    HStack {
+                        // Enable posttask
+                        if selectedconfig == nil { disableposttask } else {
+                            ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
+                                .onAppear(perform: {
+                                    if selectedconfig?.executeposttask == 1 {
+                                        enablepost = true
+                                    } else {
+                                        enablepost = false
+                                    }
+                                })
+                        }
+
+                        // Posttask
+                        if selectedconfig == nil { setposttask } else {
+                            EditValue(250, nil, $posttask)
+                                .onAppear(perform: {
+                                    if let task = selectedconfig?.posttask {
+                                        posttask = task
+                                    }
+                                })
+                        }
+                    }
+                    // Halt posttask on error
+                    if selectedconfig == nil { disablehaltshelltasksonerror } else {
+                        ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+                            .onAppear(perform: {
+                                if selectedconfig?.haltshelltasksonerror == 1 {
+                                    haltshelltasksonerror = true
+                                } else {
+                                    haltshelltasksonerror = false
+                                }
+                            })
+                    }
+                }
             }
 
             Spacer()
@@ -247,6 +241,19 @@ struct AddConfigurationsView: View {
         .lineSpacing(2)
         .padding()
         .sheet(isPresented: $presentsheet) { configsheet }
+    }
+
+    var headingtitle: some View {
+        HStack {
+            VStack {
+                Text(NSLocalizedString("Configurations", comment: "SidebarLogsView"))
+                    .modifier(Tagheading(.title2, .leading))
+                    .foregroundColor(Color.blue)
+            }
+
+            Spacer()
+        }
+        .padding()
     }
 
     // Headers (in sections)
