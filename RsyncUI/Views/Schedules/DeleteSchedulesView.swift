@@ -1,17 +1,18 @@
 //
-//  DeleteConfigurationsView.swift
-//  RsyncSwiftUI
+//  DeleteSchedulesView.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 12/02/2021.
+//  Created by Thomas Evensen on 07/03/2021.
 //
 
 import SwiftUI
 
-struct DeleteConfigurationsView: View {
+struct DeleteSchedulesView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
     @Binding var reload: Bool
+    @Binding var selectedprofile: String?
 
     var body: some View {
         VStack {
@@ -35,7 +36,7 @@ struct DeleteConfigurationsView: View {
         HStack {
             let message = NSLocalizedString("Delete", comment: "Alert delete")
                 + " \(selecteduuids.count)"
-                + NSLocalizedString(" configuration(s)?", comment: "Alert delete")
+                + NSLocalizedString(" schedules(s)?", comment: "Alert delete")
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }
@@ -47,12 +48,9 @@ struct DeleteConfigurationsView: View {
     }
 
     func delete() {
-        let deleteconfigurations =
-            UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
-                                 configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
-        deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
-        selecteduuids.removeAll()
-        isPresented = false
+        let deleteschedule = UpdateSchedules(profile: selectedprofile,
+                                             scheduleConfigurations: rsyncOSXData.schedulesandlogs)
+        deleteschedule.delete(uuids: selecteduuids)
         reload = true
     }
 }

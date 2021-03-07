@@ -26,6 +26,9 @@ struct SchedulesView: View {
     @State private var selecteddate = Date()
     @State private var selectedscheduletype = EnumScheduleDatePicker.once
 
+    // Alert for delete
+    @State private var showAlertfordelete = false
+
     var body: some View {
         Form {
             VStack(alignment: .leading) {
@@ -64,6 +67,12 @@ struct SchedulesView: View {
 
                 Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
                     .buttonStyle(AbortButtonStyle())
+                    .sheet(isPresented: $showAlertfordelete) {
+                        DeleteSchedulesView(selecteduuids: $selecteduuids,
+                                            isPresented: $showAlertfordelete,
+                                            reload: $reload,
+                                            selectedprofile: $selectedprofile)
+                    }
             }
         }
         .padding()
@@ -110,10 +119,8 @@ extension SchedulesView {
     }
 
     func delete() {
-        let deleteschedule = UpdateSchedules(profile: selectedprofile,
-                                             scheduleConfigurations: rsyncOSXData.schedulesandlogs)
-        deleteschedule.delete(uuids: selecteduuids)
-        reload = true
+        guard selecteduuids.count > 0 else { return }
+        showAlertfordelete = true
     }
 }
 
