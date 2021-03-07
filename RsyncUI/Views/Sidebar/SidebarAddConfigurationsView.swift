@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 25/02/2021.
 //
+// swiftlint:disable type_body_length
 
 import SwiftUI
 
@@ -13,7 +14,7 @@ enum CannotUpdateSnaphotsError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .cannotupdate:
-            return NSLocalizedString("Snapshot tasks cannot be updated", comment: "cannout") + "..."
+            return NSLocalizedString("Snapshot tasks cannot be updated", comment: "cannot") + "..."
         }
     }
 }
@@ -76,63 +77,15 @@ struct SidebarAddConfigurationsView: View {
                     }
 
                     VStack(alignment: .leading) {
-                        Section(header: headerlocalremote) {
-                            // localcatalog
-                            if selectedconfig == nil { setlocalcatalog } else {
-                                EditValue(250, nil, $localcatalog)
-                                    .onAppear(perform: {
-                                        if let catalog = selectedconfig?.localCatalog {
-                                            localcatalog = catalog
-                                        }
-                                    })
-                            }
-                            // remotecatalog
-                            if selectedconfig == nil { setremotecatalog } else {
-                                EditValue(250, nil, $remotecatalog)
-                                    .onAppear(perform: {
-                                        if let catalog = selectedconfig?.offsiteCatalog {
-                                            remotecatalog = catalog
-                                        }
-                                    })
-                            }
-                        }
+                        localandremotecatalog
                     }
 
                     VStack(alignment: .leading) {
-                        Section(header: headerID) {
-                            // Backup ID
-                            if selectedconfig == nil { setID } else {
-                                EditValue(250, nil, $backupID)
-                                    .onAppear(perform: {
-                                        if let id = selectedconfig?.backupID {
-                                            backupID = id
-                                        }
-                                    })
-                            }
-                        }
+                        backupid
                     }
 
                     VStack(alignment: .leading) {
-                        Section(header: headerremote) {
-                            // Remote user
-                            if selectedconfig == nil { setremoteuser } else {
-                                EditValue(250, nil, $remoteuser)
-                                    .onAppear(perform: {
-                                        if let user = selectedconfig?.offsiteUsername {
-                                            remoteuser = user
-                                        }
-                                    })
-                            }
-                            // Remote server
-                            if selectedconfig == nil { setremoteserver } else {
-                                EditValue(250, nil, $remoteserver)
-                                    .onAppear(perform: {
-                                        if let server = selectedconfig?.offsiteServer {
-                                            remoteserver = server
-                                        }
-                                    })
-                            }
-                        }
+                        remoteuserandserver
                     }
                 }
 
@@ -140,53 +93,10 @@ struct SidebarAddConfigurationsView: View {
 
                 VStack(alignment: .leading) {
                     Section(header: headerprepost) {
-                        HStack {
-                            // Enable pretask
-                            if selectedconfig == nil { disablepretask } else {
-                                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepre)
-                                    .onAppear(perform: {
-                                        if selectedconfig?.executepretask == 1 {
-                                            enablepre = true
-                                        } else {
-                                            enablepre = false
-                                        }
-                                    })
-                            }
+                        pretaskandtoggle
 
-                            // Pretask
-                            if selectedconfig == nil { setpretask } else {
-                                EditValue(250, nil, $pretask)
-                                    .onAppear(perform: {
-                                        if let task = selectedconfig?.pretask {
-                                            pretask = task
-                                        }
-                                    })
-                            }
-                        }
+                        posttaskandtoggle
 
-                        HStack {
-                            // Enable posttask
-                            if selectedconfig == nil { disableposttask } else {
-                                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
-                                    .onAppear(perform: {
-                                        if selectedconfig?.executeposttask == 1 {
-                                            enablepost = true
-                                        } else {
-                                            enablepost = false
-                                        }
-                                    })
-                            }
-
-                            // Posttask
-                            if selectedconfig == nil { setposttask } else {
-                                EditValue(250, nil, $posttask)
-                                    .onAppear(perform: {
-                                        if let task = selectedconfig?.posttask {
-                                            posttask = task
-                                        }
-                                    })
-                            }
-                        }
                         // Halt posttask on error
                         if selectedconfig == nil { disablehaltshelltasksonerror } else {
                             ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
@@ -249,32 +159,6 @@ struct SidebarAddConfigurationsView: View {
         .sheet(isPresented: $presentsheet) { configsheet }
     }
 
-    // Headers (in sections)
-    var headerlocalremote: some View {
-        Text(NSLocalizedString("Catalog parameters", comment: "settings"))
-            .modifier(FixedTag(200, .leading))
-    }
-
-    var headerID: some View {
-        Text(NSLocalizedString("Backup ID", comment: "settings"))
-            .modifier(FixedTag(200, .leading))
-    }
-
-    var headerremote: some View {
-        Text(NSLocalizedString("Remote parameters", comment: "settings"))
-            .modifier(FixedTag(200, .leading))
-    }
-
-    var headerprepost: some View {
-        Text(NSLocalizedString("Pre and post task", comment: "settings"))
-            .modifier(FixedTag(200, .leading))
-    }
-
-    // Select, if update, configurations for update
-    var configsheet: some View {
-        SelectConfigurationView(selectedconfig: $selectedconfig, isPresented: $presentsheet)
-    }
-
     // Add and edit text values
     var setlocalcatalog: some View {
         EditValue(250, NSLocalizedString("Add localcatalog - required", comment: "settings"), $localcatalog)
@@ -282,6 +166,58 @@ struct SidebarAddConfigurationsView: View {
 
     var setremotecatalog: some View {
         EditValue(250, NSLocalizedString("Add remotecatalog - required", comment: "settings"), $remotecatalog)
+    }
+
+    // Headers (in sections)
+    var headerlocalremote: some View {
+        Text(NSLocalizedString("Catalog parameters", comment: "settings"))
+            .modifier(FixedTag(200, .leading))
+    }
+
+    var localandremotecatalog: some View {
+        Section(header: headerlocalremote) {
+            // localcatalog
+            if selectedconfig == nil { setlocalcatalog } else {
+                EditValue(250, nil, $localcatalog)
+                    .onAppear(perform: {
+                        if let catalog = selectedconfig?.localCatalog {
+                            localcatalog = catalog
+                        }
+                    })
+            }
+            // remotecatalog
+            if selectedconfig == nil { setremotecatalog } else {
+                EditValue(250, nil, $remotecatalog)
+                    .onAppear(perform: {
+                        if let catalog = selectedconfig?.offsiteCatalog {
+                            remotecatalog = catalog
+                        }
+                    })
+            }
+        }
+    }
+
+    var setID: some View {
+        EditValue(250, NSLocalizedString("Add backup ID", comment: "settings"), $backupID)
+    }
+
+    var headerID: some View {
+        Text(NSLocalizedString("Backup ID", comment: "settings"))
+            .modifier(FixedTag(200, .leading))
+    }
+
+    var backupid: some View {
+        Section(header: headerID) {
+            // Backup ID
+            if selectedconfig == nil { setID } else {
+                EditValue(250, nil, $backupID)
+                    .onAppear(perform: {
+                        if let id = selectedconfig?.backupID {
+                            backupID = id
+                        }
+                    })
+            }
+        }
     }
 
     var setremoteuser: some View {
@@ -292,8 +228,32 @@ struct SidebarAddConfigurationsView: View {
         EditValue(250, NSLocalizedString("Add remote server", comment: "settings"), $remoteserver)
     }
 
-    var setID: some View {
-        EditValue(250, NSLocalizedString("Add backup ID", comment: "settings"), $backupID)
+    var headerremote: some View {
+        Text(NSLocalizedString("Remote parameters", comment: "settings"))
+            .modifier(FixedTag(200, .leading))
+    }
+
+    var remoteuserandserver: some View {
+        Section(header: headerremote) {
+            // Remote user
+            if selectedconfig == nil { setremoteuser } else {
+                EditValue(250, nil, $remoteuser)
+                    .onAppear(perform: {
+                        if let user = selectedconfig?.offsiteUsername {
+                            remoteuser = user
+                        }
+                    })
+            }
+            // Remote server
+            if selectedconfig == nil { setremoteserver } else {
+                EditValue(250, nil, $remoteserver)
+                    .onAppear(perform: {
+                        if let server = selectedconfig?.offsiteServer {
+                            remoteserver = server
+                        }
+                    })
+            }
+        }
     }
 
     var setpretask: some View {
@@ -310,6 +270,68 @@ struct SidebarAddConfigurationsView: View {
 
     var disableposttask: some View {
         ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
+    }
+
+    var headerprepost: some View {
+        Text(NSLocalizedString("Pre and post task", comment: "settings"))
+            .modifier(FixedTag(200, .leading))
+    }
+
+    var pretaskandtoggle: some View {
+        HStack {
+            // Enable pretask
+            if selectedconfig == nil { disablepretask } else {
+                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepre)
+                    .onAppear(perform: {
+                        if selectedconfig?.executepretask == 1 {
+                            enablepre = true
+                        } else {
+                            enablepre = false
+                        }
+                    })
+            }
+
+            // Pretask
+            if selectedconfig == nil { setpretask } else {
+                EditValue(250, nil, $pretask)
+                    .onAppear(perform: {
+                        if let task = selectedconfig?.pretask {
+                            pretask = task
+                        }
+                    })
+            }
+        }
+    }
+
+    var posttaskandtoggle: some View {
+        HStack {
+            // Enable posttask
+            if selectedconfig == nil { disableposttask } else {
+                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
+                    .onAppear(perform: {
+                        if selectedconfig?.executeposttask == 1 {
+                            enablepost = true
+                        } else {
+                            enablepost = false
+                        }
+                    })
+            }
+
+            // Posttask
+            if selectedconfig == nil { setposttask } else {
+                EditValue(250, nil, $posttask)
+                    .onAppear(perform: {
+                        if let task = selectedconfig?.posttask {
+                            posttask = task
+                        }
+                    })
+            }
+        }
+    }
+
+    // Select, if update, configurations for update
+    var configsheet: some View {
+        SelectConfigurationView(selectedconfig: $selectedconfig, isPresented: $presentsheet)
     }
 
     var disablehaltshelltasksonerror: some View {

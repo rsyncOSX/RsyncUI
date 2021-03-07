@@ -14,11 +14,15 @@ struct SchedulesList: View {
     @Binding var selecteduuids: Set<UUID>
 
     var body: some View {
-        List(selection: $selectedschedule) {
-            ForEach(schedulesandlogs) { record in
-                ScheduleRowSchedules(configschedule: record,
-                                     selecteduuids: $selecteduuids)
-                    .tag(record)
+        VStack {
+            header
+
+            List(selection: $selectedschedule) {
+                ForEach(schedulesandlogs) { record in
+                    ScheduleRowSchedules(configschedule: record,
+                                         selecteduuids: $selecteduuids)
+                        .tag(record)
+                }
             }
         }
     }
@@ -34,11 +38,11 @@ struct SchedulesList: View {
     var header: some View {
         HStack {
             Text(NSLocalizedString("Schedule", comment: "SchedulesList"))
-                .modifier(FixedTag(50, .center))
+                .modifier(FixedTag(80, .center))
             Text(NSLocalizedString("Start", comment: "SchedulesList"))
-                .modifier(FixedTag(100, .center))
+                .modifier(FixedTag(120, .center))
             Text(NSLocalizedString("Stop", comment: "SchedulesList"))
-                .modifier(FixedTag(100, .center))
+                .modifier(FixedTag(120, .center))
             Text(NSLocalizedString("Logs", comment: "SchedulesList"))
                 .modifier(FixedTag(50, .trailing))
         }

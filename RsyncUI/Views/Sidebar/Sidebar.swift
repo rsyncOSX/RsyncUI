@@ -63,7 +63,7 @@ struct Sidebar: View {
                 NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile, reload: $reload),
                                tag: NavigationItem.schedules,
                                selection: $selection) {
-                    Label(NSLocalizedString("Schedules", comment: "sidebar"), systemImage: "text.badge.plus")
+                    Label(NSLocalizedString("Schedules", comment: "sidebar"), systemImage: "calendar.badge.plus")
                 }
                 .tag(NavigationItem.schedules)
 
