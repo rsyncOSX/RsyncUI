@@ -164,8 +164,8 @@ final class Estimation {
 extension Estimation {
     func processtermination() {
         guard setabort == false else { return }
-        print("processtermination()")
-        print("Total number of configurations to process in processtermination(): \(stackoftasktobeestimated?.count ?? 0) of \(max ?? 0)")
+        // print("processtermination()")
+        // print("Total number of configurations to process in processtermination(): \(stackoftasktobeestimated?.count ?? 0) of \(max ?? 0)")
         updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeestimated?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
                                               outputprocess: outputprocess,

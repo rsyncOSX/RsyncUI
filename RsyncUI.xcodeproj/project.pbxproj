@@ -491,20 +491,20 @@
 			isa = PBXGroup;
 			children = (
 				E985C60A25F3AD8400CB895C /* Sidebar */,
+				E985C64E25F3AD8400CB895C /* Multipletasks */,
+				E985C62325F3AD8400CB895C /* Singletask */,
+				E985C62625F3AD8400CB895C /* Snapshots */,
 				E985C61525F3AD8400CB895C /* Configurations */,
+				E985C63C25F3AD8400CB895C /* Schedules */,
 				E985C61A25F3AD8400CB895C /* Settings */,
 				E985C61E25F3AD8400CB895C /* FilelogView */,
 				E985C62025F3AD8400CB895C /* Modifiers */,
-				E985C62325F3AD8400CB895C /* Singletask */,
-				E985C62625F3AD8400CB895C /* Snapshots */,
 				E985C62A25F3AD8400CB895C /* Images */,
 				E985C63825F3AD8400CB895C /* RsyncCommand */,
 				E985C63A25F3AD8400CB895C /* About */,
-				E985C63C25F3AD8400CB895C /* Schedules */,
 				E985C64125F3AD8400CB895C /* Logs */,
 				E985C64625F3AD8400CB895C /* Add */,
 				E985C64C25F3AD8400CB895C /* NotYetImplemented */,
-				E985C64E25F3AD8400CB895C /* Multitask */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -661,7 +661,7 @@
 			path = NotYetImplemented;
 			sourceTree = "<group>";
 		};
-		E985C64E25F3AD8400CB895C /* Multitask */ = {
+		E985C64E25F3AD8400CB895C /* Multipletasks */ = {
 			isa = PBXGroup;
 			children = (
 				E985C64F25F3AD8400CB895C /* ExecuteAlltasksView.swift */,
@@ -670,7 +670,7 @@
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */,
 				E985C65325F3AD8400CB895C /* MultipletasksView.swift */,
 			);
-			path = Multitask;
+			path = Multipletasks;
 			sourceTree = "<group>";
 		};
 		E985C69225F3AD9600CB895C /* Model */ = {

@@ -96,7 +96,7 @@ final class ExecuteMultipleTasks {
         updateestimationcountDelegate = updateinprogresscount
         updateprogessDelegate = singletaskupdate
         // Debug print
-        printdebugdata(uuids)
+        // printdebugdata(uuids)
         // Debug print
         guard uuids.count > 0 else { return }
         let configurations = configurationsSwiftUI?.getallconfigurations()?.filter { uuids.contains($0.id) }

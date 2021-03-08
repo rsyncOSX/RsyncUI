@@ -124,8 +124,8 @@ class SingletaskPrimaryLogging {
         if let logrecords = getalllogsbyhiddenID(hiddenID: hiddenID) {
             let selectedlogrecords = logrecords.filter { uuids.contains($0.id) }
             // TODO: implement
-            print(selectedlogrecords)
-            print(selectedlogrecords.count)
+            // print(selectedlogrecords)
+            // print(selectedlogrecords.count)
         }
     }
 
@@ -133,8 +133,8 @@ class SingletaskPrimaryLogging {
         if let schedules = structschedules?.filter({ $0.hiddenID == hiddenID }) {
             let selectedschedules = schedules.filter { uuids.contains($0.id) }
             // TODO: implement
-            print(selectedschedules)
-            print(selectedschedules.count)
+            // print(selectedschedules)
+            // print(selectedschedules.count)
         }
     }
 

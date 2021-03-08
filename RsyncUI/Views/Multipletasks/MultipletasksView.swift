@@ -182,7 +182,7 @@ extension MultipletasksView {
         executedetails.resetcounter()
         // Check if restart or new set of configurations
         if inprogresscountmultipletask.getuuids().count > 0 {
-            print("PROBLEM: (In EstimationView) clearing old uuids not done properly")
+            // print("PROBLEM: (In EstimationView) clearing old uuids not done properly")
             resetandreload()
             selecteduuids.removeAll()
         }

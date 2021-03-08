@@ -128,7 +128,7 @@ class UpdateSchedules {
     }
 
     deinit {
-        print("deinit UpdateSchedules")
+        // print("deinit UpdateSchedules")
     }
 }
 

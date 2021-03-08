@@ -144,6 +144,6 @@ class UpdateConfigurations {
     }
 
     deinit {
-        print("deinit UpdateConfigurations")
+        // print("deinit UpdateConfigurations")
     }
 }

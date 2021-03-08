@@ -213,7 +213,7 @@ final class Snapshotlogsandcatalogs {
     }
 
     deinit {
-        print("deinit Snapshotlogsandcatalogs")
+        // print("deinit Snapshotlogsandcatalogs")
     }
 }
 

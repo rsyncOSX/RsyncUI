@@ -145,7 +145,7 @@ final class PersistentStorage {
 
     deinit {
         // print("deinit PersistentStorage")
-        print(self.whattoreadorwrite)
+        // print(self.whattoreadorwrite)
         self.configJSON = nil
         self.configPLIST = nil
         self.scheduleJSON = nil

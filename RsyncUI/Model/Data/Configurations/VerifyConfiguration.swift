@@ -253,7 +253,7 @@ final class VerifyConfiguration: Connected {
     }
 
     deinit {
-        print("deinit VerifyConfiguration")
+        // print("deinit VerifyConfiguration")
     }
 }
 
