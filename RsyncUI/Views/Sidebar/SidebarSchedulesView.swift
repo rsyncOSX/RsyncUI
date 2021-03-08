@@ -140,6 +140,7 @@ extension SidebarSchedulesView {
         if selecteduuids.count == 0 { setuuidforselectedschedule() }
         guard selecteduuids.count > 0 else { return }
         showAlertfordelete = true
+        // selecteduuids.removeAll() is done in sheetview
     }
 }
 
