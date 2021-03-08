@@ -76,17 +76,11 @@ struct SidebarAddConfigurationsView: View {
                         ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
                     }
 
-                    VStack(alignment: .leading) {
-                        localandremotecatalog
-                    }
+                    VStack(alignment: .leading) { localandremotecatalog }
 
-                    VStack(alignment: .leading) {
-                        backupid
-                    }
+                    VStack(alignment: .leading) { backupid }
 
-                    VStack(alignment: .leading) {
-                        remoteuserandserver
-                    }
+                    VStack(alignment: .leading) { remoteuserandserver }
                 }
 
                 Spacer()

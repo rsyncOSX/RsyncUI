@@ -103,11 +103,14 @@ extension SidebarSchedulesView {
         }
     }
 
-    func indexofselectedschedule() {
+    func setuuidforselectedschedule() {
         if let schedule = selectedschedule,
            let schedules = rsyncOSXData.schedulesandlogs
         {
             if let index = schedules.firstIndex(of: schedule) {
+                if let id = rsyncOSXData.schedulesandlogs?[index].id {
+                    selecteduuids.insert(id)
+                }
                 print(index)
             }
         }
@@ -122,16 +125,20 @@ extension SidebarSchedulesView {
         if add == true {
             reload = true
         }
+        selecteduuids.removeAll()
     }
 
     func stop() {
+        if selecteduuids.count == 0 { setuuidforselectedschedule() }
         let stopschedule = UpdateSchedules(profile: selectedprofile,
                                            scheduleConfigurations: rsyncOSXData.schedulesandlogs)
         stopschedule.stop(uuids: selecteduuids)
         reload = true
+        selecteduuids.removeAll()
     }
 
     func delete() {
+        if selecteduuids.count == 0 { setuuidforselectedschedule() }
         guard selecteduuids.count > 0 else { return }
         showAlertfordelete = true
     }

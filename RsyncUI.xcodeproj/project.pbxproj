@@ -957,8 +957,8 @@
 			isa = PBXGroup;
 			children = (
 				E985C70825F3AD9700CB895C /* Configurations */,
-				E985C70D25F3AD9700CB895C /* SchedulesSwiftUI.swift */,
 				E985C70E25F3AD9700CB895C /* Schedules */,
+				E985C70D25F3AD9700CB895C /* SchedulesSwiftUI.swift */,
 				E985C71225F3AD9700CB895C /* OutputFromMultipleTasks.swift */,
 				E985C71325F3AD9700CB895C /* OutputFromRsync.swift */,
 				E985C71425F3AD9700CB895C /* ErrorHandling.swift */,

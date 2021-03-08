@@ -52,5 +52,7 @@ struct DeleteSchedulesView: View {
                                              scheduleConfigurations: rsyncOSXData.schedulesandlogs)
         deleteschedule.delete(uuids: selecteduuids)
         reload = true
+        selecteduuids.removeAll()
+        isPresented = false
     }
 }

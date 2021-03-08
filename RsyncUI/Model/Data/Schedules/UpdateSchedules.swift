@@ -1,5 +1,5 @@
 //
-//  Schedules.swift
+//  UpdateSchedules.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 05/03/2021.
@@ -125,6 +125,10 @@ class UpdateSchedules {
     {
         localeprofile = profile
         structschedules = scheduleConfigurations
+    }
+
+    deinit {
+        print("deinit UpdateSchedules")
     }
 }
 
