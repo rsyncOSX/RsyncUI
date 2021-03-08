@@ -98,5 +98,6 @@ struct ConfigurationsList: View {
 
     var footer: some View {
         Text(NSLocalizedString("Most recent updated task on top of list", comment: "ConfigurationsList") + "...")
+            .foregroundColor(Color.blue)
     }
 }

@@ -27,9 +27,13 @@ struct ScheduleRowSchedules: View {
                 Text(configschedule.dateStart)
                     .modifier(FixedTag(120, .leading))
             }
-
-            Text(configschedule.dateStop ?? NSLocalizedString("no stopdate", comment: "ScheduleRowSchedules"))
-                .modifier(FixedTag(120, .leading))
+            if configschedule.dateStop == "01 Jan 2100 00:00" {
+                Text(NSLocalizedString("no stopdate", comment: "ScheduleRowSchedules"))
+                    .modifier(FixedTag(120, .leading))
+            } else {
+                Text(configschedule.dateStop ?? "")
+                    .modifier(FixedTag(120, .leading))
+            }
             Text(String(configschedule.logrecords?.count ?? 0))
                 .modifier(FixedTag(35, .leading))
 

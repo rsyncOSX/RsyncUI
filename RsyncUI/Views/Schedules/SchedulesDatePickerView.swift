@@ -37,8 +37,10 @@ struct SchedulesDatePickerView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 .frame(width: 200)
 
-                Text(startdate + "\(selecteddate.localized_string_from_date())")
-                Text(schedule + "\(selectedscheduletype.rawValue)")
+                Text(startdate) + Text("\(selecteddate.localized_string_from_date())")
+                    .foregroundColor(Color.blue)
+                Text(schedule) + Text("\(selectedscheduletype.rawValue)")
+                    .foregroundColor(Color.blue)
             }
         }
     }
