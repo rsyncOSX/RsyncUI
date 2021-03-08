@@ -1,5 +1,5 @@
 //
-//  EstimationViewDetails.swift
+//  MultipletasksView.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 19/01/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EstimationView: View {
+struct MultipletasksView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var errorhandling: ErrorHandling
     // The object holds the progressdata for the current estimated task
@@ -136,7 +136,7 @@ struct EstimationView: View {
     }
 }
 
-extension EstimationView {
+extension MultipletasksView {
     func executall() {
         executedetails.resetcounter()
         showAlertforexecuteall = true

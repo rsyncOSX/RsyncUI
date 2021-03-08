@@ -111,7 +111,6 @@ extension SidebarSchedulesView {
                 if let id = rsyncOSXData.schedulesandlogs?[index].id {
                     selecteduuids.insert(id)
                 }
-                print(index)
             }
         }
     }

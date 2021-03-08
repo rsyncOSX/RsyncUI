@@ -1,5 +1,5 @@
 //
-//  EstimationView.swift
+//  SidebarMultipletasksView.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 19/01/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SidebarEstimationView: View {
+struct SidebarMultipletasksView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
@@ -16,8 +16,8 @@ struct SidebarEstimationView: View {
         VStack {
             headingtitle
 
-            EstimationView(selectedconfig: $selectedconfig.onChange {},
-                           reload: $reload)
+            MultipletasksView(selectedconfig: $selectedconfig.onChange {},
+                              reload: $reload)
         }
 
         .padding()
