@@ -49,10 +49,15 @@ struct MultipletasksView: View {
         if estimationstate.estimationstate != .start { labelcompleted }
 
         HStack {
-            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+            Button(NSLocalizedString("All", comment: "Select button")) { executall() }
                 .buttonStyle(PrimaryButtonStyle())
+                .sheet(isPresented: $showAlertforexecuteall) {
+                    ExecuteAlltasksView(selecteduuids: $selecteduuids,
+                                        isPresented: $showAlertforexecuteall,
+                                        presentestimatedsheetview: $presentestimatedsheetview)
+                }
 
-            Button(NSLocalizedString("Estimate", comment: "Estimate button")) { startestimation() }
+            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                 .buttonStyle(PrimaryButtonStyle())
 
             Button(NSLocalizedString("Execute", comment: "Execute button")) { presentexecuteestimatedview() }
@@ -64,13 +69,8 @@ struct MultipletasksView: View {
                         .environmentObject(OutputFromMultipleTasks())
                 }
 
-            Button(NSLocalizedString("All", comment: "Select button")) { executall() }
+            Button(NSLocalizedString("Estimate", comment: "Estimate button")) { startestimation() }
                 .buttonStyle(PrimaryButtonStyle())
-                .sheet(isPresented: $showAlertforexecuteall) {
-                    ExecuteAlltasksView(selecteduuids: $selecteduuids,
-                                        isPresented: $showAlertforexecuteall,
-                                        presentestimatedsheetview: $presentestimatedsheetview)
-                }
 
             Spacer()
 

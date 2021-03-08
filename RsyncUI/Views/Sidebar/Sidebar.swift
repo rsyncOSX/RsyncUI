@@ -70,7 +70,7 @@ struct Sidebar: View {
                 NavigationLink(destination: SidebarSnapshotsView(reload: $reload),
                                tag: NavigationItem.snapshots,
                                selection: $selection) {
-                    Label(NSLocalizedString("Snapshots", comment: "sidebar"), systemImage: "text.badge.minus")
+                    Label(NSLocalizedString("Snapshots", comment: "sidebar"), systemImage: "text.badge.plus")
                 }
                 .tag(NavigationItem.snapshots)
             }
