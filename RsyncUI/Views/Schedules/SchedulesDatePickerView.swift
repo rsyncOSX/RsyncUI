@@ -27,6 +27,7 @@ struct SchedulesDatePickerView: View {
                        in: Date()...,
                        displayedComponents: [.date, .hourAndMinute])
                 .datePickerStyle(GraphicalDatePickerStyle())
+                .labelsHidden()
 
             VStack(alignment: .leading) {
                 Picker("", selection: $selectedscheduletype) {
@@ -36,6 +37,7 @@ struct SchedulesDatePickerView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .frame(width: 200)
+                .labelsHidden()
 
                 Text(startdate) + Text("\(selecteddate.localized_string_from_date())")
                     .foregroundColor(Color.blue)

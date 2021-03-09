@@ -135,9 +135,6 @@ struct SidebarAddConfigurationsView: View {
                                 RoundedRectangle(cornerRadius: 20)
                                     .stroke(Color.red, lineWidth: 5)
                             )
-                            .alert(isPresented: errorhandling.isPresentingAlert, content: {
-                                Alert(localizedError: errorhandling.activeError!)
-                            })
                     }
 
                     Button(NSLocalizedString("Select", comment: "Select button")) { selectconfig() }
@@ -151,6 +148,9 @@ struct SidebarAddConfigurationsView: View {
         .lineSpacing(2)
         .padding()
         .sheet(isPresented: $presentsheet) { configsheet }
+        .alert(isPresented: errorhandling.isPresentingAlert, content: {
+            Alert(localizedError: errorhandling.activeError!)
+        })
     }
 
     // Add and edit text values
