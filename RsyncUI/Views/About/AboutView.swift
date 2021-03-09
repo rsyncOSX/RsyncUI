@@ -44,11 +44,13 @@ struct AboutView: View {
     }
 
     var body: some View {
-        headingstitle
+        VStack {
+            headingstitle
 
-        buttonsview
+            rsynclongstring
 
-            .padding()
+            buttonsview
+        }.padding()
     }
 
     var headingstitle: some View {
@@ -66,6 +68,9 @@ struct AboutView: View {
 
             Text(copyright)
                 .font(.caption)
+
+            Text(iconbystring)
+                .font(.caption)
         }
     }
 
@@ -80,6 +85,11 @@ struct AboutView: View {
                  .buttonStyle(PrimaryButtonStyle())
              */
         }
+    }
+
+    var rsynclongstring: some View {
+        Text(SharedReference.shared.rsyncversionstring ?? "")
+            .border(Color.gray)
     }
 }
 
