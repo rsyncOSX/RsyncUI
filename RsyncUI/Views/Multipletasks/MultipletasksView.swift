@@ -59,7 +59,7 @@ struct MultipletasksView: View {
 
             Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                 .buttonStyle(PrimaryButtonStyle())
-            
+
             Button(NSLocalizedString("Estimate", comment: "Estimate button")) { startestimation() }
                 .buttonStyle(PrimaryButtonStyle())
 

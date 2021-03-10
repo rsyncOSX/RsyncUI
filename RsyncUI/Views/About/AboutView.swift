@@ -43,6 +43,10 @@ struct AboutView: View {
         return copyright ?? NSLocalizedString("Copyright ©2021 Thomas Evensen", comment: "copyright")
     }
 
+    var configpath: String {
+        return NamesandPaths(profileorsshrootpath: .profileroot).fullroot ?? ""
+    }
+
     var body: some View {
         VStack {
             headingstitle
@@ -50,6 +54,10 @@ struct AboutView: View {
             rsynclongstring
 
             buttonsview
+
+            Text(configpath)
+                .font(.caption)
+
         }.padding()
     }
 
