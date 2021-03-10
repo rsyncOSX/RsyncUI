@@ -93,7 +93,7 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncosx: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncOSX", comment: "settings"), $usersettings.pathrsyncosx)
+        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "settings"), $usersettings.pathrsyncosx)
             .onAppear(perform: {
                 if let pathrsyncosx = SharedReference.shared.pathrsyncosx {
                     usersettings.pathrsyncosx = pathrsyncosx
