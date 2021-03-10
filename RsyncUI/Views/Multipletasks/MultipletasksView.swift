@@ -59,6 +59,9 @@ struct MultipletasksView: View {
 
             Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                 .buttonStyle(PrimaryButtonStyle())
+            
+            Button(NSLocalizedString("Estimate", comment: "Estimate button")) { startestimation() }
+                .buttonStyle(PrimaryButtonStyle())
 
             Button(NSLocalizedString("Execute", comment: "Execute button")) { presentexecuteestimatedview() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -68,9 +71,6 @@ struct MultipletasksView: View {
                                          isPresented: $presentestimatedsheetview)
                         .environmentObject(OutputFromMultipleTasks())
                 }
-
-            Button(NSLocalizedString("Estimate", comment: "Estimate button")) { startestimation() }
-                .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
 
