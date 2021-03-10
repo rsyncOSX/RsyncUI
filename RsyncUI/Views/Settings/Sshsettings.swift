@@ -28,8 +28,13 @@ struct Sshsettings: View {
                     HStack {
                         ToggleView(NSLocalizedString("Local ssh keys found", comment: "ssh"), $usersettings.localsshkeys)
 
-                        Button(NSLocalizedString("Create keys", comment: "usersetting")) { createkeys() }
-                            .buttonStyle(PrimaryButtonStyle())
+                        VStack {
+                            Button(NSLocalizedString("Create keys", comment: "usersetting")) { createkeys() }
+                                .buttonStyle(PrimaryButtonStyle())
+
+                            Button(NSLocalizedString("Verify", comment: "usersetting")) { verifyssh() }
+                                .buttonStyle(PrimaryButtonStyle())
+                        }
                     }
 
                     Section(header: headerssh) {
@@ -55,9 +60,6 @@ struct Sshsettings: View {
 
             HStack {
                 Spacer()
-
-                Button(NSLocalizedString("Verify", comment: "usersetting")) { verifyssh() }
-                    .buttonStyle(PrimaryButtonStyle())
 
                 usersetting
             }
