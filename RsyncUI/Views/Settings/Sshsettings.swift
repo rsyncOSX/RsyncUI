@@ -24,7 +24,12 @@ struct Sshsettings: View {
                 Spacer()
                 // Column 1
                 VStack(alignment: .leading) {
-                    ToggleView(NSLocalizedString("Local ssh keys found", comment: "ssh"), $usersettings.localsshkeys)
+                    HStack {
+                        ToggleView(NSLocalizedString("Local ssh keys found", comment: "ssh"), $usersettings.localsshkeys)
+
+                        Button(NSLocalizedString("Create keys", comment: "usersetting")) { createkeys() }
+                            .buttonStyle(PrimaryButtonStyle())
+                    }
 
                     Section(header: headerssh) {
                         setsshpath
@@ -32,31 +37,25 @@ struct Sshsettings: View {
                         setsshport
                     }
 
-                    Section(header: headeruniqueue) {
-                        uniqueuserversandloginslist
-                    }
                 }.padding()
 
                 // Column 2
                 VStack(alignment: .leading) {
-                    Section(header: headersshkey) {
-                        // Create ssh keys
-                        Button(NSLocalizedString("Create keys", comment: "usersetting")) { createkeys() }
-                            .buttonStyle(PrimaryButtonStyle())
-                    }
-
-                    Section(header: headercopykeys) {
-                        Sshcopykey(selectedlogin: $selectedlogin)
-                            .padding(1)
-
-                        Sshverifykey(selectedlogin: $selectedlogin)
-                            .padding(1)
+                    Section(header: headeruniqueue) {
+                        uniqueuserversandloginslist
                     }
                 }.padding()
 
                 // For center
                 Spacer()
             }
+
+            VStack(alignment: .leading) {
+                Sshcopykey(selectedlogin: $selectedlogin)
+
+                Sshverifykey(selectedlogin: $selectedlogin)
+            }
+
             // Save button right down corner
             Spacer()
 
@@ -129,6 +128,7 @@ struct Sshsettings: View {
             }
         }
         .frame(width: 250, height: 100)
+        .border(Color.gray)
     }
 
     var serversandlogins: [UniqueserversandLogins] {
@@ -141,11 +141,6 @@ struct Sshsettings: View {
     // Header user setting
     var headerusersetting: some View {
         Text(NSLocalizedString("Save settings", comment: "settings"))
-    }
-
-    // Header create key
-    var headersshkey: some View {
-        Text(NSLocalizedString("Create ssh key", comment: "settings"))
     }
 }
 
@@ -166,7 +161,7 @@ struct Sshcopykey: View {
     @Binding var selectedlogin: UniqueserversandLogins?
 
     var body: some View {
-        VStack(alignment: .leading) {
+        HStack {
             Button(NSLocalizedString("Copy", comment: "Copy button")) { copytopasteboard() }
                 .buttonStyle(PrimaryButtonStyle())
 
@@ -180,6 +175,8 @@ struct Sshcopykey: View {
                     .border(Color.gray)
             }
         }
+
+        Spacer()
     }
 
     var copystring: String {
@@ -201,7 +198,7 @@ struct Sshverifykey: View {
     @Binding var selectedlogin: UniqueserversandLogins?
 
     var body: some View {
-        VStack(alignment: .leading) {
+        HStack {
             Button(NSLocalizedString("Copy", comment: "Verify button")) { copytopasteboard() }
                 .buttonStyle(PrimaryButtonStyle())
 
@@ -215,6 +212,8 @@ struct Sshverifykey: View {
                     .border(Color.gray)
             }
         }
+
+        Spacer()
     }
 
     var verifystring: String {
