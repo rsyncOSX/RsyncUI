@@ -96,7 +96,7 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarSettingsView(),
+                NavigationLink(destination: SidebarSettingsView(selectedprofile: $selectedprofile),
                                tag: NavigationItem.settings,
                                selection: $selection) {
                     Label(NSLocalizedString("Settings", comment: "sidebar"), systemImage: "gearshape")

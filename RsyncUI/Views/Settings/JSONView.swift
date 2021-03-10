@@ -9,8 +9,12 @@ import SwiftUI
 
 struct JSONView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @StateObject var usersettings = ObserveableReference()
+    @Binding var selectedprofile: String?
+
     @State private var showingAlertconfig: Bool = false
+    // Added and updated labels
+    @State private var converted = false
+    @State private var backup = false
 
     var body: some View {
         Form {
@@ -18,11 +22,10 @@ struct JSONView: View {
                 // For center
                 Spacer()
                 // Column 1
-                // Column 4
                 VStack(alignment: .leading) {
                     Section(header: headerJSON) {
                         // Verify JSON or Plist
-                        Button(NSLocalizedString("Verify", comment: "usersetting")) { verifyconverted(profile: rsyncOSXData.profile) }
+                        Button(NSLocalizedString("Verify", comment: "usersetting")) { verifyconverted(profile: selectedprofile) }
                             .buttonStyle(PrimaryButtonStyle())
 
                         // Convert JSON or Plist
@@ -38,7 +41,12 @@ struct JSONView: View {
                         Button(NSLocalizedString("Backup", comment: "usersetting")) { backupuserconfigs() }
                             .buttonStyle(PrimaryButtonStyle())
                     }
-                }.padding()
+
+                    // Present when either added, updated or profile created
+                    if converted == true { notifyconverted }
+                    if backup == true { notifybackup }
+                }
+                .padding()
 
                 // For center
                 Spacer()
@@ -63,18 +71,43 @@ struct JSONView: View {
             title: Text(NSLocalizedString("Convert configurations?", comment: "")),
             message: Text(NSLocalizedString("Cancel or OK", comment: "")),
             primaryButton: Alert.Button.default(Text(NSLocalizedString("OK", comment: "")), action: {
-                convertconfigurations(profile: rsyncOSXData.profile)
+                convertconfigurations(profile: selectedprofile)
             }),
-            secondaryButton: Alert.Button.cancel(Text(NSLocalizedString("Cancel", comment: "")), action: {
-                usersettings.isDirty = false
-            })
+            secondaryButton: Alert.Button.cancel(Text(NSLocalizedString("Cancel", comment: "")), action: {})
         )
+    }
+
+    var notifyconverted: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("Converted", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 120, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
+
+    var notifybackup: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("Saved", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 120, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 }
 
 extension JSONView {
     func backupuserconfigs() {
         _ = Backupconfigfiles()
+        backup = true
+        // Show updated for 1 second
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            backup = false
+        }
     }
 
     func convertconfigurations(profile: String?) {
@@ -93,6 +126,11 @@ extension JSONView {
                           configurations: rsyncOSXData.configurations,
                           schedules: rsyncOSXData.schedulesandlogs)
             .convert(profile: myprofile)
+        converted = true
+        // Show updated for 1 second
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            converted = false
+        }
     }
 
     func verifyconverted(profile: String?) {

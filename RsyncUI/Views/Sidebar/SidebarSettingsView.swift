@@ -10,6 +10,7 @@ import SwiftUI
 struct SidebarSettingsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var errorhandling: ErrorHandling
+    @Binding var selectedprofile: String?
 
     @State private var selectedconfig: Configuration?
 
@@ -27,7 +28,7 @@ struct SidebarSettingsView: View {
                 .tabItem {
                     Text(NSLocalizedString("Paths", comment: "user settings"))
                 }
-            JSONView()
+            JSONView(selectedprofile: $selectedprofile)
                 .tabItem {
                     Text(NSLocalizedString("JSON", comment: "user settings"))
                 }
