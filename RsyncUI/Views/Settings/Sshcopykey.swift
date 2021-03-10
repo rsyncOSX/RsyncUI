@@ -17,7 +17,7 @@ struct Sshcopykey: View {
                 .buttonStyle(PrimaryButtonStyle())
 
             if copystring.isEmpty {
-                Text(NSLocalizedString("Select a Unique usernames and servers", comment: ""))
+                Text(NSLocalizedString("Select", comment: "") + ": " + NSLocalizedString("Unique usernames and servers", comment: "ssh settings"))
                     .padding(10)
                     .border(Color.gray)
             } else {
