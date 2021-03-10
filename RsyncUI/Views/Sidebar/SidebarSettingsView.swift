@@ -21,11 +21,15 @@ struct SidebarSettingsView: View {
                 }
             Sshsettings(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() })
                 .tabItem {
-                    Text(NSLocalizedString("Ssh settings", comment: "user settings"))
+                    Text(NSLocalizedString("Ssh", comment: "user settings"))
                 }
             Othersettings()
                 .tabItem {
                     Text(NSLocalizedString("Paths", comment: "user settings"))
+                }
+            JSONView()
+                .tabItem {
+                    Text(NSLocalizedString("JSON", comment: "user settings"))
                 }
         }
         .alert(isPresented: errorhandling.isPresentingAlert, content: {

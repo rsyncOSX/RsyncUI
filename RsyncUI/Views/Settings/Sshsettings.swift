@@ -29,7 +29,7 @@ struct Sshsettings: View {
                         ToggleView(NSLocalizedString("Local ssh keys found", comment: "ssh"), $usersettings.localsshkeys)
 
                         VStack {
-                            Button(NSLocalizedString("Create keys", comment: "usersetting")) { createkeys() }
+                            Button(NSLocalizedString("Create", comment: "usersetting")) { createkeys() }
                                 .buttonStyle(PrimaryButtonStyle())
 
                             Button(NSLocalizedString("Verify", comment: "usersetting")) { verifyssh() }
