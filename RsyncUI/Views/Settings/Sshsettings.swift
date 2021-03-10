@@ -56,7 +56,7 @@ struct Sshsettings: View {
             HStack {
                 Spacer()
 
-                Button(NSLocalizedString("Verify SSH", comment: "usersetting")) { verifyssh() }
+                Button(NSLocalizedString("Verify", comment: "usersetting")) { verifyssh() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 usersetting

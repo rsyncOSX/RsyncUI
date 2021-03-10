@@ -14,9 +14,11 @@ struct VerifySshView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                Sshcopykey(selectedlogin: $selectedlogin)
+                Section(header: header) {
+                    Sshcopykey(selectedlogin: $selectedlogin, isPresented: $isPresented)
 
-                Sshverifykey(selectedlogin: $selectedlogin)
+                    Sshverifykey(selectedlogin: $selectedlogin, isPresented: $isPresented)
+                }
             }
 
             HStack {
@@ -27,6 +29,11 @@ struct VerifySshView: View {
             }
         }
         .padding()
+    }
+
+    // Paths
+    var header: some View {
+        Text(NSLocalizedString("Copy and paste commands", comment: "ssh settings"))
     }
 
     func dismissview() {

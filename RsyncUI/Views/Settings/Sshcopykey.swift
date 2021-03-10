@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Sshcopykey: View {
     @Binding var selectedlogin: UniqueserversandLogins?
+    @Binding var isPresented: Bool
 
     var body: some View {
         HStack {
@@ -41,5 +42,6 @@ struct Sshcopykey: View {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         pasteboard.setString(copystring, forType: .string)
+        isPresented = false
     }
 }
