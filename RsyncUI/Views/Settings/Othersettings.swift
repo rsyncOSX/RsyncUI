@@ -17,16 +17,16 @@ struct Othersettings: View {
                 Spacer()
                 // Column 1
                 VStack(alignment: .leading) {
-                    Section(header: headerenvironment) {
-                        setenvironment
-
-                        setenvironmenvariable
-                    }
-
                     Section(header: headerpaths) {
                         setpathtorsyncosx
 
                         setpathtorsyncosxsched
+                    }
+
+                    Section(header: headerenvironment) {
+                        setenvironment
+
+                        setenvironmenvariable
                     }
                 }.padding()
 

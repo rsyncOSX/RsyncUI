@@ -16,6 +16,7 @@ struct Sshsettings: View {
     @State private var selectedlogin: UniqueserversandLogins?
 
     @State private var showingAlert: Bool = false
+    @State private var showsshverifysheet: Bool = false
 
     var body: some View {
         Form {
@@ -49,24 +50,24 @@ struct Sshsettings: View {
                 // For center
                 Spacer()
             }
-
-            VStack(alignment: .leading) {
-                Sshcopykey(selectedlogin: $selectedlogin)
-
-                Sshverifykey(selectedlogin: $selectedlogin)
-            }
-
             // Save button right down corner
             Spacer()
 
             HStack {
                 Spacer()
 
+                Button(NSLocalizedString("Verify SSH", comment: "usersetting")) { verifyssh() }
+                    .buttonStyle(PrimaryButtonStyle())
+
                 usersetting
             }
         }
         .lineSpacing(2)
         .padding()
+        .sheet(isPresented: $showsshverifysheet) {
+            VerifySshView(selectedlogin: $selectedlogin,
+                          isPresented: $showsshverifysheet)
+        }
     }
 
     // Save usersetting is changed
@@ -95,11 +96,6 @@ struct Sshsettings: View {
     // Ssh Unique
     var headeruniqueue: some View {
         Text(NSLocalizedString("Unique usernames and servers", comment: "ssh settings"))
-    }
-
-    // Ssh Unique
-    var headercopykeys: some View {
-        Text(NSLocalizedString("Copy and verify ssh-keys", comment: "ssh settings"))
     }
 
     var setsshpath: some View {
@@ -165,6 +161,10 @@ extension Sshsettings {
 
     func createkeys() {
         Ssh().createPublicPrivateRSAKeyPair()
+    }
+
+    func verifyssh() {
+        showsshverifysheet = true
     }
 }
 

@@ -25,7 +25,7 @@ struct SidebarSettingsView: View {
                 }
             Othersettings()
                 .tabItem {
-                    Text(NSLocalizedString("Other settings", comment: "user settings"))
+                    Text(NSLocalizedString("Paths", comment: "user settings"))
                 }
         }
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
