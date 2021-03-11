@@ -101,6 +101,6 @@ extension SnapshotsView {
     // TODO:
     func delete() {
         // Send all selected UUIDs to mark for delete
-        _ = NotYetImplemented()
+        // _ = NotYetImplemented()
     }
 }

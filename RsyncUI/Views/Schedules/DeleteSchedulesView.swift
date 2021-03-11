@@ -50,7 +50,7 @@ struct DeleteSchedulesView: View {
     func delete() {
         let deleteschedule = UpdateSchedules(profile: selectedprofile,
                                              scheduleConfigurations: rsyncOSXData.schedulesandlogs)
-        deleteschedule.delete(uuids: selecteduuids)
+        deleteschedule.deleteschedules(uuids: selecteduuids)
         reload = true
         selecteduuids.removeAll()
         isPresented = false

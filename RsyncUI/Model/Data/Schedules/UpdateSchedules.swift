@@ -19,7 +19,7 @@ enum ScheduleError: LocalizedError {
     }
 }
 
-class UpdateSchedules {
+final class UpdateSchedules {
     private var structschedules: [ConfigurationSchedule]?
     private var localeprofile: String?
     // private var localehiddenID: Int?
@@ -79,7 +79,7 @@ class UpdateSchedules {
         }
     }
 
-    func stop(uuids: Set<UUID>) {
+    func stopschedule(uuids: Set<UUID>) {
         if let schedules = structschedules {
             var indexset = IndexSet()
             for i in 0 ..< uuids.count {
@@ -100,7 +100,7 @@ class UpdateSchedules {
         }
     }
 
-    func delete(uuids: Set<UUID>) {
+    func deleteschedules(uuids: Set<UUID>) {
         if let schedules = structschedules {
             var indexset = IndexSet()
             for i in 0 ..< uuids.count {

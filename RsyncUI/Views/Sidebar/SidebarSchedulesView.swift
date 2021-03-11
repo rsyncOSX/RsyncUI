@@ -135,7 +135,7 @@ extension SidebarSchedulesView {
         if selecteduuids.count == 0 { setuuidforselectedschedule() }
         let stopschedule = UpdateSchedules(profile: selectedprofile,
                                            scheduleConfigurations: rsyncOSXData.schedulesandlogs)
-        stopschedule.stop(uuids: selecteduuids)
+        stopschedule.stopschedule(uuids: selecteduuids)
         reload = true
         selecteduuids.removeAll()
     }
