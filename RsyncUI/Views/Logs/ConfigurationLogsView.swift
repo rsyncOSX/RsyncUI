@@ -76,24 +76,28 @@ extension ConfigurationLogsView {
         }
     }
 
-    func indexofselectedschedule() {
-        if let schedule = selectedschedule,
-           let schedules = rsyncOSXData.schedulesandlogs
-        {
-            if let index = schedules.firstIndex(of: schedule) {
-                // print(index)
-            }
-        }
-    }
-
+    /*
+     func indexofselectedschedule() {
+         if let schedule = selectedschedule,
+            let schedules = rsyncOSXData.schedulesandlogs
+         {
+             if let index = schedules.firstIndex(of: schedule) {
+                 // print(index)
+             }
+         }
+     }
+     */
     func delete() {
-        // Send all selected UUIDs to mark for delete
-        if let hiddenID = selectedconfig?.hiddenID {
-            let delete = SingletaskPrimaryLogging(profile: rsyncOSXData.profile,
-                                                  hiddenID: hiddenID,
-                                                  configurations: rsyncOSXData.configurations,
-                                                  scheduleConfigurations: rsyncOSXData.schedulesandlogs)
-            delete.deleteselectedschedules(uuids: selecteduuids, hiddenID: hiddenID)
-        }
+        _ = NotYetImplemented()
+        /*
+         // Send all selected UUIDs to mark for delete
+         if let hiddenID = selectedconfig?.hiddenID {
+             let delete = SingletaskPrimaryLogging(profile: rsyncOSXData.profile,
+                                                   hiddenID: hiddenID,
+                                                   configurations: rsyncOSXData.configurations,
+                                                   scheduleConfigurations: rsyncOSXData.schedulesandlogs)
+             delete.deleteselectedschedules(uuids: selecteduuids, hiddenID: hiddenID)
+         }
+         */
     }
 }
