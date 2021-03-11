@@ -120,30 +120,6 @@ class SingletaskPrimaryLogging {
         return nil
     }
 
-    func deleteselectedlogs(uuids: Set<UUID>, hiddenID: Int) {
-        if let logrecords = getalllogsbyhiddenID(hiddenID: hiddenID) {
-            let selectedlogrecords = logrecords.filter { uuids.contains($0.id) }
-            // TODO: implement
-            // print(selectedlogrecords)
-            // print(selectedlogrecords.count)
-        }
-    }
-
-    func getalllogsbyhiddenID(hiddenID: Int) -> [Log]? {
-        var joined: [Log]?
-        let schedulerecords = structschedules?.filter { $0.hiddenID == hiddenID }
-        if (schedulerecords?.count ?? 0) > 0 {
-            joined = [Log]()
-            for i in 0 ..< (schedulerecords?.count ?? 0) {
-                if let logrecords = schedulerecords?[i].logrecords {
-                    joined?.append(contentsOf: logrecords)
-                }
-            }
-            return joined?.sorted(by: \.date, using: >)
-        }
-        return nil
-    }
-
     init(profile: String?,
          hiddenID: Int?,
          configurations: [Configuration]?,

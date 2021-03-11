@@ -12,6 +12,7 @@ struct Sidebar: View {
     enum NavigationItem {
         case rsync
         case logs
+        case alllogs
         case singletasks
         case estimation
         case settings
@@ -91,6 +92,13 @@ struct Sidebar: View {
                     Label(NSLocalizedString("Rsync commands", comment: "sidebar"), systemImage: "command.circle.fill")
                 }
                 .tag(NavigationItem.rsync)
+
+                NavigationLink(destination: LogListAlllogsView(),
+                               tag: NavigationItem.alllogs,
+                               selection: $selection) {
+                    Label(NSLocalizedString("All logs", comment: "sidebar"), systemImage: "text.alignleft")
+                }
+                .tag(NavigationItem.alllogs)
             }
 
             Divider()
