@@ -17,9 +17,9 @@ struct AboutView: View {
     var dutchstring: String = NSLocalizedString("Dutch translation by: Marcellino Santoso", comment: "ducth")
 
     // SwiftUI docs
-    var changelog: String = "https://rsyncosx.netlify.app/post/swiftui/"
+    var changelog: String = "https://rsyncui.netlify.app/post/changelog/"
     // RSyncOSX docs
-    var documents: String = "https://rsyncosx.netlify.app/post/rsyncosxdocs/"
+    var documents: String = "https://rsyncui.netlify.app/"
     /*
      // Resource strings
      var changelog: String = "https://rsyncosx.netlify.app/post/changelog/"
@@ -84,9 +84,9 @@ struct AboutView: View {
 
     var buttonsview: some View {
         HStack {
-            Button(NSLocalizedString("RsyncUI", comment: "About button")) { openchangelog() }
+            Button(NSLocalizedString("Changelog", comment: "About button")) { openchangelog() }
                 .buttonStyle(PrimaryButtonStyle())
-            Button(NSLocalizedString("RsyncOSX", comment: "About button")) { opendocumentation() }
+            Button(NSLocalizedString("RsyncUI", comment: "About button")) { opendocumentation() }
                 .buttonStyle(PrimaryButtonStyle())
             /*
              Button(NSLocalizedString("Download", comment: "About button")) { opendownload() }
