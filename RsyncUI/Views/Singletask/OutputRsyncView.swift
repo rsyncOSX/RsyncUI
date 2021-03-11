@@ -14,12 +14,15 @@ struct OutputRsyncView: View {
 
     var body: some View {
         VStack {
-            Section(header: header) {
-                List(output ?? []) { record in
-                    Text(record.line)
-                        .modifier(FixedTag(750, .leading))
-                }
+            Text(NSLocalizedString("Output from rsync", comment: "OutputRsyncView"))
+                .font(.title2)
+                .padding()
+
+            List(output ?? []) { record in
+                Text(record.line)
+                    .modifier(FixedTag(750, .leading))
             }
+
             Spacer()
 
             HStack {
@@ -31,11 +34,6 @@ struct OutputRsyncView: View {
         }
         .padding()
         .frame(minWidth: 800, minHeight: 600)
-    }
-
-    var header: some View {
-        Text("Output")
-            .modifier(FixedTag(200, .center))
     }
 
     func dismissview() {
