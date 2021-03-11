@@ -240,6 +240,9 @@ extension MultipletasksView {
     }
 
     func delete() {
+        if selecteduuids.count == 0 {
+            setuuidforselectedtask()
+        }
         guard selecteduuids.count > 0 else { return }
         showAlertfordelete = true
     }
