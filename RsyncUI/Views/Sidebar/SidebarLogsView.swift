@@ -32,4 +32,11 @@ struct SidebarLogsView: View {
         })
         .padding()
     }
+
+    var logrecords: [Log] {
+        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogs() {
+            return logrecords.sorted(by: \.date, using: >)
+        }
+        return []
+    }
 }

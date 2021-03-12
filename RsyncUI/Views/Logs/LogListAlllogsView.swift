@@ -14,7 +14,6 @@ struct LogListAlllogsView: View {
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
-    @StateObject private var test = Test()
 
     var body: some View {
         Form {
@@ -75,14 +74,5 @@ extension LogListAlllogsView {
                 selecteduuids.insert(selectedlog.id)
             }
         }
-    }
-}
-
-final class Test: ObservableObject {
-    private var logrecords: [Log]?
-    private var number: Int?
-
-    init() {
-        print("test")
     }
 }

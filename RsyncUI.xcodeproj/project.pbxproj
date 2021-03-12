@@ -530,7 +530,6 @@
 				E985C60E25F3AD8400CB895C /* SidebarSnapshotsView.swift */,
 				E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */,
 				E985C61125F3AD8400CB895C /* Sidebar.swift */,
-				E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */,
 				E985C61325F3AD8400CB895C /* SidebarSingleTasksView.swift */,
 				E985C61425F3AD8400CB895C /* Profilenames.swift */,
 				E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */,
@@ -651,6 +650,7 @@
 		E985C64125F3AD8400CB895C /* Logs */ = {
 			isa = PBXGroup;
 			children = (
+				E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */,
 				E985C64225F3AD8400CB895C /* ConfigurationLogsView.swift */,
 				E985C64325F3AD8400CB895C /* DetailedLogView.swift */,
 				E985C64425F3AD8400CB895C /* LogListView.swift */,
