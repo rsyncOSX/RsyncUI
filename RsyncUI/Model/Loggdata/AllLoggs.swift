@@ -19,8 +19,6 @@ struct Logrecordsschedules: Identifiable, Hashable {
     var dateExecuted: String
     var date: Date
     var resultExecuted: String
-    var parent: Int
-    var sibling: Int
     var delete: Int
     // Snapshots
     var selectsnap: Int?
@@ -34,14 +32,7 @@ final class AllLoggs {
     private var structconfigurations: ConfigurationsSwiftUI?
     private var structschedules: SchedulesSwiftUI?
     var loggrecords: [Logrecordsschedules]?
-    // var localeprofile: String?
-    var localehiddenID: Int?
-
-    func filter(search: String?) {
-        globalDefaultQueue.async { () -> Void in
-            self.loggrecords = self.loggrecords?.filter { ($0.dateExecuted.contains(search ?? "")) }
-        }
-    }
+    private var localehiddenID: Int?
 
     private func readandsortallloggdata(hiddenID: Int?) {
         var data = [Logrecordsschedules]()
@@ -68,8 +59,6 @@ final class AllLoggs {
                                                 dateExecuted: datestring ?? "",
                                                 date: date ?? Date(),
                                                 resultExecuted: input[i].logrecords?[j].resultExecuted ?? "",
-                                                parent: i,
-                                                sibling: j,
                                                 delete: 0)
                         data.append(record)
                     }

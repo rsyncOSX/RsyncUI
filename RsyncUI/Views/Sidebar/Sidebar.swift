@@ -12,7 +12,6 @@ struct Sidebar: View {
     enum NavigationItem {
         case rsync
         case logs
-        case alllogs
         case singletasks
         case estimation
         case settings
@@ -61,25 +60,25 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.configurations)
 
-                NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile, reload: $reload),
-                               tag: NavigationItem.schedules,
-                               selection: $selection) {
-                    Label(NSLocalizedString("Schedules", comment: "sidebar"), systemImage: "calendar.badge.plus")
-                }
-                .tag(NavigationItem.schedules)
-
                 NavigationLink(destination: SidebarSnapshotsView(reload: $reload),
                                tag: NavigationItem.snapshots,
                                selection: $selection) {
                     Label(NSLocalizedString("Snapshots", comment: "sidebar"), systemImage: "text.badge.plus")
                 }
                 .tag(NavigationItem.snapshots)
+
+                NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile, reload: $reload),
+                               tag: NavigationItem.schedules,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Schedules", comment: "sidebar"), systemImage: "calendar.badge.plus")
+                }
+                .tag(NavigationItem.schedules)
             }
 
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarLogsView(),
+                NavigationLink(destination: SidebarLogsView(selectedprofile: $selectedprofile, reload: $reload),
                                tag: NavigationItem.logs,
                                selection: $selection) {
                     Label(NSLocalizedString("List logs", comment: "sidebar"), systemImage: "text.alignleft")
@@ -92,13 +91,6 @@ struct Sidebar: View {
                     Label(NSLocalizedString("Rsync commands", comment: "sidebar"), systemImage: "command.circle.fill")
                 }
                 .tag(NavigationItem.rsync)
-
-                NavigationLink(destination: LogListAlllogsView(),
-                               tag: NavigationItem.alllogs,
-                               selection: $selection) {
-                    Label(NSLocalizedString("All logs", comment: "sidebar"), systemImage: "text.alignleft")
-                }
-                .tag(NavigationItem.alllogs)
             }
 
             Divider()

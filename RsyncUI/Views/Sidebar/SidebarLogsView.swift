@@ -1,36 +1,35 @@
 //
-//  LogsGroup.swift
-//  RsyncOSXSwiftUI
+//  SidebarLogsView.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 04/01/2021.
-//  Copyright © 2021 Thomas Evensen. All rights reserved.
+//  Created by Thomas Evensen on 12/03/2021.
 //
 
 import SwiftUI
 
 struct SidebarLogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var errorhandling: ErrorHandling
+    @Binding var selectedprofile: String?
+    @Binding var reload: Bool
+
     @State private var selectedconfig: Configuration?
 
     var body: some View {
-        VStack {
-            headingtitle
-
-            ConfigurationLogsView(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() })
+        TabView {
+            LogsbyConfigurationView()
+                .tabItem {
+                    Text(NSLocalizedString("By config", comment: "logsview"))
+                }
+            LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile)
+                .tabItem {
+                    Text(NSLocalizedString("All logs", comment: "logsview"))
+                }
         }
-        .padding()
-    }
+        .alert(isPresented: errorhandling.isPresentingAlert, content: {
+            Alert(localizedError: errorhandling.activeError!)
 
-    var headingtitle: some View {
-        HStack {
-            VStack {
-                Text(NSLocalizedString("List logs", comment: "SidebarLogsView"))
-                    .modifier(Tagheading(.title2, .leading))
-                    .foregroundColor(Color.blue)
-            }
-
-            Spacer()
-        }
+        })
         .padding()
     }
 }

@@ -40,9 +40,6 @@ struct ConfigurationLogsView: View {
         HStack {
             Spacer()
 
-            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
-                .buttonStyle(PrimaryButtonStyle())
-
             Button(NSLocalizedString("Show logs", comment: "Show button")) { showlog() }
                 .buttonStyle(PrimaryButtonStyle())
         }
@@ -63,27 +60,5 @@ struct ConfigurationLogsView: View {
 extension ConfigurationLogsView {
     func showlog() {
         presentsheetview = true
-    }
-
-    func select() {
-        if let schedule = selectedschedule {
-            if selecteduuids.contains(schedule.id) {
-                selecteduuids.remove(schedule.id)
-            } else {
-                selecteduuids.insert(schedule.id)
-            }
-        }
-    }
-
-    func setuuidforselectedschedule() {
-        if let schedule = selectedschedule,
-           let schedules = rsyncOSXData.schedulesandlogs
-        {
-            if let index = schedules.firstIndex(of: schedule) {
-                if let id = rsyncOSXData.schedulesandlogs?[index].id {
-                    selecteduuids.insert(id)
-                }
-            }
-        }
     }
 }

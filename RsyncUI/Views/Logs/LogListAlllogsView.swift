@@ -9,17 +9,35 @@ import SwiftUI
 
 struct LogListAlllogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @Binding var reload: Bool
+    @Binding var selectedprofile: String?
+
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
+    @StateObject private var test = Test()
 
     var body: some View {
-        List(selection: $selectedlog) {
-            ForEach(logrecords) { record in
-                LogRow(selecteduuids: $selecteduuids, logrecord: record)
-                    .tag(record)
+        Form {
+            List(selection: $selectedlog) {
+                ForEach(logrecords) { record in
+                    LogRow(selecteduuids: $selecteduuids, logrecord: record)
+                        .tag(record)
+                }
+            }
+            Text("Number of logs: \(numberoflogs)")
+
+            Spacer()
+
+            HStack {
+                Spacer()
+
+                Button(NSLocalizedString("Select", comment: "Dismiss button")) { select() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                Button(NSLocalizedString("Delete", comment: "Dismiss button")) { delete() }
+                    .buttonStyle(AbortButtonStyle())
             }
         }
-        Text("Number of logs: \(numberoflogs)")
     }
 
     var logrecords: [Log] {
@@ -38,10 +56,33 @@ struct LogListAlllogsView: View {
 
     var header: some View {
         HStack {
-        Text(NSLocalizedString("Date", comment: "loglist"))
+            Text(NSLocalizedString("Date", comment: "loglist"))
                 .modifier(FixedTag(200, .center))
             Text(NSLocalizedString("Record", comment: "loglist"))
                 .modifier(FixedTag(250, .center))
         }
+    }
+}
+
+extension LogListAlllogsView {
+    func delete() {}
+
+    func select() {
+        if let selectedlog = selectedlog {
+            if selecteduuids.contains(selectedlog.id) {
+                selecteduuids.remove(selectedlog.id)
+            } else {
+                selecteduuids.insert(selectedlog.id)
+            }
+        }
+    }
+}
+
+final class Test: ObservableObject {
+    private var logrecords: [Log]?
+    private var number: Int?
+
+    init() {
+        print("test")
     }
 }
