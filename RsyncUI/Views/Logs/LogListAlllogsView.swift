@@ -10,7 +10,6 @@ import SwiftUI
 struct LogListAlllogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @Binding var reload: Bool
-    @Binding var selectedprofile: String?
     @Binding var logrecords: [Log]?
 
     @State private var selectedlog: Log?
@@ -24,11 +23,12 @@ struct LogListAlllogsView: View {
                         .tag(record)
                 }
             }
-            Text("Number of logs: \(logrecords?.count ?? 0)")
 
             Spacer()
 
             HStack {
+                Text(label)
+
                 Spacer()
 
                 Button(NSLocalizedString("Select", comment: "Dismiss button")) { select() }
@@ -39,6 +39,10 @@ struct LogListAlllogsView: View {
             }
         }
         .padding()
+    }
+
+    var label: String {
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(logrecords?.count ?? 0)"
     }
 }
 

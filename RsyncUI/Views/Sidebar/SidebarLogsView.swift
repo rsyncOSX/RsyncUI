@@ -28,7 +28,7 @@ struct SidebarLogsView: View {
                 .tabItem {
                     Text(NSLocalizedString("By config", comment: "logsview"))
                 }
-            LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile, logrecords: binding)
+            LogListAlllogsView(reload: $reload, logrecords: binding)
                 .tabItem {
                     Text(NSLocalizedString("All logs", comment: "logsview"))
                 }
