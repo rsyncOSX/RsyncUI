@@ -1,41 +1,36 @@
 //
-//  LogList.swift
-//  RsyncSwiftUI
+//  LogListAlllogsView.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 21/01/2021.
+//  Created by Thomas Evensen on 11/03/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
-struct LogListView: View {
+struct LogListAlllogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @Binding var selectedconfig: Configuration?
-    @Binding var selectedlog: Log?
-    @Binding var selecteduuids: Set<UUID>
+    @State private var selectedlog: Log?
+    @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
-        Text(NSLocalizedString("Logview", comment: "LogListView"))
-            .font(.title2)
-            .padding()
-
         List(selection: $selectedlog) {
             ForEach(logrecords) { record in
                 LogRow(selecteduuids: $selecteduuids, logrecord: record)
                     .tag(record)
             }
         }
+        Text("Number of logs: \(numberoflogs)")
     }
 
     var logrecords: [Log] {
-        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID: selectedconfig?.hiddenID ?? -1) {
+        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogs() {
             return logrecords.sorted(by: \.date, using: >)
         }
         return []
     }
 
     var numberoflogs: Int {
-        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID: selectedconfig?.hiddenID ?? -1) {
+        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogs() {
             return logrecords.count
         }
         return 0
@@ -43,7 +38,7 @@ struct LogListView: View {
 
     var header: some View {
         HStack {
-            Text(NSLocalizedString("Date", comment: "loglist"))
+        Text(NSLocalizedString("Date", comment: "loglist"))
                 .modifier(FixedTag(200, .center))
             Text(NSLocalizedString("Record", comment: "loglist"))
                 .modifier(FixedTag(250, .center))
