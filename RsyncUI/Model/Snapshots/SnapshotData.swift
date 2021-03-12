@@ -17,6 +17,10 @@ final class SnapshotData: ObservableObject {
     private var logrecordssnapshot: [Logrecordsschedules]?
     var state: Snapshotdatastat = .start
 
+    func getnumber() -> Int {
+        return logrecordssnapshot?.count ?? 0
+    }
+
     func setsnapshotdata(_ data: [Logrecordsschedules]?) {
         logrecordssnapshot = data
         objectWillChange.send()

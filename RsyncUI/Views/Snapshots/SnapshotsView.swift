@@ -37,6 +37,8 @@ struct SnapshotsView: View {
         if snapshotdata.state == .getdata { ImageZstackProgressview() }
 
         HStack {
+            Text(label)
+
             Spacer()
 
             Button(NSLocalizedString("Tag", comment: "Tag")) { tagsnapshots() }
@@ -51,6 +53,10 @@ struct SnapshotsView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+    }
+
+    var label: String {
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(snapshotdata.getnumber())"
     }
 }
 
