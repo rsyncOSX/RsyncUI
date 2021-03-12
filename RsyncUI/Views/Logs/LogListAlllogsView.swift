@@ -11,6 +11,7 @@ struct LogListAlllogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    @Binding var logrecords: [Log]?
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
@@ -18,12 +19,12 @@ struct LogListAlllogsView: View {
     var body: some View {
         Form {
             List(selection: $selectedlog) {
-                ForEach(logrecords) { record in
+                ForEach(logrecords ?? []) { record in
                     LogRow(selecteduuids: $selecteduuids, logrecord: record)
                         .tag(record)
                 }
             }
-            Text("Number of logs: \(numberoflogs)")
+            Text("Number of logs: \(logrecords?.count ?? 0)")
 
             Spacer()
 
@@ -38,20 +39,6 @@ struct LogListAlllogsView: View {
             }
         }
         .padding()
-    }
-
-    var logrecords: [Log] {
-        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogs() {
-            return logrecords.sorted(by: \.date, using: >)
-        }
-        return []
-    }
-
-    var numberoflogs: Int {
-        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogs() {
-            return logrecords.count
-        }
-        return 0
     }
 }
 

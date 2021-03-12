@@ -15,13 +15,20 @@ struct SidebarLogsView: View {
 
     @State private var selectedconfig: Configuration?
 
+    @State private var alllogs: [Log]?
+
     var body: some View {
+        let binding = Binding(
+            get: { rsyncOSXData.rsyncdata?.scheduleData.getalllogs() },
+            set: { alllogs = $0 }
+        )
+
         TabView {
             LogsbyConfigurationView()
                 .tabItem {
                     Text(NSLocalizedString("By config", comment: "logsview"))
                 }
-            LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile)
+            LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile, logrecords: binding)
                 .tabItem {
                     Text(NSLocalizedString("All logs", comment: "logsview"))
                 }
@@ -31,12 +38,5 @@ struct SidebarLogsView: View {
 
         })
         .padding()
-    }
-
-    var logrecords: [Log] {
-        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogs() {
-            return logrecords.sorted(by: \.date, using: >)
-        }
-        return []
     }
 }
