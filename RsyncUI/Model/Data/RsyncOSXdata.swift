@@ -28,6 +28,7 @@ final class RsyncOSXdata: ObservableObject {
     @Published var schedulesandlogs: [ConfigurationSchedule]?
     @Published var arguments: [ArgumentsOneConfiguration]?
     @Published var profile: String?
+    @Published var alllogssorted: [Log]?
 
     func update() {
         objectWillChange.send()
@@ -43,6 +44,7 @@ final class RsyncOSXdata: ObservableObject {
         configurations = rsyncdata?.configurationData.getallconfigurations()
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
         arguments = rsyncdata?.configurationData.getarguments()
+        alllogssorted = rsyncdata?.scheduleData.getalllogs()
         objectWillChange.send()
     }
 }

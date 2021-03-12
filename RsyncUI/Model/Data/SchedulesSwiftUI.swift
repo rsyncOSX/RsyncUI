@@ -19,6 +19,7 @@ struct SchedulesSwiftUI {
 
     func getalllogs() -> [Log]? {
         var joined: [Log]?
+        print("test")
         let schedulerecords = scheduleConfigurations
         if (schedulerecords?.count ?? 0) > 0 {
             joined = [Log]()
@@ -27,13 +28,9 @@ struct SchedulesSwiftUI {
                     joined?.append(contentsOf: logrecords)
                 }
             }
-            /*
-             if let joined = joined {
-                 return joined.sorted(by: \.date, using: >)
-             }
-             */
-            print("test")
-            return joined
+            if let joined = joined {
+                return joined.sorted(by: \.date, using: >)
+            }
         }
         return nil
     }

@@ -11,21 +11,15 @@ struct SidebarLogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var errorhandling: ErrorHandling
     @Binding var reload: Bool
-
-    @State private var alllogs: [Log]?
+    @Binding var selectedprofile: String?
 
     var body: some View {
-        let binding = Binding(
-            get: { rsyncOSXData.rsyncdata?.scheduleData.getalllogs() },
-            set: { alllogs = $0 }
-        )
-
         TabView {
             LogsbyConfigurationView()
                 .tabItem {
                     Text(NSLocalizedString("By config", comment: "logsview"))
                 }
-            LogListAlllogsView(reload: $reload, logrecords: binding)
+            LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile)
                 .tabItem {
                     Text(NSLocalizedString("All logs", comment: "logsview"))
                 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct LogListAlllogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @Binding var reload: Bool
-    @Binding var logrecords: [Log]?
+    @Binding var selectedprofile: String?
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
@@ -18,7 +18,7 @@ struct LogListAlllogsView: View {
     var body: some View {
         Form {
             List(selection: $selectedlog) {
-                ForEach(logrecords ?? []) { record in
+                ForEach(rsyncOSXData.alllogssorted ?? []) { record in
                     LogRow(selecteduuids: $selecteduuids, logrecord: record)
                         .tag(record)
                 }
@@ -42,7 +42,7 @@ struct LogListAlllogsView: View {
     }
 
     var label: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(logrecords?.count ?? 0)"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncOSXData.alllogssorted?.count ?? 0)"
     }
 }
 
