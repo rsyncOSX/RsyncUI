@@ -66,7 +66,11 @@ struct Sidebar: View {
                     Label(NSLocalizedString("Snapshots", comment: "sidebar"), systemImage: "text.badge.plus")
                 }
                 .tag(NavigationItem.snapshots)
+            }
 
+            Divider()
+
+            Group {
                 NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile, reload: $reload),
                                tag: NavigationItem.schedules,
                                selection: $selection) {
@@ -78,10 +82,10 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarLogsView(selectedprofile: $selectedprofile, reload: $reload),
+                NavigationLink(destination: SidebarLogsView(reload: $reload),
                                tag: NavigationItem.logs,
                                selection: $selection) {
-                    Label(NSLocalizedString("List logs", comment: "sidebar"), systemImage: "text.alignleft")
+                    Label(NSLocalizedString("Log listings", comment: "sidebar"), systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.logs)
 

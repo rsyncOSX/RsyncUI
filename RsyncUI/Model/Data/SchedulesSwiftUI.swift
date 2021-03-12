@@ -27,6 +27,12 @@ struct SchedulesSwiftUI {
                     joined?.append(contentsOf: logrecords)
                 }
             }
+            /*
+             if let joined = joined {
+                 return joined.sorted(by: \.date, using: >)
+             }
+             */
+            print("test")
             return joined
         }
         return nil
@@ -42,7 +48,9 @@ struct SchedulesSwiftUI {
                     joined?.append(contentsOf: logrecords)
                 }
             }
-            return joined
+            if let joined = joined {
+                return joined.sorted(by: \.date, using: >)
+            }
         }
         return nil
     }

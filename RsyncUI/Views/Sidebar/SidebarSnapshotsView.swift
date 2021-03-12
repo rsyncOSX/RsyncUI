@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SidebarSnapshotsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var errorhandling: ErrorHandling
+
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
 
@@ -19,6 +21,10 @@ struct SidebarSnapshotsView: View {
             SnapshotsView(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() })
         }
         .padding()
+        .alert(isPresented: errorhandling.isPresentingAlert, content: {
+            Alert(localizedError: errorhandling.activeError!)
+
+        })
     }
 
     var headingtitle: some View {

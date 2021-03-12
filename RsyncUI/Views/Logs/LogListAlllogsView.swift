@@ -31,10 +31,10 @@ struct LogListAlllogsView: View {
 
                 Spacer()
 
-                Button(NSLocalizedString("Select", comment: "Dismiss button")) { select() }
+                Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Delete", comment: "Dismiss button")) { delete() }
+                Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
                     .buttonStyle(AbortButtonStyle())
             }
         }
@@ -47,7 +47,9 @@ struct LogListAlllogsView: View {
 }
 
 extension LogListAlllogsView {
-    func delete() {}
+    func delete() {
+        _ = NotYetImplemented()
+    }
 
     func select() {
         if let selectedlog = selectedlog {

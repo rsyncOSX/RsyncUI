@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SnapshotsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @EnvironmentObject var errorhandling: ErrorHandling
 
     @StateObject var snapshotdata = SnapshotData()
 
@@ -52,10 +51,6 @@ struct SnapshotsView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
-            Alert(localizedError: errorhandling.activeError!)
-
-        })
     }
 }
 
@@ -101,6 +96,6 @@ extension SnapshotsView {
     // TODO:
     func delete() {
         // Send all selected UUIDs to mark for delete
-        // _ = NotYetImplemented()
+        _ = NotYetImplemented()
     }
 }

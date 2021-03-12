@@ -10,10 +10,7 @@ import SwiftUI
 struct SidebarLogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var errorhandling: ErrorHandling
-    @Binding var selectedprofile: String?
     @Binding var reload: Bool
-
-    @State private var selectedconfig: Configuration?
 
     @State private var alllogs: [Log]?
 
