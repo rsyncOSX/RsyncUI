@@ -19,7 +19,6 @@ struct SchedulesSwiftUI {
 
     func getalllogs() -> [Log]? {
         var joined: [Log]?
-        print("test")
         let schedulerecords = scheduleConfigurations
         if (schedulerecords?.count ?? 0) > 0 {
             joined = [Log]()

@@ -13,7 +13,6 @@ struct Log: Identifiable {
     var dateExecuted: String?
     var resultExecuted: String?
     var delete: Bool?
-    var parentUUID: UUID?
     var date: Date {
         return dateExecuted?.en_us_date_from_string() ?? Date()
     }
@@ -43,7 +42,6 @@ struct ConfigurationSchedule: Identifiable {
                 if let dict = log?[i] as? NSDictionary {
                     logrecord.dateExecuted = dict.object(forKey: DictionaryStrings.dateExecuted.rawValue) as? String
                     logrecord.resultExecuted = dict.object(forKey: DictionaryStrings.resultExecuted.rawValue) as? String
-                    logrecord.parentUUID = id
                 }
                 logrecords?.append(logrecord)
             }
@@ -73,11 +71,13 @@ extension ConfigurationSchedule: Hashable, Equatable {
 extension Log: Hashable, Equatable {
     static func == (lhs: Log, rhs: Log) -> Bool {
         return lhs.dateExecuted == rhs.dateExecuted &&
-            lhs.resultExecuted == rhs.resultExecuted
+            lhs.resultExecuted == rhs.resultExecuted &&
+            lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(dateExecuted)
         hasher.combine(resultExecuted)
+        hasher.combine(id)
     }
 }
