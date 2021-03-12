@@ -37,6 +37,7 @@ struct LogListAlllogsView: View {
                     .buttonStyle(AbortButtonStyle())
             }
         }
+        .padding()
     }
 
     var logrecords: [Log] {
@@ -51,15 +52,6 @@ struct LogListAlllogsView: View {
             return logrecords.count
         }
         return 0
-    }
-
-    var header: some View {
-        HStack {
-            Text(NSLocalizedString("Date", comment: "loglist"))
-                .modifier(FixedTag(200, .center))
-            Text(NSLocalizedString("Record", comment: "loglist"))
-                .modifier(FixedTag(250, .center))
-        }
     }
 }
 
