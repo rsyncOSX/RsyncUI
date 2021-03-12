@@ -1,12 +1,12 @@
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncOSX)](https://github.com/rsyncOSX/RsyncSwiftUI/blob/master/Licence.MD)
 
-The code is in development and may be unstable. The execution part is stable. For more info check the link below.
+The code is in development and may be unstable. For more info about the development and the progress, please check [the todo list](https://rsyncui.netlify.app/post/todo/).
 
-The development commenced in December 2020 and the next release of RsyncOSX will be sometime before summer 2021. The next version is build for **macOS Big Sur** only. The name of the next version is **RsyncUI**. It is built for macOS Big Sur and later, that is why it will be released as a new appliction and not replace the current version of RsyncOSX.
+The development commenced in December 2020 and RsyncUI will be relased sometime before summer 2021. The next version is build for **macOS Big Sur** and later only. The name of the next version is **RsyncUI**. Because it is built for macOS Big Sur and later, it will be released as a new appliction and not replace the current version of RsyncOSX.
 
-The current version of RsyncOSX is a Swift and Storyboard (View Controllers) developed macOS application. SwiftUI is a framework for UI and it replaces the Storyboards and the code for the View Controllers.
+The current version of RsyncOSX is a Swift and Storyboard (View Controllers) developed macOS application. RsyncUI is a SwiftUI based application. SwiftUI is a framework for UI and it replaces the Storyboards and the code for the View Controllers.
 
-A new [site for documentation](https://rsyncui.netlify.app) is also in development. The documentation in the site will be updated as part of the development of next version. 
+A new [site for documentation](https://rsyncui.netlify.app) is in development. The documentation will be updated as part of the development of next version.
 
 ## Dependencies
 
