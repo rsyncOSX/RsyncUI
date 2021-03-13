@@ -250,14 +250,12 @@ class ObserveableReference: ObservableObject {
         guard keypath.isEmpty == false else {
             SharedReference.shared.sshkeypathandidentityfile = nil
             isDirty = true
-            print("keypath nil")
             return
         }
         do {
             let verified = try checksshkeypathbeforesaving(keypath)
             if verified {
                 SharedReference.shared.sshkeypathandidentityfile = keypath
-                print("keypath: \(keypath)")
                 isDirty = true
             }
         } catch let e {
@@ -282,14 +280,12 @@ class ObserveableReference: ObservableObject {
         guard port.isEmpty == false else {
             SharedReference.shared.sshport = nil
             isDirty = true
-            print("port nil")
             return
         }
         do {
             let verified = try checksshport(port)
             if verified {
                 SharedReference.shared.sshport = Int(port)
-                print("port: \(port)")
                 isDirty = true
             }
         } catch let e {

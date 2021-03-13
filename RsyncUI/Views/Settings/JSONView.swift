@@ -10,9 +10,13 @@ import SwiftUI
 
 struct JSONView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
+    @StateObject var usersettings = ObserveableReference()
     @Binding var selectedprofile: String?
+    @Binding var reload: Bool
 
     @State private var showingAlertconfig: Bool = false
+    @State private var showingAlertjson: Bool = false
     // Added and updated labels
     @State private var converted = false
     @State private var backup = false
@@ -41,6 +45,21 @@ struct JSONView: View {
 
                 // Column 2
                 VStack(alignment: .leading) {
+                    Section(header: headerjsonsettings) {
+                        ToggleView(NSLocalizedString("Enable JSON", comment: "settings"), $usersettings.json.onChange {
+                            showingAlertjson = true
+                            usersettings.inputchangedbyuser = true
+                        })
+                            .alert(isPresented: $showingAlertjson) {
+                                enablejson
+                            }
+                    }
+                }
+                .padding()
+                // For center
+
+                // Column 3
+                VStack(alignment: .leading) {
                     Section(header: headerbackupconfig) {
                         // Backup configuration files
                         Button(NSLocalizedString("Backup", comment: "usersetting")) { backupuserconfigs() }
@@ -60,6 +79,14 @@ struct JSONView: View {
 
                 Spacer()
             }
+            // Save button right down corner
+            Spacer()
+
+            HStack {
+                Spacer()
+
+                usersetting
+            }
         }
         .lineSpacing(2)
         .padding()
@@ -68,6 +95,11 @@ struct JSONView: View {
     // Header JSON
     var headerJSON: some View {
         Text(NSLocalizedString("JSON or PLIST", comment: "settings"))
+    }
+
+    // Header other settings
+    var headerjsonsettings: some View {
+        Text(NSLocalizedString("Enable or disable JSON", comment: "settings"))
     }
 
     // Header backup
@@ -83,6 +115,21 @@ struct JSONView: View {
                 convertconfigurations(profile: selectedprofile)
             }),
             secondaryButton: Alert.Button.cancel(Text(NSLocalizedString("Cancel", comment: "")), action: {})
+        )
+    }
+
+    var enablejson: Alert {
+        Alert(
+            title: Text(NSLocalizedString("Enable JSON or PLIST?", comment: "")),
+            message: Text(NSLocalizedString("Cancel or OK", comment: "")),
+            primaryButton: Alert.Button.default(Text(NSLocalizedString("OK", comment: "")), action: {
+                rsyncversionObject.update()
+            }),
+            secondaryButton: Alert.Button.cancel(Text(NSLocalizedString("Cancel", comment: "")), action: {
+                let resetvalue = $usersettings.json.wrappedValue
+                usersettings.json = !resetvalue
+                usersettings.isDirty = false
+            })
         )
     }
 
@@ -106,6 +153,25 @@ struct JSONView: View {
         }
         .frame(width: 120, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
+
+    // Save usersetting is changed
+    // Disabled if not dirty
+    var usersetting: some View {
+        HStack {
+            if usersettings.isDirty {
+                Button(NSLocalizedString("Save", comment: "usersetting")) { saveusersettings() }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.red, lineWidth: 5)
+                    )
+            } else {
+                Button(NSLocalizedString("Save", comment: "usersetting")) {}
+                    .buttonStyle(PrimaryButtonStyle())
+            }
+        }
+        .disabled(!usersettings.isDirty)
     }
 }
 
@@ -153,5 +219,14 @@ extension JSONView {
             }
         }
         _ = VerifyJSON(profile: myprofile)
+    }
+}
+
+extension JSONView {
+    func saveusersettings() {
+        usersettings.isDirty = false
+        usersettings.inputchangedbyuser = false
+        PersistentStorageUserconfiguration().saveuserconfiguration()
+        reload = true
     }
 }

@@ -11,6 +11,7 @@ struct SidebarSettingsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var errorhandling: ErrorHandling
     @Binding var selectedprofile: String?
+    @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
 
@@ -20,7 +21,8 @@ struct SidebarSettingsView: View {
                 .tabItem {
                     Text(NSLocalizedString("Settings", comment: "user settings"))
                 }
-            Sshsettings(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() })
+            Sshsettings(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+                        reload: $reload)
                 .tabItem {
                     Text(NSLocalizedString("Ssh", comment: "user settings"))
                 }
@@ -28,7 +30,7 @@ struct SidebarSettingsView: View {
                 .tabItem {
                     Text(NSLocalizedString("Paths", comment: "user settings"))
                 }
-            JSONView(selectedprofile: $selectedprofile)
+            JSONView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
                     Text(NSLocalizedString("JSON", comment: "user settings"))
                 }

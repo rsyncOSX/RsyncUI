@@ -13,8 +13,9 @@ struct Sshsettings: View {
     @EnvironmentObject var errorhandling: ErrorHandling
     @StateObject var usersettings = ObserveableReference()
     @Binding var selectedconfig: Configuration?
-    @State private var selectedlogin: UniqueserversandLogins?
+    @Binding var reload: Bool
 
+    @State private var selectedlogin: UniqueserversandLogins?
     @State private var showingAlert: Bool = false
     @State private var showsshverifysheet: Bool = false
 
@@ -168,6 +169,7 @@ extension Sshsettings {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             usersettings.localsshkeys = SshKeys().validatepublickeypresent()
         }
+        reload = true
     }
 
     func createkeys() {

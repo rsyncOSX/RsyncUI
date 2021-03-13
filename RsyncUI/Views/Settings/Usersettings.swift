@@ -13,7 +13,6 @@ struct Usersettings: View {
     @EnvironmentObject var errorhandling: ErrorHandling
     @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
     @StateObject var usersettings = ObserveableReference()
-    @State private var showingAlertjson: Bool = false
 
     var body: some View {
         Form {
@@ -86,19 +85,6 @@ struct Usersettings: View {
                 }
                 .padding()
 
-                // Column 4
-                VStack(alignment: .leading) {
-                    Section(header: headerjsonsettings) {
-                        ToggleView(NSLocalizedString("Enable JSON", comment: "settings"), $usersettings.json.onChange {
-                            showingAlertjson = true
-                            usersettings.inputchangedbyuser = true
-                        })
-                            .alert(isPresented: $showingAlertjson) {
-                                enablejson
-                            }
-                    }
-                }
-                .padding()
                 // For center
                 Spacer()
             }
@@ -180,11 +166,6 @@ struct Usersettings: View {
         Text(NSLocalizedString("Other settings", comment: "settings"))
     }
 
-    // Header other settings
-    var headerjsonsettings: some View {
-        Text(NSLocalizedString("Enable or disable JSON", comment: "settings"))
-    }
-
     // Header user setting
     var headerusersetting: some View {
         Text(NSLocalizedString("Save settings", comment: "settings"))
@@ -201,21 +182,6 @@ struct Usersettings: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .frame(width: 70)
             .lineLimit(1)
-    }
-
-    var enablejson: Alert {
-        Alert(
-            title: Text(NSLocalizedString("Enable JSON or PLIST?", comment: "")),
-            message: Text(NSLocalizedString("Cancel or OK", comment: "")),
-            primaryButton: Alert.Button.default(Text(NSLocalizedString("OK", comment: "")), action: {
-                rsyncversionObject.update()
-            }),
-            secondaryButton: Alert.Button.cancel(Text(NSLocalizedString("Cancel", comment: "")), action: {
-                let resetvalue = $usersettings.json.wrappedValue
-                usersettings.json = !resetvalue
-                usersettings.isDirty = false
-            })
-        )
     }
 }
 
