@@ -82,7 +82,8 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarLogsView(reload: $reload, selectedprofile: $selectedprofile.onChange {
+                NavigationLink(destination: SidebarLogsView(reload: $reload,
+                                                            selectedprofile: $selectedprofile.onChange {
                     rsyncOSXData.update()
                 }),
                 tag: NavigationItem.logs,

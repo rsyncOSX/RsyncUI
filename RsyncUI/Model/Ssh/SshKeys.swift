@@ -44,6 +44,8 @@ final class SshKeys: Catalogsandfiles {
         do {
             let present = try islocalpublicrsakeypresent()
             if present == false {
+                // If new keypath is set create it
+                createsshkeyrootpath()
                 // Create keys
                 argumentsssh = ArgumentsSsh(remote: nil, sshkeypathandidentityfile: (fullroot ?? "") +
                     "/" + (identityfile ?? ""))

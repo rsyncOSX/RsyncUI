@@ -159,13 +159,17 @@ extension Sshsettings {
     func saveusersettings() {
         usersettings.isDirty = false
         PersistentStorageUserconfiguration().saveuserconfiguration()
+        // wait for a half second and then force a new check if keys are created and exists
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            usersettings.localsshkeys = SshKeys().validatepublickeypresent()
+        }
     }
 
     func createkeys() {
         let create = SshKeys().createPublicPrivateRSAKeyPair()
         if create == true {
-            // wait for a seconf and then force a new check if keys are created and exists
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            // wait for a half second and then force a new check if keys are created and exists
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 usersettings.localsshkeys = SshKeys().validatepublickeypresent()
             }
         }
@@ -175,10 +179,3 @@ extension Sshsettings {
         showsshverifysheet = true
     }
 }
-
-// TODO:
-/*
- Fixed - 1. Fix Save, drop some updates in Combine
- 2. Dont show rsync path if default either /usr/bin or /usr/local/bin - make them as placeholders
- 3. Verify create ssh keys
- */
