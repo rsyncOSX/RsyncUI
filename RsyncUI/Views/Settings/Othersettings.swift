@@ -22,7 +22,10 @@ struct Othersettings: View {
 
                         setpathtorsyncosxsched
                     }
+                }.padding()
 
+                // Column 2
+                VStack(alignment: .leading) {
                     Section(header: headerenvironment) {
                         setenvironment
 

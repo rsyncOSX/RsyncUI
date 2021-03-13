@@ -36,20 +36,28 @@ struct JSONView: View {
                                 convertconfig
                             }
                     }
+                }
+                .padding()
 
+                // Column 2
+                VStack(alignment: .leading) {
                     Section(header: headerbackupconfig) {
                         // Backup configuration files
                         Button(NSLocalizedString("Backup", comment: "usersetting")) { backupuserconfigs() }
                             .buttonStyle(PrimaryButtonStyle())
                     }
-
-                    // Present when either added, updated or profile created
-                    if converted == true { notifyconverted }
-                    if backup == true { notifybackup }
                 }
                 .padding()
-
                 // For center
+                Spacer()
+            }
+            // Present when either added, updated or profile created
+            HStack {
+                Spacer()
+
+                if backup == true { notifybackup }
+                if converted == true { notifyconverted }
+
                 Spacer()
             }
         }

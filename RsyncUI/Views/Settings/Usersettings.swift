@@ -82,7 +82,13 @@ struct Usersettings: View {
                         ToggleView(NSLocalizedString("Check input", comment: "settings"), $usersettings.checkinput.onChange {
                             usersettings.inputchangedbyuser = true
                         })
+                    }
+                }
+                .padding()
 
+                // Column 4
+                VStack(alignment: .leading) {
+                    Section(header: headerjsonsettings) {
                         ToggleView(NSLocalizedString("Enable JSON", comment: "settings"), $usersettings.json.onChange {
                             showingAlertjson = true
                             usersettings.inputchangedbyuser = true
@@ -172,6 +178,11 @@ struct Usersettings: View {
     // Header other settings
     var headerothersettings: some View {
         Text(NSLocalizedString("Other settings", comment: "settings"))
+    }
+
+    // Header other settings
+    var headerjsonsettings: some View {
+        Text(NSLocalizedString("Enable or disable JSON", comment: "settings"))
     }
 
     // Header user setting
