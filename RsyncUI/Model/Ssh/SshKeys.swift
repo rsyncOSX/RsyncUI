@@ -37,7 +37,6 @@ final class SshKeys: Catalogsandfiles {
     var command: String?
     var arguments: [String]?
     var outputprocess: OutputProcess?
-    var data: [String]?
 
     // Create rsa keypair
     func createPublicPrivateRSAKeyPair() -> Bool {
@@ -117,9 +116,9 @@ final class SshKeys: Catalogsandfiles {
 }
 
 extension SshKeys {
-    func processtermination() {}
-
-    func filehandler() {
-        data = outputprocess?.getOutput()
+    func processtermination() {
+        _ = Logfile(outputprocess, true)
     }
+
+    func filehandler() {}
 }

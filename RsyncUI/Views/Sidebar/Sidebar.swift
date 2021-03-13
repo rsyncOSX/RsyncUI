@@ -84,10 +84,10 @@ struct Sidebar: View {
             Group {
                 NavigationLink(destination: SidebarLogsView(reload: $reload,
                                                             selectedprofile: $selectedprofile.onChange {
-                    rsyncOSXData.update()
-                }),
-                tag: NavigationItem.logs,
-                selection: $selection) {
+                                                                rsyncOSXData.update()
+                                                            }),
+                               tag: NavigationItem.logs,
+                               selection: $selection) {
                     Label(NSLocalizedString("Log listings", comment: "sidebar"), systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.logs)

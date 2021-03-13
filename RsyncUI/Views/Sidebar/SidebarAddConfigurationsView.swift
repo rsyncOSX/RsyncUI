@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 25/02/2021.
 //
-// swiftlint:disable type_body_length
+// swiftlint:disable type_body_length file_length
 
 import SwiftUI
 
@@ -552,13 +552,3 @@ extension SidebarAddConfigurationsView {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
-
-// TODO:
-/*
-
- 2. Verify all types of config to be added
-    - snapshots
-    - local
-    - remote
- 10. Delete profile
- */
