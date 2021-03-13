@@ -44,7 +44,7 @@ class ObserveableReference: ObservableObject {
     // Set the current value as placeholder text
     @Published var sshkeypathandidentityfile: String = ""
     // If local public sshkeys are present
-    @Published var localsshkeys: Bool = Ssh().validatepublickeypresent()
+    @Published var localsshkeys: Bool = SshKeys().validatepublickeypresent()
     // Check for network changes
     @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // Read configurations and schedules as JSON or not

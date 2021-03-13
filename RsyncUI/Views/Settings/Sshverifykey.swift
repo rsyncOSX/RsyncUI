@@ -32,7 +32,7 @@ struct Sshverifykey: View {
 
     var verifystring: String {
         if let login = selectedlogin {
-            return Ssh().verifyremotekey(remote: login)
+            return SshKeys().verifyremotekey(remote: login)
         } else {
             return ""
         }

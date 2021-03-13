@@ -20,14 +20,14 @@ enum SshError: LocalizedError {
         case .notvalidpath:
             return NSLocalizedString("SSH keypath is not valid", comment: "ssh error") + "..."
         case .sshkeys:
-            return NSLocalizedString("SSH RSA keys exist", comment: "ssh error") + "..."
+            return NSLocalizedString("SSH RSA keys exist, cannot create", comment: "ssh error") + "..."
         case .noslash:
             return NSLocalizedString("SSH keypath must be like ~/.ssh_keypath/identityfile", comment: "ssh error") + "..."
         }
     }
 }
 
-final class Ssh: Catalogsandfiles {
+final class SshKeys: Catalogsandfiles {
     // Process termination and filehandler closures
     var commandCopyPasteTerminal: String?
     var rsaStringPath: String?
@@ -40,21 +40,24 @@ final class Ssh: Catalogsandfiles {
     var data: [String]?
 
     // Create rsa keypair
-    func createPublicPrivateRSAKeyPair() {
+    func createPublicPrivateRSAKeyPair() -> Bool {
         do {
-            let ok = try islocalpublicrsakeypresent()
-            if ok == false {
+            let present = try islocalpublicrsakeypresent()
+            if present == false {
                 // Create keys
                 argumentsssh = ArgumentsSsh(remote: nil, sshkeypathandidentityfile: (fullroot ?? "") +
                     "/" + (identityfile ?? ""))
                 arguments = argumentsssh?.argumentscreatekey()
                 command = argumentsssh?.getCommand()
-                executeSshCommand()
+                executesshcreatekeys()
+                return true
             }
         } catch let e {
             let error = e
             self.propogateerror(error: error)
+            return false
         }
+        return false
     }
 
     // Check if rsa pub key exists
@@ -95,7 +98,7 @@ final class Ssh: Catalogsandfiles {
     }
 
     // Execute command
-    func executeSshCommand() {
+    func executesshcreatekeys() {
         guard arguments != nil else { return }
         outputprocess = OutputProcess()
         let process = OtherProcessCmdClosure(command: command,
@@ -111,7 +114,7 @@ final class Ssh: Catalogsandfiles {
     }
 }
 
-extension Ssh {
+extension SshKeys {
     func processtermination() {}
 
     func filehandler() {

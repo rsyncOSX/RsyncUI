@@ -32,7 +32,7 @@ struct Sshcopykey: View {
 
     var copystring: String {
         if let login = selectedlogin {
-            return Ssh().copylocalpubrsakeyfile(remote: login)
+            return SshKeys().copylocalpubrsakeyfile(remote: login)
         } else {
             return ""
         }

@@ -136,7 +136,7 @@
 		E985C75F25F3AD9700CB895C /* PersistentStorageConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D825F3AD9600CB895C /* PersistentStorageConfigurationJSON.swift */; };
 		E985C76025F3AD9700CB895C /* Configpath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D925F3AD9600CB895C /* Configpath.swift */; };
 		E985C76125F3AD9700CB895C /* VerifyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6DB25F3AD9600CB895C /* VerifyJSON.swift */; };
-		E985C76225F3AD9700CB895C /* Ssh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6DD25F3AD9600CB895C /* Ssh.swift */; };
+		E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6DD25F3AD9600CB895C /* SshKeys.swift */; };
 		E985C76325F3AD9700CB895C /* SingleTaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E025F3AD9600CB895C /* SingleTaskState.swift */; };
 		E985C76425F3AD9700CB895C /* ExecuteSingleTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E125F3AD9600CB895C /* ExecuteSingleTask.swift */; };
 		E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */; };
@@ -352,7 +352,7 @@
 		E985C6D825F3AD9600CB895C /* PersistentStorageConfigurationJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageConfigurationJSON.swift; sourceTree = "<group>"; };
 		E985C6D925F3AD9600CB895C /* Configpath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configpath.swift; sourceTree = "<group>"; };
 		E985C6DB25F3AD9600CB895C /* VerifyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyJSON.swift; sourceTree = "<group>"; };
-		E985C6DD25F3AD9600CB895C /* Ssh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ssh.swift; sourceTree = "<group>"; };
+		E985C6DD25F3AD9600CB895C /* SshKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SshKeys.swift; sourceTree = "<group>"; };
 		E985C6E025F3AD9600CB895C /* SingleTaskState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleTaskState.swift; sourceTree = "<group>"; };
 		E985C6E125F3AD9600CB895C /* ExecuteSingleTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteSingleTask.swift; sourceTree = "<group>"; };
 		E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteMultipleTasks.swift; sourceTree = "<group>"; };
@@ -860,7 +860,7 @@
 		E985C6DC25F3AD9600CB895C /* Ssh */ = {
 			isa = PBXGroup;
 			children = (
-				E985C6DD25F3AD9600CB895C /* Ssh.swift */,
+				E985C6DD25F3AD9600CB895C /* SshKeys.swift */,
 			);
 			path = Ssh;
 			sourceTree = "<group>";
@@ -1382,7 +1382,7 @@
 				E985C75B25F3AD9700CB895C /* PersistentStorageSchedulingJSON.swift in Sources */,
 				E985C73625F3AD9700CB895C /* SetandValidatepathforrsync.swift in Sources */,
 				E985C67525F3AD8400CB895C /* ImageLogs.swift in Sources */,
-				E985C76225F3AD9700CB895C /* Ssh.swift in Sources */,
+				E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */,
 				E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */,
 				E985C79125F3AD9700CB895C /* ObserveableReference.swift in Sources */,
 				E985C75025F3AD9700CB895C /* DecodeSchedule.swift in Sources */,

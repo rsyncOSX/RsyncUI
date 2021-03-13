@@ -162,7 +162,13 @@ extension Sshsettings {
     }
 
     func createkeys() {
-        Ssh().createPublicPrivateRSAKeyPair()
+        let create = SshKeys().createPublicPrivateRSAKeyPair()
+        if create == true {
+            // wait for a seconf and then force a new check if keys are created and exists
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                usersettings.localsshkeys = SshKeys().validatepublickeypresent()
+            }
+        }
     }
 
     func verifyssh() {
