@@ -75,7 +75,9 @@ struct Othersettings: View {
     }
 
     var setenvironment: some View {
-        EditValue(250, NSLocalizedString("Environment", comment: "settings"), $usersettings.environment)
+        EditValue(250, NSLocalizedString("Environment", comment: "settings"), $usersettings.environment.onChange {
+            usersettings.inputchangedbyuser = true
+        })
             .onAppear(perform: {
                 if let environment = SharedReference.shared.environment {
                     usersettings.environment = environment
@@ -84,7 +86,9 @@ struct Othersettings: View {
     }
 
     var setenvironmenvariable: some View {
-        EditValue(250, NSLocalizedString("Environment variable", comment: "settings"), $usersettings.environmentvalue)
+        EditValue(250, NSLocalizedString("Environment variable", comment: "settings"), $usersettings.environmentvalue.onChange {
+            usersettings.inputchangedbyuser = true
+        })
             .onAppear(perform: {
                 if let environmentvalue = SharedReference.shared.environmentvalue {
                     usersettings.environmentvalue = environmentvalue
@@ -93,7 +97,9 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncosx: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "settings"), $usersettings.pathrsyncosx)
+        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "settings"), $usersettings.pathrsyncosx.onChange {
+            usersettings.inputchangedbyuser = true
+        })
             .onAppear(perform: {
                 if let pathrsyncosx = SharedReference.shared.pathrsyncosx {
                     usersettings.pathrsyncosx = pathrsyncosx
@@ -102,7 +108,9 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncosxsched: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncOSXsched", comment: "settings"), $usersettings.pathrsyncosxsched)
+        EditValue(250, NSLocalizedString("Path to RsyncOSXsched", comment: "settings"), $usersettings.pathrsyncosxsched.onChange {
+            usersettings.inputchangedbyuser = true
+        })
             .onAppear(perform: {
                 if let pathrsyncosxsched = SharedReference.shared.pathrsyncosxsched {
                     usersettings.pathrsyncosxsched = pathrsyncosxsched
@@ -112,6 +120,7 @@ struct Othersettings: View {
 
     func saveusersettings() {
         usersettings.isDirty = false
+        usersettings.inputchangedbyuser = false
         PersistentStorageUserconfiguration().saveuserconfiguration()
     }
 }

@@ -25,6 +25,7 @@ struct Usersettings: View {
                 VStack(alignment: .leading) {
                     Section(header: headerrsync) {
                         ToggleView(NSLocalizedString("Rsync ver 3.x", comment: "settings"), $usersettings.rsyncversion3.onChange {
+                            usersettings.inputchangedbyuser = true
                             rsyncversionObject.update()
                         })
 
@@ -43,17 +44,25 @@ struct Usersettings: View {
                     HStack {
                         VStack(alignment: .leading) {
                             Section(header: headerloggingtofile) {
-                                ToggleView(NSLocalizedString("None", comment: "settings"), $usersettings.nologging)
+                                ToggleView(NSLocalizedString("None", comment: "settings"), $usersettings.nologging.onChange {
+                                    usersettings.inputchangedbyuser = true
+                                })
 
-                                ToggleView(NSLocalizedString("Min", comment: "settings"), $usersettings.minimumlogging)
+                                ToggleView(NSLocalizedString("Min", comment: "settings"), $usersettings.minimumlogging.onChange {
+                                    usersettings.inputchangedbyuser = true
+                                })
 
-                                ToggleView(NSLocalizedString("Full", comment: "settings"), $usersettings.fulllogging)
+                                ToggleView(NSLocalizedString("Full", comment: "settings"), $usersettings.fulllogging.onChange {
+                                    usersettings.inputchangedbyuser = true
+                                })
                             }
                         }
 
                         VStack(alignment: .leading) {
                             Section(header: headerdetailedlogging) {
-                                ToggleView(NSLocalizedString("Detailed", comment: "settings"), $usersettings.detailedlogging)
+                                ToggleView(NSLocalizedString("Detailed", comment: "settings"), $usersettings.detailedlogging.onChange {
+                                    usersettings.inputchangedbyuser = true
+                                })
                             }
 
                             Section(header: headermarkdays) {
@@ -66,12 +75,17 @@ struct Usersettings: View {
                 // Column 3
                 VStack(alignment: .leading) {
                     Section(header: headerothersettings) {
-                        ToggleView(NSLocalizedString("Monitor network", comment: "settings"), $usersettings.monitornetworkconnection)
+                        ToggleView(NSLocalizedString("Monitor network", comment: "settings"), $usersettings.monitornetworkconnection.onChange {
+                            usersettings.inputchangedbyuser = true
+                        })
 
-                        ToggleView(NSLocalizedString("Check input", comment: "settings"), $usersettings.checkinput)
+                        ToggleView(NSLocalizedString("Check input", comment: "settings"), $usersettings.checkinput.onChange {
+                            usersettings.inputchangedbyuser = true
+                        })
 
                         ToggleView(NSLocalizedString("Enable JSON", comment: "settings"), $usersettings.json.onChange {
                             showingAlertjson = true
+                            usersettings.inputchangedbyuser = true
                         })
                             .alert(isPresented: $showingAlertjson) {
                                 enablejson
@@ -197,6 +211,7 @@ struct Usersettings: View {
 extension Usersettings {
     func saveusersettings() {
         usersettings.isDirty = false
+        usersettings.inputchangedbyuser = false
         PersistentStorageUserconfiguration().saveuserconfiguration()
     }
 }

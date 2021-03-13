@@ -51,120 +51,115 @@ class ObserveableReference: ObservableObject {
     @Published var json: Bool = SharedReference.shared.json
     // Check input when loading schedules and adding config
     @Published var checkinput: Bool = SharedReference.shared.checkinput
+    // Value to check if input field is changed by user
+    @Published var inputchangedbyuser: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
     init() {
+        $inputchangedbyuser
+            .sink { _ in
+            }.store(in: &subscriptions)
         $rsyncversion3
-            .dropFirst()
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] rsyncver3 in
                 SharedReference.shared.rsyncversion3 = rsyncver3
-                isDirty = true
+                isDirty = inputchangedbyuser
+                print("isDirty \(isDirty)")
+                print("inputchangedbyuser \(inputchangedbyuser)")
             }.store(in: &subscriptions)
         $localrsyncpath
-            .dropFirst(2)
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] rsyncpath in
                 setandvalidatepathforrsync(rsyncpath)
             }.store(in: &subscriptions)
         $temporarypathforrestore
-            .dropFirst(2)
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] restorepath in
                 setandvalidapathforrestore(restorepath)
             }.store(in: &subscriptions)
         $nologging
-            .dropFirst()
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] no in
                 setnologlevel(no)
             }.store(in: &subscriptions)
         $minimumlogging
-            .dropFirst()
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] min in
                 setminloglevel(min)
             }.store(in: &subscriptions)
         $fulllogging
-            .dropFirst()
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] full in
                 setfullloglevel(full)
             }.store(in: &subscriptions)
         $detailedlogging
-            .dropFirst()
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] detailed in
                 SharedReference.shared.detailedlogging = detailed
-                isDirty = true
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $sshkeypathandidentityfile
-            .dropFirst(2)
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] identityfile in
                 sshkeypathandidentiyfile(identityfile)
             }.store(in: &subscriptions)
         $sshport
-            .dropFirst(2)
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] port in
                 sshport(port)
             }.store(in: &subscriptions)
         $json
-            .dropFirst()
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] json in
                 SharedReference.shared.json = json
-                isDirty = true
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $monitornetworkconnection
-            .dropFirst()
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] monitor in
                 SharedReference.shared.monitornetworkconnection = monitor
-                isDirty = true
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $checkinput
-            .dropFirst()
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { check in
                 SharedReference.shared.checkinput = check
             }.store(in: &subscriptions)
         $marknumberofdayssince
-            .dropFirst()
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] value in
                 markdays(days: value)
             }.store(in: &subscriptions)
         $environment
-            .dropFirst(2)
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] environment in
                 SharedReference.shared.environment = environment
-                isDirty = true
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $environmentvalue
-            .dropFirst(2)
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] environmentvalue in
                 SharedReference.shared.environmentvalue = environmentvalue
-                isDirty = true
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $pathrsyncosx
-            .dropFirst(2)
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncosx in
                 SharedReference.shared.pathrsyncosx = pathtorsyncosx
-                isDirty = true
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $pathrsyncosxsched
-            .dropFirst(2)
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncosxsched in
                 SharedReference.shared.pathrsyncosxsched = pathtorsyncosxsched
-                isDirty = true
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
     }
 
     func setandvalidatepathforrsync(_ path: String) {
+        guard inputchangedbyuser == true else { return }
         let validate = SetandValidatepathforrsync()
         validate.setlocalrsyncpath(path)
         do {
@@ -180,6 +175,7 @@ class ObserveableReference: ObservableObject {
     }
 
     func setandvalidapathforrestore(_ atpath: String) {
+        guard inputchangedbyuser == true else { return }
         do {
             let ok = try validatepath(atpath)
             if ok {
@@ -200,6 +196,7 @@ class ObserveableReference: ObservableObject {
     }
 
     func setnologlevel(_ value: Bool) {
+        guard inputchangedbyuser == true else { return }
         SharedReference.shared.nologging = value
         switch value {
         case true:
@@ -213,6 +210,7 @@ class ObserveableReference: ObservableObject {
     }
 
     func setminloglevel(_ value: Bool) {
+        guard inputchangedbyuser == true else { return }
         SharedReference.shared.minimumlogging = value
         SharedReference.shared.fulllogging = false
         switch value {
@@ -225,6 +223,7 @@ class ObserveableReference: ObservableObject {
     }
 
     func setfullloglevel(_ value: Bool) {
+        guard inputchangedbyuser == true else { return }
         SharedReference.shared.fulllogging = value
         SharedReference.shared.minimumlogging = false
         switch value {
@@ -248,16 +247,19 @@ class ObserveableReference: ObservableObject {
     }
 
     func sshkeypathandidentiyfile(_ keypath: String) {
+        guard inputchangedbyuser == true else { return }
         // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             SharedReference.shared.sshkeypathandidentityfile = nil
             isDirty = true
+            print("keypath nil")
             return
         }
         do {
             let verified = try checksshkeypathbeforesaving(keypath)
             if verified {
                 SharedReference.shared.sshkeypathandidentityfile = keypath
+                print("keypath: \(keypath)")
                 isDirty = true
             }
         } catch let e {
@@ -277,16 +279,19 @@ class ObserveableReference: ObservableObject {
     }
 
     func sshport(_ port: String) {
+        guard inputchangedbyuser == true else { return }
         // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
             SharedReference.shared.sshport = nil
             isDirty = true
+            print("port nil")
             return
         }
         do {
             let verified = try checksshport(port)
             if verified {
                 SharedReference.shared.sshport = Int(port)
+                print("port: \(port)")
                 isDirty = true
             }
         } catch let e {
@@ -306,6 +311,7 @@ class ObserveableReference: ObservableObject {
     }
 
     func markdays(days: String) {
+        guard inputchangedbyuser == true else { return }
         do {
             let verified = try checkmarkdays(days)
             if verified {
