@@ -248,6 +248,11 @@ class ObserveableReference: ObservableObject {
     }
 
     func sshkeypathandidentiyfile(_ keypath: String) {
+        // If keypath is empty set it to nil, e.g default value
+        guard  keypath.isEmpty == false else {
+            SharedReference.shared.sshkeypathandidentityfile = nil
+            return
+        }
         do {
             let verified = try checksshkeypathbeforesaving(keypath)
             if verified {
@@ -271,6 +276,7 @@ class ObserveableReference: ObservableObject {
     }
 
     func sshport(_ port: String) {
+        // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
             SharedReference.shared.sshport = nil
             return
