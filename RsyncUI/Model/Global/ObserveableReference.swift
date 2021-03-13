@@ -66,8 +66,6 @@ class ObserveableReference: ObservableObject {
             .sink { [unowned self] rsyncver3 in
                 SharedReference.shared.rsyncversion3 = rsyncver3
                 isDirty = inputchangedbyuser
-                print("isDirty \(isDirty)")
-                print("inputchangedbyuser \(inputchangedbyuser)")
             }.store(in: &subscriptions)
         $localrsyncpath
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
