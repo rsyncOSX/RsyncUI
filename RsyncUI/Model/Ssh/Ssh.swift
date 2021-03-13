@@ -27,7 +27,7 @@ enum SshError: LocalizedError {
     }
 }
 
-class Ssh: Catalogsandfiles {
+final class Ssh: Catalogsandfiles {
     // Process termination and filehandler closures
     var commandCopyPasteTerminal: String?
     var rsaStringPath: String?
@@ -49,7 +49,7 @@ class Ssh: Catalogsandfiles {
                     "/" + (identityfile ?? ""))
                 arguments = argumentsssh?.argumentscreatekey()
                 command = argumentsssh?.getCommand()
-                // executeSshCommand()
+                executeSshCommand()
             }
         } catch let e {
             let error = e
