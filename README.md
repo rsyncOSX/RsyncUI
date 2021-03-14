@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncOSX)](https://github.com/rsyncOSX/RsyncSwiftUI/blob/master/Licence.MD)
 
-The code is in development and may be unstable. For more info about the development and the progress, please check [the todo list](https://rsyncui.netlify.app/post/todo/).
+The code is in development and may be unstable.
 
 The development commenced in December 2020 and RsyncUI will be relased sometime before summer 2021. The next version is build for **macOS Big Sur** and later only. The name of the next version is **RsyncUI**. Because it is built for macOS Big Sur and later, it will be released as a new appliction and not replace the current version of RsyncOSX.
 
