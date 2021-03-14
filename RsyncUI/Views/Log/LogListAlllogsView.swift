@@ -40,6 +40,9 @@ struct LogListAlllogsView: View {
                 Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                     .buttonStyle(PrimaryButtonStyle())
 
+                Button(NSLocalizedString("All", comment: "Select button")) {}
+                    .buttonStyle(PrimaryButtonStyle())
+
                 Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
                     .buttonStyle(AbortButtonStyle())
             }
