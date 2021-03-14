@@ -36,19 +36,8 @@ class ObserveableReference: ObservableObject {
     // Paths for apps
     @Published var pathrsyncosx: String = SharedReference.shared.pathrsyncosx ?? ""
     @Published var pathrsyncosxsched: String = SharedReference.shared.pathrsyncosxsched ?? ""
-    // Global SSH parameters
-    // Have to convert String -> Int before saving
-    // Set the current value as placeholder text
-    @Published var sshport: String = ""
-    // SSH keypath and identityfile, the settings View is picking up the current value
-    // Set the current value as placeholder text
-    @Published var sshkeypathandidentityfile: String = ""
-    // If local public sshkeys are present
-    @Published var localsshkeys: Bool = SshKeys().validatepublickeypresent()
     // Check for network changes
     @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
-    // Read configurations and schedules as JSON or not
-    @Published var json: Bool = SharedReference.shared.json
     // Check input when loading schedules and adding config
     @Published var checkinput: Bool = SharedReference.shared.checkinput
     // Value to check if input field is changed by user
@@ -101,22 +90,6 @@ class ObserveableReference: ObservableObject {
                 SharedReference.shared.detailedlogging = detailed
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
-        $sshkeypathandidentityfile
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] identityfile in
-                sshkeypathandidentiyfile(identityfile)
-            }.store(in: &subscriptions)
-        $sshport
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] port in
-                sshport(port)
-            }.store(in: &subscriptions)
-        $json
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] json in
-                SharedReference.shared.json = json
-                isDirty = inputchangedbyuser
-            }.store(in: &subscriptions)
         $monitornetworkconnection
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] monitor in
@@ -161,6 +134,7 @@ class ObserveableReference: ObservableObject {
 
     func setandvalidatepathforrsync(_ path: String) {
         guard inputchangedbyuser == true else { return }
+        guard path.isEmpty == false else { return }
         let validate = SetandValidatepathforrsync()
         validate.setlocalrsyncpath(path)
         do {
@@ -177,6 +151,7 @@ class ObserveableReference: ObservableObject {
 
     func setandvalidapathforrestore(_ atpath: String) {
         guard inputchangedbyuser == true else { return }
+        guard atpath.isEmpty == false else { return }
         do {
             let ok = try validatepath(atpath)
             if ok {
@@ -194,67 +169,6 @@ class ObserveableReference: ObservableObject {
             throw Validatedpath.nopath
         }
         return true
-    }
-
-    // SSH identityfile
-    private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
-        if keypath.first != "~" { throw SshError.noslash }
-        let tempsshkeypath = keypath
-        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
-        guard sshkeypathandidentityfilesplit.count > 2 else { throw SshError.noslash }
-        guard sshkeypathandidentityfilesplit[1].count > 1 else { throw SshError.notvalidpath }
-        guard sshkeypathandidentityfilesplit[2].count > 1 else { throw SshError.notvalidpath }
-        return true
-    }
-
-    func sshkeypathandidentiyfile(_ keypath: String) {
-        guard inputchangedbyuser == true else { return }
-        // If keypath is empty set it to nil, e.g default value
-        guard keypath.isEmpty == false else {
-            SharedReference.shared.sshkeypathandidentityfile = nil
-            isDirty = true
-            return
-        }
-        do {
-            let verified = try checksshkeypathbeforesaving(keypath)
-            if verified {
-                SharedReference.shared.sshkeypathandidentityfile = keypath
-                isDirty = true
-            }
-        } catch let e {
-            let error = e
-            self.propogateerror(error: error)
-        }
-    }
-
-    // SSH port number
-    private func checksshport(_ port: String) throws -> Bool {
-        guard port.isEmpty == false else { return false }
-        if Int(port) != nil {
-            return true
-        } else {
-            throw InputError.notvalidInt
-        }
-    }
-
-    func sshport(_ port: String) {
-        guard inputchangedbyuser == true else { return }
-        // if port is empty set it to nil, e.g. default value
-        guard port.isEmpty == false else {
-            SharedReference.shared.sshport = nil
-            isDirty = true
-            return
-        }
-        do {
-            let verified = try checksshport(port)
-            if verified {
-                SharedReference.shared.sshport = Int(port)
-                isDirty = true
-            }
-        } catch let e {
-            let error = e
-            self.propogateerror(error: error)
-        }
     }
 
     // Mark days
@@ -285,20 +199,6 @@ class ObserveableReference: ObservableObject {
 extension ObserveableReference: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
-    }
-}
-
-enum InputError: LocalizedError {
-    case notvalidDouble
-    case notvalidInt
-
-    var errorDescription: String? {
-        switch self {
-        case .notvalidDouble:
-            return NSLocalizedString("Not a valid number (Double)", comment: "ssh error") + "..."
-        case .notvalidInt:
-            return NSLocalizedString("Not a valid number (Int)", comment: "ssh error") + "..."
-        }
     }
 }
 

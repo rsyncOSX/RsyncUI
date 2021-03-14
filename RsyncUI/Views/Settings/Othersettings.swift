@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Othersettings: View {
-    @StateObject var usersettings = ObserveableReference()
+    @StateObject var usersettings = ObserveableReferencePaths()
 
     var body: some View {
         Form {
@@ -89,9 +89,10 @@ struct Othersettings: View {
     }
 
     var setenvironmenvariable: some View {
-        EditValue(250, NSLocalizedString("Environment variable", comment: "settings"), $usersettings.environmentvalue.onChange {
-            usersettings.inputchangedbyuser = true
-        })
+        EditValue(250, NSLocalizedString("Environment variable", comment: "settings"),
+                  $usersettings.environmentvalue.onChange {
+                      usersettings.inputchangedbyuser = true
+                  })
             .onAppear(perform: {
                 if let environmentvalue = SharedReference.shared.environmentvalue {
                     usersettings.environmentvalue = environmentvalue
@@ -111,9 +112,10 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncosxsched: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncOSXsched", comment: "settings"), $usersettings.pathrsyncosxsched.onChange {
-            usersettings.inputchangedbyuser = true
-        })
+        EditValue(250, NSLocalizedString("Path to RsyncOSXsched", comment: "settings"),
+                  $usersettings.pathrsyncosxsched.onChange {
+                      usersettings.inputchangedbyuser = true
+                  })
             .onAppear(perform: {
                 if let pathrsyncosxsched = SharedReference.shared.pathrsyncosxsched {
                     usersettings.pathrsyncosxsched = pathrsyncosxsched

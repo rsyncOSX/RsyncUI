@@ -25,7 +25,7 @@ struct Usersettings: View {
                     Section(header: headerrsync) {
                         ToggleView(NSLocalizedString("Rsync ver 3.x", comment: "settings"), $usersettings.rsyncversion3.onChange {
                             usersettings.inputchangedbyuser = true
-                            rsyncversionObject.update()
+                            rsyncversionObject.update(usersettings.rsyncversion3)
                         })
 
                         // Only preset localpath for rsync if locapath is set. If default values either in /usr/bin or

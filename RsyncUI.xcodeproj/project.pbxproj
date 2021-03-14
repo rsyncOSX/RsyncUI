@@ -195,6 +195,9 @@
 		E985C79E25F3AF9C00CB895C /* ShellOut in Frameworks */ = {isa = PBXBuildFile; productRef = E985C79D25F3AF9C00CB895C /* ShellOut */; };
 		E985C7A425F3AFDE00CB895C /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = E985C7A325F3AFDE00CB895C /* Files */; };
 		E9BCCE8C25FB432E0034EDFD /* SidebarLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */; };
+		E9C9306225FEA0010049A76B /* ObserveableReferenceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306125FEA0010049A76B /* ObserveableReferenceJSON.swift */; };
+		E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */; };
+		E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */; };
 		E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FDDD4825F3D0610050718C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -410,6 +413,9 @@
 		E985C72425F3AD9700CB895C /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
 		E985C72525F3AD9700CB895C /* RsyncProcessCmdClosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncProcessCmdClosure.swift; sourceTree = "<group>"; };
 		E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarLogsView.swift; sourceTree = "<group>"; };
+		E9C9306125FEA0010049A76B /* ObserveableReferenceJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableReferenceJSON.swift; sourceTree = "<group>"; };
+		E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableReferenceSSH.swift; sourceTree = "<group>"; };
+		E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableReferencePaths.swift; sourceTree = "<group>"; };
 		E9FDDD4825F3D0610050718C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1024,6 +1030,9 @@
 				E985C71B25F3AD9700CB895C /* SharedReference.swift */,
 				E985C71C25F3AD9700CB895C /* ObserveableReference.swift */,
 				E985C71D25F3AD9700CB895C /* Extensions.swift */,
+				E9C9306125FEA0010049A76B /* ObserveableReferenceJSON.swift */,
+				E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */,
+				E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1252,6 +1261,7 @@
 				E985C73D25F3AD9700CB895C /* Result.swift in Sources */,
 				E9BCCE8C25FB432E0034EDFD /* SidebarLogsView.swift in Sources */,
 				E985C65625F3AD8400CB895C /* RsyncUIView.swift in Sources */,
+				E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */,
 				E985C79525F3AD9700CB895C /* RsyncVersionString.swift in Sources */,
 				E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */,
 				E985C72D25F3AD9700CB895C /* Snapshotlogsandcatalogs.swift in Sources */,
@@ -1265,6 +1275,8 @@
 				E985C77825F3AD9700CB895C /* GetRemoteFileListingsArguments.swift in Sources */,
 				E985C67C25F3AD8400CB895C /* SchedulesList.swift in Sources */,
 				E985C65725F3AD8400CB895C /* SidebarSnapshotsView.swift in Sources */,
+				E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */,
+				E9C9306225FEA0010049A76B /* ObserveableReferenceJSON.swift in Sources */,
 				E985C74625F3AD9700CB895C /* Numbers.swift in Sources */,
 				E985C66E25F3AD8400CB895C /* ImageRsync.swift in Sources */,
 				E985C67725F3AD8400CB895C /* ImageSingletask.swift in Sources */,

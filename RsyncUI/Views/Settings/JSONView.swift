@@ -11,7 +11,7 @@ import SwiftUI
 struct JSONView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
-    @StateObject var usersettings = ObserveableReference()
+    @StateObject var usersettings = ObserveableReferenceJSON()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
@@ -123,10 +123,11 @@ struct JSONView: View {
             title: Text(NSLocalizedString("Enable JSON or PLIST?", comment: "")),
             message: Text(NSLocalizedString("Cancel or OK", comment: "")),
             primaryButton: Alert.Button.default(Text(NSLocalizedString("OK", comment: "")), action: {
-                rsyncversionObject.update()
+                rsyncversionObject.reload()
             }),
             secondaryButton: Alert.Button.cancel(Text(NSLocalizedString("Cancel", comment: "")), action: {
                 let resetvalue = $usersettings.json.wrappedValue
+                usersettings.inputchangedbyuser = false
                 usersettings.json = !resetvalue
                 usersettings.isDirty = false
             })
