@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 11/03/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -15,10 +16,15 @@ struct LogListAlllogsView: View {
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
 
+    @State private var filterstring: String = ""
+
     var body: some View {
         Form {
+            SearchbarView(text: $filterstring)
+                .padding(.top, -20)
+
             List(selection: $selectedlog) {
-                ForEach(rsyncOSXData.alllogssorted ?? []) { record in
+                ForEach(rsyncOSXData.alllogssorted?.filter { filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false } ?? []) { record in
                     LogRow(selecteduuids: $selecteduuids, logrecord: record)
                         .tag(record)
                 }
