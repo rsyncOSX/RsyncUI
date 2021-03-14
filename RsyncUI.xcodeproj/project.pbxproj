@@ -516,7 +516,7 @@
 				E985C62A25F3AD8400CB895C /* Images */,
 				E985C63825F3AD8400CB895C /* RsyncCommand */,
 				E985C63A25F3AD8400CB895C /* About */,
-				E985C64125F3AD8400CB895C /* Logs */,
+				E985C64125F3AD8400CB895C /* Logging */,
 				E985C64625F3AD8400CB895C /* Add */,
 				E985C64C25F3AD8400CB895C /* NotYetImplemented */,
 			);
@@ -649,7 +649,7 @@
 			path = Schedules;
 			sourceTree = "<group>";
 		};
-		E985C64125F3AD8400CB895C /* Logs */ = {
+		E985C64125F3AD8400CB895C /* Logging */ = {
 			isa = PBXGroup;
 			children = (
 				E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */,
@@ -660,7 +660,7 @@
 				E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */,
 				E835457325FE4EBF00A724EE /* SearchbarView.swift */,
 			);
-			path = Logs;
+			path = Logging;
 			sourceTree = "<group>";
 		};
 		E985C64625F3AD8400CB895C /* Add */ = {
