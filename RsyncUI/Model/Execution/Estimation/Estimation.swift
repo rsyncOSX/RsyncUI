@@ -112,7 +112,7 @@ final class Estimation {
         stateDelegate = estimationstateDelegate
         updateestimationcountDelegate = updateinprogresscount
         // Debug print
-        printdebugdata(uuids)
+        //printdebugdata(uuids)
         // Debug print
         if uuids.count > 0 {
             // Estimate selected configurations
