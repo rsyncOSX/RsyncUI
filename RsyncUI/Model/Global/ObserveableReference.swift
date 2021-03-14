@@ -196,56 +196,6 @@ class ObserveableReference: ObservableObject {
         return true
     }
 
-    /*
-     func setnologlevel(_ value: Bool) {
-         guard inputchangedbyuser == true else { return }
-         SharedReference.shared.nologging = value
-         switch value {
-         case true:
-             SharedReference.shared.fulllogging = false
-             SharedReference.shared.minimumlogging = false
-         case false:
-             SharedReference.shared.fulllogging = false
-             SharedReference.shared.minimumlogging = true
-         }
-         isDirty = true
-         print(SharedReference.shared.nologging)
-         print(SharedReference.shared.fulllogging)
-         print(SharedReference.shared.minimumlogging)
-     }
-
-     func setminloglevel(_ value: Bool) {
-         guard inputchangedbyuser == true else { return }
-         SharedReference.shared.minimumlogging = value
-         SharedReference.shared.fulllogging = false
-         switch value {
-         case true:
-             SharedReference.shared.nologging = false
-         case false:
-             SharedReference.shared.nologging = true
-         }
-         isDirty = true
-         print(SharedReference.shared.nologging)
-         print(SharedReference.shared.fulllogging)
-         print(SharedReference.shared.minimumlogging)
-     }
-
-     func setfullloglevel(_ value: Bool) {
-         guard inputchangedbyuser == true else { return }
-         SharedReference.shared.fulllogging = value
-         SharedReference.shared.minimumlogging = false
-         switch value {
-         case true:
-             SharedReference.shared.nologging = false
-         case false:
-             SharedReference.shared.nologging = true
-         }
-         isDirty = true
-         print(SharedReference.shared.nologging)
-         print(SharedReference.shared.fulllogging)
-         print(SharedReference.shared.minimumlogging)
-     }
-     */
     // SSH identityfile
     private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
         if keypath.first != "~" { throw SshError.noslash }
