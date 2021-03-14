@@ -79,18 +79,21 @@ class ObserveableReference: ObservableObject {
             }.store(in: &subscriptions)
         $nologging
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] no in
-                setnologlevel(no)
+            .sink { [unowned self] value in
+                SharedReference.shared.nologging = value
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $minimumlogging
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] min in
-                setminloglevel(min)
+                SharedReference.shared.minimumlogging = min
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $fulllogging
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] full in
-                setfullloglevel(full)
+                SharedReference.shared.fulllogging = full
+                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $detailedlogging
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
@@ -193,46 +196,56 @@ class ObserveableReference: ObservableObject {
         return true
     }
 
-    func setnologlevel(_ value: Bool) {
-        guard inputchangedbyuser == true else { return }
-        SharedReference.shared.nologging = value
-        switch value {
-        case true:
-            SharedReference.shared.fulllogging = false
-            SharedReference.shared.minimumlogging = false
-        case false:
-            SharedReference.shared.fulllogging = false
-            SharedReference.shared.minimumlogging = true
-        }
-        isDirty = true
-    }
+    /*
+     func setnologlevel(_ value: Bool) {
+         guard inputchangedbyuser == true else { return }
+         SharedReference.shared.nologging = value
+         switch value {
+         case true:
+             SharedReference.shared.fulllogging = false
+             SharedReference.shared.minimumlogging = false
+         case false:
+             SharedReference.shared.fulllogging = false
+             SharedReference.shared.minimumlogging = true
+         }
+         isDirty = true
+         print(SharedReference.shared.nologging)
+         print(SharedReference.shared.fulllogging)
+         print(SharedReference.shared.minimumlogging)
+     }
 
-    func setminloglevel(_ value: Bool) {
-        guard inputchangedbyuser == true else { return }
-        SharedReference.shared.minimumlogging = value
-        SharedReference.shared.fulllogging = false
-        switch value {
-        case true:
-            SharedReference.shared.nologging = false
-        case false:
-            SharedReference.shared.nologging = true
-        }
-        isDirty = true
-    }
+     func setminloglevel(_ value: Bool) {
+         guard inputchangedbyuser == true else { return }
+         SharedReference.shared.minimumlogging = value
+         SharedReference.shared.fulllogging = false
+         switch value {
+         case true:
+             SharedReference.shared.nologging = false
+         case false:
+             SharedReference.shared.nologging = true
+         }
+         isDirty = true
+         print(SharedReference.shared.nologging)
+         print(SharedReference.shared.fulllogging)
+         print(SharedReference.shared.minimumlogging)
+     }
 
-    func setfullloglevel(_ value: Bool) {
-        guard inputchangedbyuser == true else { return }
-        SharedReference.shared.fulllogging = value
-        SharedReference.shared.minimumlogging = false
-        switch value {
-        case true:
-            SharedReference.shared.nologging = false
-        case false:
-            SharedReference.shared.nologging = true
-        }
-        isDirty = true
-    }
-
+     func setfullloglevel(_ value: Bool) {
+         guard inputchangedbyuser == true else { return }
+         SharedReference.shared.fulllogging = value
+         SharedReference.shared.minimumlogging = false
+         switch value {
+         case true:
+             SharedReference.shared.nologging = false
+         case false:
+             SharedReference.shared.nologging = true
+         }
+         isDirty = true
+         print(SharedReference.shared.nologging)
+         print(SharedReference.shared.fulllogging)
+         print(SharedReference.shared.minimumlogging)
+     }
+     */
     // SSH identityfile
     private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
         if keypath.first != "~" { throw SshError.noslash }

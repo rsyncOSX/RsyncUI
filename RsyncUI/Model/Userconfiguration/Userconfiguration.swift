@@ -78,6 +78,13 @@ struct Userconfiguration {
                 SharedReference.shared.fulllogging = false
             }
         }
+        // To set correct toggle in user configuration
+        if SharedReference.shared.fulllogging == false && SharedReference.shared.minimumlogging == false {
+            SharedReference.shared.nologging = true
+        } else {
+            SharedReference.shared.nologging = false
+        }
+
         if let environment = dict.value(forKey: DictionaryStrings.environment.rawValue) as? String {
             SharedReference.shared.environment = environment
         }

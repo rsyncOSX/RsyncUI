@@ -45,14 +45,29 @@ struct Usersettings: View {
                             Section(header: headerloggingtofile) {
                                 ToggleView(NSLocalizedString("None", comment: "settings"), $usersettings.nologging.onChange {
                                     usersettings.inputchangedbyuser = true
+                                    if usersettings.nologging == true {
+                                        usersettings.minimumlogging = false
+                                        usersettings.fulllogging = false
+                                    } else {
+                                        usersettings.minimumlogging = true
+                                        usersettings.fulllogging = false
+                                    }
                                 })
 
                                 ToggleView(NSLocalizedString("Min", comment: "settings"), $usersettings.minimumlogging.onChange {
                                     usersettings.inputchangedbyuser = true
+                                    if usersettings.minimumlogging == true {
+                                        usersettings.nologging = false
+                                        usersettings.fulllogging = false
+                                    }
                                 })
 
                                 ToggleView(NSLocalizedString("Full", comment: "settings"), $usersettings.fulllogging.onChange {
                                     usersettings.inputchangedbyuser = true
+                                    if usersettings.fulllogging == true {
+                                        usersettings.nologging = false
+                                        usersettings.minimumlogging = false
+                                    }
                                 })
                             }
                         }
