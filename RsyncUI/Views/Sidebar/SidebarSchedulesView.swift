@@ -87,7 +87,8 @@ struct SidebarSchedulesView: View {
                                             selectedprofile: $selectedprofile)
                     }
             }
-        }.padding()
+        }
+        .padding()
     }
 
     var headingtitle: some View {
