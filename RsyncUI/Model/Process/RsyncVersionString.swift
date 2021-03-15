@@ -19,15 +19,17 @@ final class RsyncVersionString {
     var rsyncversionstring: String?
     weak var updateRsyncVersionStringDelegate: UpdateRsyncVersionString?
 
+    var command: ProcessCombine?
+
     init(object: UpdateRsyncVersionString?) {
         updateRsyncVersionStringDelegate = object
         if SharedReference.shared.norsync == false {
             outputprocess = OutputProcess()
-            let command = RsyncProcessCmdClosure(arguments: ["--version"],
-                                                 config: nil,
-                                                 processtermination: processtermination,
-                                                 filehandler: filehandler)
-            command.executeProcess(outputprocess: outputprocess)
+            command = ProcessCombine(arguments: ["--version"],
+                                     config: nil,
+                                     processtermination: processtermination,
+                                     filehandler: filehandler)
+            command?.executeProcess(outputprocess: outputprocess)
         }
     }
 }
@@ -44,6 +46,8 @@ extension RsyncVersionString {
             self.rsyncversionstring = rsyncversionstring
             updateRsyncVersionStringDelegate?.updatersyncversionstring(rsyncversion: rsyncversionshort)
         }
+        // Release object
+        command = nil
     }
 
     func filehandler() {}
