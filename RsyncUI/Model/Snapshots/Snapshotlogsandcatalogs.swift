@@ -26,7 +26,7 @@ final class Snapshotlogsandcatalogs {
                                               remoteFile: nil,
                                               localCatalog: nil,
                                               drynrun: nil)
-        let command = RsyncProcessCmdClosure(arguments: arguments.getArguments(),
+        let command = RsyncProcessCmdCombine(arguments: arguments.getArguments(),
                                              config: nil,
                                              processtermination: processtermination,
                                              filehandler: filehandler)

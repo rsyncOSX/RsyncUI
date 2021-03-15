@@ -15,7 +15,7 @@ final class ExecuteOneTask {
 
     func startexecution() {
         if let arguments = self.arguments {
-            let process = RsyncProcessCmdClosure(arguments: arguments,
+            let process = RsyncProcessCmdCombine(arguments: arguments,
                                                  config: nil,
                                                  processtermination: processtermination,
                                                  filehandler: filehandler)

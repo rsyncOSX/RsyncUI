@@ -24,7 +24,7 @@ class ExecuteSingleTaskNow {
 
     var hiddenID: Int?
     var outputprocess: OutputProcess?
-    var command: RsyncProcessCmdClosure?
+    var command: RsyncProcessCmdCombine?
     var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     var localschedulesSwiftUI: SchedulesSwiftUI?
     var structprofile: String?
@@ -36,7 +36,7 @@ class ExecuteSingleTaskNow {
         if let hiddenID = self.hiddenID {
             outputprocess = OutputProcessRsync()
             if let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
-                command = RsyncProcessCmdClosure(arguments: arguments,
+                command = RsyncProcessCmdCombine(arguments: arguments,
                                                  config: localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID),
                                                  processtermination: processtermination,
                                                  filehandler: filehandler)

@@ -26,7 +26,7 @@ final class ExecuteSingleTask {
     var hiddenID: Int?
     var outputprocess: OutputProcess?
     var workqueu: SingleTaskWorkQueu?
-    var command: RsyncProcessCmdClosure?
+    var command: RsyncProcessCmdCombine?
     var structconfigurations: ConfigurationsSwiftUI?
     var structschedules: SchedulesSwiftUI?
     var structprofile: String?
@@ -47,7 +47,7 @@ final class ExecuteSingleTask {
             if let arguments = structconfigurations?.arguments4rsync(hiddenID: hiddenID, argtype: .argdryRun),
                let config = structconfigurations?.getconfiguration(hiddenID: hiddenID)
             {
-                command = RsyncProcessCmdClosure(arguments: arguments,
+                command = RsyncProcessCmdCombine(arguments: arguments,
                                                  config: config,
                                                  processtermination: processtermination,
                                                  filehandler: filehandler)
@@ -64,7 +64,7 @@ final class ExecuteSingleTask {
         if let hiddenID = self.hiddenID {
             outputprocess = OutputProcessRsync()
             if let arguments = structconfigurations?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
-                command = RsyncProcessCmdClosure(arguments: arguments,
+                command = RsyncProcessCmdCombine(arguments: arguments,
                                                  config: structconfigurations?.getconfiguration(hiddenID: hiddenID),
                                                  processtermination: processtermination,
                                                  filehandler: filehandler)
