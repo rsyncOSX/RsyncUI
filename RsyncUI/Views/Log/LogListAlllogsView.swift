@@ -33,7 +33,7 @@ struct LogListAlllogsView: View {
             Spacer()
 
             HStack {
-                Text(label)
+                Text(labelnumberoflogs)
 
                 Spacer()
 
@@ -53,8 +53,12 @@ struct LogListAlllogsView: View {
         .padding()
     }
 
-    var label: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncOSXData.alllogssorted?.count ?? 0)"
+    var numberoflogs: Int {
+        rsyncOSXData.alllogssorted?.filter { filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false }.count ?? 0
+    }
+
+    var labelnumberoflogs: String {
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(numberoflogs)"
     }
 }
 

@@ -49,8 +49,7 @@ struct SidebarSchedulesView: View {
                                   selecteduuids: $selecteduuids)
                 }
 
-                SchedulesDatePickerView(selecteddate: $selecteddate,
-                                        selectedscheduletype: $selectedscheduletype)
+                SchedulesDatePickerView(selecteddate: $selecteddate)
             }
             .padding()
             .alert(isPresented: errorhandling.isPresentingAlert, content: {

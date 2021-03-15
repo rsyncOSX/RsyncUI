@@ -19,7 +19,6 @@ enum EnumScheduleDatePicker: String, CaseIterable, Identifiable, CustomStringCon
 
 struct SchedulesDatePickerView: View {
     @Binding var selecteddate: Date
-    @Binding var selectedscheduletype: EnumScheduleDatePicker
 
     var body: some View {
         DatePicker("", selection: $selecteddate,
