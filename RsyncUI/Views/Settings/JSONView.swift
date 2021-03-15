@@ -10,7 +10,6 @@ import SwiftUI
 
 struct JSONView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
     @StateObject var usersettings = ObserveableReferenceJSON()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
