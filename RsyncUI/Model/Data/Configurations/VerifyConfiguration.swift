@@ -210,7 +210,7 @@ final class VerifyConfiguration: Connected {
         let config = Configuration(dictionary: dict)
         guard config.offsiteServer.isEmpty == false else { return }
         let args = SnapshotCreateCatalogArguments(config: config)
-        let updatecurrent = OtherProcessCmdClosure(command: args.getCommand(),
+        let updatecurrent = OtherProcessCmdCombine(command: args.getCommand(),
                                                    arguments: args.getArguments(),
                                                    processtermination: processtermination,
                                                    filehandler: filehandler)
