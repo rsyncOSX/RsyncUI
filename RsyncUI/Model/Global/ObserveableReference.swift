@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 16/02/2021.
 //
-// swiftlint:disable function_body_length type_body_length
 
 import Combine
 import Foundation
@@ -30,9 +29,6 @@ class ObserveableReference: ObservableObject {
     @Published var nologging: Bool = SharedReference.shared.nologging
     // Mark number of days since last backup
     @Published var marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
-    // Environment
-    @Published var environment: String = SharedReference.shared.environment ?? ""
-    @Published var environmentvalue: String = SharedReference.shared.environmentvalue ?? ""
     // Paths for apps
     @Published var pathrsyncosx: String = SharedReference.shared.pathrsyncosx ?? ""
     @Published var pathrsyncosxsched: String = SharedReference.shared.pathrsyncosxsched ?? ""
@@ -105,18 +101,6 @@ class ObserveableReference: ObservableObject {
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] value in
                 markdays(days: value)
-            }.store(in: &subscriptions)
-        $environment
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] environment in
-                SharedReference.shared.environment = environment
-                isDirty = inputchangedbyuser
-            }.store(in: &subscriptions)
-        $environmentvalue
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] environmentvalue in
-                SharedReference.shared.environmentvalue = environmentvalue
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $pathrsyncosx
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
