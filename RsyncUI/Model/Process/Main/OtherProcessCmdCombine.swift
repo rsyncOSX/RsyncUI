@@ -1,5 +1,5 @@
 //
-//  ProcessCombine.swift
+//  OtherProcessCmdCombine.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 15/03/2021.
@@ -8,53 +8,26 @@
 import Combine
 import Foundation
 
-class ProcessCombine: Delay {
+class OtherProcessCmdCombine: Delay {
     var cancellable_processtermination: Cancellable?
     var cancellable_filehandler: Cancellable?
 
     // Process termination and filehandler closures
     var processtermination: () -> Void
     var filehandler: () -> Void
-    // Verify network connection
-    var config: Configuration?
-    var monitor: NetworkMonitor?
+    // Command to be executed, normally rsync
+    var command: String?
     // Arguments to command
     var arguments: [String]?
-    // true if processtermination
-    var termination: Bool = false
-
-    func executemonitornetworkconnection() {
-        guard config?.offsiteServer.isEmpty == false else { return }
-        guard SharedReference.shared.monitornetworkconnection == true else { return }
-        monitor = NetworkMonitor()
-        monitor?.netStatusChangeHandler = { [unowned self] in
-            do {
-                try statusDidChange()
-            } catch let e {
-                let error = e
-                self.propogateerror(error: error)
-            }
-        }
-    }
-
-    // Throws error
-    func statusDidChange() throws {
-        if monitor?.monitor?.currentPath.status != .satisfied {
-            let output = OutputProcess()
-            let string = "Network connection is dropped: " + Date().long_localized_string_from_date()
-            output.addlinefromoutput(str: string)
-            _ = InterruptProcess(output: output)
-            throw Networkerror.networkdropped
-        }
-    }
 
     func executeProcess(outputprocess: OutputProcess?) {
-        // Must check valid rsync exists
-        guard SharedReference.shared.norsync == false else { return }
+        guard command != nil else { return }
         // Process
         let task = Process()
-        // Getting version of rsync
-        task.launchPath = GetfullpathforRsync().rsyncpath
+        // If self.command != nil either alternativ path for rsync or other command than rsync to be executed
+        if let command = self.command {
+            task.launchPath = command
+        }
         task.arguments = arguments
         // If there are any Environmentvariables like
         // SSH_AUTH_SOCK": "/Users/user/.gnupg/S.gpg-agent.ssh"
@@ -82,17 +55,13 @@ class ProcessCombine: Delay {
             }
         cancellable_processtermination = NotificationCenter.default
             .publisher(for: Process.didTerminateNotification)
-            .sink { _ in
-                self.delayWithSeconds(0.5) { [self] in
-                    if self.termination == false { self.processtermination() }
-                    self.termination = true
-                    // Logg to file
-                    _ = Logfile(outputprocess)
-                    cancellable_filehandler = nil
-                    cancellable_processtermination = nil
-                }
+            .sink { [self] _ in
+                self.processtermination()
+                // Logg to file
+                _ = Logfile(outputprocess)
+                cancellable_filehandler = nil
+                cancellable_processtermination = nil
             }
-
         SharedReference.shared.process = task
         do {
             try task.run()
@@ -102,32 +71,24 @@ class ProcessCombine: Delay {
         }
     }
 
-    // Terminate Process, used when user Aborts task.
-    func abortProcess() {
-        _ = InterruptProcess()
-    }
-
-    init(arguments: [String]?,
-         config: Configuration?,
+    init(command: String?,
+         arguments: [String]?,
          processtermination: @escaping () -> Void,
          filehandler: @escaping () -> Void)
     {
+        self.command = command
         self.arguments = arguments
         self.processtermination = processtermination
         self.filehandler = filehandler
-        self.config = config
-        executemonitornetworkconnection()
     }
 
     deinit {
-        self.monitor?.stopMonitoring()
-        self.monitor = nil
         SharedReference.shared.process = nil
-        print("deinit ProcessCombine")
+        print("deinit OtherProcessCmdCombine")
     }
 }
 
-extension ProcessCombine: PropogateError {
+extension OtherProcessCmdCombine: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
