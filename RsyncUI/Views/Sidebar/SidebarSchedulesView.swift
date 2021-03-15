@@ -44,6 +44,8 @@ struct SidebarSchedulesView: View {
                 SchedulesDatePickerView(selecteddate: $selecteddate,
                                         selectedscheduletype: $selectedscheduletype)
 
+                Spacer()
+
                 VStack {
                     SelectedstartView(selecteddate: $selecteddate,
                                       selectedscheduletype: $selectedscheduletype)
@@ -60,31 +62,31 @@ struct SidebarSchedulesView: View {
             .alert(isPresented: errorhandling.isPresentingAlert, content: {
                 Alert(localizedError: errorhandling.activeError!)
             })
-        }
 
-        // Buttons in right down corner
-        Spacer()
-
-        HStack {
+            // Buttons in right down corner
             Spacer()
 
-            Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
-                .buttonStyle(PrimaryButtonStyle())
+            HStack {
+                Spacer()
 
-            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
-                .buttonStyle(PrimaryButtonStyle())
+                Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
+                    .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Stop", comment: "Stop button")) { stop() }
-                .buttonStyle(PrimaryButtonStyle())
+                Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+                    .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
-                .buttonStyle(AbortButtonStyle())
-                .sheet(isPresented: $showAlertfordelete) {
-                    DeleteSchedulesView(selecteduuids: $selecteduuids,
-                                        isPresented: $showAlertfordelete,
-                                        reload: $reload,
-                                        selectedprofile: $selectedprofile)
-                }
+                Button(NSLocalizedString("Stop", comment: "Stop button")) { stop() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
+                    .buttonStyle(AbortButtonStyle())
+                    .sheet(isPresented: $showAlertfordelete) {
+                        DeleteSchedulesView(selecteduuids: $selecteduuids,
+                                            isPresented: $showAlertfordelete,
+                                            reload: $reload,
+                                            selectedprofile: $selectedprofile)
+                    }
+            }
         }.padding()
     }
 
