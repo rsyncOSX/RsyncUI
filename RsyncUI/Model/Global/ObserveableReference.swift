@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 16/02/2021.
 //
+// swiftlint:disable function_body_length
 
 import Combine
 import Foundation
