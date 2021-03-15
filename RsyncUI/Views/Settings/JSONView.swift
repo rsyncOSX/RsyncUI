@@ -123,7 +123,8 @@ struct JSONView: View {
             title: Text(NSLocalizedString("Enable JSON or PLIST?", comment: "")),
             message: Text(NSLocalizedString("Cancel or OK", comment: "")),
             primaryButton: Alert.Button.default(Text(NSLocalizedString("OK", comment: "")), action: {
-                rsyncversionObject.reload()
+                // Reload after changing format
+                reload = true
             }),
             secondaryButton: Alert.Button.cancel(Text(NSLocalizedString("Cancel", comment: "")), action: {
                 let resetvalue = $usersettings.json.wrappedValue
