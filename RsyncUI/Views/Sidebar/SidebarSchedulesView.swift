@@ -39,13 +39,6 @@ struct SidebarSchedulesView: View {
                                inwork: $inwork,
                                selectable: $selectable)
             HStack {
-                Spacer()
-
-                SchedulesDatePickerView(selecteddate: $selecteddate,
-                                        selectedscheduletype: $selectedscheduletype)
-
-                Spacer()
-
                 VStack {
                     SelectedstartView(selecteddate: $selecteddate,
                                       selectedscheduletype: $selectedscheduletype)
@@ -56,13 +49,13 @@ struct SidebarSchedulesView: View {
                                   selecteduuids: $selecteduuids)
                 }
 
-                Spacer()
+                SchedulesDatePickerView(selecteddate: $selecteddate,
+                                        selectedscheduletype: $selectedscheduletype)
             }
             .padding()
             .alert(isPresented: errorhandling.isPresentingAlert, content: {
                 Alert(localizedError: errorhandling.activeError!)
             })
-
             // Buttons in right down corner
             Spacer()
 

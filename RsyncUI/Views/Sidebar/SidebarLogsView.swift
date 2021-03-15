@@ -15,13 +15,13 @@ struct SidebarLogsView: View {
 
     var body: some View {
         TabView {
-            LogsbyConfigurationView()
-                .tabItem {
-                    Text(NSLocalizedString("By config", comment: "logsview"))
-                }
             LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile)
                 .tabItem {
                     Text(NSLocalizedString("All logs", comment: "logsview"))
+                }
+            LogsbyConfigurationView()
+                .tabItem {
+                    Text(NSLocalizedString("By config", comment: "logsview"))
                 }
         }
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
