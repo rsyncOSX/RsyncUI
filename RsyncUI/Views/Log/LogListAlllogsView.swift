@@ -37,10 +37,13 @@ struct LogListAlllogsView: View {
 
                 Spacer()
 
+                Button(NSLocalizedString("Clear", comment: "Select button")) { selecteduuids.removeAll() }
+                    .buttonStyle(PrimaryButtonStyle())
+
                 Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("All", comment: "Select button")) {}
+                Button(NSLocalizedString("All", comment: "Select button")) { selectall() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
@@ -66,6 +69,23 @@ extension LogListAlllogsView {
                 selecteduuids.remove(selectedlog.id)
             } else {
                 selecteduuids.insert(selectedlog.id)
+            }
+        }
+    }
+
+    func selectall() {
+        selecteduuids.removeAll()
+        for i in 0 ..< (rsyncOSXData.alllogssorted?.count ?? 0) {
+            if filterstring.isEmpty == true {
+                if let id = rsyncOSXData.alllogssorted?[i].id {
+                    selecteduuids.insert(id)
+                }
+            } else {
+                if rsyncOSXData.alllogssorted?[i].dateExecuted?.contains(filterstring) ?? false {
+                    if let id = rsyncOSXData.alllogssorted?[i].id {
+                        selecteduuids.insert(id)
+                    }
+                }
             }
         }
     }
