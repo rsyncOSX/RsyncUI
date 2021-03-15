@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class RsyncProcessCmdCombine: Delay {
+final class RsyncProcessCmdCombineClosure: Delay {
     var cancellable_processtermination: Cancellable?
     var cancellable_filehandler: Cancellable?
 
@@ -67,6 +67,8 @@ class RsyncProcessCmdCombine: Delay {
         task.standardError = pipe
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
+        // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
+        // notifications
         cancellable_filehandler = NotificationCenter.default
             .publisher(for: NSNotification.Name.NSFileHandleDataAvailable)
             .sink { _ in
@@ -80,6 +82,8 @@ class RsyncProcessCmdCombine: Delay {
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
             }
+        // Combine, subscribe to Process.didTerminateNotification
+        // notifications
         cancellable_processtermination = NotificationCenter.default
             .publisher(for: Process.didTerminateNotification)
             .sink { _ in
@@ -126,7 +130,7 @@ class RsyncProcessCmdCombine: Delay {
     }
 }
 
-extension RsyncProcessCmdCombine: PropogateError {
+extension RsyncProcessCmdCombineClosure: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

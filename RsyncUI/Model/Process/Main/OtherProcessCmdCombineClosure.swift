@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class OtherProcessCmdCombine: Delay {
+final class OtherProcessCmdCombineClosure: Delay {
     var cancellable_processtermination: Cancellable?
     var cancellable_filehandler: Cancellable?
 
@@ -40,6 +40,8 @@ class OtherProcessCmdCombine: Delay {
         task.standardError = pipe
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
+        // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
+        // notifications
         cancellable_filehandler = NotificationCenter.default
             .publisher(for: NSNotification.Name.NSFileHandleDataAvailable)
             .sink { _ in
@@ -53,6 +55,8 @@ class OtherProcessCmdCombine: Delay {
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
             }
+        // Combine, subscribe to Process.didTerminateNotification
+        // notifications
         cancellable_processtermination = NotificationCenter.default
             .publisher(for: Process.didTerminateNotification)
             .sink { [self] _ in
@@ -88,7 +92,7 @@ class OtherProcessCmdCombine: Delay {
     }
 }
 
-extension OtherProcessCmdCombine: PropogateError {
+extension OtherProcessCmdCombineClosure: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

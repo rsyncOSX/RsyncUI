@@ -58,10 +58,10 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
             guard error == false else { return }
             outputprocess = OutputProcessRsync()
             if let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
-                command = RsyncProcessCmdCombine(arguments: arguments,
-                                                 config: localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID),
-                                                 processtermination: processtermination,
-                                                 filehandler: filehandler)
+                command = RsyncProcessCmdCombineClosure(arguments: arguments,
+                                                        config: localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID),
+                                                        processtermination: processtermination,
+                                                        filehandler: filehandler)
                 command?.executeProcess(outputprocess: outputprocess)
             }
         }

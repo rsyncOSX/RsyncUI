@@ -102,10 +102,10 @@ final class SshKeys: Catalogsandfiles {
     func executesshcreatekeys() {
         guard arguments != nil else { return }
         outputprocess = OutputProcess()
-        let process = OtherProcessCmdCombine(command: command,
-                                             arguments: arguments,
-                                             processtermination: processtermination,
-                                             filehandler: filehandler)
+        let process = OtherProcessCmdCombineClosure(command: command,
+                                                    arguments: arguments,
+                                                    processtermination: processtermination,
+                                                    filehandler: filehandler)
         process.executeProcess(outputprocess: outputprocess)
     }
 

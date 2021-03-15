@@ -3,7 +3,7 @@ import Foundation
 final class RemoteCapacity: Connected {
     var outputprocess: OutputProcess?
     var config: Configuration?
-    var command: OtherProcessCmdCombine?
+    var command: OtherProcessCmdCombineClosure?
 
     func getremotecapacity() {
         if let config = self.config {
@@ -14,10 +14,10 @@ final class RemoteCapacity: Connected {
             let duargs = DuArgumentsSsh(config: self.config!)
             guard duargs.getArguments() != nil || duargs.getCommand() != nil else { return }
 
-            command = OtherProcessCmdCombine(command: duargs.getCommand(),
-                                             arguments: duargs.getArguments(),
-                                             processtermination: processtermination,
-                                             filehandler: filehandler)
+            command = OtherProcessCmdCombineClosure(command: duargs.getCommand(),
+                                                    arguments: duargs.getArguments(),
+                                                    processtermination: processtermination,
+                                                    filehandler: filehandler)
             command?.executeProcess(outputprocess: outputprocess)
         }
     }

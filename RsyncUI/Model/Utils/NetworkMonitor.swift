@@ -9,7 +9,18 @@
 import Foundation
 import Network
 
-class NetworkMonitor {
+enum Networkerror: LocalizedError {
+    case networkdropped
+
+    var errorDescription: String? {
+        switch self {
+        case .networkdropped:
+            return NSLocalizedString("Network connection is dropped", comment: "filesize error") + "..."
+        }
+    }
+}
+
+final class NetworkMonitor {
     var monitor: NWPathMonitor?
     var netStatusChangeHandler: (() -> Void)?
 
@@ -22,7 +33,8 @@ class NetworkMonitor {
         guard let monitor = monitor else { return nil }
         return monitor.currentPath.availableInterfaces.filter {
             monitor.currentPath.usesInterfaceType($0.type)
-        }.first?.type
+        }
+        .first?.type
     }
 
     var availableInterfacesTypes: [NWInterface.InterfaceType]? {
