@@ -44,9 +44,15 @@ struct SidebarSchedulesView: View {
                 SchedulesDatePickerView(selecteddate: $selecteddate,
                                         selectedscheduletype: $selectedscheduletype)
 
-                SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
-                              selectedschedule: $selectedschedule,
-                              selecteduuids: $selecteduuids)
+                VStack {
+                    SelectedstartView(selecteddate: $selecteddate,
+                                      selectedscheduletype: $selectedscheduletype)
+                        .padding(1)
+
+                    SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+                                  selectedschedule: $selectedschedule,
+                                  selecteduuids: $selecteduuids)
+                }
 
                 Spacer()
             }
