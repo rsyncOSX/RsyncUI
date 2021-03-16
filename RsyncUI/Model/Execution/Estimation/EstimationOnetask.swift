@@ -12,11 +12,12 @@ final class EstimationOnetask {
     var processtermination: () -> Void
     var filehandler: () -> Void
     var outputprocess: OutputProcess?
+    var config: Configuration?
 
     func startestimation() {
         if let arguments = self.arguments {
             let process = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                        config: nil,
+                                                        config: config,
                                                         processtermination: processtermination,
                                                         filehandler: filehandler)
             process.executeProcess(outputprocess: outputprocess)
@@ -40,6 +41,7 @@ final class EstimationOnetask {
         } else {
             arguments = configurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .argdryRun)
         }
+        config = configurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)
     }
 
     deinit {

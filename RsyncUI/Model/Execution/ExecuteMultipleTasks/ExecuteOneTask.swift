@@ -12,11 +12,12 @@ final class ExecuteOneTask {
     var processtermination: () -> Void
     var filehandler: () -> Void
     var outputprocess: OutputProcess?
+    var config: Configuration?
 
     func startexecution() {
         if let arguments = self.arguments {
             let process = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                        config: nil,
+                                                        config: config,
                                                         processtermination: processtermination,
                                                         filehandler: filehandler)
             process.executeProcess(outputprocess: outputprocess)
@@ -33,6 +34,7 @@ final class ExecuteOneTask {
         self.processtermination = processtermination
         self.filehandler = filehandler
         arguments = configurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg)
+        config = configurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)
     }
 
     deinit {

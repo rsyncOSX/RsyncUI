@@ -41,7 +41,8 @@ final class RsyncProcessCmdCombineClosure: Delay {
     func statusDidChange() throws {
         if monitor?.monitor?.currentPath.status != .satisfied {
             let output = OutputProcess()
-            let string = "Network connection is dropped: " + Date().long_localized_string_from_date()
+            let string = NSLocalizedString("Network connection is dropped", comment: "network") + ":"
+                + Date().long_localized_string_from_date()
             output.addlinefromoutput(str: string)
             _ = InterruptProcess(output: output)
             throw Networkerror.networkdropped

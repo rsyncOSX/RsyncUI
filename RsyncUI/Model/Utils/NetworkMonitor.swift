@@ -15,7 +15,7 @@ enum Networkerror: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .networkdropped:
-            return NSLocalizedString("Network connection is dropped", comment: "filesize error") + "..."
+            return NSLocalizedString("Network connection is dropped", comment: "network error") + "..."
         }
     }
 }
@@ -52,6 +52,7 @@ final class NetworkMonitor {
 
     deinit {
         self.stopMonitoring()
+        print("deinit NetworkMonitor")
     }
 
     func startMonitoring() {
