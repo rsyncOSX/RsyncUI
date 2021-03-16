@@ -20,8 +20,6 @@ final class RsyncProcessCmdCombineClosure: Delay {
     var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
-    // true if processtermination
-    var termination: Bool = false
 
     func executemonitornetworkconnection() {
         guard config?.offsiteServer.isEmpty == false else { return }
@@ -89,8 +87,7 @@ final class RsyncProcessCmdCombineClosure: Delay {
             .publisher(for: Process.didTerminateNotification)
             .sink { _ in
                 self.delayWithSeconds(0.5) { [self] in
-                    if self.termination == false { self.processtermination() }
-                    self.termination = true
+                    self.processtermination()
                     // Logg to file
                     _ = Logfile(outputprocess)
                     cancellable_filehandler = nil
