@@ -38,7 +38,7 @@ final class Snapshotlogsandcatalogs {
     // sort snapshotcatalogs
     private func prepareremotesnapshotcatalogs() {
         _ = outputprocess?.trimoutput(trim: .two)
-        guard outputprocess?.error == false else { return }
+        guard outputprocess?.errordiscovered == false else { return }
         if let catalogs = outputprocess?.trimoutput(trim: .one),
            let datescatalogs = outputprocess?.trimoutput(trim: .four)
         {

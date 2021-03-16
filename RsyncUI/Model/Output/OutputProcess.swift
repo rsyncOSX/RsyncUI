@@ -37,7 +37,7 @@ class OutputProcess {
     var trimmedoutput: [String]?
     var startindex: Int?
     var maxnumber: Int = 0
-    var error: Bool = false
+    var errordiscovered: Bool = false
 
     // Error handling
     func checkforrsyncerror(_ line: String) throws {
@@ -100,9 +100,13 @@ class OutputProcess {
                 do {
                     try checkforrsyncerror(self.output?[i] ?? "")
                 } catch let e {
-                    let error = e
-                    _ = Logfile(self, true)
-                    self.propogateerror(error: error)
+                    // Only want one notification about error
+                    if errordiscovered == false {
+                        let error = e
+                        _ = Logfile(self, true)
+                        self.propogateerror(error: error)
+                        errordiscovered = true
+                    }
                 }
             }
             maxnumber = out.count
