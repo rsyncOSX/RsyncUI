@@ -131,8 +131,10 @@ final class UpdateSchedules {
                     }
                 }
                 for index in indexset {
+                    print("delete")
                     structschedules?[i].logrecords?[index].delete = true
                 }
+                indexset.removeAll()
             }
             PersistentStorage(profile: localeprofile,
                               whattoreadorwrite: .schedule,
