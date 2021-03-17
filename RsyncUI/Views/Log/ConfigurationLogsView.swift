@@ -12,16 +12,18 @@ struct ConfigurationLogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
 
     @Binding var selectedconfig: Configuration?
-    @State private var selectedschedule: ConfigurationSchedule?
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
-    @State var presentsheetview = false
+    @State private var filterstring: String = ""
 
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
 
     var body: some View {
+        SearchbarView(text: $filterstring)
+            .padding(.top, -20)
+
         ConfigurationsList(selectedconfig: $selectedconfig,
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
@@ -29,31 +31,54 @@ struct ConfigurationLogsView: View {
 
         Spacer()
 
-        SchedulesList(selectedconfig: $selectedconfig,
-                      selectedschedule: $selectedschedule,
-                      selecteduuids: $selecteduuids)
-            .sheet(isPresented: $presentsheetview) { viewoutput }
+        LogListView(selectedconfig: $selectedconfig,
+                    selectedlog: $selectedlog,
+                    selecteduuids: $selecteduuids)
 
         Spacer()
 
         HStack {
+            Text(labelnumberoflogs)
+
             Spacer()
 
-            Button(NSLocalizedString("Show logs", comment: "Show button")) { showlog() }
+            Button(NSLocalizedString("Clear", comment: "Select button")) { selecteduuids.removeAll() }
                 .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("All", comment: "Select button")) { selectall() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
+                .buttonStyle(AbortButtonStyle())
         }
     }
 
-    var viewoutput: some View {
-        DetailedLogView(config: $selectedconfig,
-                        isPresented: $presentsheetview,
-                        selectedconfig: $selectedconfig,
-                        selectedlog: $selectedlog)
+    var numberoflogs: Int {
+        rsyncOSXData.alllogssorted?.filter { filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false }.count ?? 0
+    }
+
+    var labelnumberoflogs: String {
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(numberoflogs)"
     }
 }
 
 extension ConfigurationLogsView {
-    func showlog() {
-        presentsheetview = true
+    func delete() {
+        _ = NotYetImplemented()
     }
+
+    func select() {
+        if let selectedlog = selectedlog {
+            if selecteduuids.contains(selectedlog.id) {
+                selecteduuids.remove(selectedlog.id)
+            } else {
+                selecteduuids.insert(selectedlog.id)
+            }
+        }
+    }
+
+    func selectall() {}
 }

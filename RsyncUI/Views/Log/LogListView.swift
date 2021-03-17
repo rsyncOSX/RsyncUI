@@ -15,10 +15,6 @@ struct LogListView: View {
     @Binding var selecteduuids: Set<UUID>
 
     var body: some View {
-        Text(NSLocalizedString("Logview", comment: "LogListView"))
-            .font(.title2)
-            .padding()
-
         List(selection: $selectedlog) {
             ForEach(logrecords) { record in
                 LogRow(selecteduuids: $selecteduuids, logrecord: record)
