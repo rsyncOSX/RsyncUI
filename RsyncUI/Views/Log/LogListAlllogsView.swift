@@ -24,7 +24,7 @@ struct LogListAlllogsView: View {
                 .padding(.top, -20)
 
             List(selection: $selectedlog) {
-                if let logs = filter {
+                if let logs = filteredlogs {
                     ForEach(logs) { record in
                         LogRow(selecteduuids: $selecteduuids, logrecord: record)
                             .tag(record)
@@ -35,7 +35,7 @@ struct LogListAlllogsView: View {
             Spacer()
 
             HStack {
-                Text(labelnumberoflogs)
+                Text(numberoflogs)
 
                 Spacer()
 
@@ -55,17 +55,15 @@ struct LogListAlllogsView: View {
         .padding()
     }
 
-    var numberoflogs: Int { filter?.count ?? 0 }
-
-    var filter: [Log]? {
+    var filteredlogs: [Log]? {
         rsyncOSXData.alllogssorted?.filter {
             filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false ||
                 filterstring.isEmpty ? true : $0.resultExecuted?.contains(filterstring) ?? false
         }
     }
 
-    var labelnumberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(numberoflogs)"
+    var numberoflogs: String {
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(filteredlogs?.count ?? 0)"
     }
 }
 

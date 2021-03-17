@@ -32,14 +32,19 @@ struct ConfigurationLogsView: View {
 
         Spacer()
 
-        LogListView(selectedconfig: $selectedconfig,
-                    selectedlog: $selectedlog,
-                    selecteduuids: $selecteduuids)
+        List(selection: $selectedlog) {
+            if let logs = filteredlogs {
+                ForEach(logs) { record in
+                    LogRow(selecteduuids: $selecteduuids, logrecord: record)
+                        .tag(record)
+                }
+            }
+        }
 
         Spacer()
 
         HStack {
-            Text(labelnumberoflogs)
+            Text(numberoflogs)
 
             Spacer()
 
@@ -57,15 +62,15 @@ struct ConfigurationLogsView: View {
         }
     }
 
-    var numberoflogsbyconfig: Int {
-        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID: selectedconfig?.hiddenID ?? -1) {
-            return logrecords.count
+    var filteredlogs: [Log]? {
+        rsyncOSXData.rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID: selectedconfig?.hiddenID ?? -1)?.filter {
+            filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false ||
+                filterstring.isEmpty ? true : $0.resultExecuted?.contains(filterstring) ?? false
         }
-        return 0
     }
 
-    var labelnumberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(numberoflogsbyconfig)"
+    var numberoflogs: String {
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(filteredlogs?.count ?? 0)"
     }
 }
 
