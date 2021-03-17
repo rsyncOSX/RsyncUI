@@ -28,13 +28,13 @@ struct ConvertSchedules {
                     var logrecords = [NSDictionary]()
                     for i in 0 ..< log.count {
                         // Check if log records for delete
-                        if log[i].delete ?? false == false {
-                            let dict: NSDictionary = [
-                                DictionaryStrings.dateExecuted.rawValue: log[i].dateExecuted ?? "",
-                                DictionaryStrings.resultExecuted.rawValue: log[i].resultExecuted ?? "",
-                            ]
-                            logrecords.append(dict)
-                        }
+                        // if log[i].delete ?? false == false {
+                        let dict: NSDictionary = [
+                            DictionaryStrings.dateExecuted.rawValue: log[i].dateExecuted ?? "",
+                            DictionaryStrings.resultExecuted.rawValue: log[i].resultExecuted ?? "",
+                        ]
+                        logrecords.append(dict)
+                        // }
                     }
                     dict.setObject(logrecords, forKey: DictionaryStrings.executed.rawValue as NSCopying)
                 }
@@ -60,49 +60,53 @@ struct ConvertSchedules {
             var cleaned = [ConfigurationSchedule]()
             for i in 0 ..< schedules.count {
                 if schedules[i].delete ?? false == false {
-                    // cleaned.append(schedules[i])
-                    // Check if log records for delete
-                    if let log = schedules[i].logrecords {
-                        var schedule = schedules[i]
-                        var logs = [Log]()
-                        for i in 0 ..< log.count {
-                            // Check if log records for delete
-                            if log[i].delete ?? false == false {
-                                logs.append(log[i])
-                            }
-                        }
-                        if logs.count == 0 {
-                            schedule.logrecords = nil
-                        } else {
-                            schedule.logrecords = logs
-                        }
-                        cleaned.append(schedule)
-                    } else {
-                        cleaned.append(schedules[i])
-                    }
+                    cleaned.append(schedules[i])
+                    /*
+                     // Check if log records for delete
+                     if let log = schedules[i].logrecords {
+                         var schedule = schedules[i]
+                         var logs = [Log]()
+                         for i in 0 ..< log.count {
+                             // Check if log records for delete
+                             if log[i].delete ?? false == false {
+                                 logs.append(log[i])
+                             }
+                         }
+                         if logs.count == 0 {
+                             schedule.logrecords = nil
+                         } else {
+                             schedule.logrecords = logs
+                         }
+                         cleaned.append(schedule)
+                     } else {
+                         cleaned.append(schedules[i])
+                     }
+                     */
                 } else {
                     if schedules[i].logrecords?.isEmpty == false {
                         if schedules[i].delete ?? false == false {
-                            // cleaned.append(schedules[i])
+                            cleaned.append(schedules[i])
                             // Check if log records for delete
-                            if let log = schedules[i].logrecords {
-                                var schedule = schedules[i]
-                                var logs = [Log]()
-                                for i in 0 ..< log.count {
-                                    // Check if log records for delete
-                                    if log[i].delete ?? false == false {
-                                        logs.append(log[i])
-                                    }
-                                }
-                                if logs.count == 0 {
-                                    schedule.logrecords = nil
-                                } else {
-                                    schedule.logrecords = logs
-                                }
-                                cleaned.append(schedule)
-                            } else {
-                                cleaned.append(schedules[i])
-                            }
+                            /*
+                             if let log = schedules[i].logrecords {
+                                 var schedule = schedules[i]
+                                 var logs = [Log]()
+                                 for i in 0 ..< log.count {
+                                     // Check if log records for delete
+                                     if log[i].delete ?? false == false {
+                                         logs.append(log[i])
+                                     }
+                                 }
+                                 if logs.count == 0 {
+                                     schedule.logrecords = nil
+                                 } else {
+                                     schedule.logrecords = logs
+                                 }
+                                 cleaned.append(schedule)
+                             } else {
+                                 cleaned.append(schedules[i])
+                             }
+                             */
                         }
                     }
                 }
