@@ -10,11 +10,15 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @Binding var reload: Bool
+    @Binding var selectedprofile: String?
     @State private var selectedconfig: Configuration?
 
     var body: some View {
         Form {
-            ConfigurationLogsView(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() })
+            ConfigurationLogsView(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+                                  reload: $reload,
+                                  selectedprofile: $selectedprofile)
         }
         .padding()
     }

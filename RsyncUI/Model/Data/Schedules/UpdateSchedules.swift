@@ -120,6 +120,29 @@ final class UpdateSchedules {
             .saveMemoryToPersistentStore()
     }
 
+    func deletelogs(uuids: Set<UUID>) {
+        if let schedules = structschedules {
+            var indexset = IndexSet()
+
+            for i in 0 ..< schedules.count {
+                for j in 0 ..< uuids.count {
+                    if let index = schedules[i].logrecords?.firstIndex(where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] }) {
+                        indexset.insert(index)
+                    }
+                }
+                for index in indexset {
+                    structschedules?[i].logrecords?[index].delete = true
+                }
+            }
+            PersistentStorage(profile: localeprofile,
+                              whattoreadorwrite: .schedule,
+                              readonly: false,
+                              configurations: nil,
+                              schedules: structschedules)
+                .saveMemoryToPersistentStore()
+        }
+    }
+
     init(profile: String?,
          scheduleConfigurations: [ConfigurationSchedule]?)
     {

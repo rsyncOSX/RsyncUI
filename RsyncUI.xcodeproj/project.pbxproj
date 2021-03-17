@@ -16,6 +16,7 @@
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
 		E9551ADB25F927580018E57E /* JSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9551ADA25F927580018E57E /* JSONView.swift */; };
 		E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */; };
+		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
 		E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* AppDelegate.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C5D125F3AC0800CB895C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CF25F3AC0800CB895C /* Main.storyboard */; };
@@ -229,6 +230,7 @@
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
 		E9551ADA25F927580018E57E /* JSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONView.swift; sourceTree = "<group>"; };
 		E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSchedulesView.swift; sourceTree = "<group>"; };
+		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5C625F3AC0700CB895C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 				E985C64525F3AD8400CB895C /* LogRow.swift */,
 				E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */,
 				E835457325FE4EBF00A724EE /* SearchbarView.swift */,
+				E9712FBB2602465D003842FD /* DeleteLogsView.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -1415,6 +1418,7 @@
 				E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */,
 				E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */,
 				E985C79125F3AD9700CB895C /* ObserveableReference.swift in Sources */,
+				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,
 				E985C75025F3AD9700CB895C /* DecodeSchedule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

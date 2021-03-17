@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 04/01/2021.
 //  Copyright © 2021 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -13,22 +12,28 @@ struct ConfigurationLogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
 
     @Binding var selectedconfig: Configuration?
+    @Binding var reload: Bool
+    @Binding var selectedprofile: String?
+
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
     @State private var filterstring: String = ""
-
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
+    // Alert for delete
+    @State private var showAlertfordelete = false
 
     var body: some View {
         SearchbarView(text: $filterstring)
             .padding(.top, -20)
 
-        ConfigurationsList(selectedconfig: $selectedconfig,
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
+        ConfigurationsList(selectedconfig: $selectedconfig.onChange {
+            selecteduuids.removeAll()
+        },
+        selecteduuids: $selecteduuids,
+        inwork: $inwork,
+        selectable: $selectable)
 
         Spacer()
 
@@ -59,6 +64,12 @@ struct ConfigurationLogsView: View {
 
             Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
                 .buttonStyle(AbortButtonStyle())
+                .sheet(isPresented: $showAlertfordelete) {
+                    DeleteLogsView(selecteduuids: $selecteduuids,
+                                   isPresented: $showAlertfordelete,
+                                   reload: $reload,
+                                   selectedprofile: $selectedprofile)
+                }
         }
     }
 
@@ -76,7 +87,8 @@ struct ConfigurationLogsView: View {
 
 extension ConfigurationLogsView {
     func delete() {
-        _ = NotYetImplemented()
+        guard selecteduuids.count > 0 else { return }
+        showAlertfordelete = true
     }
 
     func select() {

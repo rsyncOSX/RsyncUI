@@ -15,8 +15,9 @@ struct LogListAlllogsView: View {
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
-
     @State private var filterstring: String = ""
+    // Alert for delete
+    @State private var showAlertfordelete = false
 
     var body: some View {
         Form {
@@ -50,6 +51,12 @@ struct LogListAlllogsView: View {
 
                 Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
                     .buttonStyle(AbortButtonStyle())
+                    .sheet(isPresented: $showAlertfordelete) {
+                        DeleteLogsView(selecteduuids: $selecteduuids,
+                                       isPresented: $showAlertfordelete,
+                                       reload: $reload,
+                                       selectedprofile: $selectedprofile)
+                    }
             }
         }
         .padding()
@@ -69,7 +76,8 @@ struct LogListAlllogsView: View {
 
 extension LogListAlllogsView {
     func delete() {
-        _ = NotYetImplemented()
+        guard selecteduuids.count > 0 else { return }
+        showAlertfordelete = true
     }
 
     func select() {

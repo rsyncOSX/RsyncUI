@@ -27,11 +27,13 @@ struct ConvertSchedules {
                 if let log = schedules[i].logrecords {
                     var logrecords = [NSDictionary]()
                     for i in 0 ..< log.count {
-                        let dict: NSDictionary = [
-                            DictionaryStrings.dateExecuted.rawValue: log[i].dateExecuted ?? "",
-                            DictionaryStrings.resultExecuted.rawValue: log[i].resultExecuted ?? "",
-                        ]
-                        logrecords.append(dict)
+                        if log[i].delete ?? false == false {
+                            let dict: NSDictionary = [
+                                DictionaryStrings.dateExecuted.rawValue: log[i].dateExecuted ?? "",
+                                DictionaryStrings.resultExecuted.rawValue: log[i].resultExecuted ?? "",
+                            ]
+                            logrecords.append(dict)
+                        }
                     }
                     dict.setObject(logrecords, forKey: DictionaryStrings.executed.rawValue as NSCopying)
                 }
