@@ -30,13 +30,6 @@ struct LogListView: View {
         return []
     }
 
-    var numberoflogs: Int {
-        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID: selectedconfig?.hiddenID ?? -1) {
-            return logrecords.count
-        }
-        return 0
-    }
-
     var header: some View {
         HStack {
             Text(NSLocalizedString("Date", comment: "loglist"))

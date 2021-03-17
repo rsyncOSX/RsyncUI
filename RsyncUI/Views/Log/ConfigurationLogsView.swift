@@ -56,12 +56,15 @@ struct ConfigurationLogsView: View {
         }
     }
 
-    var numberoflogs: Int {
-        rsyncOSXData.alllogssorted?.filter { filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false }.count ?? 0
+    var numberoflogsbyconfig: Int {
+        if let logrecords = rsyncOSXData.rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID: selectedconfig?.hiddenID ?? -1) {
+            return logrecords.count
+        }
+        return 0
     }
 
     var labelnumberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(numberoflogs)"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(numberoflogsbyconfig)"
     }
 }
 
