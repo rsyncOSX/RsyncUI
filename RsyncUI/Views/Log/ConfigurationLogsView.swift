@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ConfigurationLogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @EnvironmentObject var errorhandling: ErrorHandling
 
     @Binding var selectedconfig: Configuration?
     @State private var selectedschedule: ConfigurationSchedule?
@@ -43,10 +42,6 @@ struct ConfigurationLogsView: View {
             Button(NSLocalizedString("Show logs", comment: "Show button")) { showlog() }
                 .buttonStyle(PrimaryButtonStyle())
         }
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
-            Alert(localizedError: errorhandling.activeError!)
-
-        })
     }
 
     var viewoutput: some View {

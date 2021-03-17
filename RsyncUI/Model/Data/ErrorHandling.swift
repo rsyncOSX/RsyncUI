@@ -26,11 +26,9 @@ final class ErrorHandling: ObservableObject, PropogateError {
 
     var isPresentingAlert: Binding<Bool> {
         return Binding<Bool>(
-            get: {
-                self.activeError != nil
-            },
-            set: { newValue in
-                guard !newValue else { return }
+            get: { self.activeError != nil },
+            set: { value in
+                guard !value else { return }
                 self.activeError = nil
             }
         )

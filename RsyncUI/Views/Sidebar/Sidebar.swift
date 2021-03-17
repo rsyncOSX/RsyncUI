@@ -22,6 +22,8 @@ struct Sidebar: View {
     }
 
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var errorhandling: ErrorHandling
+
     @State private var selection: NavigationItem? = Optional.none
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
@@ -115,6 +117,9 @@ struct Sidebar: View {
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)
         .frame(width: 200)
+        .alert(isPresented: errorhandling.isPresentingAlert, content: {
+            Alert(localizedError: errorhandling.activeError!)
+        })
     }
 
     var body: some View {

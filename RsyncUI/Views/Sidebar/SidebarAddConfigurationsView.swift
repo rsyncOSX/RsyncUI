@@ -31,7 +31,6 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 struct SidebarAddConfigurationsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var profilenames: Profilenames
-    @EnvironmentObject var errorhandling: ErrorHandling
 
     @Binding var selectedprofile: String?
 
@@ -148,9 +147,6 @@ struct SidebarAddConfigurationsView: View {
         .lineSpacing(2)
         .padding()
         .sheet(isPresented: $presentsheet) { configsheet }
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
-            Alert(localizedError: errorhandling.activeError!)
-        })
     }
 
     // Add and edit text values

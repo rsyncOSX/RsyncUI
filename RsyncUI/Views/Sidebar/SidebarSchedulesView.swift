@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SidebarSchedulesView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @EnvironmentObject var errorhandling: ErrorHandling
 
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -52,9 +51,6 @@ struct SidebarSchedulesView: View {
                 SchedulesDatePickerView(selecteddate: $selecteddate)
             }
             .padding()
-            .alert(isPresented: errorhandling.isPresentingAlert, content: {
-                Alert(localizedError: errorhandling.activeError!)
-            })
             // Buttons in right down corner
             Spacer()
 

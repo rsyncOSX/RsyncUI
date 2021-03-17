@@ -10,7 +10,6 @@ import SwiftUI
 
 struct Usersettings: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @EnvironmentObject var errorhandling: ErrorHandling
     @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
     @StateObject var usersettings = ObserveableReference()
 

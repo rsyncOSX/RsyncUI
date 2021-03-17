@@ -12,7 +12,6 @@ import SwiftUI
 struct SingleTasksView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var outputfromrsync: OutputFromRsync
-    @EnvironmentObject var errorhandling: ErrorHandling
 
     // Execute estimate and execution
     @StateObject private var singletaskstate = SingleTaskState()
@@ -72,9 +71,6 @@ struct SingleTasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
-            Alert(localizedError: errorhandling.activeError!)
-        })
     }
 
     // Estimate and the execute.

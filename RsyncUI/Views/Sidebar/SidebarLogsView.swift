@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SidebarLogsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @EnvironmentObject var errorhandling: ErrorHandling
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
 
@@ -24,10 +23,6 @@ struct SidebarLogsView: View {
                     Text(NSLocalizedString("By config", comment: "logsview"))
                 }
         }
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
-            Alert(localizedError: errorhandling.activeError!)
-
-        })
         .padding()
     }
 }

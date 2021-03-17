@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SidebarSettingsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @EnvironmentObject var errorhandling: ErrorHandling
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
@@ -35,10 +34,6 @@ struct SidebarSettingsView: View {
                     Text(NSLocalizedString("JSON", comment: "user settings"))
                 }
         }
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
-            Alert(localizedError: errorhandling.activeError!)
-
-        })
         .frame(minWidth: 600, minHeight: 400)
         .padding()
     }

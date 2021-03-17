@@ -10,7 +10,6 @@ import SwiftUI
 
 struct Sshsettings: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @EnvironmentObject var errorhandling: ErrorHandling
     @StateObject var usersettings = ObservableReferenceSSH()
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
