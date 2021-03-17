@@ -24,9 +24,11 @@ struct LogListAlllogsView: View {
                 .padding(.top, -20)
 
             List(selection: $selectedlog) {
-                ForEach(rsyncOSXData.alllogssorted?.filter { filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false } ?? []) { record in
-                    LogRow(selecteduuids: $selecteduuids, logrecord: record)
-                        .tag(record)
+                if let logs = filter {
+                    ForEach(logs) { record in
+                        LogRow(selecteduuids: $selecteduuids, logrecord: record)
+                            .tag(record)
+                    }
                 }
             }
 
@@ -53,8 +55,13 @@ struct LogListAlllogsView: View {
         .padding()
     }
 
-    var numberoflogs: Int {
-        rsyncOSXData.alllogssorted?.filter { filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false }.count ?? 0
+    var numberoflogs: Int { filter?.count ?? 0 }
+
+    var filter: [Log]? {
+        rsyncOSXData.alllogssorted?.filter {
+            filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false ||
+                filterstring.isEmpty ? true : $0.resultExecuted?.contains(filterstring) ?? false
+        }
     }
 
     var labelnumberoflogs: String {
