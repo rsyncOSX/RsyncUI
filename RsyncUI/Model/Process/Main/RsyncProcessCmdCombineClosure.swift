@@ -124,7 +124,7 @@ final class RsyncProcessCmdCombineClosure: Delay {
         self.monitor?.stopMonitoring()
         self.monitor = nil
         SharedReference.shared.process = nil
-        print("deinit RsyncProcessCmdCombine")
+        // print("deinit RsyncProcessCmdCombine")
     }
 }
 

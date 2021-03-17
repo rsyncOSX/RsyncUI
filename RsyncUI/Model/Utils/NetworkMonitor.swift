@@ -52,7 +52,7 @@ final class NetworkMonitor {
 
     deinit {
         self.stopMonitoring()
-        print("deinit NetworkMonitor")
+        // print("deinit NetworkMonitor")
     }
 
     func startMonitoring() {
