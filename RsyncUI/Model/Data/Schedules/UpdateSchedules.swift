@@ -104,20 +104,20 @@ final class UpdateSchedules {
         if let schedules = structschedules {
             var indexset = IndexSet()
             for i in 0 ..< uuids.count {
-                if let index = schedules.firstIndex(where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: i)] }) {
+                if let index = schedules.firstIndex(
+                    where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: i)] })
+                {
                     indexset.insert(index)
                 }
             }
-            for index in indexset {
-                structschedules?[index].delete = true
-            }
+            structschedules?.remove(atOffsets: indexset)
         }
-        PersistentStorage(profile: localeprofile,
-                          whattoreadorwrite: .schedule,
-                          readonly: false,
-                          configurations: nil,
-                          schedules: structschedules)
-            .saveMemoryToPersistentStore()
+         PersistentStorage(profile: localeprofile,
+                           whattoreadorwrite: .schedule,
+                           readonly: false,
+                           configurations: nil,
+                           schedules: structschedules)
+             .saveMemoryToPersistentStore()
     }
 
     func deletelogs(uuids: Set<UUID>) {
@@ -126,22 +126,22 @@ final class UpdateSchedules {
 
             for i in 0 ..< schedules.count {
                 for j in 0 ..< uuids.count {
-                    if let index = schedules[i].logrecords?.firstIndex(where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] }) {
+                    if let index = schedules[i].logrecords?.firstIndex(
+                        where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] })
+                    {
                         indexset.insert(index)
                     }
                 }
-                for index in indexset {
-                    print("delete")
-                    structschedules?[i].logrecords?[index].delete = true
-                }
+                structschedules?[i].logrecords?.remove(atOffsets: indexset)
                 indexset.removeAll()
+                
             }
-            PersistentStorage(profile: localeprofile,
-                              whattoreadorwrite: .schedule,
-                              readonly: false,
-                              configurations: nil,
-                              schedules: structschedules)
-                .saveMemoryToPersistentStore()
+             PersistentStorage(profile: localeprofile,
+                               whattoreadorwrite: .schedule,
+                               readonly: false,
+                               configurations: nil,
+                               schedules: structschedules)
+                 .saveMemoryToPersistentStore()
         }
     }
 
