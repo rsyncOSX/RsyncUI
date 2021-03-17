@@ -70,7 +70,6 @@ struct ConvertSchedules {
         }
     }
 
-
     init(JSON: Bool, schedules: [ConfigurationSchedule]?) {
         self.schedules = schedules
         if JSON == false {
