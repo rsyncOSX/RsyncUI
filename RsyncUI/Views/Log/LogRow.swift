@@ -24,12 +24,21 @@ struct LogRow: View {
                 Text("")
                     .frame(width: 20, alignment: .leading)
             }
-            Text(logrecord.dateExecuted ?? "")
+            Text(localizeddate)
                 .modifier(FixedTag(150, .leading))
             Text(logrecord.resultExecuted ?? "")
                 .modifier(FixedTag(200, .leading))
 
             Spacer()
         }
+    }
+
+    var localizeddate: String {
+        if let dateexecuted = logrecord.dateExecuted {
+            guard dateexecuted.isEmpty == false else { return "" }
+            let usdate = dateexecuted.en_us_date_from_string()
+            return usdate.long_localized_string_from_date()
+        }
+        return ""
     }
 }
