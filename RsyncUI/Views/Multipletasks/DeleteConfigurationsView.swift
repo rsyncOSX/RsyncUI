@@ -26,9 +26,9 @@ struct DeleteConfigurationsView: View {
                 Button(NSLocalizedString("Cancel", comment: "Dismiss button")) { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
             }
+            .padding()
         }
         .padding()
-        .frame(minWidth: 300, minHeight: 200)
     }
 
     var header: some View {

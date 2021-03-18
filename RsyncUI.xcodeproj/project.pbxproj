@@ -65,7 +65,6 @@
 		E985C67D25F3AD8400CB895C /* SchedulesDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63E25F3AD8400CB895C /* SchedulesDatePickerView.swift */; };
 		E985C67E25F3AD8400CB895C /* ScheduleRowSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63F25F3AD8400CB895C /* ScheduleRowSchedules.swift */; };
 		E985C67F25F3AD8400CB895C /* SidebarSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64025F3AD8400CB895C /* SidebarSchedulesView.swift */; };
-		E985C68025F3AD8400CB895C /* ConfigurationLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64225F3AD8400CB895C /* ConfigurationLogsView.swift */; };
 		E985C68325F3AD8400CB895C /* LogRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64525F3AD8400CB895C /* LogRow.swift */; };
 		E985C68425F3AD8400CB895C /* ConfirmAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64725F3AD8400CB895C /* ConfirmAddView.swift */; };
 		E985C68525F3AD8400CB895C /* SelectConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64825F3AD8400CB895C /* SelectConfigurationView.swift */; };
@@ -286,7 +285,6 @@
 		E985C63E25F3AD8400CB895C /* SchedulesDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesDatePickerView.swift; sourceTree = "<group>"; };
 		E985C63F25F3AD8400CB895C /* ScheduleRowSchedules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleRowSchedules.swift; sourceTree = "<group>"; };
 		E985C64025F3AD8400CB895C /* SidebarSchedulesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarSchedulesView.swift; sourceTree = "<group>"; };
-		E985C64225F3AD8400CB895C /* ConfigurationLogsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationLogsView.swift; sourceTree = "<group>"; };
 		E985C64525F3AD8400CB895C /* LogRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogRow.swift; sourceTree = "<group>"; };
 		E985C64725F3AD8400CB895C /* ConfirmAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmAddView.swift; sourceTree = "<group>"; };
 		E985C64825F3AD8400CB895C /* SelectConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectConfigurationView.swift; sourceTree = "<group>"; };
@@ -665,7 +663,6 @@
 			isa = PBXGroup;
 			children = (
 				E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */,
-				E985C64225F3AD8400CB895C /* ConfigurationLogsView.swift */,
 				E985C64525F3AD8400CB895C /* LogRow.swift */,
 				E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */,
 				E835457325FE4EBF00A724EE /* SearchbarView.swift */,
@@ -1347,7 +1344,6 @@
 				E985C74E25F3AD9700CB895C /* ConvertUserconfiguration.swift in Sources */,
 				E985C65525F3AD8400CB895C /* SidebarMultipletasksView.swift in Sources */,
 				E985C75225F3AD9700CB895C /* CodableConfigurationSchedule.swift in Sources */,
-				E985C68025F3AD8400CB895C /* ConfigurationLogsView.swift in Sources */,
 				E985C68A25F3AD8400CB895C /* ExecuteAlltasksView.swift in Sources */,
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
 				E985C78E25F3AD9700CB895C /* SuffixstringsRsyncParameters.swift in Sources */,
