@@ -65,22 +65,26 @@ class UpdateConfigurations {
     }
 
     func deleteconfigurations(uuids: Set<UUID>) {
-        if let configurations = configurations {
-            let selectedconfigs = configurations.filter { uuids.contains($0.id) }
-            guard selectedconfigs.count > 0 else { return }
-            for i in 0 ..< selectedconfigs.count {
-                removeconfiguration(hiddenID: selectedconfigs[i].hiddenID)
+        if let configs = configurations {
+            var indexset = IndexSet()
+            for i in 0 ..< uuids.count {
+                if let index = configs.firstIndex(
+                    where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: i)] })
+                {
+                    indexset.insert(index)
+                }
             }
+            configurations?.remove(atOffsets: indexset)
+            // No need for deleting the logs, only valid hiddenIDs are
+            // loaded next time configurations are read from
+            // permanent store
+            PersistentStorage(profile: localeprofile,
+                              whattoreadorwrite: .configuration,
+                              readonly: false,
+                              configurations: configurations,
+                              schedules: nil)
+                .saveMemoryToPersistentStore()
         }
-        // No need for deleting the logs, only valid hiddenIDs are
-        // loaded next time configurations are read from
-        // permanent store
-        PersistentStorage(profile: localeprofile,
-                          whattoreadorwrite: .configuration,
-                          readonly: false,
-                          configurations: configurations,
-                          schedules: nil)
-            .saveMemoryToPersistentStore()
     }
 
     // Add new configurations

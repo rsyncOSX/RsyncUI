@@ -112,12 +112,12 @@ final class UpdateSchedules {
             }
             structschedules?.remove(atOffsets: indexset)
         }
-         PersistentStorage(profile: localeprofile,
-                           whattoreadorwrite: .schedule,
-                           readonly: false,
-                           configurations: nil,
-                           schedules: structschedules)
-             .saveMemoryToPersistentStore()
+        PersistentStorage(profile: localeprofile,
+                          whattoreadorwrite: .schedule,
+                          readonly: false,
+                          configurations: nil,
+                          schedules: structschedules)
+            .saveMemoryToPersistentStore()
     }
 
     func deletelogs(uuids: Set<UUID>) {
@@ -134,14 +134,13 @@ final class UpdateSchedules {
                 }
                 structschedules?[i].logrecords?.remove(atOffsets: indexset)
                 indexset.removeAll()
-                
             }
-             PersistentStorage(profile: localeprofile,
-                               whattoreadorwrite: .schedule,
-                               readonly: false,
-                               configurations: nil,
-                               schedules: structschedules)
-                 .saveMemoryToPersistentStore()
+            PersistentStorage(profile: localeprofile,
+                              whattoreadorwrite: .schedule,
+                              readonly: false,
+                              configurations: nil,
+                              schedules: structschedules)
+                .saveMemoryToPersistentStore()
         }
     }
 
