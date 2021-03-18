@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 11/03/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -92,17 +91,9 @@ extension LogListAlllogsView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (rsyncOSXData.alllogssorted?.count ?? 0) {
-            if filterstring.isEmpty == true {
-                if let id = rsyncOSXData.alllogssorted?[i].id {
-                    selecteduuids.insert(id)
-                }
-            } else {
-                if rsyncOSXData.alllogssorted?[i].dateExecuted?.contains(filterstring) ?? false {
-                    if let id = rsyncOSXData.alllogssorted?[i].id {
-                        selecteduuids.insert(id)
-                    }
-                }
+        for i in 0 ..< (filteredlogs?.count ?? 0) {
+            if let id = filteredlogs?[i].id {
+                selecteduuids.insert(id)
             }
         }
     }

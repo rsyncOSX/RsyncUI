@@ -101,5 +101,12 @@ extension ConfigurationLogsView {
         }
     }
 
-    func selectall() {}
+    func selectall() {
+        selecteduuids.removeAll()
+        for i in 0 ..< (filteredlogs?.count ?? 0) {
+            if let id = filteredlogs?[i].id {
+                selecteduuids.insert(id)
+            }
+        }
+    }
 }
