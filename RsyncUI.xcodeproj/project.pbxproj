@@ -15,6 +15,8 @@
 		E943B0A925FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
 		E9551ADB25F927580018E57E /* JSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9551ADA25F927580018E57E /* JSONView.swift */; };
+		E95C8C312603962600407434 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C2F2603962600407434 /* InfoPlist.strings */; };
+		E95C8C342603962600407434 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C322603962600407434 /* Localizable.strings */; };
 		E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
 		E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* AppDelegate.swift */; };
@@ -228,6 +230,8 @@
 		E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessCmdCombineClosure.swift; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
 		E9551ADA25F927580018E57E /* JSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONView.swift; sourceTree = "<group>"; };
+		E95C8C302603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E95C8C332603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSchedulesView.swift; sourceTree = "<group>"; };
 		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -476,6 +480,8 @@
 				E9FDDD4825F3D0610050718C /* Assets.xcassets */,
 				E985C5CF25F3AC0800CB895C /* Main.storyboard */,
 				E985C5D225F3AC0800CB895C /* Info.plist */,
+				E95C8C322603962600407434 /* Localizable.strings */,
+				E95C8C2F2603962600407434 /* InfoPlist.strings */,
 				E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */,
 				E985C60925F3AD8400CB895C /* Views */,
 				E985C69225F3AD9600CB895C /* Model */,
@@ -1183,7 +1189,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E95C8C342603962600407434 /* Localizable.strings in Resources */,
 				E985C5D125F3AC0800CB895C /* Main.storyboard in Resources */,
+				E95C8C312603962600407434 /* InfoPlist.strings in Resources */,
 				E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */,
 				E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */,
 			);
@@ -1451,6 +1459,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E95C8C2F2603962600407434 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E95C8C302603962600407434 /* nb */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E95C8C322603962600407434 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E95C8C332603962600407434 /* nb */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		E985C5CF25F3AC0800CB895C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
