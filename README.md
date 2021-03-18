@@ -33,15 +33,11 @@ All the above tools, except Xcode are installed by using [Homebrew](https://brew
 
 ## Signing and notarizing
 
-The app is signed with my Apple ID developer certificate and [notarized](https://support.apple.com/en-us/HT202491) by Apple. See [signing and notarizing](https://rsyncosx.netlify.app/post/notarized/) for info. Signing and notarizing is required to run on macOS Catalina.
+The app is signed with my Apple ID developer certificate and [notarized](https://support.apple.com/en-us/HT202491) by Apple. See [signing and notarizing](https://rsyncosx.netlify.app/post/notarized/) for info. Signing and notarizing is required to run on macOS Big Sur.
 
 ## Version of rsync
 
 RsyncOSX is verified with rsync versions 2.6.9, 3.1.2, 3.1.3 and 3.2.x. Other versions of rsync will work but numbers about transferred files is not set in logs. It is recommended to [install](https://rsyncosx.netlify.app/post/rsync/) the latest version of rsync.
-
-## The source code and compile
-
-There are [some details about source and how to compile](https://rsyncosx.netlify.app/post/compile/).
 
 ## Application icon
 
