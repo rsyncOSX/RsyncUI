@@ -81,8 +81,17 @@ struct OneConfig: View {
                 Text(config.dayssincelastbackup ?? "")
                     .modifier(FixedTag(35, .trailing))
             }
-            Text(config.dateRun ?? "not executed")
-                .modifier(FixedTag(120, .leading))
+            Text(localizedrundate)
+                .modifier(FixedTag(140, .leading))
         }
+    }
+
+    var localizedrundate: String {
+        if let daterun = config.dateRun {
+            guard daterun.isEmpty == false else { return "" }
+            let usdate = daterun.en_us_date_from_string()
+            return usdate.long_localized_string_from_date()
+        }
+        return NSLocalizedString("not executed", comment: "OneConfig")
     }
 }

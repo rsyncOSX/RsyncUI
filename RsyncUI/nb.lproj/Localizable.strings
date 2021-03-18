@@ -23,7 +23,7 @@
 "Add" = "Legg til";
 
 /* settings */
-"Add backup ID" = "Legg til sikkerhetskopi-ID";
+"Add backup ID" = "Legg til synkroniserings ID";
 
 /* No comment provided by engineer. */
 "Add configuration completed" = "Legge til konfigurasjon fullført";
@@ -56,10 +56,10 @@
 "All logs" = "Alle logger";
 
 /* usersetting */
-"Backup" = "Sikkerhetskopi";
+"Backup" = "Kopier";
 
 /* settings */
-"Backup ID" = "Sikkerhetskopierings ID";
+"Backup ID" = "Synkroniserings ID";
 
 /* logsview */
 "By config" = "Etter konfigurasjon";
@@ -85,7 +85,7 @@
 "Changelog" = "Endringslogg";
 
 /* settings */
-"Check input" = "Check input";
+"Check data" = "Sjekk data";
 
 /* chinese */
 "Chinese (Simplified) translation by: StringKe (Chen)" = "Kinesisk (forenklet) oversettelse av: StringKe (Chen)";
@@ -422,11 +422,11 @@
 "Saved" = "Lagret";
 
 /* SchedulesDatePickerView */
-"Schedule is" = "Tidsplan er";
+"Schedule is" = "Oppgave er";
 
 /* sidebar
    SidebarLogsView */
-"Schedules" = "Tidsplaner";
+"Schedules" = "Oppgaver";
 
 /* SearchbarView */
 "Search" = "Søk";
@@ -444,7 +444,7 @@
 "Server" = "Tjener";
 
 /* ssh settings */
-"Set ssh keypath and identityfile" = "Sett sh tastatur og identifikasjonsfil";
+"Set ssh keypath and identityfile" = "Sett ssh keypath og identityfile";
 
 /* sidebar
    user settings */
@@ -452,7 +452,7 @@
 
 /* Execute tasks
    sidebar */
-"Single task" = "Én oppgave";
+"Single task" = "En oppgave";
 
 /* cannot */
 "Snapshot tasks cannot be updated" = "Øyeblikksbilde oppgaver kan ikke oppdateres";

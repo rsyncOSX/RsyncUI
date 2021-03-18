@@ -92,7 +92,7 @@ struct Usersettings: View {
                             usersettings.inputchangedbyuser = true
                         })
 
-                        ToggleView(NSLocalizedString("Check input", comment: "settings"), $usersettings.checkinput.onChange {
+                        ToggleView(NSLocalizedString("Check data", comment: "settings"), $usersettings.checkinput.onChange {
                             usersettings.inputchangedbyuser = true
                         })
                     }
