@@ -18,6 +18,8 @@
 		E95C8C312603962600407434 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C2F2603962600407434 /* InfoPlist.strings */; };
 		E95C8C342603962600407434 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C322603962600407434 /* Localizable.strings */; };
 		E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */; };
+		E96F125826046D71003AD3A9 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F125726046D71003AD3A9 /* AddView.swift */; };
+		E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F125C26046FCF003AD3A9 /* SchedulesView.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
 		E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* AppDelegate.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
@@ -233,6 +235,8 @@
 		E95C8C302603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E95C8C332603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSchedulesView.swift; sourceTree = "<group>"; };
+		E96F125726046D71003AD3A9 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		E96F125C26046FCF003AD3A9 /* SchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulesView.swift; sourceTree = "<group>"; };
 		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5C625F3AC0700CB895C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -661,6 +665,7 @@
 				E985C63F25F3AD8400CB895C /* ScheduleRowSchedules.swift */,
 				E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */,
 				E81CF81925FF310D005D8667 /* SelectedstartView.swift */,
+				E96F125C26046FCF003AD3A9 /* SchedulesView.swift */,
 			);
 			path = Schedules;
 			sourceTree = "<group>";
@@ -684,6 +689,7 @@
 				E985C64825F3AD8400CB895C /* SelectConfigurationView.swift */,
 				E985C64925F3AD8400CB895C /* ConfirmUpdatedView.swift */,
 				E985C64A25F3AD8400CB895C /* EditValue.swift */,
+				E96F125726046D71003AD3A9 /* AddView.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -1365,6 +1371,7 @@
 				E985C72C25F3AD9700CB895C /* SnapshotData.swift in Sources */,
 				E985C67A25F3AD8400CB895C /* RsyncCommandView.swift in Sources */,
 				E985C73125F3AD9700CB895C /* Running.swift in Sources */,
+				E96F125826046D71003AD3A9 /* AddView.swift in Sources */,
 				E985C66C25F3AD8400CB895C /* SnapshotsView.swift in Sources */,
 				E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */,
 				E985C67D25F3AD8400CB895C /* SchedulesDatePickerView.swift in Sources */,
@@ -1422,6 +1429,7 @@
 				E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */,
 				E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */,
 				E985C79125F3AD9700CB895C /* ObserveableReference.swift in Sources */,
+				E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */,
 				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,
 				E985C75025F3AD9700CB895C /* DecodeSchedule.swift in Sources */,
 			);

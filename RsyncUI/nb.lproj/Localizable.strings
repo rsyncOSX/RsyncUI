@@ -455,7 +455,7 @@
 "Single task" = "En oppgave";
 
 /* cannot */
-"Snapshot tasks cannot be updated" = "Øyeblikksbilde oppgaver kan ikke oppdateres";
+"Snapshot tasks cannot be updated" = "Snapshot oppgaver kan ikke oppdateres";
 
 /* filesize error */
 "Snapshotnum must be 1" = "Snapshotnum må være 1";

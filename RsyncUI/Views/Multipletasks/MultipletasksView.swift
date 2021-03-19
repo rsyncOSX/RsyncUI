@@ -114,21 +114,6 @@ struct MultipletasksView: View {
                 completed()
             })
     }
-
-    var headingtitle: some View {
-        HStack {
-            ImageRsync()
-
-            VStack(alignment: .leading) {
-                Text(NSLocalizedString("Execute multiple tasks", comment: "Execute tasks"))
-                    .modifier(Tagheading(.title2, .leading))
-            }
-
-            Spacer()
-
-            ImageExecuteMultitask()
-        }
-    }
 }
 
 extension MultipletasksView {

@@ -29,8 +29,6 @@ struct ExecuteEstimatedView: View {
 
     var body: some View {
         VStack {
-            headingtitle
-
             ConfigurationsList(selectedconfig: $selectedconfig.onChange {},
                                selecteduuids: $selecteduuids,
                                inwork: $inexectuion,
@@ -51,7 +49,7 @@ struct ExecuteEstimatedView: View {
                     .buttonStyle(AbortButtonStyle())
             }
         }
-        .frame(minWidth: 950, minHeight: 450)
+        .frame(minWidth: 1050, minHeight: 450)
         .padding()
         .onAppear(perform: {
             executemultipleestimatedtasks()
@@ -85,19 +83,6 @@ struct ExecuteEstimatedView: View {
             .onAppear(perform: {
                 completed()
             })
-    }
-
-    var headingtitle: some View {
-        HStack {
-            ImageRsync()
-
-            VStack(alignment: .leading) {
-                Text(NSLocalizedString("Execute tasks", comment: "Execute tasks"))
-                    .modifier(Tagheading(.title2, .leading))
-            }
-
-            Spacer()
-        }
     }
 }
 
