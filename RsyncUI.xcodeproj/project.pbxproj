@@ -193,9 +193,7 @@
 		E985C79325F3AD9700CB895C /* RsyncOSXViewGetRsyncversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71F25F3AD9700CB895C /* RsyncOSXViewGetRsyncversion.swift */; };
 		E985C79425F3AD9700CB895C /* RemoteCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72025F3AD9700CB895C /* RemoteCapacity.swift */; };
 		E985C79525F3AD9700CB895C /* RsyncVersionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72125F3AD9700CB895C /* RsyncVersionString.swift */; };
-		E985C79625F3AD9700CB895C /* OtherProcessCmdClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72325F3AD9700CB895C /* OtherProcessCmdClosure.swift */; };
 		E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72425F3AD9700CB895C /* InterruptProcess.swift */; };
-		E985C79825F3AD9700CB895C /* RsyncProcessCmdClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72525F3AD9700CB895C /* RsyncProcessCmdClosure.swift */; };
 		E985C79E25F3AF9C00CB895C /* ShellOut in Frameworks */ = {isa = PBXBuildFile; productRef = E985C79D25F3AF9C00CB895C /* ShellOut */; };
 		E985C7A425F3AFDE00CB895C /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = E985C7A325F3AFDE00CB895C /* Files */; };
 		E98E086325FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98E086225FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift */; };
@@ -418,9 +416,7 @@
 		E985C71F25F3AD9700CB895C /* RsyncOSXViewGetRsyncversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncOSXViewGetRsyncversion.swift; sourceTree = "<group>"; };
 		E985C72025F3AD9700CB895C /* RemoteCapacity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteCapacity.swift; sourceTree = "<group>"; };
 		E985C72125F3AD9700CB895C /* RsyncVersionString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncVersionString.swift; sourceTree = "<group>"; };
-		E985C72325F3AD9700CB895C /* OtherProcessCmdClosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherProcessCmdClosure.swift; sourceTree = "<group>"; };
 		E985C72425F3AD9700CB895C /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
-		E985C72525F3AD9700CB895C /* RsyncProcessCmdClosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncProcessCmdClosure.swift; sourceTree = "<group>"; };
 		E98E086225FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProcessCmdCombineClosure.swift; sourceTree = "<group>"; };
 		E9B240362600A2EF004E91B5 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Main.strings; sourceTree = "<group>"; };
 		E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarLogsView.swift; sourceTree = "<group>"; };
@@ -1065,21 +1061,11 @@
 		E985C72225F3AD9700CB895C /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				E9B2E08E25FFFB8C00412219 /* NotUsed */,
 				E985C72425F3AD9700CB895C /* InterruptProcess.swift */,
 				E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */,
 				E98E086225FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		E9B2E08E25FFFB8C00412219 /* NotUsed */ = {
-			isa = PBXGroup;
-			children = (
-				E985C72525F3AD9700CB895C /* RsyncProcessCmdClosure.swift */,
-				E985C72325F3AD9700CB895C /* OtherProcessCmdClosure.swift */,
-			);
-			path = NotUsed;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1244,7 +1230,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E985C79625F3AD9700CB895C /* OtherProcessCmdClosure.swift in Sources */,
 				E985C74B25F3AD9700CB895C /* ConvertAssist.swift in Sources */,
 				E985C66925F3AD8400CB895C /* SingleTasksView.swift in Sources */,
 				E985C66725F3AD8400CB895C /* Viewmodifiers.swift in Sources */,
@@ -1376,7 +1361,6 @@
 				E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */,
 				E985C67D25F3AD8400CB895C /* SchedulesDatePickerView.swift in Sources */,
 				E985C73B25F3AD9700CB895C /* yudpsocket.c in Sources */,
-				E985C79825F3AD9700CB895C /* RsyncProcessCmdClosure.swift in Sources */,
 				E985C78F25F3AD9700CB895C /* SetRsyncParameters.swift in Sources */,
 				E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */,
 				E985C75625F3AD9700CB895C /* TransformSchedulefromJSON.swift in Sources */,
