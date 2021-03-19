@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 04/01/2021.
 //  Copyright © 2021 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -77,7 +78,7 @@ struct LogsbyConfigurationView: View {
 
     var filteredlogs: [Log]? {
         rsyncOSXData.rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID: selectedconfig?.hiddenID ?? -1)?.filter {
-            filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false ||
+            filterstring.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring) ?? false ||
                 filterstring.isEmpty ? true : $0.resultExecuted?.contains(filterstring) ?? false
         }
     }

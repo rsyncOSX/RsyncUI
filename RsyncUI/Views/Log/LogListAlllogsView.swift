@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 11/03/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -62,8 +63,9 @@ struct LogListAlllogsView: View {
     }
 
     var filteredlogs: [Log]? {
+        // Important - must localize search in dates
         rsyncOSXData.alllogssorted?.filter {
-            filterstring.isEmpty ? true : $0.dateExecuted?.contains(filterstring) ?? false ||
+            filterstring.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring) ?? false ||
                 filterstring.isEmpty ? true : $0.resultExecuted?.contains(filterstring) ?? false
         }
     }
