@@ -38,7 +38,7 @@
 "Add pretask" = "Legg til preoppgave";
 
 /* settings */
-"Add remote server" = "Legg til ekstern server";
+"Add remote server" = "Legg til ekstern tjener";
 
 /* settings */
 "Add remote user" = "Legg til ekstern bruker";
@@ -65,7 +65,7 @@
 "By config" = "Etter konfigurasjon";
 
 /* OutputEstimatedView */
-"Bytes" = "bytes";
+"Bytes" = "Bytes";
 
 /* Cancel button
    Cancel NSAlert
@@ -504,7 +504,7 @@
 "There is no rsync in path" = "Det er ingen rsync i stien";
 
 /* no path */
-"There is no such path" = "Det finnes ingen slik bane";
+"There is no such path" = "Det finnes ingen slik sti";
 
 /* notyet */
 "This function is not yet implemented" = "Denne funksjonen er ikke implementert ennå";
@@ -562,7 +562,7 @@
 "Verify SSH" = "Verifiser SSH";
 
 /* No comment provided by engineer. */
-"Version %@ (%@)" = "Versjon %1$@ (%2$@)";
+"Version %@ (%@)" = "Versjon %@ (%@)";
 
 /* View button */
 "View" = "Vis";
