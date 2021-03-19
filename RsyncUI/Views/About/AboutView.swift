@@ -51,6 +51,8 @@ struct AboutView: View {
         VStack {
             headingstitle
 
+            translations
+
             rsynclongstring
 
             buttonsview
@@ -98,6 +100,17 @@ struct AboutView: View {
     var rsynclongstring: some View {
         Text(SharedReference.shared.rsyncversionstring ?? "")
             .border(Color.gray)
+    }
+
+    var translations: some View {
+        VStack {
+            Text(italianstring)
+                .font(.caption)
+
+            Text(norwegianstring)
+                .font(.caption)
+        }
+        .padding()
     }
 }
 
