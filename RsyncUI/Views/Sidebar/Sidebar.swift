@@ -10,6 +10,7 @@ import SwiftUI
 
 enum NavigationItem {
     case rsync
+    case rsyncparameters
     case logs
     case singletasks
     case estimation
@@ -20,8 +21,7 @@ enum NavigationItem {
     case schedules
 }
 
-
-struct Sidebar: View {    
+struct Sidebar: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var errorhandling: ErrorHandling
 
@@ -74,6 +74,20 @@ struct Sidebar: View {
             Divider()
 
             Group {
+                NavigationLink(destination: SidebarRsyncParameter(selectedprofile: $selectedprofile, reload: $reload),
+                               tag: NavigationItem.rsyncparameters,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Rsync parameters", comment: "sidebar"), systemImage: "command.circle.fill")
+                }
+                .tag(NavigationItem.rsyncparameters)
+
+                NavigationLink(destination: SidebarRsyncCommandView(),
+                               tag: NavigationItem.rsync,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Rsync commands", comment: "sidebar"), systemImage: "command.circle.fill")
+                }
+                .tag(NavigationItem.rsync)
+
                 NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile, reload: $reload),
                                tag: NavigationItem.schedules,
                                selection: $selection) {
@@ -94,13 +108,6 @@ struct Sidebar: View {
                     Label(NSLocalizedString("Log listings", comment: "sidebar"), systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.logs)
-
-                NavigationLink(destination: SidebarRsyncCommandView(),
-                               tag: NavigationItem.rsync,
-                               selection: $selection) {
-                    Label(NSLocalizedString("Rsync commands", comment: "sidebar"), systemImage: "command.circle.fill")
-                }
-                .tag(NavigationItem.rsync)
             }
 
             Divider()

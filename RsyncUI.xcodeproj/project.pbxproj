@@ -18,6 +18,7 @@
 		E95C8C312603962600407434 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C2F2603962600407434 /* InfoPlist.strings */; };
 		E95C8C342603962600407434 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C322603962600407434 /* Localizable.strings */; };
 		E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */; };
+		E95EDC7926063118000018DE /* SidebarRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7826063118000018DE /* SidebarRsyncParameter.swift */; };
 		E96F125826046D71003AD3A9 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F125726046D71003AD3A9 /* AddView.swift */; };
 		E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F125C26046FCF003AD3A9 /* SchedulesView.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
@@ -233,6 +234,7 @@
 		E95C8C302603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E95C8C332603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSchedulesView.swift; sourceTree = "<group>"; };
+		E95EDC7826063118000018DE /* SidebarRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRsyncParameter.swift; sourceTree = "<group>"; };
 		E96485122604FB9F00292C99 /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/Main.strings"; sourceTree = "<group>"; };
 		E96485132604FB9F00292C99 /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E96485142604FB9F00292C99 /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 				E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */,
 				E985C64025F3AD8400CB895C /* SidebarSchedulesView.swift */,
 				E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */,
+				E95EDC7826063118000018DE /* SidebarRsyncParameter.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -1329,6 +1332,7 @@
 				E985C66A25F3AD8400CB895C /* SnapshotRow.swift in Sources */,
 				E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */,
 				E985C73F25F3AD9700CB895C /* Socket.swift in Sources */,
+				E95EDC7926063118000018DE /* SidebarRsyncParameter.swift in Sources */,
 				E985C73825F3AD9700CB895C /* Notifications.swift in Sources */,
 				E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */,
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
