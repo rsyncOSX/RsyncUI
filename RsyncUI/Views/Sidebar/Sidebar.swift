@@ -74,7 +74,7 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarRsyncParameter(selectedprofile: $selectedprofile, reload: $reload),
+                NavigationLink(destination: SidebarRsyncParameter(reload: $reload),
                                tag: NavigationItem.rsyncparameters,
                                selection: $selection) {
                     Label(NSLocalizedString("Rsync parameters", comment: "sidebar"), systemImage: "command.circle.fill")

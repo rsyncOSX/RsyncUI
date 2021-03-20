@@ -9,12 +9,9 @@ import SwiftUI
 
 struct SidebarRsyncParameter: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
-    @State private var selectedconfig: Configuration?
     @StateObject private var parameters = ObserveableParametersRsync()
-
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
@@ -22,7 +19,7 @@ struct SidebarRsyncParameter: View {
 
     var body: some View {
         VStack {
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+            ConfigurationsList(selectedconfig: $parameters.configuration.onChange { rsyncOSXData.update() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                selectable: $selectable)

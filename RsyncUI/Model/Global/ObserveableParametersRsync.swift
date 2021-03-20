@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 20/03/2021.
 //
+// swiftlint:disable function_body_length
 
 import Combine
 import Foundation
@@ -19,7 +20,8 @@ class ObserveableParametersRsync: ObservableObject {
     @Published var parameter12: String = ""
     @Published var parameter13: String = ""
     @Published var parameter14: String = ""
-
+    // Selected configuration
+    @Published var configuration: Configuration?
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
     // Combine
@@ -70,6 +72,10 @@ class ObserveableParametersRsync: ObservableObject {
             .sink { [unowned self] parameter14 in
                 validate(parameter14)
                 isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $configuration
+            .sink { [unowned self] _ in
+                isDirty = false
             }.store(in: &subscriptions)
     }
 

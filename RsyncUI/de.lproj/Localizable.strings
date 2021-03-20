@@ -1,8 +1,11 @@
 /* Alert delete */
-" configuration(s)?" = " konfigurasjon(er)?";
+" configuration(s)?" = " konfigurierung(en)?";
 
 /* Alert delete */
-" schedules(s)?" = " oppgave(r)?";
+" log(s)?" = " log(n)?";
+
+/* Alert delete */
+" schedules(s)?" = " zeitplane(n)?";
 
 /* No comment provided by engineer. */
 "%@" = "%@";
@@ -11,58 +14,58 @@
 "0" = "0";
 
 /* Abort button */
-"Abort" = "Avbryt";
+"Abort" = "Abbrechen";
 
 /* about */
-"About" = "Om";
+"About" = "Über";
 
 /* ScheduleRowSchedules */
 "active" = "aktiv";
 
 /* Add button */
-"Add" = "Legg til";
+"Add" = "Neu";
 
 /* settings */
-"Add backup ID" = "Legg til synkroniserings ID";
+"Add backup ID" = "Backup-ID hinzufügen";
 
 /* No comment provided by engineer. */
-"Add configuration completed" = "Legge til konfigurasjon fullført";
+"Add configuration completed" = "Neue Konfiguration abgeschlossen";
 
 /* settings */
-"Add localcatalog - required" = "Legge til lokalkatalog - kreves";
+"Add localcatalog - required" = "Lokalkatalog hinzufügen - erforderlich";
 
 /* settings */
-"Add posttask" = "Legg til postoppgave";
+"Add posttask" = "Posttask hinzufügen";
 
 /* settings */
-"Add pretask" = "Legg til preoppgave";
+"Add pretask" = "Pretask hinzufügen";
 
 /* settings */
-"Add remote server" = "Legg til ekstern tjener";
+"Add remote server" = "Remote-Server hinzufügen";
 
 /* settings */
-"Add remote user" = "Legg til ekstern bruker";
+"Add remote user" = "Remote-Benutzer hinzufügen";
 
 /* settings */
-"Add remotecatalog - required" = "Legg til eksternkatalog - kreves";
+"Add remotecatalog - required" = "Remotekatalog hinzufügen - erforderlich";
 
 /* settings */
-"Added" = "Lagt til";
+"Added" = "Hinzugefügt";
 
 /* Select button */
 "All" = "Alle";
 
 /* logsview */
-"All logs" = "Alle logger";
+"All logs" = "Alle Logs";
 
 /* usersetting */
-"Backup" = "Kopier";
+"Backup" = "Sichern";
 
 /* settings */
-"Backup ID" = "Synkroniserings ID";
+"Backup ID" = "Backup-ID";
 
 /* logsview */
-"By config" = "Etter konfigurasjon";
+"By config" = "Nach Konfiguration";
 
 /* OutputEstimatedView */
 "Bytes" = "Bytes";
@@ -70,70 +73,70 @@
 /* Cancel button
    Cancel NSAlert
    Dismiss button */
-"Cancel" = "Avbryt";
+"Cancel" = "Abbrechen";
 
 /* Profiles */
-"Cancel or Delete" = "Avbryt eller slett";
+"Cancel or Delete" = "Abbrechen oder Löschen";
 
 /* No comment provided by engineer. */
-"Cancel or OK" = "Avbryt eller OK";
+"Cancel or OK" = "Abbrechen oder OK";
 
 /* settings */
-"Catalog parameters" = "Katalog parametre";
+"Catalog parameters" = "Katalogparameter";
 
 /* About button */
-"Changelog" = "Endringslogg";
+"Changelog" = "Changelog";
 
 /* settings */
-"Check data" = "Sjekk data";
+"Check data" = "Daten prüfen";
 
 /* chinese */
-"Chinese (Simplified) translation by: StringKe (Chen)" = "Kinesisk (forenklet) oversettelse av: StringKe (Chen)";
+"Chinese (Simplified) translation by: StringKe (Chen)" = "Chinesisch (vereinfacht) Übersetzung von: StringKe (Chen)";
 
 /* Select button */
-"Clear" = "Tøm";
+"Clear" = "Leeren";
 
 /* Close NSAlert */
-"Close" = "Lukk";
+"Close" = "Schließen";
 
 /* CommandTab */
-"Command" = "Kommando";
+"Command" = "Befehl";
 
 /* settings
    sidebar */
-"Configurations" = "Konfigurasjoner";
+"Configurations" = "Konfigurationen";
 
 /* usersetting */
-"Convert" = "Konverter";
+"Convert" = "Konvertieren";
 
 /* No comment provided by engineer. */
-"Convert configurations?" = "Konvertere konfigurasjoner?";
+"Convert configurations?" = "Konfigurationen konvertieren?";
 
 /* settings */
-"Converted" = "Konvertert";
+"Converted" = "Konvertiert";
 
 /* Copy button
    Verify button */
-"Copy" = "Kopier";
+"Copy" = "Kopieren";
 
 /* ssh settings */
-"Copy and paste commands in terminal to verify" = "Kopier og lim inn kommandoer i terminal for å bekrefte";
+"Copy and paste commands in terminal to verify" = "Kopieren und fügen Sie Befehle in Terminal ein, um zu überprüfen";
 
 /* copyright */
-"Copyright ©2021 Thomas Evensen" = "Opphavsrett ©2021 Thomas Evensen";
+"Copyright ©2021 Thomas Evensen" = "Copyright ©2021 Thomas Evensen";
 
 /* usersetting */
-"Create" = "Opprett";
+"Create" = "Anlegen";
 
 /* settings */
-"Created" = "Opprettet";
+"Created" = "Erstellt";
 
 /* ConfigurationsList */
-"Days" = "Dager";
+"Days" = "Tage";
 
 /* convert
    default profile */
-"Default profile" = "Standard profil";
+"Default profile" = "Standardprofil";
 
 /* Alert delete
    Delete
@@ -142,103 +145,97 @@
    OutputEstimatedView
    plan
    Profiles */
-"Delete" = "Slett";
+"Delete" = "Löschen";
 
 /* Profiles */
-"Delete profile:" = "Slett profil:";
+"Delete profile:" = "Profil löschen:";
 
 /* settings */
-"Detailed" = "Detaljert";
+"Detailed" = "Detailliert";
 
 /* Dismiss button
    ssh settings */
-"Dismiss" = "Lukk";
+"Dismiss" = "Verwerfen";
 
 /* settings */
-"Don´t add /" = "Ikke legg til /";
+"Don´t add /" = "Nicht hinzufügen/";
 
 /* About button */
-"Download" = "Nedlasting";
+"Download" = "Download";
 
 /* ducth */
-"Dutch translation by: Marcellino Santoso" = "Nederlandsk oversettelse av: Marcellino Santoso";
+"Dutch translation by: Marcellino Santoso" = "Niederländische Übersetzung von: Marcellino Santoso";
 
 /* plan */
-"earlier months" = "tidligere måneder";
+"earlier months" = "frühere Monate";
 
 /* input error */
-"Either local or remote cannot be empty" = "Enten lokal eller ekstern kan ikke være tom";
+"Either local or remote cannot be empty" = "Lokal oder Remote darf nicht leer sein";
 
 /* settings */
-"Enable" = "Aktiver";
+"Enable" = "Aktivieren";
 
 /* settings */
-"Enable JSON" = "Aktiver JSON";
+"Enable JSON" = "JSON aktivieren";
 
 /* No comment provided by engineer. */
-"Enable JSON or PLIST?" = "Aktiver JSON eller PLIST?";
+"Enable JSON or PLIST?" = "JSON oder PLIST?";
 
 /* settings */
-"Enable or disable JSON" = "Aktiver eller deaktiver JSON";
+"Enable or disable JSON" = "JSON aktivieren oder deaktivieren";
 
 /* other settings
    settings */
-"Environment" = "Miljø";
+"Environment" = "Umgebung";
 
 /* settings */
-"Environment variable" = "Miljømessig variabel";
+"Environment variable" = "Umgebungsvariable";
 
 /* Estimate button */
-"Estimate" = "Estimat";
+"Estimate" = "Schätzung";
 
 /* Execute button */
-"Execute" = "Utfør";
+"Execute" = "Ausführen";
 
 /* Execute button */
-"Execute all" = "Kjør alle";
+"Execute all" = "Alle ausführen";
 
 /* Alert delete */
-"Execute all tasks" = "Utfør alle oppgaver";
-
-/* Execute tasks */
-"Execute multiple tasks" = "Utfør flere oppgaver";
-
-/* Execute tasks */
-"Execute tasks" = "Utfør oppgaver";
+"Execute all tasks" = "Alle Aufgaben ausführen";
 
 /* Execute Multiple tasks
    Execute tasks */
-"Executing tasks" = "Utfører oppgaver";
+"Executing tasks" = "Aufgaben ausführen";
 
 /* OutputEstimatedView */
-"Files" = "Filer";
+"Files" = "Dateien";
 
 /* plan */
-"Friday" = "Fredag";
+"Friday" = "Freitag";
 
 /* settings */
-"Full" = "Full";
+"Full" = "Voll";
 
 /* german */
-"German translation by: Andre Voigtmann" = "Tysk oversettelse av: Andre Voigtmann";
+"German translation by: Andre Voigtmann" = "Deutsche Übersetzung von: Andre Voigtmann";
 
 /* settings */
-"Global ssh keypath and identityfile" = "Global ssh keypath og identifikasjonsfil";
+"Global ssh keypath and identityfile" = "Globale SSH-Tastatur und Identitätsdatei";
 
 /* settings */
-"Global ssh port" = "Global ssh port";
+"Global ssh port" = "Globaler SSH-Port";
 
 /* datetime */
-"h" = "t";
+"h" = "h";
 
 /* settings */
-"Halt on error" = "Stopp ved feil";
+"Halt on error" = "Bei Fehler stoppen";
 
 /* icon */
-"Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
+"Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
 /* italian */
-"Italian translation by: Stefano Steve Cutelle'" = "Italiensk oversettelse av: Stefano Steve Cutelle'";
+"Italian translation by: Stefano Steve Cutelle'" = "Italienische Übersetzung von: Stefano Steve Cutelle'";
 
 /* user settings */
 "JSON" = "JSON";
@@ -247,128 +244,128 @@
 "JSON or PLIST" = "JSON or PLIST";
 
 /* plan */
-"Keep" = "Behold";
+"Keep" = "Behalten";
 
 /* ConfigurationsList */
-"Last" = "Siste";
+"Last" = "Letzte";
 
 /* settings */
-"Level log" = "Nivå logg";
+"Level log" = "Level Log";
 
 /* ConfigurationsList
    OutputEstimatedView */
-"Local catalog" = "Lokal katalog";
+"Local catalog" = "Lokaler Katalog";
 
 /* ssh */
-"Local ssh keys found" = "Lokale ssh nøkler funnet";
+"Local ssh keys found" = "Lokale SSH-Schlüssel gefunden";
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
 
 /* sidebar */
-"Log listings" = "Liste logger";
+"Log listings" = "Log-Angebote";
 
 /* settings */
-"Log to file" = "Logg til fil";
+"Log to file" = "Log in Datei";
 
 /* Logs */
-"Logfile" = "Loggfil";
+"Logfile" = "Logdatei";
 
 /* settings */
-"Mark days" = "Marker dager";
+"Mark days" = "Markiere Tage";
 
 /* settings */
-"Min" = "Minimum";
+"Min" = "Min";
 
 /* plan */
-"Monday" = "Mandag";
+"Monday" = "Montag";
 
 /* settings */
-"Monitor network" = "Overvåk nettverk";
+"Monitor network" = "Netzwerk überwachen";
 
 /* ConfigurationsList
    ConfigurationsList... */
-"Most recent updated tasks on top of list" = "Mest oppdaterte oppgaver på toppen av listen";
+"Most recent updated tasks on top of list" = "Zuletzt aktualisierte Aufgaben am Anfang der Liste";
 
 /* Execute tasks
    sidebar */
-"Multiple tasks" = "Flere oppgaver";
+"Multiple tasks" = "Mehrere Aufgaben";
 
 /* network
    network error */
-"Network connection is dropped" = "Nettverkstilkobling er droppet";
+"Network connection is dropped" = "Netzwerkverbindung wurde eingestellt";
 
 /* OutputEstimatedView */
-"New" = "Ny";
+"New" = "Neu";
 
 /* settings */
-"New profile" = "Ny profil";
+"New profile" = "Neues Profil";
 
 /* ScheduleRowSchedules */
-"no startdate" = "ingen startdato";
+"no startdate" = "kein Startdatum";
 
 /* No comment provided by engineer. */
-"no username" = "ingen brukernavn";
+"no username" = "kein Benutzername";
 
 /* settings */
-"None" = "Ingen";
+"None" = "Keine";
 
 /* norwegian */
-"Norwegian translation by: Thomas Evensen" = "Norsk oversettelse av: Thomas Evensen";
+"Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
 
 /* ssh error */
-"Not a valid number (Double)" = "Ikke et gyldig tall (Bolig)";
+"Not a valid number (Double)" = "Keine gültige Zahl (Double)";
 
 /* ssh error */
-"Not a valid number (Int)" = "Ikke et gyldig nummer (Int)";
+"Not a valid number (Int)" = "Keine gültige Zahl (Int)";
 
 /* filesize error */
-"Not connected, cannot create task" = "Ikke tilkoblet, kan ikke opprette oppgave";
+"Not connected, cannot create task" = "Nicht verbunden, kann keine Aufgabe erstellen";
 
-/* No comment provided by engineer. */
-"not executed" = "ikke kjørt";
+/* OneConfig */
+"not executed" = "nicht ausgeführt";
 
 /* Now button */
-"Now" = "Nå";
+"Now" = "Jetzt";
 
 /* No comment provided by engineer. */
-"Number of logs" = "Antall logger";
+"Number of logs" = "Anzahl der Logs";
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
 
 /* settings */
-"Other settings" = "Andre innstillinger";
+"Other settings" = "Andere Einstellungen";
 
 /* OutputRsyncView */
-"Output from rsync" = "Resultat av rsync";
+"Output from rsync" = "Ausgabe von rsync";
 
 /* settings */
-"Path for restore" = "Sti for gjenoppretting";
+"Path for restore" = "Pfad zum Wiederherstellen";
 
 /* settings */
-"Path to RsyncOSXsched" = "Sti til RsyncOSXsched";
+"Path to RsyncOSXsched" = "Pfad zu RsyncOSXsched";
 
 /* settings */
-"Path to RsyncUI" = "Sti til RsyncUI";
+"Path to RsyncUI" = "Pfad zu RsyncUI";
 
 /* user settings */
-"Paths" = "Stier";
+"Paths" = "Pfade";
 
 /* ssh settings */
-"Paths for apps" = "Sti til apper";
+"Paths for apps" = "Pfade für Apps";
 
 /* ScheduleError */
-"Please select a configuration" = "Velg en konfigurasjon";
+"Please select a configuration" = "Bitte wählen Sie eine Konfiguration";
 
 /* No comment provided by engineer. */
 "PLIST" = "PLIST";
 
 /* settings */
-"Pre and post task" = "Pre og post oppgave";
+"Pre and post task" = "Vor- und Nachlauf-Aufgabe";
 
 /* plan */
-"previous month" = "forrige måned";
+"previous month" = "letzter Monat";
 
 /* default profile
    Profiles */
@@ -376,201 +373,201 @@
 
 /* ConfigurationsList
    OutputEstimatedView */
-"Remote catalog" = "Ekstern katalog";
+"Remote catalog" = "Externer Katalog";
 
 /* settings */
-"Remote parameters" = "Eksterne parametere";
+"Remote parameters" = "Entfernte Parameter";
 
 /* input error */
-"Remote servername cannot be empty" = "Fjerntjenernavn kan ikke være tomt";
+"Remote servername cannot be empty" = "Remote-Servername darf nicht leer sein";
 
 /* input error */
-"Remote username cannot be empty" = "Eksternt brukernavn kan ikke være tomt";
+"Remote username cannot be empty" = "Remote-Benutzername darf nicht leer sein";
 
 /* Reset button */
 "Reset" = "Reset";
 
 /* Execute tasks
    sidebar */
-"Rsync commands" = "Rsync kommandoer";
+"Rsync commands" = "Rsync-Befehle";
 
 /* settings */
-"Rsync ver 3.x" = "Rsync ver 3,x";
+"Rsync ver 3.x" = "Rsync Version 3.x";
 
 /* settings */
-"Rsync version and path" = "Rsync versjon og sti";
+"Rsync version and path" = "Rsync-Version und -Pfad";
 
 /* About button */
 "RsyncUI" = "RsyncUI";
 
 /* settings */
-"RsyncUI logfile" = "RsyncUI loggfil";
+"RsyncUI logfile" = "RsyncUI-Logdatei";
 
 /* settings */
-"RsyncUI settings" = "RsyncUI innstillinger";
+"RsyncUI settings" = "RsyncUI-Einstellungen";
 
 /* plan */
-"Saturday" = "Lørdag";
+"Saturday" = "Samstag";
 
 /* usersetting */
-"Save" = "Lagre";
+"Save" = "Speichern";
 
 /* settings */
-"Save settings" = "Lagre innstillinger";
+"Save settings" = "Einstellungen speichern";
 
 /* settings */
-"Saved" = "Lagret";
+"Saved" = "Gespeichert";
 
 /* SchedulesDatePickerView */
-"Schedule is" = "Oppgave er";
+"Schedule is" = "Zeitplan ist";
 
 /* sidebar
    SidebarLogsView */
-"Schedules" = "Oppgaver";
+"Schedules" = "Zeitpläne";
 
 /* SearchbarView */
-"Search" = "Søk";
+"Search" = "Suchen";
 
 /* Select button
    ssh settings */
-"Select" = "Velg";
+"Select" = "Auswählen";
 
 /* sidebar
    sidebar ... */
-"Select a task" = "Velg en oppgave";
+"Select a task" = "Aufgabe auswählen";
 
 /* ConfigurationsList
    OutputEstimatedView */
-"Server" = "Tjener";
+"Server" = "Server";
 
 /* ssh settings */
-"Set ssh keypath and identityfile" = "Sett ssh keypath og identityfile";
+"Set ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
 
 /* sidebar
    user settings */
-"Settings" = "Innstillinger";
+"Settings" = "Einstellungen";
 
 /* Execute tasks
    sidebar */
-"Single task" = "En oppgave";
+"Single task" = "Einzelne Aufgabe";
 
 /* cannot */
-"Snapshot tasks cannot be updated" = "Snapshot oppgaver kan ikke oppdateres";
+"Snapshot tasks cannot be updated" = "Snapshot-Aufgaben können nicht aktualisiert werden";
 
 /* filesize error */
-"Snapshotnum must be 1" = "Snapshotnum må være 1";
+"Snapshotnum must be 1" = "Snapshotnummer muss 1 sein";
 
 /* sidebar
    SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
 
 /* user settings */
-"Ssh" = "Ssh";
+"Ssh" = "Schutt";
 
 /* ssh error */
-"SSH keypath is not valid" = "SSH keypath er ikke gyldig";
+"SSH keypath is not valid" = "SSH Schlüsselpfad ist ungültig";
 
 /* ssh error */
-"SSH keypath must be like ~/.ssh_keypath/identityfile" = "SSH keypath må være som ~/.ssh_keypath/identityfile";
+"SSH keypath must be like ~/.ssh_keypath/identityfile" = "SSH Schlüsselpfad muss wie ~/.ssh_keypath/identityfile sein";
 
 /* ssh error */
-"SSH RSA keys exist, cannot create" = "SSH RSA-nøkler finnes, kan ikke opprette";
+"SSH RSA keys exist, cannot create" = "SSH RSA Schlüssel existiert, kann nicht erstellt werden";
 
 /* SchedulesDatePickerView */
-"Start date is" = "Startdato er angitt";
+"Start date is" = "Startdatum ist";
 
 /* Stop button */
-"Stop" = "Stopp";
+"Stop" = "Stoppen";
 
 /* plan */
-"Sunday" = "Søndag";
+"Sunday" = "Sonntag";
 
 /* ConfigurationsList
    OutputEstimatedView */
-"Synchronizing ID" = "Synkroniserer ID";
+"Synchronizing ID" = "Synchronisiere ID";
 
 /* Tag */
-"Tag" = "Tagg";
+"Tag" = "Markierung";
 
 /* AddConfigurationsView
    ConfigurationsList
    OutputEstimatedView */
-"Task" = "Oppgave";
+"Task" = "Aufgabe";
 
 /* rsync error */
-"There are errors in output" = "Det er feil i utdata";
+"There are errors in output" = "Es gibt Fehler in der Ausgabe";
 
 /* no rsync */
-"There is no rsync in path" = "Det er ingen rsync i stien";
+"There is no rsync in path" = "Es gibt keinen rsync im Pfad";
 
 /* no path */
-"There is no such path" = "Det finnes ingen slik sti";
+"There is no such path" = "Es gibt keinen solchen Pfad";
 
 /* notyet */
-"This function is not yet implemented" = "Denne funksjonen er ikke implementert ennå";
+"This function is not yet implemented" = "Diese Funktion ist noch nicht implementiert";
 
 /* plan */
-"this month" = "denne måneden";
+"this month" = "in diesem Monat";
 
 /* plan */
-"this week" = "denne uken";
+"this week" = "diese Woche";
 
 /* plan */
-"Thursday" = "Torsdag";
+"Thursday" = "Donnerstag";
 
 /* filesize error */
-"Too big logfile" = "For stor loggfil";
+"Too big logfile" = "Zu große Logdatei";
 
 /* OutputEstimatedView */
-"Tot bytes" = "Tot bytes";
+"Tot bytes" = "Bytes Gesamt";
 
 /* OutputEstimatedView */
-"Tot dir" = "Tot dir";
+"Tot dir" = "Verzeichnisse Gesamt";
 
 /* OutputEstimatedView */
-"Tot num" = "Tot num";
+"Tot num" = "Anzahl Gesamt";
 
 /* plan */
-"Tuesday" = "Tirsdag";
+"Tuesday" = "Dienstag";
 
 /* ssh settings */
-"Unique usernames and servers" = "Unike brukernavn og servere";
+"Unique usernames and servers" = "Eindeutige Benutzernamen und Server";
 
 /* Update button */
-"Update" = "Oppdater";
+"Update" = "Aktualisieren";
 
 /* No comment provided by engineer. */
-"Update configuration completed" = "Oppdateringskonfigurasjon fullført";
+"Update configuration completed" = "Update-Konfiguration abgeschlossen";
 
 /* settings */
-"Updated" = "Oppdatert";
+"Updated" = "Aktualisiert";
 
 /* ConfigurationsList
    OutputEstimatedView */
-"User" = "Bruker";
+"User" = "Benutzer";
 
 /* usersetting */
-"Verify" = "Verifiser";
+"Verify" = "Überprüfen";
 
 /* VerifyJSONError */
-"Verify JSON, configurations: check logfile" = "Verifiser JSON, konfigurasjoner: sjekk loggfil";
+"Verify JSON, configurations: check logfile" = "JSON überprüfen, Konfigurationen: Logdatei überprüfen";
 
 /* VerifyJSONError */
-"Verify JSON, schedules: check logfile" = "Verifiser JSON, oppgaver: Kontroller loggfilen";
+"Verify JSON, schedules: check logfile" = "JSON überprüfen, Zeitpläne: Logdatei überprüfen";
 
 /* ssh settings */
-"Verify SSH" = "Verifiser SSH";
+"Verify SSH" = "SSH überprüfen";
 
 /* No comment provided by engineer. */
-"Version %@ (%@)" = "Versjon %@ (%@)";
+"Version %@ (%@)" = "Version %1$@ (%2$@)";
 
 /* View button */
-"View" = "Vis";
+"View" = "Ansicht";
 
 /* plan */
-"Wednesday" = "Onsdag";
+"Wednesday" = "Mittwoch";
 
 /* progressview
    progressview... */
-"Working" = "Arbeider";
+"Working" = "Arbeiten";
 
