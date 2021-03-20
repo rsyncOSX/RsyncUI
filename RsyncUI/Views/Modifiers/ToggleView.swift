@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct ToggleView: View {
-    @StateObject var usersettings = ObserveableReference()
-
     private var mytext: String?
     private var mybinding: Binding<Bool>
 
@@ -37,8 +35,6 @@ struct ToggleView: View {
 }
 
 struct ToggleView2: View {
-    @StateObject var usersettings = ObserveableReference()
-
     private var mytext: String?
     private var mybinding: Binding<Bool>
 
