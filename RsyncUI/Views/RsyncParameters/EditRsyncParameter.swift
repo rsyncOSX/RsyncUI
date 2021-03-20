@@ -31,7 +31,7 @@ struct EditRsyncParameter: View {
     }
 
     var dropdownrsyncparameter: some View {
-        Picker(NSLocalizedString("Parameter", comment: "AddConfigurationsView") + ":",
+        Picker(NSLocalizedString("param", comment: "EditRsyncParameter") + ":",
                selection: $selectedparameter) {
             ForEach(PredefinedParametersRsync.allCases) { Text($0.description)
                 .tag($0)

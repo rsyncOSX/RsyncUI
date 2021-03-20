@@ -87,7 +87,13 @@ class ObserveableParametersRsync: ObservableObject {
     }
 
     private func setvalues(_ config: Configuration) {
-        print(config)
+        parameter8 = config.parameter8 ?? ""
+        parameter9 = config.parameter9 ?? ""
+        parameter10 = config.parameter10 ?? ""
+        parameter11 = config.parameter11 ?? ""
+        parameter12 = config.parameter12 ?? ""
+        parameter13 = config.parameter13 ?? ""
+        parameter14 = config.parameter14 ?? ""
     }
 }
 
