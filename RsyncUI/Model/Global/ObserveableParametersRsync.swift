@@ -74,13 +74,20 @@ class ObserveableParametersRsync: ObservableObject {
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $configuration
-            .sink { [unowned self] _ in
+            .sink { [unowned self] config in
+                if let config = config {
+                    setvalues(config)
+                }
                 isDirty = false
             }.store(in: &subscriptions)
     }
 
     private func validate(_ parameter: String) {
         print(parameter)
+    }
+
+    private func setvalues(_ config: Configuration) {
+        print(config)
     }
 }
 
