@@ -107,13 +107,11 @@ struct AboutView: View {
             Text(italianstring)
                 .font(.caption)
 
-            
             Text(germanstring)
                 .font(.caption)
-            
+
             Text(norwegianstring)
                 .font(.caption)
-            
         }
         .padding()
     }
