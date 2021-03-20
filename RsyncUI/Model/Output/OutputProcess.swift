@@ -145,3 +145,7 @@ extension OutputProcess: PropogateError {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
+
+/*
+ TODO : fix logging if errors are discovered in output
+ */
