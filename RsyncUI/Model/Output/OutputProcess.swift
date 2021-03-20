@@ -147,5 +147,5 @@ extension OutputProcess: PropogateError {
 }
 
 /*
- TODO : fix logging if errors are discovered in output
+ TODO: fix logging if errors are discovered in output
  */

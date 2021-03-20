@@ -20,6 +20,6 @@ struct MyCustomProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: ProgressViewStyle) -> some View {
         ProgressView(configuration)
             .accentColor(.blue)
-            .frame(width: 20, height: 20, alignment: .center)
+            .frame(width: 10, height: 10, alignment: .center)
     }
 }

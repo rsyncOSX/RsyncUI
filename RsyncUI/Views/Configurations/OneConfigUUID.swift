@@ -26,7 +26,7 @@ struct OneConfigUUID: View {
     var progress: some View {
         HStack {
             if config.hiddenID == inexecuting && executedetails.isestimating() {
-                progressview
+                progressviewestimating
             } else if config.hiddenID == inexecuting {
                 progressexecution
             } else {
@@ -45,7 +45,7 @@ struct OneConfigUUID: View {
     }
 
     // Progressview for estimating and execute tasks without estimation
-    var progressview: some View {
+    var progressviewestimating: some View {
         ProgressView()
     }
 
