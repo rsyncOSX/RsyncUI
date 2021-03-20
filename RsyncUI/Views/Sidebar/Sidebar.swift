@@ -8,19 +8,20 @@
 
 import SwiftUI
 
-struct Sidebar: View {
-    enum NavigationItem {
-        case rsync
-        case logs
-        case singletasks
-        case estimation
-        case settings
-        case none
-        case snapshots
-        case configurations
-        case schedules
-    }
+enum NavigationItem {
+    case rsync
+    case logs
+    case singletasks
+    case estimation
+    case settings
+    case none
+    case snapshots
+    case configurations
+    case schedules
+}
 
+
+struct Sidebar: View {    
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var errorhandling: ErrorHandling
 
