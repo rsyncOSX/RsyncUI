@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditRsyncParameter: View {
-    @State private var selectedparameter = PredefinedParametersRsync.none
+    @State private var selectedparameter = EnumRsyncArguments.none
     var myvalue: Binding<String>
     var mytext: String?
     var mywidth: CGFloat?
@@ -39,7 +39,7 @@ struct EditRsyncParameter: View {
     var dropdownrsyncparameter: some View {
         Picker(NSLocalizedString("param", comment: "EditRsyncParameter") + ":",
                selection: $selectedparameter) {
-            ForEach(PredefinedParametersRsync.allCases) { Text($0.description)
+            ForEach(EnumRsyncArguments.allCases) { Text($0.description)
                 .tag($0)
             }
         }
@@ -47,21 +47,3 @@ struct EditRsyncParameter: View {
         .frame(width: 150)
     }
 }
-
-/*
- let rsyncArguments: [Argument] = [
-     ("user", 1),
-     ("delete", 0),
-     ("--backup", 0),
-     ("--backup-dir", 1),
-     ("--exclude-from", 1),
-     ("--exclude", 1),
-     ("--include-from", 1),
-     ("--files-from", 1),
-     ("--max-size", 1),
-     ("--suffix", 1),
-     ("--max-delete", 1),
-     ("--delete-excluded", 0),
-     ("--include", 1),
-     ("--filter", 1),
- */

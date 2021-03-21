@@ -1,5 +1,5 @@
 //
-//  RsyncParametersProcess.swift
+//  ComputeRsyncParameters.swift
 //
 //  Created by Thomas Evensen on 08/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RsyncParameters {
+class ComputeRsyncParameters {
     var stats: Bool?
     var arguments: [String]?
     var localCatalog: String?
@@ -20,11 +20,8 @@ class RsyncParameters {
 
     func setParameters1To6(config: Configuration, dryRun _: Bool, forDisplay: Bool, verify: Bool) {
         var parameter1: String?
-        if verify {
-            parameter1 = "--checksum"
-        } else {
-            parameter1 = config.parameter1
-        }
+        if verify { parameter1 = "--checksum" } else
+        { parameter1 = config.parameter1 }
         let parameter2: String = config.parameter2
         let parameter3: String = config.parameter3
         let parameter4: String = config.parameter4
@@ -95,8 +92,8 @@ class RsyncParameters {
         }
         if config.parameter14 != nil {
             if config.offsiteServer.isEmpty == true {
-                if config.parameter14! == SuffixstringsRsyncParameters().suffixstringfreebsd ||
-                    config.parameter14! == SuffixstringsRsyncParameters().suffixstringlinux
+                if config.parameter14! == RsyncArguments().suffixstringfreebsd ||
+                    config.parameter14! == RsyncArguments().suffixstringlinux
                 {
                     appendParameter(parameter: setdatesuffixlocalhost(), forDisplay: forDisplay)
                 }

@@ -32,7 +32,7 @@ struct SetRsyncParameters {
 
     // Returns Int value of argument
     func indexofrsyncparameter(_ argument: String) -> Int {
-        return SuffixstringsRsyncParameters().rsyncArguments.firstIndex(where: { $0.0 == argument }) ?? -1
+        return RsyncArguments().arguments.firstIndex(where: { $0.0 == argument }) ?? -1
     }
 
     // Split an Rsync argument into argument and value
@@ -167,8 +167,8 @@ struct SetRsyncParameters {
     }
 
     init(_ config: Configuration) {
-        for i in 0 ..< SuffixstringsRsyncParameters().rsyncArguments.count {
-            parameters.append(SuffixstringsRsyncParameters().rsyncArguments[i].0)
+        for i in 0 ..< RsyncArguments().arguments.count {
+            parameters.append(RsyncArguments().arguments[i].0)
         }
         setparameter(config)
     }

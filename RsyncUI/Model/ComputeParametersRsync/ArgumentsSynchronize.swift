@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ArgumentsSynchronize: RsyncParameters {
+final class ArgumentsSynchronize: ComputeRsyncParameters {
     var config: Configuration?
 
     func argumentssynchronize(dryRun: Bool, forDisplay: Bool) -> [String]? {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ArgumentsRestore: RsyncParameters {
+final class ArgumentsRestore: ComputeRsyncParameters {
     var config: Configuration?
 
     func argumentsrestore(dryRun: Bool, forDisplay: Bool, tmprestore: Bool) -> [String]? {

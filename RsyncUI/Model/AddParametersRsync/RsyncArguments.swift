@@ -9,26 +9,26 @@
 
 import Foundation
 
-enum PredefinedParametersRsync: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case backupdir
-    case excludefrom
-    case exclude
-    case includefrom
-    case filesfrom
-    case maxsize
-    case suffix
-    case maxdelete
-    case include
-    case filter
-    case backup
-    case deleteexcluded
+enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case backupdir = "--backup-dir"
+    case excludefrom = "--exclude-from"
+    case exclude = "--exclude"
+    case includefrom = "--include-from"
+    case filesfrom = "--files-from"
+    case maxsize = "--max-size"
+    case suffix = "--suffix"
+    case maxdelete = "--max-delete"
+    case include = "--include"
+    case filter = "--filter"
+    case backup = "--backup"
+    case deleteexcluded = "--delete-excluded"
     case none
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase }
 }
 
-struct SuffixstringsRsyncParameters {
+struct RsyncArguments {
     // Preselected parameters for storing a backup of deleted or changed files before
     // rsync synchronises the directories
     let backupstrings = ["--backup", "--backup-dir=../backup"]
@@ -38,7 +38,7 @@ struct SuffixstringsRsyncParameters {
     // Tuple for rsync argument and value
     typealias Argument = (String, Int)
     // Static initial arguments, DO NOT change order
-    let rsyncArguments: [Argument] = [
+    let arguments: [Argument] = [
         ("--backup", 0),
         ("--backup-dir", 1),
         ("--exclude-from", 1),

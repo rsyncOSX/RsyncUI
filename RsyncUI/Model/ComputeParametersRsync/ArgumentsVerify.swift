@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ArgumentsVerify: RsyncParameters {
+final class ArgumentsVerify: ComputeRsyncParameters {
     var config: Configuration?
 
     func argumentsverify(forDisplay: Bool) -> [String]? {

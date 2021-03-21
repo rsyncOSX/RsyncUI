@@ -164,7 +164,7 @@
 		E985C77125F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F225F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift */; };
 		E985C77225F3AD9700CB895C /* Logfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F425F3AD9700CB895C /* Logfile.swift */; };
 		E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */; };
-		E985C77425F3AD9700CB895C /* RsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F725F3AD9700CB895C /* RsyncParameters.swift */; };
+		E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */; };
 		E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F825F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift */; };
 		E985C77625F3AD9700CB895C /* ArgumentsSynchronize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F925F3AD9700CB895C /* ArgumentsSynchronize.swift */; };
 		E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */; };
@@ -190,7 +190,7 @@
 		E985C78B25F3AD9700CB895C /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71425F3AD9700CB895C /* ErrorHandling.swift */; };
 		E985C78C25F3AD9700CB895C /* RsyncOSXdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71525F3AD9700CB895C /* RsyncOSXdata.swift */; };
 		E985C78D25F3AD9700CB895C /* ConfigurationsSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71625F3AD9700CB895C /* ConfigurationsSwiftUI.swift */; };
-		E985C78E25F3AD9700CB895C /* SuffixstringsRsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71825F3AD9700CB895C /* SuffixstringsRsyncParameters.swift */; };
+		E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71825F3AD9700CB895C /* RsyncArguments.swift */; };
 		E985C78F25F3AD9700CB895C /* SetRsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71925F3AD9700CB895C /* SetRsyncParameters.swift */; };
 		E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71B25F3AD9700CB895C /* SharedReference.swift */; };
 		E985C79125F3AD9700CB895C /* ObserveableReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71C25F3AD9700CB895C /* ObserveableReference.swift */; };
@@ -395,7 +395,7 @@
 		E985C6F225F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InprogressCountExecuteOneTaskDetails.swift; sourceTree = "<group>"; };
 		E985C6F425F3AD9700CB895C /* Logfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logfile.swift; sourceTree = "<group>"; };
 		E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsVerify.swift; sourceTree = "<group>"; };
-		E985C6F725F3AD9700CB895C /* RsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncParameters.swift; sourceTree = "<group>"; };
+		E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputeRsyncParameters.swift; sourceTree = "<group>"; };
 		E985C6F825F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsLocalcatalogInfo.swift; sourceTree = "<group>"; };
 		E985C6F925F3AD9700CB895C /* ArgumentsSynchronize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsSynchronize.swift; sourceTree = "<group>"; };
 		E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsRestore.swift; sourceTree = "<group>"; };
@@ -421,7 +421,7 @@
 		E985C71425F3AD9700CB895C /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		E985C71525F3AD9700CB895C /* RsyncOSXdata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncOSXdata.swift; sourceTree = "<group>"; };
 		E985C71625F3AD9700CB895C /* ConfigurationsSwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationsSwiftUI.swift; sourceTree = "<group>"; };
-		E985C71825F3AD9700CB895C /* SuffixstringsRsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuffixstringsRsyncParameters.swift; sourceTree = "<group>"; };
+		E985C71825F3AD9700CB895C /* RsyncArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncArguments.swift; sourceTree = "<group>"; };
 		E985C71925F3AD9700CB895C /* SetRsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRsyncParameters.swift; sourceTree = "<group>"; };
 		E985C71B25F3AD9700CB895C /* SharedReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedReference.swift; sourceTree = "<group>"; };
 		E985C71C25F3AD9700CB895C /* ObserveableReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserveableReference.swift; sourceTree = "<group>"; };
@@ -751,11 +751,11 @@
 				E985C6DC25F3AD9600CB895C /* Ssh */,
 				E985C6DE25F3AD9600CB895C /* Execution */,
 				E985C6F325F3AD9700CB895C /* Logfile */,
+				E985C71725F3AD9700CB895C /* AddParametersRsync */,
 				E985C6F525F3AD9700CB895C /* ComputeParametersRsync */,
 				E985C6FB25F3AD9700CB895C /* ProcessArguments */,
 				E985C70325F3AD9700CB895C /* Loggdata */,
 				E985C70725F3AD9700CB895C /* Data */,
-				E985C71725F3AD9700CB895C /* AddParametersRsync */,
 				E985C71A25F3AD9700CB895C /* Global */,
 				E985C71E25F3AD9700CB895C /* Process */,
 			);
@@ -986,7 +986,7 @@
 			isa = PBXGroup;
 			children = (
 				E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */,
-				E985C6F725F3AD9700CB895C /* RsyncParameters.swift */,
+				E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */,
 				E985C6F825F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift */,
 				E985C6F925F3AD9700CB895C /* ArgumentsSynchronize.swift */,
 				E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */,
@@ -1056,7 +1056,7 @@
 		E985C71725F3AD9700CB895C /* AddParametersRsync */ = {
 			isa = PBXGroup;
 			children = (
-				E985C71825F3AD9700CB895C /* SuffixstringsRsyncParameters.swift */,
+				E985C71825F3AD9700CB895C /* RsyncArguments.swift */,
 				E985C71925F3AD9700CB895C /* SetRsyncParameters.swift */,
 			);
 			path = AddParametersRsync;
@@ -1341,7 +1341,7 @@
 				E985C67425F3AD8400CB895C /* ImageAdd.swift in Sources */,
 				E98E086325FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift in Sources */,
 				E985C76D25F3AD9700CB895C /* Estimation.swift in Sources */,
-				E985C77425F3AD9700CB895C /* RsyncParameters.swift in Sources */,
+				E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */,
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
 				E985C74525F3AD9700CB895C /* RemoteNumbers.swift in Sources */,
 				E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */,
@@ -1380,7 +1380,7 @@
 				E985C75225F3AD9700CB895C /* CodableConfigurationSchedule.swift in Sources */,
 				E985C68A25F3AD8400CB895C /* ExecuteAlltasksView.swift in Sources */,
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
-				E985C78E25F3AD9700CB895C /* SuffixstringsRsyncParameters.swift in Sources */,
+				E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */,
 				E985C68325F3AD8400CB895C /* LogRow.swift in Sources */,
 				E985C76425F3AD9700CB895C /* ExecuteSingleTask.swift in Sources */,
 				E985C77F25F3AD9700CB895C /* MultipletasksPrimaryLogging.swift in Sources */,
