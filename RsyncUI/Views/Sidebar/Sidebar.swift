@@ -19,6 +19,7 @@ enum NavigationItem {
     case snapshots
     case configurations
     case schedules
+    case restore
 }
 
 struct Sidebar: View {
@@ -108,6 +109,13 @@ struct Sidebar: View {
                     Label(NSLocalizedString("Log listings", comment: "sidebar"), systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.logs)
+
+                NavigationLink(destination: SidebareRestoreView(),
+                               tag: NavigationItem.restore,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Restore", comment: "sidebar"), systemImage: "text.alignleft")
+                }
+                .tag(NavigationItem.restore)
             }
 
             Divider()
