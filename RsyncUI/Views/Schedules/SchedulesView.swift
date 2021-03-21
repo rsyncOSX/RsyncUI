@@ -29,66 +29,48 @@ struct SchedulesView: View {
     @State private var showAlertfordelete = false
 
     var body: some View {
-        VStack {
-            headingtitle
-
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               selectable: $selectable)
-            HStack {
-                VStack {
-                    SelectedstartView(selecteddate: $selecteddate,
-                                      selectedscheduletype: $selectedscheduletype)
-                        .padding(1)
-
-                    SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
-                                  selectedschedule: $selectedschedule,
-                                  selecteduuids: $selecteduuids)
-                }
-
-                SchedulesDatePickerView(selecteddate: $selecteddate)
-            }
-            .padding()
-            // Buttons in right down corner
-            Spacer()
-
-            HStack {
-                Spacer()
-
-                Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button(NSLocalizedString("Select", comment: "Select button")) { select() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button(NSLocalizedString("Stop", comment: "Stop button")) { stop() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
-                    .buttonStyle(AbortButtonStyle())
-                    .sheet(isPresented: $showAlertfordelete) {
-                        DeleteSchedulesView(selecteduuids: $selecteduuids,
-                                            isPresented: $showAlertfordelete,
-                                            reload: $reload,
-                                            selectedprofile: $selectedprofile)
-                    }
-            }
-        }
-        .padding()
-    }
-
-    var headingtitle: some View {
+        ConfigurationsList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+                           selecteduuids: $selecteduuids,
+                           inwork: $inwork,
+                           selectable: $selectable)
         HStack {
             VStack {
-                Text(NSLocalizedString("Schedules", comment: "SidebarLogsView"))
-                    .modifier(Tagheading(.title2, .leading))
-                    .foregroundColor(Color.blue)
+                SelectedstartView(selecteddate: $selecteddate,
+                                  selectedscheduletype: $selectedscheduletype)
+                    .padding(1)
+
+                SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+                              selectedschedule: $selectedschedule,
+                              selecteduuids: $selecteduuids)
             }
 
-            Spacer()
+            SchedulesDatePickerView(selecteddate: $selecteddate)
         }
         .padding()
+        // Buttons in right down corner
+        Spacer()
+
+        HStack {
+            Spacer()
+
+            Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Stop", comment: "Stop button")) { stop() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
+                .buttonStyle(AbortButtonStyle())
+                .sheet(isPresented: $showAlertfordelete) {
+                    DeleteSchedulesView(selecteduuids: $selecteduuids,
+                                        isPresented: $showAlertfordelete,
+                                        reload: $reload,
+                                        selectedprofile: $selectedprofile)
+                }
+        }
     }
 }
 

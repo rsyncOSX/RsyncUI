@@ -8,6 +8,26 @@
 // swiftlint:disable trailing_comma
 
 import Foundation
+
+enum PredefinedParametersRsync: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case backupdir
+    case excludefrom
+    case exclude
+    case includefrom
+    case filesfrom
+    case maxsize
+    case suffix
+    case maxdelete
+    case include
+    case filter
+    case backup
+    case deleteexcluded
+    case none
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
+}
+
 struct SuffixstringsRsyncParameters {
     // Preselected parameters for storing a backup of deleted or changed files before
     // rsync synchronises the directories
@@ -19,8 +39,6 @@ struct SuffixstringsRsyncParameters {
     typealias Argument = (String, Int)
     // Static initial arguments, DO NOT change order
     let rsyncArguments: [Argument] = [
-        ("user", 1),
-        ("delete", 0),
         ("--backup", 0),
         ("--backup-dir", 1),
         ("--exclude-from", 1),

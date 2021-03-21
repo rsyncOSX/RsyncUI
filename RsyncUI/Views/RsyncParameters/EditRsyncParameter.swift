@@ -14,6 +14,12 @@ struct EditRsyncParameter: View {
     var mywidth: CGFloat?
 
     var body: some View {
+        /*
+         let parameter = Binding<PredefinedParametersRsync>(
+             get: { selectedparameter },
+             set: { selectedparameter = $0 }
+         )
+         */
         HStack {
             dropdownrsyncparameter
 
@@ -38,27 +44,8 @@ struct EditRsyncParameter: View {
             }
         }
         .pickerStyle(MenuPickerStyle())
-        .frame(width: 200)
+        .frame(width: 150)
     }
-}
-
-enum PredefinedParametersRsync: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case backupdir
-    case excludefrom
-    case exclude
-    case includefrom
-    case filesfrom
-    case maxsize
-    case suffix
-    case maxdelete
-    case include
-    case filter
-    case backup
-    case deleteexcluded
-    case none
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
 }
 
 /*

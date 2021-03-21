@@ -13,6 +13,23 @@ struct SidebarSchedulesView: View {
     @Binding var reload: Bool
 
     var body: some View {
-        SchedulesView(selectedprofile: $selectedprofile, reload: $reload)
+        VStack {
+            headingtitle
+
+            SchedulesView(selectedprofile: $selectedprofile, reload: $reload)
+        }
+    }
+
+    var headingtitle: some View {
+        HStack {
+            VStack {
+                Text(NSLocalizedString("Schedules", comment: "SidebarLogsView"))
+                    .modifier(Tagheading(.title2, .leading))
+                    .foregroundColor(Color.blue)
+            }
+
+            Spacer()
+        }
+        .padding()
     }
 }

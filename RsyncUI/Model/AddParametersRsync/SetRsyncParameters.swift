@@ -56,7 +56,7 @@ struct SetRsyncParameters {
 
     // Function returns index and value of rsync argument to set the corrospending
     // value in combobox when rsync parameters are presented and stored in configuration
-    private func indexandvaluersyncparameter_int_string(_ parameter: String?) -> (Int, String) {
+    func indexandvaluersyncparameter_int_string(_ parameter: String?) -> (Int, String) {
         guard parameter != nil else { return (0, "") }
         let splitstr: [String] = split(parameter ?? "")
         guard splitstr.count > 1 else { return (0, "") }
