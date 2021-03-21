@@ -31,7 +31,7 @@ struct SetRsyncParameters {
     }
 
     // Returns Int value of argument
-    func indexofrsyncparameter(_ argument: String) -> Int {
+    func indexrsyncargument(_ argument: String) -> Int {
         return RsyncArguments().arguments.firstIndex(where: { $0.0 == argument }) ?? -1
     }
 
@@ -64,11 +64,11 @@ struct SetRsyncParameters {
         let value = splitstr[1]
         var returnvalue: String?
         var returnindex: Int?
-        if argument != value, indexofrsyncparameter(argument) >= 0 {
+        if argument != value, indexrsyncargument(argument) >= 0 {
             returnvalue = value
-            returnindex = indexofrsyncparameter(argument)
+            returnindex = indexrsyncargument(argument)
         } else {
-            if indexofrsyncparameter(splitstr[0]) >= 0 {
+            if indexrsyncargument(splitstr[0]) >= 0 {
                 returnvalue = "\"" + argument + "\" " + "no arguments"
             } else {
                 if argument == value {
@@ -77,11 +77,11 @@ struct SetRsyncParameters {
                     returnvalue = argument + "=" + value
                 }
             }
-            if argument != value, indexofrsyncparameter(argument) >= 0 {
-                returnindex = indexofrsyncparameter(argument)
+            if argument != value, indexrsyncargument(argument) >= 0 {
+                returnindex = indexrsyncargument(argument)
             } else {
-                if indexofrsyncparameter(splitstr[0]) >= 0 {
-                    returnindex = indexofrsyncparameter(argument)
+                if indexrsyncargument(splitstr[0]) >= 0 {
+                    returnindex = indexrsyncargument(argument)
                 } else {
                     returnindex = 0
                 }
@@ -92,7 +92,7 @@ struct SetRsyncParameters {
 
     // Function returns index and value of rsync argument to set the corrospending
     // value in combobox when rsync parameters are presented and stored in configuration
-    private func indexandvaluersyncparameter(_ parameter: String?) -> String {
+    func indexandvaluersyncparameter(_ parameter: String?) -> String {
         guard parameter != nil else { return "" }
         let splitstr: [String] = split(parameter ?? "")
         guard splitstr.count > 1 else { return "" }
@@ -100,11 +100,11 @@ struct SetRsyncParameters {
         let value = splitstr[1]
         var returnvalue: String?
         var returnindex = -1
-        if argument != value, indexofrsyncparameter(argument) >= 0 {
+        if argument != value, indexrsyncargument(argument) >= 0 {
             returnvalue = value
-            returnindex = indexofrsyncparameter(argument)
+            returnindex = indexrsyncargument(argument)
         } else {
-            if indexofrsyncparameter(splitstr[0]) >= 0 {
+            if indexrsyncargument(splitstr[0]) >= 0 {
                 returnvalue = argument
             } else {
                 if argument == value {
@@ -113,11 +113,11 @@ struct SetRsyncParameters {
                     returnvalue = argument + "=" + value
                 }
             }
-            if argument != value, indexofrsyncparameter(argument) >= 0 {
-                returnindex = indexofrsyncparameter(argument)
+            if argument != value, indexrsyncargument(argument) >= 0 {
+                returnindex = indexrsyncargument(argument)
             } else {
-                if indexofrsyncparameter(splitstr[0]) >= 0 {
-                    returnindex = indexofrsyncparameter(argument)
+                if indexrsyncargument(splitstr[0]) >= 0 {
+                    returnindex = indexrsyncargument(argument)
                 } else {
                     returnindex = 0
                 }

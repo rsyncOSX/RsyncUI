@@ -10,6 +10,7 @@
 import Foundation
 
 enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case backup = "--backup"
     case backupdir = "--backup-dir"
     case excludefrom = "--exclude-from"
     case exclude = "--exclude"
@@ -18,10 +19,9 @@ enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvert
     case maxsize = "--max-size"
     case suffix = "--suffix"
     case maxdelete = "--max-delete"
+    case deleteexcluded = "--delete-excluded"
     case include = "--include"
     case filter = "--filter"
-    case backup = "--backup"
-    case deleteexcluded = "--delete-excluded"
     case none
 
     var id: String { rawValue }
@@ -37,7 +37,7 @@ struct RsyncArguments {
 
     // Tuple for rsync argument and value
     typealias Argument = (String, Int)
-    // Static initial arguments, DO NOT change order
+    // Static initial arguments
     let arguments: [Argument] = [
         ("--backup", 0),
         ("--backup-dir", 1),
