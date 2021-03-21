@@ -10,7 +10,6 @@ import SwiftUI
 struct RsyncParametersView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @Binding var reload: Bool
-
     @StateObject private var parameters = ObserveableParametersRsync()
     // Not used but requiered in parameter
     @State private var inwork = -1
@@ -24,28 +23,41 @@ struct RsyncParametersView: View {
                            selectable: $selectable)
 
         VStack(alignment: .leading) {
-            EditRsyncParameter(600, $parameters.parameter8.wrappedValue, $parameters.parameter8)
-            EditRsyncParameter(600, $parameters.parameter9.wrappedValue, $parameters.parameter9)
-            EditRsyncParameter(600, $parameters.parameter10.wrappedValue, $parameters.parameter10)
-            EditRsyncParameter(600, $parameters.parameter11.wrappedValue, $parameters.parameter11)
-            EditRsyncParameter(600, $parameters.parameter12.wrappedValue, $parameters.parameter12)
-            EditRsyncParameter(600, $parameters.parameter13.wrappedValue, $parameters.parameter13)
-            EditRsyncParameter(600, $parameters.parameter14.wrappedValue, $parameters.parameter14)
+            EditRsyncParameter(600, $parameters.parameter8.wrappedValue, $parameters.parameter8.onChange {
+                parameters.inputchangedbyuser = true
+            })
+            EditRsyncParameter(600, $parameters.parameter9.wrappedValue, $parameters.parameter9.onChange {
+                parameters.inputchangedbyuser = true
+            })
+            EditRsyncParameter(600, $parameters.parameter10.wrappedValue, $parameters.parameter10.onChange {
+                parameters.inputchangedbyuser = true
+            })
+            EditRsyncParameter(600, $parameters.parameter11.wrappedValue, $parameters.parameter11.onChange {
+                parameters.inputchangedbyuser = true
+            })
+            EditRsyncParameter(600, $parameters.parameter12.wrappedValue, $parameters.parameter12.onChange {
+                parameters.inputchangedbyuser = true
+            })
+            EditRsyncParameter(600, $parameters.parameter13.wrappedValue, $parameters.parameter13.onChange {
+                parameters.inputchangedbyuser = true
+            })
+            EditRsyncParameter(600, $parameters.parameter14.wrappedValue, $parameters.parameter14.onChange {
+                parameters.inputchangedbyuser = true
+            })
         }
 
         Spacer()
 
         HStack {
             Spacer()
-            // Add or Update button
-
-            saveparameters
 
             Button(NSLocalizedString("Button 1", comment: "SidebarRsyncParameter")) {}
                 .buttonStyle(PrimaryButtonStyle())
 
             Button(NSLocalizedString("Button 2", comment: "SidebarRsyncParameter")) {}
                 .buttonStyle(PrimaryButtonStyle())
+            
+            saveparameters
         }
     }
 

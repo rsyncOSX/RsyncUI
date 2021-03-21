@@ -22,7 +22,7 @@ enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvert
     case deleteexcluded = "--delete-excluded"
     case include = "--include"
     case filter = "--filter"
-    case none
+    case select
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase }

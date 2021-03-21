@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditRsyncParameter: View {
-    @State private var selectedparameter = EnumRsyncArguments.none
+    @State private var selectedparameter = EnumRsyncArguments.select
     var myvalue: Binding<String>
     var mytext: String?
     var mywidth: CGFloat?
@@ -37,8 +37,9 @@ struct EditRsyncParameter: View {
     }
 
     var dropdownrsyncparameter: some View {
-        Picker(NSLocalizedString("param", comment: "EditRsyncParameter") + ":",
-               selection: $selectedparameter) {
+        Picker("", selection: $selectedparameter.onChange {
+            myvalue.wrappedValue = selectedparameter.rawValue + "="
+        }) {
             ForEach(EnumRsyncArguments.allCases) { Text($0.description)
                 .tag($0)
             }
