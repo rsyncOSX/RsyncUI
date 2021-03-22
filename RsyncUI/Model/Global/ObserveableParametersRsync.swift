@@ -92,7 +92,6 @@ class ObserveableParametersRsync: ObservableObject {
         $configuration
             .sink { [unowned self] config in
                 if let config = config { setvalues(config) }
-                isDirty = false
             }.store(in: &subscriptions)
         $sshkeypathandidentityfile
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
@@ -105,17 +104,17 @@ class ObserveableParametersRsync: ObservableObject {
                 sshport(port)
             }.store(in: &subscriptions)
         $removessh
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] ssh in
                 deletessh(ssh)
             }.store(in: &subscriptions)
         $removedelete
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] delete in
                 deletedelete(delete)
             }.store(in: &subscriptions)
         $removecompress
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] compress in
                 deletecompress(compress)
             }.store(in: &subscriptions)
@@ -178,7 +177,6 @@ class ObserveableParametersRsync: ObservableObject {
     private func setvalues(_ config: Configuration) {
         isDirty = false
         inputchangedbyuser = false
-        guard configuration != nil else { return }
         parameter8 = config.parameter8 ?? ""
         parameter9 = config.parameter9 ?? ""
         parameter10 = config.parameter10 ?? ""
@@ -196,9 +194,9 @@ class ObserveableParametersRsync: ObservableObject {
         parameter4 = config.parameter4
         parameter5 = config.parameter5
         // set delete toggles
-        // if (parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
-        // if (parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
-        // if (parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
+        if (parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
+        if (parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
+        if (parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
     }
 
     func sshkeypathandidentiyfile(_ keypath: String) {
