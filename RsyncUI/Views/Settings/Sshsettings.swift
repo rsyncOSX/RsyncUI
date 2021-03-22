@@ -90,7 +90,7 @@ struct Sshsettings: View {
         .disabled(!usersettings.isDirty)
     }
 
-    // Ssh keypath
+    // Ssh header
     var headerssh: some View {
         Text(NSLocalizedString("Set ssh keypath and identityfile", comment: "ssh settings"))
     }

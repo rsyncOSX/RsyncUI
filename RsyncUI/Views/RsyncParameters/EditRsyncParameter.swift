@@ -45,6 +45,6 @@ struct EditRsyncParameter: View {
             }
         }
         .pickerStyle(MenuPickerStyle())
-        .frame(width: 150)
+        .frame(width: 120)
     }
 }

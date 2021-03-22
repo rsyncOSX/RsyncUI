@@ -22,7 +22,14 @@ class ObserveableParametersRsync: ObservableObject {
     @Published var parameter14: String = ""
     // Selected configuration
     @Published var configuration: Configuration?
-    // Value to check if input field is changed by user
+    // Local SSH parameters
+    // Have to convert String -> Int before saving
+    // Set the current value as placeholder text
+    @Published var sshport: String = ""
+    // SSH keypath and identityfile, the settings View is picking up the current value
+    // Set the current value as placeholder text
+    @Published var sshkeypathandidentityfile: String = ""
+    // If local public sshkeys are present
     @Published var inputchangedbyuser: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -80,10 +87,31 @@ class ObserveableParametersRsync: ObservableObject {
                 }
                 isDirty = false
             }.store(in: &subscriptions)
+        $sshkeypathandidentityfile
+            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .sink { [unowned self] identityfile in
+                sshkeypathandidentiyfile(identityfile)
+            }.store(in: &subscriptions)
+        $sshport
+            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .sink { [unowned self] port in
+                sshport(port)
+            }.store(in: &subscriptions)
     }
 
     private func validate(_ parameter: String) {
         print(parameter)
+    }
+
+    // SSH identityfile
+    private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
+        if keypath.first != "~" { throw SshError.noslash }
+        let tempsshkeypath = keypath
+        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
+        guard sshkeypathandidentityfilesplit.count > 2 else { throw SshError.noslash }
+        guard sshkeypathandidentityfilesplit[1].count > 1 else { throw SshError.notvalidpath }
+        guard sshkeypathandidentityfilesplit[2].count > 1 else { throw SshError.notvalidpath }
+        return true
     }
 
     private func setvalues(_ config: Configuration) {
@@ -94,6 +122,60 @@ class ObserveableParametersRsync: ObservableObject {
         parameter12 = config.parameter12 ?? ""
         parameter13 = config.parameter13 ?? ""
         parameter14 = config.parameter14 ?? ""
+        if let configsshport = config.sshport {
+            sshport = String(configsshport)
+        }
+        sshkeypathandidentityfile = config.sshkeypathandidentityfile ?? ""
+    }
+
+    func sshkeypathandidentiyfile(_ keypath: String) {
+        guard inputchangedbyuser == true else { return }
+        // If keypath is empty set it to nil, e.g default value
+        guard keypath.isEmpty == false else {
+            configuration?.sshkeypathandidentityfile = nil
+            isDirty = true
+            return
+        }
+        do {
+            let verified = try checksshkeypathbeforesaving(keypath)
+            if verified {
+                configuration?.sshkeypathandidentityfile = keypath
+                isDirty = true
+            }
+        } catch let e {
+            let error = e
+            self.propogateerror(error: error)
+        }
+    }
+
+    // SSH port number
+    private func checksshport(_ port: String) throws -> Bool {
+        guard port.isEmpty == false else { return false }
+        if Int(port) != nil {
+            return true
+        } else {
+            throw InputError.notvalidInt
+        }
+    }
+
+    func sshport(_ port: String) {
+        guard inputchangedbyuser == true else { return }
+        // if port is empty set it to nil, e.g. default value
+        guard port.isEmpty == false else {
+            configuration?.sshport = nil
+            isDirty = true
+            return
+        }
+        do {
+            let verified = try checksshport(port)
+            if verified {
+                configuration?.sshport = Int(port)
+                isDirty = true
+            }
+        } catch let e {
+            let error = e
+            self.propogateerror(error: error)
+        }
     }
 }
 

@@ -22,28 +22,38 @@ struct RsyncParametersView: View {
                            inwork: $inwork,
                            selectable: $selectable)
 
-        VStack(alignment: .leading) {
-            EditRsyncParameter(600, $parameters.parameter8.wrappedValue, $parameters.parameter8.onChange {
-                parameters.inputchangedbyuser = true
-            })
-            EditRsyncParameter(600, $parameters.parameter9.wrappedValue, $parameters.parameter9.onChange {
-                parameters.inputchangedbyuser = true
-            })
-            EditRsyncParameter(600, $parameters.parameter10.wrappedValue, $parameters.parameter10.onChange {
-                parameters.inputchangedbyuser = true
-            })
-            EditRsyncParameter(600, $parameters.parameter11.wrappedValue, $parameters.parameter11.onChange {
-                parameters.inputchangedbyuser = true
-            })
-            EditRsyncParameter(600, $parameters.parameter12.wrappedValue, $parameters.parameter12.onChange {
-                parameters.inputchangedbyuser = true
-            })
-            EditRsyncParameter(600, $parameters.parameter13.wrappedValue, $parameters.parameter13.onChange {
-                parameters.inputchangedbyuser = true
-            })
-            EditRsyncParameter(600, $parameters.parameter14.wrappedValue, $parameters.parameter14.onChange {
-                parameters.inputchangedbyuser = true
-            })
+        HStack {
+            VStack(alignment: .leading) {
+                EditRsyncParameter(550, $parameters.parameter8.wrappedValue, $parameters.parameter8.onChange {
+                    parameters.inputchangedbyuser = true
+                })
+                EditRsyncParameter(550, $parameters.parameter9.wrappedValue, $parameters.parameter9.onChange {
+                    parameters.inputchangedbyuser = true
+                })
+                EditRsyncParameter(550, $parameters.parameter10.wrappedValue, $parameters.parameter10.onChange {
+                    parameters.inputchangedbyuser = true
+                })
+                EditRsyncParameter(550, $parameters.parameter11.wrappedValue, $parameters.parameter11.onChange {
+                    parameters.inputchangedbyuser = true
+                })
+                EditRsyncParameter(550, $parameters.parameter12.wrappedValue, $parameters.parameter12.onChange {
+                    parameters.inputchangedbyuser = true
+                })
+                EditRsyncParameter(550, $parameters.parameter13.wrappedValue, $parameters.parameter13.onChange {
+                    parameters.inputchangedbyuser = true
+                })
+                EditRsyncParameter(550, $parameters.parameter14.wrappedValue, $parameters.parameter14.onChange {
+                    parameters.inputchangedbyuser = true
+                })
+            }
+
+            VStack(alignment: .leading) {
+                Section(header: headerssh) {
+                    setsshpath
+
+                    setsshport
+                }
+            }
         }
 
         Spacer()
@@ -51,10 +61,16 @@ struct RsyncParametersView: View {
         HStack {
             Spacer()
 
-            Button(NSLocalizedString("Button 1", comment: "SidebarRsyncParameter")) {}
+            Button(NSLocalizedString("Linux", comment: "SidebarRsyncParameter")) {}
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Button 2", comment: "SidebarRsyncParameter")) {}
+            Button(NSLocalizedString("FreeBSD", comment: "SidebarRsyncParameter")) {}
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Daemon", comment: "SidebarRsyncParameter")) {}
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Backup", comment: "SidebarRsyncParameter")) {}
                 .buttonStyle(PrimaryButtonStyle())
 
             saveparameters
@@ -77,6 +93,33 @@ struct RsyncParametersView: View {
             }
         }
         .disabled(!parameters.isDirty)
+    }
+
+    // Ssh header
+    var headerssh: some View {
+        Text(NSLocalizedString("Set ssh keypath and identityfile", comment: "ssh settings"))
+    }
+
+    var setsshpath: some View {
+        EditValue(250, NSLocalizedString("Local ssh keypath and identityfile", comment: "settings"), $parameters.sshkeypathandidentityfile.onChange {
+            parameters.inputchangedbyuser = true
+        })
+            .onAppear(perform: {
+                if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
+                    parameters.sshkeypathandidentityfile = sshkeypath
+                }
+            })
+    }
+
+    var setsshport: some View {
+        EditValue(250, NSLocalizedString("Local ssh port", comment: "settings"), $parameters.sshport.onChange {
+            parameters.inputchangedbyuser = true
+        })
+            .onAppear(perform: {
+                if let sshport = parameters.configuration?.sshport {
+                    parameters.sshport = String(sshport)
+                }
+            })
     }
 }
 
