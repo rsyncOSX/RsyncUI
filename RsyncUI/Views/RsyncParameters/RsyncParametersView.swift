@@ -61,11 +61,9 @@ struct RsyncParametersView: View {
                     ToggleView(NSLocalizedString("-e shh", comment: "settings"), $parameters.removessh.onChange {
                         parameters.inputchangedbyuser = true
                     })
-
                     ToggleView(NSLocalizedString("--compress", comment: "settings"), $parameters.removecompress.onChange {
                         parameters.inputchangedbyuser = true
                     })
-
                     ToggleView(NSLocalizedString("--delete", comment: "settings"), $parameters.removedelete.onChange {
                         parameters.inputchangedbyuser = true
                     })
@@ -141,5 +139,8 @@ struct RsyncParametersView: View {
 }
 
 extension RsyncParametersView {
-    func saversyncparameters() {}
+    func saversyncparameters() {
+        parameters.isDirty = false
+        parameters.inputchangedbyuser = false
+    }
 }

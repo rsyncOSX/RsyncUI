@@ -37,6 +37,11 @@ class ObserveableParametersRsync: ObservableObject {
     @Published var removedelete: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
+    // parameters for delete
+    var parameter3: String?
+    var parameter4: String?
+    var parameter5: String?
+    var deleteparameterschanged: Bool = false
 
     init() {
         $inputchangedbyuser
@@ -85,7 +90,6 @@ class ObserveableParametersRsync: ObservableObject {
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $configuration
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] config in
                 if let config = config { setvalues(config) }
                 isDirty = false
@@ -102,21 +106,18 @@ class ObserveableParametersRsync: ObservableObject {
             }.store(in: &subscriptions)
         $removessh
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] val in
-                deletessh(val)
-                isDirty = inputchangedbyuser
+            .sink { [unowned self] ssh in
+                deletessh(ssh)
             }.store(in: &subscriptions)
         $removedelete
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] val in
-                deletedelete(val)
-                isDirty = inputchangedbyuser
+            .sink { [unowned self] delete in
+                deletedelete(delete)
             }.store(in: &subscriptions)
         $removecompress
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] val in
-                deletecompress(val)
-                isDirty = inputchangedbyuser
+            .sink { [unowned self] compress in
+                deletecompress(compress)
             }.store(in: &subscriptions)
     }
 
@@ -126,29 +127,41 @@ class ObserveableParametersRsync: ObservableObject {
 
     // parameter5
     private func deletessh(_ delete: Bool) {
+        guard configuration != nil else { return }
+        guard inputchangedbyuser == true else { return }
         if delete {
-            configuration?.parameter5 = ""
+            parameter5 = ""
         } else {
-            configuration?.parameter5 = "-e"
+            parameter5 = "-e"
         }
+        isDirty = true
+        deleteparameterschanged = true
     }
 
     // parameter4
     private func deletedelete(_ delete: Bool) {
+        guard configuration != nil else { return }
+        guard inputchangedbyuser == true else { return }
         if delete {
-            configuration?.parameter4 = ""
+            parameter4 = ""
         } else {
-            configuration?.parameter4 = "--delete"
+            parameter4 = "--delete"
         }
+        isDirty = true
+        deleteparameterschanged = true
     }
 
     // parameter3
     private func deletecompress(_ delete: Bool) {
+        guard configuration != nil else { return }
+        guard inputchangedbyuser == true else { return }
         if delete {
-            configuration?.parameter3 = ""
+            parameter3 = ""
         } else {
-            configuration?.parameter3 = "--compress"
+            parameter3 = "--compress"
         }
+        isDirty = true
+        deleteparameterschanged = true
     }
 
     // SSH identityfile
@@ -163,6 +176,9 @@ class ObserveableParametersRsync: ObservableObject {
     }
 
     private func setvalues(_ config: Configuration) {
+        isDirty = false
+        inputchangedbyuser = false
+        guard configuration != nil else { return }
         parameter8 = config.parameter8 ?? ""
         parameter9 = config.parameter9 ?? ""
         parameter10 = config.parameter10 ?? ""
@@ -172,15 +188,21 @@ class ObserveableParametersRsync: ObservableObject {
         parameter14 = config.parameter14 ?? ""
         if let configsshport = config.sshport {
             sshport = String(configsshport)
+        } else {
+            sshport = ""
         }
         sshkeypathandidentityfile = config.sshkeypathandidentityfile ?? ""
+        parameter3 = config.parameter3
+        parameter4 = config.parameter4
+        parameter5 = config.parameter5
         // set delete toggles
-        if config.parameter3.isEmpty { removecompress = true }
-        if config.parameter4.isEmpty { removedelete = true }
-        if config.parameter5.isEmpty { removessh = true }
+        // if (parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
+        // if (parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
+        // if (parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
     }
 
     func sshkeypathandidentiyfile(_ keypath: String) {
+        guard configuration != nil else { return }
         guard inputchangedbyuser == true else { return }
         // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
@@ -211,6 +233,7 @@ class ObserveableParametersRsync: ObservableObject {
     }
 
     func sshport(_ port: String) {
+        guard configuration != nil else { return }
         guard inputchangedbyuser == true else { return }
         // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
