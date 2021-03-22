@@ -76,17 +76,29 @@ struct RsyncParametersView: View {
         HStack {
             Spacer()
 
-            Button(NSLocalizedString("Linux", comment: "SidebarRsyncParameter")) {}
-                .buttonStyle(PrimaryButtonStyle())
+            Button(NSLocalizedString("Linux", comment: "SidebarRsyncParameter")) {
+                parameters.suffixlinux = true
+                parameters.inputchangedbyuser = true
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("FreeBSD", comment: "SidebarRsyncParameter")) {}
-                .buttonStyle(PrimaryButtonStyle())
+            Button(NSLocalizedString("FreeBSD", comment: "SidebarRsyncParameter")) {
+                parameters.suffixfreebsd = true
+                parameters.inputchangedbyuser = true
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Daemon", comment: "SidebarRsyncParameter")) {}
-                .buttonStyle(PrimaryButtonStyle())
+            Button(NSLocalizedString("Daemon", comment: "SidebarRsyncParameter")) {
+                parameters.rsyncdaemon = true
+                parameters.inputchangedbyuser = true
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Backup", comment: "SidebarRsyncParameter")) {}
-                .buttonStyle(PrimaryButtonStyle())
+            Button(NSLocalizedString("Backup", comment: "SidebarRsyncParameter")) {
+                parameters.backup = true
+                parameters.inputchangedbyuser = true
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
             saveparameters
         }

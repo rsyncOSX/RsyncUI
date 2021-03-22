@@ -35,6 +35,11 @@ class ObserveableParametersRsync: ObservableObject {
     @Published var removessh: Bool = false
     @Published var removecompress: Bool = false
     @Published var removedelete: Bool = false
+    // Buttons
+    @Published var suffixlinux: Bool = false
+    @Published var suffixfreebsd: Bool = false
+    @Published var backup: Bool = false
+    @Published var rsyncdaemon: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
     // parameters for delete
@@ -104,19 +109,36 @@ class ObserveableParametersRsync: ObservableObject {
                 sshport(port)
             }.store(in: &subscriptions)
         $removessh
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] ssh in
                 deletessh(ssh)
             }.store(in: &subscriptions)
         $removedelete
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] delete in
                 deletedelete(delete)
             }.store(in: &subscriptions)
         $removecompress
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] compress in
                 deletecompress(compress)
+            }.store(in: &subscriptions)
+        $suffixlinux
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] _ in
+            }.store(in: &subscriptions)
+        $suffixfreebsd
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] _ in
+            }.store(in: &subscriptions)
+        $rsyncdaemon
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] _ in
+            }.store(in: &subscriptions)
+        $backup
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] _ in
+                setbackup()
             }.store(in: &subscriptions)
     }
 
@@ -250,6 +272,26 @@ class ObserveableParametersRsync: ObservableObject {
             self.propogateerror(error: error)
         }
     }
+
+    func setbackup() {
+        guard inputchangedbyuser == true else { return }
+        if let config = configuration {
+            switch backup {
+            case true:
+                let localcatalog = config.localCatalog
+                let localcatalogParts = (localcatalog as AnyObject).components(separatedBy: "/")
+                parameter12 = RsyncArguments().backupstrings[0]
+                parameter13 = "../backup" + "_" + localcatalogParts[localcatalogParts.count - 2]
+                parameter14 = ""
+
+            case false:
+                parameter12 = ""
+                parameter13 = ""
+                parameter14 = ""
+            }
+        }
+        isDirty = true
+    }
 }
 
 extension ObserveableParametersRsync: PropogateError {
@@ -270,48 +312,6 @@ enum ParameterError: LocalizedError {
 }
 
 /*
- @IBAction func removecompressparameter(_: NSButton) {
-     if let index = self.index() {
-         switch self.compressparameter.state {
-         case .on:
-             self.configurations?.removecompressparameter(index: index, delete: true)
-         case .off:
-             self.configurations?.removecompressparameter(index: index, delete: false)
-         default:
-             break
-         }
-         self.param3.stringValue = self.configurations?.getConfigurations()?[index].parameter3 ?? ""
-     }
- }
-
- @IBAction func removeesshparameter(_: NSButton) {
-     if let index = self.index() {
-         switch self.esshparameter.state {
-         case .on:
-             self.configurations?.removeesshparameter(index: index, delete: true)
-             self.param5.stringValue = self.configurations?.getConfigurations()?[index].parameter5 ?? ""
-         case .off:
-             self.configurations?.removeesshparameter(index: index, delete: false)
-             self.param5.stringValue = (self.configurations?.getConfigurations()?[index].parameter5 ?? "") + " ssh"
-         default:
-             break
-         }
-     }
- }
-
- @IBAction func removedeleteparameter(_: NSButton) {
-     if let index = self.index() {
-         switch self.deleteparamater.state {
-         case .on:
-             self.configurations?.removeedeleteparameter(index: index, delete: true)
-         case .off:
-             self.configurations?.removeedeleteparameter(index: index, delete: false)
-         default:
-             break
-         }
-         self.param4.stringValue = self.configurations?.getConfigurations()?[index].parameter4 ?? ""
-     }
- }
 
  // Function for enabling backup of changed files in a backup catalog.
  // Parameters are appended to last two parameters (12 and 13).
