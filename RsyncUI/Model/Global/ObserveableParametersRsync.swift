@@ -46,7 +46,7 @@ class ObserveableParametersRsync: ObservableObject {
     var parameter3: String?
     var parameter4: String?
     var parameter5: String?
-    var rsyncdaemon: Int = 0
+    var rsyncdaemon: Int?
     var deleteparameterschanged: Bool = false
 
     init() {
@@ -150,57 +150,7 @@ class ObserveableParametersRsync: ObservableObject {
         print(parameter)
     }
 
-    // parameter5
-    private func deletessh(_ delete: Bool) {
-        guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
-        if delete {
-            parameter5 = ""
-        } else {
-            parameter5 = "-e"
-        }
-        isDirty = true
-        deleteparameterschanged = true
-    }
-
-    // parameter4
-    private func deletedelete(_ delete: Bool) {
-        guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
-        if delete {
-            parameter4 = ""
-        } else {
-            parameter4 = "--delete"
-        }
-        isDirty = true
-        deleteparameterschanged = true
-    }
-
-    // parameter3
-    private func deletecompress(_ delete: Bool) {
-        guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
-        if delete {
-            parameter3 = ""
-        } else {
-            parameter3 = "--compress"
-        }
-        isDirty = true
-        deleteparameterschanged = true
-    }
-
-    // SSH identityfile
-    private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
-        if keypath.first != "~" { throw SshError.noslash }
-        let tempsshkeypath = keypath
-        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
-        guard sshkeypathandidentityfilesplit.count > 2 else { throw SshError.noslash }
-        guard sshkeypathandidentityfilesplit[1].count > 1 else { throw SshError.notvalidpath }
-        guard sshkeypathandidentityfilesplit[2].count > 1 else { throw SshError.notvalidpath }
-        return true
-    }
-
-    private func setvalues(_ config: Configuration) {
+    func setvalues(_ config: Configuration) {
         isDirty = false
         inputchangedbyuser = false
         parameter8 = config.parameter8 ?? ""
@@ -224,7 +174,57 @@ class ObserveableParametersRsync: ObservableObject {
         if (parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
         if (parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
         // Rsync daemon
-        rsyncdaemon = config.rsyncdaemon ?? 0
+        rsyncdaemon = config.rsyncdaemon
+    }
+
+    // parameter5 -e ssh
+    private func deletessh(_ delete: Bool) {
+        guard configuration != nil else { return }
+        guard inputchangedbyuser == true else { return }
+        if delete {
+            parameter5 = ""
+        } else {
+            parameter5 = "-e"
+        }
+        isDirty = true
+        deleteparameterschanged = true
+    }
+
+    // parameter4 --delete
+    private func deletedelete(_ delete: Bool) {
+        guard configuration != nil else { return }
+        guard inputchangedbyuser == true else { return }
+        if delete {
+            parameter4 = ""
+        } else {
+            parameter4 = "--delete"
+        }
+        isDirty = true
+        deleteparameterschanged = true
+    }
+
+    // parameter3 --compress
+    private func deletecompress(_ delete: Bool) {
+        guard configuration != nil else { return }
+        guard inputchangedbyuser == true else { return }
+        if delete {
+            parameter3 = ""
+        } else {
+            parameter3 = "--compress"
+        }
+        isDirty = true
+        deleteparameterschanged = true
+    }
+
+    // SSH identityfile
+    private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
+        if keypath.first != "~" { throw SshError.noslash }
+        let tempsshkeypath = keypath
+        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
+        guard sshkeypathandidentityfilesplit.count > 2 else { throw SshError.noslash }
+        guard sshkeypathandidentityfilesplit[1].count > 1 else { throw SshError.notvalidpath }
+        guard sshkeypathandidentityfilesplit[2].count > 1 else { throw SshError.notvalidpath }
+        return true
     }
 
     func sshkeypathandidentiyfile(_ keypath: String) {

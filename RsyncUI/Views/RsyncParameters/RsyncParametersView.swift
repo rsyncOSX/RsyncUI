@@ -49,14 +49,6 @@ struct RsyncParametersView: View {
             }
 
             VStack {
-                VStack(alignment: .leading) {
-                    Section(header: headerssh) {
-                        setsshpath
-
-                        setsshport
-                    }
-                }
-
                 HStack {
                     ToggleView(NSLocalizedString("-e shh", comment: "settings"), $parameters.removessh.onChange {
                         parameters.inputchangedbyuser = true
@@ -68,14 +60,20 @@ struct RsyncParametersView: View {
                         parameters.inputchangedbyuser = true
                     })
                 }
+
+                VStack(alignment: .leading) {
+                    Section(header: headerssh) {
+                        setsshpath
+
+                        setsshport
+                    }
+                }
             }
         }
 
         Spacer()
 
         HStack {
-            Spacer()
-
             Button(NSLocalizedString("Linux", comment: "SidebarRsyncParameter")) {
                 parameters.suffixlinux = true
                 parameters.inputchangedbyuser = true
@@ -99,6 +97,8 @@ struct RsyncParametersView: View {
                 parameters.inputchangedbyuser = true
             }
             .buttonStyle(PrimaryButtonStyle())
+
+            Spacer()
 
             saveparameters
         }
