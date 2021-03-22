@@ -85,6 +85,7 @@ class ObserveableParametersRsync: ObservableObject {
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $configuration
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] config in
                 if let config = config { setvalues(config) }
                 isDirty = false
