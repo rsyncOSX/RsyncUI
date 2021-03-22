@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/03/2021.
 //
+// swiftlint:disable line_lenght
 
 import SwiftUI
 
@@ -126,3 +127,122 @@ struct RsyncParametersView: View {
 extension RsyncParametersView {
     func saversyncparameters() {}
 }
+
+/*
+ @IBAction func removecompressparameter(_: NSButton) {
+     if let index = self.index() {
+         switch self.compressparameter.state {
+         case .on:
+             self.configurations?.removecompressparameter(index: index, delete: true)
+         case .off:
+             self.configurations?.removecompressparameter(index: index, delete: false)
+         default:
+             break
+         }
+         self.param3.stringValue = self.configurations?.getConfigurations()?[index].parameter3 ?? ""
+     }
+ }
+
+ @IBAction func removeesshparameter(_: NSButton) {
+     if let index = self.index() {
+         switch self.esshparameter.state {
+         case .on:
+             self.configurations?.removeesshparameter(index: index, delete: true)
+             self.param5.stringValue = self.configurations?.getConfigurations()?[index].parameter5 ?? ""
+         case .off:
+             self.configurations?.removeesshparameter(index: index, delete: false)
+             self.param5.stringValue = (self.configurations?.getConfigurations()?[index].parameter5 ?? "") + " ssh"
+         default:
+             break
+         }
+     }
+ }
+
+ @IBAction func removedeleteparameter(_: NSButton) {
+     if let index = self.index() {
+         switch self.deleteparamater.state {
+         case .on:
+             self.configurations?.removeedeleteparameter(index: index, delete: true)
+         case .off:
+             self.configurations?.removeedeleteparameter(index: index, delete: false)
+         default:
+             break
+         }
+         self.param4.stringValue = self.configurations?.getConfigurations()?[index].parameter4 ?? ""
+     }
+ }
+
+ // Function for enabling backup of changed files in a backup catalog.
+ // Parameters are appended to last two parameters (12 and 13).
+ @IBAction func backup(_: NSButton) {
+     if let index = self.index() {
+         if let configurations: [Configuration] = self.configurations?.getConfigurations() {
+             let param = ComboboxRsyncParameters(config: configurations[index])
+             switch self.backupbutton.state {
+             case .on:
+                 self.initcombox(combobox: self.combo12, index: param.indexandvaluersyncparameter(SuffixstringsRsyncParameters().backupstrings[0]).0)
+                 self.param12.stringValue = param.indexandvaluersyncparameter(SuffixstringsRsyncParameters().backupstrings[0]).1
+                 let hiddenID = self.configurations?.gethiddenID(index: (self.index())!)
+                 guard (hiddenID ?? -1) > -1 else { return }
+                 let localcatalog = self.configurations?.getResourceConfiguration(hiddenID ?? -1, resource: .localCatalog)
+                 let localcatalogParts = (localcatalog as AnyObject).components(separatedBy: "/")
+                 self.initcombox(combobox: self.combo13, index: param.indexandvaluersyncparameter(SuffixstringsRsyncParameters().backupstrings[1]).0)
+                 self.param13.stringValue = "../backup" + "_" + localcatalogParts[localcatalogParts.count - 2]
+             case .off:
+                 self.initcombox(combobox: self.combo12, index: 0)
+                 self.param12.stringValue = ""
+                 self.initcombox(combobox: self.combo13, index: 0)
+                 self.param13.stringValue = ""
+                 self.initcombox(combobox: self.combo14, index: 0)
+                 self.param14.stringValue = ""
+             default: break
+             }
+         }
+     }
+ }
+
+ // Function for enabling suffix date + time changed files.
+ // Parameters are appended to last parameter (14).
+ @IBOutlet var suffixButton: NSButton!
+ @IBAction func suffix(_: NSButton) {
+     if let index = self.index() {
+         self.suffixButton2.state = .off
+         if let configurations: [Configuration] = self.configurations?.getConfigurations() {
+             let param = ComboboxRsyncParameters(config: configurations[index])
+             switch self.suffixButton.state {
+             case .on:
+                 let suffix = SuffixstringsRsyncParameters().suffixstringfreebsd
+                 self.initcombox(combobox: self.combo14, index: param.indexandvaluersyncparameter(suffix).0)
+                 self.param14.stringValue = param.indexandvaluersyncparameter(suffix).1
+             case .off:
+                 self.initcombox(combobox: self.combo14, index: 0)
+                 self.param14.stringValue = ""
+             default:
+                 break
+             }
+         }
+     }
+ }
+
+ @IBOutlet var suffixButton2: NSButton!
+ @IBAction func suffix2(_: NSButton) {
+     if let index = self.index() {
+         if let configurations: [Configuration] = self.configurations?.getConfigurations() {
+             let param = ComboboxRsyncParameters(config: configurations[index])
+             self.suffixButton.state = .off
+             switch self.suffixButton2.state {
+             case .on:
+                 let suffix = SuffixstringsRsyncParameters().suffixstringlinux
+                 self.initcombox(combobox: self.combo14, index: param.indexandvaluersyncparameter(suffix).0)
+                 self.param14.stringValue = param.indexandvaluersyncparameter(suffix).1
+             case .off:
+                 self.initcombox(combobox: self.combo14, index: 0)
+                 self.param14.stringValue = ""
+             default:
+                 break
+             }
+         }
+     }
+ }
+
+ */
