@@ -107,33 +107,6 @@ class UpdateConfigurations {
         }
     }
 
-    func removecompressparameter(index: Int, delete: Bool) {
-        guard index < (configurations?.count ?? 0) else { return }
-        if delete {
-            configurations?[index].parameter3 = ""
-        } else {
-            configurations?[index].parameter3 = "--compress"
-        }
-    }
-
-    func removeedeleteparameter(index: Int, delete: Bool) {
-        guard index < (configurations?.count ?? 0) else { return }
-        if delete {
-            configurations?[index].parameter4 = ""
-        } else {
-            configurations?[index].parameter4 = "--delete"
-        }
-    }
-
-    func removeesshparameter(index: Int, delete: Bool) {
-        guard index < (configurations?.count ?? 0) else { return }
-        if delete {
-            configurations?[index].parameter5 = ""
-        } else {
-            configurations?[index].parameter5 = "-e"
-        }
-    }
-
     private func increasesnapshotnum(index: Int) {
         if let num = configurations?[index].snapshotnum {
             configurations?[index].snapshotnum = num + 1

@@ -86,9 +86,7 @@ class ObserveableParametersRsync: ObservableObject {
             }.store(in: &subscriptions)
         $configuration
             .sink { [unowned self] config in
-                if let config = config {
-                    setvalues(config)
-                }
+                if let config = config { setvalues(config) }
                 isDirty = false
             }.store(in: &subscriptions)
         $sshkeypathandidentityfile
@@ -126,13 +124,31 @@ class ObserveableParametersRsync: ObservableObject {
     }
 
     // parameter5
-    private func deletessh(_: Bool) {}
+    private func deletessh(_ delete: Bool) {
+        if delete {
+            configuration?.parameter5 = ""
+        } else {
+            configuration?.parameter5 = "-e"
+        }
+    }
 
     // parameter4
-    private func deletedelete(_: Bool) {}
+    private func deletedelete(_ delete: Bool) {
+        if delete {
+            configuration?.parameter4 = ""
+        } else {
+            configuration?.parameter4 = "--delete"
+        }
+    }
 
     // parameter3
-    private func deletecompress(_: Bool) {}
+    private func deletecompress(_ delete: Bool) {
+        if delete {
+            configuration?.parameter3 = ""
+        } else {
+            configuration?.parameter3 = "--compress"
+        }
+    }
 
     // SSH identityfile
     private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
@@ -157,6 +173,10 @@ class ObserveableParametersRsync: ObservableObject {
             sshport = String(configsshport)
         }
         sshkeypathandidentityfile = config.sshkeypathandidentityfile ?? ""
+        // set delete toggles
+        if config.parameter3.isEmpty { removecompress = true }
+        if config.parameter4.isEmpty { removedelete = true }
+        if config.parameter5.isEmpty { removessh = true }
     }
 
     func sshkeypathandidentiyfile(_ keypath: String) {
