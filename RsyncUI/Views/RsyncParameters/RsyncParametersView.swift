@@ -89,7 +89,7 @@ struct RsyncParametersView: View {
             .buttonStyle(PrimaryButtonStyle())
 
             Button(NSLocalizedString("Daemon", comment: "SidebarRsyncParameter")) {
-                parameters.rsyncdaemon = true
+                parameters.daemon = true
                 parameters.inputchangedbyuser = true
             }
             .buttonStyle(PrimaryButtonStyle())

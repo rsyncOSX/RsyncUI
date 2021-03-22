@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 20/03/2021.
 //
-// swiftlint:disable function_body_length
+// swiftlint:disable function_body_length type_body_length
 
 import Combine
 import Foundation
@@ -39,13 +39,14 @@ class ObserveableParametersRsync: ObservableObject {
     @Published var suffixlinux: Bool = false
     @Published var suffixfreebsd: Bool = false
     @Published var backup: Bool = false
-    @Published var rsyncdaemon: Bool = false
+    @Published var daemon: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
     // parameters for delete
     var parameter3: String?
     var parameter4: String?
     var parameter5: String?
+    var rsyncdaemon: Int = 0
     var deleteparameterschanged: Bool = false
 
     init() {
@@ -126,14 +127,17 @@ class ObserveableParametersRsync: ObservableObject {
         $suffixlinux
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
+                setsuffixlinux()
             }.store(in: &subscriptions)
         $suffixfreebsd
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
+                setsuffixfreebsd()
             }.store(in: &subscriptions)
-        $rsyncdaemon
+        $daemon
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
+                setrsyncdaemon()
             }.store(in: &subscriptions)
         $backup
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
@@ -219,6 +223,8 @@ class ObserveableParametersRsync: ObservableObject {
         if (parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
         if (parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
         if (parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
+        // Rsync daemon
+        rsyncdaemon = config.rsyncdaemon ?? 0
     }
 
     func sshkeypathandidentiyfile(_ keypath: String) {
@@ -276,20 +282,34 @@ class ObserveableParametersRsync: ObservableObject {
     func setbackup() {
         guard inputchangedbyuser == true else { return }
         if let config = configuration {
-            switch backup {
-            case true:
-                let localcatalog = config.localCatalog
-                let localcatalogParts = (localcatalog as AnyObject).components(separatedBy: "/")
-                parameter12 = RsyncArguments().backupstrings[0]
-                parameter13 = "../backup" + "_" + localcatalogParts[localcatalogParts.count - 2]
-                parameter14 = ""
-
-            case false:
-                parameter12 = ""
-                parameter13 = ""
-                parameter14 = ""
-            }
+            let localcatalog = config.localCatalog
+            let localcatalogparts = (localcatalog as AnyObject).components(separatedBy: "/")
+            parameter12 = RsyncArguments().backupstrings[0]
+            guard localcatalogparts.count > 2 else { return }
+            parameter13 = "../backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+            isDirty = true
         }
+    }
+
+    func setsuffixlinux() {
+        guard inputchangedbyuser == true else { return }
+        guard configuration != nil else { return }
+        parameter14 = RsyncArguments().suffixstringlinux
+        isDirty = true
+    }
+
+    func setsuffixfreebsd() {
+        guard inputchangedbyuser == true else { return }
+        guard configuration != nil else { return }
+        parameter14 = RsyncArguments().suffixstringfreebsd
+        isDirty = true
+    }
+
+    func setrsyncdaemon() {
+        guard inputchangedbyuser == true else { return }
+        guard configuration != nil else { return }
+        rsyncdaemon = 1
+        parameter5 = ""
         isDirty = true
     }
 }
@@ -310,80 +330,3 @@ enum ParameterError: LocalizedError {
         }
     }
 }
-
-/*
-
- // Function for enabling backup of changed files in a backup catalog.
- // Parameters are appended to last two parameters (12 and 13).
- @IBAction func backup(_: NSButton) {
-     if let index = self.index() {
-         if let configurations: [Configuration] = self.configurations?.getConfigurations() {
-             let param = ComboboxRsyncParameters(config: configurations[index])
-             switch self.backupbutton.state {
-             case .on:
-                 self.initcombox(combobox: self.combo12, index: param.indexandvaluersyncparameter(SuffixstringsRsyncParameters().backupstrings[0]).0)
-                 self.param12.stringValue = param.indexandvaluersyncparameter(SuffixstringsRsyncParameters().backupstrings[0]).1
-                 let hiddenID = self.configurations?.gethiddenID(index: (self.index())!)
-                 guard (hiddenID ?? -1) > -1 else { return }
-                 let localcatalog = self.configurations?.getResourceConfiguration(hiddenID ?? -1, resource: .localCatalog)
-                 let localcatalogParts = (localcatalog as AnyObject).components(separatedBy: "/")
-                 self.initcombox(combobox: self.combo13, index: param.indexandvaluersyncparameter(SuffixstringsRsyncParameters().backupstrings[1]).0)
-                 self.param13.stringValue = "../backup" + "_" + localcatalogParts[localcatalogParts.count - 2]
-             case .off:
-                 self.initcombox(combobox: self.combo12, index: 0)
-                 self.param12.stringValue = ""
-                 self.initcombox(combobox: self.combo13, index: 0)
-                 self.param13.stringValue = ""
-                 self.initcombox(combobox: self.combo14, index: 0)
-                 self.param14.stringValue = ""
-             default: break
-             }
-         }
-     }
- }
-
- // Function for enabling suffix date + time changed files.
- // Parameters are appended to last parameter (14).
- @IBOutlet var suffixButton: NSButton!
- @IBAction func suffix(_: NSButton) {
-     if let index = self.index() {
-         self.suffixButton2.state = .off
-         if let configurations: [Configuration] = self.configurations?.getConfigurations() {
-             let param = ComboboxRsyncParameters(config: configurations[index])
-             switch self.suffixButton.state {
-             case .on:
-                 let suffix = SuffixstringsRsyncParameters().suffixstringfreebsd
-                 self.initcombox(combobox: self.combo14, index: param.indexandvaluersyncparameter(suffix).0)
-                 self.param14.stringValue = param.indexandvaluersyncparameter(suffix).1
-             case .off:
-                 self.initcombox(combobox: self.combo14, index: 0)
-                 self.param14.stringValue = ""
-             default:
-                 break
-             }
-         }
-     }
- }
-
- @IBOutlet var suffixButton2: NSButton!
- @IBAction func suffix2(_: NSButton) {
-     if let index = self.index() {
-         if let configurations: [Configuration] = self.configurations?.getConfigurations() {
-             let param = ComboboxRsyncParameters(config: configurations[index])
-             self.suffixButton.state = .off
-             switch self.suffixButton2.state {
-             case .on:
-                 let suffix = SuffixstringsRsyncParameters().suffixstringlinux
-                 self.initcombox(combobox: self.combo14, index: param.indexandvaluersyncparameter(suffix).0)
-                 self.param14.stringValue = param.indexandvaluersyncparameter(suffix).1
-             case .off:
-                 self.initcombox(combobox: self.combo14, index: 0)
-                 self.param14.stringValue = ""
-             default:
-                 break
-             }
-         }
-     }
- }
-
- */
