@@ -56,7 +56,7 @@ struct RsyncParametersView: View {
 
             Button(NSLocalizedString("Button 2", comment: "SidebarRsyncParameter")) {}
                 .buttonStyle(PrimaryButtonStyle())
-            
+
             saveparameters
         }
     }
