@@ -125,10 +125,13 @@ class ObserveableParametersRsync: ObservableObject {
         print(parameter)
     }
 
+    // parameter5
     private func deletessh(_: Bool) {}
 
+    // parameter4
     private func deletedelete(_: Bool) {}
 
+    // parameter3
     private func deletecompress(_: Bool) {}
 
     // SSH identityfile
