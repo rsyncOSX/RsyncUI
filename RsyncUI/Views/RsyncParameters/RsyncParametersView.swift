@@ -126,7 +126,7 @@ struct RsyncParametersView: View {
 
     // Header remove
     var headerremove: some View {
-        Text(NSLocalizedString("Remove default rsync paramaters", comment: "RsyncParametersView"))
+        Text(NSLocalizedString("Remove default rsync parameters", comment: "RsyncParametersView"))
     }
 
     // Ssh header

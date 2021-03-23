@@ -23,7 +23,7 @@ struct EditRsyncParameter: View {
         HStack {
             dropdownrsyncparameter
 
-            TextField("user selected parameter", text: myvalue)
+            TextField(text, text: myvalue)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(width: mywidth)
                 .lineLimit(1)
@@ -45,5 +45,9 @@ struct EditRsyncParameter: View {
         }
         .pickerStyle(MenuPickerStyle())
         .frame(width: 120)
+    }
+    
+    var text: String {
+        NSLocalizedString("user selected rsync parameter", comment: "EditRsyncParameter")
     }
 }
