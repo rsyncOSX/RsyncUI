@@ -39,6 +39,7 @@ struct ConfigurationsList: View {
                                   config: configurations)
                         .tag(configurations)
                 }
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
             }
         }
     }
@@ -52,6 +53,7 @@ struct ConfigurationsList: View {
                               config: configurations)
                         .tag(configurations)
                 }
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
             }
         }
     }

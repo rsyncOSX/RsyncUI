@@ -46,7 +46,7 @@ struct EditRsyncParameter: View {
         .pickerStyle(MenuPickerStyle())
         .frame(width: 120)
     }
-    
+
     var text: String {
         NSLocalizedString("user selected rsync parameter", comment: "EditRsyncParameter")
     }
