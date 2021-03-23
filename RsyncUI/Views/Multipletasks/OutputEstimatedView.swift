@@ -59,7 +59,7 @@ struct OutputEstimatedView: View {
                             }
                         }
                     }
-                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
                 }
             }
             Spacer()
