@@ -4,6 +4,9 @@ The code is in development and may be unstable.
 
 The development commenced in December 2020 and RsyncUI will be relased sometime before summer 2021. The next version is build for **macOS Big Sur** and later only. The name of the next version is **RsyncUI**. Because it is built for macOS Big Sur and later, it will be released as a new appliction and not replace the current version of RsyncOSX.
 
+![](images/main1.png)
+![](images/main2.png)
+
 The current version of RsyncOSX is a Swift and Storyboard (View Controllers) developed macOS application. RsyncUI is a SwiftUI based application. SwiftUI is a framework for UI and it replaces the Storyboards and the code for the View Controllers.
 
 A new [site for documentation](https://rsyncui.netlify.app) is in development. The documentation will be updated as part of the development of next version.

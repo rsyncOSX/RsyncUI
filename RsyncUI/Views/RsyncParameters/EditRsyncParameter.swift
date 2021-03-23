@@ -23,17 +23,16 @@ struct EditRsyncParameter: View {
         HStack {
             dropdownrsyncparameter
 
-            TextField(mytext ?? "", text: myvalue)
+            TextField("user selected parameter", text: myvalue)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(width: mywidth)
                 .lineLimit(1)
         }
     }
 
-    init(_ width: CGFloat, _ text: String?, _ value: Binding<String>) {
+    init(_ width: CGFloat, _ value: Binding<String>) {
         mywidth = width
         myvalue = value
-        mytext = text
     }
 
     var dropdownrsyncparameter: some View {

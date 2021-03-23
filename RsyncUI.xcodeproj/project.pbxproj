@@ -29,8 +29,6 @@
 		E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* AppDelegate.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C5D125F3AC0800CB895C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CF25F3AC0800CB895C /* Main.storyboard */; };
-		E985C5DD25F3AC0800CB895C /* RsyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5DC25F3AC0800CB895C /* RsyncUITests.swift */; };
-		E985C5E825F3AC0800CB895C /* RsyncUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5E725F3AC0800CB895C /* RsyncUIUITests.swift */; };
 		E985C65425F3AD8400CB895C /* SidebarRsyncCommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60B25F3AD8400CB895C /* SidebarRsyncCommandView.swift */; };
 		E985C65525F3AD8400CB895C /* SidebarMultipletasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60C25F3AD8400CB895C /* SidebarMultipletasksView.swift */; };
 		E985C65625F3AD8400CB895C /* RsyncUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60D25F3AD8400CB895C /* RsyncUIView.swift */; };
@@ -256,11 +254,7 @@
 		E985C5D225F3AC0800CB895C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RsyncUI.entitlements; sourceTree = "<group>"; };
 		E985C5D825F3AC0800CB895C /* RsyncUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RsyncUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E985C5DC25F3AC0800CB895C /* RsyncUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUITests.swift; sourceTree = "<group>"; };
-		E985C5DE25F3AC0800CB895C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E985C5E325F3AC0800CB895C /* RsyncUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RsyncUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E985C5E725F3AC0800CB895C /* RsyncUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIUITests.swift; sourceTree = "<group>"; };
-		E985C5E925F3AC0800CB895C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E985C60B25F3AD8400CB895C /* SidebarRsyncCommandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarRsyncCommandView.swift; sourceTree = "<group>"; };
 		E985C60C25F3AD8400CB895C /* SidebarMultipletasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarMultipletasksView.swift; sourceTree = "<group>"; };
 		E985C60D25F3AD8400CB895C /* RsyncUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncUIView.swift; sourceTree = "<group>"; };
@@ -482,8 +476,6 @@
 			isa = PBXGroup;
 			children = (
 				E985C5C525F3AC0700CB895C /* RsyncUI */,
-				E985C5DB25F3AC0800CB895C /* RsyncUITests */,
-				E985C5E625F3AC0800CB895C /* RsyncUIUITests */,
 				E985C5C425F3AC0700CB895C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -521,24 +513,6 @@
 				E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		E985C5DB25F3AC0800CB895C /* RsyncUITests */ = {
-			isa = PBXGroup;
-			children = (
-				E985C5DC25F3AC0800CB895C /* RsyncUITests.swift */,
-				E985C5DE25F3AC0800CB895C /* Info.plist */,
-			);
-			path = RsyncUITests;
-			sourceTree = "<group>";
-		};
-		E985C5E625F3AC0800CB895C /* RsyncUIUITests */ = {
-			isa = PBXGroup;
-			children = (
-				E985C5E725F3AC0800CB895C /* RsyncUIUITests.swift */,
-				E985C5E925F3AC0800CB895C /* Info.plist */,
-			);
-			path = RsyncUIUITests;
 			sourceTree = "<group>";
 		};
 		E985C60925F3AD8400CB895C /* Views */ = {
@@ -1459,7 +1433,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E985C5DD25F3AC0800CB895C /* RsyncUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1467,7 +1440,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E985C5E825F3AC0800CB895C /* RsyncUIUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
