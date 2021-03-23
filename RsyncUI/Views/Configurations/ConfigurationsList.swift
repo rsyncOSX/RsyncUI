@@ -18,13 +18,28 @@ struct ConfigurationsList: View {
     @State private var forestimated = false
     // Either selectable configlist or not
     @Binding var selectable: Bool
+    // spacing between lines
+    @State private var spacing: Bool = false
 
     var body: some View {
-        VStack {
-            if selectable {
-                configlistselecetable
-            } else {
-                configlist
+        HStack {
+            VStack {
+                if selectable {
+                    configlistselecetable
+                } else {
+                    configlist
+                }
+            }
+
+            Button(action: {
+                let previous = spacing
+                spacing = !previous
+            }) {
+                if spacing {
+                    Image(systemName: "minus")
+                } else {
+                    Image(systemName: "plus")
+                }
             }
         }
     }
@@ -33,14 +48,31 @@ struct ConfigurationsList: View {
     var configlistselecetable: some View {
         Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
-                ForEach(configurationssorted) { configurations in
-                    OneConfigUUID(selecteduuids: $selecteduuids,
-                                  inexecuting: $inwork,
-                                  config: configurations)
-                        .tag(configurations)
+                if spacing {
+                    test4
+                } else {
+                    test3
                 }
-                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
+        }
+    }
+
+    var test3: some View {
+        ForEach(configurationssorted) { configurations in
+            OneConfigUUID(selecteduuids: $selecteduuids,
+                          inexecuting: $inwork,
+                          config: configurations)
+                .tag(configurations)
+        }
+        .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+    }
+
+    var test4: some View {
+        ForEach(configurationssorted) { configurations in
+            OneConfigUUID(selecteduuids: $selecteduuids,
+                          inexecuting: $inwork,
+                          config: configurations)
+                .tag(configurations)
         }
     }
 
@@ -48,13 +80,29 @@ struct ConfigurationsList: View {
     var configlist: some View {
         Section(header: header) {
             List(selection: $selectedconfig) {
-                ForEach(configurationssorted) { configurations in
-                    OneConfig(forestimated: $forestimated,
-                              config: configurations)
-                        .tag(configurations)
+                if spacing {
+                    test1
+                } else {
+                    test
                 }
-                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
+        }
+    }
+
+    var test: some View {
+        ForEach(configurationssorted) { configurations in
+            OneConfig(forestimated: $forestimated,
+                      config: configurations)
+                .tag(configurations)
+        }
+        .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+    }
+
+    var test1: some View {
+        ForEach(configurationssorted) { configurations in
+            OneConfig(forestimated: $forestimated,
+                      config: configurations)
+                .tag(configurations)
         }
     }
 
