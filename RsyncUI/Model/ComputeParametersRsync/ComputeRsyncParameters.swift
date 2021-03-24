@@ -26,6 +26,7 @@ class ComputeRsyncParameters {
         let parameter3: String = config.parameter3
         let parameter4: String = config.parameter4
         let parameter5: String = config.parameter5
+        let parameter6: String = config.parameter6
         let offsiteServer: String = config.offsiteServer
         arguments?.append(parameter1 ?? "")
         if verify {
@@ -50,6 +51,10 @@ class ComputeRsyncParameters {
             // either set global or local, parameter5 = remote server
             // ssh params only apply if remote server
             if parameter5.isEmpty == false {
+                arguments?.append(parameter5)
+                if forDisplay { arguments?.append(" ") }
+                arguments?.append(parameter6)
+                if forDisplay { arguments?.append(" ") }
                 if config.sshport != nil || config.sshkeypathandidentityfile != nil {
                     sshparameterslocal(config: config, forDisplay: forDisplay)
                 } else if SharedReference.shared.sshkeypathandidentityfile != nil ||

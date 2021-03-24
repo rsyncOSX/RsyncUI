@@ -286,7 +286,11 @@ class ObserveableParametersRsync: ObservableObject {
             let localcatalogparts = (localcatalog as AnyObject).components(separatedBy: "/")
             parameter12 = RsyncArguments().backupstrings[0]
             guard localcatalogparts.count > 2 else { return }
-            parameter13 = "../backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+            if config.offsiteCatalog.contains("~") {
+                parameter13 = "~/backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+            } else {
+                parameter13 = "../backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+            }
             isDirty = true
         }
     }
