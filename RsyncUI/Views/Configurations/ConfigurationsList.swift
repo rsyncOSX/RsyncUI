@@ -41,6 +41,7 @@ struct ConfigurationsList: View {
                     Image(systemName: "plus")
                 }
             }
+            .buttonStyle(BlueCircleButtonStyle())
         }
     }
 
