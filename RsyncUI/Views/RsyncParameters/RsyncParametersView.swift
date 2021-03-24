@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/03/2021.
 //
-// swiftlint:disable line_length
+// swiftlint:disable line_length cyclomatic_complexity
 
 import SwiftUI
 
@@ -184,9 +184,16 @@ extension RsyncParametersView {
             if parameters.parameter12.isEmpty { config.parameter12 = nil } else { config.parameter12 = parameters.parameter12 }
             if parameters.parameter13.isEmpty { config.parameter13 = nil } else { config.parameter13 = parameters.parameter13 }
             if parameters.parameter14.isEmpty { config.parameter14 = nil } else { config.parameter14 = parameters.parameter14 }
-            if parameters.sshport.isEmpty { config.sshport = nil } else { config.sshport = Int(parameters.sshport) }
-            if parameters.sshkeypathandidentityfile.isEmpty { config.sshkeypathandidentityfile = nil }
-            else { config.sshkeypathandidentityfile = parameters.sshkeypathandidentityfile }
+            if parameters.sshport.isEmpty {
+                config.sshport = nil
+            } else {
+                config.sshport = Int(parameters.sshport)
+            }
+            if parameters.sshkeypathandidentityfile.isEmpty {
+                config.sshkeypathandidentityfile = nil
+            } else {
+                config.sshkeypathandidentityfile = parameters.sshkeypathandidentityfile
+            }
             if parameters.parameter3 == nil { config.parameter3 = "" }
             if parameters.parameter4 == nil { config.parameter4 = "" }
             if parameters.parameter5 == nil { config.parameter5 = "" }

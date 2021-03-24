@@ -47,7 +47,6 @@ class ObserveableParametersRsync: ObservableObject {
     var parameter4: String?
     var parameter5: String?
     var rsyncdaemon: Int?
-    var deleteparameterschanged: Bool = false
 
     init() {
         $inputchangedbyuser
@@ -182,12 +181,11 @@ class ObserveableParametersRsync: ObservableObject {
         guard configuration != nil else { return }
         guard inputchangedbyuser == true else { return }
         if delete {
-            parameter5 = ""
+            parameter5 = nil
         } else {
             parameter5 = "-e"
         }
         isDirty = true
-        deleteparameterschanged = true
     }
 
     // parameter4 --delete
@@ -195,12 +193,11 @@ class ObserveableParametersRsync: ObservableObject {
         guard configuration != nil else { return }
         guard inputchangedbyuser == true else { return }
         if delete {
-            parameter4 = ""
+            parameter4 = nil
         } else {
             parameter4 = "--delete"
         }
         isDirty = true
-        deleteparameterschanged = true
     }
 
     // parameter3 --compress
@@ -208,12 +205,11 @@ class ObserveableParametersRsync: ObservableObject {
         guard configuration != nil else { return }
         guard inputchangedbyuser == true else { return }
         if delete {
-            parameter3 = ""
+            parameter3 = nil
         } else {
             parameter3 = "--compress"
         }
         isDirty = true
-        deleteparameterschanged = true
     }
 
     // SSH identityfile
@@ -312,8 +308,20 @@ class ObserveableParametersRsync: ObservableObject {
     func setrsyncdaemon() {
         guard inputchangedbyuser == true else { return }
         guard configuration != nil else { return }
-        rsyncdaemon = 1
-        parameter5 = ""
+        // either reverse or set
+        if let daemon = rsyncdaemon {
+            if daemon == 1 {
+                rsyncdaemon = nil
+                parameter5 = "-e"
+            } else {
+                rsyncdaemon = 1
+                parameter5 = ""
+            }
+
+        } else {
+            rsyncdaemon = 1
+            parameter5 = ""
+        }
         isDirty = true
     }
 }
