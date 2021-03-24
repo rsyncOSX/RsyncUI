@@ -39,10 +39,10 @@ struct OneConfig: View {
                     .modifier(FixedTag(20, .leading))
                 if config.backupID.isEmpty {
                     Text("Synchronizing ID")
-                        .modifier(FixedTag(120, .leading))
+                        .modifier(FixedTag(150, .leading))
                 } else {
                     Text(config.backupID)
-                        .modifier(FixedTag(120, .leading))
+                        .modifier(FixedTag(150, .leading))
                 }
                 Text(config.task)
                     .modifier(FixedTag(80, .leading))
@@ -82,7 +82,7 @@ struct OneConfig: View {
                     .modifier(FixedTag(35, .trailing))
             }
             Text(localizedrundate)
-                .modifier(FixedTag(140, .leading))
+                .modifier(FixedTag(150, .leading))
         }
     }
 

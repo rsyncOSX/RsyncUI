@@ -120,13 +120,3 @@ struct OutputEstimatedView: View {
         isPresented = false
     }
 }
-
-struct DarkBlueShadowProgressViewStyle: ProgressViewStyle {
-    typealias ProgressViewStyle = ProgressViewStyleConfiguration
-
-    func makeBody(configuration: ProgressViewStyle) -> some View {
-        ProgressView(configuration)
-            .shadow(color: Color(red: 0, green: 0, blue: 0.6),
-                    radius: 4.0, x: 1.0, y: 2.0)
-    }
-}

@@ -38,7 +38,7 @@ struct BlueCircleButtonStyle: ButtonStyle {
         configuration.label
             .padding()
             .modifier(MakeSquareBounds())
-            .background(Circle().fill(Color.blue))
+            .background(Circle().fill(Color.gray))
     }
 }
 
