@@ -50,15 +50,15 @@ struct ConfigurationsList: View {
         Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
                 if spacing {
-                    test4
+                    selecetablespacing
                 } else {
-                    test3
+                    selecetablenospacing
                 }
             }
         }
     }
 
-    var test3: some View {
+    var selecetablenospacing: some View {
         ForEach(configurationssorted) { configurations in
             OneConfigUUID(selecteduuids: $selecteduuids,
                           inexecuting: $inwork,
@@ -68,7 +68,7 @@ struct ConfigurationsList: View {
         .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
     }
 
-    var test4: some View {
+    var selecetablespacing: some View {
         ForEach(configurationssorted) { configurations in
             OneConfigUUID(selecteduuids: $selecteduuids,
                           inexecuting: $inwork,
@@ -82,15 +82,15 @@ struct ConfigurationsList: View {
         Section(header: header) {
             List(selection: $selectedconfig) {
                 if spacing {
-                    test1
+                    nonselecetablespacing
                 } else {
-                    test
+                    nonselecetablenospacing
                 }
             }
         }
     }
 
-    var test: some View {
+    var nonselecetablenospacing: some View {
         ForEach(configurationssorted) { configurations in
             OneConfig(forestimated: $forestimated,
                       config: configurations)
@@ -99,7 +99,7 @@ struct ConfigurationsList: View {
         .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
     }
 
-    var test1: some View {
+    var nonselecetablespacing: some View {
         ForEach(configurationssorted) { configurations in
             OneConfig(forestimated: $forestimated,
                       config: configurations)
