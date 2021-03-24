@@ -16,12 +16,18 @@ struct RsyncParametersView: View {
     @State private var inwork = -1
     @State private var selectable = false
     @State private var selecteduuids = Set<UUID>()
+    // Show updated
+    @State private var updated = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $parameters.configuration.onChange { rsyncOSXData.update() },
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
+        ZStack {
+            ConfigurationsList(selectedconfig: $parameters.configuration.onChange { rsyncOSXData.update() },
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               selectable: $selectable)
+
+            if updated == true { notifyupdated }
+        }
 
         HStack {
             VStack(alignment: .leading) {
@@ -155,10 +161,47 @@ struct RsyncParametersView: View {
                 }
             })
     }
+
+    var notifyupdated: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("Updated", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 120, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
 }
 
 extension RsyncParametersView {
     func saversyncparameters() {
+        if var config = parameters.configuration {
+            if parameters.parameter8.isEmpty { config.parameter8 = nil } else { config.parameter8 = parameters.parameter8 }
+            if parameters.parameter9.isEmpty { config.parameter9 = nil } else { config.parameter9 = parameters.parameter9 }
+            if parameters.parameter10.isEmpty { config.parameter10 = nil } else { config.parameter10 = parameters.parameter10 }
+            if parameters.parameter11.isEmpty { config.parameter11 = nil } else { config.parameter11 = parameters.parameter11 }
+            if parameters.parameter12.isEmpty { config.parameter12 = nil } else { config.parameter12 = parameters.parameter12 }
+            if parameters.parameter13.isEmpty { config.parameter13 = nil } else { config.parameter13 = parameters.parameter13 }
+            if parameters.parameter14.isEmpty { config.parameter14 = nil } else { config.parameter14 = parameters.parameter14 }
+            if parameters.sshport.isEmpty { config.sshport = nil } else { config.sshport = Int(parameters.sshport) }
+            if parameters.sshkeypathandidentityfile.isEmpty { config.sshkeypathandidentityfile = nil }
+            else { config.sshkeypathandidentityfile = parameters.sshkeypathandidentityfile }
+            if parameters.parameter3 == nil { config.parameter3 = "" }
+            if parameters.parameter4 == nil { config.parameter4 = "" }
+            if parameters.parameter5 == nil { config.parameter5 = "" }
+
+            let updateconfiguration =
+                UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
+                                     configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
+            updateconfiguration.updateconfiguration(config)
+            reload = true
+            updated = true
+            // Show updated for 1 second
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                updated = false
+            }
+        }
         parameters.isDirty = false
         parameters.inputchangedbyuser = false
     }

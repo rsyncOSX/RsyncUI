@@ -48,6 +48,6 @@ struct EditRsyncParameter: View {
     }
 
     var text: String {
-        NSLocalizedString("user selected rsync parameter", comment: "EditRsyncParameter")
+        NSLocalizedString("rsync parameter", comment: "EditRsyncParameter")
     }
 }

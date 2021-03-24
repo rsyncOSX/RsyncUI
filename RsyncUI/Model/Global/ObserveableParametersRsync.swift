@@ -146,8 +146,8 @@ class ObserveableParametersRsync: ObservableObject {
             }.store(in: &subscriptions)
     }
 
-    private func validate(_ parameter: String) {
-        print(parameter)
+    private func validate(_: String) {
+        // print(parameter)
     }
 
     func setvalues(_ config: Configuration) {
