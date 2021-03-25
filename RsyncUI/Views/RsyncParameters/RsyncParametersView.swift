@@ -194,9 +194,9 @@ extension RsyncParametersView {
             } else {
                 config.sshkeypathandidentityfile = parameters.sshkeypathandidentityfile
             }
-            if parameters.parameter3 == nil { config.parameter3 = "" }
-            if parameters.parameter4 == nil { config.parameter4 = "" }
-            if parameters.parameter5 == nil { config.parameter5 = "" }
+            if parameters.parameter3 == nil { config.parameter3 = "" } else { config.parameter3 = parameters.parameter3 ?? "" }
+            if parameters.parameter4 == nil { config.parameter4 = "" } else { config.parameter4 = parameters.parameter4 ?? "" }
+            if parameters.parameter5 == nil { config.parameter5 = "" } else { config.parameter5 = parameters.parameter5 ?? "" }
 
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
