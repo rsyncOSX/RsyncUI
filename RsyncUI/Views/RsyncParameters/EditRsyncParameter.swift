@@ -14,12 +14,6 @@ struct EditRsyncParameter: View {
     var mywidth: CGFloat?
 
     var body: some View {
-        /*
-         let parameter = Binding<PredefinedParametersRsync>(
-             get: { selectedparameter },
-             set: { selectedparameter = $0 }
-         )
-         */
         HStack {
             dropdownrsyncparameter
 
@@ -37,7 +31,7 @@ struct EditRsyncParameter: View {
 
     var dropdownrsyncparameter: some View {
         Picker("", selection: $selectedparameter.onChange {
-            myvalue.wrappedValue = selectedparameter.rawValue + "="
+            myvalue.wrappedValue = parameter()
         }) {
             ForEach(EnumRsyncArguments.allCases) { Text($0.description)
                 .tag($0)
@@ -49,5 +43,11 @@ struct EditRsyncParameter: View {
 
     var text: String {
         NSLocalizedString("rsync parameter", comment: "EditRsyncParameter")
+    }
+}
+
+extension EditRsyncParameter {
+    func parameter() -> String {
+        return selectedparameter.rawValue + "="
     }
 }
