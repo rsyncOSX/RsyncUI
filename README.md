@@ -6,6 +6,7 @@ The development commenced in December 2020 and RsyncUI will be relased sometime 
 
 ![](images/main1.png)
 ![](images/main2.png)
+![](images/main3.png)
 
 The current version of RsyncOSX is a Swift and Storyboard (View Controllers) developed macOS application. RsyncUI is a SwiftUI based application. SwiftUI is a framework for UI and it replaces the Storyboards and the code for the View Controllers.
 
