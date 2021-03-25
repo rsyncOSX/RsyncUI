@@ -48,6 +48,33 @@ struct EditRsyncParameter: View {
 
 extension EditRsyncParameter {
     func parameter() -> String {
-        return selectedparameter.rawValue + "="
+        if myvalue.wrappedValue.isEmpty {
+            return selectedparameter.rawValue + "="
+        } else {
+            let splitparameter = split(myvalue.wrappedValue)
+            guard splitparameter.count > 1 else {
+                return selectedparameter.rawValue + "="
+            }
+            return selectedparameter.rawValue + "=" + splitparameter[1]
+        }
+    }
+
+    // Split an Rsync argument into argument and value
+    private func split(_ str: String) -> [String] {
+        let argument: String?
+        let value: String?
+        var split = str.components(separatedBy: "=")
+        argument = String(split[0])
+        if split.count > 1 {
+            if split.count > 2 {
+                split.remove(at: 0)
+                value = split.joined(separator: "=")
+            } else {
+                value = String(split[1])
+            }
+        } else {
+            value = argument
+        }
+        return [argument ?? "", value ?? ""]
     }
 }
