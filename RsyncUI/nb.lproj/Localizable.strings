@@ -2,6 +2,9 @@
 " configuration(s)?" = " konfigurasjon(er)?";
 
 /* Alert delete */
+" log(s)?" = " logg(er)?";
+
+/* Alert delete */
 " schedules(s)?" = " oppgave(r)?";
 
 /* No comment provided by engineer. */
@@ -55,7 +58,8 @@
 /* logsview */
 "All logs" = "Alle logger";
 
-/* usersetting */
+/* RsyncParametersView
+   usersetting */
 "Backup" = "Kopier";
 
 /* settings */
@@ -65,7 +69,7 @@
 "By config" = "Etter konfigurasjon";
 
 /* OutputEstimatedView */
-"Bytes" = "Bytes";
+"Bytes" = "bytes";
 
 /* Cancel button
    Cancel NSAlert
@@ -200,12 +204,6 @@
 /* Alert delete */
 "Execute all tasks" = "Utfør alle oppgaver";
 
-/* Execute tasks */
-"Execute multiple tasks" = "Utfør flere oppgaver";
-
-/* Execute tasks */
-"Execute tasks" = "Utfør oppgaver";
-
 /* Execute Multiple tasks
    Execute tasks */
 "Executing tasks" = "Utfører oppgaver";
@@ -244,7 +242,7 @@
 "JSON" = "JSON";
 
 /* settings */
-"JSON or PLIST" = "JSON or PLIST";
+"JSON or PLIST" = "JSON eller PLIST";
 
 /* plan */
 "Keep" = "Behold";
@@ -325,7 +323,7 @@
 /* filesize error */
 "Not connected, cannot create task" = "Ikke tilkoblet, kan ikke opprette oppgave";
 
-/* No comment provided by engineer. */
+/* OneConfig */
 "not executed" = "ikke kjørt";
 
 /* Now button */
@@ -412,7 +410,8 @@
 /* plan */
 "Saturday" = "Lørdag";
 
-/* usersetting */
+/* RsyncParametersView
+   usersetting */
 "Save" = "Lagre";
 
 /* settings */
@@ -443,7 +442,8 @@
    OutputEstimatedView */
 "Server" = "Tjener";
 
-/* ssh settings */
+/* RsyncParametersView
+   ssh settings */
 "Set ssh keypath and identityfile" = "Sett ssh keypath og identityfile";
 
 /* sidebar

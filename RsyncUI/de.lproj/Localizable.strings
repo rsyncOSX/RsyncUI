@@ -58,7 +58,8 @@
 /* logsview */
 "All logs" = "Alle Logs";
 
-/* usersetting */
+/* RsyncParametersView
+   usersetting */
 "Backup" = "Sichern";
 
 /* settings */
@@ -409,7 +410,8 @@
 /* plan */
 "Saturday" = "Samstag";
 
-/* usersetting */
+/* RsyncParametersView
+   usersetting */
 "Save" = "Speichern";
 
 /* settings */
@@ -440,7 +442,8 @@
    OutputEstimatedView */
 "Server" = "Server";
 
-/* ssh settings */
+/* RsyncParametersView
+   ssh settings */
 "Set ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
 
 /* sidebar
