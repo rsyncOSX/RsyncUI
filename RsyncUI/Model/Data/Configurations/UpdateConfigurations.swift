@@ -75,6 +75,7 @@ class UpdateConfigurations {
                 configurations?[index].executeposttask = config.executepretask
                 configurations?[index].posttask = config.posttask
                 configurations?[index].haltshelltasksonerror = config.haltshelltasksonerror
+                configurations?[index].backupID = config.backupID
             }
             PersistentStorage(profile: localeprofile,
                               whattoreadorwrite: .configuration,
