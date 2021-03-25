@@ -443,7 +443,7 @@ extension AddView {
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
                                      configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
-            updateconfiguration.updateconfiguration(updatedconfig)
+            updateconfiguration.updateconfiguration(updatedconfig, false)
             reload = true
             updated = true
             // Show updated for 1 second

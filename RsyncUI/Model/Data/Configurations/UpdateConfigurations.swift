@@ -43,9 +43,39 @@ class UpdateConfigurations {
 
     // Function is updating Configurations in memory (by record) and
     // then saves updated Configurations from memory to persistent store
-    func updateconfiguration(_ config: Configuration) {
+    func updateconfiguration(_ config: Configuration, _ parameters: Bool) {
         if let index = configurations?.firstIndex(where: { $0.hiddenID == config.hiddenID }) {
-            configurations?[index] = config
+            if parameters {
+                // Updated parameters only, keep all other
+                // keep last run date
+                configurations?[index].parameter1 = config.parameter1
+                configurations?[index].parameter2 = config.parameter2
+                configurations?[index].parameter3 = config.parameter3
+                configurations?[index].parameter4 = config.parameter4
+                configurations?[index].parameter5 = config.parameter5
+                configurations?[index].parameter6 = config.parameter6
+                configurations?[index].parameter8 = config.parameter8
+                configurations?[index].parameter9 = config.parameter9
+                configurations?[index].parameter10 = config.parameter10
+                configurations?[index].parameter11 = config.parameter11
+                configurations?[index].parameter12 = config.parameter12
+                configurations?[index].parameter13 = config.parameter13
+                configurations?[index].parameter14 = config.parameter14
+                configurations?[index].sshport = config.sshport
+                configurations?[index].sshkeypathandidentityfile = config.sshkeypathandidentityfile
+            } else {
+                // Updated all other data but parameters
+                // keep last run date
+                configurations?[index].localCatalog = config.localCatalog
+                configurations?[index].offsiteCatalog = config.offsiteCatalog
+                configurations?[index].offsiteServer = config.offsiteServer
+                configurations?[index].offsiteUsername = config.offsiteUsername
+                configurations?[index].executepretask = config.executepretask
+                configurations?[index].pretask = config.pretask
+                configurations?[index].executeposttask = config.executepretask
+                configurations?[index].posttask = config.posttask
+                configurations?[index].haltshelltasksonerror = config.haltshelltasksonerror
+            }
             PersistentStorage(profile: localeprofile,
                               whattoreadorwrite: .configuration,
                               readonly: false,

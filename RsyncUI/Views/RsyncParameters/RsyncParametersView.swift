@@ -201,7 +201,7 @@ extension RsyncParametersView {
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
                                      configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
-            updateconfiguration.updateconfiguration(config)
+            updateconfiguration.updateconfiguration(config, true)
             reload = true
             updated = true
             // Show updated for 1 second
