@@ -47,9 +47,11 @@ final class RsyncOSXdata: ObservableObject {
         arguments = rsyncdata?.configurationData.getarguments()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
         if profile == NSLocalizedString("Default profile", comment: "default profile") || profile == nil {
-            activeschedules = ScheduleSortedAndExpand(profile: nil, scheduleConfigurations: schedulesandlogs).sortedexpandedeschedules
+            activeschedules = ScheduleSortedAndExpand(profile: nil,
+                                                      scheduleConfigurations: schedulesandlogs).sortedexpandedeschedules
         } else {
-            activeschedules = ScheduleSortedAndExpand(profile: profile, scheduleConfigurations: schedulesandlogs).sortedexpandedeschedules
+            activeschedules = ScheduleSortedAndExpand(profile: profile,
+                                                      scheduleConfigurations: schedulesandlogs).sortedexpandedeschedules
         }
 
         objectWillChange.send()
