@@ -27,6 +27,7 @@
 		E96F125826046D71003AD3A9 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F125726046D71003AD3A9 /* AddView.swift */; };
 		E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F125C26046FCF003AD3A9 /* SchedulesView.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
+		E97844DF260DB3D6007874A1 /* ScheduleSortedAndExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */; };
 		E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* AppDelegate.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C5D125F3AC0800CB895C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CF25F3AC0800CB895C /* Main.storyboard */; };
@@ -252,6 +253,7 @@
 		E96F125726046D71003AD3A9 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		E96F125C26046FCF003AD3A9 /* SchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulesView.swift; sourceTree = "<group>"; };
 		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
+		E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSortedAndExpand.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5C625F3AC0700CB895C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -1029,6 +1031,7 @@
 			children = (
 				E985C70F25F3AD9700CB895C /* UpdateSchedules.swift */,
 				E985C71125F3AD9700CB895C /* Reorgschedule.swift */,
+				E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */,
 			);
 			path = Schedules;
 			sourceTree = "<group>";
@@ -1421,6 +1424,7 @@
 				E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */,
 				E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */,
 				E985C76125F3AD9700CB895C /* VerifyJSON.swift in Sources */,
+				E97844DF260DB3D6007874A1 /* ScheduleSortedAndExpand.swift in Sources */,
 				E985C77125F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift in Sources */,
 				E985C79425F3AD9700CB895C /* RemoteCapacity.swift in Sources */,
 				E985C79325F3AD9700CB895C /* RsyncOSXViewGetRsyncversion.swift in Sources */,
