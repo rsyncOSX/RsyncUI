@@ -29,7 +29,7 @@ final class RsyncOSXdata: ObservableObject {
     @Published var arguments: [ArgumentsOneConfiguration]?
     @Published var profile: String?
     @Published var alllogssorted: [Log]?
-    @Published var activeschedules: [NSDictionary]?
+    @Published var activeschedules: [ActiveSchedules]?
 
     func update() {
         objectWillChange.send()

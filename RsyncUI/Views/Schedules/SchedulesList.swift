@@ -31,8 +31,4 @@ struct SchedulesList: View {
             return []
         }
     }
-
-    var activeschedules: [NSDictionary]? {
-        ScheduleSortedAndExpand(profile: rsyncOSXData.profile, scheduleConfigurations: rsyncOSXData.schedulesandlogs).sortedexpandedeschedules
-    }
 }
