@@ -11,8 +11,6 @@ import Foundation
 final class ScheduleSortedAndExpand {
     private var structschedules: [ConfigurationSchedule]?
     private var localeprofile: String?
-
-    var expandedschedules: [NSDictionary]?
     var sortedexpandedeschedules: [NSDictionary]?
 
     // Calculate daily schedules
@@ -38,7 +36,7 @@ final class ScheduleSortedAndExpand {
                         DictionaryStrings.timetostart.rawValue: time,
                         DictionaryStrings.profilename.rawValue: profilename,
                     ]
-                    expandedschedules?.append(dictschedule)
+                    sortedexpandedeschedules?.append(dictschedule)
                 }
             }
         }
@@ -67,7 +65,7 @@ final class ScheduleSortedAndExpand {
                         DictionaryStrings.timetostart.rawValue: time,
                         DictionaryStrings.profilename.rawValue: profilename,
                     ]
-                    expandedschedules?.append(dictschedule)
+                    sortedexpandedeschedules?.append(dictschedule)
                 }
             }
         }
@@ -96,7 +94,7 @@ final class ScheduleSortedAndExpand {
                             DictionaryStrings.timetostart.rawValue: time,
                             DictionaryStrings.profilename.rawValue: profilename,
                         ]
-                        expandedschedules?.append(dictschedule)
+                        sortedexpandedeschedules?.append(dictschedule)
                     }
                 case Scheduletype.daily.rawValue:
                     daily(dateStart: dateStart, schedule: schedule, oneschedule: oneschedule)
@@ -106,7 +104,7 @@ final class ScheduleSortedAndExpand {
                     break
                 }
             }
-            sortedexpandedeschedules = expandedschedules?.sorted { (date1, date2) -> Bool in
+            sortedexpandedeschedules = sortedexpandedeschedules?.sorted { (date1, date2) -> Bool in
                 if let date1 = date1.value(forKey: DictionaryStrings.start.rawValue) as? Date {
                     if let date2 = date2.value(forKey: DictionaryStrings.start.rawValue) as? Date {
                         if date1.timeIntervalSince(date2) > 0 {
@@ -197,6 +195,11 @@ final class ScheduleSortedAndExpand {
     {
         localeprofile = profile
         structschedules = scheduleConfigurations
+        sortedexpandedeschedules = [NSDictionary]()
         sortandexpandscheduletasks()
+    }
+
+    deinit {
+        print("deinit ScheduleSortedAndExpand")
     }
 }

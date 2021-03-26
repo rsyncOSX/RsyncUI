@@ -20,6 +20,7 @@ struct SchedulesList: View {
                                      selecteduuids: $selecteduuids)
                     .tag(record)
             }
+            .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
         }
     }
 
@@ -29,5 +30,9 @@ struct SchedulesList: View {
         } else {
             return []
         }
+    }
+
+    var activeschedules: [NSDictionary]? {
+        ScheduleSortedAndExpand(profile: rsyncOSXData.profile, scheduleConfigurations: rsyncOSXData.schedulesandlogs).sortedexpandedeschedules
     }
 }
