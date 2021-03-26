@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct ScheduleRowSchedules: View {
-    var configschedule: ConfigurationSchedule
+    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @Binding var selecteduuids: Set<UUID>
+    var configschedule: ConfigurationSchedule
 
     var body: some View {
         HStack {
@@ -36,6 +37,8 @@ struct ScheduleRowSchedules: View {
             }
             Text(String(configschedule.logrecords?.count ?? 0))
                 .modifier(FixedTag(35, .leading))
+
+            Text(String(activeschedule))
 
             Spacer()
         }
@@ -67,5 +70,15 @@ struct ScheduleRowSchedules: View {
             return usdate.long_localized_string_from_date()
         }
         return ""
+    }
+
+    var activeschedule: Int {
+        if let activeschedules = rsyncOSXData.activeschedules {
+            let number = activeschedules.filter { $0.hiddenID == configschedule.hiddenID &&
+                $0.dateStart?.en_us_string_from_date() == configschedule.dateStart
+            }
+            return number.count
+        }
+        return 0
     }
 }
