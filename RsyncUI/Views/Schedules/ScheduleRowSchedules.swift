@@ -36,9 +36,11 @@ struct ScheduleRowSchedules: View {
                     .modifier(FixedTag(150, .leading))
             }
             Text(String(configschedule.logrecords?.count ?? 0))
-                .modifier(FixedTag(35, .leading))
+                .modifier(FixedTag(35, .trailing))
 
-            Text(String(activeschedule))
+            Text(activeschedule)
+                .modifier(FixedTag(35, .trailing))
+                .foregroundColor(Color.blue)
 
             Spacer()
         }
@@ -72,13 +74,43 @@ struct ScheduleRowSchedules: View {
         return ""
     }
 
-    var activeschedule: Int {
+    var activeschedule: String {
         if let activeschedules = rsyncOSXData.activeschedules {
             let number = activeschedules.filter { $0.hiddenID == configschedule.hiddenID &&
                 $0.dateStart?.en_us_string_from_date() == configschedule.dateStart
             }
-            return number.count
+            guard number.count == 1 else { return "" }
+            return timestring(number[0].timetostart ?? 0)
         }
-        return 0
+        return ""
+    }
+}
+
+extension ScheduleRowSchedules {
+    // Calculation of time to a spesific date
+    func timestring(_ seconds: Double) -> String {
+        var result: String?
+        let (hr, minf) = modf(seconds / 3600)
+        let (min, secf) = modf(60 * minf)
+        // hr, min, 60 * secf
+        if hr == 0, min == 0 {
+            if secf < 0.9 {
+                result = String(format: "%.0f", 60 * secf) + "s"
+            } else {
+                result = String(format: "%.0f", 1.0) + "m"
+            }
+        } else if hr == 0, min < 60 {
+            if secf < 0.9 {
+                result = String(format: "%.0f", min) + "m"
+            } else {
+                result = String(format: "%.0f", min + 1) + "m"
+            }
+        } else if hr < 25 {
+            result = String(format: "%.0f", hr) + NSLocalizedString("h", comment: "datetime") + " "
+                + String(format: "%.0f", min) + "m"
+        } else {
+            result = String(format: "%.0f", hr / 24) + "d"
+        }
+        return result ?? ""
     }
 }

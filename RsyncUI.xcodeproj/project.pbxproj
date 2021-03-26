@@ -119,7 +119,6 @@
 		E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B925F3AD9600CB895C /* GetConfigurationData.swift */; };
 		E985C74525F3AD9700CB895C /* RemoteNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BA25F3AD9600CB895C /* RemoteNumbers.swift */; };
 		E985C74625F3AD9700CB895C /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BB25F3AD9600CB895C /* Numbers.swift */; };
-		E985C74725F3AD9700CB895C /* Dateandtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BC25F3AD9600CB895C /* Dateandtime.swift */; };
 		E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BD25F3AD9600CB895C /* NetworkMonitor.swift */; };
 		E985C74925F3AD9700CB895C /* Validatenewconfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BE25F3AD9600CB895C /* Validatenewconfigs.swift */; };
 		E985C74A25F3AD9700CB895C /* ReadWriteJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */; };
@@ -351,7 +350,6 @@
 		E985C6B925F3AD9600CB895C /* GetConfigurationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetConfigurationData.swift; sourceTree = "<group>"; };
 		E985C6BA25F3AD9600CB895C /* RemoteNumbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteNumbers.swift; sourceTree = "<group>"; };
 		E985C6BB25F3AD9600CB895C /* Numbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
-		E985C6BC25F3AD9600CB895C /* Dateandtime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dateandtime.swift; sourceTree = "<group>"; };
 		E985C6BD25F3AD9600CB895C /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		E985C6BE25F3AD9600CB895C /* Validatenewconfigs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validatenewconfigs.swift; sourceTree = "<group>"; };
 		E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteJSON.swift; sourceTree = "<group>"; };
@@ -804,7 +802,6 @@
 				E985C6B925F3AD9600CB895C /* GetConfigurationData.swift */,
 				E985C6BA25F3AD9600CB895C /* RemoteNumbers.swift */,
 				E985C6BB25F3AD9600CB895C /* Numbers.swift */,
-				E985C6BC25F3AD9600CB895C /* Dateandtime.swift */,
 				E985C6BD25F3AD9600CB895C /* NetworkMonitor.swift */,
 				E985C6BE25F3AD9600CB895C /* Validatenewconfigs.swift */,
 			);
@@ -1372,7 +1369,6 @@
 				E985C78825F3AD9700CB895C /* Reorgschedule.swift in Sources */,
 				E985C73E25F3AD9700CB895C /* ytcpsocket.swift in Sources */,
 				E985C77A25F3AD9700CB895C /* RsyncParametersSingleFilesArguments.swift in Sources */,
-				E985C74725F3AD9700CB895C /* Dateandtime.swift in Sources */,
 				E985C72C25F3AD9700CB895C /* SnapshotData.swift in Sources */,
 				E985C67A25F3AD8400CB895C /* RsyncCommandView.swift in Sources */,
 				E985C73125F3AD9700CB895C /* Running.swift in Sources */,
