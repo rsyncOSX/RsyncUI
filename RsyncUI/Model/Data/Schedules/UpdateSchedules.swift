@@ -22,7 +22,6 @@ enum ScheduleError: LocalizedError {
 final class UpdateSchedules {
     private var structschedules: [ConfigurationSchedule]?
     private var localeprofile: String?
-    // private var localehiddenID: Int?
 
     func add(_ hiddenID: Int?, _ schedule: EnumScheduleDatePicker, _ startdate: Date) -> Bool {
         do {
