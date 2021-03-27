@@ -23,17 +23,17 @@ struct ScheduleRowSchedules: View {
                 .modifier(FixedTag(50, .leading))
             if configschedule.dateStart == "01 Jan 1900 00:00" {
                 Text(NSLocalizedString("no startdate", comment: "ScheduleRowSchedules"))
-                    .modifier(FixedTag(150, .leading))
+                    .modifier(FixedTag(130, .leading))
             } else {
                 Text(localizeddatestart)
-                    .modifier(FixedTag(150, .leading))
+                    .modifier(FixedTag(130, .leading))
             }
             if configschedule.dateStop == "01 Jan 2100 00:00" {
                 Text(NSLocalizedString("active", comment: "ScheduleRowSchedules"))
-                    .modifier(FixedTag(150, .leading))
+                    .modifier(FixedTag(130, .leading))
             } else {
                 Text(localizeddatestop)
-                    .modifier(FixedTag(150, .leading))
+                    .modifier(FixedTag(130, .leading))
             }
             Text(String(configschedule.logrecords?.count ?? 0))
                 .modifier(FixedTag(35, .trailing))

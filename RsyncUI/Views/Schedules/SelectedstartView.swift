@@ -30,7 +30,7 @@ struct SelectedstartView: View {
     }
 
     var startdate: String {
-        NSLocalizedString("Start date is", comment: "SchedulesDatePickerView") + ": "
+        NSLocalizedString("Start is", comment: "SchedulesDatePickerView") + ": "
     }
 
     var schedule: String {

@@ -477,7 +477,7 @@
 "SSH RSA keys exist, cannot create" = "SSH RSA Schlüssel existiert, kann nicht erstellt werden";
 
 /* SchedulesDatePickerView */
-"Start date is" = "Startdatum ist";
+"Start is" = "Startdatum ist";
 
 /* Stop button */
 "Stop" = "Stoppen";
