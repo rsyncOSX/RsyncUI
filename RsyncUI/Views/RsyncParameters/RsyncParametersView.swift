@@ -18,6 +18,7 @@ struct RsyncParametersView: View {
     @State private var selecteduuids = Set<UUID>()
     // Show updated
     @State private var updated = false
+    @State private var selectedrsynccommand = RsyncCommand.synchronize
 
     var body: some View {
         ZStack {
@@ -27,6 +28,10 @@ struct RsyncParametersView: View {
                                selectable: $selectable)
 
             if updated == true { notifyupdated }
+
+            if parameters.configuration != nil { command }
+
+            if parameters.configuration != nil { parameterlist }
         }
 
         HStack {
@@ -171,6 +176,44 @@ struct RsyncParametersView: View {
         }
         .frame(width: 120, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
+
+    // commando
+
+    var test: some View {
+        Picker(NSLocalizedString("Command", comment: "CommandTab") + ":",
+               selection: $selectedrsynccommand) {
+            ForEach(RsyncCommand.allCases) { Text($0.description)
+                .tag($0)
+            }
+        }
+        .pickerStyle(SegmentedPickerStyle())
+        .frame(width: 300)
+    }
+
+    var command: some View {
+        Text(commandstring ?? "")
+            .padding(10)
+            .border(Color.gray)
+    }
+
+    var parameterlist: some View {
+        ParametersList(selectedconfig: $parameters.configuration)
+    }
+
+    var commandstring: String? {
+        if let index = rsyncOSXData.configurations?.firstIndex(where: { $0.hiddenID == parameters.configuration?.hiddenID }) {
+            return RsyncCommandtoDisplay(index: index,
+                                         display: selectedrsynccommand,
+                                         allarguments: rsyncOSXData.arguments).getrsyncommand()
+        }
+        return nil
+    }
+
+    func copytopasteboard() {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(commandstring ?? "", forType: .string)
     }
 }
 
