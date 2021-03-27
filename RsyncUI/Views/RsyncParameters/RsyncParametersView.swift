@@ -19,6 +19,7 @@ struct RsyncParametersView: View {
     // Show updated
     @State private var updated = false
     @State private var selectedrsynccommand = RsyncCommand.synchronize
+    @State private var presentrsynccommandoview = false
 
     var body: some View {
         ZStack {
@@ -109,6 +110,12 @@ struct RsyncParametersView: View {
 
             Spacer()
 
+            Button(NSLocalizedString("Commando", comment: "Execute button")) { presenteview() }
+                .buttonStyle(PrimaryButtonStyle())
+                .sheet(isPresented: $presentrsynccommandoview) {
+                    RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
+                }
+
             saveparameters
         }
     }
@@ -176,6 +183,10 @@ struct RsyncParametersView: View {
 }
 
 extension RsyncParametersView {
+    func presenteview() {
+        presentrsynccommandoview = true
+    }
+
     func saversyncparameters() {
         if var config = parameters.configuration {
             if parameters.parameter8.isEmpty { config.parameter8 = nil } else { config.parameter8 = parameters.parameter8 }

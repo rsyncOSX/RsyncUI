@@ -135,38 +135,40 @@ struct SetRsyncParameters {
     // value in combobox and the corrosponding rsync value when rsync parameters are presented
     // - parameter rsyncparameternumber : which stored rsync parameter, integer 8 - 14
     // - returns : touple with index for combobox and corresponding rsync value
-    private mutating func setparameter(_ config: Configuration) {
-        let param8 = indexandvaluersyncparameter(config.parameter8)
-        if param8.count > 0 {
-            parametersset.append(Parameter(param8))
-        }
-        let param9 = indexandvaluersyncparameter(config.parameter9)
-        if param9.count > 0 {
-            parametersset.append(Parameter(param9))
-        }
-        let param10 = indexandvaluersyncparameter(config.parameter10)
-        if param10.count > 0 {
-            parametersset.append(Parameter(param10))
-        }
-        let param11 = indexandvaluersyncparameter(config.parameter11)
-        if param11.count > 0 {
-            parametersset.append(Parameter(param11))
-        }
-        let param12 = indexandvaluersyncparameter(config.parameter12)
-        if param12.count > 0 {
-            parametersset.append(Parameter(param12))
-        }
-        let param13 = indexandvaluersyncparameter(config.parameter13)
-        if param13.count > 0 {
-            parametersset.append(Parameter(param13))
-        }
-        let param14 = indexandvaluersyncparameter(config.parameter14)
-        if param14.count > 0 {
-            parametersset.append(Parameter(param14))
+    private mutating func setparameter(_ config: Configuration?) {
+        if let config = config {
+            let param8 = indexandvaluersyncparameter(config.parameter8)
+            if param8.count > 0 {
+                parametersset.append(Parameter(param8))
+            }
+            let param9 = indexandvaluersyncparameter(config.parameter9)
+            if param9.count > 0 {
+                parametersset.append(Parameter(param9))
+            }
+            let param10 = indexandvaluersyncparameter(config.parameter10)
+            if param10.count > 0 {
+                parametersset.append(Parameter(param10))
+            }
+            let param11 = indexandvaluersyncparameter(config.parameter11)
+            if param11.count > 0 {
+                parametersset.append(Parameter(param11))
+            }
+            let param12 = indexandvaluersyncparameter(config.parameter12)
+            if param12.count > 0 {
+                parametersset.append(Parameter(param12))
+            }
+            let param13 = indexandvaluersyncparameter(config.parameter13)
+            if param13.count > 0 {
+                parametersset.append(Parameter(param13))
+            }
+            let param14 = indexandvaluersyncparameter(config.parameter14)
+            if param14.count > 0 {
+                parametersset.append(Parameter(param14))
+            }
         }
     }
 
-    init(_ config: Configuration) {
+    init(_ config: Configuration?) {
         for i in 0 ..< RsyncArguments().arguments.count {
             parameters.append(RsyncArguments().arguments[i].0)
         }

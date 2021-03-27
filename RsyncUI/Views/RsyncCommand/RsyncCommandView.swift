@@ -10,7 +10,9 @@ import SwiftUI
 
 struct RsyncCommandView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @Binding var selectedconfig: Configuration
+    @Binding var selectedconfig: Configuration?
+    @Binding var isPresented: Bool
+
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
     // Not used but requiered in parameter
@@ -38,6 +40,9 @@ struct RsyncCommandView: View {
 
             Spacer()
 
+            Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
+                .buttonStyle(PrimaryButtonStyle())
+
             Button(NSLocalizedString("Copy", comment: "Copy button")) { copytopasteboard() }
                 .buttonStyle(PrimaryButtonStyle())
         }
@@ -54,7 +59,7 @@ struct RsyncCommandView: View {
     }
 
     var commandstring: String? {
-        if let index = rsyncOSXData.configurations?.firstIndex(where: { $0.hiddenID == selectedconfig.hiddenID }) {
+        if let index = rsyncOSXData.configurations?.firstIndex(where: { $0.hiddenID == selectedconfig?.hiddenID }) {
             return RsyncCommandtoDisplay(index: index,
                                          display: selectedrsynccommand,
                                          allarguments: rsyncOSXData.arguments).getrsyncommand()
@@ -66,5 +71,9 @@ struct RsyncCommandView: View {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         pasteboard.setString(commandstring ?? "", forType: .string)
+    }
+
+    func dismissview() {
+        isPresented = false
     }
 }
