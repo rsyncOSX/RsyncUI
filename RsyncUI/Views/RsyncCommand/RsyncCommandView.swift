@@ -46,7 +46,7 @@ struct RsyncCommandView: View {
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
-        .frame(maxWidth: 600, maxHeight: 300)
+        .frame(width: 600, height: 300)
         .padding()
     }
 
