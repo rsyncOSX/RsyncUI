@@ -31,7 +31,6 @@
 		E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* AppDelegate.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C5D125F3AC0800CB895C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CF25F3AC0800CB895C /* Main.storyboard */; };
-		E985C65425F3AD8400CB895C /* SidebarRsyncCommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60B25F3AD8400CB895C /* SidebarRsyncCommandView.swift */; };
 		E985C65525F3AD8400CB895C /* SidebarMultipletasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60C25F3AD8400CB895C /* SidebarMultipletasksView.swift */; };
 		E985C65625F3AD8400CB895C /* RsyncUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60D25F3AD8400CB895C /* RsyncUIView.swift */; };
 		E985C65725F3AD8400CB895C /* SidebarSnapshotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60E25F3AD8400CB895C /* SidebarSnapshotsView.swift */; };
@@ -261,7 +260,6 @@
 		E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RsyncUI.entitlements; sourceTree = "<group>"; };
 		E985C5D825F3AC0800CB895C /* RsyncUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RsyncUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5E325F3AC0800CB895C /* RsyncUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RsyncUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E985C60B25F3AD8400CB895C /* SidebarRsyncCommandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarRsyncCommandView.swift; sourceTree = "<group>"; };
 		E985C60C25F3AD8400CB895C /* SidebarMultipletasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarMultipletasksView.swift; sourceTree = "<group>"; };
 		E985C60D25F3AD8400CB895C /* RsyncUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncUIView.swift; sourceTree = "<group>"; };
 		E985C60E25F3AD8400CB895C /* SidebarSnapshotsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarSnapshotsView.swift; sourceTree = "<group>"; };
@@ -546,7 +544,6 @@
 		E985C60A25F3AD8400CB895C /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
-				E985C60B25F3AD8400CB895C /* SidebarRsyncCommandView.swift */,
 				E985C60C25F3AD8400CB895C /* SidebarMultipletasksView.swift */,
 				E985C60D25F3AD8400CB895C /* RsyncUIView.swift */,
 				E985C60E25F3AD8400CB895C /* SidebarSnapshotsView.swift */,
@@ -1384,7 +1381,6 @@
 				E985C66D25F3AD8400CB895C /* ImageRsyncCommand.swift in Sources */,
 				E985C67E25F3AD8400CB895C /* ScheduleRowSchedules.swift in Sources */,
 				E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */,
-				E985C65425F3AD8400CB895C /* SidebarRsyncCommandView.swift in Sources */,
 				E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */,
 				E985C67025F3AD8400CB895C /* ImageLoglist.swift in Sources */,
 				E985C75925F3AD9700CB895C /* Configuration.swift in Sources */,

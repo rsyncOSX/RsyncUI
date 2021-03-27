@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ParametersList: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @Binding var selectedconfig: Configuration?
+    @Binding var selectedconfig: Configuration
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -22,9 +22,6 @@ struct ParametersList: View {
     }
 
     var parameters: [Parameter] {
-        if let config = selectedconfig {
-            return SetRsyncParameters(config).getparameters()
-        }
-        return []
+        SetRsyncParameters(selectedconfig).getparameters()
     }
 }

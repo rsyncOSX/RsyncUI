@@ -9,7 +9,6 @@
 import SwiftUI
 
 enum NavigationItem {
-    case rsync
     case rsyncparameters
     case logs
     case singletasks
@@ -81,13 +80,6 @@ struct Sidebar: View {
                     Label(NSLocalizedString("Rsync parameters", comment: "sidebar"), systemImage: "command.circle.fill")
                 }
                 .tag(NavigationItem.rsyncparameters)
-
-                NavigationLink(destination: SidebarRsyncCommandView(),
-                               tag: NavigationItem.rsync,
-                               selection: $selection) {
-                    Label(NSLocalizedString("Rsync commands", comment: "sidebar"), systemImage: "command.circle.fill")
-                }
-                .tag(NavigationItem.rsync)
 
                 NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile, reload: $reload),
                                tag: NavigationItem.schedules,

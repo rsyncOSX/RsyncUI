@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RsyncCommandView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @State private var selectedconfig: Configuration?
+    @Binding var selectedconfig: Configuration
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
     // Not used but requiered in parameter
@@ -19,19 +19,9 @@ struct RsyncCommandView: View {
     @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
-
-        Spacer()
-
-        ScrollView {
-            HStack {
-                if selectedconfig != nil { command }
-
-                if selectedconfig != nil { parameterlist }
-            }
+        HStack {
+            command
+            parameterlist
         }
 
         HStack {
@@ -64,7 +54,7 @@ struct RsyncCommandView: View {
     }
 
     var commandstring: String? {
-        if let index = rsyncOSXData.configurations?.firstIndex(where: { $0.hiddenID == selectedconfig?.hiddenID }) {
+        if let index = rsyncOSXData.configurations?.firstIndex(where: { $0.hiddenID == selectedconfig.hiddenID }) {
             return RsyncCommandtoDisplay(index: index,
                                          display: selectedrsynccommand,
                                          allarguments: rsyncOSXData.arguments).getrsyncommand()
