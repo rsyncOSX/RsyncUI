@@ -22,7 +22,7 @@ struct SidebarRsyncParameter: View {
     var headingtitle: some View {
         HStack {
             VStack {
-                Text(NSLocalizedString("Rsync parameters", comment: "SidebarRsyncParameter"))
+                Text(NSLocalizedString("Rsync", comment: "SidebarRsyncParameter"))
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

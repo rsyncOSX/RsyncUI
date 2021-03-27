@@ -21,14 +21,7 @@ struct RsyncCommandView: View {
     @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
-        HStack {
-            command
-            parameterlist
-        }
-
-        HStack {
-            Spacer()
-
+        VStack {
             Picker(NSLocalizedString("Command", comment: "CommandTab") + ":",
                    selection: $selectedrsynccommand) {
                 ForEach(RsyncCommand.allCases) { Text($0.description)
@@ -38,19 +31,28 @@ struct RsyncCommandView: View {
             .pickerStyle(SegmentedPickerStyle())
             .frame(width: 300)
 
+            command
+            parameterlist
+
             Spacer()
 
-            Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
-                .buttonStyle(PrimaryButtonStyle())
+            HStack {
+                Spacer()
 
-            Button(NSLocalizedString("Copy", comment: "Copy button")) { copytopasteboard() }
-                .buttonStyle(PrimaryButtonStyle())
+                Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                Button(NSLocalizedString("Copy", comment: "Copy button")) { copytopasteboard() }
+                    .buttonStyle(PrimaryButtonStyle())
+            }
         }
+        .frame(maxWidth: 600, maxHeight: 300)
+        .padding()
     }
 
     var command: some View {
         Text(commandstring ?? "")
-            .padding(10)
+            .padding()
             .border(Color.gray)
     }
 

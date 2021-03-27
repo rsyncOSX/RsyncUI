@@ -110,7 +110,7 @@ struct RsyncParametersView: View {
 
             Spacer()
 
-            Button(NSLocalizedString("Commando", comment: "Execute button")) { presenteview() }
+            Button(NSLocalizedString("Rsync", comment: "Execute button")) { presenteview() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentrsynccommandoview) {
                     RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
