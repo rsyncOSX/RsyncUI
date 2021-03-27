@@ -75,7 +75,10 @@ struct ScheduleRowSchedules: View {
     }
 
     var activeschedule: String {
-        if let activeschedules = rsyncOSXData.activeschedules {
+        if let activeschedules =
+            ScheduleSortedAndExpand(profile: rsyncOSXData.profile,
+                                    scheduleConfigurations: rsyncOSXData.schedulesandlogs).sortedexpandedeschedules
+        {
             let number = activeschedules.filter { $0.hiddenID == configschedule.hiddenID &&
                 $0.dateStart?.en_us_string_from_date() == configschedule.dateStart
             }

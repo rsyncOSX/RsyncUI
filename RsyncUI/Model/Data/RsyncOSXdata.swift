@@ -29,7 +29,6 @@ final class RsyncOSXdata: ObservableObject {
     @Published var arguments: [ArgumentsOneConfiguration]?
     @Published var profile: String?
     @Published var alllogssorted: [Log]?
-    @Published var activeschedules: [ActiveSchedules]?
 
     func update() {
         objectWillChange.send()
@@ -46,14 +45,6 @@ final class RsyncOSXdata: ObservableObject {
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
         arguments = rsyncdata?.configurationData.getarguments()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
-        if profile == NSLocalizedString("Default profile", comment: "default profile") || profile == nil {
-            activeschedules = ScheduleSortedAndExpand(profile: nil,
-                                                      scheduleConfigurations: schedulesandlogs).sortedexpandedeschedules
-        } else {
-            activeschedules = ScheduleSortedAndExpand(profile: profile,
-                                                      scheduleConfigurations: schedulesandlogs).sortedexpandedeschedules
-        }
-
         objectWillChange.send()
     }
 }
