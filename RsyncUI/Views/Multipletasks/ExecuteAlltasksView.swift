@@ -28,7 +28,6 @@ struct ExecuteAlltasksView: View {
             }
         }
         .padding()
-        .frame(minWidth: 300, minHeight: 250)
     }
 
     var header: some View {
