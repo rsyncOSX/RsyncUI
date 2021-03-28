@@ -7,6 +7,15 @@
 /* Alert delete */
 " schedules(s)?" = " zeitplane(n)?";
 
+/* RsyncParametersView */
+"--compress" = "--compress";
+
+/* RsyncParametersView */
+"--delete" = "--delete";
+
+/* RsyncParametersView */
+"-e shh" = "-e ssh";
+
 /* No comment provided by engineer. */
 "%@" = "%@";
 
@@ -132,6 +141,9 @@
 /* settings */
 "Created" = "Erstellt";
 
+/* RsyncParametersView */
+"Daemon" = "Daemon";
+
 /* ConfigurationsList */
 "Days" = "Tage";
 
@@ -195,6 +207,9 @@
 /* Estimate button */
 "Estimate" = "Schätzung";
 
+/* RsyncCommandView */
+"Estimated tasks" = "Geschätzte Aufgaben";
+
 /* Execute button */
 "Execute" = "Ausführen";
 
@@ -213,6 +228,9 @@
 
 /* OutputEstimatedView */
 "Files" = "Dateien";
+
+/* RsyncParametersView */
+"FreeBSD" = "FreeBSD";
 
 /* plan */
 "Friday" = "Freitag";
@@ -235,6 +253,9 @@
 /* settings */
 "Halt on error" = "Bei Fehler stoppen";
 
+/* No comment provided by engineer. */
+"Here comes view for restore" = "Hier kommt die Ansicht für die Wiederherstellung";
+
 /* icon */
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
@@ -256,12 +277,21 @@
 /* settings */
 "Level log" = "Level Log";
 
+/* RsyncParametersView */
+"Linux" = "Linux";
+
 /* ConfigurationsList
    OutputEstimatedView */
 "Local catalog" = "Lokaler Katalog";
 
+/* RsyncParametersView */
+"Local ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
+
 /* ssh */
 "Local ssh keys found" = "Lokale SSH-Schlüssel gefunden";
+
+/* RsyncParametersView */
+"Local ssh port" = "Lokaler SSH-Port";
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
@@ -316,6 +346,9 @@
 
 /* norwegian */
 "Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
+
+/* ssh error */
+"Not a valid " = "Nicht gültig ";
 
 /* ssh error */
 "Not a valid number (Double)" = "Keine gültige Zahl (Double)";
@@ -388,8 +421,26 @@
 /* input error */
 "Remote username cannot be empty" = "Remote-Benutzername darf nicht leer sein";
 
+/* RsyncParametersView */
+"Remove default rsync parameters" = "Standard-rsync-Parameter entfernen";
+
 /* Reset button */
 "Reset" = "Reset";
+
+/* sidebar
+   SidebarRsyncParameter */
+"Restore" = "Wiederherstellen";
+
+/* Execute button
+   sidebar
+   SidebarRsyncParameter */
+"Rsync" = "Rsync";
+
+/* RsyncCommandView */
+"Rsync command" = "Rsync-Befehl";
+
+/* EditRsyncParameter */
+"rsync parameter" = "rsync-Parameter";
 
 /* settings */
 "Rsync ver 3.x" = "Rsync Version 3.x";
@@ -433,6 +484,9 @@
    ssh settings */
 "Select" = "Auswählen";
 
+/* RsyncCommandView */
+"Select a configuration" = "Konfiguration auswählen";
+
 /* sidebar
    sidebar ... */
 "Select a task" = "Aufgabe auswählen";
@@ -474,6 +528,9 @@
 
 /* ssh error */
 "SSH RSA keys exist, cannot create" = "SSH RSA Schlüssel existiert, kann nicht erstellt werden";
+
+/* SchedulesDatePickerView */
+"Start is" = "Start ist";
 
 /* Stop button */
 "Stop" = "Stoppen";
@@ -558,7 +615,7 @@
 "Verify SSH" = "SSH überprüfen";
 
 /* No comment provided by engineer. */
-"Version %@ (%@)" = "Version %@ (%@)";
+"Version %@ (%@)" = "Version %1$@ (%2$@)";
 
 /* View button */
 "View" = "Ansicht";
