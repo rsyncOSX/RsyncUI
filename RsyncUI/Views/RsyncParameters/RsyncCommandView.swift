@@ -21,6 +21,8 @@ struct RsyncCommandView: View {
     @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
+        headingstitle
+
         VStack {
             Picker(NSLocalizedString("Command", comment: "CommandTab") + ":",
                    selection: $selectedrsynccommand) {
@@ -50,6 +52,12 @@ struct RsyncCommandView: View {
         .padding()
     }
 
+    var headingstitle: some View {
+        Text(NSLocalizedString("Rsync command", comment: "RsyncCommandView"))
+            .font(.title2)
+            .padding()
+    }
+
     var command: some View {
         Text(commandstring ?? "")
             .padding()
@@ -66,7 +74,7 @@ struct RsyncCommandView: View {
                                          display: selectedrsynccommand,
                                          allarguments: rsyncOSXData.arguments).getrsyncommand()
         }
-        return nil
+        return NSLocalizedString("Select a configuration", comment: "RsyncCommandView") + "..."
     }
 
     func copytopasteboard() {

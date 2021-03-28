@@ -469,6 +469,7 @@
 		E95EDC7D26063C7F000018DE /* RsyncParameters */ = {
 			isa = PBXGroup;
 			children = (
+				E985C63925F3AD8400CB895C /* RsyncCommandView.swift */,
 				E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */,
 				E91CC2612607260B00D69D0B /* RsyncParametersView.swift */,
 			);
@@ -532,7 +533,6 @@
 				E985C61E25F3AD8400CB895C /* FilelogView */,
 				E985C62025F3AD8400CB895C /* Modifiers */,
 				E985C62A25F3AD8400CB895C /* Images */,
-				E985C63825F3AD8400CB895C /* RsyncCommand */,
 				E985C63A25F3AD8400CB895C /* About */,
 				E985C64125F3AD8400CB895C /* Log */,
 				E985C64625F3AD8400CB895C /* Add */,
@@ -640,14 +640,6 @@
 				E985C63725F3AD8400CB895C /* ImageRsyncOSX.swift */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		E985C63825F3AD8400CB895C /* RsyncCommand */ = {
-			isa = PBXGroup;
-			children = (
-				E985C63925F3AD8400CB895C /* RsyncCommandView.swift */,
-			);
-			path = RsyncCommand;
 			sourceTree = "<group>";
 		};
 		E985C63A25F3AD8400CB895C /* About */ = {

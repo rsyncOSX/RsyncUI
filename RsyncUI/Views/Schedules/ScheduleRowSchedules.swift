@@ -31,6 +31,7 @@ struct ScheduleRowSchedules: View {
             if configschedule.dateStop == "01 Jan 2100 00:00" {
                 Text(NSLocalizedString("active", comment: "ScheduleRowSchedules"))
                     .modifier(FixedTag(130, .leading))
+                    .foregroundColor(Color.blue)
             } else {
                 Text(localizeddatestop)
                     .modifier(FixedTag(130, .leading))
