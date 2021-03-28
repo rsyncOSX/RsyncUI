@@ -204,6 +204,9 @@
 /* Alert delete */
 "Execute all tasks" = "Alle Aufgaben ausführen";
 
+/* RsyncCommandView */
+"Execute tasks" = "Aufgaben ausführen";
+
 /* Execute Multiple tasks
    Execute tasks */
 "Executing tasks" = "Aufgaben ausführen";
@@ -388,10 +391,6 @@
 /* Reset button */
 "Reset" = "Reset";
 
-/* Execute tasks
-   sidebar */
-"Rsync commands" = "Rsync-Befehle";
-
 /* settings */
 "Rsync ver 3.x" = "Rsync Version 3.x";
 
@@ -476,9 +475,6 @@
 /* ssh error */
 "SSH RSA keys exist, cannot create" = "SSH RSA Schlüssel existiert, kann nicht erstellt werden";
 
-/* SchedulesDatePickerView */
-"Start is" = "Startdatum ist";
-
 /* Stop button */
 "Stop" = "Stoppen";
 
@@ -562,7 +558,7 @@
 "Verify SSH" = "SSH überprüfen";
 
 /* No comment provided by engineer. */
-"Version %@ (%@)" = "Version %1$@ (%2$@)";
+"Version %@ (%@)" = "Version %@ (%@)";
 
 /* View button */
 "View" = "Ansicht";

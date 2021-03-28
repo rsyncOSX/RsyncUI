@@ -204,6 +204,9 @@
 /* Alert delete */
 "Execute all tasks" = "Utfør alle oppgaver";
 
+/* RsyncCommandView */
+"Execute tasks" = "Utfør oppgaver";
+
 /* Execute Multiple tasks
    Execute tasks */
 "Executing tasks" = "Utfører oppgaver";
@@ -388,10 +391,6 @@
 /* Reset button */
 "Reset" = "Reset";
 
-/* Execute tasks
-   sidebar */
-"Rsync commands" = "Rsync kommandoer";
-
 /* settings */
 "Rsync ver 3.x" = "Rsync ver 3,x";
 
@@ -475,9 +474,6 @@
 
 /* ssh error */
 "SSH RSA keys exist, cannot create" = "SSH RSA-nøkler finnes, kan ikke opprette";
-
-/* SchedulesDatePickerView */
-"Start is" = "Startdato";
 
 /* Stop button */
 "Stop" = "Stopp";
