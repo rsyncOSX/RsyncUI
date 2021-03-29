@@ -49,7 +49,7 @@ struct AboutView: View {
 
     var body: some View {
         VStack {
-            headingstitle
+            headingtitle
 
             translations
 
@@ -63,7 +63,7 @@ struct AboutView: View {
         }.padding()
     }
 
-    var headingstitle: some View {
+    var headingtitle: some View {
         VStack(spacing: 8) {
             Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
                 .resizable()

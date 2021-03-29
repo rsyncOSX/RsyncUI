@@ -21,7 +21,7 @@ struct OutputEstimatedView: View {
 
     var body: some View {
         VStack {
-            headingstitle
+            headingtitle
 
             Section(header: header) {
                 List {
@@ -77,7 +77,7 @@ struct OutputEstimatedView: View {
         .frame(minWidth: 1100, minHeight: 400)
     }
 
-    var headingstitle: some View {
+    var headingtitle: some View {
         Text(NSLocalizedString("Estimated tasks", comment: "RsyncCommandView"))
             .font(.title2)
             .padding()

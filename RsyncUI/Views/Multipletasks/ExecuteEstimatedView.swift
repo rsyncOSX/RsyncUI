@@ -29,7 +29,7 @@ struct ExecuteEstimatedView: View {
 
     var body: some View {
         VStack {
-            headingstitle
+            headingtitle
 
             ConfigurationsList(selectedconfig: $selectedconfig.onChange {},
                                selecteduuids: $selecteduuids,
@@ -87,7 +87,7 @@ struct ExecuteEstimatedView: View {
             })
     }
 
-    var headingstitle: some View {
+    var headingtitle: some View {
         Text(NSLocalizedString("Execute tasks", comment: "RsyncCommandView"))
             .font(.title2)
             .padding()

@@ -21,7 +21,7 @@ struct RsyncCommandView: View {
     @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
-        headingstitle
+        headingtitle
 
         VStack {
             Picker(NSLocalizedString("Command", comment: "CommandTab") + ":",
@@ -52,8 +52,8 @@ struct RsyncCommandView: View {
         .padding()
     }
 
-    var headingstitle: some View {
-        Text(NSLocalizedString("Rsync command", comment: "RsyncCommandView"))
+    var headingtitle: some View {
+        Text(NSLocalizedString("Rsync command and parameters", comment: "RsyncCommandView"))
             .font(.title2)
             .padding()
     }
