@@ -116,10 +116,10 @@ final class ScheduleSortedAndExpand {
                 }
             }
         }
-        sortedexpandedeschedules = sortedexpandedeschedules?.sorted { (date1, date2) -> Bool in
-            if let date1 = date1.timetostart {
-                if let date2 = date2.timetostart {
-                    if date1 > date2 {
+        sortedexpandedeschedules = sortedexpandedeschedules?.sorted { (time1, time2) -> Bool in
+            if let time1 = time1.timetostart {
+                if let time2 = time2.timetostart {
+                    if time1 > time2 {
                         return false
                     } else {
                         return true
@@ -139,6 +139,6 @@ final class ScheduleSortedAndExpand {
     }
 
     deinit {
-        print("deinit ScheduleSortedAndExpand")
+        // print("deinit ScheduleSortedAndExpand")
     }
 }
