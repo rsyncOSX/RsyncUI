@@ -15,6 +15,7 @@
 		E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8902992260B0EF700F4F0DC /* ButtonStyles.swift */; };
 		E91CC2622607260B00D69D0B /* RsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2612607260B00D69D0B /* RsyncParametersView.swift */; };
 		E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */; };
+		E9245C0B2613146800CBE0BB /* ShortcutActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9245C0A2613146800CBE0BB /* ShortcutActions.swift */; };
 		E943B0A925FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
 		E9551ADB25F927580018E57E /* JSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9551ADA25F927580018E57E /* JSONView.swift */; };
@@ -223,6 +224,7 @@
 		E8902992260B0EF700F4F0DC /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		E91CC2612607260B00D69D0B /* RsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncParametersView.swift; sourceTree = "<group>"; };
 		E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebareRestoreView.swift; sourceTree = "<group>"; };
+		E9245C0A2613146800CBE0BB /* ShortcutActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutActions.swift; sourceTree = "<group>"; };
 		E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessCmdCombineClosure.swift; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
 		E9551ADA25F927580018E57E /* JSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONView.swift; sourceTree = "<group>"; };
@@ -997,6 +999,7 @@
 				E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */,
 				E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */,
 				E95EDC8926063EAA000018DE /* ObserveableParametersRsync.swift */,
+				E9245C0A2613146800CBE0BB /* ShortcutActions.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1202,6 +1205,7 @@
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,
 				E985C78925F3AD9700CB895C /* OutputFromMultipleTasks.swift in Sources */,
 				E985C73025F3AD9700CB895C /* Neworoldprofilepath.swift in Sources */,
+				E9245C0B2613146800CBE0BB /* ShortcutActions.swift in Sources */,
 				E985C76825F3AD9700CB895C /* SingletaskNowState.swift in Sources */,
 				E985C65E25F3AD8400CB895C /* ConfigurationsList.swift in Sources */,
 				E985C76E25F3AD9700CB895C /* EstimationState.swift in Sources */,

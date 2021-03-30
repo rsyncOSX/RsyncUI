@@ -12,6 +12,8 @@ struct MultipletasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
+    // Observing shortcuts
+    @EnvironmentObject var shortcuts: ShortcutActions
 
     // These two objects keeps track of the state and collects
     // the estimated values.
@@ -35,6 +37,7 @@ struct MultipletasksView: View {
     @State private var showAlertforexecuteall = false
 
     var body: some View {
+        // if shortcuts.execute == true { Text("Execute") }
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
@@ -225,9 +228,5 @@ extension MultipletasksView {
         }
         guard selecteduuids.count > 0 else { return }
         showAlertfordelete = true
-    }
-
-    func executeselected(_: NSButton) {
-        print("test")
     }
 }

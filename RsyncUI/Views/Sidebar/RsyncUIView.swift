@@ -23,6 +23,7 @@ struct RsyncUIView: View {
                 .environmentObject(RsyncOSXdata(profile: selectedprofile))
                 .environmentObject(errorhandling)
                 .environmentObject(InprogressCountExecuteOneTaskDetails())
+                .environmentObject(shortcutactions)
                 .onChange(of: reload, perform: { _ in
                     reload = false
                 })
@@ -47,6 +48,11 @@ struct RsyncUIView: View {
     var errorhandling: ErrorHandling {
         SharedReference.shared.errorobject = ErrorHandling()
         return SharedReference.shared.errorobject ?? ErrorHandling()
+    }
+
+    var shortcutactions: ShortcutActions {
+        SharedReference.shared.shortcutobject = ShortcutActions()
+        return SharedReference.shared.shortcutobject ?? ShortcutActions()
     }
 
     var profilepicker: some View {

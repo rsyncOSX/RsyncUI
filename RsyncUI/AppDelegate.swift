@@ -91,7 +91,7 @@ extension AppDelegate {
     }
 
     @IBAction func executeselected(_: Any?) {
-        print("execute")
+        SharedReference.shared.shortcutobject?.execute = true
     }
 
     @IBAction func estimateselected(_: Any?) {
