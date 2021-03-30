@@ -37,7 +37,6 @@ struct MultipletasksView: View {
     @State private var showAlertforexecuteall = false
 
     var body: some View {
-        // if shortcuts.execute == true { Text("Execute") }
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
@@ -49,6 +48,8 @@ struct MultipletasksView: View {
         if estimationstate.estimationstate == .estimate { progressviewestimation }
         // Show label when estimatin is completed.
         if estimationstate.estimationstate != .start { labelcompleted }
+
+        if shortcuts.estimatemultipletasks { labeltest }
 
         HStack {
             Button(NSLocalizedString("All", comment: "Select button")) { executall() }
@@ -95,6 +96,14 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+    }
+
+    var labeltest: some View {
+        Label(estimationstate.estimationstate.rawValue, systemImage: "play.fill")
+            .onAppear(perform: {
+                shortcuts.estimatemultipletasks = false
+                startestimation()
+            })
     }
 
     var progressviewestimation: some View {
