@@ -12,6 +12,8 @@ import SwiftUI
 struct SingleTasksView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var outputfromrsync: OutputFromRsync
+    // Observing shortcuts
+    @EnvironmentObject var shortcuts: ShortcutActions
 
     // Execute estimate and execution
     @StateObject private var singletaskstate = SingleTaskState()
@@ -34,6 +36,9 @@ struct SingleTasksView: View {
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
+    // True if view is present
+    // Used to controle which shortcut is activated
+    @State private var visible: Bool = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
@@ -49,8 +54,9 @@ struct SingleTasksView: View {
 
         HStack {
             if singletaskstate.singletaskstate != .start { labelestimate }
-
             if singletasknowstate.executetasknowstate != .start { labelexecutenow }
+            // Shortcuts
+            if shortcuts.estimatesingletask { labelshortcutestimation }
 
             Spacer()
         }
@@ -71,6 +77,12 @@ struct SingleTasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .onAppear(perform: {
+            visible = true
+        })
+        .onDisappear(perform: {
+            visible = false
+        })
     }
 
     // Estimate and the execute.
@@ -97,6 +109,17 @@ struct SingleTasksView: View {
                      value: inprogresscountrsyncoutput.getinprogress(),
                      total: Double(inprogresscountrsyncoutput.getmaxcount()))
             .onChange(of: inprogresscountrsyncoutput.getinprogress(), perform: { _ in
+            })
+    }
+
+    var labelshortcutestimation: some View {
+        Label(singletaskstate.singletaskstate.rawValue, systemImage: "play.fill")
+            .onAppear(perform: {
+                shortcuts.estimatemultipletasks = false
+                shortcuts.estimatesingletask = false
+                // Guard statement must be after resetting properties to false
+                guard visible == true else { return }
+                initsingletask()
             })
     }
 

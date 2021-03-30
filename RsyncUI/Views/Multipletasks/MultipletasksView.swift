@@ -35,6 +35,9 @@ struct MultipletasksView: View {
     @State private var showAlertfordelete = false
     // Alert for execute all
     @State private var showAlertforexecuteall = false
+    // True if view is present
+    // Used to controle which shortcut is activated
+    @State private var visible: Bool = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
@@ -48,8 +51,8 @@ struct MultipletasksView: View {
         if estimationstate.estimationstate == .estimate { progressviewestimation }
         // Show label when estimatin is completed.
         if estimationstate.estimationstate != .start { labelcompleted }
-
-        if shortcuts.estimatemultipletasks { labeltest }
+        // Shortcuts
+        if shortcuts.estimatemultipletasks { labelshortcutestimation }
 
         HStack {
             Button(NSLocalizedString("All", comment: "Select button")) { executall() }
@@ -96,12 +99,21 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .onAppear(perform: {
+            visible = true
+        })
+        .onDisappear(perform: {
+            visible = false
+        })
     }
 
-    var labeltest: some View {
+    var labelshortcutestimation: some View {
         Label(estimationstate.estimationstate.rawValue, systemImage: "play.fill")
             .onAppear(perform: {
                 shortcuts.estimatemultipletasks = false
+                shortcuts.estimatesingletask = false
+                // Guard statement must be after resetting properties to false
+                guard visible == true else { return }
                 startestimation()
             })
     }
