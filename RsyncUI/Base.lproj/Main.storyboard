@@ -59,13 +59,13 @@
                                     <items>
                                         <menuItem title="Synchronize" keyEquivalent="r" id="DVo-aG-piG">
                                             <connections>
-                                                <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
+                                                <action selector="executeselected:" target="Ady-hI-5gd" id="1kg-kK-FU0"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                                         <menuItem title="Estimate" keyEquivalent="e" id="Kx2-8R-CSw">
                                             <connections>
-                                                <action selector="performClose:" target="Ady-hI-5gd" id="aJP-wJ-xoF"/>
+                                                <action selector="estimateselected:" target="Ady-hI-5gd" id="CoD-xf-xNa"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>

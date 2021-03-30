@@ -226,4 +226,8 @@ extension MultipletasksView {
         guard selecteduuids.count > 0 else { return }
         showAlertfordelete = true
     }
+
+    func executeselected(_: NSButton) {
+        print("test")
+    }
 }
