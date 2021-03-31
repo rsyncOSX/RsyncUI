@@ -1,17 +1,17 @@
 /* Alert delete */
-" configuration(s)?" = " konfigurierung(en)?";
+" configuration(s)?" = "Konfiguration(en)?";
 
 /* Alert delete */
-" log(s)?" = " log(n)?";
+" log(s)?" = "Protokolle?";
 
 /* Alert delete */
-" schedules(s)?" = " zeitplane(n)?";
+" schedules(s)?" = "Zeitpläne";
 
 /* RsyncParametersView */
-"--compress" = "--compress";
+"--compress" = "--komprimieren";
 
 /* RsyncParametersView */
-"--delete" = "--delete";
+"--delete" = "--löschen";
 
 /* RsyncParametersView */
 "-e shh" = "-e ssh";
@@ -38,7 +38,7 @@
 "Add backup ID" = "Backup-ID hinzufügen";
 
 /* No comment provided by engineer. */
-"Add configuration completed" = "Neue Konfiguration abgeschlossen";
+"Add configuration completed" = "Konfiguration hinzufügen abgeschlossen";
 
 /* settings */
 "Add localcatalog - required" = "Lokalkatalog hinzufügen - erforderlich";
@@ -399,7 +399,7 @@
 "PLIST" = "PLIST";
 
 /* settings */
-"Pre and post task" = "Vor- und Nachlauf-Aufgabe";
+"Pre and post task" = "Vor- und Post-Aufgabe";
 
 /* plan */
 "previous month" = "letzter Monat";
@@ -413,7 +413,7 @@
 "Remote catalog" = "Externer Katalog";
 
 /* settings */
-"Remote parameters" = "Entfernte Parameter";
+"Remote parameters" = "Remote Parameter";
 
 /* input error */
 "Remote servername cannot be empty" = "Remote-Servername darf nicht leer sein";
@@ -437,7 +437,7 @@
 "Rsync" = "Rsync";
 
 /* RsyncCommandView */
-"Rsync command" = "Rsync-Befehl";
+"Rsync command and parameters" = "Rsync-Befehl und Parameter";
 
 /* EditRsyncParameter */
 "rsync parameter" = "rsync-Parameter";
@@ -518,7 +518,7 @@
 "Snapshots" = "Snapshots";
 
 /* user settings */
-"Ssh" = "Schutt";
+"Ssh" = "Ssh";
 
 /* ssh error */
 "SSH keypath is not valid" = "SSH Schlüsselpfad ist ungültig";
@@ -625,5 +625,5 @@
 
 /* progressview
    progressview... */
-"Working" = "Arbeiten";
+"Working" = "Arbeitet";
 

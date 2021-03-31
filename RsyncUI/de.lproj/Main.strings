@@ -5,7 +5,7 @@
 "1Xt-HY-uBw.title" = "RsyncUI";
 
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "4J7-dP-txa"; */
-"4J7-dP-txa.title" = "Vollbild eingeben";
+"4J7-dP-txa.title" = "In Vollbild wechseln";
 
 /* Class = "NSMenuItem"; title = "Quit RsyncUI"; ObjectID = "4sb-4s-VLi"; */
 "4sb-4s-VLi.title" = "RsyncUI beenden";
@@ -17,7 +17,7 @@
 "5QF-Oa-p0T.title" = "Bearbeiten";
 
 /* Class = "NSMenuItem"; title = "Print…"; ObjectID = "aTl-1u-JFS"; */
-"aTl-1u-JFS.title" = "… drucken";
+"aTl-1u-JFS.title" = "Drucken...";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "Fenster";
@@ -41,7 +41,7 @@
 "F2S-fz-NVQ.title" = "Hilfe";
 
 /* Class = "NSMenuItem"; title = "RsyncUI Help"; ObjectID = "FKE-Sm-Kum"; */
-"FKE-Sm-Kum.title" = "RsyncUI Help";
+"FKE-Sm-Kum.title" = "RsyncUI Hilfe";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
 "gVA-U4-sdL.title" = "Einfügen";
@@ -65,7 +65,7 @@
 "LE2-aR-0XJ.title" = "Alles nach vorne bringen";
 
 /* Class = "NSMenuItem"; title = "Hide RsyncUI"; ObjectID = "Olw-nP-bQN"; */
-"Olw-nP-bQN.title" = "Hide RsyncUI";
+"Olw-nP-bQN.title" = "RsyncUI verstecken";
 
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
 "OY7-WF-poV.title" = "Minimieren";
@@ -89,7 +89,7 @@
 "uQy-DD-JDr.title" = "RsyncUI";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
-"uRl-iY-unG.title" = "Schneide";
+"uRl-iY-unG.title" = "Ausschneiden";
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "Andere ausblenden";

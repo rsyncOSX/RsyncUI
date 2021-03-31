@@ -437,7 +437,7 @@
 "Rsync" = "Rsync";
 
 /* RsyncCommandView */
-"Rsync command" = "Rsync kommandoer";
+"Rsync command and parameters" = "Rsync kommando og parametere";
 
 /* EditRsyncParameter */
 "rsync parameter" = "rsync parameter";

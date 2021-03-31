@@ -226,9 +226,6 @@
 		E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebareRestoreView.swift; sourceTree = "<group>"; };
 		E9245C0A2613146800CBE0BB /* ShortcutActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutActions.swift; sourceTree = "<group>"; };
 		E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessCmdCombineClosure.swift; sourceTree = "<group>"; };
-		E94E327F2614A59100665EFF /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/Main.strings"; sourceTree = "<group>"; };
-		E94E32802614A59100665EFF /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		E94E32812614A59100665EFF /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
 		E9551ADA25F927580018E57E /* JSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONView.swift; sourceTree = "<group>"; };
 		E95C8C302603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1120,7 +1117,6 @@
 				Base,
 				nb,
 				de,
-				"it-IT",
 			);
 			mainGroup = E985C5BA25F3AC0700CB895C;
 			packageReferences = (
@@ -1412,7 +1408,6 @@
 			children = (
 				E95C8C302603962600407434 /* nb */,
 				E9B1277D260501CA001A5FD3 /* de */,
-				E94E32812614A59100665EFF /* it-IT */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1422,7 +1417,6 @@
 			children = (
 				E95C8C332603962600407434 /* nb */,
 				E9B1277C260501CA001A5FD3 /* de */,
-				E94E32802614A59100665EFF /* it-IT */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1433,7 +1427,6 @@
 				E985C5D025F3AC0800CB895C /* Base */,
 				E9B240362600A2EF004E91B5 /* nb */,
 				E9B1277B260501CA001A5FD3 /* de */,
-				E94E327F2614A59100665EFF /* it-IT */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
