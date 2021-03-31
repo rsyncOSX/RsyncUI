@@ -93,7 +93,8 @@ extension AppDelegate {
     @IBAction func executeselected(_: Any?) {
         if SharedReference.shared.shortcutobject?.multipletaskviewisactive ?? false {
             SharedReference.shared.shortcutobject?.executemultipletasks = true
-        } else if SharedReference.shared.shortcutobject?.singetaskviewisactive ?? false {
+        }
+        if SharedReference.shared.shortcutobject?.singetaskviewisactive ?? false {
             SharedReference.shared.shortcutobject?.executesingletask = true
         }
     }
@@ -101,7 +102,8 @@ extension AppDelegate {
     @IBAction func estimateselected(_: Any?) {
         if SharedReference.shared.shortcutobject?.multipletaskviewisactive ?? false {
             SharedReference.shared.shortcutobject?.estimatemultipletasks = true
-        } else if SharedReference.shared.shortcutobject?.singetaskviewisactive ?? false {
+        }
+        if SharedReference.shared.shortcutobject?.singetaskviewisactive ?? false {
             SharedReference.shared.shortcutobject?.estimatesingletask = true
         }
     }
