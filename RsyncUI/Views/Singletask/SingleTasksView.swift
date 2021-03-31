@@ -54,6 +54,7 @@ struct SingleTasksView: View {
             if singletasknowstate.executetasknowstate != .start { labelexecutenow }
             // Shortcuts
             if shortcuts.estimatesingletask { labelshortcutestimation }
+            if shortcuts.executesingletask { labelshortcutexecute }
 
             Spacer()
         }
@@ -112,10 +113,18 @@ struct SingleTasksView: View {
     var labelshortcutestimation: some View {
         Label(singletaskstate.singletaskstate.rawValue, systemImage: "play.fill")
             .onAppear(perform: {
-                shortcuts.estimatemultipletasks = false
                 shortcuts.estimatesingletask = false
                 // Guard statement must be after resetting properties to false
                 initsingletask()
+            })
+    }
+
+    var labelshortcutexecute: some View {
+        Label(singletaskstate.singletaskstate.rawValue, systemImage: "play.fill")
+            .onAppear(perform: {
+                shortcuts.executesingletask = false
+                // Guard statement must be after resetting properties to false
+                singletask()
             })
     }
 
