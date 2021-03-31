@@ -48,8 +48,9 @@ struct MultipletasksView: View {
         if estimationstate.estimationstate == .estimate { progressviewestimation }
         // Show label when estimatin is completed.
         if estimationstate.estimationstate != .start { labelcompleted }
-        // Shortcuts
+        // Shortcuts for estimate and execute
         if shortcuts.estimatemultipletasks { labelshortcutestimation }
+        if shortcuts.executemultipletasks { labelshortcutexecute }
 
         HStack {
             Button(NSLocalizedString("All", comment: "Select button")) { executall() }
@@ -108,9 +109,17 @@ struct MultipletasksView: View {
         Label(estimationstate.estimationstate.rawValue, systemImage: "play.fill")
             .onAppear(perform: {
                 shortcuts.estimatemultipletasks = false
-                shortcuts.estimatesingletask = false
                 // Guard statement must be after resetting properties to false
                 startestimation()
+            })
+    }
+
+    var labelshortcutexecute: some View {
+        Label(estimationstate.estimationstate.rawValue, systemImage: "play.fill")
+            .onAppear(perform: {
+                shortcuts.executemultipletasks = false
+                // Guard statement must be after resetting properties to false
+                presentexecuteestimatedview()
             })
     }
 

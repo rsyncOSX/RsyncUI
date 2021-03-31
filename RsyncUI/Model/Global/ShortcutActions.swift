@@ -13,22 +13,22 @@ final class ShortcutActions: ObservableObject {
     @Published var executesingletask: Bool = false
     @Published var estimatesingletask: Bool = false
 
-    var multipletaskisactive: Bool = false
-    var singetaskisactive: Bool = false
+    var multipletaskviewisactive: Bool = false
+    var singetaskviewisactive: Bool = false
 
     func enablemultipletask() {
-        multipletaskisactive = true
+        multipletaskviewisactive = true
     }
 
     func disablemultipletask() {
-        multipletaskisactive = false
+        multipletaskviewisactive = false
     }
 
     func enablesingletask() {
-        singetaskisactive = true
+        singetaskviewisactive = true
     }
 
     func disablesingletask() {
-        singetaskisactive = false
+        singetaskviewisactive = false
     }
 }
