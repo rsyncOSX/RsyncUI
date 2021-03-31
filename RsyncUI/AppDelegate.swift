@@ -36,7 +36,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentView = NSHostingView(rootView:
             RsyncUIView()
                 .environmentObject(RsyncOSXViewGetRsyncversion())
-                .environmentObject(Profilenames()))
+                .environmentObject(Profilenames())
+                .environmentObject(shortcutactions))
         window.makeKeyAndOrderFront(nil)
         window.title = "RsyncUI"
         window.isMovableByWindowBackground = true
@@ -48,6 +49,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_: Notification) {
         // Insert code here to tear down your application
+    }
+
+    var shortcutactions: ShortcutActions {
+        SharedReference.shared.shortcutobject = ShortcutActions()
+        return SharedReference.shared.shortcutobject ?? ShortcutActions()
     }
 }
 
