@@ -35,9 +35,6 @@ struct MultipletasksView: View {
     @State private var showAlertfordelete = false
     // Alert for execute all
     @State private var showAlertforexecuteall = false
-    // True if view is present
-    // Used to controle which shortcut is activated
-    @State private var visible: Bool = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
@@ -100,10 +97,10 @@ struct MultipletasksView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .onAppear(perform: {
-            visible = true
+            shortcuts.enablemultipletask()
         })
         .onDisappear(perform: {
-            visible = false
+            shortcuts.disablemultipletask()
         })
     }
 
@@ -113,7 +110,6 @@ struct MultipletasksView: View {
                 shortcuts.estimatemultipletasks = false
                 shortcuts.estimatesingletask = false
                 // Guard statement must be after resetting properties to false
-                guard visible == true else { return }
                 startestimation()
             })
     }

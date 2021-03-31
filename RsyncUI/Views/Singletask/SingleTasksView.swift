@@ -36,9 +36,6 @@ struct SingleTasksView: View {
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
-    // True if view is present
-    // Used to controle which shortcut is activated
-    @State private var visible: Bool = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
@@ -78,10 +75,10 @@ struct SingleTasksView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .onAppear(perform: {
-            visible = true
+            shortcuts.enablesingletask()
         })
         .onDisappear(perform: {
-            visible = false
+            shortcuts.disablesingletask()
         })
     }
 
@@ -118,7 +115,6 @@ struct SingleTasksView: View {
                 shortcuts.estimatemultipletasks = false
                 shortcuts.estimatesingletask = false
                 // Guard statement must be after resetting properties to false
-                guard visible == true else { return }
                 initsingletask()
             })
     }
