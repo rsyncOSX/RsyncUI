@@ -1,4 +1,11 @@
 //
+//  AddConfigurationView.swift
+//  RsyncUI
+//
+//  Created by Thomas Evensen on 01/04/2021.
+//
+
+//
 //  AddView.swift
 //  RsyncUI
 //
@@ -8,7 +15,27 @@
 
 import SwiftUI
 
-struct AddView: View {
+enum CannotUpdateSnaphotsError: LocalizedError {
+    case cannotupdate
+
+    var errorDescription: String? {
+        switch self {
+        case .cannotupdate:
+            return NSLocalizedString("Snapshot tasks cannot be updated", comment: "cannot") + "..."
+        }
+    }
+}
+
+enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case synchronize
+    case snapshot
+    case syncremote
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
+}
+
+struct AddConfigurationView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var profilenames: Profilenames
 
@@ -22,12 +49,6 @@ struct AddView: View {
     @State private var remoteuser: String = ""
     @State private var remoteserver: String = ""
     @State private var backupID: String = ""
-
-    @State private var enablepre: Bool = false
-    @State private var enablepost: Bool = false
-    @State private var pretask: String = ""
-    @State private var posttask: String = ""
-    @State private var haltshelltasksonerror: Bool = false
 
     // Sheet for selecting configuration if edit
     @State private var selectedconfig: Configuration?
@@ -45,46 +66,18 @@ struct AddView: View {
         Form {
             Spacer()
 
-            HStack {
-                Spacer()
+            VStack(alignment: .leading) {
+                HStack {
+                    pickerselecttypeoftask
 
-                VStack(alignment: .leading) {
-                    HStack {
-                        pickerselecttypeoftask
-
-                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
-                    }
-
-                    VStack(alignment: .leading) { localandremotecatalog }
-
-                    VStack(alignment: .leading) { backupid }
-
-                    VStack(alignment: .leading) { remoteuserandserver }
+                    ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
                 }
 
-                Spacer()
+                VStack(alignment: .leading) { localandremotecatalog }
 
-                VStack(alignment: .leading) {
-                    Section(header: headerprepost) {
-                        pretaskandtoggle
+                VStack(alignment: .leading) { backupid }
 
-                        posttaskandtoggle
-
-                        // Halt posttask on error
-                        if selectedconfig == nil { disablehaltshelltasksonerror } else {
-                            ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
-                                .onAppear(perform: {
-                                    if selectedconfig?.haltshelltasksonerror == 1 {
-                                        haltshelltasksonerror = true
-                                    } else {
-                                        haltshelltasksonerror = false
-                                    }
-                                })
-                        }
-                    }
-                }
-
-                Spacer()
+                VStack(alignment: .leading) { remoteuserandserver }
             }
 
             Spacer()
@@ -226,86 +219,9 @@ struct AddView: View {
         }
     }
 
-    var setpretask: some View {
-        EditValue(250, NSLocalizedString("Add pretask", comment: "settings"), $pretask)
-    }
-
-    var setposttask: some View {
-        EditValue(250, NSLocalizedString("Add posttask", comment: "settings"), $posttask)
-    }
-
-    var disablepretask: some View {
-        ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepre)
-    }
-
-    var disableposttask: some View {
-        ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
-    }
-
-    var headerprepost: some View {
-        Text(NSLocalizedString("Pre and post task", comment: "settings"))
-            .modifier(FixedTag(200, .leading))
-    }
-
-    var pretaskandtoggle: some View {
-        HStack {
-            // Enable pretask
-            if selectedconfig == nil { disablepretask } else {
-                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepre)
-                    .onAppear(perform: {
-                        if selectedconfig?.executepretask == 1 {
-                            enablepre = true
-                        } else {
-                            enablepre = false
-                        }
-                    })
-            }
-
-            // Pretask
-            if selectedconfig == nil { setpretask } else {
-                EditValue(250, nil, $pretask)
-                    .onAppear(perform: {
-                        if let task = selectedconfig?.pretask {
-                            pretask = task
-                        }
-                    })
-            }
-        }
-    }
-
-    var posttaskandtoggle: some View {
-        HStack {
-            // Enable posttask
-            if selectedconfig == nil { disableposttask } else {
-                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
-                    .onAppear(perform: {
-                        if selectedconfig?.executeposttask == 1 {
-                            enablepost = true
-                        } else {
-                            enablepost = false
-                        }
-                    })
-            }
-
-            // Posttask
-            if selectedconfig == nil { setposttask } else {
-                EditValue(250, nil, $posttask)
-                    .onAppear(perform: {
-                        if let task = selectedconfig?.posttask {
-                            posttask = task
-                        }
-                    })
-            }
-        }
-    }
-
     // Select, if update, configurations for update
     var configsheet: some View {
         SelectConfigurationView(selectedconfig: $selectedconfig, isPresented: $presentsheet)
-    }
-
-    var disablehaltshelltasksonerror: some View {
-        ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
     }
 
     var selectpickervalue: TypeofTask {
@@ -369,7 +285,7 @@ struct AddView: View {
     }
 }
 
-extension AddView {
+extension AddConfigurationView {
     func selectconfig() {
         resetform()
         presentsheet = true
@@ -383,11 +299,11 @@ extension AddView {
                                    remoteuser,
                                    remoteserver,
                                    backupID,
-                                   enablepre,
-                                   pretask,
-                                   enablepost,
-                                   posttask,
-                                   haltshelltasksonerror)
+                                   nil,
+                                   nil,
+                                   nil,
+                                   nil,
+                                   nil)
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
@@ -413,11 +329,11 @@ extension AddView {
                                        remoteuser,
                                        remoteserver,
                                        backupID,
-                                       enablepre,
-                                       pretask,
-                                       enablepost,
-                                       posttask,
-                                       haltshelltasksonerror,
+                                       nil,
+                                       nil,
+                                       nil,
+                                       nil,
+                                       nil,
                                        selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
@@ -441,11 +357,6 @@ extension AddView {
         remoteuser = ""
         remoteserver = ""
         backupID = ""
-        enablepre = false
-        pretask = ""
-        enablepost = false
-        posttask = ""
-        haltshelltasksonerror = false
         selectedconfig = nil
     }
 
@@ -487,29 +398,6 @@ extension AddView {
             remoteuser = config.offsiteUsername
             remoteserver = config.offsiteServer
             backupID = config.backupID
-            if config.pretask != nil {
-                if config.executepretask == 1 {
-                    enablepre = true
-                } else {
-                    enablepre = false
-                }
-                pretask = config.pretask ?? ""
-            }
-            if config.posttask != nil {
-                if config.executeposttask == 1 {
-                    enablepost = true
-                } else {
-                    enablepost = false
-                }
-                pretask = config.pretask ?? ""
-            }
-            if config.posttask != nil {
-                if config.haltshelltasksonerror == 1 {
-                    haltshelltasksonerror = true
-                } else {
-                    haltshelltasksonerror = false
-                }
-            }
         }
     }
 
