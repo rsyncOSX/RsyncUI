@@ -10,7 +10,6 @@ import SwiftUI
 struct AddPostandPreView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @EnvironmentObject var profilenames: Profilenames
-
     @Binding var selectedprofile: String?
 
     @State private var enablepre: Bool = false
@@ -62,12 +61,14 @@ struct AddPostandPreView: View {
 
             VStack {
                 HStack {
+                    Spacer()
+
                     // Present when updated
                     if updated == true { notifyupdated }
-                }
 
-                HStack {
-                    Spacer()
+                    Button(NSLocalizedString("Select", comment: "Select button")) { selectconfig() }
+                        .buttonStyle(PrimaryButtonStyle())
+
                     // Add or Update button
                     if selectedconfig == nil {
                         Button(NSLocalizedString("Update", comment: "Update button")) {}
@@ -80,9 +81,6 @@ struct AddPostandPreView: View {
                                     .stroke(Color.red, lineWidth: 5)
                             )
                     }
-
-                    Button(NSLocalizedString("Select", comment: "Select button")) { selectconfig() }
-                        .buttonStyle(PrimaryButtonStyle())
                 }
             }
         }
