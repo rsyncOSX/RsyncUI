@@ -192,13 +192,13 @@ extension AddPostandPreView {
     }
 
     func updateconfig() {
-        let updateddata = AppendConfig("",
-                                       "",
-                                       "",
+        let updateddata = AppendConfig(selectedconfig?.task ?? "",
+                                       selectedconfig?.localCatalog ?? "",
+                                       selectedconfig?.offsiteCatalog ?? "",
                                        false,
-                                       "",
-                                       "",
-                                       "",
+                                       selectedconfig?.offsiteUsername,
+                                       selectedconfig?.offsiteServer,
+                                       selectedconfig?.backupID,
                                        enablepre,
                                        pretask,
                                        enablepost,
