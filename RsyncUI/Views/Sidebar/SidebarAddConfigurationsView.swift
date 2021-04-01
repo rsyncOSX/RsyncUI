@@ -12,6 +12,16 @@ struct SidebarAddConfigurationsView: View {
     @Binding var reload: Bool
 
     var body: some View {
-        AddView(selectedprofile: $selectedprofile, reload: $reload)
+        TabView {
+            AddConfigurationView(selectedprofile: $selectedprofile, reload: $reload)
+                .tabItem {
+                    Text(NSLocalizedString("Add config", comment: "logsview"))
+                }
+            AddPostandPreView(selectedprofile: $selectedprofile, reload: $reload)
+                .tabItem {
+                    Text(NSLocalizedString("Pre and post", comment: "logsview"))
+                }
+        }
+        .padding()
     }
 }

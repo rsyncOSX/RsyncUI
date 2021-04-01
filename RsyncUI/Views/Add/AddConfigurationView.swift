@@ -11,7 +11,7 @@
 //
 //  Created by Thomas Evensen on 19/03/2021.
 //
-// swiftlint:disable type_body_length file_length
+// swiftlint:disable file_length
 
 import SwiftUI
 
@@ -64,23 +64,28 @@ struct AddConfigurationView: View {
 
     var body: some View {
         Form {
-            Spacer()
+            HStack {
+                // For center
+                Spacer()
 
-            VStack(alignment: .leading) {
-                HStack {
+                // Column 1
+                VStack(alignment: .leading) {
                     pickerselecttypeoftask
 
-                    ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+                    HStack {
+                        VStack(alignment: .leading) { localandremotecatalog }
+
+                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+                    }
+
+                    VStack(alignment: .leading) { backupid }
+
+                    VStack(alignment: .leading) { remoteuserandserver }
                 }
 
-                VStack(alignment: .leading) { localandremotecatalog }
-
-                VStack(alignment: .leading) { backupid }
-
-                VStack(alignment: .leading) { remoteuserandserver }
+                // For center
+                Spacer()
             }
-
-            Spacer()
 
             VStack {
                 HStack {
@@ -248,7 +253,7 @@ struct AddConfigurationView: View {
             })
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 150)
+        .frame(width: 180)
     }
 
     var notifyadded: some View {

@@ -27,35 +27,38 @@ struct AddPostandPreView: View {
     // New profile
     @State private var newprofile: String = ""
     // Added and updated labels
-    @State private var added = false
     @State private var updated = false
-    @State private var created = false
 
     var body: some View {
         Form {
-            Spacer()
+            HStack {
+                // For center
+                Spacer()
 
-            VStack(alignment: .leading) {
-                Section(header: headerprepost) {
-                    pretaskandtoggle
+                // Column 1
+                VStack(alignment: .leading) {
+                    Section(header: headerprepost) {
+                        pretaskandtoggle
 
-                    posttaskandtoggle
+                        posttaskandtoggle
 
-                    // Halt posttask on error
-                    if selectedconfig == nil { disablehaltshelltasksonerror } else {
-                        ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
-                            .onAppear(perform: {
-                                if selectedconfig?.haltshelltasksonerror == 1 {
-                                    haltshelltasksonerror = true
-                                } else {
-                                    haltshelltasksonerror = false
-                                }
-                            })
+                        // Halt posttask on error
+                        if selectedconfig == nil { disablehaltshelltasksonerror } else {
+                            ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+                                .onAppear(perform: {
+                                    if selectedconfig?.haltshelltasksonerror == 1 {
+                                        haltshelltasksonerror = true
+                                    } else {
+                                        haltshelltasksonerror = false
+                                    }
+                                })
+                        }
                     }
                 }
-            }
 
-            Spacer()
+                // For center
+                Spacer()
+            }
 
             VStack {
                 HStack {
@@ -186,36 +189,6 @@ extension AddPostandPreView {
     func selectconfig() {
         resetform()
         presentsheet = true
-    }
-
-    func addconfig() {
-        let getdata = AppendConfig("",
-                                   "",
-                                   "",
-                                   false,
-                                   "",
-                                   "",
-                                   "",
-                                   enablepre,
-                                   pretask,
-                                   enablepost,
-                                   posttask,
-                                   haltshelltasksonerror)
-        // If newconfig is verified add it
-        if let newconfig = VerifyConfiguration().verify(getdata) {
-            let updateconfigurations =
-                UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
-                                     configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
-            if updateconfigurations.addconfiguration(newconfig) == true {
-                reload = true
-                added = true
-                // Show added for 1 second
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    added = false
-                    resetform()
-                }
-            }
-        }
     }
 
     func updateconfig() {
