@@ -23,8 +23,6 @@ struct AddPostandPreView: View {
     @State private var presentsheet: Bool = false
     // Set reload = true after update
     @Binding var reload: Bool
-    // New profile
-    @State private var newprofile: String = ""
     // Added and updated labels
     @State private var updated = false
 
@@ -162,7 +160,7 @@ struct AddPostandPreView: View {
         }
     }
 
-    // Select, if update, configurations for update
+    // Select configurations for adding post and pretask
     var configsheet: some View {
         SelectConfigurationView(selectedconfig: $selectedconfig, isPresented: $presentsheet)
     }
@@ -190,6 +188,8 @@ extension AddPostandPreView {
     }
 
     func updateconfig() {
+        // Append default config data to the update,
+        // only post and pretask is new
         let updateddata = AppendConfig(selectedconfig?.task ?? "",
                                        selectedconfig?.localCatalog ?? "",
                                        selectedconfig?.offsiteCatalog ?? "",

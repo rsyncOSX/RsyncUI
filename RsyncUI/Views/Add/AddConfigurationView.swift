@@ -304,6 +304,7 @@ extension AddConfigurationView {
                                    remoteuser,
                                    remoteserver,
                                    backupID,
+                                   // add post and pretask in it own view, set nil here
                                    nil,
                                    nil,
                                    nil,
@@ -334,6 +335,7 @@ extension AddConfigurationView {
                                        remoteuser,
                                        remoteserver,
                                        backupID,
+                                       // add post and pretask in it own view, set nil here
                                        nil,
                                        nil,
                                        nil,
