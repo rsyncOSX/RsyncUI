@@ -146,8 +146,7 @@ struct SingleTasksView: View {
 
     // Output
     var viewoutput: some View {
-        OutputRsyncView(config: $selectedconfig,
-                        isPresented: $presentsheetview,
+        OutputRsyncView(isPresented: $presentsheetview,
                         output: $output)
     }
 }

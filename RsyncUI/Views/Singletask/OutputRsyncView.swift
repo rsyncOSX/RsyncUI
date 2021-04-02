@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OutputRsyncView: View {
-    @Binding var config: Configuration?
+    // @Binding var config: Configuration?
     @Binding var isPresented: Bool
     @Binding var output: [Outputrecord]?
 
