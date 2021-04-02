@@ -13,6 +13,9 @@
 /* RsyncParametersView */
 "--delete" = "--delete";
 
+/* ssh */
+"--dry-run" = "--dry-run";
+
 /* RsyncParametersView */
 "-e shh" = "-e ssh";
 
@@ -37,10 +40,17 @@
 /* settings */
 "Add backup ID" = "Legg til synkroniserings ID";
 
+/* logsview */
+"Add config" = "Legg til konfigurasjon";
+
 /* No comment provided by engineer. */
 "Add configuration completed" = "Legge til konfigurasjon fullført";
 
-/* settings */
+/* QuicktaskView */
+"Add destination catalog" = "Legg til målkatalog";
+
+/* QuicktaskView
+   settings */
 "Add localcatalog - required" = "Legge til lokalkatalog - kreves";
 
 /* settings */
@@ -49,14 +59,20 @@
 /* settings */
 "Add pretask" = "Legg til preoppgave";
 
-/* settings */
+/* QuicktaskView
+   settings */
 "Add remote server" = "Legg til ekstern tjener";
 
-/* settings */
+/* QuicktaskView
+   settings */
 "Add remote user" = "Legg til ekstern bruker";
 
-/* settings */
-"Add remotecatalog - required" = "Legg til ekstern katalog - kreves";
+/* QuicktaskView
+   settings */
+"Add remotecatalog - required" = "Legg til eksternkatalog - kreves";
+
+/* QuicktaskView */
+"Add source catalog" = "Legg til kildekatalog";
 
 /* settings */
 "Added" = "Lagt til";
@@ -91,7 +107,8 @@
 /* No comment provided by engineer. */
 "Cancel or OK" = "Avbryt eller OK";
 
-/* settings */
+/* QuicktaskView
+   settings */
 "Catalog parameters" = "Katalog parametre";
 
 /* About button */
@@ -210,7 +227,8 @@
 /* RsyncCommandView */
 "Estimated tasks" = "Estimerte oppgaver";
 
-/* Execute button */
+/* Execute button
+   QuicktaskView */
 "Execute" = "Utfør";
 
 /* Execute button */
@@ -398,6 +416,9 @@
 /* No comment provided by engineer. */
 "PLIST" = "PLIST";
 
+/* logsview */
+"Pre and post" = "Pre og post oppgave";
+
 /* settings */
 "Pre and post task" = "Pre og post oppgave";
 
@@ -408,15 +429,20 @@
    Profiles */
 "Profile" = "Profil";
 
+/* QuicktaskView
+   sidebar */
+"Quick task" = "Hurtig oppgave";
+
 /* ConfigurationsList
    OutputEstimatedView */
 "Remote catalog" = "Ekstern katalog";
 
-/* settings */
+/* QuicktaskView
+   settings */
 "Remote parameters" = "Eksterne parametere";
 
 /* input error */
-"Remote servername cannot be empty" = "Ekstern server kan ikke være tomt";
+"Remote servername cannot be empty" = "Fjerntjenernavn kan ikke være tomt";
 
 /* input error */
 "Remote username cannot be empty" = "Eksternt brukernavn kan ikke være tomt";
@@ -617,7 +643,8 @@
 /* No comment provided by engineer. */
 "Version %@ (%@)" = "Versjon %@ (%@)";
 
-/* View button */
+/* QuicktaskView
+   View button */
 "View" = "Vis";
 
 /* plan */

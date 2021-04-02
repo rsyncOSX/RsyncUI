@@ -13,6 +13,9 @@
 /* RsyncParametersView */
 "--delete" = "--löschen";
 
+/* ssh */
+"--dry-run" = "--dry-run";
+
 /* RsyncParametersView */
 "-e shh" = "-e ssh";
 
@@ -37,10 +40,17 @@
 /* settings */
 "Add backup ID" = "Backup-ID hinzufügen";
 
+/* logsview */
+"Add config" = "Add config";
+
 /* No comment provided by engineer. */
 "Add configuration completed" = "Konfiguration hinzufügen abgeschlossen";
 
-/* settings */
+/* QuicktaskView */
+"Add destination catalog" = "Add destination catalog";
+
+/* QuicktaskView
+   settings */
 "Add localcatalog - required" = "Lokalkatalog hinzufügen - erforderlich";
 
 /* settings */
@@ -49,14 +59,20 @@
 /* settings */
 "Add pretask" = "Pretask hinzufügen";
 
-/* settings */
+/* QuicktaskView
+   settings */
 "Add remote server" = "Remote-Server hinzufügen";
 
-/* settings */
+/* QuicktaskView
+   settings */
 "Add remote user" = "Remote-Benutzer hinzufügen";
 
-/* settings */
+/* QuicktaskView
+   settings */
 "Add remotecatalog - required" = "Remotekatalog hinzufügen - erforderlich";
+
+/* QuicktaskView */
+"Add source catalog" = "Add source catalog";
 
 /* settings */
 "Added" = "Hinzugefügt";
@@ -91,7 +107,8 @@
 /* No comment provided by engineer. */
 "Cancel or OK" = "Abbrechen oder OK";
 
-/* settings */
+/* QuicktaskView
+   settings */
 "Catalog parameters" = "Katalogparameter";
 
 /* About button */
@@ -210,7 +227,8 @@
 /* RsyncCommandView */
 "Estimated tasks" = "Geschätzte Aufgaben";
 
-/* Execute button */
+/* Execute button
+   QuicktaskView */
 "Execute" = "Ausführen";
 
 /* Execute button */
@@ -398,6 +416,9 @@
 /* No comment provided by engineer. */
 "PLIST" = "PLIST";
 
+/* logsview */
+"Pre and post" = "Pre and post";
+
 /* settings */
 "Pre and post task" = "Vor- und Post-Aufgabe";
 
@@ -408,11 +429,16 @@
    Profiles */
 "Profile" = "Profil";
 
+/* QuicktaskView
+   sidebar */
+"Quick task" = "Quick task";
+
 /* ConfigurationsList
    OutputEstimatedView */
 "Remote catalog" = "Externer Katalog";
 
-/* settings */
+/* QuicktaskView
+   settings */
 "Remote parameters" = "Remote Parameter";
 
 /* input error */
@@ -617,7 +643,8 @@
 /* No comment provided by engineer. */
 "Version %@ (%@)" = "Version %1$@ (%2$@)";
 
-/* View button */
+/* QuicktaskView
+   View button */
 "View" = "Ansicht";
 
 /* plan */
