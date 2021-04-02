@@ -18,6 +18,7 @@
 		E91CC2622607260B00D69D0B /* RsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2612607260B00D69D0B /* RsyncParametersView.swift */; };
 		E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */; };
 		E9245C0B2613146800CBE0BB /* ShortcutActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9245C0A2613146800CBE0BB /* ShortcutActions.swift */; };
+		E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927AAD22616E27300DC27A3 /* QuicktaskView.swift */; };
 		E943B0A925FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
 		E9551ADB25F927580018E57E /* JSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9551ADA25F927580018E57E /* JSONView.swift */; };
@@ -228,6 +229,7 @@
 		E91CC2612607260B00D69D0B /* RsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncParametersView.swift; sourceTree = "<group>"; };
 		E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebareRestoreView.swift; sourceTree = "<group>"; };
 		E9245C0A2613146800CBE0BB /* ShortcutActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutActions.swift; sourceTree = "<group>"; };
+		E927AAD22616E27300DC27A3 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
 		E9329B592614ABCC00C7FB95 /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/Main.strings"; sourceTree = "<group>"; };
 		E9329B5A2614ABCC00C7FB95 /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E9329B5B2614ABCC00C7FB95 /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -447,6 +449,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E927AAD12616E23100DC27A3 /* Quicktask */ = {
+			isa = PBXGroup;
+			children = (
+				E927AAD22616E27300DC27A3 /* QuicktaskView.swift */,
+			);
+			path = Quicktask;
+			sourceTree = "<group>";
+		};
 		E95EDC7D26063C7F000018DE /* RsyncParameters */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +513,7 @@
 		E985C60925F3AD8400CB895C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E927AAD12616E23100DC27A3 /* Quicktask */,
 				E985C60A25F3AD8400CB895C /* Sidebar */,
 				E95EDC7D26063C7F000018DE /* RsyncParameters */,
 				E985C64E25F3AD8400CB895C /* Multipletasks */,
@@ -1332,6 +1343,7 @@
 				E985C67E25F3AD8400CB895C /* ScheduleRowSchedules.swift in Sources */,
 				E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */,
 				E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */,
+				E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */,
 				E985C75925F3AD9700CB895C /* Configuration.swift in Sources */,
 				E985C68C25F3AD8400CB895C /* DeleteConfigurationsView.swift in Sources */,
 				E985C68825F3AD8400CB895C /* SidebarAddConfigurationsView.swift in Sources */,

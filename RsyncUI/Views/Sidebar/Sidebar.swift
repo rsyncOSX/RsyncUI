@@ -19,6 +19,7 @@ enum NavigationItem {
     case configurations
     case schedules
     case restore
+    case quicktask
 }
 
 struct Sidebar: View {
@@ -50,6 +51,14 @@ struct Sidebar: View {
                           systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.singletasks)
+
+                NavigationLink(destination: QuicktaskView(),
+                               tag: NavigationItem.quicktask,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Quick task", comment: "sidebar"),
+                          systemImage: "arrowshape.turn.up.backward.fill")
+                }
+                .tag(NavigationItem.quicktask)
             }
 
             Divider()
