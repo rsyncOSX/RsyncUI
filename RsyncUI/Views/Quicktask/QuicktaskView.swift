@@ -26,8 +26,6 @@ struct QuicktaskView: View {
 
     var body: some View {
         Form {
-            headingtitle
-
             ZStack {
                 HStack {
                     // For center
@@ -134,14 +132,6 @@ struct QuicktaskView: View {
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
-    }
-
-    var headingtitle: some View {
-        VStack(alignment: .leading) {
-            Text(NSLocalizedString("Quick task", comment: "QuicktaskView"))
-                .modifier(Tagheading(.title2, .leading))
-                .foregroundColor(Color.blue)
-        }
     }
 
     // Output
