@@ -151,4 +151,36 @@ extension QuicktaskView {
         remoteuser = ""
         remoteserver = ""
     }
+
+    func getconfig() {
+        let getdata = AppendConfig(selectedrsynccommand.rawValue,
+                                   localcatalog,
+                                   remotecatalog,
+                                   false,
+                                   remoteuser,
+                                   remoteserver,
+                                   "",
+                                   // add post and pretask in it own view, set nil here
+                                   nil,
+                                   nil,
+                                   nil,
+                                   nil,
+                                   nil)
+        // If newconfig is verified add it
+        if let newconfig = VerifyConfiguration().verify(getdata) {}
+    }
+
+    func execute(config: Configuration, dryrun: Bool) {
+        let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
+        let outputprocess = OutputProcess()
+        let command = RsyncProcessCmdCombineClosure(arguments: arguments,
+                                                    config: nil,
+                                                    processtermination: processtermination,
+                                                    filehandler: filehandler)
+        command.executeProcess(outputprocess: outputprocess)
+    }
+
+    func processtermination() {}
+
+    func filehandler() {}
 }
