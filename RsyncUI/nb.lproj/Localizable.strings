@@ -56,7 +56,7 @@
 "Add remote user" = "Legg til ekstern bruker";
 
 /* settings */
-"Add remotecatalog - required" = "Legg til eksternkatalog - kreves";
+"Add remotecatalog - required" = "Legg til ekstern katalog - kreves";
 
 /* settings */
 "Added" = "Lagt til";
@@ -416,7 +416,7 @@
 "Remote parameters" = "Eksterne parametere";
 
 /* input error */
-"Remote servername cannot be empty" = "Fjerntjenernavn kan ikke være tomt";
+"Remote servername cannot be empty" = "Ekstern server kan ikke være tomt";
 
 /* input error */
 "Remote username cannot be empty" = "Eksternt brukernavn kan ikke være tomt";
