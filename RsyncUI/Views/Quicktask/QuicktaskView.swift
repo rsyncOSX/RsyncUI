@@ -13,15 +13,16 @@ struct QuicktaskView: View {
     @State private var selectedrsynccommand = TypeofTask.synchronize
     @State private var remoteuser: String = ""
     @State private var remoteserver: String = ""
+    @State private var donotaddtrailingslash: Bool = false
     @State private var dryrun: Bool = true
 
     // Executed labels
     @State private var executed = false
-    
+
     @State private var output: [Outputrecord]?
     @State private var presentsheetview = false
     @State private var showprogressview = false
-
+    @State private var rsyncoutput: InprogressCountRsyncOutput?
 
     var body: some View {
         Form {
@@ -33,10 +34,13 @@ struct QuicktaskView: View {
 
                 // Column 1
                 VStack(alignment: .leading) {
-                    HStack {
+                    VStack {
                         pickerselecttypeoftask
 
-                        ToggleView(NSLocalizedString("--dry-run", comment: "ssh"), $dryrun)
+                        HStack {
+                            ToggleView(NSLocalizedString("--dry-run", comment: "ssh"), $dryrun)
+                            ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+                        }
                     }
 
                     localandremotecatalog
@@ -150,7 +154,7 @@ struct QuicktaskView: View {
                 .foregroundColor(Color.blue)
         }
     }
-    
+
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
@@ -165,19 +169,10 @@ extension QuicktaskView {
         remoteuser = ""
         remoteserver = ""
     }
-    
-    func getoutput(output: [String]?) -> [Outputrecord]? {
-        guard output?.count ?? 0 > 0 else { return nil }
-        var transformedoutput = [Outputrecord]()
-        for i in 0 ..< (output?.count ?? 0) {
-            transformedoutput.append(Outputrecord(line: output?[i] ?? ""))
-        }
-        return transformedoutput
-    }
 
     // Set output from rsync
     func presentoutput() {
-        output = getoutput(output: [])
+        output = rsyncoutput?.getoutput()
         presentsheetview = true
     }
 
@@ -185,7 +180,7 @@ extension QuicktaskView {
         let getdata = AppendConfig(selectedrsynccommand.rawValue,
                                    localcatalog,
                                    remotecatalog,
-                                   false,
+                                   donotaddtrailingslash,
                                    remoteuser,
                                    remoteserver,
                                    "",
@@ -204,14 +199,15 @@ extension QuicktaskView {
 
     func execute(config: Configuration, dryrun: Bool) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
-        let outputprocess = OutputProcess()
+        rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputProcess())
+
         // Start progressview
         showprogressview = true
         let command = RsyncProcessCmdCombineClosure(arguments: arguments,
                                                     config: nil,
                                                     processtermination: processtermination,
                                                     filehandler: filehandler)
-        command.executeProcess(outputprocess: outputprocess)
+        command.executeProcess(outputprocess: rsyncoutput?.myoutputprocess)
     }
 
     func processtermination() {

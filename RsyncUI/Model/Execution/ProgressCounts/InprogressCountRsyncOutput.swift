@@ -20,6 +20,9 @@ final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCou
     private var max: Int = 0
     private var output: [String]?
 
+    // For Quicktasks
+    var myoutputprocess: OutputProcess?
+
     func resetcounts() {
         max = 0
         inprogresscount = 0
@@ -54,6 +57,12 @@ final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCou
             transformedoutput.append(Outputrecord(line: output?[i] ?? ""))
         }
         return transformedoutput
+    }
+
+    init() {}
+
+    init(outputprocess: OutputProcess?) {
+        myoutputprocess = outputprocess
     }
 
     deinit {
