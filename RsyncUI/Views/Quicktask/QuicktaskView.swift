@@ -167,7 +167,10 @@ extension QuicktaskView {
                                    nil,
                                    nil)
         // If newconfig is verified add it
-        if let newconfig = VerifyConfiguration().verify(getdata) {}
+        if let newconfig = VerifyConfiguration().verify(getdata) {
+            // Now can prepare for execute.
+            // execute(config: newconfig, dryrun: dryrun)
+        }
     }
 
     func execute(config: Configuration, dryrun: Bool) {
