@@ -13,6 +13,7 @@ struct QuicktaskView: View {
     @State private var selectedrsynccommand = TypeofTask.synchronize
     @State private var remoteuser: String = ""
     @State private var remoteserver: String = ""
+    @State private var dryrun: Bool = true
 
     // Executed labels
     @State private var executed = false
@@ -27,7 +28,11 @@ struct QuicktaskView: View {
 
                 // Column 1
                 VStack(alignment: .leading) {
-                    pickerselecttypeoftask
+                    HStack {
+                        pickerselecttypeoftask
+
+                        ToggleView(NSLocalizedString("--dry-run", comment: "ssh"), $dryrun)
+                    }
 
                     localandremotecatalog
 
