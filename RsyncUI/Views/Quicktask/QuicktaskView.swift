@@ -28,44 +28,44 @@ struct QuicktaskView: View {
         Form {
             headingtitle
 
-            HStack {
-                // For center
-                Spacer()
+            ZStack {
+                HStack {
+                    // For center
+                    Spacer()
 
-                // Column 1
-                VStack(alignment: .leading) {
-                    VStack {
-                        pickerselecttypeoftask
+                    // Column 1
+                    VStack(alignment: .leading) {
+                        VStack {
+                            pickerselecttypeoftask
 
-                        HStack {
-                            ToggleView(NSLocalizedString("--dry-run", comment: "ssh"), $dryrun)
-                            ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+                            HStack {
+                                ToggleView(NSLocalizedString("--dry-run", comment: "ssh"), $dryrun)
+
+                                ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+                            }
+                        }
+
+                        VStack(alignment: .leading) {
+                            localandremotecatalog
+
+                            remoteuserandserver
                         }
                     }
 
-                    localandremotecatalog
-
-                    remoteuserandserver
+                    // For center
+                    Spacer()
                 }
 
-                // For center
-                Spacer()
+                if showprogressview { ImageZstackProgressview() }
             }
 
             VStack {
                 Spacer()
 
                 HStack {
-                    // Present when either added, updated or profile created
-                    if executed == true { notifyexecuted }
-                    // Show progressview
-                    if showprogressview { ImageZstackProgressview() }
-                }
-
-                HStack {
                     Spacer()
 
-                    Button(NSLocalizedString("Execute", comment: "QuicktaskView")) {}
+                    Button(NSLocalizedString("Execute", comment: "QuicktaskView")) { getconfig() }
                         .buttonStyle(PrimaryButtonStyle())
 
                     Button(NSLocalizedString("View", comment: "QuicktaskView")) { presentoutput() }
@@ -136,17 +136,6 @@ struct QuicktaskView: View {
         .frame(width: 180)
     }
 
-    var notifyexecuted: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Executed", comment: "QuicktaskView"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 120, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-    }
-
     var headingtitle: some View {
         VStack(alignment: .leading) {
             Text(NSLocalizedString("Quick task", comment: "QuicktaskView"))
@@ -184,7 +173,6 @@ extension QuicktaskView {
                                    remoteuser,
                                    remoteserver,
                                    "",
-                                   // add post and pretask in it own view, set nil here
                                    nil,
                                    nil,
                                    nil,
@@ -193,14 +181,13 @@ extension QuicktaskView {
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
             // Now can prepare for execute.
-            // execute(config: newconfig, dryrun: dryrun)
+            execute(config: newconfig, dryrun: dryrun)
         }
     }
 
     func execute(config: Configuration, dryrun: Bool) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
         rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputProcess())
-
         // Start progressview
         showprogressview = true
         let command = RsyncProcessCmdCombineClosure(arguments: arguments,
@@ -213,6 +200,7 @@ extension QuicktaskView {
     func processtermination() {
         // Stop progressview
         showprogressview = false
+        output = rsyncoutput?.getoutput()
     }
 
     func filehandler() {}
