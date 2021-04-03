@@ -38,18 +38,21 @@ struct AddPostandPreView: View {
                         pretaskandtoggle
 
                         posttaskandtoggle
+                    }
+                }
 
-                        // Halt posttask on error
-                        if selectedconfig == nil { disablehaltshelltasksonerror } else {
-                            ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
-                                .onAppear(perform: {
-                                    if selectedconfig?.haltshelltasksonerror == 1 {
-                                        haltshelltasksonerror = true
-                                    } else {
-                                        haltshelltasksonerror = false
-                                    }
-                                })
-                        }
+                // Column 2
+                VStack(alignment: .leading) {
+                    // Halt posttask on error
+                    if selectedconfig == nil { disablehaltshelltasksonerror } else {
+                        ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+                            .onAppear(perform: {
+                                if selectedconfig?.haltshelltasksonerror == 1 {
+                                    haltshelltasksonerror = true
+                                } else {
+                                    haltshelltasksonerror = false
+                                }
+                            })
                     }
                 }
 
