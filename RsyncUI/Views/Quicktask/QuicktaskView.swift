@@ -18,7 +18,6 @@ struct QuicktaskView: View {
 
     // Executed labels
     @State private var executed = false
-
     @State private var output: [Outputrecord]?
     @State private var presentsheetview = false
     @State private var showprogressview = false
@@ -34,8 +33,6 @@ struct QuicktaskView: View {
                     // Column 1
                     VStack(alignment: .leading) {
                         VStack {
-                            pickerselecttypeoftask
-
                             HStack {
                                 ToggleView(NSLocalizedString("--dry-run", comment: "ssh"), $dryrun)
 
@@ -48,6 +45,8 @@ struct QuicktaskView: View {
 
                             remoteuserandserver
                         }
+
+                        if executed { notifyexecuted }
                     }
 
                     // For center
@@ -123,21 +122,21 @@ struct QuicktaskView: View {
         }
     }
 
-    var pickerselecttypeoftask: some View {
-        Picker(NSLocalizedString("Task", comment: "AddConfigurationsView") + ":",
-               selection: $selectedrsynccommand) {
-            ForEach(TypeofTask.allCases) { Text($0.description)
-                .tag($0)
-            }
-        }
-        .pickerStyle(DefaultPickerStyle())
-        .frame(width: 180)
-    }
-
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
                         output: $output)
+    }
+
+    var notifyexecuted: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("Executed", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 120, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 }
 
@@ -155,7 +154,7 @@ extension QuicktaskView {
     }
 
     func getconfig() {
-        let getdata = AppendConfig(selectedrsynccommand.rawValue,
+        let getdata = AppendConfig(TypeofTask.synchronize.rawValue,
                                    localcatalog,
                                    remotecatalog,
                                    donotaddtrailingslash,
@@ -191,6 +190,12 @@ extension QuicktaskView {
         showprogressview = false
         rsyncoutput?.setoutput()
         output = rsyncoutput?.getoutput()
+
+        executed = true
+        // Show updated for 1 second
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            executed = false
+        }
     }
 
     func filehandler() {}
