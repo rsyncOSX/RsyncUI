@@ -59,6 +59,10 @@ final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCou
         return transformedoutput
     }
 
+    func setoutput() {
+        output = myoutputprocess?.getOutput()
+    }
+
     init() {}
 
     init(outputprocess: OutputProcess?) {

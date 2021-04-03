@@ -151,7 +151,6 @@ extension QuicktaskView {
 
     // Set output from rsync
     func presentoutput() {
-        output = rsyncoutput?.getoutput()
         presentsheetview = true
     }
 
@@ -190,6 +189,7 @@ extension QuicktaskView {
     func processtermination() {
         // Stop progressview
         showprogressview = false
+        rsyncoutput?.setoutput()
         output = rsyncoutput?.getoutput()
     }
 
