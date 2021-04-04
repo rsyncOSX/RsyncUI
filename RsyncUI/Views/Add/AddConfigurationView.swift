@@ -87,9 +87,7 @@ struct AddConfigurationView: View {
                         HStack {
                             EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
 
-                            Button(action: { createprofile() }) {
-                                Image(systemName: "plus")
-                            }
+                            Button(action: { createprofile() }) { Image(systemName: "plus") }
                             .buttonStyle(GrayCircleButtonStyle())
                         }
                     }
