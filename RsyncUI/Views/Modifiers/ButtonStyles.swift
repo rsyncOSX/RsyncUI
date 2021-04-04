@@ -31,7 +31,7 @@ struct AbortButtonStyle: ButtonStyle {
     }
 }
 
-struct BlueCircleButtonStyle: ButtonStyle {
+struct GrayCircleButtonStyle: ButtonStyle {
     typealias ButtonConfiguration = ButtonStyleConfiguration
 
     func makeBody(configuration: Self.Configuration) -> some View {

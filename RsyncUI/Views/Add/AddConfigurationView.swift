@@ -72,15 +72,25 @@ struct AddConfigurationView: View {
                 VStack(alignment: .leading) {
                     pickerselecttypeoftask
 
-                    HStack {
-                        VStack(alignment: .leading) { localandremotecatalog }
-
-                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
-                    }
+                    VStack(alignment: .leading) { localandremotecatalog }
 
                     VStack(alignment: .leading) { backupid }
 
                     VStack(alignment: .leading) { remoteuserandserver }
+                }
+
+                // Column 2
+                VStack(alignment: .leading) {
+                    ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+
+                    HStack {
+                        EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
+
+                        Button(action: { createprofile() }) {
+                            Image(systemName: "plus")
+                        }
+                        .buttonStyle(GrayCircleButtonStyle())
+                    }
                 }
 
                 // For center
@@ -93,10 +103,6 @@ struct AddConfigurationView: View {
                     if added == true { notifyadded }
                     if updated == true { notifyupdated }
                     if created == true { notifycreated }
-
-                    Spacer()
-
-                    EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
                 }
 
                 HStack {
@@ -115,9 +121,6 @@ struct AddConfigurationView: View {
                     }
 
                     Button(NSLocalizedString("Select", comment: "Select button")) { selectconfig() }
-                        .buttonStyle(PrimaryButtonStyle())
-
-                    Button(NSLocalizedString("Profile", comment: "Profiles")) { createprofile() }
                         .buttonStyle(PrimaryButtonStyle())
                 }
             }
