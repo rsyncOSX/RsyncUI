@@ -64,47 +64,48 @@ struct AddConfigurationView: View {
 
     var body: some View {
         Form {
-            HStack {
-                // For center
-                Spacer()
+            ZStack {
+                HStack {
+                    // For center
+                    Spacer()
 
-                // Column 1
-                VStack(alignment: .leading) {
-                    pickerselecttypeoftask
+                    // Column 1
+                    VStack(alignment: .leading) {
+                        pickerselecttypeoftask
 
-                    VStack(alignment: .leading) { localandremotecatalog }
+                        VStack(alignment: .leading) { localandremotecatalog }
 
-                    VStack(alignment: .leading) { backupid }
+                        VStack(alignment: .leading) { backupid }
 
-                    VStack(alignment: .leading) { remoteuserandserver }
-                }
-
-                // Column 2
-                VStack(alignment: .leading) {
-                    ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
-
-                    HStack {
-                        EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
-
-                        Button(action: { createprofile() }) {
-                            Image(systemName: "plus")
-                        }
-                        .buttonStyle(GrayCircleButtonStyle())
+                        VStack(alignment: .leading) { remoteuserandserver }
                     }
+
+                    // Column 2
+                    VStack(alignment: .leading) {
+                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+
+                        HStack {
+                            EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
+
+                            Button(action: { createprofile() }) {
+                                Image(systemName: "plus")
+                            }
+                            .buttonStyle(GrayCircleButtonStyle())
+                        }
+                    }
+
+                    // For center
+                    Spacer()
                 }
 
-                // For center
-                Spacer()
-            }
-
-            VStack {
                 HStack {
                     // Present when either added, updated or profile created
                     if added == true { notifyadded }
                     if updated == true { notifyupdated }
                     if created == true { notifycreated }
                 }
-
+            }
+            VStack {
                 HStack {
                     Spacer()
                     // Add or Update button
