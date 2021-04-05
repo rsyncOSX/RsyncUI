@@ -85,10 +85,10 @@ struct AddConfigurationView: View {
                         ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
 
                         HStack {
-                            EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
-
                             Button(action: { createprofile() }) { Image(systemName: "plus") }
                                 .buttonStyle(GrayCircleButtonStyle())
+
+                            EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
                         }
                     }
 
@@ -104,6 +104,8 @@ struct AddConfigurationView: View {
                 }
             }
             VStack {
+                Spacer()
+
                 HStack {
                     Spacer()
                     // Add or Update button

@@ -43,16 +43,18 @@ struct AddPostandPreView: View {
 
                 // Column 2
                 VStack(alignment: .leading) {
-                    // Halt posttask on error
-                    if selectedconfig == nil { disablehaltshelltasksonerror } else {
-                        ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
-                            .onAppear(perform: {
-                                if selectedconfig?.haltshelltasksonerror == 1 {
-                                    haltshelltasksonerror = true
-                                } else {
-                                    haltshelltasksonerror = false
-                                }
-                            })
+                    Section(header: headererror) {
+                        // Halt posttask on error
+                        if selectedconfig == nil { disablehaltshelltasksonerror } else {
+                            ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+                                .onAppear(perform: {
+                                    if selectedconfig?.haltshelltasksonerror == 1 {
+                                        haltshelltasksonerror = true
+                                    } else {
+                                        haltshelltasksonerror = false
+                                    }
+                                })
+                        }
                     }
                 }
 
@@ -61,6 +63,8 @@ struct AddPostandPreView: View {
             }
 
             VStack {
+                Spacer()
+
                 HStack {
                     Spacer()
 
@@ -108,6 +112,11 @@ struct AddPostandPreView: View {
 
     var headerprepost: some View {
         Text(NSLocalizedString("Pre and post task", comment: "settings"))
+            .modifier(FixedTag(200, .leading))
+    }
+
+    var headererror: some View {
+        Text(NSLocalizedString("Error", comment: "settings"))
             .modifier(FixedTag(200, .leading))
     }
 
