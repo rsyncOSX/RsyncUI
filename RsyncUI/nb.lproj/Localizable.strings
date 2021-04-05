@@ -221,6 +221,9 @@
 /* settings */
 "Environment variable" = "Miljømessig variabel";
 
+/* settings */
+"Error" = "Feil";
+
 /* Estimate button */
 "Estimate" = "Estimat";
 
@@ -239,6 +242,9 @@
 
 /* RsyncCommandView */
 "Execute tasks" = "Utfør oppgaver";
+
+/* settings */
+"Executed" = "Utført";
 
 /* Execute Multiple tasks
    Execute tasks */
@@ -417,7 +423,7 @@
 "PLIST" = "PLIST";
 
 /* logsview */
-"Pre and post" = "Pre og post";
+"Pre and post" = "Pre og post oppgave";
 
 /* settings */
 "Pre and post task" = "Pre og post oppgave";
@@ -425,12 +431,10 @@
 /* plan */
 "previous month" = "forrige måned";
 
-/* default profile
-   Profiles */
+/* default profile */
 "Profile" = "Profil";
 
-/* QuicktaskView
-   sidebar */
+/* sidebar */
 "Quick task" = "Hurtig oppgave";
 
 /* ConfigurationsList
