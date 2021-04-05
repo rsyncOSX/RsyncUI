@@ -79,6 +79,7 @@ struct AddConfigurationView: View {
 
                         VStack(alignment: .leading) { remoteuserandserver }
                     }
+                    .padding()
 
                     // Column 2
                     VStack(alignment: .leading) {
@@ -91,6 +92,7 @@ struct AddConfigurationView: View {
                             EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
                         }
                     }
+                    .padding()
 
                     // For center
                     Spacer()

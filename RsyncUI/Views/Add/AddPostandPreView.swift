@@ -40,6 +40,7 @@ struct AddPostandPreView: View {
                         posttaskandtoggle
                     }
                 }
+                .padding()
 
                 // Column 2
                 VStack(alignment: .leading) {
@@ -57,6 +58,7 @@ struct AddPostandPreView: View {
                         }
                     }
                 }
+                .padding()
 
                 // For center
                 Spacer()

@@ -39,6 +39,12 @@ struct JSONView: View {
                                 convertconfig
                             }
                     }
+
+                    Section(header: headerbackupconfig) {
+                        // Backup configuration files
+                        Button(NSLocalizedString("Backup", comment: "usersetting")) { backupuserconfigs() }
+                            .buttonStyle(PrimaryButtonStyle())
+                    }
                 }
                 .padding()
 
@@ -55,17 +61,7 @@ struct JSONView: View {
                     }
                 }
                 .padding()
-                // For center
 
-                // Column 3
-                VStack(alignment: .leading) {
-                    Section(header: headerbackupconfig) {
-                        // Backup configuration files
-                        Button(NSLocalizedString("Backup", comment: "usersetting")) { backupuserconfigs() }
-                            .buttonStyle(PrimaryButtonStyle())
-                    }
-                }
-                .padding()
                 // For center
                 Spacer()
             }
