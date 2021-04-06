@@ -194,6 +194,7 @@
 		E985C7A425F3AFDE00CB895C /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = E985C7A325F3AFDE00CB895C /* Files */; };
 		E98E086325FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98E086225FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift */; };
 		E99C23FB261C2D6C009D4DBF /* RestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FA261C2D6C009D4DBF /* RestoreView.swift */; };
+		E99C2400261C322E009D4DBF /* ObserveableReferenceRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObserveableReferenceRestore.swift */; };
 		E9BCCE8C25FB432E0034EDFD /* SidebarLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */; };
 		E9C9306225FEA0010049A76B /* ObserveableReferenceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306125FEA0010049A76B /* ObserveableReferenceJSON.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */; };
@@ -413,6 +414,7 @@
 		E985C72425F3AD9700CB895C /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
 		E98E086225FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProcessCmdCombineClosure.swift; sourceTree = "<group>"; };
 		E99C23FA261C2D6C009D4DBF /* RestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreView.swift; sourceTree = "<group>"; };
+		E99C23FF261C322E009D4DBF /* ObserveableReferenceRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableReferenceRestore.swift; sourceTree = "<group>"; };
 		E9B1277B260501CA001A5FD3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		E9B1277C260501CA001A5FD3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E9B1277D260501CA001A5FD3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1020,6 +1022,7 @@
 				E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */,
 				E95EDC8926063EAA000018DE /* ObserveableParametersRsync.swift */,
 				E9245C0A2613146800CBE0BB /* ShortcutActions.swift */,
+				E99C23FF261C322E009D4DBF /* ObserveableReferenceRestore.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1312,6 +1315,7 @@
 				E985C73825F3AD9700CB895C /* Notifications.swift in Sources */,
 				E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */,
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
+				E99C2400261C322E009D4DBF /* ObserveableReferenceRestore.swift in Sources */,
 				E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */,
 				E985C68E25F3AD8400CB895C /* MultipletasksView.swift in Sources */,
 				E985C68B25F3AD8400CB895C /* OutputEstimatedView.swift in Sources */,

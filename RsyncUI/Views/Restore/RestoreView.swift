@@ -7,18 +7,23 @@
 
 import SwiftUI
 
+enum TypeofRestore: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case fullrestore
+    case restorebyfiles
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
+}
+
 struct RestoreView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-    @StateObject var snapshotdata = SnapshotData()
+    @StateObject var restoresettings = ObserveableReferenceRestore()
     @Binding var selectedconfig: Configuration?
 
-    @State private var snapshotrecords: Logrecordsschedules?
-    @State private var selecteduuids = Set<UUID>()
     // Not used but requiered in parameter
+    @State private var selecteduuids = Set<UUID>()
     @State private var inwork = -1
     @State private var selectable = false
-    // If not a snapshot
-    @State private var notsnapshot = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange {},
