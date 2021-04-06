@@ -9,30 +9,36 @@ import SwiftUI
 
 struct SnapshotsView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
-
     @StateObject var snapshotdata = SnapshotData()
-
     @Binding var selectedconfig: Configuration?
+
     @State private var snapshotrecords: Logrecordsschedules?
     @State private var selecteduuids = Set<UUID>()
-
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
+    // If not a snapshot
+    @State private var notsnapshot = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
+        ZStack {
+            VStack {
+                ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
+                                   selecteduuids: $selecteduuids,
+                                   inwork: $inwork,
+                                   selectable: $selectable)
 
-        Spacer()
+                Spacer()
 
-        SnapshotListView(selectedconfig: $selectedconfig,
-                         snapshotrecords: $snapshotrecords,
-                         selecteduuids: $selecteduuids)
-            .environmentObject(snapshotdata)
-            .onDeleteCommand(perform: { delete() })
+                SnapshotListView(selectedconfig: $selectedconfig,
+                                 snapshotrecords: $snapshotrecords,
+                                 selecteduuids: $selecteduuids)
+                    .environmentObject(snapshotdata)
+                    .onDeleteCommand(perform: { delete() })
+            }
+
+            if notsnapshot == true { notasnapshottask }
+        }
 
         if snapshotdata.state == .getdata { ImageZstackProgressview() }
 
@@ -58,6 +64,17 @@ struct SnapshotsView: View {
     var label: String {
         NSLocalizedString("Number of logs", comment: "") + ": " + "\(snapshotdata.getnumber())"
     }
+
+    var notasnapshottask: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("Not a snapshot task", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 150, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
 }
 
 extension SnapshotsView {
@@ -70,7 +87,14 @@ extension SnapshotsView {
 
     func getdata() {
         if let config = selectedconfig {
-            guard config.task == SharedReference.shared.snapshot else { return }
+            guard config.task == SharedReference.shared.snapshot else {
+                notsnapshot = true
+                // Show added for 1 second
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    notsnapshot = false
+                }
+                return
+            }
             _ = Snapshotlogsandcatalogs(config: config,
                                         configurationsSwiftUI: rsyncOSXData.rsyncdata?.configurationData,
                                         schedulesSwiftUI: rsyncOSXData.rsyncdata?.scheduleData,
