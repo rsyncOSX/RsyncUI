@@ -9,7 +9,7 @@ import SwiftUI
 
 enum TypeofRestore: String, CaseIterable, Identifiable, CustomStringConvertible {
     case fullrestore
-    case restorebyfiles
+    case byfile
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase }
@@ -26,6 +26,8 @@ struct RestoreView: View {
     @State private var selectable = false
 
     var body: some View {
+        SearchbarView(text: $restoresettings.filterstring)
+            .padding(.top, -20)
         ConfigurationsList(selectedconfig: $selectedconfig.onChange {},
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
@@ -34,6 +36,10 @@ struct RestoreView: View {
         Spacer()
 
         HStack {
+            pickerselecttypeofrestore
+
+            setpathforrestore
+
             Spacer()
 
             Button(NSLocalizedString("Restore", comment: "Delete")) {}
@@ -42,6 +48,26 @@ struct RestoreView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+    }
+
+    var pickerselecttypeofrestore: some View {
+        Picker(NSLocalizedString("Restore", comment: "RestoreView") + ":",
+               selection: $restoresettings.typeofrestore) {
+            ForEach(TypeofRestore.allCases) { Text($0.description)
+                .tag($0)
+            }
+        }
+        .pickerStyle(DefaultPickerStyle())
+        .frame(width: 180)
+    }
+
+    var setpathforrestore: some View {
+        EditValue(250, NSLocalizedString("Path for restore", comment: "settings"), $restoresettings.restorepath)
+            .onAppear(perform: {
+                if let pathforrestore = SharedReference.shared.pathforrestore {
+                    restoresettings.restorepath = pathforrestore
+                }
+            })
     }
 }
 

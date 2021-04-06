@@ -12,7 +12,8 @@ class ObserveableReferenceRestore: ObservableObject {
     // When restore is ready set true
     @Published var isReady: Bool = false
     @Published var restorepath: String = ""
-    @Published var typeofrestore = TypeofRestore.restorebyfiles
+    @Published var typeofrestore = TypeofRestore.byfile
+    @Published var filterstring: String = ""
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
@@ -26,11 +27,18 @@ class ObserveableReferenceRestore: ObservableObject {
             .sink { [unowned self] type in
                 validatetypeofrestore(type)
             }.store(in: &subscriptions)
+        $filterstring
+            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .sink { [unowned self] filter in
+                validatefilter(filter)
+            }.store(in: &subscriptions)
     }
 
     func validaterestorepath(_: String) {}
 
     func validatetypeofrestore(_: TypeofRestore) {}
+
+    func validatefilter(_: String) {}
 }
 
 extension ObserveableReferenceRestore: PropogateError {
