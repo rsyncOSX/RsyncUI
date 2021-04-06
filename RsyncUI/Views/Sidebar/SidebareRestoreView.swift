@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct SidebareRestoreView: View {
+    @State private var selectedconfig: Configuration?
+
     var body: some View {
         VStack {
             headingtitle
 
-            Spacer()
-
-            Text("Here comes view for restore")
+            RestoreView(selectedconfig: $selectedconfig)
         }
         .padding()
     }
