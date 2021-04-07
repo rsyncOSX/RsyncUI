@@ -21,29 +21,29 @@ struct SnapshotsView: View {
     @State private var notsnapshot = false
 
     var body: some View {
-        ZStack {
-            VStack {
-                ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
-                                   selecteduuids: $selecteduuids,
-                                   inwork: $inwork,
-                                   selectable: $selectable)
+        VStack {
+            ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               selectable: $selectable)
 
-                Spacer()
+            Spacer()
 
+            ZStack {
                 SnapshotListView(selectedconfig: $selectedconfig,
                                  snapshotrecords: $snapshotrecords,
                                  selecteduuids: $selecteduuids)
                     .environmentObject(snapshotdata)
                     .onDeleteCommand(perform: { delete() })
+
+                if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(.red)
+                }
             }
-
-            if notsnapshot == true { notasnapshottask }
         }
 
-        if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
-            .frame(width: 50.0, height: 50.0)
-            .foregroundColor(.red)
-        }
+        if notsnapshot == true { notasnapshottask }
 
         HStack {
             Text(label)
