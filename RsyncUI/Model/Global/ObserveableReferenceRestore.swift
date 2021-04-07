@@ -18,6 +18,9 @@ class ObserveableReferenceRestore: ObservableObject {
     @Published var gettingfilelist: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
+    // remote filelist
+    var remotefilelist: [String]?
+    var outputprocess: OutputProcess?
 
     init() {
         $restorepath
@@ -36,10 +39,29 @@ class ObserveableReferenceRestore: ObservableObject {
             }.store(in: &subscriptions)
         $selectedconfig
             .sink { [unowned self] config in
-                if let config = config {
-                    getfilelist(config)
-                }
+                // Only one process at time
+                guard SharedReference.shared.process == nil else { return }
+                if let config = config { validatetaskandgetfilelist(config) }
             }.store(in: &subscriptions)
+    }
+
+    // Validate task for remote restore and remote filelist
+    func validatetaskandgetfilelist(_ config: Configuration) {
+        do {
+            let ok = try validatetask(config)
+            if ok { getfilelist(config) }
+        } catch let e {
+            let error = e
+            self.propogateerror(error: error)
+        }
+    }
+
+    private func validatetask(_ config: Configuration) throws -> Bool {
+        if config.task != SharedReference.shared.syncremote {
+            return true
+        } else {
+            throw RestoreError.notvalidtaskforrestore
+        }
     }
 
     func validaterestorepath(_: String) {}
@@ -50,7 +72,17 @@ class ObserveableReferenceRestore: ObservableObject {
 
     func getfilelist(_ config: Configuration) {
         gettingfilelist = true
-        print(config)
+        let arguments = RestorefilesArguments(task: .rsyncfilelistings,
+                                              config: config,
+                                              remoteFile: nil,
+                                              localCatalog: nil,
+                                              drynrun: nil).getArguments()
+        outputprocess = OutputProcess()
+        let command = RsyncProcessCmdCombineClosure(arguments: arguments,
+                                                    config: nil,
+                                                    processtermination: processtermination,
+                                                    filehandler: filehandler)
+        command.executeProcess(outputprocess: outputprocess)
     }
 }
 
@@ -61,17 +93,21 @@ extension ObserveableReferenceRestore: PropogateError {
 
     func processtermination() {
         gettingfilelist = false
+        remotefilelist = outputprocess?.trimoutput(trim: .one)
     }
 
     func filehandler() {}
 }
 
 enum RestoreError: LocalizedError {
+    case notvalidtaskforrestore
     case error1
     case error2
 
     var errorDescription: String? {
         switch self {
+        case .notvalidtaskforrestore:
+            return NSLocalizedString("Restore not allowed for syncremote task", comment: "Restore") + "..."
         case .error1:
             return NSLocalizedString("Error1", comment: "Restore") + "..."
         case .error2:
