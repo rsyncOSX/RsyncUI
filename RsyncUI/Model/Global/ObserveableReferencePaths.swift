@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class ObserveableReferencePaths: ObservableObject {
+final class ObserveableReferencePaths: ObservableObject {
     // When property is changed set isDirty = true
     @Published var isDirty: Bool = false
     // Environment
@@ -51,7 +51,9 @@ class ObserveableReferencePaths: ObservableObject {
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
     }
+}
 
+extension ObserveableReferencePaths {
     func setandvalidapathrsyncosx(_ atpath: String) {
         guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else { return }

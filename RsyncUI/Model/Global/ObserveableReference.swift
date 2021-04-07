@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-class ObserveableReference: ObservableObject {
+final class ObserveableReference: ObservableObject {
     // When property is changed set isDirty = true
     @Published var isDirty: Bool = false
     // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
@@ -116,7 +116,9 @@ class ObserveableReference: ObservableObject {
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
     }
+}
 
+extension ObserveableReference {
     func setandvalidatepathforrsync(_ path: String) {
         guard inputchangedbyuser == true else { return }
         guard path.isEmpty == false else { return }

@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class ObserveableReferenceJSON: ObservableObject {
+final class ObserveableReferenceJSON: ObservableObject {
     // When property is changed set isDirty = true
     @Published var isDirty: Bool = false
     // Read configurations and schedules as JSON or not

@@ -4,12 +4,12 @@
 //
 //  Created by Thomas Evensen on 20/03/2021.
 //
-// swiftlint:disable function_body_length type_body_length
+// swiftlint:disable function_body_length
 
 import Combine
 import Foundation
 
-class ObserveableParametersRsync: ObservableObject {
+final class ObserveableParametersRsync: ObservableObject {
     // When property is changed set isDirty = true
     @Published var isDirty: Bool = false
     // Rsync parameters
@@ -54,44 +54,37 @@ class ObserveableParametersRsync: ObservableObject {
             }.store(in: &subscriptions)
         $parameter8
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter8 in
-                validate(parameter8)
+            .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter9
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter9 in
-                validate(parameter9)
+            .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter10
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter10 in
-                validate(parameter10)
+            .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter11
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter11 in
-                validate(parameter11)
+            .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter12
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter12 in
-                validate(parameter12)
+            .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter13
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter13 in
-                validate(parameter13)
+            .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter14
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter14 in
-                validate(parameter14)
+            .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $configuration
@@ -144,11 +137,9 @@ class ObserveableParametersRsync: ObservableObject {
                 setbackup()
             }.store(in: &subscriptions)
     }
+}
 
-    private func validate(_: String) {
-        // print(parameter)
-    }
-
+extension ObserveableParametersRsync {
     func setvalues(_ config: Configuration) {
         isDirty = false
         inputchangedbyuser = false

@@ -18,7 +18,9 @@ enum TypeofRestore: String, CaseIterable, Identifiable, CustomStringConvertible 
 struct RestoreView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @StateObject var restoresettings = ObserveableReferenceRestore()
-    // @Binding var selectedconfig: Configuration?
+
+    @State private var presentsheetview = false
+    @State private var output: [Outputrecord]?
 
     // Not used but requiered in parameter
     @State private var selecteduuids = Set<UUID>()
@@ -50,6 +52,10 @@ struct RestoreView: View {
 
             Spacer()
 
+            Button(NSLocalizedString("View", comment: "View button")) { presentoutput() }
+                .buttonStyle(PrimaryButtonStyle())
+                .sheet(isPresented: $presentsheetview) { viewoutput }
+
             Button(NSLocalizedString("Restore", comment: "Delete")) {}
                 .buttonStyle(AbortButtonStyle())
 
@@ -77,8 +83,20 @@ struct RestoreView: View {
                 }
             })
     }
+
+    // Output
+    var viewoutput: some View {
+        OutputRsyncView(isPresented: $presentsheetview,
+                        output: $output)
+    }
 }
 
 extension RestoreView {
     func abort() {}
+
+    func presentoutput() {
+        // Output from realrun
+        output = restoresettings.getoutput()
+        presentsheetview = true
+    }
 }

@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class ObserveableReferenceRestore: ObservableObject {
+final class ObserveableReferenceRestore: ObservableObject {
     // When restore is ready set true
     @Published var isReady: Bool = false
     @Published var restorepath: String = ""
@@ -16,11 +16,11 @@ class ObserveableReferenceRestore: ObservableObject {
     @Published var filterstring: String = ""
     @Published var selectedconfig: Configuration?
     @Published var gettingfilelist: Bool = false
+    @Published var outputprocess: OutputProcess?
     // Combine
     var subscriptions = Set<AnyCancellable>()
     // remote filelist
     var remotefilelist: [String]?
-    var outputprocess: OutputProcess?
 
     init() {
         $restorepath
@@ -44,6 +44,15 @@ class ObserveableReferenceRestore: ObservableObject {
                 if let config = config { validatetaskandgetfilelist(config) }
             }.store(in: &subscriptions)
     }
+}
+
+extension ObserveableReferenceRestore {
+    func processtermination() {
+        gettingfilelist = false
+        remotefilelist = outputprocess?.trimoutput(trim: .one)
+    }
+
+    func filehandler() {}
 
     // Validate task for remote restore and remote filelist
     func validatetaskandgetfilelist(_ config: Configuration) {
@@ -84,19 +93,22 @@ class ObserveableReferenceRestore: ObservableObject {
                                                     filehandler: filehandler)
         command.executeProcess(outputprocess: outputprocess)
     }
+
+    func getoutput() -> [Outputrecord]? {
+        let output = outputprocess?.getOutput()
+        guard output?.count ?? 0 > 0 else { return nil }
+        var transformedoutput = [Outputrecord]()
+        for i in 0 ..< (output?.count ?? 0) {
+            transformedoutput.append(Outputrecord(line: output?[i] ?? ""))
+        }
+        return transformedoutput
+    }
 }
 
 extension ObserveableReferenceRestore: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
-
-    func processtermination() {
-        gettingfilelist = false
-        remotefilelist = outputprocess?.trimoutput(trim: .one)
-    }
-
-    func filehandler() {}
 }
 
 enum RestoreError: LocalizedError {
