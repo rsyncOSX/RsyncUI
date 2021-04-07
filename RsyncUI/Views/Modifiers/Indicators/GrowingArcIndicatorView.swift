@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct GrowingArcIndicatorView: View {
-
     let color: Color
     @State private var animatableParameter: Double = 0
 
@@ -17,7 +16,7 @@ struct GrowingArcIndicatorView: View {
         let animation = Animation
             .easeIn(duration: 2)
             .repeatForever(autoreverses: false)
-        
+
         return GrowingArc(p: animatableParameter)
             .stroke(color, lineWidth: 4)
             .onAppear {
@@ -30,7 +29,6 @@ struct GrowingArcIndicatorView: View {
 }
 
 struct GrowingArc: Shape {
-
     var maxLength = 2 * Double.pi - 0.7
     var lag = 0.35
     var p: Double
@@ -41,10 +39,9 @@ struct GrowingArc: Shape {
     }
 
     func path(in rect: CGRect) -> Path {
-
         let h = p * 2
         var length = h * maxLength
-        if h > 1 && h < lag + 1 {
+        if h > 1, h < lag + 1 {
             length = maxLength
         }
         if h > lag + 1 {
@@ -64,8 +61,8 @@ struct GrowingArc: Shape {
         let start = end + length
 
         var p = Path()
-        p.addArc(center: CGPoint(x: rect.size.width/2, y: rect.size.width/2),
-                 radius: rect.size.width/2,
+        p.addArc(center: CGPoint(x: rect.size.width / 2, y: rect.size.width / 2),
+                 radius: rect.size.width / 2,
                  startAngle: Angle(radians: start),
                  endAngle: Angle(radians: end),
                  clockwise: true)

@@ -9,13 +9,12 @@
 import SwiftUI
 
 struct OpacityDotsIndicatorView: View {
-
     private let count: Int = 3
     private let inset: Int = 4
 
     var body: some View {
         GeometryReader { geometry in
-            ForEach(0..<self.count) { index in
+            ForEach(0 ..< self.count) { index in
                 OpacityDotsIndicatorItemView(index: index, count: self.count, inset: self.inset, size: geometry.size)
             }.frame(width: geometry.size.width, height: geometry.size.height)
         }
@@ -23,7 +22,6 @@ struct OpacityDotsIndicatorView: View {
 }
 
 struct OpacityDotsIndicatorItemView: View {
-
     let index: Int
     let count: Int
     let inset: Int

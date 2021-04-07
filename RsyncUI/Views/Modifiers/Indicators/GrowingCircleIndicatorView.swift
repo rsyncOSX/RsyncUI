@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct GrowingCircleIndicatorView: View {
-
     @State private var scale: CGFloat = 0
     @State private var opacity: Double = 0
 

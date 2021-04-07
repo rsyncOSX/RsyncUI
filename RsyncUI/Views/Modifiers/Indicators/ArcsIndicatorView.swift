@@ -9,12 +9,11 @@
 import SwiftUI
 
 struct ArcsIndicatorView: View {
-
     private let count: Int = 3
 
     var body: some View {
         GeometryReader { geometry in
-            ForEach(0..<self.count) { index in
+            ForEach(0 ..< self.count) { index in
                 ArcsIndicatorItemView(index: index, count: self.count, size: geometry.size)
             }
         }
@@ -22,7 +21,6 @@ struct ArcsIndicatorView: View {
 }
 
 struct ArcsIndicatorItemView: View {
-
     let index: Int
     let count: Int
     let size: CGSize
@@ -31,7 +29,7 @@ struct ArcsIndicatorItemView: View {
 
     var body: some View {
         let animation = Animation.default
-            .speed(Double.random(in: 0.2...0.5))
+            .speed(Double.random(in: 0.2 ... 0.5))
             .repeatForever(autoreverses: false)
 
         return Group { () -> Path in
@@ -39,7 +37,7 @@ struct ArcsIndicatorItemView: View {
             p.addArc(center: CGPoint(x: self.size.width / 2, y: self.size.height / 2),
                      radius: self.size.width / 2 - CGFloat(self.index) * CGFloat(self.count),
                      startAngle: .degrees(0),
-                     endAngle: .degrees(Double(Int.random(in: 120...300))),
+                     endAngle: .degrees(Double(Int.random(in: 120 ... 300))),
                      clockwise: true)
             return p.strokedPath(.init(lineWidth: 2))
         }

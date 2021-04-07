@@ -9,12 +9,11 @@
 import SwiftUI
 
 struct EqualizerIndicatorView: View {
-
     private let count: Int = 5
 
     var body: some View {
         GeometryReader { geometry in
-            ForEach(0..<self.count) { index in
+            ForEach(0 ..< self.count) { index in
                 EqualizerIndicatorItemView(index: index, count: self.count, size: geometry.size)
             }.frame(width: geometry.size.width, height: geometry.size.height)
         }
@@ -22,7 +21,6 @@ struct EqualizerIndicatorView: View {
 }
 
 struct EqualizerIndicatorItemView: View {
-
     let index: Int
     let count: Int
     let size: CGSize

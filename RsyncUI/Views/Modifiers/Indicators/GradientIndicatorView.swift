@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct GradientIndicatorView: View {
-
     let colors: [Color]
     let lineCap: CGLineCap
 

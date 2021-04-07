@@ -9,12 +9,11 @@
 import SwiftUI
 
 struct FlickeringDotsIndicatorView: View {
-
     private let count: Int = 8
 
     var body: some View {
         GeometryReader { geometry in
-            ForEach(0..<self.count) { index in
+            ForEach(0 ..< self.count) { index in
                 FlickeringDotsIndicatorItemView(index: index, count: self.count, size: geometry.size)
             }.frame(width: geometry.size.width, height: geometry.size.height)
         }
@@ -22,7 +21,6 @@ struct FlickeringDotsIndicatorView: View {
 }
 
 struct FlickeringDotsIndicatorItemView: View {
-
     let index: Int
     let count: Int
     let size: CGSize

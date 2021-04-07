@@ -9,13 +9,12 @@
 import SwiftUI
 
 struct ScalingDotsIndicatorView: View {
-
     private let count: Int = 3
     private let inset: Int = 2
 
     var body: some View {
         GeometryReader { geometry in
-            ForEach(0..<self.count) { index in
+            ForEach(0 ..< self.count) { index in
                 ScalingDotsIndicatorItemView(index: index, count: self.count, inset: self.inset, size: geometry.size)
             }.frame(width: geometry.size.width, height: geometry.size.height)
         }
@@ -23,7 +22,6 @@ struct ScalingDotsIndicatorView: View {
 }
 
 struct ScalingDotsIndicatorItemView: View {
-
     let index: Int
     let count: Int
     let inset: Int
@@ -37,7 +35,7 @@ struct ScalingDotsIndicatorItemView: View {
         let animation = Animation.easeOut
             .repeatForever(autoreverses: true)
             .delay(Double(index) / Double(count) / 2)
-        
+
         return Circle()
             .frame(width: itemSize, height: itemSize)
             .scaleEffect(scale)
