@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ScheduleRowSchedules: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     var configschedule: ConfigurationSchedule
 
@@ -77,8 +77,8 @@ struct ScheduleRowSchedules: View {
 
     var activeschedule: String {
         if let activeschedules =
-            ScheduleSortedAndExpand(profile: rsyncOSXData.profile,
-                                    scheduleConfigurations: rsyncOSXData.schedulesandlogs).sortedexpandedeschedules
+            ScheduleSortedAndExpand(profile: rsyncUIData.profile,
+                                    scheduleConfigurations: rsyncUIData.schedulesandlogs).sortedexpandedeschedules
         {
             let number = activeschedules.filter { $0.hiddenID == configschedule.hiddenID &&
                 $0.dateStart?.en_us_string_from_date() == configschedule.dateStart

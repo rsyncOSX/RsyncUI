@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExecuteAlltasksView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
     @Binding var presentestimatedsheetview: Bool
@@ -45,8 +45,8 @@ struct ExecuteAlltasksView: View {
 
     func executeall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (rsyncOSXData.rsyncdata?.configurationData.getnumberofconfigurations() ?? 0) {
-            if let id = rsyncOSXData.rsyncdata?.configurationData.getallconfigurations()?[i].id {
+        for i in 0 ..< (rsyncUIData.rsyncdata?.configurationData.getnumberofconfigurations() ?? 0) {
+            if let id = rsyncUIData.rsyncdata?.configurationData.getallconfigurations()?[i].id {
                 selecteduuids.insert(id)
             }
         }

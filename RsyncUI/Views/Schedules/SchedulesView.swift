@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SchedulesView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
@@ -28,7 +28,7 @@ struct SchedulesView: View {
     @State private var showAlertfordelete = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+        ConfigurationsList(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
                            selectable: $selectable)
@@ -38,7 +38,7 @@ struct SchedulesView: View {
                                   selectedscheduletype: $selectedscheduletype)
                     .padding(1)
 
-                SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+                SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
                               selectedschedule: $selectedschedule,
                               selecteduuids: $selecteduuids)
             }
@@ -86,10 +86,10 @@ extension SchedulesView {
 
     func setuuidforselectedschedule() {
         if let schedule = selectedschedule,
-           let schedules = rsyncOSXData.schedulesandlogs
+           let schedules = rsyncUIData.schedulesandlogs
         {
             if let index = schedules.firstIndex(of: schedule) {
-                if let id = rsyncOSXData.schedulesandlogs?[index].id {
+                if let id = rsyncUIData.schedulesandlogs?[index].id {
                     selecteduuids.insert(id)
                 }
             }
@@ -98,7 +98,7 @@ extension SchedulesView {
 
     func addschedule() {
         let addschedule = UpdateSchedules(profile: selectedprofile,
-                                          scheduleConfigurations: rsyncOSXData.schedulesandlogs)
+                                          scheduleConfigurations: rsyncUIData.schedulesandlogs)
         let add = addschedule.add(selectedconfig?.hiddenID,
                                   selectedscheduletype,
                                   selecteddate)
@@ -111,7 +111,7 @@ extension SchedulesView {
     func stop() {
         if selecteduuids.count == 0 { setuuidforselectedschedule() }
         let stopschedule = UpdateSchedules(profile: selectedprofile,
-                                           scheduleConfigurations: rsyncOSXData.schedulesandlogs)
+                                           scheduleConfigurations: rsyncUIData.schedulesandlogs)
         stopschedule.stopschedule(uuids: selecteduuids)
         reload = true
         selecteduuids.removeAll()

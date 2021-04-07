@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SidebarSettingsView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
@@ -20,7 +20,7 @@ struct SidebarSettingsView: View {
                 .tabItem {
                     Text(NSLocalizedString("Settings", comment: "user settings"))
                 }
-            Sshsettings(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() },
+            Sshsettings(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
                         reload: $reload)
                 .tabItem {
                     Text(NSLocalizedString("Ssh", comment: "user settings"))

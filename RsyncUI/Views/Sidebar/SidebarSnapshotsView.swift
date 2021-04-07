@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SidebarSnapshotsView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
 
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
@@ -17,7 +17,7 @@ struct SidebarSnapshotsView: View {
         VStack {
             headingtitle
 
-            SnapshotsView(selectedconfig: $selectedconfig.onChange { rsyncOSXData.update() })
+            SnapshotsView(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() })
         }
         .padding()
     }

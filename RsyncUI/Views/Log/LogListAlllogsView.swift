@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LogListAlllogsView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
 
@@ -65,7 +65,7 @@ struct LogListAlllogsView: View {
 
     var filteredlogs: [Log]? {
         // Important - must localize search in dates
-        rsyncOSXData.alllogssorted?.filter {
+        rsyncUIData.alllogssorted?.filter {
             filterstring.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring) ?? false ||
                 filterstring.isEmpty ? true : $0.resultExecuted?.contains(filterstring) ?? false
         }

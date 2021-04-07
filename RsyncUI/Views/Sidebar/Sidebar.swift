@@ -23,7 +23,7 @@ enum NavigationItem {
 }
 
 struct Sidebar: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var errorhandling: ErrorHandling
 
     @State private var selection: NavigationItem? = Optional.none
@@ -105,7 +105,7 @@ struct Sidebar: View {
             Group {
                 NavigationLink(destination: SidebarLogsView(reload: $reload,
                                                             selectedprofile: $selectedprofile.onChange {
-                                                                rsyncOSXData.update()
+                                                                rsyncUIData.update()
                                                             }),
                                tag: NavigationItem.logs,
                                selection: $selection) {

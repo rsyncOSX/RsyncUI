@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SnapshotsView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var snapshotdata = SnapshotData()
     @Binding var selectedconfig: Configuration?
 
@@ -99,8 +99,8 @@ extension SnapshotsView {
                 return
             }
             _ = Snapshotlogsandcatalogs(config: config,
-                                        configurationsSwiftUI: rsyncOSXData.rsyncdata?.configurationData,
-                                        schedulesSwiftUI: rsyncOSXData.rsyncdata?.scheduleData,
+                                        configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                        schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
                                         snapshotdata: snapshotdata)
         }
     }

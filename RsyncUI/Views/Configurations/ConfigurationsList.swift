@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ConfigurationsList: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selectedconfig: Configuration?
 
     // Used when selectable and starting progressview
@@ -109,7 +109,7 @@ struct ConfigurationsList: View {
     }
 
     var configurationssorted: [Configuration] {
-        if let configurations = rsyncOSXData.configurations {
+        if let configurations = rsyncUIData.configurations {
             let sorted = configurations.sorted { conf1, conf2 in
                 if let days1 = conf1.dateRun?.en_us_date_from_string(),
                    let days2 = conf2.dateRun?.en_us_date_from_string()

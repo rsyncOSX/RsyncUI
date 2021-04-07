@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeleteConfigurationsView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
     @Binding var reload: Bool
@@ -48,8 +48,8 @@ struct DeleteConfigurationsView: View {
 
     func delete() {
         let deleteconfigurations =
-            UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
-                                 configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
+            UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
+                                 configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
         isPresented = false

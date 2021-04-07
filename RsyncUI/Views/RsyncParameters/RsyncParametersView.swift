@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RsyncParametersView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var reload: Bool
     @StateObject private var parameters = ObserveableParametersRsync()
     // Not used but requiered in parameter
@@ -23,7 +23,7 @@ struct RsyncParametersView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsList(selectedconfig: $parameters.configuration.onChange { rsyncOSXData.update() },
+            ConfigurationsList(selectedconfig: $parameters.configuration.onChange { rsyncUIData.update() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                selectable: $selectable)
@@ -211,8 +211,8 @@ extension RsyncParametersView {
             if parameters.parameter5 == nil { config.parameter5 = "" } else { config.parameter5 = parameters.parameter5 ?? "" }
 
             let updateconfiguration =
-                UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
-                                     configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
+                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
+                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(config, true)
             reload = true
             updated = true

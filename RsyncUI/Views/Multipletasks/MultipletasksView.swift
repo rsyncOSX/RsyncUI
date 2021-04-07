@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MultipletasksView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
@@ -169,7 +169,7 @@ extension MultipletasksView {
     }
 
     func estimatetasks() {
-        estimatetask = Estimation(configurationsSwiftUI: rsyncOSXData.rsyncdata?.configurationData,
+        estimatetask = Estimation(configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
                                   estimationstateDelegate: estimationstate,
                                   updateinprogresscount: inprogresscountmultipletask,
                                   uuids: selecteduuids)
@@ -240,9 +240,9 @@ extension MultipletasksView {
 
     func setuuidforselectedtask() {
         if let sel = selectedconfig,
-           let index = rsyncOSXData.configurations?.firstIndex(of: sel)
+           let index = rsyncUIData.configurations?.firstIndex(of: sel)
         {
-            if let id = rsyncOSXData.configurations?[index].id {
+            if let id = rsyncUIData.configurations?[index].id {
                 selecteduuids.insert(id)
             }
         }

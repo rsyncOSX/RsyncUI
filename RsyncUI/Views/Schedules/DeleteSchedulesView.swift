@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeleteSchedulesView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
     @Binding var reload: Bool
@@ -49,7 +49,7 @@ struct DeleteSchedulesView: View {
 
     func delete() {
         let deleteschedule = UpdateSchedules(profile: selectedprofile,
-                                             scheduleConfigurations: rsyncOSXData.schedulesandlogs)
+                                             scheduleConfigurations: rsyncUIData.schedulesandlogs)
         deleteschedule.deleteschedules(uuids: selecteduuids)
         reload = true
         selecteduuids.removeAll()

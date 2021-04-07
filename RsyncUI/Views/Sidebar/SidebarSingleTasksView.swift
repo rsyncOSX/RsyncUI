@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SidebarSingleTasksView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var reload: Bool
 
     var body: some View {

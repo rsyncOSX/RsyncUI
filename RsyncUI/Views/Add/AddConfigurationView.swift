@@ -36,7 +36,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 }
 
 struct AddConfigurationView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
 
     @Binding var selectedprofile: String?
@@ -319,8 +319,8 @@ extension AddConfigurationView {
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
-                UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
-                                     configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
+                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
+                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
             if updateconfigurations.addconfiguration(newconfig) == true {
                 reload = true
                 added = true
@@ -350,8 +350,8 @@ extension AddConfigurationView {
                                        selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
-                UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
-                                     configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
+                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
+                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(updatedconfig, false)
             reload = true
             updated = true

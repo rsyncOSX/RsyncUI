@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SidebarMultipletasksView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
 

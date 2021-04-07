@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddPostandPreView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
 
@@ -219,8 +219,8 @@ extension AddPostandPreView {
                                        selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
-                UpdateConfigurations(profile: rsyncOSXData.rsyncdata?.profile,
-                                     configurations: rsyncOSXData.rsyncdata?.configurationData.getallconfigurations())
+                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
+                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(updatedconfig, false)
             reload = true
             updated = true

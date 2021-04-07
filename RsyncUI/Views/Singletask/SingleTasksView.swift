@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct SingleTasksView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var outputfromrsync: OutputFromRsync
     // Observing shortcuts
     @EnvironmentObject var shortcuts: ShortcutActions
@@ -196,9 +196,9 @@ extension SingleTasksView {
             executetasknow = nil
             singletaskstate.updatestate(state: .estimate)
             executesingletasks = ExecuteSingleTask(uuids: selecteduuids,
-                                                   profile: rsyncOSXData.rsyncdata?.profile,
-                                                   configurationsSwiftUI: rsyncOSXData.rsyncdata?.configurationData,
-                                                   schedulesSwiftUI: rsyncOSXData.rsyncdata?.scheduleData,
+                                                   profile: rsyncUIData.rsyncdata?.profile,
+                                                   configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                                   schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
                                                    singletaskstate: singletaskstate,
                                                    updateinprogresscount: inprogresscountrsyncoutput)
             executesingletasks?.estimate()
@@ -240,9 +240,9 @@ extension SingleTasksView {
         guard selecteduuids.count == 1 else { return }
         singletasknowstate.updatestate(state: .execute)
         executetasknow = ExecuteSingleTaskNow(uuids: selecteduuids,
-                                              profile: rsyncOSXData.rsyncdata?.profile,
-                                              configurationsSwiftUI: rsyncOSXData.rsyncdata?.configurationData,
-                                              schedulesSwiftUI: rsyncOSXData.rsyncdata?.scheduleData,
+                                              profile: rsyncUIData.rsyncdata?.profile,
+                                              configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                              schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
                                               executetaskstate: singletasknowstate,
                                               updateinprogresscount: inprogresscountrsyncoutput)
     }
@@ -250,9 +250,9 @@ extension SingleTasksView {
     func setuuidforsingletask() {
         selecteduuids.removeAll()
         if let sel = selectedconfig,
-           let index = rsyncOSXData.configurations?.firstIndex(of: sel)
+           let index = rsyncUIData.configurations?.firstIndex(of: sel)
         {
-            if let id = rsyncOSXData.configurations?[index].id {
+            if let id = rsyncUIData.configurations?[index].id {
                 selecteduuids.insert(id)
             }
         }

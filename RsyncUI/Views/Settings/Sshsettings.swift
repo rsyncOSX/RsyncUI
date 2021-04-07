@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct Sshsettings: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var usersettings = ObservableReferenceSSH()
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
@@ -134,7 +134,7 @@ struct Sshsettings: View {
     }
 
     var serversandlogins: [UniqueserversandLogins] {
-        if let servers = rsyncOSXData.rsyncdata?.configurationData.getuniqueueserversandlogins() {
+        if let servers = rsyncUIData.rsyncdata?.configurationData.getuniqueueserversandlogins() {
             return servers
         }
         return []

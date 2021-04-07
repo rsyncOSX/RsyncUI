@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct JSONView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncUIdata
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var usersettings = ObserveableReferenceJSON()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -195,8 +195,8 @@ extension JSONView {
         PersistentStorage(profile: myprofile,
                           whattoreadorwrite: .configuration,
                           readonly: true,
-                          configurations: rsyncOSXData.configurations,
-                          schedules: rsyncOSXData.schedulesandlogs)
+                          configurations: rsyncUIData.configurations,
+                          schedules: rsyncUIData.schedulesandlogs)
             .convert(profile: myprofile)
         converted = true
         // Show updated for 1 second
