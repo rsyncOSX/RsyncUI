@@ -8,21 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		E81CF81A25FF310D005D8667 /* SelectedstartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81CF81925FF310D005D8667 /* SelectedstartView.swift */; };
-		E82E2122261D817C00D07503 /* OpacityDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2118261D817C00D07503 /* OpacityDotsIndicatorView.swift */; };
-		E82E2123261D817C00D07503 /* GradientIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2119261D817C00D07503 /* GradientIndicatorView.swift */; };
-		E82E2124261D817C00D07503 /* GrowingArcIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211A261D817C00D07503 /* GrowingArcIndicatorView.swift */; };
-		E82E2125261D817C00D07503 /* DefaultIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211B261D817C00D07503 /* DefaultIndicatorView.swift */; };
-		E82E2126261D817C00D07503 /* GrowingCircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211C261D817C00D07503 /* GrowingCircleIndicatorView.swift */; };
-		E82E2127261D817C00D07503 /* EqualizerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211D261D817C00D07503 /* EqualizerIndicatorView.swift */; };
-		E82E2128261D817C00D07503 /* RotatingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211E261D817C00D07503 /* RotatingDotsIndicatorView.swift */; };
-		E82E2129261D817C00D07503 /* ArcsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211F261D817C00D07503 /* ArcsIndicatorView.swift */; };
-		E82E212A261D817C00D07503 /* FlickeringDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2120261D817C00D07503 /* FlickeringDotsIndicatorView.swift */; };
-		E82E212B261D817C00D07503 /* ScalingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2121261D817C00D07503 /* ScalingDotsIndicatorView.swift */; };
 		E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835457325FE4EBF00A724EE /* SearchbarView.swift */; };
 		E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E879883425F8B512004D68C2 /* VerifySshView.swift */; };
 		E88F68B625F8A7A30010F33C /* Sshcopykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68B525F8A7A30010F33C /* Sshcopykey.swift */; };
 		E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68BA25F8A7D30010F33C /* Sshverifykey.swift */; };
 		E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8902992260B0EF700F4F0DC /* ButtonStyles.swift */; };
+		E90B4A9C261DA7580043EFF6 /* ScalingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A92261DA7580043EFF6 /* ScalingDotsIndicatorView.swift */; };
+		E90B4A9D261DA7580043EFF6 /* EqualizerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A93261DA7580043EFF6 /* EqualizerIndicatorView.swift */; };
+		E90B4A9E261DA7580043EFF6 /* OpacityDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A94261DA7580043EFF6 /* OpacityDotsIndicatorView.swift */; };
+		E90B4A9F261DA7580043EFF6 /* DefaultIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A95261DA7580043EFF6 /* DefaultIndicatorView.swift */; };
+		E90B4AA0261DA7580043EFF6 /* ArcsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A96261DA7580043EFF6 /* ArcsIndicatorView.swift */; };
+		E90B4AA1261DA7580043EFF6 /* GradientIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A97261DA7580043EFF6 /* GradientIndicatorView.swift */; };
+		E90B4AA2261DA7580043EFF6 /* RotatingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */; };
+		E90B4AA3261DA7580043EFF6 /* GrowingArcIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A99261DA7580043EFF6 /* GrowingArcIndicatorView.swift */; };
+		E90B4AA4261DA7580043EFF6 /* GrowingCircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A9A261DA7580043EFF6 /* GrowingCircleIndicatorView.swift */; };
+		E90B4AA5261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A9B261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift */; };
 		E9168C092615AB8500B139CE /* AddPostandPreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C082615AB8500B139CE /* AddPostandPreView.swift */; };
 		E9168C0E2615ABFA00B139CE /* AddConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */; };
 		E91CC2622607260B00D69D0B /* RsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2612607260B00D69D0B /* RsyncParametersView.swift */; };
@@ -231,21 +231,21 @@
 
 /* Begin PBXFileReference section */
 		E81CF81925FF310D005D8667 /* SelectedstartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedstartView.swift; sourceTree = "<group>"; };
-		E82E2118261D817C00D07503 /* OpacityDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpacityDotsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/OpacityDotsIndicatorView.swift; sourceTree = "<group>"; };
-		E82E2119261D817C00D07503 /* GradientIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/GradientIndicatorView.swift; sourceTree = "<group>"; };
-		E82E211A261D817C00D07503 /* GrowingArcIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GrowingArcIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/GrowingArcIndicatorView.swift; sourceTree = "<group>"; };
-		E82E211B261D817C00D07503 /* DefaultIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/DefaultIndicatorView.swift; sourceTree = "<group>"; };
-		E82E211C261D817C00D07503 /* GrowingCircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GrowingCircleIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/GrowingCircleIndicatorView.swift; sourceTree = "<group>"; };
-		E82E211D261D817C00D07503 /* EqualizerIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EqualizerIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/EqualizerIndicatorView.swift; sourceTree = "<group>"; };
-		E82E211E261D817C00D07503 /* RotatingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RotatingDotsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/RotatingDotsIndicatorView.swift; sourceTree = "<group>"; };
-		E82E211F261D817C00D07503 /* ArcsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArcsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/ArcsIndicatorView.swift; sourceTree = "<group>"; };
-		E82E2120261D817C00D07503 /* FlickeringDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickeringDotsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/FlickeringDotsIndicatorView.swift; sourceTree = "<group>"; };
-		E82E2121261D817C00D07503 /* ScalingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScalingDotsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/ScalingDotsIndicatorView.swift; sourceTree = "<group>"; };
 		E835457325FE4EBF00A724EE /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		E879883425F8B512004D68C2 /* VerifySshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySshView.swift; sourceTree = "<group>"; };
 		E88F68B525F8A7A30010F33C /* Sshcopykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshcopykey.swift; sourceTree = "<group>"; };
 		E88F68BA25F8A7D30010F33C /* Sshverifykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshverifykey.swift; sourceTree = "<group>"; };
 		E8902992260B0EF700F4F0DC /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		E90B4A92261DA7580043EFF6 /* ScalingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalingDotsIndicatorView.swift; sourceTree = "<group>"; };
+		E90B4A93261DA7580043EFF6 /* EqualizerIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EqualizerIndicatorView.swift; sourceTree = "<group>"; };
+		E90B4A94261DA7580043EFF6 /* OpacityDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpacityDotsIndicatorView.swift; sourceTree = "<group>"; };
+		E90B4A95261DA7580043EFF6 /* DefaultIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultIndicatorView.swift; sourceTree = "<group>"; };
+		E90B4A96261DA7580043EFF6 /* ArcsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcsIndicatorView.swift; sourceTree = "<group>"; };
+		E90B4A97261DA7580043EFF6 /* GradientIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientIndicatorView.swift; sourceTree = "<group>"; };
+		E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatingDotsIndicatorView.swift; sourceTree = "<group>"; };
+		E90B4A99261DA7580043EFF6 /* GrowingArcIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrowingArcIndicatorView.swift; sourceTree = "<group>"; };
+		E90B4A9A261DA7580043EFF6 /* GrowingCircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrowingCircleIndicatorView.swift; sourceTree = "<group>"; };
+		E90B4A9B261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickeringDotsIndicatorView.swift; sourceTree = "<group>"; };
 		E9168C082615AB8500B139CE /* AddPostandPreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostandPreView.swift; sourceTree = "<group>"; };
 		E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddConfigurationView.swift; sourceTree = "<group>"; };
 		E91CC2612607260B00D69D0B /* RsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncParametersView.swift; sourceTree = "<group>"; };
@@ -473,19 +473,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E82E2117261D812400D07503 /* Indicators */ = {
+		E90B4A91261DA7580043EFF6 /* Indicators */ = {
 			isa = PBXGroup;
 			children = (
-				E82E211F261D817C00D07503 /* ArcsIndicatorView.swift */,
-				E82E211B261D817C00D07503 /* DefaultIndicatorView.swift */,
-				E82E211D261D817C00D07503 /* EqualizerIndicatorView.swift */,
-				E82E2120261D817C00D07503 /* FlickeringDotsIndicatorView.swift */,
-				E82E2119261D817C00D07503 /* GradientIndicatorView.swift */,
-				E82E211A261D817C00D07503 /* GrowingArcIndicatorView.swift */,
-				E82E211C261D817C00D07503 /* GrowingCircleIndicatorView.swift */,
-				E82E2118261D817C00D07503 /* OpacityDotsIndicatorView.swift */,
-				E82E211E261D817C00D07503 /* RotatingDotsIndicatorView.swift */,
-				E82E2121261D817C00D07503 /* ScalingDotsIndicatorView.swift */,
+				E90B4A92261DA7580043EFF6 /* ScalingDotsIndicatorView.swift */,
+				E90B4A93261DA7580043EFF6 /* EqualizerIndicatorView.swift */,
+				E90B4A94261DA7580043EFF6 /* OpacityDotsIndicatorView.swift */,
+				E90B4A95261DA7580043EFF6 /* DefaultIndicatorView.swift */,
+				E90B4A96261DA7580043EFF6 /* ArcsIndicatorView.swift */,
+				E90B4A97261DA7580043EFF6 /* GradientIndicatorView.swift */,
+				E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */,
+				E90B4A99261DA7580043EFF6 /* GrowingArcIndicatorView.swift */,
+				E90B4A9A261DA7580043EFF6 /* GrowingCircleIndicatorView.swift */,
+				E90B4A9B261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift */,
 			);
 			path = Indicators;
 			sourceTree = "<group>";
@@ -630,7 +630,7 @@
 		E985C62025F3AD8400CB895C /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
-				E82E2117261D812400D07503 /* Indicators */,
+				E90B4A91261DA7580043EFF6 /* Indicators */,
 				E985C62125F3AD8400CB895C /* ToggleView.swift */,
 				E985C62225F3AD8400CB895C /* Viewmodifiers.swift */,
 				E8902992260B0EF700F4F0DC /* ButtonStyles.swift */,
@@ -1268,6 +1268,7 @@
 				E985C76A25F3AD9700CB895C /* ExecuteSingleTaskNowShellout.swift in Sources */,
 				E985C78725F3AD9700CB895C /* UpdateSchedules.swift in Sources */,
 				E985C76025F3AD9700CB895C /* Configpath.swift in Sources */,
+				E90B4A9C261DA7580043EFF6 /* ScalingDotsIndicatorView.swift in Sources */,
 				E985C78A25F3AD9700CB895C /* OutputFromRsync.swift in Sources */,
 				E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */,
 				E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */,
@@ -1289,7 +1290,6 @@
 				E95EDC8A26063EAA000018DE /* ObserveableParametersRsync.swift in Sources */,
 				E985C65A25F3AD8400CB895C /* Sidebar.swift in Sources */,
 				E985C78325F3AD9700CB895C /* Equal.swift in Sources */,
-				E82E2122261D817C00D07503 /* OpacityDotsIndicatorView.swift in Sources */,
 				E985C67925F3AD8400CB895C /* ImageRsyncOSX.swift in Sources */,
 				E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */,
 				E985C74F25F3AD9700CB895C /* ReadWriteDictionary.swift in Sources */,
@@ -1306,7 +1306,6 @@
 				E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */,
 				E985C65625F3AD8400CB895C /* RsyncUIView.swift in Sources */,
 				E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */,
-				E82E2124261D817C00D07503 /* GrowingArcIndicatorView.swift in Sources */,
 				E985C79525F3AD9700CB895C /* RsyncVersionString.swift in Sources */,
 				E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */,
 				E985C72D25F3AD9700CB895C /* Snapshotlogsandcatalogs.swift in Sources */,
@@ -1326,19 +1325,19 @@
 				E985C66E25F3AD8400CB895C /* ImageRsync.swift in Sources */,
 				E985C74C25F3AD9700CB895C /* ConvertSchedules.swift in Sources */,
 				E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */,
+				E90B4AA4261DA7580043EFF6 /* GrowingCircleIndicatorView.swift in Sources */,
 				E985C68525F3AD8400CB895C /* SelectConfigurationView.swift in Sources */,
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,
 				E985C75A25F3AD9700CB895C /* PersistentStorage.swift in Sources */,
+				E90B4AA0261DA7580043EFF6 /* ArcsIndicatorView.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
 				E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */,
-				E82E2123261D817C00D07503 /* GradientIndicatorView.swift in Sources */,
 				E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */,
 				E985C75F25F3AD9700CB895C /* PersistentStorageConfigurationJSON.swift in Sources */,
 				E985C75E25F3AD9700CB895C /* PersistentStorageConfigurationPLIST.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
 				E98E086325FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift in Sources */,
 				E985C76D25F3AD9700CB895C /* Estimation.swift in Sources */,
-				E82E212B261D817C00D07503 /* ScalingDotsIndicatorView.swift in Sources */,
 				E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */,
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
 				E985C74525F3AD9700CB895C /* RemoteNumbers.swift in Sources */,
@@ -1352,6 +1351,7 @@
 				E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */,
 				E985C66A25F3AD8400CB895C /* SnapshotRow.swift in Sources */,
 				E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */,
+				E90B4AA1261DA7580043EFF6 /* GradientIndicatorView.swift in Sources */,
 				E985C73F25F3AD9700CB895C /* Socket.swift in Sources */,
 				E95EDC7926063118000018DE /* SidebarRsyncParameter.swift in Sources */,
 				E985C73825F3AD9700CB895C /* Notifications.swift in Sources */,
@@ -1359,7 +1359,7 @@
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
 				E99C2400261C322E009D4DBF /* ObserveableReferenceRestore.swift in Sources */,
 				E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */,
-				E82E2128261D817C00D07503 /* RotatingDotsIndicatorView.swift in Sources */,
+				E90B4AA2261DA7580043EFF6 /* RotatingDotsIndicatorView.swift in Sources */,
 				E985C68E25F3AD8400CB895C /* MultipletasksView.swift in Sources */,
 				E985C68B25F3AD8400CB895C /* OutputEstimatedView.swift in Sources */,
 				E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */,
@@ -1371,15 +1371,18 @@
 				E985C78C25F3AD9700CB895C /* RsyncUIdata.swift in Sources */,
 				E985C73525F3AD9700CB895C /* Backupconfigfiles.swift in Sources */,
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
+				E90B4A9D261DA7580043EFF6 /* EqualizerIndicatorView.swift in Sources */,
 				E985C72A25F3AD9700CB895C /* NamesandPaths.swift in Sources */,
 				E985C65C25F3AD8400CB895C /* SidebarSingleTasksView.swift in Sources */,
 				E943B0A925FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift in Sources */,
+				E90B4A9E261DA7580043EFF6 /* OpacityDotsIndicatorView.swift in Sources */,
 				E985C74D25F3AD9700CB895C /* ConvertConfigurations.swift in Sources */,
 				E985C72F25F3AD9700CB895C /* OutputProcessRsync.swift in Sources */,
 				E985C74E25F3AD9700CB895C /* ConvertUserconfiguration.swift in Sources */,
 				E985C65525F3AD8400CB895C /* SidebarMultipletasksView.swift in Sources */,
 				E985C75225F3AD9700CB895C /* CodableConfigurationSchedule.swift in Sources */,
 				E985C68A25F3AD8400CB895C /* ExecuteAlltasksView.swift in Sources */,
+				E90B4AA5261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift in Sources */,
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
 				E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */,
 				E985C68325F3AD8400CB895C /* LogRow.swift in Sources */,
@@ -1397,10 +1400,10 @@
 				E985C73B25F3AD9700CB895C /* yudpsocket.c in Sources */,
 				E985C78F25F3AD9700CB895C /* SetRsyncParameters.swift in Sources */,
 				E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */,
-				E82E2126261D817C00D07503 /* GrowingCircleIndicatorView.swift in Sources */,
 				E985C75625F3AD9700CB895C /* TransformSchedulefromJSON.swift in Sources */,
 				E985C65B25F3AD8400CB895C /* LogsbyConfigurationView.swift in Sources */,
 				E985C67E25F3AD8400CB895C /* ScheduleRowSchedules.swift in Sources */,
+				E90B4AA3261DA7580043EFF6 /* GrowingArcIndicatorView.swift in Sources */,
 				E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */,
 				E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */,
 				E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */,
@@ -1410,7 +1413,6 @@
 				E985C73925F3AD9700CB895C /* Alerts.swift in Sources */,
 				E985C76325F3AD9700CB895C /* SingleTaskState.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
-				E82E212A261D817C00D07503 /* FlickeringDotsIndicatorView.swift in Sources */,
 				E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */,
 				E985C68625F3AD8400CB895C /* ConfirmUpdatedView.swift in Sources */,
 				E985C75825F3AD9700CB895C /* SchedulesData.swift in Sources */,
@@ -1422,19 +1424,17 @@
 				E985C66025F3AD8400CB895C /* ParametersList.swift in Sources */,
 				E985C75325F3AD9700CB895C /* TransformConfigfromJSON.swift in Sources */,
 				E985C75725F3AD9700CB895C /* ConfigurationsData.swift in Sources */,
-				E82E2127261D817C00D07503 /* EqualizerIndicatorView.swift in Sources */,
 				E9168C092615AB8500B139CE /* AddPostandPreView.swift in Sources */,
 				E985C77B25F3AD9700CB895C /* DuArgumentsSsh.swift in Sources */,
 				E985C73A25F3AD9700CB895C /* Checkfornewversion.swift in Sources */,
 				E985C76925F3AD9700CB895C /* ExecuteSingleTaskNow.swift in Sources */,
 				E985C79225F3AD9700CB895C /* Extensions.swift in Sources */,
 				E985C67F25F3AD8400CB895C /* SidebarSchedulesView.swift in Sources */,
-				E82E2129261D817C00D07503 /* ArcsIndicatorView.swift in Sources */,
 				E985C78025F3AD9700CB895C /* AllLoggs.swift in Sources */,
 				E985C66825F3AD8400CB895C /* OutputRsyncView.swift in Sources */,
 				E9551ADB25F927580018E57E /* JSONView.swift in Sources */,
 				E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */,
-				E82E2125261D817C00D07503 /* DefaultIndicatorView.swift in Sources */,
+				E90B4A9F261DA7580043EFF6 /* DefaultIndicatorView.swift in Sources */,
 				E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */,
 				E985C68725F3AD8400CB895C /* EditValue.swift in Sources */,
 				E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */,
