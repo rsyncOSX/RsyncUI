@@ -18,7 +18,7 @@ enum TypeofRestore: String, CaseIterable, Identifiable, CustomStringConvertible 
 struct RestoreView: View {
     @EnvironmentObject var rsyncOSXData: RsyncOSXdata
     @StateObject var restoresettings = ObserveableReferenceRestore()
-    @Binding var selectedconfig: Configuration?
+    // @Binding var selectedconfig: Configuration?
 
     // Not used but requiered in parameter
     @State private var selecteduuids = Set<UUID>()
@@ -26,12 +26,16 @@ struct RestoreView: View {
     @State private var selectable = false
 
     var body: some View {
-        SearchbarView(text: $restoresettings.filterstring)
-            .padding(.top, -20)
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange {},
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
+        VStack {
+            SearchbarView(text: $restoresettings.filterstring)
+                .padding(.top, -20)
+            ConfigurationsList(selectedconfig: $restoresettings.selectedconfig.onChange {},
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               selectable: $selectable)
+        }
+
+        if restoresettings.gettingfilelist == true { ImageZstackProgressview() }
 
         Spacer()
 

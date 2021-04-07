@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct SidebareRestoreView: View {
-    @State private var selectedconfig: Configuration?
-
     var body: some View {
         VStack {
             headingtitle
 
-            RestoreView(selectedconfig: $selectedconfig)
+            RestoreView()
         }
         .padding()
     }

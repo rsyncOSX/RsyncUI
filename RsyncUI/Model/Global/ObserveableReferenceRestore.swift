@@ -14,6 +14,8 @@ class ObserveableReferenceRestore: ObservableObject {
     @Published var restorepath: String = ""
     @Published var typeofrestore = TypeofRestore.byfile
     @Published var filterstring: String = ""
+    @Published var selectedconfig: Configuration?
+    @Published var gettingfilelist: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
@@ -32,6 +34,12 @@ class ObserveableReferenceRestore: ObservableObject {
             .sink { [unowned self] filter in
                 validatefilter(filter)
             }.store(in: &subscriptions)
+        $selectedconfig
+            .sink { [unowned self] config in
+                if let config = config {
+                    getfilelist(config)
+                }
+            }.store(in: &subscriptions)
     }
 
     func validaterestorepath(_: String) {}
@@ -39,12 +47,23 @@ class ObserveableReferenceRestore: ObservableObject {
     func validatetypeofrestore(_: TypeofRestore) {}
 
     func validatefilter(_: String) {}
+
+    func getfilelist(_ config: Configuration) {
+        gettingfilelist = true
+        print(config)
+    }
 }
 
 extension ObserveableReferenceRestore: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
+
+    func processtermination() {
+        gettingfilelist = false
+    }
+
+    func filehandler() {}
 }
 
 enum RestoreError: LocalizedError {
