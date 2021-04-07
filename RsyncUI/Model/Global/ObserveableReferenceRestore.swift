@@ -49,7 +49,7 @@ final class ObserveableReferenceRestore: ObservableObject {
 
 extension ObserveableReferenceRestore {
     func processtermination() {
-        remotefilelist = outputprocess?.trimoutput(trim: .one)
+        remotefilelist = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         numberoffiles = remotefilelist?.count ?? 0
         gettingfilelist = false
     }
@@ -97,11 +97,10 @@ extension ObserveableReferenceRestore {
     }
 
     func getoutput() -> [Outputrecord]? {
-        let output = outputprocess?.getOutput()
-        guard output?.count ?? 0 > 0 else { return nil }
+        guard remotefilelist?.count ?? 0 > 0 else { return nil }
         var transformedoutput = [Outputrecord]()
-        for i in 0 ..< (output?.count ?? 0) {
-            transformedoutput.append(Outputrecord(line: output?[i] ?? ""))
+        for i in 0 ..< (remotefilelist?.count ?? 0) {
+            transformedoutput.append(Outputrecord(line: remotefilelist?[i] ?? ""))
         }
         return transformedoutput
     }
