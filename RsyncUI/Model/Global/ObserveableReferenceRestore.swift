@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 06/04/2021.
 //
+// swiftlint:disable line_length
 
 import Combine
 import Foundation
@@ -35,8 +36,8 @@ final class ObserveableReferenceRestore: ObservableObject {
             }.store(in: &subscriptions)
         $filterstring
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] filter in
-                validatefilter(filter)
+            .sink { [unowned self] _ in
+                reloadfiles()
             }.store(in: &subscriptions)
         $selectedconfig
             .sink { [unowned self] config in
@@ -79,7 +80,10 @@ extension ObserveableReferenceRestore {
 
     func validatetypeofrestore(_: TypeofRestore) {}
 
-    func validatefilter(_: String) {}
+    func reloadfiles() {
+        remotefilelist = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        numberoffiles = remotefilelist?.count ?? 0
+    }
 
     func getfilelist(_ config: Configuration) {
         gettingfilelist = true
