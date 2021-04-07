@@ -44,8 +44,16 @@ struct SingleTasksView: View {
                            selectable: $selectable)
 
         // Estimate singletask or Execute task now
-        if singletasknowstate.executetasknowstate == .execute { ImageZstackProgressview() }
-        if singletaskstate.singletaskstate == .estimate { ImageZstackProgressview() }
+        if singletasknowstate.executetasknowstate == .execute {
+            RotatingDotsIndicatorView()
+                .frame(width: 50.0, height: 50.0)
+                .foregroundColor(.red)
+        }
+        if singletaskstate.singletaskstate == .estimate {
+            RotatingDotsIndicatorView()
+                .frame(width: 50.0, height: 50.0)
+                .foregroundColor(.red)
+        }
         // Execute singletask
         if singletaskstate.singletaskstate == .estimated { progressviewexecute }
 

@@ -35,7 +35,11 @@ struct RestoreView: View {
                                selectable: $selectable)
         }
 
-        if restoresettings.gettingfilelist == true { ImageZstackProgressview() }
+        if restoresettings.gettingfilelist == true {
+            RotatingDotsIndicatorView()
+                .frame(width: 50.0, height: 50.0)
+                .foregroundColor(.red)
+        }
 
         Spacer()
 

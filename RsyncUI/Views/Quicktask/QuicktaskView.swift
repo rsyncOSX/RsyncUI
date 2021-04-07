@@ -54,7 +54,11 @@ struct QuicktaskView: View {
                     Spacer()
                 }
 
-                if showprogressview { ImageZstackProgressview() }
+                if showprogressview {
+                    RotatingDotsIndicatorView()
+                        .frame(width: 50.0, height: 50.0)
+                        .foregroundColor(.red)
+                }
             }
 
             VStack {

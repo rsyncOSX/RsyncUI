@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		E81CF81A25FF310D005D8667 /* SelectedstartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81CF81925FF310D005D8667 /* SelectedstartView.swift */; };
+		E82E2122261D817C00D07503 /* OpacityDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2118261D817C00D07503 /* OpacityDotsIndicatorView.swift */; };
+		E82E2123261D817C00D07503 /* GradientIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2119261D817C00D07503 /* GradientIndicatorView.swift */; };
+		E82E2124261D817C00D07503 /* GrowingArcIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211A261D817C00D07503 /* GrowingArcIndicatorView.swift */; };
+		E82E2125261D817C00D07503 /* DefaultIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211B261D817C00D07503 /* DefaultIndicatorView.swift */; };
+		E82E2126261D817C00D07503 /* GrowingCircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211C261D817C00D07503 /* GrowingCircleIndicatorView.swift */; };
+		E82E2127261D817C00D07503 /* EqualizerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211D261D817C00D07503 /* EqualizerIndicatorView.swift */; };
+		E82E2128261D817C00D07503 /* RotatingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211E261D817C00D07503 /* RotatingDotsIndicatorView.swift */; };
+		E82E2129261D817C00D07503 /* ArcsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E211F261D817C00D07503 /* ArcsIndicatorView.swift */; };
+		E82E212A261D817C00D07503 /* FlickeringDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2120261D817C00D07503 /* FlickeringDotsIndicatorView.swift */; };
+		E82E212B261D817C00D07503 /* ScalingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2121261D817C00D07503 /* ScalingDotsIndicatorView.swift */; };
 		E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835457325FE4EBF00A724EE /* SearchbarView.swift */; };
 		E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E879883425F8B512004D68C2 /* VerifySshView.swift */; };
 		E88F68B625F8A7A30010F33C /* Sshcopykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68B525F8A7A30010F33C /* Sshcopykey.swift */; };
@@ -221,6 +231,16 @@
 
 /* Begin PBXFileReference section */
 		E81CF81925FF310D005D8667 /* SelectedstartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedstartView.swift; sourceTree = "<group>"; };
+		E82E2118261D817C00D07503 /* OpacityDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpacityDotsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/OpacityDotsIndicatorView.swift; sourceTree = "<group>"; };
+		E82E2119261D817C00D07503 /* GradientIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/GradientIndicatorView.swift; sourceTree = "<group>"; };
+		E82E211A261D817C00D07503 /* GrowingArcIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GrowingArcIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/GrowingArcIndicatorView.swift; sourceTree = "<group>"; };
+		E82E211B261D817C00D07503 /* DefaultIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/DefaultIndicatorView.swift; sourceTree = "<group>"; };
+		E82E211C261D817C00D07503 /* GrowingCircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GrowingCircleIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/GrowingCircleIndicatorView.swift; sourceTree = "<group>"; };
+		E82E211D261D817C00D07503 /* EqualizerIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EqualizerIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/EqualizerIndicatorView.swift; sourceTree = "<group>"; };
+		E82E211E261D817C00D07503 /* RotatingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RotatingDotsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/RotatingDotsIndicatorView.swift; sourceTree = "<group>"; };
+		E82E211F261D817C00D07503 /* ArcsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArcsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/ArcsIndicatorView.swift; sourceTree = "<group>"; };
+		E82E2120261D817C00D07503 /* FlickeringDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickeringDotsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/FlickeringDotsIndicatorView.swift; sourceTree = "<group>"; };
+		E82E2121261D817C00D07503 /* ScalingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScalingDotsIndicatorView.swift; path = ../../../../../../GitHubOther/ActivityIndicatorView/Source/Indicators/ScalingDotsIndicatorView.swift; sourceTree = "<group>"; };
 		E835457325FE4EBF00A724EE /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		E879883425F8B512004D68C2 /* VerifySshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySshView.swift; sourceTree = "<group>"; };
 		E88F68B525F8A7A30010F33C /* Sshcopykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshcopykey.swift; sourceTree = "<group>"; };
@@ -453,6 +473,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E82E2117261D812400D07503 /* Indicators */ = {
+			isa = PBXGroup;
+			children = (
+				E82E211F261D817C00D07503 /* ArcsIndicatorView.swift */,
+				E82E211B261D817C00D07503 /* DefaultIndicatorView.swift */,
+				E82E211D261D817C00D07503 /* EqualizerIndicatorView.swift */,
+				E82E2120261D817C00D07503 /* FlickeringDotsIndicatorView.swift */,
+				E82E2119261D817C00D07503 /* GradientIndicatorView.swift */,
+				E82E211A261D817C00D07503 /* GrowingArcIndicatorView.swift */,
+				E82E211C261D817C00D07503 /* GrowingCircleIndicatorView.swift */,
+				E82E2118261D817C00D07503 /* OpacityDotsIndicatorView.swift */,
+				E82E211E261D817C00D07503 /* RotatingDotsIndicatorView.swift */,
+				E82E2121261D817C00D07503 /* ScalingDotsIndicatorView.swift */,
+			);
+			path = Indicators;
+			sourceTree = "<group>";
+		};
 		E927AAD12616E23100DC27A3 /* Quicktask */ = {
 			isa = PBXGroup;
 			children = (
@@ -593,6 +630,7 @@
 		E985C62025F3AD8400CB895C /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				E82E2117261D812400D07503 /* Indicators */,
 				E985C62125F3AD8400CB895C /* ToggleView.swift */,
 				E985C62225F3AD8400CB895C /* Viewmodifiers.swift */,
 				E8902992260B0EF700F4F0DC /* ButtonStyles.swift */,
@@ -1251,6 +1289,7 @@
 				E95EDC8A26063EAA000018DE /* ObserveableParametersRsync.swift in Sources */,
 				E985C65A25F3AD8400CB895C /* Sidebar.swift in Sources */,
 				E985C78325F3AD9700CB895C /* Equal.swift in Sources */,
+				E82E2122261D817C00D07503 /* OpacityDotsIndicatorView.swift in Sources */,
 				E985C67925F3AD8400CB895C /* ImageRsyncOSX.swift in Sources */,
 				E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */,
 				E985C74F25F3AD9700CB895C /* ReadWriteDictionary.swift in Sources */,
@@ -1267,6 +1306,7 @@
 				E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */,
 				E985C65625F3AD8400CB895C /* RsyncUIView.swift in Sources */,
 				E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */,
+				E82E2124261D817C00D07503 /* GrowingArcIndicatorView.swift in Sources */,
 				E985C79525F3AD9700CB895C /* RsyncVersionString.swift in Sources */,
 				E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */,
 				E985C72D25F3AD9700CB895C /* Snapshotlogsandcatalogs.swift in Sources */,
@@ -1291,12 +1331,14 @@
 				E985C75A25F3AD9700CB895C /* PersistentStorage.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
 				E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */,
+				E82E2123261D817C00D07503 /* GradientIndicatorView.swift in Sources */,
 				E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */,
 				E985C75F25F3AD9700CB895C /* PersistentStorageConfigurationJSON.swift in Sources */,
 				E985C75E25F3AD9700CB895C /* PersistentStorageConfigurationPLIST.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
 				E98E086325FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift in Sources */,
 				E985C76D25F3AD9700CB895C /* Estimation.swift in Sources */,
+				E82E212B261D817C00D07503 /* ScalingDotsIndicatorView.swift in Sources */,
 				E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */,
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
 				E985C74525F3AD9700CB895C /* RemoteNumbers.swift in Sources */,
@@ -1317,6 +1359,7 @@
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
 				E99C2400261C322E009D4DBF /* ObserveableReferenceRestore.swift in Sources */,
 				E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */,
+				E82E2128261D817C00D07503 /* RotatingDotsIndicatorView.swift in Sources */,
 				E985C68E25F3AD8400CB895C /* MultipletasksView.swift in Sources */,
 				E985C68B25F3AD8400CB895C /* OutputEstimatedView.swift in Sources */,
 				E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */,
@@ -1354,6 +1397,7 @@
 				E985C73B25F3AD9700CB895C /* yudpsocket.c in Sources */,
 				E985C78F25F3AD9700CB895C /* SetRsyncParameters.swift in Sources */,
 				E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */,
+				E82E2126261D817C00D07503 /* GrowingCircleIndicatorView.swift in Sources */,
 				E985C75625F3AD9700CB895C /* TransformSchedulefromJSON.swift in Sources */,
 				E985C65B25F3AD8400CB895C /* LogsbyConfigurationView.swift in Sources */,
 				E985C67E25F3AD8400CB895C /* ScheduleRowSchedules.swift in Sources */,
@@ -1366,6 +1410,7 @@
 				E985C73925F3AD9700CB895C /* Alerts.swift in Sources */,
 				E985C76325F3AD9700CB895C /* SingleTaskState.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
+				E82E212A261D817C00D07503 /* FlickeringDotsIndicatorView.swift in Sources */,
 				E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */,
 				E985C68625F3AD8400CB895C /* ConfirmUpdatedView.swift in Sources */,
 				E985C75825F3AD9700CB895C /* SchedulesData.swift in Sources */,
@@ -1377,16 +1422,19 @@
 				E985C66025F3AD8400CB895C /* ParametersList.swift in Sources */,
 				E985C75325F3AD9700CB895C /* TransformConfigfromJSON.swift in Sources */,
 				E985C75725F3AD9700CB895C /* ConfigurationsData.swift in Sources */,
+				E82E2127261D817C00D07503 /* EqualizerIndicatorView.swift in Sources */,
 				E9168C092615AB8500B139CE /* AddPostandPreView.swift in Sources */,
 				E985C77B25F3AD9700CB895C /* DuArgumentsSsh.swift in Sources */,
 				E985C73A25F3AD9700CB895C /* Checkfornewversion.swift in Sources */,
 				E985C76925F3AD9700CB895C /* ExecuteSingleTaskNow.swift in Sources */,
 				E985C79225F3AD9700CB895C /* Extensions.swift in Sources */,
 				E985C67F25F3AD8400CB895C /* SidebarSchedulesView.swift in Sources */,
+				E82E2129261D817C00D07503 /* ArcsIndicatorView.swift in Sources */,
 				E985C78025F3AD9700CB895C /* AllLoggs.swift in Sources */,
 				E985C66825F3AD8400CB895C /* OutputRsyncView.swift in Sources */,
 				E9551ADB25F927580018E57E /* JSONView.swift in Sources */,
 				E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */,
+				E82E2125261D817C00D07503 /* DefaultIndicatorView.swift in Sources */,
 				E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */,
 				E985C68725F3AD8400CB895C /* EditValue.swift in Sources */,
 				E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */,

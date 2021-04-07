@@ -40,7 +40,10 @@ struct SnapshotsView: View {
             if notsnapshot == true { notasnapshottask }
         }
 
-        if snapshotdata.state == .getdata { ImageZstackProgressview() }
+        if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
+            .frame(width: 50.0, height: 50.0)
+            .foregroundColor(.red)
+        }
 
         HStack {
             Text(label)
