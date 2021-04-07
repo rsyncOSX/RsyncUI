@@ -47,7 +47,7 @@ struct OneConfigUUID: View {
     // Progressview for estimating and execute tasks without estimation
     var progressviewestimating: some View {
         RotatingDotsIndicatorView()
-            .frame(width: 50.0, height: 50.0)
+            .frame(width: 18.0, height: 18.0)
             .foregroundColor(.red)
     }
 
