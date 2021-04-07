@@ -36,7 +36,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 }
 
 struct AddConfigurationView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
 
     @Binding var selectedprofile: String?

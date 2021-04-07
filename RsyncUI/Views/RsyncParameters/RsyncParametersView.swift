@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RsyncParametersView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @Binding var reload: Bool
     @StateObject private var parameters = ObserveableParametersRsync()
     // Not used but requiered in parameter

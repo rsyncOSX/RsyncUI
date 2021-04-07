@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddPostandPreView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
 

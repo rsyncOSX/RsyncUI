@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExecuteAlltasksView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
     @Binding var presentestimatedsheetview: Bool

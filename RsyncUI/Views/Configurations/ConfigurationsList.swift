@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ConfigurationsList: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @Binding var selectedconfig: Configuration?
 
     // Used when selectable and starting progressview

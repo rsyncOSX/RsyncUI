@@ -22,7 +22,7 @@ struct Readdatafromstore {
     }
 }
 
-final class RsyncOSXdata: ObservableObject {
+final class RsyncUIdata: ObservableObject {
     @Published var rsyncdata: Readdatafromstore?
     @Published var configurations: [Configuration]?
     @Published var schedulesandlogs: [ConfigurationSchedule]?

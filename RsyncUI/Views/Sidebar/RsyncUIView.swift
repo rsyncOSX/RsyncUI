@@ -20,7 +20,7 @@ struct RsyncUIView: View {
             profilepicker
 
             Sidebar(reload: $reload, selectedprofile: $selectedprofile)
-                .environmentObject(RsyncOSXdata(profile: selectedprofile))
+                .environmentObject(RsyncUIdata(profile: selectedprofile))
                 .environmentObject(errorhandling)
                 .environmentObject(InprogressCountExecuteOneTaskDetails())
                 .onChange(of: reload, perform: { _ in

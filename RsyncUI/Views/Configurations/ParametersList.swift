@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ParametersList: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @Binding var selectedconfig: Configuration?
 
     var body: some View {

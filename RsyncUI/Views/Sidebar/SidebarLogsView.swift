@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SidebarLogsView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
 

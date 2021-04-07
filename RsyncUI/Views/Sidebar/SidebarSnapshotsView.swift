@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SidebarSnapshotsView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
 
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool

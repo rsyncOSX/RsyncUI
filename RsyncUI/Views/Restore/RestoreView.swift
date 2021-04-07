@@ -16,7 +16,7 @@ enum TypeofRestore: String, CaseIterable, Identifiable, CustomStringConvertible 
 }
 
 struct RestoreView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @StateObject var restoresettings = ObserveableReferenceRestore()
 
     @State private var presentsheetview = false

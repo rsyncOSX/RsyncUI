@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ScheduleRowSchedules: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     var configschedule: ConfigurationSchedule
 

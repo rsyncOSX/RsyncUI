@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct SingleTasksView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @EnvironmentObject var outputfromrsync: OutputFromRsync
     // Observing shortcuts
     @EnvironmentObject var shortcuts: ShortcutActions

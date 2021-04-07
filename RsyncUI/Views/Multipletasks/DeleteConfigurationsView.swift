@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeleteConfigurationsView: View {
-    @EnvironmentObject var rsyncOSXData: RsyncOSXdata
+    @EnvironmentObject var rsyncOSXData: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
     @Binding var reload: Bool
