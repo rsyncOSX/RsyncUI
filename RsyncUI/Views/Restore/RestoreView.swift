@@ -50,16 +50,18 @@ struct RestoreView: View {
 
             setpathforrestore
 
+            numberoffiles
+
             Spacer()
 
-            Button(NSLocalizedString("View", comment: "View button")) { presentoutput() }
+            Button(NSLocalizedString("View", comment: "RestoreView")) { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentsheetview) { viewoutput }
 
-            Button(NSLocalizedString("Restore", comment: "Delete")) {}
+            Button(NSLocalizedString("Restore", comment: "RestoreView")) {}
                 .buttonStyle(AbortButtonStyle())
 
-            Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
+            Button(NSLocalizedString("Abort", comment: "RestoreView")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
     }
@@ -76,12 +78,17 @@ struct RestoreView: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(250, NSLocalizedString("Path for restore", comment: "settings"), $restoresettings.restorepath)
+        EditValue(250, NSLocalizedString("Path for restore", comment: "RestoreView"), $restoresettings.restorepath)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     restoresettings.restorepath = pathforrestore
                 }
             })
+    }
+
+    var numberoffiles: some View {
+        Text(NSLocalizedString("Number of files", comment: "RestoreView") + ": " +
+            NumberFormatter.localizedString(from: NSNumber(value: restoresettings.numberoffiles), number: NumberFormatter.Style.decimal))
     }
 
     // Output
@@ -95,6 +102,8 @@ extension RestoreView {
     func abort() {}
 
     func presentoutput() {
+        // Check that files are not been collected
+        guard SharedReference.shared.process == nil else { return }
         // Output from realrun
         output = restoresettings.getoutput()
         presentsheetview = true

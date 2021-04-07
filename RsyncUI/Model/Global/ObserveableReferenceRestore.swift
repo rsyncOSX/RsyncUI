@@ -17,6 +17,7 @@ final class ObserveableReferenceRestore: ObservableObject {
     @Published var selectedconfig: Configuration?
     @Published var gettingfilelist: Bool = false
     @Published var outputprocess: OutputProcess?
+    @Published var numberoffiles: Int = 0
     // Combine
     var subscriptions = Set<AnyCancellable>()
     // remote filelist
@@ -48,8 +49,9 @@ final class ObserveableReferenceRestore: ObservableObject {
 
 extension ObserveableReferenceRestore {
     func processtermination() {
-        gettingfilelist = false
         remotefilelist = outputprocess?.trimoutput(trim: .one)
+        numberoffiles = remotefilelist?.count ?? 0
+        gettingfilelist = false
     }
 
     func filehandler() {}
