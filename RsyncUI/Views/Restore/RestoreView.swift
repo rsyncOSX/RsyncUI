@@ -4,12 +4,13 @@
 //
 //  Created by Thomas Evensen on 06/04/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
 enum TypeofRestore: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case fullrestore
-    case byfile
+    case fullrestore = "Full restore"
+    case byfile = "By file"
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase }
@@ -99,7 +100,9 @@ struct RestoreView: View {
 }
 
 extension RestoreView {
-    func abort() {}
+    func abort() {
+        _ = InterruptProcess()
+    }
 
     func presentoutput() {
         // Check that files are not been collected

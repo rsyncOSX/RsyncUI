@@ -42,7 +42,11 @@ final class ObserveableReferenceRestore: ObservableObject {
         $selectedconfig
             .sink { [unowned self] config in
                 // Only one process at time
-                guard SharedReference.shared.process == nil else { return }
+                // If change selection abort process
+                guard SharedReference.shared.process == nil else {
+                    _ = InterruptProcess()
+                    return
+                }
                 if let config = config { validatetaskandgetfilelist(config) }
             }.store(in: &subscriptions)
     }
@@ -119,7 +123,6 @@ extension ObserveableReferenceRestore: PropogateError {
 enum RestoreError: LocalizedError {
     case notvalidtaskforrestore
     case error1
-    case error2
 
     var errorDescription: String? {
         switch self {
@@ -127,8 +130,6 @@ enum RestoreError: LocalizedError {
             return NSLocalizedString("Restore not allowed for syncremote task", comment: "Restore") + "..."
         case .error1:
             return NSLocalizedString("Error1", comment: "Restore") + "..."
-        case .error2:
-            return NSLocalizedString("Error2", comment: "Restore") + "..."
         }
     }
 }
