@@ -104,9 +104,10 @@ struct AboutView: View {
 
     var translations: some View {
         VStack {
-            Text(italianstring)
-                .font(.caption)
-
+            /*
+             Text(italianstring)
+                 .font(.caption)
+             */
             Text(germanstring)
                 .font(.caption)
 
