@@ -32,7 +32,7 @@ struct RestoreView: View {
         VStack {
             SearchbarView(text: $restoresettings.filterstring)
                 .padding(.top, -20)
-            ConfigurationsList(selectedconfig: $restoresettings.selectedconfig.onChange {},
+            ConfigurationsList(selectedconfig: $restoresettings.selectedconfig,
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                selectable: $selectable)
@@ -88,8 +88,11 @@ struct RestoreView: View {
     }
 
     var numberoffiles: some View {
-        Text(NSLocalizedString("Number of files", comment: "RestoreView") + ": " +
-            NumberFormatter.localizedString(from: NSNumber(value: restoresettings.numberoffiles), number: NumberFormatter.Style.decimal))
+        HStack {
+            Text(NSLocalizedString("Number of files", comment: "RestoreView") + ": ")
+            Text(NumberFormatter.localizedString(from: NSNumber(value: restoresettings.numberoffiles), number: NumberFormatter.Style.decimal))
+                .foregroundColor(Color.blue)
+        }
     }
 
     // Output
@@ -107,6 +110,11 @@ extension RestoreView {
     func presentoutput() {
         // Check that files are not been collected
         guard SharedReference.shared.process == nil else { return }
+        guard restoresettings.selectedconfig != nil else {
+            restoresettings.outputprocess = nil
+            restoresettings.numberoffiles = 0
+            return
+        }
         // Output from realrun
         output = restoresettings.getoutput()
         presentsheetview = true
