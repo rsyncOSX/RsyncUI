@@ -35,16 +35,6 @@ struct Sidebar: View {
             Spacer()
 
             Group {
-                NavigationLink(destination: QuicktaskView(),
-                               tag: NavigationItem.quicktask,
-                               selection: $selection) {
-                    Label(NSLocalizedString("Quick task", comment: "sidebar"),
-                          systemImage: "arrowshape.turn.up.backward.fill")
-                }
-                .tag(NavigationItem.quicktask)
-
-                Divider()
-
                 NavigationLink(destination: SidebarMultipletasksView(reload: $reload),
                                tag: NavigationItem.estimation,
                                selection: $selection) {
@@ -61,6 +51,14 @@ struct Sidebar: View {
                           systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.singletasks)
+
+                NavigationLink(destination: QuicktaskView(),
+                               tag: NavigationItem.quicktask,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Quick task", comment: "sidebar"),
+                          systemImage: "arrowshape.turn.up.backward.fill")
+                }
+                .tag(NavigationItem.quicktask)
             }
 
             Divider()
