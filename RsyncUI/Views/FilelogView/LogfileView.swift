@@ -14,7 +14,7 @@ struct LogfileView: View {
     var body: some View {
         VStack {
             Section(header: header) {
-                List(textfile) { record in
+                List(textfile, id: \.self) { record in
                     Text(record.line)
                         .modifier(FixedTag(750, .leading))
                 }

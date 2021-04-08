@@ -12,13 +12,15 @@ struct OutputRsyncView: View {
     @Binding var isPresented: Bool
     @Binding var output: [Outputrecord]?
 
+    @State private var selection: Outputrecord?
+
     var body: some View {
         VStack {
             Text(NSLocalizedString("Output from rsync", comment: "OutputRsyncView"))
                 .font(.title2)
                 .padding()
 
-            List(output ?? []) { record in
+            List(output ?? [], id: \.self, selection: $selection) { record in
                 Text(record.line)
                     .modifier(FixedTag(750, .leading))
             }

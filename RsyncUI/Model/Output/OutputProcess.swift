@@ -9,8 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct Outputrecord: Identifiable {
-    var id = UUID()
+struct Outputrecord: Hashable {
     var line: String
 }
 
