@@ -40,7 +40,7 @@ final class ExecuteSingleTask {
     func estimate() {
         guard SharedReference.shared.process == nil else { return }
         // Debug print
-        printdebugdata(uuid)
+        // printdebugdata(uuid)
         // Debug print
         if let hiddenID = self.hiddenID {
             outputprocess = OutputProcessRsync()

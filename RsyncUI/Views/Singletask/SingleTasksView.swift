@@ -38,22 +38,26 @@ struct SingleTasksView: View {
     @State private var selectable = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
+        ZStack {
+            ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               selectable: $selectable)
 
-        // Estimate singletask or Execute task now
-        if singletasknowstate.executetasknowstate == .execute {
-            RotatingDotsIndicatorView()
-                .frame(width: 50.0, height: 50.0)
-                .foregroundColor(.red)
+            // Estimate singletask or Execute task now
+            if singletasknowstate.executetasknowstate == .execute {
+                RotatingDotsIndicatorView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(.red)
+            }
+
+            if singletaskstate.singletaskstate == .estimate {
+                RotatingDotsIndicatorView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(.red)
+            }
         }
-        if singletaskstate.singletaskstate == .estimate {
-            RotatingDotsIndicatorView()
-                .frame(width: 50.0, height: 50.0)
-                .foregroundColor(.red)
-        }
+
         // Execute singletask
         if singletaskstate.singletaskstate == .estimated { progressviewexecute }
 

@@ -13,6 +13,7 @@ final class ObserveableReferenceRestore: ObservableObject {
     // When restore is ready set true
     @Published var isReady: Bool = false
     @Published var restorepath: String = ""
+    @Published var filestorestore: String = ""
     @Published var typeofrestore = TypeofRestore.byfile
     @Published var filterstring: String = ""
     @Published var selectedconfig: Configuration?
@@ -26,9 +27,14 @@ final class ObserveableReferenceRestore: ObservableObject {
 
     init() {
         $restorepath
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] path in
                 validaterestorepath(path)
+            }.store(in: &subscriptions)
+        $filestorestore
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .sink { [unowned self] path in
+                validatefilestorestore(path)
             }.store(in: &subscriptions)
         $typeofrestore
             .sink { [unowned self] type in
@@ -81,6 +87,8 @@ extension ObserveableReferenceRestore {
     }
 
     func validaterestorepath(_: String) {}
+
+    func validatefilestorestore(_: String) {}
 
     func validatetypeofrestore(_: TypeofRestore) {}
 

@@ -29,29 +29,37 @@ struct RestoreView: View {
     @State private var selectable = false
 
     var body: some View {
-        VStack {
-            SearchbarView(text: $restoresettings.filterstring)
-                .padding(.top, -20)
-            ConfigurationsList(selectedconfig: $restoresettings.selectedconfig,
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               selectable: $selectable)
-        }
+        ZStack {
+            VStack {
+                SearchbarView(text: $restoresettings.filterstring)
+                    .padding(.top, -20)
+                ConfigurationsList(selectedconfig: $restoresettings.selectedconfig,
+                                   selecteduuids: $selecteduuids,
+                                   inwork: $inwork,
+                                   selectable: $selectable)
+            }
 
-        if restoresettings.gettingfilelist == true {
-            RotatingDotsIndicatorView()
-                .frame(width: 50.0, height: 50.0)
-                .foregroundColor(.red)
+            if restoresettings.gettingfilelist == true {
+                RotatingDotsIndicatorView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(.red)
+            }
         }
 
         Spacer()
 
         HStack {
-            pickerselecttypeofrestore
+            VStack(alignment: .leading) {
+                setpathforrestore
 
-            setpathforrestore
+                setfilestorestore
+            }
 
-            numberoffiles
+            VStack(alignment: .leading) {
+                pickerselecttypeofrestore
+
+                numberoffiles
+            }
 
             Spacer()
 
@@ -59,7 +67,7 @@ struct RestoreView: View {
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentsheetview) { viewoutput }
 
-            Button(NSLocalizedString("Restore", comment: "RestoreView")) {}
+            Button(NSLocalizedString("Restore", comment: "RestoreView")) { restore() }
                 .buttonStyle(AbortButtonStyle())
 
             Button(NSLocalizedString("Abort", comment: "RestoreView")) { abort() }
@@ -85,6 +93,10 @@ struct RestoreView: View {
                     restoresettings.restorepath = pathforrestore
                 }
             })
+    }
+
+    var setfilestorestore: some View {
+        EditValue(250, NSLocalizedString("Select files to restore", comment: "RestoreView"), $restoresettings.filestorestore)
     }
 
     var numberoffiles: some View {
@@ -118,5 +130,9 @@ extension RestoreView {
         // Output from realrun
         output = restoresettings.getoutput()
         presentsheetview = true
+    }
+
+    func restore() {
+        _ = NotYetImplemented()
     }
 }
