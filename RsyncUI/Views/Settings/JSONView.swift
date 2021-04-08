@@ -26,7 +26,7 @@ struct JSONView: View {
                 // For center
                 Spacer()
                 // Column 1
-                VStack(alignment: .leading) {
+                VStack {
                     Section(header: headerJSON) {
                         // Verify JSON or Plist
                         Button(NSLocalizedString("Verify", comment: "usersetting")) { verifyconverted(profile: selectedprofile) }
@@ -49,7 +49,7 @@ struct JSONView: View {
                 .padding()
 
                 // Column 2
-                VStack(alignment: .leading) {
+                VStack {
                     Section(header: headerjsonsettings) {
                         ToggleView(NSLocalizedString("Enable JSON", comment: "settings"), $usersettings.json.onChange {
                             showingAlertjson = true
