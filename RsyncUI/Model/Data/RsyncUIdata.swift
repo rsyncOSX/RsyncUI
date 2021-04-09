@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 28/12/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -28,7 +29,27 @@ final class RsyncUIdata: ObservableObject {
     @Published var schedulesandlogs: [ConfigurationSchedule]?
     @Published var arguments: [ArgumentsOneConfiguration]?
     @Published var profile: String?
-    @Published var alllogssorted: [Log]?
+    // All logs and sorted logs
+    // Sort and filter logs so the view does not trigger a refresh
+    var alllogssorted: [Log]?
+    var filterlogsorted: [Log]?
+    var filterlogsortedbyhiddenID: [Log]?
+
+    func filter(_ filter: String) {
+        // Important - must localize search in dates
+        filterlogsorted = alllogssorted?.filter {
+            filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+                filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+        }
+    }
+
+    func filterbyhiddenID(_ filter: String, _ hiddenID: Int) {
+        // Important - must localize search in dates
+        filterlogsortedbyhiddenID = rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID: hiddenID)?.filter {
+            filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+                filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+        }
+    }
 
     func update() {
         objectWillChange.send()
@@ -45,6 +66,8 @@ final class RsyncUIdata: ObservableObject {
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
         arguments = rsyncdata?.configurationData.getarguments()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
+        filterlogsorted = alllogssorted
+        filterlogsortedbyhiddenID = alllogssorted
         objectWillChange.send()
     }
 }

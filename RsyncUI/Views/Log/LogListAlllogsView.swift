@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 11/03/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -21,11 +20,13 @@ struct LogListAlllogsView: View {
 
     var body: some View {
         Form {
-            SearchbarView(text: $filterstring)
+            SearchbarView(text: $filterstring.onChange {
+                rsyncUIData.filter(filterstring)
+            })
                 .padding(.top, -20)
 
             List(selection: $selectedlog) {
-                if let logs = filteredlogs {
+                if let logs = rsyncUIData.filterlogsorted {
                     ForEach(logs) { record in
                         LogRow(selecteduuids: $selecteduuids, logrecord: record)
                             .tag(record)
@@ -63,16 +64,8 @@ struct LogListAlllogsView: View {
         .padding()
     }
 
-    var filteredlogs: [Log]? {
-        // Important - must localize search in dates
-        rsyncUIData.alllogssorted?.filter {
-            filterstring.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring) ?? false ||
-                filterstring.isEmpty ? true : $0.resultExecuted?.contains(filterstring) ?? false
-        }
-    }
-
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(filteredlogs?.count ?? 0)"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIData.filterlogsorted?.count ?? 0)"
     }
 }
 
@@ -94,8 +87,8 @@ extension LogListAlllogsView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (filteredlogs?.count ?? 0) {
-            if let id = filteredlogs?[i].id {
+        for i in 0 ..< (rsyncUIData.filterlogsorted?.count ?? 0) {
+            if let id = rsyncUIData.filterlogsorted?[i].id {
                 selecteduuids.insert(id)
             }
         }

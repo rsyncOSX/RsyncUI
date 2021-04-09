@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 04/01/2021.
 //  Copyright © 2021 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -26,11 +25,14 @@ struct LogsbyConfigurationView: View {
 
     var body: some View {
         Form {
-            SearchbarView(text: $filterstring)
+            SearchbarView(text: $filterstring.onChange {
+                rsyncUIData.filterbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
+            })
                 .padding(.top, -20)
 
             ConfigurationsList(selectedconfig: $selectedconfig.onChange {
                 selecteduuids.removeAll()
+                rsyncUIData.filterbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
             },
             selecteduuids: $selecteduuids,
             inwork: $inwork,
@@ -39,7 +41,7 @@ struct LogsbyConfigurationView: View {
             Spacer()
 
             List(selection: $selectedlog) {
-                if let logs = filteredlogs {
+                if let logs = rsyncUIData.filterlogsortedbyhiddenID {
                     ForEach(logs) { record in
                         LogRow(selecteduuids: $selecteduuids, logrecord: record)
                             .tag(record)
@@ -77,15 +79,8 @@ struct LogsbyConfigurationView: View {
         .padding()
     }
 
-    var filteredlogs: [Log]? {
-        rsyncUIData.rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID: selectedconfig?.hiddenID ?? -1)?.filter {
-            filterstring.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring) ?? false ||
-                filterstring.isEmpty ? true : $0.resultExecuted?.contains(filterstring) ?? false
-        }
-    }
-
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(filteredlogs?.count ?? 0)"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIData.filterlogsortedbyhiddenID?.count ?? 0)"
     }
 }
 
@@ -107,8 +102,8 @@ extension LogsbyConfigurationView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (filteredlogs?.count ?? 0) {
-            if let id = filteredlogs?[i].id {
+        for i in 0 ..< (rsyncUIData.filterlogsortedbyhiddenID?.count ?? 0) {
+            if let id = rsyncUIData.filterlogsortedbyhiddenID?[i].id {
                 selecteduuids.insert(id)
             }
         }
