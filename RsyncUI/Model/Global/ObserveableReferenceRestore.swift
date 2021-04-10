@@ -8,6 +8,7 @@
 
 import Combine
 import Foundation
+import SwiftyBeaver
 
 final class ObserveableReferenceRestore: ObservableObject {
     // When restore is ready set true
@@ -24,6 +25,8 @@ final class ObserveableReferenceRestore: ObservableObject {
     var subscriptions = Set<AnyCancellable>()
     // remote filelist
     var remotefilelist: [String]?
+
+    let log = SwiftyBeaver.self
 
     init() {
         $restorepath
@@ -98,9 +101,8 @@ extension ObserveableReferenceRestore {
         numberoffiles = remotefilelist?.count ?? 0
         // Logg
         let diff = CFAbsoluteTimeGetCurrent() - start
-        let outputprocess = OutputProcess()
-        outputprocess.addlinefromoutput(str: "filter filenames: \(diff) seconds")
-        _ = Logfile(outputprocess, true)
+        log.info("filter filenames: \(diff) seconds")
+        log.info("number of lines: \(remotefilelist?.count ?? 0)")
     }
 
     func getfilelist(_ config: Configuration) {
@@ -126,10 +128,10 @@ extension ObserveableReferenceRestore {
             transformedoutput.append(Outputrecord(line: remotefilelist?[i] ?? ""))
         }
         // Logg
+        // Logg
         let diff = CFAbsoluteTimeGetCurrent() - start
-        let outputprocess = OutputProcess()
-        outputprocess.addlinefromoutput(str: "view output: \(diff) seconds")
-        _ = Logfile(outputprocess, true)
+        log.info("view output: \(diff) seconds")
+        log.info("number of lines: \(remotefilelist?.count ?? 0)")
         return transformedoutput
     }
 }

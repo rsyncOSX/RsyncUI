@@ -18,6 +18,15 @@
           "revision": "e1577acf2b6e90086d01a6d5e2b8efdaae033568",
           "version": "2.3.0"
         }
+      },
+      {
+        "package": "SwiftyBeaver",
+        "repositoryURL": "https://github.com/rsyncOSX/SwiftyBeaver.git",
+        "state": {
+          "branch": null,
+          "revision": "2c513a2e8fbfbd6495afc4a05941d8e3fdba68e9",
+          "version": "1.9.3"
+        }
       }
     ]
   },

@@ -209,6 +209,7 @@
 		E9C9306225FEA0010049A76B /* ObserveableReferenceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306125FEA0010049A76B /* ObserveableReferenceJSON.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */; };
 		E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */; };
+		E9DEC39E2621A8B300598E46 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = E9DEC39D2621A8B300598E46 /* SwiftyBeaver */; };
 		E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FDDD4825F3D0610050718C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -450,6 +451,7 @@
 			files = (
 				E985C7A425F3AFDE00CB895C /* Files in Frameworks */,
 				E985C79E25F3AF9C00CB895C /* ShellOut in Frameworks */,
+				E9DEC39E2621A8B300598E46 /* SwiftyBeaver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,6 +1113,7 @@
 			packageProductDependencies = (
 				E985C79D25F3AF9C00CB895C /* ShellOut */,
 				E985C7A325F3AFDE00CB895C /* Files */,
+				E9DEC39D2621A8B300598E46 /* SwiftyBeaver */,
 			);
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
@@ -1188,6 +1191,7 @@
 			packageReferences = (
 				E985C79C25F3AF9C00CB895C /* XCRemoteSwiftPackageReference "ShellOut" */,
 				E985C7A225F3AFDE00CB895C /* XCRemoteSwiftPackageReference "Files" */,
+				E9DEC39C2621A8B300598E46 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 			);
 			productRefGroup = E985C5C425F3AC0700CB895C /* Products */;
 			projectDirPath = "";
@@ -1825,6 +1829,14 @@
 				minimumVersion = 4.2.0;
 			};
 		};
+		E9DEC39C2621A8B300598E46 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rsyncOSX/SwiftyBeaver.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1837,6 +1849,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E985C7A225F3AFDE00CB895C /* XCRemoteSwiftPackageReference "Files" */;
 			productName = Files;
+		};
+		E9DEC39D2621A8B300598E46 /* SwiftyBeaver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9DEC39C2621A8B300598E46 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */;
+			productName = SwiftyBeaver;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
