@@ -93,8 +93,11 @@ final class RsyncProcessCmdCombineClosure: Delay {
                     _ = Logfile(outputprocess)
                     cancellable_filehandler = nil
                     cancellable_processtermination = nil
+                    // Logg
                     let diff = CFAbsoluteTimeGetCurrent() - start
-                    print("executeProcess: \(diff) seconds")
+                    let outputprocess = OutputProcess()
+                    outputprocess.addlinefromoutput(str: "executeProcess: \(diff) seconds")
+                    _ = Logfile(outputprocess, true)
                 }
             }
         SharedReference.shared.process = task

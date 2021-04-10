@@ -96,8 +96,11 @@ extension ObserveableReferenceRestore {
         let start = CFAbsoluteTimeGetCurrent()
         remotefilelist = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         numberoffiles = remotefilelist?.count ?? 0
+        // Logg
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print("filter filenames: \(diff) seconds")
+        let outputprocess = OutputProcess()
+        outputprocess.addlinefromoutput(str: "filter filenames: \(diff) seconds")
+        _ = Logfile(outputprocess, true)
     }
 
     func getfilelist(_ config: Configuration) {
@@ -122,8 +125,11 @@ extension ObserveableReferenceRestore {
         for i in 0 ..< (remotefilelist?.count ?? 0) {
             transformedoutput.append(Outputrecord(line: remotefilelist?[i] ?? ""))
         }
+        // Logg
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print("view output: \(diff) seconds")
+        let outputprocess = OutputProcess()
+        outputprocess.addlinefromoutput(str: "view output: \(diff) seconds")
+        _ = Logfile(outputprocess, true)
         return transformedoutput
     }
 }
