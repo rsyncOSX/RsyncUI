@@ -50,6 +50,7 @@ final class RsyncProcessCmdCombineClosure: Delay {
     func executeProcess(outputprocess: OutputProcess?) {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
+        let start = CFAbsoluteTimeGetCurrent()
         // Process
         let task = Process()
         // Getting version of rsync
@@ -92,6 +93,8 @@ final class RsyncProcessCmdCombineClosure: Delay {
                     _ = Logfile(outputprocess)
                     cancellable_filehandler = nil
                     cancellable_processtermination = nil
+                    let diff = CFAbsoluteTimeGetCurrent() - start
+                    print("executeProcess: \(diff) seconds")
                 }
             }
         SharedReference.shared.process = task
