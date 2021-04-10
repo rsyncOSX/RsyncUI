@@ -12,19 +12,13 @@ import SwiftyBeaver
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
-
     let log = SwiftyBeaver.self
-    // add log destinations. at least one is needed!
-    let console = ConsoleDestination() // log to Xcode Console
-    let file = FileDestination() // log to default swiftybeaver.log file
 
     func applicationDidFinishLaunching(_: Notification) {
-        // use custom format and set console output to short time, log level & message
-        console.format = "$DHH:mm:ss$d $L $M"
-        // or use this for JSON output: console.format = "$J"
-
-        // add the destinations to SwiftyBeaver
-        log.addDestination(console)
+        // add log destinations. at least one is needed!
+        let file = FileDestination() // log to default swiftybeaver.log file
+        file.format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $C$L$c: $M"
+        file.logFileURL = URL(fileURLWithPath: "/tmp/rsyncui.log")
         log.addDestination(file)
         // Decide if:
         // 1: First time start, use new profilepath
