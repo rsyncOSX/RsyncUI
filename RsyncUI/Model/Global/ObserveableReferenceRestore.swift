@@ -120,13 +120,8 @@ extension ObserveableReferenceRestore {
         command.executeProcess(outputprocess: outputprocess)
     }
 
-    func getoutput() -> [Outputrecord]? {
-        guard remotefilelist?.count ?? 0 > 0 else { return nil }
-        var transformedoutput = [Outputrecord]()
-        for i in 0 ..< (remotefilelist?.count ?? 0) {
-            transformedoutput.append(Outputrecord(line: remotefilelist?[i] ?? ""))
-        }
-        return transformedoutput
+    func getoutput() -> [String]? {
+        return remotefilelist
     }
 }
 

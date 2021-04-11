@@ -22,7 +22,7 @@ struct RestoreView: View {
     @StateObject var restoresettings = ObserveableReferenceRestore()
 
     @State private var presentsheetview = false
-    @State private var output: [Outputrecord]?
+    @State private var output: [String]?
 
     // Not used but requiered in parameter
     @State private var selecteduuids = Set<UUID>()

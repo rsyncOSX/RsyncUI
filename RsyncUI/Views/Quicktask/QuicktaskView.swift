@@ -19,7 +19,7 @@ struct QuicktaskView: View {
 
     // Executed labels
     @State private var executed = false
-    @State private var output: [Outputrecord]?
+    @State private var output: [String]?
     @State private var presentsheetview = false
     @State private var showprogressview = false
     @State private var rsyncoutput: InprogressCountRsyncOutput?

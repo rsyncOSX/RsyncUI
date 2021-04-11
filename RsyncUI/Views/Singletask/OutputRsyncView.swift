@@ -10,9 +10,9 @@ import SwiftUI
 struct OutputRsyncView: View {
     // @Binding var config: Configuration?
     @Binding var isPresented: Bool
-    @Binding var output: [Outputrecord]?
+    @Binding var output: [String]?
 
-    @State private var selection: Outputrecord?
+    @State private var selection: String?
 
     var body: some View {
         VStack {
@@ -20,8 +20,8 @@ struct OutputRsyncView: View {
                 .font(.title2)
                 .padding()
 
-            List(output ?? [], id: \.self, selection: $selection) { record in
-                Text(record.line)
+            List(output ?? [], id: \.self, selection: $selection) { line in
+                Text(line)
                     .modifier(FixedTag(750, .leading))
             }
 

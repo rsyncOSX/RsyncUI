@@ -12,7 +12,7 @@ protocol UpdateOutputprocessCountProtcol: AnyObject {
     func getmaxcount() -> Int
     func setmaxcount(num: Int)
     func setoutput(data: [String]?)
-    func getoutput() -> [Outputrecord]?
+    func getoutput() -> [String]?
 }
 
 final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCountProtcol {
@@ -50,13 +50,8 @@ final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCou
         output = data
     }
 
-    func getoutput() -> [Outputrecord]? {
-        guard output?.count ?? 0 > 0 else { return nil }
-        var transformedoutput = [Outputrecord]()
-        for i in 0 ..< (output?.count ?? 0) {
-            transformedoutput.append(Outputrecord(line: output?[i] ?? ""))
-        }
-        return transformedoutput
+    func getoutput() -> [String]? {
+        return output
     }
 
     func setoutput() {

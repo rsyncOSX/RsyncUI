@@ -21,3 +21,5 @@ final class OutputProcessRsync: OutputProcess {
         }
     }
 }
+
+extension String: Identifiable { public var id: String { self } }

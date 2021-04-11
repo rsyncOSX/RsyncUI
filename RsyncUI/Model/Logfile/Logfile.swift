@@ -24,9 +24,9 @@ enum FilesizeError: LocalizedError {
 final class Logfile: NamesandPaths {
     private var outputprocess: OutputProcess?
     private var logfile: String?
-    private var preparedlogview = [Outputrecord]()
+    private var preparedlogview = [String]()
 
-    func getlogfile() -> [Outputrecord] {
+    func getlogfile() -> [String] {
         return preparedlogview
     }
 
@@ -133,7 +133,7 @@ final class Logfile: NamesandPaths {
     private func preparelogfile() {
         if let data = logfile?.components(separatedBy: .newlines) {
             for i in 0 ..< data.count {
-                preparedlogview.append(Outputrecord(line: data[i]))
+                preparedlogview.append(data[i])
             }
         }
     }

@@ -9,10 +9,6 @@
 import Foundation
 import SwiftUI
 
-struct Outputrecord: Hashable {
-    var line: String
-}
-
 enum Rsyncerror: LocalizedError {
     case rsyncerror
 

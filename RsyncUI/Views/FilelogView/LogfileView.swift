@@ -14,8 +14,8 @@ struct LogfileView: View {
     var body: some View {
         VStack {
             Section(header: header) {
-                List(textfile, id: \.self) { record in
-                    Text(record.line)
+                List(textfile) { line in
+                    Text(line)
                         .modifier(FixedTag(750, .leading))
                 }
                 .onChange(of: resetloggfile, perform: { _ in
@@ -40,7 +40,7 @@ struct LogfileView: View {
             .modifier(FixedTag(200, .center))
     }
 
-    var textfile: [Outputrecord] {
+    var textfile: [String] {
         return Logfile().getlogfile()
     }
 

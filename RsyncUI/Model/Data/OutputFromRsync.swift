@@ -10,13 +10,13 @@
 import Foundation
 
 final class OutputFromRsync: ObservableObject {
-    private var output: [Outputrecord]?
+    private var output: [String]?
 
-    func setoutput(output: [Outputrecord]?) {
+    func setoutput(output: [String]?) {
         self.output = output
     }
 
-    func getoutput() -> [Outputrecord]? {
+    func getoutput() -> [String]? {
         return output
     }
 

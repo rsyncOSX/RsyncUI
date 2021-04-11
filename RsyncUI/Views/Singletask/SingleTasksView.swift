@@ -28,7 +28,7 @@ struct SingleTasksView: View {
     @State private var selectedconfig: Configuration?
     @State private var executestate: SingleTaskWork = .start
     @State private var presentsheetview = false
-    @State private var output: [Outputrecord]?
+    @State private var output: [String]?
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
     @Binding var reload: Bool
