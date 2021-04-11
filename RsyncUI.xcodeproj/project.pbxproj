@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E81CF81A25FF310D005D8667 /* SelectedstartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81CF81925FF310D005D8667 /* SelectedstartView.swift */; };
 		E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835457325FE4EBF00A724EE /* SearchbarView.swift */; };
+		E865920E262334F20018F841 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = E865920D262334F20018F841 /* Logging */; };
 		E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E879883425F8B512004D68C2 /* VerifySshView.swift */; };
 		E88F68B625F8A7A30010F33C /* Sshcopykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68B525F8A7A30010F33C /* Sshcopykey.swift */; };
 		E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68BA25F8A7D30010F33C /* Sshverifykey.swift */; };
@@ -209,7 +210,6 @@
 		E9C9306225FEA0010049A76B /* ObserveableReferenceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306125FEA0010049A76B /* ObserveableReferenceJSON.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */; };
 		E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */; };
-		E9DEC39E2621A8B300598E46 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = E9DEC39D2621A8B300598E46 /* SwiftyBeaver */; };
 		E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FDDD4825F3D0610050718C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -449,9 +449,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E865920E262334F20018F841 /* Logging in Frameworks */,
 				E985C7A425F3AFDE00CB895C /* Files in Frameworks */,
 				E985C79E25F3AF9C00CB895C /* ShellOut in Frameworks */,
-				E9DEC39E2621A8B300598E46 /* SwiftyBeaver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1113,7 +1113,7 @@
 			packageProductDependencies = (
 				E985C79D25F3AF9C00CB895C /* ShellOut */,
 				E985C7A325F3AFDE00CB895C /* Files */,
-				E9DEC39D2621A8B300598E46 /* SwiftyBeaver */,
+				E865920D262334F20018F841 /* Logging */,
 			);
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
@@ -1191,7 +1191,7 @@
 			packageReferences = (
 				E985C79C25F3AF9C00CB895C /* XCRemoteSwiftPackageReference "ShellOut" */,
 				E985C7A225F3AFDE00CB895C /* XCRemoteSwiftPackageReference "Files" */,
-				E9DEC39C2621A8B300598E46 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
+				E865920C262334F20018F841 /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			productRefGroup = E985C5C425F3AC0700CB895C /* Products */;
 			projectDirPath = "";
@@ -1813,6 +1813,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E865920C262334F20018F841 /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.2;
+			};
+		};
 		E985C79C25F3AF9C00CB895C /* XCRemoteSwiftPackageReference "ShellOut" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/ShellOut";
@@ -1829,17 +1837,14 @@
 				minimumVersion = 4.2.0;
 			};
 		};
-		E9DEC39C2621A8B300598E46 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rsyncOSX/SwiftyBeaver.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.9.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E865920D262334F20018F841 /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E865920C262334F20018F841 /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
 		E985C79D25F3AF9C00CB895C /* ShellOut */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E985C79C25F3AF9C00CB895C /* XCRemoteSwiftPackageReference "ShellOut" */;
@@ -1849,11 +1854,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E985C7A225F3AFDE00CB895C /* XCRemoteSwiftPackageReference "Files" */;
 			productName = Files;
-		};
-		E9DEC39D2621A8B300598E46 /* SwiftyBeaver */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E9DEC39C2621A8B300598E46 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */;
-			productName = SwiftyBeaver;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

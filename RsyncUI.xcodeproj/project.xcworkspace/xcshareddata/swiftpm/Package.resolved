@@ -20,12 +20,12 @@
         }
       },
       {
-        "package": "SwiftyBeaver",
-        "repositoryURL": "https://github.com/rsyncOSX/SwiftyBeaver.git",
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "2c513a2e8fbfbd6495afc4a05941d8e3fdba68e9",
-          "version": "1.9.3"
+          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+          "version": "1.4.2"
         }
       }
     ]

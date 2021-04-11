@@ -7,19 +7,12 @@
 
 import Cocoa
 import SwiftUI
-import SwiftyBeaver
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
-    let log = SwiftyBeaver.self
 
     func applicationDidFinishLaunching(_: Notification) {
-        // add log destinations. at least one is needed!
-        let file = FileDestination() // log to default swiftybeaver.log file
-        file.format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $C$L$c: $M"
-        file.logFileURL = URL(fileURLWithPath: "/tmp/rsyncui.log")
-        log.addDestination(file)
         // Decide if:
         // 1: First time start, use new profilepath
         // 2: Old profilepath is copied to new, use new profilepath

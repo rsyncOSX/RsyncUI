@@ -7,7 +7,6 @@
 
 import Combine
 import Foundation
-import SwiftyBeaver
 
 final class RsyncProcessCmdCombineClosure: Delay {
     var cancellable_processtermination: Cancellable?
@@ -21,8 +20,6 @@ final class RsyncProcessCmdCombineClosure: Delay {
     var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
-
-    let log = SwiftyBeaver.self
 
     func executemonitornetworkconnection() {
         guard config?.offsiteServer.isEmpty == false else { return }
@@ -98,7 +95,7 @@ final class RsyncProcessCmdCombineClosure: Delay {
                     cancellable_processtermination = nil
                     // Logg
                     let diff = CFAbsoluteTimeGetCurrent() - start
-                    log.info("executeProcess: \(diff) seconds")
+                    print("executeProcess: \(diff) seconds")
                 }
             }
         SharedReference.shared.process = task

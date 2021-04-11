@@ -7,7 +7,6 @@
 // swiftlint:disable line_length
 
 import SwiftUI
-import SwiftyBeaver
 
 enum TypeofRestore: String, CaseIterable, Identifiable, CustomStringConvertible {
     case fullrestore = "Full restore"
@@ -28,8 +27,6 @@ struct RestoreView: View {
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork = -1
     @State private var selectable = false
-
-    let log = SwiftyBeaver.self
 
     var body: some View {
         ZStack {
