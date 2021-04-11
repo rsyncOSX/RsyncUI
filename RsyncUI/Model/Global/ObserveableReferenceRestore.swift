@@ -14,7 +14,6 @@ final class ObserveableReferenceRestore: ObservableObject {
     @Published var isReady: Bool = false
     @Published var restorepath: String = ""
     @Published var filestorestore: String = ""
-    @Published var typeofrestore = TypeofRestore.byfile
     @Published var filterstring: String = ""
     @Published var selectedconfig: Configuration?
     @Published var gettingfilelist: Bool = false
@@ -35,10 +34,6 @@ final class ObserveableReferenceRestore: ObservableObject {
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] path in
                 validatefilestorestore(path)
-            }.store(in: &subscriptions)
-        $typeofrestore
-            .sink { [unowned self] type in
-                validatetypeofrestore(type)
             }.store(in: &subscriptions)
         $filterstring
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
@@ -90,17 +85,15 @@ extension ObserveableReferenceRestore {
 
     func validatefilestorestore(_: String) {}
 
-    func validatetypeofrestore(_: TypeofRestore) {}
-
     func reloadfiles() {
         remotefilelist = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         numberoffiles = remotefilelist?.count ?? 0
         /* Logging runtime
-        let start = CFAbsoluteTimeGetCurrent()
-        let diff = CFAbsoluteTimeGetCurrent() - start
-        print("filter filenames: \(diff) seconds")
-        print("number of lines: \(remotefilelist?.count ?? 0)")
-         */
+         let start = CFAbsoluteTimeGetCurrent()
+         let diff = CFAbsoluteTimeGetCurrent() - start
+         print("filter filenames: \(diff) seconds")
+         print("number of lines: \(remotefilelist?.count ?? 0)")
+          */
     }
 
     func getfilelist(_ config: Configuration) {

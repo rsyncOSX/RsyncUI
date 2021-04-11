@@ -8,14 +8,6 @@
 
 import SwiftUI
 
-enum TypeofRestore: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case fullrestore = "Full restore"
-    case byfile = "By file"
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
-}
-
 struct RestoreView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var restoresettings = ObserveableReferenceRestore()
@@ -31,8 +23,17 @@ struct RestoreView: View {
     var body: some View {
         ZStack {
             VStack {
-                SearchbarView(text: $restoresettings.filterstring)
-                    .padding(.top, -20)
+                HStack {
+                    SearchbarView(text: $restoresettings.filterstring)
+
+                    Spacer()
+
+                    numberoffiles
+
+                    Spacer()
+                }
+                .padding(.top, -20)
+
                 ConfigurationsList(selectedconfig: $restoresettings.selectedconfig,
                                    selecteduuids: $selecteduuids,
                                    inwork: $inwork,
@@ -55,12 +56,6 @@ struct RestoreView: View {
                 setfilestorestore
             }
 
-            VStack(alignment: .leading) {
-                pickerselecttypeofrestore
-
-                numberoffiles
-            }
-
             Spacer()
 
             Button(NSLocalizedString("View", comment: "RestoreView")) { presentoutput() }
@@ -75,19 +70,8 @@ struct RestoreView: View {
         }
     }
 
-    var pickerselecttypeofrestore: some View {
-        Picker(NSLocalizedString("Restore", comment: "RestoreView") + ":",
-               selection: $restoresettings.typeofrestore) {
-            ForEach(TypeofRestore.allCases) { Text($0.description)
-                .tag($0)
-            }
-        }
-        .pickerStyle(DefaultPickerStyle())
-        .frame(width: 180)
-    }
-
     var setpathforrestore: some View {
-        EditValue(250, NSLocalizedString("Path for restore", comment: "RestoreView"), $restoresettings.restorepath)
+        EditValue(400, NSLocalizedString("Path for restore", comment: "RestoreView"), $restoresettings.restorepath)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     restoresettings.restorepath = pathforrestore
@@ -96,7 +80,7 @@ struct RestoreView: View {
     }
 
     var setfilestorestore: some View {
-        EditValue(250, NSLocalizedString("Select files to restore", comment: "RestoreView"), $restoresettings.filestorestore)
+        EditValue(400, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: "RestoreView"), $restoresettings.filestorestore)
     }
 
     var numberoffiles: some View {
@@ -104,7 +88,10 @@ struct RestoreView: View {
             Text(NSLocalizedString("Number of files", comment: "RestoreView") + ": ")
             Text(NumberFormatter.localizedString(from: NSNumber(value: restoresettings.numberoffiles), number: NumberFormatter.Style.decimal))
                 .foregroundColor(Color.blue)
+
+            Spacer()
         }
+        .frame(width: 300)
     }
 
     // Output
