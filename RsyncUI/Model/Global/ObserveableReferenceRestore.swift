@@ -93,13 +93,14 @@ extension ObserveableReferenceRestore {
     func validatetypeofrestore(_: TypeofRestore) {}
 
     func reloadfiles() {
-        let start = CFAbsoluteTimeGetCurrent()
         remotefilelist = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         numberoffiles = remotefilelist?.count ?? 0
-        // Logg
+        /* Logging runtime
+        let start = CFAbsoluteTimeGetCurrent()
         let diff = CFAbsoluteTimeGetCurrent() - start
         print("filter filenames: \(diff) seconds")
         print("number of lines: \(remotefilelist?.count ?? 0)")
+         */
     }
 
     func getfilelist(_ config: Configuration) {
