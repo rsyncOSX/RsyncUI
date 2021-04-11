@@ -7,6 +7,7 @@
 // swiftlint:disable line_length
 
 import SwiftUI
+import SwiftyBeaver
 
 enum TypeofRestore: String, CaseIterable, Identifiable, CustomStringConvertible {
     case fullrestore = "Full restore"
@@ -27,6 +28,8 @@ struct RestoreView: View {
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork = -1
     @State private var selectable = false
+
+    let log = SwiftyBeaver.self
 
     var body: some View {
         ZStack {
@@ -128,7 +131,11 @@ extension RestoreView {
             return
         }
         // Output from realrun
+        let start = CFAbsoluteTimeGetCurrent()
         output = restoresettings.getoutput()
+        let diff = CFAbsoluteTimeGetCurrent() - start
+        log.info("presentoutput(): \(diff) seconds")
+        log.info("number of lines: \(output?.count ?? 0)")
         presentsheetview = true
     }
 

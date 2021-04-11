@@ -121,17 +121,11 @@ extension ObserveableReferenceRestore {
     }
 
     func getoutput() -> [Outputrecord]? {
-        let start = CFAbsoluteTimeGetCurrent()
         guard remotefilelist?.count ?? 0 > 0 else { return nil }
         var transformedoutput = [Outputrecord]()
         for i in 0 ..< (remotefilelist?.count ?? 0) {
             transformedoutput.append(Outputrecord(line: remotefilelist?[i] ?? ""))
         }
-        // Logg
-        // Logg
-        let diff = CFAbsoluteTimeGetCurrent() - start
-        log.info("view output: \(diff) seconds")
-        log.info("number of lines: \(remotefilelist?.count ?? 0)")
         return transformedoutput
     }
 }
