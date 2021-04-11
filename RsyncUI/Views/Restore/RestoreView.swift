@@ -130,12 +130,7 @@ extension RestoreView {
             restoresettings.numberoffiles = 0
             return
         }
-        // Output from realrun
-        let start = CFAbsoluteTimeGetCurrent()
         output = restoresettings.getoutput()
-        let diff = CFAbsoluteTimeGetCurrent() - start
-        log.info("presentoutput(): \(diff) seconds")
-        log.info("number of lines: \(output?.count ?? 0)")
         presentsheetview = true
     }
 
