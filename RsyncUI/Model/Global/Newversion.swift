@@ -51,7 +51,7 @@ final class Newversion: ObservableObject {
 
     func setnewverion(_: String) {
         globalMainQueue.async {
-            self.notifynewversion = true
+            self.notifynewversion = false
         }
         // print(respons)
         getdata?.cancel()

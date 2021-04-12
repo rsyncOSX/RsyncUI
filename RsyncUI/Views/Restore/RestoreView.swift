@@ -24,7 +24,9 @@ struct RestoreView: View {
         ZStack {
             VStack {
                 HStack {
-                    SearchbarView(text: $restoresettings.filterstring)
+                    SearchbarView(text: $restoresettings.filterstring.onChange {
+                        restoresettings.inputchangedbyuser = true
+                    })
 
                     Spacer()
 

@@ -19,12 +19,18 @@ final class ObserveableReferenceRestore: ObservableObject {
     @Published var gettingfilelist: Bool = false
     @Published var outputprocess: OutputProcess?
     @Published var numberoffiles: Int = 0
+    // Value to check if input field is changed by user
+    @Published var inputchangedbyuser: Bool = false
+
     // Combine
     var subscriptions = Set<AnyCancellable>()
     // remote filelist
     var remotefilelist: [String]?
 
     init() {
+        $inputchangedbyuser
+            .sink { _ in
+            }.store(in: &subscriptions)
         $restorepath
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] path in
@@ -86,14 +92,9 @@ extension ObserveableReferenceRestore {
     func validatefilestorestore(_: String) {}
 
     func reloadfiles() {
+        guard inputchangedbyuser == true else { return }
         remotefilelist = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         numberoffiles = remotefilelist?.count ?? 0
-        /* Logging runtime
-         let start = CFAbsoluteTimeGetCurrent()
-         let diff = CFAbsoluteTimeGetCurrent() - start
-         print("filter filenames: \(diff) seconds")
-         print("number of lines: \(remotefilelist?.count ?? 0)")
-          */
     }
 
     func getfilelist(_ config: Configuration) {
@@ -135,3 +136,10 @@ enum RestoreError: LocalizedError {
         }
     }
 }
+
+/* Logging runtime
+ let start = CFAbsoluteTimeGetCurrent()
+ let diff = CFAbsoluteTimeGetCurrent() - start
+ print("filter filenames: \(diff) seconds")
+ print("number of lines: \(remotefilelist?.count ?? 0)")
+ */
