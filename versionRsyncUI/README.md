@@ -1,5 +1,5 @@
 
-## versionRsyncOSX.plist
+## versionRsyncUI.json
 
-The file `versionRsyncOSX.plist` is checked (in a asynchron background que) by RsyncOSX at every startup. The file is hosted on Github (see [resources.swift](https://github.com/rsyncOSX/Version3.x/blob/master/RsyncOSXver30/Resources.swift)). The content of URL is `version number` and link to new `RsyncOSX.dmg` file. At startup RsyncOSX checks its version number compared to version numbers listed in URL. If there is a match between RsyncOSX version number and URL there is released a newer version of RsyncOSX.
+The file `versionRsyncUI.json` is checked by RsyncUI at every startup. The [file](https://github.com/rsyncOSX/RsyncUI/tree/main/versionRsyncUI) is hosted on Github. The content of URL is `version` and url to new `RsyncUI.dmg` file. At startup RsyncUI checks its version number compared to version numbers listed in URL. If there is a match between RsyncUI version number and URL there is released a newer version.
 
