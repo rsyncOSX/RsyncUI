@@ -30,29 +30,6 @@ final class CatalogProfile: Catalogsandfiles {
         return false
     }
 
-    // Function for deleting profile directory
-    func deleteProfileDirectory(profileName: String) {
-        let fileManager = FileManager.default
-        if let path = fullroot {
-            let profileDirectory = path + "/" + profileName
-            if fileManager.fileExists(atPath: profileDirectory) == true {
-                let question: String = NSLocalizedString("Delete profile:", comment: "Profiles")
-                let text: String = NSLocalizedString("Cancel or Delete", comment: "Profiles")
-                let dialog: String = NSLocalizedString("Delete", comment: "Profiles")
-                let answer = Alerts.dialogOrCancel(question: question + " " + profileName
-                    + "?", text: text, dialog: dialog)
-                if answer {
-                    do {
-                        try fileManager.removeItem(atPath: profileDirectory)
-                    } catch let e {
-                        let error = e
-                        self.propogateerror(error: error)
-                    }
-                }
-            }
-        }
-    }
-
     init() {
         super.init(profileorsshrootpath: .profileroot)
     }

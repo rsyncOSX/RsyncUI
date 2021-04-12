@@ -60,7 +60,7 @@ final class Newversion: ObservableObject {
     init() {
         runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         print(runningversion ?? "")
-        urlstring = Resources().getResource(resource: .urlPlist)
+        urlstring = Resources().getResource(resource: .urlPLIST)
         if let url = URL(string: urlstring) {
             getdata = fetch(url: url)
                 .sink(receiveCompletion: { completion in

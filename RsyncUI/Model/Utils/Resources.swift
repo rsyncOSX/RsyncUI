@@ -13,14 +13,16 @@ import Foundation
 enum ResourceType {
     case changelog
     case documents
-    case urlPlist
+    case urlPLIST
+    case urlJSON
 }
 
 struct Resources {
     // Resource strings
     private var changelog: String = "https://rsyncosx.netlify.app/post/changelog/"
     private var documents: String = "https://rsyncosx.netlify.app/post/rsyncosxdocs/"
-    private var urlPlist: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/versionRsyncUI/versionRsyncUI.plist"
+    private var urlPLIST: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/versionRsyncUI/versionrsyncui.plist"
+    private var urlJSON: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/versionRsyncUI/versionrsyncui.json"
     // Get the resource.
     func getResource(resource: ResourceType) -> String {
         switch resource {
@@ -28,8 +30,10 @@ struct Resources {
             return changelog
         case .documents:
             return documents
-        case .urlPlist:
-            return urlPlist
+        case .urlPLIST:
+            return urlPLIST
+        case .urlJSON:
+            return urlJSON
         }
     }
 }
