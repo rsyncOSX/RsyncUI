@@ -95,7 +95,8 @@ class OutputProcess {
                 do {
                     try checkforrsyncerror(self.output?[i] ?? "")
                 } catch let e {
-                    // Only want one notification about error
+                    // Only want one notification about error, not multiple
+                    // Multiple can be a kind of race situation
                     if errordiscovered == false {
                         let error = e
                         _ = Logfile(self, true)
@@ -141,6 +142,5 @@ extension OutputProcess: PropogateError {
     }
 }
 
-/*
- TODO: fix logging if errors are discovered in output
- */
+extension String: Identifiable { public var id: String { self } }
+
