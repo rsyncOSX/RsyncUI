@@ -37,8 +37,7 @@ final class NewversionJSON: ObservableObject {
         runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         if let baseURL = URL(string: Resources().getResource(resource: .urlJSON)) {
             let request = URLRequest(url: baseURL)
-            let resource = Resource<Versionrsyncui>(request: request)
-            print(resource)
+            let resource = Resource<[Versionrsyncui]>(request: request)
             subscriber?.cancel()
             subscriber = URLSession.shared.fetchJSON(for: resource)
                 .receive(on: DispatchQueue.main)
@@ -57,7 +56,7 @@ final class NewversionJSON: ObservableObject {
 }
 
 extension NewversionJSON {
-    func verifynewversion(_ result: Versionrsyncui) {
+    func verifynewversion(_ result: [Versionrsyncui]) {
         notifynewversion = true
         print(result)
     }
