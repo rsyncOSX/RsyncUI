@@ -10,14 +10,11 @@ import Combine
 import Foundation
 
 final class ObserveableReferenceRestore: ObservableObject {
-    // When restore is ready set true
-    @Published var isReady: Bool = false
     @Published var restorepath: String = ""
     @Published var filestorestore: String = ""
     @Published var filterstring: String = ""
     @Published var selectedconfig: Configuration?
     @Published var gettingfilelist: Bool = false
-    @Published var outputprocess: OutputProcess?
     @Published var numberoffiles: Int = 0
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
@@ -26,6 +23,9 @@ final class ObserveableReferenceRestore: ObservableObject {
     var subscriptions = Set<AnyCancellable>()
     // remote filelist
     var remotefilelist: [String]?
+    var outputprocess: OutputProcess?
+    // When restore is ready set true
+    var isReady: Bool = false
 
     init() {
         $inputchangedbyuser

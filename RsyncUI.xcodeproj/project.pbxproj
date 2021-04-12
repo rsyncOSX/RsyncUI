@@ -787,6 +787,8 @@
 		E985C6A225F3AD9600CB895C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */,
+				E959280326240B8B002631CB /* NewversionPLIST.swift */,
 				E985C6A325F3AD9600CB895C /* Neworoldprofilepath.swift */,
 				E985C6A425F3AD9600CB895C /* Running.swift */,
 				E985C6A525F3AD9600CB895C /* GetfullpathforRsync.swift */,
@@ -1056,8 +1058,6 @@
 				E95EDC8926063EAA000018DE /* ObserveableParametersRsync.swift */,
 				E9245C0A2613146800CBE0BB /* ShortcutActions.swift */,
 				E99C23FF261C322E009D4DBF /* ObserveableReferenceRestore.swift */,
-				E959280326240B8B002631CB /* NewversionPLIST.swift */,
-				E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
