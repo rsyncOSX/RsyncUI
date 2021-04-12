@@ -30,7 +30,7 @@ struct Versionrsyncui: Codable {
 
 final class NewversionJSON: ObservableObject {
     @Published var notifynewversion: Bool = false
-    var subscriber: AnyCancellable?
+    private var subscriber: AnyCancellable?
     private var runningversion: String?
 
     init() {
@@ -57,8 +57,9 @@ final class NewversionJSON: ObservableObject {
 
 extension NewversionJSON {
     func verifynewversion(_ result: [Versionrsyncui]) {
-        notifynewversion = true
-        print(result)
+        // notifynewversion = true
+        subscriber?.cancel()
+        // print(result)
     }
 }
 

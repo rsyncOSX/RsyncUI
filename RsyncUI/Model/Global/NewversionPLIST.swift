@@ -27,7 +27,7 @@ final class NewversionPLIST: ObservableObject {
     private var runningversion: String?
     private var urlstring: String = ""
     private var url: URL?
-    private var getdata: Cancellable?
+    private var subscriber: AnyCancellable?
 
     func fetch(url: URL) -> AnyPublisher<Data, APIError> {
         let request = URLRequest(url: url)
@@ -51,17 +51,17 @@ final class NewversionPLIST: ObservableObject {
 
     func setnewverion(_: String) {
         globalMainQueue.async {
-            self.notifynewversion = false
+            // self.notifynewversion = false
         }
         // print(respons)
-        getdata?.cancel()
+        subscriber?.cancel()
     }
 
     init() {
         runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         urlstring = Resources().getResource(resource: .urlPLIST)
         if let url = URL(string: urlstring) {
-            getdata = fetch(url: url)
+            subscriber = fetch(url: url)
                 .sink(receiveCompletion: { completion in
                     switch completion {
                     case .finished:
