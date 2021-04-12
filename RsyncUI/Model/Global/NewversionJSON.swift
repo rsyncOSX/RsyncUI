@@ -56,10 +56,17 @@ final class NewversionJSON: ObservableObject {
 }
 
 extension NewversionJSON {
-    func verifynewversion(_ result: [Versionrsyncui]) {
-        // notifynewversion = true
+    func verifynewversion(_ result: [Versionrsyncui]?) {
+        if let result = result {
+            if let runningversion = runningversion {
+                let check = result.filter { runningversion.isEmpty ? true : $0.version == runningversion }
+                if check.count > 0 {
+                    notifynewversion = true
+                    SharedReference.shared.URLnewVersion = check[0].url
+                }
+            }
+        }
         subscriber?.cancel()
-        // print(result)
     }
 }
 

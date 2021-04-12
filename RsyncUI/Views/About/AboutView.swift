@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct AboutView: View {
+    @StateObject private var new = NewversionJSON()
+
     var iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "icon")
     var chinesestring: String = NSLocalizedString("Chinese (Simplified) translation by: StringKe (Chen)", comment: "chinese")
     var norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "norwegian")
@@ -55,6 +57,8 @@ struct AboutView: View {
 
             rsynclongstring
 
+            if new.notifynewversion { notifynewversion }
+
             buttonsview
 
             Text(configpath)
@@ -90,10 +94,8 @@ struct AboutView: View {
                 .buttonStyle(PrimaryButtonStyle())
             Button(NSLocalizedString("RsyncUI", comment: "About button")) { opendocumentation() }
                 .buttonStyle(PrimaryButtonStyle())
-            /*
-             Button(NSLocalizedString("Download", comment: "About button")) { opendownload() }
-                 .buttonStyle(PrimaryButtonStyle())
-             */
+            Button(NSLocalizedString("Download", comment: "About button")) { opendownload() }
+                .buttonStyle(PrimaryButtonStyle())
         }
     }
 
@@ -116,6 +118,20 @@ struct AboutView: View {
         }
         .padding()
     }
+
+    var notifynewversion: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("New version", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 120, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .onAppear(perform: {
+            dismiss()
+        })
+    }
 }
 
 extension AboutView {
@@ -127,10 +143,16 @@ extension AboutView {
         NSWorkspace.shared.open(URL(string: documents)!)
     }
 
-    /*
-     func opendownload() {
-         guard SharedReference.shared.URLnewVersion != nil else { return }
-         NSWorkspace.shared.open(URL(string: urlplist)!)
-     }
-     */
+    // Dismiss the notify for new version
+    func dismiss() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            new.notifynewversion = false
+        }
+    }
+
+    func opendownload() {
+        if let url = SharedReference.shared.URLnewVersion {
+            NSWorkspace.shared.open(URL(string: url)!)
+        }
+    }
 }
