@@ -98,9 +98,9 @@ struct RsyncUIView: View {
         })
     }
 
-    // Dismiss the notify
+    // Dismiss the notify for new version
     func dismiss() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             new.notifynewversion = false
         }
     }

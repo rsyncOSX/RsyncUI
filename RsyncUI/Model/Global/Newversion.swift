@@ -49,11 +49,12 @@ final class Newversion: ObservableObject {
             .eraseToAnyPublisher()
     }
 
-    func setnewverion(_ respons: String) {
+    func setnewverion(_: String) {
         globalMainQueue.async {
             self.notifynewversion = true
         }
         // print(respons)
+        getdata?.cancel()
     }
 
     init() {
