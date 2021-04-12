@@ -11,16 +11,14 @@ import Foundation
 final class RsyncOSXViewGetRsyncversion: ObservableObject, UpdateRsyncVersionString {
     @Published var rsyncversion = ""
 
-    func update(_ ver3: Bool) {
+    func update(_ ver: Bool) {
         // Must set new valuesa ahead of save to get correct string
-        SharedReference.shared.rsyncversion3 = ver3
+        SharedReference.shared.rsyncversion3 = ver
         _ = RsyncVersionString(object: self)
-        objectWillChange.send()
     }
 
     func updatersyncversionstring(rsyncversion: String) {
         self.rsyncversion = rsyncversion
-        objectWillChange.send()
     }
 
     init() {
