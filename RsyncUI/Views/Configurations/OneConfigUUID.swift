@@ -24,7 +24,7 @@ struct OneConfigUUID: View {
     }
 
     var progress: some View {
-        HStack {
+        ZStack {
             if config.hiddenID == inexecuting && executedetails.isestimating() {
                 progressviewestimating
             } else if config.hiddenID == inexecuting {
@@ -42,6 +42,7 @@ struct OneConfigUUID: View {
                     .modifier(FixedTag(20, .leading))
             }
         }
+        .frame(width: 40, alignment: .center)
     }
 
     // Progressview for estimating and execute tasks without estimation
@@ -57,6 +58,6 @@ struct OneConfigUUID: View {
                      value: executedetails.getcurrentprogress(),
                      total: executedetails.getmaxcountbytask(inexecuting))
             .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
-            .frame(width: 50, height: nil, alignment: .center)
+            .frame(width: 40, alignment: .center)
     }
 }
