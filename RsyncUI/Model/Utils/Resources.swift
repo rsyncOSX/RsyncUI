@@ -21,8 +21,8 @@ struct Resources {
     // Resource strings
     private var changelog: String = "https://rsyncosx.netlify.app/post/changelog/"
     private var documents: String = "https://rsyncosx.netlify.app/post/rsyncosxdocs/"
-    private var urlPLIST: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/versionRsyncUI/versionrsyncui.plist"
-    private var urlJSON: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/versionRsyncUI/versionrsyncui.json"
+    private var urlPLIST: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/versionRsyncUI/versionRsyncUI.plist"
+    private var urlJSON: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/versionRsyncUI/versionrRsyncUI.json"
     // Get the resource.
     func getResource(resource: ResourceType) -> String {
         switch resource {

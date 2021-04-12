@@ -21,7 +21,7 @@ enum APIError: Error, LocalizedError {
     }
 }
 
-final class Newversion: ObservableObject {
+final class NewversionPLIST: ObservableObject {
     @Published var notifynewversion: Bool = false
 
     private var runningversion: String?
@@ -59,7 +59,6 @@ final class Newversion: ObservableObject {
 
     init() {
         runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-        print(runningversion ?? "")
         urlstring = Resources().getResource(resource: .urlPLIST)
         if let url = URL(string: urlstring) {
             getdata = fetch(url: url)
