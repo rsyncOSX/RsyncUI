@@ -15,6 +15,8 @@ struct RsyncUIView: View {
     @State private var selectedprofile: String?
     @State private var reload: Bool = false
 
+    @StateObject private var new = Newversion()
+
     var body: some View {
         VStack {
             profilepicker
@@ -33,7 +35,11 @@ struct RsyncUIView: View {
 
                 Spacer()
 
-                JSONorPLIST.onChange(of: rsyncversionObject.rsyncversion, perform: { _ in })
+                VStack {
+                    if new.notifynewversion { notifynewversion }
+
+                    JSONorPLIST.onChange(of: rsyncversionObject.rsyncversion, perform: { _ in })
+                }
 
                 Spacer()
 
@@ -75,6 +81,27 @@ struct RsyncUIView: View {
                 Text("PLIST")
                     .foregroundColor(Color.blue)
             }
+        }
+    }
+
+    var notifynewversion: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("New version", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 120, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .onAppear(perform: {
+            dismiss()
+        })
+    }
+
+    // Dismiss the notify
+    func dismiss() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            new.notifynewversion = false
         }
     }
 }

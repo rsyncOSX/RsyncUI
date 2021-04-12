@@ -22,9 +22,9 @@ enum APIError: Error, LocalizedError {
 }
 
 final class Newversion: ObservableObject {
-    @Published var urlNewVersion: String?
+    @Published var notifynewversion: Bool = false
 
-    private var runningVersion: String?
+    private var runningversion: String?
     private var urlstring: String = ""
     private var url: URL?
     private var getdata: Cancellable?
@@ -49,8 +49,16 @@ final class Newversion: ObservableObject {
             .eraseToAnyPublisher()
     }
 
+    func setnewverion(_ respons: String) {
+        globalMainQueue.async {
+            self.notifynewversion = true
+        }
+        // print(respons)
+    }
+
     init() {
-        runningVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        print(runningversion ?? "")
         urlstring = Resources().getResource(resource: .urlPlist)
         if let url = URL(string: urlstring) {
             getdata = fetch(url: url)
@@ -61,26 +69,10 @@ final class Newversion: ObservableObject {
                     case let .failure(error):
                         print(error.localizedDescription)
                     }
-                }, receiveValue: { data in
+                }, receiveValue: { [unowned self] data in
                     guard let response = String(data: data, encoding: .utf8) else { return }
-                    print(response)
+                    setnewverion(response)
                 })
         }
     }
 }
-
-/*
- // If new version set URL for download link and notify caller
- private func urlnewVersion() {
-     globalBackgroundQueue.async { () -> Void in
-         if let url = URL(string: self.urlPlist ?? "") {
-             do {
-                 let contents = NSDictionary(contentsOf: url)
-                 if let url = contents?.object(forKey: self.runningVersion ?? "") {
-                     self.urlNewVersion = url as? String
-                 }
-             }
-         }
-     }
- }
- */
