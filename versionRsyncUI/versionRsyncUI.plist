@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>6.4.5</key>
-	<string>https://github.com/rsyncOSX/RsyncOSX/releases/download/v6.5.8/RsyncOSX.6.5.8.dmg</string>
 	<key>6.4.6</key>
 	<string>https://github.com/rsyncOSX/RsyncOSX/releases/download/v6.5.8/RsyncOSX.6.5.8.dmg</string>
 	<key>6.4.7</key>
