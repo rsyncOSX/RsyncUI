@@ -44,7 +44,8 @@ final class NewversionJSON: ObservableObject {
                 .sink(receiveCompletion: { completion in
                     switch completion {
                     case .finished:
-                        print("The publisher finished normally.")
+                        // print("The publisher finished normally.")
+                        return
                     case let .failure(error):
                         print("An error occured: \(error).")
                     }

@@ -102,6 +102,7 @@ struct AboutView: View {
     var rsynclongstring: some View {
         Text(SharedReference.shared.rsyncversionstring ?? "")
             .border(Color.gray)
+            .font(.caption)
     }
 
     var translations: some View {

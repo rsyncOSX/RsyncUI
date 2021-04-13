@@ -106,7 +106,20 @@ extension ObserveableReferenceRestore {
                                               drynrun: nil).getArguments()
         outputprocess = OutputProcess()
         let command = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                    config: nil,
+                                                    config: config,
+                                                    processtermination: processtermination,
+                                                    filehandler: filehandler)
+        command.executeProcess(outputprocess: outputprocess)
+    }
+
+    func restore(_ config: Configuration) {
+        // SharedReference.shared.pathforrestore
+        gettingfilelist = true
+        let restore = ArgumentsRestore(config: config)
+        let arguments = restore.argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
+        outputprocess = OutputProcess()
+        let command = RsyncProcessCmdCombineClosure(arguments: arguments,
+                                                    config: config,
                                                     processtermination: processtermination,
                                                     filehandler: filehandler)
         command.executeProcess(outputprocess: outputprocess)
