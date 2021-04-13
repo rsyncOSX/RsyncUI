@@ -5,6 +5,7 @@
 //  Created by Daniil Manin on 10/7/20.
 //  Copyright © 2020 Exyte. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 

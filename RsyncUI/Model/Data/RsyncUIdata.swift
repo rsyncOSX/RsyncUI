@@ -27,7 +27,6 @@ final class RsyncUIdata: ObservableObject {
     @Published var rsyncdata: Readdatafromstore?
     @Published var configurations: [Configuration]?
     @Published var schedulesandlogs: [ConfigurationSchedule]?
-    @Published var arguments: [ArgumentsOneConfiguration]?
     @Published var profile: String?
     // All logs and sorted logs
     // Sort and filter logs so the view does not trigger a refresh
@@ -64,7 +63,6 @@ final class RsyncUIdata: ObservableObject {
         }
         configurations = rsyncdata?.configurationData.getallconfigurations()
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
-        arguments = rsyncdata?.configurationData.getarguments()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
         filterlogsorted = alllogssorted
         filterlogsortedbyhiddenID = alllogssorted

@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 26/12/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import Foundation
 
@@ -29,7 +30,7 @@ struct UniqueserversandLogins: Hashable, Identifiable {
 struct ConfigurationsSwiftUI {
     private var configurations: [Configuration]?
     // Initialized during startup
-    private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
+    // private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
     // valid hiddenIDs
     private var validhiddenIDs: Set<Int>?
     // Uniqueue servers and logins
@@ -55,10 +56,6 @@ struct ConfigurationsSwiftUI {
         return configuration?[0]
     }
 
-    func getarguments() -> [ArgumentsOneConfiguration]? {
-        return argumentAllConfigurations
-    }
-
     func getvalidhiddenIDs() -> Set<Int>? {
         return validhiddenIDs
     }
@@ -66,50 +63,59 @@ struct ConfigurationsSwiftUI {
     // Function return arguments for rsync, either arguments for
     // real runn or arguments for --dry-run for Configuration at selected index
     func arguments4rsync(hiddenID: Int, argtype: ArgumentsRsync) -> [String] {
-        let arguments = argumentAllConfigurations?.filter { $0.hiddenID == hiddenID }
-        guard arguments?.count == 1 else { return [] }
-        switch argtype {
-        case .arg:
-            return arguments?[0].arg ?? []
-        case .argdryRun:
-            return arguments?[0].argdryRun ?? []
-        case .argdryRunlocalcataloginfo:
-            return arguments?[0].argdryRunLocalcatalogInfo ?? []
+        if let config = configurations?.filter({ $0.hiddenID == hiddenID }) {
+            guard config.count == 1 else { return [] }
+            switch argtype {
+            case .arg:
+                return ArgumentsSynchronize(config: config[0]).argumentssynchronize(dryRun: false, forDisplay: false) ?? []
+            case .argdryRun:
+                return ArgumentsSynchronize(config: config[0]).argumentssynchronize(dryRun: true, forDisplay: false) ?? []
+            case .argdryRunlocalcataloginfo:
+                guard config[0].task != SharedReference.shared.syncremote else { return [] }
+                return ArgumentsLocalcatalogInfo(config: config[0]).argumentslocalcataloginfo(dryRun: true, forDisplay: false) ?? []
+            }
         }
+        return []
     }
 
     // Function return arguments for rsync, either arguments for
     // real runn or arguments for --dry-run for Configuration at selected index
     func arguments4restore(hiddenID: Int, argtype: ArgumentsRsync) -> [String] {
-        let arguments = argumentAllConfigurations?.filter { $0.hiddenID == hiddenID }
-        guard arguments?.count == 1 else { return [] }
-        switch argtype {
-        case .arg:
-            return arguments?[0].restore ?? []
-        case .argdryRun:
-            return arguments?[0].restoredryRun ?? []
-        default:
-            return []
+        if let config = configurations?.filter({ $0.hiddenID == hiddenID }) {
+            guard config.count == 1 else { return [] }
+            switch argtype {
+            case .arg:
+                return ArgumentsRestore(config: config[0]).argumentsrestore(dryRun: false, forDisplay: false, tmprestore: false) ?? []
+            case .argdryRun:
+                return ArgumentsRestore(config: config[0]).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: false) ?? []
+            default:
+                return []
+            }
         }
+        return []
     }
 
     func arguments4tmprestore(hiddenID: Int, argtype: ArgumentsRsync) -> [String] {
-        let arguments = argumentAllConfigurations?.filter { $0.hiddenID == hiddenID }
-        guard arguments?.count == 1 else { return [] }
-        switch argtype {
-        case .arg:
-            return arguments?[0].tmprestore ?? []
-        case .argdryRun:
-            return arguments?[0].tmprestoredryRun ?? []
-        default:
-            return []
+        if let config = configurations?.filter({ $0.hiddenID == hiddenID }) {
+            guard config.count == 1 else { return [] }
+            switch argtype {
+            case .arg:
+                return ArgumentsRestore(config: config[0]).argumentsrestore(dryRun: false, forDisplay: false, tmprestore: true) ?? []
+            case .argdryRun:
+                return ArgumentsRestore(config: config[0]).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true) ?? []
+            default:
+                return []
+            }
         }
+        return []
     }
 
     func arguments4verify(hiddenID: Int) -> [String] {
-        let arguments = argumentAllConfigurations?.filter { $0.hiddenID == hiddenID }
-        guard arguments?.count == 1 else { return [] }
-        return arguments?[0].verify ?? []
+        if let config = configurations?.filter({ $0.hiddenID == hiddenID }) {
+            guard config.count == 1 else { return [] }
+            return ArgumentsVerify(config: config[0]).argumentsverify(forDisplay: false) ?? []
+        }
+        return []
     }
 
     init(profile: String?) {
@@ -117,7 +123,6 @@ struct ConfigurationsSwiftUI {
         let configurationsdata = ConfigurationsData(profile: profile)
         configurations = configurationsdata.configurations
         validhiddenIDs = configurationsdata.validhiddenIDs
-        argumentAllConfigurations = configurationsdata.argumentAllConfigurations
         uniqueueserversandlogins = configurationsdata.uniqueserversandlogins
         SharedReference.shared.process = nil
     }

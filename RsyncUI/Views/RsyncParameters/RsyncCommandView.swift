@@ -70,9 +70,11 @@ struct RsyncCommandView: View {
 
     var commandstring: String? {
         if let index = rsyncUIData.configurations?.firstIndex(where: { $0.hiddenID == selectedconfig?.hiddenID }) {
-            return RsyncCommandtoDisplay(index: index,
-                                         display: selectedrsynccommand,
-                                         allarguments: rsyncUIData.arguments).getrsyncommand()
+            if let config = selectedconfig {
+                return RsyncCommandtoDisplay(index: index,
+                                             display: selectedrsynccommand,
+                                             config: config).getrsyncommand()
+            }
         }
         return NSLocalizedString("Select a configuration", comment: "RsyncCommandView") + "..."
     }

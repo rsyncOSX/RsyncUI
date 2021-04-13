@@ -178,7 +178,6 @@
 		E985C77F25F3AD9700CB895C /* MultipletasksPrimaryLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70425F3AD9700CB895C /* MultipletasksPrimaryLogging.swift */; };
 		E985C78025F3AD9700CB895C /* AllLoggs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70525F3AD9700CB895C /* AllLoggs.swift */; };
 		E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70625F3AD9700CB895C /* SingletaskPrimaryLogging.swift */; };
-		E985C78225F3AD9700CB895C /* ArgumentsOneConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70925F3AD9700CB895C /* ArgumentsOneConfiguration.swift */; };
 		E985C78325F3AD9700CB895C /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70A25F3AD9700CB895C /* Equal.swift */; };
 		E985C78425F3AD9700CB895C /* UpdateConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70B25F3AD9700CB895C /* UpdateConfigurations.swift */; };
 		E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */; };
@@ -407,7 +406,6 @@
 		E985C70425F3AD9700CB895C /* MultipletasksPrimaryLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipletasksPrimaryLogging.swift; sourceTree = "<group>"; };
 		E985C70525F3AD9700CB895C /* AllLoggs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllLoggs.swift; sourceTree = "<group>"; };
 		E985C70625F3AD9700CB895C /* SingletaskPrimaryLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingletaskPrimaryLogging.swift; sourceTree = "<group>"; };
-		E985C70925F3AD9700CB895C /* ArgumentsOneConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsOneConfiguration.swift; sourceTree = "<group>"; };
 		E985C70A25F3AD9700CB895C /* Equal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Equal.swift; sourceTree = "<group>"; };
 		E985C70B25F3AD9700CB895C /* UpdateConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateConfigurations.swift; sourceTree = "<group>"; };
 		E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyConfiguration.swift; sourceTree = "<group>"; };
@@ -1019,7 +1017,6 @@
 		E985C70825F3AD9700CB895C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				E985C70925F3AD9700CB895C /* ArgumentsOneConfiguration.swift */,
 				E985C70A25F3AD9700CB895C /* Equal.swift */,
 				E985C70B25F3AD9700CB895C /* UpdateConfigurations.swift */,
 				E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */,
@@ -1308,7 +1305,6 @@
 				E985C78B25F3AD9700CB895C /* ErrorHandling.swift in Sources */,
 				E985C66625F3AD8400CB895C /* ToggleView.swift in Sources */,
 				E985C72925F3AD9700CB895C /* Keypathidentityfile.swift in Sources */,
-				E985C78225F3AD9700CB895C /* ArgumentsOneConfiguration.swift in Sources */,
 				E985C72625F3AD9700CB895C /* Userconfiguration.swift in Sources */,
 				E81CF81A25FF310D005D8667 /* SelectedstartView.swift in Sources */,
 				E985C72E25F3AD9700CB895C /* OutputProcess.swift in Sources */,

@@ -12,10 +12,6 @@ final class ConfigurationsData {
     // The main structure storing all Configurations for tasks
     var configurations: [Configuration]?
     var localprofile: String?
-    // Initialized during startup
-    var argumentAllConfigurations: [ArgumentsOneConfiguration]?
-    // Datasource for NSTableViews
-    // var configurationsDataSource: [NSMutableDictionary]?
     // valid hiddenIDs
     var validhiddenIDs: Set<Int>?
     var persistentstorage: PersistentStorage?
@@ -53,8 +49,6 @@ final class ConfigurationsData {
                 if SharedReference.shared.synctasks.contains(config.task) {
                     if validhiddenIDs?.contains(config.hiddenID) == false {
                         configurations?.append(config)
-                        let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: config)
-                        argumentAllConfigurations?.append(rsyncArgumentsOneConfig)
                         validhiddenIDs?.insert(config.hiddenID)
                     }
                 }
@@ -71,8 +65,6 @@ final class ConfigurationsData {
                     if SharedReference.shared.synctasks.contains(transformed.task) {
                         if validhiddenIDs?.contains(transformed.hiddenID) == false {
                             configurations?.append(transformed)
-                            let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: transformed)
-                            argumentAllConfigurations?.append(rsyncArgumentsOneConfig)
                             validhiddenIDs?.insert(transformed.hiddenID)
                         }
                     }
@@ -84,10 +76,8 @@ final class ConfigurationsData {
     init(profile: String?) {
         localprofile = profile
         configurations = nil
-        argumentAllConfigurations = nil
         configurations = [Configuration]()
         validhiddenIDs = Set()
-        argumentAllConfigurations = [ArgumentsOneConfiguration]()
         persistentstorage = PersistentStorage(profile: localprofile,
                                               whattoreadorwrite: .configuration)
         readconfigurationsjson()
