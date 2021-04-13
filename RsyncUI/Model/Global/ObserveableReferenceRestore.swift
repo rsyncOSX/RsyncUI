@@ -39,8 +39,7 @@ final class ObserveableReferenceRestore: ObservableObject {
             }.store(in: &subscriptions)
         $filestorestore
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] path in
-                validatefilestorestore(path)
+            .sink { _ in
             }.store(in: &subscriptions)
         $filterstring
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
@@ -109,10 +108,6 @@ extension ObserveableReferenceRestore {
         return true
     }
 
-    func validatefilestorestore(_ file: String) {
-        print(file)
-    }
-
     func reloadfiles() {
         guard inputchangedbyuser == true else { return }
         if files {
@@ -145,8 +140,12 @@ extension ObserveableReferenceRestore {
             // full restore
             arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
         } else {
+            // Restore file or catalog
             var localconf = config
-            localconf.offsiteCatalog = config.offsiteCatalog + filestorestore
+            // drop "./" in filetorestore
+            // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)
+            // normal is to append a "/" to config.offsiteCatalog but must verify
+            localconf.offsiteCatalog = config.offsiteCatalog + filestorestore.dropFirst(2) // drop "./"
             arguments = ArgumentsRestore(config: localconf).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
         }
         if let arguments = arguments {
