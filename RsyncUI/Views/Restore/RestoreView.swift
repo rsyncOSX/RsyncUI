@@ -36,10 +36,12 @@ struct RestoreView: View {
                 }
                 .padding(.top, -20)
 
-                ConfigurationsList(selectedconfig: $restoresettings.selectedconfig,
-                                   selecteduuids: $selecteduuids,
-                                   inwork: $inwork,
-                                   selectable: $selectable)
+                ConfigurationsList(selectedconfig: $restoresettings.selectedconfig.onChange {
+                    restoresettings.filestorestore = ""
+                },
+                selecteduuids: $selecteduuids,
+                inwork: $inwork,
+                selectable: $selectable)
             }
 
             if restoresettings.gettingfilelist == true {
@@ -105,7 +107,8 @@ struct RestoreView: View {
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
-                        output: $output)
+                        output: $output,
+                        valueselectedrow: $restoresettings.filestorestore)
     }
 }
 

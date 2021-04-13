@@ -109,7 +109,9 @@ extension ObserveableReferenceRestore {
         return true
     }
 
-    func validatefilestorestore(_: String) {}
+    func validatefilestorestore(_ file: String) {
+        print(file)
+    }
 
     func reloadfiles() {
         guard inputchangedbyuser == true else { return }

@@ -36,6 +36,8 @@ struct SingleTasksView: View {
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
+    // Selected row in output
+    @State private var valueselectedrow: String = ""
 
     var body: some View {
         ZStack {
@@ -159,7 +161,8 @@ struct SingleTasksView: View {
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
-                        output: $output)
+                        output: $output,
+                        valueselectedrow: $valueselectedrow)
     }
 }
 

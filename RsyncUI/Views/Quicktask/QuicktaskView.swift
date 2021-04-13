@@ -23,6 +23,8 @@ struct QuicktaskView: View {
     @State private var presentsheetview = false
     @State private var showprogressview = false
     @State private var rsyncoutput: InprogressCountRsyncOutput?
+    // Selected row in output
+    @State private var valueselectedrow: String = ""
 
     var body: some View {
         Form {
@@ -130,7 +132,8 @@ struct QuicktaskView: View {
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
-                        output: $output)
+                        output: $output,
+                        valueselectedrow: $valueselectedrow)
     }
 
     var notifyexecuted: some View {
