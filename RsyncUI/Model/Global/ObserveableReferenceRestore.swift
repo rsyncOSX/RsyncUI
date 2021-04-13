@@ -23,6 +23,7 @@ final class ObserveableReferenceRestore: ObservableObject {
     // Combine
     var subscriptions = Set<AnyCancellable>()
     var outputprocess: OutputProcess?
+    var files: Bool = false
 
     init() {
         $inputchangedbyuser
@@ -112,11 +113,16 @@ extension ObserveableReferenceRestore {
 
     func reloadfiles() {
         guard inputchangedbyuser == true else { return }
-        numberoffiles = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count ?? 0
+        if files {
+            numberoffiles = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count ?? 0
+        } else {
+            numberoffiles = outputprocess?.trimoutput(trim: .two)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count ?? 0
+        }
     }
 
     func getfilelist(_ config: Configuration) {
         gettingfilelist = true
+        files = true
         let arguments = RestorefilesArguments(task: .rsyncfilelistings,
                                               config: config,
                                               remoteFile: nil,
@@ -131,6 +137,7 @@ extension ObserveableReferenceRestore {
     }
 
     func restore(_ config: Configuration) {
+        files = false
         var arguments: [String]?
         if filestorestore == "./." {
             // full restore
@@ -152,7 +159,10 @@ extension ObserveableReferenceRestore {
     }
 
     func getoutput() -> [String]? {
-        return outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring)
+        if files {
+            return outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        } else {
+            return outputprocess?.trimoutput(trim: .two)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         }
     }
 }
