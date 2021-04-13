@@ -10,7 +10,7 @@ import Combine
 import Foundation
 
 final class ObserveableReferenceRestore: ObservableObject {
-    @Published var restorepath: String = ""
+    @Published var pathforrestore: String = ""
     @Published var filestorestore: String = ""
     @Published var filterstring: String = ""
     @Published var selectedconfig: Configuration?
@@ -24,17 +24,15 @@ final class ObserveableReferenceRestore: ObservableObject {
     // remote filelist
     var remotefilelist: [String]?
     var outputprocess: OutputProcess?
-    // When restore is ready set true
-    var isReady: Bool = false
 
     init() {
         $inputchangedbyuser
             .sink { _ in
             }.store(in: &subscriptions)
-        $restorepath
+        $pathforrestore
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] path in
-                validaterestorepath(path)
+                validatepathforrestore(path)
             }.store(in: &subscriptions)
         $filestorestore
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
@@ -87,7 +85,27 @@ extension ObserveableReferenceRestore {
         }
     }
 
-    func validaterestorepath(_: String) {}
+    // Validate path for restore
+    func validatepathforrestore(_ atpath: String) {
+        guard inputchangedbyuser == true else { return }
+        guard atpath.isEmpty == false else { return }
+        do {
+            let ok = try validatepath(atpath)
+            if ok {
+                SharedReference.shared.pathforrestore = atpath
+            }
+        } catch let e {
+            let error = e
+            self.propogateerror(error: error)
+        }
+    }
+
+    private func validatepath(_ path: String) throws -> Bool {
+        if FileManager.default.fileExists(atPath: path, isDirectory: nil) == false {
+            throw Validatedpath.nopath
+        }
+        return true
+    }
 
     func validatefilestorestore(_: String) {}
 
@@ -113,16 +131,24 @@ extension ObserveableReferenceRestore {
     }
 
     func restore(_ config: Configuration) {
-        // SharedReference.shared.pathforrestore
-        gettingfilelist = true
-        let restore = ArgumentsRestore(config: config)
-        let arguments = restore.argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
-        outputprocess = OutputProcess()
-        let command = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                    config: config,
-                                                    processtermination: processtermination,
-                                                    filehandler: filehandler)
-        command.executeProcess(outputprocess: outputprocess)
+        var arguments: [String]?
+        if filestorestore == "./." {
+            // full restore
+            arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
+        } else {
+            var localconf = config
+            localconf.offsiteCatalog = config.offsiteCatalog + filestorestore
+            arguments = ArgumentsRestore(config: localconf).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
+        }
+        if let arguments = arguments {
+            gettingfilelist = true
+            outputprocess = OutputProcess()
+            let command = RsyncProcessCmdCombineClosure(arguments: arguments,
+                                                        config: config,
+                                                        processtermination: processtermination,
+                                                        filehandler: filehandler)
+            command.executeProcess(outputprocess: outputprocess)
+        }
     }
 
     func getoutput() -> [String]? {

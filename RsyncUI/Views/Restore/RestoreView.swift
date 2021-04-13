@@ -73,16 +73,20 @@ struct RestoreView: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(400, NSLocalizedString("Path for restore", comment: "RestoreView"), $restoresettings.restorepath)
+        EditValue(400, NSLocalizedString("Path for restore", comment: "RestoreView"), $restoresettings.pathforrestore.onChange {
+            restoresettings.inputchangedbyuser = true
+        })
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
-                    restoresettings.restorepath = pathforrestore
+                    restoresettings.pathforrestore = pathforrestore
                 }
             })
     }
 
     var setfilestorestore: some View {
-        EditValue(400, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: "RestoreView"), $restoresettings.filestorestore)
+        EditValue(400, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: "RestoreView"), $restoresettings.filestorestore.onChange {
+            restoresettings.inputchangedbyuser = true
+        })
     }
 
     var numberoffiles: some View {
@@ -121,6 +125,9 @@ extension RestoreView {
     }
 
     func restore() {
-        _ = NotYetImplemented()
+        if let config = restoresettings.selectedconfig {
+            guard restoresettings.filestorestore.isEmpty == false else { return }
+            restoresettings.restore(config)
+        }
     }
 }
