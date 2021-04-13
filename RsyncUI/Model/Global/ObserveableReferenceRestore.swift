@@ -16,6 +16,7 @@ final class ObserveableReferenceRestore: ObservableObject {
     @Published var selectedconfig: Configuration?
     @Published var gettingfilelist: Bool = false
     @Published var numberoffiles: Int = 0
+    @Published var dryrun: Bool = true
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
 
@@ -25,6 +26,9 @@ final class ObserveableReferenceRestore: ObservableObject {
 
     init() {
         $inputchangedbyuser
+            .sink { _ in
+            }.store(in: &subscriptions)
+        $dryrun
             .sink { _ in
             }.store(in: &subscriptions)
         $pathforrestore
@@ -130,11 +134,11 @@ extension ObserveableReferenceRestore {
         var arguments: [String]?
         if filestorestore == "./." {
             // full restore
-            arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
+            arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
         } else {
             var localconf = config
             localconf.offsiteCatalog = config.offsiteCatalog + filestorestore
-            arguments = ArgumentsRestore(config: localconf).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
+            arguments = ArgumentsRestore(config: localconf).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
         }
         if let arguments = arguments {
             gettingfilelist = true

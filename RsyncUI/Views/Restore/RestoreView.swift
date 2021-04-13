@@ -58,6 +58,8 @@ struct RestoreView: View {
                 setfilestorestore
             }
 
+            ToggleView(NSLocalizedString("--dry-run", comment: "RestoreView"), $restoresettings.dryrun)
+
             Spacer()
 
             Button(NSLocalizedString("View", comment: "RestoreView")) { presentoutput() }
