@@ -21,8 +21,6 @@ final class ObserveableReferenceRestore: ObservableObject {
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
-    // remote filelist
-    var remotefilelist: [String]?
     var outputprocess: OutputProcess?
 
     init() {
@@ -59,8 +57,7 @@ final class ObserveableReferenceRestore: ObservableObject {
 
 extension ObserveableReferenceRestore {
     func processtermination() {
-        remotefilelist = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        numberoffiles = remotefilelist?.count ?? 0
+        numberoffiles = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count ?? 0
         gettingfilelist = false
     }
 
@@ -111,8 +108,7 @@ extension ObserveableReferenceRestore {
 
     func reloadfiles() {
         guard inputchangedbyuser == true else { return }
-        remotefilelist = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        numberoffiles = remotefilelist?.count ?? 0
+        numberoffiles = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count ?? 0
     }
 
     func getfilelist(_ config: Configuration) {
@@ -152,7 +148,8 @@ extension ObserveableReferenceRestore {
     }
 
     func getoutput() -> [String]? {
-        return remotefilelist
+        return outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring)
+        }
     }
 }
 
