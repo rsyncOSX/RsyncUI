@@ -38,6 +38,8 @@ struct SingleTasksView: View {
     @State private var selectable = false
     // Selected row in output
     @State private var valueselectedrow: String = ""
+    // If shellout
+    @State private var shellout: Bool = false
 
     var body: some View {
         ZStack {
@@ -59,6 +61,8 @@ struct SingleTasksView: View {
                     .foregroundColor(.red)
             }
         }
+
+        if shellout { notifyshellout }
 
         // Execute singletask
         if singletaskstate.singletaskstate == .estimated { progressviewexecute }
@@ -164,6 +168,17 @@ struct SingleTasksView: View {
                         output: $output,
                         valueselectedrow: $valueselectedrow)
     }
+
+    var notifyshellout: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("Pre and post task", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 200, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
 }
 
 extension SingleTasksView {
@@ -236,6 +251,13 @@ extension SingleTasksView {
         executesingletasks = nil
         executetasknow = nil
         inprogresscountrsyncoutput.resetcounts()
+        if let config = selectedconfig {
+            if (config.executepretask ?? -1) == 1 {
+                shellout = true
+            } else {
+                shellout = false
+            }
+        }
         // kill any ongoing processes
         _ = InterruptProcess()
     }
