@@ -146,24 +146,39 @@ extension ObserveableReferenceRestore {
     func restore(_ config: Configuration) {
         files = false
         var arguments: [String]?
-        if filestorestore == "./." {
-            // full restore
-            arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
-        } else {
-            // Restore file or catalog
-            var localconf = config
-            localconf.offsiteCatalog = verifyrestorefile(config, filestorestore)
-            arguments = ArgumentsRestore(config: localconf).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+        do {
+            let ok = try validateforrestore()
+            if ok {
+                if filestorestore == "./." {
+                    // full restore
+                    arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+                } else {
+                    // Restore file or catalog
+                    var localconf = config
+                    localconf.offsiteCatalog = verifyrestorefile(config, filestorestore)
+                    arguments = ArgumentsRestore(config: localconf).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+                }
+                if let arguments = arguments {
+                    gettingfilelist = true
+                    outputprocess = OutputProcess()
+                    let command = RsyncProcessCmdCombineClosure(arguments: arguments,
+                                                                config: config,
+                                                                processtermination: processtermination,
+                                                                filehandler: filehandler)
+                    command.executeProcess(outputprocess: outputprocess)
+                }
+            }
+        } catch let e {
+            let error = e
+            self.propogateerror(error: error)
         }
-        if let arguments = arguments {
-            gettingfilelist = true
-            outputprocess = OutputProcess()
-            let command = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                        config: config,
-                                                        processtermination: processtermination,
-                                                        filehandler: filehandler)
-            command.executeProcess(outputprocess: outputprocess)
+    }
+
+    private func validateforrestore() throws -> Bool {
+        if filestorestore.isEmpty == true || (SharedReference.shared.pathforrestore?.isEmpty ?? true) == true {
+            throw RestoreError.notvalidrestore
         }
+        return true
     }
 
     private func verifyrestorefile(_ config: Configuration, _: String) -> String {
@@ -195,14 +210,14 @@ extension ObserveableReferenceRestore: PropogateError {
 
 enum RestoreError: LocalizedError {
     case notvalidtaskforrestore
-    case error1
+    case notvalidrestore
 
     var errorDescription: String? {
         switch self {
         case .notvalidtaskforrestore:
             return NSLocalizedString("Restore not allowed for syncremote task", comment: "Restore") + "..."
-        case .error1:
-            return NSLocalizedString("Error1", comment: "Restore") + "..."
+        case .notvalidrestore:
+            return NSLocalizedString("Either is path for restore or file to restore empty", comment: "Restore") + "..."
         }
     }
 }
