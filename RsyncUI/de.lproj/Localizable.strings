@@ -13,7 +13,8 @@
 /* RsyncParametersView */
 "--delete" = "--löschen";
 
-/* ssh */
+/* RestoreView
+   ssh */
 "--dry-run" = "--dry-run";
 
 /* RsyncParametersView */
@@ -25,7 +26,8 @@
 /* No comment provided by engineer. */
 "0" = "0";
 
-/* Abort button */
+/* Abort button
+   RestoreView */
 "Abort" = "Abbrechen";
 
 /* about */
@@ -97,12 +99,8 @@
 "Bytes" = "Bytes";
 
 /* Cancel button
-   Cancel NSAlert
    Dismiss button */
 "Cancel" = "Abbrechen";
-
-/* Profiles */
-"Cancel or Delete" = "Abbrechen oder Löschen";
 
 /* No comment provided by engineer. */
 "Cancel or OK" = "Abbrechen oder OK";
@@ -122,9 +120,6 @@
 
 /* Select button */
 "Clear" = "Leeren";
-
-/* Close NSAlert */
-"Close" = "Schließen";
 
 /* CommandTab */
 "Command" = "Befehl";
@@ -173,12 +168,8 @@
    Delete button
    Dismiss button
    OutputEstimatedView
-   plan
-   Profiles */
+   plan */
 "Delete" = "Löschen";
-
-/* Profiles */
-"Delete profile:" = "Profil löschen:";
 
 /* settings */
 "Detailed" = "Detailliert";
@@ -223,6 +214,9 @@
 
 /* settings */
 "Error" = "Fehler";
+
+/* Restore */
+"Error1" = "Fehler1";
 
 /* Estimate button */
 "Estimate" = "Schätzung";
@@ -276,9 +270,6 @@
 
 /* settings */
 "Halt on error" = "Bei Fehler stoppen";
-
-/* No comment provided by engineer. */
-"Here comes view for restore" = "Hier kommt die Ansicht für die Wiederherstellung";
 
 /* icon */
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
@@ -359,6 +350,9 @@
 /* settings */
 "New profile" = "Neues Profil";
 
+/* settings */
+"New version" = "Neue Version";
+
 /* ScheduleRowSchedules */
 "no startdate" = "kein Startdatum";
 
@@ -370,6 +364,9 @@
 
 /* norwegian */
 "Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
+
+/* settings */
+"Not a snapshot task" = "Keine Snapshot-Aufgabe";
 
 /* ssh error */
 "Not a valid " = "Nicht gültig ";
@@ -389,6 +386,10 @@
 /* Now button */
 "Now" = "Jetzt";
 
+/* RestoreView
+   RestoreView: */
+"Number of files" = "Anzahl der Dateien";
+
 /* No comment provided by engineer. */
 "Number of logs" = "Anzahl der Logs";
 
@@ -401,7 +402,8 @@
 /* OutputRsyncView */
 "Output from rsync" = "Ausgabe von rsync";
 
-/* settings */
+/* RestoreView
+   settings */
 "Path for restore" = "Pfad zum Wiederherstellen";
 
 /* settings */
@@ -457,9 +459,13 @@
 /* Reset button */
 "Reset" = "Reset";
 
-/* sidebar
+/* RestoreView
+   sidebar
    SidebarRsyncParameter */
 "Restore" = "Wiederherstellen";
+
+/* Restore */
+"Restore not allowed for syncremote task" = "Wiederherstellung für Syncremote-Aufgabe nicht erlaubt";
 
 /* Execute button
    sidebar
@@ -520,6 +526,9 @@
 /* sidebar
    sidebar ... */
 "Select a task" = "Aufgabe auswählen";
+
+/* RestoreView */
+"Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* ConfigurationsList
    OutputEstimatedView */
@@ -648,6 +657,7 @@
 "Version %@ (%@)" = "Version %1$@ (%2$@)";
 
 /* QuicktaskView
+   RestoreView
    View button */
 "View" = "Ansicht";
 

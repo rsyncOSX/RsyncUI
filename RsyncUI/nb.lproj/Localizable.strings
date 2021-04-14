@@ -13,7 +13,8 @@
 /* RsyncParametersView */
 "--delete" = "--delete";
 
-/* ssh */
+/* RestoreView
+   ssh */
 "--dry-run" = "--dry-run";
 
 /* RsyncParametersView */
@@ -25,7 +26,8 @@
 /* No comment provided by engineer. */
 "0" = "0";
 
-/* Abort button */
+/* Abort button
+   RestoreView */
 "Abort" = "Avbryt";
 
 /* about */
@@ -97,12 +99,8 @@
 "Bytes" = "bytes";
 
 /* Cancel button
-   Cancel NSAlert
    Dismiss button */
 "Cancel" = "Avbryt";
-
-/* Profiles */
-"Cancel or Delete" = "Avbryt eller slett";
 
 /* No comment provided by engineer. */
 "Cancel or OK" = "Avbryt eller OK";
@@ -122,9 +120,6 @@
 
 /* Select button */
 "Clear" = "Tøm";
-
-/* Close NSAlert */
-"Close" = "Lukk";
 
 /* CommandTab */
 "Command" = "Kommando";
@@ -173,12 +168,8 @@
    Delete button
    Dismiss button
    OutputEstimatedView
-   plan
-   Profiles */
+   plan */
 "Delete" = "Slett";
-
-/* Profiles */
-"Delete profile:" = "Slett profil:";
 
 /* settings */
 "Detailed" = "Detaljert";
@@ -223,6 +214,9 @@
 
 /* settings */
 "Error" = "Feil";
+
+/* Restore */
+"Error1" = "Feil1";
 
 /* Estimate button */
 "Estimate" = "Estimat";
@@ -276,9 +270,6 @@
 
 /* settings */
 "Halt on error" = "Stopp ved feil";
-
-/* No comment provided by engineer. */
-"Here comes view for restore" = "Her kommer visning for gjenoppretting";
 
 /* icon */
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
@@ -359,6 +350,9 @@
 /* settings */
 "New profile" = "Ny profil";
 
+/* settings */
+"New version" = "Ny versjon";
+
 /* ScheduleRowSchedules */
 "no startdate" = "ingen startdato";
 
@@ -370,6 +364,9 @@
 
 /* norwegian */
 "Norwegian translation by: Thomas Evensen" = "Norsk oversettelse av: Thomas Evensen";
+
+/* settings */
+"Not a snapshot task" = "Ikke en snapshot oppgave";
 
 /* ssh error */
 "Not a valid " = "Ikke en gyldig ";
@@ -389,6 +386,10 @@
 /* Now button */
 "Now" = "Nå";
 
+/* RestoreView
+   RestoreView: */
+"Number of files" = "Antall filer";
+
 /* No comment provided by engineer. */
 "Number of logs" = "Antall logger";
 
@@ -401,7 +402,8 @@
 /* OutputRsyncView */
 "Output from rsync" = "Resultat av rsync";
 
-/* settings */
+/* RestoreView
+   settings */
 "Path for restore" = "Sti for gjenoppretting";
 
 /* settings */
@@ -457,9 +459,13 @@
 /* Reset button */
 "Reset" = "Reset";
 
-/* sidebar
+/* RestoreView
+   sidebar
    SidebarRsyncParameter */
 "Restore" = "Gjenopprett";
+
+/* Restore */
+"Restore not allowed for syncremote task" = "Gjenopprett ikke tillatt for oppgaver med syncremote";
 
 /* Execute button
    sidebar
@@ -520,6 +526,9 @@
 /* sidebar
    sidebar ... */
 "Select a task" = "Velg en oppgave";
+
+/* RestoreView */
+"Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
 
 /* ConfigurationsList
    OutputEstimatedView */
@@ -648,6 +657,7 @@
 "Version %@ (%@)" = "Versjon %@ (%@)";
 
 /* QuicktaskView
+   RestoreView
    View button */
 "View" = "Vis";
 
