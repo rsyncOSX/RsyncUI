@@ -12,6 +12,9 @@ import Foundation
 final class ObserveableReferenceRestore: ObservableObject {
     @Published var pathforrestore: String = ""
     @Published var filestorestore: String = ""
+    // Copy files from selecting row from view output
+    // If in "files" mode copy value to filestorestore
+    @Published var filestorestorefromview: String = ""
     @Published var filterstring: String = ""
     @Published var selectedconfig: Configuration?
     @Published var gettingfilelist: Bool = false
@@ -36,6 +39,13 @@ final class ObserveableReferenceRestore: ObservableObject {
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] path in
                 validatepathforrestore(path)
+            }.store(in: &subscriptions)
+        $filestorestorefromview
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .sink { [unowned self] file in
+                if self.files == true {
+                    filestorestore = file
+                }
             }.store(in: &subscriptions)
         $filestorestore
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
@@ -142,10 +152,7 @@ extension ObserveableReferenceRestore {
         } else {
             // Restore file or catalog
             var localconf = config
-            // drop "./" in filetorestore
-            // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)
-            // normal is to append a "/" to config.offsiteCatalog but must verify
-            localconf.offsiteCatalog = config.offsiteCatalog + filestorestore.dropFirst(2) // drop "./"
+            localconf.offsiteCatalog = verifyrestorefile(config, filestorestore)
             arguments = ArgumentsRestore(config: localconf).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
         }
         if let arguments = arguments {
@@ -156,6 +163,18 @@ extension ObserveableReferenceRestore {
                                                         processtermination: processtermination,
                                                         filehandler: filehandler)
             command.executeProcess(outputprocess: outputprocess)
+        }
+    }
+
+    private func verifyrestorefile(_ config: Configuration, _: String) -> String {
+        // Restore file or catalog
+        // drop "./" in filetorestore
+        // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)
+        // normal is to append a "/" to config.offsiteCatalog but must verify
+        if config.offsiteCatalog.hasSuffix("/") {
+            return config.offsiteCatalog + filestorestore.dropFirst(2) // drop first "./"
+        } else {
+            return config.offsiteCatalog + "/" + filestorestore.dropFirst(2) // drop first "./"
         }
     }
 
