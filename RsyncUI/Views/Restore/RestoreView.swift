@@ -131,7 +131,6 @@ extension RestoreView {
 
     func restore() {
         if let config = restoresettings.selectedconfig {
-            guard restoresettings.filestorestore.isEmpty == false else { return }
             restoresettings.restore(config)
         }
     }
