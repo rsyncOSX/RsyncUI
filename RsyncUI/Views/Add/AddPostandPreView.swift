@@ -73,9 +73,6 @@ struct AddPostandPreView: View {
                     // Present when updated
                     if updated == true { notifyupdated }
 
-                    Button(NSLocalizedString("Select", comment: "Select button")) { selectconfig() }
-                        .buttonStyle(PrimaryButtonStyle())
-
                     // Add or Update button
                     if selectedconfig == nil {
                         Button(NSLocalizedString("Update", comment: "Update button")) {}
@@ -88,6 +85,9 @@ struct AddPostandPreView: View {
                                     .stroke(Color.red, lineWidth: 5)
                             )
                     }
+
+                    Button(NSLocalizedString("Select", comment: "Select button")) { selectconfig() }
+                        .buttonStyle(PrimaryButtonStyle())
                 }
             }
         }
