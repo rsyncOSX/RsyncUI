@@ -86,7 +86,7 @@ struct Sidebar: View {
                 NavigationLink(destination: SidebarRsyncParameter(reload: $reload),
                                tag: NavigationItem.rsync,
                                selection: $selection) {
-                    Label(NSLocalizedString("Rsync", comment: "sidebar"), systemImage: "command.circle.fill")
+                    Label(NSLocalizedString("Rsync parameters", comment: "sidebar"), systemImage: "command.circle.fill")
                 }
                 .tag(NavigationItem.rsync)
 
