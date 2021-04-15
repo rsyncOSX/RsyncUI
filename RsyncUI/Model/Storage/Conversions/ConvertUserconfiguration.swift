@@ -70,12 +70,12 @@ struct ConvertUserconfiguration {
         } else {
             dict.setObject("", forKey: DictionaryStrings.restorePath.rawValue as NSCopying)
         }
-        if let pathrsyncosx = SharedReference.shared.pathrsyncosx {
+        if let pathrsyncosx = SharedReference.shared.pathrsyncui {
             if pathrsyncosx.isEmpty == false {
                 dict.setObject(pathrsyncosx, forKey: DictionaryStrings.pathrsyncosx.rawValue as NSCopying)
             }
         }
-        if let pathrsyncosxsched = SharedReference.shared.pathrsyncosxsched {
+        if let pathrsyncosxsched = SharedReference.shared.pathrsyncschedule {
             if pathrsyncosxsched.isEmpty == false {
                 dict.setObject(pathrsyncosxsched, forKey: DictionaryStrings.pathrsyncosxsched.rawValue as NSCopying)
             }

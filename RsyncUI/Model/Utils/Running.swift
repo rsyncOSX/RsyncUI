@@ -18,8 +18,8 @@ final class Running {
 
     func verifyrsyncosxsched() -> Bool {
         let fileManager = FileManager.default
-        guard fileManager.fileExists(atPath: (SharedReference.shared.pathrsyncosxsched ?? "/Applications/") +
-            SharedReference.shared.namersyncosssched) else { return false }
+        guard fileManager.fileExists(atPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/") +
+            SharedReference.shared.namersyncschedule) else { return false }
         return true
     }
 

@@ -52,26 +52,26 @@ class SharedReference {
     // Download URL if new version is avaliable
     var URLnewVersion: String?
     // rsync command
-    var rsync: String = "rsync"
-    var usrbin: String = "/usr/bin"
-    var usrlocalbin: String = "/usr/local/bin"
+    let rsync: String = "rsync"
+    let usrbin: String = "/usr/bin"
+    let usrlocalbin: String = "/usr/local/bin"
     // Where RsyncOSX config files are stored
-    var configpath: String = "/Rsync/"
+    let configpath: String = "/Rsync/"
     // New RsynOSX config files and path
-    var newconfigpath: String = "/.rsyncosx/"
+    let newconfigpath: String = "/.rsyncosx/"
     var usenewconfigpath: Bool = true
     // Plistnames and key
-    var scheduleplist: String = "/scheduleRsync.plist"
-    var schedulekey: String = "Schedule"
-    var configurationsplist: String = "/configRsync.plist"
-    var configurationskey: String = "Catalogs"
-    var userconfigplist: String = "/config.plist"
-    var userconfigkey: String = "config"
-    var logname: String = "rsynclog.txt"
+    let scheduleplist: String = "/scheduleRsync.plist"
+    let schedulekey: String = "Schedule"
+    let configurationsplist: String = "/configRsync.plist"
+    let configurationskey: String = "Catalogs"
+    let userconfigplist: String = "/config.plist"
+    let userconfigkey: String = "config"
+    let logname: String = "rsynclog.txt"
     // String tasks
-    var synchronize: String = "synchronize"
-    var snapshot: String = "snapshot"
-    var syncremote: String = "syncremote"
+    let synchronize: String = "synchronize"
+    let snapshot: String = "snapshot"
+    let syncremote: String = "syncremote"
     var synctasks: Set<String>
     // rsync version string
     var rsyncversionstring: String?
@@ -80,10 +80,10 @@ class SharedReference {
     // filsize logfile warning
     var logfilesize: Int = 100_000
     // Paths
-    var pathrsyncosx: String?
-    var pathrsyncosxsched: String?
-    var namersyncosx = "RsyncOSX.app"
-    var namersyncosssched = "RsyncOSXsched.app"
+    var pathrsyncui: String?
+    var pathrsyncschedule: String?
+    let namersyncui = "RsyncUI.app"
+    let namersyncschedule = "RsyncSchedule.app"
     // Mac serialnumer
     var macserialnumber: String?
     // True if menuapp is running
@@ -91,8 +91,8 @@ class SharedReference {
     // Reference to the active process
     var process: Process?
     // JSON names
-    var fileschedulesjson = "schedules.json"
-    var fileconfigurationsjson = "configurations.json"
+    let fileschedulesjson = "schedules.json"
+    let fileconfigurationsjson = "configurations.json"
     // Object for propogate errors to views
     var errorobject: ErrorHandling?
     // Object for shortcuts

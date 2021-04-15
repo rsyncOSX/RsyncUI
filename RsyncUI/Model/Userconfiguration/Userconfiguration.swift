@@ -51,16 +51,16 @@ struct Userconfiguration {
         // Paths rsyncOSX and RsyncOSXsched
         if let pathrsyncosx = dict.value(forKey: DictionaryStrings.pathrsyncosx.rawValue) as? String {
             if pathrsyncosx.isEmpty == true {
-                SharedReference.shared.pathrsyncosx = nil
+                SharedReference.shared.pathrsyncui = nil
             } else {
-                SharedReference.shared.pathrsyncosx = pathrsyncosx
+                SharedReference.shared.pathrsyncui = pathrsyncosx
             }
         }
         if let pathrsyncosxsched = dict.value(forKey: DictionaryStrings.pathrsyncosxsched.rawValue) as? String {
             if pathrsyncosxsched.isEmpty == true {
-                SharedReference.shared.pathrsyncosxsched = nil
+                SharedReference.shared.pathrsyncschedule = nil
             } else {
-                SharedReference.shared.pathrsyncosxsched = pathrsyncosxsched
+                SharedReference.shared.pathrsyncschedule = pathrsyncosxsched
             }
         }
         // No logging, minimum logging or full logging

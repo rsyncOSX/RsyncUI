@@ -105,7 +105,7 @@ struct Othersettings: View {
             usersettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
-                if let pathrsyncosx = SharedReference.shared.pathrsyncosx {
+                if let pathrsyncosx = SharedReference.shared.pathrsyncui {
                     usersettings.pathrsyncosx = pathrsyncosx
                 }
             })
@@ -117,7 +117,7 @@ struct Othersettings: View {
                       usersettings.inputchangedbyuser = true
                   })
             .onAppear(perform: {
-                if let pathrsyncosxsched = SharedReference.shared.pathrsyncosxsched {
+                if let pathrsyncosxsched = SharedReference.shared.pathrsyncschedule {
                     usersettings.pathrsyncosxsched = pathrsyncosxsched
                 }
             })

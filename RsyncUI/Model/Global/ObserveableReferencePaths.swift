@@ -15,8 +15,8 @@ final class ObserveableReferencePaths: ObservableObject {
     @Published var environment: String = SharedReference.shared.environment ?? ""
     @Published var environmentvalue: String = SharedReference.shared.environmentvalue ?? ""
     // Paths for apps
-    @Published var pathrsyncosx: String = SharedReference.shared.pathrsyncosx ?? ""
-    @Published var pathrsyncosxsched: String = SharedReference.shared.pathrsyncosxsched ?? ""
+    @Published var pathrsyncosx: String = SharedReference.shared.pathrsyncui ?? ""
+    @Published var pathrsyncosxsched: String = SharedReference.shared.pathrsyncschedule ?? ""
     @Published var inputchangedbyuser: Bool = false
 
     // Combine
@@ -61,7 +61,7 @@ extension ObserveableReferencePaths {
             let ok = try validatepath(atpath)
             if ok {
                 isDirty = true
-                SharedReference.shared.pathrsyncosx = atpath
+                SharedReference.shared.pathrsyncui = atpath
             }
         } catch let e {
             let error = e
@@ -76,7 +76,7 @@ extension ObserveableReferencePaths {
             let ok = try validatepath(atpath)
             if ok {
                 isDirty = true
-                SharedReference.shared.pathrsyncosxsched = atpath
+                SharedReference.shared.pathrsyncschedule = atpath
             }
         } catch let e {
             let error = e
