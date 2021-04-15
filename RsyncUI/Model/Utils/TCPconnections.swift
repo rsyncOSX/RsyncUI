@@ -8,14 +8,8 @@
 
 import Foundation
 
-// Protocol for doing a refresh in main view after testing for connectivity
-protocol Connections: AnyObject {
-    func displayConnections()
-}
-
 class TCPconnections: Delay {
     private var indexBoolremoteserverOff: [Bool]?
-    weak var testconnectionsDelegate: Connections?
     var client: TCPClient?
     var connectionscheckcompleted: Bool = false
     var configurations: ConfigurationsSwiftUI?
@@ -44,8 +38,6 @@ class TCPconnections: Delay {
         indexBoolremoteserverOff = nil
         indexBoolremoteserverOff = [Bool]()
         guard (configurations?.getnumberofconfigurations() ?? 0) > 0 else {
-            // Tell main view profile menu might presented
-            // self.newprofileDelegate?.reloadprofilepopupbutton()
             return
         }
         globalBackgroundQueue.async { () -> Void in
@@ -66,9 +58,6 @@ class TCPconnections: Delay {
                     // Reload table when all remote servers are checked
                     if i == ((self.configurations?.getnumberofconfigurations() ?? 0) - 1) {
                         // Send message to do a refresh table in main view
-                        self.testconnectionsDelegate?.displayConnections()
-                        // Tell main view profile menu might presented
-                        // self.newprofileDelegate?.reloadprofilepopupbutton()
                         self.connectionscheckcompleted = true
                     }
                 }

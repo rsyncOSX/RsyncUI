@@ -26,7 +26,7 @@ class PersistentStorageConfigurationJSON: ReadWriteJSON {
         writeJSONToPersistentStore()
         if SharedReference.shared.menuappisrunning {
             Notifications().showNotification(message: "Sending reload message to menu app")
-            DistributedNotificationCenter.default().postNotificationName(NSNotification.Name("no.blogspot.RsyncOSX.reload"), object: nil, deliverImmediately: true)
+            DistributedNotificationCenter.default().postNotificationName(NSNotification.Name("no.blogspot.RsyncUI.reload"), object: nil, deliverImmediately: true)
         }
     }
 
