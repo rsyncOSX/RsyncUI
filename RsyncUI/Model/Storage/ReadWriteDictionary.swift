@@ -32,7 +32,7 @@ class ReadWriteDictionary: NamesandPaths {
         let dictionary = NSDictionary(object: array, forKey: (key ?? "") as NSCopying)
         let write = dictionary.write(toFile: filename ?? "", atomically: true)
         if write && SharedReference.shared.menuappisrunning {
-            Notifications().showNotification(message: "Sending reload message to menu app")
+            Notifications().showNotification("Sending reload message to menu app")
             DistributedNotificationCenter.default().postNotificationName(NSNotification.Name("no.blogspot.RsyncUI.reload"), object: nil, deliverImmediately: true)
         }
         return write

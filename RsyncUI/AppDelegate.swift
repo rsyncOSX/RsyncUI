@@ -7,12 +7,20 @@
 
 import Cocoa
 import SwiftUI
+import UserNotifications
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
     func applicationDidFinishLaunching(_: Notification) {
+        let center = UNUserNotificationCenter.current()
+        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
+        center.requestAuthorization(options: options) { granted, _ in
+            if granted {
+                // application.registerForRemoteNotifications()
+            }
+        }
         // Decide if:
         // 1: First time start, use new profilepath
         // 2: Old profilepath is copied to new, use new profilepath
