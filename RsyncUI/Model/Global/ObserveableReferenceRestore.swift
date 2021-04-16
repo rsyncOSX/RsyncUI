@@ -195,8 +195,10 @@ extension ObserveableReferenceRestore {
 
     func getoutput() -> [String]? {
         if files {
+            // trim one
             return outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         } else {
+            // trim two
             return outputprocess?.trimoutput(trim: .two)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         }
     }

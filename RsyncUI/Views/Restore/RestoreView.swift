@@ -23,18 +23,10 @@ struct RestoreView: View {
     var body: some View {
         ZStack {
             VStack {
-                HStack {
-                    SearchbarView(text: $restoresettings.filterstring.onChange {
-                        restoresettings.inputchangedbyuser = true
-                    })
-
-                    Spacer()
-
-                    numberoffiles
-
-                    Spacer()
-                }
-                .padding(.top, -20)
+                SearchbarView(text: $restoresettings.filterstring.onChange {
+                    restoresettings.inputchangedbyuser = true
+                })
+                    .padding(.top, -20)
 
                 ConfigurationsList(selectedconfig: $restoresettings.selectedconfig.onChange {
                     restoresettings.filestorestore = ""
@@ -54,13 +46,15 @@ struct RestoreView: View {
         Spacer()
 
         HStack {
+            ToggleView(NSLocalizedString("--dry-run", comment: "RestoreView"), $restoresettings.dryrun)
+
             VStack(alignment: .leading) {
-                setpathforrestore
+                numberoffiles
 
                 setfilestorestore
-            }
 
-            ToggleView(NSLocalizedString("--dry-run", comment: "RestoreView"), $restoresettings.dryrun)
+                setpathforrestore
+            }
 
             Spacer()
 
@@ -77,7 +71,7 @@ struct RestoreView: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(400, NSLocalizedString("Path for restore", comment: "RestoreView"), $restoresettings.pathforrestore.onChange {
+        EditValue(500, NSLocalizedString("Path for restore", comment: "RestoreView"), $restoresettings.pathforrestore.onChange {
             restoresettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
@@ -88,7 +82,7 @@ struct RestoreView: View {
     }
 
     var setfilestorestore: some View {
-        EditValue(400, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: "RestoreView"), $restoresettings.filestorestore.onChange {
+        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: "RestoreView"), $restoresettings.filestorestore.onChange {
             restoresettings.inputchangedbyuser = true
         })
     }
