@@ -112,7 +112,7 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncschedule: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncOSXsched", comment: "settings"),
+        EditValue(250, NSLocalizedString("Path to RsyncSchedule", comment: "settings"),
                   $usersettings.pathrsyncschedule.onChange {
                       usersettings.inputchangedbyuser = true
                   })

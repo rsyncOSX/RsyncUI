@@ -61,7 +61,11 @@ extension ObserveableReferencePaths {
             let ok = try validatepath(atpath)
             if ok {
                 isDirty = true
-                SharedReference.shared.pathrsyncui = atpath
+                if atpath.hasSuffix("/") == false {
+                    SharedReference.shared.pathrsyncui = atpath + "/"
+                } else {
+                    SharedReference.shared.pathrsyncui = atpath
+                }
             }
         } catch let e {
             let error = e
@@ -76,7 +80,11 @@ extension ObserveableReferencePaths {
             let ok = try validatepath(atpath)
             if ok {
                 isDirty = true
-                SharedReference.shared.pathrsyncschedule = atpath
+                if atpath.hasSuffix("/") == false {
+                    SharedReference.shared.pathrsyncschedule = atpath + "/"
+                } else {
+                    SharedReference.shared.pathrsyncschedule = atpath
+                }
             }
         } catch let e {
             let error = e
@@ -97,3 +105,8 @@ extension ObserveableReferencePaths: PropogateError {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
+
+/*
+ TODO : fix bug in upfating both paths at same time
+ Same bug in SSH port number
+ */
