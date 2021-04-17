@@ -107,6 +107,6 @@ extension ObserveableReferencePaths: PropogateError {
 }
 
 /*
- TODO : fix bug in upfating both paths at same time
+ TODO: fix bug in upfating both paths at same time
  Same bug in SSH port number
  */

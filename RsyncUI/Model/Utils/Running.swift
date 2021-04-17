@@ -10,16 +10,15 @@ import AppKit
 import Foundation
 
 final class Running {
-    let rsyncOSX = "no.blogspot.RsyncOSX"
-    let rsyncOSXsched = "no.blogspot.RsyncOSXsched"
-    var rsyncOSXisrunning: Bool = false
+    let rsyncui = "no.blogspot.RsyncUI"
+    let rsyncschedule = "no.blogspot.RsyncSchedule"
+    var rsyncUIisrunning: Bool = false
     var rsyncOSXschedisrunning: Bool = false
-    var menuappnoconfig: Bool = true
 
-    func verifyrsyncosxsched() -> Bool {
+    func verifyrsyncui() -> Bool {
         let fileManager = FileManager.default
-        guard fileManager.fileExists(atPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/") +
-            SharedReference.shared.namersyncschedule) else { return false }
+        guard fileManager.fileExists(atPath: (SharedReference.shared.pathrsyncui ?? "/Applications/") +
+            SharedReference.shared.namersyncui) else { return false }
         return true
     }
 
@@ -27,19 +26,17 @@ final class Running {
         // Get all running applications
         let workspace = NSWorkspace.shared
         let applications = workspace.runningApplications
-        let rsyncosx = applications.filter { ($0.bundleIdentifier == self.rsyncOSX) }
-        let rsyncosxschde = applications.filter { ($0.bundleIdentifier == self.rsyncOSXsched) }
-        if rsyncosx.count > 0 {
-            rsyncOSXisrunning = true
+        let rsyncui = applications.filter { ($0.bundleIdentifier == self.rsyncui) }
+        let rsyncschedule = applications.filter { ($0.bundleIdentifier == self.rsyncschedule) }
+        if rsyncui.count > 0 {
+            rsyncUIisrunning = true
         } else {
-            rsyncOSXisrunning = false
+            rsyncUIisrunning = false
         }
-        if rsyncosxschde.count > 0 {
+        if rsyncschedule.count > 0 {
             rsyncOSXschedisrunning = true
-            SharedReference.shared.menuappisrunning = true
         } else {
             rsyncOSXschedisrunning = false
-            SharedReference.shared.menuappisrunning = false
         }
     }
 }

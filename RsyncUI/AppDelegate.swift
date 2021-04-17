@@ -121,4 +121,12 @@ extension AppDelegate {
             SharedReference.shared.shortcutobject?.estimatesingletask = true
         }
     }
+
+    @IBAction func schedules(_: Any?) {
+        let running = Running()
+        guard running.rsyncOSXschedisrunning == false else { return }
+        guard running.verifyrsyncui() == true else { return }
+        NSWorkspace.shared.open(URL(fileURLWithPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/") + SharedReference.shared.namersyncschedule))
+        NSApp.terminate(self)
+    }
 }

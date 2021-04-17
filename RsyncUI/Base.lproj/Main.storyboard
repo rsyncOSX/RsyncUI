@@ -75,9 +75,15 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="pjv-Ng-hY8"/>
-                                        <menuItem title="Print…" keyEquivalent="p" id="aTl-1u-JFS">
+                                        <menuItem title="Schedule" keyEquivalent="s" id="aTl-1u-JFS">
                                             <connections>
-                                                <action selector="print:" target="Ady-hI-5gd" id="qaZ-4w-aoO"/>
+                                                <action selector="schedules:" target="Ady-hI-5gd" id="nP8-KI-tci"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="72b-T1-fVa"/>
+                                        <menuItem title="Print…" keyEquivalent="p" id="fDN-Sa-NxV">
+                                            <connections>
+                                                <action selector="print:" target="Ady-hI-5gd" id="74l-JT-E92"/>
                                             </connections>
                                         </menuItem>
                                     </items>
