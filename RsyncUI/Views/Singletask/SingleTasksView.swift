@@ -103,14 +103,20 @@ struct SingleTasksView: View {
 
     // Estimate and the execute.
     var estimateandexecute: some View {
-        if singletaskstate.singletaskstate == .start {
-            // Estimate
-            return Button(NSLocalizedString("Estimate", comment: "Estimate button")) { initsingletask() }
-                .buttonStyle(PrimaryButtonStyle())
-        } else {
-            // Execute estimated
-            return Button(NSLocalizedString("Execute", comment: "Execute button")) { singletask() }
-                .buttonStyle(PrimaryButtonStyle())
+        HStack {
+            if singletaskstate.singletaskstate == .start {
+                // Estimate
+                Button(NSLocalizedString("Estimate", comment: "Estimate button")) { initsingletask() }
+                    .buttonStyle(PrimaryButtonStyle())
+            } else {
+                // Execute estimated
+                Button(NSLocalizedString("Execute", comment: "Execute button")) { singletask() }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.red, lineWidth: 5)
+                    )
+            }
         }
     }
 

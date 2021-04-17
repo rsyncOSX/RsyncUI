@@ -67,10 +67,10 @@ struct QuicktaskView: View {
                 Spacer()
 
                 HStack {
-                    Spacer()
-
                     Button(NSLocalizedString("Execute", comment: "QuicktaskView")) { getconfig() }
                         .buttonStyle(PrimaryButtonStyle())
+
+                    Spacer()
 
                     Button(NSLocalizedString("View", comment: "QuicktaskView")) { presentoutput() }
                         .buttonStyle(PrimaryButtonStyle())
