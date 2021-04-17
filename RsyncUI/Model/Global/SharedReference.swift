@@ -155,8 +155,8 @@ enum DictionaryStrings: String {
     case rsyncPath
     case restorePath
     case marknumberofdayssince
-    case pathrsyncosx
-    case pathrsyncosxsched
+    case pathrsyncui
+    case pathrsyncschedule
     case minimumlogging
     case fulllogging
     case environment

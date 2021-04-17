@@ -18,9 +18,9 @@ struct Othersettings: View {
                 // Column 1
                 VStack(alignment: .leading) {
                     Section(header: headerpaths) {
-                        setpathtorsyncosx
+                        setpathtorsyncui
 
-                        setpathtorsyncosxsched
+                        setpathtorsyncschedule
                     }
                 }.padding()
 
@@ -100,25 +100,25 @@ struct Othersettings: View {
             })
     }
 
-    var setpathtorsyncosx: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "settings"), $usersettings.pathrsyncosx.onChange {
+    var setpathtorsyncui: some View {
+        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "settings"), $usersettings.pathrsyncui.onChange {
             usersettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
-                if let pathrsyncosx = SharedReference.shared.pathrsyncui {
-                    usersettings.pathrsyncosx = pathrsyncosx
+                if let pathrsyncui = SharedReference.shared.pathrsyncui {
+                    usersettings.pathrsyncui = pathrsyncui
                 }
             })
     }
 
-    var setpathtorsyncosxsched: some View {
+    var setpathtorsyncschedule: some View {
         EditValue(250, NSLocalizedString("Path to RsyncOSXsched", comment: "settings"),
-                  $usersettings.pathrsyncosxsched.onChange {
+                  $usersettings.pathrsyncschedule.onChange {
                       usersettings.inputchangedbyuser = true
                   })
             .onAppear(perform: {
-                if let pathrsyncosxsched = SharedReference.shared.pathrsyncschedule {
-                    usersettings.pathrsyncosxsched = pathrsyncosxsched
+                if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
+                    usersettings.pathrsyncschedule = pathrsyncschedule
                 }
             })
     }

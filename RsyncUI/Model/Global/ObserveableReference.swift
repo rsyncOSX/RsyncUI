@@ -31,8 +31,8 @@ final class ObserveableReference: ObservableObject {
     // Mark number of days since last backup
     @Published var marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
     // Paths for apps
-    @Published var pathrsyncosx: String = SharedReference.shared.pathrsyncui ?? ""
-    @Published var pathrsyncosxsched: String = SharedReference.shared.pathrsyncschedule ?? ""
+    @Published var pathrsyncui: String = SharedReference.shared.pathrsyncui ?? ""
+    @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     // Check for network changes
     @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // Check input when loading schedules and adding config
@@ -103,13 +103,13 @@ final class ObserveableReference: ObservableObject {
             .sink { [unowned self] value in
                 markdays(days: value)
             }.store(in: &subscriptions)
-        $pathrsyncosx
+        $pathrsyncui
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncosx in
                 SharedReference.shared.pathrsyncui = pathtorsyncosx
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
-        $pathrsyncosxsched
+        $pathrsyncschedule
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncosxsched in
                 SharedReference.shared.pathrsyncschedule = pathtorsyncosxsched

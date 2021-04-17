@@ -15,8 +15,8 @@ final class ObserveableReferencePaths: ObservableObject {
     @Published var environment: String = SharedReference.shared.environment ?? ""
     @Published var environmentvalue: String = SharedReference.shared.environmentvalue ?? ""
     // Paths for apps
-    @Published var pathrsyncosx: String = SharedReference.shared.pathrsyncui ?? ""
-    @Published var pathrsyncosxsched: String = SharedReference.shared.pathrsyncschedule ?? ""
+    @Published var pathrsyncui: String = SharedReference.shared.pathrsyncui ?? ""
+    @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     @Published var inputchangedbyuser: Bool = false
 
     // Combine
@@ -38,23 +38,23 @@ final class ObserveableReferencePaths: ObservableObject {
                 SharedReference.shared.environmentvalue = environmentvalue
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
-        $pathrsyncosx
+        $pathrsyncui
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] pathtorsyncosx in
-                setandvalidapathrsyncosx(pathtorsyncosx)
+            .sink { [unowned self] pathtorsyncui in
+                setandvalidapathrsyncui(pathtorsyncui)
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
-        $pathrsyncosxsched
+        $pathrsyncschedule
             .debounce(for: .seconds(2), scheduler: globalMainQueue)
-            .sink { [unowned self] pathtorsyncosxsched in
-                setandvalidapathpathrsyncosxsched(pathtorsyncosxsched)
+            .sink { [unowned self] pathtorsyncschedule in
+                setandvalidapathpathrsyncschedule(pathtorsyncschedule)
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
     }
 }
 
 extension ObserveableReferencePaths {
-    func setandvalidapathrsyncosx(_ atpath: String) {
+    func setandvalidapathrsyncui(_ atpath: String) {
         guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else { return }
         do {
@@ -69,7 +69,7 @@ extension ObserveableReferencePaths {
         }
     }
 
-    func setandvalidapathpathrsyncosxsched(_ atpath: String) {
+    func setandvalidapathpathrsyncschedule(_ atpath: String) {
         guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else { return }
         do {

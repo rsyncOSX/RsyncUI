@@ -48,19 +48,19 @@ struct Userconfiguration {
                 SharedReference.shared.marknumberofdayssince = Double(marknumberofdayssince)!
             }
         }
-        // Paths rsyncOSX and RsyncOSXsched
-        if let pathrsyncosx = dict.value(forKey: DictionaryStrings.pathrsyncosx.rawValue) as? String {
-            if pathrsyncosx.isEmpty == true {
+        // Paths rsyncUI and RsyncSchedule
+        if let pathrsyncui = dict.value(forKey: DictionaryStrings.pathrsyncui.rawValue) as? String {
+            if pathrsyncui.isEmpty == true {
                 SharedReference.shared.pathrsyncui = nil
             } else {
-                SharedReference.shared.pathrsyncui = pathrsyncosx
+                SharedReference.shared.pathrsyncui = pathrsyncui
             }
         }
-        if let pathrsyncosxsched = dict.value(forKey: DictionaryStrings.pathrsyncosxsched.rawValue) as? String {
-            if pathrsyncosxsched.isEmpty == true {
+        if let pathrsyncschedule = dict.value(forKey: DictionaryStrings.pathrsyncschedule.rawValue) as? String {
+            if pathrsyncschedule.isEmpty == true {
                 SharedReference.shared.pathrsyncschedule = nil
             } else {
-                SharedReference.shared.pathrsyncschedule = pathrsyncosxsched
+                SharedReference.shared.pathrsyncschedule = pathrsyncschedule
             }
         }
         // No logging, minimum logging or full logging
