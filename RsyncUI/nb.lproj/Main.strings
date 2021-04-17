@@ -16,8 +16,8 @@
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
 "5QF-Oa-p0T.title" = "Rediger";
 
-/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "aTl-1u-JFS"; */
-"aTl-1u-JFS.title" = "Skriv ut…";
+/* Class = "NSMenuItem"; title = "Schedule"; ObjectID = "aTl-1u-JFS"; */
+"aTl-1u-JFS.title" = "Oppgaver";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "Vindu";
@@ -39,6 +39,9 @@
 
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "Hjelp";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "fDN-Sa-NxV"; */
+"fDN-Sa-NxV.title" = "Skriv ut…";
 
 /* Class = "NSMenuItem"; title = "RsyncUI Help"; ObjectID = "FKE-Sm-Kum"; */
 "FKE-Sm-Kum.title" = "RsyncUI hjelp";

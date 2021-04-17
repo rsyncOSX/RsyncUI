@@ -190,6 +190,9 @@
 /* plan */
 "earlier months" = "tidligere måneder";
 
+/* Restore */
+"Either is path for restore or file to restore empty" = "Enten er stien for gjenoppretting eller fil for å gjenopprette tom";
+
 /* input error */
 "Either local or remote cannot be empty" = "Enten lokal eller ekstern kan ikke være tom";
 
@@ -214,9 +217,6 @@
 
 /* settings */
 "Error" = "Feil";
-
-/* Restore */
-"Error1" = "Feil1";
 
 /* Estimate button */
 "Estimate" = "Estimat";
@@ -407,7 +407,7 @@
 "Path for restore" = "Sti for gjenoppretting";
 
 /* settings */
-"Path to RsyncOSXsched" = "Sti til RsyncOSXsched";
+"Path to RsyncSchedule" = "Sti til RsyncSchedule";
 
 /* settings */
 "Path to RsyncUI" = "Sti til RsyncUI";
@@ -468,7 +468,6 @@
 "Restore not allowed for syncremote task" = "Gjenopprett ikke tillatt for oppgaver med syncremote";
 
 /* Execute button
-   sidebar
    SidebarRsyncParameter */
 "Rsync" = "Rsync";
 
@@ -477,6 +476,9 @@
 
 /* EditRsyncParameter */
 "rsync parameter" = "rsync parameter";
+
+/* sidebar */
+"Rsync parameters" = "Rsync parameter";
 
 /* settings */
 "Rsync ver 3.x" = "Rsync ver 3,x";

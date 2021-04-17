@@ -190,6 +190,9 @@
 /* plan */
 "earlier months" = "frühere Monate";
 
+/* Restore */
+"Either is path for restore or file to restore empty" = "Entweder ist der Pfad für die Wiederherstellung oder Datei zum Wiederherstellen leer";
+
 /* input error */
 "Either local or remote cannot be empty" = "Lokal oder Remote darf nicht leer sein";
 
@@ -214,9 +217,6 @@
 
 /* settings */
 "Error" = "Fehler";
-
-/* Restore */
-"Error1" = "Fehler1";
 
 /* Estimate button */
 "Estimate" = "Schätzung";
@@ -407,7 +407,7 @@
 "Path for restore" = "Pfad zum Wiederherstellen";
 
 /* settings */
-"Path to RsyncOSXsched" = "Pfad zu RsyncOSXsched";
+"Path to RsyncSchedule" = "Pfad zu RsyncSchedule";
 
 /* settings */
 "Path to RsyncUI" = "Pfad zu RsyncUI";
@@ -468,7 +468,6 @@
 "Restore not allowed for syncremote task" = "Wiederherstellung für Syncremote-Aufgabe nicht erlaubt";
 
 /* Execute button
-   sidebar
    SidebarRsyncParameter */
 "Rsync" = "Rsync";
 
@@ -477,6 +476,9 @@
 
 /* EditRsyncParameter */
 "rsync parameter" = "rsync-Parameter";
+
+/* sidebar */
+"Rsync parameters" = "Rsync-Parameter";
 
 /* settings */
 "Rsync ver 3.x" = "Rsync Version 3.x";
