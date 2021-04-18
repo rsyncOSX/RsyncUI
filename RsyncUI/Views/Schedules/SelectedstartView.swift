@@ -22,10 +22,14 @@ struct SelectedstartView: View {
             .frame(width: 200)
             .labelsHidden()
 
-            Text(startdate) + Text("\(selecteddate.localized_string_from_date())")
-                .foregroundColor(Color.blue)
-            Text(schedule) + Text("\(selectedscheduletype.rawValue)")
-                .foregroundColor(Color.blue)
+            VStack {
+                Text(startdate) + Text("\(selecteddate.localized_string_from_date())")
+                    .foregroundColor(Color.blue)
+                Text(schedule) + Text("\(selectedscheduletype.rawValue)")
+                    .foregroundColor(Color.blue)
+            }
+            .padding(2)
+            .border(Color.gray)
         }
     }
 
