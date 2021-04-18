@@ -146,7 +146,7 @@ struct Sidebar: View {
             VStack {
                 ImageRsyncOSX()
 
-                Text(NSLocalizedString("Select a task", comment: "sidebar") + " ...")
+                Text(NSLocalizedString("Select task", comment: "sidebar") + " ...")
                     .foregroundColor(.secondary)
                     .font(.title)
             }

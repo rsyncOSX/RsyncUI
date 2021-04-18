@@ -37,10 +37,12 @@ struct SchedulesView: View {
                 SelectedstartView(selecteddate: $selecteddate,
                                   selectedscheduletype: $selectedscheduletype)
                     .padding(1)
+                    .border(Color.gray)
 
                 SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
                               selectedschedule: $selectedschedule,
                               selecteduuids: $selecteduuids)
+                    .border(Color.gray)
             }
 
             SchedulesDatePickerView(selecteddate: $selecteddate)

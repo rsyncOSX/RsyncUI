@@ -19,25 +19,24 @@ struct SelectedstartView: View {
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
-            .frame(width: 200)
             .labelsHidden()
 
-            VStack {
+            VStack(alignment: .leading) {
                 Text(startdate) + Text("\(selecteddate.localized_string_from_date())")
                     .foregroundColor(Color.blue)
                 Text(schedule) + Text("\(selectedscheduletype.rawValue)")
                     .foregroundColor(Color.blue)
             }
             .padding(2)
-            .border(Color.gray)
         }
+        .frame(width: 180)
     }
 
     var startdate: String {
-        NSLocalizedString("Start is", comment: "SchedulesDatePickerView") + ": "
+        NSLocalizedString("Start", comment: "SchedulesDatePickerView") + ": "
     }
 
     var schedule: String {
-        NSLocalizedString("Schedule is", comment: "SchedulesDatePickerView") + ": "
+        NSLocalizedString("Schedule", comment: "SchedulesDatePickerView") + ": "
     }
 }
