@@ -26,9 +26,14 @@ class ReadScheduleJSON: NamesandPaths {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile
         datafile.publisher
-            .compactMap { filename -> URL? in
-                let name = fullroot! + "/" + filename
-                return URL(fileURLWithPath: name)
+            .compactMap { filenamejson -> URL? in
+                var filename: String = ""
+                if let profile = profile {
+                    filename = fullroot! + "/" + profile + "/" + filenamejson
+                } else {
+                    filename = fullroot! + "/" + filenamejson
+                }
+                return URL(fileURLWithPath: filename)
             }
             .tryMap { url -> Data in
                 try Data(contentsOf: url)
@@ -38,7 +43,7 @@ class ReadScheduleJSON: NamesandPaths {
                 print("completion with \(completion)")
             } receiveValue: { [unowned self] data in
                 var schedules = [ConfigurationSchedule]()
-                for i in 0 ..< ((data as? [DecodeSchedule])?.count ?? 0) {
+                for i in 0 ..< data.count {
                     var transformed = TransformSchedulefromJSON().transform(data[i])
                     transformed.profilename = profile
                     if validhiddenID.contains(transformed.hiddenID) {
