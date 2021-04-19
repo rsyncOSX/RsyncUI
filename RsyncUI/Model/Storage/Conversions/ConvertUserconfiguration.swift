@@ -20,7 +20,6 @@ struct ConvertUserconfiguration {
         var marknumberofdayssince: String?
         var monitornetworkconnection: Int?
         var array = [NSMutableDictionary]()
-        var json: Int?
 
         if SharedReference.shared.rsyncversion3 {
             version3Rsync = 1
@@ -47,11 +46,6 @@ struct ConvertUserconfiguration {
         } else {
             monitornetworkconnection = 0
         }
-        if SharedReference.shared.json {
-            json = 1
-        } else {
-            json = 0
-        }
         marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
         let dict: NSMutableDictionary = [
             DictionaryStrings.version3Rsync.rawValue: version3Rsync ?? 0 as Int,
@@ -60,7 +54,6 @@ struct ConvertUserconfiguration {
             DictionaryStrings.fulllogging.rawValue: fulllogging ?? 0 as Int,
             DictionaryStrings.marknumberofdayssince.rawValue: marknumberofdayssince ?? "5.0",
             DictionaryStrings.monitornetworkconnection.rawValue: monitornetworkconnection ?? 0 as Int,
-            DictionaryStrings.json.rawValue: json ?? 0 as Int,
         ]
         if let rsyncpath = SharedReference.shared.localrsyncpath {
             dict.setObject(rsyncpath, forKey: DictionaryStrings.rsyncPath.rawValue as NSCopying)

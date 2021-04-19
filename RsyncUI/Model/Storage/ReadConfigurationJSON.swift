@@ -79,3 +79,7 @@ class ReadConfigurationJSON: NamesandPaths {
             }.store(in: &subscriptons)
     }
 }
+
+/*
+ TODO: fix fullroot!
+ */

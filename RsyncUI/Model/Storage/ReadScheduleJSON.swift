@@ -66,3 +66,7 @@ class ReadScheduleJSON: NamesandPaths {
         }
     }
 }
+
+/*
+ TODO: fix fullroot!
+ */

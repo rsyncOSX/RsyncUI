@@ -12,6 +12,7 @@ struct Usersettings: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
     @StateObject var usersettings = ObserveableReference()
+    @State private var backup = false
 
     var body: some View {
         Form {
@@ -106,8 +107,18 @@ struct Usersettings: View {
             // Save button right down corner
             Spacer()
 
+            Spacer()
+
+            if backup == true { notifybackup }
+
+            Spacer()
+
             HStack {
                 Spacer()
+
+                // Backup configuration files
+                Button(NSLocalizedString("Backup", comment: "usersetting")) { backupuserconfigs() }
+                    .buttonStyle(PrimaryButtonStyle())
 
                 usersetting
             }
@@ -197,6 +208,17 @@ struct Usersettings: View {
             .frame(width: 70)
             .lineLimit(1)
     }
+
+    var notifybackup: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("Saved", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 120, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
 }
 
 extension Usersettings {
@@ -204,5 +226,14 @@ extension Usersettings {
         usersettings.isDirty = false
         usersettings.inputchangedbyuser = false
         PersistentStorageUserconfiguration().saveuserconfiguration()
+    }
+
+    func backupuserconfigs() {
+        _ = Backupconfigfiles()
+        backup = true
+        // Show updated for 1 second
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            backup = false
+        }
     }
 }

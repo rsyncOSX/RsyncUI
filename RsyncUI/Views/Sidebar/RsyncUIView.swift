@@ -37,8 +37,6 @@ struct RsyncUIView: View {
 
                 VStack {
                     if new.notifynewversion { notifynewversion }
-
-                    JSONorPLIST.onChange(of: rsyncversionObject.rsyncversion, perform: { _ in })
                 }
 
                 Spacer()
@@ -69,18 +67,6 @@ struct RsyncUIView: View {
             .frame(width: 200)
 
             Spacer()
-        }
-    }
-
-    var JSONorPLIST: some View {
-        HStack {
-            if SharedReference.shared.json {
-                Text("JSON")
-                    .foregroundColor(Color.yellow)
-            } else {
-                Text("PLIST")
-                    .foregroundColor(Color.blue)
-            }
         }
     }
 

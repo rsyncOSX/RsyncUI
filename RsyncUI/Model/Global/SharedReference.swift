@@ -47,8 +47,6 @@ class SharedReference {
     var checkinput: Bool = false
     // Check for network changes
     var monitornetworkconnection: Bool = false
-    // Read configurations and schedules as JSON or not
-    var json: Bool = false
     // Download URL if new version is avaliable
     var URLnewVersion: String?
     // rsync command

@@ -29,10 +29,6 @@ struct SidebarSettingsView: View {
                 .tabItem {
                     Text(NSLocalizedString("Paths", comment: "user settings"))
                 }
-            JSONView(selectedprofile: $selectedprofile, reload: $reload)
-                .tabItem {
-                    Text(NSLocalizedString("JSON", comment: "user settings"))
-                }
         }
         .frame(minWidth: 600, minHeight: 400)
         .padding()

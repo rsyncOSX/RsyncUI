@@ -104,13 +104,7 @@ struct Userconfiguration {
                 SharedReference.shared.monitornetworkconnection = false
             }
         }
-        if let json = dict.value(forKey: DictionaryStrings.json.rawValue) as? Int {
-            if json == 1 {
-                SharedReference.shared.json = true
-            } else {
-                SharedReference.shared.json = false
-            }
-        }
+
         SharedReference.shared.inloading = false
     }
 
