@@ -48,4 +48,3 @@ class WriteScheduleJSONNEW: NamesandPaths {
 /*
  TODO: fix fullroot!
  */
-

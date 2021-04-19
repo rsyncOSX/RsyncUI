@@ -75,26 +75,6 @@ class PersistentStorageSchedulingJSON: ReadWriteJSON {
         }
     }
 
-    func JSONFromPersistentStore() {
-        do {
-            if let jsonfile = try readJSONFromPersistentStore() {
-                guard jsonfile.isEmpty == false else { return }
-                decode(jsonfileasstring: jsonfile)
-            }
-        } catch let e {
-            let error = e
-            self.propogateerror(error: error)
-        }
-    }
-
-    init(profile: String?) {
-        super.init(profile: profile, whattoreadwrite: .schedule)
-        self.profile = profile
-        if schedules == nil {
-            JSONFromPersistentStore()
-        }
-    }
-
     init(profile: String?,
          schedules: [ConfigurationSchedule]?)
     {

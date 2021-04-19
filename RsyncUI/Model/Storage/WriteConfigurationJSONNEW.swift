@@ -54,4 +54,3 @@ class WriteConfigurationJSONNEW: NamesandPaths {
 /*
  TODO: fix fullroot!
  */
-

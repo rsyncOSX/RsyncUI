@@ -63,22 +63,6 @@ final class PersistentStorage {
         }
     }
 
-    init(profile: String?,
-         whattoreadorwrite: WhatToReadWrite)
-    {
-        self.whattoreadorwrite = whattoreadorwrite
-        switch whattoreadorwrite {
-        case .configuration:
-            configJSON = PersistentStorageConfigurationJSON(profile: profile)
-        case .schedule:
-            scheduleJSON = PersistentStorageSchedulingJSON(profile: profile)
-        default:
-            return
-        }
-    }
-
-    init() {}
-
     deinit {
         // print("deinit PersistentStorage")
         // print(self.whattoreadorwrite)

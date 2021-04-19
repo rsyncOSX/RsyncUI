@@ -39,26 +39,6 @@ class ReadWriteJSON: NamesandPaths {
         }
     }
 
-    func readJSONFromPersistentStore() throws -> String? {
-        if var atpath = fullroot {
-            do {
-                if profile != nil {
-                    atpath += "/" + (profile ?? "")
-                }
-                // check if file exists befor reading, if not bail out
-                guard try Folder(path: atpath).containsFile(named: filename ?? "") else { return nil }
-                let jsonfile = atpath + "/" + (filename ?? "")
-                let file = try File(path: jsonfile)
-                return try file.readAsString()
-            } catch let e {
-                let error = e
-                self.propogateerror(error: error)
-                return nil
-            }
-        }
-        return nil
-    }
-
     override init(profile: String?, whattoreadwrite: WhatToReadWrite) {
         super.init(profileorsshrootpath: .profileroot)
         if whattoreadwrite == .configuration {
