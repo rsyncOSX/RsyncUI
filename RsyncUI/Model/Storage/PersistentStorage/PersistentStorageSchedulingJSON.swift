@@ -10,7 +10,6 @@
 import Foundation
 
 class PersistentStorageSchedulingJSON: ReadWriteJSON {
-    // var schedules: [ConfigurationSchedule]?
     var decodedjson: [Any]?
     var schedules: [ConfigurationSchedule]?
 
@@ -101,6 +100,7 @@ class PersistentStorageSchedulingJSON: ReadWriteJSON {
          schedules: [ConfigurationSchedule]?)
     {
         super.init(profile: profile, whattoreadwrite: .schedule)
+
         self.schedules = schedules
         self.profile = profile
         if readonly {
