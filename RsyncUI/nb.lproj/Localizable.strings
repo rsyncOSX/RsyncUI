@@ -525,12 +525,12 @@
 /* RsyncCommandView */
 "Select a configuration" = "Velg en konfigurasjon";
 
+/* RestoreView */
+"Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
+
 /* sidebar
    sidebar ... */
 "Select task" = "Velg oppgave";
-
-/* RestoreView */
-"Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
 
 /* ConfigurationsList
    OutputEstimatedView */
@@ -568,7 +568,7 @@
 "SSH keypath must be like ~/.ssh_keypath/identityfile" = "SSH keypath må være som ~/.ssh_keypath/identityfile";
 
 /* ssh error */
-"SSH RSA keys exist, cannot create" = "SSH RSA nøkler finnes, kan ikke opprette";
+"SSH RSA keys exist, cannot create" = "SSH RSA-nøkler finnes, kan ikke opprette";
 
 /* SchedulesDatePickerView */
 "Start" = "Start";

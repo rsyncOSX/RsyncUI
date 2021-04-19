@@ -525,12 +525,12 @@
 /* RsyncCommandView */
 "Select a configuration" = "Konfiguration auswählen";
 
-/* sidebar
-   sidebar ... */
-"Select a task" = "Aufgabe auswählen";
-
 /* RestoreView */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
+
+/* sidebar
+   sidebar ... */
+"Select task" = "Aufgabe auswählen";
 
 /* ConfigurationsList
    OutputEstimatedView */
@@ -571,7 +571,7 @@
 "SSH RSA keys exist, cannot create" = "SSH RSA Schlüssel existiert, kann nicht erstellt werden";
 
 /* SchedulesDatePickerView */
-"Start is" = "Start ist";
+"Start" = "Start";
 
 /* Stop button */
 "Stop" = "Stoppen";
