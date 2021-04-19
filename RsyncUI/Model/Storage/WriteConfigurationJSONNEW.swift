@@ -1,5 +1,5 @@
 //
-//  ReadConfigurationJSON.swift
+//  WriteConfigurationJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/04/2021.
@@ -9,34 +9,13 @@ import Combine
 import Files
 import Foundation
 
-class ReadConfigurationJSON: NamesandPaths {
+class WriteConfigurationJSONNEW: NamesandPaths {
     var configurations: [Configuration]?
     var datafile = [SharedReference.shared.fileconfigurationsjson]
     var subscriptons = Set<AnyCancellable>()
     var validhiddenIDs = Set<Int>()
 
-    func setuniqueserversandlogins() -> [UniqueserversandLogins]? {
-        let configs = configurations?.filter {
-            SharedReference.shared.synctasks.contains($0.task)
-        }
-        guard configs?.count ?? 0 > 0 else { return nil }
-        var uniqueserversandlogins = [UniqueserversandLogins]()
-        for i in 0 ..< (configs?.count ?? 0) {
-            if let config = configs?[i] {
-                if config.offsiteUsername.isEmpty == false, config.offsiteServer.isEmpty == false {
-                    let record = UniqueserversandLogins(config.offsiteUsername, config.offsiteServer)
-                    if uniqueserversandlogins.filter({ ($0.offsiteUsername == record.offsiteUsername) &&
-                            ($0.offsiteServer == record.offsiteServer)
-                    }).count == 0 {
-                        uniqueserversandlogins.append(record)
-                    }
-                }
-            }
-        }
-        return uniqueserversandlogins
-    }
-
-    init(_ profile: String?) {
+    init(_ profile: String?, _ configurations: [Configuration]?) {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile
         datafile.publisher
@@ -75,3 +54,4 @@ class ReadConfigurationJSON: NamesandPaths {
 /*
  TODO: fix fullroot!
  */
+

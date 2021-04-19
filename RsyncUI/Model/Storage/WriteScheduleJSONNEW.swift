@@ -1,5 +1,5 @@
 //
-//  ReadScheduleJSON.swift
+//  WriteScheduleJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/04/2021.
@@ -9,12 +9,12 @@ import Combine
 import Files
 import Foundation
 
-class ReadScheduleJSON: NamesandPaths {
+class WriteScheduleJSONNEW: NamesandPaths {
     var schedules: [ConfigurationSchedule]?
     var datafile = [SharedReference.shared.fileschedulesjson]
     var subscriptons = Set<AnyCancellable>()
 
-    init(_ profile: String?, _ validhiddenID: Set<Int>) {
+    init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile
         datafile.publisher
@@ -34,31 +34,18 @@ class ReadScheduleJSON: NamesandPaths {
             .sink { completion in
                 print("completion with \(completion)")
             } receiveValue: { [unowned self] data in
-                var schedules = [ConfigurationSchedule]()
+                let schedules = [ConfigurationSchedule]()
                 for i in 0 ..< data.count {
                     var transformed = TransformSchedulefromJSON().transform(data[i])
                     transformed.profilename = profile
-                    if validhiddenID.contains(transformed.hiddenID) {
-                        schedules.append(transformed)
-                    }
                 }
                 self.schedules = schedules
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
-        // Sorting schedule after hiddenID
-        schedules?.sort { (schedule1, schedule2) -> Bool in
-            if schedule1.hiddenID > schedule2.hiddenID {
-                return false
-            } else {
-                return true
-            }
-        }
-        if SharedReference.shared.checkinput {
-            schedules = Reorgschedule().mergerecords(data: schedules)
-        }
     }
 }
 
 /*
  TODO: fix fullroot!
  */
+
