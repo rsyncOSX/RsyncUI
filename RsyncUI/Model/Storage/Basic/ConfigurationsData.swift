@@ -61,7 +61,7 @@ final class ConfigurationsData {
             let transform = TransformConfigfromJSON()
             for i in 0 ..< store.count {
                 if let configitem = store[i] as? DecodeConfiguration {
-                    let transformed = transform.transform(object: configitem)
+                    let transformed = transform.transform(configitem)
                     if SharedReference.shared.synctasks.contains(transformed.task) {
                         if validhiddenIDs?.contains(transformed.hiddenID) == false {
                             configurations?.append(transformed)

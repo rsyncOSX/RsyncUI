@@ -51,9 +51,9 @@ struct SchedulesSwiftUI {
         return nil
     }
 
-    init(profile: String?, validhiddenIDs: Set<Int>?) {
+    init(profile: String?, validhiddenIDs: Set<Int>) {
         self.profile = profile
-        let schedulesdata = SchedulesData(profile: profile, validhiddenIDs: validhiddenIDs)
+        let schedulesdata = ReadScheduleJSON(profile, validhiddenIDs)
         scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
             if log1.dateStart > log2.dateStart {
                 return true

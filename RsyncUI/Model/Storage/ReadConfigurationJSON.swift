@@ -18,69 +18,36 @@ import Files
 import Foundation
 
 class ReadConfigurationJSON: NamesandPaths {
-    var configurationjson: [Configuration]?
-    var datafiles = ["configurations.json"]
+    var configurations: [Configuration]?
+    var datafile = [SharedReference.shared.fileconfigurationsjson]
     var subscriptons = Set<AnyCancellable>()
+    var validhiddenIDs = Set<Int>()
 
-    var jsonstring: String?
-
-    func writeJSONToPersistentStore() {
-        if var atpath = fullroot {
-            do {
-                if profile != nil {
-                    atpath += "/" + (profile ?? "")
+    func setuniqueserversandlogins() -> [UniqueserversandLogins]? {
+        let configs = configurations?.filter {
+            SharedReference.shared.synctasks.contains($0.task)
+        }
+        guard configs?.count ?? 0 > 0 else { return nil }
+        var uniqueserversandlogins = [UniqueserversandLogins]()
+        for i in 0 ..< (configs?.count ?? 0) {
+            if let config = configs?[i] {
+                if config.offsiteUsername.isEmpty == false, config.offsiteServer.isEmpty == false {
+                    let record = UniqueserversandLogins(config.offsiteUsername, config.offsiteServer)
+                    if uniqueserversandlogins.filter({ ($0.offsiteUsername == record.offsiteUsername) &&
+                            ($0.offsiteServer == record.offsiteServer)
+                    }).count == 0 {
+                        uniqueserversandlogins.append(record)
+                    }
                 }
-                let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: filename ?? "")
-                if let data = jsonstring {
-                    try file.write(data)
-                }
-            } catch let e {
-                let error = e
-                self.propogateerror(error: error)
             }
         }
+        return uniqueserversandlogins
     }
 
-    func writeconvertedtostore() {
-        if var atpath = fullroot {
-            if profile != nil {
-                atpath += "/" + (profile ?? "")
-            }
-            writeJSONToPersistentStore()
-        }
-    }
-
-    func readJSONFromPersistentStore() throws -> String? {
-        if var atpath = fullroot {
-            do {
-                if profile != nil {
-                    atpath += "/" + (profile ?? "")
-                }
-                // check if file exists befor reading, if not bail out
-                guard try Folder(path: atpath).containsFile(named: filename ?? "") else { return nil }
-                let jsonfile = atpath + "/" + (filename ?? "")
-                let file = try File(path: jsonfile)
-                return try file.readAsString()
-            } catch let e {
-                let error = e
-                self.propogateerror(error: error)
-                return nil
-            }
-        }
-        return nil
-    }
-
-    override init(profile: String?, whattoreadwrite: WhatToReadWrite) {
+    init(_ profile: String?) {
         super.init(profileorsshrootpath: .profileroot)
-        if whattoreadwrite == .configuration {
-            filename = SharedReference.shared.fileconfigurationsjson
-        } else {
-            filename = SharedReference.shared.fileschedulesjson
-        }
         self.profile = profile
-
-        datafiles.publisher
+        datafile.publisher
             .compactMap { filename -> URL? in
                 let name = fullroot! + "/" + filename
                 return URL(fileURLWithPath: name)
@@ -92,8 +59,18 @@ class ReadConfigurationJSON: NamesandPaths {
             .sink { completion in
                 print("completion with \(completion)")
             } receiveValue: { [unowned self] data in
-                print(data)
+                var configurations = [Configuration]()
+                for i in 0 ..< ((data as? [DecodeConfiguration])?.count ?? 0) {
+                    let transformed = TransformConfigfromJSON().transform(data[i])
+                    if SharedReference.shared.synctasks.contains(transformed.task) {
+                        if validhiddenIDs.contains(transformed.hiddenID) == false {
+                            configurations.append(transformed)
+                            validhiddenIDs.insert(transformed.hiddenID)
+                        }
+                    }
+                }
+                self.configurations = configurations
+                subscriptons.removeAll()
             }.store(in: &subscriptons)
     }
 }
-

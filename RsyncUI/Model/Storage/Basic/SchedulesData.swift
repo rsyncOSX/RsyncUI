@@ -53,7 +53,7 @@ final class SchedulesData {
             let transform = TransformSchedulefromJSON()
             for i in 0 ..< schedulesfromstore.count {
                 if let scheduleitem = (schedulesfromstore[i] as? DecodeSchedule), let validhiddenID = self.validhiddenID {
-                    var transformed = transform.transform(object: scheduleitem)
+                    var transformed = transform.transform(scheduleitem)
                     transformed.profilename = localprofile
                     if validhiddenID.contains(transformed.hiddenID) {
                         schedules?.append(transformed)

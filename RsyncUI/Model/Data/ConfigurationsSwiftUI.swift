@@ -120,10 +120,10 @@ struct ConfigurationsSwiftUI {
 
     init(profile: String?) {
         configurations = nil
-        let configurationsdata = ConfigurationsData(profile: profile)
+        let configurationsdata = ReadConfigurationJSON(profile)
         configurations = configurationsdata.configurations
         validhiddenIDs = configurationsdata.validhiddenIDs
-        uniqueueserversandlogins = configurationsdata.uniqueserversandlogins
+        uniqueueserversandlogins = configurationsdata.setuniqueserversandlogins()
         SharedReference.shared.process = nil
     }
 }

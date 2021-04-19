@@ -73,7 +73,7 @@ final class VerifyJSON {
             transformedschedules = [ConfigurationSchedule]()
             let transform = TransformSchedulefromJSON()
             for i in 0 ..< jsonschedules.count {
-                var transformed = transform.transform(object: jsonschedules[i])
+                var transformed = transform.transform(jsonschedules[i])
                 transformed.profilename = localprofile
                 if validjsonhiddenID.contains(transformed.hiddenID) {
                     transformedschedules?.append(transformed)
@@ -109,7 +109,7 @@ final class VerifyJSON {
             transformedconfigurations = [Configuration]()
             let transform = TransformConfigfromJSON()
             for i in 0 ..< jsonconfigurations.count {
-                let transformed = transform.transform(object: jsonconfigurations[i])
+                let transformed = transform.transform(jsonconfigurations[i])
                 if SharedReference.shared.synctasks.contains(transformed.task) {
                     transformedconfigurations?.append(transformed)
                     validjsonhiddenID?.insert(transformed.hiddenID)
