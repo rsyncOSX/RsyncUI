@@ -62,11 +62,10 @@ final class UpdateSchedules {
         ]
         let newschedule = ConfigurationSchedule(dictionary: dict, log: nil)
         structschedules?.append(newschedule)
-        PersistentStorage(profile: localeprofile,
-                          whattoreadorwrite: .schedule,
-                          configurations: nil,
+        // Save all after adding to schedule in memory
+        WriteScheduleJSON(profile: localeprofile,
                           schedules: structschedules)
-            .saveMemoryToPersistentStore()
+            .savescheduleInMemoryToPersistentStore()
     }
 
     func validateschedule(_ hiddenID: Int?, _: EnumScheduleDatePicker, _: Date) throws -> Bool {
@@ -89,11 +88,10 @@ final class UpdateSchedules {
                 structschedules?[index].schedule = Scheduletype.stopped.rawValue
                 structschedules?[index].dateStop = Date().en_us_string_from_date()
             }
-            PersistentStorage(profile: localeprofile,
-                              whattoreadorwrite: .schedule,
-                              configurations: nil,
+            // Save all after adding to schedule in memory
+            WriteScheduleJSON(profile: localeprofile,
                               schedules: structschedules)
-                .saveMemoryToPersistentStore()
+                .savescheduleInMemoryToPersistentStore()
         }
     }
 
@@ -109,11 +107,10 @@ final class UpdateSchedules {
             }
             structschedules?.remove(atOffsets: indexset)
         }
-        PersistentStorage(profile: localeprofile,
-                          whattoreadorwrite: .schedule,
-                          configurations: nil,
+        // Save all after adding to schedule in memory
+        WriteScheduleJSON(profile: localeprofile,
                           schedules: structschedules)
-            .saveMemoryToPersistentStore()
+            .savescheduleInMemoryToPersistentStore()
     }
 
     func deletelogs(uuids: Set<UUID>) {
@@ -131,11 +128,10 @@ final class UpdateSchedules {
                 structschedules?[i].logrecords?.remove(atOffsets: indexset)
                 indexset.removeAll()
             }
-            PersistentStorage(profile: localeprofile,
-                              whattoreadorwrite: .schedule,
-                              configurations: nil,
+            // Save all after adding to schedule in memory
+            WriteScheduleJSON(profile: localeprofile,
                               schedules: structschedules)
-                .saveMemoryToPersistentStore()
+                .savescheduleInMemoryToPersistentStore()
         }
     }
 

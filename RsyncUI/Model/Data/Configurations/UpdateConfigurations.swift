@@ -77,11 +77,9 @@ class UpdateConfigurations {
                 configurations?[index].haltshelltasksonerror = config.haltshelltasksonerror
                 configurations?[index].backupID = config.backupID
             }
-            PersistentStorage(profile: localeprofile,
-                              whattoreadorwrite: .configuration,
-                              configurations: configurations,
-                              schedules: nil)
-                .saveMemoryToPersistentStore()
+            WriteConfigurationJSON(profile: localeprofile,
+                                   configurations: configurations)
+                .saveconfigInMemoryToPersistentStore()
         }
     }
 
@@ -108,11 +106,9 @@ class UpdateConfigurations {
             // No need for deleting the logs, only valid hiddenIDs are
             // loaded next time configurations are read from
             // permanent store
-            PersistentStorage(profile: localeprofile,
-                              whattoreadorwrite: .configuration,
-                              configurations: configurations,
-                              schedules: nil)
-                .saveMemoryToPersistentStore()
+            WriteConfigurationJSON(profile: localeprofile,
+                                   configurations: configurations)
+                .saveconfigInMemoryToPersistentStore()
         }
     }
 
@@ -123,11 +119,9 @@ class UpdateConfigurations {
         newconfig.hiddenID = maxhiddenID + 1
         configurations?.append(newconfig)
         let aftercount = (configurations?.count ?? 0)
-        PersistentStorage(profile: localeprofile,
-                          whattoreadorwrite: .configuration,
-                          configurations: configurations,
-                          schedules: nil)
-            .saveMemoryToPersistentStore()
+        WriteConfigurationJSON(profile: localeprofile,
+                               configurations: configurations)
+            .saveconfigInMemoryToPersistentStore()
         if aftercount > beforecount {
             return true
         } else {

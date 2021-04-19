@@ -10,11 +10,10 @@ import Files
 import Foundation
 
 class WriteScheduleJSONNEW: NamesandPaths {
-    var schedules: [ConfigurationSchedule]?
     var datafile = [SharedReference.shared.fileschedulesjson]
     var subscriptons = Set<AnyCancellable>()
 
-    init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
+    init(_ profile: String?, _: [ConfigurationSchedule]?) {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile
         datafile.publisher
@@ -34,12 +33,7 @@ class WriteScheduleJSONNEW: NamesandPaths {
             .sink { completion in
                 print("completion with \(completion)")
             } receiveValue: { [unowned self] data in
-                let schedules = [ConfigurationSchedule]()
-                for i in 0 ..< data.count {
-                    var transformed = TransformSchedulefromJSON().transform(data[i])
-                    transformed.profilename = profile
-                }
-                self.schedules = schedules
+                print(data)
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
     }

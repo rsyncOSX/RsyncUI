@@ -10,7 +10,6 @@
 import Foundation
 
 class WriteScheduleJSON: ReadWriteJSON {
-    var decodedjson: [Any]?
     var schedules: [ConfigurationSchedule]?
 
     // Saving Schedules from MEMORY to persistent store
@@ -61,18 +60,6 @@ class WriteScheduleJSON: ReadWriteJSON {
             return nil
         }
         return nil
-    }
-
-    private func decode(jsonfileasstring: String) {
-        if let jsonstring = jsonfileasstring.data(using: .utf8) {
-            do {
-                let decoder = JSONDecoder()
-                decodedjson = try decoder.decode([DecodeSchedule].self, from: jsonstring)
-            } catch let e {
-                let error = e
-                self.propogateerror(error: error)
-            }
-        }
     }
 
     init(profile: String?,

@@ -10,7 +10,6 @@
 import Foundation
 
 class WriteConfigurationJSON: ReadWriteJSON {
-    var decodedjson: [Any]?
     var configurations: [Configuration]?
 
     // Saving Configuration from MEMORY to persistent store
@@ -52,18 +51,6 @@ class WriteConfigurationJSON: ReadWriteJSON {
             self.propogateerror(error: error)
         }
         return nil
-    }
-
-    private func decode(jsonfileasstring: String) {
-        if let jsonstring = jsonfileasstring.data(using: .utf8) {
-            do {
-                let decoder = JSONDecoder()
-                decodedjson = try decoder.decode([DecodeConfiguration].self, from: jsonstring)
-            } catch let e {
-                let error = e
-                self.propogateerror(error: error)
-            }
-        }
     }
 
     init(profile: String?,

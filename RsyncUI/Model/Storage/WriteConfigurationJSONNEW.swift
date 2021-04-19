@@ -10,12 +10,10 @@ import Files
 import Foundation
 
 class WriteConfigurationJSONNEW: NamesandPaths {
-    var configurations: [Configuration]?
     var datafile = [SharedReference.shared.fileconfigurationsjson]
     var subscriptons = Set<AnyCancellable>()
-    var validhiddenIDs = Set<Int>()
 
-    init(_ profile: String?, _ configurations: [Configuration]?) {
+    init(_ profile: String?, _: [Configuration]?) {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile
         datafile.publisher
@@ -35,17 +33,7 @@ class WriteConfigurationJSONNEW: NamesandPaths {
             .sink { completion in
                 print("completion with \(completion)")
             } receiveValue: { [unowned self] data in
-                var configurations = [Configuration]()
-                for i in 0 ..< data.count {
-                    let transformed = TransformConfigfromJSON().transform(data[i])
-                    if SharedReference.shared.synctasks.contains(transformed.task) {
-                        if validhiddenIDs.contains(transformed.hiddenID) == false {
-                            configurations.append(transformed)
-                            validhiddenIDs.insert(transformed.hiddenID)
-                        }
-                    }
-                }
-                self.configurations = configurations
+                print(data)
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
     }

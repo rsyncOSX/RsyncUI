@@ -21,11 +21,9 @@ class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
             }
         }
         // Save all after adding to configs in memory
-        PersistentStorage(profile: localeprofile,
-                          whattoreadorwrite: .configuration,
-                          configurations: structconfigurations,
-                          schedules: nil)
-            .saveMemoryToPersistentStore()
+        WriteConfigurationJSON(profile: localeprofile,
+                               configurations: structconfigurations)
+            .saveconfigInMemoryToPersistentStore()
     }
 
     // Caution, the snapshotnum is alrady increased in
@@ -60,11 +58,9 @@ class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
                 }
             }
             // Save all after adding to schedule in memory
-            PersistentStorage(profile: localeprofile,
-                              whattoreadorwrite: .schedule,
-                              configurations: nil,
+            WriteScheduleJSON(profile: localeprofile,
                               schedules: structschedules)
-                .saveMemoryToPersistentStore()
+                .savescheduleInMemoryToPersistentStore()
         }
     }
 
