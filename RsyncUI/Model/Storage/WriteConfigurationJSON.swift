@@ -9,7 +9,7 @@
 
 import Foundation
 
-class PersistentStorageConfigurationJSON: ReadWriteJSON {
+class WriteConfigurationJSON: ReadWriteJSON {
     var decodedjson: [Any]?
     var configurations: [Configuration]?
 

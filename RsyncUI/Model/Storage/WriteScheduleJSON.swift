@@ -9,7 +9,7 @@
 
 import Foundation
 
-class PersistentStorageSchedulingJSON: ReadWriteJSON {
+class WriteScheduleJSON: ReadWriteJSON {
     var decodedjson: [Any]?
     var schedules: [ConfigurationSchedule]?
 

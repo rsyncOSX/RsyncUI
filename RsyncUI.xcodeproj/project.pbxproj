@@ -137,9 +137,9 @@
 		E985C75625F3AD9700CB895C /* TransformSchedulefromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6CE25F3AD9600CB895C /* TransformSchedulefromJSON.swift */; };
 		E985C75925F3AD9700CB895C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D125F3AD9600CB895C /* Configuration.swift */; };
 		E985C75A25F3AD9700CB895C /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D325F3AD9600CB895C /* PersistentStorage.swift */; };
-		E985C75B25F3AD9700CB895C /* PersistentStorageSchedulingJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D425F3AD9600CB895C /* PersistentStorageSchedulingJSON.swift */; };
+		E985C75B25F3AD9700CB895C /* WriteScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D425F3AD9600CB895C /* WriteScheduleJSON.swift */; };
 		E985C75C25F3AD9700CB895C /* PersistentStorageUserconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D525F3AD9600CB895C /* PersistentStorageUserconfiguration.swift */; };
-		E985C75F25F3AD9700CB895C /* PersistentStorageConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D825F3AD9600CB895C /* PersistentStorageConfigurationJSON.swift */; };
+		E985C75F25F3AD9700CB895C /* WriteConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D825F3AD9600CB895C /* WriteConfigurationJSON.swift */; };
 		E985C76025F3AD9700CB895C /* Configpath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D925F3AD9600CB895C /* Configpath.swift */; };
 		E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6DD25F3AD9600CB895C /* SshKeys.swift */; };
 		E985C76325F3AD9700CB895C /* SingleTaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E025F3AD9600CB895C /* SingleTaskState.swift */; };
@@ -361,9 +361,9 @@
 		E985C6CE25F3AD9600CB895C /* TransformSchedulefromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformSchedulefromJSON.swift; sourceTree = "<group>"; };
 		E985C6D125F3AD9600CB895C /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		E985C6D325F3AD9600CB895C /* PersistentStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
-		E985C6D425F3AD9600CB895C /* PersistentStorageSchedulingJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageSchedulingJSON.swift; sourceTree = "<group>"; };
+		E985C6D425F3AD9600CB895C /* WriteScheduleJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSON.swift; sourceTree = "<group>"; };
 		E985C6D525F3AD9600CB895C /* PersistentStorageUserconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageUserconfiguration.swift; sourceTree = "<group>"; };
-		E985C6D825F3AD9600CB895C /* PersistentStorageConfigurationJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageConfigurationJSON.swift; sourceTree = "<group>"; };
+		E985C6D825F3AD9600CB895C /* WriteConfigurationJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteConfigurationJSON.swift; sourceTree = "<group>"; };
 		E985C6D925F3AD9600CB895C /* Configpath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configpath.swift; sourceTree = "<group>"; };
 		E985C6DD25F3AD9600CB895C /* SshKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SshKeys.swift; sourceTree = "<group>"; };
 		E985C6E025F3AD9600CB895C /* SingleTaskState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleTaskState.swift; sourceTree = "<group>"; };
@@ -816,8 +816,8 @@
 		E985C6BF25F3AD9600CB895C /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				E985C6D825F3AD9600CB895C /* PersistentStorageConfigurationJSON.swift */,
-				E985C6D425F3AD9600CB895C /* PersistentStorageSchedulingJSON.swift */,
+				E985C6D825F3AD9600CB895C /* WriteConfigurationJSON.swift */,
+				E985C6D425F3AD9600CB895C /* WriteScheduleJSON.swift */,
 				E985C6CB25F3AD9600CB895C /* TransformConfigfromJSON.swift */,
 				E985C6CE25F3AD9600CB895C /* TransformSchedulefromJSON.swift */,
 				E95BC524262D8BC20045AD3A /* WriteScheduleJSONNEW.swift */,
@@ -1306,7 +1306,7 @@
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
 				E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */,
 				E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */,
-				E985C75F25F3AD9700CB895C /* PersistentStorageConfigurationJSON.swift in Sources */,
+				E985C75F25F3AD9700CB895C /* WriteConfigurationJSON.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
 				E98E086325FFCA25004E56F0 /* OtherProcessCmdCombineClosure.swift in Sources */,
 				E985C76D25F3AD9700CB895C /* Estimation.swift in Sources */,
@@ -1414,7 +1414,7 @@
 				E985C79425F3AD9700CB895C /* RemoteCapacity.swift in Sources */,
 				E985C79325F3AD9700CB895C /* RsyncOSXViewGetRsyncversion.swift in Sources */,
 				E985C74A25F3AD9700CB895C /* ReadWriteJSON.swift in Sources */,
-				E985C75B25F3AD9700CB895C /* PersistentStorageSchedulingJSON.swift in Sources */,
+				E985C75B25F3AD9700CB895C /* WriteScheduleJSON.swift in Sources */,
 				E985C73625F3AD9700CB895C /* SetandValidatepathforrsync.swift in Sources */,
 				E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */,
 				E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */,

@@ -10,8 +10,8 @@
 import Foundation
 
 final class PersistentStorage {
-    var configJSON: PersistentStorageConfigurationJSON?
-    var scheduleJSON: PersistentStorageSchedulingJSON?
+    var configJSON: WriteConfigurationJSON?
+    var scheduleJSON: WriteScheduleJSON?
     var whattoreadorwrite: WhatToReadWrite?
 
     var configurations: [Configuration]?
@@ -19,15 +19,15 @@ final class PersistentStorage {
 
     func convert(profile: String?) {
         if let profile = profile {
-            _ = PersistentStorageConfigurationJSON(profile: profile,
-                                                   configurations: configurations)
-            _ = PersistentStorageSchedulingJSON(profile: profile,
-                                                schedules: schedules)
+            _ = WriteConfigurationJSON(profile: profile,
+                                       configurations: configurations)
+            _ = WriteScheduleJSON(profile: profile,
+                                  schedules: schedules)
         } else {
-            _ = PersistentStorageConfigurationJSON(profile: nil,
-                                                   configurations: configurations)
-            _ = PersistentStorageSchedulingJSON(profile: nil,
-                                                schedules: schedules)
+            _ = WriteConfigurationJSON(profile: nil,
+                                       configurations: configurations)
+            _ = WriteScheduleJSON(profile: nil,
+                                  schedules: schedules)
         }
     }
 
@@ -53,11 +53,11 @@ final class PersistentStorage {
 
         switch whattoreadorwrite {
         case .configuration:
-            configJSON = PersistentStorageConfigurationJSON(profile: profile,
-                                                            configurations: self.configurations)
+            configJSON = WriteConfigurationJSON(profile: profile,
+                                                configurations: self.configurations)
         case .schedule:
-            scheduleJSON = PersistentStorageSchedulingJSON(profile: profile,
-                                                           schedules: self.schedules)
+            scheduleJSON = WriteScheduleJSON(profile: profile,
+                                             schedules: self.schedules)
         default:
             return
         }
