@@ -25,7 +25,6 @@ class SingletaskPrimaryLogging {
             structconfigurations?[index].dateRun = currendate.en_us_string_from_date()
             PersistentStorage(profile: localeprofile,
                               whattoreadorwrite: .configuration,
-                              readonly: false,
                               configurations: structconfigurations,
                               schedules: nil)
                 .saveMemoryToPersistentStore()
@@ -66,7 +65,6 @@ class SingletaskPrimaryLogging {
                     if inserted {
                         PersistentStorage(profile: localeprofile,
                                           whattoreadorwrite: .schedule,
-                                          readonly: false,
                                           configurations: nil,
                                           schedules: structschedules)
                             .saveMemoryToPersistentStore()

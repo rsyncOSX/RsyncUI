@@ -124,7 +124,6 @@
 		E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BD25F3AD9600CB895C /* NetworkMonitor.swift */; };
 		E985C74925F3AD9700CB895C /* Validatenewconfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BE25F3AD9600CB895C /* Validatenewconfigs.swift */; };
 		E985C74A25F3AD9700CB895C /* ReadWriteJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */; };
-		E985C74B25F3AD9700CB895C /* ConvertAssist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C225F3AD9600CB895C /* ConvertAssist.swift */; };
 		E985C74C25F3AD9700CB895C /* ConvertSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C325F3AD9600CB895C /* ConvertSchedules.swift */; };
 		E985C74D25F3AD9700CB895C /* ConvertConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C425F3AD9600CB895C /* ConvertConfigurations.swift */; };
 		E985C74E25F3AD9700CB895C /* ConvertUserconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C525F3AD9600CB895C /* ConvertUserconfiguration.swift */; };
@@ -349,7 +348,6 @@
 		E985C6BD25F3AD9600CB895C /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		E985C6BE25F3AD9600CB895C /* Validatenewconfigs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validatenewconfigs.swift; sourceTree = "<group>"; };
 		E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteJSON.swift; sourceTree = "<group>"; };
-		E985C6C225F3AD9600CB895C /* ConvertAssist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertAssist.swift; sourceTree = "<group>"; };
 		E985C6C325F3AD9600CB895C /* ConvertSchedules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertSchedules.swift; sourceTree = "<group>"; };
 		E985C6C425F3AD9600CB895C /* ConvertConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertConfigurations.swift; sourceTree = "<group>"; };
 		E985C6C525F3AD9600CB895C /* ConvertUserconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertUserconfiguration.swift; sourceTree = "<group>"; };
@@ -839,7 +837,6 @@
 		E985C6C125F3AD9600CB895C /* Conversions */ = {
 			isa = PBXGroup;
 			children = (
-				E985C6C225F3AD9600CB895C /* ConvertAssist.swift */,
 				E985C6C325F3AD9600CB895C /* ConvertSchedules.swift */,
 				E985C6C425F3AD9600CB895C /* ConvertConfigurations.swift */,
 				E985C6C525F3AD9600CB895C /* ConvertUserconfiguration.swift */,
@@ -1234,7 +1231,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E985C74B25F3AD9700CB895C /* ConvertAssist.swift in Sources */,
 				E9168C0E2615ABFA00B139CE /* AddConfigurationView.swift in Sources */,
 				E985C66925F3AD8400CB895C /* SingleTasksView.swift in Sources */,
 				E985C66725F3AD8400CB895C /* Viewmodifiers.swift in Sources */,

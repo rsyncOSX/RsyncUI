@@ -276,19 +276,21 @@ extension SingleTasksView {
         singletasknowstate.updatestate(state: .execute)
         if let config = selectedconfig {
             if PreandPostTasks(config: config).executepretask || PreandPostTasks(config: config).executeposttask {
-                executetasknow = ExecuteSingleTaskNowShellout(uuids: selecteduuids,
-                                                              profile: rsyncUIData.rsyncdata?.profile,
-                                                              configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                                              schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                                              executetaskstate: singletasknowstate,
-                                                              updateinprogresscount: inprogresscountrsyncoutput)
+                executetasknow =
+                    ExecuteSingleTaskNowShellout(uuids: selecteduuids,
+                                                 profile: rsyncUIData.rsyncdata?.profile,
+                                                 configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                                 schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                                 executetaskstate: singletasknowstate,
+                                                 updateinprogresscount: inprogresscountrsyncoutput)
             } else {
-                executetasknow = ExecuteSingleTaskNow(uuids: selecteduuids,
-                                                      profile: rsyncUIData.rsyncdata?.profile,
-                                                      configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                                      schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                                      executetaskstate: singletasknowstate,
-                                                      updateinprogresscount: inprogresscountrsyncoutput)
+                executetasknow =
+                    ExecuteSingleTaskNow(uuids: selecteduuids,
+                                         profile: rsyncUIData.rsyncdata?.profile,
+                                         configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                         schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                         executetaskstate: singletasknowstate,
+                                         updateinprogresscount: inprogresscountrsyncoutput)
             }
         }
     }

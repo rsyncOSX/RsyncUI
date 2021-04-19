@@ -79,7 +79,6 @@ class UpdateConfigurations {
             }
             PersistentStorage(profile: localeprofile,
                               whattoreadorwrite: .configuration,
-                              readonly: false,
                               configurations: configurations,
                               schedules: nil)
                 .saveMemoryToPersistentStore()
@@ -111,7 +110,6 @@ class UpdateConfigurations {
             // permanent store
             PersistentStorage(profile: localeprofile,
                               whattoreadorwrite: .configuration,
-                              readonly: false,
                               configurations: configurations,
                               schedules: nil)
                 .saveMemoryToPersistentStore()
@@ -127,7 +125,6 @@ class UpdateConfigurations {
         let aftercount = (configurations?.count ?? 0)
         PersistentStorage(profile: localeprofile,
                           whattoreadorwrite: .configuration,
-                          readonly: false,
                           configurations: configurations,
                           schedules: nil)
             .saveMemoryToPersistentStore()

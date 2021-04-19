@@ -20,17 +20,13 @@ final class PersistentStorage {
     func convert(profile: String?) {
         if let profile = profile {
             _ = PersistentStorageConfigurationJSON(profile: profile,
-                                                   readonly: false,
                                                    configurations: configurations)
             _ = PersistentStorageSchedulingJSON(profile: profile,
-                                                readonly: false,
                                                 schedules: schedules)
         } else {
             _ = PersistentStorageConfigurationJSON(profile: nil,
-                                                   readonly: false,
                                                    configurations: configurations)
             _ = PersistentStorageSchedulingJSON(profile: nil,
-                                                readonly: false,
                                                 schedules: schedules)
         }
     }
@@ -48,7 +44,6 @@ final class PersistentStorage {
 
     init(profile: String?,
          whattoreadorwrite: WhatToReadWrite,
-         readonly: Bool,
          configurations: [Configuration]?,
          schedules: [ConfigurationSchedule]?)
     {
@@ -59,11 +54,9 @@ final class PersistentStorage {
         switch whattoreadorwrite {
         case .configuration:
             configJSON = PersistentStorageConfigurationJSON(profile: profile,
-                                                            readonly: readonly,
                                                             configurations: self.configurations)
         case .schedule:
             scheduleJSON = PersistentStorageSchedulingJSON(profile: profile,
-                                                           readonly: readonly,
                                                            schedules: self.schedules)
         default:
             return

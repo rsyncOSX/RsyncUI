@@ -96,18 +96,13 @@ class PersistentStorageSchedulingJSON: ReadWriteJSON {
     }
 
     init(profile: String?,
-         readonly: Bool,
          schedules: [ConfigurationSchedule]?)
     {
         super.init(profile: profile, whattoreadwrite: .schedule)
 
         self.schedules = schedules
         self.profile = profile
-        if readonly {
-            JSONFromPersistentStore()
-        } else {
-            createJSONfromstructs(schedules: nil)
-            writeconvertedtostore()
-        }
+        createJSONfromstructs(schedules: nil)
+        writeconvertedtostore()
     }
 }

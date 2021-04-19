@@ -23,7 +23,6 @@ class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
         // Save all after adding to configs in memory
         PersistentStorage(profile: localeprofile,
                           whattoreadorwrite: .configuration,
-                          readonly: false,
                           configurations: structconfigurations,
                           schedules: nil)
             .saveMemoryToPersistentStore()
@@ -63,7 +62,6 @@ class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
             // Save all after adding to schedule in memory
             PersistentStorage(profile: localeprofile,
                               whattoreadorwrite: .schedule,
-                              readonly: false,
                               configurations: nil,
                               schedules: structschedules)
                 .saveMemoryToPersistentStore()

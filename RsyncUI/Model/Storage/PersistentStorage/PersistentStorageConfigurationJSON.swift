@@ -87,17 +87,12 @@ class PersistentStorageConfigurationJSON: ReadWriteJSON {
     }
 
     init(profile: String?,
-         readonly: Bool,
          configurations: [Configuration]?)
     {
         super.init(profile: profile, whattoreadwrite: .configuration)
         self.profile = profile
         self.configurations = configurations
-        if readonly {
-            JSONFromPersistentStore()
-        } else {
-            createJSONfromstructs()
-            writeconvertedtostore()
-        }
+        createJSONfromstructs()
+        writeconvertedtostore()
     }
 }

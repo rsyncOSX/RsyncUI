@@ -64,7 +64,6 @@ final class UpdateSchedules {
         structschedules?.append(newschedule)
         PersistentStorage(profile: localeprofile,
                           whattoreadorwrite: .schedule,
-                          readonly: false,
                           configurations: nil,
                           schedules: structschedules)
             .saveMemoryToPersistentStore()
@@ -92,7 +91,6 @@ final class UpdateSchedules {
             }
             PersistentStorage(profile: localeprofile,
                               whattoreadorwrite: .schedule,
-                              readonly: false,
                               configurations: nil,
                               schedules: structschedules)
                 .saveMemoryToPersistentStore()
@@ -113,7 +111,6 @@ final class UpdateSchedules {
         }
         PersistentStorage(profile: localeprofile,
                           whattoreadorwrite: .schedule,
-                          readonly: false,
                           configurations: nil,
                           schedules: structschedules)
             .saveMemoryToPersistentStore()
@@ -136,7 +133,6 @@ final class UpdateSchedules {
             }
             PersistentStorage(profile: localeprofile,
                               whattoreadorwrite: .schedule,
-                              readonly: false,
                               configurations: nil,
                               schedules: structschedules)
                 .saveMemoryToPersistentStore()
