@@ -52,7 +52,7 @@ class ReadConfigurationJSON: NamesandPaths {
             .tryMap { url -> Data in
                 try Data(contentsOf: url)
             }
-            .decode(type: [CodableConfiguration].self, decoder: JSONDecoder())
+            .decode(type: [EncodeConfiguration].self, decoder: JSONDecoder())
             .sink { completion in
                 print("completion with \(completion)")
             } receiveValue: { [unowned self] data in

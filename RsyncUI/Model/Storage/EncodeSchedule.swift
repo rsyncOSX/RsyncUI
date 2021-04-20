@@ -1,5 +1,5 @@
 //
-//  DecodeScheduleJSON.swift
+//  CodableSchedule.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 18/10/2020.
@@ -25,7 +25,7 @@ struct Logrecord: Codable, Hashable {
     }
 }
 
-struct CodableSchedule: Codable {
+struct EncodeSchedule: Codable {
     let dateStart: String?
     let dateStop: String?
     let hiddenID: Int?

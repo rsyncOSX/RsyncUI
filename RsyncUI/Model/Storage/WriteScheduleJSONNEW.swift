@@ -29,7 +29,7 @@ class WriteScheduleJSONNEW: NamesandPaths {
             .tryMap { url -> Data in
                 try Data(contentsOf: url)
             }
-            .decode(type: [DecodeSchedule].self, decoder: JSONDecoder())
+            .decode(type: [EncodeSchedule].self, decoder: JSONDecoder())
             .sink { completion in
                 print("completion with \(completion)")
             } receiveValue: { [unowned self] data in

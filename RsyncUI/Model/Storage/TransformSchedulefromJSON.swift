@@ -10,7 +10,7 @@
 import Foundation
 
 struct TransformSchedulefromJSON {
-    func transform(_ object: DecodeSchedule) -> ConfigurationSchedule {
+    func transform(_ object: EncodeSchedule) -> ConfigurationSchedule {
         var log: [Any]?
         let dict: NSMutableDictionary = [
             DictionaryStrings.hiddenID.rawValue: object.hiddenID ?? -1,

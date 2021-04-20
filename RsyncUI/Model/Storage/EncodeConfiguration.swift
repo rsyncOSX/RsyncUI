@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct CodableConfiguration: Codable {
+struct EncodeConfiguration: Codable {
     let backupID: String?
     let dateRun: String?
     let haltshelltasksonerror: Int?
