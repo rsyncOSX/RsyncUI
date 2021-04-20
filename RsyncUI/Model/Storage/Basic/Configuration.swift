@@ -26,7 +26,7 @@ enum StringDayofweek: String {
     case Sunday
 }
 
-struct Configuration: Identifiable {
+struct Configuration: Identifiable, Codable {
     var id = UUID()
     var hiddenID: Int
     var task: String
@@ -156,6 +156,47 @@ struct Configuration: Identifiable {
         if let haltshelltasksonerror = dictionary.object(forKey: DictionaryStrings.haltshelltasksonerror.rawValue) {
             self.haltshelltasksonerror = haltshelltasksonerror as? Int
         }
+    }
+
+    // Codable init
+    init(config: Self) {
+        hiddenID = config.hiddenID
+        task = config.task
+        localCatalog = config.localCatalog
+        offsiteCatalog = config.offsiteCatalog
+        offsiteUsername = config.offsiteUsername
+        parameter1 = config.parameter1
+        parameter2 = config.parameter2
+        parameter3 = config.parameter3
+        parameter4 = config.parameter4
+        parameter5 = config.parameter5
+        parameter6 = config.parameter6
+        offsiteServer = config.offsiteServer
+        backupID = config.backupID
+        dateRun = config.dateRun
+        snapshotnum = config.snapshotnum
+        // parameters choosed by user
+        parameter8 = config.parameter8
+        parameter9 = config.parameter9
+        parameter10 = config.parameter10
+        parameter11 = config.parameter11
+        parameter12 = config.parameter12
+        parameter13 = config.parameter13
+        parameter14 = config.parameter14
+        rsyncdaemon = config.rsyncdaemon
+        // SSH parameters
+        sshport = config.sshport
+        sshkeypathandidentityfile = config.sshkeypathandidentityfile
+        profile = config.profile
+        // Snapshots, day to save and last = 1 or every last=0
+        snapdayoffweek = config.snapdayoffweek
+        snaplast = config.snaplast
+        // Pre and post tasks
+        executepretask = config.executepretask
+        pretask = config.pretask
+        executeposttask = config.executeposttask
+        posttask = config.posttask
+        haltshelltasksonerror = config.haltshelltasksonerror
     }
 }
 

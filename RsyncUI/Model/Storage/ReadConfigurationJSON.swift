@@ -53,8 +53,8 @@ class ReadConfigurationJSON: NamesandPaths {
                 try Data(contentsOf: url)
             }
             .decode(type: [EncodeConfiguration].self, decoder: JSONDecoder())
-            .sink { completion in
-                print("completion with \(completion)")
+            .sink { _ in
+                // print("completion with \(completion)")
             } receiveValue: { [unowned self] data in
                 var configurations = [Configuration]()
                 for i in 0 ..< data.count {

@@ -29,26 +29,26 @@ class WriteScheduleJSON: ReadWriteJSON {
     }
 
     private func createJSONfromstructs(schedules: [ConfigurationSchedule]?) {
-        var structscodable: [CodableConfigurationSchedule]?
+        var structscodable: [ConfigurationSchedule]?
         if schedules == nil {
             if let schedules = self.schedules {
-                structscodable = [CodableConfigurationSchedule]()
+                structscodable = [ConfigurationSchedule]()
                 for i in 0 ..< schedules.count where schedules[i].delete != true {
-                    structscodable?.append(CodableConfigurationSchedule(schedule: schedules[i]))
+                    structscodable?.append(ConfigurationSchedule(schedule: schedules[i]))
                 }
             }
         } else {
             if let schedules = schedules {
-                structscodable = [CodableConfigurationSchedule]()
+                structscodable = [ConfigurationSchedule]()
                 for i in 0 ..< schedules.count where schedules[i].delete != true {
-                    structscodable?.append(CodableConfigurationSchedule(schedule: schedules[i]))
+                    structscodable?.append(ConfigurationSchedule(schedule: schedules[i]))
                 }
             }
         }
         jsonstring = encodedata(data: structscodable)
     }
 
-    private func encodedata(data: [CodableConfigurationSchedule]?) -> String? {
+    private func encodedata(data: [ConfigurationSchedule]?) -> String? {
         do {
             let jsonData = try JSONEncoder().encode(data)
             if let jsonString = String(data: jsonData, encoding: .utf8) {

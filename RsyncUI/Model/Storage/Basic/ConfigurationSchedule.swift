@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Log: Identifiable {
+struct Log: Identifiable, Codable {
     var id = UUID()
     var dateExecuted: String?
     var resultExecuted: String?
@@ -18,7 +18,7 @@ struct Log: Identifiable {
     }
 }
 
-struct ConfigurationSchedule: Identifiable {
+struct ConfigurationSchedule: Identifiable, Codable {
     var id = UUID()
     var hiddenID: Int
     var offsiteserver: String?
@@ -47,6 +47,23 @@ struct ConfigurationSchedule: Identifiable {
             }
         }
         if logrecords == nil { logrecords = [] }
+    }
+
+    // Codable init
+    init(schedule: Self) {
+        hiddenID = schedule.hiddenID
+        offsiteserver = schedule.offsiteserver
+        dateStart = schedule.dateStart
+        dateStop = schedule.dateStop
+        self.schedule = schedule.schedule
+        delete = schedule.delete
+        if (schedule.logrecords?.count ?? 0) > 0 { logrecords = [Log]() }
+        for i in 0 ..< (schedule.logrecords?.count ?? 0) {
+            var onelogrecord = Log()
+            onelogrecord.dateExecuted = schedule.logrecords?[i].dateExecuted
+            onelogrecord.resultExecuted = schedule.logrecords?[i].resultExecuted
+            logrecords?.append(onelogrecord)
+        }
     }
 }
 

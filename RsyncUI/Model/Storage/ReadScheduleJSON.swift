@@ -31,8 +31,8 @@ class ReadScheduleJSON: NamesandPaths {
                 try Data(contentsOf: url)
             }
             .decode(type: [EncodeSchedule].self, decoder: JSONDecoder())
-            .sink { completion in
-                print("completion with \(completion)")
+            .sink { _ in
+                // print("completion with \(completion)")
             } receiveValue: { [unowned self] data in
                 var schedules = [ConfigurationSchedule]()
                 for i in 0 ..< data.count {

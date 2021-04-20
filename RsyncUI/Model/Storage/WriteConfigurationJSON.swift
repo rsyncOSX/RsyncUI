@@ -30,17 +30,17 @@ class WriteConfigurationJSON: ReadWriteJSON {
     }
 
     private func createJSONfromstructs() {
-        var structscodable: [CodableConfiguration]?
+        var structscodable: [Configuration]?
         if let configurations = self.configurations {
-            structscodable = [CodableConfiguration]()
+            structscodable = [Configuration]()
             for i in 0 ..< configurations.count {
-                structscodable?.append(CodableConfiguration(config: configurations[i]))
+                structscodable?.append(Configuration(config: configurations[i]))
             }
         }
         jsonstring = encodedata(data: structscodable)
     }
 
-    private func encodedata(data: [CodableConfiguration]?) -> String? {
+    private func encodedata(data: [Configuration]?) -> String? {
         do {
             let jsonData = try JSONEncoder().encode(data)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
