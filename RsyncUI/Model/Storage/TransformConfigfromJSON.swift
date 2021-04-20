@@ -10,7 +10,7 @@
 import Foundation
 
 struct TransformConfigfromJSON {
-    func transform(_ object: EncodeConfiguration) -> Configuration {
+    func transform(_ object: DecodeConfiguration) -> Configuration {
         var dayssincelastbackup: String?
         var markdays: Bool = false
         var lastruninseconds: Double? {

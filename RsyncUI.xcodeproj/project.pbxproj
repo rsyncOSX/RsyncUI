@@ -32,8 +32,6 @@
 		E943B0A925FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
 		E959280426240B8C002631CB /* NewversionPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959280326240B8B002631CB /* NewversionPLIST.swift */; };
-		E95BC520262D8BA80045AD3A /* WriteConfigurationJSONNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BC51F262D8BA80045AD3A /* WriteConfigurationJSONNEW.swift */; };
-		E95BC525262D8BC20045AD3A /* WriteScheduleJSONNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BC524262D8BC20045AD3A /* WriteScheduleJSONNEW.swift */; };
 		E95C8C312603962600407434 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C2F2603962600407434 /* InfoPlist.strings */; };
 		E95C8C342603962600407434 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C322603962600407434 /* Localizable.strings */; };
 		E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */; };
@@ -126,8 +124,8 @@
 		E985C74A25F3AD9700CB895C /* ReadWriteJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */; };
 		E985C74E25F3AD9700CB895C /* ConvertUserconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C525F3AD9600CB895C /* ConvertUserconfiguration.swift */; };
 		E985C74F25F3AD9700CB895C /* ReadWriteDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C625F3AD9600CB895C /* ReadWriteDictionary.swift */; };
-		E985C75025F3AD9700CB895C /* EncodeSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C825F3AD9600CB895C /* EncodeSchedule.swift */; };
-		E985C75125F3AD9700CB895C /* EncodeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C925F3AD9600CB895C /* EncodeConfiguration.swift */; };
+		E985C75025F3AD9700CB895C /* DecodeSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C825F3AD9600CB895C /* DecodeSchedule.swift */; };
+		E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C925F3AD9600CB895C /* DecodeConfiguration.swift */; };
 		E985C75325F3AD9700CB895C /* TransformConfigfromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6CB25F3AD9600CB895C /* TransformConfigfromJSON.swift */; };
 		E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6CD25F3AD9600CB895C /* ConfigurationSchedule.swift */; };
 		E985C75625F3AD9700CB895C /* TransformSchedulefromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6CE25F3AD9600CB895C /* TransformSchedulefromJSON.swift */; };
@@ -245,8 +243,6 @@
 		E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessCmdCombineClosure.swift; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
 		E959280326240B8B002631CB /* NewversionPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewversionPLIST.swift; sourceTree = "<group>"; };
-		E95BC51F262D8BA80045AD3A /* WriteConfigurationJSONNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteConfigurationJSONNEW.swift; sourceTree = "<group>"; };
-		E95BC524262D8BC20045AD3A /* WriteScheduleJSONNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSONNEW.swift; sourceTree = "<group>"; };
 		E95C8C302603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E95C8C332603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSchedulesView.swift; sourceTree = "<group>"; };
@@ -345,8 +341,8 @@
 		E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteJSON.swift; sourceTree = "<group>"; };
 		E985C6C525F3AD9600CB895C /* ConvertUserconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertUserconfiguration.swift; sourceTree = "<group>"; };
 		E985C6C625F3AD9600CB895C /* ReadWriteDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteDictionary.swift; sourceTree = "<group>"; };
-		E985C6C825F3AD9600CB895C /* EncodeSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodeSchedule.swift; sourceTree = "<group>"; };
-		E985C6C925F3AD9600CB895C /* EncodeConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodeConfiguration.swift; sourceTree = "<group>"; };
+		E985C6C825F3AD9600CB895C /* DecodeSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodeSchedule.swift; sourceTree = "<group>"; };
+		E985C6C925F3AD9600CB895C /* DecodeConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodeConfiguration.swift; sourceTree = "<group>"; };
 		E985C6CB25F3AD9600CB895C /* TransformConfigfromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformConfigfromJSON.swift; sourceTree = "<group>"; };
 		E985C6CD25F3AD9600CB895C /* ConfigurationSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedule.swift; sourceTree = "<group>"; };
 		E985C6CE25F3AD9600CB895C /* TransformSchedulefromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformSchedulefromJSON.swift; sourceTree = "<group>"; };
@@ -810,8 +806,6 @@
 				E985C6D425F3AD9600CB895C /* WriteScheduleJSON.swift */,
 				E985C6CB25F3AD9600CB895C /* TransformConfigfromJSON.swift */,
 				E985C6CE25F3AD9600CB895C /* TransformSchedulefromJSON.swift */,
-				E95BC524262D8BC20045AD3A /* WriteScheduleJSONNEW.swift */,
-				E95BC51F262D8BA80045AD3A /* WriteConfigurationJSONNEW.swift */,
 				E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */,
 				E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */,
 				E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */,
@@ -835,8 +829,8 @@
 		E985C6C725F3AD9600CB895C /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				E985C6C825F3AD9600CB895C /* EncodeSchedule.swift */,
-				E985C6C925F3AD9600CB895C /* EncodeConfiguration.swift */,
+				E985C6C825F3AD9600CB895C /* DecodeSchedule.swift */,
+				E985C6C925F3AD9600CB895C /* DecodeConfiguration.swift */,
 				E985C6CD25F3AD9600CB895C /* ConfigurationSchedule.swift */,
 				E985C6D125F3AD9600CB895C /* Configuration.swift */,
 			);
@@ -1274,7 +1268,6 @@
 				E98C7ABA262D664900555977 /* ReadConfigurationJSON.swift in Sources */,
 				E985C77825F3AD9700CB895C /* GetRemoteFileListingsArguments.swift in Sources */,
 				E985C67C25F3AD8400CB895C /* SchedulesList.swift in Sources */,
-				E95BC525262D8BC20045AD3A /* WriteScheduleJSONNEW.swift in Sources */,
 				E985C65725F3AD8400CB895C /* SidebarSnapshotsView.swift in Sources */,
 				E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */,
 				E985C74625F3AD9700CB895C /* Numbers.swift in Sources */,
@@ -1381,14 +1374,13 @@
 				E985C78025F3AD9700CB895C /* AllLoggs.swift in Sources */,
 				E98C7AB5262D662200555977 /* ReadScheduleJSON.swift in Sources */,
 				E985C66825F3AD8400CB895C /* OutputRsyncView.swift in Sources */,
-				E985C75125F3AD9700CB895C /* EncodeConfiguration.swift in Sources */,
+				E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */,
 				E90B4A9F261DA7580043EFF6 /* DefaultIndicatorView.swift in Sources */,
 				E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */,
 				E985C68725F3AD8400CB895C /* EditValue.swift in Sources */,
 				E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */,
 				E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */,
 				E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */,
-				E95BC520262D8BA80045AD3A /* WriteConfigurationJSONNEW.swift in Sources */,
 				E97844DF260DB3D6007874A1 /* ScheduleSortedAndExpand.swift in Sources */,
 				E985C77125F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift in Sources */,
 				E985C79425F3AD9700CB895C /* RemoteCapacity.swift in Sources */,
@@ -1401,7 +1393,7 @@
 				E985C79125F3AD9700CB895C /* ObserveableReference.swift in Sources */,
 				E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */,
 				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,
-				E985C75025F3AD9700CB895C /* EncodeSchedule.swift in Sources */,
+				E985C75025F3AD9700CB895C /* DecodeSchedule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
