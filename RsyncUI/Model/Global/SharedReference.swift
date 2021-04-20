@@ -88,10 +88,6 @@ class SharedReference {
     var errorobject: ErrorHandling?
     // Object for shortcuts
     var shortcutobject: ShortcutActions?
-    // just setting JSON as default, cannoet be changed
-    // It is used only if RsyncOSX is in parallell with RsyncUI
-    // RSyncUI only supports JSON for configurations
-    var json: Bool = true
 
     init() {
         synctasks = Set<String>()
