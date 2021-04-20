@@ -53,19 +53,12 @@ class SharedReference {
     let rsync: String = "rsync"
     let usrbin: String = "/usr/bin"
     let usrlocalbin: String = "/usr/local/bin"
-    // Where RsyncOSX config files are stored
-    let configpath: String = "/Rsync/"
-    // New RsynOSX config files and path
-    let newconfigpath: String = "/.rsyncosx/"
-    var usenewconfigpath: Bool = true
-    // Plistnames and key
-    let scheduleplist: String = "/scheduleRsync.plist"
-    let schedulekey: String = "Schedule"
-    let configurationsplist: String = "/configRsync.plist"
-    let configurationskey: String = "Catalogs"
+    // RsyncUI config files and path
+    let configpath: String = "/.rsyncosx/"
+    // Userconfiguration plistnames and key
     let userconfigplist: String = "/config.plist"
     let userconfigkey: String = "config"
-    let logname: String = "rsynclog.txt"
+    let logname: String = "rsyncui.txt"
     // String tasks
     let synchronize: String = "synchronize"
     let snapshot: String = "snapshot"

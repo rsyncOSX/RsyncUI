@@ -59,28 +59,15 @@ class Catalogsandfiles: NamesandPaths {
                 // Creating profile catalalog is a two step task
                 // 1: create profilecatalog
                 // 2: create profilecatalog/macserialnumber
-                // New config path (/.rsyncosx)
-                if SharedReference.shared.usenewconfigpath {
-                    catalog = SharedReference.shared.newconfigpath
-                    root = Folder.home
-                    do {
-                        try root?.createSubfolder(at: catalog ?? "")
-                    } catch let e {
-                        let error = e
-                        self.propogateerror(error: error)
-                        return
-                    }
-                } else {
-                    // Old configpath (Rsync)
-                    catalog = SharedReference.shared.configpath
-                    root = Folder.documents
-                    do {
-                        try root?.createSubfolder(at: catalog ?? "")
-                    } catch let e {
-                        let error = e
-                        self.propogateerror(error: error)
-                        return
-                    }
+                // config path (/.rsyncosx)
+                catalog = SharedReference.shared.configpath
+                root = Folder.home
+                do {
+                    try root?.createSubfolder(at: catalog ?? "")
+                } catch let e {
+                    let error = e
+                    self.propogateerror(error: error)
+                    return
                 }
                 if let macserialnumber = self.macserialnumber,
                    let fullrootnomacserial = self.fullrootnomacserial

@@ -107,13 +107,11 @@ struct Usersettings: View {
             // Save button right down corner
             Spacer()
 
-            Spacer()
-
-            if backup == true { notifybackup }
-
-            Spacer()
-
             HStack {
+                Spacer()
+
+                if backup == true { notifybackup }
+
                 Spacer()
 
                 // Backup configuration files

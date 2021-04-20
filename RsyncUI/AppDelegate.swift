@@ -21,12 +21,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 // application.registerForRemoteNotifications()
             }
         }
-        // Decide if:
-        // 1: First time start, use new profilepath
-        // 2: Old profilepath is copied to new, use new profilepath
-        // 3: Use old profilepath
-        // ViewControllerReference.shared.usenewconfigpath = true or false (default true)
-        _ = Neworoldprofilepath()
         // Create base profile catalog
         CatalogProfile().createrootprofilecatalog()
         // Must read userconfig when loading main view, view only load once

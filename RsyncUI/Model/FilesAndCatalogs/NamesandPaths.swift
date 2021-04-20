@@ -34,8 +34,6 @@ class NamesandPaths {
     // config path either
     // ViewControllerReference.shared.configpath or RcloneReference.shared.configpath
     var configpath: String?
-    // Name set for schedule, configuration or config
-    var plistname: String?
     // key in objectForKey, e.g key for reading what
     var key: String?
     // Which profile to read
@@ -44,6 +42,8 @@ class NamesandPaths {
     var task: WhatToReadWrite?
     // Set which file to read
     var filename: String?
+    // plistname
+    var plistname: String?
     // Documentscatalog
     var documentscatalog: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -97,13 +97,8 @@ class NamesandPaths {
     func setrootpath() {
         switch profileorsshroot {
         case .profileroot:
-            if SharedReference.shared.usenewconfigpath == true {
-                fullroot = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
-                fullrootnomacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "")
-            } else {
-                fullroot = (documentscatalog ?? "") + (configpath ?? "") + (macserialnumber ?? "")
-                fullrootnomacserial = (documentscatalog ?? "") + (configpath ?? "")
-            }
+            fullroot = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
+            fullrootnomacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "")
         case .sshroot:
             fullroot = fullsshkeypath
             identityfile = sshidentityfile
@@ -115,20 +110,11 @@ class NamesandPaths {
     // Set path and name for reading plist.files
     func setnameandpath() {
         let config = (configpath ?? "") + (macserialnumber ?? "")
-        let plist = (plistname ?? "")
         if let profile = self.profile {
             // Use profile
-            if SharedReference.shared.usenewconfigpath == true {
-                filename = (userHomeDirectoryPath ?? "") + config + "/" + profile + plist
-            } else {
-                filename = (documentscatalog ?? "") + config + "/" + profile + plist
-            }
+            filename = (userHomeDirectoryPath ?? "") + config + "/" + profile
         } else {
-            if SharedReference.shared.usenewconfigpath == true {
-                filename = (userHomeDirectoryPath ?? "") + config + plist
-            } else {
-                filename = (documentscatalog ?? "") + config + plist
-            }
+            filename = (userHomeDirectoryPath ?? "") + config
         }
     }
 
@@ -136,29 +122,23 @@ class NamesandPaths {
     func setpreferencesforreadingplist(whattoreadwrite: WhatToReadWrite) {
         task = whattoreadwrite
         switch task ?? .none {
-        case .schedule:
-            plistname = SharedReference.shared.scheduleplist
-            key = SharedReference.shared.schedulekey
-        case .configuration:
-            plistname = SharedReference.shared.configurationsplist
-            key = SharedReference.shared.configurationskey
         case .userconfig:
             plistname = SharedReference.shared.userconfigplist
             key = SharedReference.shared.userconfigkey
-        case .none:
+        default:
             plistname = nil
             key = nil
         }
     }
 
     init(profileorsshrootpath: Profileorsshrootpath) {
-        configpath = Configpath().configpath
+        configpath = SharedReference.shared.configpath
         profileorsshroot = profileorsshrootpath
         setrootpath()
     }
 
     init(profile: String?, whattoreadwrite: WhatToReadWrite) {
-        configpath = Configpath().configpath
+        configpath = SharedReference.shared.configpath
         self.profile = profile
         setpreferencesforreadingplist(whattoreadwrite: whattoreadwrite)
         setnameandpath()
