@@ -106,6 +106,7 @@ struct Userconfiguration {
         }
 
         SharedReference.shared.inloading = false
+        SharedReference.shared.json = true
     }
 
     func validatepathforrsync(_ path: String) {
