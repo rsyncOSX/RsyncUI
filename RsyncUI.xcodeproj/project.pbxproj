@@ -812,8 +812,6 @@
 				E985C6CE25F3AD9600CB895C /* TransformSchedulefromJSON.swift */,
 				E95BC524262D8BC20045AD3A /* WriteScheduleJSONNEW.swift */,
 				E95BC51F262D8BA80045AD3A /* WriteConfigurationJSONNEW.swift */,
-				E985C6C925F3AD9600CB895C /* EncodeConfiguration.swift */,
-				E985C6C825F3AD9600CB895C /* EncodeSchedule.swift */,
 				E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */,
 				E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */,
 				E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */,
@@ -837,6 +835,8 @@
 		E985C6C725F3AD9600CB895C /* Basic */ = {
 			isa = PBXGroup;
 			children = (
+				E985C6C825F3AD9600CB895C /* EncodeSchedule.swift */,
+				E985C6C925F3AD9600CB895C /* EncodeConfiguration.swift */,
 				E985C6CD25F3AD9600CB895C /* ConfigurationSchedule.swift */,
 				E985C6D125F3AD9600CB895C /* Configuration.swift */,
 			);
