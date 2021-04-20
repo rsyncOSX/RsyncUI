@@ -64,51 +64,50 @@ struct AddConfigurationView: View {
 
     var body: some View {
         Form {
-            ZStack {
-                HStack {
-                    // For center
-                    Spacer()
-
-                    // Column 1
-                    VStack(alignment: .leading) {
-                        pickerselecttypeoftask
-
-                        VStack(alignment: .leading) { localandremotecatalog }
-
-                        VStack(alignment: .leading) { backupid }
-
-                        VStack(alignment: .leading) { remoteuserandserver }
-                    }
-                    .padding()
-
-                    // Column 2
-                    VStack(alignment: .leading) {
-                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
-
-                        HStack {
-                            Button(action: { createprofile() }) { Image(systemName: "plus") }
-                                .buttonStyle(GrayCircleButtonStyle())
-
-                            EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
-                        }
-                    }
-                    .padding()
-
-                    // For center
-                    Spacer()
-                }
-
-                HStack {
-                    // Present when either added, updated or profile created
-                    if added == true { notifyadded }
-                    if updated == true { notifyupdated }
-                    if created == true { notifycreated }
-                }
-            }
-            VStack {
+            HStack {
+                // For center
                 Spacer()
 
+                // Column 1
+                VStack(alignment: .leading) {
+                    pickerselecttypeoftask
+
+                    VStack(alignment: .leading) { localandremotecatalog }
+
+                    VStack(alignment: .leading) { backupid }
+
+                    VStack(alignment: .leading) { remoteuserandserver }
+                }
+                .padding()
+
+                // Column 2
+                VStack(alignment: .leading) {
+                    ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+
+                    HStack {
+                        EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
+
+                        Button(NSLocalizedString("Profile", comment: "Add button")) { createprofile() }
+                            .buttonStyle(PrimaryButtonStyle())
+                    }
+                }
+                .padding()
+
+                // For center
+                Spacer()
+            }
+
+            VStack {
                 HStack {
+                    Spacer()
+
+                    HStack {
+                        // Present when either added, updated or profile created
+                        if added == true { notifyadded }
+                        if updated == true { notifyupdated }
+                        if created == true { notifycreated }
+                    }
+
                     Spacer()
                     // Add or Update button
                     if selectedconfig == nil {

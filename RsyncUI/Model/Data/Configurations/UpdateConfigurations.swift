@@ -132,11 +132,14 @@ class UpdateConfigurations {
         }
     }
 
-    init(profile: String?,
-         configurations: [Configuration]?)
-    {
+    init(profile: String?, configurations: [Configuration]?) {
         localeprofile = profile
-        self.configurations = configurations
+        // Create new set of configurations
+        if configurations == nil {
+            self.configurations = [Configuration]()
+        } else {
+            self.configurations = configurations
+        }
     }
 
     deinit {
