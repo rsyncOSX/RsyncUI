@@ -26,7 +26,6 @@ struct ConfigurationSchedule: Identifiable, Codable {
     var dateStop: String?
     var schedule: String
     var logrecords: [Log]?
-    var delete: Bool?
     var profilename: String?
 
     init(dictionary: NSDictionary, log: NSArray?) {
@@ -56,7 +55,6 @@ struct ConfigurationSchedule: Identifiable, Codable {
         dateStart = schedule.dateStart
         dateStop = schedule.dateStop
         self.schedule = schedule.schedule
-        delete = schedule.delete
         if (schedule.logrecords?.count ?? 0) > 0 { logrecords = [Log]() }
         for i in 0 ..< (schedule.logrecords?.count ?? 0) {
             var onelogrecord = Log()

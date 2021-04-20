@@ -15,12 +15,6 @@ class WriteConfigurationJSON: ReadWriteJSON {
     // Saving Configuration from MEMORY to persistent store
     // Reads Configurations from MEMORY and saves to persistent Store
     func saveconfigInMemoryToPersistentStore() {
-        if let configurations = self.configurations {
-            writeToStore(configurations: configurations)
-        }
-    }
-
-    private func writeToStore(configurations _: [Configuration]?) {
         createJSONfromstructs()
         writeJSONToPersistentStore()
         if SharedReference.shared.menuappisrunning {
@@ -59,7 +53,5 @@ class WriteConfigurationJSON: ReadWriteJSON {
         super.init(profile: profile, whattoreadwrite: .configuration)
         self.profile = profile
         self.configurations = configurations
-        createJSONfromstructs()
-        writeconvertedtostore()
     }
 }

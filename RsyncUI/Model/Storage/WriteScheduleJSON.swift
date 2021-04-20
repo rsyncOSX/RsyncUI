@@ -14,35 +14,16 @@ class WriteScheduleJSON: ReadWriteJSON {
 
     // Saving Schedules from MEMORY to persistent store
     func savescheduleInMemoryToPersistentStore() {
-        if let schedules: [ConfigurationSchedule] = ConvertSchedules(JSON: true,
-                                                                     schedules: self.schedules)
-            .cleanedschedules
-        {
-            writeToStore(schedules: schedules)
-        }
-    }
-
-    // Writing schedules to persistent store
-    private func writeToStore(schedules: [ConfigurationSchedule]?) {
-        createJSONfromstructs(schedules: schedules)
+        createJSONfromstructs()
         writeJSONToPersistentStore()
     }
 
-    private func createJSONfromstructs(schedules: [ConfigurationSchedule]?) {
+    private func createJSONfromstructs() {
         var structscodable: [ConfigurationSchedule]?
-        if schedules == nil {
-            if let schedules = self.schedules {
-                structscodable = [ConfigurationSchedule]()
-                for i in 0 ..< schedules.count where schedules[i].delete != true {
-                    structscodable?.append(ConfigurationSchedule(schedule: schedules[i]))
-                }
-            }
-        } else {
-            if let schedules = schedules {
-                structscodable = [ConfigurationSchedule]()
-                for i in 0 ..< schedules.count where schedules[i].delete != true {
-                    structscodable?.append(ConfigurationSchedule(schedule: schedules[i]))
-                }
+        if let schedules = self.schedules {
+            structscodable = [ConfigurationSchedule]()
+            for i in 0 ..< schedules.count {
+                structscodable?.append(ConfigurationSchedule(schedule: schedules[i]))
             }
         }
         jsonstring = encodedata(data: structscodable)
@@ -66,10 +47,7 @@ class WriteScheduleJSON: ReadWriteJSON {
          schedules: [ConfigurationSchedule]?)
     {
         super.init(profile: profile, whattoreadwrite: .schedule)
-
         self.schedules = schedules
         self.profile = profile
-        createJSONfromstructs(schedules: nil)
-        writeconvertedtostore()
     }
 }
