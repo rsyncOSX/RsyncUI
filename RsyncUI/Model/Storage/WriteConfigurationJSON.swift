@@ -47,10 +47,8 @@ class WriteConfigurationJSON: ReadWriteJSON {
         return nil
     }
 
-    init(profile: String?,
-         configurations: [Configuration]?)
-    {
-        super.init(profile: profile)
+    init(_ profile: String?, _ configurations: [Configuration]?) {
+        super.init(profile)
         filename = SharedReference.shared.fileconfigurationsjson
         self.profile = profile
         self.configurations = configurations

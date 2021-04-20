@@ -23,8 +23,7 @@ class SingletaskPrimaryLogging {
             }
             let currendate = Date()
             structconfigurations?[index].dateRun = currendate.en_us_string_from_date()
-            WriteConfigurationJSON(profile: localeprofile,
-                                   configurations: structconfigurations)
+            WriteConfigurationJSON(localeprofile, structconfigurations)
                 .saveconfigInMemoryToPersistentStore()
         }
     }
@@ -62,8 +61,7 @@ class SingletaskPrimaryLogging {
                     }
                     if inserted {
                         // Save all after adding to schedule in memory
-                        WriteScheduleJSON(profile: localeprofile,
-                                          schedules: structschedules)
+                        WriteScheduleJSON(localeprofile, structschedules)
                             .savescheduleInMemoryToPersistentStore()
                     }
                     _ = Logfile(outputprocess)

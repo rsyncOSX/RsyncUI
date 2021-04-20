@@ -21,8 +21,7 @@ class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
             }
         }
         // Save all after adding to configs in memory
-        WriteConfigurationJSON(profile: localeprofile,
-                               configurations: structconfigurations)
+        WriteConfigurationJSON(localeprofile, structconfigurations)
             .saveconfigInMemoryToPersistentStore()
     }
 
@@ -58,8 +57,7 @@ class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
                 }
             }
             // Save all after adding to schedule in memory
-            WriteScheduleJSON(profile: localeprofile,
-                              schedules: structschedules)
+            WriteScheduleJSON(localeprofile, structschedules)
                 .savescheduleInMemoryToPersistentStore()
         }
     }

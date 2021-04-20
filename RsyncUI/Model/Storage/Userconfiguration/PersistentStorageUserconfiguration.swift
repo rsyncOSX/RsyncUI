@@ -29,7 +29,7 @@ final class PersistentStorageUserconfiguration: ReadWriteDictionary {
     }
 
     init() {
-        super.init(profile: nil)
+        super.init(nil)
     }
 
     deinit {

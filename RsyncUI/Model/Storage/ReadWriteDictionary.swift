@@ -38,7 +38,7 @@ class ReadWriteDictionary: NamesandPaths {
         return write
     }
 
-    override init(profile: String?) {
-        super.init(profile: profile)
+    override init(_ profile: String?) {
+        super.init(profile)
     }
 }

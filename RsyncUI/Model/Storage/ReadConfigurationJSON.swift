@@ -36,7 +36,7 @@ class ReadConfigurationJSON: NamesandPaths {
         return uniqueserversandlogins
     }
 
-    init(_ profile: String?) {
+    override init(_ profile: String?) {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile
         datafile.publisher

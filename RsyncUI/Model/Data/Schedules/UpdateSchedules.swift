@@ -63,8 +63,7 @@ final class UpdateSchedules {
         let newschedule = ConfigurationSchedule(dictionary: dict, log: nil)
         structschedules?.append(newschedule)
         // Save all after adding to schedule in memory
-        WriteScheduleJSON(profile: localeprofile,
-                          schedules: structschedules)
+        WriteScheduleJSON(localeprofile, structschedules)
             .savescheduleInMemoryToPersistentStore()
     }
 
@@ -89,8 +88,7 @@ final class UpdateSchedules {
                 structschedules?[index].dateStop = Date().en_us_string_from_date()
             }
             // Save all after adding to schedule in memory
-            WriteScheduleJSON(profile: localeprofile,
-                              schedules: structschedules)
+            WriteScheduleJSON(localeprofile, structschedules)
                 .savescheduleInMemoryToPersistentStore()
         }
     }
@@ -108,8 +106,7 @@ final class UpdateSchedules {
             structschedules?.remove(atOffsets: indexset)
         }
         // Save all after adding to schedule in memory
-        WriteScheduleJSON(profile: localeprofile,
-                          schedules: structschedules)
+        WriteScheduleJSON(localeprofile, structschedules)
             .savescheduleInMemoryToPersistentStore()
     }
 
@@ -129,8 +126,7 @@ final class UpdateSchedules {
                 indexset.removeAll()
             }
             // Save all after adding to schedule in memory
-            WriteScheduleJSON(profile: localeprofile,
-                              schedules: structschedules)
+            WriteScheduleJSON(localeprofile, structschedules)
                 .savescheduleInMemoryToPersistentStore()
         }
     }

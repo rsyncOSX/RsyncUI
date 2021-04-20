@@ -39,7 +39,7 @@ class ReadWriteJSON: NamesandPaths {
         }
     }
 
-    override init(profile: String?) {
+    override init(_ profile: String?) {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile
     }

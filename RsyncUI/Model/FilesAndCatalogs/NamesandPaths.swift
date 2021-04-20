@@ -115,7 +115,7 @@ class NamesandPaths {
         setrootpath()
     }
 
-    init(profile: String?) {
+    init(_ profile: String?) {
         configpath = SharedReference.shared.configpath
         // For user configuration
         plistname = SharedReference.shared.userconfigplist

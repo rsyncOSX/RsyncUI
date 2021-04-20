@@ -77,8 +77,7 @@ class UpdateConfigurations {
                 configurations?[index].haltshelltasksonerror = config.haltshelltasksonerror
                 configurations?[index].backupID = config.backupID
             }
-            WriteConfigurationJSON(profile: localeprofile,
-                                   configurations: configurations)
+            WriteConfigurationJSON(localeprofile, configurations)
                 .saveconfigInMemoryToPersistentStore()
         }
     }
@@ -106,8 +105,7 @@ class UpdateConfigurations {
             // No need for deleting the logs, only valid hiddenIDs are
             // loaded next time configurations are read from
             // permanent store
-            WriteConfigurationJSON(profile: localeprofile,
-                                   configurations: configurations)
+            WriteConfigurationJSON(localeprofile, configurations)
                 .saveconfigInMemoryToPersistentStore()
         }
     }
@@ -119,8 +117,7 @@ class UpdateConfigurations {
         newconfig.hiddenID = maxhiddenID + 1
         configurations?.append(newconfig)
         let aftercount = (configurations?.count ?? 0)
-        WriteConfigurationJSON(profile: localeprofile,
-                               configurations: configurations)
+        WriteConfigurationJSON(localeprofile, configurations)
             .saveconfigInMemoryToPersistentStore()
         if aftercount > beforecount {
             return true
