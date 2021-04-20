@@ -128,7 +128,7 @@
 		E985C74D25F3AD9700CB895C /* ConvertConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C425F3AD9600CB895C /* ConvertConfigurations.swift */; };
 		E985C74E25F3AD9700CB895C /* ConvertUserconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C525F3AD9600CB895C /* ConvertUserconfiguration.swift */; };
 		E985C74F25F3AD9700CB895C /* ReadWriteDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C625F3AD9600CB895C /* ReadWriteDictionary.swift */; };
-		E985C75025F3AD9700CB895C /* DecodeSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C825F3AD9600CB895C /* DecodeSchedule.swift */; };
+		E985C75025F3AD9700CB895C /* CodableSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C825F3AD9600CB895C /* CodableSchedule.swift */; };
 		E985C75125F3AD9700CB895C /* CodableConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C925F3AD9600CB895C /* CodableConfiguration.swift */; };
 		E985C75225F3AD9700CB895C /* CodableConfigurationSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6CA25F3AD9600CB895C /* CodableConfigurationSchedule.swift */; };
 		E985C75325F3AD9700CB895C /* TransformConfigfromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6CB25F3AD9600CB895C /* TransformConfigfromJSON.swift */; };
@@ -351,7 +351,7 @@
 		E985C6C425F3AD9600CB895C /* ConvertConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertConfigurations.swift; sourceTree = "<group>"; };
 		E985C6C525F3AD9600CB895C /* ConvertUserconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertUserconfiguration.swift; sourceTree = "<group>"; };
 		E985C6C625F3AD9600CB895C /* ReadWriteDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteDictionary.swift; sourceTree = "<group>"; };
-		E985C6C825F3AD9600CB895C /* DecodeSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodeSchedule.swift; sourceTree = "<group>"; };
+		E985C6C825F3AD9600CB895C /* CodableSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableSchedule.swift; sourceTree = "<group>"; };
 		E985C6C925F3AD9600CB895C /* CodableConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableConfiguration.swift; sourceTree = "<group>"; };
 		E985C6CA25F3AD9600CB895C /* CodableConfigurationSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableConfigurationSchedule.swift; sourceTree = "<group>"; };
 		E985C6CB25F3AD9600CB895C /* TransformConfigfromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformConfigfromJSON.swift; sourceTree = "<group>"; };
@@ -821,7 +821,7 @@
 				E95BC524262D8BC20045AD3A /* WriteScheduleJSONNEW.swift */,
 				E95BC51F262D8BA80045AD3A /* WriteConfigurationJSONNEW.swift */,
 				E985C6C925F3AD9600CB895C /* CodableConfiguration.swift */,
-				E985C6C825F3AD9600CB895C /* DecodeSchedule.swift */,
+				E985C6C825F3AD9600CB895C /* CodableSchedule.swift */,
 				E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */,
 				E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */,
 				E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */,
@@ -1417,7 +1417,7 @@
 				E985C79125F3AD9700CB895C /* ObserveableReference.swift in Sources */,
 				E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */,
 				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,
-				E985C75025F3AD9700CB895C /* DecodeSchedule.swift in Sources */,
+				E985C75025F3AD9700CB895C /* CodableSchedule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

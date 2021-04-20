@@ -25,7 +25,7 @@ struct Logrecord: Codable, Hashable {
     }
 }
 
-struct DecodeSchedule: Codable {
+struct CodableSchedule: Codable {
     let dateStart: String?
     let dateStop: String?
     let hiddenID: Int?
