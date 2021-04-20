@@ -114,7 +114,7 @@ class NamesandPaths {
             // Use profile
             filename = (userHomeDirectoryPath ?? "") + config + "/" + profile
         } else {
-            filename = (userHomeDirectoryPath ?? "") + config
+            filename = (userHomeDirectoryPath ?? "") + config + (plistname ?? "")
         }
     }
 
