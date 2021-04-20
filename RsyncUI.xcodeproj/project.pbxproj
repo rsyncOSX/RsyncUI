@@ -442,20 +442,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E9011D41262EBFE600ECC9B8 /* Conversions */ = {
+		E9011D43262EBFE600ECC9B8 /* Userconfiguration */ = {
 			isa = PBXGroup;
 			children = (
 				E9011D42262EBFE600ECC9B8 /* ConvertUserconfiguration.swift */,
-			);
-			path = Conversions;
-			sourceTree = "<group>";
-		};
-		E9011D43262EBFE600ECC9B8 /* PersistentStorage */ = {
-			isa = PBXGroup;
-			children = (
 				E9011D44262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift */,
 			);
-			path = PersistentStorage;
+			path = Userconfiguration;
 			sourceTree = "<group>";
 		};
 		E90B4A91261DA7580043EFF6 /* Indicators */ = {
@@ -813,8 +806,7 @@
 		E985C6BF25F3AD9600CB895C /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				E9011D41262EBFE600ECC9B8 /* Conversions */,
-				E9011D43262EBFE600ECC9B8 /* PersistentStorage */,
+				E9011D43262EBFE600ECC9B8 /* Userconfiguration */,
 				E985C6D825F3AD9600CB895C /* WriteConfigurationJSON.swift */,
 				E985C6D425F3AD9600CB895C /* WriteScheduleJSON.swift */,
 				E985C6CB25F3AD9600CB895C /* TransformConfigfromJSON.swift */,
@@ -831,8 +823,7 @@
 		E985C6C725F3AD9600CB895C /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				E985C6C825F3AD9600CB895C /* DecodeSchedule.swift */,
-				E985C6C925F3AD9600CB895C /* DecodeConfiguration.swift */,
+				E9AA5400262EEB2E0009DF32 /* JSON */,
 				E985C6CD25F3AD9600CB895C /* ConfigurationSchedule.swift */,
 				E985C6D125F3AD9600CB895C /* Configuration.swift */,
 			);
@@ -1039,6 +1030,15 @@
 				E99C23FA261C2D6C009D4DBF /* RestoreView.swift */,
 			);
 			path = Restore;
+			sourceTree = "<group>";
+		};
+		E9AA5400262EEB2E0009DF32 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				E985C6C925F3AD9600CB895C /* DecodeConfiguration.swift */,
+				E985C6C825F3AD9600CB895C /* DecodeSchedule.swift */,
+			);
+			path = JSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

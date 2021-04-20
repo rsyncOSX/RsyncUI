@@ -25,7 +25,7 @@ class SharedReference {
     var localrsyncpath: String?
     // No valid rsyncPath - true if no valid rsync is found
     var norsync: Bool = false
-    // Temporary path for restore
+    // Path for restore
     var pathforrestore: String?
     // Detailed logging
     var detailedlogging: Bool = true
@@ -56,7 +56,7 @@ class SharedReference {
     // RsyncUI config files and path
     let configpath: String = "/.rsyncosx/"
     // Userconfiguration plistnames and key
-    let userconfigplist: String = "/config.plist"
+    let userconfigplist: String = "/rsyncuiconfig.plist"
     let userconfigkey: String = "config"
     let logname: String = "rsyncui.txt"
     // String tasks
