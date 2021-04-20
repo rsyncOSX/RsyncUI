@@ -9,13 +9,6 @@
 import Foundation
 import SwiftUI
 
-enum WhatToReadWrite {
-    case schedule
-    case configuration
-    case userconfig
-    case none
-}
-
 enum Profileorsshrootpath {
     case profileroot
     case sshroot
@@ -38,11 +31,9 @@ class NamesandPaths {
     var key: String?
     // Which profile to read
     var profile: String?
-    // task to do
-    var task: WhatToReadWrite?
     // Set which file to read
     var filename: String?
-    // plistname
+    // plistname for user configuration
     var plistname: String?
     // Documentscatalog
     var documentscatalog: String? {
@@ -118,29 +109,18 @@ class NamesandPaths {
         }
     }
 
-    // Set preferences for which data to read or write
-    func setpreferencesforreadingplist(whattoreadwrite: WhatToReadWrite) {
-        task = whattoreadwrite
-        switch task ?? .none {
-        case .userconfig:
-            plistname = SharedReference.shared.userconfigplist
-            key = SharedReference.shared.userconfigkey
-        default:
-            plistname = nil
-            key = nil
-        }
-    }
-
     init(profileorsshrootpath: Profileorsshrootpath) {
         configpath = SharedReference.shared.configpath
         profileorsshroot = profileorsshrootpath
         setrootpath()
     }
 
-    init(profile: String?, whattoreadwrite: WhatToReadWrite) {
+    init(profile: String?) {
         configpath = SharedReference.shared.configpath
+        // For user configuration
+        plistname = SharedReference.shared.userconfigplist
+        key = SharedReference.shared.userconfigkey
         self.profile = profile
-        setpreferencesforreadingplist(whattoreadwrite: whattoreadwrite)
         setnameandpath()
     }
 }

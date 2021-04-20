@@ -46,7 +46,8 @@ class WriteScheduleJSON: ReadWriteJSON {
     init(profile: String?,
          schedules: [ConfigurationSchedule]?)
     {
-        super.init(profile: profile, whattoreadwrite: .schedule)
+        super.init(profile: profile)
+        filename = SharedReference.shared.fileschedulesjson
         self.schedules = schedules
         self.profile = profile
     }

@@ -50,7 +50,8 @@ class WriteConfigurationJSON: ReadWriteJSON {
     init(profile: String?,
          configurations: [Configuration]?)
     {
-        super.init(profile: profile, whattoreadwrite: .configuration)
+        super.init(profile: profile)
+        filename = SharedReference.shared.fileconfigurationsjson
         self.profile = profile
         self.configurations = configurations
     }

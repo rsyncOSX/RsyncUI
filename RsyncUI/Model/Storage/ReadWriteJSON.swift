@@ -39,13 +39,8 @@ class ReadWriteJSON: NamesandPaths {
         }
     }
 
-    override init(profile: String?, whattoreadwrite: WhatToReadWrite) {
+    override init(profile: String?) {
         super.init(profileorsshrootpath: .profileroot)
-        if whattoreadwrite == .configuration {
-            filename = SharedReference.shared.fileconfigurationsjson
-        } else {
-            filename = SharedReference.shared.fileschedulesjson
-        }
         self.profile = profile
     }
 }
