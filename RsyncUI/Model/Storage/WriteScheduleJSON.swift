@@ -1,5 +1,5 @@
 //
-//  PersistentStorageSchedulingJSON.swift
+//  WriteScheduleJSON.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 20/10/2020.

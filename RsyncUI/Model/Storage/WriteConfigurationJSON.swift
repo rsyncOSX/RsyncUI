@@ -1,5 +1,5 @@
 //
-//  PersistentStorageConfigurationJSON.swift
+//  WriteConfigurationJSON.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 20/10/2020.
