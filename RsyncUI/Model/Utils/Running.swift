@@ -13,7 +13,7 @@ final class Running {
     let rsyncui = "no.blogspot.RsyncUI"
     let rsyncschedule = "no.blogspot.RsyncSchedule"
     var rsyncUIisrunning: Bool = false
-    var rsyncOSXschedisrunning: Bool = false
+    var rsyncUIscheduleisrunning: Bool = false
 
     func verifyrsyncui() -> Bool {
         let fileManager = FileManager.default
@@ -34,9 +34,9 @@ final class Running {
             rsyncUIisrunning = false
         }
         if rsyncschedule.count > 0 {
-            rsyncOSXschedisrunning = true
+            rsyncUIscheduleisrunning = true
         } else {
-            rsyncOSXschedisrunning = false
+            rsyncUIscheduleisrunning = false
         }
     }
 }
