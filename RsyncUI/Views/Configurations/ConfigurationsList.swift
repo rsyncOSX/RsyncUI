@@ -31,18 +31,19 @@ struct ConfigurationsList: View {
                     configlist
                 }
             }
-
-            Button(action: {
-                let previous = spacing
-                spacing = !previous
-            }) {
-                if spacing {
-                    Image(systemName: "minus")
-                } else {
-                    Image(systemName: "plus")
-                }
-            }
-            .buttonStyle(GrayCircleButtonStyle())
+            /*
+             Button(action: {
+                 let previous = spacing
+                 spacing = !previous
+             }) {
+                 if spacing {
+                     Image(systemName: "minus")
+                 } else {
+                     Image(systemName: "plus")
+                 }
+             }
+             .buttonStyle(GrayCircleButtonStyle())
+             */
         }
     }
 
