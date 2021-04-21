@@ -41,9 +41,6 @@ struct ExecuteEstimatedView: View {
         HStack {
             Spacer()
 
-            Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
-                .buttonStyle(PrimaryButtonStyle())
-
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
@@ -89,15 +86,6 @@ struct ExecuteEstimatedView: View {
 }
 
 extension ExecuteEstimatedView {
-    func dismissview() {
-        inexectuion = -1
-        multipletaskstate.updatestate(state: .start)
-        inprogresscountmultipletask.resetcounts()
-        executemultipletasks = nil
-        selecteduuids.removeAll()
-        showestimateview = true
-    }
-
     func completed() {
         inexectuion = -1
         multipletaskstate.updatestate(state: .start)
