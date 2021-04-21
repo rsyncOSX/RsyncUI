@@ -1,5 +1,5 @@
 //
-//  Getrsyncpath.swift
+//  GetfullpathforRsync.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 06/06/2019.
