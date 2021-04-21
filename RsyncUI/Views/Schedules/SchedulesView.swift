@@ -34,10 +34,15 @@ struct SchedulesView: View {
                            selectable: $selectable)
         HStack {
             VStack {
-                SelectedstartView(selecteddate: $selecteddate,
-                                  selectedscheduletype: $selectedscheduletype)
-                    .padding(1)
-                    .border(Color.gray)
+                HStack {
+                    SelectedstartView(selecteddate: $selecteddate,
+                                      selectedscheduletype: $selectedscheduletype)
+                        .padding(1)
+                        .border(Color.gray)
+
+                    Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
+                        .buttonStyle(PrimaryButtonStyle())
+                }
 
                 SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
                               selectedschedule: $selectedschedule,
@@ -53,9 +58,6 @@ struct SchedulesView: View {
 
         HStack {
             Spacer()
-
-            Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
-                .buttonStyle(PrimaryButtonStyle())
 
             Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                 .buttonStyle(PrimaryButtonStyle())
