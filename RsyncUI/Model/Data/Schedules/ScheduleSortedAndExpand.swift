@@ -116,7 +116,7 @@ final class ScheduleSortedAndExpand {
                 }
             }
         }
-        sortedexpandedeschedules = sortedexpandedeschedules?.sorted { (time1, time2) -> Bool in
+        sortedexpandedeschedules = sortedexpandedeschedules?.sorted { time1, time2 -> Bool in
             if let time1 = time1.timetostart {
                 if let time2 = time2.timetostart {
                     if time1 > time2 {

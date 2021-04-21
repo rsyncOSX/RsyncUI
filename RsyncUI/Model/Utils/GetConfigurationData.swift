@@ -13,7 +13,7 @@ struct GetConfigurationData {
     private var configurations: [Configuration]?
 
     func getconfigurationdata(_ hiddenID: Int, resource: ResourceInConfiguration) -> String? {
-        if let result = configurations?.filter({ ($0.hiddenID == hiddenID) }) {
+        if let result = configurations?.filter({ $0.hiddenID == hiddenID }) {
             guard result.count > 0 else { return nil }
             switch resource {
             case .localCatalog:

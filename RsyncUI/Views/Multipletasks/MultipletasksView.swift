@@ -22,11 +22,12 @@ struct MultipletasksView: View {
 
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
+    @Binding var selecteduuids: Set<UUID>
+    @Binding var showestimateview: Bool
 
     @State private var presentoutputsheetview = false
     @State private var presentestimatedsheetview = false
     @State private var estimatedlist: [RemoteinfonumbersOnetask]?
-    @State private var selecteduuids = Set<UUID>()
     @State private var inwork: Int = -1
     @State private var estimatetask: Estimation?
     // Either selectable configlist or not
@@ -69,12 +70,6 @@ struct MultipletasksView: View {
 
             Button(NSLocalizedString("Execute", comment: "Execute button")) { presentexecuteestimatedview() }
                 .buttonStyle(PrimaryButtonStyle())
-                .sheet(isPresented: $presentestimatedsheetview) {
-                    ExecuteEstimatedView(selecteduuids: $selecteduuids,
-                                         reload: $reload,
-                                         isPresented: $presentestimatedsheetview)
-                        .environmentObject(OutputFromMultipleTasks())
-                }
 
             Spacer()
 
@@ -225,7 +220,7 @@ extension MultipletasksView {
             setuuidforselectedtask()
         }
         guard selecteduuids.count > 0 else { return }
-        presentestimatedsheetview = true
+        showestimateview = false
     }
 
     func select() {

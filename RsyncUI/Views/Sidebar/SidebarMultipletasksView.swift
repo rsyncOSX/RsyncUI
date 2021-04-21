@@ -12,14 +12,28 @@ struct SidebarMultipletasksView: View {
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
 
+    // Show estimate when true, execute else
+    @State var showestimateview: Bool = true
+    @State private var selecteduuids = Set<UUID>()
+
     var body: some View {
         VStack {
             headingtitle
 
-            MultipletasksView(selectedconfig: $selectedconfig.onChange {},
-                              reload: $reload)
-        }
+            if showestimateview == true {
+                MultipletasksView(selectedconfig: $selectedconfig.onChange {},
+                                  reload: $reload,
+                                  selecteduuids: $selecteduuids,
+                                  showestimateview: $showestimateview)
+            }
 
+            if showestimateview == false {
+                ExecuteEstimatedView(selecteduuids: $selecteduuids,
+                                     reload: $reload,
+                                     showestimateview: $showestimateview)
+                    .environmentObject(OutputFromMultipleTasks())
+            }
+        }
         .padding()
     }
 

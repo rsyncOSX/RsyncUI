@@ -46,7 +46,7 @@ struct MakeSquareBounds: ViewModifier {
     @State var size: CGFloat = 25
     func body(content: Content) -> some View {
         let c = ZStack {
-            content.alignmentGuide(HorizontalAlignment.center) { (vd) -> CGFloat in
+            content.alignmentGuide(HorizontalAlignment.center) { vd -> CGFloat in
                 DispatchQueue.main.async {
                     self.size = max(vd.height, vd.width)
                 }

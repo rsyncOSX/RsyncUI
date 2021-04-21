@@ -46,7 +46,7 @@ class ReadScheduleJSON: NamesandPaths {
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
         // Sorting schedule after hiddenID
-        schedules?.sort { (schedule1, schedule2) -> Bool in
+        schedules?.sort { schedule1, schedule2 -> Bool in
             if schedule1.hiddenID > schedule2.hiddenID {
                 return false
             } else {

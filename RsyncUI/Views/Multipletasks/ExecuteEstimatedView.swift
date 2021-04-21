@@ -17,7 +17,7 @@ struct ExecuteEstimatedView: View {
 
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
-    @Binding var isPresented: Bool
+    @Binding var showestimateview: Bool
     // Either selectable configlist or not
     @State private var selectable = true
 
@@ -28,31 +28,25 @@ struct ExecuteEstimatedView: View {
     @State private var inexectuion: Int = -1
 
     var body: some View {
-        VStack {
-            headingtitle
+        ConfigurationsList(selectedconfig: $selectedconfig,
+                           selecteduuids: $selecteduuids,
+                           inwork: $inexectuion,
+                           selectable: $selectable)
 
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange {},
-                               selecteduuids: $selecteduuids,
-                               inwork: $inexectuion,
-                               selectable: $selectable)
+        // Execute multiple tasks progress
+        if multipletaskstate.executionstate == .execute { progressviewexecuting }
+        // When completed
+        if multipletaskstate.executionstate == .completed { labelcompleted }
 
-            // Execute multiple tasks progress
-            if multipletaskstate.executionstate == .execute { progressviewexecuting }
-            // When completed
-            if multipletaskstate.executionstate == .completed { labelcompleted }
+        HStack {
+            Spacer()
 
-            HStack {
-                Spacer()
+            Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
+                .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
-                    .buttonStyle(AbortButtonStyle())
-            }
+            Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
+                .buttonStyle(AbortButtonStyle())
         }
-        .frame(minWidth: 1050, minHeight: 450)
-        .padding()
         .onAppear(perform: {
             executemultipleestimatedtasks()
         })
@@ -101,7 +95,7 @@ extension ExecuteEstimatedView {
         inprogresscountmultipletask.resetcounts()
         executemultipletasks = nil
         selecteduuids.removeAll()
-        isPresented = false
+        showestimateview = true
     }
 
     func completed() {
@@ -110,7 +104,7 @@ extension ExecuteEstimatedView {
         inprogresscountmultipletask.resetcounts()
         executemultipletasks = nil
         selecteduuids.removeAll()
-        isPresented = false
+        showestimateview = true
         reload = true
     }
 
@@ -122,7 +116,7 @@ extension ExecuteEstimatedView {
         executemultipletasks = nil
         selecteduuids.removeAll()
         _ = InterruptProcess()
-        isPresented = false
+        showestimateview = true
         reload = true
     }
 

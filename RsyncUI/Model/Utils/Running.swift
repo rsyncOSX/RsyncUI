@@ -26,8 +26,8 @@ final class Running {
         // Get all running applications
         let workspace = NSWorkspace.shared
         let applications = workspace.runningApplications
-        let rsyncui = applications.filter { ($0.bundleIdentifier == self.rsyncui) }
-        let rsyncschedule = applications.filter { ($0.bundleIdentifier == self.rsyncschedule) }
+        let rsyncui = applications.filter { $0.bundleIdentifier == self.rsyncui }
+        let rsyncschedule = applications.filter { $0.bundleIdentifier == self.rsyncschedule }
         if rsyncui.count > 0 {
             rsyncUIisrunning = true
         } else {

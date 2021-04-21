@@ -214,22 +214,22 @@ final class Numbers {
         if (output?.count ?? 0) > 2 {
             resultRsync = (output?[(output?.count ?? 0) - 2])
         }
-        files = output?.filter { ($0.contains("files transferred:")) }
+        files = output?.filter { $0.contains("files transferred:") }
         // ver 3.x - [Number of regular files transferred: 24]
         // ver 2.x - [Number of files transferred: 24]
-        filesSize = output?.filter { ($0.contains("Total transferred file size:")) }
+        filesSize = output?.filter { $0.contains("Total transferred file size:") }
         // ver 3.x - [Total transferred file size: 278,642 bytes]
         // ver 2.x - [Total transferred file size: 278197 bytes]
-        totfileSize = output?.filter { ($0.contains("Total file size:")) }
+        totfileSize = output?.filter { $0.contains("Total file size:") }
         // ver 3.x - [Total file size: 1,016,382,148 bytes]
         // ver 2.x - [Total file size: 1016381703 bytes]
-        totfilesNum = output?.filter { ($0.contains("Number of files:")) }
+        totfilesNum = output?.filter { $0.contains("Number of files:") }
         // ver 3.x - [Number of files: 3,956 (reg: 3,197, dir: 758, link: 1)]
         // ver 2.x - [Number of files: 3956]
         // New files
-        new = output?.filter { ($0.contains("Number of created files:")) }
+        new = output?.filter { $0.contains("Number of created files:") }
         // Delete files
-        delete = output?.filter { ($0.contains("Number of deleted files:")) }
+        delete = output?.filter { $0.contains("Number of deleted files:") }
         if files?.count == 1, filesSize?.count == 1, totfileSize?.count == 1, totfilesNum?.count == 1 {
             if SharedReference.shared.rsyncversion3 {
                 resultrsyncver3()
