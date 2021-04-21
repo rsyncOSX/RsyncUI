@@ -30,15 +30,6 @@ class ReadWriteJSON: NamesandPaths {
         }
     }
 
-    func writeconvertedtostore() {
-        if var atpath = fullroot {
-            if profile != nil {
-                atpath += "/" + (profile ?? "")
-            }
-            writeJSONToPersistentStore()
-        }
-    }
-
     override init(_ profile: String?) {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile

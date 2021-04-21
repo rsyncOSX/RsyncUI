@@ -63,8 +63,10 @@ extension ObserveableReferencePaths {
                 isDirty = true
                 if atpath.hasSuffix("/") == false {
                     SharedReference.shared.pathrsyncui = atpath + "/"
+                    SharedReference.shared.pathrsyncschedule = atpath + "/"
                 } else {
                     SharedReference.shared.pathrsyncui = atpath
+                    SharedReference.shared.pathrsyncschedule = atpath
                 }
             }
         } catch let e {
@@ -81,9 +83,11 @@ extension ObserveableReferencePaths {
             if ok {
                 isDirty = true
                 if atpath.hasSuffix("/") == false {
+                    SharedReference.shared.pathrsyncui = atpath + "/"
                     SharedReference.shared.pathrsyncschedule = atpath + "/"
                 } else {
                     SharedReference.shared.pathrsyncschedule = atpath
+                    SharedReference.shared.pathrsyncui = atpath
                 }
             }
         } catch let e {
