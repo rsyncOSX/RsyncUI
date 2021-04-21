@@ -1,5 +1,5 @@
 //
-//  SuffixstringsRsyncParameters.swift
+//  RsyncArguments.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 11/10/2019.
