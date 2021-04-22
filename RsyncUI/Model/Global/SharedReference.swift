@@ -63,6 +63,7 @@ class SharedReference {
     let synchronize: String = "synchronize"
     let snapshot: String = "snapshot"
     let syncremote: String = "syncremote"
+    let reloadstring: String = "no.blogspot.RsyncUI.reload"
     var synctasks: Set<String>
     // rsync version string
     var rsyncversionstring: String?
