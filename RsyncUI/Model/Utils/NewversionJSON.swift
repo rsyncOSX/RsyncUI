@@ -47,7 +47,7 @@ final class NewversionJSON: ObservableObject {
                         // print("The publisher finished normally.")
                         return
                     case let .failure(error):
-                        print("An error occured: \(error).")
+                        self.propogateerror(error: error)
                     }
                 }, receiveValue: { [unowned self] result in
                     verifynewversion(result)
@@ -77,5 +77,11 @@ extension URLSession {
             .map { $0.data }
             .decode(type: T.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
+    }
+}
+
+extension NewversionJSON: PropogateError {
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
