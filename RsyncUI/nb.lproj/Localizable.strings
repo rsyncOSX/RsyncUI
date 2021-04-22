@@ -102,9 +102,6 @@
    Dismiss button */
 "Cancel" = "Avbryt";
 
-/* No comment provided by engineer. */
-"Cancel or OK" = "Avbryt eller OK";
-
 /* QuicktaskView
    settings */
 "Catalog parameters" = "Katalog parametre";
@@ -124,18 +121,8 @@
 /* CommandTab */
 "Command" = "Kommando";
 
-/* settings
-   sidebar */
+/* sidebar */
 "Configurations" = "Konfigurasjoner";
-
-/* usersetting */
-"Convert" = "Konverter";
-
-/* No comment provided by engineer. */
-"Convert configurations?" = "Konvertere konfigurasjoner?";
-
-/* settings */
-"Converted" = "Konvertert";
 
 /* Copy button
    Verify button */
@@ -159,8 +146,7 @@
 /* ConfigurationsList */
 "Days" = "Dager";
 
-/* convert
-   default profile */
+/* default profile */
 "Default profile" = "Standard profil";
 
 /* Alert delete
@@ -198,15 +184,6 @@
 
 /* settings */
 "Enable" = "Aktiver";
-
-/* settings */
-"Enable JSON" = "Aktiver JSON";
-
-/* No comment provided by engineer. */
-"Enable JSON or PLIST?" = "Aktiver JSON eller PLIST?";
-
-/* settings */
-"Enable or disable JSON" = "Aktiver eller deaktiver JSON";
 
 /* other settings
    settings */
@@ -276,12 +253,6 @@
 
 /* italian */
 "Italian translation by: Stefano Steve Cutelle'" = "Italiensk oversettelse av: Stefano Steve Cutelle'";
-
-/* user settings */
-"JSON" = "JSON";
-
-/* settings */
-"JSON or PLIST" = "JSON eller PLIST";
 
 /* plan */
 "Keep" = "Behold";
@@ -421,9 +392,6 @@
 /* ScheduleError */
 "Please select a configuration" = "Velg en konfigurasjon";
 
-/* No comment provided by engineer. */
-"PLIST" = "PLIST";
-
 /* logsview */
 "Pre and post" = "Pre og post oppgave";
 
@@ -433,7 +401,8 @@
 /* plan */
 "previous month" = "forrige måned";
 
-/* default profile */
+/* Add button
+   default profile */
 "Profile" = "Profil";
 
 /* sidebar */
@@ -588,8 +557,12 @@
 
 /* AddConfigurationsView
    ConfigurationsList
-   OutputEstimatedView */
+   OutputEstimatedView
+   QuicktaskView */
 "Task" = "Oppgave";
+
+/* Restore */
+"The menu app is running" = "Menyappen kjører";
 
 /* rsync error */
 "There are errors in output" = "Det er feil i utdata";
@@ -645,12 +618,6 @@
 
 /* usersetting */
 "Verify" = "Verifiser";
-
-/* VerifyJSONError */
-"Verify JSON, configurations: check logfile" = "Verifiser JSON, konfigurasjoner: sjekk loggfil";
-
-/* VerifyJSONError */
-"Verify JSON, schedules: check logfile" = "Verifiser JSON, oppgaver: Kontroller loggfilen";
 
 /* ssh settings */
 "Verify SSH" = "Verifiser SSH";

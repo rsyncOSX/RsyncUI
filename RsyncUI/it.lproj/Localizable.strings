@@ -2,7 +2,7 @@
 " configuration(s)?" = " konfigurasjon(er)?";
 
 /* Alert delete */
-" log(s)?" = " logg(er)?";
+" log(s)?" = " log(s)?";
 
 /* Alert delete */
 " schedules(s)?" = " oppgave(r)?";
@@ -18,7 +18,7 @@
 "--dry-run" = "--dry-run";
 
 /* RsyncParametersView */
-"-e shh" = "-e ssh";
+"-e shh" = "-e shh";
 
 /* No comment provided by engineer. */
 "%@" = "%@";
@@ -43,13 +43,13 @@
 "Add backup ID" = "Legg til synkroniserings ID";
 
 /* logsview */
-"Add config" = "Legg til konfigurasjon";
+"Add config" = "Aggiungi configurazione";
 
 /* No comment provided by engineer. */
 "Add configuration completed" = "Legge til konfigurasjon fullført";
 
 /* QuicktaskView */
-"Add destination catalog" = "Legg til målkatalog";
+"Add destination catalog" = "Aggiungi catalogo destinazione";
 
 /* QuicktaskView
    settings */
@@ -74,7 +74,7 @@
 "Add remotecatalog - required" = "Legg til eksternkatalog - kreves";
 
 /* QuicktaskView */
-"Add source catalog" = "Legg til kildekatalog";
+"Add source catalog" = "Aggiungi catalogo sorgente";
 
 /* settings */
 "Added" = "Lagt til";
@@ -96,14 +96,11 @@
 "By config" = "Etter konfigurasjon";
 
 /* OutputEstimatedView */
-"Bytes" = "bytes";
+"Bytes" = "Byte";
 
 /* Cancel button
    Dismiss button */
 "Cancel" = "Avbryt";
-
-/* No comment provided by engineer. */
-"Cancel or OK" = "Avbryt eller OK";
 
 /* QuicktaskView
    settings */
@@ -124,18 +121,8 @@
 /* CommandTab */
 "Command" = "Kommando";
 
-/* settings
-   sidebar */
+/* sidebar */
 "Configurations" = "Konfigurasjoner";
-
-/* usersetting */
-"Convert" = "Konverter";
-
-/* No comment provided by engineer. */
-"Convert configurations?" = "Konvertere konfigurasjoner?";
-
-/* settings */
-"Converted" = "Konvertert";
 
 /* Copy button
    Verify button */
@@ -159,8 +146,7 @@
 /* ConfigurationsList */
 "Days" = "Dager";
 
-/* convert
-   default profile */
+/* default profile */
 "Default profile" = "Standard profil";
 
 /* Alert delete
@@ -191,22 +177,13 @@
 "earlier months" = "tidligere måneder";
 
 /* Restore */
-"Either is path for restore or file to restore empty" = "Enten er stien for gjenoppretting eller fil for å gjenopprette tom";
+"Either is path for restore or file to restore empty" = "O è il percorso per il ripristino o il file per ripristinare vuoto";
 
 /* input error */
 "Either local or remote cannot be empty" = "Enten lokal eller ekstern kan ikke være tom";
 
 /* settings */
 "Enable" = "Aktiver";
-
-/* settings */
-"Enable JSON" = "Aktiver JSON";
-
-/* No comment provided by engineer. */
-"Enable JSON or PLIST?" = "Aktiver JSON eller PLIST?";
-
-/* settings */
-"Enable or disable JSON" = "Aktiver eller deaktiver JSON";
 
 /* other settings
    settings */
@@ -216,13 +193,13 @@
 "Environment variable" = "Miljømessig variabel";
 
 /* settings */
-"Error" = "Feil";
+"Error" = "Errore";
 
 /* Estimate button */
 "Estimate" = "Estimat";
 
 /* RsyncCommandView */
-"Estimated tasks" = "Estimerte oppgaver";
+"Estimated tasks" = "Attività stimate";
 
 /* Execute button
    QuicktaskView */
@@ -238,7 +215,7 @@
 "Execute tasks" = "Utfør oppgaver";
 
 /* settings */
-"Executed" = "Utført";
+"Executed" = "Eseguito";
 
 /* Execute Multiple tasks
    Execute tasks */
@@ -254,7 +231,7 @@
 "Friday" = "Fredag";
 
 /* settings */
-"Full" = "Full";
+"Full" = "Pieno";
 
 /* german */
 "German translation by: Andre Voigtmann" = "Tysk oversettelse av: Andre Voigtmann";
@@ -263,7 +240,7 @@
 "Global ssh keypath and identityfile" = "Global ssh keypath og identifikasjonsfil";
 
 /* settings */
-"Global ssh port" = "Global ssh port";
+"Global ssh port" = "Porta globale ssh";
 
 /* datetime */
 "h" = "t";
@@ -276,12 +253,6 @@
 
 /* italian */
 "Italian translation by: Stefano Steve Cutelle'" = "Italiensk oversettelse av: Stefano Steve Cutelle'";
-
-/* user settings */
-"JSON" = "JSON";
-
-/* settings */
-"JSON or PLIST" = "JSON eller PLIST";
 
 /* plan */
 "Keep" = "Behold";
@@ -300,13 +271,13 @@
 "Local catalog" = "Lokal katalog";
 
 /* RsyncParametersView */
-"Local ssh keypath and identityfile" = "Global ssh keypath og identifikasjonsfil";
+"Local ssh keypath and identityfile" = "Percorso chiave ssh locale e identityfile";
 
 /* ssh */
 "Local ssh keys found" = "Lokale ssh nøkler funnet";
 
 /* RsyncParametersView */
-"Local ssh port" = "Lokal ssh port";
+"Local ssh port" = "Porta locale ssh";
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
@@ -351,7 +322,7 @@
 "New profile" = "Ny profil";
 
 /* settings */
-"New version" = "Ny versjon";
+"New version" = "Nuova versione";
 
 /* ScheduleRowSchedules */
 "no startdate" = "ingen startdato";
@@ -366,10 +337,10 @@
 "Norwegian translation by: Thomas Evensen" = "Norsk oversettelse av: Thomas Evensen";
 
 /* settings */
-"Not a snapshot task" = "Ikke en snapshot oppgave";
+"Not a snapshot task" = "Non è un'attività istantanea";
 
 /* ssh error */
-"Not a valid " = "Ikke en gyldig ";
+"Not a valid " = "Non è valido ";
 
 /* ssh error */
 "Not a valid number (Double)" = "Ikke et gyldig tall (Bolig)";
@@ -388,7 +359,7 @@
 
 /* RestoreView
    RestoreView: */
-"Number of files" = "Antall filer";
+"Number of files" = "Numero di file";
 
 /* No comment provided by engineer. */
 "Number of logs" = "Antall logger";
@@ -407,7 +378,7 @@
 "Path for restore" = "Sti for gjenoppretting";
 
 /* settings */
-"Path to RsyncSchedule" = "Sti til RsyncSchedule";
+"Path to RsyncSchedule" = "Percorso di RsyncSchedule";
 
 /* settings */
 "Path to RsyncUI" = "Sti til RsyncUI";
@@ -421,11 +392,8 @@
 /* ScheduleError */
 "Please select a configuration" = "Velg en konfigurasjon";
 
-/* No comment provided by engineer. */
-"PLIST" = "PLIST";
-
 /* logsview */
-"Pre and post" = "Pre og post oppgave";
+"Pre and post" = "Pre e post";
 
 /* settings */
 "Pre and post task" = "Pre og post oppgave";
@@ -433,11 +401,12 @@
 /* plan */
 "previous month" = "forrige måned";
 
-/* default profile */
+/* Add button
+   default profile */
 "Profile" = "Profil";
 
 /* sidebar */
-"Quick task" = "Hurtig oppgave";
+"Quick task" = "Attività veloce";
 
 /* ConfigurationsList
    OutputEstimatedView */
@@ -454,7 +423,7 @@
 "Remote username cannot be empty" = "Eksternt brukernavn kan ikke være tomt";
 
 /* RsyncParametersView */
-"Remove default rsync parameters" = "Fjern standard rsync parametre";
+"Remove default rsync parameters" = "Rimuovere i parametri rsync predefiniti";
 
 /* Reset button */
 "Reset" = "Reset";
@@ -462,23 +431,23 @@
 /* RestoreView
    sidebar
    SidebarRsyncParameter */
-"Restore" = "Gjenopprett";
+"Restore" = "Ripristina";
 
 /* Restore */
-"Restore not allowed for syncremote task" = "Gjenopprett ikke tillatt for oppgaver med syncremote";
+"Restore not allowed for syncremote task" = "Ripristino non consentito per l'attività di syncremote";
 
 /* Execute button
    SidebarRsyncParameter */
 "Rsync" = "Rsync";
 
 /* RsyncCommandView */
-"Rsync command and parameters" = "Rsync kommando og parametere";
+"Rsync command and parameters" = "Comando e parametri Rsync";
 
 /* EditRsyncParameter */
-"rsync parameter" = "rsync parameter";
+"rsync parameter" = "parametro rsync";
 
 /* sidebar */
-"Rsync parameters" = "Rsync parameter";
+"Rsync parameters" = "Parametri Rsync";
 
 /* settings */
 "Rsync ver 3.x" = "Rsync ver 3,x";
@@ -509,7 +478,7 @@
 "Saved" = "Lagret";
 
 /* SchedulesDatePickerView */
-"Schedule" = "Oppgave";
+"Schedule" = "Pianificazione";
 
 /* sidebar
    SidebarLogsView */
@@ -523,14 +492,14 @@
 "Select" = "Velg";
 
 /* RsyncCommandView */
-"Select a configuration" = "Velg en konfigurasjon";
+"Select a configuration" = "Seleziona una configurazione";
 
 /* RestoreView */
-"Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
+"Select files to restore or \"./.\" for full restore" = "Selezionare i file da ripristinare o \"./.\" per il ripristino completo";
 
 /* sidebar
    sidebar ... */
-"Select task" = "Velg oppgave";
+"Select task" = "Seleziona attività";
 
 /* ConfigurationsList
    OutputEstimatedView */
@@ -556,7 +525,7 @@
 
 /* sidebar
    SidebarSnapshotsView */
-"Snapshots" = "Snapshots";
+"Snapshots" = "Ispezioni";
 
 /* user settings */
 "Ssh" = "Ssh";
@@ -571,7 +540,7 @@
 "SSH RSA keys exist, cannot create" = "SSH RSA-nøkler finnes, kan ikke opprette";
 
 /* SchedulesDatePickerView */
-"Start" = "Start";
+"Start" = "Inizia";
 
 /* Stop button */
 "Stop" = "Stopp";
@@ -588,8 +557,12 @@
 
 /* AddConfigurationsView
    ConfigurationsList
-   OutputEstimatedView */
+   OutputEstimatedView
+   QuicktaskView */
 "Task" = "Oppgave";
+
+/* Restore */
+"The menu app is running" = "L'app del menu è in esecuzione";
 
 /* rsync error */
 "There are errors in output" = "Det er feil i utdata";
@@ -645,12 +618,6 @@
 
 /* usersetting */
 "Verify" = "Verifiser";
-
-/* VerifyJSONError */
-"Verify JSON, configurations: check logfile" = "Verifiser JSON, konfigurasjoner: sjekk loggfil";
-
-/* VerifyJSONError */
-"Verify JSON, schedules: check logfile" = "Verifiser JSON, oppgaver: Kontroller loggfilen";
 
 /* ssh settings */
 "Verify SSH" = "Verifiser SSH";
