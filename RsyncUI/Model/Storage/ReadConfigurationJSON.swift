@@ -42,10 +42,12 @@ class ReadConfigurationJSON: NamesandPaths {
         datafile.publisher
             .compactMap { filenamejson -> URL? in
                 var filename: String = ""
-                if let profile = profile {
-                    filename = fullroot! + "/" + profile + "/" + filenamejson
+                if let profile = profile, let fullroot = fullroot {
+                    filename = fullroot + "/" + profile + "/" + filenamejson
                 } else {
-                    filename = fullroot! + "/" + filenamejson
+                    if let fullroot = fullroot {
+                        filename = fullroot + "/" + filenamejson
+                    }
                 }
                 return URL(fileURLWithPath: filename)
             }
@@ -71,7 +73,3 @@ class ReadConfigurationJSON: NamesandPaths {
             }.store(in: &subscriptons)
     }
 }
-
-/*
- TODO: fix fullroot!
- */

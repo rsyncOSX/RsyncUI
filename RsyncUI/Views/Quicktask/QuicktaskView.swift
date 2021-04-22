@@ -8,10 +8,18 @@
 
 import SwiftUI
 
+enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case synchronize
+    case syncremote
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
+}
+
 struct QuicktaskView: View {
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
-    @State private var selectedrsynccommand = TypeofTask.synchronize
+    @State private var selectedrsynccommand = TypeofTaskQuictask.synchronize
     @State private var remoteuser: String = ""
     @State private var remoteserver: String = ""
     @State private var donotaddtrailingslash: Bool = false
@@ -35,7 +43,9 @@ struct QuicktaskView: View {
 
                     // Column 1
                     VStack(alignment: .leading) {
-                        VStack {
+                        VStack(alignment: .leading) {
+                            pickerselecttypeoftask
+
                             HStack {
                                 ToggleView(NSLocalizedString("--dry-run", comment: "ssh"), $dryrun)
 
@@ -80,6 +90,17 @@ struct QuicktaskView: View {
         }
         .lineSpacing(2)
         .padding()
+    }
+
+    var pickerselecttypeoftask: some View {
+        Picker(NSLocalizedString("Task", comment: "QuicktaskView") + ":",
+               selection: $selectedrsynccommand) {
+            ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
+                .tag($0)
+            }
+        }
+        .pickerStyle(DefaultPickerStyle())
+        .frame(width: 180)
     }
 
     // Add and edit text values
@@ -162,7 +183,7 @@ extension QuicktaskView {
     }
 
     func getconfig() {
-        let getdata = AppendConfig(TypeofTask.synchronize.rawValue,
+        let getdata = AppendConfig(selectedrsynccommand.rawValue,
                                    localcatalog,
                                    remotecatalog,
                                    donotaddtrailingslash,

@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 22/01/2021.
 //
-// swiftlint:disable multiple_closures_with_trailing_closure
 
 import SwiftUI
 
