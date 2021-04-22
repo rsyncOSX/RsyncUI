@@ -118,7 +118,7 @@ extension AppDelegate {
 
     @IBAction func schedules(_: Any?) {
         let running = Running()
-        guard running.rsyncUIscheduleisrunning == false else { return }
+        guard running.informifisrsyncshedulerunning() == false else { return }
         NSWorkspace.shared.open(URL(fileURLWithPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/")
                 + SharedReference.shared.namersyncschedule))
         NSApp.terminate(self)

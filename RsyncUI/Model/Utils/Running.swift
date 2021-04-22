@@ -15,10 +15,22 @@ final class Running {
     var rsyncUIisrunning: Bool = true // always running
     var rsyncUIscheduleisrunning: Bool = false
 
-    func verifyrsyncui() -> Bool {
-        let fileManager = FileManager.default
-        guard fileManager.fileExists(atPath: (SharedReference.shared.pathrsyncui ?? "/Applications/") +
-            SharedReference.shared.namersyncui) else { return false }
+    func isrsyncshedulerunning() -> Bool {
+        return rsyncUIscheduleisrunning
+    }
+
+    func informifisrsyncshedulerunning() -> Bool {
+        // Get all running applications
+        let workspace = NSWorkspace.shared
+        let applications = workspace.runningApplications
+        let rsyncschedule = applications.filter { $0.bundleIdentifier == self.rsyncschedule }
+        do {
+            try informscheduletaskisrunning(rsyncschedule)
+            return false
+        } catch let e {
+            let error = e
+            self.propogateerror(error: error)
+        }
         return true
     }
 
@@ -37,12 +49,6 @@ final class Running {
             rsyncUIscheduleisrunning = true
         } else {
             rsyncUIscheduleisrunning = false
-        }
-        do {
-            try informscheduletaskisrunning(rsyncschedule)
-        } catch let e {
-            let error = e
-            self.propogateerror(error: error)
         }
     }
 }
