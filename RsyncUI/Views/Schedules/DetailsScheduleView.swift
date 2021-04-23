@@ -29,6 +29,8 @@ struct DetailsScheduleView: View {
     @State private var showAlertfordelete = false
 
     var body: some View {
+        PresentOneconfigView(config: $selectedconfig)
+
         HStack {
             Spacer()
 
