@@ -36,7 +36,7 @@
 		E959280426240B8C002631CB /* NewversionPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959280326240B8B002631CB /* NewversionPLIST.swift */; };
 		E95C8C312603962600407434 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C2F2603962600407434 /* InfoPlist.strings */; };
 		E95C8C342603962600407434 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C322603962600407434 /* Localizable.strings */; };
-		E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */; };
+		E95DE0DA25F4A5120090FCD3 /* ChangeSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DE0D925F4A5120090FCD3 /* ChangeSchedulesView.swift */; };
 		E95EDC7926063118000018DE /* SidebarRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7826063118000018DE /* SidebarRsyncParameter.swift */; };
 		E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */; };
 		E95EDC8A26063EAA000018DE /* ObserveableParametersRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC8926063EAA000018DE /* ObserveableParametersRsync.swift */; };
@@ -248,7 +248,7 @@
 		E959280326240B8B002631CB /* NewversionPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewversionPLIST.swift; sourceTree = "<group>"; };
 		E95C8C302603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E95C8C332603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSchedulesView.swift; sourceTree = "<group>"; };
+		E95DE0D925F4A5120090FCD3 /* ChangeSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSchedulesView.swift; sourceTree = "<group>"; };
 		E95EDC7826063118000018DE /* SidebarRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRsyncParameter.swift; sourceTree = "<group>"; };
 		E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRsyncParameter.swift; sourceTree = "<group>"; };
 		E95EDC8926063EAA000018DE /* ObserveableParametersRsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableParametersRsync.swift; sourceTree = "<group>"; };
@@ -653,7 +653,7 @@
 				E985C63D25F3AD8400CB895C /* SchedulesList.swift */,
 				E985C63E25F3AD8400CB895C /* SchedulesDatePickerView.swift */,
 				E985C63F25F3AD8400CB895C /* ScheduleRowSchedules.swift */,
-				E95DE0D925F4A5120090FCD3 /* DeleteSchedulesView.swift */,
+				E95DE0D925F4A5120090FCD3 /* ChangeSchedulesView.swift */,
 				E81CF81925FF310D005D8667 /* SelectedstartView.swift */,
 				E96F125C26046FCF003AD3A9 /* SchedulesView.swift */,
 			);
@@ -1276,7 +1276,7 @@
 				E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */,
 				E9011D46262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
-				E95DE0DA25F4A5120090FCD3 /* DeleteSchedulesView.swift in Sources */,
+				E95DE0DA25F4A5120090FCD3 /* ChangeSchedulesView.swift in Sources */,
 				E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */,
 				E985C75F25F3AD9700CB895C /* WriteConfigurationJSON.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,

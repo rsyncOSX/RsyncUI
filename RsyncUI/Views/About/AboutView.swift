@@ -109,10 +109,10 @@ struct AboutView: View {
         VStack {
             Text(germanstring)
                 .font(.caption)
-            
+
             Text(italianstring)
                 .font(.caption)
-            
+
             Text(norwegianstring)
                 .font(.caption)
         }

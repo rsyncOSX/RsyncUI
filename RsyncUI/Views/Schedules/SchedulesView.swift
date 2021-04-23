@@ -62,13 +62,10 @@ struct SchedulesView: View {
             Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Stop", comment: "Stop button")) { stop() }
-                .buttonStyle(PrimaryButtonStyle())
-
-            Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
+            Button(NSLocalizedString("Change", comment: "Change button")) { change() }
                 .buttonStyle(AbortButtonStyle())
                 .sheet(isPresented: $showAlertfordelete) {
-                    DeleteSchedulesView(selecteduuids: $selecteduuids,
+                    ChangeSchedulesView(selecteduuids: $selecteduuids,
                                         isPresented: $showAlertfordelete,
                                         reload: $reload,
                                         selectedprofile: $selectedprofile)
@@ -112,16 +109,7 @@ extension SchedulesView {
         selecteduuids.removeAll()
     }
 
-    func stop() {
-        if selecteduuids.count == 0 { setuuidforselectedschedule() }
-        let stopschedule = UpdateSchedules(profile: selectedprofile,
-                                           scheduleConfigurations: rsyncUIData.schedulesandlogs)
-        stopschedule.stopschedule(uuids: selecteduuids)
-        reload = true
-        selecteduuids.removeAll()
-    }
-
-    func delete() {
+    func change() {
         if selecteduuids.count == 0 { setuuidforselectedschedule() }
         guard selecteduuids.count > 0 else { return }
         showAlertfordelete = true

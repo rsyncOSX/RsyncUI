@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DeleteSchedulesView: View {
+struct ChangeSchedulesView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
@@ -21,11 +21,14 @@ struct DeleteSchedulesView: View {
             Spacer()
 
             HStack {
-                Button(NSLocalizedString("Delete", comment: "Dismiss button")) { delete() }
-                    .buttonStyle(AbortButtonStyle())
-
                 Button(NSLocalizedString("Cancel", comment: "Dismiss button")) { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
+
+                Button(NSLocalizedString("Stop", comment: "Dismiss button")) { stop() }
+                    .buttonStyle(AbortButtonStyle())
+
+                Button(NSLocalizedString("Delete", comment: "Dismiss button")) { delete() }
+                    .buttonStyle(AbortButtonStyle())
             }
             .padding()
         }
@@ -34,7 +37,7 @@ struct DeleteSchedulesView: View {
 
     var header: some View {
         HStack {
-            let message = NSLocalizedString("Delete", comment: "Alert delete")
+            let message = NSLocalizedString("Stop or delete", comment: "Alert delete")
                 + " \(selecteduuids.count)"
                 + NSLocalizedString(" schedules(s)?", comment: "Alert delete")
             Text(message)
@@ -44,6 +47,7 @@ struct DeleteSchedulesView: View {
     }
 
     func dismissview() {
+        selecteduuids.removeAll()
         isPresented = false
     }
 
@@ -51,6 +55,15 @@ struct DeleteSchedulesView: View {
         let deleteschedule = UpdateSchedules(profile: selectedprofile,
                                              scheduleConfigurations: rsyncUIData.schedulesandlogs)
         deleteschedule.deleteschedules(uuids: selecteduuids)
+        reload = true
+        selecteduuids.removeAll()
+        isPresented = false
+    }
+
+    func stop() {
+        let stopschedule = UpdateSchedules(profile: selectedprofile,
+                                           scheduleConfigurations: rsyncUIData.schedulesandlogs)
+        stopschedule.stopschedule(uuids: selecteduuids)
         reload = true
         selecteduuids.removeAll()
         isPresented = false
