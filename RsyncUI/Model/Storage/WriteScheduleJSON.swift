@@ -18,7 +18,9 @@ class WriteScheduleJSON: ReadWriteJSON {
         writeJSONToPersistentStore()
         if Running().isrsyncshedulerunning() {
             Notifications().showNotification("Sending reload message to menu app")
-            DistributedNotificationCenter.default().postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring), object: nil, deliverImmediately: true)
+            DistributedNotificationCenter.default()
+                .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
+                                      object: nil, deliverImmediately: true)
         }
     }
 

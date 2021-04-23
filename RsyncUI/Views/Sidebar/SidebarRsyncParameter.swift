@@ -18,9 +18,15 @@ struct SidebarRsyncParameter: View {
             headingtitle
 
             if showdetails == false {
-                RsyncParametersView(reload: $reload, updated: $updated, showdetails: $showdetails, selectedconfig: $selectedconfig)
+                RsyncParametersView(reload: $reload,
+                                    updated: $updated,
+                                    showdetails: $showdetails,
+                                    selectedconfig: $selectedconfig)
             } else {
-                DetailedRsyncParametersView(reload: $reload, updated: $updated, showdetails: $showdetails, selectedconfig: $selectedconfig)
+                DetailedRsyncParametersView(reload: $reload,
+                                            updated: $updated,
+                                            showdetails: $showdetails,
+                                            selectedconfig: $selectedconfig)
             }
         }
         .padding()

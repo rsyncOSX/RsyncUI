@@ -25,7 +25,9 @@ class ReadWriteJSON: NamesandPaths {
 
                     if SharedReference.shared.menuappisrunning {
                         Notifications().showNotification(SharedReference.shared.reloadstring)
-                        DistributedNotificationCenter.default().postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring), object: nil, deliverImmediately: true)
+                        DistributedNotificationCenter.default()
+                            .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
+                                                  object: nil, deliverImmediately: true)
                     }
                 }
             } catch let e {
