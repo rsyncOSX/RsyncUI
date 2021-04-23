@@ -30,6 +30,8 @@ struct DetailsScheduleView: View {
 
     var body: some View {
         HStack {
+            Spacer()
+
             VStack {
                 SelectedstartView(selecteddate: $selecteddate,
                                   selectedscheduletype: $selectedscheduletype)
@@ -43,6 +45,8 @@ struct DetailsScheduleView: View {
             }
 
             SchedulesDatePickerView(selecteddate: $selecteddate)
+
+            Spacer()
         }
 
         Spacer()
