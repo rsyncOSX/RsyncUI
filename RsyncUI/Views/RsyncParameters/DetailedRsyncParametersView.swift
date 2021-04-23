@@ -10,10 +10,12 @@ import SwiftUI
 
 struct DetailedRsyncParametersView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
-    @EnvironmentObject var parameters: ObserveableParametersRsync
     @Binding var reload: Bool
     @Binding var updated: Bool
     @Binding var showdetails: Bool
+    @Binding var selectedconfig: Configuration?
+
+    @StateObject var parameters = ObserveableParametersRsync()
 
     // Not used but requiered in parameter
     @State private var inwork = -1
@@ -116,6 +118,9 @@ struct DetailedRsyncParametersView: View {
 
             saveparameters
         }
+        .onAppear(perform: {
+            parameters.configuration = selectedconfig
+        })
     }
 
     // Save usersetting is changed

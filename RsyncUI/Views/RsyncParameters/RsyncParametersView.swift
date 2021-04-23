@@ -4,16 +4,15 @@
 //
 //  Created by Thomas Evensen on 21/03/2021.
 //
-// swiftlint:disable line_length cyclomatic_complexity
 
 import SwiftUI
 
 struct RsyncParametersView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
-    @EnvironmentObject var parameters: ObserveableParametersRsync
     @Binding var reload: Bool
     @Binding var updated: Bool
     @Binding var showdetails: Bool
+    @Binding var selectedconfig: Configuration?
 
     // Not used but requiered in parameter
     @State private var inwork = -1
@@ -24,7 +23,7 @@ struct RsyncParametersView: View {
     @State private var presentrsynccommandoview = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $parameters.configuration.onChange { showdetails = true },
+        ConfigurationsList(selectedconfig: $selectedconfig.onChange { showdetails = true },
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
                            selectable: $selectable)

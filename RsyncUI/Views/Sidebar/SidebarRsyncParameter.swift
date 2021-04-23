@@ -11,19 +11,19 @@ struct SidebarRsyncParameter: View {
     @Binding var reload: Bool
     @State private var updated = false
     @State private var showdetails = false
+    @State private var selectedconfig: Configuration?
 
     var body: some View {
         VStack {
             headingtitle
 
             if showdetails == false {
-                RsyncParametersView(reload: $reload, updated: $updated, showdetails: $showdetails)
+                RsyncParametersView(reload: $reload, updated: $updated, showdetails: $showdetails, selectedconfig: $selectedconfig)
             } else {
-                DetailedRsyncParametersView(reload: $reload, updated: $updated, showdetails: $showdetails)
+                DetailedRsyncParametersView(reload: $reload, updated: $updated, showdetails: $showdetails, selectedconfig: $selectedconfig)
             }
         }
         .padding()
-        .environmentObject(ObserveableParametersRsync())
     }
 
     var headingtitle: some View {
