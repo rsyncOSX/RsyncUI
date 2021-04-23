@@ -29,7 +29,7 @@ struct SelectedstartView: View {
             }
             .padding(2)
         }
-        .frame(width: 180)
+        // .frame(width: 180)
     }
 
     var startdate: String {
