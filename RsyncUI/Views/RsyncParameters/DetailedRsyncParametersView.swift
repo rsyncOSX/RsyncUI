@@ -26,8 +26,6 @@ struct DetailedRsyncParametersView: View {
     @State private var presentrsynccommandoview = false
 
     var body: some View {
-        PresentOneconfigView(config: $selectedconfig)
-
         HStack {
             VStack(alignment: .leading) {
                 EditRsyncParameter(550, $parameters.parameter8.onChange {

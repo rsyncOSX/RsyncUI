@@ -27,27 +27,20 @@ struct PresentOneconfigView: View {
                         .modifier(FixedTag(150, .leading))
                 }
                 Text(config?.task ?? "")
-                    .modifier(FixedTag(80, .leading))
+                    .modifier(FixedTag(100, .leading))
                 Text(config?.localCatalog ?? "")
-                    .modifier(FlexTag(180, .leading))
+                    .modifier(FlexTag(100, .leading))
                 Text(config?.offsiteCatalog ?? "")
-                    .modifier(FlexTag(180, .leading))
+                    .modifier(FlexTag(100, .leading))
             }
 
             Group {
                 if config?.offsiteServer.isEmpty ?? true {
                     Text("localhost")
-                        .modifier(FixedTag(80, .leading))
+                        .modifier(FixedTag(100, .leading))
                 } else {
                     Text(config?.offsiteServer ?? "")
                         .modifier(FixedTag(100, .leading))
-                }
-                if config?.offsiteUsername.isEmpty ?? true {
-                    Text("no username")
-                        .modifier(FixedTag(60, .leading))
-                } else {
-                    Text(config?.offsiteUsername ?? "")
-                        .modifier(FixedTag(60, .leading))
                 }
 
                 Text(localizedrundate)
