@@ -23,7 +23,7 @@ struct RsyncParametersView: View {
     @State private var presentrsynccommandoview = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { showdetails = true },
+        ConfigurationsList(selectedconfig: $selectedconfig.onChange { opendetails() },
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
                            selectable: $selectable)
@@ -40,5 +40,11 @@ struct RsyncParametersView: View {
         }
         .frame(width: 120, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
+
+    func opendetails() {
+        if selectedconfig != nil {
+            showdetails = true
+        }
     }
 }

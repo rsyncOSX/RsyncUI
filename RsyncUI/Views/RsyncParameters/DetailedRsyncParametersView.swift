@@ -104,6 +104,7 @@ struct DetailedRsyncParametersView: View {
             .buttonStyle(PrimaryButtonStyle())
 
             Button(NSLocalizedString("Return", comment: "RsyncParametersView")) {
+                selectedconfig = nil
                 showdetails = false
             }
             .buttonStyle(PrimaryButtonStyle())
