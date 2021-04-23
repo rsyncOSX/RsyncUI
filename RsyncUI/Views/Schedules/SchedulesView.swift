@@ -32,9 +32,8 @@ struct SchedulesView: View {
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
                            selectable: $selectable)
-        HStack {
-            Spacer()
 
+        HStack {
             VStack {
                 HStack {
                     SelectedstartView(selecteddate: $selecteddate,
@@ -65,8 +64,6 @@ struct SchedulesView: View {
             }
 
             SchedulesDatePickerView(selecteddate: $selecteddate)
-
-            Spacer()
         }
         .padding()
     }

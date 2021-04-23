@@ -43,8 +43,6 @@ struct MultipletasksView: View {
                            inwork: $inwork,
                            selectable: $selectable)
 
-        Spacer()
-
         // Show progressview for the estimating process
         if estimationstate.estimationstate == .estimate { progressviewestimation }
         // Show label when estimatin is completed.
