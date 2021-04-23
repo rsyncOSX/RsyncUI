@@ -17,8 +17,8 @@ struct PresentOneconfigView: View {
     }
 
     var presentoneconfig: some View {
-        HStack {
-            Group {
+        VStack(alignment: .leading) {
+            HStack {
                 if config?.backupID.isEmpty ?? true {
                     Text("Synchronizing ID")
                         .modifier(FixedTag(150, .leading))
@@ -28,13 +28,17 @@ struct PresentOneconfigView: View {
                 }
                 Text(config?.task ?? "")
                     .modifier(FixedTag(100, .leading))
+
                 Text(config?.localCatalog ?? "")
                     .modifier(FlexTag(100, .leading))
-                Text(config?.offsiteCatalog ?? "")
-                    .modifier(FlexTag(100, .leading))
+
+                Spacer()
             }
 
-            Group {
+            HStack {
+                Text(config?.offsiteCatalog ?? "")
+                    .modifier(FlexTag(100, .leading))
+
                 if config?.offsiteServer.isEmpty ?? true {
                     Text("localhost")
                         .modifier(FixedTag(100, .leading))
@@ -44,6 +48,9 @@ struct PresentOneconfigView: View {
                 }
 
                 Text(localizedrundate)
+                    .modifier(FixedTag(100, .leading))
+
+                Spacer()
             }
         }
     }
