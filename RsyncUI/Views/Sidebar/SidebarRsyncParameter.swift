@@ -9,12 +9,18 @@ import SwiftUI
 
 struct SidebarRsyncParameter: View {
     @Binding var reload: Bool
+    @State private var updated = false
+    @State private var showdetails = false
 
     var body: some View {
         VStack {
             headingtitle
 
-            RsyncParametersView(reload: $reload)
+            if showdetails == false {
+                RsyncParametersView(reload: $reload, updated: $updated, showdetails: $showdetails)
+            } else {
+                DetailedRsyncParametersView(reload: $reload, updated: $updated, showdetails: $showdetails)
+            }
         }
         .padding()
     }
@@ -22,7 +28,7 @@ struct SidebarRsyncParameter: View {
     var headingtitle: some View {
         HStack {
             VStack {
-                Text(NSLocalizedString("Rsync", comment: "SidebarRsyncParameter"))
+                Text(NSLocalizedString("Rsync parameters", comment: "SidebarRsyncParameter"))
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

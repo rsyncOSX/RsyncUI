@@ -195,6 +195,7 @@
 		E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */; };
 		E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */; };
 		E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */; };
+		E9EA67CD2632B11100BB6DEB /* DetailedRsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EA67CC2632B11100BB6DEB /* DetailedRsyncParametersView.swift */; };
 		E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FDDD4825F3D0610050718C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -415,6 +416,7 @@
 		E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableReferenceSSH.swift; sourceTree = "<group>"; };
 		E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableReferencePaths.swift; sourceTree = "<group>"; };
 		E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewversionJSON.swift; sourceTree = "<group>"; };
+		E9EA67CC2632B11100BB6DEB /* DetailedRsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedRsyncParametersView.swift; sourceTree = "<group>"; };
 		E9FDDD4825F3D0610050718C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -485,6 +487,7 @@
 				E985C63925F3AD8400CB895C /* RsyncCommandView.swift */,
 				E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */,
 				E91CC2612607260B00D69D0B /* RsyncParametersView.swift */,
+				E9EA67CC2632B11100BB6DEB /* DetailedRsyncParametersView.swift */,
 			);
 			path = RsyncParameters;
 			sourceTree = "<group>";
@@ -1291,6 +1294,7 @@
 				E985C77625F3AD9700CB895C /* ArgumentsSynchronize.swift in Sources */,
 				E985C74125F3AD9700CB895C /* PreandPostTasks.swift in Sources */,
 				E985C76725F3AD9700CB895C /* ExecuteOneTask.swift in Sources */,
+				E9EA67CD2632B11100BB6DEB /* DetailedRsyncParametersView.swift in Sources */,
 				E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */,
 				E985C66A25F3AD8400CB895C /* SnapshotRow.swift in Sources */,
 				E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */,
