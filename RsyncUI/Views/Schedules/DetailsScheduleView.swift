@@ -31,27 +31,10 @@ struct DetailsScheduleView: View {
     var body: some View {
         HStack {
             VStack {
-                HStack {
-                    SelectedstartView(selecteddate: $selecteddate,
-                                      selectedscheduletype: $selectedscheduletype)
-                        .padding(1)
-                        .border(Color.gray)
-
-                    Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
-                        .buttonStyle(PrimaryButtonStyle())
-
-                    Button(NSLocalizedString("Select", comment: "Select button")) { select() }
-                        .buttonStyle(PrimaryButtonStyle())
-
-                    Button(NSLocalizedString("Change", comment: "Change button")) { change() }
-                        .buttonStyle(AbortButtonStyle())
-                        .sheet(isPresented: $showAlertfordelete) {
-                            ChangeSchedulesView(selecteduuids: $selecteduuids,
-                                                isPresented: $showAlertfordelete,
-                                                reload: $reload,
-                                                selectedprofile: $selectedprofile)
-                        }
-                }
+                SelectedstartView(selecteddate: $selecteddate,
+                                  selectedscheduletype: $selectedscheduletype)
+                    .padding(1)
+                    .border(Color.gray)
 
                 SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
                               selectedschedule: $selectedschedule,
@@ -60,18 +43,33 @@ struct DetailsScheduleView: View {
             }
 
             SchedulesDatePickerView(selecteddate: $selecteddate)
+        }
 
+        Spacer()
+
+        HStack {
             Spacer()
 
-            HStack {
-                Spacer()
-
-                Button(NSLocalizedString("Return", comment: "RsyncParametersView")) {
-                    selectedconfig = nil
-                    showdetails = false
-                }
+            Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
                 .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            Button(NSLocalizedString("Change", comment: "Change button")) { change() }
+                .buttonStyle(AbortButtonStyle())
+                .sheet(isPresented: $showAlertfordelete) {
+                    ChangeSchedulesView(selecteduuids: $selecteduuids,
+                                        isPresented: $showAlertfordelete,
+                                        reload: $reload,
+                                        selectedprofile: $selectedprofile)
+                }
+
+            Button(NSLocalizedString("Return", comment: "RsyncParametersView")) {
+                selectedconfig = nil
+                showdetails = false
             }
+            .buttonStyle(PrimaryButtonStyle())
         }
     }
 }

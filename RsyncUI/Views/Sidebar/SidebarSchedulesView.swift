@@ -31,6 +31,7 @@ struct SidebarSchedulesView: View {
                                     selectedconfig: $selectedconfig)
             }
         }
+        .padding()
     }
 
     var headingtitle: some View {
