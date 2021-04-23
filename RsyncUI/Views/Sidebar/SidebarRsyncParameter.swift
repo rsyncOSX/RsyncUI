@@ -23,6 +23,7 @@ struct SidebarRsyncParameter: View {
             }
         }
         .padding()
+        .environmentObject(ObserveableParametersRsync())
     }
 
     var headingtitle: some View {
