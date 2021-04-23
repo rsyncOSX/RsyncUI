@@ -105,12 +105,6 @@ struct DetailedRsyncParametersView: View {
             }
             .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Return", comment: "RsyncParametersView")) {
-                selectedconfig = nil
-                showdetails = false
-            }
-            .buttonStyle(PrimaryButtonStyle())
-
             Spacer()
 
             Button(NSLocalizedString("Rsync", comment: "RsyncParametersView")) { presenteview() }
@@ -120,6 +114,12 @@ struct DetailedRsyncParametersView: View {
                 }
 
             saveparameters
+
+            Button(NSLocalizedString("Return", comment: "RsyncParametersView")) {
+                selectedconfig = nil
+                showdetails = false
+            }
+            .buttonStyle(PrimaryButtonStyle())
         }
         .onAppear(perform: {
             parameters.configuration = selectedconfig

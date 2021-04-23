@@ -12,6 +12,8 @@ struct PresentOneconfigView: View {
 
     var body: some View {
         presentoneconfig
+            .modifier(Tagheading(.title3, .leading))
+            .foregroundColor(Color.blue)
     }
 
     var presentoneconfig: some View {
