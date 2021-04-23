@@ -12,47 +12,52 @@ struct PresentOneconfigView: View {
 
     var body: some View {
         presentoneconfig
-            .modifier(Tagheading(.title3, .leading))
-            .foregroundColor(Color.blue)
     }
 
     var presentoneconfig: some View {
         VStack(alignment: .leading) {
             HStack {
                 if config?.backupID.isEmpty ?? true {
+                    Text("Id: ")
+                        .foregroundColor(Color.blue)
                     Text("Synchronizing ID")
-                        .modifier(FixedTag(150, .leading))
                 } else {
+                    Text("Id: ")
+                        .foregroundColor(Color.blue)
                     Text(config?.backupID ?? "")
-                        .modifier(FixedTag(150, .leading))
                 }
+                Text("task: ")
+                    .foregroundColor(Color.blue)
                 Text(config?.task ?? "")
-                    .modifier(FixedTag(100, .leading))
-
-                Text(config?.localCatalog ?? "")
-                    .modifier(FlexTag(100, .leading))
-
-                Spacer()
             }
 
             HStack {
+                Text("localcatalog: ")
+                    .foregroundColor(Color.blue)
+                Text(config?.localCatalog ?? "")
+
+                Text("remotecatalog: ")
+                    .foregroundColor(Color.blue)
                 Text(config?.offsiteCatalog ?? "")
-                    .modifier(FlexTag(100, .leading))
+            }
 
+            HStack {
                 if config?.offsiteServer.isEmpty ?? true {
+                    Text("remote: ")
+                        .foregroundColor(Color.blue)
                     Text("localhost")
-                        .modifier(FixedTag(100, .leading))
                 } else {
+                    Text("remote :")
+                        .foregroundColor(Color.blue)
                     Text(config?.offsiteServer ?? "")
-                        .modifier(FixedTag(100, .leading))
                 }
-
+                Text("last rundate: ")
+                    .foregroundColor(Color.blue)
                 Text(localizedrundate)
-                    .modifier(FixedTag(100, .leading))
-
-                Spacer()
             }
         }
+        .border(Color.gray)
+        .padding(5)
     }
 
     var localizedrundate: String {
