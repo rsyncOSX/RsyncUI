@@ -42,6 +42,18 @@ struct SchedulesView: View {
 
                     Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
                         .buttonStyle(PrimaryButtonStyle())
+
+                    Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+                        .buttonStyle(PrimaryButtonStyle())
+
+                    Button(NSLocalizedString("Change", comment: "Change button")) { change() }
+                        .buttonStyle(AbortButtonStyle())
+                        .sheet(isPresented: $showAlertfordelete) {
+                            ChangeSchedulesView(selecteduuids: $selecteduuids,
+                                                isPresented: $showAlertfordelete,
+                                                reload: $reload,
+                                                selectedprofile: $selectedprofile)
+                        }
                 }
 
                 SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
@@ -53,24 +65,6 @@ struct SchedulesView: View {
             SchedulesDatePickerView(selecteddate: $selecteddate)
         }
         .padding()
-        // Buttons in right down corner
-        Spacer()
-
-        HStack {
-            Spacer()
-
-            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
-                .buttonStyle(PrimaryButtonStyle())
-
-            Button(NSLocalizedString("Change", comment: "Change button")) { change() }
-                .buttonStyle(AbortButtonStyle())
-                .sheet(isPresented: $showAlertfordelete) {
-                    ChangeSchedulesView(selecteduuids: $selecteduuids,
-                                        isPresented: $showAlertfordelete,
-                                        reload: $reload,
-                                        selectedprofile: $selectedprofile)
-                }
-        }
     }
 }
 
