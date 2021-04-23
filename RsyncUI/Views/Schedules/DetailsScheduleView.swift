@@ -14,12 +14,10 @@ struct DetailsScheduleView: View {
     @Binding var showdetails: Bool
     @Binding var selectedconfig: Configuration?
     @Binding var selecteduuids: Set<UUID>
-
     @State private var selectedschedule: ConfigurationSchedule?
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
-
     // Datepicker
     @State private var selecteddate = Date()
     @State private var selectedscheduletype = EnumScheduleDatePicker.once

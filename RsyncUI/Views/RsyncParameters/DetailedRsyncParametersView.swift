@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 23/04/2021.
 //
-// swiftlint:disable line_length
+// swiftlint:disable line_length cyclomatic_complexity
 
 import SwiftUI
 
@@ -14,9 +14,7 @@ struct DetailedRsyncParametersView: View {
     @Binding var updated: Bool
     @Binding var showdetails: Bool
     @Binding var selectedconfig: Configuration?
-
     @StateObject var parameters = ObserveableParametersRsync()
-
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false

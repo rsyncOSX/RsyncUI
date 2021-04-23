@@ -13,7 +13,6 @@ struct RsyncParametersView: View {
     @Binding var updated: Bool
     @Binding var showdetails: Bool
     @Binding var selectedconfig: Configuration?
-
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
