@@ -13,6 +13,7 @@ struct SidebarSchedulesView: View {
     @Binding var reload: Bool
     @State private var showdetails = false
     @State private var selectedconfig: Configuration?
+    @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -22,7 +23,8 @@ struct SidebarSchedulesView: View {
                 SchedulesView(selectedprofile: $selectedprofile,
                               reload: $reload,
                               showdetails: $showdetails,
-                              selectedconfig: $selectedconfig)
+                              selectedconfig: $selectedconfig,
+                              selecteduuids: $selecteduuids)
 
             } else {
                 VStack(alignment: .leading) {
@@ -34,7 +36,8 @@ struct SidebarSchedulesView: View {
                 DetailsScheduleView(selectedprofile: $selectedprofile,
                                     reload: $reload,
                                     showdetails: $showdetails,
-                                    selectedconfig: $selectedconfig)
+                                    selectedconfig: $selectedconfig,
+                                    selecteduuids: $selecteduuids)
             }
         }
         .padding()

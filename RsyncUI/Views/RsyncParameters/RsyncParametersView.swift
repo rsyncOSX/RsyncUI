@@ -18,9 +18,6 @@ struct RsyncParametersView: View {
     @State private var inwork = -1
     @State private var selectable = false
     @State private var selecteduuids = Set<UUID>()
-    // Show updated
-    @State private var selectedrsynccommand = RsyncCommand.synchronize
-    @State private var presentrsynccommandoview = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { opendetails() },

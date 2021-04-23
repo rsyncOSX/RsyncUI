@@ -13,20 +13,11 @@ struct SchedulesView: View {
     @Binding var reload: Bool
     @Binding var showdetails: Bool
     @Binding var selectedconfig: Configuration?
-
-    @State private var selectedschedule: ConfigurationSchedule?
-    @State private var selecteduuids = Set<UUID>()
+    @Binding var selecteduuids: Set<UUID>
 
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
-
-    // Datepicker
-    @State private var selecteddate = Date()
-    @State private var selectedscheduletype = EnumScheduleDatePicker.once
-
-    // Alert for delete
-    @State private var showAlertfordelete = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { opendetails() },

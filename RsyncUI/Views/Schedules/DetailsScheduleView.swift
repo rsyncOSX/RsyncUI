@@ -13,10 +13,9 @@ struct DetailsScheduleView: View {
     @Binding var reload: Bool
     @Binding var showdetails: Bool
     @Binding var selectedconfig: Configuration?
+    @Binding var selecteduuids: Set<UUID>
 
     @State private var selectedschedule: ConfigurationSchedule?
-    @State private var selecteduuids = Set<UUID>()
-
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
