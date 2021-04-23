@@ -21,10 +21,12 @@ struct SchedulesDatePickerView: View {
     @Binding var selecteddate: Date
 
     var body: some View {
-        DatePicker("", selection: $selecteddate,
-                   in: Date()...,
-                   displayedComponents: [.date, .hourAndMinute])
-            .datePickerStyle(GraphicalDatePickerStyle())
-            .labelsHidden()
+        VStack(alignment: .center) {
+            DatePicker("", selection: $selecteddate,
+                       in: Date()...,
+                       displayedComponents: [.date, .hourAndMinute])
+                .datePickerStyle(GraphicalDatePickerStyle())
+                .labelsHidden()
+        }
     }
 }
