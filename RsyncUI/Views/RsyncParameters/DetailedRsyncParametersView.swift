@@ -111,7 +111,7 @@ struct DetailedRsyncParametersView: View {
 
             Spacer()
 
-            Button(NSLocalizedString("Rsync", comment: "Execute button")) { presenteview() }
+            Button(NSLocalizedString("Rsync", comment: "RsyncParametersView")) { presenteview() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentrsynccommandoview) {
                     RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
@@ -223,6 +223,8 @@ extension DetailedRsyncParametersView {
             // Show updated for 1 second
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 updated = false
+                selectedconfig = nil
+                showdetails = false
             }
         }
         parameters.isDirty = false

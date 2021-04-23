@@ -11,12 +11,25 @@ import SwiftUI
 struct SidebarSchedulesView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+    @State private var showdetails = false
+    @State private var selectedconfig: Configuration?
 
     var body: some View {
         VStack {
             headingtitle
 
-            SchedulesView(selectedprofile: $selectedprofile, reload: $reload)
+            if showdetails == false {
+                SchedulesView(selectedprofile: $selectedprofile,
+                              reload: $reload,
+                              showdetails: $showdetails,
+                              selectedconfig: $selectedconfig)
+
+            } else {
+                DetailsScheduleView(selectedprofile: $selectedprofile,
+                                    reload: $reload,
+                                    showdetails: $showdetails,
+                                    selectedconfig: $selectedconfig)
+            }
         }
     }
 
