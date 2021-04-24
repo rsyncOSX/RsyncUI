@@ -18,40 +18,40 @@ struct PresentOneconfigView: View {
         VStack(alignment: .leading) {
             HStack {
                 if config?.backupID.isEmpty ?? true {
-                    Text("Id: ")
+                    Text(NSLocalizedString("Synchronizing ID", comment: "QuicktaskView") + ": ")
                         .foregroundColor(Color.blue)
-                    Text("Synchronizing ID")
+                    Text("not set")
                 } else {
-                    Text("Id: ")
+                    Text(NSLocalizedString("Synchronizing ID", comment: "QuicktaskView") + ": ")
                         .foregroundColor(Color.blue)
                     Text(config?.backupID ?? "")
                 }
-                Text("task: ")
+                Text(NSLocalizedString("Task", comment: "QuicktaskView") + ": ")
                     .foregroundColor(Color.blue)
                 Text(config?.task ?? "")
             }
 
             HStack {
-                Text("localcatalog: ")
+                Text(NSLocalizedString("Localcatalog", comment: "QuicktaskView") + ": ")
                     .foregroundColor(Color.blue)
                 Text(config?.localCatalog ?? "")
 
-                Text("remotecatalog: ")
+                Text(NSLocalizedString("Remotecatalog", comment: "QuicktaskView") + ": ")
                     .foregroundColor(Color.blue)
                 Text(config?.offsiteCatalog ?? "")
             }
 
             HStack {
                 if config?.offsiteServer.isEmpty ?? true {
-                    Text("remote: ")
+                    Text(NSLocalizedString("Remote server", comment: "QuicktaskView") + ": ")
                         .foregroundColor(Color.blue)
-                    Text("localhost")
+                    Text(NSLocalizedString("Localhost", comment: "QuicktaskView") + ": ")
                 } else {
-                    Text("remote :")
+                    Text(NSLocalizedString("Remote server", comment: "QuicktaskView") + ": ")
                         .foregroundColor(Color.blue)
                     Text(config?.offsiteServer ?? "")
                 }
-                Text("last rundate: ")
+                Text(NSLocalizedString("Last rundate", comment: "QuicktaskView") + ": ")
                     .foregroundColor(Color.blue)
                 Text(localizedrundate)
             }
