@@ -27,9 +27,9 @@ struct SelectedstartView: View {
                 Text(schedule) + Text("\(selectedscheduletype.rawValue)")
                     .foregroundColor(Color.blue)
             }
-            .padding(2)
         }
-        // .frame(width: 180)
+        .frame(width: 300)
+        .padding()
     }
 
     var startdate: String {

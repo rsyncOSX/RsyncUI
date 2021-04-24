@@ -57,7 +57,7 @@ struct PresentOneconfigView: View {
             }
         }
         .border(Color.gray)
-        .padding(5)
+        .padding(10)
     }
 
     var localizedrundate: String {
