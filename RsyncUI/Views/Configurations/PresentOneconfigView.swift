@@ -25,6 +25,9 @@ struct PresentOneconfigView: View {
 
     @SpacedTextBuilder
     var infoaboutoneconfig: Text {
+        Text(NSLocalizedString("Task", comment: "QuicktaskView") + ": ")
+            .foregroundColor(Color.blue)
+        Text(config?.task ?? "")
         if config?.backupID.isEmpty ?? true {
             Text(NSLocalizedString("Synchronizing ID", comment: "QuicktaskView") + ": ")
                 .foregroundColor(Color.blue)
@@ -34,9 +37,6 @@ struct PresentOneconfigView: View {
                 .foregroundColor(Color.blue)
             Text(config?.backupID ?? "")
         }
-        Text(NSLocalizedString("Task", comment: "QuicktaskView") + ": ")
-            .foregroundColor(Color.blue)
-        Text(config?.task ?? "")
         Text(NSLocalizedString("Localcatalog", comment: "QuicktaskView") + ": ")
             .foregroundColor(Color.blue)
         Text(config?.localCatalog ?? "")
