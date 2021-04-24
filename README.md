@@ -1,8 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys)
 
-The code is in development and may be unstable.
-
-The development commenced in December 2020 and RsyncUI will be relased sometime before summer 2021. The next version is build for **macOS Big Sur** and later only. The name of the next version is **RsyncUI**. Because it is built for macOS Big Sur and later, it will be released as a new appliction and not replace the current version of RsyncOSX.
+The development commenced in December 2020 and RsyncUI version 1.0.0 will be relased in May 2021. The next version is build for **macOS Big Sur** and later only. The name of the next version is **RsyncUI**. Because it is built for macOS Big Sur and later, it will be released as a new appliction and not replace the current version of RsyncOSX.
 
 A new [site for documentation](https://rsyncui.netlify.app) is in development.
 
