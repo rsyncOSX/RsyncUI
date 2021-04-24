@@ -106,6 +106,9 @@
    settings */
 "Catalog parameters" = "Katalogparameter";
 
+/* Change button */
+"Change" = "Ändern";
+
 /* About button */
 "Changelog" = "Changelog";
 
@@ -260,6 +263,10 @@
 /* ConfigurationsList */
 "Last" = "Letzte";
 
+/* QuicktaskView
+   QuicktaskView: */
+"Last rundate" = "Datum der letzten Ausführung";
+
 /* settings */
 "Level log" = "Level Log";
 
@@ -279,8 +286,16 @@
 /* RsyncParametersView */
 "Local ssh port" = "Lokaler SSH-Port";
 
+/* QuicktaskView
+   QuicktaskView: */
+"Localcatalog" = "Lokaler Katalog";
+
 /* No comment provided by engineer. */
 "localhost" = "localhost";
+
+/* QuicktaskView
+   QuicktaskView: */
+"Localhost" = "Lokalhost";
 
 /* sidebar */
 "Log listings" = "Log-Angebote";
@@ -354,6 +369,9 @@
 /* OneConfig */
 "not executed" = "nicht ausgeführt";
 
+/* No comment provided by engineer. */
+"not set" = "nicht gesetzt";
+
 /* Now button */
 "Now" = "Jetzt";
 
@@ -416,11 +434,19 @@
    settings */
 "Remote parameters" = "Remote Parameter";
 
+/* QuicktaskView
+   QuicktaskView: */
+"Remote server" = "Remote-Server";
+
 /* input error */
 "Remote servername cannot be empty" = "Remote-Servername darf nicht leer sein";
 
 /* input error */
 "Remote username cannot be empty" = "Remote-Benutzername darf nicht leer sein";
+
+/* QuicktaskView
+   QuicktaskView: */
+"Remotecatalog" = "Remote-Katalog";
 
 /* RsyncParametersView */
 "Remove default rsync parameters" = "Standard-rsync-Parameter entfernen";
@@ -436,8 +462,10 @@
 /* Restore */
 "Restore not allowed for syncremote task" = "Wiederherstellung für Syncremote-Aufgabe nicht erlaubt";
 
-/* Execute button
-   SidebarRsyncParameter */
+/* RsyncParametersView */
+"Return" = "Zurück";
+
+/* RsyncParametersView */
 "Rsync" = "Rsync";
 
 /* RsyncCommandView */
@@ -446,7 +474,8 @@
 /* EditRsyncParameter */
 "rsync parameter" = "rsync-Parameter";
 
-/* sidebar */
+/* sidebar
+   SidebarRsyncParameter */
 "Rsync parameters" = "Rsync-Parameter";
 
 /* settings */
@@ -542,14 +571,19 @@
 /* SchedulesDatePickerView */
 "Start" = "Start";
 
-/* Stop button */
+/* Dismiss button */
 "Stop" = "Stoppen";
+
+/* Alert delete */
+"Stop or delete" = "Stoppen oder löschen";
 
 /* plan */
 "Sunday" = "Sonntag";
 
 /* ConfigurationsList
-   OutputEstimatedView */
+   OutputEstimatedView
+   QuicktaskView
+   QuicktaskView: */
 "Synchronizing ID" = "Synchronisiere ID";
 
 /* Tag */
@@ -558,7 +592,8 @@
 /* AddConfigurationsView
    ConfigurationsList
    OutputEstimatedView
-   QuicktaskView */
+   QuicktaskView
+   QuicktaskView: */
 "Task" = "Aufgabe";
 
 /* Restore */

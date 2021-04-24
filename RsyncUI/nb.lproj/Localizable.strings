@@ -106,6 +106,9 @@
    settings */
 "Catalog parameters" = "Katalog parametre";
 
+/* Change button */
+"Change" = "Endre";
+
 /* About button */
 "Changelog" = "Endringslogg";
 
@@ -260,6 +263,10 @@
 /* ConfigurationsList */
 "Last" = "Siste";
 
+/* QuicktaskView
+   QuicktaskView: */
+"Last rundate" = "Siste kjøredato";
+
 /* settings */
 "Level log" = "Nivå logg";
 
@@ -279,8 +286,16 @@
 /* RsyncParametersView */
 "Local ssh port" = "Lokal ssh port";
 
+/* QuicktaskView
+   QuicktaskView: */
+"Localcatalog" = "Lokal katalog";
+
 /* No comment provided by engineer. */
 "localhost" = "localhost";
+
+/* QuicktaskView
+   QuicktaskView: */
+"Localhost" = "Lokalvert";
 
 /* sidebar */
 "Log listings" = "Liste logger";
@@ -354,6 +369,9 @@
 /* OneConfig */
 "not executed" = "ikke kjørt";
 
+/* No comment provided by engineer. */
+"not set" = "ikke angitt";
+
 /* Now button */
 "Now" = "Nå";
 
@@ -416,11 +434,19 @@
    settings */
 "Remote parameters" = "Eksterne parametere";
 
+/* QuicktaskView
+   QuicktaskView: */
+"Remote server" = "Ekstern server";
+
 /* input error */
 "Remote servername cannot be empty" = "Fjerntjenernavn kan ikke være tomt";
 
 /* input error */
 "Remote username cannot be empty" = "Eksternt brukernavn kan ikke være tomt";
+
+/* QuicktaskView
+   QuicktaskView: */
+"Remotecatalog" = "Ekstern katalog";
 
 /* RsyncParametersView */
 "Remove default rsync parameters" = "Fjern standard rsync parametre";
@@ -436,8 +462,10 @@
 /* Restore */
 "Restore not allowed for syncremote task" = "Gjenopprett ikke tillatt for oppgaver med syncremote";
 
-/* Execute button
-   SidebarRsyncParameter */
+/* RsyncParametersView */
+"Return" = "Retur";
+
+/* RsyncParametersView */
 "Rsync" = "Rsync";
 
 /* RsyncCommandView */
@@ -446,7 +474,8 @@
 /* EditRsyncParameter */
 "rsync parameter" = "rsync parameter";
 
-/* sidebar */
+/* sidebar
+   SidebarRsyncParameter */
 "Rsync parameters" = "Rsync parameter";
 
 /* settings */
@@ -542,14 +571,19 @@
 /* SchedulesDatePickerView */
 "Start" = "Start";
 
-/* Stop button */
+/* Dismiss button */
 "Stop" = "Stopp";
+
+/* Alert delete */
+"Stop or delete" = "Stopp eller slett";
 
 /* plan */
 "Sunday" = "Søndag";
 
 /* ConfigurationsList
-   OutputEstimatedView */
+   OutputEstimatedView
+   QuicktaskView
+   QuicktaskView: */
 "Synchronizing ID" = "Synkroniserer ID";
 
 /* Tag */
@@ -558,7 +592,8 @@
 /* AddConfigurationsView
    ConfigurationsList
    OutputEstimatedView
-   QuicktaskView */
+   QuicktaskView
+   QuicktaskView: */
 "Task" = "Oppgave";
 
 /* Restore */
