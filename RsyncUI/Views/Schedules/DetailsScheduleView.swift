@@ -58,7 +58,7 @@ struct DetailsScheduleView: View {
                 .buttonStyle(PrimaryButtonStyle())
 
             Button(NSLocalizedString("Change", comment: "Change button")) { change() }
-                .buttonStyle(AbortButtonStyle())
+                .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $showAlertfordelete) {
                     ChangeSchedulesView(selecteduuids: $selecteduuids,
                                         isPresented: $showAlertfordelete,
