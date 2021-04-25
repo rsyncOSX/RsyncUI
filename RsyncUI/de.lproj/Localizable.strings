@@ -39,9 +39,6 @@
 /* Add button */
 "Add" = "Neu";
 
-/* settings */
-"Add backup ID" = "Backup-ID hinzufügen";
-
 /* logsview */
 "Add config" = "Konfiguration hinzufügen";
 
@@ -77,6 +74,9 @@
 "Add source catalog" = "Quellkatalog hinzufügen";
 
 /* settings */
+"Add synchronize ID" = "Synchronisierungs-ID hinzufügen";
+
+/* settings */
 "Added" = "Hinzugefügt";
 
 /* Select button */
@@ -88,9 +88,6 @@
 /* RsyncParametersView
    usersetting */
 "Backup" = "Sichern";
-
-/* settings */
-"Backup ID" = "Backup-ID";
 
 /* logsview */
 "By config" = "Nach Konfiguration";
@@ -579,6 +576,9 @@
 
 /* plan */
 "Sunday" = "Sonntag";
+
+/* settings */
+"Synchronize ID" = "Synchronisierungs-ID";
 
 /* ConfigurationsList
    OutputEstimatedView

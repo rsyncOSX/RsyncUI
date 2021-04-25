@@ -39,9 +39,6 @@
 /* Add button */
 "Add" = "Legg til";
 
-/* settings */
-"Add backup ID" = "Legg til synkroniserings ID";
-
 /* logsview */
 "Add config" = "Legg til konfigurasjon";
 
@@ -77,6 +74,9 @@
 "Add source catalog" = "Legg til kildekatalog";
 
 /* settings */
+"Add synchronize ID" = "Legg til synkroniserings ID";
+
+/* settings */
 "Added" = "Lagt til";
 
 /* Select button */
@@ -88,9 +88,6 @@
 /* RsyncParametersView
    usersetting */
 "Backup" = "Kopier";
-
-/* settings */
-"Backup ID" = "Synkroniserings ID";
 
 /* logsview */
 "By config" = "Etter konfigurasjon";
@@ -580,11 +577,14 @@
 /* plan */
 "Sunday" = "Søndag";
 
+/* settings */
+"Synchronize ID" = "Synkroniserings ID";
+
 /* ConfigurationsList
    OutputEstimatedView
    QuicktaskView
    QuicktaskView: */
-"Synchronizing ID" = "Synkroniserings ID";
+"Synchronizing ID" = "Synkroniserer ID";
 
 /* Tag */
 "Tag" = "Tagg";

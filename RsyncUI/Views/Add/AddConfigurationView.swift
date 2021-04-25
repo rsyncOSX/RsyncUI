@@ -74,7 +74,7 @@ struct AddConfigurationView: View {
 
                     VStack(alignment: .leading) { localandremotecatalog }
 
-                    VStack(alignment: .leading) { backupid }
+                    VStack(alignment: .leading) { synchronizeid }
 
                     VStack(alignment: .leading) { remoteuserandserver }
                 }
@@ -171,17 +171,17 @@ struct AddConfigurationView: View {
     }
 
     var setID: some View {
-        EditValue(250, NSLocalizedString("Add backup ID", comment: "settings"), $backupID)
+        EditValue(250, NSLocalizedString("Add synchronize ID", comment: "settings"), $backupID)
     }
 
     var headerID: some View {
-        Text(NSLocalizedString("Backup ID", comment: "settings"))
+        Text(NSLocalizedString("Synchronize ID", comment: "settings"))
             .modifier(FixedTag(200, .leading))
     }
 
-    var backupid: some View {
+    var synchronizeid: some View {
         Section(header: headerID) {
-            // Backup ID
+            // Synchronize ID
             if selectedconfig == nil { setID } else {
                 EditValue(250, nil, $backupID)
                     .onAppear(perform: {
