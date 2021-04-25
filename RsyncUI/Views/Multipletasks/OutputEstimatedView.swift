@@ -88,7 +88,7 @@ struct OutputEstimatedView: View {
             Group {
                 Text("")
                     .modifier(FixedTag(95, .center))
-                Text(NSLocalizedString("Synchronizing ID", comment: "OutputEstimatedView"))
+                Text(NSLocalizedString("Synchronize ID", comment: "OutputEstimatedView"))
                     .modifier(FixedTag(120, .center))
                 Text(NSLocalizedString("Task", comment: "OutputEstimatedView"))
                     .modifier(FixedTag(80, .center))

@@ -38,7 +38,7 @@ struct OneConfig: View {
                 Text("")
                     .modifier(FixedTag(20, .leading))
                 if config.backupID.isEmpty {
-                    Text("Synchronizing ID")
+                    Text("Synchronize ID")
                         .modifier(FixedTag(150, .leading))
                 } else {
                     Text(config.backupID)

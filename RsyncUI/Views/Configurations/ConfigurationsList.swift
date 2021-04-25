@@ -129,7 +129,7 @@ struct ConfigurationsList: View {
 
     var header: some View {
         HStack {
-            Text(NSLocalizedString("Synchronizing ID", comment: "ConfigurationsList"))
+            Text(NSLocalizedString("Synchronize ID", comment: "ConfigurationsList"))
                 .modifier(FixedTag(120, .center))
             Text(NSLocalizedString("Task", comment: "ConfigurationsList"))
                 .modifier(FixedTag(80, .center))

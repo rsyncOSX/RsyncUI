@@ -29,11 +29,11 @@ struct PresentOneconfigView: View {
             .foregroundColor(Color.blue)
         Text(config?.task ?? "")
         if config?.backupID.isEmpty ?? true {
-            Text(NSLocalizedString("Synchronizing ID", comment: "QuicktaskView") + ": ")
+            Text(NSLocalizedString("Synchronize ID", comment: "QuicktaskView") + ": ")
                 .foregroundColor(Color.blue)
             Text("not set")
         } else {
-            Text(NSLocalizedString("Synchronizing ID", comment: "QuicktaskView") + ": ")
+            Text(NSLocalizedString("Synchronize ID", comment: "QuicktaskView") + ": ")
                 .foregroundColor(Color.blue)
             Text(config?.backupID ?? "")
         }
