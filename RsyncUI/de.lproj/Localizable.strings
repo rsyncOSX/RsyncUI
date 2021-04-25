@@ -83,7 +83,7 @@
 "All" = "Alle";
 
 /* logsview */
-"All logs" = "Alle Logs";
+"All logs" = "Alle Protokolle";
 
 /* RsyncParametersView
    usersetting */
@@ -295,16 +295,16 @@
 
 /* QuicktaskView
    QuicktaskView: */
-"Localhost" = "Lokalhost";
+"Localhost" = "Localhost";
 
 /* sidebar */
-"Log listings" = "Log-Angebote";
+"Log listings" = "Protokolle";
 
 /* settings */
 "Log to file" = "Log in Datei";
 
 /* Logs */
-"Logfile" = "Logdatei";
+"Logfile" = "Protokolldatei";
 
 /* settings */
 "Mark days" = "Markiere Tage";
@@ -380,7 +380,7 @@
 "Number of files" = "Anzahl der Dateien";
 
 /* No comment provided by engineer. */
-"Number of logs" = "Anzahl der Logs";
+"Number of logs" = "Anzahl der Protokolle";
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
@@ -428,7 +428,7 @@
 
 /* ConfigurationsList
    OutputEstimatedView */
-"Remote catalog" = "Externer Katalog";
+"Remote catalog" = "Remote Katalog";
 
 /* QuicktaskView
    settings */
@@ -476,7 +476,7 @@
 
 /* sidebar
    SidebarRsyncParameter */
-"Rsync parameters" = "Rsync-Parameter";
+"Rsync parameters" = "Rsync Parameter";
 
 /* settings */
 "Rsync ver 3.x" = "Rsync Version 3.x";
@@ -584,7 +584,7 @@
    OutputEstimatedView
    QuicktaskView
    QuicktaskView: */
-"Synchronizing ID" = "Synchronisiere ID";
+"Synchronizing ID" = "Synchronisierungs-ID";
 
 /* Tag */
 "Tag" = "Markierung";
