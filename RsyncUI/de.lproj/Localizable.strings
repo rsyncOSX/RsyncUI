@@ -45,9 +45,6 @@
 /* No comment provided by engineer. */
 "Add configuration completed" = "Konfiguration hinzufügen abgeschlossen";
 
-/* QuicktaskView */
-"Add destination catalog" = "Zielkatalog hinzufügen";
-
 /* QuicktaskView
    settings */
 "Add localcatalog - required" = "Lokalkatalog hinzufügen - erforderlich";
@@ -69,9 +66,6 @@
 /* QuicktaskView
    settings */
 "Add remotecatalog - required" = "Remotekatalog hinzufügen - erforderlich";
-
-/* QuicktaskView */
-"Add source catalog" = "Quellkatalog hinzufügen";
 
 /* settings */
 "Add synchronize ID" = "Synchronisierungs-ID hinzufügen";
@@ -577,14 +571,12 @@
 /* plan */
 "Sunday" = "Sonntag";
 
-/* settings */
-"Synchronize ID" = "Synchronisierungs-ID";
-
 /* ConfigurationsList
    OutputEstimatedView
    QuicktaskView
-   QuicktaskView: */
-"Synchronizing ID" = "Synchronisierungs-ID";
+   QuicktaskView: 
+   settings */
+"Synchronize ID" = "Synchronisierungs-ID";
 
 /* Tag */
 "Tag" = "Markierung";

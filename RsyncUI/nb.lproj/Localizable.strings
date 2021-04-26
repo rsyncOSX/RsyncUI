@@ -45,9 +45,6 @@
 /* No comment provided by engineer. */
 "Add configuration completed" = "Legge til konfigurasjon fullført";
 
-/* QuicktaskView */
-"Add destination catalog" = "Legg til målkatalog";
-
 /* QuicktaskView
    settings */
 "Add localcatalog - required" = "Legge til lokalkatalog - kreves";
@@ -69,9 +66,6 @@
 /* QuicktaskView
    settings */
 "Add remotecatalog - required" = "Legg til eksternkatalog - kreves";
-
-/* QuicktaskView */
-"Add source catalog" = "Legg til kildekatalog";
 
 /* settings */
 "Add synchronize ID" = "Legg til synkroniserings ID";
@@ -577,14 +571,12 @@
 /* plan */
 "Sunday" = "Søndag";
 
-/* settings */
-"Synchronize ID" = "Synkroniserings ID";
-
 /* ConfigurationsList
    OutputEstimatedView
    QuicktaskView
-   QuicktaskView: */
-"Synchronizing ID" = "Synkroniserer ID";
+   QuicktaskView: 
+   settings */
+"Synchronize ID" = "Synkroniserings ID";
 
 /* Tag */
 "Tag" = "Tagg";

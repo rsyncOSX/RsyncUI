@@ -39,17 +39,11 @@
 /* Add button */
 "Add" = "Legg til";
 
-/* settings */
-"Add backup ID" = "Legg til synkroniserings ID";
-
 /* logsview */
 "Add config" = "Aggiungi configurazione";
 
 /* No comment provided by engineer. */
 "Add configuration completed" = "Legge til konfigurasjon fullført";
-
-/* QuicktaskView */
-"Add destination catalog" = "Aggiungi catalogo destinazione";
 
 /* QuicktaskView
    settings */
@@ -73,8 +67,8 @@
    settings */
 "Add remotecatalog - required" = "Legg til eksternkatalog - kreves";
 
-/* QuicktaskView */
-"Add source catalog" = "Aggiungi catalogo sorgente";
+/* settings */
+"Add synchronize ID" = "Add synchronize ID";
 
 /* settings */
 "Added" = "Lagt til";
@@ -88,9 +82,6 @@
 /* RsyncParametersView
    usersetting */
 "Backup" = "Kopier";
-
-/* settings */
-"Backup ID" = "Synkroniserings ID";
 
 /* logsview */
 "By config" = "Etter konfigurasjon";
@@ -583,8 +574,9 @@
 /* ConfigurationsList
    OutputEstimatedView
    QuicktaskView
-   QuicktaskView: */
-"Synchronizing ID" = "Synkroniserings ID";
+   QuicktaskView: 
+   settings */
+"Synchronize ID" = "Synchronize ID";
 
 /* Tag */
 "Tag" = "Tagg";
