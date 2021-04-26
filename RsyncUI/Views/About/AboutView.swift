@@ -110,8 +110,10 @@ struct AboutView: View {
             Text(germanstring)
                 .font(.caption)
 
-            Text(italianstring)
-                .font(.caption)
+            /*
+             Text(italianstring)
+                 .font(.caption)
+             */
 
             Text(norwegianstring)
                 .font(.caption)
