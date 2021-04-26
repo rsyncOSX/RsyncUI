@@ -106,15 +106,6 @@ struct QuicktaskView: View {
         .frame(width: 180)
     }
 
-    // Add and edit text values
-    var setlocalcatalog: some View {
-        EditValue(250, NSLocalizedString("Add localcatalog - required", comment: "QuicktaskView"), $localcatalog)
-    }
-
-    var setremotecatalog: some View {
-        EditValue(250, NSLocalizedString("Add remotecatalog - required", comment: "QuicktaskView"), $remotecatalog)
-    }
-
     // Headers (in sections)
     var headerlocalremote: some View {
         Text(NSLocalizedString("Catalog parameters", comment: "QuicktaskView"))
@@ -124,10 +115,10 @@ struct QuicktaskView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(250, NSLocalizedString("Add source catalog", comment: "QuicktaskView"), $localcatalog)
+            EditValue(250, NSLocalizedString("Add localcatalog - required", comment: "QuicktaskView"), $localcatalog)
 
             // remotecatalog
-            EditValue(250, NSLocalizedString("Add destination catalog", comment: "QuicktaskView"), $remotecatalog)
+            EditValue(250, NSLocalizedString("Add remotecatalog - required", comment: "QuicktaskView"), $remotecatalog)
         }
     }
 
