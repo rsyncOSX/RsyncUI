@@ -209,3 +209,9 @@ enum Validatedpath: LocalizedError {
         }
     }
 }
+
+/*
+ TODO:
+ 1. QA of setting path for rsync
+ 2. QA of setting path for restore and delete path for restore
+ */
