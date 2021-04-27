@@ -46,6 +46,8 @@ struct RestoreView: View {
         Spacer()
 
         HStack {
+            Spacer()
+
             ToggleView(NSLocalizedString("--dry-run", comment: "RestoreView"), $restoresettings.dryrun)
 
             VStack(alignment: .leading) {

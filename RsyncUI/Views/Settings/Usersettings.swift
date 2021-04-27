@@ -150,7 +150,9 @@ struct Usersettings: View {
     }
 
     var setrsyncpathlocalpath: some View {
-        EditValue(250, nil, $usersettings.localrsyncpath)
+        EditValue(250, nil, $usersettings.localrsyncpath.onChange {
+            usersettings.inputchangedbyuser = true
+        })
             .onAppear(perform: {
                 usersettings.localrsyncpath = SetandValidatepathforrsync().getpathforrsync()
             })
@@ -166,7 +168,9 @@ struct Usersettings: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(250, NSLocalizedString("Path for restore", comment: "settings"), $usersettings.temporarypathforrestore)
+        EditValue(250, NSLocalizedString("Path for restore", comment: "settings"), $usersettings.temporarypathforrestore.onChange {
+            usersettings.inputchangedbyuser = true
+        })
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     usersettings.temporarypathforrestore = pathforrestore

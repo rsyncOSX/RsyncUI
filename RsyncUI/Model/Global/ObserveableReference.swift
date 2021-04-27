@@ -119,9 +119,14 @@ final class ObserveableReference: ObservableObject {
 }
 
 extension ObserveableReference {
-    func setandvalidatepathforrsync(_ path: String) {
-        guard inputchangedbyuser == true else { return }
-        guard path.isEmpty == false else { return }
+    func setandvalidatepathforrsync(_ path: String) { guard inputchangedbyuser == true else { return }
+        guard path.isEmpty == false else {
+            isDirty = true
+            // Set rsync path = nil
+            let validate = SetandValidatepathforrsync()
+            validate.setlocalrsyncpath("")
+            return
+        }
         let validate = SetandValidatepathforrsync()
         validate.setlocalrsyncpath(path)
         do {
@@ -138,7 +143,12 @@ extension ObserveableReference {
 
     func setandvalidapathforrestore(_ atpath: String) {
         guard inputchangedbyuser == true else { return }
-        guard atpath.isEmpty == false else { return }
+        guard atpath.isEmpty == false else {
+            // Delete path
+            isDirty = true
+            SharedReference.shared.pathforrestore = nil
+            return
+        }
         do {
             let ok = try validatepath(atpath)
             if ok {
