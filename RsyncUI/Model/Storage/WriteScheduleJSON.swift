@@ -55,6 +55,7 @@ class WriteScheduleJSON: NamesandPaths {
             }, receiveValue: { [unowned self] result in
                 let jsonfile = String(data: result, encoding: .utf8)
                 writeJSONToPersistentStore(jsonfile)
+                subscriptons.removeAll()
             })
             .store(in: &subscriptons)
     }
