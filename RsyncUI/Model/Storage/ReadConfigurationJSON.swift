@@ -11,7 +11,7 @@ import Foundation
 
 class ReadConfigurationJSON: NamesandPaths {
     var configurations: [Configuration]?
-    var datafile = [SharedReference.shared.fileconfigurationsjson]
+    var filenamedatastore = [SharedReference.shared.fileconfigurationsjson]
     var subscriptons = Set<AnyCancellable>()
     var validhiddenIDs = Set<Int>()
 
@@ -39,7 +39,7 @@ class ReadConfigurationJSON: NamesandPaths {
     override init(_ profile: String?) {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile
-        datafile.publisher
+        filenamedatastore.publisher
             .compactMap { filenamejson -> URL? in
                 var filename: String = ""
                 if let profile = profile, let fullroot = fullroot {

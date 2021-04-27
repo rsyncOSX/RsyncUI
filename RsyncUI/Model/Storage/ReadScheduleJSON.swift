@@ -11,13 +11,13 @@ import Foundation
 
 class ReadScheduleJSON: NamesandPaths {
     var schedules: [ConfigurationSchedule]?
-    var datafile = [SharedReference.shared.fileschedulesjson]
+    var filenamedatastore = [SharedReference.shared.fileschedulesjson]
     var subscriptons = Set<AnyCancellable>()
 
     init(_ profile: String?, _ validhiddenID: Set<Int>) {
         super.init(profileorsshrootpath: .profileroot)
         self.profile = profile
-        datafile.publisher
+        filenamedatastore.publisher
             .compactMap { filenamejson -> URL? in
                 var filename: String = ""
                 if let profile = profile, let fullroot = fullroot {

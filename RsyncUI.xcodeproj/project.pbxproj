@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E801DC662637FD990060723F /* NewWriteConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801DC652637FD990060723F /* NewWriteConfigurationJSON.swift */; };
 		E81CF81A25FF310D005D8667 /* SelectedstartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81CF81925FF310D005D8667 /* SelectedstartView.swift */; };
 		E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835457325FE4EBF00A724EE /* SearchbarView.swift */; };
 		E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E879883425F8B512004D68C2 /* VerifySshView.swift */; };
@@ -222,6 +223,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E801DC652637FD990060723F /* NewWriteConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWriteConfigurationJSON.swift; sourceTree = "<group>"; };
 		E81CF81925FF310D005D8667 /* SelectedstartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedstartView.swift; sourceTree = "<group>"; };
 		E835457325FE4EBF00A724EE /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		E879883425F8B512004D68C2 /* VerifySshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySshView.swift; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 				E985C6C025F3AD9600CB895C /* ReadWriteJSON.swift */,
 				E985C6C625F3AD9600CB895C /* ReadWriteDictionary.swift */,
 				E985C6C725F3AD9600CB895C /* Basic */,
+				E801DC652637FD990060723F /* NewWriteConfigurationJSON.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -1273,6 +1276,7 @@
 				E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */,
 				E985C65625F3AD8400CB895C /* RsyncUIView.swift in Sources */,
 				E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */,
+				E801DC662637FD990060723F /* NewWriteConfigurationJSON.swift in Sources */,
 				E985C79525F3AD9700CB895C /* RsyncVersionString.swift in Sources */,
 				E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */,
 				E985C72D25F3AD9700CB895C /* Snapshotlogsandcatalogs.swift in Sources */,

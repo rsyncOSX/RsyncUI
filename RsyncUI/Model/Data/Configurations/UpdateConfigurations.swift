@@ -105,8 +105,11 @@ class UpdateConfigurations {
             // No need for deleting the logs, only valid hiddenIDs are
             // loaded next time configurations are read from
             // permanent store
-            WriteConfigurationJSON(localeprofile, configurations)
-                .saveconfigInMemoryToPersistentStore()
+            /*
+             WriteConfigurationJSON(localeprofile, configurations)
+                 .saveconfigInMemoryToPersistentStore()
+             */
+            _ = NewWriteConfigurationJSON(localeprofile, configurations)
         }
     }
 
@@ -117,8 +120,12 @@ class UpdateConfigurations {
         newconfig.hiddenID = maxhiddenID + 1
         configurations?.append(newconfig)
         let aftercount = (configurations?.count ?? 0)
-        WriteConfigurationJSON(localeprofile, configurations)
-            .saveconfigInMemoryToPersistentStore()
+        /*
+         WriteConfigurationJSON(localeprofile, configurations)
+             .saveconfigInMemoryToPersistentStore()
+         */
+        _ = NewWriteConfigurationJSON(localeprofile, configurations)
+
         if aftercount > beforecount {
             return true
         } else {
