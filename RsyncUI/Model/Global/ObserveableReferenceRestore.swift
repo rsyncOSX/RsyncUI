@@ -52,7 +52,7 @@ final class ObserveableReferenceRestore: ObservableObject {
             .sink { _ in
             }.store(in: &subscriptions)
         $filterstring
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 reloadfiles()
             }.store(in: &subscriptions)

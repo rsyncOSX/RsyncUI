@@ -30,12 +30,12 @@ final class ObservableReferenceSSH: ObservableObject {
             .sink { _ in
             }.store(in: &subscriptions)
         $sshkeypathandidentityfile
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] identityfile in
                 sshkeypathandidentiyfile(identityfile)
             }.store(in: &subscriptions)
         $sshport
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] port in
                 sshport(port)
             }.store(in: &subscriptions)

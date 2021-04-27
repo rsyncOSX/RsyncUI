@@ -27,25 +27,25 @@ final class ObserveableReferencePaths: ObservableObject {
             .sink { _ in
             }.store(in: &subscriptions)
         $environment
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] environment in
                 SharedReference.shared.environment = environment
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $environmentvalue
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] environmentvalue in
                 SharedReference.shared.environmentvalue = environmentvalue
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $pathrsyncui
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncui in
                 setandvalidapathrsyncui(pathtorsyncui)
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $pathrsyncschedule
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncschedule in
                 setandvalidapathpathrsyncschedule(pathtorsyncschedule)
                 isDirty = inputchangedbyuser

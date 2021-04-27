@@ -53,37 +53,37 @@ final class ObserveableParametersRsync: ObservableObject {
             .sink { _ in
             }.store(in: &subscriptions)
         $parameter8
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter9
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter10
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter11
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter12
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter13
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $parameter14
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
@@ -92,12 +92,12 @@ final class ObserveableParametersRsync: ObservableObject {
                 if let config = config { setvalues(config) }
             }.store(in: &subscriptions)
         $sshkeypathandidentityfile
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] identityfile in
                 sshkeypathandidentiyfile(identityfile)
             }.store(in: &subscriptions)
         $sshport
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] port in
                 sshport(port)
             }.store(in: &subscriptions)

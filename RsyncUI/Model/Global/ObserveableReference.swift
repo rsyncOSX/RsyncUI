@@ -54,12 +54,12 @@ final class ObserveableReference: ObservableObject {
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $localrsyncpath
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] rsyncpath in
                 setandvalidatepathforrsync(rsyncpath)
             }.store(in: &subscriptions)
         $temporarypathforrestore
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] restorepath in
                 setandvalidapathforrestore(restorepath)
             }.store(in: &subscriptions)
@@ -104,13 +104,13 @@ final class ObserveableReference: ObservableObject {
                 markdays(days: value)
             }.store(in: &subscriptions)
         $pathrsyncui
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncosx in
                 SharedReference.shared.pathrsyncui = pathtorsyncosx
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $pathrsyncschedule
-            .debounce(for: .seconds(2), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncosxsched in
                 SharedReference.shared.pathrsyncschedule = pathtorsyncosxsched
                 isDirty = inputchangedbyuser
