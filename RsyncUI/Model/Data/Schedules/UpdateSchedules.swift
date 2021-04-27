@@ -63,8 +63,11 @@ final class UpdateSchedules {
         let newschedule = ConfigurationSchedule(dictionary: dict, log: nil)
         structschedules?.append(newschedule)
         // Save all after adding to schedule in memory
-        WriteScheduleJSON(localeprofile, structschedules)
-            .savescheduleInMemoryToPersistentStore()
+        /*
+         WriteScheduleJSON(localeprofile, structschedules)
+             .savescheduleInMemoryToPersistentStore()
+         */
+        _ = NewWriteScheduleJSON(localeprofile, structschedules)
     }
 
     func validateschedule(_ hiddenID: Int?, _: EnumScheduleDatePicker, _: Date) throws -> Bool {
@@ -87,9 +90,11 @@ final class UpdateSchedules {
                 structschedules?[index].schedule = Scheduletype.stopped.rawValue
                 structschedules?[index].dateStop = Date().en_us_string_from_date()
             }
-            // Save all after adding to schedule in memory
-            WriteScheduleJSON(localeprofile, structschedules)
-                .savescheduleInMemoryToPersistentStore()
+            /*
+             WriteScheduleJSON(localeprofile, structschedules)
+                 .savescheduleInMemoryToPersistentStore()
+             */
+            _ = NewWriteScheduleJSON(localeprofile, structschedules)
         }
     }
 
@@ -105,9 +110,11 @@ final class UpdateSchedules {
             }
             structschedules?.remove(atOffsets: indexset)
         }
-        // Save all after adding to schedule in memory
-        WriteScheduleJSON(localeprofile, structschedules)
-            .savescheduleInMemoryToPersistentStore()
+        /*
+         WriteScheduleJSON(localeprofile, structschedules)
+             .savescheduleInMemoryToPersistentStore()
+         */
+        _ = NewWriteScheduleJSON(localeprofile, structschedules)
     }
 
     func deletelogs(uuids: Set<UUID>) {
@@ -125,9 +132,11 @@ final class UpdateSchedules {
                 structschedules?[i].logrecords?.remove(atOffsets: indexset)
                 indexset.removeAll()
             }
-            // Save all after adding to schedule in memory
-            WriteScheduleJSON(localeprofile, structschedules)
-                .savescheduleInMemoryToPersistentStore()
+            /*
+             WriteScheduleJSON(localeprofile, structschedules)
+                 .savescheduleInMemoryToPersistentStore()
+             */
+            _ = NewWriteScheduleJSON(localeprofile, structschedules)
         }
     }
 

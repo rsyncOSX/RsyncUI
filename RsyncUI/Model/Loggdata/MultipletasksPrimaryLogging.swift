@@ -20,9 +20,11 @@ class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
                 structconfigurations?[index].dateRun = date
             }
         }
-        // Save all after adding to configs in memory
-        WriteConfigurationJSON(localeprofile, structconfigurations)
-            .saveconfigInMemoryToPersistentStore()
+        /*
+         WriteConfigurationJSON(localeprofile, structconfigurations)
+             .saveconfigInMemoryToPersistentStore()
+         */
+        _ = NewWriteConfigurationJSON(localeprofile, structconfigurations)
     }
 
     // Caution, the snapshotnum is alrady increased in
@@ -56,9 +58,11 @@ class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
                     // _ = Logfile(outputprocess: outputprocess)
                 }
             }
-            // Save all after adding to schedule in memory
-            WriteScheduleJSON(localeprofile, structschedules)
-                .savescheduleInMemoryToPersistentStore()
+            /*
+             WriteScheduleJSON(localeprofile, structschedules)
+                 .savescheduleInMemoryToPersistentStore()
+             */
+            _ = NewWriteScheduleJSON(localeprofile, structschedules)
         }
     }
 

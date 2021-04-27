@@ -1,5 +1,5 @@
 //
-//  NewWriteConfigurationJSON.swift
+//  NewWriteScheduleJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 27/04/2021.
@@ -9,7 +9,7 @@ import Combine
 import Files
 import Foundation
 
-class NewWriteConfigurationJSON: NamesandPaths {
+class NewWriteScheduleJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
 
     func writeJSONToPersistentStore(_ data: String?) {
@@ -36,12 +36,12 @@ class NewWriteConfigurationJSON: NamesandPaths {
         }
     }
 
-    init(_ profile: String?, _ configurations: [Configuration]?) {
+    init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
         super.init(profileorsshrootpath: .profileroot)
         // Set profile and filename ahead of encoding an write
         self.profile = profile
-        filename = SharedReference.shared.fileconfigurationsjson
-        configurations.publisher
+        filename = SharedReference.shared.fileschedulesjson
+        schedules.publisher
             .encode(encoder: JSONEncoder())
             .sink(receiveCompletion: { completion in
                 switch completion {

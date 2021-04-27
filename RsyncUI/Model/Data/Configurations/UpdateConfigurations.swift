@@ -77,8 +77,11 @@ class UpdateConfigurations {
                 configurations?[index].haltshelltasksonerror = config.haltshelltasksonerror
                 configurations?[index].backupID = config.backupID
             }
-            WriteConfigurationJSON(localeprofile, configurations)
-                .saveconfigInMemoryToPersistentStore()
+            /*
+             WriteConfigurationJSON(localeprofile, configurations)
+                 .saveconfigInMemoryToPersistentStore()
+             */
+            _ = NewWriteConfigurationJSON(localeprofile, configurations)
         }
     }
 
