@@ -1,5 +1,5 @@
 //
-//  NewWriteConfigurationJSON.swift
+//  WriteConfigurationJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 27/04/2021.

@@ -1,5 +1,5 @@
 //
-//  NewWriteScheduleJSON.swift
+//  WriteScheduleJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 27/04/2021.
