@@ -53,7 +53,6 @@ class WriteConfigurationJSON: NamesandPaths {
                     self.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
-                // verifynewversion(result)
                 let jsonfile = String(data: result, encoding: .utf8)
                 writeJSONToPersistentStore(jsonfile)
             })
