@@ -40,6 +40,7 @@ class ReadScheduleJSON: NamesandPaths {
                 for i in 0 ..< data.count {
                     var transformed = TransformSchedulefromJSON().transform(data[i])
                     transformed.profilename = profile
+                    // Validate thta the hidden ID is OK
                     if validhiddenID.contains(transformed.hiddenID) {
                         schedules.append(transformed)
                     }

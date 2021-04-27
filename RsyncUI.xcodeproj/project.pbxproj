@@ -833,11 +833,11 @@
 			children = (
 				E801DC652637FD990060723F /* WriteConfigurationJSON.swift */,
 				E8518C79263807F200128796 /* WriteScheduleJSON.swift */,
-				E9011D43262EBFE600ECC9B8 /* Userconfiguration */,
 				E985C6CB25F3AD9600CB895C /* TransformConfigfromJSON.swift */,
 				E985C6CE25F3AD9600CB895C /* TransformSchedulefromJSON.swift */,
 				E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */,
 				E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */,
+				E9011D43262EBFE600ECC9B8 /* Userconfiguration */,
 				E985C6C725F3AD9600CB895C /* Basic */,
 			);
 			path = Storage;
