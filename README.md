@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys)
 
-The development commenced in December 2020 and RsyncUI version 1.0.0 will be relased in May 2021. RsyncUI is build for **macOS Big Sur** and later only. The name of the next version is **RsyncUI**, and because it is built for macOS Big Sur and later it will be released as a new application and not replace the current version of RsyncOSX.
+The development commenced in December 2020 and RsyncUI version 1.0.0 will be relased in May 2021. RsyncUI is build for **macOS Big Sur** and later only. The name of the next version is **RsyncUI**, and because it is built for macOS Big Sur and later it will be released as a new application and not replace the current version of RsyncOSX. There are also some SwiftUI features in code which also require macOS Big Sur.
 
 A new [site for documentation](https://rsyncui.netlify.app) is in development.
 
@@ -25,12 +25,14 @@ All three are available as source code and automatically included as part of bui
 
 The following tools are used in development:
 
-- Xcode 12 (the main tool)
+- Xcode 12.5 and newer, the main tool (Swift 5.4 and newer)
+  - a few SwiftUI features in code require latest version of Swift and macOS 11
 - make to compile new versions in terminal
 - [create-dmg](https://github.com/sindresorhus/create-dmg) to create new releases
 - [periphery](https://github.com/peripheryapp/periphery) to identify unused code
 - [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift style and conventions
 - [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) for reformatting Swift code
+- [GitHub Desktop](https://desktop.github.com/)
 
 All the above tools, except Xcode are installed by using [Homebrew](https://brew.sh/).
 
