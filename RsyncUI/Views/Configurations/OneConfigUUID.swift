@@ -12,6 +12,7 @@ struct OneConfigUUID: View {
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var inexecuting: Int
+
     @State private var forestimated = false
     var config: Configuration
 
@@ -19,7 +20,8 @@ struct OneConfigUUID: View {
         HStack {
             progress
 
-            OneConfig(forestimated: $forestimated, config: config)
+            OneConfig(forestimated: $forestimated,
+                      config: config)
         }
     }
 

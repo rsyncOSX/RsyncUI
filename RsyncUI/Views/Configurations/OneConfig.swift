@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct OneConfig: View {
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var forestimated: Bool
+
     var config: Configuration
 
     var body: some View {
@@ -38,11 +40,23 @@ struct OneConfig: View {
                 Text("")
                     .modifier(FixedTag(20, .leading))
                 if config.backupID.isEmpty {
-                    Text("Synchronize ID")
-                        .modifier(FixedTag(150, .leading))
+                    if rsyncUIData.activeschedules(config.hiddenID) > 0 {
+                        Text("Synchronize ID")
+                            .modifier(FixedTag(150, .leading))
+                            .foregroundColor(Color.green)
+                    } else {
+                        Text("Synchronize ID")
+                            .modifier(FixedTag(150, .leading))
+                    }
                 } else {
-                    Text(config.backupID)
-                        .modifier(FixedTag(150, .leading))
+                    if rsyncUIData.activeschedules(config.hiddenID) > 0 {
+                        Text(config.backupID)
+                            .modifier(FixedTag(150, .leading))
+                            .foregroundColor(Color.green)
+                    } else {
+                        Text(config.backupID)
+                            .modifier(FixedTag(150, .leading))
+                    }
                 }
                 Text(config.task)
                     .modifier(FixedTag(80, .leading))

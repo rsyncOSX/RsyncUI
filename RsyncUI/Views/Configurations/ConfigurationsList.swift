@@ -20,6 +20,7 @@ struct ConfigurationsList: View {
     @Binding var selectable: Bool
     // spacing between lines
     @State private var spacing: Bool = false
+    @State private var activeschedules: Int = 0
 
     var body: some View {
         HStack {
@@ -59,6 +60,7 @@ struct ConfigurationsList: View {
         }
     }
 
+    // No spacing
     var selecetablenospacing: some View {
         ForEach(configurationssorted) { configurations in
             OneConfigUUID(selecteduuids: $selecteduuids,
@@ -69,6 +71,7 @@ struct ConfigurationsList: View {
         .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
     }
 
+    // Spacing
     var selecetablespacing: some View {
         ForEach(configurationssorted) { configurations in
             OneConfigUUID(selecteduuids: $selecteduuids,
@@ -91,6 +94,7 @@ struct ConfigurationsList: View {
         }
     }
 
+    // No spacing
     var nonselecetablenospacing: some View {
         ForEach(configurationssorted) { configurations in
             OneConfig(forestimated: $forestimated,
@@ -100,6 +104,7 @@ struct ConfigurationsList: View {
         .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
     }
 
+    // Spacing
     var nonselecetablespacing: some View {
         ForEach(configurationssorted) { configurations in
             OneConfig(forestimated: $forestimated,

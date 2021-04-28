@@ -50,6 +50,10 @@ final class RsyncUIdata: ObservableObject {
         }
     }
 
+    func activeschedules(_ hiddenID: Int) -> Int {
+        return rsyncdata?.scheduleData.getallactiveshedulesbyhiddenID(hiddenID: hiddenID) ?? 0
+    }
+
     func update() {
         objectWillChange.send()
     }

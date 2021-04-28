@@ -51,6 +51,12 @@ struct SchedulesSwiftUI {
         return nil
     }
 
+    // dateStop == "01 Jan 2100 00:00" is an active schedule
+    func getallactiveshedulesbyhiddenID(hiddenID: Int) -> Int {
+        let schedulerecords = scheduleConfigurations?.filter { $0.hiddenID == hiddenID }
+        return schedulerecords?.filter { $0.dateStop == "01 Jan 2100 00:00" }.count ?? 0
+    }
+
     init(profile: String?, validhiddenIDs: Set<Int>) {
         self.profile = profile
         let schedulesdata = ReadScheduleJSON(profile, validhiddenIDs)
