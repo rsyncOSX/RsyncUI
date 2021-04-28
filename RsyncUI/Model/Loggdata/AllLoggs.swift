@@ -83,6 +83,6 @@ final class AllLoggs {
     }
 
     deinit {
-        print("deinit Alllog")
+        // print("deinit Alllog")
     }
 }

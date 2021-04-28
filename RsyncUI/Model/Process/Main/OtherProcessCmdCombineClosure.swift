@@ -9,9 +9,8 @@ import Combine
 import Foundation
 
 final class OtherProcessCmdCombineClosure: Delay {
-    var cancellable_processtermination: Cancellable?
-    var cancellable_filehandler: Cancellable?
-
+    // Combine subscribers
+    var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
     var processtermination: () -> Void
     var filehandler: () -> Void
@@ -41,9 +40,8 @@ final class OtherProcessCmdCombineClosure: Delay {
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
         // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
-        // notifications
-        cancellable_filehandler = NotificationCenter.default
-            .publisher(for: NSNotification.Name.NSFileHandleDataAvailable)
+        NotificationCenter.default.publisher(
+            for: NSNotification.Name.NSFileHandleDataAvailable)
             .sink { _ in
                 let data = outHandle.availableData
                 if data.count > 0 {
@@ -54,18 +52,18 @@ final class OtherProcessCmdCombineClosure: Delay {
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
-            }
+            }.store(in: &subscriptons)
         // Combine, subscribe to Process.didTerminateNotification
-        // notifications
-        cancellable_processtermination = NotificationCenter.default
-            .publisher(for: Process.didTerminateNotification)
+        NotificationCenter.default.publisher(
+            for: Process.didTerminateNotification)
             .sink { [self] _ in
                 self.processtermination()
                 // Logg to file
                 _ = Logfile(outputprocess)
-                cancellable_filehandler = nil
-                cancellable_processtermination = nil
-            }
+                // Release Combine subscribers
+                subscriptons.removeAll()
+            }.store(in: &subscriptons)
+
         SharedReference.shared.process = task
         do {
             try task.run()
