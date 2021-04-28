@@ -55,7 +55,14 @@ class ReadConfigurationJSON: NamesandPaths {
                 try Data(contentsOf: url)
             }
             .decode(type: [DecodeConfiguration].self, decoder: JSONDecoder())
-            .sink { _ in
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    // print("The publisher finished normally.")
+                    return
+                case let .failure(error):
+                    self.propogateerror(error: error)
+                }
                 // print("completion with \(completion)")
             } receiveValue: { [unowned self] data in
                 var configurations = [Configuration]()
