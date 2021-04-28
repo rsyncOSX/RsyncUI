@@ -126,9 +126,14 @@ extension SnapshotsView {
         }
     }
 
-    // TODO:
     func delete() {
         // Send all selected UUIDs to mark for delete
         _ = NotYetImplemented()
     }
 }
+
+/*
+ TODO:
+ - function for delete
+ - there is a bug in collecting many snapshot logs, a mixup of snapshotnums and logs
+ */
