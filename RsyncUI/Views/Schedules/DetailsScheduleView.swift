@@ -49,10 +49,10 @@ struct DetailsScheduleView: View {
         Spacer()
 
         HStack {
-            Spacer()
-
             Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
                 .buttonStyle(PrimaryButtonStyle())
+            
+            Spacer()
 
             Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                 .buttonStyle(PrimaryButtonStyle())

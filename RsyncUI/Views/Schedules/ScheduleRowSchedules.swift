@@ -20,22 +20,33 @@ struct ScheduleRowSchedules: View {
             selected
 
             Text(configschedule.schedule)
+                .modifier(FixedTag(50, .trailing))
+            /*
+             if configschedule.dateStart == "01 Jan 1900 00:00" {
+                 Text(NSLocalizedString("no startdate", comment: "ScheduleRowSchedules"))
+                     .modifier(FixedTag(130, .leading))
+             } else {
+                 Text(localizeddatestart)
+                     .modifier(FixedTag(130, .leading))
+             }
+             */
+            Text(localizeddatestart)
+                .modifier(FixedTag(130, .leading))
+
+            /*
+             if configschedule.dateStop == "01 Jan 2100 00:00" {
+                 Text(NSLocalizedString("active", comment: "ScheduleRowSchedules"))
+                     .modifier(FixedTag(50, .leading))
+                     .foregroundColor(Color.green)
+             } else {
+                 Text(localizeddatestop)
+                     .modifier(FixedTag(50, .leading))
+             }
+             */
+            Text(NSLocalizedString("active", comment: "ScheduleRowSchedules"))
                 .modifier(FixedTag(50, .leading))
-            if configschedule.dateStart == "01 Jan 1900 00:00" {
-                Text(NSLocalizedString("no startdate", comment: "ScheduleRowSchedules"))
-                    .modifier(FixedTag(130, .leading))
-            } else {
-                Text(localizeddatestart)
-                    .modifier(FixedTag(130, .leading))
-            }
-            if configschedule.dateStop == "01 Jan 2100 00:00" {
-                Text(NSLocalizedString("active", comment: "ScheduleRowSchedules"))
-                    .modifier(FixedTag(130, .leading))
-                    .foregroundColor(Color.green)
-            } else {
-                Text(localizeddatestop)
-                    .modifier(FixedTag(130, .leading))
-            }
+                .foregroundColor(Color.green)
+
             Text(String(configschedule.logrecords?.count ?? 0))
                 .modifier(FixedTag(35, .trailing))
 

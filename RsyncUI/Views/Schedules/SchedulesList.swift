@@ -15,7 +15,7 @@ struct SchedulesList: View {
 
     var body: some View {
         List(selection: $selectedschedule) {
-            ForEach(schedulesandlogs) { record in
+            ForEach(activeschedulesandlogs) { record in
                 ScheduleRowSchedules(selecteduuids: $selecteduuids, configschedule: record)
                     .tag(record)
             }
@@ -23,9 +23,11 @@ struct SchedulesList: View {
         }
     }
 
-    var schedulesandlogs: [ConfigurationSchedule] {
+    var activeschedulesandlogs: [ConfigurationSchedule] {
         if let schedulesandlogs = rsyncUIData.schedulesandlogs {
-            return schedulesandlogs.filter { schedulesandlogs in selectedconfig?.hiddenID == schedulesandlogs.hiddenID }
+            return schedulesandlogs.filter { schedulesandlogs in selectedconfig?.hiddenID == schedulesandlogs.hiddenID
+                && schedulesandlogs.dateStop == "01 Jan 2100 00:00"
+            }
         } else {
             return []
         }
