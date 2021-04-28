@@ -25,16 +25,16 @@ All three are available as source code and automatically included as part of bui
 
 The following tools are used in development:
 
-- Xcode 12.5 and newer, the main tool (Swift 5.4 and newer)
-  - a few SwiftUI features in code require latest version of Swift and macOS 11
+- Xcode 12.5 and newer, the main tool and Swift 5.4
+  - a few SwiftUI features in code require latest version of Swift and macOS Big Sur (macOS 11.x)
 - make to compile new versions in terminal
 - [create-dmg](https://github.com/sindresorhus/create-dmg) to create new releases
 - [periphery](https://github.com/peripheryapp/periphery) to identify unused code
 - [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift style and conventions
 - [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) for reformatting Swift code
-- [GitHub Desktop](https://desktop.github.com/)
+- [GitHub Desktop](https://desktop.github.com/) for git and GitHub
 
-All the above tools, except Xcode are installed by using [Homebrew](https://brew.sh/).
+All the above tools, except Xcode and GitHub Desktop are installed by using [Homebrew](https://brew.sh/).
 
 ## Localization
 
