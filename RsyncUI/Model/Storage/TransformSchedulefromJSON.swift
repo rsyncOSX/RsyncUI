@@ -25,8 +25,8 @@ struct TransformSchedulefromJSON {
         for i in 0 ..< (object.logrecords?.count ?? 0) {
             if i == 0 { log = Array() }
             let logdict: NSMutableDictionary = [
-                DictionaryStrings.dateExecuted.rawValue: object.logrecords![i].dateExecuted ?? "",
-                DictionaryStrings.resultExecuted.rawValue: object.logrecords![i].resultExecuted ?? "",
+                DictionaryStrings.dateExecuted.rawValue: object.logrecords?[i].dateExecuted ?? "",
+                DictionaryStrings.resultExecuted.rawValue: object.logrecords?[i].resultExecuted ?? "",
             ]
             log?.append(logdict)
         }

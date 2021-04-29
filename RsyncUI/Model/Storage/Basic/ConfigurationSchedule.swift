@@ -34,18 +34,17 @@ struct ConfigurationSchedule: Identifiable, Codable {
         schedule = dictionary.object(forKey: DictionaryStrings.schedule.rawValue) as? String ?? ""
         offsiteserver = dictionary.object(forKey: DictionaryStrings.offsiteserver.rawValue) as? String ?? ""
         if let date = dictionary.object(forKey: DictionaryStrings.dateStop.rawValue) as? String { dateStop = date }
-        if log != nil {
-            for i in 0 ..< (log?.count ?? 0) {
+        if let log = log {
+            for i in 0 ..< log.count {
                 if i == 0 { logrecords = [Log]() }
                 var logrecord = Log()
-                if let dict = log?[i] as? NSDictionary {
+                if let dict = log[i] as? NSDictionary {
                     logrecord.dateExecuted = dict.object(forKey: DictionaryStrings.dateExecuted.rawValue) as? String
                     logrecord.resultExecuted = dict.object(forKey: DictionaryStrings.resultExecuted.rawValue) as? String
                 }
                 logrecords?.append(logrecord)
             }
         }
-        if logrecords == nil { logrecords = [] }
     }
 
     // Codable init
