@@ -132,6 +132,8 @@ final class Snapshotlogsandcatalogs {
             }
             return false
         }
+        // Add records to the StateObject for use in View
+        mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
         validatelogrecordsnapshots()
     }
 
@@ -228,7 +230,7 @@ extension Snapshotlogsandcatalogs {
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         mysnapshotdata?.state = .gotit
-        mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
+        // mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
     }
 
     func filehandler() {}
