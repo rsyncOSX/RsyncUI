@@ -37,8 +37,10 @@ final class Snapshotlogsandcatalogs {
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
     private func prepareremotesnapshotcatalogs() {
-        _ = outputprocess?.trimoutput(trim: .two)
-        guard outputprocess?.errordiscovered == false else { return }
+        // let strings = outputprocess?.trimoutput(trim: .two)
+        // guard outputprocess?.errordiscovered == false else { return }
+
+        print("rsyncdata \(outputprocess?.count() ?? 0)")
         if let catalogs = outputprocess?.trimoutput(trim: .one),
            let datescatalogs = outputprocess?.trimoutput(trim: .four)
         {
