@@ -16,11 +16,17 @@ enum Snapshotdatastat {
 final class SnapshotData: ObservableObject {
     private var logrecordssnapshot: [Logrecordsschedules]?
     var state: Snapshotdatastat = .start
+    // Remote num of snapshot catalogs
+    // Number of saved logrecords on local storage
+    var numremotecatalogs: Int = 0
+    var numlocallogrecords: Int = 0
 
-    func getnumber() -> Int {
-        return logrecordssnapshot?.count ?? 0
-    }
+    /*
+     func getnumber() -> Int {
+         return logrecordssnapshot?.count ?? 0
+     }
 
+      */
     func setsnapshotdata(_ data: [Logrecordsschedules]?) {
         logrecordssnapshot = data
         objectWillChange.send()

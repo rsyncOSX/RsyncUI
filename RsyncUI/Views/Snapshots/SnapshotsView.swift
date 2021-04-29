@@ -20,6 +20,7 @@ struct SnapshotsView: View {
     // If not a snapshot
     @State private var notsnapshot = false
     // Hold your horses
+    // Cannot collect remote cataloglist for more than one task a timw
     @State private var holdhorses = false
 
     var body: some View {
@@ -68,7 +69,7 @@ struct SnapshotsView: View {
     }
 
     var label: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(snapshotdata.getnumber())"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(snapshotdata.numremotecatalogs)"
     }
 
     var notasnapshottask: some View {

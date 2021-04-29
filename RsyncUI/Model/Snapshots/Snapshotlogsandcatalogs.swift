@@ -37,8 +37,6 @@ final class Snapshotlogsandcatalogs {
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
     private func prepareremotesnapshotcatalogs() {
-        _ = outputprocess?.trimoutput(trim: .two)
-        guard outputprocess?.errordiscovered == false else { return }
         if let catalogs = outputprocess?.trimoutput(trim: .one),
            let datescatalogs = outputprocess?.trimoutput(trim: .four)
         {
@@ -64,6 +62,9 @@ final class Snapshotlogsandcatalogs {
                 return false
             }
         }
+        // Set number of remote catalogs
+        mysnapshotdata?.numremotecatalogs = catalogsanddates?.count ?? 0
+        print("remotecatalogs \(mysnapshotdata?.numremotecatalogs ?? 0)")
     }
 
     // Calculating days since snaphot was executed
@@ -82,6 +83,9 @@ final class Snapshotlogsandcatalogs {
     private func mergeremotecatalogsandlogs() {
         var adjustedlogrecords = [Logrecordsschedules]()
         let logcount = logrecordssnapshot?.count ?? 0
+        // Set number of local logrecords
+        mysnapshotdata?.numlocallogrecords = logcount
+        print("logrecords \(mysnapshotdata?.numlocallogrecords ?? 0)")
         for i in 0 ..< (catalogsanddates?.count ?? 0) {
             var j = 0
             if let logrecordssnapshot = self.logrecordssnapshot {
