@@ -157,4 +157,5 @@ extension SnapshotsView {
  TODO:
  - function for delete
  - there is a bug in collecting many snapshot logs, a mixup of snapshotnums and logs
+ - add plan for snapshots week or monthly
  */
