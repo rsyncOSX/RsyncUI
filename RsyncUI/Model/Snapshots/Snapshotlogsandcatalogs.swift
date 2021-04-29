@@ -134,7 +134,7 @@ final class Snapshotlogsandcatalogs {
         }
         // Add records to the StateObject for use in View
         mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
-        validatelogrecordsnapshots()
+        // validatelogrecordsnapshots()
     }
 
     func validatelogrecordsnapshots() {
