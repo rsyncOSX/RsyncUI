@@ -101,18 +101,21 @@ final class Snapshotlogsandcatalogs {
                     }
                     j += 1
                     return false
-                }) {} else {
-                    var record = self.logrecordssnapshot?[0]
-                    record?.snapshotCatalog = catalogsanddates?[i].0
-                    record?.period = "... not yet tagged ..."
-                    record?.resultExecuted = "... no log ..."
-                    record?.days = ""
-                    record?.seconds = 0
-                    record?.dateExecuted = catalogsanddates?[i].1.long_localized_string_from_date() ?? Date().long_localized_string_from_date()
-                    if let record = record {
-                        adjustedlogrecords.append(record)
-                    }
-                }
+                }) {}
+                /*
+                 else {
+                     var record = self.logrecordssnapshot?[0]
+                     record?.snapshotCatalog = catalogsanddates?[i].0
+                     record?.period = "... not yet tagged ..."
+                     record?.resultExecuted = "... no log ..."
+                     record?.days = ""
+                     record?.seconds = 0
+                     record?.dateExecuted = catalogsanddates?[i].1.long_localized_string_from_date() ?? Date().long_localized_string_from_date()
+                     if let record = record {
+                         adjustedlogrecords.append(record)
+                     }
+                 }
+                 */
             }
         }
         logrecordssnapshot = adjustedlogrecords.sorted { cat1, cat2 -> Bool in
