@@ -19,6 +19,8 @@ struct SnapshotsView: View {
     @State private var selectable = false
     // If not a snapshot
     @State private var notsnapshot = false
+    // Hold your horses
+    @State private var holdhorses = false
 
     var body: some View {
         VStack {
@@ -44,6 +46,7 @@ struct SnapshotsView: View {
         }
 
         if notsnapshot == true { notasnapshottask }
+        if holdhorses == true { holdyourhorses }
 
         HStack {
             Text(label)
@@ -78,6 +81,17 @@ struct SnapshotsView: View {
         .frame(width: 150, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
+
+    var holdyourhorses: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text("Hold your horses")
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 150, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
 }
 
 extension SnapshotsView {
@@ -89,6 +103,13 @@ extension SnapshotsView {
     }
 
     func getdata() {
+        guard SharedReference.shared.process == nil else {
+            holdhorses = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                holdhorses = false
+            }
+            return
+        }
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else {
                 notsnapshot = true
