@@ -92,6 +92,7 @@ extension Logrecordsschedules: Hashable, Equatable {
         return lhs.dateExecuted == rhs.dateExecuted &&
             lhs.resultExecuted == rhs.resultExecuted &&
             lhs.snapshotCatalog == rhs.snapshotCatalog &&
+            lhs.period == rhs.period &&
             lhs.id == rhs.id
     }
 
@@ -100,5 +101,6 @@ extension Logrecordsschedules: Hashable, Equatable {
         hasher.combine(resultExecuted)
         hasher.combine(id)
         hasher.combine(snapshotCatalog)
+        hasher.combine(period)
     }
 }
