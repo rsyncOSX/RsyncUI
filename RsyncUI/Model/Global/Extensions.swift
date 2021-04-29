@@ -21,28 +21,6 @@ extension Sequence {
     }
 }
 
-protocol Help: AnyObject {
-    func help()
-}
-
-extension Help {
-    func help() {
-        NSWorkspace.shared.open(URL(string: "https://rsyncosx.netlify.app/post/rsyncosxdocs/")!)
-    }
-}
-
-protocol Delay {
-    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> Void)
-}
-
-extension Delay {
-    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            completion()
-        }
-    }
-}
-
 protocol Connected {
     func connected(config: Configuration?) -> Bool
     func connected(server: String?) -> Bool

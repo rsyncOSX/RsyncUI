@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class OtherProcessCmdCombineClosure: Delay {
+final class OtherProcessCmdCombineClosure {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -56,6 +56,7 @@ final class OtherProcessCmdCombineClosure: Delay {
         // Combine, subscribe to Process.didTerminateNotification
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [self] _ in
                 self.processtermination()
                 // Logg to file

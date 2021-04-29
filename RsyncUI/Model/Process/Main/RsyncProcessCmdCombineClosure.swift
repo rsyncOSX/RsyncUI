@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class RsyncProcessCmdCombineClosure: Delay {
+final class RsyncProcessCmdCombineClosure {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -82,14 +82,13 @@ final class RsyncProcessCmdCombineClosure: Delay {
         // Combine, subscribe to Process.didTerminateNotification
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
-            .sink { _ in
-                self.delayWithSeconds(0.5) { [self] in
-                    self.processtermination()
-                    // Logg to file
-                    _ = Logfile(outputprocess)
-                    // Release Combine subscribers
-                    subscriptons.removeAll()
-                }
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [self] _ in
+                self.processtermination()
+                // Logg to file
+                _ = Logfile(outputprocess)
+                // Release Combine subscribers
+                subscriptons.removeAll()
             }.store(in: &subscriptons)
 
         SharedReference.shared.process = task

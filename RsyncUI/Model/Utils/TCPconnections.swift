@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TCPconnections: Delay {
+class TCPconnections {
     private var indexBoolremoteserverOff: [Bool]?
     var client: TCPClient?
     var connectionscheckcompleted: Bool = false

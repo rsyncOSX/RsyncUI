@@ -64,6 +64,8 @@ final class Snapshotlogsandcatalogs {
                 return false
             }
         }
+        print("remote data \(catalogsanddates?.count ?? 0)")
+        print("local logrecords data \(logrecordssnapshot?.count ?? 0)")
     }
 
     // Calculating days since snaphot was executed
@@ -205,10 +207,12 @@ final class Snapshotlogsandcatalogs {
         guard config.task == SharedReference.shared.snapshot else { return }
         localeconfig = config
         mysnapshotdata = snapshotdata
+        // Getting log records from schedules, sorted after date
         logrecordssnapshot = AllLoggs(hiddenID: config.hiddenID,
                                       configurationsSwiftUI: configurationsSwiftUI,
                                       schedulesSwiftUI: schedulesSwiftUI)
             .loggrecords
+        // Getting remote catalogdata about all snapshots
         getremotecataloginfo()
     }
 
