@@ -19,9 +19,11 @@ struct SnapshotListView: View {
         Divider()
 
         List(selection: $snapshotrecords) {
-            ForEach(snapshotdata.getsnapshotdata()) { record in
-                SnapshotRow(selecteduuids: $selecteduuids, logrecord: record)
-                    .tag(record)
+            if let logs = snapshotdata.getsnapshotdata() {
+                ForEach(logs) { record in
+                    SnapshotRow(selecteduuids: $selecteduuids, logrecord: record)
+                        .tag(record)
+                }
             }
         }
     }

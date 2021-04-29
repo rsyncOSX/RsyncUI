@@ -108,7 +108,7 @@ extension SnapshotsView {
     func tagsnapshots() {
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }
-            guard snapshotdata.getsnapshotdata().count > 0 else { return }
+            guard (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
             let tagged = TagSnapshots(plan: config.snaplast ?? 0,
                                       snapdayoffweek: config.snapdayoffweek ?? "",
                                       data: snapshotdata.getsnapshotdata())

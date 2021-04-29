@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Logrecordsschedules: Identifiable, Hashable {
+struct Logrecordsschedules: Identifiable {
     var id = UUID()
     var hiddenID: Int
     var localCatalog: String
@@ -84,5 +84,21 @@ final class AllLoggs {
 
     deinit {
         // print("deinit Alllog")
+    }
+}
+
+extension Logrecordsschedules: Hashable, Equatable {
+    static func == (lhs: Logrecordsschedules, rhs: Logrecordsschedules) -> Bool {
+        return lhs.dateExecuted == rhs.dateExecuted &&
+            lhs.resultExecuted == rhs.resultExecuted &&
+            lhs.snapshotCatalog == rhs.snapshotCatalog &&
+            lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(dateExecuted)
+        hasher.combine(resultExecuted)
+        hasher.combine(id)
+        hasher.combine(snapshotCatalog)
     }
 }

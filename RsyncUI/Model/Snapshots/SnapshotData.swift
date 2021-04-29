@@ -26,7 +26,7 @@ final class SnapshotData: ObservableObject {
         objectWillChange.send()
     }
 
-    func getsnapshotdata() -> [Logrecordsschedules] {
-        return logrecordssnapshot?.sorted(by: \.date, using: >) ?? []
+    func getsnapshotdata() -> [Logrecordsschedules]? {
+        return logrecordssnapshot?.sorted(by: \.date, using: >)
     }
 }
