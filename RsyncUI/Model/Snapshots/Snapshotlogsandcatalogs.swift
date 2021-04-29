@@ -37,10 +37,8 @@ final class Snapshotlogsandcatalogs {
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
     private func prepareremotesnapshotcatalogs() {
-        // let strings = outputprocess?.trimoutput(trim: .two)
-        // guard outputprocess?.errordiscovered == false else { return }
-
-        print("rsyncdata \(outputprocess?.count() ?? 0)")
+        _ = outputprocess?.trimoutput(trim: .two)
+        guard outputprocess?.errordiscovered == false else { return }
         if let catalogs = outputprocess?.trimoutput(trim: .one),
            let datescatalogs = outputprocess?.trimoutput(trim: .four)
         {
@@ -66,8 +64,6 @@ final class Snapshotlogsandcatalogs {
                 return false
             }
         }
-        print("remote data \(catalogsanddates?.count ?? 0)")
-        print("local logrecords data \(logrecordssnapshot?.count ?? 0)")
     }
 
     // Calculating days since snaphot was executed
