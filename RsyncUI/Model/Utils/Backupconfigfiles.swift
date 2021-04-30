@@ -22,7 +22,7 @@ final class Backupconfigfiles {
             var originFolder: Folder?
             do {
                 originFolder = try Folder(path: usedpath)
-                let targetpath = "RsyncOSXcopy-" + Date().shortlocalized_string_from_date()
+                let targetpath = "RsyncUIcopy-" + Date().shortlocalized_string_from_date()
                 let targetFolder = try Folder(path: documentscatalog).createSubfolder(at: targetpath)
                 try originFolder?.copy(to: targetFolder)
             } catch let e {

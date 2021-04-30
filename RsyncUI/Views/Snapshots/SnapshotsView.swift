@@ -120,10 +120,19 @@ extension SnapshotsView {
                 }
                 return
             }
-            _ = Snapshotlogsandcatalogs(config: config,
-                                        configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                        schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                        snapshotdata: snapshotdata)
+            if rsyncUIData.profile != "test" {
+                _ = Snapshotlogsandcatalogs(config: config,
+                                            configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                            schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                            snapshotdata: snapshotdata,
+                                            test: false)
+            } else {
+                _ = Snapshotlogsandcatalogs(config: config,
+                                            configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                            schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                            snapshotdata: snapshotdata,
+                                            test: true)
+            }
         }
     }
 
@@ -159,4 +168,5 @@ extension SnapshotsView {
  - function for delete
  - there is a bug in collecting many snapshot logs, a mixup of snapshotnums and logs
  - add plan for snapshots week or monthly
+ - REMOVE test when done
  */

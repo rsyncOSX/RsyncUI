@@ -209,18 +209,25 @@ final class Snapshotlogsandcatalogs {
     init(config: Configuration,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
          schedulesSwiftUI: SchedulesSwiftUI?,
-         snapshotdata: SnapshotData)
+         snapshotdata: SnapshotData,
+         test: Bool)
     {
         guard config.task == SharedReference.shared.snapshot else { return }
         localeconfig = config
         mysnapshotdata = snapshotdata
         // Getting log records from schedules, sorted after date
-        logrecordssnapshot = AllLoggs(hiddenID: config.hiddenID,
-                                      configurationsSwiftUI: configurationsSwiftUI,
-                                      schedulesSwiftUI: schedulesSwiftUI)
-            .loggrecords
+        logrecordssnapshot =
+            AllLoggs(hiddenID: config.hiddenID,
+                     configurationsSwiftUI: configurationsSwiftUI,
+                     schedulesSwiftUI: schedulesSwiftUI).loggrecords
         // Getting remote catalogdata about all snapshots
-        getremotecataloginfo()
+        if test == false {
+            getremotecataloginfo()
+        } else {
+            outputprocess = OutputProcess()
+            outputprocess?.output = Testdata().output
+            processtermination()
+        }
     }
 
     deinit {
