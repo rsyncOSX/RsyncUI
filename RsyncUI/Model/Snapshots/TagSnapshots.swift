@@ -24,18 +24,6 @@ final class TagSnapshots {
     private var keepallselcteddayofweek: Bool = true
     var now: String?
 
-    func islastSundayinMonth(date: Date) -> Bool {
-        if date.isSunday(), date.daymonth() > 24 {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    func isaSunday(date: Date) -> Bool {
-        return date.isSunday()
-    }
-
     private func datefromstring(datestringlocalized: String) -> Date {
         guard datestringlocalized != "no log" else { return Date() }
         return datestringlocalized.localized_date_from_string()
@@ -159,7 +147,7 @@ final class TagSnapshots {
     }
 
     func isselectedDayinWeek(_ date: Date) -> Bool {
-        return day!.rawValue == date.getWeekday()
+        return day?.rawValue == date.getWeekday()
     }
 
     private func reset() {

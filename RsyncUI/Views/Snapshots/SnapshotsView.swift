@@ -222,9 +222,9 @@ extension SnapshotsView {
              */
             var localsnaplast: Int = 0
             if snaplast == PlanSnapshots.Last.rawValue {
-                localsnaplast = 0
+                localsnaplast = 0 // keep selected day of week every week of month
             } else {
-                localsnaplast = 1
+                localsnaplast = 1 // keep last selected day of week pr month
             }
             let tagged = TagSnapshots(plan: localsnaplast,
                                       snapdayoffweek: snapdayofweek,

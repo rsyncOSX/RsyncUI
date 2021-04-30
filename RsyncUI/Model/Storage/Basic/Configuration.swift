@@ -30,8 +30,8 @@ enum StringDayofweek: String, CaseIterable, Identifiable, CustomStringConvertibl
 }
 
 enum PlanSnapshots: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case Every
-    case Last
+    case Every // keepallselcteddayofweek
+    case Last // islastSelectedDayinMonth
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase }
