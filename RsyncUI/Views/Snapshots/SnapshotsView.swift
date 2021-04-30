@@ -72,11 +72,13 @@ struct SnapshotsView: View {
         }
 
         HStack {
+            VStack(alignment: .leading) {
+                pickersnaplast
+
+                pickersnapdayoffweek
+            }
+
             Text(label)
-
-            pickersnaplast
-
-            pickersnapdayoffweek
 
             Spacer()
 
@@ -132,18 +134,20 @@ struct SnapshotsView: View {
     }
 
     var pickersnapdayoffweek: some View {
-        Picker(NSLocalizedString("Day of week", comment: "SnapshotsView") + ":",
+        // Picker(NSLocalizedString("Day of week", comment: "SnapshotsView") + ":",
+        Picker(NSLocalizedString("", comment: "SnapshotsView"),
                selection: $snapdayofweek) {
             ForEach(StringDayofweek.allCases) { Text($0.description)
                 .tag($0)
             }
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 180)
+        .frame(width: 100)
     }
 
     var pickersnaplast: some View {
-        Picker(NSLocalizedString("Plan", comment: "SnapshotsView") + ":",
+        // Picker(NSLocalizedString("Plan", comment: "SnapshotsView") + ":",
+        Picker(NSLocalizedString("", comment: "SnapshotsView"),
                selection: $snaplast) {
             ForEach(PlanSnapshots.allCases) { Text($0.description)
                 .tag($0)
@@ -179,6 +183,7 @@ extension SnapshotsView {
                 }
                 return
             }
+            // Setting values for tagging snapshots
             if let snaplast = config.snaplast {
                 if snaplast == 0 {
                     self.snaplast = PlanSnapshots.Last.rawValue
@@ -188,7 +193,6 @@ extension SnapshotsView {
             }
             if let snapdayofweek = config.snapdayoffweek {
                 self.snapdayofweek = snapdayofweek
-                print(self.snapdayofweek)
             }
             if rsyncUIData.profile != "test" {
                 _ = Snapshotlogsandcatalogs(config: config,
@@ -210,12 +214,9 @@ extension SnapshotsView {
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }
             guard (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
-            // Plan for tagging
             /*
-             // which plan to apply
-             // Snapshots, day to save and last = 1 or every last=0
-             var snapdayoffweek: String?
-             var snaplast: Int?
+             var snapdayoffweek: String = ""
+             var snaplast: String = ""
              plan == 1, only keep last day of week in a month
              plan == 0, keep last day of week every week
              dayofweek
