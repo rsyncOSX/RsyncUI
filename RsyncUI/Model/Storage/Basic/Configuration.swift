@@ -16,7 +16,7 @@ enum NumDayofweek: Int {
     case Sunday = 1
 }
 
-enum StringDayofweek: String {
+enum StringDayofweek: String, CaseIterable, Identifiable, CustomStringConvertible {
     case Monday
     case Tuesday
     case Wednesday
@@ -24,6 +24,17 @@ enum StringDayofweek: String {
     case Friday
     case Saturday
     case Sunday
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
+}
+
+enum PlanSnapshots: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case Every
+    case Last
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
 }
 
 struct Configuration: Identifiable, Codable {

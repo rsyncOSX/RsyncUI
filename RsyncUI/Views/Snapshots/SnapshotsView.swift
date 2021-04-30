@@ -19,9 +19,11 @@ struct SnapshotsView: View {
     @State private var selectable = false
     // If not a snapshot
     @State private var notsnapshot = false
-    // Hold your horses
-    // Cannot collect remote cataloglist for more than one task a timw
+    // Cannot collect remote cataloglist for more than one task a time
     @State private var gettingdata = false
+    // Plan for tagging and administrating snapshots
+    @State private var snaplast: String = PlanSnapshots.Last.rawValue
+    @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
 
     var body: some View {
         VStack {
@@ -71,6 +73,10 @@ struct SnapshotsView: View {
 
         HStack {
             Text(label)
+
+            pickersnaplast
+
+            pickersnapdayoffweek
 
             Spacer()
 
@@ -124,6 +130,28 @@ struct SnapshotsView: View {
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
+
+    var pickersnapdayoffweek: some View {
+        Picker(NSLocalizedString("Day of week", comment: "SnapshotsView") + ":",
+               selection: $snapdayofweek) {
+            ForEach(StringDayofweek.allCases) { Text($0.description)
+                .tag($0)
+            }
+        }
+        .pickerStyle(DefaultPickerStyle())
+        .frame(width: 180)
+    }
+
+    var pickersnaplast: some View {
+        Picker(NSLocalizedString("Plan", comment: "SnapshotsView") + ":",
+               selection: $snaplast) {
+            ForEach(PlanSnapshots.allCases) { Text($0.description)
+                .tag($0)
+            }
+        }
+        .pickerStyle(DefaultPickerStyle())
+        .frame(width: 100)
+    }
 }
 
 extension SnapshotsView {
@@ -151,6 +179,16 @@ extension SnapshotsView {
                 }
                 return
             }
+            if let snaplast = config.snaplast {
+                if snaplast == 0 {
+                    self.snaplast = PlanSnapshots.Last.rawValue
+                } else {
+                    self.snaplast = PlanSnapshots.Every.rawValue
+                }
+            }
+            if let snapdayofweek = config.snapdayoffweek {
+                self.snapdayofweek = snapdayofweek
+            }
             if rsyncUIData.profile != "test" {
                 _ = Snapshotlogsandcatalogs(config: config,
                                             configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
@@ -171,6 +209,17 @@ extension SnapshotsView {
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }
             guard (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
+            // Plan for tagging
+            /*
+             // which plan to apply
+             // Snapshots, day to save and last = 1 or every last=0
+             var snapdayoffweek: String?
+             var snaplast: Int?
+             plan == 1, only keep last day of week in a month
+             plan == 0, keep last day of week every week
+             dayofweek
+             */
+
             let tagged = TagSnapshots(plan: config.snaplast ?? 0,
                                       snapdayoffweek: config.snapdayoffweek ?? "",
                                       data: snapshotdata.getsnapshotdata())
