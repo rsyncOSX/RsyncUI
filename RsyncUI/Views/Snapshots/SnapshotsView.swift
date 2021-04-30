@@ -21,7 +21,7 @@ struct SnapshotsView: View {
     @State private var notsnapshot = false
     // Hold your horses
     // Cannot collect remote cataloglist for more than one task a timw
-    @State private var holdhorses = false
+    @State private var gettingdata = false
 
     var body: some View {
         VStack {
@@ -47,7 +47,8 @@ struct SnapshotsView: View {
         }
 
         if notsnapshot == true { notasnapshottask }
-        if holdhorses == true { holdyourhorses }
+        if gettingdata == true { gettingdatainprocess }
+        if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs { discrepancy }
 
         HStack {
             Text(label)
@@ -79,18 +80,29 @@ struct SnapshotsView: View {
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }
-        .frame(width: 150, height: 20, alignment: .center)
+        .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 
-    var holdyourhorses: some View {
+    var gettingdatainprocess: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Hold your horses")
+            Text(NSLocalizedString("In process in getting data", comment: "settings"))
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }
-        .frame(width: 150, height: 20, alignment: .center)
+        .frame(width: 200, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
+
+    var discrepancy: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("some discrepancy", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 }
@@ -105,9 +117,9 @@ extension SnapshotsView {
 
     func getdata() {
         guard SharedReference.shared.process == nil else {
-            holdhorses = true
+            gettingdata = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                holdhorses = false
+                gettingdata = false
             }
             return
         }
