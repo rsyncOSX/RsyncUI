@@ -48,7 +48,26 @@ struct SnapshotsView: View {
 
         if notsnapshot == true { notasnapshottask }
         if gettingdata == true { gettingdatainprocess }
-        if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs { discrepancy }
+        // Number of local logrecords is greater than number of remote snapshotcatalogs
+        // Ask if user want to delete those logrecords
+        if snapshotdata.numlocallogrecords > snapshotdata.numremotecatalogs {
+            HStack {
+                discrepancy
+
+                Button(NSLocalizedString("Log", comment: "Tag")) {}
+                    .buttonStyle(PrimaryButtonStyle())
+            }
+        }
+        // Number of remote snapshotcatalogs is greater than number of local logrecords
+        // Ask if user want to delete those snapshot catalogs
+        if snapshotdata.numlocallogrecords < snapshotdata.numremotecatalogs {
+            HStack {
+                discrepancy
+
+                Button(NSLocalizedString("Snapshots", comment: "Tag")) {}
+                    .buttonStyle(PrimaryButtonStyle())
+            }
+        }
 
         HStack {
             Text(label)

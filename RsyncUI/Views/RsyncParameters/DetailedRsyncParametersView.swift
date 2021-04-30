@@ -179,7 +179,7 @@ struct DetailedRsyncParametersView: View {
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }
-        .frame(width: 120, height: 20, alignment: .center)
+        .frame(width: 150, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 }

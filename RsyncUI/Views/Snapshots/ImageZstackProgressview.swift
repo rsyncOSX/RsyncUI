@@ -16,7 +16,7 @@ struct ImageZstackProgressview: View {
                     .font(.title2)
             }
         }
-        .frame(width: 120, height: 120, alignment: .center)
+        .frame(width: 150, height: 120, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 }
