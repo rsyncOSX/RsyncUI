@@ -188,6 +188,7 @@ extension SnapshotsView {
             }
             if let snapdayofweek = config.snapdayoffweek {
                 self.snapdayofweek = snapdayofweek
+                print(self.snapdayofweek)
             }
             if rsyncUIData.profile != "test" {
                 _ = Snapshotlogsandcatalogs(config: config,
@@ -219,9 +220,14 @@ extension SnapshotsView {
              plan == 0, keep last day of week every week
              dayofweek
              */
-
-            let tagged = TagSnapshots(plan: config.snaplast ?? 0,
-                                      snapdayoffweek: config.snapdayoffweek ?? "",
+            var localsnaplast: Int = 0
+            if snaplast == PlanSnapshots.Last.rawValue {
+                localsnaplast = 0
+            } else {
+                localsnaplast = 1
+            }
+            let tagged = TagSnapshots(plan: localsnaplast,
+                                      snapdayoffweek: snapdayofweek,
                                       data: snapshotdata.getsnapshotdata())
             snapshotdata.setsnapshotdata(tagged.logrecordssnapshot)
         }
