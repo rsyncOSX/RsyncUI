@@ -59,13 +59,13 @@ struct SnapshotsView: View {
         // match, there is either to many logrecords or missing logrecords
         // for remote snapshotcatalogs
         // The match is important for adminsitrating snapshots
-        if (uuids?.count ?? 0) > 0 {
+        if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs {
             HStack {
                 discrepancy
 
                 Button(NSLocalizedString("Discrepancy", comment: "Tag")) {
                     if let config = selectedconfig {
-                        rsyncUIData.filterbyhiddenIDanduuids("", config.hiddenID, uuids)
+                        rsyncUIData.filterbyhiddenIDanduuids(config.hiddenID, uuids)
                     }
                     logs = true
                 }
@@ -197,21 +197,23 @@ extension SnapshotsView {
                 self.snapdayofweek = snapdayofweek
             }
             if rsyncUIData.profile != "test" {
-                var snapshotslogsandcatalogs: Snapshotlogsandcatalogs? = Snapshotlogsandcatalogs(config: config,
-                                                                                                 configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                                                                                 schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                                                                                 snapshotdata: snapshotdata,
-                                                                                                 test: false)
+                var snapshotslogsandcatalogs: Snapshotlogsandcatalogs?
+                    = Snapshotlogsandcatalogs(config: config,
+                                              configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                              schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                              snapshotdata: snapshotdata,
+                                              test: false)
                 uuids = snapshotslogsandcatalogs?.uuids
                 // Release object
                 snapshotslogsandcatalogs = nil
 
             } else {
-                var snapshotslogsandcatalogs: Snapshotlogsandcatalogs? = Snapshotlogsandcatalogs(config: config,
-                                                                                                 configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                                                                                 schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                                                                                 snapshotdata: snapshotdata,
-                                                                                                 test: true)
+                var snapshotslogsandcatalogs: Snapshotlogsandcatalogs?
+                    = Snapshotlogsandcatalogs(config: config,
+                                              configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                              schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                              snapshotdata: snapshotdata,
+                                              test: true)
                 uuids = snapshotslogsandcatalogs?.uuids
                 // Release object
                 snapshotslogsandcatalogs = nil

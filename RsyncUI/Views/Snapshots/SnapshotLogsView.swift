@@ -22,11 +22,6 @@ struct SnapshotLogsView: View {
 
     var body: some View {
         Form {
-            SearchbarView(text: $filterstring.onChange {
-                rsyncUIData.filterbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
-            })
-                .padding(.top, -20)
-
             List(selection: $selectedlog) {
                 if let logs = rsyncUIData.filterlogsortedbyhiddenID {
                     ForEach(logs) { record in
