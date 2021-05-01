@@ -51,6 +51,25 @@ struct SchedulesSwiftUI {
         return nil
     }
 
+    func getalllogsbyhiddenIDandUUIDs(hiddenID: Int, uuids: Set<UUID>?) -> [Log]? {
+        var joined: [Log]?
+        let schedulerecords = scheduleConfigurations?.filter { $0.hiddenID == hiddenID &&
+            uuids?.contains($0.id) ?? false
+        }
+        if (schedulerecords?.count ?? 0) > 0 {
+            joined = [Log]()
+            for i in 0 ..< (schedulerecords?.count ?? 0) {
+                if let logrecords = schedulerecords?[i].logrecords {
+                    joined?.append(contentsOf: logrecords)
+                }
+            }
+            if let joined = joined {
+                return joined.sorted(by: \.date, using: >)
+            }
+        }
+        return nil
+    }
+
     // dateStop == "01 Jan 2100 00:00" is an active schedule
     func getallactiveshedulesbyhiddenID(hiddenID: Int) -> Int {
         let schedulerecords = scheduleConfigurations?.filter { $0.hiddenID == hiddenID }

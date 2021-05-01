@@ -50,6 +50,14 @@ final class RsyncUIdata: ObservableObject {
         }
     }
 
+    func filterbyhiddenIDanduuids(_ filter: String, _ hiddenID: Int, _ uuids: Set<UUID>?) {
+        // Important - must localize search in dates
+        filterlogsortedbyhiddenID = rsyncdata?.scheduleData.getalllogsbyhiddenIDandUUIDs(hiddenID: hiddenID, uuids: uuids)?.filter {
+            filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+                filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+        }
+    }
+
     func activeschedules(_ hiddenID: Int) -> Int {
         return rsyncdata?.scheduleData.getallactiveshedulesbyhiddenID(hiddenID: hiddenID) ?? 0
     }
