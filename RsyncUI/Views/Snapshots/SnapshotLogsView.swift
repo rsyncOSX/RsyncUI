@@ -9,8 +9,10 @@ import SwiftUI
 
 struct SnapshotLogsView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
+
     @Binding var reload: Bool
     @Binding var selectedconfig: Configuration?
+    @Binding var logs: Bool
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
@@ -42,6 +44,9 @@ struct SnapshotLogsView: View {
                 Text(numberoflogs)
 
                 Spacer()
+
+                Button(NSLocalizedString("Return", comment: "Select button")) { logs = false }
+                    .buttonStyle(PrimaryButtonStyle())
 
                 Button(NSLocalizedString("Clear", comment: "Select button")) { selecteduuids.removeAll() }
                     .buttonStyle(PrimaryButtonStyle())

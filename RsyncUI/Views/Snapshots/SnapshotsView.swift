@@ -10,9 +10,10 @@ import SwiftUI
 struct SnapshotsView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var snapshotdata = SnapshotData()
-    @Binding var selectedconfig: Configuration?
 
+    @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
+    @Binding var logs: Bool
 
     @State private var snapshotrecords: Logrecordsschedules?
     @State private var selecteduuids = Set<UUID>()
@@ -68,10 +69,8 @@ struct SnapshotsView: View {
             HStack {
                 discrepancy
 
-                Button(NSLocalizedString("Snapshots", comment: "Tag")) {
-                    SnapshotLogsView(reload: $reload, selectedconfig: $selectedconfig)
-                }
-                .buttonStyle(PrimaryButtonStyle())
+                Button(NSLocalizedString("Snapshots", comment: "Tag")) { logs = true }
+                    .buttonStyle(PrimaryButtonStyle())
             }
         }
 
