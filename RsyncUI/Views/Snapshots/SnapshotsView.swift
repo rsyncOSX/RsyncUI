@@ -15,8 +15,6 @@ struct SnapshotsView: View {
     @Binding var reload: Bool
     @Binding var logs: Bool
 
-    // Discrapency
-    @State var uuids: Set<UUID>?
     @State private var snapshotrecords: Logrecordsschedules?
     @State private var selecteduuids = Set<UUID>()
     // Not used but requiered in parameter
@@ -65,7 +63,8 @@ struct SnapshotsView: View {
 
                 Button(NSLocalizedString("Discrepancy", comment: "Tag")) {
                     if let config = selectedconfig {
-                        rsyncUIData.filterbyhiddenIDanduuids(config.hiddenID, uuids)
+                        // rsyncUIData.filterbyhiddenIDanduuids(config.hiddenID, uuids)
+                        rsyncUIData.filterbyhiddenID("", config.hiddenID)
                     }
                     logs = true
                 }
@@ -197,26 +196,17 @@ extension SnapshotsView {
                 self.snapdayofweek = snapdayofweek
             }
             if rsyncUIData.profile != "test" {
-                var snapshotslogsandcatalogs: Snapshotlogsandcatalogs?
-                    = Snapshotlogsandcatalogs(config: config,
-                                              configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                              schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                              snapshotdata: snapshotdata,
-                                              test: false)
-                uuids = snapshotslogsandcatalogs?.uuids
-                // Release object
-                snapshotslogsandcatalogs = nil
-
+                _ = Snapshotlogsandcatalogs(config: config,
+                                            configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                            schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                            snapshotdata: snapshotdata,
+                                            test: false)
             } else {
-                var snapshotslogsandcatalogs: Snapshotlogsandcatalogs?
-                    = Snapshotlogsandcatalogs(config: config,
-                                              configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                              schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                              snapshotdata: snapshotdata,
-                                              test: true)
-                uuids = snapshotslogsandcatalogs?.uuids
-                // Release object
-                snapshotslogsandcatalogs = nil
+                _ = Snapshotlogsandcatalogs(config: config,
+                                            configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                            schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                            snapshotdata: snapshotdata,
+                                            test: true)
             }
         }
     }

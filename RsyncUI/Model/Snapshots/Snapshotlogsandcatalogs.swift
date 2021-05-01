@@ -20,9 +20,6 @@ final class Snapshotlogsandcatalogs {
     // Remote snapshot catalags
     typealias Catalogsanddates = (String, Date)
     var catalogsanddates: [Catalogsanddates]?
-    // Used to find logrecords without corresponding remote cataloginfo.
-    // the variabel is filled with all uuids at start.
-    var uuids: Set<UUID>?
 
     private func getremotecataloginfo() {
         outputprocess = OutputProcess()
@@ -101,11 +98,6 @@ final class Snapshotlogsandcatalogs {
                             self.logrecordssnapshot?[j].snapshotCatalog = snapshotcatalogfromschedulelog
                             if let record = self.logrecordssnapshot?[j] {
                                 adjustedlogrecords.append(record)
-                                // when a logrecord is appended remove the id from the uuid set
-                                // if uuids.count > 0 when done there are more log records than
-                                // real remote snapshot catalogs. Those logrecords might be asked
-                                // for deleting
-                                uuids?.remove(record.id)
                             }
                         }
                         j += 1
@@ -146,8 +138,6 @@ final class Snapshotlogsandcatalogs {
         }
         // Add records to the StateObject for use in View
         mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
-        // print number of uuids left
-        print("uuids \(uuids?.count ?? 0)")
     }
 
     func calculatedays(datestringlocalized: String) -> Double? {
@@ -184,7 +174,6 @@ final class Snapshotlogsandcatalogs {
                                           configurationsSwiftUI: configurationsSwiftUI,
                                           schedulesSwiftUI: schedulesSwiftUI)
         logrecordssnapshot = alllogs?.loggrecords
-        uuids = alllogs?.uuids
         // release the object - dont need it more
         alllogs = nil
         // Getting remote catalogdata about all snapshots
