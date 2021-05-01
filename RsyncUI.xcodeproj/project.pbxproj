@@ -38,6 +38,7 @@
 		E9245C0B2613146800CBE0BB /* ShortcutActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9245C0A2613146800CBE0BB /* ShortcutActions.swift */; };
 		E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927AAD22616E27300DC27A3 /* QuicktaskView.swift */; };
 		E943B0A925FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */; };
+		E949D37F263D164A0041A9DA /* SnapshotLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949D37E263D164A0041A9DA /* SnapshotLogsView.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
 		E959280426240B8C002631CB /* NewversionPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959280326240B8B002631CB /* NewversionPLIST.swift */; };
 		E95C8C312603962600407434 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C2F2603962600407434 /* InfoPlist.strings */; };
@@ -76,7 +77,6 @@
 		E985C66B25F3AD8400CB895C /* SnapshotListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62825F3AD8400CB895C /* SnapshotListView.swift */; };
 		E985C66C25F3AD8400CB895C /* SnapshotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62925F3AD8400CB895C /* SnapshotsView.swift */; };
 		E985C66E25F3AD8400CB895C /* ImageRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62C25F3AD8400CB895C /* ImageRsync.swift */; };
-		E985C67625F3AD8400CB895C /* ImageZstackProgressview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63425F3AD8400CB895C /* ImageZstackProgressview.swift */; };
 		E985C67925F3AD8400CB895C /* ImageRsyncOSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63725F3AD8400CB895C /* ImageRsyncOSX.swift */; };
 		E985C67A25F3AD8400CB895C /* RsyncCommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63925F3AD8400CB895C /* RsyncCommandView.swift */; };
 		E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63B25F3AD8400CB895C /* AboutView.swift */; };
@@ -253,6 +253,7 @@
 		E9245C0A2613146800CBE0BB /* ShortcutActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutActions.swift; sourceTree = "<group>"; };
 		E927AAD22616E27300DC27A3 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
 		E943B0A825FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessCmdCombineClosure.swift; sourceTree = "<group>"; };
+		E949D37E263D164A0041A9DA /* SnapshotLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotLogsView.swift; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
 		E959280326240B8B002631CB /* NewversionPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewversionPLIST.swift; sourceTree = "<group>"; };
 		E95C8C302603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -296,7 +297,6 @@
 		E985C62825F3AD8400CB895C /* SnapshotListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotListView.swift; sourceTree = "<group>"; };
 		E985C62925F3AD8400CB895C /* SnapshotsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotsView.swift; sourceTree = "<group>"; };
 		E985C62C25F3AD8400CB895C /* ImageRsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRsync.swift; sourceTree = "<group>"; };
-		E985C63425F3AD8400CB895C /* ImageZstackProgressview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZstackProgressview.swift; sourceTree = "<group>"; };
 		E985C63725F3AD8400CB895C /* ImageRsyncOSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRsyncOSX.swift; sourceTree = "<group>"; };
 		E985C63925F3AD8400CB895C /* RsyncCommandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncCommandView.swift; sourceTree = "<group>"; };
 		E985C63B25F3AD8400CB895C /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -654,10 +654,10 @@
 		E985C62625F3AD8400CB895C /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
-				E985C63425F3AD8400CB895C /* ImageZstackProgressview.swift */,
 				E985C62725F3AD8400CB895C /* SnapshotRow.swift */,
 				E985C62825F3AD8400CB895C /* SnapshotListView.swift */,
 				E985C62925F3AD8400CB895C /* SnapshotsView.swift */,
+				E949D37E263D164A0041A9DA /* SnapshotLogsView.swift */,
 			);
 			path = Snapshots;
 			sourceTree = "<group>";
@@ -1335,6 +1335,7 @@
 				E985C76B25F3AD9700CB895C /* EstimationOnetask.swift in Sources */,
 				E985C77025F3AD9700CB895C /* InprogressCountMultipleTasks.swift in Sources */,
 				E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */,
+				E949D37F263D164A0041A9DA /* SnapshotLogsView.swift in Sources */,
 				E985C77225F3AD9700CB895C /* Logfile.swift in Sources */,
 				E985C73425F3AD9700CB895C /* RsyncCommandtoDisplay.swift in Sources */,
 				E985C78C25F3AD9700CB895C /* RsyncUIdata.swift in Sources */,
@@ -1386,7 +1387,6 @@
 				E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */,
 				E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */,
 				E985C65F25F3AD8400CB895C /* OneConfigUUID.swift in Sources */,
-				E985C67625F3AD8400CB895C /* ImageZstackProgressview.swift in Sources */,
 				E985C73325F3AD9700CB895C /* Environment.swift in Sources */,
 				E985C66025F3AD8400CB895C /* ParametersList.swift in Sources */,
 				E985C75325F3AD9700CB895C /* TransformConfigfromJSON.swift in Sources */,

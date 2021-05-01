@@ -12,6 +12,8 @@ struct SnapshotsView: View {
     @StateObject var snapshotdata = SnapshotData()
     @Binding var selectedconfig: Configuration?
 
+    @Binding var reload: Bool
+
     @State private var snapshotrecords: Logrecordsschedules?
     @State private var selecteduuids = Set<UUID>()
     // Not used but requiered in parameter
@@ -66,8 +68,10 @@ struct SnapshotsView: View {
             HStack {
                 discrepancy
 
-                Button(NSLocalizedString("Snapshots", comment: "Tag")) {}
-                    .buttonStyle(PrimaryButtonStyle())
+                Button(NSLocalizedString("Snapshots", comment: "Tag")) {
+                    SnapshotLogsView(reload: $reload, selectedconfig: $selectedconfig)
+                }
+                .buttonStyle(PrimaryButtonStyle())
             }
         }
 
