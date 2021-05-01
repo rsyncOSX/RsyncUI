@@ -69,8 +69,13 @@ struct SnapshotsView: View {
             HStack {
                 discrepancy
 
-                Button(NSLocalizedString("Snapshots", comment: "Tag")) { logs = true }
-                    .buttonStyle(PrimaryButtonStyle())
+                Button(NSLocalizedString("Snapshots", comment: "Tag")) {
+                    if let config = selectedconfig {
+                        rsyncUIData.filterbyhiddenID("", config.hiddenID)
+                    }
+                    logs = true
+                }
+                .buttonStyle(PrimaryButtonStyle())
             }
         }
 

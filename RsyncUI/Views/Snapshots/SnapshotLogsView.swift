@@ -17,7 +17,6 @@ struct SnapshotLogsView: View {
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
     @State private var filterstring: String = ""
-    @State private var profile: String?
     // Alert for delete
     @State private var showAlertfordelete = false
 
@@ -63,7 +62,7 @@ struct SnapshotLogsView: View {
                         DeleteLogsView(selecteduuids: $selecteduuids,
                                        isPresented: $showAlertfordelete,
                                        reload: $reload,
-                                       selectedprofile: $profile)
+                                       selectedprofile: $rsyncUIData.profile)
                     }
             }
         }
@@ -72,15 +71,6 @@ struct SnapshotLogsView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIData.filterlogsortedbyhiddenID?.count ?? 0)"
-    }
-
-    var hiddenID: Int {
-        if let config = selectedconfig {
-            rsyncUIData.filterbyhiddenID("", config.hiddenID)
-            profile = rsyncUIData.profile
-            return config.hiddenID
-        }
-        return -1
     }
 }
 
