@@ -86,7 +86,7 @@ struct SnapshotsView: View {
                 pickersnapdayoffweek
             }
 
-            Text(label)
+            Text(labelnumberoflogs)
 
             Spacer()
 
@@ -104,7 +104,7 @@ struct SnapshotsView: View {
         }
     }
 
-    var label: String {
+    var labelnumberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " + "\(snapshotdata.numremotecatalogs)"
     }
 

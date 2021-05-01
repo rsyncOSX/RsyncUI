@@ -10,14 +10,19 @@
 import Foundation
 
 final class Snapshotlogsandcatalogs {
+    // Number of local logrecords
     var logrecordssnapshot: [Logrecordsschedules]?
     var localeconfig: Configuration?
     var outputprocess: OutputProcess?
     var snapshotcatalogstodelete: [String]?
     var mysnapshotdata: SnapshotData?
 
+    // Remote snapshot catalags
     typealias Catalogsanddates = (String, Date)
     var catalogsanddates: [Catalogsanddates]?
+    // Used to find logrecords without corresponding remote cataloginfo.
+    // the variabel is filled with all uuids at start.
+    var uuids: Set<UUID>?
 
     private func getremotecataloginfo() {
         outputprocess = OutputProcess()
@@ -48,8 +53,6 @@ final class Snapshotlogsandcatalogs {
                     if catalogs[i].contains("./.") == false {
                         self.catalogsanddates?.append((catalogs[i], date))
                     }
-                } else {
-                    self.catalogsanddates?.append((catalogs[i], Date()))
                 }
             }
         }
@@ -98,6 +101,11 @@ final class Snapshotlogsandcatalogs {
                             self.logrecordssnapshot?[j].snapshotCatalog = snapshotcatalogfromschedulelog
                             if let record = self.logrecordssnapshot?[j] {
                                 adjustedlogrecords.append(record)
+                                // when a logrecord is appended remove the id from the uuid set
+                                // if uuids.count > 0 when done there are more log records than
+                                // real remote snapshot catalogs. Those logrecords might be asked
+                                // for deleting
+                                uuids?.remove(record.id)
                             }
                         }
                         j += 1
@@ -138,32 +146,8 @@ final class Snapshotlogsandcatalogs {
         }
         // Add records to the StateObject for use in View
         mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
-        // validatelogrecordsnapshots()
-    }
-
-    func validatelogrecordsnapshots() {
-        var output: OutputProcess?
-        var error = false
-        for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
-            if logrecordssnapshot?[i].resultExecuted.contains("... no log ...") == false {
-                if let catalogelementlog = logrecordssnapshot?[i].resultExecuted.split(separator: " ")[0] {
-                    let snapshotcatalogfromschedulelog = catalogelementlog.dropFirst().dropLast()
-                    if catalogelementlog.contains(snapshotcatalogfromschedulelog) == false {
-                        error = true
-                        if output == nil {
-                            output = OutputProcess()
-                            let string = "Error in validating snapshots: " + Date().long_localized_string_from_date()
-                            output?.addlinefromoutput(str: string)
-                        }
-                        let string = snapshotcatalogfromschedulelog + ": " + (logrecordssnapshot?[i].resultExecuted ?? "")
-                        output?.addlinefromoutput(str: string)
-                    }
-                }
-            }
-        }
-        if error {
-            // _ = Logging(output, true)
-        }
+        // print number of uuids left
+        print("uuids \(uuids?.count ?? 0)")
     }
 
     func calculatedays(datestringlocalized: String) -> Double? {
@@ -171,26 +155,6 @@ final class Snapshotlogsandcatalogs {
         let lastbackup = datestringlocalized.localized_date_from_string()
         let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
         return seconds * (-1)
-    }
-
-    func preparesnapshotcatalogsfordelete() {
-        for i in 0 ..< ((logrecordssnapshot?.count ?? 0) - 1) where logrecordssnapshot?[i].selectsnap == 1 {
-            if self.snapshotcatalogstodelete == nil { self.snapshotcatalogstodelete = [] }
-            let snaproot = self.localeconfig?.offsiteCatalog
-            let snapcatalog = self.logrecordssnapshot?[i].snapshotCatalog
-            self.snapshotcatalogstodelete?.append((snaproot ?? "") + (snapcatalog ?? "").dropFirst(2))
-        }
-        if validatedelete() == false {
-            snapshotcatalogstodelete = nil
-        }
-    }
-
-    func validatedelete() -> Bool {
-        guard (snapshotcatalogstodelete?.count ?? 0) > 0 else { return false }
-        let selectedrecords = logrecordssnapshot?.filter { $0.selectsnap == 1 }
-        guard selectedrecords?.count == snapshotcatalogstodelete?.count else { return false }
-        // for i in 0 ..< (self.snapshotcatalogstodelete?.count ?? 0) {}
-        return true
     }
 
     func countbydays(num: Double) -> Int {
@@ -216,10 +180,13 @@ final class Snapshotlogsandcatalogs {
         localeconfig = config
         mysnapshotdata = snapshotdata
         // Getting log records from schedules, sorted after date
-        logrecordssnapshot =
-            AllLoggs(hiddenID: config.hiddenID,
-                     configurationsSwiftUI: configurationsSwiftUI,
-                     schedulesSwiftUI: schedulesSwiftUI).loggrecords
+        var alllogs: AllLoggs? = AllLoggs(hiddenID: config.hiddenID,
+                                          configurationsSwiftUI: configurationsSwiftUI,
+                                          schedulesSwiftUI: schedulesSwiftUI)
+        logrecordssnapshot = alllogs?.loggrecords
+        uuids = alllogs?.uuids
+        // release the object - dont need it more
+        alllogs = nil
         // Getting remote catalogdata about all snapshots
         if test == false {
             getremotecataloginfo()

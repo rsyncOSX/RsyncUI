@@ -34,6 +34,10 @@ final class AllLoggs {
     var loggrecords: [Logrecordsschedules]?
     private var localehiddenID: Int?
 
+    // Used to find logrecords without corresponding remote cataloginfo.
+    // the variabel is filled with all uuids at start.
+    var uuids = Set<UUID>()
+
     private func readandsortallloggdata(hiddenID: Int?) {
         var data = [Logrecordsschedules]()
         if let input: [ConfigurationSchedule] = structschedules?.getschedules() {
@@ -67,6 +71,10 @@ final class AllLoggs {
         }
         if hiddenID != nil { data = data.filter { $0.hiddenID == hiddenID } }
         loggrecords = data.sorted(by: \.date, using: >)
+        // Fill the uuid set.
+        data.forEach { record in
+            uuids.insert(record.id)
+        }
     }
 
     init(hiddenID: Int?,
