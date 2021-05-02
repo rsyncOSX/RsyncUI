@@ -31,25 +31,23 @@ struct SnapshotsView: View {
     @State private var uuidsLog: Set<UUID>?
 
     var body: some View {
-        VStack {
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               selectable: $selectable)
+        ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
+                           selecteduuids: $selecteduuids,
+                           inwork: $inwork,
+                           selectable: $selectable)
 
-            Spacer()
+        Spacer()
 
-            ZStack {
-                SnapshotListView(selectedconfig: $selectedconfig,
-                                 snapshotrecords: $snapshotrecords,
-                                 selecteduuids: $selecteduuids)
-                    .environmentObject(snapshotdata)
-                    .onDeleteCommand(perform: { delete() })
+        ZStack {
+            SnapshotListView(selectedconfig: $selectedconfig,
+                             snapshotrecords: $snapshotrecords,
+                             selecteduuids: $selecteduuids)
+                .environmentObject(snapshotdata)
+                .onDeleteCommand(perform: { delete() })
 
-                if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
-                    .frame(width: 50.0, height: 50.0)
-                    .foregroundColor(.red)
-                }
+            if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
+                .frame(width: 50.0, height: 50.0)
+                .foregroundColor(.red)
             }
         }
 
@@ -78,7 +76,7 @@ struct SnapshotsView: View {
                 pickersnapdayoffweek
             }
 
-            Text(labelnumberoflogs)
+            labelnumberoflogs
 
             Spacer()
 
@@ -96,8 +94,11 @@ struct SnapshotsView: View {
         }
     }
 
-    var labelnumberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(snapshotdata.numremotecatalogs)"
+    var labelnumberoflogs: some View {
+        VStack(alignment: .leading) {
+            Text(NSLocalizedString("Number of aligned snapshotcatalogs", comment: "") + ": " + "\(snapshotdata.numremotecatalogs)")
+            Text(NSLocalizedString("Number of logrecords", comment: "") + ": " + "\(snapshotdata.numlocallogrecords)")
+        }
     }
 
     var notasnapshottask: some View {
