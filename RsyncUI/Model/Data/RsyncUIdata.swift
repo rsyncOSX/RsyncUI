@@ -50,9 +50,11 @@ final class RsyncUIdata: ObservableObject {
         }
     }
 
-    func filterbyhiddenIDanduuids(_ hiddenID: Int, _ uuids: Set<UUID>?) {
-        filterlogsortedbyhiddenID = rsyncdata?.scheduleData.getalllogsbyhiddenIDandUUIDs(hiddenID, uuids)
-    }
+    /*
+     func filterbyhiddenIDanduuids(_ uuids: Set<UUID>?) {
+         filterlogsortedbyhiddenID = rsyncdata?.scheduleData.getalllogsbyhiddenIDandUUIDs(uuids)
+     }
+      */
 
     func activeschedules(_ hiddenID: Int) -> Int {
         return rsyncdata?.scheduleData.getallactiveshedulesbyhiddenID(hiddenID: hiddenID) ?? 0
