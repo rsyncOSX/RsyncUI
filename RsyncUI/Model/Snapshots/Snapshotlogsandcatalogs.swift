@@ -20,6 +20,8 @@ final class Snapshotlogsandcatalogs {
     // Remote snapshot catalags
     typealias Catalogsanddates = (String, Date)
     var catalogsanddates: [Catalogsanddates]?
+    // uuids and administrating snapshots, save tje UUID from the Log records.
+    var uuidsLog: Set<UUID>?
 
     private func getremotecataloginfo() {
         outputprocess = OutputProcess()
@@ -98,6 +100,10 @@ final class Snapshotlogsandcatalogs {
                             self.logrecordssnapshot?[j].snapshotCatalog = snapshotcatalogfromschedulelog
                             if let record = self.logrecordssnapshot?[j] {
                                 adjustedlogrecords.append(record)
+                                // Remove ids which are matcing
+                                if let idLog = record.idLog {
+                                    uuidsLog?.remove(idLog)
+                                }
                             }
                         }
                         j += 1
@@ -174,6 +180,7 @@ final class Snapshotlogsandcatalogs {
                                           configurationsSwiftUI: configurationsSwiftUI,
                                           schedulesSwiftUI: schedulesSwiftUI)
         logrecordssnapshot = alllogs?.loggrecords
+        uuidsLog = alllogs?.uuidsLog
         // release the object - dont need it more
         alllogs = nil
         // Getting remote catalogdata about all snapshots
@@ -197,7 +204,7 @@ extension Snapshotlogsandcatalogs {
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         mysnapshotdata?.state = .gotit
-        // mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
+        print("uuids \(uuidsLog?.count ?? 0)")
     }
 
     func filehandler() {}
