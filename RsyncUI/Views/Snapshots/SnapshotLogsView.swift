@@ -39,9 +39,6 @@ struct SnapshotLogsView: View {
 
                 Spacer()
 
-                Button(NSLocalizedString("Return", comment: "Select button")) { logs = false }
-                    .buttonStyle(PrimaryButtonStyle())
-
                 Button(NSLocalizedString("Clear", comment: "Select button")) { selecteduuids.removeAll() }
                     .buttonStyle(PrimaryButtonStyle())
 
@@ -59,6 +56,9 @@ struct SnapshotLogsView: View {
                                        reload: $reload,
                                        selectedprofile: $rsyncUIData.profile)
                     }
+
+                Button(NSLocalizedString("Return", comment: "Select button")) { logs = false }
+                    .buttonStyle(PrimaryButtonStyle())
             }
         }
         .padding()

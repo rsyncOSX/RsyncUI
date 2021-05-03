@@ -96,8 +96,10 @@ struct SnapshotsView: View {
 
     var labelnumberoflogs: some View {
         VStack(alignment: .leading) {
-            Text(NSLocalizedString("Number of aligned snapshotcatalogs", comment: "") + ": " + "\(snapshotdata.numremotecatalogs)")
-            Text(NSLocalizedString("Number of logrecords", comment: "") + ": " + "\(snapshotdata.numlocallogrecords)")
+            Text(NSLocalizedString("Number of aligned snapshotcatalogs", comment: "") +
+                ": " + "\(snapshotdata.numremotecatalogs)")
+            Text(NSLocalizedString("Number of logrecords", comment: "") +
+                ": " + "\(snapshotdata.numlocallogrecords)")
         }
     }
 
@@ -197,17 +199,19 @@ extension SnapshotsView {
             }
             var snapshotlogsandcatalogs: Snapshotlogsandcatalogs?
             if rsyncUIData.profile != "test" {
-                snapshotlogsandcatalogs = Snapshotlogsandcatalogs(config: config,
-                                                                  configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                                                  schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                                                  snapshotdata: snapshotdata,
-                                                                  test: false)
+                snapshotlogsandcatalogs =
+                    Snapshotlogsandcatalogs(config: config,
+                                            configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                            schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                            snapshotdata: snapshotdata,
+                                            test: false)
             } else {
-                snapshotlogsandcatalogs = Snapshotlogsandcatalogs(config: config,
-                                                                  configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                                                  schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                                                  snapshotdata: snapshotdata,
-                                                                  test: true)
+                snapshotlogsandcatalogs =
+                    Snapshotlogsandcatalogs(config: config,
+                                            configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                            schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                            snapshotdata: snapshotdata,
+                                            test: true)
             }
             uuidsLog = snapshotlogsandcatalogs?.uuidsLog
             snapshotlogsandcatalogs = nil
