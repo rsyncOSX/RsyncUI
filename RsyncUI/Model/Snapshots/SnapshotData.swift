@@ -20,13 +20,8 @@ final class SnapshotData: ObservableObject {
     // Number of saved logrecords on local storage
     var numremotecatalogs: Int = 0
     var numlocallogrecords: Int = 0
+    var uuidsLog: Set<UUID>?
 
-    /*
-     func getnumber() -> Int {
-         return logrecordssnapshot?.count ?? 0
-     }
-
-      */
     func setsnapshotdata(_ data: [Logrecordsschedules]?) {
         logrecordssnapshot = data
         objectWillChange.send()

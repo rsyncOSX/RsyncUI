@@ -27,8 +27,6 @@ struct SnapshotsView: View {
     // Plan for tagging and administrating snapshots
     @State private var snaplast: String = PlanSnapshots.Last.rawValue
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
-    // uuidsLog
-    @State private var uuidsLog: Set<UUID>?
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
@@ -62,7 +60,7 @@ struct SnapshotsView: View {
                 discrepancy
 
                 Button(NSLocalizedString("Discrepancy", comment: "Tag")) {
-                    rsyncUIData.filterbyhiddenIDanduuids(uuidsLog)
+                    rsyncUIData.filterbyhiddenIDanduuids(snapshotdata.uuidsLog)
                     logs = true
                 }
                 .buttonStyle(PrimaryButtonStyle())
@@ -197,24 +195,19 @@ extension SnapshotsView {
             if let snapdayofweek = config.snapdayoffweek {
                 self.snapdayofweek = snapdayofweek
             }
-            var snapshotlogsandcatalogs: Snapshotlogsandcatalogs?
             if rsyncUIData.profile != "test" {
-                snapshotlogsandcatalogs =
-                    Snapshotlogsandcatalogs(config: config,
+                _ = Snapshotlogsandcatalogs(config: config,
                                             configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
                                             schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
                                             snapshotdata: snapshotdata,
                                             test: false)
             } else {
-                snapshotlogsandcatalogs =
-                    Snapshotlogsandcatalogs(config: config,
+                _ = Snapshotlogsandcatalogs(config: config,
                                             configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
                                             schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
                                             snapshotdata: snapshotdata,
                                             test: true)
             }
-            uuidsLog = snapshotlogsandcatalogs?.uuidsLog
-            snapshotlogsandcatalogs = nil
         }
     }
 
