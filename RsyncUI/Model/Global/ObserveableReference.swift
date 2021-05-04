@@ -119,8 +119,9 @@ final class ObserveableReference: ObservableObject {
 }
 
 extension ObserveableReference {
+    // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) { guard inputchangedbyuser == true else { return }
-        guard path.isEmpty == false else {
+        guard path.isEmpty == false, rsyncversion3 == true else {
             isDirty = true
             // Set rsync path = nil
             let validate = SetandValidatepathforrsync()
@@ -146,7 +147,7 @@ extension ObserveableReference {
     // Set default version 2 of rsync values
     private func setdefaultvaulesrsync() {
         let validate = SetandValidatepathforrsync()
-        validate.setdefaultrsync()
+        validate.setdefaultvaluesver2rsync()
         rsyncversion3 = false
         localrsyncpath = ""
         isDirty = true

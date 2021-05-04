@@ -24,32 +24,30 @@ enum Validatedrsync: LocalizedError {
 
 struct SetandValidatepathforrsync {
     func validateandrsyncpath() throws -> Bool {
+        // Set default that rsync path is validated
+        SharedReference.shared.norsync = false
         var rsyncpath: String?
-        // If not in /usr/bin or /usr/local/bin, rsyncPath is set if none of the above
+        // First check if a local path is set or use default values
+        // Only validate path if rsyncversion is true, set default values else
         if let pathforrsync = SharedReference.shared.localrsyncpath {
-            rsyncpath = pathforrsync + SharedReference.shared.rsync
-        } else if SharedReference.shared.rsyncversion3 {
-            rsyncpath = SharedReference.shared.usrlocalbin + "/" + SharedReference.shared.rsync
-        } else {
-            rsyncpath = SharedReference.shared.usrbin + "/" + SharedReference.shared.rsync
-        }
-        // Bail out and return true if stock rsync is used
-        guard SharedReference.shared.rsyncversion3 == true else {
-            SharedReference.shared.norsync = false
-            return true
-        }
-        if SharedReference.shared.rsyncversion3 == true {
-            // Check that version rsync 3 is not set to /usr/bin - throw if true
-            guard SharedReference.shared.localrsyncpath != (SharedReference.shared.usrbin + "/") else {
-                throw Validatedrsync.noversion3inusrbin
+            switch SharedReference.shared.rsyncversion3 {
+            case true:
+                rsyncpath = pathforrsync + SharedReference.shared.rsync
+                // Check that version rsync 3 is not set to /usr/bin - throw if true
+                guard SharedReference.shared.localrsyncpath != (SharedReference.shared.usrbin + "/") else {
+                    throw Validatedrsync.noversion3inusrbin
+                }
+                if FileManager.default.isExecutableFile(atPath: rsyncpath ?? "") == false {
+                    SharedReference.shared.norsync = true
+                    // Throwing no valid rsync in path
+                    throw Validatedrsync.norsync
+                }
+                return true
+            case false:
+                return true
             }
-        }
-        if FileManager.default.isExecutableFile(atPath: rsyncpath ?? "") == false {
-            SharedReference.shared.norsync = true
-            // Throwing no valid rsync in path
-            throw Validatedrsync.norsync
         } else {
-            SharedReference.shared.norsync = false
+            // Use default values for either ver3 or ver3
             return true
         }
     }
@@ -68,7 +66,7 @@ struct SetandValidatepathforrsync {
         }
     }
 
-    func setdefaultrsync() {
+    func setdefaultvaluesver2rsync() {
         SharedReference.shared.localrsyncpath = nil
         SharedReference.shared.rsyncversion3 = false
     }
