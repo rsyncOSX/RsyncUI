@@ -16,106 +16,109 @@ struct Usersettings: View {
 
     var body: some View {
         Form {
-            HStack {
-                // For center
-                Spacer()
+            ZStack {
+                HStack {
+                    // For center
+                    Spacer()
 
-                // Column 1
-                VStack(alignment: .leading) {
-                    Section(header: headerrsync) {
-                        ToggleView(NSLocalizedString("Rsync ver 3.x", comment: "settings"), $usersettings.rsyncversion3.onChange {
-                            usersettings.inputchangedbyuser = true
-                            rsyncversionObject.update(usersettings.rsyncversion3)
-                        })
+                    // Column 1
+                    VStack(alignment: .leading) {
+                        Section(header: headerrsync) {
+                            ToggleView(NSLocalizedString("Rsync ver 3.x", comment: "settings"), $usersettings.rsyncversion3.onChange {
+                                usersettings.inputchangedbyuser = true
+                                rsyncversionObject.update(usersettings.rsyncversion3)
+                            })
 
-                        // Only preset localpath for rsync if locapath is set. If default values either in /usr/bin or
-                        // /usr/local/bin set as placeholder value to present path
-                        if usersettings.localrsyncpath.isEmpty == true {
-                            setrsyncpathdefault
-                        } else {
-                            setrsyncpathlocalpath
-                        }
-                    }
-
-                    Section(header: headerpathforrestore) {
-                        setpathforrestore
-                    }
-                }.padding()
-
-                // Column 2
-                VStack(alignment: .leading) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Section(header: headerloggingtofile) {
-                                ToggleView(NSLocalizedString("None", comment: "settings"), $usersettings.nologging.onChange {
-                                    usersettings.inputchangedbyuser = true
-                                    if usersettings.nologging == true {
-                                        usersettings.minimumlogging = false
-                                        usersettings.fulllogging = false
-                                    } else {
-                                        usersettings.minimumlogging = true
-                                        usersettings.fulllogging = false
-                                    }
-                                })
-
-                                ToggleView(NSLocalizedString("Min", comment: "settings"), $usersettings.minimumlogging.onChange {
-                                    usersettings.inputchangedbyuser = true
-                                    if usersettings.minimumlogging == true {
-                                        usersettings.nologging = false
-                                        usersettings.fulllogging = false
-                                    }
-                                })
-
-                                ToggleView(NSLocalizedString("Full", comment: "settings"), $usersettings.fulllogging.onChange {
-                                    usersettings.inputchangedbyuser = true
-                                    if usersettings.fulllogging == true {
-                                        usersettings.nologging = false
-                                        usersettings.minimumlogging = false
-                                    }
-                                })
+                            // Only preset localpath for rsync if locapath is set. If default values either in /usr/bin or
+                            // /usr/local/bin set as placeholder value to present path
+                            if usersettings.localrsyncpath.isEmpty == true {
+                                setrsyncpathdefault
+                            } else {
+                                setrsyncpathlocalpath
                             }
                         }
 
-                        VStack(alignment: .leading) {
-                            Section(header: headerdetailedlogging) {
-                                ToggleView(NSLocalizedString("Detailed", comment: "settings"), $usersettings.detailedlogging.onChange {
-                                    usersettings.inputchangedbyuser = true
-                                })
+                        Section(header: headerpathforrestore) {
+                            setpathforrestore
+                        }
+                    }.padding()
+
+                    // Column 2
+                    VStack(alignment: .leading) {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Section(header: headerloggingtofile) {
+                                    ToggleView(NSLocalizedString("None", comment: "settings"), $usersettings.nologging.onChange {
+                                        usersettings.inputchangedbyuser = true
+                                        if usersettings.nologging == true {
+                                            usersettings.minimumlogging = false
+                                            usersettings.fulllogging = false
+                                        } else {
+                                            usersettings.minimumlogging = true
+                                            usersettings.fulllogging = false
+                                        }
+                                    })
+
+                                    ToggleView(NSLocalizedString("Min", comment: "settings"), $usersettings.minimumlogging.onChange {
+                                        usersettings.inputchangedbyuser = true
+                                        if usersettings.minimumlogging == true {
+                                            usersettings.nologging = false
+                                            usersettings.fulllogging = false
+                                        }
+                                    })
+
+                                    ToggleView(NSLocalizedString("Full", comment: "settings"), $usersettings.fulllogging.onChange {
+                                        usersettings.inputchangedbyuser = true
+                                        if usersettings.fulllogging == true {
+                                            usersettings.nologging = false
+                                            usersettings.minimumlogging = false
+                                        }
+                                    })
+                                }
                             }
 
-                            Section(header: headermarkdays) {
-                                setmarkdays
+                            VStack(alignment: .leading) {
+                                Section(header: headerdetailedlogging) {
+                                    ToggleView(NSLocalizedString("Detailed", comment: "settings"), $usersettings.detailedlogging.onChange {
+                                        usersettings.inputchangedbyuser = true
+                                    })
+                                }
+
+                                Section(header: headermarkdays) {
+                                    setmarkdays
+                                }
                             }
                         }
-                    }
-                }.padding()
+                    }.padding()
 
-                // Column 3
-                VStack(alignment: .leading) {
-                    Section(header: headerothersettings) {
-                        ToggleView(NSLocalizedString("Monitor network", comment: "settings"), $usersettings.monitornetworkconnection.onChange {
-                            usersettings.inputchangedbyuser = true
-                        })
+                    // Column 3
+                    VStack(alignment: .leading) {
+                        Section(header: headerothersettings) {
+                            ToggleView(NSLocalizedString("Monitor network", comment: "settings"), $usersettings.monitornetworkconnection.onChange {
+                                usersettings.inputchangedbyuser = true
+                            })
 
-                        ToggleView(NSLocalizedString("Check data", comment: "settings"), $usersettings.checkinput.onChange {
-                            usersettings.inputchangedbyuser = true
-                        })
+                            ToggleView(NSLocalizedString("Check data", comment: "settings"), $usersettings.checkinput.onChange {
+                                usersettings.inputchangedbyuser = true
+                            })
+                        }
                     }
+                    .padding()
+
+                    // For center
+                    Spacer()
                 }
-                .padding()
 
-                // For center
-                Spacer()
+                if backup == true {
+                    AlertToast(type: .complete(Color.blue), title: Optional(NSLocalizedString("Saved",
+                                                                                              comment: "settings")), subTitle: Optional(""))
+                }
             }
 
             // Save button right down corner
             Spacer()
 
             HStack {
-                Spacer()
-
-                if backup == true { notifybackup }
-
                 Spacer()
 
                 // Backup configuration files
@@ -213,17 +216,6 @@ struct Usersettings: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .frame(width: 70)
             .lineLimit(1)
-    }
-
-    var notifybackup: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Saved", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 150, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 }
 

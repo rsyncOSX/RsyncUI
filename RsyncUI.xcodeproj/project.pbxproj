@@ -50,6 +50,9 @@
 		E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F125C26046FCF003AD3A9 /* SchedulesView.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
 		E97844DF260DB3D6007874A1 /* ScheduleSortedAndExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */; };
+		E983D2E526417082004621D5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E226417082004621D5 /* BlurView.swift */; };
+		E983D2E626417082004621D5 /* AlertToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E326417082004621D5 /* AlertToast.swift */; };
+		E983D2E726417082004621D5 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E426417082004621D5 /* ActivityIndicator.swift */; };
 		E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* AppDelegate.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C5D125F3AC0800CB895C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CF25F3AC0800CB895C /* Main.storyboard */; };
@@ -265,6 +268,9 @@
 		E96F125C26046FCF003AD3A9 /* SchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulesView.swift; sourceTree = "<group>"; };
 		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
 		E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSortedAndExpand.swift; sourceTree = "<group>"; };
+		E983D2E226417082004621D5 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		E983D2E326417082004621D5 /* AlertToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
+		E983D2E426417082004621D5 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5C625F3AC0700CB895C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -510,6 +516,16 @@
 			path = RsyncParameters;
 			sourceTree = "<group>";
 		};
+		E983D2E126417082004621D5 /* AlertToast */ = {
+			isa = PBXGroup;
+			children = (
+				E983D2E226417082004621D5 /* BlurView.swift */,
+				E983D2E326417082004621D5 /* AlertToast.swift */,
+				E983D2E426417082004621D5 /* ActivityIndicator.swift */,
+			);
+			path = AlertToast;
+			sourceTree = "<group>";
+		};
 		E985C5BA25F3AC0700CB895C = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +572,7 @@
 		E985C60925F3AD8400CB895C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E983D2E126417082004621D5 /* AlertToast */,
 				E99C23F9261C2D21009D4DBF /* Restore */,
 				E927AAD12616E23100DC27A3 /* Quicktask */,
 				E985C60A25F3AD8400CB895C /* Sidebar */,
@@ -1256,6 +1273,7 @@
 				E985C76C25F3AD9700CB895C /* RemoteinfonumbersOnetask.swift in Sources */,
 				E985C68425F3AD8400CB895C /* ConfirmAddView.swift in Sources */,
 				E95EDC8A26063EAA000018DE /* ObserveableParametersRsync.swift in Sources */,
+				E983D2E626417082004621D5 /* AlertToast.swift in Sources */,
 				E985C65A25F3AD8400CB895C /* Sidebar.swift in Sources */,
 				E985C78325F3AD9700CB895C /* Equal.swift in Sources */,
 				E985C67925F3AD8400CB895C /* ImageRsyncOSX.swift in Sources */,
@@ -1343,6 +1361,7 @@
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
 				E90B4A9D261DA7580043EFF6 /* EqualizerIndicatorView.swift in Sources */,
 				E985C72A25F3AD9700CB895C /* NamesandPaths.swift in Sources */,
+				E983D2E526417082004621D5 /* BlurView.swift in Sources */,
 				E985C65C25F3AD8400CB895C /* SidebarSingleTasksView.swift in Sources */,
 				E943B0A925FFC22200A4F30D /* RsyncProcessCmdCombineClosure.swift in Sources */,
 				E90B4A9E261DA7580043EFF6 /* OpacityDotsIndicatorView.swift in Sources */,
@@ -1400,6 +1419,7 @@
 				E985C66825F3AD8400CB895C /* OutputRsyncView.swift in Sources */,
 				E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */,
 				E90B4A9F261DA7580043EFF6 /* DefaultIndicatorView.swift in Sources */,
+				E983D2E726417082004621D5 /* ActivityIndicator.swift in Sources */,
 				E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */,
 				E985C68725F3AD8400CB895C /* EditValue.swift in Sources */,
 				E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */,
