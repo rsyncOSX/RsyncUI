@@ -18,8 +18,6 @@ struct ConfigurationsList: View {
     @State private var forestimated = false
     // Either selectable configlist or not
     @Binding var selectable: Bool
-    // spacing between lines
-    @State private var spacing: Bool = false
     @State private var activeschedules: Int = 0
 
     var body: some View {
@@ -31,19 +29,6 @@ struct ConfigurationsList: View {
                     configlist
                 }
             }
-            /*
-             Button(action: {
-                 let previous = spacing
-                 spacing = !previous
-             }) {
-                 if spacing {
-                     Image(systemName: "minus")
-                 } else {
-                     Image(systemName: "plus")
-                 }
-             }
-             .buttonStyle(GrayCircleButtonStyle())
-             */
         }
     }
 
@@ -51,11 +36,7 @@ struct ConfigurationsList: View {
     var configlistselecetable: some View {
         Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
-                if spacing {
-                    selecetablespacing
-                } else {
-                    selecetablenospacing
-                }
+                selecetablenospacing
             }
         }
     }
@@ -71,25 +52,11 @@ struct ConfigurationsList: View {
         .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
     }
 
-    // Spacing
-    var selecetablespacing: some View {
-        ForEach(configurationssorted) { configurations in
-            OneConfigUUID(selecteduuids: $selecteduuids,
-                          inexecuting: $inwork,
-                          config: configurations)
-                .tag(configurations)
-        }
-    }
-
     // Non selectable
     var configlist: some View {
         Section(header: header) {
             List(selection: $selectedconfig) {
-                if spacing {
-                    nonselecetablespacing
-                } else {
-                    nonselecetablenospacing
-                }
+                nonselecetablenospacing
             }
         }
     }
@@ -102,15 +69,6 @@ struct ConfigurationsList: View {
                 .tag(configurations)
         }
         .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
-    }
-
-    // Spacing
-    var nonselecetablespacing: some View {
-        ForEach(configurationssorted) { configurations in
-            OneConfig(forestimated: $forestimated,
-                      config: configurations)
-                .tag(configurations)
-        }
     }
 
     var configurationssorted: [Configuration] {
