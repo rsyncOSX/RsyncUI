@@ -30,7 +30,11 @@ struct Usersettings: View {
 
                         // Only preset localpath for rsync if locapath is set. If default values either in /usr/bin or
                         // /usr/local/bin set as placeholder value to present path
-                        if usersettings.localrsyncpath.isEmpty == true { setrsyncpathdefault } else { setrsyncpathlocalpath }
+                        if usersettings.localrsyncpath.isEmpty == true {
+                            setrsyncpathdefault
+                        } else {
+                            setrsyncpathlocalpath
+                        }
                     }
 
                     Section(header: headerpathforrestore) {

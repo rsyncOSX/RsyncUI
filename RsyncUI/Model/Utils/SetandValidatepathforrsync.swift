@@ -9,12 +9,15 @@
 import Foundation
 
 enum Validatedrsync: LocalizedError {
-    case norysnc
+    case norsync
+    case noversion3inusrbin
 
     var errorDescription: String? {
         switch self {
-        case .norysnc:
-            return NSLocalizedString("There is no rsync in path", comment: "no rsync") + "..."
+        case .norsync:
+            return NSLocalizedString("No rsync in path", comment: "no rsync") + "..."
+        case .noversion3inusrbin:
+            return NSLocalizedString("No ver3 of rsync in /usr/bin", comment: "no rsync") + "..."
         }
     }
 }
@@ -35,10 +38,16 @@ struct SetandValidatepathforrsync {
             SharedReference.shared.norsync = false
             return true
         }
+        if SharedReference.shared.rsyncversion3 == true {
+            // Check that version rsync 3 is not set to /usr/bin - throw if true
+            guard SharedReference.shared.localrsyncpath != (SharedReference.shared.usrbin + "/") else {
+                throw Validatedrsync.noversion3inusrbin
+            }
+        }
         if FileManager.default.isExecutableFile(atPath: rsyncpath ?? "") == false {
             SharedReference.shared.norsync = true
             // Throwing no valid rsync in path
-            throw Validatedrsync.norysnc
+            throw Validatedrsync.norsync
         } else {
             SharedReference.shared.norsync = false
             return true
@@ -57,6 +66,11 @@ struct SetandValidatepathforrsync {
         } else {
             SharedReference.shared.localrsyncpath = nil
         }
+    }
+
+    func setdefaultrsync() {
+        SharedReference.shared.localrsyncpath = nil
+        SharedReference.shared.rsyncversion3 = false
     }
 
     func getpathforrsync() -> String {

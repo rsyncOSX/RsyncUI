@@ -136,9 +136,20 @@ extension ObserveableReference {
                 return
             }
         } catch let e {
+            // Default back to default values of rsync
+            setdefaultvaulesrsync()
             let error = e
             self.propogateerror(error: error)
         }
+    }
+
+    // Set default version 2 of rsync values
+    private func setdefaultvaulesrsync() {
+        let validate = SetandValidatepathforrsync()
+        validate.setdefaultrsync()
+        rsyncversion3 = false
+        localrsyncpath = ""
+        isDirty = true
     }
 
     func setandvalidapathforrestore(_ atpath: String) {
@@ -205,7 +216,7 @@ enum Validatedpath: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .nopath:
-            return NSLocalizedString("There is no such path", comment: "no path") + "..."
+            return NSLocalizedString("No such path", comment: "no path") + "..."
         }
     }
 }
