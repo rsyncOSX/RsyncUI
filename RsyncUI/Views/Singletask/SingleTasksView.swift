@@ -40,6 +40,8 @@ struct SingleTasksView: View {
     @State private var valueselectedrow: String = ""
     // If shellout
     @State private var shellout: Bool = false
+    //
+    @State private var showcompleted: Bool = false
 
     var body: some View {
         ZStack {

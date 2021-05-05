@@ -1,3 +1,5 @@
+// swiftlint:disable line_length file_length redundant_optional_initialization
+
 import Combine
 import SwiftUI
 
