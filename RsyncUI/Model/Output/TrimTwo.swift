@@ -1,5 +1,5 @@
 //
-//  TrimThree.swift
+//  TrimTwo.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 05/05/2021.
