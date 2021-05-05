@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class TrimTwo {
+final class TrimThree {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
     var maxnumber: Int = 0
@@ -33,28 +33,20 @@ final class TrimTwo {
                     self.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] line in
-                if line.last != "/" {
-                    trimmeddata.append(line)
-                    do {
-                        try checkforrsyncerror(line)
-                    } catch let e {
-                        // Only want one notification about error, not multiple
-                        // Multiple can be a kind of race situation
-                        if errordiscovered == false {
-                            let error = e
-                            _ = Logfile(data, true)
-                            self.propogateerror(error: error)
-                            errordiscovered = true
-                        }
+                let substr = line.dropFirst(10).trimmingCharacters(in: .whitespacesAndNewlines)
+                let str = substr.components(separatedBy: " ").dropFirst(3).joined(separator: " ")
+                if str.isEmpty == false {
+                    if str.contains(".DS_Store") == false {
+                        trimmeddata.append(str)
                     }
                 }
-                maxnumber = trimmeddata.count
+
             })
             .store(in: &subscriptions)
     }
 }
 
-extension TrimTwo: PropogateError {
+extension TrimThree: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

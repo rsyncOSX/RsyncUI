@@ -5,17 +5,15 @@
 //  Created by Thomas Evensen on 05/05/2021.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 final class TrimFour {
-    
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
-    
+
     init(_ data: [String]) {
         data.publisher
-            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
@@ -28,7 +26,7 @@ final class TrimFour {
                 let substr = line.dropFirst(10).trimmingCharacters(in: .whitespacesAndNewlines)
                 let str = substr.components(separatedBy: " ").dropFirst(1).dropLast(2).joined(separator: " ")
                 if str.count > 4, str.contains(".DS_Store") == false {
-                    self.trimmeddata.append(str)
+                    trimmeddata.append(str)
                 }
             })
             .store(in: &subscriptions)
@@ -40,4 +38,3 @@ extension TrimFour: PropogateError {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
-

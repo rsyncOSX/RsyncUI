@@ -40,17 +40,16 @@ final class Snapshotlogsandcatalogs {
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
     private func prepareremotesnapshotcatalogs() {
-        if let catalogs = outputprocess?.trimoutput(trim: .one),
-           let datescatalogs = outputprocess?.trimoutput(trim: .four)
-        {
-            catalogsanddates = [Catalogsanddates]()
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "YYYY/mm/dd"
-            for i in 0 ..< catalogs.count where i < datescatalogs.count {
-                if let date = dateformatter.date(from: datescatalogs[i]) {
-                    if catalogs[i].contains("./.") == false {
-                        self.catalogsanddates?.append((catalogs[i], date))
-                    }
+        let catalogs = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata
+        let datescatalogs = TrimFour(outputprocess?.getOutput() ?? []).trimmeddata
+
+        catalogsanddates = [Catalogsanddates]()
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "YYYY/mm/dd"
+        for i in 0 ..< catalogs.count where i < datescatalogs.count {
+            if let date = dateformatter.date(from: datescatalogs[i]) {
+                if catalogs[i].contains("./.") == false {
+                    self.catalogsanddates?.append((catalogs[i], date))
                 }
             }
         }

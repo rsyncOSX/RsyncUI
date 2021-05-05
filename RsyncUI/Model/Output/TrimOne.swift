@@ -5,17 +5,15 @@
 //  Created by Thomas Evensen on 05/05/2021.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 final class TrimOne {
-    
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
-    
+
     init(_ data: [String]) {
         data.publisher
-            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
@@ -40,5 +38,3 @@ extension TrimOne: PropogateError {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
-
-

@@ -164,8 +164,8 @@ final class Logfile: NamesandPaths {
             fulllogging()
         }
     }
-    
-    init(_ data: [String], _ logging: Bool) {
+
+    init(_ data: [String], _: Bool) {
         super.init(profileorsshrootpath: .profileroot)
         let date = Date().localized_string_from_date()
         readloggfile()
