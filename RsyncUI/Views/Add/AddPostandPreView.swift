@@ -28,40 +28,44 @@ struct AddPostandPreView: View {
 
     var body: some View {
         Form {
-            HStack {
-                // For center
-                Spacer()
+            ZStack {
+                HStack {
+                    // For center
+                    Spacer()
 
-                // Column 1
-                VStack(alignment: .leading) {
-                    Section(header: headerprepost) {
-                        pretaskandtoggle
+                    // Column 1
+                    VStack(alignment: .leading) {
+                        Section(header: headerprepost) {
+                            pretaskandtoggle
 
-                        posttaskandtoggle
-                    }
-                }
-                .padding()
-
-                // Column 2
-                VStack(alignment: .leading) {
-                    Section(header: headererror) {
-                        // Halt posttask on error
-                        if selectedconfig == nil { disablehaltshelltasksonerror } else {
-                            ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
-                                .onAppear(perform: {
-                                    if selectedconfig?.haltshelltasksonerror == 1 {
-                                        haltshelltasksonerror = true
-                                    } else {
-                                        haltshelltasksonerror = false
-                                    }
-                                })
+                            posttaskandtoggle
                         }
                     }
-                }
-                .padding()
+                    .padding()
 
-                // For center
-                Spacer()
+                    // Column 2
+                    VStack(alignment: .leading) {
+                        Section(header: headererror) {
+                            // Halt posttask on error
+                            if selectedconfig == nil { disablehaltshelltasksonerror } else {
+                                ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+                                    .onAppear(perform: {
+                                        if selectedconfig?.haltshelltasksonerror == 1 {
+                                            haltshelltasksonerror = true
+                                        } else {
+                                            haltshelltasksonerror = false
+                                        }
+                                    })
+                            }
+                        }
+                    }
+                    .padding()
+
+                    // For center
+                    Spacer()
+                }
+
+                if updated == true { notifyupdated }
             }
 
             VStack {
@@ -69,9 +73,6 @@ struct AddPostandPreView: View {
 
                 HStack {
                     Spacer()
-
-                    // Present when updated
-                    if updated == true { notifyupdated }
 
                     // Add or Update button
                     if selectedconfig == nil {
@@ -184,14 +185,8 @@ struct AddPostandPreView: View {
     }
 
     var notifyupdated: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Updated", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 150, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Updated",
+                                                                                   comment: "settings")), subTitle: Optional(""))
     }
 }
 
