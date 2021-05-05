@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 class OutputProcess {
     var output: [String]?
@@ -29,12 +28,6 @@ class OutputProcess {
 
     init() {
         output = [String]()
-    }
-}
-
-extension OutputProcess: PropogateError {
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
 

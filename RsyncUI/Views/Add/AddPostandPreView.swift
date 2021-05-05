@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 01/04/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -185,8 +186,10 @@ struct AddPostandPreView: View {
     }
 
     var notifyupdated: some View {
-        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Updated",
-                                                                                   comment: "settings")), subTitle: Optional(""))
+        AlertToast(type: .complete(Color.green),
+                   title: Optional(NSLocalizedString("Updated",
+                                                     comment: "settings")),
+                   subTitle: Optional(""))
     }
 }
 
