@@ -185,9 +185,3 @@ extension Sshsettings {
         showsshverifysheet = true
     }
 }
-
-/*
- TODO:
- - must fix saving identityfile and port at same time.
- - Does not work, saves one at a time now.
- */

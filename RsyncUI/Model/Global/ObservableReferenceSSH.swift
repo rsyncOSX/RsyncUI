@@ -66,6 +66,10 @@ extension ObservableReferenceSSH {
             let verified = try checksshkeypathbeforesaving(keypath)
             if verified {
                 SharedReference.shared.sshkeypathandidentityfile = keypath
+                // Save port number also
+                if let port = Int(sshport) {
+                    SharedReference.shared.sshport = port
+                }
                 isDirty = true
             }
         } catch let e {
@@ -96,6 +100,8 @@ extension ObservableReferenceSSH {
             let verified = try checksshport(port)
             if verified {
                 SharedReference.shared.sshport = Int(port)
+                // Save identityfile also
+                SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
                 isDirty = true
             }
         } catch let e {
