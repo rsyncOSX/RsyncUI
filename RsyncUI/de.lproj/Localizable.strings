@@ -453,7 +453,8 @@
 /* Restore */
 "Restore not allowed for syncremote task" = "Wiederherstellung für Syncremote-Aufgabe nicht erlaubt";
 
-/* RsyncParametersView */
+/* RsyncParametersView
+   Select button */
 "Return" = "Zurück";
 
 /* RsyncParametersView */
@@ -594,12 +595,6 @@
 /* rsync error */
 "There are errors in output" = "Es gibt Fehler in der Ausgabe";
 
-/* no rsync */
-"There is no rsync in path" = "Es gibt keinen rsync im Pfad";
-
-/* no path */
-"There is no such path" = "Es gibt keinen solchen Pfad";
-
 /* notyet */
 "This function is not yet implemented" = "Diese Funktion ist noch nicht implementiert";
 
@@ -659,8 +654,4 @@
 
 /* plan */
 "Wednesday" = "Mittwoch";
-
-/* progressview
-   progressview... */
-"Working" = "Arbeitet";
 

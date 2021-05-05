@@ -453,7 +453,8 @@
 /* Restore */
 "Restore not allowed for syncremote task" = "Gjenopprett ikke tillatt for oppgaver med syncremote";
 
-/* RsyncParametersView */
+/* RsyncParametersView
+   Select button */
 "Return" = "Retur";
 
 /* RsyncParametersView */
@@ -594,12 +595,6 @@
 /* rsync error */
 "There are errors in output" = "Det er feil i utdata";
 
-/* no rsync */
-"There is no rsync in path" = "Det er ingen rsync i stien";
-
-/* no path */
-"There is no such path" = "Det finnes ingen slik sti";
-
 /* notyet */
 "This function is not yet implemented" = "Denne funksjonen er ikke implementert ennå";
 
@@ -659,8 +654,4 @@
 
 /* plan */
 "Wednesday" = "Onsdag";
-
-/* progressview
-   progressview... */
-"Working" = "Arbeider";
 
