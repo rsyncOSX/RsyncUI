@@ -72,6 +72,8 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.configurations)
 
+                Divider()
+
                 NavigationLink(destination: SidebarSnapshotsView(reload: $reload),
                                tag: NavigationItem.snapshots,
                                selection: $selection) {

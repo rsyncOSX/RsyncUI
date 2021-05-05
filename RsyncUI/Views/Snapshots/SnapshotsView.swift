@@ -65,8 +65,6 @@ struct SnapshotsView: View {
 
             labelnumberoflogs
 
-            Spacer()
-
             // If there is some discrepancy
             if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs {
                 Button(NSLocalizedString("Discrepancy", comment: "Tag")) {
@@ -75,6 +73,8 @@ struct SnapshotsView: View {
                 }
                 .buttonStyle(PrimaryButtonStyle())
             }
+
+            Spacer()
 
             Button(NSLocalizedString("Tag", comment: "Tag")) { tagsnapshots() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -186,6 +186,11 @@ extension SnapshotsView {
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }
             guard (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
+            // Reset the Discrapancy if true
+            if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs {
+                snapshotdata.numlocallogrecords = 0
+                snapshotdata.numremotecatalogs = 0
+            }
             /*
              var snapdayoffweek: String = ""
              var snaplast: String = ""

@@ -65,7 +65,6 @@ final class Snapshotlogsandcatalogs {
         }
         // Set number of remote catalogs
         mysnapshotdata?.numremotecatalogs = catalogsanddates?.count ?? 0
-        print("remotecatalogs \(mysnapshotdata?.numremotecatalogs ?? 0)")
     }
 
     // Calculating days since snaphot was executed
@@ -86,7 +85,6 @@ final class Snapshotlogsandcatalogs {
         let logcount = logrecordssnapshot?.count ?? 0
         // Set number of local logrecords
         mysnapshotdata?.numlocallogrecords = logcount
-        print("logrecords \(mysnapshotdata?.numlocallogrecords ?? 0)")
         for i in 0 ..< (catalogsanddates?.count ?? 0) {
             var j = 0
             if let logrecordssnapshot = self.logrecordssnapshot {
@@ -110,16 +108,16 @@ final class Snapshotlogsandcatalogs {
                     }
                     j += 1
                     return false
-                }) {}
+                }) {} else {
+                    return
+                }
             }
         }
         logrecordssnapshot = adjustedlogrecords.sorted { cat1, cat2 -> Bool in
             if let cat1 = cat1.snapshotCatalog,
                let cat2 = cat2.snapshotCatalog
             {
-                let nr1 = Int(cat1.dropFirst(2)) ?? 0
-                let nr2 = Int(cat2.dropFirst(2)) ?? 0
-                if nr1 > nr2 {
+                if (Int(cat1.dropFirst(2)) ?? 0) > (Int(cat2.dropFirst(2)) ?? 0) {
                     return true
                 } else {
                     return false
