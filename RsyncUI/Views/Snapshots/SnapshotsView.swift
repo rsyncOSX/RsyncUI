@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 23/02/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -27,6 +28,8 @@ struct SnapshotsView: View {
     // Plan for tagging and administrating snapshots
     @State private var snaplast: String = PlanSnapshots.Last.rawValue
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
+    // AlertToast
+    @State private var showAlert: Bool = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
@@ -47,24 +50,10 @@ struct SnapshotsView: View {
                 .frame(width: 50.0, height: 50.0)
                 .foregroundColor(.red)
             }
-        }
 
-        if notsnapshot == true { notasnapshottask }
-        if gettingdata == true { gettingdatainprocess }
-        // Number of local logrecords or remote catalogs does not
-        // match, there is either to many logrecords or missing logrecords
-        // for remote snapshotcatalogs
-        // The match is important for adminsitrating snapshots
-        if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs {
-            HStack {
-                discrepancy
-
-                Button(NSLocalizedString("Discrepancy", comment: "Tag")) {
-                    rsyncUIData.filterbyhiddenIDanduuids(snapshotdata.uuidsLog)
-                    logs = true
-                }
-                .buttonStyle(PrimaryButtonStyle())
-            }
+            if notsnapshot == true { notasnapshottask }
+            if gettingdata == true { gettingdatainprocess }
+            if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs { discrepancy }
         }
 
         HStack {
@@ -77,6 +66,15 @@ struct SnapshotsView: View {
             labelnumberoflogs
 
             Spacer()
+
+            // If there is some discrepancy
+            if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs {
+                Button(NSLocalizedString("Discrepancy", comment: "Tag")) {
+                    rsyncUIData.filterbyhiddenIDanduuids(snapshotdata.uuidsLog)
+                    logs = true
+                }
+                .buttonStyle(PrimaryButtonStyle())
+            }
 
             Button(NSLocalizedString("Tag", comment: "Tag")) { tagsnapshots() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -102,36 +100,15 @@ struct SnapshotsView: View {
     }
 
     var notasnapshottask: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Not a snapshot task", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 200, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("Not a snapshot task", comment: "settings")), subTitle: Optional(""))
     }
 
     var gettingdatainprocess: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("In process in getting data", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 200, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("In process in getting data", comment: "settings")), subTitle: Optional(""))
     }
 
     var discrepancy: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("some discrepancy", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 200, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("some discrepancy", comment: "settings")), subTitle: Optional(""))
     }
 
     var pickersnapdayoffweek: some View {
@@ -163,6 +140,9 @@ extension SnapshotsView {
     func abort() {
         snapshotdata.state = .start
         snapshotdata.setsnapshotdata(nil)
+        // Close the Discrepancy alert
+        snapshotdata.numlocallogrecords = 0
+        snapshotdata.numremotecatalogs = 0
         // kill any ongoing processes
         _ = InterruptProcess()
     }
