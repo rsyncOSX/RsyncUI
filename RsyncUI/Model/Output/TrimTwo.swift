@@ -53,7 +53,7 @@ final class TrimTwo {
                         // Multiple can be a kind of race situation
                         if errordiscovered == false {
                             let error = e
-                            _ = Logfile(data, true)
+                            _ = Logfile(data)
                             self.propogateerror(error: error)
                             errordiscovered = true
                         }

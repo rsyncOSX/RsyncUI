@@ -11,17 +11,15 @@ import Foundation
 struct InterruptProcess {
     init() {
         guard SharedReference.shared.process != nil else { return }
-        let output = OutputProcess()
-        let string = "Interrupted: " + Date().long_localized_string_from_date()
-        output.addlinefromoutput(str: string)
-        _ = Logfile(output, true)
+        let string: [String] = ["Interrupted: " + Date().long_localized_string_from_date()]
+        _ = Logfile(string)
         SharedReference.shared.process?.interrupt()
         SharedReference.shared.process = nil
     }
 
     init(output: OutputProcess?) {
         guard SharedReference.shared.process != nil, output != nil else { return }
-        _ = Logfile(output, true)
+        _ = Logfile(output?.getOutput())
         SharedReference.shared.process?.interrupt()
         SharedReference.shared.process = nil
     }

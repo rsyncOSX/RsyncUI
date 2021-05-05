@@ -153,29 +153,26 @@ final class Logfile: NamesandPaths {
         }
     }
 
-    init(_ outputprocess: OutputProcess?, _ logging: Bool) {
-        super.init(profileorsshrootpath: .profileroot)
-        if logging == false, outputprocess == nil {
-            let date = Date().localized_string_from_date()
-            logfile = date + ": " + "new logfile is created...\n"
-            writeloggfile()
-        } else {
-            self.outputprocess = outputprocess
-            fulllogging()
-        }
-    }
-
-    init(_ data: [String], _: Bool) {
+    init(_: Bool) {
         super.init(profileorsshrootpath: .profileroot)
         let date = Date().localized_string_from_date()
-        readloggfile()
-        let tmplogg: String = "\n" + date + "\n"
-        if logfile == nil {
-            logfile = tmplogg + data.joined(separator: "\n")
-        } else {
-            logfile! += tmplogg + data.joined(separator: "\n")
-        }
+        logfile = date + ": " + "new logfile is created...\n"
         writeloggfile()
+    }
+
+    init(_ data: [String]?) {
+        super.init(profileorsshrootpath: .profileroot)
+        if let data = data {
+            let date = Date().localized_string_from_date()
+            readloggfile()
+            let tmplogg: String = "\n" + date + "\n"
+            if logfile == nil {
+                logfile = tmplogg + data.joined(separator: "\n")
+            } else {
+                logfile! += tmplogg + data.joined(separator: "\n")
+            }
+            writeloggfile()
+        }
     }
 
     init() {

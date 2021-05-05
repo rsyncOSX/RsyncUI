@@ -46,7 +46,7 @@ struct LogfileView: View {
 
     func reset() {
         resetloggfile = true
-        _ = Logfile(nil, false)
+        _ = Logfile(true)
     }
 
     func afterareload() {
