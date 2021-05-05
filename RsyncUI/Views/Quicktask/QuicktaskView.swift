@@ -58,12 +58,15 @@ struct QuicktaskView: View {
 
                             remoteuserandserver
                         }
-
-                        if executed { notifyexecuted }
                     }
 
                     // For center
                     Spacer()
+                }
+
+                if executed == true {
+                    AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Executed",
+                                                                                               comment: "settings")), subTitle: Optional(""))
                 }
 
                 if showprogressview {
@@ -149,17 +152,6 @@ struct QuicktaskView: View {
         OutputRsyncView(isPresented: $presentsheetview,
                         output: $output,
                         valueselectedrow: $valueselectedrow)
-    }
-
-    var notifyexecuted: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Executed", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 150, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 }
 
