@@ -64,50 +64,48 @@ struct AddConfigurationView: View {
 
     var body: some View {
         Form {
-            HStack {
-                // For center
-                Spacer()
+            ZStack {
+                HStack {
+                    // For center
+                    Spacer()
 
-                // Column 1
-                VStack(alignment: .leading) {
-                    pickerselecttypeoftask
+                    // Column 1
+                    VStack(alignment: .leading) {
+                        pickerselecttypeoftask
 
-                    VStack(alignment: .leading) { localandremotecatalog }
+                        VStack(alignment: .leading) { localandremotecatalog }
 
-                    VStack(alignment: .leading) { synchronizeid }
+                        VStack(alignment: .leading) { synchronizeid }
 
-                    VStack(alignment: .leading) { remoteuserandserver }
-                }
-                .padding()
-
-                // Column 2
-                VStack(alignment: .leading) {
-                    ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
-
-                    HStack {
-                        EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
-
-                        Button(NSLocalizedString("Profile", comment: "Add button")) { createprofile() }
-                            .buttonStyle(PrimaryButtonStyle())
+                        VStack(alignment: .leading) { remoteuserandserver }
                     }
-                }
-                .padding()
+                    .padding()
 
-                // For center
-                Spacer()
+                    // Column 2
+                    VStack(alignment: .leading) {
+                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+
+                        HStack {
+                            EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
+
+                            Button(NSLocalizedString("Profile", comment: "Add button")) { createprofile() }
+                                .buttonStyle(PrimaryButtonStyle())
+                        }
+                    }
+                    .padding()
+
+                    // For center
+                    Spacer()
+                }
+
+                // Present when either added, updated or profile created
+                if added == true { notifyadded }
+                if updated == true { notifyupdated }
+                if created == true { notifycreated }
             }
 
             VStack {
                 HStack {
-                    Spacer()
-
-                    HStack {
-                        // Present when either added, updated or profile created
-                        if added == true { notifyadded }
-                        if updated == true { notifyupdated }
-                        if created == true { notifycreated }
-                    }
-
                     Spacer()
                     // Add or Update button
                     if selectedconfig == nil {
@@ -262,36 +260,18 @@ struct AddConfigurationView: View {
     }
 
     var notifyadded: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Added", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 150, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Added",
+                                                                                   comment: "settings")), subTitle: Optional(""))
     }
 
     var notifyupdated: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Updated", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 150, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Updated",
+                                                                                   comment: "settings")), subTitle: Optional(""))
     }
 
     var notifycreated: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Created", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 150, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Created",
+                                                                                   comment: "settings")), subTitle: Optional(""))
     }
 }
 
