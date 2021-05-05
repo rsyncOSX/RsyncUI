@@ -11,7 +11,6 @@ import SwiftUI
 struct DetailedRsyncParametersView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var reload: Bool
-    @Binding var updated: Bool
     @Binding var showdetails: Bool
     @Binding var selectedconfig: Configuration?
     @StateObject var parameters = ObserveableParametersRsync()
@@ -171,17 +170,6 @@ struct DetailedRsyncParametersView: View {
                 }
             })
     }
-
-    var notifyupdated: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Updated", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 150, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-    }
 }
 
 extension DetailedRsyncParametersView {
@@ -217,13 +205,8 @@ extension DetailedRsyncParametersView {
                                      configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(config, true)
             reload = true
-            updated = true
-            // Show updated for 1 second
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                updated = false
-                selectedconfig = nil
-                showdetails = false
-            }
+            selectedconfig = nil
+            showdetails = false
         }
         parameters.isDirty = false
         parameters.inputchangedbyuser = false

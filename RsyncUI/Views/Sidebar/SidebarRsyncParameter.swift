@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SidebarRsyncParameter: View {
     @Binding var reload: Bool
-    @State private var updated = false
     @State private var showdetails = false
     @State private var selectedconfig: Configuration?
 
@@ -19,7 +18,6 @@ struct SidebarRsyncParameter: View {
                 headingtitle
 
                 RsyncParametersView(reload: $reload,
-                                    updated: $updated,
                                     showdetails: $showdetails,
                                     selectedconfig: $selectedconfig)
             } else {
@@ -30,7 +28,6 @@ struct SidebarRsyncParameter: View {
                 }
 
                 DetailedRsyncParametersView(reload: $reload,
-                                            updated: $updated,
                                             showdetails: $showdetails,
                                             selectedconfig: $selectedconfig)
             }

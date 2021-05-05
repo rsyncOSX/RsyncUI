@@ -55,9 +55,11 @@ struct AboutView: View {
 
             translations
 
-            rsynclongstring
+            ZStack {
+                rsynclongstring
 
-            if new.notifynewversion { notifynewversion }
+                if new.notifynewversion { notifynewversion }
+            }
 
             buttonsview
 
@@ -122,17 +124,14 @@ struct AboutView: View {
     }
 
     var notifynewversion: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("New version", comment: "settings"))
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 150, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-        .onAppear(perform: {
-            dismiss()
-        })
+        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("New version",
+                                                                                   comment: "settings")), subTitle: Optional(""))
+            .onAppear(perform: {
+                // Show updated for 1 second
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    new.notifynewversion = false
+                }
+            })
     }
 }
 
@@ -143,13 +142,6 @@ extension AboutView {
 
     func opendocumentation() {
         NSWorkspace.shared.open(URL(string: documents)!)
-    }
-
-    // Dismiss the notify for new version
-    func dismiss() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            new.notifynewversion = false
-        }
     }
 
     func opendownload() {
