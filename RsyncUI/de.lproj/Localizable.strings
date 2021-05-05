@@ -137,6 +137,9 @@
 /* RsyncParametersView */
 "Daemon" = "Daemon";
 
+/* SnapshotsView */
+"Day of week" = "Wochentag";
+
 /* ConfigurationsList */
 "Days" = "Tage";
 
@@ -153,6 +156,9 @@
 
 /* settings */
 "Detailed" = "Detailliert";
+
+/* Tag */
+"Discrepancy" = "Diskrepanz";
 
 /* Dismiss button
    ssh settings */
@@ -245,6 +251,9 @@
 /* icon */
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
+/* settings */
+"In process in getting data" = "Daten werden gerade abgerufen";
+
 /* italian */
 "Italian translation by: Stefano Steve Cutelle'" = "Italienische Übersetzung von: Stefano Steve Cutelle'";
 
@@ -330,11 +339,20 @@
 /* settings */
 "New version" = "Neue Version";
 
+/* no rsync */
+"No rsync in path" = "Kein rsync im Pfad";
+
 /* ScheduleRowSchedules */
 "no startdate" = "kein Startdatum";
 
+/* no path */
+"No such path" = "Kein solcher Pfad";
+
 /* No comment provided by engineer. */
 "no username" = "kein Benutzername";
+
+/* no rsync */
+"No ver3 of rsync in /usr/bin" = "Keine Ver3 von rsync in /usr/bin";
 
 /* settings */
 "None" = "Keine";
@@ -366,9 +384,15 @@
 /* Now button */
 "Now" = "Jetzt";
 
+/* : \(snapshotdata.numremotecatalogs) */
+"Number of aligned snapshotcatalogs" = "Anzahl der ausgerichteten Snapshotcatalogs";
+
 /* RestoreView
    RestoreView: */
 "Number of files" = "Anzahl der Dateien";
+
+/* : \(snapshotdata.numlocallogrecords) */
+"Number of logrecords" = "Anzahl der Protokolle";
 
 /* No comment provided by engineer. */
 "Number of logs" = "Anzahl der Protokolle";
@@ -397,6 +421,9 @@
 
 /* ssh settings */
 "Paths for apps" = "Pfade für Apps";
+
+/* SnapshotsView */
+"Plan" = "Plan";
 
 /* ScheduleError */
 "Please select a configuration" = "Bitte wählen Sie eine Konfiguration";
@@ -547,6 +574,9 @@
 /* sidebar
    SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
+
+/* settings */
+"some discrepancy" = "etwas Diskrepanz";
 
 /* user settings */
 "Ssh" = "Ssh";

@@ -137,6 +137,9 @@
 /* RsyncParametersView */
 "Daemon" = "Daemon";
 
+/* SnapshotsView */
+"Day of week" = "Dag i uken";
+
 /* ConfigurationsList */
 "Days" = "Dager";
 
@@ -153,6 +156,9 @@
 
 /* settings */
 "Detailed" = "Detaljert";
+
+/* Tag */
+"Discrepancy" = "Avvik";
 
 /* Dismiss button
    ssh settings */
@@ -245,6 +251,9 @@
 /* icon */
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
 
+/* settings */
+"In process in getting data" = "I prosess for å hente data";
+
 /* italian */
 "Italian translation by: Stefano Steve Cutelle'" = "Italiensk oversettelse av: Stefano Steve Cutelle'";
 
@@ -330,11 +339,20 @@
 /* settings */
 "New version" = "Ny versjon";
 
+/* no rsync */
+"No rsync in path" = "Ingen rsync i stien";
+
 /* ScheduleRowSchedules */
 "no startdate" = "ingen startdato";
 
+/* no path */
+"No such path" = "Ingen slik bane";
+
 /* No comment provided by engineer. */
 "no username" = "ingen brukernavn";
+
+/* no rsync */
+"No ver3 of rsync in /usr/bin" = "Ingen ver3 av rsync i /usr/bin";
 
 /* settings */
 "None" = "Ingen";
@@ -366,9 +384,15 @@
 /* Now button */
 "Now" = "Nå";
 
+/* : \(snapshotdata.numremotecatalogs) */
+"Number of aligned snapshotcatalogs" = "Antall justerte snapshotcataloger";
+
 /* RestoreView
    RestoreView: */
 "Number of files" = "Antall filer";
+
+/* : \(snapshotdata.numlocallogrecords) */
+"Number of logrecords" = "Antall logger";
 
 /* No comment provided by engineer. */
 "Number of logs" = "Antall logger";
@@ -397,6 +421,9 @@
 
 /* ssh settings */
 "Paths for apps" = "Sti til apper";
+
+/* SnapshotsView */
+"Plan" = "Plan";
 
 /* ScheduleError */
 "Please select a configuration" = "Velg en konfigurasjon";
@@ -547,6 +574,9 @@
 /* sidebar
    SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
+
+/* settings */
+"some discrepancy" = "noe avvik";
 
 /* user settings */
 "Ssh" = "Ssh";
