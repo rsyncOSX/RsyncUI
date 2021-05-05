@@ -164,6 +164,19 @@ final class Logfile: NamesandPaths {
             fulllogging()
         }
     }
+    
+    init(_ data: [String], _ logging: Bool) {
+        super.init(profileorsshrootpath: .profileroot)
+        let date = Date().localized_string_from_date()
+        readloggfile()
+        let tmplogg: String = "\n" + date + "\n"
+        if logfile == nil {
+            logfile = tmplogg + data.joined(separator: "\n")
+        } else {
+            logfile! += tmplogg + data.joined(separator: "\n")
+        }
+        writeloggfile()
+    }
 
     init() {
         super.init(profileorsshrootpath: .profileroot)

@@ -199,6 +199,9 @@
 		E99C23FB261C2D6C009D4DBF /* RestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FA261C2D6C009D4DBF /* RestoreView.swift */; };
 		E99C2400261C322E009D4DBF /* ObserveableReferenceRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObserveableReferenceRestore.swift */; };
 		E9BCCE8C25FB432E0034EDFD /* SidebarLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */; };
+		E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BA2642F94400E29347 /* TrimFour.swift */; };
+		E9BD14BD2642FDC200E29347 /* TrimOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BC2642FDC200E29347 /* TrimOne.swift */; };
+		E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BE2642FE6300E29347 /* TrimTwo.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */; };
 		E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */; };
 		E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */; };
@@ -424,6 +427,9 @@
 		E9B1277D260501CA001A5FD3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E9B240362600A2EF004E91B5 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Main.strings; sourceTree = "<group>"; };
 		E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarLogsView.swift; sourceTree = "<group>"; };
+		E9BD14BA2642F94400E29347 /* TrimFour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimFour.swift; sourceTree = "<group>"; };
+		E9BD14BC2642FDC200E29347 /* TrimOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimOne.swift; sourceTree = "<group>"; };
+		E9BD14BE2642FE6300E29347 /* TrimTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimTwo.swift; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableReferenceSSH.swift; sourceTree = "<group>"; };
 		E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableReferencePaths.swift; sourceTree = "<group>"; };
 		E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewversionJSON.swift; sourceTree = "<group>"; };
@@ -801,6 +807,9 @@
 			children = (
 				E985C6A025F3AD9600CB895C /* OutputProcess.swift */,
 				E985C6A125F3AD9600CB895C /* OutputProcessRsync.swift */,
+				E9BD14BA2642F94400E29347 /* TrimFour.swift */,
+				E9BD14BC2642FDC200E29347 /* TrimOne.swift */,
+				E9BD14BE2642FE6300E29347 /* TrimTwo.swift */,
 			);
 			path = Output;
 			sourceTree = "<group>";
@@ -1282,6 +1291,7 @@
 				E985C78425F3AD9700CB895C /* UpdateConfigurations.swift in Sources */,
 				E91CC2622607260B00D69D0B /* RsyncParametersView.swift in Sources */,
 				E985C76F25F3AD9700CB895C /* InprogressCountRsyncOutput.swift in Sources */,
+				E9BD14BD2642FDC200E29347 /* TrimOne.swift in Sources */,
 				E985C66525F3AD8400CB895C /* LogfileView.swift in Sources */,
 				E985C73D25F3AD9700CB895C /* Result.swift in Sources */,
 				E9BCCE8C25FB432E0034EDFD /* SidebarLogsView.swift in Sources */,
@@ -1311,6 +1321,7 @@
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,
 				E959280426240B8C002631CB /* NewversionPLIST.swift in Sources */,
 				E90B4AA0261DA7580043EFF6 /* ArcsIndicatorView.swift in Sources */,
+				E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */,
 				E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */,
 				E9011D46262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
@@ -1341,6 +1352,7 @@
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
 				E99C2400261C322E009D4DBF /* ObserveableReferenceRestore.swift in Sources */,
 				E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */,
+				E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */,
 				E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */,
 				E90B4AA2261DA7580043EFF6 /* RotatingDotsIndicatorView.swift in Sources */,
 				E985C68E25F3AD8400CB895C /* MultipletasksView.swift in Sources */,
