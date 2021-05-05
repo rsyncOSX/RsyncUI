@@ -154,8 +154,7 @@ final class Snapshotlogsandcatalogs {
     init(config: Configuration,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
          schedulesSwiftUI: SchedulesSwiftUI?,
-         snapshotdata: SnapshotData,
-         test: Bool)
+         snapshotdata: SnapshotData)
     {
         guard config.task == SharedReference.shared.snapshot else { return }
         localeconfig = config
@@ -169,13 +168,7 @@ final class Snapshotlogsandcatalogs {
         // release the object - dont need it more
         alllogs = nil
         // Getting remote catalogdata about all snapshots
-        if test == false {
-            getremotecataloginfo()
-        } else {
-            outputprocess = OutputProcess()
-            outputprocess?.output = Testdata().output
-            processtermination()
-        }
+        getremotecataloginfo()
     }
 
     deinit {

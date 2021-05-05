@@ -175,19 +175,10 @@ extension SnapshotsView {
             if let snapdayofweek = config.snapdayoffweek {
                 self.snapdayofweek = snapdayofweek
             }
-            if rsyncUIData.profile != "test" {
-                _ = Snapshotlogsandcatalogs(config: config,
-                                            configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                            schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                            snapshotdata: snapshotdata,
-                                            test: false)
-            } else {
-                _ = Snapshotlogsandcatalogs(config: config,
-                                            configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                            schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                            snapshotdata: snapshotdata,
-                                            test: true)
-            }
+            _ = Snapshotlogsandcatalogs(config: config,
+                                        configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                        schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                        snapshotdata: snapshotdata)
         }
     }
 
