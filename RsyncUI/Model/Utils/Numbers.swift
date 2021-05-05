@@ -209,7 +209,8 @@ final class Numbers {
 
     init(outputprocess: OutputProcess?) {
         guard outputprocess != nil else { return }
-        output = outputprocess?.trimoutput(trim: .two)
+        // output = outputprocess?.trimoutput(trim: .two)
+        output = TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata
         // Getting the summarized output from output.
         if (output?.count ?? 0) > 2 {
             resultRsync = (output?[(output?.count ?? 0) - 2])

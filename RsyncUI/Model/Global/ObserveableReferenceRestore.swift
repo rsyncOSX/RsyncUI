@@ -71,7 +71,7 @@ final class ObserveableReferenceRestore: ObservableObject {
 
 extension ObserveableReferenceRestore {
     func processtermination() {
-        numberoffiles = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count ?? 0
+        numberoffiles = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         gettingfilelist = false
     }
 
@@ -121,9 +121,9 @@ extension ObserveableReferenceRestore {
     func reloadfiles() {
         guard inputchangedbyuser == true else { return }
         if files {
-            numberoffiles = outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count ?? 0
+            numberoffiles = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         } else {
-            numberoffiles = outputprocess?.trimoutput(trim: .two)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count ?? 0
+            numberoffiles = TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         }
     }
 
@@ -196,10 +196,10 @@ extension ObserveableReferenceRestore {
     func getoutput() -> [String]? {
         if files {
             // trim one
-            return outputprocess?.trimoutput(trim: .one)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+            return TrimOne(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         } else {
             // trim two
-            return outputprocess?.trimoutput(trim: .two)?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+            return TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         }
     }
 }

@@ -56,7 +56,8 @@ final class RemoteNumbers {
     }
 
     init(outputprocess: OutputProcess?) {
-        output = outputprocess?.trimoutput(trim: .two)
+        // output = outputprocess?.trimoutput(trim: .two)
+        output = TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata
         setnumbers()
     }
 }

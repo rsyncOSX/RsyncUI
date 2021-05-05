@@ -8,6 +8,17 @@
 import Combine
 import Foundation
 
+enum Rsyncerror: LocalizedError {
+    case rsyncerror
+
+    var errorDescription: String? {
+        switch self {
+        case .rsyncerror:
+            return NSLocalizedString("There are errors in output", comment: "rsync error") + "..."
+        }
+    }
+}
+
 final class TrimTwo {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()

@@ -123,7 +123,7 @@ extension ExecuteSingleTask {
             switch workload.pop() {
             case .estimated: // estimation completed
                 singletaskstateDelegate?.updatestate(state: workqueu?.peek() ?? .start)
-                updateoutputprocesscountDelegate?.setmaxcount(num: outputprocess?.getMaxcount() ?? 0)
+                updateoutputprocesscountDelegate?.setmaxcount(num: TrimTwo(outputprocess?.getOutput() ?? []).maxnumber)
             case .error:
                 workqueu = nil
             case .execute: // execution completed
@@ -143,7 +143,7 @@ extension ExecuteSingleTask {
 
     func filehandler() {
         if workqueu?.peek() == .execute {
-            updateoutputprocesscountDelegate?.updateinprogresscount(num: Double(outputprocess?.count() ?? 0))
+            updateoutputprocesscountDelegate?.updateinprogresscount(num: Double(TrimTwo(outputprocess?.getOutput() ?? []).maxnumber))
         }
     }
 }
