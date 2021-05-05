@@ -85,31 +85,32 @@ final class Snapshotlogsandcatalogs {
         let logcount = logrecordssnapshot?.count ?? 0
         // Set number of local logrecords
         mysnapshotdata?.numlocallogrecords = logcount
-        for i in 0 ..< (catalogsanddates?.count ?? 0) {
-            var j = 0
-            if let logrecordssnapshot = self.logrecordssnapshot {
-                if logrecordssnapshot.contains(where: { record in
+        let mycatalogs = catalogsanddates
+        var mylogrecords = logrecordssnapshot
+        // Loop through all real catalogs, find the corresponding logrecord if any
+        // and add the adjusted record
+        for i in 0 ..< (mycatalogs?.count ?? 0) {
+            // Real snapshotcatalog collected from remote and
+            // drop the "./" and add "(" and ")" before filter
+            let realsnapshotcatalog = "(" + (mycatalogs?[i].0 ?? "").dropFirst(2) + ")"
+            let record = mylogrecords?.filter { $0.resultExecuted.contains(realsnapshotcatalog.dropFirst(2)) }
+            // Found one record
+            if record?.count ?? 0 > 0 {
+                if var record = record?[0] {
                     let catalogelementlog = record.resultExecuted.split(separator: " ")[0]
                     let snapshotcatalogfromschedulelog = "./" + catalogelementlog.dropFirst().dropLast()
-                    if snapshotcatalogfromschedulelog == self.catalogsanddates?[i].0 {
-                        if j < logcount {
-                            self.logrecordssnapshot?[j].period = "... not yet tagged ..."
-                            self.logrecordssnapshot?[j].snapshotCatalog = snapshotcatalogfromschedulelog
-                            if let record = self.logrecordssnapshot?[j] {
-                                adjustedlogrecords.append(record)
-                                // Remove ids which are matcing
-                                if let idLog = record.idLog {
-                                    uuidsLog?.remove(idLog)
-                                }
-                            }
-                        }
-                        j += 1
-                        return true
+                    let uuid = record.id
+                    record.period = "... not yet tagged ..."
+                    record.snapshotCatalog = snapshotcatalogfromschedulelog
+                    adjustedlogrecords.append(record)
+                    // Remove uudid which are matcing
+                    if let idLog = record.idLog {
+                        uuidsLog?.remove(idLog)
                     }
-                    j += 1
-                    return false
-                }) {} else {
-                    return
+                    // Remove that record
+                    if let index = mylogrecords?.firstIndex(where: { $0.id == uuid }) {
+                        mylogrecords?.remove(at: index)
+                    }
                 }
             }
         }
