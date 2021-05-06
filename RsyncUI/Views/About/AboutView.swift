@@ -124,8 +124,9 @@ struct AboutView: View {
     }
 
     var notifynewversion: some View {
-        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("New version",
-                                                                                   comment: "settings")), subTitle: Optional(""))
+        AlertToast(type: .complete(Color.green),
+                   title: Optional(NSLocalizedString("New version",
+                                                     comment: "settings")), subTitle: Optional(""))
             .onAppear(perform: {
                 // Show updated for 1 second
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

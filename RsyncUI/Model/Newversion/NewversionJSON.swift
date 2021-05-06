@@ -12,26 +12,23 @@ struct Resource<T: Codable> {
     let request: URLRequest
 }
 
-struct Versionrsyncui: Codable {
-    let url: String?
-    let version: String?
-
-    enum CodingKeys: String, CodingKey {
-        case url
-        case version
-    }
-
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        url = try values.decodeIfPresent(String.self, forKey: .url)
-        version = try values.decodeIfPresent(String.self, forKey: .version)
-    }
-}
-
 final class NewversionJSON: ObservableObject {
     @Published var notifynewversion: Bool = false
     private var subscriber: AnyCancellable?
     private var runningversion: String?
+
+    func verifynewversion(_ result: [Versionrsyncui]?) {
+        if let result = result {
+            if let runningversion = runningversion {
+                let check = result.filter { runningversion.isEmpty ? true : $0.version == runningversion }
+                if check.count > 0 {
+                    notifynewversion = true
+                    SharedReference.shared.URLnewVersion = check[0].url
+                }
+            }
+        }
+        subscriber?.cancel()
+    }
 
     init() {
         runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
@@ -53,21 +50,6 @@ final class NewversionJSON: ObservableObject {
                     verifynewversion(result)
                 })
         }
-    }
-}
-
-extension NewversionJSON {
-    func verifynewversion(_ result: [Versionrsyncui]?) {
-        if let result = result {
-            if let runningversion = runningversion {
-                let check = result.filter { runningversion.isEmpty ? true : $0.version == runningversion }
-                if check.count > 0 {
-                    notifynewversion = true
-                    SharedReference.shared.URLnewVersion = check[0].url
-                }
-            }
-        }
-        subscriber?.cancel()
     }
 }
 

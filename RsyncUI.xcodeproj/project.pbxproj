@@ -205,6 +205,7 @@
 		E9BD14C12643082100E29347 /* TrimThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14C02643082100E29347 /* TrimThree.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */; };
 		E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */; };
+		E9CCECD72643AD7C007BE237 /* Versionrsyncui.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCECD62643AD7C007BE237 /* Versionrsyncui.swift */; };
 		E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */; };
 		E9EA67CD2632B11100BB6DEB /* DetailedRsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EA67CC2632B11100BB6DEB /* DetailedRsyncParametersView.swift */; };
 		E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FDDD4825F3D0610050718C /* Assets.xcassets */; };
@@ -434,6 +435,7 @@
 		E9BD14C02643082100E29347 /* TrimThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimThree.swift; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableReferenceSSH.swift; sourceTree = "<group>"; };
 		E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableReferencePaths.swift; sourceTree = "<group>"; };
+		E9CCECD62643AD7C007BE237 /* Versionrsyncui.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Versionrsyncui.swift; sourceTree = "<group>"; };
 		E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewversionJSON.swift; sourceTree = "<group>"; };
 		E9EA67CC2632B11100BB6DEB /* DetailedRsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedRsyncParametersView.swift; sourceTree = "<group>"; };
 		E9FDDD4825F3D0610050718C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -755,6 +757,7 @@
 		E985C69225F3AD9600CB895C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E9CCECD52643AD3A007BE237 /* Newversion */,
 				E985C69325F3AD9600CB895C /* Userconfiguration */,
 				E985C69525F3AD9600CB895C /* FilesAndCatalogs */,
 				E985C69A25F3AD9600CB895C /* Snapshots */,
@@ -820,8 +823,6 @@
 		E985C6A225F3AD9600CB895C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */,
-				E959280326240B8B002631CB /* NewversionPLIST.swift */,
 				E985C6A425F3AD9600CB895C /* Running.swift */,
 				E985C6A525F3AD9600CB895C /* GetfullpathforRsync.swift */,
 				E985C6A625F3AD9600CB895C /* Environment.swift */,
@@ -1091,6 +1092,16 @@
 				E985C6C825F3AD9600CB895C /* DecodeSchedule.swift */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		E9CCECD52643AD3A007BE237 /* Newversion */ = {
+			isa = PBXGroup;
+			children = (
+				E959280326240B8B002631CB /* NewversionPLIST.swift */,
+				E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */,
+				E9CCECD62643AD7C007BE237 /* Versionrsyncui.swift */,
+			);
+			path = Newversion;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1449,6 +1460,7 @@
 				E985C79125F3AD9700CB895C /* ObserveableReference.swift in Sources */,
 				E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */,
 				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,
+				E9CCECD72643AD7C007BE237 /* Versionrsyncui.swift in Sources */,
 				E985C75025F3AD9700CB895C /* DecodeSchedule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
