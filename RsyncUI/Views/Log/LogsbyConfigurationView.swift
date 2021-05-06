@@ -41,7 +41,7 @@ struct LogsbyConfigurationView: View {
             Spacer()
 
             List(selection: $selectedlog) {
-                if let logs = rsyncUIData.filterlogsortedbyhiddenID {
+                if let logs = rsyncUIData.filterlogsortedbyother {
                     ForEach(logs) { record in
                         LogRow(selecteduuids: $selecteduuids, logrecord: record)
                             .tag(record)
@@ -80,7 +80,7 @@ struct LogsbyConfigurationView: View {
     }
 
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIData.filterlogsortedbyhiddenID?.count ?? 0)"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIData.filterlogsortedbyother?.count ?? 0)"
     }
 }
 
@@ -102,8 +102,8 @@ extension LogsbyConfigurationView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (rsyncUIData.filterlogsortedbyhiddenID?.count ?? 0) {
-            if let id = rsyncUIData.filterlogsortedbyhiddenID?[i].id {
+        for i in 0 ..< (rsyncUIData.filterlogsortedbyother?.count ?? 0) {
+            if let id = rsyncUIData.filterlogsortedbyother?[i].id {
                 selecteduuids.insert(id)
             }
         }

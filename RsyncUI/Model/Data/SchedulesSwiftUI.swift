@@ -51,7 +51,7 @@ struct SchedulesSwiftUI {
         return nil
     }
 
-    func getalllogsbyhiddenIDandUUIDs(_ uuids: Set<UUID>?) -> [Log]? {
+    func getalllogsbyUUIDs(_ uuids: Set<UUID>?) -> [Log]? {
         if let uuids = uuids {
             let logrecords = getalllogs()?.filter { uuids.contains($0.id) }
             if let logrecords = logrecords {

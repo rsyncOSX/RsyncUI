@@ -32,7 +32,7 @@ final class RsyncUIdata: ObservableObject {
     // Sort and filter logs so the view does not trigger a refresh
     var alllogssorted: [Log]?
     var filterlogsorted: [Log]?
-    var filterlogsortedbyhiddenID: [Log]?
+    var filterlogsortedbyother: [Log]?
 
     func filter(_ filter: String) {
         // Important - must localize search in dates
@@ -44,14 +44,14 @@ final class RsyncUIdata: ObservableObject {
 
     func filterbyhiddenID(_ filter: String, _ hiddenID: Int) {
         // Important - must localize search in dates
-        filterlogsortedbyhiddenID = rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID)?.filter {
+        filterlogsortedbyother = rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID)?.filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
                 filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
         }
     }
 
-    func filterbyhiddenIDanduuids(_ uuids: Set<UUID>?) {
-        filterlogsortedbyhiddenID = rsyncdata?.scheduleData.getalllogsbyhiddenIDandUUIDs(uuids)
+    func filterbyUUIDs(_ uuids: Set<UUID>?) {
+        filterlogsortedbyother = rsyncdata?.scheduleData.getalllogsbyUUIDs(uuids)
     }
 
     func activeschedules(_ hiddenID: Int) -> Int {
@@ -73,7 +73,7 @@ final class RsyncUIdata: ObservableObject {
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
         filterlogsorted = alllogssorted
-        filterlogsortedbyhiddenID = alllogssorted
+        filterlogsortedbyother = alllogssorted
         objectWillChange.send()
     }
 }

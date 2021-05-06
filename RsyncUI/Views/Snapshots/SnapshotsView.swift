@@ -68,7 +68,7 @@ struct SnapshotsView: View {
             // If there is some discrepancy
             if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs {
                 Button(NSLocalizedString("Discrepancy", comment: "Tag")) {
-                    rsyncUIData.filterbyhiddenIDanduuids(snapshotdata.uuidsLog)
+                    rsyncUIData.filterbyUUIDs(snapshotdata.uuidsLog)
                     logs = true
                 }
                 .buttonStyle(PrimaryButtonStyle())
