@@ -30,6 +30,8 @@ struct SnapshotsView: View {
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
     // AlertToast
     @State private var showAlert: Bool = false
+    // Noy yet completed
+    @State private var notyetcompleted: Bool = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
@@ -54,6 +56,16 @@ struct SnapshotsView: View {
             if notsnapshot == true { notasnapshottask }
             if gettingdata == true { gettingdatainprocess }
             if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs { discrepancy }
+
+            if notyetcompleted == true {
+                AlertToast(type: .regular, title: Optional("Sorry, this function is not yet completed"),
+                           subTitle: Optional("... I am working on it ..."))
+                    .onAppear(perform: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            notyetcompleted = false
+                        }
+                    })
+            }
         }
 
         HStack {
@@ -223,7 +235,7 @@ extension SnapshotsView {
 
     func delete() {
         // Send all selected UUIDs to mark for delete
-        _ = NotYetImplemented()
+        notyetcompleted = true
     }
 }
 

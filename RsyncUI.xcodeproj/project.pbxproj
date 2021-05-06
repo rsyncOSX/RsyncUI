@@ -93,7 +93,6 @@
 		E985C68625F3AD8400CB895C /* ConfirmUpdatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64925F3AD8400CB895C /* ConfirmUpdatedView.swift */; };
 		E985C68725F3AD8400CB895C /* EditValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64A25F3AD8400CB895C /* EditValue.swift */; };
 		E985C68825F3AD8400CB895C /* SidebarAddConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */; };
-		E985C68925F3AD8400CB895C /* NotYetImplemented.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64D25F3AD8400CB895C /* NotYetImplemented.swift */; };
 		E985C68A25F3AD8400CB895C /* ExecuteAlltasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64F25F3AD8400CB895C /* ExecuteAlltasksView.swift */; };
 		E985C68B25F3AD8400CB895C /* OutputEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65025F3AD8400CB895C /* OutputEstimatedView.swift */; };
 		E985C68C25F3AD8400CB895C /* DeleteConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65125F3AD8400CB895C /* DeleteConfigurationsView.swift */; };
@@ -320,7 +319,6 @@
 		E985C64925F3AD8400CB895C /* ConfirmUpdatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmUpdatedView.swift; sourceTree = "<group>"; };
 		E985C64A25F3AD8400CB895C /* EditValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditValue.swift; sourceTree = "<group>"; };
 		E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarAddConfigurationsView.swift; sourceTree = "<group>"; };
-		E985C64D25F3AD8400CB895C /* NotYetImplemented.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotYetImplemented.swift; sourceTree = "<group>"; };
 		E985C64F25F3AD8400CB895C /* ExecuteAlltasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteAlltasksView.swift; sourceTree = "<group>"; };
 		E985C65025F3AD8400CB895C /* OutputEstimatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputEstimatedView.swift; sourceTree = "<group>"; };
 		E985C65125F3AD8400CB895C /* DeleteConfigurationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteConfigurationsView.swift; sourceTree = "<group>"; };
@@ -596,7 +594,6 @@
 				E985C63A25F3AD8400CB895C /* About */,
 				E985C64125F3AD8400CB895C /* Log */,
 				E985C64625F3AD8400CB895C /* Add */,
-				E985C64C25F3AD8400CB895C /* NotYetImplemented */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -732,14 +729,6 @@
 				E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */,
 			);
 			path = Add;
-			sourceTree = "<group>";
-		};
-		E985C64C25F3AD8400CB895C /* NotYetImplemented */ = {
-			isa = PBXGroup;
-			children = (
-				E985C64D25F3AD8400CB895C /* NotYetImplemented.swift */,
-			);
-			path = NotYetImplemented;
 			sourceTree = "<group>";
 		};
 		E985C64E25F3AD8400CB895C /* Multipletasks */ = {
@@ -1281,7 +1270,6 @@
 				E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */,
 				E985C78D25F3AD9700CB895C /* ConfigurationsSwiftUI.swift in Sources */,
 				E985C78625F3AD9700CB895C /* SchedulesSwiftUI.swift in Sources */,
-				E985C68925F3AD8400CB895C /* NotYetImplemented.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,
 				E985C78925F3AD9700CB895C /* OutputFromMultipleTasks.swift in Sources */,
 				E9245C0B2613146800CBE0BB /* ShortcutActions.swift in Sources */,
