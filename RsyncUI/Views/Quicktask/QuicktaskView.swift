@@ -190,7 +190,7 @@ extension QuicktaskView {
 
     func execute(config: Configuration, dryrun: Bool) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
-        rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputProcess())
+        rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
         // Start progressview
         showprogressview = true
         let command = RsyncProcessCmdCombineClosure(arguments: arguments,

@@ -17,7 +17,7 @@ struct InterruptProcess {
         SharedReference.shared.process = nil
     }
 
-    init(output: OutputProcess?) {
+    init(output: OutputfromProcess?) {
         guard SharedReference.shared.process != nil, output != nil else { return }
         _ = Logfile(output?.getOutput())
         SharedReference.shared.process?.interrupt()

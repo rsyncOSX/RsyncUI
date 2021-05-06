@@ -207,7 +207,7 @@ final class Numbers {
         }
     }
 
-    init(outputprocess: OutputProcess?) {
+    init(outputprocess: OutputfromProcess?) {
         guard outputprocess != nil else { return }
         // output = outputprocess?.trimoutput(trim: .two)
         output = TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata

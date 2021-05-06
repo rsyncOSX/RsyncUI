@@ -35,7 +35,7 @@ class SingletaskPrimaryLogging {
 
     // Caution, the snapshotnum is alrady increased in setCurrentDateonConfiguration().
     // Must set -1 to get correct num in log
-    func addlogpermanentstore(outputprocess: OutputProcess?) {
+    func addlogpermanentstore(outputprocess: OutputfromProcess?) {
         if let hiddenID = localehiddenID {
             if SharedReference.shared.detailedlogging {
                 let stats = Numbers(outputprocess: outputprocess).stats()

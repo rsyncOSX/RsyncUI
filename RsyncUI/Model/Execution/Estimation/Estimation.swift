@@ -23,7 +23,7 @@ final class Estimation {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     private var privatehiddenID: Int?
     private var stackoftasktobeestimated: [Int]?
-    private var outputprocess: OutputProcess?
+    private var outputprocess: OutputfromProcess?
     private var records: [RemoteinfonumbersOnetask]?
     private var max: Int?
     private var hiddenIDs: [Int]?
@@ -82,7 +82,7 @@ final class Estimation {
         if let hiddenID = stackoftasktobeestimated?.remove(at: 0) {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)
-            outputprocess = OutputProcess()
+            outputprocess = OutputfromProcess()
             estimationonetask = EstimationOnetask(hiddenID: hiddenID,
                                                   configurationsSwiftUI: localconfigurationsSwiftUI,
                                                   outputprocess: outputprocess,
@@ -186,7 +186,7 @@ extension Estimation {
             updateestimationcountDelegate?.setestimatedlist(records)
             return
         }
-        outputprocess = OutputProcessRsync()
+        outputprocess = OutputfromProcessRsync()
         if let hiddenID = stackoftasktobeestimated?.remove(at: 0) {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)

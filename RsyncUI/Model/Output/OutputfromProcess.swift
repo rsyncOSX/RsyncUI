@@ -7,7 +7,7 @@
 
 import Foundation
 
-class OutputProcess {
+class OutputfromProcess {
     var output: [String]?
     var startindex: Int?
 

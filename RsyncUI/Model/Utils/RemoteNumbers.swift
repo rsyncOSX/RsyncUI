@@ -55,7 +55,7 @@ final class RemoteNumbers {
         return String(format: "%.2f", percentavaliable ?? 0)
     }
 
-    init(outputprocess: OutputProcess?) {
+    init(outputprocess: OutputfromProcess?) {
         // output = outputprocess?.trimoutput(trim: .two)
         output = TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata
         setnumbers()

@@ -25,7 +25,7 @@ final class ObserveableReferenceRestore: ObservableObject {
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
     var files: Bool = false
 
     init() {
@@ -135,7 +135,7 @@ extension ObserveableReferenceRestore {
                                               remoteFile: nil,
                                               localCatalog: nil,
                                               drynrun: nil).getArguments()
-        outputprocess = OutputProcess()
+        outputprocess = OutputfromProcess()
         let command = RsyncProcessCmdCombineClosure(arguments: arguments,
                                                     config: config,
                                                     processtermination: processtermination,
@@ -160,7 +160,7 @@ extension ObserveableReferenceRestore {
                 }
                 if let arguments = arguments {
                     gettingfilelist = true
-                    outputprocess = OutputProcess()
+                    outputprocess = OutputfromProcess()
                     let command = RsyncProcessCmdCombineClosure(arguments: arguments,
                                                                 config: config,
                                                                 processtermination: processtermination,

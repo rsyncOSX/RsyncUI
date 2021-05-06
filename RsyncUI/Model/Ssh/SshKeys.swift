@@ -36,7 +36,7 @@ final class SshKeys: Catalogsandfiles {
     var argumentsssh: ArgumentsSsh?
     var command: String?
     var arguments: [String]?
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
 
     // Create rsa keypair
     func createPublicPrivateRSAKeyPair() -> Bool {
@@ -101,7 +101,7 @@ final class SshKeys: Catalogsandfiles {
     // Execute command
     func executesshcreatekeys() {
         guard arguments != nil else { return }
-        outputprocess = OutputProcess()
+        outputprocess = OutputfromProcess()
         let process = OtherProcessCmdCombineClosure(command: command,
                                                     arguments: arguments,
                                                     processtermination: processtermination,

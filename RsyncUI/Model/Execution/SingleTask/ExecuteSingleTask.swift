@@ -24,7 +24,7 @@ enum SingleTaskWork: String, CaseIterable, Identifiable, CustomStringConvertible
 
 final class ExecuteSingleTask {
     var hiddenID: Int?
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
     var workqueu: SingleTaskWorkQueu?
     var command: RsyncProcessCmdCombineClosure?
     var structconfigurations: ConfigurationsSwiftUI?
@@ -43,7 +43,7 @@ final class ExecuteSingleTask {
         // printdebugdata(uuid)
         // Debug print
         if let hiddenID = self.hiddenID {
-            outputprocess = OutputProcessRsync()
+            outputprocess = OutputfromProcessRsync()
             if let arguments = structconfigurations?.arguments4rsync(hiddenID: hiddenID, argtype: .argdryRun),
                let config = structconfigurations?.getconfiguration(hiddenID: hiddenID)
             {
@@ -62,7 +62,7 @@ final class ExecuteSingleTask {
         // printdebugdata(uuid)
         // Debug print
         if let hiddenID = self.hiddenID {
-            outputprocess = OutputProcessRsync()
+            outputprocess = OutputfromProcessRsync()
             if let arguments = structconfigurations?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
                 command = RsyncProcessCmdCombineClosure(arguments: arguments,
                                                         config: structconfigurations?.getconfiguration(hiddenID: hiddenID),

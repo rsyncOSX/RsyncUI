@@ -37,7 +37,7 @@ final class RsyncProcessCmdCombineClosure {
     // Throws error
     func statusDidChange() throws {
         if monitor?.monitor?.currentPath.status != .satisfied {
-            let output = OutputProcess()
+            let output = OutputfromProcess()
             let string = NSLocalizedString("Network connection is dropped", comment: "network") + ":"
                 + Date().long_localized_string_from_date()
             output.addlinefromoutput(str: string)
@@ -46,7 +46,7 @@ final class RsyncProcessCmdCombineClosure {
         }
     }
 
-    func executeProcess(outputprocess: OutputProcess?) {
+    func executeProcess(outputprocess: OutputfromProcess?) {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         // Process

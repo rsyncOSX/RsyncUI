@@ -12,7 +12,7 @@ final class Snapshotlogsandcatalogs {
     // Number of local logrecords
     var logrecordssnapshot: [Logrecordsschedules]?
     var localeconfig: Configuration?
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
     var snapshotcatalogstodelete: [String]?
     var mysnapshotdata: SnapshotData?
 
@@ -23,7 +23,7 @@ final class Snapshotlogsandcatalogs {
     var uuidsLog: Set<UUID>?
 
     private func getremotecataloginfo() {
-        outputprocess = OutputProcess()
+        outputprocess = OutputfromProcess()
         let arguments = RestorefilesArguments(task: .snapshotcatalogs,
                                               config: localeconfig,
                                               remoteFile: nil,

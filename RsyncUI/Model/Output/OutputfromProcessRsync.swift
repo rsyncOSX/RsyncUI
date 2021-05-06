@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class OutputProcessRsync: OutputProcess {
+final class OutputfromProcessRsync: OutputfromProcess {
     override func addlinefromoutput(str: String) {
         if startindex == nil {
             startindex = 0

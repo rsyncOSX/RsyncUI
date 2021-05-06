@@ -1,14 +1,14 @@
 import Foundation
 
 final class RemoteCapacity: Connected {
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
     var config: Configuration?
     var command: OtherProcessCmdCombineClosure?
 
     func getremotecapacity() {
         if let config = self.config {
             guard SharedReference.shared.process == nil else { return }
-            outputprocess = OutputProcess()
+            outputprocess = OutputfromProcess()
             // let config = Configuration(dictionary: dict)
             guard connected(config: config) == true else { return }
             let duargs = DuArgumentsSsh(config: self.config!)

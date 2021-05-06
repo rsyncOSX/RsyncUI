@@ -14,7 +14,7 @@ protocol UpdateRsyncVersionString: AnyObject {
 }
 
 final class RsyncVersionString {
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
     var rsyncversionshort: String?
     var rsyncversionstring: String?
     weak var updateRsyncVersionStringDelegate: UpdateRsyncVersionString?
@@ -22,7 +22,7 @@ final class RsyncVersionString {
     init(object: UpdateRsyncVersionString?) {
         updateRsyncVersionStringDelegate = object
         if SharedReference.shared.norsync == false {
-            outputprocess = OutputProcess()
+            outputprocess = OutputfromProcess()
             let command = RsyncProcessCmdCombineClosure(arguments: ["--version"],
                                                         config: nil,
                                                         processtermination: processtermination,

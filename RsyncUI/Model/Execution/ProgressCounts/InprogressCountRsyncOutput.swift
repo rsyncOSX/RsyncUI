@@ -21,7 +21,7 @@ final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCou
     private var output: [String]?
 
     // For Quicktasks
-    var myoutputprocess: OutputProcess?
+    var myoutputprocess: OutputfromProcess?
 
     func resetcounts() {
         max = 0
@@ -60,7 +60,7 @@ final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCou
 
     init() {}
 
-    init(outputprocess: OutputProcess?) {
+    init(outputprocess: OutputfromProcess?) {
         myoutputprocess = outputprocess
     }
 

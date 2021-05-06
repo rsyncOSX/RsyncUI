@@ -17,7 +17,7 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
             if let pretask = localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.pretask {
                 let task = try shellOut(to: pretask)
                 if task.contains("error"), (localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.haltshelltasksonerror ?? 0) == 1 {
-                    let outputprocess = OutputProcess()
+                    let outputprocess = OutputfromProcess()
                     outputprocess.addlinefromoutput(str: "ShellOut: pretask containes error, aborting")
                     error = true
                     // _ = Logging(outputprocess, true)
@@ -31,7 +31,7 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
             if let posttask = localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.posttask {
                 let task = try shellOut(to: posttask)
                 if task.contains("error"), (localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.haltshelltasksonerror ?? 0) == 1 {
-                    let outputprocess = OutputProcess()
+                    let outputprocess = OutputfromProcess()
                     outputprocess.addlinefromoutput(str: "ShellOut: posstak containes error")
                     // _ = Logging(outputprocess, true)
                 }
@@ -48,7 +48,7 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
                     try executepretask()
                 } catch let e {
                     let error = e as? ShellOutError
-                    let outputprocess = OutputProcess()
+                    let outputprocess = OutputfromProcess()
                     outputprocess.addlinefromoutput(str: "ShellOut: pretask fault, aborting")
                     outputprocess.addlinefromoutput(str: error?.message ?? "")
                     self.error = true
@@ -56,7 +56,7 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
                 }
             }
             guard error == false else { return }
-            outputprocess = OutputProcessRsync()
+            outputprocess = OutputfromProcessRsync()
             if let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
                 command = RsyncProcessCmdCombineClosure(arguments: arguments,
                                                         config: localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID),
@@ -76,7 +76,7 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
                     try self.executeposttask()
                 } catch let e {
                     let error = e as? ShellOutError
-                    let outputprocess = OutputProcess()
+                    let outputprocess = OutputfromProcess()
                     outputprocess.addlinefromoutput(str: "ShellOut: posttask fault")
                     outputprocess.addlinefromoutput(str: error?.message ?? "")
                     // _ = Logging(outputprocess, true)

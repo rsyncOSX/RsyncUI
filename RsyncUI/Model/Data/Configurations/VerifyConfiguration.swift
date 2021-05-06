@@ -114,7 +114,7 @@ final class VerifyConfiguration: Connected {
     let eparam: String = "-e"
     let ssh: String = "ssh"
 
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
 
     // Verify parameters for new config.
     func verify(_ data: AppendConfig) -> Configuration? {
@@ -168,7 +168,7 @@ final class VerifyConfiguration: Connected {
         // If validated and snapshottask create remote snapshotcatalog
         // Must be connected to create base remote snapshot catalog
         if data.newtask == SharedReference.shared.snapshot {
-            outputprocess = OutputProcess()
+            outputprocess = OutputfromProcess()
             // If connected create base remote snapshotcatalog
             snapshotcreateremotecatalog(dict: dict, outputprocess: outputprocess)
         }
@@ -206,7 +206,7 @@ final class VerifyConfiguration: Connected {
     }
 
     // Create remote snapshot catalog
-    private func snapshotcreateremotecatalog(dict: NSDictionary, outputprocess: OutputProcess?) {
+    private func snapshotcreateremotecatalog(dict: NSDictionary, outputprocess: OutputfromProcess?) {
         let config = Configuration(dictionary: dict)
         guard config.offsiteServer.isEmpty == false else { return }
         let args = SnapshotCreateCatalogArguments(config: config)

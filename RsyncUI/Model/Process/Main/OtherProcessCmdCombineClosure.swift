@@ -19,7 +19,7 @@ final class OtherProcessCmdCombineClosure {
     // Arguments to command
     var arguments: [String]?
 
-    func executeProcess(outputprocess: OutputProcess?) {
+    func executeProcess(outputprocess: OutputfromProcess?) {
         guard command != nil else { return }
         // Process
         let task = Process()

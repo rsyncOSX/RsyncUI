@@ -11,7 +11,7 @@ final class EstimationOnetask {
     var arguments: [String]?
     var processtermination: () -> Void
     var filehandler: () -> Void
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
     var config: Configuration?
 
     func startestimation() {
@@ -26,7 +26,7 @@ final class EstimationOnetask {
 
     init(hiddenID: Int,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         outputprocess: OutputProcess?,
+         outputprocess: OutputfromProcess?,
          local: Bool,
          processtermination: @escaping () -> Void,
          filehandler: @escaping () -> Void)

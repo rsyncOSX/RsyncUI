@@ -22,7 +22,7 @@ enum FilesizeError: LocalizedError {
 }
 
 final class Logfile: NamesandPaths {
-    private var outputprocess: OutputProcess?
+    private var outputprocess: OutputfromProcess?
     private var logfile: String?
     private var preparedlogview = [String]()
 
@@ -138,7 +138,7 @@ final class Logfile: NamesandPaths {
         }
     }
 
-    init(_ outputprocess: OutputProcess?) {
+    init(_ outputprocess: OutputfromProcess?) {
         super.init(profileorsshrootpath: .profileroot)
         guard SharedReference.shared.fulllogging == true ||
             SharedReference.shared.minimumlogging == true

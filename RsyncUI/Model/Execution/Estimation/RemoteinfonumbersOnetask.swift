@@ -23,7 +23,7 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
     var config: Configuration?
 
     init(hiddenID: Int?,
-         outputprocess: OutputProcess?,
+         outputprocess: OutputfromProcess?,
          config: Configuration?)
     {
         self.hiddenID = hiddenID

@@ -26,7 +26,7 @@ final class ExecuteMultipleTasks {
     private var structprofile: String?
     private var privatehiddenID: Int?
     private var stackoftasktobeexecuted: [Int]?
-    private var outputprocess: OutputProcess?
+    private var outputprocess: OutputfromProcess?
     private var records: [RemoteinfonumbersOnetask]?
     private var max: Int?
     private var uuids: Set<UUID>?
@@ -61,7 +61,7 @@ final class ExecuteMultipleTasks {
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)
-            outputprocess = OutputProcess()
+            outputprocess = OutputfromProcess()
             let estimation = ExecuteOneTask(hiddenID: hiddenID,
                                             configurationsSwiftUI: localconfigurationsSwiftUI,
                                             outputprocess: outputprocess,
@@ -153,7 +153,7 @@ extension ExecuteMultipleTasks {
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             return
         }
-        outputprocess = OutputProcessRsync()
+        outputprocess = OutputfromProcessRsync()
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)

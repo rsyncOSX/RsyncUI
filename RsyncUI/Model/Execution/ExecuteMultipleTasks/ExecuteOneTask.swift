@@ -11,7 +11,7 @@ final class ExecuteOneTask {
     var arguments: [String]?
     var processtermination: () -> Void
     var filehandler: () -> Void
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
     var config: Configuration?
 
     func startexecution() {
@@ -26,7 +26,7 @@ final class ExecuteOneTask {
 
     init(hiddenID: Int,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         outputprocess: OutputProcess?,
+         outputprocess: OutputfromProcess?,
          processtermination: @escaping () -> Void,
          filehandler: @escaping () -> Void)
     {

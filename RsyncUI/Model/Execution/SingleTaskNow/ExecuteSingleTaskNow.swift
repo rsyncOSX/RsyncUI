@@ -23,7 +23,7 @@ class ExecuteSingleTaskNow {
     weak var updateestimationcountDelegate: UpdateOutputprocessCountProtcol?
 
     var hiddenID: Int?
-    var outputprocess: OutputProcess?
+    var outputprocess: OutputfromProcess?
     var command: RsyncProcessCmdCombineClosure?
     var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     var localschedulesSwiftUI: SchedulesSwiftUI?
@@ -34,7 +34,7 @@ class ExecuteSingleTaskNow {
     func executetasknow() {
         guard SharedReference.shared.process == nil else { return }
         if let hiddenID = self.hiddenID {
-            outputprocess = OutputProcessRsync()
+            outputprocess = OutputfromProcessRsync()
             if let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
                 command = RsyncProcessCmdCombineClosure(arguments: arguments,
                                                         config: localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID),
