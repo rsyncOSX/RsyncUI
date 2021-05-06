@@ -22,7 +22,6 @@ enum FilesizeError: LocalizedError {
 }
 
 final class Logfile: NamesandPaths {
-    private var outputprocess: OutputfromProcess?
     private var logfile: String?
     private var preparedlogview = [String]()
 
@@ -100,15 +99,15 @@ final class Logfile: NamesandPaths {
         }
     }
 
-    private func minimumlogging() {
+    private func minimumlogging(_ data: [String]) {
         let date = Date().localized_string_from_date()
         readloggfile()
         var tmplogg = [String]()
-        var startindex = (outputprocess?.getOutput()?.count ?? 0) - 8
+        var startindex = data.count - 8
         if startindex < 0 { startindex = 0 }
         tmplogg.append("\n" + date + "\n")
-        for i in startindex ..< (outputprocess?.getOutput()?.count ?? 0) {
-            tmplogg.append(outputprocess?.getOutput()?[i] ?? "")
+        for i in startindex ..< data.count {
+            tmplogg.append(data[i])
         }
         if logfile == nil {
             logfile = tmplogg.joined(separator: "\n")
@@ -118,14 +117,14 @@ final class Logfile: NamesandPaths {
         writeloggfile()
     }
 
-    private func fulllogging() {
+    private func fulllogging(_ data: [String]) {
         let date = Date().localized_string_from_date()
         readloggfile()
         let tmplogg: String = "\n" + date + "\n"
         if logfile == nil {
-            logfile = tmplogg + (outputprocess?.getOutput() ?? [""]).joined(separator: "\n")
+            logfile = tmplogg + data.joined(separator: "\n")
         } else {
-            logfile! += tmplogg + (outputprocess?.getOutput() ?? [""]).joined(separator: "\n")
+            logfile! += tmplogg + data.joined(separator: "\n")
         }
         writeloggfile()
     }
@@ -145,11 +144,10 @@ final class Logfile: NamesandPaths {
         else {
             return
         }
-        self.outputprocess = outputprocess
         if SharedReference.shared.fulllogging {
-            fulllogging()
+            fulllogging(outputprocess?.getOutput() ?? [])
         } else {
-            minimumlogging()
+            minimumlogging(outputprocess?.getOutput() ?? [])
         }
     }
 
