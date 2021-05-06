@@ -36,12 +36,26 @@ struct MultipletasksView: View {
     @State private var showAlertfordelete = false
     // Alert for execute all
     @State private var showAlertforexecuteall = false
+    // Alert for select tasks
+    @State private var notasks: Bool = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
+        ZStack {
+            ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               selectable: $selectable)
+
+            if notasks == true {
+                AlertToast(type: .regular, title: Optional(NSLocalizedString("Select one or more tasks",
+                                                                             comment: "settings")), subTitle: Optional(""))
+                    .onAppear(perform: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            notasks = false
+                        }
+                    })
+            }
+        }
 
         // Show progressview for the estimating process
         if estimationstate.estimationstate == .estimate { progressviewestimation }
@@ -217,7 +231,10 @@ extension MultipletasksView {
             // Try if on task is selected
             setuuidforselectedtask()
         }
-        guard selecteduuids.count > 0 else { return }
+        guard selecteduuids.count > 0 else {
+            notasks = true
+            return
+        }
         showestimateview = false
     }
 

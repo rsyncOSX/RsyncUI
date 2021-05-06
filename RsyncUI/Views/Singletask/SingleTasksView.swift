@@ -40,8 +40,8 @@ struct SingleTasksView: View {
     @State private var valueselectedrow: String = ""
     // If shellout
     @State private var shellout: Bool = false
-    //
-    @State private var showcompleted: Bool = false
+    // Alert for select tasks
+    @State private var notasks: Bool = false
 
     var body: some View {
         ZStack {
@@ -61,6 +61,16 @@ struct SingleTasksView: View {
                 RotatingDotsIndicatorView()
                     .frame(width: 50.0, height: 50.0)
                     .foregroundColor(.red)
+            }
+
+            if notasks == true {
+                AlertToast(type: .regular, title: Optional(NSLocalizedString("Select a task",
+                                                                             comment: "settings")), subTitle: Optional(""))
+                    .onAppear(perform: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            notasks = false
+                        }
+                    })
             }
         }
 
@@ -219,7 +229,10 @@ extension SingleTasksView {
     }
 
     func singletask() {
-        guard selecteduuids.count == 1 else { return }
+        guard selecteduuids.count == 1 else {
+            notasks = true
+            return
+        }
         switch singletaskstate.singletaskstate {
         case .start:
             executesingletasks = nil
@@ -274,7 +287,10 @@ extension SingleTasksView {
         executesingletasks = nil
         executetasknow = nil
         setuuidforsingletask()
-        guard selecteduuids.count == 1 else { return }
+        guard selecteduuids.count == 1 else {
+            notasks = true
+            return
+        }
         singletasknowstate.updatestate(state: .execute)
         if let config = selectedconfig {
             if PreandPostTasks(config: config).executepretask || PreandPostTasks(config: config).executeposttask {
