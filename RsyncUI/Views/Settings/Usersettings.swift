@@ -227,7 +227,7 @@ extension Usersettings {
     }
 
     func backupuserconfigs() {
-        // _ = Backupconfigfiles()
+        _ = Backupconfigfiles()
         backup = true
         // Show updated for 1 second
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
