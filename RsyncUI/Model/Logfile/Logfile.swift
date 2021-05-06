@@ -153,11 +153,18 @@ final class Logfile: NamesandPaths {
         }
     }
 
-    init(_: Bool) {
+    init(_ reset: Bool) {
         super.init(profileorsshrootpath: .profileroot)
-        let date = Date().localized_string_from_date()
-        logfile = date + ": " + "new logfile is created...\n"
-        writeloggfile()
+        if reset {
+            // Reset loggfile
+            let date = Date().localized_string_from_date()
+            logfile = date + ": " + "new logfile is created...\n"
+            writeloggfile()
+        } else {
+            // Read the logfile
+            readloggfile()
+            preparelogfile()
+        }
     }
 
     init(_ data: [String]?) {
@@ -173,11 +180,5 @@ final class Logfile: NamesandPaths {
             }
             writeloggfile()
         }
-    }
-
-    init() {
-        super.init(profileorsshrootpath: .profileroot)
-        readloggfile()
-        preparelogfile()
     }
 }

@@ -41,7 +41,7 @@ struct LogfileView: View {
     }
 
     var textfile: [String] {
-        return Logfile().getlogfile()
+        return Logfile(false).getlogfile()
     }
 
     func reset() {
