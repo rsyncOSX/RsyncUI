@@ -1,11 +1,12 @@
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys)
 
-The development commenced in December 2020 and RsyncUI version 1.0.0 will be relased in May 2021. RsyncUI is build for **macOS Big Sur** and later only. The name of the next version is **RsyncUI**, and because it is built for macOS Big Sur and later it will be released as a new application and not replace the current version of RsyncOSX. There are also some SwiftUI features in code which require macOS Big Sur.
+The development commenced in December 2020 and RsyncUI version 1.0.0 was released 6 May 2021. RsyncUI is build for **macOS Big Sur** and later only. The name is **RsyncUI**, and because it is built for macOS Big Sur and later it will be released as a new application and not replace the current version of RsyncOSX.
 
-A new [site for documentation](https://rsyncui.netlify.app) is in development.
+There are also some SwiftUI features in code which require macOS Big Sur.
+
+There is a [new site for info about using RsyncUI.](https://rsyncui.netlify.app)
 
 - [the changelog](https://rsyncui.netlify.app/post/changelog/)
-- [the todo list](https://rsyncui.netlify.app/post/todo/)
 - info about [the development of RsyncUI](https://rsyncui.netlify.app/post/development/)
 
 ![](images/main1.png)
@@ -13,13 +14,18 @@ A new [site for documentation](https://rsyncui.netlify.app) is in development.
 
 ## Dependencies
 
-The application is implemented in pure SwiftUI and Swift. There are though three source code dependencies:
+RsyncUI is implemented in utilizing the SwiftUI and Combine declarative framworks, and the Swift 5.4+ language. There are though three source code dependencies:
 
 - check for TCP connectivity by utilizing [SwiftSocket](https://github.com/swiftsocket/SwiftSocket), some functions require connections to remote servers
 - execute pre and post shellscripts by utilizing John Sundell´s [ShellOut](https://github.com/JohnSundell/ShellOut)
 - utilizing John Sundell´s [Files](https://github.com/JohnSundell/Files) for reading files and catalogs
 
-All three are available as source code and automatically included as part of building RsyncOSX.
+All three are available as source code and automatically included as part of building RsyncOSX. There are also a copule of other sources from GitHub included as source code. Two of those are:
+
+- [ActivityIndicatorView](https://github.com/exyte/ActivityIndicatorView) - RsyncUI is using [RotatingDotsIndicatorView](https://github.com/rsyncOSX/RsyncUI/blob/main/RsyncUI/Views/Modifiers/Indicators/RotatingDotsIndicatorView.swift)
+- [AlertToast](https://github.com/elai950/AlertToast) - a better looking Alert for simple messages to the user
+
+Whenever RsyncUI is throwing an error, it is presented as an SwiftUI Alert.
 
 ## Tools used
 
