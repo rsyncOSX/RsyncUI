@@ -15,6 +15,8 @@ struct SidebarMultipletasksView: View {
     // Show estimate when true, execute else
     @State var showestimateview: Bool = true
     @State private var selecteduuids = Set<UUID>()
+    // Show completed
+    @State private var showcompleted: Bool = false
 
     var body: some View {
         VStack {
@@ -25,6 +27,16 @@ struct SidebarMultipletasksView: View {
                                   reload: $reload,
                                   selecteduuids: $selecteduuids,
                                   showestimateview: $showestimateview)
+                if showcompleted {
+                    AlertToast(type: .complete(Color.green),
+                               title: Optional(NSLocalizedString("Completed",
+                                                                 comment: "settings")), subTitle: Optional(""))
+                        .onAppear(perform: {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                showcompleted = false
+                            }
+                        })
+                }
             }
 
             if showestimateview == false {
@@ -32,6 +44,9 @@ struct SidebarMultipletasksView: View {
                                      reload: $reload,
                                      showestimateview: $showestimateview)
                     .environmentObject(OutputFromMultipleTasks())
+                    .onDisappear(perform: {
+                        showcompleted = true
+                    })
             }
         }
         .padding()

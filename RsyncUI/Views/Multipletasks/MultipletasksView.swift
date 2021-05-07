@@ -47,8 +47,9 @@ struct MultipletasksView: View {
                                selectable: $selectable)
 
             if notasks == true {
-                AlertToast(type: .regular, title: Optional(NSLocalizedString("Select one or more tasks",
-                                                                             comment: "settings")), subTitle: Optional(""))
+                AlertToast(type: .regular,
+                           title: Optional(NSLocalizedString("Select one or more tasks",
+                                                             comment: "settings")), subTitle: Optional(""))
                     .onAppear(perform: {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             notasks = false
