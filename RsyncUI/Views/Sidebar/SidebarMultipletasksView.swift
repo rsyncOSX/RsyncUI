@@ -19,37 +19,40 @@ struct SidebarMultipletasksView: View {
     @State private var showcompleted: Bool = false
 
     var body: some View {
-        VStack {
-            headingtitle
+        ZStack {
+            VStack {
+                headingtitle
 
-            if showestimateview == true {
-                MultipletasksView(selectedconfig: $selectedconfig.onChange {},
-                                  reload: $reload,
-                                  selecteduuids: $selecteduuids,
-                                  showestimateview: $showestimateview)
-                if showcompleted {
-                    AlertToast(type: .complete(Color.green),
-                               title: Optional(NSLocalizedString("Completed",
-                                                                 comment: "settings")), subTitle: Optional(""))
-                        .onAppear(perform: {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                showcompleted = false
-                            }
+                if showestimateview == true {
+                    MultipletasksView(selectedconfig: $selectedconfig.onChange {},
+                                      reload: $reload,
+                                      selecteduuids: $selecteduuids,
+                                      showestimateview: $showestimateview)
+                }
+
+                if showestimateview == false {
+                    ExecuteEstimatedView(selecteduuids: $selecteduuids,
+                                         reload: $reload,
+                                         showestimateview: $showestimateview)
+                        .environmentObject(OutputFromMultipleTasks())
+                        .onDisappear(perform: {
+                            showcompleted = true
                         })
                 }
             }
+            .padding()
 
-            if showestimateview == false {
-                ExecuteEstimatedView(selecteduuids: $selecteduuids,
-                                     reload: $reload,
-                                     showestimateview: $showestimateview)
-                    .environmentObject(OutputFromMultipleTasks())
-                    .onDisappear(perform: {
-                        showcompleted = true
+            if showcompleted {
+                AlertToast(type: .complete(Color.green),
+                           title: Optional(NSLocalizedString("Completed",
+                                                             comment: "settings")), subTitle: Optional(""))
+                    .onAppear(perform: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            showcompleted = false
+                        }
                     })
             }
         }
-        .padding()
     }
 
     var headingtitle: some View {
