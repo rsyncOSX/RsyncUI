@@ -14,7 +14,6 @@ struct RsyncUIView: View {
 
     @State private var selectedprofile: String?
     @State private var reload: Bool = false
-
     @StateObject private var new = NewversionJSON()
 
     var body: some View {

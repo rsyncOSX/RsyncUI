@@ -27,8 +27,9 @@ final class NewversionPLIST: ObservableObject {
     private var runningversion: String?
     private var subscriber: AnyCancellable?
 
-    func setnewverion(_ respons: String) {
-        print(respons)
+    func verifynewversion(_ runningversion: String, _ data: NSDictionary) {
+        print(runningversion)
+        print(data)
         subscriber?.cancel()
     }
 
@@ -45,22 +46,32 @@ final class NewversionPLIST: ObservableObject {
                     case let .failure(error):
                         self.propogateerror(error: error)
                     }
-                }, receiveValue: { [unowned self] data in
-                    guard let response = String(data: data, encoding: .utf8) else { return }
-                    setnewverion(response)
+                }, receiveValue: { [unowned self] _ in
+                    // Convert data to String
+                    // guard let response = String(data: data, encoding: .utf8) else { return }
+                    if let data = NSDictionary(contentsOf: baseURL),
+                       let runningversion = runningversion
+                    {
+                        verifynewversion(runningversion, data)
+                    }
                 })
         }
     }
 }
 
 extension URLSession {
-    func fetchData<Data>(for resource: Resource<Data>) -> AnyPublisher<Data, Error> {
+    func fetchData<T>(for resource: Resource<T>) -> AnyPublisher<T, Error> {
         return dataTaskPublisher(for: resource.request)
-            .tryMap { data, response in
-                guard let httpResponse = response as? HTTPURLResponse, 200 ..< 300 ~= httpResponse.statusCode else {
+            .tryMap { element -> T in
+                guard let httpResponse = element.response as? HTTPURLResponse,
+                      200 ..< 300 ~= httpResponse.statusCode
+                else {
                     throw APIError.unknown
                 }
-                return (data as? Data)!
+                if let data = element.data as? T {
+                    return data
+                }
+                throw APIError.unknown
             }
             .mapError { error in
                 if let error = error as? APIError {
