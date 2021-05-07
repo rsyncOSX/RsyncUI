@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys)
 
-The development commenced in December 2020 and RsyncUI version 1.0.0 was released 6 May 2021. RsyncUI is build for **macOS Big Sur** and later only. The name is **RsyncUI**, and because it is built for macOS Big Sur and later it will be released as a new application and not replace the current version of RsyncOSX.
+The development commenced in December 2020 and RsyncUI version 1.0.0 was released 6 May 2021. RsyncUI is build for **macOS Big Sur** and later only. The name is **RsyncUI**, and because it is built for macOS Big Sur and later it is released as a new application and not a upgrade of the current version of RsyncOSX.
 
 There are also some SwiftUI features in code which require macOS Big Sur.
 
