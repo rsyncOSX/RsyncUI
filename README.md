@@ -25,7 +25,7 @@ All three are available as source code and automatically included as part of bui
 - [ActivityIndicatorView](https://github.com/exyte/ActivityIndicatorView) - RsyncUI is using [RotatingDotsIndicatorView](https://github.com/rsyncOSX/RsyncUI/blob/main/RsyncUI/Views/Modifiers/Indicators/RotatingDotsIndicatorView.swift)
 - [AlertToast](https://github.com/elai950/AlertToast) - a better looking Alert for simple messages to the user
 
-Whenever RsyncUI is throwing an error, it is presented as an SwiftUI Alert.
+Whenever RsyncUI is throwing an error, it is presented as a SwiftUI Alert.
 
 ## Tools used
 
