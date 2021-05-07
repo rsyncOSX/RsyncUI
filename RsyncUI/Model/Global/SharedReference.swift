@@ -90,7 +90,7 @@ class SharedReference {
     // Object for shortcuts
     var shortcutobject: ShortcutActions?
 
-    init() {
+    private init() {
         synctasks = Set<String>()
         synctasks = [synchronize, snapshot, syncremote]
     }
