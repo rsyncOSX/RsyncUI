@@ -40,15 +40,17 @@ final class Snapshotlogsandcatalogs {
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
     private func prepareremotesnapshotcatalogs() {
-        var catalogs = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata
-        var datescatalogs = TrimFour(outputprocess?.getOutput() ?? []).trimmeddata
+        let data = PrepareOutput(outputprocess?.getOutput() ?? [])
+        if data.splitlines {
+            data.alignsplitlines()
+        }
+        var catalogs = TrimOne(data.trimmeddata).trimmeddata
+        var datescatalogs = TrimFour(data.trimmeddata).trimmeddata
         // drop index where row = "./."
         if let index = catalogs.firstIndex(where: { $0 == "./." }) {
             catalogs.remove(at: index)
             datescatalogs.remove(at: index)
         }
-        print("catalogs - trim 1: \(catalogs.count)")
-        print("datescatalogs - trim 4: \(datescatalogs.count)")
         catalogsanddates = [Catalogsanddates]()
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "YYYY/mm/dd"
@@ -62,7 +64,6 @@ final class Snapshotlogsandcatalogs {
         }
         // Set number of remote catalogs
         mysnapshotdata?.numremotecatalogs = catalogsanddates?.count ?? 0
-        print("merged remotecatalags and dates: \(mysnapshotdata?.numremotecatalogs ?? 0)")
     }
 
     // Calculating days since snaphot was executed
@@ -176,7 +177,6 @@ extension Snapshotlogsandcatalogs {
         mergeremotecatalogsandlogs()
         mysnapshotdata?.state = .gotit
         mysnapshotdata?.uuidsLog = uuidsLog
-        print("uuids \(mysnapshotdata?.uuidsLog?.count ?? 0)")
     }
 
     func filehandler() {}
