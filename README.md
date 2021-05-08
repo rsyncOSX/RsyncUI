@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.0.0/total) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v0.99/total) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys)
 
-The development commenced in December 2020 and RsyncUI version 1.0.0 was released 6 May 2021. RsyncUI is build for **macOS Big Sur** and later only. The name is **RsyncUI**, and because it is built for macOS Big Sur and later it is released as a new application and not a upgrade of the current version of RsyncOSX.
+The development commenced in December 2020 and RsyncUI version 1.0.0 was released 6 May 2021. RsyncUI is build for **macOS Big Sur** and later only. The name is **RsyncUI**. Because it is built for macOS Big Sur and later it is released as a new application and not as an upgrade of the current version of RsyncOSX.
 
 There are also some SwiftUI features in code which require macOS Big Sur.
 
@@ -17,7 +17,7 @@ There is a [new site for info about using RsyncUI.](https://rsyncui.netlify.app)
 RsyncUI is implemented by utilizing the SwiftUI and Combine declarative frameworks, and Swift 5.4+. There are though three source code dependencies:
 
 - check for TCP connectivity by utilizing [SwiftSocket](https://github.com/swiftsocket/SwiftSocket), some functions require connections to remote servers
-- execute pre and post shellscripts by utilizing John Sundell´s [ShellOut](https://github.com/JohnSundell/ShellOut)
+- execute pre and post shell scripts by utilizing John Sundell´s [ShellOut](https://github.com/JohnSundell/ShellOut)
 - utilizing John Sundell´s [Files](https://github.com/JohnSundell/Files) for reading files and catalogs
 
 All three are available as source code and automatically included as part of building RsyncOSX. There are also a couple of other sources from GitHub included as source code. Two of those are:
