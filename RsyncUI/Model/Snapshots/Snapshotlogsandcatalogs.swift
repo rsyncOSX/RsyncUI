@@ -40,30 +40,29 @@ final class Snapshotlogsandcatalogs {
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
     private func prepareremotesnapshotcatalogs() {
-        let catalogs = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata
-        let datescatalogs = TrimFour(outputprocess?.getOutput() ?? []).trimmeddata
-
+        var catalogs = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata
+        var datescatalogs = TrimFour(outputprocess?.getOutput() ?? []).trimmeddata
+        // drop index where row = "./."
+        if let index = catalogs.firstIndex(where: { $0 == "./." }) {
+            catalogs.remove(at: index)
+            datescatalogs.remove(at: index)
+        }
+        print("catalogs - trim 1: \(catalogs.count)")
+        print("datescatalogs - trim 4: \(datescatalogs.count)")
         catalogsanddates = [Catalogsanddates]()
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "YYYY/mm/dd"
-        for i in 0 ..< catalogs.count where i < datescatalogs.count {
+        for i in 0 ..< catalogs.count {
             if let date = dateformatter.date(from: datescatalogs[i]) {
-                if catalogs[i].contains("./.") == false {
-                    self.catalogsanddates?.append((catalogs[i], date))
-                }
+                catalogsanddates?.append((catalogs[i], date))
             }
         }
         catalogsanddates = catalogsanddates?.sorted { cat1, cat2 in
-            let nr1 = Int(cat1.0.dropFirst(2)) ?? 0
-            let nr2 = Int(cat2.0.dropFirst(2)) ?? 0
-            if nr1 > nr2 {
-                return true
-            } else {
-                return false
-            }
+            (Int(cat1.0.dropFirst(2)) ?? 0) > (Int(cat2.0.dropFirst(2)) ?? 0)
         }
         // Set number of remote catalogs
         mysnapshotdata?.numremotecatalogs = catalogsanddates?.count ?? 0
+        print("merged remotecatalags and dates: \(mysnapshotdata?.numremotecatalogs ?? 0)")
     }
 
     // Calculating days since snaphot was executed
@@ -117,11 +116,7 @@ final class Snapshotlogsandcatalogs {
             if let cat1 = cat1.snapshotCatalog,
                let cat2 = cat2.snapshotCatalog
             {
-                if (Int(cat1.dropFirst(2)) ?? 0) > (Int(cat2.dropFirst(2)) ?? 0) {
-                    return true
-                } else {
-                    return false
-                }
+                return (Int(cat1.dropFirst(2)) ?? 0) > (Int(cat2.dropFirst(2)) ?? 0)
             }
             return false
         }

@@ -25,7 +25,10 @@ final class TrimOne {
             }, receiveValue: { [unowned self] line in
                 let substr = line.dropFirst(10).trimmingCharacters(in: .whitespacesAndNewlines)
                 let str = substr.components(separatedBy: " ").dropFirst(3).joined(separator: " ")
-                if str.isEmpty == false, str.contains(".DS_Store") == false {
+                if str.isEmpty == false,
+                   str.contains(".DS_Store") == false,
+                   str.contains("./.") == false
+                {
                     trimmeddata.append("./" + str)
                 }
             })

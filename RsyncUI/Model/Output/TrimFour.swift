@@ -25,7 +25,10 @@ final class TrimFour {
             }, receiveValue: { [unowned self] line in
                 let substr = line.dropFirst(10).trimmingCharacters(in: .whitespacesAndNewlines)
                 let str = substr.components(separatedBy: " ").dropFirst(1).dropLast(2).joined(separator: " ")
-                if str.count > 4, str.contains(".DS_Store") == false {
+                if str.count > 4,
+                   str.contains(".DS_Store") == false,
+                   str.contains("./.") == false
+                {
                     trimmeddata.append(str)
                 }
             })
