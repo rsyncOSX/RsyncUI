@@ -12,6 +12,7 @@ import Foundation
 final class PrepareOutput {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
+    var adjustedtrimdata = [String]()
     var splitlines: Bool = false
 
     // A split of lines are always after eachother.
@@ -23,7 +24,9 @@ final class PrepareOutput {
     // drwx------             72 2019/07/05 09:35:31 302
     //
     func alignsplitlines() {
+        print("start max \(trimmeddata.count)")
         for i in 0 ..< trimmeddata.count - 1 {
+            guard i < (trimmeddata.count - 1) else { return }
             if trimmeddata[i].count < 40 {
                 // Must decide which two lines to merge
                 if trimmeddata[i - 1].count > trimmeddata[i + 1].count {
@@ -31,10 +34,12 @@ final class PrepareOutput {
                     let newline = trimmeddata[i] + trimmeddata[i + 1]
                     trimmeddata[i] = newline
                     trimmeddata.remove(at: i + 1)
+                    print("removed row (Merge i and (i + 1), remove i+1) \(trimmeddata.count)")
                 } else {
                     let newline = trimmeddata[i - 1] + trimmeddata[i]
                     trimmeddata[i - 1] = newline
                     trimmeddata.remove(at: i)
+                    print("removed row (Merge (i - 1)  and i, remove i) \(trimmeddata.count)")
                 }
             }
         }
