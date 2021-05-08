@@ -27,7 +27,7 @@ final class NewversionPLIST: ObservableObject {
     private var runningversion: String?
     private var subscriber: AnyCancellable?
 
-    func verifynewversion(_ runningversion: String, _ data: NSDictionary) {
+    func verifynewversion(_ runningversion: String, _ data: String) {
         print(runningversion)
         print(data)
         subscriber?.cancel()
@@ -46,13 +46,12 @@ final class NewversionPLIST: ObservableObject {
                     case let .failure(error):
                         self.propogateerror(error: error)
                     }
-                }, receiveValue: { [unowned self] _ in
+                }, receiveValue: { [unowned self] data in
                     // Convert data to String
-                    // guard let response = String(data: data, encoding: .utf8) else { return }
-                    if let data = NSDictionary(contentsOf: baseURL),
+                    if let response = String(data: data, encoding: .utf8),
                        let runningversion = runningversion
                     {
-                        verifynewversion(runningversion, data)
+                        verifynewversion(runningversion, response)
                     }
                 })
         }
