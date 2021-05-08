@@ -40,10 +40,9 @@ final class Snapshotlogsandcatalogs {
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
     private func prepareremotesnapshotcatalogs() {
+        // Check for split lines and merge lines if true
         let data = PrepareOutput(outputprocess?.getOutput() ?? [])
-        if data.splitlines {
-            data.alignsplitlines()
-        }
+        if data.splitlines { data.alignsplitlines() }
         var catalogs = TrimOne(data.trimmeddata).trimmeddata
         var datescatalogs = TrimFour(data.trimmeddata).trimmeddata
         // drop index where row = "./."
