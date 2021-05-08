@@ -14,18 +14,18 @@ There is a [new site for info about using RsyncUI.](https://rsyncui.netlify.app)
 
 ## Dependencies
 
-RsyncUI is implemented in utilizing the SwiftUI and Combine declarative framworks, and the Swift 5.4+ language. There are though three source code dependencies:
+RsyncUI is implemented by utilizing the SwiftUI and Combine declarative frameworks, and Swift 5.4+. There are though three source code dependencies:
 
 - check for TCP connectivity by utilizing [SwiftSocket](https://github.com/swiftsocket/SwiftSocket), some functions require connections to remote servers
 - execute pre and post shellscripts by utilizing John Sundell´s [ShellOut](https://github.com/JohnSundell/ShellOut)
 - utilizing John Sundell´s [Files](https://github.com/JohnSundell/Files) for reading files and catalogs
 
-All three are available as source code and automatically included as part of building RsyncOSX. There are also a copule of other sources from GitHub included as source code. Two of those are:
+All three are available as source code and automatically included as part of building RsyncOSX. There are also a couple of other sources from GitHub included as source code. Two of those are:
 
 - [ActivityIndicatorView](https://github.com/exyte/ActivityIndicatorView) - RsyncUI is using [RotatingDotsIndicatorView](https://github.com/rsyncOSX/RsyncUI/blob/main/RsyncUI/Views/Modifiers/Indicators/RotatingDotsIndicatorView.swift)
 - [AlertToast](https://github.com/elai950/AlertToast) - a better looking Alert for simple messages to the user
 
-Whenever RsyncUI is throwing an error, it is presented as a SwiftUI Alert.
+When RsyncUI is throwing an error, it is presented as a SwiftUI Alert.
 
 ## Tools used
 
