@@ -89,11 +89,7 @@ struct AddConfigurationView: View {
                     // Column 2
                     VStack(alignment: .leading) {
                         ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
-                    }
-                    .padding()
 
-                    // Column 3
-                    VStack(alignment: .leading) {
                         adddeleteprofile
                     }
                     .padding()
