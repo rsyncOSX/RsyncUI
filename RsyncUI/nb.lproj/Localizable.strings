@@ -93,6 +93,9 @@
    Dismiss button */
 "Cancel" = "Avbryt";
 
+/* settings */
+"Cannot delete default profile" = "Kan ikke slette standard profil";
+
 /* QuicktaskView
    settings */
 "Catalog parameters" = "Katalog parametre";
@@ -114,6 +117,9 @@
 
 /* CommandTab */
 "Command" = "Kommando";
+
+/* settings */
+"Completed" = "Fullført";
 
 /* sidebar */
 "Configurations" = "Konfigurasjoner";
@@ -146,13 +152,20 @@
 /* default profile */
 "Default profile" = "Standard profil";
 
-/* Alert delete
+/* Add button
+   Alert delete
    Delete
    Delete button
    Dismiss button
    OutputEstimatedView
    plan */
 "Delete" = "Slett";
+
+/* Alert delete */
+"Delete profile" = "Slett profil";
+
+/* settings */
+"Deleted" = "Slettet";
 
 /* settings */
 "Detailed" = "Detaljert";
@@ -542,8 +555,14 @@
 /* RsyncCommandView */
 "Select a configuration" = "Velg en konfigurasjon";
 
+/* settings */
+"Select a task" = "Velg en oppgave";
+
 /* RestoreView */
 "Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
+
+/* settings */
+"Select one or more tasks" = "Velg en eller flere oppgaver";
 
 /* sidebar
    sidebar ... */
@@ -624,9 +643,6 @@
 
 /* rsync error */
 "There are errors in output" = "Det er feil i utdata";
-
-/* notyet */
-"This function is not yet implemented" = "Denne funksjonen er ikke implementert ennå";
 
 /* plan */
 "this month" = "denne måneden";

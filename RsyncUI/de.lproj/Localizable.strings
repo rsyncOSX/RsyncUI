@@ -93,6 +93,9 @@
    Dismiss button */
 "Cancel" = "Abbrechen";
 
+/* settings */
+"Cannot delete default profile" = "Standardprofil kann nicht gelöscht werden";
+
 /* QuicktaskView
    settings */
 "Catalog parameters" = "Katalogparameter";
@@ -114,6 +117,9 @@
 
 /* CommandTab */
 "Command" = "Befehl";
+
+/* settings */
+"Completed" = "Abgeschlossen";
 
 /* sidebar */
 "Configurations" = "Konfigurationen";
@@ -146,13 +152,20 @@
 /* default profile */
 "Default profile" = "Standardprofil";
 
-/* Alert delete
+/* Add button
+   Alert delete
    Delete
    Delete button
    Dismiss button
    OutputEstimatedView
    plan */
 "Delete" = "Löschen";
+
+/* Alert delete */
+"Delete profile" = "Profil löschen";
+
+/* settings */
+"Deleted" = "Gelöscht";
 
 /* settings */
 "Detailed" = "Detailliert";
@@ -542,8 +555,14 @@
 /* RsyncCommandView */
 "Select a configuration" = "Konfiguration auswählen";
 
+/* settings */
+"Select a task" = "Aufgabe auswählen";
+
 /* RestoreView */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
+
+/* settings */
+"Select one or more tasks" = "Wählen Sie eine oder mehrere Aufgaben";
 
 /* sidebar
    sidebar ... */
@@ -624,9 +643,6 @@
 
 /* rsync error */
 "There are errors in output" = "Es gibt Fehler in der Ausgabe";
-
-/* notyet */
-"This function is not yet implemented" = "Diese Funktion ist noch nicht implementiert";
 
 /* plan */
 "this month" = "in diesem Monat";
