@@ -281,7 +281,10 @@ extension MultipletasksView {
     }
 
     func delete() {
-        guard confirmdeleteselectedconfigurations == true else { return }
+        guard confirmdeleteselectedconfigurations == true else {
+            selecteduuids.removeAll()
+            return
+        }
         let deleteconfigurations =
             UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
                                  configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
