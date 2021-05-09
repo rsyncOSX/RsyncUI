@@ -62,6 +62,7 @@ struct AddConfigurationView: View {
     @State private var updated = false
     @State private var created = false
     @State private var deleted = false
+    @State private var deletedefaultprofile = false
 
     var body: some View {
         Form {
@@ -107,6 +108,7 @@ struct AddConfigurationView: View {
                 if updated == true { notifyupdated }
                 if created == true { notifycreated }
                 if deleted == true { notifydeleted }
+                if deletedefaultprofile == true { cannotdeletedefaultprofile }
             }
 
             VStack {
@@ -287,6 +289,10 @@ struct AddConfigurationView: View {
                    title: Optional(NSLocalizedString("Deleted",
                                                      comment: "settings")), subTitle: Optional(""))
     }
+
+    var cannotdeletedefaultprofile: some View {
+        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("Cannot delete default profile", comment: "settings")), subTitle: Optional(""))
+    }
 }
 
 extension AddConfigurationView {
@@ -385,10 +391,16 @@ extension AddConfigurationView {
     }
 
     func deleteprofile() {
-        deleted = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            deleted = false
-            resetform()
+        if let profile = rsyncUIData.profile {
+            deleted = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                deleted = false
+            }
+        } else {
+            deletedefaultprofile = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                deletedefaultprofile = false
+            }
         }
     }
 
