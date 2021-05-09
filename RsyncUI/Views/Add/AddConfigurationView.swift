@@ -89,10 +89,14 @@ struct AddConfigurationView: View {
                     // Column 2
                     VStack(alignment: .leading) {
                         ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+                    }
+                    .padding()
+
+                    // Column 3
+                    VStack(alignment: .center) {
+                        EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
 
                         HStack {
-                            EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
-
                             Button(NSLocalizedString("Profile", comment: "Add button")) { createprofile() }
                                 .buttonStyle(PrimaryButtonStyle())
 
