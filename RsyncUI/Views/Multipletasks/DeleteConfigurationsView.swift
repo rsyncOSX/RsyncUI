@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct DeleteConfigurationsView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
-    @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
-    @Binding var reload: Bool
+    @Binding var delete: Bool
+    @Binding var selecteduuids: Set<UUID>
 
     var body: some View {
         VStack {
@@ -20,11 +19,17 @@ struct DeleteConfigurationsView: View {
             Spacer()
 
             HStack {
-                Button(NSLocalizedString("Delete", comment: "Dismiss button")) { delete() }
-                    .buttonStyle(AbortButtonStyle())
+                Button(NSLocalizedString("Delete", comment: "Dismiss button")) {
+                    delete = true
+                    dismissview()
+                }
+                .buttonStyle(AbortButtonStyle())
 
-                Button(NSLocalizedString("Cancel", comment: "Dismiss button")) { dismissview() }
-                    .buttonStyle(PrimaryButtonStyle())
+                Button(NSLocalizedString("Cancel", comment: "Dismiss button")) {
+                    delete = false
+                    dismissview()
+                }
+                .buttonStyle(PrimaryButtonStyle())
             }
             .padding()
         }
@@ -44,15 +49,5 @@ struct DeleteConfigurationsView: View {
 
     func dismissview() {
         isPresented = false
-    }
-
-    func delete() {
-        let deleteconfigurations =
-            UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
-                                 configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
-        deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
-        selecteduuids.removeAll()
-        isPresented = false
-        reload = true
     }
 }

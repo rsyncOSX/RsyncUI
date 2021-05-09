@@ -36,6 +36,8 @@ struct MultipletasksView: View {
     @State private var showAlertfordelete = false
     // Alert for execute all
     @State private var showAlertforexecuteall = false
+    @State private var confirmdeleteselectedconfigurations = false
+    @State private var deleted = false
     // Alert for select tasks
     @State private var notasks: Bool = false
 
@@ -56,6 +58,8 @@ struct MultipletasksView: View {
                         }
                     })
             }
+
+            if deleted == true { notifydeleted }
         }
 
         // Show progressview for the estimating process
@@ -94,12 +98,15 @@ struct MultipletasksView: View {
                                         selecteduuids: $selecteduuids)
                 }
 
-            Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
+            Button(NSLocalizedString("Delete", comment: "Delete button")) { preparefordelete() }
                 .buttonStyle(AbortButtonStyle())
                 .sheet(isPresented: $showAlertfordelete) {
-                    DeleteConfigurationsView(selecteduuids: $selecteduuids,
-                                             isPresented: $showAlertfordelete,
-                                             reload: $reload)
+                    DeleteConfigurationsView(isPresented: $showAlertfordelete,
+                                             delete: $confirmdeleteselectedconfigurations,
+                                             selecteduuids: $selecteduuids)
+                        .onDisappear {
+                            delete()
+                        }
                 }
 
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
@@ -150,6 +157,12 @@ struct MultipletasksView: View {
             .onChange(of: estimationstate.estimationstate, perform: { _ in
                 completed()
             })
+    }
+
+    var notifydeleted: some View {
+        AlertToast(type: .complete(Color.green),
+                   title: Optional(NSLocalizedString("Deleted",
+                                                     comment: "settings")), subTitle: Optional(""))
     }
 }
 
@@ -259,11 +272,25 @@ extension MultipletasksView {
         }
     }
 
-    func delete() {
+    func preparefordelete() {
         if selecteduuids.count == 0 {
             setuuidforselectedtask()
         }
         guard selecteduuids.count > 0 else { return }
         showAlertfordelete = true
+    }
+
+    func delete() {
+        guard confirmdeleteselectedconfigurations == true else { return }
+        let deleteconfigurations =
+            UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
+                                 configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
+        deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
+        selecteduuids.removeAll()
+        reload = true
+        deleted = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            deleted = false
+        }
     }
 }

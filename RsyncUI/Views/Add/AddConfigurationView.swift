@@ -463,7 +463,3 @@ extension AddConfigurationView {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
-
-/*
- TODO: confirm delete profile
- */
