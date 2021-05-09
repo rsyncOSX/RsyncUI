@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 08/05/2021.
 //
-// swiftlint:disable for_where
 
 import Combine
 import Foundation
