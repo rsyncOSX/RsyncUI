@@ -93,24 +93,8 @@ struct AddConfigurationView: View {
                     .padding()
 
                     // Column 3
-                    VStack(alignment: .center) {
-                        EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
-
-                        HStack {
-                            Button(NSLocalizedString("Profile", comment: "Add button")) { createprofile() }
-                                .buttonStyle(PrimaryButtonStyle())
-
-                            Button(NSLocalizedString("Delete", comment: "Add button")) { showAlertfordelete = true }
-                                .buttonStyle(AbortButtonStyle())
-                                .sheet(isPresented: $showAlertfordelete) {
-                                    DeleteProfileConfirmView(isPresented: $showAlertfordelete,
-                                                             delete: $confirmdeleteselectedprofile,
-                                                             profile: $rsyncUIData.profile)
-                                        .onDisappear(perform: {
-                                            deleteprofile()
-                                        })
-                                }
-                        }
+                    VStack(alignment: .leading) {
+                        adddeleteprofile
                     }
                     .padding()
 
@@ -186,6 +170,34 @@ struct AddConfigurationView: View {
                             remotecatalog = catalog
                         }
                     })
+            }
+        }
+    }
+
+    // Headers (in sections)
+    var headerprofile: some View {
+        Text(NSLocalizedString("Profile", comment: "settings"))
+            .modifier(FixedTag(200, .leading))
+    }
+
+    var adddeleteprofile: some View {
+        Section(header: headerprofile) {
+            EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
+
+            HStack {
+                Button(NSLocalizedString("Profile", comment: "Add button")) { createprofile() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                Button(NSLocalizedString("Delete", comment: "Add button")) { showAlertfordelete = true }
+                    .buttonStyle(AbortButtonStyle())
+                    .sheet(isPresented: $showAlertfordelete) {
+                        DeleteProfileConfirmView(isPresented: $showAlertfordelete,
+                                                 delete: $confirmdeleteselectedprofile,
+                                                 profile: $rsyncUIData.profile)
+                            .onDisappear(perform: {
+                                deleteprofile()
+                            })
+                    }
             }
         }
     }
