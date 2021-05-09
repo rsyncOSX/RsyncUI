@@ -392,6 +392,13 @@ extension AddConfigurationView {
 
     func deleteprofile() {
         if let profile = rsyncUIData.profile {
+            guard profile != NSLocalizedString("Default profile", comment: "default profile") else {
+                deletedefaultprofile = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    deletedefaultprofile = false
+                }
+                return
+            }
             deleted = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 deleted = false
