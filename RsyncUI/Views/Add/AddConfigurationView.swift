@@ -63,6 +63,9 @@ struct AddConfigurationView: View {
     @State private var created = false
     @State private var deleted = false
     @State private var deletedefaultprofile = false
+    // Delete profile
+    @State private var showAlertfordelete = false
+    @State private var confirmdeleteselectedprofile = false
 
     var body: some View {
         Form {
@@ -93,8 +96,15 @@ struct AddConfigurationView: View {
                             Button(NSLocalizedString("Profile", comment: "Add button")) { createprofile() }
                                 .buttonStyle(PrimaryButtonStyle())
 
-                            Button(NSLocalizedString("Delete", comment: "Add button")) { deleteprofile() }
-                                .buttonStyle(PrimaryButtonStyle())
+                            Button(NSLocalizedString("Delete", comment: "Add button")) { showAlertfordelete = true }
+                                .buttonStyle(AbortButtonStyle())
+                                .sheet(isPresented: $showAlertfordelete) {
+                                    DeleteProfileConfirmView(isPresented: $showAlertfordelete,
+                                                             delete: $confirmdeleteselectedprofile)
+                                        .onDisappear(perform: {
+                                            deleteprofile()
+                                        })
+                                }
                         }
                     }
                     .padding()
@@ -391,6 +401,7 @@ extension AddConfigurationView {
     }
 
     func deleteprofile() {
+        guard confirmdeleteselectedprofile == true else { return }
         if let profile = rsyncUIData.profile {
             guard profile != NSLocalizedString("Default profile", comment: "default profile") else {
                 deletedefaultprofile = true
