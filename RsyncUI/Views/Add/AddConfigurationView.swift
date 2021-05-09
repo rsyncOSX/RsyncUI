@@ -100,7 +100,8 @@ struct AddConfigurationView: View {
                                 .buttonStyle(AbortButtonStyle())
                                 .sheet(isPresented: $showAlertfordelete) {
                                     DeleteProfileConfirmView(isPresented: $showAlertfordelete,
-                                                             delete: $confirmdeleteselectedprofile)
+                                                             delete: $confirmdeleteselectedprofile,
+                                                             profile: $rsyncUIData.profile)
                                         .onDisappear(perform: {
                                             deleteprofile()
                                         })

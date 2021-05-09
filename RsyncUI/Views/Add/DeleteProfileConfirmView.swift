@@ -10,6 +10,7 @@ import SwiftUI
 struct DeleteProfileConfirmView: View {
     @Binding var isPresented: Bool
     @Binding var delete: Bool
+    @Binding var profile: String?
 
     var body: some View {
         VStack {
@@ -37,7 +38,8 @@ struct DeleteProfileConfirmView: View {
 
     var header: some View {
         HStack {
-            let message = NSLocalizedString("Delete profile?", comment: "Alert delete")
+            let message = NSLocalizedString("Delete profile", comment: "Alert delete")
+                + ": " + (profile ?? "") + "?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }
