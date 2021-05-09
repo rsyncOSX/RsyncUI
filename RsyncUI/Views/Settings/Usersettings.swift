@@ -110,8 +110,9 @@ struct Usersettings: View {
                 }
 
                 if backup == true {
-                    AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Saved",
-                                                                                               comment: "settings")), subTitle: Optional(""))
+                    AlertToast(type: .complete(Color.green),
+                               title: Optional(NSLocalizedString("Saved",
+                                                                 comment: "settings")), subTitle: Optional(""))
                 }
             }
 

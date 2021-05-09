@@ -15,9 +15,8 @@ final class PrepareOutput {
     var adjustedtrimdata = [String]()
     var splitlines: Bool = false
 
-    // A split of lines are always after eachother.
-    // Line length is about 48/49 characters
-    // A split might be like
+    // A split of lines are always after each other.
+    // Line length is about 48/49 characters, a split might be like
     // drwx------             71 2019/07/02 07:53:37 300
     // drwx------             71 2019/07/02 07:53:37 30
     // 1

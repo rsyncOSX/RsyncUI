@@ -61,6 +61,7 @@ struct AddConfigurationView: View {
     @State private var added = false
     @State private var updated = false
     @State private var created = false
+    @State private var deleted = false
 
     var body: some View {
         Form {
@@ -90,6 +91,9 @@ struct AddConfigurationView: View {
 
                             Button(NSLocalizedString("Profile", comment: "Add button")) { createprofile() }
                                 .buttonStyle(PrimaryButtonStyle())
+
+                            Button(NSLocalizedString("Delete", comment: "Add button")) { deleteprofile() }
+                                .buttonStyle(PrimaryButtonStyle())
                         }
                     }
                     .padding()
@@ -98,10 +102,11 @@ struct AddConfigurationView: View {
                     Spacer()
                 }
 
-                // Present when either added, updated or profile created
+                // Present when either added, updated or profile created, deleted
                 if added == true { notifyadded }
                 if updated == true { notifyupdated }
                 if created == true { notifycreated }
+                if deleted == true { notifydeleted }
             }
 
             VStack {
@@ -260,18 +265,27 @@ struct AddConfigurationView: View {
     }
 
     var notifyadded: some View {
-        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Added",
-                                                                                   comment: "settings")), subTitle: Optional(""))
+        AlertToast(type: .complete(Color.green),
+                   title: Optional(NSLocalizedString("Added",
+                                                     comment: "settings")), subTitle: Optional(""))
     }
 
     var notifyupdated: some View {
-        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Updated",
-                                                                                   comment: "settings")), subTitle: Optional(""))
+        AlertToast(type: .complete(Color.green),
+                   title: Optional(NSLocalizedString("Updated",
+                                                     comment: "settings")), subTitle: Optional(""))
     }
 
     var notifycreated: some View {
-        AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Created",
-                                                                                   comment: "settings")), subTitle: Optional(""))
+        AlertToast(type: .complete(Color.green),
+                   title: Optional(NSLocalizedString("Created",
+                                                     comment: "settings")), subTitle: Optional(""))
+    }
+
+    var notifydeleted: some View {
+        AlertToast(type: .complete(Color.green),
+                   title: Optional(NSLocalizedString("Deleted",
+                                                     comment: "settings")), subTitle: Optional(""))
     }
 }
 
@@ -370,6 +384,14 @@ extension AddConfigurationView {
         }
     }
 
+    func deleteprofile() {
+        deleted = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            deleted = false
+            resetform()
+        }
+    }
+
     func validateandupdate() {
         // Validate not a snapshot task
         do {
@@ -408,3 +430,7 @@ extension AddConfigurationView {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
+
+/*
+ TODO: delete profile
+ */
