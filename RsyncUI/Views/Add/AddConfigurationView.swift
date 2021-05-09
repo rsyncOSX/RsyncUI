@@ -454,5 +454,5 @@ extension AddConfigurationView {
 }
 
 /*
- TODO: delete profile
+ TODO: confirm delete profile
  */
