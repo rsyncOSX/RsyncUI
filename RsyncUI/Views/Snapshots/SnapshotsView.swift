@@ -69,6 +69,9 @@ struct SnapshotsView: View {
         }
 
         HStack {
+            Button(NSLocalizedString("Save", comment: "Tag")) { updateplansnapshot() }
+                .buttonStyle(PrimaryButtonStyle())
+
             VStack(alignment: .leading) {
                 pickersnaplast
 
@@ -237,12 +240,11 @@ extension SnapshotsView {
         // Send all selected UUIDs to mark for delete
         notyetcompleted = true
     }
-}
 
-/*
- TODO:
- - function for delete
- - there is a bug in collecting many snapshot logs, a mixup of snapshotnums and logs
- - add plan for snapshots week or monthly
- - REMOVE test when done
- */
+    func updateplansnapshot() {
+        if let selectedconfig = selectedconfig {
+            guard selectedconfig.task == SharedReference.shared.snapshot else { return }
+            print(selectedconfig)
+        }
+    }
+}
