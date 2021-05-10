@@ -48,25 +48,11 @@ struct SnapshotsView: View {
         }
 
         ZStack {
-            HStack {
-                Button(action: {
-                    let previous = expand
-                    expand = !previous
-                }) {
-                    if expand {
-                        Image(systemName: "minus")
-                    } else {
-                        Image(systemName: "plus")
-                    }
-                }
-                .buttonStyle(PrimaryButtonStyle())
-
-                SnapshotListView(selectedconfig: $selectedconfig,
-                                 snapshotrecords: $snapshotrecords,
-                                 selecteduuids: $selecteduuids)
-                    .environmentObject(snapshotdata)
-                    .onDeleteCommand(perform: { delete() })
-            }
+            SnapshotListView(selectedconfig: $selectedconfig,
+                             snapshotrecords: $snapshotrecords,
+                             selecteduuids: $selecteduuids)
+                .environmentObject(snapshotdata)
+                .onDeleteCommand(perform: { delete() })
 
             if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
                 .frame(width: 50.0, height: 50.0)
@@ -102,6 +88,8 @@ struct SnapshotsView: View {
             }
 
             Spacer()
+
+            expandedsnapshotlist
 
             Button(NSLocalizedString("Tag", comment: "Tag")) { tagsnapshots() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -183,6 +171,26 @@ struct SnapshotsView: View {
                     notyetcompleted = false
                 }
             })
+    }
+
+    var expandedsnapshotlist: some View {
+        if expand == false {
+            return Button {
+                let previous = expand
+                expand = !previous
+            } label: {
+                Image(systemName: "plus")
+            }
+            .buttonStyle(PrimaryButtonStyle())
+        } else {
+            return Button {
+                let previous = expand
+                expand = !previous
+            } label: {
+                Image(systemName: "minus")
+            }
+            .buttonStyle(PrimaryButtonStyle())
+        }
     }
 }
 

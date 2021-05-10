@@ -23,7 +23,6 @@ struct SnapshotRow: View {
                 Text("")
                     .frame(width: 20, alignment: .leading)
             }
-
             Text(logrecord.snapshotCatalog ?? "")
                 .modifier(FixedTag(60, .leading))
             Text(logrecord.dateExecuted)
