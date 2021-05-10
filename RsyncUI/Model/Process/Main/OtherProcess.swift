@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class OtherProcessCmdCombineClosure {
+final class OtherProcess {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -91,7 +91,7 @@ final class OtherProcessCmdCombineClosure {
     }
 }
 
-extension OtherProcessCmdCombineClosure: PropogateError {
+extension OtherProcess: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
