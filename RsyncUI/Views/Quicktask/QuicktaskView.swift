@@ -193,10 +193,10 @@ extension QuicktaskView {
         rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
         // Start progressview
         showprogressview = true
-        let command = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                    config: nil,
-                                                    processtermination: processtermination,
-                                                    filehandler: filehandler)
+        let command = RsyncProcess(arguments: arguments,
+                                   config: nil,
+                                   processtermination: processtermination,
+                                   filehandler: filehandler)
         command.executeProcess(outputprocess: rsyncoutput?.myoutputprocess)
     }
 

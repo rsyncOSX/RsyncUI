@@ -23,10 +23,10 @@ final class RsyncVersionString {
         updateRsyncVersionStringDelegate = object
         if SharedReference.shared.norsync == false {
             outputprocess = OutputfromProcess()
-            let command = RsyncProcessCmdCombineClosure(arguments: ["--version"],
-                                                        config: nil,
-                                                        processtermination: processtermination,
-                                                        filehandler: filehandler)
+            let command = RsyncProcess(arguments: ["--version"],
+                                       config: nil,
+                                       processtermination: processtermination,
+                                       filehandler: filehandler)
             command.executeProcess(outputprocess: outputprocess)
         }
     }

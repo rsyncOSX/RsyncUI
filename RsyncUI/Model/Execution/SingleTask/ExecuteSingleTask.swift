@@ -26,7 +26,7 @@ final class ExecuteSingleTask {
     var hiddenID: Int?
     var outputprocess: OutputfromProcess?
     var workqueu: SingleTaskWorkQueu?
-    var command: RsyncProcessCmdCombineClosure?
+    var command: RsyncProcess?
     var structconfigurations: ConfigurationsSwiftUI?
     var structschedules: SchedulesSwiftUI?
     var structprofile: String?
@@ -47,10 +47,10 @@ final class ExecuteSingleTask {
             if let arguments = structconfigurations?.arguments4rsync(hiddenID: hiddenID, argtype: .argdryRun),
                let config = structconfigurations?.getconfiguration(hiddenID: hiddenID)
             {
-                command = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                        config: config,
-                                                        processtermination: processtermination,
-                                                        filehandler: filehandler)
+                command = RsyncProcess(arguments: arguments,
+                                       config: config,
+                                       processtermination: processtermination,
+                                       filehandler: filehandler)
                 command?.executeProcess(outputprocess: outputprocess)
             }
         }
@@ -64,10 +64,10 @@ final class ExecuteSingleTask {
         if let hiddenID = self.hiddenID {
             outputprocess = OutputfromProcessRsync()
             if let arguments = structconfigurations?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
-                command = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                        config: structconfigurations?.getconfiguration(hiddenID: hiddenID),
-                                                        processtermination: processtermination,
-                                                        filehandler: filehandler)
+                command = RsyncProcess(arguments: arguments,
+                                       config: structconfigurations?.getconfiguration(hiddenID: hiddenID),
+                                       processtermination: processtermination,
+                                       filehandler: filehandler)
                 command?.executeProcess(outputprocess: outputprocess)
             }
         }

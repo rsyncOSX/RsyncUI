@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class RsyncProcessCmdCombineClosure {
+final class RsyncProcess {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -125,7 +125,7 @@ final class RsyncProcessCmdCombineClosure {
     }
 }
 
-extension RsyncProcessCmdCombineClosure: PropogateError {
+extension RsyncProcess: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

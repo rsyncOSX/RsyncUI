@@ -136,10 +136,10 @@ extension ObserveableReferenceRestore {
                                               localCatalog: nil,
                                               drynrun: nil).getArguments()
         outputprocess = OutputfromProcess()
-        let command = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                    config: config,
-                                                    processtermination: processtermination,
-                                                    filehandler: filehandler)
+        let command = RsyncProcess(arguments: arguments,
+                                   config: config,
+                                   processtermination: processtermination,
+                                   filehandler: filehandler)
         command.executeProcess(outputprocess: outputprocess)
     }
 
@@ -161,10 +161,10 @@ extension ObserveableReferenceRestore {
                 if let arguments = arguments {
                     gettingfilelist = true
                     outputprocess = OutputfromProcess()
-                    let command = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                                config: config,
-                                                                processtermination: processtermination,
-                                                                filehandler: filehandler)
+                    let command = RsyncProcess(arguments: arguments,
+                                               config: config,
+                                               processtermination: processtermination,
+                                               filehandler: filehandler)
                     command.executeProcess(outputprocess: outputprocess)
                 }
             }

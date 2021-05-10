@@ -16,10 +16,10 @@ final class EstimationOnetask {
 
     func startestimation() {
         if let arguments = self.arguments {
-            let process = RsyncProcessCmdCombineClosure(arguments: arguments,
-                                                        config: config,
-                                                        processtermination: processtermination,
-                                                        filehandler: filehandler)
+            let process = RsyncProcess(arguments: arguments,
+                                       config: config,
+                                       processtermination: processtermination,
+                                       filehandler: filehandler)
             process.executeProcess(outputprocess: outputprocess)
         }
     }
