@@ -34,21 +34,39 @@ struct SnapshotsView: View {
     @State private var notyetcompleted: Bool = false
     // Update plan and snapday
     @State private var updated: Bool = false
+    // Expand tagged
+    @State private var expand: Bool = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
+        if expand == false {
+            ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               selectable: $selectable)
 
-        Spacer()
+            Spacer()
+        }
 
         ZStack {
-            SnapshotListView(selectedconfig: $selectedconfig,
-                             snapshotrecords: $snapshotrecords,
-                             selecteduuids: $selecteduuids)
-                .environmentObject(snapshotdata)
-                .onDeleteCommand(perform: { delete() })
+            HStack {
+                Button(action: {
+                    let previous = expand
+                    expand = !previous
+                }) {
+                    if expand {
+                        Image(systemName: "minus")
+                    } else {
+                        Image(systemName: "plus")
+                    }
+                }
+                .buttonStyle(PrimaryButtonStyle())
+
+                SnapshotListView(selectedconfig: $selectedconfig,
+                                 snapshotrecords: $snapshotrecords,
+                                 selecteduuids: $selecteduuids)
+                    .environmentObject(snapshotdata)
+                    .onDeleteCommand(perform: { delete() })
+            }
 
             if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
                 .frame(width: 50.0, height: 50.0)
