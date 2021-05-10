@@ -22,7 +22,7 @@ RsyncUI is implemented by utilizing the SwiftUI and Combine declarative framewor
 
 All three are available as source code and automatically included as part of building RsyncOSX. There are also a couple of other sources from GitHub included as source code. Two of those are:
 
-- [ActivityIndicatorView](https://github.com/exyte/ActivityIndicatorView) - RsyncUI is using [RotatingDotsIndicatorView](https://github.com/rsyncOSX/RsyncUI/blob/main/RsyncUI/Views/Modifiers/Indicators/RotatingDotsIndicatorView.swift)
+- [ActivityIndicatorView](https://github.com/exyte/ActivityIndicatorView) - RsyncUI is using RotatingDotsIndicatorView
 - [AlertToast](https://github.com/elai950/AlertToast) - a better looking Alert for simple messages to the user
 
 When RsyncUI is throwing an error, it is presented as a SwiftUI Alert.

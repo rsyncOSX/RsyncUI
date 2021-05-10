@@ -580,7 +580,6 @@
 		E985C60925F3AD8400CB895C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E983D2E126417082004621D5 /* AlertToast */,
 				E99C23F9261C2D21009D4DBF /* Restore */,
 				E927AAD12616E23100DC27A3 /* Quicktask */,
 				E985C60A25F3AD8400CB895C /* Sidebar */,
@@ -656,6 +655,7 @@
 		E985C62025F3AD8400CB895C /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				E983D2E126417082004621D5 /* AlertToast */,
 				E90F7CAA26344FC6001D9CA2 /* TextBuilder */,
 				E90B4A91261DA7580043EFF6 /* Indicators */,
 				E985C62125F3AD8400CB895C /* ToggleView.swift */,
