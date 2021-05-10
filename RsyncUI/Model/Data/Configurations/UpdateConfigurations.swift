@@ -76,6 +76,8 @@ class UpdateConfigurations {
                 configurations?[index].posttask = config.posttask
                 configurations?[index].haltshelltasksonerror = config.haltshelltasksonerror
                 configurations?[index].backupID = config.backupID
+                configurations?[index].snaplast = config.snaplast
+                configurations?[index].snapdayoffweek = config.snapdayoffweek
             }
             WriteConfigurationJSON(localeprofile, configurations)
         }

@@ -30,8 +30,10 @@ struct SnapshotsView: View {
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
     // AlertToast
     @State private var showAlert: Bool = false
-    // Noy yet completed
+    // Not yet completed
     @State private var notyetcompleted: Bool = false
+    // Update plan and snapday
+    @State private var updated: Bool = false
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
@@ -56,16 +58,8 @@ struct SnapshotsView: View {
             if notsnapshot == true { notasnapshottask }
             if gettingdata == true { gettingdatainprocess }
             if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs { discrepancy }
-
-            if notyetcompleted == true {
-                AlertToast(type: .regular, title: Optional("Sorry, this function is not yet completed"),
-                           subTitle: Optional("... I am working on it ..."))
-                    .onAppear(perform: {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            notyetcompleted = false
-                        }
-                    })
-            }
+            if updated == true { notifyupdated }
+            if notyetcompleted == true { messagenotyetcompleted }
         }
 
         HStack {
@@ -148,6 +142,29 @@ struct SnapshotsView: View {
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 100)
+    }
+
+    var notifyupdated: some View {
+        AlertToast(type: .complete(Color.green),
+                   title: Optional(NSLocalizedString("Updated",
+                                                     comment: "settings")),
+                   subTitle: Optional(""))
+            .onAppear(perform: {
+                // Show updated for 1 second
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    updated = false
+                }
+            })
+    }
+
+    var messagenotyetcompleted: some View {
+        AlertToast(type: .regular, title: Optional("Sorry, this function is not yet completed"),
+                   subTitle: Optional("... I am working on it ..."))
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    notyetcompleted = false
+                }
+            })
     }
 }
 
@@ -253,7 +270,12 @@ extension SnapshotsView {
                 return
             }
             selectedconfig.snapdayoffweek = snapdayofweek
-            print(selectedconfig)
+            let updateconfiguration =
+                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
+                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
+            updateconfiguration.updateconfiguration(selectedconfig, false)
+            reload = true
+            updated = true
         }
     }
 }
