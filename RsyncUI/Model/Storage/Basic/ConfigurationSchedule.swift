@@ -12,7 +12,6 @@ struct Log: Identifiable, Codable {
     var id = UUID()
     var dateExecuted: String?
     var resultExecuted: String?
-    var delete: Bool?
     var date: Date {
         return dateExecuted?.en_us_date_from_string() ?? Date()
     }
