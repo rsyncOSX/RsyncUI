@@ -14,7 +14,7 @@ There is a [new site for info about using RsyncUI.](https://rsyncui.netlify.app)
 
 ## Dependencies
 
-RsyncUI is implemented by utilizing the SwiftUI and Combine declarative frameworks, and Swift 5.4+. There are though three source code dependencies:
+RsyncUI is implemented by utilizing the SwiftUI and Combine declarative frameworks, and Swift 5.4. There are though three source code dependencies:
 
 - check for TCP connectivity by utilizing [SwiftSocket](https://github.com/swiftsocket/SwiftSocket), some functions require connections to remote servers
 - execute pre and post shell scripts by utilizing John Sundell´s [ShellOut](https://github.com/JohnSundell/ShellOut)
