@@ -241,7 +241,7 @@
 "FreeBSD" = "FreeBSD";
 
 /* plan */
-"Friday" = "Fredag";
+"Friday" = "fredag";
 
 /* settings */
 "Full" = "Full";
@@ -326,7 +326,7 @@
 "Min" = "Minimum";
 
 /* plan */
-"Monday" = "Mandag";
+"Monday" = "mandag";
 
 /* settings */
 "Monitor network" = "Overvåk nettverk";
@@ -451,7 +451,8 @@
 "previous month" = "forrige måned";
 
 /* Add button
-   default profile */
+   default profile
+   settings */
 "Profile" = "Profil";
 
 /* sidebar */
@@ -526,9 +527,10 @@
 "RsyncUI settings" = "RsyncUI innstillinger";
 
 /* plan */
-"Saturday" = "Lørdag";
+"Saturday" = "lørdag";
 
 /* RsyncParametersView
+   Tag
    usersetting */
 "Save" = "Lagre";
 
@@ -619,7 +621,7 @@
 "Stop or delete" = "Stopp eller slett";
 
 /* plan */
-"Sunday" = "Søndag";
+"Sunday" = "søndag";
 
 /* ConfigurationsList
    OutputEstimatedView
@@ -651,7 +653,7 @@
 "this week" = "denne uken";
 
 /* plan */
-"Thursday" = "Torsdag";
+"Thursday" = "torsdag";
 
 /* filesize error */
 "Too big logfile" = "For stor loggfil";
@@ -666,7 +668,7 @@
 "Tot num" = "Tot num";
 
 /* plan */
-"Tuesday" = "Tirsdag";
+"Tuesday" = "tirsdag";
 
 /* ssh settings */
 "Unique usernames and servers" = "Unike brukernavn og servere";
@@ -699,5 +701,5 @@
 "View" = "Vis";
 
 /* plan */
-"Wednesday" = "Onsdag";
+"Wednesday" = "onsdag";
 
