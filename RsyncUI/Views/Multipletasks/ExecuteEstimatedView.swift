@@ -69,6 +69,8 @@ struct ExecuteEstimatedView: View {
                 executedetails.setcurrentprogress(0)
             })
             .progressViewStyle(GaugeProgressStyle())
+            .frame(width: 50.0, height: 50.0)
+            .contentShape(Rectangle())
     }
 
     // When status execution is .completed, presenet label and execute completed.
