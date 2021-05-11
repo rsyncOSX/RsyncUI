@@ -58,20 +58,10 @@ struct Tagheading: ViewModifier {
     }
 }
 
-struct DarkBlueShadowProgressViewStyle: ProgressViewStyle {
-    typealias ProgressViewStyle = ProgressViewStyleConfiguration
-
-    func makeBody(configuration: ProgressViewStyle) -> some View {
-        ProgressView(configuration)
-            .shadow(color: Color(red: 0, green: 0, blue: 0.6),
-                    radius: 4.0, x: 1.0, y: 2.0)
-    }
-}
-
 struct GaugeProgressStyle: ProgressViewStyle {
     typealias ProgressViewStyle = ProgressViewStyleConfiguration
 
-    var strokeColor = Color.blue
+    var strokeColor = Color.red
     var strokeWidth = 5.0
 
     func makeBody(configuration: ProgressViewStyle) -> some View {
@@ -83,6 +73,7 @@ struct GaugeProgressStyle: ProgressViewStyle {
                     .trim(from: 0, to: CGFloat(fractionCompleted))
                     .stroke(strokeColor, style: StrokeStyle(lineWidth: CGFloat(strokeWidth), lineCap: .round))
                     .rotationEffect(.degrees(-90))
+                    .animation(.linear)
 
                 if fractionCompleted > 0 {
                     Text(String(Int(fractionCompleted * 100)) + "%")
