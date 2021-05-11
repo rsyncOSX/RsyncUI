@@ -67,3 +67,21 @@ struct DarkBlueShadowProgressViewStyle: ProgressViewStyle {
                     radius: 4.0, x: 1.0, y: 2.0)
     }
 }
+
+struct GaugeProgressStyle: ProgressViewStyle {
+    typealias ProgressViewStyle = ProgressViewStyleConfiguration
+
+    var strokeColor = Color.blue
+    var strokeWidth = 5.0
+
+    func makeBody(configuration: ProgressViewStyle) -> some View {
+        let fractionCompleted = configuration.fractionCompleted ?? 0
+
+        return ZStack {
+            Circle()
+                .trim(from: 0, to: CGFloat(fractionCompleted))
+                .stroke(strokeColor, style: StrokeStyle(lineWidth: CGFloat(strokeWidth), lineCap: .round))
+                .rotationEffect(.degrees(-90))
+        }
+    }
+}

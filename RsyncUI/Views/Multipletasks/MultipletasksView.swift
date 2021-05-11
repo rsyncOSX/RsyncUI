@@ -60,10 +60,10 @@ struct MultipletasksView: View {
             }
 
             if deleted == true { notifydeleted }
+            // Show progressview for the estimating process
+            if estimationstate.estimationstate == .estimate { progressviewestimation }
         }
 
-        // Show progressview for the estimating process
-        if estimationstate.estimationstate == .estimate { progressviewestimation }
         // Show label when estimatin is completed.
         if estimationstate.estimationstate != .start { labelcompleted }
         // Shortcuts for estimate and execute
@@ -149,7 +149,9 @@ struct MultipletasksView: View {
                 // To set ProgressView spinnig wheel on correct task when estimating
                 inwork = inprogresscountmultipletask.hiddenID
             })
-            .progressViewStyle(DarkBlueShadowProgressViewStyle())
+            .progressViewStyle(GaugeProgressStyle())
+            .frame(width: 50.0, height: 50.0)
+            .contentShape(Rectangle())
     }
 
     var labelcompleted: some View {
