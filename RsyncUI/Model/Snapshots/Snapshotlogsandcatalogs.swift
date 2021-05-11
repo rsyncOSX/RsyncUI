@@ -144,6 +144,25 @@ final class Snapshotlogsandcatalogs {
         return j - 1
     }
 
+    private func preparesnapshotcatalogsfordelete() {
+        if snapshotcatalogstodelete == nil { snapshotcatalogstodelete = [] }
+        if let uuidsfordelete = mysnapshotdata?.uuidstodelete {
+            for i in 0 ..< ((logrecordssnapshot?.count ?? 0) - 1) {
+                if let id = logrecordssnapshot?[i].id {
+                    if uuidsfordelete.contains(id) {
+                        let snaproot = localeconfig?.offsiteCatalog
+                        let snapcatalog = logrecordssnapshot?[i].snapshotCatalog
+                        snapshotcatalogstodelete?.append((snaproot ?? "") + (snapcatalog ?? "").dropFirst(2))
+                    }
+                }
+            }
+        }
+    }
+
+    func deletesnapshots() {
+        prepareremotesnapshotcatalogs()
+    }
+
     init(config: Configuration,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
          schedulesSwiftUI: SchedulesSwiftUI?,

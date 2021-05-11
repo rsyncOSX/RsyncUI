@@ -30,8 +30,6 @@ struct SnapshotsView: View {
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
     // AlertToast
     @State private var showAlert: Bool = false
-    // Not yet completed
-    @State private var notyetcompleted: Bool = false
     // Update plan and snapday
     @State private var updated: Bool = false
     // Expand tagged
@@ -63,7 +61,6 @@ struct SnapshotsView: View {
             if gettingdata == true { gettingdatainprocess }
             if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs { discrepancy }
             if updated == true { notifyupdated }
-            if notyetcompleted == true { messagenotyetcompleted }
         }
 
         HStack {
@@ -163,16 +160,6 @@ struct SnapshotsView: View {
             })
     }
 
-    var messagenotyetcompleted: some View {
-        AlertToast(type: .regular, title: Optional("Sorry, this function is not yet completed"),
-                   subTitle: Optional("... I am working on it ..."))
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    notyetcompleted = false
-                }
-            })
-    }
-
     var expandedsnapshotlist: some View {
         if expand == false {
             return Button {
@@ -267,6 +254,7 @@ extension SnapshotsView {
                                       data: snapshotdata.getsnapshotdata())
             selecteduuids = tagged.selecteduuids
             snapshotdata.setsnapshotdata(tagged.logrecordssnapshot)
+            snapshotdata.uuidstodelete = tagged.selecteduuids
         }
     }
 
@@ -281,8 +269,14 @@ extension SnapshotsView {
     }
 
     func delete() {
-        // Send all selected UUIDs to mark for delete
-        notyetcompleted = true
+        if let config = selectedconfig {
+            let delete = DeleteSnapshots(config: config,
+                                         configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                         schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                         snapshotdata: snapshotdata,
+                                         logrecordssnapshot: snapshotdata.getsnapshotdata())
+            delete.deletesnapshots()
+        }
     }
 
     func updateplansnapshot() {

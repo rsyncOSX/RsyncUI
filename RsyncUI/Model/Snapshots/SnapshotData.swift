@@ -21,6 +21,7 @@ final class SnapshotData: ObservableObject {
     var numremotecatalogs: Int = 0
     var numlocallogrecords: Int = 0
     var uuidsLog: Set<UUID>?
+    var uuidstodelete: Set<UUID>?
 
     func setsnapshotdata(_ data: [Logrecordsschedules]?) {
         logrecordssnapshot = data

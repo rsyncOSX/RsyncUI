@@ -206,6 +206,7 @@
 		E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */; };
 		E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */; };
 		E9CCECD72643AD7C007BE237 /* Versionrsyncui.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCECD62643AD7C007BE237 /* Versionrsyncui.swift */; };
+		E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */; };
 		E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */; };
 		E9EA67CD2632B11100BB6DEB /* DetailedRsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EA67CC2632B11100BB6DEB /* DetailedRsyncParametersView.swift */; };
 		E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FDDD4825F3D0610050718C /* Assets.xcassets */; };
@@ -436,6 +437,7 @@
 		E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableReferenceSSH.swift; sourceTree = "<group>"; };
 		E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableReferencePaths.swift; sourceTree = "<group>"; };
 		E9CCECD62643AD7C007BE237 /* Versionrsyncui.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Versionrsyncui.swift; sourceTree = "<group>"; };
+		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
 		E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewversionJSON.swift; sourceTree = "<group>"; };
 		E9EA67CC2632B11100BB6DEB /* DetailedRsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedRsyncParametersView.swift; sourceTree = "<group>"; };
 		E9FDDD4825F3D0610050718C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -795,6 +797,7 @@
 				E985C69B25F3AD9600CB895C /* TagSnapshots.swift */,
 				E985C69C25F3AD9600CB895C /* SnapshotData.swift */,
 				E985C69D25F3AD9600CB895C /* Snapshotlogsandcatalogs.swift */,
+				E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */,
 			);
 			path = Snapshots;
 			sourceTree = "<group>";
@@ -1405,6 +1408,7 @@
 				E99209B52632F0430018BFE8 /* PresentOneconfigView.swift in Sources */,
 				E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */,
 				E985C75625F3AD9700CB895C /* TransformSchedulefromJSON.swift in Sources */,
+				E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */,
 				E985C65B25F3AD8400CB895C /* LogsbyConfigurationView.swift in Sources */,
 				E985C67E25F3AD8400CB895C /* ScheduleRowSchedules.swift in Sources */,
 				E90B4AA3261DA7580043EFF6 /* GrowingArcIndicatorView.swift in Sources */,
