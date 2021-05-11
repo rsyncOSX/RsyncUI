@@ -108,6 +108,8 @@ struct SnapshotsView: View {
                 ": " + "\(snapshotdata.numremotecatalogs)")
             Text(NSLocalizedString("Number of logrecords", comment: "") +
                 ": " + "\(snapshotdata.numlocallogrecords)")
+            Text(NSLocalizedString("Number to delete", comment: "") +
+                ": " + "\(snapshotdata.uuidstodelete?.count ?? 0)")
         }
     }
 
@@ -193,6 +195,7 @@ extension SnapshotsView {
     }
 
     func getdata() {
+        snapshotdata.uuidstodelete?.removeAll()
         guard SharedReference.shared.process == nil else {
             gettingdata = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
