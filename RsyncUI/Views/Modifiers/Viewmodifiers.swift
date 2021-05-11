@@ -78,10 +78,16 @@ struct GaugeProgressStyle: ProgressViewStyle {
         let fractionCompleted = configuration.fractionCompleted ?? 0
 
         return ZStack {
-            Circle()
-                .trim(from: 0, to: CGFloat(fractionCompleted))
-                .stroke(strokeColor, style: StrokeStyle(lineWidth: CGFloat(strokeWidth), lineCap: .round))
-                .rotationEffect(.degrees(-90))
+            ZStack {
+                Circle()
+                    .trim(from: 0, to: CGFloat(fractionCompleted))
+                    .stroke(strokeColor, style: StrokeStyle(lineWidth: CGFloat(strokeWidth), lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+
+                if fractionCompleted > 0 {
+                    Text(String(Int(fractionCompleted * 100)) + "%")
+                }
+            }
         }
     }
 }

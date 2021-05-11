@@ -33,12 +33,15 @@ struct ExecuteEstimatedView: View {
                            inwork: $inexectuion,
                            selectable: $selectable)
 
-        // Execute multiple tasks progress
-        if multipletaskstate.executionstate == .execute { progressviewexecuting }
         // When completed
         if multipletaskstate.executionstate == .completed { labelcompleted }
 
         HStack {
+            Spacer()
+
+            // Execute multiple tasks progress
+            if multipletaskstate.executionstate == .execute { progressviewexecuting }
+
             Spacer()
 
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
@@ -65,7 +68,7 @@ struct ExecuteEstimatedView: View {
                 inexectuion = inprogresscountmultipletask.hiddenID
                 executedetails.setcurrentprogress(0)
             })
-            .progressViewStyle(DarkBlueShadowProgressViewStyle())
+            .progressViewStyle(GaugeProgressStyle())
     }
 
     // When status execution is .completed, presenet label and execute completed.

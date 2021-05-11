@@ -60,10 +60,10 @@ struct MultipletasksView: View {
             }
 
             if deleted == true { notifydeleted }
-            // Show progressview for the estimating process
-            if estimationstate.estimationstate == .estimate { progressviewestimation }
         }
 
+        // Show progressview for the estimating process
+        // if estimationstate.estimationstate == .estimate { progressviewestimation }
         // Show label when estimatin is completed.
         if estimationstate.estimationstate != .start { labelcompleted }
         // Shortcuts for estimate and execute
@@ -87,6 +87,10 @@ struct MultipletasksView: View {
 
             Button(NSLocalizedString("Execute", comment: "Execute button")) { presentexecuteestimatedview() }
                 .buttonStyle(PrimaryButtonStyle())
+
+            Spacer()
+
+            if estimationstate.estimationstate == .estimate { progressviewestimation }
 
             Spacer()
 
