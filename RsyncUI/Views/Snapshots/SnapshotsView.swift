@@ -265,6 +265,7 @@ extension SnapshotsView {
             let tagged = TagSnapshots(plan: localsnaplast,
                                       snapdayoffweek: snapdayofweek,
                                       data: snapshotdata.getsnapshotdata())
+            selecteduuids = tagged.selecteduuids
             snapshotdata.setsnapshotdata(tagged.logrecordssnapshot)
         }
     }

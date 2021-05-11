@@ -22,9 +22,7 @@ struct Logrecordsschedules: Identifiable {
     var dateExecuted: String
     var date: Date
     var resultExecuted: String
-    var delete: Int
     // Snapshots
-    var selectsnap: Int?
     var period: String?
     var days: String?
     var snapshotCatalog: String?
@@ -63,8 +61,7 @@ final class AllLoggs {
                                                 backupID: configdata.getconfigurationdata(hiddenID, resource: .backupid) ?? "",
                                                 dateExecuted: datestring ?? "",
                                                 date: date ?? Date(),
-                                                resultExecuted: input[i].logrecords?[j].resultExecuted ?? "",
-                                                delete: 0)
+                                                resultExecuted: input[i].logrecords?[j].resultExecuted ?? "")
                         data.append(record)
                     }
                 }

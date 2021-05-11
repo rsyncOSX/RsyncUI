@@ -23,6 +23,7 @@ final class TagSnapshots {
     private var numberoflogs: Int?
     private var keepallselcteddayofweek: Bool = true
     var now: String?
+    var selecteduuids = Set<UUID>()
 
     private func datefromstring(datestringlocalized: String) -> Date {
         guard datestringlocalized != "no log" else { return Date() }
@@ -45,12 +46,18 @@ final class TagSnapshots {
         for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
             let index = (logrecordssnapshot?.count ?? 0) - 1 - i
             if currentweek(index: index) {
-                logrecordssnapshot?[index].selectsnap = 0
+                // logrecordssnapshot?[index].selectsnap = 0
             } else if currentdaymonth(index: index) {
-                logrecordssnapshot?[index].selectsnap = 1
+                // Select the record
+                if let id = logrecordssnapshot?[index].id {
+                    selecteduuids.insert(id)
+                }
             } else {
                 if keepallorlastdayinperiod(index: index) {
-                    logrecordssnapshot?[index].selectsnap = 1
+                    // Select the record
+                    if let id = logrecordssnapshot?[index].id {
+                        selecteduuids.insert(id)
+                    }
                 }
             }
         }
@@ -150,12 +157,6 @@ final class TagSnapshots {
         return day?.rawValue == date.getWeekday()
     }
 
-    private func reset() {
-        for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
-            logrecordssnapshot?[i].selectsnap = 0
-        }
-    }
-
     private func setweekdaytokeep(snapdayoffweek: String) {
         switch snapdayoffweek {
         case StringDayofweek.Monday.rawValue:
@@ -200,7 +201,6 @@ final class TagSnapshots {
         guard logrecordssnapshot != nil else { return }
         numberoflogs = logrecordssnapshot?.count ?? 0
         now = Date().localized_string_from_date()
-        reset()
         markfordelete()
     }
 
