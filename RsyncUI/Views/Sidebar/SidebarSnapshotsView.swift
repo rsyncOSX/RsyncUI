@@ -12,21 +12,13 @@ struct SidebarSnapshotsView: View {
 
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
-    @State private var logs: Bool = false
 
     var body: some View {
         VStack {
             headingtitle
 
-            if logs == false {
-                SnapshotsView(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
-                              reload: $reload,
-                              presentfordeletelogs: $logs)
-            } else {
-                SnapshotLogsView(reload: $reload,
-                                 selectedconfig: $selectedconfig,
-                                 logs: $logs)
-            }
+            SnapshotsView(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
+                          reload: $reload)
         }
         .padding()
     }

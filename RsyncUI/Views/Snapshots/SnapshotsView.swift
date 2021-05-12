@@ -14,7 +14,6 @@ struct SnapshotsView: View {
 
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
-    @Binding var presentfordeletelogs: Bool
 
     @State private var snapshotrecords: Logrecordsschedules?
     @State private var selecteduuids = Set<UUID>()
@@ -58,7 +57,6 @@ struct SnapshotsView: View {
 
         if notsnapshot == true { notasnapshottask }
         if gettingdata == true { gettingdatainprocess }
-        if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs { discrepancy }
         if updated == true { notifyupdated }
 
         HStack {
@@ -72,15 +70,6 @@ struct SnapshotsView: View {
             }
 
             labelnumberoflogs
-
-            // If there is some discrepancy
-            if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs {
-                Button(NSLocalizedString("Discrepancy", comment: "Tag")) {
-                    rsyncUIData.filterbyUUIDs(snapshotdata.uuidsLog)
-                    presentfordeletelogs = true
-                }
-                .buttonStyle(PrimaryButtonStyle())
-            }
 
             Spacer()
 
@@ -99,7 +88,7 @@ struct SnapshotsView: View {
                     .sheet(isPresented: $showAlertfordelete) {
                         ConfirmDeleteSnapshots(isPresented: $showAlertfordelete,
                                                delete: $confirmdeletesnapshots,
-                                               uuidstodelete: $snapshotdata.uuidstodelete)
+                                               uuidstodelete: $snapshotdata.uuidsfordelete)
                             .onDisappear {
                                 delete()
                             }
@@ -119,7 +108,7 @@ struct SnapshotsView: View {
             Text(NSLocalizedString("Number of logrecords", comment: "") +
                 ": " + "\(snapshotdata.numlocallogrecords)")
             Text(NSLocalizedString("Number to delete", comment: "") +
-                ": " + "\(snapshotdata.uuidstodelete?.count ?? 0)")
+                ": " + "\(snapshotdata.uuidsfordelete?.count ?? 0)")
         }
     }
 
@@ -129,10 +118,6 @@ struct SnapshotsView: View {
 
     var gettingdatainprocess: some View {
         AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("In process in getting data", comment: "settings")), subTitle: Optional(""))
-    }
-
-    var discrepancy: some View {
-        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("some discrepancy", comment: "settings")), subTitle: Optional(""))
     }
 
     var pickersnapdayoffweek: some View {
@@ -179,10 +164,19 @@ struct SnapshotsView: View {
             .progressViewStyle(GaugeProgressStyle())
             .frame(width: 50.0, height: 50.0)
             .contentShape(Rectangle())
+            .onDisappear(perform: {
+                deletecompleted()
+            })
     }
 }
 
 extension SnapshotsView {
+    func deletecompleted() {
+        // delete logrecords with no remote snapshotcatalog
+        print(snapshotdata.uuidsfordelete?.count ?? 0)
+        print(snapshotdata.uuidsfordelete!)
+    }
+
     func abort() {
         snapshotdata.state = .start
         snapshotdata.setsnapshotdata(nil)
@@ -195,7 +189,7 @@ extension SnapshotsView {
     }
 
     func getdata() {
-        snapshotdata.uuidstodelete?.removeAll()
+        snapshotdata.uuidsfordelete?.removeAll()
         guard SharedReference.shared.process == nil else {
             gettingdata = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -257,21 +251,21 @@ extension SnapshotsView {
                                       data: snapshotdata.getsnapshotdata())
             selecteduuids = tagged.selecteduuids
             snapshotdata.setsnapshotdata(tagged.logrecordssnapshot)
-            snapshotdata.uuidstodelete = tagged.selecteduuids
+            snapshotdata.uuidsfordelete = tagged.selecteduuids
         }
     }
 
     func select() {
         // Also prepare logs for delete if not tagged
-        if snapshotdata.uuidstodelete == nil {
-            snapshotdata.uuidstodelete = Set<UUID>()
+        if snapshotdata.uuidsfordelete == nil {
+            snapshotdata.uuidsfordelete = Set<UUID>()
         }
         if let log = snapshotrecords {
             if selecteduuids.contains(log.id) {
-                snapshotdata.uuidstodelete?.remove(log.id)
+                snapshotdata.uuidsfordelete?.remove(log.id)
                 selecteduuids.remove(log.id)
             } else {
-                snapshotdata.uuidstodelete?.insert(log.id)
+                snapshotdata.uuidsfordelete?.insert(log.id)
                 selecteduuids.insert(log.id)
             }
         }

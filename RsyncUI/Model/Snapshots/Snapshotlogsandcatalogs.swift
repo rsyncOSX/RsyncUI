@@ -19,7 +19,7 @@ final class Snapshotlogsandcatalogs {
     // Remote snapshot catalags
     typealias Catalogsanddates = (String, Date)
     var catalogsanddates: [Catalogsanddates]?
-    // uuids and administrating snapshots, save tje UUID from the Log records.
+    // uuids and administrating snapshots, save the UUID from the Log records.
     var uuidsLog: Set<UUID>?
 
     private func getremotecataloginfo() {
@@ -91,7 +91,7 @@ final class Snapshotlogsandcatalogs {
             // Real snapshotcatalog collected from remote and
             // drop the "./" and add "(" and ")" before filter
             let realsnapshotcatalog = "(" + (mycatalogs?[i].0 ?? "").dropFirst(2) + ")"
-            let record = mylogrecords?.filter { $0.resultExecuted.contains(realsnapshotcatalog.dropFirst(2)) }
+            let record = mylogrecords?.filter { $0.resultExecuted.contains(realsnapshotcatalog) }
             // Found one record
             if record?.count ?? 0 > 0 {
                 if var record = record?[0] {
@@ -101,7 +101,8 @@ final class Snapshotlogsandcatalogs {
                     record.period = "... not yet tagged ..."
                     record.snapshotCatalog = snapshotcatalogfromschedulelog
                     adjustedlogrecords.append(record)
-                    // Remove uudid which are matcing
+                    // Remove uudid which are matcing and insert in
+                    // set to be deleted
                     if let idLog = record.idLog {
                         uuidsLog?.remove(idLog)
                     }
@@ -146,7 +147,7 @@ final class Snapshotlogsandcatalogs {
 
     private func preparesnapshotcatalogsfordelete() {
         if snapshotcatalogstodelete == nil { snapshotcatalogstodelete = [] }
-        if let uuidsfordelete = mysnapshotdata?.uuidstodelete {
+        if let uuidsfordelete = mysnapshotdata?.uuidsfordelete {
             for i in 0 ..< ((logrecordssnapshot?.count ?? 0) - 1) {
                 if let id = logrecordssnapshot?[i].id {
                     if uuidsfordelete.contains(id) {

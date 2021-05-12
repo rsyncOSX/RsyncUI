@@ -26,15 +26,16 @@ final class SnapshotData: ObservableObject {
     // Number of saved logrecords on local storage
     var numremotecatalogs: Int = 0
     var numlocallogrecords: Int = 0
+    // uuids from ALL the logrecords
     var uuidsLog: Set<UUID>?
-    // selected uuids for delete
-    var uuidstodelete: Set<UUID>?
+    // set uuids for DELETE
+    var uuidsfordelete: Set<UUID>?
 
     func setsnapshotdata(_ data: [Logrecordsschedules]?) {
         logrecordssnapshot = data
         numremotecatalogs = 0
         numlocallogrecords = 0
-        uuidstodelete = nil
+        uuidsfordelete = nil
         uuidsLog = nil
         inprogressofdelete = false
         maxnumbertodelete = 0
