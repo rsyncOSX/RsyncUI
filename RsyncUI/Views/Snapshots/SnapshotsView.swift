@@ -165,17 +165,12 @@ struct SnapshotsView: View {
             .frame(width: 50.0, height: 50.0)
             .contentShape(Rectangle())
             .onDisappear(perform: {
-                deletecompleted()
+                getdata()
             })
     }
 }
 
 extension SnapshotsView {
-    func deletecompleted() {
-        // delete logrecords with no remote snapshotcatalog
-        print(snapshotdata.uuidsfordelete?.count ?? 0)
-    }
-
     func abort() {
         snapshotdata.state = .start
         snapshotdata.setsnapshotdata(nil)
