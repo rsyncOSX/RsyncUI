@@ -21,7 +21,7 @@ struct SidebarSnapshotsView: View {
             if logs == false {
                 SnapshotsView(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
                               reload: $reload,
-                              logs: $logs)
+                              presentfordeletelogs: $logs)
             } else {
                 SnapshotLogsView(reload: $reload,
                                  selectedconfig: $selectedconfig,

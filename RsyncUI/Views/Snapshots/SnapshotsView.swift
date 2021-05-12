@@ -14,7 +14,7 @@ struct SnapshotsView: View {
 
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
-    @Binding var logs: Bool
+    @Binding var presentfordeletelogs: Bool
 
     @State private var snapshotrecords: Logrecordsschedules?
     @State private var selecteduuids = Set<UUID>()
@@ -71,7 +71,7 @@ struct SnapshotsView: View {
             if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs {
                 Button(NSLocalizedString("Discrepancy", comment: "Tag")) {
                     rsyncUIData.filterbyUUIDs(snapshotdata.uuidsLog)
-                    logs = true
+                    presentfordeletelogs = true
                 }
                 .buttonStyle(PrimaryButtonStyle())
             }
