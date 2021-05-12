@@ -35,12 +35,10 @@ struct SnapshotsView: View {
     @State private var showAlertfordelete = false
 
     var body: some View {
-        ZStack {
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               selectable: $selectable)
-        }
+        ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
+                           selecteduuids: $selecteduuids,
+                           inwork: $inwork,
+                           selectable: $selectable)
 
         Spacer()
 
@@ -103,21 +101,21 @@ struct SnapshotsView: View {
 
     var labelnumberoflogs: some View {
         VStack(alignment: .leading) {
-            Text(NSLocalizedString("Number of aligned snapshotcatalogs", comment: "") +
-                ": " + "\(snapshotdata.numremotecatalogs)")
             Text(NSLocalizedString("Number of logrecords", comment: "") +
-                ": " + "\(snapshotdata.numlocallogrecords)")
+                ": " + "\(snapshotdata.logrecordssnapshot?.count ?? 0)")
             Text(NSLocalizedString("Number to delete", comment: "") +
                 ": " + "\(snapshotdata.uuidsfordelete?.count ?? 0)")
         }
     }
 
     var notasnapshottask: some View {
-        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("Not a snapshot task", comment: "settings")), subTitle: Optional(""))
+        AlertToast(type: .error(Color.red),
+                   title: Optional(NSLocalizedString("Not a snapshot task", comment: "settings")), subTitle: Optional(""))
     }
 
     var gettingdatainprocess: some View {
-        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("In process in getting data", comment: "settings")), subTitle: Optional(""))
+        AlertToast(type: .error(Color.red),
+                   title: Optional(NSLocalizedString("In process in getting data", comment: "settings")), subTitle: Optional(""))
     }
 
     var pickersnapdayoffweek: some View {
@@ -146,11 +144,9 @@ struct SnapshotsView: View {
 
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Updated",
-                                                     comment: "settings")),
+                   title: Optional(NSLocalizedString("Updated", comment: "settings")),
                    subTitle: Optional(""))
             .onAppear(perform: {
-                // Show updated for 1 second
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     updated = false
                 }

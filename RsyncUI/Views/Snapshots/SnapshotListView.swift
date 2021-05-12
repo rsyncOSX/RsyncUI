@@ -16,8 +16,6 @@ struct SnapshotListView: View {
     @Binding var selecteduuids: Set<UUID>
 
     var body: some View {
-        Divider()
-
         List(selection: $snapshotrecords) {
             if let logs = snapshotdata.getsnapshotdata() {
                 ForEach(logs) { record in

@@ -20,7 +20,7 @@ final class SnapshotData: ObservableObject {
     @Published var delete: DeleteSnapshots?
     @Published var inprogressofdelete: Bool = false
 
-    private var logrecordssnapshot: [Logrecordsschedules]?
+    var logrecordssnapshot: [Logrecordsschedules]?
     var state: Snapshotdatastat = .start
     // Remote num of snapshot catalogs
     // Number of saved logrecords on local storage
