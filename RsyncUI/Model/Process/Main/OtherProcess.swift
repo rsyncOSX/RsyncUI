@@ -87,7 +87,7 @@ final class OtherProcess {
 
     deinit {
         SharedReference.shared.process = nil
-        print("deinit OtherProcessCmdCombine")
+        // print("deinit OtherProcessCmdCombine")
     }
 }
 

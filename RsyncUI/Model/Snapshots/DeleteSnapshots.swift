@@ -26,11 +26,14 @@ final class DeleteSnapshots {
                 }
             }
         }
+        // Set maxnumber and remaining to delete
+        mysnapshotdata?.maxnumbertodelete = snapshotcatalogstodelete?.count ?? 0
+        mysnapshotdata?.progressindelete = snapshotcatalogstodelete?.count ?? 0
     }
 
     func deletesnapshots() {
         guard (snapshotcatalogstodelete?.count ?? 0) > 0 else {
-            print("cpmpleted")
+            mysnapshotdata?.inprogressofdelete = false
             return
         }
         if let remotecatalog = snapshotcatalogstodelete?[0] {
@@ -38,6 +41,9 @@ final class DeleteSnapshots {
             if (snapshotcatalogstodelete?.count ?? 0) == 0 {
                 snapshotcatalogstodelete = nil
             }
+            // Remaining number to delete
+            let remaining = snapshotcatalogstodelete?.count ?? 0
+            mysnapshotdata?.progressindelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
             if let config = localeconfig {
                 let arguments = SnapshotDeleteCatalogsArguments(config: config, remotecatalog: remotecatalog)
                 let command = OtherProcess(command: arguments.getCommand(),

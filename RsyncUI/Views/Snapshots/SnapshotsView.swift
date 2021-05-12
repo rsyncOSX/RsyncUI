@@ -32,10 +32,12 @@ struct SnapshotsView: View {
     @State private var updated: Bool = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
+        ZStack {
+            ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               selectable: $selectable)
+        }
 
         Spacer()
 
@@ -78,17 +80,23 @@ struct SnapshotsView: View {
 
             Spacer()
 
-            Button(NSLocalizedString("Tag", comment: "Tag")) { tagsnapshots() }
-                .buttonStyle(PrimaryButtonStyle())
+            if snapshotdata.inprogressofdelete == true { progressdelete }
 
-            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
-                .buttonStyle(PrimaryButtonStyle())
+            Spacer()
 
-            Button(NSLocalizedString("Delete", comment: "Delete")) { delete() }
-                .buttonStyle(AbortButtonStyle())
+            Group {
+                Button(NSLocalizedString("Tag", comment: "Tag")) { tagsnapshots() }
+                    .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
-                .buttonStyle(AbortButtonStyle())
+                Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                Button(NSLocalizedString("Delete", comment: "Delete")) { delete() }
+                    .buttonStyle(AbortButtonStyle())
+
+                Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
+                    .buttonStyle(AbortButtonStyle())
+            }
         }
     }
 
@@ -151,6 +159,15 @@ struct SnapshotsView: View {
                 }
             })
     }
+
+    var progressdelete: some View {
+        ProgressView("",
+                     value: Double(snapshotdata.progressindelete),
+                     total: Double(snapshotdata.maxnumbertodelete))
+            .progressViewStyle(GaugeProgressStyle())
+            .frame(width: 50.0, height: 50.0)
+            .contentShape(Rectangle())
+    }
 }
 
 extension SnapshotsView {
@@ -160,6 +177,7 @@ extension SnapshotsView {
         // Close the Discrepancy alert
         snapshotdata.numlocallogrecords = 0
         snapshotdata.numremotecatalogs = 0
+        snapshotdata.delete?.snapshotcatalogstodelete = nil
         // kill any ongoing processes
         _ = InterruptProcess()
     }
@@ -249,12 +267,13 @@ extension SnapshotsView {
 
     func delete() {
         if let config = selectedconfig {
-            let delete = DeleteSnapshots(config: config,
-                                         configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                         schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
-                                         snapshotdata: snapshotdata,
-                                         logrecordssnapshot: snapshotdata.getsnapshotdata())
-            delete.deletesnapshots()
+            snapshotdata.delete = DeleteSnapshots(config: config,
+                                                  configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+                                                  schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                                  snapshotdata: snapshotdata,
+                                                  logrecordssnapshot: snapshotdata.getsnapshotdata())
+            snapshotdata.inprogressofdelete = true
+            snapshotdata.delete?.deletesnapshots()
         }
     }
 
