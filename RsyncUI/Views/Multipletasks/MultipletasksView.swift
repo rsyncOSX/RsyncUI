@@ -86,11 +86,7 @@ struct MultipletasksView: View {
 
             Spacer()
 
-            HStack {
-                if estimationstate.estimationstate != .start { labeluntilcompleted }
-                // Show progressview for the estimating process
-                if estimationstate.estimationstate == .estimate { progressviewestimation }
-            }
+            if estimationstate.estimationstate == .estimate { progressviewestimation }
 
             Spacer()
 
@@ -142,19 +138,15 @@ struct MultipletasksView: View {
             })
     }
 
-    var labeluntilcompleted: some View {
-        Label("", systemImage: "play.fill")
-            .onChange(of: estimationstate.estimationstate, perform: { _ in
-                completed()
-            })
-    }
-
     var progressviewestimation: some View {
         ProgressView("", value: inprogresscountmultipletask.getinprogress(),
                      total: Double(inprogresscountmultipletask.getmaxcount()))
             .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
                 inwork = inprogresscountmultipletask.hiddenID
                 selecteduuids = inprogresscountmultipletask.getuuids()
+            })
+            .onDisappear(perform: {
+                estimationcompleted()
             })
             .onAppear(perform: {
                 // To set ProgressView spinnig wheel on correct task when estimating
@@ -185,7 +177,7 @@ extension MultipletasksView {
         estimatetask = nil
     }
 
-    func completed() {
+    func estimationcompleted() {
         inwork = -1
         selecteduuids = inprogresscountmultipletask.getuuids()
         estimationstate.updatestate(state: .start)
