@@ -7,6 +7,9 @@
 /* Alert delete */
 " schedules(s)?" = "Zeitpläne";
 
+/* Alert delete */
+" snapshots(s)?" = " snapshots()?";
+
 /* RsyncParametersView */
 "--compress" = "--komprimieren";
 
@@ -19,6 +22,9 @@
 
 /* RsyncParametersView */
 "-e shh" = "-e ssh";
+
+/* No comment provided by engineer. */
+"%" = "%";
 
 /* No comment provided by engineer. */
 "%@" = "%@";
@@ -170,9 +176,6 @@
 /* settings */
 "Detailed" = "Detailliert";
 
-/* Tag */
-"Discrepancy" = "Diskrepanz";
-
 /* Dismiss button
    ssh settings */
 "Dismiss" = "Verwerfen";
@@ -230,8 +233,7 @@
 /* settings */
 "Executed" = "Ausgeführt";
 
-/* Execute Multiple tasks
-   Execute tasks */
+/* Execute tasks */
 "Executing tasks" = "Aufgaben ausführen";
 
 /* OutputEstimatedView */
@@ -410,6 +412,9 @@
 /* No comment provided by engineer. */
 "Number of logs" = "Anzahl der Protokolle";
 
+/* : \(snapshotdata.uuidsfordelete?.count ?? 0) */
+"Number to delete" = "Zu löschende Nummer";
+
 /* No comment provided by engineer. */
 "OK" = "Ok";
 
@@ -451,7 +456,8 @@
 "previous month" = "letzter Monat";
 
 /* Add button
-   default profile */
+   default profile
+   settings */
 "Profile" = "Profil";
 
 /* sidebar */
@@ -493,8 +499,7 @@
 /* Restore */
 "Restore not allowed for syncremote task" = "Wiederherstellung für Syncremote-Aufgabe nicht erlaubt";
 
-/* RsyncParametersView
-   Select button */
+/* RsyncParametersView */
 "Return" = "Zurück";
 
 /* RsyncParametersView */
@@ -529,6 +534,7 @@
 "Saturday" = "Samstag";
 
 /* RsyncParametersView
+   Tag
    usersetting */
 "Save" = "Speichern";
 
@@ -593,9 +599,6 @@
 /* sidebar
    SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
-
-/* settings */
-"some discrepancy" = "etwas Diskrepanz";
 
 /* user settings */
 "Ssh" = "Ssh";

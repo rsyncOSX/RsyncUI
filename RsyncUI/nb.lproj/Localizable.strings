@@ -7,6 +7,9 @@
 /* Alert delete */
 " schedules(s)?" = " oppgave(r)?";
 
+/* Alert delete */
+" snapshots(s)?" = "snapshots(s)?";
+
 /* RsyncParametersView */
 "--compress" = "--compress";
 
@@ -19,6 +22,9 @@
 
 /* RsyncParametersView */
 "-e shh" = "-e ssh";
+
+/* No comment provided by engineer. */
+"%" = "%";
 
 /* No comment provided by engineer. */
 "%@" = "%@";
@@ -170,9 +176,6 @@
 /* settings */
 "Detailed" = "Detaljert";
 
-/* Tag */
-"Discrepancy" = "Avvik";
-
 /* Dismiss button
    ssh settings */
 "Dismiss" = "Lukk";
@@ -230,8 +233,7 @@
 /* settings */
 "Executed" = "Utført";
 
-/* Execute Multiple tasks
-   Execute tasks */
+/* Execute tasks */
 "Executing tasks" = "Utfører oppgaver";
 
 /* OutputEstimatedView */
@@ -410,6 +412,9 @@
 /* No comment provided by engineer. */
 "Number of logs" = "Antall logger";
 
+/* : \(snapshotdata.uuidsfordelete?.count ?? 0) */
+"Number to delete" = "Antall å slette";
+
 /* No comment provided by engineer. */
 "OK" = "Ok";
 
@@ -494,8 +499,7 @@
 /* Restore */
 "Restore not allowed for syncremote task" = "Gjenopprett ikke tillatt for oppgaver med syncremote";
 
-/* RsyncParametersView
-   Select button */
+/* RsyncParametersView */
 "Return" = "Retur";
 
 /* RsyncParametersView */
@@ -595,9 +599,6 @@
 /* sidebar
    SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
-
-/* settings */
-"some discrepancy" = "noe avvik";
 
 /* user settings */
 "Ssh" = "Ssh";
