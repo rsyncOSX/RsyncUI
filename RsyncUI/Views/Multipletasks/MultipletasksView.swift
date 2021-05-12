@@ -62,13 +62,9 @@ struct MultipletasksView: View {
             if deleted == true { notifydeleted }
         }
 
-        // Show progressview for the estimating process
-        // if estimationstate.estimationstate == .estimate { progressviewestimation }
-        // Show label when estimatin is completed.
-        if estimationstate.estimationstate != .start { labelcompleted }
         // Shortcuts for estimate and execute
         if shortcuts.estimatemultipletasks { labelshortcutestimation }
-        // if shortcuts.executemultipletasks { labelshortcutexecute }
+        if shortcuts.executemultipletasks { labelshortcutexecute }
 
         HStack {
             Button(NSLocalizedString("All", comment: "Select button")) { executall() }
@@ -85,12 +81,16 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("Estimate", comment: "Estimate button")) { startestimation() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Execute", comment: "Execute button")) { presentexecuteestimatedview() }
+            Button(NSLocalizedString("Execute", comment: "Execute button")) { startexecution() }
                 .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
 
-            if estimationstate.estimationstate == .estimate { progressviewestimation }
+            HStack {
+                if estimationstate.estimationstate != .start { labeluntilcompleted }
+                // Show progressview for the estimating process
+                if estimationstate.estimationstate == .estimate { progressviewestimation }
+            }
 
             Spacer()
 
@@ -125,7 +125,7 @@ struct MultipletasksView: View {
     }
 
     var labelshortcutestimation: some View {
-        Label(estimationstate.estimationstate.rawValue, systemImage: "play.fill")
+        Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 shortcuts.estimatemultipletasks = false
                 // Guard statement must be after resetting properties to false
@@ -133,16 +133,21 @@ struct MultipletasksView: View {
             })
     }
 
-    /*
-     var labelshortcutexecute: some View {
-         Label(estimationstate.estimationstate.rawValue, systemImage: "play.fill")
-             .onAppear(perform: {
-                 shortcuts.executemultipletasks = false
-                 // Guard statement must be after resetting properties to false
-                 presentexecuteestimatedview()
-             })
-     }
-     */
+    var labelshortcutexecute: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                shortcuts.executemultipletasks = false
+                // Guard statement must be after resetting properties to false
+                startexecution()
+            })
+    }
+
+    var labeluntilcompleted: some View {
+        Label("", systemImage: "play.fill")
+            .onChange(of: estimationstate.estimationstate, perform: { _ in
+                completed()
+            })
+    }
 
     var progressviewestimation: some View {
         ProgressView("", value: inprogresscountmultipletask.getinprogress(),
@@ -158,13 +163,6 @@ struct MultipletasksView: View {
             .progressViewStyle(GaugeProgressStyle())
             .frame(width: 50.0, height: 50.0)
             .contentShape(Rectangle())
-    }
-
-    var labelcompleted: some View {
-        Label(estimationstate.estimationstate.rawValue, systemImage: "play.fill")
-            .onChange(of: estimationstate.estimationstate, perform: { _ in
-                completed()
-            })
     }
 
     var notifydeleted: some View {
@@ -248,7 +246,7 @@ extension MultipletasksView {
         presentoutputsheetview = true
     }
 
-    func presentexecuteestimatedview() {
+    func startexecution() {
         if selecteduuids.count == 0 {
             // Try if on task is selected
             setuuidforselectedtask()
