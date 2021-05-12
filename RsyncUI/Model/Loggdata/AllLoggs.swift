@@ -11,7 +11,7 @@ import Foundation
 struct Logrecordsschedules: Identifiable {
     var id = UUID()
     // To save id from the Log records.
-    // Used when resolving issues in admnistrating snapshots.
+    // Used when resolving issues in administrating snapshots.
     var idLog: UUID?
     var hiddenID: Int
     var localCatalog: String

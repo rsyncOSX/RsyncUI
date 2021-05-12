@@ -28,7 +28,26 @@ final class DeleteSnapshots {
         }
     }
 
-    func deletesnapshots() {}
+    func deletesnapshots() {
+        guard (snapshotcatalogstodelete?.count ?? 0) > 0 else {
+            print("cpmpleted")
+            return
+        }
+        if let remotecatalog = snapshotcatalogstodelete?[0] {
+            snapshotcatalogstodelete?.remove(at: 0)
+            if (snapshotcatalogstodelete?.count ?? 0) == 0 {
+                snapshotcatalogstodelete = nil
+            }
+            if let config = localeconfig {
+                let arguments = SnapshotDeleteCatalogsArguments(config: config, remotecatalog: remotecatalog)
+                let command = OtherProcess(command: arguments.getCommand(),
+                                           arguments: arguments.getArguments(),
+                                           processtermination: processtermination,
+                                           filehandler: filehandler)
+                command.executeProcess(outputprocess: nil)
+            }
+        }
+    }
 
     init(config: Configuration,
          configurationsSwiftUI _: ConfigurationsSwiftUI?,
@@ -48,7 +67,9 @@ final class DeleteSnapshots {
 }
 
 extension DeleteSnapshots {
-    func processtermination() {}
+    func processtermination() {
+        deletesnapshots()
+    }
 
     func filehandler() {}
 }

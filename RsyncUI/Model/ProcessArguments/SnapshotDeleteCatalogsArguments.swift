@@ -25,7 +25,8 @@ final class SnapshotDeleteCatalogsArguments {
             remotearg = (config?.offsiteUsername ?? "") + "@" + (config?.offsiteServer ?? "")
             args?.append(remotearg ?? "")
         }
-        let remotecommand = "rm -rf " + (remotecatalog ?? "")
+        // let remotecommand = "rm -rf " + (remotecatalog ?? "")
+        let remotecommand = "ls " + (remotecatalog ?? "")
         args?.append(remotecommand)
     }
 

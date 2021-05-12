@@ -232,10 +232,16 @@ extension SnapshotsView {
     }
 
     func select() {
+        // Also prepare logs for delete if not tagged
+        if snapshotdata.uuidstodelete == nil {
+            snapshotdata.uuidstodelete = Set<UUID>()
+        }
         if let log = snapshotrecords {
             if selecteduuids.contains(log.id) {
+                snapshotdata.uuidstodelete?.remove(log.id)
                 selecteduuids.remove(log.id)
             } else {
+                snapshotdata.uuidstodelete?.insert(log.id)
                 selecteduuids.insert(log.id)
             }
         }
