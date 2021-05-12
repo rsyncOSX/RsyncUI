@@ -187,7 +187,7 @@ struct AddConfigurationView: View {
                 Button(NSLocalizedString("Delete", comment: "Add button")) { showAlertfordelete = true }
                     .buttonStyle(AbortButtonStyle())
                     .sheet(isPresented: $showAlertfordelete) {
-                        DeleteProfileConfirmView(isPresented: $showAlertfordelete,
+                        ConfirmDeleteProfileView(isPresented: $showAlertfordelete,
                                                  delete: $confirmdeleteselectedprofile,
                                                  profile: $rsyncUIData.profile)
                             .onDisappear(perform: {

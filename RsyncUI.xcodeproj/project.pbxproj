@@ -37,6 +37,7 @@
 		E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */; };
 		E9245C0B2613146800CBE0BB /* ShortcutActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9245C0A2613146800CBE0BB /* ShortcutActions.swift */; };
 		E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927AAD22616E27300DC27A3 /* QuicktaskView.swift */; };
+		E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */; };
 		E943B0A925FFC22200A4F30D /* RsyncProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcess.swift */; };
 		E949D37F263D164A0041A9DA /* SnapshotLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949D37E263D164A0041A9DA /* SnapshotLogsView.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
@@ -95,7 +96,7 @@
 		E985C68825F3AD8400CB895C /* SidebarAddConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */; };
 		E985C68A25F3AD8400CB895C /* ExecuteAlltasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64F25F3AD8400CB895C /* ExecuteAlltasksView.swift */; };
 		E985C68B25F3AD8400CB895C /* OutputEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65025F3AD8400CB895C /* OutputEstimatedView.swift */; };
-		E985C68C25F3AD8400CB895C /* DeleteConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65125F3AD8400CB895C /* DeleteConfigurationsView.swift */; };
+		E985C68C25F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65125F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift */; };
 		E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */; };
 		E985C68E25F3AD8400CB895C /* MultipletasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65325F3AD8400CB895C /* MultipletasksView.swift */; };
 		E985C72625F3AD9700CB895C /* Userconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C69425F3AD9600CB895C /* Userconfiguration.swift */; };
@@ -197,7 +198,7 @@
 		E99C23FB261C2D6C009D4DBF /* RestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FA261C2D6C009D4DBF /* RestoreView.swift */; };
 		E99C2400261C322E009D4DBF /* ObserveableReferenceRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObserveableReferenceRestore.swift */; };
 		E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */; };
-		E9B6DE0C2647AF810093A6D2 /* DeleteProfileConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B6DE0B2647AF810093A6D2 /* DeleteProfileConfirmView.swift */; };
+		E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */; };
 		E9BCCE8C25FB432E0034EDFD /* SidebarLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */; };
 		E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BA2642F94400E29347 /* TrimFour.swift */; };
 		E9BD14BD2642FDC200E29347 /* TrimOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BC2642FDC200E29347 /* TrimOne.swift */; };
@@ -260,6 +261,7 @@
 		E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebareRestoreView.swift; sourceTree = "<group>"; };
 		E9245C0A2613146800CBE0BB /* ShortcutActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutActions.swift; sourceTree = "<group>"; };
 		E927AAD22616E27300DC27A3 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
+		E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteSnapshots.swift; sourceTree = "<group>"; };
 		E943B0A825FFC22200A4F30D /* RsyncProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcess.swift; sourceTree = "<group>"; };
 		E949D37E263D164A0041A9DA /* SnapshotLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotLogsView.swift; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
@@ -323,7 +325,7 @@
 		E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarAddConfigurationsView.swift; sourceTree = "<group>"; };
 		E985C64F25F3AD8400CB895C /* ExecuteAlltasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteAlltasksView.swift; sourceTree = "<group>"; };
 		E985C65025F3AD8400CB895C /* OutputEstimatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputEstimatedView.swift; sourceTree = "<group>"; };
-		E985C65125F3AD8400CB895C /* DeleteConfigurationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteConfigurationsView.swift; sourceTree = "<group>"; };
+		E985C65125F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteConfigurationsView.swift; sourceTree = "<group>"; };
 		E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteEstimatedView.swift; sourceTree = "<group>"; };
 		E985C65325F3AD8400CB895C /* MultipletasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipletasksView.swift; sourceTree = "<group>"; };
 		E985C69425F3AD9600CB895C /* Userconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Userconfiguration.swift; sourceTree = "<group>"; };
@@ -428,7 +430,7 @@
 		E9B1277D260501CA001A5FD3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E9B240362600A2EF004E91B5 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Main.strings; sourceTree = "<group>"; };
 		E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareOutput.swift; sourceTree = "<group>"; };
-		E9B6DE0B2647AF810093A6D2 /* DeleteProfileConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileConfirmView.swift; sourceTree = "<group>"; };
+		E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteProfileView.swift; sourceTree = "<group>"; };
 		E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarLogsView.swift; sourceTree = "<group>"; };
 		E9BD14BA2642F94400E29347 /* TrimFour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimFour.swift; sourceTree = "<group>"; };
 		E9BD14BC2642FDC200E29347 /* TrimOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimOne.swift; sourceTree = "<group>"; };
@@ -684,6 +686,7 @@
 				E985C62825F3AD8400CB895C /* SnapshotListView.swift */,
 				E985C62925F3AD8400CB895C /* SnapshotsView.swift */,
 				E949D37E263D164A0041A9DA /* SnapshotLogsView.swift */,
+				E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */,
 			);
 			path = Snapshots;
 			sourceTree = "<group>";
@@ -731,7 +734,7 @@
 				E985C64A25F3AD8400CB895C /* EditValue.swift */,
 				E9168C082615AB8500B139CE /* AddPostandPreView.swift */,
 				E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */,
-				E9B6DE0B2647AF810093A6D2 /* DeleteProfileConfirmView.swift */,
+				E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -741,7 +744,7 @@
 			children = (
 				E985C64F25F3AD8400CB895C /* ExecuteAlltasksView.swift */,
 				E985C65025F3AD8400CB895C /* OutputEstimatedView.swift */,
-				E985C65125F3AD8400CB895C /* DeleteConfigurationsView.swift */,
+				E985C65125F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift */,
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */,
 				E985C65325F3AD8400CB895C /* MultipletasksView.swift */,
 			);
@@ -1320,10 +1323,11 @@
 				E985C77825F3AD9700CB895C /* GetRemoteFileListingsArguments.swift in Sources */,
 				E985C67C25F3AD8400CB895C /* SchedulesList.swift in Sources */,
 				E985C65725F3AD8400CB895C /* SidebarSnapshotsView.swift in Sources */,
-				E9B6DE0C2647AF810093A6D2 /* DeleteProfileConfirmView.swift in Sources */,
+				E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */,
 				E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */,
 				E985C74625F3AD9700CB895C /* Numbers.swift in Sources */,
 				E985C66E25F3AD8400CB895C /* ImageRsync.swift in Sources */,
+				E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */,
 				E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */,
 				E90B4AA4261DA7580043EFF6 /* GrowingCircleIndicatorView.swift in Sources */,
 				E985C68525F3AD8400CB895C /* SelectConfigurationView.swift in Sources */,
@@ -1416,7 +1420,7 @@
 				E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */,
 				E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */,
 				E985C75925F3AD9700CB895C /* Configuration.swift in Sources */,
-				E985C68C25F3AD8400CB895C /* DeleteConfigurationsView.swift in Sources */,
+				E985C68C25F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift in Sources */,
 				E985C68825F3AD8400CB895C /* SidebarAddConfigurationsView.swift in Sources */,
 				E985C76325F3AD9700CB895C /* SingleTaskState.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,

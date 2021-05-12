@@ -1,16 +1,16 @@
 //
-//  DeleteProfileConfirmView.swift
-//  RsyncUI
+//  DeleteConfigurationsView.swift
+//  RsyncSwiftUI
 //
-//  Created by Thomas Evensen on 09/05/2021.
+//  Created by Thomas Evensen on 12/02/2021.
 //
 
 import SwiftUI
 
-struct DeleteProfileConfirmView: View {
+struct ConfirmDeleteConfigurationsView: View {
     @Binding var isPresented: Bool
     @Binding var delete: Bool
-    @Binding var profile: String?
+    @Binding var selecteduuids: Set<UUID>
 
     var body: some View {
         VStack {
@@ -38,8 +38,9 @@ struct DeleteProfileConfirmView: View {
 
     var header: some View {
         HStack {
-            let message = NSLocalizedString("Delete profile", comment: "Alert delete")
-                + ": " + (profile ?? "") + "?"
+            let message = NSLocalizedString("Delete", comment: "Alert delete")
+                + " \(selecteduuids.count)"
+                + NSLocalizedString(" configuration(s)?", comment: "Alert delete")
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }

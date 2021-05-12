@@ -30,6 +30,10 @@ struct SnapshotsView: View {
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
     // Update plan and snapday
     @State private var updated: Bool = false
+    // Confirm delete
+    @State private var confirmdeletesnapshots = false
+    // Alert for delete
+    @State private var showAlertfordelete = false
 
     var body: some View {
         ZStack {
@@ -91,7 +95,15 @@ struct SnapshotsView: View {
                 Button(NSLocalizedString("Select", comment: "Select button")) { select() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Delete", comment: "Delete")) { delete() }
+                Button(NSLocalizedString("Delete", comment: "Delete")) { showAlertfordelete = true }
+                    .sheet(isPresented: $showAlertfordelete) {
+                        ConfirmDeleteSnapshots(isPresented: $showAlertfordelete,
+                                               delete: $confirmdeletesnapshots,
+                                               uuidstodelete: $snapshotdata.uuidstodelete)
+                            .onDisappear {
+                                delete()
+                            }
+                    }
                     .buttonStyle(AbortButtonStyle())
 
                 Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
@@ -266,6 +278,7 @@ extension SnapshotsView {
     }
 
     func delete() {
+        guard confirmdeletesnapshots == true else { return }
         if let config = selectedconfig {
             snapshotdata.delete = DeleteSnapshots(config: config,
                                                   configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,

@@ -101,9 +101,9 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("Delete", comment: "Delete button")) { preparefordelete() }
                 .buttonStyle(AbortButtonStyle())
                 .sheet(isPresented: $showAlertfordelete) {
-                    DeleteConfigurationsView(isPresented: $showAlertfordelete,
-                                             delete: $confirmdeleteselectedconfigurations,
-                                             selecteduuids: $selecteduuids)
+                    ConfirmDeleteConfigurationsView(isPresented: $showAlertfordelete,
+                                                    delete: $confirmdeleteselectedconfigurations,
+                                                    selecteduuids: $selecteduuids)
                         .onDisappear {
                             delete()
                         }
