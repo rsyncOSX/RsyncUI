@@ -28,40 +28,32 @@ struct SnapshotsView: View {
     // Plan for tagging and administrating snapshots
     @State private var snaplast: String = PlanSnapshots.Last.rawValue
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
-    // AlertToast
-    @State private var showAlert: Bool = false
     // Update plan and snapday
     @State private var updated: Bool = false
-    // Expand tagged
-    @State private var expand: Bool = false
 
     var body: some View {
-        if expand == false {
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               selectable: $selectable)
+        ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
+                           selecteduuids: $selecteduuids,
+                           inwork: $inwork,
+                           selectable: $selectable)
 
-            Spacer()
+        Spacer()
+
+        SnapshotListView(selectedconfig: $selectedconfig,
+                         snapshotrecords: $snapshotrecords,
+                         selecteduuids: $selecteduuids)
+            .environmentObject(snapshotdata)
+            .onDeleteCommand(perform: { delete() })
+
+        if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
+            .frame(width: 50.0, height: 50.0)
+            .foregroundColor(.red)
         }
 
-        ZStack {
-            SnapshotListView(selectedconfig: $selectedconfig,
-                             snapshotrecords: $snapshotrecords,
-                             selecteduuids: $selecteduuids)
-                .environmentObject(snapshotdata)
-                .onDeleteCommand(perform: { delete() })
-
-            if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
-                .frame(width: 50.0, height: 50.0)
-                .foregroundColor(.red)
-            }
-
-            if notsnapshot == true { notasnapshottask }
-            if gettingdata == true { gettingdatainprocess }
-            if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs { discrepancy }
-            if updated == true { notifyupdated }
-        }
+        if notsnapshot == true { notasnapshottask }
+        if gettingdata == true { gettingdatainprocess }
+        if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs { discrepancy }
+        if updated == true { notifyupdated }
 
         HStack {
             Button(NSLocalizedString("Save", comment: "Tag")) { updateplansnapshot() }
@@ -85,8 +77,6 @@ struct SnapshotsView: View {
             }
 
             Spacer()
-
-            expandedsnapshotlist
 
             Button(NSLocalizedString("Tag", comment: "Tag")) { tagsnapshots() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -160,26 +150,6 @@ struct SnapshotsView: View {
                     updated = false
                 }
             })
-    }
-
-    var expandedsnapshotlist: some View {
-        if expand == false {
-            return Button {
-                let previous = expand
-                expand = !previous
-            } label: {
-                Image(systemName: "plus")
-            }
-            .buttonStyle(PrimaryButtonStyle())
-        } else {
-            return Button {
-                let previous = expand
-                expand = !previous
-            } label: {
-                Image(systemName: "minus")
-            }
-            .buttonStyle(PrimaryButtonStyle())
-        }
     }
 }
 
