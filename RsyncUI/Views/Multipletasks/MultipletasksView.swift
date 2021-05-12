@@ -68,7 +68,7 @@ struct MultipletasksView: View {
         if estimationstate.estimationstate != .start { labelcompleted }
         // Shortcuts for estimate and execute
         if shortcuts.estimatemultipletasks { labelshortcutestimation }
-        if shortcuts.executemultipletasks { labelshortcutexecute }
+        // if shortcuts.executemultipletasks { labelshortcutexecute }
 
         HStack {
             Button(NSLocalizedString("All", comment: "Select button")) { executall() }
@@ -133,17 +133,19 @@ struct MultipletasksView: View {
             })
     }
 
-    var labelshortcutexecute: some View {
-        Label(estimationstate.estimationstate.rawValue, systemImage: "play.fill")
-            .onAppear(perform: {
-                shortcuts.executemultipletasks = false
-                // Guard statement must be after resetting properties to false
-                presentexecuteestimatedview()
-            })
-    }
+    /*
+     var labelshortcutexecute: some View {
+         Label(estimationstate.estimationstate.rawValue, systemImage: "play.fill")
+             .onAppear(perform: {
+                 shortcuts.executemultipletasks = false
+                 // Guard statement must be after resetting properties to false
+                 presentexecuteestimatedview()
+             })
+     }
+     */
 
     var progressviewestimation: some View {
-        ProgressView("Estimating…", value: inprogresscountmultipletask.getinprogress(),
+        ProgressView("", value: inprogresscountmultipletask.getinprogress(),
                      total: Double(inprogresscountmultipletask.getmaxcount()))
             .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
                 inwork = inprogresscountmultipletask.hiddenID

@@ -55,7 +55,7 @@ struct ExecuteEstimatedView: View {
     // Present progressview during executing multiple tasks, progress about the number of
     // tasks are executed.
     var progressviewexecuting: some View {
-        ProgressView(NSLocalizedString("Executing tasks", comment: "Execute Multiple tasks") + "…",
+        ProgressView("",
                      value: inprogresscountmultipletask.getinprogress(),
                      total: Double(inprogresscountmultipletask.getmaxcount()))
             .onAppear(perform: {
