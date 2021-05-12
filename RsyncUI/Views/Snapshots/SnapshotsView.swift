@@ -174,13 +174,11 @@ extension SnapshotsView {
     func deletecompleted() {
         // delete logrecords with no remote snapshotcatalog
         print(snapshotdata.uuidsfordelete?.count ?? 0)
-        print(snapshotdata.uuidsfordelete!)
     }
 
     func abort() {
         snapshotdata.state = .start
         snapshotdata.setsnapshotdata(nil)
-        // Close the Discrepancy alert
         snapshotdata.numlocallogrecords = 0
         snapshotdata.numremotecatalogs = 0
         snapshotdata.delete?.snapshotcatalogstodelete = nil

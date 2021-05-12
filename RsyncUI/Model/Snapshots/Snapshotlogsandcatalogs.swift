@@ -20,7 +20,10 @@ final class Snapshotlogsandcatalogs {
     typealias Catalogsanddates = (String, Date)
     var catalogsanddates: [Catalogsanddates]?
     // uuids and administrating snapshots, save the UUID from the Log records.
-    var uuidsLog: Set<UUID>?
+    // If there are uuids in this Set after merge the members in the set
+    // is log records with missing remote snapshot catalog
+    // can be used to delete logs
+    var uuidsfromlogrecords: Set<UUID>?
 
     private func getremotecataloginfo() {
         outputprocess = OutputfromProcess()
@@ -80,9 +83,8 @@ final class Snapshotlogsandcatalogs {
     // Merging remote snaphotcatalogs and existing logs
     private func mergeremotecatalogsandlogs() {
         var adjustedlogrecords = [Logrecordsschedules]()
-        let logcount = logrecordssnapshot?.count ?? 0
         // Set number of local logrecords
-        mysnapshotdata?.numlocallogrecords = logcount
+        mysnapshotdata?.numlocallogrecords = logrecordssnapshot?.count ?? 0
         let mycatalogs = catalogsanddates
         var mylogrecords = logrecordssnapshot
         // Loop through all real catalogs, find the corresponding logrecord if any
@@ -103,8 +105,8 @@ final class Snapshotlogsandcatalogs {
                     adjustedlogrecords.append(record)
                     // Remove uudid which are matcing and insert in
                     // set to be deleted
-                    if let idLog = record.idLog {
-                        uuidsLog?.remove(idLog)
+                    if let idLog = record.idfromlogrecord {
+                        uuidsfromlogrecords?.remove(idLog)
                     }
                     // Remove that record
                     if let index = mylogrecords?.firstIndex(where: { $0.id == uuid }) {
@@ -177,7 +179,7 @@ final class Snapshotlogsandcatalogs {
                                           configurationsSwiftUI: configurationsSwiftUI,
                                           schedulesSwiftUI: schedulesSwiftUI)
         logrecordssnapshot = alllogs?.loggrecords
-        uuidsLog = alllogs?.uuidsLog
+        uuidsfromlogrecords = alllogs?.uuidsfromlogrecords
         // release the object - dont need it more
         alllogs = nil
         // Getting remote catalogdata about all snapshots
@@ -195,7 +197,7 @@ extension Snapshotlogsandcatalogs {
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         mysnapshotdata?.state = .gotit
-        mysnapshotdata?.uuidsLog = uuidsLog
+        mysnapshotdata?.uuidsLog = uuidsfromlogrecords
     }
 
     func filehandler() {}
