@@ -77,9 +77,6 @@ struct SingleTasksView: View {
 
         if shellout { notifyshellout }
 
-        // Execute singletask
-        if singletaskstate.singletaskstate == .estimated { progressviewexecute }
-
         HStack {
             if singletaskstate.singletaskstate != .start { labelestimate }
             if singletasknowstate.executetasknowstate != .start { labelexecutenow }
@@ -96,6 +93,11 @@ struct SingleTasksView: View {
 
                 executenow
             }
+
+            Spacer()
+
+            // Execute singletask
+            if singletaskstate.singletaskstate == .estimated { progressviewexecute }
 
             Spacer()
 
@@ -140,15 +142,18 @@ struct SingleTasksView: View {
     }
 
     var progressviewexecute: some View {
-        ProgressView(NSLocalizedString("Executing tasks", comment: "Execute tasks") + "…",
+        ProgressView(NSLocalizedString("", comment: "Execute tasks") + "…",
                      value: inprogresscountrsyncoutput.getinprogress(),
                      total: Double(inprogresscountrsyncoutput.getmaxcount()))
             .onChange(of: inprogresscountrsyncoutput.getinprogress(), perform: { _ in
             })
+            .progressViewStyle(GaugeProgressStyle())
+            .frame(width: 50.0, height: 50.0)
+            .contentShape(Rectangle())
     }
 
     var labelshortcutestimation: some View {
-        Label(singletaskstate.singletaskstate.rawValue, systemImage: "play.fill")
+        Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 shortcuts.estimatesingletask = false
                 // Guard statement must be after resetting properties to false
@@ -157,7 +162,7 @@ struct SingleTasksView: View {
     }
 
     var labelshortcutexecute: some View {
-        Label(singletaskstate.singletaskstate.rawValue, systemImage: "play.fill")
+        Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 shortcuts.executesingletask = false
                 // Guard statement must be after resetting properties to false
@@ -167,7 +172,7 @@ struct SingleTasksView: View {
 
     // When status == .completed execute completed for reload
     var labelestimate: some View {
-        Label(singletaskstate.singletaskstate.rawValue, systemImage: "play.fill")
+        Label("", systemImage: "play.fill")
             .onChange(of: singletaskstate.singletaskstate, perform: { _ in
                 if singletaskstate.singletaskstate == .completed { completed() }
             })
@@ -175,7 +180,7 @@ struct SingleTasksView: View {
 
     // When status == .completed execute completed for reload
     var labelexecutenow: some View {
-        Label(singletasknowstate.executetasknowstate.rawValue, systemImage: "play.fill")
+        Label("", systemImage: "play.fill")
             .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
                 if singletasknowstate.executetasknowstate == .completed { completed() }
             })
