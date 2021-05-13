@@ -193,7 +193,7 @@ extension Snapshotlogsandcatalogs {
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         mysnapshotdata?.state = .gotit
-        mysnapshotdata?.uuidsLog = uuidsfromlogrecords
+        mysnapshotdata?.uuidsfromlogrecords = uuidsfromlogrecords
     }
 
     func filehandler() {}

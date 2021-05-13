@@ -177,6 +177,7 @@ extension SnapshotsView {
 
     func getdata() {
         snapshotdata.uuidsfordelete?.removeAll()
+        snapshotdata.uuidsfromlogrecords?.removeAll()
         guard SharedReference.shared.process == nil else {
             gettingdata = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -286,4 +287,6 @@ extension SnapshotsView {
             updated = true
         }
     }
+
+    func deletelogs() {}
 }
