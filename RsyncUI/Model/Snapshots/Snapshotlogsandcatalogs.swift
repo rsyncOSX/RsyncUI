@@ -64,8 +64,6 @@ final class Snapshotlogsandcatalogs {
         catalogsanddates = catalogsanddates?.sorted { cat1, cat2 in
             (Int(cat1.0.dropFirst(2)) ?? 0) > (Int(cat2.0.dropFirst(2)) ?? 0)
         }
-        // Set number of remote catalogs
-        mysnapshotdata?.numremotecatalogs = catalogsanddates?.count ?? 0
     }
 
     // Calculating days since snaphot was executed
@@ -83,8 +81,6 @@ final class Snapshotlogsandcatalogs {
     // Merging remote snaphotcatalogs and existing logs
     private func mergeremotecatalogsandlogs() {
         var adjustedlogrecords = [Logrecordsschedules]()
-        // Set number of local logrecords
-        mysnapshotdata?.numlocallogrecords = logrecordssnapshot?.count ?? 0
         let mycatalogs = catalogsanddates
         var mylogrecords = logrecordssnapshot
         // Loop through all real catalogs, find the corresponding logrecord if any

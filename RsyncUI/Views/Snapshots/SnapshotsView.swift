@@ -170,8 +170,6 @@ extension SnapshotsView {
     func abort() {
         snapshotdata.state = .start
         snapshotdata.setsnapshotdata(nil)
-        snapshotdata.numlocallogrecords = 0
-        snapshotdata.numremotecatalogs = 0
         snapshotdata.delete?.snapshotcatalogstodelete = nil
         // kill any ongoing processes
         _ = InterruptProcess()
@@ -217,11 +215,6 @@ extension SnapshotsView {
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }
             guard (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
-            // Reset the Discrapancy if true
-            if snapshotdata.numlocallogrecords != snapshotdata.numremotecatalogs {
-                snapshotdata.numlocallogrecords = 0
-                snapshotdata.numremotecatalogs = 0
-            }
             /*
              var snapdayoffweek: String = ""
              var snaplast: String = ""
