@@ -1,51 +1,22 @@
 //
-//  ConfigurationsListUUID.swift
-//  RsyncSwiftUI
+//  ConfigurationsListSmall.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 22/01/2021.
+//  Created by Thomas Evensen on 14/05/2021.
 //
 
 import SwiftUI
 
-struct ConfigurationsList: View {
+struct ConfigurationsListSmall: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selectedconfig: Configuration?
 
-    // Used when selectable and starting progressview
-    @Binding var selecteduuids: Set<UUID>
-    @Binding var inwork: Int
-    // var configlist: some View
     @State private var forestimated = false
-    // Either selectable configlist or not
-    @Binding var selectable: Bool
-    @State private var activeschedules: Int = 0
 
     var body: some View {
-        VStack {
-            if selectable {
-                selecetableconfiglist
-            } else {
-                configlist
-            }
-        }
+        configlist
     }
 
-    // selectable configlist
-    var selecetableconfiglist: some View {
-        Section(header: header, footer: footer) {
-            List(selection: $selectedconfig) {
-                ForEach(configurationssorted) { configurations in
-                    OneConfigUUID(selecteduuids: $selecteduuids,
-                                  inexecuting: $inwork,
-                                  config: configurations)
-                        .tag(configurations)
-                }
-                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
-            }
-        }
-    }
-
-    // Non selectable
     var configlist: some View {
         Section(header: header) {
             List(selection: $selectedconfig) {
@@ -97,10 +68,5 @@ struct ConfigurationsList: View {
             Text(NSLocalizedString("Last", comment: "ConfigurationsList"))
                 .modifier(FixedTag(80, .trailing))
         }
-    }
-
-    var footer: some View {
-        Text(NSLocalizedString("Most recent updated tasks on top of list", comment: "ConfigurationsList") + "...")
-            .foregroundColor(Color.blue)
     }
 }

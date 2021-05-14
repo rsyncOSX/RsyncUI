@@ -53,6 +53,8 @@ struct AddPostandPreView: View {
                     }
                     .padding()
 
+                    ConfigurationsListSmall(selectedconfig: $selectedconfig)
+
                     // For center
                     Spacer()
                 }
