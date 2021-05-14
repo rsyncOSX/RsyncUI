@@ -225,22 +225,24 @@ extension AddPostandPreView {
 
     func updateview() {
         if let config = selectedconfig {
+            // pre task
             if config.pretask != nil {
                 if config.executepretask == 1 {
                     enablepre = true
                 } else {
                     enablepre = false
                 }
-                pretask = config.pretask ?? ""
             }
+            pretask = config.pretask ?? ""
+            // post task
             if config.posttask != nil {
                 if config.executeposttask == 1 {
                     enablepost = true
                 } else {
                     enablepost = false
                 }
-                pretask = config.pretask ?? ""
             }
+            pretask = config.pretask ?? ""
             if config.posttask != nil {
                 if config.haltshelltasksonerror == 1 {
                     haltshelltasksonerror = true
