@@ -36,28 +36,19 @@ struct AddPostandPreView: View {
 
                     // Column 1
                     VStack(alignment: .leading) {
-                        Section(header: headerprepost) {
-                            pretaskandtoggle
+                        pretaskandtoggle
 
-                            posttaskandtoggle
-                        }
-                    }
-                    .padding()
+                        posttaskandtoggle
 
-                    // Column 2
-                    VStack(alignment: .leading) {
-                        Section(header: headererror) {
-                            // Halt posttask on error
-                            if selectedconfig == nil { disablehaltshelltasksonerror } else {
-                                ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
-                                    .onAppear(perform: {
-                                        if selectedconfig?.haltshelltasksonerror == 1 {
-                                            haltshelltasksonerror = true
-                                        } else {
-                                            haltshelltasksonerror = false
-                                        }
-                                    })
-                            }
+                        if selectedconfig == nil { disablehaltshelltasksonerror } else {
+                            ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+                                .onAppear(perform: {
+                                    if selectedconfig?.haltshelltasksonerror == 1 {
+                                        haltshelltasksonerror = true
+                                    } else {
+                                        haltshelltasksonerror = false
+                                    }
+                                })
                         }
                     }
                     .padding()
@@ -112,16 +103,6 @@ struct AddPostandPreView: View {
 
     var disableposttask: some View {
         ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
-    }
-
-    var headerprepost: some View {
-        Text(NSLocalizedString("Pre and post task", comment: "settings"))
-            .modifier(FixedTag(200, .leading))
-    }
-
-    var headererror: some View {
-        Text(NSLocalizedString("Error", comment: "settings"))
-            .modifier(FixedTag(200, .leading))
     }
 
     var pretaskandtoggle: some View {
