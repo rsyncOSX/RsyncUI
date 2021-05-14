@@ -89,6 +89,8 @@ struct AddConfigurationView: View {
                         ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
 
                         adddeleteprofile
+
+                        updatebutton
                     }
 
                     // Column 3
@@ -110,27 +112,26 @@ struct AddConfigurationView: View {
                 if deleted == true { notifydeleted }
                 if deletedefaultprofile == true { cannotdeletedefaultprofile }
             }
-
-            VStack {
-                HStack {
-                    Spacer()
-                    // Add or Update button
-                    if selectedconfig == nil {
-                        Button(NSLocalizedString("Add", comment: "Add button")) { addconfig() }
-                            .buttonStyle(PrimaryButtonStyle())
-                    } else {
-                        Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
-                            .buttonStyle(PrimaryButtonStyle())
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.red, lineWidth: 5)
-                            )
-                    }
-                }
-            }
         }
         .lineSpacing(2)
         .padding()
+    }
+
+    var updatebutton: some View {
+        HStack {
+            // Add or Update button
+            if selectedconfig == nil {
+                Button(NSLocalizedString("Add", comment: "Add button")) { addconfig() }
+                    .buttonStyle(PrimaryButtonStyle())
+            } else {
+                Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.red, lineWidth: 5)
+                    )
+            }
+        }
     }
 
     // Add and edit text values

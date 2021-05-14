@@ -21,13 +21,13 @@ struct OneConfigSmall: View {
             Group {
                 if config.backupID.isEmpty {
                     Text("Synchronize ID")
-                        .modifier(FixedTag(150, .leading))
+                        .modifier(FixedTag(100, .leading))
                 } else {
                     Text(config.backupID)
-                        .modifier(FixedTag(150, .leading))
+                        .modifier(FixedTag(100, .leading))
                 }
                 Text(config.task)
-                    .modifier(FixedTag(80, .leading))
+                    .modifier(FixedTag(60, .leading))
                 Text(config.localCatalog)
                     .modifier(FlexTag(180, .leading))
                 Text(config.offsiteCatalog)
@@ -36,10 +36,10 @@ struct OneConfigSmall: View {
 
             if config.offsiteServer.isEmpty {
                 Text("localhost")
-                    .modifier(FixedTag(80, .leading))
+                    .modifier(FixedTag(60, .leading))
             } else {
                 Text(config.offsiteServer)
-                    .modifier(FixedTag(100, .leading))
+                    .modifier(FixedTag(60, .leading))
             }
         }
     }

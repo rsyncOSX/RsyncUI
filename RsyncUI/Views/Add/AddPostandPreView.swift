@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 01/04/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -38,18 +39,20 @@ struct AddPostandPreView: View {
 
                         posttaskandtoggle
 
-                        if selectedconfig == nil { disablehaltshelltasksonerror } else {
-                            ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
-                                .onAppear(perform: {
-                                    if selectedconfig?.haltshelltasksonerror == 1 {
-                                        haltshelltasksonerror = true
-                                    } else {
-                                        haltshelltasksonerror = false
-                                    }
-                                })
-                        }
+                        HStack {
+                            if selectedconfig == nil { disablehaltshelltasksonerror } else {
+                                ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+                                    .onAppear(perform: {
+                                        if selectedconfig?.haltshelltasksonerror == 1 {
+                                            haltshelltasksonerror = true
+                                        } else {
+                                            haltshelltasksonerror = false
+                                        }
+                                    })
+                            }
 
-                        updatebutton
+                            updatebutton
+                        }
                     }
                     .padding()
 
