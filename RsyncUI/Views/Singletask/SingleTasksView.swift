@@ -119,7 +119,8 @@ struct SingleTasksView: View {
     // Estimate and the execute.
     var estimateandexecute: some View {
         HStack {
-            if singletaskstate.singletaskstate == .start {
+            if singletaskstate.singletaskstate == .start ||
+                singletaskstate.singletaskstate == .estimate {
                 // Estimate
                 Button(NSLocalizedString("Estimate", comment: "Estimate button")) { initsingletask() }
                     .buttonStyle(PrimaryButtonStyle())
