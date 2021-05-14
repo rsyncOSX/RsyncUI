@@ -232,8 +232,11 @@ extension AddPostandPreView {
                 } else {
                     enablepre = false
                 }
+            } else {
+                pretask = config.pretask ?? ""
+                enablepre = false
             }
-            pretask = config.pretask ?? ""
+
             // post task
             if config.posttask != nil {
                 if config.executeposttask == 1 {
@@ -241,8 +244,11 @@ extension AddPostandPreView {
                 } else {
                     enablepost = false
                 }
+            } else {
+                pretask = config.pretask ?? ""
+                enablepost = false
             }
-            pretask = config.pretask ?? ""
+
             if config.posttask != nil {
                 if config.haltshelltasksonerror == 1 {
                     haltshelltasksonerror = true
