@@ -52,7 +52,6 @@ struct AddConfigurationView: View {
 
     // Sheet for selecting configuration if edit
     @State private var selectedconfig: Configuration?
-    @State private var presentsheet: Bool = false
     // Set reload = true after update
     @Binding var reload: Bool
     // New profile
@@ -84,7 +83,6 @@ struct AddConfigurationView: View {
 
                         VStack(alignment: .leading) { remoteuserandserver }
                     }
-                    .padding()
 
                     // Column 2
                     VStack(alignment: .leading) {
@@ -92,7 +90,14 @@ struct AddConfigurationView: View {
 
                         adddeleteprofile
                     }
-                    .padding()
+
+                    // Column 3
+
+                    VStack(alignment: .leading) {
+                        ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                            updateview()
+                        })
+                    }
 
                     // For center
                     Spacer()
@@ -121,15 +126,11 @@ struct AddConfigurationView: View {
                                     .stroke(Color.red, lineWidth: 5)
                             )
                     }
-
-                    Button(NSLocalizedString("Select", comment: "Select button")) { selectconfig() }
-                        .buttonStyle(PrimaryButtonStyle())
                 }
             }
         }
         .lineSpacing(2)
         .padding()
-        .sheet(isPresented: $presentsheet) { configsheet }
     }
 
     // Add and edit text values
@@ -257,11 +258,6 @@ struct AddConfigurationView: View {
         }
     }
 
-    // Select, if update, configurations for update
-    var configsheet: some View {
-        SelectConfigurationView(selectedconfig: $selectedconfig, isPresented: $presentsheet)
-    }
-
     var selectpickervalue: TypeofTask {
         switch selectedconfig?.task {
         case SharedReference.shared.synchronize:
@@ -319,11 +315,6 @@ struct AddConfigurationView: View {
 }
 
 extension AddConfigurationView {
-    func selectconfig() {
-        resetform()
-        presentsheet = true
-    }
-
     func addconfig() {
         let getdata = AppendConfig(selectedrsynccommand.rawValue,
                                    localcatalog,
@@ -458,6 +449,12 @@ extension AddConfigurationView {
             remoteuser = config.offsiteUsername
             remoteserver = config.offsiteServer
             backupID = config.backupID
+        } else {
+            localcatalog = ""
+            remotecatalog = ""
+            remoteuser = ""
+            remoteserver = ""
+            backupID = ""
         }
     }
 
