@@ -96,7 +96,7 @@ struct SingleTasksView: View {
 
             Spacer()
 
-            // Execute singletask
+            // Progressview for execute of estimated task
             if singletaskstate.singletaskstate == .estimated { progressviewexecute }
 
             Spacer()
