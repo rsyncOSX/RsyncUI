@@ -14,19 +14,18 @@ struct ConfigurationsListSmall: View {
     @State private var forestimated = false
 
     var body: some View {
-        configlist
+        VStack {
+            configlist
+        }
     }
 
     var configlist: some View {
-        Section(header: header) {
-            List(selection: $selectedconfig) {
-                ForEach(configurationssorted) { configurations in
-                    OneConfig(forestimated: $forestimated,
-                              config: configurations)
-                        .tag(configurations)
-                }
-                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+        List(selection: $selectedconfig) {
+            ForEach(configurationssorted) { configurations in
+                OneConfigSmall(config: configurations)
+                    .tag(configurations)
             }
+            .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
         }
     }
 
@@ -47,26 +46,5 @@ struct ConfigurationsListSmall: View {
             return sorted
         }
         return []
-    }
-
-    var header: some View {
-        HStack {
-            Text(NSLocalizedString("Synchronize ID", comment: "ConfigurationsList"))
-                .modifier(FixedTag(120, .center))
-            Text(NSLocalizedString("Task", comment: "ConfigurationsList"))
-                .modifier(FixedTag(80, .center))
-            Text(NSLocalizedString("Local catalog", comment: "ConfigurationsList"))
-                .modifier(FixedTag(180, .center))
-            Text(NSLocalizedString("Remote catalog", comment: "ConfigurationsList"))
-                .modifier(FixedTag(180, .center))
-            Text(NSLocalizedString("Server", comment: "ConfigurationsList"))
-                .modifier(FixedTag(80, .center))
-            Text(NSLocalizedString("User", comment: "ConfigurationsList"))
-                .modifier(FixedTag(35, .center))
-            Text(NSLocalizedString("Days", comment: "ConfigurationsList"))
-                .modifier(FixedTag(80, .trailing))
-            Text(NSLocalizedString("Last", comment: "ConfigurationsList"))
-                .modifier(FixedTag(80, .trailing))
-        }
     }
 }

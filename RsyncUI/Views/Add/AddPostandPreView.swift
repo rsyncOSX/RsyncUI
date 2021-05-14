@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 01/04/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -21,7 +20,6 @@ struct AddPostandPreView: View {
 
     // Sheet for selecting configuration if edit
     @State private var selectedconfig: Configuration?
-    @State private var presentsheet: Bool = false
     // Set reload = true after update
     @Binding var reload: Bool
     // Added and updated labels
@@ -50,45 +48,45 @@ struct AddPostandPreView: View {
                                     }
                                 })
                         }
+
+                        updatebutton
                     }
                     .padding()
 
-                    ConfigurationsListSmall(selectedconfig: $selectedconfig)
+                    // Column 2
+                    VStack(alignment: .leading) {
+                        ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                            updateview()
+                        })
 
+                        Spacer()
+                    }
                     // For center
                     Spacer()
                 }
 
                 if updated == true { notifyupdated }
             }
-
-            VStack {
-                Spacer()
-
-                HStack {
-                    Spacer()
-
-                    // Add or Update button
-                    if selectedconfig == nil {
-                        Button(NSLocalizedString("Update", comment: "Update button")) {}
-                            .buttonStyle(PrimaryButtonStyle())
-                    } else {
-                        Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
-                            .buttonStyle(PrimaryButtonStyle())
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.red, lineWidth: 5)
-                            )
-                    }
-
-                    Button(NSLocalizedString("Select", comment: "Select button")) { selectconfig() }
-                        .buttonStyle(PrimaryButtonStyle())
-                }
-            }
         }
         .lineSpacing(2)
         .padding()
-        .sheet(isPresented: $presentsheet) { configsheet }
+    }
+
+    var updatebutton: some View {
+        HStack {
+            // Add or Update button
+            if selectedconfig == nil {
+                Button(NSLocalizedString("Update", comment: "Update button")) {}
+                    .buttonStyle(PrimaryButtonStyle())
+            } else {
+                Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.red, lineWidth: 5)
+                    )
+            }
+        }
     }
 
     var setpretask: some View {
@@ -159,11 +157,6 @@ struct AddPostandPreView: View {
         }
     }
 
-    // Select configurations for adding post and pretask
-    var configsheet: some View {
-        SelectConfigurationView(selectedconfig: $selectedconfig, isPresented: $presentsheet)
-    }
-
     var disablehaltshelltasksonerror: some View {
         ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
     }
@@ -177,11 +170,6 @@ struct AddPostandPreView: View {
 }
 
 extension AddPostandPreView {
-    func selectconfig() {
-        resetform()
-        presentsheet = true
-    }
-
     func updateconfig() {
         // Append default config data to the update,
         // only post and pretask is new
