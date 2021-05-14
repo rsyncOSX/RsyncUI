@@ -24,7 +24,7 @@ struct ConfigurationsList: View {
         HStack {
             VStack {
                 if selectable {
-                    configlistselecetable
+                    selecetableconfiglist
                 } else {
                     configlist
                 }
@@ -33,42 +33,32 @@ struct ConfigurationsList: View {
     }
 
     // selectable configlist
-    var configlistselecetable: some View {
+    var selecetableconfiglist: some View {
         Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
-                selecetablenospacing
+                ForEach(configurationssorted) { configurations in
+                    OneConfigUUID(selecteduuids: $selecteduuids,
+                                  inexecuting: $inwork,
+                                  config: configurations)
+                        .tag(configurations)
+                }
+                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
         }
-    }
-
-    // No spacing
-    var selecetablenospacing: some View {
-        ForEach(configurationssorted) { configurations in
-            OneConfigUUID(selecteduuids: $selecteduuids,
-                          inexecuting: $inwork,
-                          config: configurations)
-                .tag(configurations)
-        }
-        .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
     }
 
     // Non selectable
     var configlist: some View {
         Section(header: header) {
             List(selection: $selectedconfig) {
-                nonselecetablenospacing
+                ForEach(configurationssorted) { configurations in
+                    OneConfig(forestimated: $forestimated,
+                              config: configurations)
+                        .tag(configurations)
+                }
+                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
         }
-    }
-
-    // No spacing
-    var nonselecetablenospacing: some View {
-        ForEach(configurationssorted) { configurations in
-            OneConfig(forestimated: $forestimated,
-                      config: configurations)
-                .tag(configurations)
-        }
-        .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
     }
 
     var configurationssorted: [Configuration] {
