@@ -25,10 +25,8 @@ class NamesandPaths {
     // create a new key require full path
     var identityfile: String?
     // config path either
-    // ViewControllerReference.shared.configpath or RcloneReference.shared.configpath
+    // ViewControllerReference.shared.configpath
     var configpath: String?
-    // key in objectForKey, e.g key for reading what
-    var key: String?
     // Which profile to read
     var profile: String?
     // Set which file to read
@@ -117,9 +115,6 @@ class NamesandPaths {
 
     init(_ profile: String?) {
         configpath = SharedReference.shared.configpath
-        // For user configuration
-        plistname = SharedReference.shared.userconfigplist
-        key = SharedReference.shared.userconfigkey
         self.profile = profile
         setnameandpath()
     }

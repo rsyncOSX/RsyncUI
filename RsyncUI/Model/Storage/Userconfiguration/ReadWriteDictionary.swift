@@ -15,7 +15,7 @@ class ReadWriteDictionary: NamesandPaths {
     func readNSDictionaryFromPersistentStore() -> [NSDictionary]? {
         var data: [NSDictionary]?
         let dictionary = NSDictionary(contentsOfFile: filename ?? "")
-        if let items = dictionary?.object(forKey: key ?? "") as? NSArray {
+        if let items = dictionary?.object(forKey: SharedReference.shared.userconfigkey) as? NSArray {
             data = [NSDictionary]()
             for i in 0 ..< items.count {
                 if let item = items[i] as? NSDictionary {
@@ -29,7 +29,7 @@ class ReadWriteDictionary: NamesandPaths {
     // Function for write data to persistent store
     @discardableResult
     func writeNSDictionaryToPersistentStorage(array: [NSDictionary]) -> Bool {
-        let dictionary = NSDictionary(object: array, forKey: (key ?? "") as NSCopying)
+        let dictionary = NSDictionary(object: array, forKey: SharedReference.shared.userconfigkey as NSCopying)
         let write = dictionary.write(toFile: filename ?? "", atomically: true)
         if write && SharedReference.shared.menuappisrunning {
             Notifications().showNotification("Sending reload message to menu app")
