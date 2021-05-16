@@ -180,10 +180,8 @@ struct AddConfigurationView: View {
 
     var adddeleteprofile: some View {
         Section(header: headerprofile) {
-            EditValue(100, NSLocalizedString("New profile", comment: "settings"), $newprofile)
-
             HStack {
-                Button(NSLocalizedString("Profile", comment: "Add button")) { createprofile() }
+                Button(NSLocalizedString("Create", comment: "Add button")) { createprofile() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 Button(NSLocalizedString("Delete", comment: "Add button")) { showAlertfordelete = true }
@@ -197,6 +195,8 @@ struct AddConfigurationView: View {
                             })
                     }
             }
+
+            EditValue(150, NSLocalizedString("New profile", comment: "settings"), $newprofile)
         }
     }
 
