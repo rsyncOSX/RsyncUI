@@ -15,6 +15,7 @@
 		E88F68B625F8A7A30010F33C /* Sshcopykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68B525F8A7A30010F33C /* Sshcopykey.swift */; };
 		E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68BA25F8A7D30010F33C /* Sshverifykey.swift */; };
 		E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8902992260B0EF700F4F0DC /* ButtonStyles.swift */; };
+		E900748D2651838A00514BBC /* ReadUserConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */; };
 		E9011D45262EBFE600ECC9B8 /* ConvertUserconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9011D42262EBFE600ECC9B8 /* ConvertUserconfiguration.swift */; };
 		E9011D46262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9011D44262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift */; };
 		E9038F5C2632E7ED00F89E97 /* DetailsScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9038F5B2632E7ED00F89E97 /* DetailsScheduleView.swift */; };
@@ -240,6 +241,7 @@
 		E88F68B525F8A7A30010F33C /* Sshcopykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshcopykey.swift; sourceTree = "<group>"; };
 		E88F68BA25F8A7D30010F33C /* Sshverifykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshverifykey.swift; sourceTree = "<group>"; };
 		E8902992260B0EF700F4F0DC /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUserConfigurationPLIST.swift; sourceTree = "<group>"; };
 		E9011D42262EBFE600ECC9B8 /* ConvertUserconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertUserconfiguration.swift; sourceTree = "<group>"; };
 		E9011D44262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageUserconfiguration.swift; sourceTree = "<group>"; };
 		E9038F5B2632E7ED00F89E97 /* DetailsScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsScheduleView.swift; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				E985C6C625F3AD9600CB895C /* ReadWriteDictionary.swift */,
 				E9011D42262EBFE600ECC9B8 /* ConvertUserconfiguration.swift */,
 				E9011D44262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift */,
+				E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */,
 			);
 			path = Userconfiguration;
 			sourceTree = "<group>";
@@ -1421,6 +1424,7 @@
 				E985C67E25F3AD8400CB895C /* ScheduleRowSchedules.swift in Sources */,
 				E90B4AA3261DA7580043EFF6 /* GrowingArcIndicatorView.swift in Sources */,
 				E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */,
+				E900748D2651838A00514BBC /* ReadUserConfigurationPLIST.swift in Sources */,
 				E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */,
 				E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */,
 				E985C75925F3AD9700CB895C /* Configuration.swift in Sources */,

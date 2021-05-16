@@ -128,4 +128,8 @@ struct Userconfiguration {
             readUserconfiguration(dict: userconfigRsyncOSX[0])
         }
     }
+
+    init(_ userconfig: NSDictionary) {
+        readUserconfiguration(dict: userconfig)
+    }
 }

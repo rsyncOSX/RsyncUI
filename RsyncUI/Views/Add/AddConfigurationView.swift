@@ -476,5 +476,7 @@ extension AddConfigurationView {
 }
 
 /*
- TODO: fix that ID can be changed on snapshot tasks.
+ TODO:
+ - fix that ID can be changed on snapshot tasks.
+ - remove deleted profile name
  */
