@@ -474,3 +474,7 @@ extension AddConfigurationView {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
+
+/*
+ TODO: fix that ID can be changed on snapshot tasks.
+ */
