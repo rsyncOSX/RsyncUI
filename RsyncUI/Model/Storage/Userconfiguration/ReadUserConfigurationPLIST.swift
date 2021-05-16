@@ -13,7 +13,7 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
     var filenamedatastore = [SharedReference.shared.userconfigplist]
     var subscriptons = Set<AnyCancellable>()
 
-    private func readUserconfiguration(_ dict: NSDictionary?) {
+    private func setuserconfiguration(_ dict: NSDictionary?) {
         if let dict = dict {
             SharedReference.shared.inloading = true
             // Another version of rsync
@@ -131,8 +131,8 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
                 filename = (fullroot ?? "") + userconfig
                 return URL(fileURLWithPath: filename)
             }
-            .tryMap { url -> NSDictionary? in
-                NSDictionary(contentsOf: url)
+            .tryMap { url -> NSDictionary in
+                try NSDictionary(contentsOf: url, error: ())
             }
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -142,7 +142,7 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
                     self.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] data in
-                if let items = data?.object(forKey: SharedReference.shared.userconfigkey) as? NSArray {
+                if let items = data.object(forKey: SharedReference.shared.userconfigkey) as? NSArray {
                     let userconfig = items.map { row -> NSDictionary? in
                         switch row {
                         case is NSNull: return nil
@@ -151,7 +151,7 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
                         }
                     }
                     guard userconfig.count > 0 else { return }
-                    readUserconfiguration(userconfig[0])
+                    setuserconfiguration(userconfig[0])
                 }
             }).store(in: &subscriptons)
     }

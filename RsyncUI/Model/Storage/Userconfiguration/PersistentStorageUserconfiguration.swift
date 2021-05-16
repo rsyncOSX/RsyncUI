@@ -8,24 +8,25 @@
 
 import Foundation
 
-final class PersistentStorageUserconfiguration: ReadWriteDictionary {
+final class PersistentStorageUserconfiguration: NamesandPaths {
     // Save user configuration
     func saveuserconfiguration() {
         if let array: [NSDictionary] = ConvertUserconfiguration().userconfiguration {
-            writeToStore(array: array)
+            writeNSDictionaryToPersistentStorage(array: array)
         }
     }
 
-    // Read userconfiguration
-    func readuserconfiguration() -> [NSDictionary]? {
-        return readNSDictionaryFromPersistentStore()
-    }
-
-    // Writing configuration to persistent store
-    // Configuration is [NSDictionary]
-    private func writeToStore(array: [NSDictionary]) {
-        // Getting the object just for the write method, no read from persistent store
-        _ = writeNSDictionaryToPersistentStorage(array: array)
+    @discardableResult
+    func writeNSDictionaryToPersistentStorage(array: [NSDictionary]) -> Bool {
+        let dictionary = NSDictionary(object: array, forKey: SharedReference.shared.userconfigkey as NSCopying)
+        let write = dictionary.write(toFile: filename ?? "", atomically: true)
+        if write && SharedReference.shared.menuappisrunning {
+            Notifications().showNotification("Sending reload message to menu app")
+            DistributedNotificationCenter.default()
+                .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
+                                      object: nil, deliverImmediately: true)
+        }
+        return write
     }
 
     init() {

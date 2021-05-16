@@ -11,21 +11,6 @@ import Cocoa
 import Foundation
 
 class ReadWriteDictionary: NamesandPaths {
-    // Function for reading data from persistent store
-    func readNSDictionaryFromPersistentStore() -> [NSDictionary]? {
-        var data: [NSDictionary]?
-        let dictionary = NSDictionary(contentsOfFile: filename ?? "")
-        if let items = dictionary?.object(forKey: SharedReference.shared.userconfigkey) as? NSArray {
-            data = [NSDictionary]()
-            for i in 0 ..< items.count {
-                if let item = items[i] as? NSDictionary {
-                    data?.append(item)
-                }
-            }
-        }
-        return data
-    }
-
     // Function for write data to persistent store
     @discardableResult
     func writeNSDictionaryToPersistentStorage(array: [NSDictionary]) -> Bool {
