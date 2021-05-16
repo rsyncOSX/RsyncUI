@@ -72,7 +72,7 @@ class UpdateConfigurations {
                 configurations?[index].offsiteUsername = config.offsiteUsername
                 configurations?[index].executepretask = config.executepretask
                 configurations?[index].pretask = config.pretask
-                configurations?[index].executeposttask = config.executepretask
+                configurations?[index].executeposttask = config.executeposttask
                 configurations?[index].posttask = config.posttask
                 configurations?[index].haltshelltasksonerror = config.haltshelltasksonerror
                 configurations?[index].backupID = config.backupID
