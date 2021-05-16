@@ -259,6 +259,12 @@ extension AddPostandPreView {
                     haltshelltasksonerror = false
                 }
             }
+        } else {
+            enablepost = false
+            enablepre = false
+            pretask = ""
+            posttask = ""
+            haltshelltasksonerror = false
         }
     }
 
