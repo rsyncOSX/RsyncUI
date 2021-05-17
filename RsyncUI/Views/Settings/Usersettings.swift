@@ -224,7 +224,7 @@ extension Usersettings {
     func saveusersettings() {
         usersettings.isDirty = false
         usersettings.inputchangedbyuser = false
-        PersistentStorageUserconfiguration().saveuserconfiguration()
+        _ = WriteUserConfigurationPLIST()
     }
 
     func backupuserconfigs() {

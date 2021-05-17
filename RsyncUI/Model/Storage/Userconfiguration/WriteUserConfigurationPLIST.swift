@@ -1,25 +1,21 @@
 //
-//  ConvertUserconfiguration.swift
-//  RsyncOSX
+//  WriteUserConfigurationPLIST.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 26/04/2019.
-//  Copyright © 2019 Thomas Evensen. All rights reserved.
+//  Created by Thomas Evensen on 17/05/2021.
 //
-// swiftlint:disable cyclomatic_complexity function_body_length trailing_comma line_length
+// swiftlint:disable line_length function_body_length cyclomatic_complexity
 
 import Foundation
 
-struct ConvertUserconfiguration {
-    var userconfiguration: [NSMutableDictionary]?
-
-    init() {
+final class WriteUserConfigurationPLIST: NamesandPaths {
+    private func convertuserconfiguration() -> [NSMutableDictionary]? {
         var version3Rsync: Int?
         var detailedlogging: Int?
         var minimumlogging: Int?
         var fulllogging: Int?
         var marknumberofdayssince: String?
         var monitornetworkconnection: Int?
-        var array = [NSMutableDictionary]()
 
         if SharedReference.shared.rsyncversion3 {
             version3Rsync = 1
@@ -91,7 +87,33 @@ struct ConvertUserconfiguration {
         if let sshport = SharedReference.shared.sshport {
             dict.setObject(sshport, forKey: DictionaryStrings.sshport.rawValue as NSCopying)
         }
+        var array = [NSMutableDictionary]()
         array.append(dict)
-        userconfiguration = array
+        return array
+    }
+
+    @discardableResult
+    func writeNSDictionaryToPersistentStorage(_ data: [NSDictionary]?) -> Bool {
+        if let data = data,
+           let fullroot = fullroot
+        {
+            let dictionary = NSDictionary(object: data, forKey: SharedReference.shared.userconfigkey as NSCopying)
+            let write = dictionary.write(toFile: fullroot + SharedReference.shared.userconfigplist,
+                                         atomically: true)
+            if write && SharedReference.shared.menuappisrunning {
+                Notifications().showNotification("Sending reload message to menu app")
+                DistributedNotificationCenter.default()
+                    .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
+                                          object: nil, deliverImmediately: true)
+            }
+            return write
+        }
+        return false
+    }
+
+    init() {
+        super.init(profileorsshrootpath: .profileroot)
+        let userconfig = convertuserconfiguration()
+        writeNSDictionaryToPersistentStorage(userconfig)
     }
 }
