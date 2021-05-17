@@ -163,7 +163,7 @@ extension Sshsettings {
     func saveusersettings() {
         usersettings.isDirty = false
         usersettings.inputchangedbyuser = false
-        PersistentStorageUserconfiguration().saveuserconfiguration()
+        _ = WriteUserConfigurationPLIST()
         // wait for a half second and then force a new check if keys are created and exists
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             usersettings.localsshkeys = SshKeys().validatepublickeypresent()

@@ -4,22 +4,18 @@
 //
 //  Created by Thomas Evensen on 17/05/2021.
 //
+// swiftlint:disable line_length function_body_length cyclomatic_complexity
 
 import Foundation
-import Combine
 
-class WriteUserConfigurationPLIST: NamesandPaths {
-    var filenamedatastore = [SharedReference.shared.userconfigplist]
-    var subscriptons = Set<AnyCancellable>()
-    
-    func convertuserconfiguration() -> [NSMutableDictionary]? {
+final class WriteUserConfigurationPLIST: NamesandPaths {
+    private func convertuserconfiguration() -> [NSMutableDictionary]? {
         var version3Rsync: Int?
         var detailedlogging: Int?
         var minimumlogging: Int?
         var fulllogging: Int?
         var marknumberofdayssince: String?
         var monitornetworkconnection: Int?
-        var array = [NSMutableDictionary]()
 
         if SharedReference.shared.rsyncversion3 {
             version3Rsync = 1
@@ -91,50 +87,33 @@ class WriteUserConfigurationPLIST: NamesandPaths {
         if let sshport = SharedReference.shared.sshport {
             dict.setObject(sshport, forKey: DictionaryStrings.sshport.rawValue as NSCopying)
         }
+        var array = [NSMutableDictionary]()
         array.append(dict)
         return array
     }
 
     @discardableResult
-    func writeNSDictionaryToPersistentStorage(array: [NSDictionary]) -> Bool {
-        let dictionary = NSDictionary(object: array, forKey: SharedReference.shared.userconfigkey as NSCopying)
-        let write = dictionary.write(toFile: filename ?? "", atomically: true)
-        if write && SharedReference.shared.menuappisrunning {
-            Notifications().showNotification("Sending reload message to menu app")
-            DistributedNotificationCenter.default()
-                .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
-                                      object: nil, deliverImmediately: true)
+    func writeNSDictionaryToPersistentStorage(_ data: [NSDictionary]?) -> Bool {
+        if let data = data,
+           let path = fullroot
+        {
+            let dictionary = NSDictionary(object: data, forKey: SharedReference.shared.userconfigkey as NSCopying)
+            let write = dictionary.write(toFile: path + SharedReference.shared.userconfigplist,
+                                         atomically: true)
+            if write && SharedReference.shared.menuappisrunning {
+                Notifications().showNotification("Sending reload message to menu app")
+                DistributedNotificationCenter.default()
+                    .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
+                                          object: nil, deliverImmediately: true)
+            }
+            return write
         }
-        return write
+        return false
     }
 
     init() {
         super.init(profileorsshrootpath: .profileroot)
         let userconfig = convertuserconfiguration()
-        /*
-        userconfig.publisher
-            
-            
-            .compactMap { _ in
-                var filename: String = ""
-                filename = (fullroot ?? "") + userconfig
-                return URL(fileURLWithPath: filename)
-            }
-            
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    // print("The publisher finished normally.")
-                    return
-                case let .failure(error):
-                    self.propogateerror(error: error)
-                }
-            }, receiveValue: { [unowned self] result in
-                let jsonfile = String(data: result, encoding: .utf8)
-                writeJSONToPersistentStore(jsonfile)
-                subscriptons.removeAll()
-            })
-            .store(in: &subscriptons)
-            */
+        writeNSDictionaryToPersistentStorage(userconfig)
     }
 }

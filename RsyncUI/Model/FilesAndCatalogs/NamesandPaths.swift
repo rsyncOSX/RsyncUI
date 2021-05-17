@@ -33,7 +33,7 @@ class NamesandPaths {
     var filename: String?
     // plistname for user configuration
     var plistname: String?
-    
+
     // Documentscatalog
     var documentscatalog: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray

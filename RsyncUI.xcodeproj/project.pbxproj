@@ -16,8 +16,6 @@
 		E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68BA25F8A7D30010F33C /* Sshverifykey.swift */; };
 		E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8902992260B0EF700F4F0DC /* ButtonStyles.swift */; };
 		E900748D2651838A00514BBC /* ReadUserConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */; };
-		E9011D45262EBFE600ECC9B8 /* ConvertUserconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9011D42262EBFE600ECC9B8 /* ConvertUserconfiguration.swift */; };
-		E9011D46262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9011D44262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift */; };
 		E9038F5C2632E7ED00F89E97 /* DetailsScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9038F5B2632E7ED00F89E97 /* DetailsScheduleView.swift */; };
 		E90B4A9C261DA7580043EFF6 /* ScalingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A92261DA7580043EFF6 /* ScalingDotsIndicatorView.swift */; };
 		E90B4A9D261DA7580043EFF6 /* EqualizerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A93261DA7580043EFF6 /* EqualizerIndicatorView.swift */; };
@@ -242,8 +240,6 @@
 		E88F68BA25F8A7D30010F33C /* Sshverifykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshverifykey.swift; sourceTree = "<group>"; };
 		E8902992260B0EF700F4F0DC /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUserConfigurationPLIST.swift; sourceTree = "<group>"; };
-		E9011D42262EBFE600ECC9B8 /* ConvertUserconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertUserconfiguration.swift; sourceTree = "<group>"; };
-		E9011D44262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageUserconfiguration.swift; sourceTree = "<group>"; };
 		E9038F5B2632E7ED00F89E97 /* DetailsScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsScheduleView.swift; sourceTree = "<group>"; };
 		E90B4A92261DA7580043EFF6 /* ScalingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalingDotsIndicatorView.swift; sourceTree = "<group>"; };
 		E90B4A93261DA7580043EFF6 /* EqualizerIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EqualizerIndicatorView.swift; sourceTree = "<group>"; };
@@ -479,8 +475,6 @@
 		E9011D43262EBFE600ECC9B8 /* Userconfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				E9011D42262EBFE600ECC9B8 /* ConvertUserconfiguration.swift */,
-				E9011D44262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift */,
 				E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */,
 				E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */,
 			);
@@ -1341,7 +1335,6 @@
 				E90B4AA0261DA7580043EFF6 /* ArcsIndicatorView.swift in Sources */,
 				E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */,
 				E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */,
-				E9011D46262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
 				E95DE0DA25F4A5120090FCD3 /* ChangeSchedulesView.swift in Sources */,
 				E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */,
@@ -1457,7 +1450,6 @@
 				E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */,
 				E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */,
 				E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */,
-				E9011D45262EBFE600ECC9B8 /* ConvertUserconfiguration.swift in Sources */,
 				E97844DF260DB3D6007874A1 /* ScheduleSortedAndExpand.swift in Sources */,
 				E985C77125F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift in Sources */,
 				E985C79325F3AD9700CB895C /* RsyncOSXViewGetRsyncversion.swift in Sources */,
