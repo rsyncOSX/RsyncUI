@@ -145,14 +145,18 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
                 if let items = data.object(forKey: SharedReference.shared.userconfigkey) as? NSArray {
                     let userconfig = items.map { row -> NSDictionary? in
                         switch row {
-                        case is NSNull: return nil
-                        case let value as NSDictionary: return value
-                        default: return nil
+                        case is NSNull:
+                            return nil
+                        case let value as NSDictionary:
+                            return value
+                        default:
+                            return nil
                         }
                     }
                     guard userconfig.count > 0 else { return }
                     setuserconfiguration(userconfig[0])
                 }
+                subscriptons.removeAll()
             }).store(in: &subscriptons)
     }
 }

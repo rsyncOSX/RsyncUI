@@ -33,6 +33,7 @@ class NamesandPaths {
     var filename: String?
     // plistname for user configuration
     var plistname: String?
+    
     // Documentscatalog
     var documentscatalog: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -103,7 +104,7 @@ class NamesandPaths {
             // Use profile
             filename = (userHomeDirectoryPath ?? "") + config + "/" + profile
         } else {
-            filename = (userHomeDirectoryPath ?? "") + config + (plistname ?? "")
+            filename = (userHomeDirectoryPath ?? "") + config + SharedReference.shared.userconfigplist
         }
     }
 
