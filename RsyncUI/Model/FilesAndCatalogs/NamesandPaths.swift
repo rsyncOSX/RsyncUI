@@ -95,17 +95,6 @@ class NamesandPaths {
         }
     }
 
-    // Set path and name for reading plist.files
-    func setnameandpath() {
-        let config = (configpath ?? "") + (macserialnumber ?? "")
-        if let profile = self.profile {
-            // Use profile
-            filename = (userHomeDirectoryPath ?? "") + config + "/" + profile
-        } else {
-            filename = (userHomeDirectoryPath ?? "") + config
-        }
-    }
-
     init(profileorsshrootpath: Profileorsshrootpath) {
         configpath = SharedReference.shared.configpath
         profileorsshroot = profileorsshrootpath
@@ -115,7 +104,6 @@ class NamesandPaths {
     init(_ profile: String?) {
         configpath = SharedReference.shared.configpath
         self.profile = profile
-        setnameandpath()
     }
 }
 
