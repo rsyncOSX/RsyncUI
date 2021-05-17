@@ -122,6 +122,3 @@ extension AppDelegate {
     }
 }
 
-/*
- TODO: check start empty userconfig
- */

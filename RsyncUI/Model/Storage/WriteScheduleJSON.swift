@@ -11,6 +11,8 @@ import Foundation
 
 class WriteScheduleJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
+    // Filename for JSON file
+    var filename = SharedReference.shared.fileschedulesjson
 
     func writeJSONToPersistentStore(_ data: String?) {
         if var atpath = fullroot {
@@ -19,7 +21,7 @@ class WriteScheduleJSON: NamesandPaths {
                     atpath += "/" + (profile ?? "")
                 }
                 let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: filename ?? "")
+                let file = try folder.createFile(named: filename)
                 if let data = data {
                     try file.write(data)
                     if SharedReference.shared.menuappisrunning {
@@ -41,7 +43,6 @@ class WriteScheduleJSON: NamesandPaths {
         super.init(profileorsshrootpath: .profileroot)
         // Set profile and filename ahead of encoding an write
         self.profile = profile
-        filename = SharedReference.shared.fileschedulesjson
         schedules.publisher
             .encode(encoder: JSONEncoder())
             .sink(receiveCompletion: { completion in
