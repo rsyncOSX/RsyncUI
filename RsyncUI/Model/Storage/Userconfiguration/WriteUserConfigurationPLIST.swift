@@ -95,10 +95,10 @@ final class WriteUserConfigurationPLIST: NamesandPaths {
     @discardableResult
     func writeNSDictionaryToPersistentStorage(_ data: [NSDictionary]?) -> Bool {
         if let data = data,
-           let path = fullroot
+           let fullroot = fullroot
         {
             let dictionary = NSDictionary(object: data, forKey: SharedReference.shared.userconfigkey as NSCopying)
-            let write = dictionary.write(toFile: path + SharedReference.shared.userconfigplist,
+            let write = dictionary.write(toFile: fullroot + SharedReference.shared.userconfigplist,
                                          atomically: true)
             if write && SharedReference.shared.menuappisrunning {
                 Notifications().showNotification("Sending reload message to menu app")
