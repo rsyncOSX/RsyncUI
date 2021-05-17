@@ -29,8 +29,6 @@ class NamesandPaths {
     var configpath: String?
     // Which profile to read
     var profile: String?
-    // Set which file to read
-    var filename: String?
 
     // Documentscatalog
     var documentscatalog: String? {
