@@ -29,6 +29,7 @@
 		E90B4AA3261DA7580043EFF6 /* GrowingArcIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A99261DA7580043EFF6 /* GrowingArcIndicatorView.swift */; };
 		E90B4AA4261DA7580043EFF6 /* GrowingCircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A9A261DA7580043EFF6 /* GrowingCircleIndicatorView.swift */; };
 		E90B4AA5261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A9B261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift */; };
+		E90D4F2226523D5400EAD08F /* WriteUserConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */; };
 		E90F7CA526344D5B001D9CA2 /* TextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */; };
 		E90F7CA726344D5E001D9CA2 /* TextBuilderSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA626344D5E001D9CA2 /* TextBuilderSeparator.swift */; };
 		E90F7CA926344D60001D9CA2 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA826344D60001D9CA2 /* TextExtensions.swift */; };
@@ -254,6 +255,7 @@
 		E90B4A99261DA7580043EFF6 /* GrowingArcIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrowingArcIndicatorView.swift; sourceTree = "<group>"; };
 		E90B4A9A261DA7580043EFF6 /* GrowingCircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrowingCircleIndicatorView.swift; sourceTree = "<group>"; };
 		E90B4A9B261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickeringDotsIndicatorView.swift; sourceTree = "<group>"; };
+		E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteUserConfigurationPLIST.swift; sourceTree = "<group>"; };
 		E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuilder.swift; sourceTree = "<group>"; };
 		E90F7CA626344D5E001D9CA2 /* TextBuilderSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuilderSeparator.swift; sourceTree = "<group>"; };
 		E90F7CA826344D60001D9CA2 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				E9011D42262EBFE600ECC9B8 /* ConvertUserconfiguration.swift */,
 				E9011D44262EBFE600ECC9B8 /* PersistentStorageUserconfiguration.swift */,
 				E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */,
+				E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */,
 			);
 			path = Userconfiguration;
 			sourceTree = "<group>";
@@ -1364,6 +1367,7 @@
 				E985C73F25F3AD9700CB895C /* Socket.swift in Sources */,
 				E95EDC7926063118000018DE /* SidebarRsyncParameter.swift in Sources */,
 				E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */,
+				E90D4F2226523D5400EAD08F /* WriteUserConfigurationPLIST.swift in Sources */,
 				E985C73825F3AD9700CB895C /* Notifications.swift in Sources */,
 				E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */,
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
