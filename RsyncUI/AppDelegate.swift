@@ -24,12 +24,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Create base profile catalog
         CatalogProfile().createrootprofilecatalog()
         _ = ReadUserConfigurationPLIST()
-        /*
-         // Must read userconfig when loading main view, view only load once
-         if let userconfiguration = PersistentStorageUserconfiguration().readuserconfiguration() {
-             _ = Userconfiguration(userconfigRsyncOSX: userconfiguration)
-         }
-         */
         // Create the window and set the content view.
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 950, height: 600),
@@ -127,3 +121,7 @@ extension AppDelegate {
         NSApp.terminate(self)
     }
 }
+
+/*
+ TODO: check start empty userconfig
+ */
