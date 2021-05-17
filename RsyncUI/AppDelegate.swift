@@ -121,4 +121,3 @@ extension AppDelegate {
         NSApp.terminate(self)
     }
 }
-
