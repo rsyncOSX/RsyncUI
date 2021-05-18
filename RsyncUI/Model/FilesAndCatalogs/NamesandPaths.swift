@@ -15,17 +15,16 @@ enum Rootpath {
 }
 
 class NamesandPaths {
-    // which root to compute? either RsyncUI configurations or sshroot
-    var configurationsorsshroot: Rootpath?
     // path without macserialnumber
     var fullpathnomacserial: String?
     // path with macserialnumber
     var fullpathmacserial: String?
+    // path for sshkeys
+    var fullpathsshkeys: String?
     // If global keypath and identityfile is set must split keypath and identifile
     // create a new key require full path
     var identityfile: String?
-    // config path either
-    // ViewControllerReference.shared.configpath
+    // configuration path, ViewControllerReference.shared.configpath
     // let configpath: String = "/.rsyncosx/"
     var configpath: String?
     // Which profile to read
@@ -38,7 +37,7 @@ class NamesandPaths {
     }
 
     // Path to ssh keypath
-    var fullsshkeypath: String? {
+    var sshkeypath: String? {
         if let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile {
             return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).fullsshkeypath
         } else {
@@ -54,8 +53,9 @@ class NamesandPaths {
         }
     }
 
-    // path to ssh identityfile
-    var sshidentityfile: String? {
+    // SSH identityfile with full keypath if NOT default is used
+    // If default, only return defalt value
+    var sshkeypathandidentityfile: String? {
         if let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile {
             return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).identityfile
         } else {
@@ -81,23 +81,20 @@ class NamesandPaths {
         }
     }
 
-    func setrootpath() {
-        switch configurationsorsshroot {
+    func setrootpath(_ path: Rootpath) {
+        switch path {
         case .configurations:
             fullpathmacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
             fullpathnomacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "")
         case .ssh:
-            fullpathmacserial = fullsshkeypath
-            identityfile = sshidentityfile
-        default:
-            return
+            fullpathsshkeys = sshkeypath
+            identityfile = sshkeypathandidentityfile
         }
     }
 
     init(_ path: Rootpath) {
         configpath = SharedReference.shared.configpath
-        configurationsorsshroot = path
-        setrootpath()
+        setrootpath(path)
     }
 
     init(_ profile: String?) {
