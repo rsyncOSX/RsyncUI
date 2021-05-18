@@ -80,3 +80,7 @@ struct RsyncUIView: View {
             })
     }
 }
+
+/*
+ TODO: change how to inform about new updates
+ */

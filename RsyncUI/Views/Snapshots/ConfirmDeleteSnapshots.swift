@@ -40,7 +40,8 @@ struct ConfirmDeleteSnapshots: View {
         HStack {
             let message = NSLocalizedString("Delete", comment: "Alert delete")
                 + " \(uuidstodelete?.count ?? 0)" + " "
-                + NSLocalizedString("snapshots(s)?", comment: "Alert delete")
+                + NSLocalizedString("snapshot(s)", comment: "Alert delete")
+                + "?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }
