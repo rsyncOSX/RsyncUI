@@ -38,12 +38,12 @@ class ReadConfigurationJSON: NamesandPaths {
 
     override init(_ profile: String?) {
         super.init(.configurations)
-        self.profile = profile
+        // self.profile = profile
         filenamedatastore.publisher
-            .compactMap { filenamejson -> URL? in
+            .compactMap { filenamejson -> URL in
                 var filename: String = ""
-                if let profile = profile, let fullroot = fullpathmacserial {
-                    filename = fullroot + "/" + profile + "/" + filenamejson
+                if let profile = profile, let path = fullpathmacserial {
+                    filename = path + "/" + profile + "/" + filenamejson
                 } else {
                     if let fullroot = fullpathmacserial {
                         filename = fullroot + "/" + filenamejson
