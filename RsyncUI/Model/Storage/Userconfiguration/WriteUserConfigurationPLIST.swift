@@ -112,7 +112,7 @@ final class WriteUserConfigurationPLIST: NamesandPaths {
     }
 
     init() {
-        super.init(profileorsshrootpath: .profileroot)
+        super.init(profileorsshrootpath: .configurations)
         let userconfig = convertuserconfiguration()
         writeNSDictionaryToPersistentStorage(userconfig)
     }

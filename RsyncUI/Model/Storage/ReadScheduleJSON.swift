@@ -15,7 +15,7 @@ class ReadScheduleJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
 
     init(_ profile: String?, _ validhiddenID: Set<Int>) {
-        super.init(profileorsshrootpath: .profileroot)
+        super.init(profileorsshrootpath: .configurations)
         self.profile = profile
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL? in

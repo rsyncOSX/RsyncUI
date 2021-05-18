@@ -101,7 +101,7 @@ class Catalogsandfiles: NamesandPaths {
         }
     }
 
-    override init(profileorsshrootpath whichroot: Profileorsshrootpath) {
+    override init(profileorsshrootpath whichroot: Rootpath) {
         super.init(profileorsshrootpath: whichroot)
     }
 }

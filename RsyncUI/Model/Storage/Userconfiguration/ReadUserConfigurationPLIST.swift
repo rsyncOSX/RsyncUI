@@ -124,7 +124,7 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
     }
 
     init() {
-        super.init(profileorsshrootpath: .profileroot)
+        super.init(profileorsshrootpath: .configurations)
         filenamedatastore.publisher
             .compactMap { userconfig -> URL? in
                 var filename: String = ""

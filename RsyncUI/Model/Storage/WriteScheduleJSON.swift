@@ -40,7 +40,7 @@ class WriteScheduleJSON: NamesandPaths {
 
     @discardableResult
     init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
-        super.init(profileorsshrootpath: .profileroot)
+        super.init(profileorsshrootpath: .configurations)
         // Set profile and filename ahead of encoding an write
         self.profile = profile
         schedules.publisher

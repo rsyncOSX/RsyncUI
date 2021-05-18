@@ -47,6 +47,6 @@ final class CatalogProfile: Catalogsandfiles {
     }
 
     init() {
-        super.init(profileorsshrootpath: .profileroot)
+        super.init(profileorsshrootpath: .configurations)
     }
 }

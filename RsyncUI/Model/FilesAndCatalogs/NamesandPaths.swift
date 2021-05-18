@@ -9,14 +9,14 @@
 import Foundation
 import SwiftUI
 
-enum Profileorsshrootpath {
-    case profileroot
-    case sshroot
+enum Rootpath {
+    case configurations
+    case ssh
 }
 
 class NamesandPaths {
     // which root to compute? either RsyncOSX profileroot or sshroot
-    var profileorsshroot: Profileorsshrootpath?
+    var profileorsshroot: Rootpath?
     // rootpath without macserialnumber
     var fullrootnomacserial: String?
     // rootpath with macserialnumber
@@ -26,6 +26,7 @@ class NamesandPaths {
     var identityfile: String?
     // config path either
     // ViewControllerReference.shared.configpath
+    // let configpath: String = "/.rsyncosx/"
     var configpath: String?
     // Which profile to read
     var profile: String?
@@ -82,10 +83,10 @@ class NamesandPaths {
 
     func setrootpath() {
         switch profileorsshroot {
-        case .profileroot:
+        case .configurations:
             fullroot = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
             fullrootnomacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "")
-        case .sshroot:
+        case .ssh:
             fullroot = fullsshkeypath
             identityfile = sshidentityfile
         default:
@@ -93,7 +94,7 @@ class NamesandPaths {
         }
     }
 
-    init(profileorsshrootpath: Profileorsshrootpath) {
+    init(profileorsshrootpath: Rootpath) {
         configpath = SharedReference.shared.configpath
         profileorsshroot = profileorsshrootpath
         setrootpath()
