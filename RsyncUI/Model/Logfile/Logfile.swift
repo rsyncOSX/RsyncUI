@@ -30,7 +30,7 @@ final class Logfile: NamesandPaths {
     }
 
     func writeloggfile() {
-        if let atpath = fullroot {
+        if let atpath = fullpathmacserial {
             do {
                 let folder = try Folder(path: atpath)
                 let file = try folder.createFile(named: SharedReference.shared.logname)
@@ -65,7 +65,7 @@ final class Logfile: NamesandPaths {
     }
 
     func filesize() throws -> NSNumber {
-        if var atpath = fullroot {
+        if var atpath = fullpathmacserial {
             do {
                 do {
                     if try Folder(path: atpath).containsFile(named: SharedReference.shared.logname) == false { return 0
@@ -85,7 +85,7 @@ final class Logfile: NamesandPaths {
     }
 
     func readloggfile() {
-        if var atpath = fullroot {
+        if var atpath = fullpathmacserial {
             do {
                 // check if file exists ahead of reading, if not bail out
                 guard try Folder(path: atpath).containsFile(named: SharedReference.shared.logname) else { return }
@@ -138,7 +138,7 @@ final class Logfile: NamesandPaths {
     }
 
     init(_ outputprocess: OutputfromProcess?) {
-        super.init(profileorsshrootpath: .profileroot)
+        super.init(.configurations)
         guard SharedReference.shared.fulllogging == true ||
             SharedReference.shared.minimumlogging == true
         else {
@@ -152,7 +152,7 @@ final class Logfile: NamesandPaths {
     }
 
     init(_ reset: Bool) {
-        super.init(profileorsshrootpath: .profileroot)
+        super.init(.configurations)
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
@@ -166,7 +166,7 @@ final class Logfile: NamesandPaths {
     }
 
     init(_ data: [String]?) {
-        super.init(profileorsshrootpath: .profileroot)
+        super.init(.configurations)
         if let data = data {
             let date = Date().localized_string_from_date()
             readloggfile()

@@ -12,7 +12,7 @@ import Foundation
 
 class Catalogsandfiles: NamesandPaths {
     func getfilesasstringnames() -> [String]? {
-        if let atpath = fullroot {
+        if let atpath = fullpathmacserial {
             do {
                 var array = [String]()
                 for file in try Folder(path: atpath).files {
@@ -27,7 +27,7 @@ class Catalogsandfiles: NamesandPaths {
     }
 
     func getcatalogsasstringnames() -> [String]? {
-        if let atpath = fullroot {
+        if let atpath = fullpathmacserial {
             var array = [String]()
             array.append(NSLocalizedString("Default profile", comment: "default profile"))
             do {
@@ -49,7 +49,7 @@ class Catalogsandfiles: NamesandPaths {
         var catalog: String?
         // First check if profilecatalog exists, if yes bail out
         if let macserialnumber = self.macserialnumber,
-           let fullrootnomacserial = self.fullrootnomacserial
+           let fullrootnomacserial = fullpathnomacserial
         {
             do {
                 let pathexists = try Folder(path: fullrootnomacserial).containsSubfolder(named: macserialnumber)
@@ -70,7 +70,7 @@ class Catalogsandfiles: NamesandPaths {
                     return
                 }
                 if let macserialnumber = self.macserialnumber,
-                   let fullrootnomacserial = self.fullrootnomacserial
+                   let fullrootnomacserial = fullpathnomacserial
                 {
                     do {
                         try Folder(path: fullrootnomacserial).createSubfolder(at: macserialnumber)
@@ -85,8 +85,7 @@ class Catalogsandfiles: NamesandPaths {
     }
 
     // Create SSH catalog
-    // If ssh catalog exists - bail out, no need
-    // to create
+    // If ssh catalog exists - bail out, no need to create
     func createsshkeyrootpath() {
         if let path = onlysshkeypath {
             let root = Folder.home
@@ -101,7 +100,7 @@ class Catalogsandfiles: NamesandPaths {
         }
     }
 
-    override init(profileorsshrootpath whichroot: Profileorsshrootpath) {
-        super.init(profileorsshrootpath: whichroot)
+    override init(_ whichroot: Rootpath) {
+        super.init(whichroot)
     }
 }

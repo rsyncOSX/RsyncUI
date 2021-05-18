@@ -46,7 +46,7 @@ struct AboutView: View {
     }
 
     var configpath: String {
-        return NamesandPaths(profileorsshrootpath: .profileroot).fullroot ?? ""
+        return NamesandPaths(.configurations).fullpathmacserial ?? ""
     }
 
     var body: some View {

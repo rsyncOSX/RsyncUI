@@ -15,7 +15,7 @@ class WriteScheduleJSON: NamesandPaths {
     var filename = SharedReference.shared.fileschedulesjson
 
     func writeJSONToPersistentStore(_ data: String?) {
-        if var atpath = fullroot {
+        if var atpath = fullpathmacserial {
             do {
                 if profile != nil {
                     atpath += "/" + (profile ?? "")
@@ -40,7 +40,7 @@ class WriteScheduleJSON: NamesandPaths {
 
     @discardableResult
     init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
-        super.init(profileorsshrootpath: .profileroot)
+        super.init(.configurations)
         // Set profile and filename ahead of encoding an write
         self.profile = profile
         schedules.publisher

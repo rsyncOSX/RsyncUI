@@ -9,23 +9,24 @@
 import Foundation
 import SwiftUI
 
-enum Profileorsshrootpath {
-    case profileroot
-    case sshroot
+enum Rootpath {
+    case configurations
+    case ssh
 }
 
 class NamesandPaths {
-    // which root to compute? either RsyncOSX profileroot or sshroot
-    var profileorsshroot: Profileorsshrootpath?
-    // rootpath without macserialnumber
-    var fullrootnomacserial: String?
-    // rootpath with macserialnumber
-    var fullroot: String?
+    // which root to compute? either RsyncUI configurations or sshroot
+    var configurationsorsshroot: Rootpath?
+    // path without macserialnumber
+    var fullpathnomacserial: String?
+    // path with macserialnumber
+    var fullpathmacserial: String?
     // If global keypath and identityfile is set must split keypath and identifile
     // create a new key require full path
     var identityfile: String?
     // config path either
     // ViewControllerReference.shared.configpath
+    // let configpath: String = "/.rsyncosx/"
     var configpath: String?
     // Which profile to read
     var profile: String?
@@ -81,21 +82,21 @@ class NamesandPaths {
     }
 
     func setrootpath() {
-        switch profileorsshroot {
-        case .profileroot:
-            fullroot = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
-            fullrootnomacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "")
-        case .sshroot:
-            fullroot = fullsshkeypath
+        switch configurationsorsshroot {
+        case .configurations:
+            fullpathmacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
+            fullpathnomacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "")
+        case .ssh:
+            fullpathmacserial = fullsshkeypath
             identityfile = sshidentityfile
         default:
             return
         }
     }
 
-    init(profileorsshrootpath: Profileorsshrootpath) {
+    init(_ path: Rootpath) {
         configpath = SharedReference.shared.configpath
-        profileorsshroot = profileorsshrootpath
+        configurationsorsshroot = path
         setrootpath()
     }
 
