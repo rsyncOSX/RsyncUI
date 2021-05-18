@@ -15,12 +15,12 @@ enum Rootpath {
 }
 
 class NamesandPaths {
-    // which root to compute? either RsyncOSX profileroot or sshroot
-    var profileorsshroot: Rootpath?
-    // rootpath without macserialnumber
-    var fullrootnomacserial: String?
-    // rootpath with macserialnumber
-    var fullroot: String?
+    // which root to compute? either RsyncUI configurations or sshroot
+    var configurationsorsshroot: Rootpath?
+    // path without macserialnumber
+    var fullpathnomacserial: String?
+    // path with macserialnumber
+    var fullpathmacserial: String?
     // If global keypath and identityfile is set must split keypath and identifile
     // create a new key require full path
     var identityfile: String?
@@ -82,12 +82,12 @@ class NamesandPaths {
     }
 
     func setrootpath() {
-        switch profileorsshroot {
+        switch configurationsorsshroot {
         case .configurations:
-            fullroot = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
-            fullrootnomacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "")
+            fullpathmacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
+            fullpathnomacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "")
         case .ssh:
-            fullroot = fullsshkeypath
+            fullpathmacserial = fullsshkeypath
             identityfile = sshidentityfile
         default:
             return
@@ -96,7 +96,7 @@ class NamesandPaths {
 
     init(profileorsshrootpath: Rootpath) {
         configpath = SharedReference.shared.configpath
-        profileorsshroot = profileorsshrootpath
+        configurationsorsshroot = profileorsshrootpath
         setrootpath()
     }
 

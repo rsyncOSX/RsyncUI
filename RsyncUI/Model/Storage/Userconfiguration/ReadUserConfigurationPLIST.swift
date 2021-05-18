@@ -128,7 +128,7 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
         filenamedatastore.publisher
             .compactMap { userconfig -> URL? in
                 var filename: String = ""
-                filename = (fullroot ?? "") + userconfig
+                filename = (fullpathmacserial ?? "") + userconfig
                 return URL(fileURLWithPath: filename)
             }
             .tryMap { url -> NSDictionary in

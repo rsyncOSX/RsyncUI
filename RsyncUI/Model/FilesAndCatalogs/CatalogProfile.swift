@@ -12,7 +12,7 @@ import Foundation
 final class CatalogProfile: Catalogsandfiles {
     func createprofilecatalog(profile: String) -> Bool {
         var rootpath: Folder?
-        if let path = fullroot {
+        if let path = fullpathmacserial {
             do {
                 rootpath = try Folder(path: path)
                 do {
@@ -33,7 +33,7 @@ final class CatalogProfile: Catalogsandfiles {
     // Function for deleting profile directory
     func deleteprofilecatalog(profileName: String) {
         let fileManager = FileManager.default
-        if let path = fullroot {
+        if let path = fullpathmacserial {
             let profileDirectory = path + "/" + profileName
             if fileManager.fileExists(atPath: profileDirectory) == true {
                 do {

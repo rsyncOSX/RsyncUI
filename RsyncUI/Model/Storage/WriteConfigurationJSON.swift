@@ -15,7 +15,7 @@ class WriteConfigurationJSON: NamesandPaths {
     var filename = SharedReference.shared.fileconfigurationsjson
 
     func writeJSONToPersistentStore(_ data: String?) {
-        if var atpath = fullroot {
+        if var atpath = fullpathmacserial {
             do {
                 if profile != nil {
                     atpath += "/" + (profile ?? "")

@@ -95,7 +95,7 @@ final class WriteUserConfigurationPLIST: NamesandPaths {
     @discardableResult
     func writeNSDictionaryToPersistentStorage(_ data: [NSDictionary]?) -> Bool {
         if let data = data,
-           let fullroot = fullroot
+           let fullroot = fullpathmacserial
         {
             let dictionary = NSDictionary(object: data, forKey: SharedReference.shared.userconfigkey as NSCopying)
             let write = dictionary.write(toFile: fullroot + SharedReference.shared.userconfigplist,
