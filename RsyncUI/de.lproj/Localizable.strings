@@ -7,9 +7,6 @@
 /* Alert delete */
 " schedules(s)?" = "Zeitpläne";
 
-/* Alert delete */
-" snapshots(s)?" = " snapshots()?";
-
 /* RsyncParametersView */
 "--compress" = "--komprimieren";
 
@@ -140,7 +137,8 @@
 /* copyright */
 "Copyright ©2021 Thomas Evensen" = "Copyright ©2021 Thomas Evensen";
 
-/* usersetting */
+/* Add button
+   usersetting */
 "Create" = "Anlegen";
 
 /* settings */
@@ -208,9 +206,6 @@
 /* settings */
 "Environment variable" = "Umgebungsvariable";
 
-/* settings */
-"Error" = "Fehler";
-
 /* Estimate button */
 "Estimate" = "Schätzung";
 
@@ -232,9 +227,6 @@
 
 /* settings */
 "Executed" = "Ausgeführt";
-
-/* Execute tasks */
-"Executing tasks" = "Aufgaben ausführen";
 
 /* OutputEstimatedView */
 "Files" = "Dateien";
@@ -399,14 +391,11 @@
 /* Now button */
 "Now" = "Jetzt";
 
-/* : \(snapshotdata.numremotecatalogs) */
-"Number of aligned snapshotcatalogs" = "Anzahl der ausgerichteten Snapshotcatalogs";
-
 /* RestoreView
    RestoreView: */
 "Number of files" = "Anzahl der Dateien";
 
-/* : \(snapshotdata.numlocallogrecords) */
+/* : \(snapshotdata.logrecordssnapshot?.count ?? 0) */
 "Number of logrecords" = "Anzahl der Protokolle";
 
 /* No comment provided by engineer. */
@@ -455,8 +444,7 @@
 /* plan */
 "previous month" = "letzter Monat";
 
-/* Add button
-   default profile
+/* default profile
    settings */
 "Profile" = "Profil";
 
@@ -599,6 +587,9 @@
 /* sidebar
    SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
+
+/* Alert delete */
+"snapshot(s)" = "snapshot(s)";
 
 /* user settings */
 "Ssh" = "Ssh";

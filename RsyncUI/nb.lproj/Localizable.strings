@@ -7,9 +7,6 @@
 /* Alert delete */
 " schedules(s)?" = " oppgave(r)?";
 
-/* Alert delete */
-" snapshots(s)?" = "snapshots(s)?";
-
 /* RsyncParametersView */
 "--compress" = "--compress";
 
@@ -140,7 +137,8 @@
 /* copyright */
 "Copyright ©2021 Thomas Evensen" = "Opphavsrett ©2021 Thomas Evensen";
 
-/* usersetting */
+/* Add button
+   usersetting */
 "Create" = "Opprett";
 
 /* settings */
@@ -208,9 +206,6 @@
 /* settings */
 "Environment variable" = "Miljømessig variabel";
 
-/* settings */
-"Error" = "Feil";
-
 /* Estimate button */
 "Estimate" = "Estimat";
 
@@ -232,9 +227,6 @@
 
 /* settings */
 "Executed" = "Utført";
-
-/* Execute tasks */
-"Executing tasks" = "Utfører oppgaver";
 
 /* OutputEstimatedView */
 "Files" = "Filer";
@@ -399,14 +391,11 @@
 /* Now button */
 "Now" = "Nå";
 
-/* : \(snapshotdata.numremotecatalogs) */
-"Number of aligned snapshotcatalogs" = "Antall justerte snapshotcataloger";
-
 /* RestoreView
    RestoreView: */
 "Number of files" = "Antall filer";
 
-/* : \(snapshotdata.numlocallogrecords) */
+/* : \(snapshotdata.logrecordssnapshot?.count ?? 0) */
 "Number of logrecords" = "Antall logger";
 
 /* No comment provided by engineer. */
@@ -455,8 +444,7 @@
 /* plan */
 "previous month" = "forrige måned";
 
-/* Add button
-   default profile
+/* default profile
    settings */
 "Profile" = "Profil";
 
@@ -599,6 +587,9 @@
 /* sidebar
    SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
+
+/* Alert delete */
+"snapshot(s)" = "snapshot(s)";
 
 /* user settings */
 "Ssh" = "Ssh";
