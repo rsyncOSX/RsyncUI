@@ -46,7 +46,7 @@ final class SshKeys: Catalogsandfiles {
                 // If new keypath is set create it
                 createsshkeyrootpath()
                 // Create keys
-                argumentsssh = ArgumentsSsh(remote: nil, sshkeypathandidentityfile: (fullpathmacserial ?? "") +
+                argumentsssh = ArgumentsSsh(remote: nil, sshkeypathandidentityfile: (fullpathsshkeys ?? "") +
                     "/" + (identityfile ?? ""))
                 arguments = argumentsssh?.argumentscreatekey()
                 command = argumentsssh?.getCommand()
@@ -86,14 +86,14 @@ final class SshKeys: Catalogsandfiles {
 
     // Secure copy of public key from local to remote catalog
     func copylocalpubrsakeyfile(remote: UniqueserversandLogins?) -> String {
-        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (fullpathmacserial ?? "") +
+        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (fullpathsshkeys ?? "") +
             "/" + (identityfile ?? ""))
         return argumentsssh.argumentssshcopyid() ?? ""
     }
 
     // Check for remote pub keys
     func verifyremotekey(remote: UniqueserversandLogins?) -> String {
-        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (fullpathmacserial ?? "") +
+        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (fullpathsshkeys ?? "") +
             "/" + (identityfile ?? ""))
         return argumentsssh.argumentscheckremotepubkey() ?? ""
     }
