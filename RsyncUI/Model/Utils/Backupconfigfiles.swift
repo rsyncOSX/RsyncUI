@@ -33,7 +33,7 @@ final class Backupconfigfiles {
     }
 
     init() {
-        let path = NamesandPaths(profileorsshrootpath: .configurations)
+        let path = NamesandPaths(.configurations)
         usedpath = path.fullpathnomacserial
         backuppath = path.documentscatalog
         backup()

@@ -138,7 +138,7 @@ final class Logfile: NamesandPaths {
     }
 
     init(_ outputprocess: OutputfromProcess?) {
-        super.init(profileorsshrootpath: .configurations)
+        super.init(.configurations)
         guard SharedReference.shared.fulllogging == true ||
             SharedReference.shared.minimumlogging == true
         else {
@@ -152,7 +152,7 @@ final class Logfile: NamesandPaths {
     }
 
     init(_ reset: Bool) {
-        super.init(profileorsshrootpath: .configurations)
+        super.init(.configurations)
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
@@ -166,7 +166,7 @@ final class Logfile: NamesandPaths {
     }
 
     init(_ data: [String]?) {
-        super.init(profileorsshrootpath: .configurations)
+        super.init(.configurations)
         if let data = data {
             let date = Date().localized_string_from_date()
             readloggfile()

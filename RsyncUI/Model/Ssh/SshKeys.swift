@@ -110,7 +110,7 @@ final class SshKeys: Catalogsandfiles {
     }
 
     init() {
-        super.init(profileorsshrootpath: .ssh)
+        super.init(.ssh)
         keyFileStrings = getfilesasstringnames()
     }
 }

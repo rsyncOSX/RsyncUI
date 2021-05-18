@@ -94,9 +94,9 @@ class NamesandPaths {
         }
     }
 
-    init(profileorsshrootpath: Rootpath) {
+    init(_ path: Rootpath) {
         configpath = SharedReference.shared.configpath
-        configurationsorsshroot = profileorsshrootpath
+        configurationsorsshroot = path
         setrootpath()
     }
 

@@ -85,8 +85,7 @@ class Catalogsandfiles: NamesandPaths {
     }
 
     // Create SSH catalog
-    // If ssh catalog exists - bail out, no need
-    // to create
+    // If ssh catalog exists - bail out, no need to create
     func createsshkeyrootpath() {
         if let path = onlysshkeypath {
             let root = Folder.home
@@ -101,7 +100,7 @@ class Catalogsandfiles: NamesandPaths {
         }
     }
 
-    override init(profileorsshrootpath whichroot: Rootpath) {
-        super.init(profileorsshrootpath: whichroot)
+    override init(_ whichroot: Rootpath) {
+        super.init(whichroot)
     }
 }

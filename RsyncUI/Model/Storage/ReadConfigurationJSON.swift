@@ -37,7 +37,7 @@ class ReadConfigurationJSON: NamesandPaths {
     }
 
     override init(_ profile: String?) {
-        super.init(profileorsshrootpath: .configurations)
+        super.init(.configurations)
         self.profile = profile
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL? in
