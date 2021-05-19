@@ -24,20 +24,26 @@ struct DetailsScheduleView: View {
 
     // Alert for delete
     @State private var showAlertfordelete = false
+    // Alert for select
+    @State private var notifyselect = false
 
     var body: some View {
         HStack {
             Spacer()
 
-            VStack {
-                SelectedstartView(selecteddate: $selecteddate,
-                                  selectedscheduletype: $selectedscheduletype)
-                    .border(Color.gray)
+            ZStack {
+                VStack {
+                    SelectedstartView(selecteddate: $selecteddate,
+                                      selectedscheduletype: $selectedscheduletype)
+                        .border(Color.gray)
 
-                SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
-                              selectedschedule: $selectedschedule,
-                              selecteduuids: $selecteduuids)
-                    .border(Color.gray)
+                    SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
+                                  selectedschedule: $selectedschedule,
+                                  selecteduuids: $selecteduuids)
+                        .border(Color.gray)
+                }
+
+                if notifyselect == true { selectschdule }
             }
             .padding()
 
@@ -72,6 +78,16 @@ struct DetailsScheduleView: View {
             }
             .buttonStyle(PrimaryButtonStyle())
         }
+    }
+
+    var selectschdule: some View {
+        AlertToast(type: .error(Color.red),
+                   title: Optional(NSLocalizedString("Select a schedule", comment: "settings")), subTitle: Optional(""))
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    notifyselect = false
+                }
+            })
     }
 }
 
@@ -112,7 +128,10 @@ extension DetailsScheduleView {
 
     func change() {
         if selecteduuids.count == 0 { setuuidforselectedschedule() }
-        guard selecteduuids.count > 0 else { return }
+        guard selecteduuids.count > 0 else {
+            notifyselect = true
+            return
+        }
         showAlertfordelete = true
         // selecteduuids.removeAll() is done in sheetview
     }
