@@ -394,10 +394,7 @@ extension AddConfigurationView {
         guard existingprofiles?.contains(newprofile) == false else { return }
         _ = catalogprofile.createprofilecatalog(profile: newprofile)
         selectedprofile = newprofile
-        reload = true
         created = true
-        // Send update message
-        profilenames.update()
         newprofile = ""
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             created = false
@@ -415,7 +412,6 @@ extension AddConfigurationView {
                 }
                 return
             }
-            reload = true
             CatalogProfile().deleteprofilecatalog(profileName: profile)
             selectedprofile = nil
             deleted = true
@@ -428,8 +424,6 @@ extension AddConfigurationView {
                 deletedefaultprofile = false
             }
         }
-        // Reload the profiles
-        profilenames.update()
     }
 
     func validateandupdate() {
