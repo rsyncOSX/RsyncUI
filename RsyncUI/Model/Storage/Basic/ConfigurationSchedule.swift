@@ -45,22 +45,6 @@ struct ConfigurationSchedule: Identifiable, Codable {
             }
         }
     }
-
-    // Codable init
-    init(schedule: Self) {
-        hiddenID = schedule.hiddenID
-        offsiteserver = schedule.offsiteserver
-        dateStart = schedule.dateStart
-        dateStop = schedule.dateStop
-        self.schedule = schedule.schedule
-        if (schedule.logrecords?.count ?? 0) > 0 { logrecords = [Log]() }
-        for i in 0 ..< (schedule.logrecords?.count ?? 0) {
-            var onelogrecord = Log()
-            onelogrecord.dateExecuted = schedule.logrecords?[i].dateExecuted
-            onelogrecord.resultExecuted = schedule.logrecords?[i].resultExecuted
-            logrecords?.append(onelogrecord)
-        }
-    }
 }
 
 extension ConfigurationSchedule: Hashable, Equatable {
