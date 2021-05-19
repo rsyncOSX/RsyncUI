@@ -35,10 +35,16 @@ struct SnapshotsView: View {
     @State private var showAlertfordelete = false
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           selectable: $selectable)
+        ZStack {
+            ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               selectable: $selectable)
+
+            if notsnapshot == true { notasnapshottask }
+            if gettingdata == true { gettingdatainprocess }
+            if updated == true { notifyupdated }
+        }
 
         Spacer()
 
@@ -52,10 +58,6 @@ struct SnapshotsView: View {
             .frame(width: 50.0, height: 50.0)
             .foregroundColor(.red)
         }
-
-        if notsnapshot == true { notasnapshottask }
-        if gettingdata == true { gettingdatainprocess }
-        if updated == true { notifyupdated }
 
         HStack {
             Button(NSLocalizedString("Save", comment: "Tag")) { updateplansnapshot() }
