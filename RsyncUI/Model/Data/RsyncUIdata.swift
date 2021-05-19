@@ -16,6 +16,7 @@ struct Readdatafromstore {
     var scheduleData: SchedulesSwiftUI
 
     init(profile: String?) {
+        print("read")
         self.profile = profile
         configurationData = ConfigurationsSwiftUI(profile: self.profile)
         validhiddenIDs = configurationData.getvalidhiddenIDs() ?? Set()

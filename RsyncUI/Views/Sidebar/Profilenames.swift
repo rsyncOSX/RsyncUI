@@ -17,11 +17,10 @@ struct Profiles: Identifiable, Hashable {
 }
 
 final class Profilenames: ObservableObject {
-    @Published var profiles: [Profiles]?
+    var profiles: [Profiles]?
 
     func update() {
         setprofilenames()
-        objectWillChange.send()
     }
 
     func setprofilenames() {

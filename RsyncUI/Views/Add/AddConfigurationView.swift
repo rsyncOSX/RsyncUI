@@ -415,6 +415,7 @@ extension AddConfigurationView {
             CatalogProfile().deleteprofilecatalog(profileName: profile)
             selectedprofile = nil
             deleted = true
+            profilenames.update()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 deleted = false
             }
