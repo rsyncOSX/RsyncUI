@@ -428,6 +428,8 @@ extension AddConfigurationView {
                 deletedefaultprofile = false
             }
         }
+        // Reload the profiles
+        profilenames.update()
     }
 
     func validateandupdate() {
@@ -478,5 +480,4 @@ extension AddConfigurationView {
 /*
  TODO:
  - fix that ID can be changed on snapshot tasks.
- - remove deleted profile name
  */
