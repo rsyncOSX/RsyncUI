@@ -396,6 +396,7 @@ extension AddConfigurationView {
         selectedprofile = newprofile
         created = true
         newprofile = ""
+        profilenames.update()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             created = false
             resetform()
