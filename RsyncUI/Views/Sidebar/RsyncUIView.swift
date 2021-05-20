@@ -28,13 +28,15 @@ struct RsyncUIView: View {
                     .onChange(of: reload, perform: { _ in
                         reload = false
                     })
-
-                if new.notifynewversion { notifynewversion }
             }
 
             HStack {
                 Label(rsyncversionObject.rsyncversion, systemImage: "swift")
                     .onChange(of: rsyncversionObject.rsyncversion, perform: { _ in })
+
+                Spacer()
+
+                if new.notifynewversion { notifynewversion }
 
                 Spacer()
 
@@ -68,16 +70,20 @@ struct RsyncUIView: View {
     }
 
     var notifynewversion: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("New version",
-                                                     comment: "settings")),
-                   subTitle: Optional(""))
-            .onAppear(perform: {
-                // Show updated for 1 second
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    new.notifynewversion = false
-                }
-            })
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(NSLocalizedString("New version", comment: "settings"))
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 200, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .onAppear(perform: {
+            // Show updated for 1 second
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                new.notifynewversion = false
+            }
+        })
     }
 }
 
