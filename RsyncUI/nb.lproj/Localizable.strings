@@ -550,6 +550,9 @@
 "Select a configuration" = "Velg en konfigurasjon";
 
 /* settings */
+"Select a schedule" = "Velg en oppgave";
+
+/* settings */
 "Select a task" = "Velg en oppgave";
 
 /* RestoreView */
@@ -581,15 +584,15 @@
 /* cannot */
 "Snapshot tasks cannot be updated" = "Snapshot oppgaver kan ikke oppdateres";
 
+/* Alert delete */
+"snapshot(s)" = "snapshot(s)";
+
 /* filesize error */
 "Snapshotnum must be 1" = "Snapshotnum må være 1";
 
 /* sidebar
    SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
-
-/* Alert delete */
-"snapshot(s)" = "snapshot(s)";
 
 /* user settings */
 "Ssh" = "Ssh";

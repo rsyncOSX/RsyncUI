@@ -550,6 +550,9 @@
 "Select a configuration" = "Konfiguration auswählen";
 
 /* settings */
+"Select a schedule" = "Zeitplan auswählen";
+
+/* settings */
 "Select a task" = "Aufgabe auswählen";
 
 /* RestoreView */
@@ -581,15 +584,15 @@
 /* cannot */
 "Snapshot tasks cannot be updated" = "Snapshot-Aufgaben können nicht aktualisiert werden";
 
+/* Alert delete */
+"snapshot(s)" = "snapshot(s)";
+
 /* filesize error */
 "Snapshotnum must be 1" = "Snapshotnummer muss 1 sein";
 
 /* sidebar
    SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
-
-/* Alert delete */
-"snapshot(s)" = "snapshot(s)";
 
 /* user settings */
 "Ssh" = "Ssh";
