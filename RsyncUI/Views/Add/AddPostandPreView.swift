@@ -50,8 +50,6 @@ struct AddPostandPreView: View {
                                         }
                                     })
                             }
-
-                            updatebutton
                         }
                     }
                     .padding()
@@ -69,6 +67,16 @@ struct AddPostandPreView: View {
                 }
 
                 if updated == true { notifyupdated }
+            }
+
+            Spacer()
+
+            VStack {
+                HStack {
+                    Spacer()
+
+                    updatebutton
+                }
             }
         }
         .lineSpacing(2)
