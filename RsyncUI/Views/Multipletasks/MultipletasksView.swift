@@ -48,17 +48,7 @@ struct MultipletasksView: View {
                                inwork: $inwork,
                                selectable: $selectable)
 
-            if notasks == true {
-                AlertToast(type: .regular,
-                           title: Optional(NSLocalizedString("Select one or more tasks",
-                                                             comment: "settings")), subTitle: Optional(""))
-                    .onAppear(perform: {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            notasks = false
-                        }
-                    })
-            }
-
+            if notasks == true { notifyselecttask }
             if deleted == true { notifydeleted }
         }
 
@@ -161,6 +151,22 @@ struct MultipletasksView: View {
         AlertToast(type: .complete(Color.green),
                    title: Optional(NSLocalizedString("Deleted",
                                                      comment: "settings")), subTitle: Optional(""))
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    deleted = false
+                }
+            })
+    }
+
+    var notifyselecttask: some View {
+        AlertToast(type: .regular,
+                   title: Optional(NSLocalizedString("Select one or more tasks",
+                                                     comment: "settings")), subTitle: Optional(""))
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    notasks = false
+                }
+            })
     }
 }
 
@@ -290,8 +296,5 @@ extension MultipletasksView {
         selecteduuids.removeAll()
         reload = true
         deleted = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            deleted = false
-        }
     }
 }
