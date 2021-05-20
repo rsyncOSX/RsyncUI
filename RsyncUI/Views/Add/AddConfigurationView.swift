@@ -89,8 +89,6 @@ struct AddConfigurationView: View {
                         ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
 
                         adddeleteprofile
-
-                        updatebutton
                     }
 
                     // Column 3
@@ -111,6 +109,16 @@ struct AddConfigurationView: View {
                 if created == true { notifycreated }
                 if deleted == true { notifydeleted }
                 if deletedefaultprofile == true { cannotdeletedefaultprofile }
+            }
+
+            Spacer()
+
+            VStack {
+                HStack {
+                    Spacer()
+
+                    updatebutton
+                }
             }
         }
         .lineSpacing(2)
