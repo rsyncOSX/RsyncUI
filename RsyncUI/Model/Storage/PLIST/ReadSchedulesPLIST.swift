@@ -12,6 +12,7 @@ final class ReadSchedulesPLIST: NamesandPaths {
     var filenamedatastore = ["scheduleRsync.plist"]
     var subscriptons = Set<AnyCancellable>()
     var schedules = [ConfigurationSchedule]()
+    var thereisdata: Bool = false
 
     func setschedules(_ data: [NSDictionary]) {
         var schedule: ConfigurationSchedule?
@@ -34,6 +35,8 @@ final class ReadSchedulesPLIST: NamesandPaths {
                 return true
             }
         }
+
+        if schedules.count > 0 { thereisdata = true }
     }
 
     override init(_ profile: String?) {

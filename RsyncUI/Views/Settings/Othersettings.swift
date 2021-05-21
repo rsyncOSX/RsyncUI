@@ -11,6 +11,11 @@ struct Othersettings: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var usersettings = ObserveableReferencePaths()
 
+    // Documents about convert
+    var infoaboutconvert: String = "https://rsyncui.netlify.app/post/changelog/"
+    @State var convertisready: Bool = false
+    @State var convertisconfirmed: Bool = false
+
     var body: some View {
         Form {
             HStack {
@@ -34,9 +39,11 @@ struct Othersettings: View {
                     }
                 }.padding()
 
-                // For center
                 Spacer()
             }
+
+            if convertisready { prepareconvertplist }
+
             // Save button right down corner
             Spacer()
 
@@ -50,20 +57,23 @@ struct Othersettings: View {
         }
         .lineSpacing(2)
         .padding()
+        .onAppear(perform: {
+            convertisready = false
+        })
     }
 
     // Save usersetting is changed
     var usersetting: some View {
         HStack {
             if usersettings.isDirty {
-                Button(NSLocalizedString("Save", comment: "usersetting")) { saveusersettings() }
+                Button(NSLocalizedString("Save", comment: "Othersettings")) { saveusersettings() }
                     .buttonStyle(PrimaryButtonStyle())
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color.red, lineWidth: 5)
                     )
             } else {
-                Button(NSLocalizedString("Save", comment: "usersetting")) {}
+                Button(NSLocalizedString("Save", comment: "Othersettings")) {}
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -71,22 +81,22 @@ struct Othersettings: View {
     }
 
     var convertbutton: some View {
-        Button(NSLocalizedString("Convert", comment: "usersetting")) { convert() }
+        Button(NSLocalizedString("PLIST", comment: "Othersettings")) { verifyconvert() }
             .buttonStyle(PrimaryButtonStyle())
     }
 
     // Environment
     var headerenvironment: some View {
-        Text(NSLocalizedString("Environment", comment: "other settings"))
+        Text(NSLocalizedString("Environment", comment: "Othersettings"))
     }
 
     // Paths
     var headerpaths: some View {
-        Text(NSLocalizedString("Paths for apps", comment: "ssh settings"))
+        Text(NSLocalizedString("Paths for apps", comment: "Othersettings"))
     }
 
     var setenvironment: some View {
-        EditValue(250, NSLocalizedString("Environment", comment: "settings"), $usersettings.environment.onChange {
+        EditValue(250, NSLocalizedString("Environment", comment: "Othersettings"), $usersettings.environment.onChange {
             usersettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
@@ -97,7 +107,7 @@ struct Othersettings: View {
     }
 
     var setenvironmenvariable: some View {
-        EditValue(250, NSLocalizedString("Environment variable", comment: "settings"),
+        EditValue(250, NSLocalizedString("Environment variable", comment: "Othersettings"),
                   $usersettings.environmentvalue.onChange {
                       usersettings.inputchangedbyuser = true
                   })
@@ -109,7 +119,7 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncui: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "settings"), $usersettings.pathrsyncui.onChange {
+        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "Othersettings"), $usersettings.pathrsyncui.onChange {
             usersettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
@@ -120,7 +130,7 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncschedule: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncSchedule", comment: "settings"),
+        EditValue(250, NSLocalizedString("Path to RsyncSchedule", comment: "Othersettings"),
                   $usersettings.pathrsyncschedule.onChange {
                       usersettings.inputchangedbyuser = true
                   })
@@ -131,14 +141,35 @@ struct Othersettings: View {
             })
     }
 
+    var prepareconvertplist: some View {
+        HStack {
+            Button(NSLocalizedString("Info about convert", comment: "About button")) { openinfo() }
+                .buttonStyle(PrimaryButtonStyle())
+
+            ToggleView(NSLocalizedString("Confirm convert", comment: "Othersettings"), $convertisconfirmed)
+
+            Button(NSLocalizedString("Convert", comment: "About button")) {}
+                .buttonStyle(PrimaryButtonStyle())
+        }
+    }
+}
+
+extension Othersettings {
     func saveusersettings() {
         usersettings.isDirty = false
         usersettings.inputchangedbyuser = false
         _ = WriteUserConfigurationPLIST()
     }
 
-    func convert() {
-        //  _ = ReadConfigurationsPLIST(rsyncUIData.profile)
-        // _ = ReadSchedulesPLIST(rsyncUIData.profile)
+    func verifyconvert() {
+        let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
+        // let schedules = ReadSchedulesPLIST(rsyncUIData.profile)
+        if configs.thereisdata == true {
+            convertisready = true
+        }
+    }
+
+    func openinfo() {
+        NSWorkspace.shared.open(URL(string: infoaboutconvert)!)
     }
 }

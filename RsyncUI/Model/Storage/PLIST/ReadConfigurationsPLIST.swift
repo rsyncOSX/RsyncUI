@@ -13,6 +13,8 @@ final class ReadConfigurationsPLIST: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
     var configurations = [Configuration]()
 
+    var thereisdata: Bool = false
+
     func setconfigurations(_ data: [NSDictionary]) {
         for i in 0 ..< data.count {
             let dict = data[i]
@@ -20,6 +22,7 @@ final class ReadConfigurationsPLIST: NamesandPaths {
             config.profile = profile
             configurations.append(config)
         }
+        if configurations.count > 0 { thereisdata = true }
     }
 
     override init(_ profile: String?) {
