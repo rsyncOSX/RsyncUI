@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Othersettings: View {
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var usersettings = ObserveableReferencePaths()
 
     var body: some View {
@@ -42,6 +43,8 @@ struct Othersettings: View {
             HStack {
                 Spacer()
 
+                convertbutton
+
                 usersetting
             }
         }
@@ -65,6 +68,11 @@ struct Othersettings: View {
             }
         }
         .disabled(!usersettings.isDirty)
+    }
+
+    var convertbutton: some View {
+        Button(NSLocalizedString("Convert", comment: "usersetting")) { convert() }
+            .buttonStyle(PrimaryButtonStyle())
     }
 
     // Environment
@@ -127,5 +135,10 @@ struct Othersettings: View {
         usersettings.isDirty = false
         usersettings.inputchangedbyuser = false
         _ = WriteUserConfigurationPLIST()
+    }
+
+    func convert() {
+        //  _ = ReadConfigurationsPLIST(rsyncUIData.profile)
+        // _ = ReadSchedulesPLIST(rsyncUIData.profile)
     }
 }

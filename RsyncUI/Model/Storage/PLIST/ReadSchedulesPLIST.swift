@@ -9,11 +9,11 @@ import Combine
 import Foundation
 
 final class ReadSchedulesPLIST: NamesandPaths {
-    var filenamedatastore = ["/scheduleRsync.plist"]
+    var filenamedatastore = ["scheduleRsync.plist"]
     var subscriptons = Set<AnyCancellable>()
     var schedules = [ConfigurationSchedule]()
 
-    func readschedulesplist(_ data: [NSDictionary]) {
+    func setschedules(_ data: [NSDictionary]) {
         var schedule: ConfigurationSchedule?
         for i in 0 ..< data.count {
             let dict = data[i]
@@ -36,11 +36,20 @@ final class ReadSchedulesPLIST: NamesandPaths {
         }
     }
 
-    init() {
+    override init(_ profile: String?) {
         super.init(.configurations)
+        self.profile = profile
         filenamedatastore.publisher
             .compactMap { name -> URL? in
-                URL(fileURLWithPath: (fullpathmacserial ?? "") + name)
+                var filename: String = ""
+                if let profile = profile, let path = fullpathmacserial {
+                    filename = path + "/" + profile + "/" + name
+                } else {
+                    if let fullroot = fullpathmacserial {
+                        filename = fullroot + "/" + name
+                    }
+                }
+                return URL(fileURLWithPath: filename)
             }
             .tryMap { url -> NSDictionary in
                 try NSDictionary(contentsOf: url, error: ())
@@ -71,6 +80,7 @@ final class ReadSchedulesPLIST: NamesandPaths {
                             data.append(item)
                         }
                     }
+                    setschedules(data)
                 }
                 subscriptons.removeAll()
             }).store(in: &subscriptons)

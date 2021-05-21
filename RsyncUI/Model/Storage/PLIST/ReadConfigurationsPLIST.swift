@@ -9,23 +9,33 @@ import Combine
 import Foundation
 
 final class ReadConfigurationsPLIST: NamesandPaths {
-    var filenamedatastore = ["/configRsync.plist"]
+    var filenamedatastore = ["configRsync.plist"]
     var subscriptons = Set<AnyCancellable>()
     var configurations = [Configuration]()
 
-    func readconfigurationsplist(_ data: [NSDictionary]) {
+    func setconfigurations(_ data: [NSDictionary]) {
         for i in 0 ..< data.count {
             let dict = data[i]
             var config = Configuration(dictionary: dict)
             config.profile = profile
+            configurations.append(config)
         }
     }
 
-    init() {
+    override init(_ profile: String?) {
         super.init(.configurations)
+        self.profile = profile
         filenamedatastore.publisher
             .compactMap { name -> URL? in
-                URL(fileURLWithPath: (fullpathmacserial ?? "") + name)
+                var filename: String = ""
+                if let profile = profile, let path = fullpathmacserial {
+                    filename = path + "/" + profile + "/" + name
+                } else {
+                    if let fullroot = fullpathmacserial {
+                        filename = fullroot + "/" + name
+                    }
+                }
+                return URL(fileURLWithPath: filename)
             }
             .tryMap { url -> NSDictionary in
                 try NSDictionary(contentsOf: url, error: ())
@@ -56,7 +66,9 @@ final class ReadConfigurationsPLIST: NamesandPaths {
                             data.append(item)
                         }
                     }
+                    setconfigurations(data)
                 }
+
                 subscriptons.removeAll()
             }).store(in: &subscriptons)
     }
