@@ -42,7 +42,15 @@ struct Othersettings: View {
                 Spacer()
             }
 
-            if convertisready { prepareconvertplist }
+            if convertisready {
+                HStack {
+                    Spacer()
+
+                    prepareconvertplist
+
+                    Spacer()
+                }
+            }
 
             // Save button right down corner
             Spacer()
