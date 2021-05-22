@@ -13,11 +13,31 @@ final class ReadSchedulesPLIST: NamesandPaths {
     var filenamedatastore = ["scheduleRsync.plist"]
     var subscriptons = Set<AnyCancellable>()
     var schedules = [ConfigurationSchedule]()
-    var thereisdata: Bool = false
+    // True if PLIST data is found
+    var thereisplistdata: Bool = false
+    // Abandon if JSON data already exists
+    var jsonfileexist: Bool = false
 
     // Write data as JSON file
     func writedatatojson() {
+        guard checkifjsonfileexist() == false else {
+            jsonfileexist = true
+            return
+        }
         _ = WriteScheduleJSON(profile, schedules)
+    }
+
+    private func checkifjsonfileexist() -> Bool {
+        var filename: String = ""
+        if let profile = profile, let path = fullpathmacserial {
+            filename = path + "/" + profile + "/" + SharedReference.shared.fileschedulesjson
+        } else {
+            if let fullroot = fullpathmacserial {
+                filename = fullroot + "/" + SharedReference.shared.fileconfigurationsjson
+            }
+        }
+        let fileManager = FileManager.default
+        return fileManager.fileExists(atPath: filename)
     }
 
     private func setschedules(_ data: [NSDictionary]) {
@@ -42,7 +62,7 @@ final class ReadSchedulesPLIST: NamesandPaths {
             }
         }
 
-        if schedules.count > 0 { thereisdata = true }
+        if schedules.count > 0 { thereisplistdata = true }
     }
 
     override init(_ profile: String?) {

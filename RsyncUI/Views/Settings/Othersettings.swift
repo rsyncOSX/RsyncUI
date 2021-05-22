@@ -172,7 +172,7 @@ extension Othersettings {
     func verifyconvert() {
         let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
         // let schedules = ReadSchedulesPLIST(rsyncUIData.profile)
-        if configs.thereisdata == true {
+        if configs.thereisplistdata == true {
             convertisready = true
         }
     }

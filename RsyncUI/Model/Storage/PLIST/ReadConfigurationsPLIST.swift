@@ -13,11 +13,31 @@ final class ReadConfigurationsPLIST: NamesandPaths {
     var filenamedatastore = ["configRsync.plist"]
     var subscriptons = Set<AnyCancellable>()
     var configurations = [Configuration]()
-    var thereisdata: Bool = false
+    // True if PLIST data is found
+    var thereisplistdata: Bool = false
+    // Abandon if JSON data already exists
+    var jsonfileexist: Bool = false
 
     // Write data as JSON file
     func writedatatojson() {
+        guard checkifjsonfileexist() == false else {
+            jsonfileexist = true
+            return
+        }
         _ = WriteConfigurationJSON(profile, configurations)
+    }
+    
+    private func checkifjsonfileexist() -> Bool {
+        var filename: String = ""
+        if let profile = profile, let path = fullpathmacserial {
+            filename = path + "/" + profile + "/" + SharedReference.shared.fileconfigurationsjson
+        } else {
+            if let fullroot = fullpathmacserial {
+                filename = fullroot + "/" + SharedReference.shared.fileconfigurationsjson
+            }
+        }
+        let fileManager = FileManager.default
+        return fileManager.fileExists(atPath: filename)
     }
 
     private func setconfigurations(_ data: [NSDictionary]) {
@@ -27,7 +47,7 @@ final class ReadConfigurationsPLIST: NamesandPaths {
             config.profile = profile
             configurations.append(config)
         }
-        if configurations.count > 0 { thereisdata = true }
+        if configurations.count > 0 { thereisplistdata = true }
     }
 
     override init(_ profile: String?) {
