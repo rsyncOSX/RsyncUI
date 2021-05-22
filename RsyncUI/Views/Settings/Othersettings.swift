@@ -13,34 +13,49 @@ struct Othersettings: View {
 
     // Documents about convert
     var infoaboutconvert: String = "https://rsyncui.netlify.app/post/changelog/"
-    @State var convertisready: Bool = false
-    @State var jsonfileexists: Bool = false
-    @State var convertisconfirmed: Bool = false
+    @State private var convertisready: Bool = false
+    @State private var jsonfileexists: Bool = false
+    @State private var convertisconfirmed: Bool = false
+    @State private var convertcompleted: Bool = false
 
     var body: some View {
         Form {
-            HStack {
-                // For center
-                Spacer()
-                // Column 1
-                VStack(alignment: .leading) {
-                    Section(header: headerpaths) {
-                        setpathtorsyncui
+            ZStack {
+                HStack {
+                    // For center
+                    Spacer()
+                    // Column 1
+                    VStack(alignment: .leading) {
+                        Section(header: headerpaths) {
+                            setpathtorsyncui
 
-                        setpathtorsyncschedule
-                    }
-                }.padding()
+                            setpathtorsyncschedule
+                        }
+                    }.padding()
 
-                // Column 2
-                VStack(alignment: .leading) {
-                    Section(header: headerenvironment) {
-                        setenvironment
+                    // Column 2
+                    VStack(alignment: .leading) {
+                        Section(header: headerenvironment) {
+                            setenvironment
 
-                        setenvironmenvariable
-                    }
-                }.padding()
+                            setenvironmenvariable
+                        }
+                    }.padding()
 
-                Spacer()
+                    Spacer()
+                }
+
+                if convertcompleted == true {
+                    AlertToast(type: .complete(Color.green),
+                               title: Optional(NSLocalizedString("Completed",
+                                                                 comment: "settings")), subTitle: Optional(""))
+                        .onAppear(perform: {
+                            // Show updated for 1 second
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                convertcompleted = false
+                            }
+                        })
+                }
             }
 
             if convertisready {
@@ -166,7 +181,7 @@ struct Othersettings: View {
             ToggleView(NSLocalizedString("Confirm convert", comment: "Othersettings"), $convertisconfirmed)
 
             if convertisconfirmed {
-                Button(NSLocalizedString("Convert", comment: "Othersettings")) {}
+                Button(NSLocalizedString("Convert", comment: "Othersettings")) { convert() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -186,13 +201,25 @@ extension Othersettings {
 
     func verifyconvert() {
         let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
-        // let schedules = ReadSchedulesPLIST(rsyncUIData.profile)
         if configs.thereisplistdata == true {
             convertisready = true
         }
         if configs.jsonfileexist == true {
             jsonfileexists = true
         }
+    }
+
+    func convert() {
+        let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
+        let schedules = ReadSchedulesPLIST(rsyncUIData.profile)
+        if convertisconfirmed {
+            configs.writedatatojson()
+            schedules.writedatatojson()
+        }
+        convertisready = false
+        jsonfileexists = false
+        convertisconfirmed = false
+        convertcompleted = true
     }
 
     func openinfo() {
