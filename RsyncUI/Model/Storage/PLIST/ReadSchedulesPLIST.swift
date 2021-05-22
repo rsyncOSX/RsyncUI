@@ -15,19 +15,9 @@ final class ReadSchedulesPLIST: NamesandPaths {
     var schedules = [ConfigurationSchedule]()
     // True if PLIST data is found
     var thereisplistdata: Bool = false
-    // Abandon if JSON data already exists
-    var jsonfileexist: Bool = false
 
-    // Write data as JSON file
-    func writedatatojson() {
-        guard checkifjsonfileexist() == false else {
-            jsonfileexist = true
-            return
-        }
-        _ = WriteScheduleJSON(profile, schedules)
-    }
-
-    private func checkifjsonfileexist() -> Bool {
+    // JSON data already exists
+    var jsonfileexist: Bool {
         var filename: String = ""
         if let profile = profile, let path = fullpathmacserial {
             filename = path + "/" + profile + "/" + SharedReference.shared.fileschedulesjson
@@ -38,6 +28,11 @@ final class ReadSchedulesPLIST: NamesandPaths {
         }
         let fileManager = FileManager.default
         return fileManager.fileExists(atPath: filename)
+    }
+
+    // Write data as JSON file
+    func writedatatojson() {
+        _ = WriteScheduleJSON(profile, schedules)
     }
 
     private func setschedules(_ data: [NSDictionary]) {

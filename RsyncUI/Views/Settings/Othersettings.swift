@@ -14,6 +14,7 @@ struct Othersettings: View {
     // Documents about convert
     var infoaboutconvert: String = "https://rsyncui.netlify.app/post/changelog/"
     @State var convertisready: Bool = false
+    @State var jsonfileexists: Bool = false
     @State var convertisconfirmed: Bool = false
 
     var body: some View {
@@ -47,6 +48,14 @@ struct Othersettings: View {
                     Spacer()
 
                     prepareconvertplist
+
+                    Spacer()
+                }
+
+                HStack {
+                    Spacer()
+
+                    if jsonfileexists { alertjsonfileexists }
 
                     Spacer()
                 }
@@ -151,14 +160,20 @@ struct Othersettings: View {
 
     var prepareconvertplist: some View {
         HStack {
-            Button(NSLocalizedString("Info about convert", comment: "About button")) { openinfo() }
+            Button(NSLocalizedString("Info about convert", comment: "Othersettings")) { openinfo() }
                 .buttonStyle(PrimaryButtonStyle())
 
             ToggleView(NSLocalizedString("Confirm convert", comment: "Othersettings"), $convertisconfirmed)
 
-            Button(NSLocalizedString("Convert", comment: "About button")) {}
-                .buttonStyle(PrimaryButtonStyle())
+            if convertisconfirmed {
+                Button(NSLocalizedString("Convert", comment: "Othersettings")) {}
+                    .buttonStyle(PrimaryButtonStyle())
+            }
         }
+    }
+
+    var alertjsonfileexists: some View {
+        AlertToast(type: .error(Color.red), title: Optional("JSON file exists"), subTitle: Optional(""))
     }
 }
 
@@ -174,6 +189,9 @@ extension Othersettings {
         // let schedules = ReadSchedulesPLIST(rsyncUIData.profile)
         if configs.thereisplistdata == true {
             convertisready = true
+        }
+        if configs.jsonfileexist == true {
+            jsonfileexists = true
         }
     }
 
