@@ -10,8 +10,8 @@
 import Foundation
 
 struct Logrecord: Codable, Hashable {
-    let dateExecuted: String?
-    let resultExecuted: String?
+    var dateExecuted: String?
+    var resultExecuted: String?
 
     enum CodingKeys: String, CodingKey {
         case dateExecuted
@@ -23,13 +23,18 @@ struct Logrecord: Codable, Hashable {
         dateExecuted = try values.decodeIfPresent(String.self, forKey: .dateExecuted)
         resultExecuted = try values.decodeIfPresent(String.self, forKey: .resultExecuted)
     }
+
+    init() {
+        dateExecuted = nil
+        resultExecuted = nil
+    }
 }
 
 struct DecodeSchedule: Codable {
     let dateStart: String?
     let dateStop: String?
     let hiddenID: Int?
-    let logrecords: [Logrecord]?
+    var logrecords: [Logrecord]?
     let offsiteserver: String?
     let schedule: String?
     let profilename: String?
@@ -53,5 +58,21 @@ struct DecodeSchedule: Codable {
         offsiteserver = try values.decodeIfPresent(String.self, forKey: .offsiteserver)
         schedule = try values.decodeIfPresent(String.self, forKey: .schedule)
         profilename = try values.decodeIfPresent(String.self, forKey: .profilename)
+    }
+
+    init(_ data: ConfigurationSchedule) {
+        dateStart = data.dateStart
+        dateStop = data.dateStop
+        hiddenID = data.hiddenID
+        logrecords = [Logrecord]()
+        offsiteserver = data.offsiteserver
+        schedule = data.schedule
+        profilename = data.profilename
+        for i in 0 ..< (data.logrecords?.count ?? 0) {
+            var log = Logrecord()
+            log.dateExecuted = data.logrecords?[i].dateExecuted
+            log.resultExecuted = data.logrecords?[i].resultExecuted
+            logrecords?.append(log)
+        }
     }
 }
