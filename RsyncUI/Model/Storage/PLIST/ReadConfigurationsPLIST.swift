@@ -39,7 +39,7 @@ final class ReadConfigurationsPLIST: NamesandPaths {
         for i in 0 ..< data.count {
             let dict = data[i]
             var config = Configuration(dictionary: dict)
-            config.profile = profile
+            config.profile = nil
             configurations.append(config)
         }
         if configurations.count > 0 { thereisplistdata = true }
