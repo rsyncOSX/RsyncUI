@@ -14,7 +14,7 @@ class WriteScheduleJSON: NamesandPaths {
     // Filename for JSON file
     var filename = SharedReference.shared.fileschedulesjson
 
-    func writeJSONToPersistentStore(_ data: String?) {
+    private func writeJSONToPersistentStore(_ data: String?) {
         if var atpath = fullpathmacserial {
             do {
                 if profile != nil {

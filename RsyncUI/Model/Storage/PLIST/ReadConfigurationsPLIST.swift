@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/05/2021.
 //
+// swiftlint:disable cyclomatic_complexity
 
 import Combine
 import Foundation
@@ -12,10 +13,14 @@ final class ReadConfigurationsPLIST: NamesandPaths {
     var filenamedatastore = ["configRsync.plist"]
     var subscriptons = Set<AnyCancellable>()
     var configurations = [Configuration]()
-
     var thereisdata: Bool = false
 
-    func setconfigurations(_ data: [NSDictionary]) {
+    // Write data as JSON file
+    func writedatatojson() {
+        _ = WriteConfigurationJSON(profile, configurations)
+    }
+
+    private func setconfigurations(_ data: [NSDictionary]) {
         for i in 0 ..< data.count {
             let dict = data[i]
             var config = Configuration(dictionary: dict)

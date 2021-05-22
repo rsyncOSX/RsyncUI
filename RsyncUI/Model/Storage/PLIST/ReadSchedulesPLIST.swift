@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/05/2021.
 //
+// swiftlint:disable cyclomatic_complexity
 
 import Combine
 import Foundation
@@ -14,7 +15,12 @@ final class ReadSchedulesPLIST: NamesandPaths {
     var schedules = [ConfigurationSchedule]()
     var thereisdata: Bool = false
 
-    func setschedules(_ data: [NSDictionary]) {
+    // Write data as JSON file
+    func writedatatojson() {
+        _ = WriteScheduleJSON(profile, schedules)
+    }
+
+    private func setschedules(_ data: [NSDictionary]) {
         var schedule: ConfigurationSchedule?
         for i in 0 ..< data.count {
             let dict = data[i]
