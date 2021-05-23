@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 23/05/2021.
 //
+// This class is used only when converting PLIST file to JSON
 
 import Foundation
 

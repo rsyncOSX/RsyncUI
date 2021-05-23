@@ -61,16 +61,16 @@ struct DecodeSchedule: Codable {
         profilename = try values.decodeIfPresent(String.self, forKey: .profilename)
     }
 
-    // This init is used in WriteConfigurationJSON
+    // This init is used in WriteScheduleJSON
     init(_ data: ConfigurationSchedule) {
         dateStart = data.dateStart
         dateStop = data.dateStop
         hiddenID = data.hiddenID
-        logrecords = [Logrecord]()
         offsiteserver = data.offsiteserver
         schedule = data.schedule
         profilename = data.profilename
         for i in 0 ..< (data.logrecords?.count ?? 0) {
+            if i == 0 { logrecords = [Logrecord]() }
             var log = Logrecord()
             log.dateExecuted = data.logrecords?[i].dateExecuted
             log.resultExecuted = data.logrecords?[i].resultExecuted

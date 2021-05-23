@@ -5,6 +5,8 @@
 //  Created by Thomas Evensen on 21/05/2021.
 //
 // swiftlint:disable cyclomatic_complexity
+//
+// This class is used only when converting PLIST file to JSON
 
 import Combine
 import Foundation

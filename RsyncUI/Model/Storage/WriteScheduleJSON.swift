@@ -39,17 +39,17 @@ class WriteScheduleJSON: NamesandPaths {
     }
 
     // We have to remove UUID and computed properties ahead of writing JSON file
-    // done in .map operator
+    // done in the .map operator
     @discardableResult
     init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
         super.init(.configurations)
         // Set profile and filename ahead of encoding an write
         self.profile = profile
         schedules.publisher
-            .map { what -> [DecodeSchedule] in
+            .map { schedules -> [DecodeSchedule] in
                 var data = [DecodeSchedule]()
-                for i in 0 ..< what.count {
-                    data.append(DecodeSchedule(what[i]))
+                for i in 0 ..< schedules.count {
+                    data.append(DecodeSchedule(schedules[i]))
                 }
                 return data
             }
