@@ -62,6 +62,11 @@ class Catalogsandfiles: NamesandPaths {
                 // config path (/.rsyncosx)
                 catalog = SharedReference.shared.configpath
                 root = Folder.home
+                // Sanboxed
+                // root = Folder.documents
+                // which is inside the Sanbox when the Sanboxed entitlment is set
+                // Sandoxed - remove comment
+                // /*
                 do {
                     try root?.createSubfolder(at: catalog ?? "")
                 } catch let e {
@@ -69,6 +74,7 @@ class Catalogsandfiles: NamesandPaths {
                     self.propogateerror(error: error)
                     return
                 }
+                // */
                 if let macserialnumber = self.macserialnumber,
                    let fullrootnomacserial = fullpathnomacserial
                 {
