@@ -25,7 +25,7 @@ struct SidebarSettingsView: View {
                 .tabItem {
                     Text(NSLocalizedString("Ssh", comment: "user settings"))
                 }
-            Othersettings()
+            Othersettings(reload: $reload)
                 .tabItem {
                     Text(NSLocalizedString("Paths", comment: "user settings"))
                 }
