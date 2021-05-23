@@ -11,6 +11,8 @@ struct Othersettings: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var usersettings = ObserveableReferencePaths()
 
+    @Binding var reload: Bool
+
     // Documents about convert
     var infoaboutconvert: String = "https://rsyncui.netlify.app/post/changelog/"
     @State private var convertisready: Bool = false
@@ -220,9 +222,14 @@ extension Othersettings {
         jsonfileexists = false
         convertisconfirmed = false
         convertcompleted = true
+        reload = true
     }
 
     func openinfo() {
         NSWorkspace.shared.open(URL(string: infoaboutconvert)!)
     }
 }
+
+/*
+ TODO: make webpage for PLIST
+ */
