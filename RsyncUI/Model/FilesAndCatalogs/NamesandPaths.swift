@@ -81,6 +81,8 @@ class NamesandPaths {
         }
     }
 
+    // SANDBOX - replaced userHomeDirectoryPath with documentscatalog
+    // Configurations are living inside the Sandbox
     func setrootpath(_ path: Rootpath) {
         switch path {
         case .configurations:

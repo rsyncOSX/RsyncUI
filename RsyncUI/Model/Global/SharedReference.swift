@@ -53,6 +53,9 @@ class SharedReference {
     let rsync: String = "rsync"
     let usrbin: String = "/usr/bin"
     let usrlocalbin: String = "/usr/local/bin"
+    // Sandboxed
+    // The configpath must live inside the Sanbox
+    // See NamesandPaths
     // RsyncUI config files and path
     let configpath: String = "/.rsyncosx/"
     // Userconfiguration plistnames and key
