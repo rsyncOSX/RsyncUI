@@ -11,26 +11,6 @@ import Foundation
 
 struct TransformConfigfromJSON {
     func transform(_ object: DecodeConfiguration) -> Configuration {
-        var dayssincelastbackup: String?
-        var markdays: Bool = false
-        var lastruninseconds: Double? {
-            if let date = object.dateRun {
-                let lastbackup = date.en_us_date_from_string()
-                let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
-                return seconds * (-1)
-            } else {
-                return nil
-            }
-        }
-        // Last run of task
-        if object.dateRun != nil {
-            if let secondssince = lastruninseconds {
-                dayssincelastbackup = String(format: "%.2f", secondssince / (60 * 60 * 24))
-                if secondssince / (60 * 60 * 24) > SharedReference.shared.marknumberofdayssince {
-                    markdays = true
-                }
-            }
-        }
         let dict: NSMutableDictionary = [
             DictionaryStrings.localCatalog.rawValue: object.localCatalog ?? "",
             DictionaryStrings.offsiteCatalog.rawValue: object.offsiteCatalog ?? "",
@@ -42,9 +22,6 @@ struct TransformConfigfromJSON {
             DictionaryStrings.parameter6.rawValue: object.parameter6 ?? "",
             DictionaryStrings.task.rawValue: object.task ?? "",
             DictionaryStrings.hiddenID.rawValue: object.hiddenID ?? 0,
-            "lastruninseconds": lastruninseconds ?? 0,
-            "dayssincelastbackup": dayssincelastbackup ?? "",
-            DictionaryStrings.markdays.rawValue: markdays,
             DictionaryStrings.dateRun.rawValue: object.dateRun ?? "",
         ]
         if object.parameter8?.isEmpty == false {

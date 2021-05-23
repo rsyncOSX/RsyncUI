@@ -14,7 +14,7 @@ class WriteConfigurationJSON: NamesandPaths {
     // Filename for JSON file
     var filename = SharedReference.shared.fileconfigurationsjson
 
-    func writeJSONToPersistentStore(_ data: String?) {
+    private func writeJSONToPersistentStore(_ data: String?) {
         if var atpath = fullpathmacserial {
             do {
                 if profile != nil {
@@ -38,12 +38,21 @@ class WriteConfigurationJSON: NamesandPaths {
         }
     }
 
+    // We have to remove UUID and computed properties ahead of writing JSON file
+    // done in .map operator
     @discardableResult
     init(_ profile: String?, _ configurations: [Configuration]?) {
         super.init(.configurations)
         // Set profile and filename ahead of encoding an write
         self.profile = profile
         configurations.publisher
+            .map { what -> [DecodeConfiguration] in
+                var data = [DecodeConfiguration]()
+                for i in 0 ..< what.count {
+                    data.append(DecodeConfiguration(what[i]))
+                }
+                return data
+            }
             .encode(encoder: JSONEncoder())
             .sink(receiveCompletion: { completion in
                 switch completion {

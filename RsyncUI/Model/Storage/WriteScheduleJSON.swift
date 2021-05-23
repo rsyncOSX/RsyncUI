@@ -14,7 +14,7 @@ class WriteScheduleJSON: NamesandPaths {
     // Filename for JSON file
     var filename = SharedReference.shared.fileschedulesjson
 
-    func writeJSONToPersistentStore(_ data: String?) {
+    private func writeJSONToPersistentStore(_ data: String?) {
         if var atpath = fullpathmacserial {
             do {
                 if profile != nil {
@@ -38,12 +38,21 @@ class WriteScheduleJSON: NamesandPaths {
         }
     }
 
+    // We have to remove UUID and computed properties ahead of writing JSON file
+    // done in .map operator
     @discardableResult
     init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
         super.init(.configurations)
         // Set profile and filename ahead of encoding an write
         self.profile = profile
         schedules.publisher
+            .map { what -> [DecodeSchedule] in
+                var data = [DecodeSchedule]()
+                for i in 0 ..< what.count {
+                    data.append(DecodeSchedule(what[i]))
+                }
+                return data
+            }
             .encode(encoder: JSONEncoder())
             .sink(receiveCompletion: { completion in
                 switch completion {

@@ -113,6 +113,12 @@ struct Usersettings: View {
                     AlertToast(type: .complete(Color.green),
                                title: Optional(NSLocalizedString("Saved",
                                                                  comment: "settings")), subTitle: Optional(""))
+                        .onAppear(perform: {
+                            // Show updated for 1 second
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                backup = false
+                            }
+                        })
                 }
             }
 
@@ -230,9 +236,5 @@ extension Usersettings {
     func backupuserconfigs() {
         _ = Backupconfigfiles()
         backup = true
-        // Show updated for 1 second
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            backup = false
-        }
     }
 }
