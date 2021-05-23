@@ -45,6 +45,21 @@ struct ConfigurationSchedule: Identifiable, Codable {
             }
         }
     }
+
+    init(_ data: DecodeSchedule) {
+        dateStart = data.dateStart ?? ""
+        dateStop = data.dateStop
+        hiddenID = data.hiddenID ?? -1
+        offsiteserver = data.offsiteserver
+        schedule = data.schedule ?? ""
+        for i in 0 ..< (data.logrecords?.count ?? 0) {
+            if i == 0 { logrecords = [Log]() }
+            var log = Log()
+            log.dateExecuted = data.logrecords?[i].dateExecuted
+            log.resultExecuted = data.logrecords?[i].resultExecuted
+            logrecords?.append(log)
+        }
+    }
 }
 
 extension ConfigurationSchedule: Hashable, Equatable {

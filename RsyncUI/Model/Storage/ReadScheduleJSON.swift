@@ -44,15 +44,15 @@ class ReadScheduleJSON: NamesandPaths {
             } receiveValue: { [unowned self] data in
                 var schedules = [ConfigurationSchedule]()
                 for i in 0 ..< data.count {
-                    var transformed = TransformSchedulefromJSON().transform(data[i])
-                    transformed.profilename = profile
+                    var schedule = ConfigurationSchedule(data[i])
+                    schedule.profilename = profile
                     // Validate that the hidden ID is OK,
                     // schedule != Scheduletype.stopped.rawValue, logs count > 0
-                    if validhiddenID.contains(transformed.hiddenID),
-                       transformed.schedule != Scheduletype.stopped.rawValue,
-                       (transformed.logrecords?.count ?? 0) > 0
+                    if validhiddenID.contains(schedule.hiddenID),
+                       schedule.schedule != Scheduletype.stopped.rawValue,
+                       (schedule.logrecords?.count ?? 0) > 0
                     {
-                        schedules.append(transformed)
+                        schedules.append(schedule)
                     }
                 }
                 self.schedules = schedules
