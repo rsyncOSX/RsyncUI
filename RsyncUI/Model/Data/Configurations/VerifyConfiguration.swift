@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 25/02/2021.
 //
-// swiftlint:disable cyclomatic_complexity trailing_comma function_body_length
+// swiftlint:disable cyclomatic_complexity function_body_length
 
 import Foundation
 
@@ -118,45 +118,41 @@ final class VerifyConfiguration: Connected {
 
     // Verify parameters for new config.
     func verify(_ data: AppendConfig) -> Configuration? {
-        let dict: NSMutableDictionary = [
-            DictionaryStrings.task.rawValue: data.newtask,
-            DictionaryStrings.backupID.rawValue: data.newbackupID ?? "",
-            DictionaryStrings.localCatalog.rawValue: data.newlocalCatalog,
-            DictionaryStrings.offsiteCatalog.rawValue: data.newoffsiteCatalog,
-            DictionaryStrings.offsiteServer.rawValue: data.newoffsiteServer ?? "",
-            DictionaryStrings.offsiteUsername.rawValue: data.newoffsiteUsername ?? "",
-            DictionaryStrings.parameter1.rawValue: archive,
-            DictionaryStrings.parameter2.rawValue: verbose,
-            DictionaryStrings.parameter3.rawValue: compress,
-            DictionaryStrings.parameter4.rawValue: delete,
-            DictionaryStrings.parameter5.rawValue: eparam,
-            DictionaryStrings.parameter6.rawValue: ssh,
-            DictionaryStrings.dateRun.rawValue: "",
-        ]
-        // For updates hiddenID != nil
-        if let hiddenID = data.hiddenID {
-            dict.setValue(hiddenID, forKey: DictionaryStrings.hiddenID.rawValue)
-        }
+        var newconfig = Configuration()
+        newconfig.task = data.newtask
+        newconfig.backupID = data.newbackupID ?? ""
+        newconfig.localCatalog = data.newlocalCatalog
+        newconfig.offsiteCatalog = data.newoffsiteCatalog
+        newconfig.offsiteServer = data.newoffsiteServer ?? ""
+        newconfig.offsiteUsername = data.newoffsiteUsername ?? ""
+        newconfig.parameter1 = archive
+        newconfig.parameter2 = verbose
+        newconfig.parameter3 = compress
+        newconfig.parameter4 = delete
+        newconfig.parameter5 = eparam
+        newconfig.parameter6 = ssh
+        newconfig.dateRun = ""
+        newconfig.hiddenID = data.hiddenID ?? -1
+
         if data.newlocalCatalog.hasSuffix("/") == false, data.newdontaddtrailingbackslash == false {
             var catalog = data.newlocalCatalog
             guard catalog.isEmpty == false else { return nil }
             catalog += "/"
-            dict.setValue(catalog, forKey: DictionaryStrings.localCatalog.rawValue)
+            newconfig.localCatalog = catalog
         }
         if data.newoffsiteCatalog.hasSuffix("/") == false, data.newdontaddtrailingbackslash == false {
             var catalog = data.newoffsiteCatalog
             guard catalog.isEmpty == false else { return nil }
             catalog += "/"
-            dict.setValue(catalog, forKey: DictionaryStrings.offsiteCatalog.rawValue)
+            newconfig.offsiteCatalog = catalog
         }
         if data.newtask == SharedReference.shared.snapshot {
-            dict.setValue(SharedReference.shared.snapshot, forKey: DictionaryStrings.task.rawValue)
-            dict.setValue(1, forKey: DictionaryStrings.snapshotnum.rawValue)
-        } else if data.newtask == SharedReference.shared.syncremote {
-            dict.setValue(SharedReference.shared.syncremote, forKey: DictionaryStrings.task.rawValue)
+            newconfig.task = SharedReference.shared.snapshot
+            newconfig.snapshotnum = 1
         }
-        // Validate input and connection if snapshot task
-        let newconfig = Configuration(dictionary: dict)
+        if data.newtask == SharedReference.shared.syncremote {
+            newconfig.task = SharedReference.shared.syncremote
+        }
         do {
             let validated = try validateinput(config: newconfig)
             guard validated == true else { return nil }
@@ -170,44 +166,43 @@ final class VerifyConfiguration: Connected {
         if data.newtask == SharedReference.shared.snapshot {
             outputprocess = OutputfromProcess()
             // If connected create base remote snapshotcatalog
-            snapshotcreateremotecatalog(dict: dict, outputprocess: outputprocess)
+            snapshotcreateremotecatalog(config: newconfig, outputprocess: outputprocess)
         }
         // Add pre and post task if set
         // Pre task
         if data.newpretask?.isEmpty == false {
             if data.newexecutepretask == true {
-                dict.setObject(1, forKey: DictionaryStrings.executepretask.rawValue as NSCopying)
+                newconfig.executepretask = 1
             } else {
-                dict.setObject(0, forKey: DictionaryStrings.executepretask.rawValue as NSCopying)
+                newconfig.executepretask = 0
             }
-            dict.setObject(data.newpretask ?? "", forKey: DictionaryStrings.pretask.rawValue as NSCopying)
+            newconfig.pretask = data.newpretask
         } else {
-            dict.setObject(0, forKey: DictionaryStrings.executepretask.rawValue as NSCopying)
+            newconfig.executepretask = 0
         }
         // Post task
         if data.newposttask?.isEmpty == false {
             if data.newexecuteposttask == true {
-                dict.setObject(1, forKey: DictionaryStrings.executeposttask.rawValue as NSCopying)
+                newconfig.executeposttask = 1
             } else {
-                dict.setObject(0, forKey: DictionaryStrings.executeposttask.rawValue as NSCopying)
+                newconfig.executeposttask = 0
             }
-            dict.setObject(data.newposttask ?? "", forKey: DictionaryStrings.posttask.rawValue as NSCopying)
+            newconfig.posttask = data.newposttask
         } else {
-            dict.setObject(0, forKey: DictionaryStrings.executeposttask.rawValue as NSCopying)
+            newconfig.executeposttask = 0
         }
         // Halt pretask on error in posttask
         if data.newhaltshelltasksonerror == true {
-            dict.setObject(1, forKey: DictionaryStrings.haltshelltasksonerror.rawValue as NSCopying)
+            newconfig.haltshelltasksonerror = 1
         } else {
-            dict.setObject(0, forKey: DictionaryStrings.haltshelltasksonerror.rawValue as NSCopying)
+            newconfig.haltshelltasksonerror = 0
         }
         // Return a new configuration to be appended
-        return Configuration(dictionary: dict)
+        return newconfig
     }
 
     // Create remote snapshot catalog
-    private func snapshotcreateremotecatalog(dict: NSDictionary, outputprocess: OutputfromProcess?) {
-        let config = Configuration(dictionary: dict)
+    private func snapshotcreateremotecatalog(config: Configuration, outputprocess: OutputfromProcess?) {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = SnapshotCreateCatalogArguments(config: config)
         let updatecurrent = OtherProcess(command: args.getCommand(),

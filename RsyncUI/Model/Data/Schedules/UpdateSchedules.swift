@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 05/03/2021.
 //
-// swiftlint:disable trailing_comma line_length
+// swiftlint:disable line_length
 
 import Foundation
 
