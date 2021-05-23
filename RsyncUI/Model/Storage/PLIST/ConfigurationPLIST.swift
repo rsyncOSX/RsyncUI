@@ -49,7 +49,7 @@ struct ConfigurationPlist {
     var executeposttask: Int?
     var posttask: String?
     var haltshelltasksonerror: Int?
-    
+
     // Used when reading PLIST data from store (as part of converting to JSON)
     // And also when creating new records.
     init(_ dictionary: NSDictionary) {
@@ -71,6 +71,10 @@ struct ConfigurationPlist {
             self.snapshotnum = snapshotnum
             snapdayoffweek = dictionary.object(forKey: DictionaryStrings.snapdayoffweek.rawValue) as? String ?? StringDayofweek.Sunday.rawValue
             snaplast = dictionary.object(forKey: DictionaryStrings.snaplast.rawValue) as? Int ?? 1
+        }
+        // Last run of task
+        if let dateRun = dictionary.object(forKey: DictionaryStrings.dateRun.rawValue) {
+            self.dateRun = dateRun as? String
         }
         // Parameters 8 - 14 is user selected, as well as ssh parameters.
         if let parameter8 = dictionary.object(forKey: DictionaryStrings.parameter8.rawValue) {
@@ -120,5 +124,4 @@ struct ConfigurationPlist {
             self.haltshelltasksonerror = haltshelltasksonerror as? Int
         }
     }
-    
 }

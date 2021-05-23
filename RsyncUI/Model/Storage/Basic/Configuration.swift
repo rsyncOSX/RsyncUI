@@ -139,7 +139,7 @@ struct Configuration: Identifiable, Codable {
             }
         }
     }
-    
+
     init() {
         hiddenID = -1
         task = ""
