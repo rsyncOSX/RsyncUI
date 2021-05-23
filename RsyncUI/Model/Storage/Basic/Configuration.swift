@@ -140,6 +140,7 @@ struct Configuration: Identifiable, Codable {
         }
     }
 
+    // Create an empty record with no values
     init() {
         hiddenID = -1
         task = ""

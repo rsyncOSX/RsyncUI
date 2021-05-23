@@ -54,14 +54,13 @@ final class UpdateSchedules {
         case .weekly:
             scheduletype = .weekly
         }
-        let dict: NSDictionary = [
-            DictionaryStrings.hiddenID.rawValue: hiddenID ?? -1,
-            DictionaryStrings.dateStart.rawValue: startdate.en_us_string_from_date(),
-            DictionaryStrings.dateStop.rawValue: stop!.en_us_string_from_date(),
-            DictionaryStrings.schedule.rawValue: scheduletype.rawValue,
-        ]
-        let newschedule = ConfigurationSchedule(dictionary: dict, log: nil)
-        structschedules?.append(newschedule)
+        var newrecord = ConfigurationSchedule()
+        newrecord.hiddenID = hiddenID ?? -1
+        newrecord.dateStart = startdate.en_us_string_from_date()
+        newrecord.dateStop = stop!.en_us_string_from_date()
+        newrecord.schedule = scheduletype.rawValue
+
+        structschedules?.append(newrecord)
         WriteScheduleJSON(localeprofile, structschedules)
     }
 
