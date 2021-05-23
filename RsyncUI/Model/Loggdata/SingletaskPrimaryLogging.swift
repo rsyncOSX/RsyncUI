@@ -87,17 +87,16 @@ class SingletaskPrimaryLogging {
     func addlognew(hiddenID: Int, result: String, date: String) -> Bool {
         let configdata = GetConfigurationData(configurations: structconfigurations)
         if SharedReference.shared.synctasks.contains(configdata.getconfigurationdata(hiddenID, resource: .task) ?? "") {
-            let main = NSMutableDictionary()
-            main.setObject(hiddenID, forKey: DictionaryStrings.hiddenID.rawValue as NSCopying)
-            main.setObject("01 Jan 1900 00:00", forKey: DictionaryStrings.dateStart.rawValue as NSCopying)
-            main.setObject(Scheduletype.manuel.rawValue, forKey: DictionaryStrings.schedule.rawValue as NSCopying)
-            let dict = NSMutableDictionary()
-            dict.setObject(date, forKey: DictionaryStrings.dateExecuted.rawValue as NSCopying)
-            dict.setObject(result, forKey: DictionaryStrings.resultExecuted.rawValue as NSCopying)
-            let executed = NSMutableArray()
-            executed.add(dict)
-            let newSchedule = ConfigurationSchedule(dictionary: main, log: executed)
-            structschedules?.append(newSchedule)
+            var newrecord = ConfigurationSchedule()
+            newrecord.hiddenID = hiddenID
+            newrecord.dateStart = "01 Jan 1900 00:00"
+            newrecord.schedule = Scheduletype.manuel.rawValue
+            var log = Log()
+            log.dateExecuted = date
+            log.resultExecuted = result
+            newrecord.logrecords = [Log]()
+            newrecord.logrecords?.append(log)
+            structschedules?.append(newrecord)
             return true
         }
         return false

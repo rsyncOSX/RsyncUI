@@ -38,8 +38,39 @@ final class ReadConfigurationsPLIST: NamesandPaths {
     private func setconfigurations(_ data: [NSDictionary]) {
         for i in 0 ..< data.count {
             let dict = data[i]
-            var config = Configuration(dictionary: dict)
-            config.profile = nil
+            let configplist = ConfigurationPlist(dict)
+            var config = Configuration()
+            config.hiddenID = configplist.hiddenID
+            config.task = configplist.task
+            config.localCatalog = configplist.localCatalog
+            config.offsiteCatalog = configplist.offsiteCatalog
+            config.offsiteUsername = configplist.offsiteUsername
+            config.parameter1 = configplist.parameter1
+            config.parameter2 = configplist.parameter2
+            config.parameter3 = configplist.parameter3
+            config.parameter4 = configplist.parameter4
+            config.parameter5 = configplist.parameter5
+            config.parameter6 = configplist.parameter6
+            config.offsiteServer = configplist.offsiteServer
+            config.snapshotnum = configplist.snapshotnum
+            config.snapdayoffweek = configplist.snapdayoffweek
+            config.snaplast = configplist.snaplast
+            config.dateRun = configplist.dateRun
+            config.parameter8 = configplist.parameter8
+            config.parameter9 = configplist.parameter9
+            config.parameter10 = configplist.parameter10
+            config.parameter11 = configplist.parameter11
+            config.parameter12 = configplist.parameter12
+            config.parameter13 = configplist.parameter13
+            config.parameter14 = configplist.parameter14
+            config.rsyncdaemon = configplist.rsyncdaemon
+            config.sshport = configplist.sshport
+            config.sshkeypathandidentityfile = configplist.sshkeypathandidentityfile
+            config.pretask = configplist.pretask
+            config.executepretask = configplist.executepretask
+            config.posttask = configplist.posttask
+            config.executeposttask = configplist.executeposttask
+            config.haltshelltasksonerror = configplist.haltshelltasksonerror
             configurations.append(config)
         }
         if configurations.count > 0 { thereisplistdata = true }
