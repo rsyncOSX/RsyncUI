@@ -68,7 +68,7 @@ class ReadConfigurationJSON: NamesandPaths {
                 var configurations = [Configuration]()
                 for i in 0 ..< data.count {
                     let transformed = TransformConfigfromJSON().transform(data[i])
-                    // Validate leag sync task
+                    // Validate sync task
                     if SharedReference.shared.synctasks.contains(transformed.task) {
                         if validhiddenIDs.contains(transformed.hiddenID) == false {
                             configurations.append(transformed)

@@ -24,6 +24,7 @@ struct Logrecord: Codable, Hashable {
         resultExecuted = try values.decodeIfPresent(String.self, forKey: .resultExecuted)
     }
 
+    // This init is used in WriteConfigurationJSON
     init() {
         dateExecuted = nil
         resultExecuted = nil
@@ -60,6 +61,7 @@ struct DecodeSchedule: Codable {
         profilename = try values.decodeIfPresent(String.self, forKey: .profilename)
     }
 
+    // This init is used in WriteConfigurationJSON
     init(_ data: ConfigurationSchedule) {
         dateStart = data.dateStart
         dateStop = data.dateStop
