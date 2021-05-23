@@ -39,17 +39,17 @@ class WriteConfigurationJSON: NamesandPaths {
     }
 
     // We have to remove UUID and computed properties ahead of writing JSON file
-    // done in .map operator
+    // done in the .map operator
     @discardableResult
     init(_ profile: String?, _ configurations: [Configuration]?) {
         super.init(.configurations)
         // Set profile and filename ahead of encoding an write
         self.profile = profile
         configurations.publisher
-            .map { what -> [DecodeConfiguration] in
+            .map { configurations -> [DecodeConfiguration] in
                 var data = [DecodeConfiguration]()
-                for i in 0 ..< what.count {
-                    data.append(DecodeConfiguration(what[i]))
+                for i in 0 ..< configurations.count {
+                    data.append(DecodeConfiguration(configurations[i]))
                 }
                 return data
             }
