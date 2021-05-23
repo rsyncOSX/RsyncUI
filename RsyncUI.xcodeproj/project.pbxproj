@@ -12,6 +12,7 @@
 		E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835457325FE4EBF00A724EE /* SearchbarView.swift */; };
 		E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8518C79263807F200128796 /* WriteScheduleJSON.swift */; };
 		E85E86BA265A66A300219B1C /* ConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */; };
+		E8753A9D265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */; };
 		E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E879883425F8B512004D68C2 /* VerifySshView.swift */; };
 		E88F68B625F8A7A30010F33C /* Sshcopykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68B525F8A7A30010F33C /* Sshcopykey.swift */; };
 		E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68BA25F8A7D30010F33C /* Sshverifykey.swift */; };
@@ -237,6 +238,7 @@
 		E835457325FE4EBF00A724EE /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		E8518C79263807F200128796 /* WriteScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSON.swift; sourceTree = "<group>"; };
 		E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPLIST.swift; sourceTree = "<group>"; };
+		E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedulePLIST.swift; sourceTree = "<group>"; };
 		E879883425F8B512004D68C2 /* VerifySshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySshView.swift; sourceTree = "<group>"; };
 		E88F68B525F8A7A30010F33C /* Sshcopykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshcopykey.swift; sourceTree = "<group>"; };
 		E88F68BA25F8A7D30010F33C /* Sshverifykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshverifykey.swift; sourceTree = "<group>"; };
@@ -1109,6 +1111,7 @@
 				E9DE981A2657A9D9004868A9 /* ReadSchedulesPLIST.swift */,
 				E9DE981C2657A9F4004868A9 /* ReadConfigurationsPLIST.swift */,
 				E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */,
+				E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */,
 			);
 			path = PLIST;
 			sourceTree = "<group>";
@@ -1469,6 +1472,7 @@
 				E985C73625F3AD9700CB895C /* SetandValidatepathforrsync.swift in Sources */,
 				E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */,
 				E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */,
+				E8753A9D265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift in Sources */,
 				E985C79125F3AD9700CB895C /* ObserveableReference.swift in Sources */,
 				E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */,
 				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,

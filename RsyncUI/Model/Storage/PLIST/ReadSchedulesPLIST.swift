@@ -36,15 +36,23 @@ final class ReadSchedulesPLIST: NamesandPaths {
     }
 
     private func setschedules(_ data: [NSDictionary]) {
-        var schedule: ConfigurationSchedule?
+        var scheduleplist: ConfigurationSchedulePLIST?
         for i in 0 ..< data.count {
             let dict = data[i]
             if let log = dict.value(forKey: DictionaryStrings.executed.rawValue) {
-                schedule = ConfigurationSchedule(dictionary: dict, log: log as? NSArray)
+                scheduleplist = ConfigurationSchedulePLIST(dictionary: dict, log: log as? NSArray)
             } else {
-                schedule = ConfigurationSchedule(dictionary: dict, log: nil)
+                scheduleplist = ConfigurationSchedulePLIST(dictionary: dict, log: nil)
             }
-            if let schedule = schedule {
+            if let scheduleplist = scheduleplist {
+                var schedule = ConfigurationSchedule()
+                schedule.hiddenID = scheduleplist.hiddenID
+                schedule.offsiteserver = scheduleplist.offsiteserver
+                schedule.dateStart = scheduleplist.dateStart
+                schedule.dateStop = scheduleplist.dateStop
+                schedule.schedule = scheduleplist.schedule
+                schedule.logrecords = scheduleplist.logrecords
+                schedule.profilename = scheduleplist.profilename
                 schedules.append(schedule)
             }
         }

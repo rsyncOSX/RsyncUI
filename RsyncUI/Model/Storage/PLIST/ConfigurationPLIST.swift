@@ -8,7 +8,6 @@
 import Foundation
 
 struct ConfigurationPlist {
-    var id = UUID()
     var hiddenID: Int
     var task: String
     var localCatalog: String

@@ -44,6 +44,12 @@ struct ConfigurationSchedule: Identifiable, Codable {
         }
     }
 
+    init() {
+        hiddenID = -1
+        dateStart = ""
+        schedule = ""
+    }
+
     // Used when reading PLIST data from store (as part of converting to JSON)
     // And also when creating new records.
     init(dictionary: NSDictionary, log: NSArray?) {
