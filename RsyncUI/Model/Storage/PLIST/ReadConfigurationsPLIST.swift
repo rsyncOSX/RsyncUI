@@ -38,7 +38,10 @@ final class ReadConfigurationsPLIST: NamesandPaths {
     private func setconfigurations(_ data: [NSDictionary]) {
         for i in 0 ..< data.count {
             let dict = data[i]
-            var config = Configuration(dictionary: dict)
+            let configplist = ConfigurationPlist(dict)
+            var config = Configuration()
+            config = configplist.map
+            
             config.profile = nil
             configurations.append(config)
         }

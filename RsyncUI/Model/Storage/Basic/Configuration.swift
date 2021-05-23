@@ -139,6 +139,22 @@ struct Configuration: Identifiable, Codable {
             }
         }
     }
+    
+    init() {
+        hiddenID = -1
+        task = ""
+        localCatalog = ""
+        offsiteCatalog = ""
+        offsiteUsername = ""
+        parameter1 = ""
+        parameter2 = ""
+        parameter3 = ""
+        parameter4 = ""
+        parameter5 = ""
+        parameter6 = ""
+        offsiteServer = ""
+        backupID = ""
+    }
 
     // Used when reading PLIST data from store (as part of converting to JSON)
     // And also when creating new records.
