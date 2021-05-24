@@ -123,6 +123,7 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
         }
     }
 
+    @discardableResult
     init() {
         super.init(.configurations)
         filenamedatastore.publisher
