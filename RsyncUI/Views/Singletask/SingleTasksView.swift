@@ -78,7 +78,7 @@ struct SingleTasksView: View {
         if shellout { notifyshellout }
 
         HStack {
-            if singletaskstate.singletaskstate != .start { labelestimate }
+            // if singletaskstate.singletaskstate != .start { labelestimate }
             if singletasknowstate.executetasknowstate != .start { labelexecutenow }
             // Shortcuts
             if shortcuts.estimatesingletask { labelshortcutestimation }
@@ -120,7 +120,8 @@ struct SingleTasksView: View {
     var estimateandexecute: some View {
         HStack {
             if singletaskstate.singletaskstate == .start ||
-                singletaskstate.singletaskstate == .estimate
+                singletaskstate.singletaskstate == .estimate ||
+                singletaskstate.singletaskstate == .completed
             {
                 // Estimate
                 Button(NSLocalizedString("Estimate", comment: "Estimate button")) { initsingletask() }
@@ -129,10 +130,9 @@ struct SingleTasksView: View {
                 // Execute estimated
                 Button(NSLocalizedString("Execute", comment: "Execute button")) { singletask() }
                     .buttonStyle(PrimaryButtonStyle())
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.red, lineWidth: 5)
-                    )
+                    .onDisappear(perform: {
+                        completed()
+                    })
             }
         }
     }
@@ -154,6 +154,7 @@ struct SingleTasksView: View {
             .contentShape(Rectangle())
     }
 
+    // Shortcuts
     var labelshortcutestimation: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
