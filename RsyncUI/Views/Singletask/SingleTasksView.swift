@@ -78,8 +78,6 @@ struct SingleTasksView: View {
         if shellout { notifyshellout }
 
         HStack {
-            // if singletaskstate.singletaskstate != .start { labelestimate }
-            if singletasknowstate.executetasknowstate != .start { labelexecutenow }
             // Shortcuts
             if shortcuts.estimatesingletask { labelshortcutestimation }
             if shortcuts.executesingletask { labelshortcutexecute }
@@ -137,10 +135,13 @@ struct SingleTasksView: View {
         }
     }
 
-    // No estiamtion, just execute task now
+    // No estimation, just execute task now
     var executenow: some View {
         return Button(NSLocalizedString("Now", comment: "Now button")) { singletasknow() }
             .buttonStyle(PrimaryButtonStyle())
+            .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
+                if singletasknowstate.executetasknowstate == .completed { completed() }
+            })
     }
 
     var progressviewexecute: some View {
@@ -170,22 +171,6 @@ struct SingleTasksView: View {
                 shortcuts.executesingletask = false
                 // Guard statement must be after resetting properties to false
                 singletask()
-            })
-    }
-
-    // When status == .completed execute completed for reload
-    var labelestimate: some View {
-        Label("", systemImage: "play.fill")
-            .onChange(of: singletaskstate.singletaskstate, perform: { _ in
-                if singletaskstate.singletaskstate == .completed { completed() }
-            })
-    }
-
-    // When status == .completed execute completed for reload
-    var labelexecutenow: some View {
-        Label("", systemImage: "play.fill")
-            .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
-                if singletasknowstate.executetasknowstate == .completed { completed() }
             })
     }
 
