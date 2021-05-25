@@ -54,7 +54,11 @@ struct QuicktaskView: View {
                         }
 
                         VStack(alignment: .leading) {
-                            localandremotecatalog
+                            if selectedrsynccommand == .synchronize {
+                                localandremotecatalog
+                            } else {
+                                localandremotecatalogsyncremote
+                            }
 
                             remoteuserandserver
                         }
@@ -100,7 +104,9 @@ struct QuicktaskView: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("Task", comment: "QuicktaskView") + ":",
-               selection: $selectedrsynccommand) {
+               selection: $selectedrsynccommand.onChange {
+                   resetform()
+               }) {
             ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
                 .tag($0)
             }
@@ -122,6 +128,16 @@ struct QuicktaskView: View {
 
             // remotecatalog
             EditValue(250, NSLocalizedString("Add remotecatalog - required", comment: "QuicktaskView"), $remotecatalog)
+        }
+    }
+
+    var localandremotecatalogsyncremote: some View {
+        Section(header: headerlocalremote) {
+            // localcatalog
+            EditValue(250, NSLocalizedString("Add remote as localcatalog - required", comment: "QuicktaskView"), $localcatalog)
+
+            // remotecatalog
+            EditValue(250, NSLocalizedString("Add local as remotecatalog - required", comment: "QuicktaskView"), $remotecatalog)
         }
     }
 
