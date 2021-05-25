@@ -13,8 +13,6 @@ struct RestoreView: View {
     @StateObject var restoresettings = ObserveableReferenceRestore()
 
     @State private var presentsheetview = false
-    @State private var output: [String]?
-
     // Not used but requiered in parameter
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork = -1
@@ -103,7 +101,7 @@ struct RestoreView: View {
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
-                        output: $output,
+                        output: restoresettings.getoutput() ?? [],
                         valueselectedrow: $restoresettings.filestorestorefromview)
     }
 }
@@ -121,7 +119,6 @@ extension RestoreView {
             restoresettings.numberoffiles = 0
             return
         }
-        output = restoresettings.getoutput()
         presentsheetview = true
     }
 

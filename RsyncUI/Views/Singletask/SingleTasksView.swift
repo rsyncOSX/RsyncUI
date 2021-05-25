@@ -29,7 +29,6 @@ struct SingleTasksView: View {
     @State private var selectedconfig: Configuration?
     @State private var executestate: SingleTaskWork = .start
     @State private var presentsheetview = false
-    @State private var output: [String]?
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
     @Binding var reload: Bool
@@ -180,9 +179,20 @@ struct SingleTasksView: View {
 
     // Output
     var viewoutput: some View {
-        OutputRsyncView(isPresented: $presentsheetview,
-                        output: $output,
-                        valueselectedrow: $valueselectedrow)
+        if singletaskstate.singletaskstate == .start ||
+            singletaskstate.singletaskstate == .estimate ||
+            singletaskstate.singletaskstate == .completed
+        {
+            // real run output
+            return OutputRsyncView(isPresented: $presentsheetview,
+                                   output: outputfromrsync.getoutput() ?? [],
+                                   valueselectedrow: $valueselectedrow)
+        } else {
+            // estimated run output
+            return OutputRsyncView(isPresented: $presentsheetview,
+                                   output: inprogresscountrsyncoutput.getoutput() ?? [],
+                                   valueselectedrow: $valueselectedrow)
+        }
     }
 
     var notifyshellout: some View {
@@ -217,12 +227,14 @@ extension SingleTasksView {
     }
 
     func presentoutput() {
-        // Output from realrun
-        output = outputfromrsync.getoutput()
-        // Output from estimation run
-        if output == nil {
-            output = inprogresscountrsyncoutput.getoutput()
-        }
+        /*
+         // Output from realrun
+         output = outputfromrsync.getoutput()
+         // Output from estimation run
+         if output == nil {
+             output = inprogresscountrsyncoutput.getoutput()
+         }
+         */
         presentsheetview = true
     }
 

@@ -27,7 +27,6 @@ struct QuicktaskView: View {
 
     // Executed labels
     @State private var executed = false
-    @State private var output: [String]?
     @State private var presentsheetview = false
     @State private var showprogressview = false
     @State private var rsyncoutput: InprogressCountRsyncOutput?
@@ -166,7 +165,7 @@ struct QuicktaskView: View {
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
-                        output: $output,
+                        output: rsyncoutput?.getoutput() ?? [],
                         valueselectedrow: $valueselectedrow)
     }
 }
@@ -224,8 +223,6 @@ extension QuicktaskView {
         // Stop progressview
         showprogressview = false
         rsyncoutput?.setoutput()
-        output = rsyncoutput?.getoutput()
-
         executed = true
         // Show updated for 1 second
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
