@@ -16,7 +16,8 @@ struct RestoreView: View {
     // Not used but requiered in parameter
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork = -1
-    @State private var selectable = false
+
+    let selectable = false
 
     var body: some View {
         ZStack {
@@ -31,7 +32,7 @@ struct RestoreView: View {
                 },
                 selecteduuids: $selecteduuids,
                 inwork: $inwork,
-                selectable: $selectable)
+                selectable: selectable)
             }
 
             if restoresettings.gettingfilelist == true {

@@ -19,7 +19,6 @@ struct SnapshotsView: View {
     @State private var selecteduuids = Set<UUID>()
     // Not used but requiered in parameter
     @State private var inwork = -1
-    @State private var selectable = false
     // If not a snapshot
     @State private var notsnapshot = false
     // Cannot collect remote cataloglist for more than one task a time
@@ -34,12 +33,14 @@ struct SnapshotsView: View {
     // Alert for delete
     @State private var showAlertfordelete = false
 
+    let selectable = false
+
     var body: some View {
         ZStack {
             ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
-                               selectable: $selectable)
+                               selectable: selectable)
 
             if notsnapshot == true { notasnapshottask }
             if gettingdata == true { gettingdatainprocess }

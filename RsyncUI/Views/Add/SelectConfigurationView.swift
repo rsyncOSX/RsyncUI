@@ -15,14 +15,15 @@ struct SelectConfigurationView: View {
     // only parameters for configlist, noy used
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork: Int = -1
-    @State private var selectable = false
+
+    let selectable = false
 
     var body: some View {
         VStack {
             ConfigurationsList(selectedconfig: $selectedconfig,
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
-                               selectable: $selectable)
+                               selectable: selectable)
             Spacer()
 
             Button(NSLocalizedString("Select", comment: "Select button")) { dismissview() }

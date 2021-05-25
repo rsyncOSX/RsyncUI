@@ -1,5 +1,5 @@
 //
-//  ConfigurationsListUUID.swift
+//  ConfigurationsList.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 22/01/2021.
@@ -10,15 +10,14 @@ import SwiftUI
 struct ConfigurationsList: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selectedconfig: Configuration?
-
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
-
-    let forestimated = false
-    // Either selectable configlist or not
-    @Binding var selectable: Bool
     @State private var activeschedules: Int = 0
+
+    // Either selectable configlist or not
+    var selectable: Bool
+    let forestimated = false
 
     var body: some View {
         VStack {

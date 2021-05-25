@@ -18,8 +18,6 @@ struct ExecuteEstimatedView: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
     @Binding var showestimateview: Bool
-    // Either selectable configlist or not
-    @State private var selectable = true
 
     @State private var executemultipletasks: ExecuteMultipleTasks?
     @State private var selectedconfig: Configuration?
@@ -27,11 +25,14 @@ struct ExecuteEstimatedView: View {
     @State private var executedlist: [RemoteinfonumbersOnetask]?
     @State private var inwork: Int = -1
 
+    // Either selectable configlist or not
+    let selectable = true
+
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig,
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
-                           selectable: $selectable)
+                           selectable: selectable)
 
         // When completed
         if multipletaskstate.executionstate == .completed { labelcompleted }

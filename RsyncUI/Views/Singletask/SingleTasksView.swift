@@ -36,7 +36,6 @@ struct SingleTasksView: View {
 
     // Not used but requiered in parameter
     @State private var inwork = -1
-    @State private var selectable = false
     // Selected row in output
     @State private var valueselectedrow: String = ""
     // If shellout
@@ -44,12 +43,14 @@ struct SingleTasksView: View {
     // Alert for select tasks
     @State private var notasks: Bool = false
 
+    let selectable = false
+
     var body: some View {
         ZStack {
             ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
-                               selectable: $selectable)
+                               selectable: selectable)
 
             // Estimate singletask or Execute task now
             if singletasknowstate.executetasknowstate == .execute {

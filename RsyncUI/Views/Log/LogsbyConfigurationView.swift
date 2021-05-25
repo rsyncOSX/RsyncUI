@@ -19,9 +19,10 @@ struct LogsbyConfigurationView: View {
     @State private var filterstring: String = ""
     // Not used but requiered in parameter
     @State private var inwork = -1
-    @State private var selectable = false
     // Alert for delete
     @State private var showAlertfordelete = false
+
+    let selectable = false
 
     var body: some View {
         Form {
@@ -36,7 +37,7 @@ struct LogsbyConfigurationView: View {
             },
             selecteduuids: $selecteduuids,
             inwork: $inwork,
-            selectable: $selectable)
+            selectable: selectable)
 
             Spacer()
 
