@@ -15,7 +15,6 @@ struct SingleTasksView: View {
     @EnvironmentObject var outputfromrsync: OutputFromRsync
     // Observing shortcuts
     @EnvironmentObject var shortcuts: ShortcutActions
-
     // Execute estimate and execution
     @StateObject private var singletaskstate = SingleTaskState()
     // Execute singletask, no estimation
@@ -24,19 +23,19 @@ struct SingleTasksView: View {
     // Also progress about synchronizing, if estimated first
     @StateObject private var inprogresscountrsyncoutput = InprogressCountRsyncOutput()
 
+    // Must be a @State because it is changed
     @State private var executesingletasks: ExecuteSingleTask?
     @State private var executetasknow: ExecuteSingleTaskNow?
+
     @State private var selectedconfig: Configuration?
     @State private var executestate: SingleTaskWork = .start
     @State private var presentsheetview = false
-    @State private var output: [String]?
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
     @Binding var reload: Bool
 
     // Not used but requiered in parameter
     @State private var inwork = -1
-    @State private var selectable = false
     // Selected row in output
     @State private var valueselectedrow: String = ""
     // If shellout
@@ -44,12 +43,14 @@ struct SingleTasksView: View {
     // Alert for select tasks
     @State private var notasks: Bool = false
 
+    let selectable = false
+
     var body: some View {
         ZStack {
             ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
-                               selectable: $selectable)
+                               selectable: selectable)
 
             // Estimate singletask or Execute task now
             if singletasknowstate.executetasknowstate == .execute {
@@ -180,9 +181,20 @@ struct SingleTasksView: View {
 
     // Output
     var viewoutput: some View {
-        OutputRsyncView(isPresented: $presentsheetview,
-                        output: $output,
-                        valueselectedrow: $valueselectedrow)
+        if singletaskstate.singletaskstate == .start ||
+            singletaskstate.singletaskstate == .estimate ||
+            singletaskstate.singletaskstate == .completed
+        {
+            // real run output
+            return OutputRsyncView(isPresented: $presentsheetview,
+                                   output: outputfromrsync.getoutput() ?? [],
+                                   valueselectedrow: $valueselectedrow)
+        } else {
+            // estimated run output
+            return OutputRsyncView(isPresented: $presentsheetview,
+                                   output: inprogresscountrsyncoutput.getoutput() ?? [],
+                                   valueselectedrow: $valueselectedrow)
+        }
     }
 
     var notifyshellout: some View {
@@ -217,12 +229,14 @@ extension SingleTasksView {
     }
 
     func presentoutput() {
-        // Output from realrun
-        output = outputfromrsync.getoutput()
-        // Output from estimation run
-        if output == nil {
-            output = inprogresscountrsyncoutput.getoutput()
-        }
+        /*
+         // Output from realrun
+         output = outputfromrsync.getoutput()
+         // Output from estimation run
+         if output == nil {
+             output = inprogresscountrsyncoutput.getoutput()
+         }
+         */
         presentsheetview = true
     }
 

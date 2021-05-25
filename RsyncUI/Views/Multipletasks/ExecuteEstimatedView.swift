@@ -18,20 +18,21 @@ struct ExecuteEstimatedView: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
     @Binding var showestimateview: Bool
-    // Either selectable configlist or not
-    @State private var selectable = true
 
     @State private var executemultipletasks: ExecuteMultipleTasks?
     @State private var selectedconfig: Configuration?
     @State private var presentsheetview = false
     @State private var executedlist: [RemoteinfonumbersOnetask]?
-    @State private var inexectuion: Int = -1
+    @State private var inwork: Int = -1
+
+    // Either selectable configlist or not
+    let selectable = true
 
     var body: some View {
         ConfigurationsList(selectedconfig: $selectedconfig,
                            selecteduuids: $selecteduuids,
-                           inwork: $inexectuion,
-                           selectable: $selectable)
+                           inwork: $inwork,
+                           selectable: selectable)
 
         // When completed
         if multipletaskstate.executionstate == .completed { labelcompleted }
@@ -60,12 +61,12 @@ struct ExecuteEstimatedView: View {
                      total: Double(inprogresscountmultipletask.getmaxcount()))
             .onAppear(perform: {
                 // To set ProgressView spinnig wheel on correct task when estimating
-                inexectuion = inprogresscountmultipletask.hiddenID
+                inwork = inprogresscountmultipletask.hiddenID
                 // executedetails.setcurrentprogress(0)
             })
             .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
                 // To set ProgressView spinnig wheel on correct task when estimating
-                inexectuion = inprogresscountmultipletask.hiddenID
+                inwork = inprogresscountmultipletask.hiddenID
                 executedetails.setcurrentprogress(0)
             })
             .progressViewStyle(GaugeProgressStyle())
@@ -92,7 +93,7 @@ struct ExecuteEstimatedView: View {
 
 extension ExecuteEstimatedView {
     func completed() {
-        inexectuion = -1
+        inwork = -1
         multipletaskstate.updatestate(state: .start)
         inprogresscountmultipletask.resetcounts()
         executemultipletasks = nil
@@ -102,7 +103,7 @@ extension ExecuteEstimatedView {
     }
 
     func abort() {
-        inexectuion = -1
+        inwork = -1
         multipletaskstate.updatestate(state: .start)
         inprogresscountmultipletask.resetcounts()
         executemultipletasks?.abort()

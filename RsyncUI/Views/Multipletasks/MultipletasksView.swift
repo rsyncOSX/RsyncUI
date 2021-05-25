@@ -30,8 +30,6 @@ struct MultipletasksView: View {
     @State private var estimatedlist: [RemoteinfonumbersOnetask]?
     @State private var inwork: Int = -1
     @State private var estimatetask: Estimation?
-    // Either selectable configlist or not
-    @State private var selectable = true
     // Alert for delete
     @State private var showAlertfordelete = false
     // Alert for execute all
@@ -41,12 +39,15 @@ struct MultipletasksView: View {
     // Alert for select tasks
     @State private var notasks: Bool = false
 
+    // Either selectable configlist or not
+    let selectable = true
+
     var body: some View {
         ZStack {
             ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
-                               selectable: $selectable)
+                               selectable: selectable)
 
             if notasks == true { notifyselecttask }
             if deleted == true { notifydeleted }

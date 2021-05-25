@@ -10,7 +10,7 @@ import SwiftUI
 struct OutputRsyncView: View {
     // @Binding var config: Configuration?
     @Binding var isPresented: Bool
-    @Binding var output: [String]?
+    var output: [String]
     @Binding var valueselectedrow: String
 
     @State private var selection: String?
@@ -21,7 +21,7 @@ struct OutputRsyncView: View {
                 .font(.title2)
                 .padding()
 
-            List(output ?? [], id: \.self, selection: $selection.onChange {
+            List(output, id: \.self, selection: $selection.onChange {
                 valueselectedrow = selection ?? ""
             }) { line in
                 Text(line)

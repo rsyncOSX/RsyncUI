@@ -13,7 +13,7 @@ struct OutputEstimatedView: View {
     @Binding var isPresented: Bool
     @Binding var estimatedlist: [RemoteinfonumbersOnetask]?
     @Binding var selecteduuids: Set<UUID>
-    @State private var forestimated = true
+    let forestimated = true
 
     var estimatedoutput: [RemoteinfonumbersOnetask] {
         return estimatedlist ?? []
@@ -36,7 +36,7 @@ struct OutputEstimatedView: View {
                                     .modifier(FixedTag(25, .leading))
                             }
                             if let configuration = estimatedconfiguration.config {
-                                OneConfig(forestimated: $forestimated,
+                                OneConfig(forestimated: forestimated,
                                           config: configuration)
                             }
                             HStack {
