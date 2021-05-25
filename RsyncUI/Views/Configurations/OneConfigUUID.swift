@@ -11,7 +11,7 @@ import SwiftUI
 struct OneConfigUUID: View {
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
     @Binding var selecteduuids: Set<UUID>
-    @Binding var inexecuting: Int
+    @Binding var inwork: Int
 
     let forestimated = false
     var config: Configuration
@@ -27,15 +27,15 @@ struct OneConfigUUID: View {
 
     var progress: some View {
         ZStack {
-            if config.hiddenID == inexecuting && executedetails.isestimating() {
+            if config.hiddenID == inwork && executedetails.isestimating() {
                 progressviewestimating
-            } else if config.hiddenID == inexecuting {
+            } else if config.hiddenID == inwork {
                 progressexecution
             } else {
                 Text("")
                     .modifier(FixedTag(20, .leading))
             }
-            if selecteduuids.contains(config.id) && config.hiddenID != inexecuting {
+            if selecteduuids.contains(config.id) && config.hiddenID != inwork {
                 Text(Image(systemName: "arrowtriangle.right.fill"))
                     .modifier(FixedTag(20, .leading))
                     .foregroundColor(.green)
@@ -58,7 +58,7 @@ struct OneConfigUUID: View {
     var progressexecution: some View {
         ProgressView("",
                      value: executedetails.getcurrentprogress(),
-                     total: executedetails.getmaxcountbytask(inexecuting))
+                     total: executedetails.getmaxcountbytask(inwork))
             .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
             .frame(width: 40, alignment: .center)
     }

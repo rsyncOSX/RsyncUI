@@ -36,7 +36,7 @@ struct ConfigurationsList: View {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
                     OneConfigUUID(selecteduuids: $selecteduuids,
-                                  inexecuting: $inwork,
+                                  inwork: $inwork,
                                   config: configurations)
                         .tag(configurations)
                 }
