@@ -48,6 +48,9 @@
 /* No comment provided by engineer. */
 "Add configuration completed" = "Konfiguration hinzufügen abgeschlossen";
 
+/* QuicktaskView */
+"Add local as remotecatalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
+
 /* QuicktaskView
    settings */
 "Add localcatalog - required" = "Lokalkatalog hinzufügen - erforderlich";
@@ -57,6 +60,9 @@
 
 /* settings */
 "Add pretask" = "Pretask hinzufügen";
+
+/* QuicktaskView */
+"Add remote as localcatalog - required" = "Remote als localcatalog hinzufügen - erforderlich";
 
 /* QuicktaskView
    settings */
@@ -126,6 +132,12 @@
 
 /* sidebar */
 "Configurations" = "Konfigurationen";
+
+/* Othersettings */
+"Confirm convert" = "Konvertierung bestätigen";
+
+/* Othersettings */
+"Convert" = "Konvertieren";
 
 /* Copy button
    Verify button */
@@ -199,11 +211,10 @@
 /* settings */
 "Enable" = "Aktivieren";
 
-/* other settings
-   settings */
+/* Othersettings */
 "Environment" = "Umgebung";
 
-/* settings */
+/* Othersettings */
 "Environment variable" = "Umgebungsvariable";
 
 /* Estimate button */
@@ -260,6 +271,9 @@
 
 /* settings */
 "In process in getting data" = "Daten werden gerade abgerufen";
+
+/* Othersettings */
+"Info about convert" = "Info über Konvertierung";
 
 /* italian */
 "Italian translation by: Stefano Steve Cutelle'" = "Italienische Übersetzung von: Stefano Steve Cutelle'";
@@ -417,16 +431,16 @@
    settings */
 "Path for restore" = "Pfad zum Wiederherstellen";
 
-/* settings */
+/* Othersettings */
 "Path to RsyncSchedule" = "Pfad zu RsyncSchedule";
 
-/* settings */
+/* Othersettings */
 "Path to RsyncUI" = "Pfad zu RsyncUI";
 
 /* user settings */
 "Paths" = "Pfade";
 
-/* ssh settings */
+/* Othersettings */
 "Paths for apps" = "Pfade für Apps";
 
 /* SnapshotsView */
@@ -434,6 +448,9 @@
 
 /* ScheduleError */
 "Please select a configuration" = "Bitte wählen Sie eine Konfiguration";
+
+/* Othersettings */
+"PLIST" = "PLIST";
 
 /* logsview */
 "Pre and post" = "Vor- und Post";
@@ -521,7 +538,8 @@
 /* plan */
 "Saturday" = "Samstag";
 
-/* RsyncParametersView
+/* Othersettings
+   RsyncParametersView
    Tag
    usersetting */
 "Save" = "Speichern";
