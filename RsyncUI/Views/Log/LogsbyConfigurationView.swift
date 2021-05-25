@@ -86,6 +86,9 @@ struct LogsbyConfigurationView: View {
 
 extension LogsbyConfigurationView {
     func delete() {
+        if selecteduuids.count == 0 {
+            setuuidforselectedlog()
+        }
         guard selecteduuids.count > 0 else { return }
         showAlertfordelete = true
     }
@@ -104,6 +107,16 @@ extension LogsbyConfigurationView {
         selecteduuids.removeAll()
         for i in 0 ..< (rsyncUIData.filterlogsortedbyother?.count ?? 0) {
             if let id = rsyncUIData.filterlogsortedbyother?[i].id {
+                selecteduuids.insert(id)
+            }
+        }
+    }
+
+    func setuuidforselectedlog() {
+        if let sel = selectedlog,
+           let index = rsyncUIData.filterlogsorted?.firstIndex(of: sel)
+        {
+            if let id = rsyncUIData.filterlogsorted?[index].id {
                 selecteduuids.insert(id)
             }
         }

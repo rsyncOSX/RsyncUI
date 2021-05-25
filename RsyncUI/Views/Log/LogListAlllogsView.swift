@@ -71,6 +71,9 @@ struct LogListAlllogsView: View {
 
 extension LogListAlllogsView {
     func delete() {
+        if selecteduuids.count == 0 {
+            setuuidforselectedlog()
+        }
         guard selecteduuids.count > 0 else { return }
         showAlertfordelete = true
     }
@@ -89,6 +92,16 @@ extension LogListAlllogsView {
         selecteduuids.removeAll()
         for i in 0 ..< (rsyncUIData.filterlogsorted?.count ?? 0) {
             if let id = rsyncUIData.filterlogsorted?[i].id {
+                selecteduuids.insert(id)
+            }
+        }
+    }
+
+    func setuuidforselectedlog() {
+        if let sel = selectedlog,
+           let index = rsyncUIData.filterlogsorted?.firstIndex(of: sel)
+        {
+            if let id = rsyncUIData.filterlogsorted?[index].id {
                 selecteduuids.insert(id)
             }
         }
