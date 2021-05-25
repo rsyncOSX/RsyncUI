@@ -19,6 +19,7 @@ struct AppendSequrityscopedURLs {
         return permission && success
     }
 
+    @discardableResult
     init(path: String) {
         urlpath = URL(fileURLWithPath: path)
         guard urlpath != nil else { return }

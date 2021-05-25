@@ -8,20 +8,20 @@
 // swiftlint: disable line_length
 
 import Cocoa
-
-final class OpenPanelDelegate: NSObject, OpenPanelDelegateType {
-    var fileURL: NSURL!
-}
-
-protocol OpenPanelDelegateType: NSOpenSavePanelDelegate {
-    var fileURL: NSURL! { get set }
-}
+import SwiftUI
 
 public class PermissionManager {
     let bookmarksManager: BookmarksManager
-    lazy var openPanelDelegate: OpenPanelDelegateType = OpenPanelDelegate()
-    lazy var openPanel: NSOpenPanel = OpenPanelBuilder().openPanel()
     static let defaultManager = PermissionManager()
+
+    var userHomeDirectoryPath: URL? {
+        let pw = getpwuid(getuid())
+        if let homeptr = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: homeptr, length: Int(strlen(homeptr)))
+            return URL(string: homePath) ?? URL(string: "")
+        }
+        return URL(string: "")
+    }
 
     func needsPermissionForFileAtURL(fileURL: URL) -> Bool {
         let reachable = try? fileURL.checkResourceIsReachable()
@@ -30,26 +30,25 @@ public class PermissionManager {
     }
 
     func askUserForSecurityScopeForFileAtURL(fileURL: URL) -> URL? {
-        if !needsPermissionForFileAtURL(fileURL: fileURL) { return fileURL }
-        let openPanel = self.openPanel
-        if openPanel.directoryURL == nil {
-            openPanel.directoryURL = fileURL.deletingLastPathComponent()
+        if needsPermissionForFileAtURL(fileURL: fileURL) == false { return fileURL }
+
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = true
+        panel.canCreateDirectories = false
+        panel.isExtensionHidden = false
+        panel.showsHiddenFiles = false
+        panel.title = "self.title"
+        panel.message = "self.message"
+        panel.prompt = "self.prompt"
+        panel.directoryURL = userHomeDirectoryPath
+        if panel.directoryURL == nil {
+            panel.directoryURL = fileURL.deletingLastPathComponent()
         }
-        let openPanelDelegate = self.openPanelDelegate
-        openPanelDelegate.fileURL = fileURL as NSURL
-        openPanel.delegate = openPanelDelegate
         var securityScopedURL: URL?
-        let closure: () -> Void = {
-            NSApplication.shared.activate(ignoringOtherApps: true)
-            if openPanel.runModal().rawValue == NSApplication.ModalResponse.OK.rawValue {
-                securityScopedURL = openPanel.url as URL?
-            }
-            openPanel.delegate = nil
-        }
-        if Thread.isMainThread {
-            closure()
-        } else {
-            DispatchQueue.main.sync(execute: closure)
+        if panel.runModal().rawValue == NSApplication.ModalResponse.OK.rawValue {
+            securityScopedURL = panel.url as URL?
         }
         if let pathforcatalog = securityScopedURL {
             bookmarksManager.saveSecurityScopedBookmarkForFileAtURL(securityScopedFileURL: pathforcatalog)
@@ -78,5 +77,25 @@ public class PermissionManager {
 
     init(bookmarksManager: BookmarksManager = BookmarksManager()) {
         self.bookmarksManager = bookmarksManager
+    }
+}
+
+struct Test: View {
+    @State var filename = "Filename"
+    @State var showFileChooser = false
+
+    var body: some View {
+        HStack {
+            Text(filename)
+            Button("select File") {
+                let panel = NSOpenPanel()
+                panel.allowsMultipleSelection = false
+                panel.canChooseDirectories = false
+                if panel.runModal() == .OK {
+                    self.filename = panel.url?.lastPathComponent ?? "<none>"
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

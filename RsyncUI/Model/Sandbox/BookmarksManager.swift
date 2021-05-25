@@ -31,7 +31,9 @@ final class BookmarksManager {
     func fileURLFromSecurityScopedBookmark(bookmark: NSData) -> URL? {
         let options: NSURL.BookmarkResolutionOptions = [.withSecurityScope, .withoutUI]
         var stale: ObjCBool = false
-        if let fileURL = try? NSURL(resolvingBookmarkData: bookmark as Data, options: options, relativeTo: nil, bookmarkDataIsStale: &stale) {
+        if let fileURL = try? NSURL(resolvingBookmarkData: bookmark as Data, options: options,
+                                    relativeTo: nil, bookmarkDataIsStale: &stale)
+        {
             return fileURL as URL
         } else {
             return nil
@@ -59,7 +61,8 @@ final class BookmarksManager {
 
     func securityScopedBookmarkForFileAtURL(fileURL: URL) -> NSData? {
         do {
-            let bookmark = try fileURL.bookmarkData(options: NSURL.BookmarkCreationOptions.withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+            let bookmark = try fileURL.bookmarkData(options: NSURL.BookmarkCreationOptions.withSecurityScope,
+                                                    includingResourceValuesForKeys: nil, relativeTo: nil)
             return bookmark as NSData?
         } catch let e {
             let error = e as NSError
