@@ -13,14 +13,14 @@ struct OneConfigUUID: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var inexecuting: Int
 
-    @State private var forestimated = false
+    let forestimated = false
     var config: Configuration
 
     var body: some View {
         HStack {
             progress
 
-            OneConfig(forestimated: $forestimated,
+            OneConfig(forestimated: forestimated,
                       config: config)
         }
     }

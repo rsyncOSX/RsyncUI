@@ -14,8 +14,8 @@ struct ConfigurationsList: View {
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
-    // var configlist: some View
-    @State private var forestimated = false
+
+    let forestimated = false
     // Either selectable configlist or not
     @Binding var selectable: Bool
     @State private var activeschedules: Int = 0
@@ -50,7 +50,7 @@ struct ConfigurationsList: View {
         Section(header: header) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
-                    OneConfig(forestimated: $forestimated,
+                    OneConfig(forestimated: forestimated,
                               config: configurations)
                         .tag(configurations)
                 }

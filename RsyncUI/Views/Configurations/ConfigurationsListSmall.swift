@@ -11,7 +11,7 @@ struct ConfigurationsListSmall: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var selectedconfig: Configuration?
 
-    @State private var forestimated = false
+    let forestimated = false
 
     var body: some View {
         VStack {

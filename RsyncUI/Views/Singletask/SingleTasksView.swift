@@ -15,7 +15,6 @@ struct SingleTasksView: View {
     @EnvironmentObject var outputfromrsync: OutputFromRsync
     // Observing shortcuts
     @EnvironmentObject var shortcuts: ShortcutActions
-
     // Execute estimate and execution
     @StateObject private var singletaskstate = SingleTaskState()
     // Execute singletask, no estimation
@@ -24,8 +23,10 @@ struct SingleTasksView: View {
     // Also progress about synchronizing, if estimated first
     @StateObject private var inprogresscountrsyncoutput = InprogressCountRsyncOutput()
 
+    // Must be a @State because it is changed
     @State private var executesingletasks: ExecuteSingleTask?
     @State private var executetasknow: ExecuteSingleTaskNow?
+
     @State private var selectedconfig: Configuration?
     @State private var executestate: SingleTaskWork = .start
     @State private var presentsheetview = false
