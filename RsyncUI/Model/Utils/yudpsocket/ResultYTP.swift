@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Result {
+public enum ResultYTP {
     case success
     case failure(Error)
 

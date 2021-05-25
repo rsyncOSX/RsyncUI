@@ -125,7 +125,7 @@
 		E985C73825F3AD9700CB895C /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6AB25F3AD9600CB895C /* Notifications.swift */; };
 		E985C73B25F3AD9700CB895C /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = E985C6AF25F3AD9600CB895C /* yudpsocket.c */; };
 		E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B025F3AD9600CB895C /* ytcpsocket.c */; };
-		E985C73D25F3AD9700CB895C /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B125F3AD9600CB895C /* Result.swift */; };
+		E985C73D25F3AD9700CB895C /* ResultYTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B125F3AD9600CB895C /* ResultYTP.swift */; };
 		E985C73E25F3AD9700CB895C /* ytcpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B325F3AD9600CB895C /* ytcpsocket.swift */; };
 		E985C73F25F3AD9700CB895C /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B425F3AD9600CB895C /* Socket.swift */; };
 		E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B525F3AD9600CB895C /* TCPconnections.swift */; };
@@ -360,7 +360,7 @@
 		E985C6AB25F3AD9600CB895C /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		E985C6AF25F3AD9600CB895C /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
 		E985C6B025F3AD9600CB895C /* ytcpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ytcpsocket.c; sourceTree = "<group>"; };
-		E985C6B125F3AD9600CB895C /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		E985C6B125F3AD9600CB895C /* ResultYTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultYTP.swift; sourceTree = "<group>"; };
 		E985C6B225F3AD9600CB895C /* RsyncSwiftUI-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RsyncSwiftUI-Bridging-Header.h"; sourceTree = "<group>"; };
 		E985C6B325F3AD9600CB895C /* ytcpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ytcpsocket.swift; sourceTree = "<group>"; };
 		E985C6B425F3AD9600CB895C /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
@@ -873,7 +873,7 @@
 			children = (
 				E985C6AF25F3AD9600CB895C /* yudpsocket.c */,
 				E985C6B025F3AD9600CB895C /* ytcpsocket.c */,
-				E985C6B125F3AD9600CB895C /* Result.swift */,
+				E985C6B125F3AD9600CB895C /* ResultYTP.swift */,
 				E985C6B225F3AD9600CB895C /* RsyncSwiftUI-Bridging-Header.h */,
 				E985C6B325F3AD9600CB895C /* ytcpsocket.swift */,
 				E985C6B425F3AD9600CB895C /* Socket.swift */,
@@ -1338,7 +1338,7 @@
 				E985C76F25F3AD9700CB895C /* InprogressCountRsyncOutput.swift in Sources */,
 				E9BD14BD2642FDC200E29347 /* TrimOne.swift in Sources */,
 				E985C66525F3AD8400CB895C /* LogfileView.swift in Sources */,
-				E985C73D25F3AD9700CB895C /* Result.swift in Sources */,
+				E985C73D25F3AD9700CB895C /* ResultYTP.swift in Sources */,
 				E9BCCE8C25FB432E0034EDFD /* SidebarLogsView.swift in Sources */,
 				E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */,
 				E985C65625F3AD8400CB895C /* RsyncUIView.swift in Sources */,
