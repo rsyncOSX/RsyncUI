@@ -12,6 +12,10 @@
 		E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835457325FE4EBF00A724EE /* SearchbarView.swift */; };
 		E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8518C79263807F200128796 /* WriteScheduleJSON.swift */; };
 		E85E86BA265A66A300219B1C /* ConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */; };
+		E874DAD2265CC31E00F4CAC6 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E874DACE265CC31E00F4CAC6 /* BookmarksManager.swift */; };
+		E874DAD3265CC31E00F4CAC6 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E874DACF265CC31E00F4CAC6 /* PermissionManager.swift */; };
+		E874DAD4265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E874DAD0265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift */; };
+		E874DAD5265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E874DAD1265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift */; };
 		E8753A9D265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */; };
 		E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E879883425F8B512004D68C2 /* VerifySshView.swift */; };
 		E88F68B625F8A7A30010F33C /* Sshcopykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68B525F8A7A30010F33C /* Sshcopykey.swift */; };
@@ -39,11 +43,6 @@
 		E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */; };
 		E9245C0B2613146800CBE0BB /* ShortcutActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9245C0A2613146800CBE0BB /* ShortcutActions.swift */; };
 		E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927AAD22616E27300DC27A3 /* QuicktaskView.swift */; };
-		E92B09E8265AA500001593DA /* OpenPanelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B09E3265AA500001593DA /* OpenPanelBuilder.swift */; };
-		E92B09E9265AA500001593DA /* RootcatalogSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B09E4265AA500001593DA /* RootcatalogSequrityscopedURLs.swift */; };
-		E92B09EA265AA500001593DA /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B09E5265AA500001593DA /* BookmarksManager.swift */; };
-		E92B09EB265AA500001593DA /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B09E6265AA500001593DA /* AppendSequrityscopedURLs.swift */; };
-		E92B09EC265AA500001593DA /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B09E7265AA500001593DA /* PermissionManager.swift */; };
 		E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */; };
 		E943B0A925FFC22200A4F30D /* RsyncProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcess.swift */; };
 		E94C2DEC264EC0BF00C0A7E1 /* OneConfigSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */; };
@@ -243,6 +242,10 @@
 		E835457325FE4EBF00A724EE /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		E8518C79263807F200128796 /* WriteScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSON.swift; sourceTree = "<group>"; };
 		E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPLIST.swift; sourceTree = "<group>"; };
+		E874DACE265CC31E00F4CAC6 /* BookmarksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
+		E874DACF265CC31E00F4CAC6 /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
+		E874DAD0265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppendSequrityscopedURLs.swift; sourceTree = "<group>"; };
+		E874DAD1265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootcatalogSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedulePLIST.swift; sourceTree = "<group>"; };
 		E879883425F8B512004D68C2 /* VerifySshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySshView.swift; sourceTree = "<group>"; };
 		E88F68B525F8A7A30010F33C /* Sshcopykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshcopykey.swift; sourceTree = "<group>"; };
@@ -270,11 +273,6 @@
 		E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebareRestoreView.swift; sourceTree = "<group>"; };
 		E9245C0A2613146800CBE0BB /* ShortcutActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutActions.swift; sourceTree = "<group>"; };
 		E927AAD22616E27300DC27A3 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
-		E92B09E3265AA500001593DA /* OpenPanelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenPanelBuilder.swift; sourceTree = "<group>"; };
-		E92B09E4265AA500001593DA /* RootcatalogSequrityscopedURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootcatalogSequrityscopedURLs.swift; sourceTree = "<group>"; };
-		E92B09E5265AA500001593DA /* BookmarksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
-		E92B09E6265AA500001593DA /* AppendSequrityscopedURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppendSequrityscopedURLs.swift; sourceTree = "<group>"; };
-		E92B09E7265AA500001593DA /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteSnapshots.swift; sourceTree = "<group>"; };
 		E943B0A825FFC22200A4F30D /* RsyncProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcess.swift; sourceTree = "<group>"; };
 		E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneConfigSmall.swift; sourceTree = "<group>"; };
@@ -533,11 +531,10 @@
 		E92B09E2265AA500001593DA /* Sandbox */ = {
 			isa = PBXGroup;
 			children = (
-				E92B09E3265AA500001593DA /* OpenPanelBuilder.swift */,
-				E92B09E4265AA500001593DA /* RootcatalogSequrityscopedURLs.swift */,
-				E92B09E5265AA500001593DA /* BookmarksManager.swift */,
-				E92B09E6265AA500001593DA /* AppendSequrityscopedURLs.swift */,
-				E92B09E7265AA500001593DA /* PermissionManager.swift */,
+				E874DAD0265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift */,
+				E874DACE265CC31E00F4CAC6 /* BookmarksManager.swift */,
+				E874DACF265CC31E00F4CAC6 /* PermissionManager.swift */,
+				E874DAD1265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift */,
 			);
 			path = Sandbox;
 			sourceTree = "<group>";
@@ -1314,6 +1311,7 @@
 				E985C78A25F3AD9700CB895C /* OutputFromRsync.swift in Sources */,
 				E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */,
 				E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */,
+				E874DAD5265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift in Sources */,
 				E985C78D25F3AD9700CB895C /* ConfigurationsSwiftUI.swift in Sources */,
 				E985C78625F3AD9700CB895C /* SchedulesSwiftUI.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,
@@ -1367,6 +1365,7 @@
 				E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */,
 				E90B4AA4261DA7580043EFF6 /* GrowingCircleIndicatorView.swift in Sources */,
 				E985C68525F3AD8400CB895C /* SelectConfigurationView.swift in Sources */,
+				E874DAD4265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift in Sources */,
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,
 				E959280426240B8C002631CB /* NewversionPLIST.swift in Sources */,
 				E90B4AA0261DA7580043EFF6 /* ArcsIndicatorView.swift in Sources */,
@@ -1403,6 +1402,7 @@
 				E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */,
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
 				E94C2DEC264EC0BF00C0A7E1 /* OneConfigSmall.swift in Sources */,
+				E874DAD2265CC31E00F4CAC6 /* BookmarksManager.swift in Sources */,
 				E99C2400261C322E009D4DBF /* ObserveableReferenceRestore.swift in Sources */,
 				E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */,
 				E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */,
@@ -1421,7 +1421,6 @@
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
 				E9FBEEAD264EBA7700E5F143 /* ConfigurationsListSmall.swift in Sources */,
 				E90B4A9D261DA7580043EFF6 /* EqualizerIndicatorView.swift in Sources */,
-				E92B09EA265AA500001593DA /* BookmarksManager.swift in Sources */,
 				E985C72A25F3AD9700CB895C /* NamesandPaths.swift in Sources */,
 				E983D2E526417082004621D5 /* BlurView.swift in Sources */,
 				E985C65C25F3AD8400CB895C /* SidebarSingleTasksView.swift in Sources */,
@@ -1432,7 +1431,6 @@
 				E985C68A25F3AD8400CB895C /* ExecuteAlltasksView.swift in Sources */,
 				E90B4AA5261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift in Sources */,
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
-				E92B09EB265AA500001593DA /* AppendSequrityscopedURLs.swift in Sources */,
 				E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */,
 				E985C68325F3AD8400CB895C /* LogRow.swift in Sources */,
 				E985C76425F3AD9700CB895C /* ExecuteSingleTask.swift in Sources */,
@@ -1462,7 +1460,6 @@
 				E985C75925F3AD9700CB895C /* Configuration.swift in Sources */,
 				E985C68C25F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift in Sources */,
 				E985C68825F3AD8400CB895C /* SidebarAddConfigurationsView.swift in Sources */,
-				E92B09E9265AA500001593DA /* RootcatalogSequrityscopedURLs.swift in Sources */,
 				E985C76325F3AD9700CB895C /* SingleTaskState.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
 				E90F7CA726344D5E001D9CA2 /* TextBuilderSeparator.swift in Sources */,
@@ -1472,7 +1469,6 @@
 				E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */,
 				E985C65F25F3AD8400CB895C /* OneConfigUUID.swift in Sources */,
 				E985C73325F3AD9700CB895C /* Environment.swift in Sources */,
-				E92B09EC265AA500001593DA /* PermissionManager.swift in Sources */,
 				E985C66025F3AD8400CB895C /* ParametersList.swift in Sources */,
 				E9168C092615AB8500B139CE /* AddPostandPreView.swift in Sources */,
 				E85E86BA265A66A300219B1C /* ConfigurationPLIST.swift in Sources */,
@@ -1492,8 +1488,8 @@
 				E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */,
 				E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */,
 				E97844DF260DB3D6007874A1 /* ScheduleSortedAndExpand.swift in Sources */,
-				E92B09E8265AA500001593DA /* OpenPanelBuilder.swift in Sources */,
 				E985C77125F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift in Sources */,
+				E874DAD3265CC31E00F4CAC6 /* PermissionManager.swift in Sources */,
 				E9DE981B2657A9D9004868A9 /* ReadSchedulesPLIST.swift in Sources */,
 				E985C79325F3AD9700CB895C /* RsyncOSXViewGetRsyncversion.swift in Sources */,
 				E90F7CA526344D5B001D9CA2 /* TextBuilder.swift in Sources */,
