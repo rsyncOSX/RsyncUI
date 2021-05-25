@@ -8,11 +8,10 @@
 import Foundation
 
 final class EstimationState: ObservableObject {
-    var estimationstate: EstimatetaskWork = .start
+    @Published var estimationstate: EstimatetaskWork = .start
 
     func updatestate(state: EstimatetaskWork) {
         estimationstate = state
-        objectWillChange.send()
     }
 
     deinit {
