@@ -128,6 +128,10 @@ struct SingleTasksView: View {
                 // Execute estimated
                 Button(NSLocalizedString("Execute", comment: "Execute button")) { singletask() }
                     .buttonStyle(PrimaryButtonStyle())
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.red, lineWidth: 5)
+                    )
                     .onDisappear(perform: {
                         completed()
                     })
