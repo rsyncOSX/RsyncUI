@@ -48,6 +48,9 @@
 /* No comment provided by engineer. */
 "Add configuration completed" = "Legge til konfigurasjon fullført";
 
+/* QuicktaskView */
+"Add local as remotecatalog - required" = "Legg til lokal som eksternkatalog - kreves";
+
 /* QuicktaskView
    settings */
 "Add localcatalog - required" = "Legge til lokalkatalog - kreves";
@@ -57,6 +60,9 @@
 
 /* settings */
 "Add pretask" = "Legg til preoppgave";
+
+/* QuicktaskView */
+"Add remote as localcatalog - required" = "Legg til ekstern som lokal katalog - kreves";
 
 /* QuicktaskView
    settings */
@@ -126,6 +132,12 @@
 
 /* sidebar */
 "Configurations" = "Konfigurasjoner";
+
+/* Othersettings */
+"Confirm convert" = "Bekreft konvertering";
+
+/* Othersettings */
+"Convert" = "Konverter";
 
 /* Copy button
    Verify button */
@@ -199,11 +211,10 @@
 /* settings */
 "Enable" = "Aktiver";
 
-/* other settings
-   settings */
+/* Othersettings */
 "Environment" = "Miljø";
 
-/* settings */
+/* Othersettings */
 "Environment variable" = "Miljømessig variabel";
 
 /* Estimate button */
@@ -260,6 +271,9 @@
 
 /* settings */
 "In process in getting data" = "I prosess for å hente data";
+
+/* Othersettings */
+"Info about convert" = "Informasjon om konvertering";
 
 /* italian */
 "Italian translation by: Stefano Steve Cutelle'" = "Italiensk oversettelse av: Stefano Steve Cutelle'";
@@ -417,16 +431,16 @@
    settings */
 "Path for restore" = "Sti for gjenoppretting";
 
-/* settings */
+/* Othersettings */
 "Path to RsyncSchedule" = "Sti til RsyncSchedule";
 
-/* settings */
+/* Othersettings */
 "Path to RsyncUI" = "Sti til RsyncUI";
 
 /* user settings */
 "Paths" = "Stier";
 
-/* ssh settings */
+/* Othersettings */
 "Paths for apps" = "Sti til apper";
 
 /* SnapshotsView */
@@ -434,6 +448,9 @@
 
 /* ScheduleError */
 "Please select a configuration" = "Velg en konfigurasjon";
+
+/* Othersettings */
+"PLIST" = "PLIST";
 
 /* logsview */
 "Pre and post" = "Pre og post oppgave";
@@ -521,7 +538,8 @@
 /* plan */
 "Saturday" = "lørdag";
 
-/* RsyncParametersView
+/* Othersettings
+   RsyncParametersView
    Tag
    usersetting */
 "Save" = "Lagre";
