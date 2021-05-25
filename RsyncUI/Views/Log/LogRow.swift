@@ -25,9 +25,9 @@ struct LogRow: View {
                     .frame(width: 20, alignment: .leading)
             }
             Text(localizeddate)
-                .modifier(FixedTag(150, .leading))
+                .modifier(FixedTag(250, .leading))
             Text(logrecord.resultExecuted ?? "")
-                .modifier(FixedTag(200, .leading))
+                .modifier(FixedTag(300, .leading))
 
             Spacer()
         }

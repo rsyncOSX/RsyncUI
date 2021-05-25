@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // _ = RootcatalogSequrityscopedURLs()
         // Create base profile catalog
         CatalogProfile().createrootprofilecatalog()
-        _ = ReadUserConfigurationPLIST()
+        ReadUserConfigurationPLIST()
         // Create the window and set the content view.
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 950, height: 600),
