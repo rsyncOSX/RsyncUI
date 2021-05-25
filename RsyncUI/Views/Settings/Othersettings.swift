@@ -14,11 +14,12 @@ struct Othersettings: View {
     @Binding var reload: Bool
 
     // Documents about convert
-    var infoaboutconvert: String = "https://rsyncui.netlify.app/post/changelog/"
+    var infoaboutconvert: String = "https://rsyncui.netlify.app/post/plist/"
     @State private var convertisready: Bool = false
     @State private var jsonfileexists: Bool = false
     @State private var convertisconfirmed: Bool = false
     @State private var convertcompleted: Bool = false
+    @State private var backup: Bool = false
 
     var body: some View {
         Form {
@@ -55,6 +56,18 @@ struct Othersettings: View {
                             // Show updated for 1 second
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                 convertcompleted = false
+                            }
+                        })
+                }
+
+                if backup == true {
+                    AlertToast(type: .complete(Color.green),
+                               title: Optional(NSLocalizedString("Saved",
+                                                                 comment: "settings")), subTitle: Optional(""))
+                        .onAppear(perform: {
+                            // Show updated for 1 second
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                backup = false
                             }
                         })
                 }
@@ -183,8 +196,14 @@ struct Othersettings: View {
             ToggleView(NSLocalizedString("Confirm convert", comment: "Othersettings"), $convertisconfirmed)
 
             if convertisconfirmed {
-                Button(NSLocalizedString("Convert", comment: "Othersettings")) { convert() }
-                    .buttonStyle(PrimaryButtonStyle())
+                VStack {
+                    // Backup configuration files
+                    Button(NSLocalizedString("Backup", comment: "usersetting")) { backupuserconfigs() }
+                        .buttonStyle(PrimaryButtonStyle())
+
+                    Button(NSLocalizedString("Convert", comment: "Othersettings")) { convert() }
+                        .buttonStyle(PrimaryButtonStyle())
+                }
             }
         }
     }
@@ -227,6 +246,11 @@ extension Othersettings {
 
     func openinfo() {
         NSWorkspace.shared.open(URL(string: infoaboutconvert)!)
+    }
+
+    func backupuserconfigs() {
+        _ = Backupconfigfiles()
+        backup = true
     }
 }
 
