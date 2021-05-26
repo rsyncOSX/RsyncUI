@@ -187,13 +187,13 @@ struct SingleTasksView: View {
         {
             // real run output
             return OutputRsyncView(isPresented: $presentsheetview,
-                                   output: outputfromrsync.getoutput() ?? [],
-                                   valueselectedrow: $valueselectedrow)
+                                   valueselectedrow: $valueselectedrow,
+                                   output: outputfromrsync.getoutput() ?? [])
         } else {
             // estimated run output
             return OutputRsyncView(isPresented: $presentsheetview,
-                                   output: inprogresscountrsyncoutput.getoutput() ?? [],
-                                   valueselectedrow: $valueselectedrow)
+                                   valueselectedrow: $valueselectedrow,
+                                   output: inprogresscountrsyncoutput.getoutput() ?? [])
         }
     }
 

@@ -165,8 +165,8 @@ struct QuicktaskView: View {
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
-                        output: rsyncoutput?.getoutput() ?? [],
-                        valueselectedrow: $valueselectedrow)
+                        valueselectedrow: $valueselectedrow,
+                        output: rsyncoutput?.getoutput() ?? [])
     }
 }
 

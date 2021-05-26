@@ -10,8 +10,8 @@ import SwiftUI
 struct OutputRsyncView: View {
     // @Binding var config: Configuration?
     @Binding var isPresented: Bool
-    var output: [String]
     @Binding var valueselectedrow: String
+    var output: [String]
 
     @State private var selection: String?
 
