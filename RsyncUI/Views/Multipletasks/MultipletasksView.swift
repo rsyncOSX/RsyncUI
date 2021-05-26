@@ -84,8 +84,8 @@ struct MultipletasksView: View {
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentoutputsheetview) {
                     OutputEstimatedView(isPresented: $presentoutputsheetview,
-                                        estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [],
-                                        selecteduuids: $selecteduuids)
+                                        selecteduuids: $selecteduuids,
+                                        estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
                 }
 
             Button(NSLocalizedString("Delete", comment: "Delete button")) { preparefordelete() }

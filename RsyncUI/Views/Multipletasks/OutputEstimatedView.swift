@@ -11,7 +11,7 @@ struct OutputEstimatedView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var isPresented: Bool
     @Binding var selecteduuids: Set<UUID>
-    
+
     let forestimated = true
     var estimatedlist: [RemoteinfonumbersOnetask]
 

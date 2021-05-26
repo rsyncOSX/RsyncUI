@@ -22,7 +22,6 @@ struct ExecuteEstimatedView: View {
     @State private var executemultipletasks: ExecuteMultipleTasks?
     @State private var selectedconfig: Configuration?
     @State private var presentsheetview = false
-    @State private var executedlist: [RemoteinfonumbersOnetask]?
     @State private var inwork: Int = -1
 
     // Either selectable configlist or not
