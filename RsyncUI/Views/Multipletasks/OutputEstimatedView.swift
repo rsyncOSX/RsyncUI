@@ -11,13 +11,9 @@ struct OutputEstimatedView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
 
     @Binding var isPresented: Bool
-    @Binding var estimatedlist: [RemoteinfonumbersOnetask]?
+    var estimatedlist: [RemoteinfonumbersOnetask]
     @Binding var selecteduuids: Set<UUID>
     let forestimated = true
-
-    var estimatedoutput: [RemoteinfonumbersOnetask] {
-        return estimatedlist ?? []
-    }
 
     var body: some View {
         VStack {
@@ -25,7 +21,7 @@ struct OutputEstimatedView: View {
 
             Section(header: header) {
                 List {
-                    ForEach(estimatedoutput) { estimatedconfiguration in
+                    ForEach(estimatedlist) { estimatedconfiguration in
                         HStack {
                             if selecteduuids.contains(estimatedconfiguration.config!.id) {
                                 Text(Image(systemName: "arrowtriangle.right.fill"))

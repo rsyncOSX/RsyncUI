@@ -27,7 +27,6 @@ struct MultipletasksView: View {
 
     @State private var presentoutputsheetview = false
     @State private var presentestimatedsheetview = false
-    @State private var estimatedlist: [RemoteinfonumbersOnetask]?
     @State private var inwork: Int = -1
     @State private var estimatetask: Estimation?
     // Alert for delete
@@ -85,7 +84,7 @@ struct MultipletasksView: View {
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentoutputsheetview) {
                     OutputEstimatedView(isPresented: $presentoutputsheetview,
-                                        estimatedlist: $estimatedlist,
+                                        estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [],
                                         selecteduuids: $selecteduuids)
                 }
 
@@ -229,14 +228,13 @@ extension MultipletasksView {
     }
 
     func presentoutput() {
-        estimatedlist = inprogresscountmultipletask.getestimatedlist()
         // Reset and prepare
         executedetails.resetcounter()
         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
         if selecteduuids.count == 0 {
-            for i in 0 ..< (estimatedlist?.count ?? 0) {
-                if let id = estimatedlist?[i].config?.id {
-                    if estimatedlist?[i].selected == 1 {
+            for i in 0 ..< (inprogresscountmultipletask.getestimatedlist()?.count ?? 0) {
+                if let id = inprogresscountmultipletask.getestimatedlist()?[i].config?.id {
+                    if inprogresscountmultipletask.getestimatedlist()?[i].selected == 1 {
                         selecteduuids.insert(id)
                     }
                 }
