@@ -21,8 +21,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 // application.registerForRemoteNotifications()
             }
         }
-        // Sandboxed
-        // _ = RootcatalogSequrityscopedURLs()
         // Create base profile catalog
         CatalogProfile().createrootprofilecatalog()
         ReadUserConfigurationPLIST()

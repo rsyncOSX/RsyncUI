@@ -13,7 +13,6 @@ struct ConfigurationsList: View {
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
-    @State private var activeschedules: Int = 0
 
     // Either selectable configlist or not
     var selectable: Bool
