@@ -10,15 +10,11 @@ import SwiftUI
 
 struct DetailedRsyncParametersView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @StateObject var parameters = ObserveableParametersRsync()
+
     @Binding var reload: Bool
     @Binding var showdetails: Bool
     @Binding var selectedconfig: Configuration?
-    @StateObject var parameters = ObserveableParametersRsync()
-    // Not used but requiered in parameter
-    @State private var inwork = -1
-    @State private var selectable = false
-    @State private var selecteduuids = Set<UUID>()
-    // Show updated
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     @State private var presentrsynccommandoview = false
 
@@ -150,9 +146,10 @@ struct DetailedRsyncParametersView: View {
     }
 
     var setsshpath: some View {
-        EditValue(250, NSLocalizedString("Local ssh keypath and identityfile", comment: "RsyncParametersView"), $parameters.sshkeypathandidentityfile.onChange {
-            parameters.inputchangedbyuser = true
-        })
+        EditValue(250, NSLocalizedString("Local ssh keypath and identityfile", comment: "RsyncParametersView"),
+                  $parameters.sshkeypathandidentityfile.onChange {
+                      parameters.inputchangedbyuser = true
+                  })
             .onAppear(perform: {
                 if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
                     parameters.sshkeypathandidentityfile = sshkeypath
