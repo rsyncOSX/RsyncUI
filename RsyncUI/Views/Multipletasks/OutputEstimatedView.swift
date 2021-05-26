@@ -9,11 +9,11 @@ import SwiftUI
 
 struct OutputEstimatedView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
-
     @Binding var isPresented: Bool
-    var estimatedlist: [RemoteinfonumbersOnetask]
     @Binding var selecteduuids: Set<UUID>
+    
     let forestimated = true
+    var estimatedlist: [RemoteinfonumbersOnetask]
 
     var body: some View {
         VStack {
