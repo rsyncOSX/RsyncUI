@@ -12,10 +12,6 @@
 		E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835457325FE4EBF00A724EE /* SearchbarView.swift */; };
 		E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8518C79263807F200128796 /* WriteScheduleJSON.swift */; };
 		E85E86BA265A66A300219B1C /* ConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */; };
-		E874DAD2265CC31E00F4CAC6 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E874DACE265CC31E00F4CAC6 /* BookmarksManager.swift */; };
-		E874DAD3265CC31E00F4CAC6 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E874DACF265CC31E00F4CAC6 /* PermissionManager.swift */; };
-		E874DAD4265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E874DAD0265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift */; };
-		E874DAD5265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E874DAD1265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift */; };
 		E8753A9D265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */; };
 		E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E879883425F8B512004D68C2 /* VerifySshView.swift */; };
 		E88F68B625F8A7A30010F33C /* Sshcopykey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88F68B525F8A7A30010F33C /* Sshcopykey.swift */; };
@@ -242,10 +238,6 @@
 		E835457325FE4EBF00A724EE /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		E8518C79263807F200128796 /* WriteScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSON.swift; sourceTree = "<group>"; };
 		E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPLIST.swift; sourceTree = "<group>"; };
-		E874DACE265CC31E00F4CAC6 /* BookmarksManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
-		E874DACF265CC31E00F4CAC6 /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
-		E874DAD0265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppendSequrityscopedURLs.swift; sourceTree = "<group>"; };
-		E874DAD1265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootcatalogSequrityscopedURLs.swift; sourceTree = "<group>"; };
 		E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedulePLIST.swift; sourceTree = "<group>"; };
 		E879883425F8B512004D68C2 /* VerifySshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySshView.swift; sourceTree = "<group>"; };
 		E88F68B525F8A7A30010F33C /* Sshcopykey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sshcopykey.swift; sourceTree = "<group>"; };
@@ -528,17 +520,6 @@
 			path = Quicktask;
 			sourceTree = "<group>";
 		};
-		E92B09E2265AA500001593DA /* Sandbox */ = {
-			isa = PBXGroup;
-			children = (
-				E874DAD0265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift */,
-				E874DACE265CC31E00F4CAC6 /* BookmarksManager.swift */,
-				E874DACF265CC31E00F4CAC6 /* PermissionManager.swift */,
-				E874DAD1265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift */,
-			);
-			path = Sandbox;
-			sourceTree = "<group>";
-		};
 		E95EDC7D26063C7F000018DE /* RsyncParameters */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,7 +758,6 @@
 		E985C69225F3AD9600CB895C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E92B09E2265AA500001593DA /* Sandbox */,
 				E9CCECD52643AD3A007BE237 /* Newversion */,
 				E985C69325F3AD9600CB895C /* Userconfiguration */,
 				E985C69525F3AD9600CB895C /* FilesAndCatalogs */,
@@ -1311,7 +1291,6 @@
 				E985C78A25F3AD9700CB895C /* OutputFromRsync.swift in Sources */,
 				E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */,
 				E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */,
-				E874DAD5265CC31E00F4CAC6 /* RootcatalogSequrityscopedURLs.swift in Sources */,
 				E985C78D25F3AD9700CB895C /* ConfigurationsSwiftUI.swift in Sources */,
 				E985C78625F3AD9700CB895C /* SchedulesSwiftUI.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,
@@ -1365,7 +1344,6 @@
 				E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */,
 				E90B4AA4261DA7580043EFF6 /* GrowingCircleIndicatorView.swift in Sources */,
 				E985C68525F3AD8400CB895C /* SelectConfigurationView.swift in Sources */,
-				E874DAD4265CC31E00F4CAC6 /* AppendSequrityscopedURLs.swift in Sources */,
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,
 				E959280426240B8C002631CB /* NewversionPLIST.swift in Sources */,
 				E90B4AA0261DA7580043EFF6 /* ArcsIndicatorView.swift in Sources */,
@@ -1402,7 +1380,6 @@
 				E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */,
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
 				E94C2DEC264EC0BF00C0A7E1 /* OneConfigSmall.swift in Sources */,
-				E874DAD2265CC31E00F4CAC6 /* BookmarksManager.swift in Sources */,
 				E99C2400261C322E009D4DBF /* ObserveableReferenceRestore.swift in Sources */,
 				E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */,
 				E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */,
@@ -1489,7 +1466,6 @@
 				E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */,
 				E97844DF260DB3D6007874A1 /* ScheduleSortedAndExpand.swift in Sources */,
 				E985C77125F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift in Sources */,
-				E874DAD3265CC31E00F4CAC6 /* PermissionManager.swift in Sources */,
 				E9DE981B2657A9D9004868A9 /* ReadSchedulesPLIST.swift in Sources */,
 				E985C79325F3AD9700CB895C /* RsyncOSXViewGetRsyncversion.swift in Sources */,
 				E90F7CA526344D5B001D9CA2 /* TextBuilder.swift in Sources */,
