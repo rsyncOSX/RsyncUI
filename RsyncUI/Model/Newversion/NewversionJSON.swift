@@ -8,6 +8,22 @@
 import Combine
 import Foundation
 
+struct Versionrsyncui: Codable {
+    let url: String?
+    let version: String?
+
+    enum CodingKeys: String, CodingKey {
+        case url
+        case version
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        url = try values.decodeIfPresent(String.self, forKey: .url)
+        version = try values.decodeIfPresent(String.self, forKey: .version)
+    }
+}
+
 struct Resource<T: Codable> {
     let request: URLRequest
 }
