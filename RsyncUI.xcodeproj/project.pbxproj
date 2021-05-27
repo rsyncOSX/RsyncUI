@@ -205,7 +205,6 @@
 		E9BD14C12643082100E29347 /* TrimThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14C02643082100E29347 /* TrimThree.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */; };
 		E9C9306C25FEA4230049A76B /* ObserveableReferencePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */; };
-		E9CCECD72643AD7C007BE237 /* Versionrsyncui.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCECD62643AD7C007BE237 /* Versionrsyncui.swift */; };
 		E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */; };
 		E9DE981B2657A9D9004868A9 /* ReadSchedulesPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE981A2657A9D9004868A9 /* ReadSchedulesPLIST.swift */; };
 		E9DE981D2657A9F4004868A9 /* ReadConfigurationsPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE981C2657A9F4004868A9 /* ReadConfigurationsPLIST.swift */; };
@@ -439,7 +438,6 @@
 		E9BD14C02643082100E29347 /* TrimThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimThree.swift; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableReferenceSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableReferenceSSH.swift; sourceTree = "<group>"; };
 		E9C9306B25FEA4230049A76B /* ObserveableReferencePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableReferencePaths.swift; sourceTree = "<group>"; };
-		E9CCECD62643AD7C007BE237 /* Versionrsyncui.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Versionrsyncui.swift; sourceTree = "<group>"; };
 		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
 		E9DE981A2657A9D9004868A9 /* ReadSchedulesPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadSchedulesPLIST.swift; sourceTree = "<group>"; };
 		E9DE981C2657A9F4004868A9 /* ReadConfigurationsPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadConfigurationsPLIST.swift; sourceTree = "<group>"; };
@@ -1100,7 +1098,6 @@
 			children = (
 				E959280326240B8B002631CB /* NewversionPLIST.swift */,
 				E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */,
-				E9CCECD62643AD7C007BE237 /* Versionrsyncui.swift */,
 			);
 			path = Newversion;
 			sourceTree = "<group>";
@@ -1476,7 +1473,6 @@
 				E985C79125F3AD9700CB895C /* ObserveableReference.swift in Sources */,
 				E96F125D26046FCF003AD3A9 /* SchedulesView.swift in Sources */,
 				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,
-				E9CCECD72643AD7C007BE237 /* Versionrsyncui.swift in Sources */,
 				E985C75025F3AD9700CB895C /* DecodeSchedule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
