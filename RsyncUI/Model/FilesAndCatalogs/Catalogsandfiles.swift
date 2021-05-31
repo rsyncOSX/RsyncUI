@@ -62,10 +62,10 @@ class Catalogsandfiles: NamesandPaths {
                 // config path (/.rsyncosx)
                 catalog = SharedReference.shared.configpath
                 root = Folder.home
-                // Sanboxed
+                // Sandboxed
                 // root = Folder.documents
                 // which is inside the Sanbox when the Sanboxed entitlment is set
-                // Sandoxed - remove comment
+                // Sandboxed - remove comment
                 // /*
                 do {
                     try root?.createSubfolder(at: catalog ?? "")
