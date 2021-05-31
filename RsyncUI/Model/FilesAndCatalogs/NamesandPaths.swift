@@ -45,6 +45,7 @@ class NamesandPaths {
         }
     }
 
+    // Used when creating ssh keypath
     var onlysshkeypath: String? {
         if let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile {
             return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).onlysshkeypath
