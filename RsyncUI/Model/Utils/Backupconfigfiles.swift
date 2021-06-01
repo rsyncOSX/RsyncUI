@@ -27,7 +27,7 @@ final class Backupconfigfiles {
                 try originFolder?.copy(to: targetFolder)
             } catch let e {
                 let error = e
-                self.propogateerror(error: error)
+                propogateerror(error: error)
             }
         }
     }

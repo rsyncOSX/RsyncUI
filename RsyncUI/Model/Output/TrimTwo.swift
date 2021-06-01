@@ -54,7 +54,7 @@ final class TrimTwo {
                         if errordiscovered == false {
                             let error = e
                             _ = Logfile(data)
-                            self.propogateerror(error: error)
+                            propogateerror(error: error)
                             errordiscovered = true
                         }
                     }

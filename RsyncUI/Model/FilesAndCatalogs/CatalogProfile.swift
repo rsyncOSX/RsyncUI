@@ -20,7 +20,7 @@ final class CatalogProfile: Catalogsandfiles {
                     return true
                 } catch let e {
                     let error = e
-                    self.propogateerror(error: error)
+                    propogateerror(error: error)
                     return false
                 }
             } catch {
@@ -40,7 +40,7 @@ final class CatalogProfile: Catalogsandfiles {
                     try fileManager.removeItem(atPath: profileDirectory)
                 } catch let e {
                     let error = e as NSError
-                    self.propogateerror(error: error)
+                    propogateerror(error: error)
                 }
             }
         }

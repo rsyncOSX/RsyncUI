@@ -140,7 +140,7 @@ extension ObserveableReference {
             // Default back to default values of rsync
             setdefaultvaulesrsync()
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 
@@ -169,7 +169,7 @@ extension ObserveableReference {
             }
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 
@@ -200,7 +200,7 @@ extension ObserveableReference {
             }
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 }

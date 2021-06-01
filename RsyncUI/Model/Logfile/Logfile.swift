@@ -10,6 +10,26 @@
 import Files
 import Foundation
 
+enum Result<Value, Error: Swift.Error> {
+    case success(Value)
+    case failure(Error)
+}
+
+// typealias HandlerRsyncOSX = (Result<Data, RsyncOSXTypeErrors>) -> Void
+// typealias Handler = (Result<Data, Error>) -> Void
+typealias HandlerNSNumber = (Result<NSNumber, Error>) throws -> Void
+
+extension Result {
+    func get() throws -> Value {
+        switch self {
+        case let .success(value):
+            return value
+        case let .failure(error):
+            throw error
+        }
+    }
+}
+
 enum FilesizeError: LocalizedError {
     case toobig
 
@@ -36,22 +56,75 @@ final class Logfile: NamesandPaths {
                 let file = try folder.createFile(named: SharedReference.shared.logname)
                 if let data = logfile {
                     try file.write(data)
-                    do {
-                        let filesize = try self.filesize()
-                        do {
-                            try reportfilesize(filesize)
-                        } catch let e {
-                            let error = e
-                            self.propogateerror(error: error)
+                    filesize { [weak self] result in
+                        switch result {
+                        case let .success(size):
+                            if Int(truncating: size) > SharedReference.shared.logfilesize {
+                                let size = Int(truncating: size)
+                                if size > SharedReference.shared.logfilesize {
+                                    throw FilesizeError.toobig
+                                }
+                            }
+                            return
+                        case let .failure(error):
+                            self?.propogateerror(error: error)
                         }
-                    } catch let e {
-                        let error = e
-                        self.propogateerror(error: error)
                     }
                 }
             } catch let e {
                 let error = e
-                self.propogateerror(error: error)
+                propogateerror(error: error)
+            }
+        }
+    }
+
+    //  typealias HandlerNSNumber = (Result<NSNumber, Error>) -> Void
+    func filesize(then handler: @escaping HandlerNSNumber) {
+        if var atpath = fullpathmacserial {
+            do {
+                // check if file exists befor reading, if not bail out
+                let fileexists = try Folder(path: atpath).containsFile(named: SharedReference.shared.logname)
+                atpath += "/" + SharedReference.shared.logname
+                if fileexists {
+                    do {
+                        // Return filesize
+                        let file = try File(path: atpath).url
+                        if let filesize = try FileManager.default.attributesOfItem(atPath: file.path)[FileAttributeKey.size] as? NSNumber {
+                            try handler(.success(filesize))
+                        }
+                    } catch {
+                        try handler(.failure(error))
+                    }
+                }
+            } catch {
+                // try handler(.failure(error))
+            }
+        }
+    }
+
+    func writeloggfile2() {
+        if let atpath = fullpathmacserial {
+            do {
+                let folder = try Folder(path: atpath)
+                let file = try folder.createFile(named: SharedReference.shared.logname)
+                if let data = logfile {
+                    try file.write(data)
+                    do {
+                        let filesize = try filesize2()
+                        do {
+                            try reportfilesize(filesize)
+                        } catch let e {
+                            let error = e
+                            propogateerror(error: error)
+                        }
+                    } catch let e {
+                        let error = e
+                        propogateerror(error: error)
+                    }
+                }
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
             }
         }
     }
@@ -59,12 +132,11 @@ final class Logfile: NamesandPaths {
     func reportfilesize(_ filesize: NSNumber?) throws {
         let size = Int(truncating: filesize ?? 0)
         if size > SharedReference.shared.logfilesize {
-            print("throwing filesize")
             throw FilesizeError.toobig
         }
     }
 
-    func filesize() throws -> NSNumber {
+    func filesize2() throws -> NSNumber {
         if var atpath = fullpathmacserial {
             do {
                 do {
@@ -72,7 +144,7 @@ final class Logfile: NamesandPaths {
                     }
                 } catch let e {
                     let error = e
-                    self.propogateerror(error: error)
+                    propogateerror(error: error)
                 }
                 atpath += "/" + SharedReference.shared.logname
                 let file = try File(path: atpath).url
@@ -94,7 +166,7 @@ final class Logfile: NamesandPaths {
                 logfile = try file.readAsString()
             } catch let e {
                 let error = e
-                self.propogateerror(error: error)
+                propogateerror(error: error)
             }
         }
     }
