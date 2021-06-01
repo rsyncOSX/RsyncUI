@@ -49,8 +49,7 @@ class ReadScheduleJSON: NamesandPaths {
                     // Validate that the hidden ID is OK,
                     // schedule != Scheduletype.stopped.rawValue, logs count > 0
                     if validhiddenID.contains(schedule.hiddenID),
-                       schedule.schedule != Scheduletype.stopped.rawValue,
-                       (schedule.logrecords?.count ?? 0) > 0
+                       schedule.schedule != Scheduletype.stopped.rawValue
                     {
                         schedules.append(schedule)
                     }
