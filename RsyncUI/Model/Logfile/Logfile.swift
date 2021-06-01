@@ -59,7 +59,7 @@ final class Logfile: NamesandPaths {
                     filesize { [weak self] result in
                         switch result {
                         case let .success(size):
-                            if Int(truncating: size) < SharedReference.shared.logfilesize {
+                            if Int(truncating: size) > SharedReference.shared.logfilesize {
                                 let size = Int(truncating: size)
                                 if size > SharedReference.shared.logfilesize {
                                     throw FilesizeError.toobig
