@@ -143,9 +143,10 @@ struct Othersettings: View {
     }
 
     var setenvironment: some View {
-        EditValue(250, NSLocalizedString("Environment", comment: "Othersettings"), $usersettings.environment.onChange {
-            usersettings.inputchangedbyuser = true
-        })
+        EditValue(250, NSLocalizedString("Environment", comment: "Othersettings"),
+                  $usersettings.environment.onChange {
+                      usersettings.inputchangedbyuser = true
+                  })
             .onAppear(perform: {
                 if let environment = SharedReference.shared.environment {
                     usersettings.environment = environment
@@ -166,9 +167,10 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncui: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "Othersettings"), $usersettings.pathrsyncui.onChange {
-            usersettings.inputchangedbyuser = true
-        })
+        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "Othersettings"),
+                  $usersettings.pathrsyncui.onChange {
+                      usersettings.inputchangedbyuser = true
+                  })
             .onAppear(perform: {
                 if let pathrsyncui = SharedReference.shared.pathrsyncui {
                     usersettings.pathrsyncui = pathrsyncui

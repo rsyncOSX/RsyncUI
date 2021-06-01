@@ -31,7 +31,7 @@ final class UpdateSchedules {
             return true
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
         return false
     }

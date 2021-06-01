@@ -70,7 +70,7 @@ final class OtherProcess {
             try task.run()
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 

@@ -119,7 +119,7 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
             if ok { return }
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 

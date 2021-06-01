@@ -84,7 +84,7 @@ extension ObserveableReferenceRestore {
             if ok { getfilelist(config) }
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 
@@ -107,7 +107,7 @@ extension ObserveableReferenceRestore {
             }
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 
@@ -170,7 +170,7 @@ extension ObserveableReferenceRestore {
             }
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 

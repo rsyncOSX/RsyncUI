@@ -29,7 +29,7 @@ final class RsyncProcess {
                 try statusDidChange()
             } catch let e {
                 let error = e
-                self.propogateerror(error: error)
+                propogateerror(error: error)
             }
         }
     }
@@ -96,7 +96,7 @@ final class RsyncProcess {
             try task.run()
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 

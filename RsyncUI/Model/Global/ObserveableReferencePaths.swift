@@ -71,7 +71,7 @@ extension ObserveableReferencePaths {
             }
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 
@@ -92,7 +92,7 @@ extension ObserveableReferencePaths {
             }
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
     }
 

@@ -29,7 +29,7 @@ final class Running {
             return false
         } catch let e {
             let error = e
-            self.propogateerror(error: error)
+            propogateerror(error: error)
         }
         return true
     }
