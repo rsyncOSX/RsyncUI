@@ -229,14 +229,6 @@ extension SingleTasksView {
     }
 
     func presentoutput() {
-        /*
-         // Output from realrun
-         output = outputfromrsync.getoutput()
-         // Output from estimation run
-         if output == nil {
-             output = inprogresscountrsyncoutput.getoutput()
-         }
-         */
         presentsheetview = true
     }
 

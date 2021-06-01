@@ -24,16 +24,10 @@ struct RsyncCommandView: View {
         headingtitle
 
         VStack {
-            Picker(NSLocalizedString("Command", comment: "CommandTab") + ":",
-                   selection: $selectedrsynccommand) {
-                ForEach(RsyncCommand.allCases) { Text($0.description)
-                    .tag($0)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .frame(width: 300)
+            pickerselectcommand
 
-            command
+            showcommand
+
             parameterlist
 
             Spacer()
@@ -52,13 +46,24 @@ struct RsyncCommandView: View {
         .padding()
     }
 
+    var pickerselectcommand: some View {
+        Picker(NSLocalizedString("Command", comment: "CommandTab") + ":",
+               selection: $selectedrsynccommand) {
+            ForEach(RsyncCommand.allCases) { Text($0.description)
+                .tag($0)
+            }
+        }
+        .pickerStyle(SegmentedPickerStyle())
+        .frame(width: 300)
+    }
+
     var headingtitle: some View {
         Text(NSLocalizedString("Rsync command and parameters", comment: "RsyncCommandView"))
             .font(.title2)
             .padding()
     }
 
-    var command: some View {
+    var showcommand: some View {
         Text(commandstring ?? "")
             .padding()
             .border(Color.gray)
