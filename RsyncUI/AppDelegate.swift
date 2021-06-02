@@ -24,6 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Create base profile catalog
         CatalogProfile().createrootprofilecatalog()
         ReadUserConfigurationPLIST()
+        Running()
         // Create the window and set the content view.
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 950, height: 600),
