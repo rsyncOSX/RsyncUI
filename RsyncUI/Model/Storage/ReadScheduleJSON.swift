@@ -70,3 +70,7 @@ class ReadScheduleJSON: NamesandPaths {
         }
     }
 }
+
+/*
+  TODO : fix not to read schedules schedule == Scheduletype.stopped.rawValue, logs count == 0
+ */
