@@ -60,7 +60,7 @@ struct AddConfigurationView: View {
 
                     VStack(alignment: .leading) {
                         ConfigurationsListSmall(selectedconfig: $newdata.selectedconfig.onChange {
-                            updateview()
+                            updateviewwithselecteddata()
                         })
                     }
 
@@ -97,12 +97,17 @@ struct AddConfigurationView: View {
                 Button(NSLocalizedString("Add", comment: "Add button")) { addconfig() }
                     .buttonStyle(PrimaryButtonStyle())
             } else {
-                Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.red, lineWidth: 5)
-                    )
+                if newdata.inputchangedbyuser == true {
+                    Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
+                        .buttonStyle(PrimaryButtonStyle())
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.red, lineWidth: 5)
+                        )
+                } else {
+                    Button(NSLocalizedString("Update", comment: "Update button")) {}
+                        .buttonStyle(PrimaryButtonStyle())
+                }
             }
         }
     }
@@ -128,7 +133,9 @@ struct AddConfigurationView: View {
         Section(header: headerlocalremote) {
             // localcatalog
             if newdata.selectedconfig == nil { setlocalcatalog } else {
-                EditValue(250, nil, $newdata.localcatalog)
+                EditValue(250, nil, $newdata.localcatalog.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
                         if let catalog = newdata.selectedconfig?.localCatalog {
                             newdata.localcatalog = catalog
@@ -137,7 +144,9 @@ struct AddConfigurationView: View {
             }
             // remotecatalog
             if newdata.selectedconfig == nil { setremotecatalog } else {
-                EditValue(250, nil, $newdata.remotecatalog)
+                EditValue(250, nil, $newdata.remotecatalog.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
                         if let catalog = newdata.selectedconfig?.offsiteCatalog {
                             newdata.remotecatalog = catalog
@@ -190,7 +199,9 @@ struct AddConfigurationView: View {
         Section(header: headerID) {
             // Synchronize ID
             if newdata.selectedconfig == nil { setID } else {
-                EditValue(250, nil, $newdata.backupID)
+                EditValue(250, nil, $newdata.backupID.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
                         if let id = newdata.selectedconfig?.backupID {
                             newdata.backupID = id
@@ -219,7 +230,9 @@ struct AddConfigurationView: View {
         Section(header: headerremote) {
             // Remote user
             if newdata.selectedconfig == nil { setremoteuser } else {
-                EditValue(250, nil, $newdata.remoteuser)
+                EditValue(250, nil, $newdata.remoteuser.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
                         if let user = newdata.selectedconfig?.offsiteUsername {
                             newdata.remoteuser = user
@@ -228,7 +241,9 @@ struct AddConfigurationView: View {
             }
             // Remote server
             if newdata.selectedconfig == nil { setremoteserver } else {
-                EditValue(250, nil, $newdata.remoteserver)
+                EditValue(250, nil, $newdata.remoteserver.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
                         if let server = newdata.selectedconfig?.offsiteServer {
                             newdata.remoteserver = server
@@ -307,20 +322,8 @@ extension AddConfigurationView {
         newdata.addconfig(profile, configurations)
         reload = newdata.reload
         if newdata.added == true {
-            // Show added for 1 second
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 newdata.added = false
-            }
-        }
-    }
-
-    func updateconfig() {
-        newdata.updateconfig(profile, configurations)
-        reload = newdata.reload
-        if newdata.updated == true {
-            // Show updated for 1 second
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.updated = false
             }
         }
     }
@@ -355,13 +358,20 @@ extension AddConfigurationView {
         }
     }
 
-    func updateview() {
-        newdata.updateview()
+    func updateviewwithselecteddata() {
+        if newdata.selectedconfig == nil {
+            newdata.inputchangedbyuser = false
+        }
     }
 
     func validateandupdate() {
         newdata.validateandupdate(profile, configurations)
         reload = newdata.reload
+        if newdata.updated == true {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                newdata.updated = false
+            }
+        }
     }
 }
 
