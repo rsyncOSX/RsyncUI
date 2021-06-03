@@ -8,10 +8,18 @@
 import Combine
 import Foundation
 
-final class ObserveableReferenceAddConfigurations: ObservableObject {
-    private var localconfigurations: [Configuration]?
-    private var localeprofile: String?
+enum CannotUpdateSnaphotsError: LocalizedError {
+    case cannotupdate
 
+    var errorDescription: String? {
+        switch self {
+        case .cannotupdate:
+            return NSLocalizedString("Snapshot tasks cannot be updated", comment: "cannot") + "..."
+        }
+    }
+}
+
+final class ObserveableReferenceAddConfigurations: ObservableObject {
     @Published var localcatalog: String = ""
     @Published var remotecatalog: String = ""
     @Published var donotaddtrailingslash: Bool = false
@@ -31,6 +39,7 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
     @Published var created: Bool = false
     @Published var reload: Bool = false
     @Published var confirmdeleteselectedprofile: Bool = false
+    @Published var showAlertfordelete: Bool = false
 
     @Published var inputchangedbyuser: Bool = false
     @Published var isDirty: Bool = false
@@ -108,9 +117,21 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
                 print(confirmdeleteselectedprofile)
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
+        $showAlertfordelete
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] showAlertfordelete in
+                print(showAlertfordelete)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $selectedconfig
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] selectedconfig in
+                print(selectedconfig)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
     }
 
-    func addconfig() {
+    func addconfig(_ profile: String?, _ configurations: [Configuration]?) {
         let getdata = AppendConfig(selectedrsynccommand.rawValue,
                                    localcatalog,
                                    remotecatalog,
@@ -127,8 +148,8 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
-                UpdateConfigurations(profile: localeprofile,
-                                     configurations: localconfigurations)
+                UpdateConfigurations(profile: profile,
+                                     configurations: configurations)
             if updateconfigurations.addconfiguration(newconfig) == true {
                 reload = true
                 added = true
@@ -143,7 +164,7 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
         }
     }
 
-    func updateconfig() {
+    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
         let updateddata = AppendConfig(selectedrsynccommand.rawValue,
                                        localcatalog,
                                        remotecatalog,
@@ -160,8 +181,8 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
                                        selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
-                UpdateConfigurations(profile: localeprofile,
-                                     configurations: localconfigurations)
+                UpdateConfigurations(profile: profile,
+                                     configurations: configurations)
             updateconfiguration.updateconfiguration(updatedconfig, false)
             reload = true
             updated = true
@@ -203,9 +224,9 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
          */
     }
 
-    func deleteprofile() {
+    func deleteprofile(_ profile: String?) {
         guard confirmdeleteselectedprofile == true else { return }
-        if let profile = localeprofile {
+        if let profile = profile {
             guard profile != NSLocalizedString("Default profile", comment: "default profile") else {
                 deletedefaultprofile = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
@@ -230,12 +251,12 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
         }
     }
 
-    func validateandupdate() {
+    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) {
         // Validate not a snapshot task
         do {
             let validated = try validatenotsnapshottask()
             if validated {
-                updateconfig()
+                updateconfig(profile, configurations)
             }
         } catch let e {
             let error = e
