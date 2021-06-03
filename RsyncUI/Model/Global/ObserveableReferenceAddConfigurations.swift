@@ -38,10 +38,7 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
-    init(profile: String?, configurations: [Configuration]?) {
-        localconfigurations = configurations
-        localeprofile = profile
-
+    init() {
         $inputchangedbyuser
             .sink { _ in
             }.store(in: &subscriptions)
@@ -49,6 +46,66 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] donotaddtrailingslash in
                 print(donotaddtrailingslash)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $localcatalog
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] donotaddtrailingslash in
+                print(donotaddtrailingslash)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $remotecatalog
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] localcatalog in
+                print(localcatalog)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $remoteuser
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] remoteuser in
+                print(remoteuser)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $remoteserver
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] remoteserver in
+                print(remoteserver)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $backupID
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] backupID in
+                print(backupID)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $selectedrsynccommand
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] selectedrsynccommand in
+                print(selectedrsynccommand)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $newprofile
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] donotaddtrailingslash in
+                print(donotaddtrailingslash)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $selectedprofile
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] newprofile in
+                print(newprofile)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $deletedefaultprofile
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] deletedefaultprofile in
+                print(deletedefaultprofile)
+                isDirty = inputchangedbyuser
+            }.store(in: &subscriptions)
+        $confirmdeleteselectedprofile
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { [unowned self] confirmdeleteselectedprofile in
+                print(confirmdeleteselectedprofile)
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
     }
@@ -75,11 +132,13 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
             if updateconfigurations.addconfiguration(newconfig) == true {
                 reload = true
                 added = true
-                // Show added for 1 second
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-                    added = false
-                    resetform()
-                }
+                /*
+                 // Show added for 1 second
+                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                     added = false
+                     resetform()
+                 }
+                 */
             }
         }
     }
@@ -106,11 +165,13 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
             updateconfiguration.updateconfiguration(updatedconfig, false)
             reload = true
             updated = true
-            // Show updated for 1 second
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-                self.updated = false
-                resetform()
-            }
+            /*
+             // Show updated for 1 second
+             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                 self.updated = false
+                 resetform()
+             }
+             */
         }
     }
 
@@ -133,11 +194,13 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
         selectedprofile = newprofile
         created = true
         newprofile = ""
-        // profilenames.update()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-            self.created = false
-            resetform()
-        }
+        /*
+         // profilenames.update()
+         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+             created = false
+             resetform()
+         }
+         */
     }
 
     func deleteprofile() {
@@ -153,10 +216,12 @@ final class ObserveableReferenceAddConfigurations: ObservableObject {
             CatalogProfile().deleteprofilecatalog(profileName: profile)
             selectedprofile = nil
             deleted = true
-            // profilenames.update()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-                deleted = false
-            }
+            /*
+             profilenames.update()
+             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                 deleted = false
+             }
+              */
         } else {
             deletedefaultprofile = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in

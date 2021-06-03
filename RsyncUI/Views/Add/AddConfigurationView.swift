@@ -41,15 +41,17 @@ struct AddConfigurationView: View {
 
     @Binding var selectedprofile: String?
 
-    @State private var localcatalog: String = ""
-    @State private var remotecatalog: String = ""
-    @State private var selectedrsynccommand = TypeofTask.synchronize
-    @State private var donotaddtrailingslash: Bool = false
+    @StateObject var newdata = ObserveableReferenceAddConfigurations()
+    /*
+     @State private var localcatalog: String = ""
+     @State private var remotecatalog: String = ""
+     @State private var selectedrsynccommand = TypeofTask.synchronize
+     @State private var donotaddtrailingslash: Bool = false
 
-    @State private var remoteuser: String = ""
-    @State private var remoteserver: String = ""
-    @State private var backupID: String = ""
-
+     @State private var remoteuser: String = ""
+     @State private var remoteserver: String = ""
+     @State private var backupID: String = ""
+     */
     // Sheet for selecting configuration if edit
     @State private var selectedconfig: Configuration?
     // Set reload = true after update
@@ -86,7 +88,7 @@ struct AddConfigurationView: View {
 
                     // Column 2
                     VStack(alignment: .leading) {
-                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $newdata.donotaddtrailingslash)
 
                         adddeleteprofile
                     }
@@ -144,11 +146,13 @@ struct AddConfigurationView: View {
 
     // Add and edit text values
     var setlocalcatalog: some View {
-        EditValue(250, NSLocalizedString("Add localcatalog - required", comment: "settings"), $localcatalog)
+        EditValue(250, NSLocalizedString("Add localcatalog - required", comment: "settings"),
+                  $newdata.localcatalog)
     }
 
     var setremotecatalog: some View {
-        EditValue(250, NSLocalizedString("Add remotecatalog - required", comment: "settings"), $remotecatalog)
+        EditValue(250, NSLocalizedString("Add remotecatalog - required", comment: "settings"),
+                  $newdata.remotecatalog)
     }
 
     // Headers (in sections)
@@ -161,19 +165,19 @@ struct AddConfigurationView: View {
         Section(header: headerlocalremote) {
             // localcatalog
             if selectedconfig == nil { setlocalcatalog } else {
-                EditValue(250, nil, $localcatalog)
+                EditValue(250, nil, $newdata.localcatalog)
                     .onAppear(perform: {
                         if let catalog = selectedconfig?.localCatalog {
-                            localcatalog = catalog
+                            newdata.localcatalog = catalog
                         }
                     })
             }
             // remotecatalog
             if selectedconfig == nil { setremotecatalog } else {
-                EditValue(250, nil, $remotecatalog)
+                EditValue(250, nil, $newdata.remotecatalog)
                     .onAppear(perform: {
                         if let catalog = selectedconfig?.offsiteCatalog {
-                            remotecatalog = catalog
+                            newdata.remotecatalog = catalog
                         }
                     })
             }
@@ -209,7 +213,8 @@ struct AddConfigurationView: View {
     }
 
     var setID: some View {
-        EditValue(250, NSLocalizedString("Add synchronize ID", comment: "settings"), $backupID)
+        EditValue(250, NSLocalizedString("Add synchronize ID", comment: "settings"),
+                  $newdata.backupID)
     }
 
     var headerID: some View {
@@ -221,10 +226,10 @@ struct AddConfigurationView: View {
         Section(header: headerID) {
             // Synchronize ID
             if selectedconfig == nil { setID } else {
-                EditValue(250, nil, $backupID)
+                EditValue(250, nil, $newdata.backupID)
                     .onAppear(perform: {
                         if let id = selectedconfig?.backupID {
-                            backupID = id
+                            newdata.backupID = id
                         }
                     })
             }
@@ -232,11 +237,13 @@ struct AddConfigurationView: View {
     }
 
     var setremoteuser: some View {
-        EditValue(250, NSLocalizedString("Add remote user", comment: "settings"), $remoteuser)
+        EditValue(250, NSLocalizedString("Add remote user", comment: "settings"),
+                  $newdata.remoteuser)
     }
 
     var setremoteserver: some View {
-        EditValue(250, NSLocalizedString("Add remote server", comment: "settings"), $remoteserver)
+        EditValue(250, NSLocalizedString("Add remote server", comment: "settings"),
+                  $newdata.remoteserver)
     }
 
     var headerremote: some View {
@@ -248,19 +255,19 @@ struct AddConfigurationView: View {
         Section(header: headerremote) {
             // Remote user
             if selectedconfig == nil { setremoteuser } else {
-                EditValue(250, nil, $remoteuser)
+                EditValue(250, nil, $newdata.remoteuser)
                     .onAppear(perform: {
                         if let user = selectedconfig?.offsiteUsername {
-                            remoteuser = user
+                            newdata.remoteuser = user
                         }
                     })
             }
             // Remote server
             if selectedconfig == nil { setremoteserver } else {
-                EditValue(250, nil, $remoteserver)
+                EditValue(250, nil, $newdata.remoteserver)
                     .onAppear(perform: {
                         if let server = selectedconfig?.offsiteServer {
-                            remoteserver = server
+                            newdata.remoteserver = server
                         }
                     })
             }
@@ -282,12 +289,12 @@ struct AddConfigurationView: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("Task", comment: "AddConfigurationsView") + ":",
-               selection: $selectedrsynccommand) {
+               selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description)
                 .tag($0)
             }
             .onChange(of: selectedconfig, perform: { _ in
-                selectedrsynccommand = selectpickervalue
+                newdata.selectedrsynccommand = selectpickervalue
             })
         }
         .pickerStyle(DefaultPickerStyle())
@@ -321,163 +328,68 @@ struct AddConfigurationView: View {
     var cannotdeletedefaultprofile: some View {
         AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("Cannot delete default profile", comment: "settings")), subTitle: Optional(""))
     }
+
+    var profile: String? {
+        return rsyncUIData.profile
+    }
+
+    var configurations: [Configuration]? {
+        return rsyncUIData.rsyncdata?.configurationData.getallconfigurations()
+    }
 }
 
 extension AddConfigurationView {
     func addconfig() {
-        let getdata = AppendConfig(selectedrsynccommand.rawValue,
-                                   localcatalog,
-                                   remotecatalog,
-                                   donotaddtrailingslash,
-                                   remoteuser,
-                                   remoteserver,
-                                   backupID,
-                                   // add post and pretask in it own view, set nil here
-                                   nil,
-                                   nil,
-                                   nil,
-                                   nil,
-                                   nil)
-        // If newconfig is verified add it
-        if let newconfig = VerifyConfiguration().verify(getdata) {
-            let updateconfigurations =
-                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
-                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
-            if updateconfigurations.addconfiguration(newconfig) == true {
-                reload = true
-                added = true
-                // Show added for 1 second
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    added = false
-                    resetform()
-                }
+        newdata.addconfig()
+        if added == true {
+            // Show added for 1 second
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                added = false
             }
         }
     }
 
     func updateconfig() {
-        let updateddata = AppendConfig(selectedrsynccommand.rawValue,
-                                       localcatalog,
-                                       remotecatalog,
-                                       donotaddtrailingslash,
-                                       remoteuser,
-                                       remoteserver,
-                                       backupID,
-                                       // add post and pretask in it own view, set nil here
-                                       nil,
-                                       nil,
-                                       nil,
-                                       nil,
-                                       nil,
-                                       selectedconfig?.hiddenID ?? -1)
-        if let updatedconfig = VerifyConfiguration().verify(updateddata) {
-            let updateconfiguration =
-                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
-                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
-            updateconfiguration.updateconfiguration(updatedconfig, false)
-            reload = true
-            updated = true
+        newdata.updateconfig()
+        if updated == true {
             // Show updated for 1 second
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 updated = false
-                resetform()
             }
         }
     }
 
-    func resetform() {
-        localcatalog = ""
-        remotecatalog = ""
-        donotaddtrailingslash = false
-        remoteuser = ""
-        remoteserver = ""
-        backupID = ""
-        selectedconfig = nil
-    }
-
     func createprofile() {
-        guard newprofile.isEmpty == false else { return }
-        let catalogprofile = CatalogProfile()
-        let existingprofiles = catalogprofile.getcatalogsasstringnames()
-        guard existingprofiles?.contains(newprofile) == false else { return }
-        _ = catalogprofile.createprofilecatalog(profile: newprofile)
-        selectedprofile = newprofile
-        created = true
-        newprofile = ""
+        newdata.createprofile()
         profilenames.update()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            created = false
-            resetform()
+        if created == true {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                created = false
+            }
         }
     }
 
     func deleteprofile() {
-        guard confirmdeleteselectedprofile == true else { return }
-        if let profile = rsyncUIData.profile {
-            guard profile != NSLocalizedString("Default profile", comment: "default profile") else {
-                deletedefaultprofile = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    deletedefaultprofile = false
-                }
-                return
-            }
-            CatalogProfile().deleteprofilecatalog(profileName: profile)
-            selectedprofile = nil
-            deleted = true
+        newdata.deleteprofile()
+        if deleted == true {
             profilenames.update()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 deleted = false
             }
-        } else {
-            deletedefaultprofile = true
+        }
+        if deletedefaultprofile == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 deletedefaultprofile = false
             }
         }
     }
 
-    func validateandupdate() {
-        // Validate not a snapshot task
-        do {
-            let validated = try validatenotsnapshottask()
-            if validated {
-                updateconfig()
-            }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-        }
-    }
-
     func updateview() {
-        if let config = selectedconfig {
-            localcatalog = config.localCatalog
-            remotecatalog = config.offsiteCatalog
-            remoteuser = config.offsiteUsername
-            remoteserver = config.offsiteServer
-            backupID = config.backupID
-        } else {
-            localcatalog = ""
-            remotecatalog = ""
-            remoteuser = ""
-            remoteserver = ""
-            backupID = ""
-        }
+        newdata.updateview()
     }
 
-    private func validatenotsnapshottask() throws -> Bool {
-        if let config = selectedconfig {
-            if config.task == SharedReference.shared.snapshot {
-                throw CannotUpdateSnaphotsError.cannotupdate
-            } else {
-                return true
-            }
-        }
-        return false
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
+    func validateandupdate() {
+        newdata.validateandupdate()
     }
 }
 
