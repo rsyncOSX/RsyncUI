@@ -23,7 +23,7 @@ struct SidebarSingleTasksView: View {
 
     var headingtitle: some View {
         HStack {
-            ImageRsync()
+            imagerssync
 
             VStack(alignment: .leading) {
                 Text(NSLocalizedString("Single task", comment: "Execute tasks"))
@@ -33,5 +33,13 @@ struct SidebarSingleTasksView: View {
 
             Spacer()
         }
+    }
+
+    var imagerssync: some View {
+        Image("rsync")
+            .resizable()
+            .aspectRatio(1.0, contentMode: .fit)
+            .frame(maxWidth: 48)
+            .padding(.bottom, 10)
     }
 }

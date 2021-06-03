@@ -82,8 +82,6 @@
 		E985C66A25F3AD8400CB895C /* SnapshotRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62725F3AD8400CB895C /* SnapshotRow.swift */; };
 		E985C66B25F3AD8400CB895C /* SnapshotListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62825F3AD8400CB895C /* SnapshotListView.swift */; };
 		E985C66C25F3AD8400CB895C /* SnapshotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62925F3AD8400CB895C /* SnapshotsView.swift */; };
-		E985C66E25F3AD8400CB895C /* ImageRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62C25F3AD8400CB895C /* ImageRsync.swift */; };
-		E985C67925F3AD8400CB895C /* ImageRsyncOSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63725F3AD8400CB895C /* ImageRsyncOSX.swift */; };
 		E985C67A25F3AD8400CB895C /* RsyncCommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63925F3AD8400CB895C /* RsyncCommandView.swift */; };
 		E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63B25F3AD8400CB895C /* AboutView.swift */; };
 		E985C67C25F3AD8400CB895C /* SchedulesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63D25F3AD8400CB895C /* SchedulesList.swift */; };
@@ -312,8 +310,6 @@
 		E985C62725F3AD8400CB895C /* SnapshotRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotRow.swift; sourceTree = "<group>"; };
 		E985C62825F3AD8400CB895C /* SnapshotListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotListView.swift; sourceTree = "<group>"; };
 		E985C62925F3AD8400CB895C /* SnapshotsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotsView.swift; sourceTree = "<group>"; };
-		E985C62C25F3AD8400CB895C /* ImageRsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRsync.swift; sourceTree = "<group>"; };
-		E985C63725F3AD8400CB895C /* ImageRsyncOSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRsyncOSX.swift; sourceTree = "<group>"; };
 		E985C63925F3AD8400CB895C /* RsyncCommandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncCommandView.swift; sourceTree = "<group>"; };
 		E985C63B25F3AD8400CB895C /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		E985C63D25F3AD8400CB895C /* SchedulesList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesList.swift; sourceTree = "<group>"; };
@@ -619,7 +615,6 @@
 				E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */,
 				E95EDC7826063118000018DE /* SidebarRsyncParameter.swift */,
 				E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */,
-				E985C63725F3AD8400CB895C /* ImageRsyncOSX.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -675,7 +670,6 @@
 		E985C62325F3AD8400CB895C /* Singletask */ = {
 			isa = PBXGroup;
 			children = (
-				E985C62C25F3AD8400CB895C /* ImageRsync.swift */,
 				E985C62425F3AD8400CB895C /* OutputRsyncView.swift */,
 				E985C62525F3AD8400CB895C /* SingleTasksView.swift */,
 			);
@@ -1304,7 +1298,6 @@
 				E983D2E626417082004621D5 /* AlertToast.swift in Sources */,
 				E985C65A25F3AD8400CB895C /* Sidebar.swift in Sources */,
 				E985C78325F3AD9700CB895C /* Equal.swift in Sources */,
-				E985C67925F3AD8400CB895C /* ImageRsyncOSX.swift in Sources */,
 				E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */,
 				E985C74925F3AD9700CB895C /* Validatenewconfigs.swift in Sources */,
 				E985C77C25F3AD9700CB895C /* RestorefilesArguments.swift in Sources */,
@@ -1336,7 +1329,6 @@
 				E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */,
 				E9C9306725FEA1CF0049A76B /* ObservableReferenceSSH.swift in Sources */,
 				E985C74625F3AD9700CB895C /* Numbers.swift in Sources */,
-				E985C66E25F3AD8400CB895C /* ImageRsync.swift in Sources */,
 				E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */,
 				E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */,
 				E90B4AA4261DA7580043EFF6 /* GrowingCircleIndicatorView.swift in Sources */,
