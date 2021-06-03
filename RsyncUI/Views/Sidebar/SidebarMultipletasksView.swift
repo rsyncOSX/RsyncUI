@@ -24,7 +24,7 @@ struct SidebarMultipletasksView: View {
                 headingtitle
 
                 if showestimateview == true {
-                    MultipletasksView(selectedconfig: $selectedconfig.onChange {},
+                    MultipletasksView(selectedconfig: $selectedconfig,
                                       reload: $reload,
                                       selecteduuids: $selecteduuids,
                                       showestimateview: $showestimateview)
@@ -57,7 +57,7 @@ struct SidebarMultipletasksView: View {
 
     var headingtitle: some View {
         HStack {
-            ImageRsync()
+            imagerssync
 
             VStack(alignment: .leading) {
                 Text(NSLocalizedString("Multiple tasks", comment: "Execute tasks"))
@@ -67,5 +67,13 @@ struct SidebarMultipletasksView: View {
 
             Spacer()
         }
+    }
+
+    var imagerssync: some View {
+        Image("rsync")
+            .resizable()
+            .aspectRatio(1.0, contentMode: .fit)
+            .frame(maxWidth: 48)
+            .padding(.bottom, 10)
     }
 }

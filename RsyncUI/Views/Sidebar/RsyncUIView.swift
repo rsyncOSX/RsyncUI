@@ -32,7 +32,6 @@ struct RsyncUIView: View {
 
             HStack {
                 Label(rsyncversionObject.rsyncversion, systemImage: "swift")
-                    .onChange(of: rsyncversionObject.rsyncversion, perform: { _ in })
 
                 Spacer()
 
@@ -57,7 +56,7 @@ struct RsyncUIView: View {
             Picker(NSLocalizedString("Profile", comment: "default profile") + ":",
                    selection: $selectedprofile) {
                 if let profiles = profilenames.profiles {
-                    ForEach(profiles) { profile in
+                    ForEach(profiles, id: \.self) { profile in
                         Text(profile.profile ?? "")
                             .tag(profile.profile)
                     }
@@ -86,7 +85,3 @@ struct RsyncUIView: View {
         })
     }
 }
-
-/*
- TODO: change how to inform about new updates
- */

@@ -144,7 +144,7 @@ struct Sidebar: View {
             sidebar
 
             VStack {
-                ImageRsyncOSX()
+                imagersyncosx
 
                 Text(NSLocalizedString("Select task", comment: "sidebar") + " ...")
                     .foregroundColor(.secondary)
@@ -152,5 +152,12 @@ struct Sidebar: View {
             }
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
+    }
+
+    var imagersyncosx: some View {
+        Image("rsyncosx")
+            .resizable()
+            .aspectRatio(1.0, contentMode: .fit)
+            .frame(maxWidth: 64)
     }
 }
