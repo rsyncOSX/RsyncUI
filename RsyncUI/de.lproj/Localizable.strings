@@ -421,6 +421,9 @@
 /* No comment provided by engineer. */
 "OK" = "Ok";
 
+/* cannot */
+"Only synchronize ID can be changed on a Snapshot task" = "Nur Synchronisations-ID kann bei einer Snapshot-Aufgabe geändert werden";
+
 /* settings */
 "Other settings" = "Andere Einstellungen";
 
@@ -598,9 +601,6 @@
 /* Execute tasks
    sidebar */
 "Single task" = "Einzelne Aufgabe";
-
-/* cannot */
-"Snapshot tasks cannot be updated" = "Snapshot-Aufgaben können nicht aktualisiert werden";
 
 /* Alert delete */
 "snapshot(s)" = "snapshot(s)";
