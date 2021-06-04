@@ -128,7 +128,7 @@ final class ObserveableReferencePreandPostTask: ObservableObject {
                     enablepost = false
                 }
             } else {
-                pretask = config.pretask ?? ""
+                posttask = config.posttask ?? ""
                 enablepost = false
             }
 
