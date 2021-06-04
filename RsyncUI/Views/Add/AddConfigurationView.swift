@@ -11,7 +11,6 @@
 //
 //  Created by Thomas Evensen on 19/03/2021.
 //
-// swiftlint:disable file_length line_length
 
 import SwiftUI
 
@@ -28,8 +27,9 @@ struct AddConfigurationView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
-    @StateObject var newdata = ObserveableReferenceAddConfigurations()
     @Binding var reload: Bool
+
+    @StateObject var newdata = ObserveableReferenceAddConfigurations()
 
     var body: some View {
         Form {
@@ -374,8 +374,3 @@ extension AddConfigurationView {
         }
     }
 }
-
-/*
- TODO:
- - fix that ID can be changed on snapshot tasks.
- */

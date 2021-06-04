@@ -12,19 +12,9 @@ struct AddPostandPreView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
-
-    @State private var enablepre: Bool = false
-    @State private var enablepost: Bool = false
-    @State private var pretask: String = ""
-    @State private var posttask: String = ""
-    @State private var haltshelltasksonerror: Bool = false
-
-    // Sheet for selecting configuration if edit
-    @State private var selectedconfig: Configuration?
-    // Set reload = true after update
     @Binding var reload: Bool
-    // Added and updated labels
-    @State private var updated = false
+
+    @StateObject var newdata = ObserveableReferencePreandPostTask()
 
     var body: some View {
         Form {
@@ -40,13 +30,13 @@ struct AddPostandPreView: View {
                         posttaskandtoggle
 
                         HStack {
-                            if selectedconfig == nil { disablehaltshelltasksonerror } else {
-                                ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+                            if newdata.selectedconfig == nil { disablehaltshelltasksonerror } else {
+                                ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $newdata.haltshelltasksonerror)
                                     .onAppear(perform: {
-                                        if selectedconfig?.haltshelltasksonerror == 1 {
-                                            haltshelltasksonerror = true
+                                        if newdata.selectedconfig?.haltshelltasksonerror == 1 {
+                                            newdata.haltshelltasksonerror = true
                                         } else {
-                                            haltshelltasksonerror = false
+                                            newdata.haltshelltasksonerror = false
                                         }
                                     })
                             }
@@ -56,7 +46,7 @@ struct AddPostandPreView: View {
 
                     // Column 2
                     VStack(alignment: .leading) {
-                        ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                        ConfigurationsListSmall(selectedconfig: $newdata.selectedconfig.onChange {
                             updateview()
                         })
 
@@ -66,7 +56,7 @@ struct AddPostandPreView: View {
                     Spacer()
                 }
 
-                if updated == true { notifyupdated }
+                if newdata.updated == true { notifyupdated }
             }
 
             Spacer()
@@ -85,8 +75,7 @@ struct AddPostandPreView: View {
 
     var updatebutton: some View {
         HStack {
-            // Add or Update button
-            if selectedconfig == nil {
+            if newdata.selectedconfig == nil {
                 Button(NSLocalizedString("Update", comment: "Update button")) {}
                     .buttonStyle(PrimaryButtonStyle())
             } else {
@@ -101,41 +90,45 @@ struct AddPostandPreView: View {
     }
 
     var setpretask: some View {
-        EditValue(250, NSLocalizedString("Add pretask", comment: "settings"), $pretask)
+        EditValue(250, NSLocalizedString("Add pretask", comment: "settings"), $newdata.pretask)
     }
 
     var setposttask: some View {
-        EditValue(250, NSLocalizedString("Add posttask", comment: "settings"), $posttask)
+        EditValue(250, NSLocalizedString("Add posttask", comment: "settings"), $newdata.posttask)
     }
 
     var disablepretask: some View {
-        ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepre)
+        ToggleView(NSLocalizedString("Enable", comment: "settings"), $newdata.enablepre)
     }
 
     var disableposttask: some View {
-        ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
+        ToggleView(NSLocalizedString("Enable", comment: "settings"), $newdata.enablepost)
     }
 
     var pretaskandtoggle: some View {
         HStack {
             // Enable pretask
-            if selectedconfig == nil { disablepretask } else {
-                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepre)
+            if newdata.selectedconfig == nil { disablepretask } else {
+                ToggleView(NSLocalizedString("Enable", comment: "settings"), $newdata.enablepre.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
-                        if selectedconfig?.executepretask == 1 {
-                            enablepre = true
+                        if newdata.selectedconfig?.executepretask == 1 {
+                            newdata.enablepre = true
                         } else {
-                            enablepre = false
+                            newdata.enablepre = false
                         }
                     })
             }
 
             // Pretask
-            if selectedconfig == nil { setpretask } else {
-                EditValue(250, nil, $pretask)
+            if newdata.selectedconfig == nil { setpretask } else {
+                EditValue(250, nil, $newdata.pretask.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
-                        if let task = selectedconfig?.pretask {
-                            pretask = task
+                        if let task = newdata.selectedconfig?.pretask {
+                            newdata.pretask = task
                         }
                     })
             }
@@ -145,23 +138,27 @@ struct AddPostandPreView: View {
     var posttaskandtoggle: some View {
         HStack {
             // Enable posttask
-            if selectedconfig == nil { disableposttask } else {
-                ToggleView(NSLocalizedString("Enable", comment: "settings"), $enablepost)
+            if newdata.selectedconfig == nil { disableposttask } else {
+                ToggleView(NSLocalizedString("Enable", comment: "settings"), $newdata.enablepost.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
-                        if selectedconfig?.executeposttask == 1 {
-                            enablepost = true
+                        if newdata.selectedconfig?.executeposttask == 1 {
+                            newdata.enablepost = true
                         } else {
-                            enablepost = false
+                            newdata.enablepost = false
                         }
                     })
             }
 
             // Posttask
-            if selectedconfig == nil { setposttask } else {
-                EditValue(250, nil, $posttask)
+            if newdata.selectedconfig == nil { setposttask } else {
+                EditValue(250, nil, $newdata.posttask.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
-                        if let task = selectedconfig?.posttask {
-                            posttask = task
+                        if let task = newdata.selectedconfig?.posttask {
+                            newdata.posttask = task
                         }
                     })
             }
@@ -169,125 +166,39 @@ struct AddPostandPreView: View {
     }
 
     var disablehaltshelltasksonerror: some View {
-        ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $haltshelltasksonerror)
+        ToggleView(NSLocalizedString("Halt on error", comment: "settings"),
+                   $newdata.haltshelltasksonerror.onChange {
+                       newdata.inputchangedbyuser = true
+                   })
     }
 
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
                    title: Optional(NSLocalizedString("Updated",
-                                                     comment: "settings")),
-                   subTitle: Optional(""))
+                                                     comment: "settings")), subTitle: Optional(""))
+    }
+
+    var profile: String? {
+        return rsyncUIData.profile
+    }
+
+    var configurations: [Configuration]? {
+        return rsyncUIData.rsyncdata?.configurationData.getallconfigurations()
     }
 }
 
 extension AddPostandPreView {
-    func updateconfig() {
-        // Append default config data to the update,
-        // only post and pretask is new
-        let updateddata = AppendConfig(selectedconfig?.task ?? "",
-                                       selectedconfig?.localCatalog ?? "",
-                                       selectedconfig?.offsiteCatalog ?? "",
-                                       false,
-                                       selectedconfig?.offsiteUsername,
-                                       selectedconfig?.offsiteServer,
-                                       selectedconfig?.backupID,
-                                       enablepre,
-                                       pretask,
-                                       enablepost,
-                                       posttask,
-                                       haltshelltasksonerror,
-                                       selectedconfig?.hiddenID ?? -1)
-        if let updatedconfig = VerifyConfiguration().verify(updateddata) {
-            let updateconfiguration =
-                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
-                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
-            updateconfiguration.updateconfiguration(updatedconfig, false)
-            reload = true
-            updated = true
-            // Show updated for 1 second
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                updated = false
-                resetform()
-            }
-        }
-    }
-
-    func resetform() {
-        enablepre = false
-        pretask = ""
-        enablepost = false
-        posttask = ""
-        haltshelltasksonerror = false
-        selectedconfig = nil
-    }
-
     func validateandupdate() {
-        // Validate not a snapshot task
-        do {
-            let validated = try validatenotsnapshottask()
-            if validated {
-                updateconfig()
+        newdata.validateandupdate(profile, configurations)
+        reload = newdata.reload
+        if newdata.updated == true {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                newdata.updated = false
             }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
         }
     }
 
     func updateview() {
-        if let config = selectedconfig {
-            // pre task
-            if config.pretask != nil {
-                if config.executepretask == 1 {
-                    enablepre = true
-                } else {
-                    enablepre = false
-                }
-            } else {
-                pretask = config.pretask ?? ""
-                enablepre = false
-            }
-
-            // post task
-            if config.posttask != nil {
-                if config.executeposttask == 1 {
-                    enablepost = true
-                } else {
-                    enablepost = false
-                }
-            } else {
-                pretask = config.pretask ?? ""
-                enablepost = false
-            }
-
-            if config.posttask != nil {
-                if config.haltshelltasksonerror == 1 {
-                    haltshelltasksonerror = true
-                } else {
-                    haltshelltasksonerror = false
-                }
-            }
-        } else {
-            enablepost = false
-            enablepre = false
-            pretask = ""
-            posttask = ""
-            haltshelltasksonerror = false
-        }
-    }
-
-    private func validatenotsnapshottask() throws -> Bool {
-        if let config = selectedconfig {
-            if config.task == SharedReference.shared.snapshot {
-                throw CannotUpdateSnaphotsError.cannotupdate
-            } else {
-                return true
-            }
-        }
-        return false
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
+        newdata.updateview()
     }
 }
