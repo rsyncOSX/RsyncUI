@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-final class ObserveableReferenceRestore: ObservableObject {
+final class ObserveableRestore: ObservableObject {
     @Published var pathforrestore: String = ""
     @Published var filestorestore: String = ""
     // Copy files from selecting row from view output
@@ -69,7 +69,7 @@ final class ObserveableReferenceRestore: ObservableObject {
     }
 }
 
-extension ObserveableReferenceRestore {
+extension ObserveableRestore {
     func processtermination() {
         numberoffiles = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         gettingfilelist = false
@@ -204,7 +204,7 @@ extension ObserveableReferenceRestore {
     }
 }
 
-extension ObserveableReferenceRestore: PropogateError {
+extension ObserveableRestore: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

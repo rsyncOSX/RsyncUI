@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Othersettings: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
-    @StateObject var usersettings = ObserveableReferencePaths()
+    @StateObject var usersettings = ObserveablePath()
 
     @Binding var reload: Bool
 

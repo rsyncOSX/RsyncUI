@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class ObserveableReferencePaths: ObservableObject {
+final class ObserveablePath: ObservableObject {
     // When property is changed set isDirty = true
     @Published var isDirty: Bool = false
     // Environment
@@ -53,7 +53,7 @@ final class ObserveableReferencePaths: ObservableObject {
     }
 }
 
-extension ObserveableReferencePaths {
+extension ObserveablePath {
     func setandvalidapathrsyncui(_ atpath: String) {
         guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else { return }
@@ -104,7 +104,7 @@ extension ObserveableReferencePaths {
     }
 }
 
-extension ObserveableReferencePaths: PropogateError {
+extension ObserveablePath: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

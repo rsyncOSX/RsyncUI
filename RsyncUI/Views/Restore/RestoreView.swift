@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RestoreView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
-    @StateObject var restoresettings = ObserveableReferenceRestore()
+    @StateObject var restoresettings = ObserveableRestore()
 
     @State private var presentsheetview = false
     // Not used but requiered in parameter

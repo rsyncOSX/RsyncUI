@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class ObserveableReferencePreandPostTask: ObservableObject {
+final class ObserveablePreandPostTask: ObservableObject {
     @Published var enablepre: Bool = false
     @Published var enablepost: Bool = false
     @Published var pretask: String = ""
