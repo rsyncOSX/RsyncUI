@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class ObservableReferenceSSH: ObservableObject {
+final class ObservableSSH: ObservableObject {
     // When property is changed set isDirty = true
     @Published var isDirty: Bool = false
     // Global SSH parameters
@@ -42,7 +42,7 @@ final class ObservableReferenceSSH: ObservableObject {
     }
 }
 
-extension ObservableReferenceSSH {
+extension ObservableSSH {
     // SSH identityfile
     private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
         if keypath.first != "~" { throw SshError.noslash }
@@ -111,7 +111,7 @@ extension ObservableReferenceSSH {
     }
 }
 
-extension ObservableReferenceSSH: PropogateError {
+extension ObservableSSH: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

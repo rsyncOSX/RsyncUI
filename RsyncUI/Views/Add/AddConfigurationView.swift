@@ -29,7 +29,7 @@ struct AddConfigurationView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
-    @StateObject var newdata = ObserveableReferenceAddConfigurations()
+    @StateObject var newdata = ObserveableAddConfigurations()
 
     var body: some View {
         Form {

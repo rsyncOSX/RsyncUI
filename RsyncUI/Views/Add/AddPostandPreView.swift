@@ -14,7 +14,7 @@ struct AddPostandPreView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
-    @StateObject var newdata = ObserveableReferencePreandPostTask()
+    @StateObject var newdata = ObserveablePreandPostTask()
 
     var body: some View {
         Form {
@@ -79,12 +79,17 @@ struct AddPostandPreView: View {
                 Button(NSLocalizedString("Update", comment: "Update button")) {}
                     .buttonStyle(PrimaryButtonStyle())
             } else {
-                Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.red, lineWidth: 5)
-                    )
+                if newdata.inputchangedbyuser == true {
+                    Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
+                        .buttonStyle(PrimaryButtonStyle())
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.red, lineWidth: 5)
+                        )
+                } else {
+                    Button(NSLocalizedString("Update", comment: "Update button")) {}
+                        .buttonStyle(PrimaryButtonStyle())
+                }
             }
         }
     }

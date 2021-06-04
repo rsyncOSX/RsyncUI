@@ -11,7 +11,7 @@ import SwiftUI
 struct Usersettings: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
-    @StateObject var usersettings = ObserveableReference()
+    @StateObject var usersettings = ObserveableUsersetting()
     @State private var backup = false
 
     var body: some View {
