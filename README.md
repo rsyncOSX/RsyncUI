@@ -4,13 +4,9 @@ The development commenced in December 2020 and RsyncUI version 1.0.0 was release
 
 There are also some SwiftUI features in code which require macOS Big Sur.
 
-There is a [new site for info about using RsyncUI.](https://rsyncui.netlify.app)
-
 - [the changelog](https://rsyncui.netlify.app/post/changelog/)
+- other [info about RsyncUI](https://rsyncui.netlify.app)
 - info about [the development of RsyncUI](https://rsyncui.netlify.app/post/development/)
-
-![](images/main1.png)
-![](images/main2.png)
 
 ## Dependencies
 
@@ -35,7 +31,6 @@ The following tools are used in development:
   - a few SwiftUI features in code require latest version of Swift and macOS Big Sur (macOS 11.x)
 - make to compile new versions in terminal
 - [create-dmg](https://github.com/sindresorhus/create-dmg) to create new releases
-- [periphery](https://github.com/peripheryapp/periphery) to identify unused code
 - [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift style and conventions
 - [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) for reformatting Swift code
 - [GitHub Desktop](https://desktop.github.com/) for git and GitHub
