@@ -38,7 +38,7 @@ struct ConfigurationsList: View {
                                       inwork: $inwork,
                                       config: configurations)
                             .tag(configurations)
-                            .swipeActions(allowsFullSwipe: false) {
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                 Button {
                                     print("Add")
                                 } label: {
@@ -72,7 +72,7 @@ struct ConfigurationsList: View {
                         OneConfig(forestimated: forestimated,
                                   config: configurations)
                             .tag(configurations)
-                            .swipeActions(allowsFullSwipe: false) {
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                 Button {
                                     print("Execute")
                                 } label: {
