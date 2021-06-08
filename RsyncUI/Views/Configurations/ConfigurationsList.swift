@@ -39,10 +39,16 @@ struct ConfigurationsList: View {
                                       config: configurations)
                             .tag(configurations)
                             .swipeActions(allowsFullSwipe: false) {
+                                Button {
+                                    print("Add")
+                                } label: {
+                                    Label("Add", systemImage: "folder.badge.plus")
+                                }
+
                                 Button(role: .destructive) {
                                     print("Trash")
                                 } label: {
-                                    Label("Trash", systemImage: "trash.fill")
+                                    Label("Trash", systemImage: "delete.backward.fill")
                                 }
                             }
                     } else {
