@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(macOS 12.0, *)
 struct AddPostandPreView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
@@ -15,6 +16,7 @@ struct AddPostandPreView: View {
     @Binding var reload: Bool
 
     @StateObject var newdata = ObserveablePreandPostTask()
+    @FocusState private var focusField: PreandPostTaskField?
 
     var body: some View {
         Form {
@@ -71,6 +73,19 @@ struct AddPostandPreView: View {
         }
         .lineSpacing(2)
         .padding()
+        .onSubmit {
+            switch focusField {
+            case .pretask:
+                focusField = .posttask
+            case .posttask:
+                newdata.enablepre = true
+                newdata.enablepost = true
+                newdata.haltshelltasksonerror = true
+                validateandupdate()
+            default:
+                return
+            }
+        }
     }
 
     var updatebutton: some View {
@@ -131,6 +146,9 @@ struct AddPostandPreView: View {
                 EditValue(250, nil, $newdata.pretask.onChange {
                     newdata.inputchangedbyuser = true
                 })
+                    .focused($focusField, equals: .pretask)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
                     .onAppear(perform: {
                         if let task = newdata.selectedconfig?.pretask {
                             newdata.pretask = task
@@ -161,6 +179,10 @@ struct AddPostandPreView: View {
                 EditValue(250, nil, $newdata.posttask.onChange {
                     newdata.inputchangedbyuser = true
                 })
+                    .focused($focusField, equals: .posttask)
+                    .textContentType(.none)
+                    .submitLabel(.continue
+                    )
                     .onAppear(perform: {
                         if let task = newdata.selectedconfig?.posttask {
                             newdata.posttask = task
@@ -192,6 +214,7 @@ struct AddPostandPreView: View {
     }
 }
 
+@available(macOS 12.0, *)
 extension AddPostandPreView {
     func validateandupdate() {
         newdata.validateandupdate(profile, configurations)
