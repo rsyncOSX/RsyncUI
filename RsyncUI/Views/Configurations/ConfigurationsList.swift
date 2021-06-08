@@ -33,10 +33,24 @@ struct ConfigurationsList: View {
         Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
-                    OneConfigUUID(selecteduuids: $selecteduuids,
-                                  inwork: $inwork,
-                                  config: configurations)
-                        .tag(configurations)
+                    if #available(macOS 12.0, *) {
+                        OneConfigUUID(selecteduuids: $selecteduuids,
+                                      inwork: $inwork,
+                                      config: configurations)
+                            .tag(configurations)
+                            .swipeActions(allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    print("Trash")
+                                } label: {
+                                    Label("Trash", systemImage: "trash.fill")
+                                }
+                            }
+                    } else {
+                        OneConfigUUID(selecteduuids: $selecteduuids,
+                                      inwork: $inwork,
+                                      config: configurations)
+                            .tag(configurations)
+                    }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
@@ -48,9 +62,22 @@ struct ConfigurationsList: View {
         Section(header: header) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
-                    OneConfig(forestimated: forestimated,
-                              config: configurations)
-                        .tag(configurations)
+                    if #available(macOS 12.0, *) {
+                        OneConfig(forestimated: forestimated,
+                                  config: configurations)
+                            .tag(configurations)
+                            .swipeActions(allowsFullSwipe: false) {
+                                Button {
+                                    print("Execute")
+                                } label: {
+                                    Label("Execute", systemImage: "play.square.fill")
+                                }
+                            }
+                    } else {
+                        OneConfig(forestimated: forestimated,
+                                  config: configurations)
+                            .tag(configurations)
+                    }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
