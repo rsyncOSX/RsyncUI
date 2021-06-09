@@ -37,11 +37,7 @@ final class RsyncProcess {
     // Throws error
     func statusDidChange() throws {
         if monitor?.monitor?.currentPath.status != .satisfied {
-            let output = OutputfromProcess()
-            let string = NSLocalizedString("Network connection is dropped", comment: "network") + ":"
-                + Date().long_localized_string_from_date()
-            output.addlinefromoutput(str: string)
-            _ = InterruptProcess(output: output)
+            _ = InterruptProcess()
             throw Networkerror.networkdropped
         }
     }
@@ -86,7 +82,7 @@ final class RsyncProcess {
             .sink { [self] _ in
                 self.processtermination()
                 // Logg to file
-                _ = Logfile(outputprocess)
+                _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)

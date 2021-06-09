@@ -117,7 +117,7 @@ final class SshKeys: Catalogsandfiles {
 
 extension SshKeys {
     func processtermination() {
-        _ = Logfile(outputprocess?.getOutput())
+        _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
     }
 
     func filehandler() {}
