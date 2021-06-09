@@ -60,7 +60,7 @@ final class OtherProcess {
             .sink { [self] _ in
                 self.processtermination()
                 // Logg to file
-                _ = Logfile(outputprocess)
+                _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)

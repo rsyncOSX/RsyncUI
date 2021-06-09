@@ -155,20 +155,6 @@ final class Logfile: NamesandPaths {
         }
     }
 
-    init(_ outputprocess: OutputfromProcess?) {
-        super.init(.configurations)
-        guard SharedReference.shared.fulllogging == true ||
-            SharedReference.shared.minimumlogging == true
-        else {
-            return
-        }
-        if SharedReference.shared.fulllogging {
-            fulllogging(outputprocess?.getOutput() ?? [])
-        } else {
-            minimumlogging(outputprocess?.getOutput() ?? [])
-        }
-    }
-
     init(_ reset: Bool) {
         super.init(.configurations)
         if reset {
@@ -183,18 +169,23 @@ final class Logfile: NamesandPaths {
         }
     }
 
-    init(_ data: [String]?) {
+    init(_ data: [String]?, error: Bool) {
         super.init(.configurations)
-        if let data = data {
-            let date = Date().localized_string_from_date()
-            readloggfile()
-            let tmplogg: String = "\n" + date + "\n"
-            if logfile == nil {
-                logfile = tmplogg + data.joined(separator: "\n")
-            } else {
-                logfile! += tmplogg + data.joined(separator: "\n")
+        if error {
+            if let data = data {
+                fulllogging(data)
             }
-            writeloggfile()
+        } else {
+            guard SharedReference.shared.fulllogging == true ||
+                SharedReference.shared.minimumlogging == true
+            else {
+                return
+            }
+            if SharedReference.shared.fulllogging {
+                fulllogging(data ?? [])
+            } else {
+                minimumlogging(data ?? [])
+            }
         }
     }
 }

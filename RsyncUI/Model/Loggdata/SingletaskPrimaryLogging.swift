@@ -61,7 +61,7 @@ class SingletaskPrimaryLogging {
                     if inserted {
                         WriteScheduleJSON(localeprofile, structschedules)
                     }
-                    _ = Logfile(outputprocess)
+                    _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 }
             }
         }
