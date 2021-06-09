@@ -14,7 +14,8 @@ struct GetfullpathforRsync {
     init() {
         if SharedReference.shared.rsyncversion3 {
             if let localrsyncpath = SharedReference.shared.localrsyncpath {
-                rsyncpath = localrsyncpath + "/" + SharedReference.shared.rsync
+                // localrsyncpath is set with trailing "/"
+                rsyncpath = localrsyncpath + SharedReference.shared.rsync
             } else {
                 rsyncpath = SharedReference.shared.usrlocalbin + "/" + SharedReference.shared.rsync
             }
