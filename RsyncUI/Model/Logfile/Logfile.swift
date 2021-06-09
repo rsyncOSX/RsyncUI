@@ -102,60 +102,6 @@ final class Logfile: NamesandPaths {
         }
     }
 
-    func writeloggfile2() {
-        if let atpath = fullpathmacserial {
-            do {
-                let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: SharedReference.shared.logname)
-                if let data = logfile {
-                    try file.write(data)
-                    do {
-                        let filesize = try filesize2()
-                        do {
-                            try reportfilesize(filesize)
-                        } catch let e {
-                            let error = e
-                            propogateerror(error: error)
-                        }
-                    } catch let e {
-                        let error = e
-                        propogateerror(error: error)
-                    }
-                }
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-            }
-        }
-    }
-
-    func reportfilesize(_ filesize: NSNumber?) throws {
-        let size = Int(truncating: filesize ?? 0)
-        if size > SharedReference.shared.logfilesize {
-            throw FilesizeError.toobig
-        }
-    }
-
-    func filesize2() throws -> NSNumber {
-        if var atpath = fullpathmacserial {
-            do {
-                do {
-                    if try Folder(path: atpath).containsFile(named: SharedReference.shared.logname) == false { return 0
-                    }
-                } catch let e {
-                    let error = e
-                    propogateerror(error: error)
-                }
-                atpath += "/" + SharedReference.shared.logname
-                let file = try File(path: atpath).url
-                return try FileManager.default.attributesOfItem(atPath: file.path)[FileAttributeKey.size] as? NSNumber ?? 0
-            } catch {
-                return 0
-            }
-        }
-        return 0
-    }
-
     func readloggfile() {
         if var atpath = fullpathmacserial {
             do {
