@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ConfigurationsList: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
+    // Observing shortcuts
+    @EnvironmentObject var shortcuts: ShortcutActions
+
     @Binding var selectedconfig: Configuration?
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
@@ -67,7 +70,10 @@ struct ConfigurationsList: View {
                         .tag(configurations)
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             Button {
-                                print("Execute")
+                                // Using shortcutactions to execute
+                                if SharedReference.shared.shortcutobject?.singetaskviewisactive ?? false {
+                                    SharedReference.shared.shortcutobject?.executesingletask = true
+                                }
                             } label: {
                                 Label("Execute", systemImage: "play.square.fill")
                             }
