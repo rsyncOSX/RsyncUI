@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-@available(macOS 12.0, *)
 struct AddPostandPreView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
@@ -214,7 +213,6 @@ struct AddPostandPreView: View {
     }
 }
 
-@available(macOS 12.0, *)
 extension AddPostandPreView {
     func validateandupdate() {
         newdata.validateandupdate(profile, configurations)

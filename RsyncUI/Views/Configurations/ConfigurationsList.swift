@@ -33,32 +33,26 @@ struct ConfigurationsList: View {
         Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
-                    if #available(macOS 12.0, *) {
-                        OneConfigUUID(selecteduuids: $selecteduuids,
-                                      inwork: $inwork,
-                                      config: configurations)
-                            .tag(configurations)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                Button {
-                                    print("Add")
-                                } label: {
-                                    Label("Add", systemImage: "folder.badge.plus")
-                                }
-
-                                Button(role: .destructive) {
-                                    print("Trash")
-                                } label: {
-                                    Label("Trash", systemImage: "delete.backward.fill")
-                                }
+                    OneConfigUUID(selecteduuids: $selecteduuids,
+                                  inwork: $inwork,
+                                  config: configurations)
+                        .tag(configurations)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button {
+                                print("Add")
+                            } label: {
+                                Label("Add", systemImage: "folder.badge.plus")
                             }
-                    } else {
-                        OneConfigUUID(selecteduuids: $selecteduuids,
-                                      inwork: $inwork,
-                                      config: configurations)
-                            .tag(configurations)
-                    }
+
+                            Button(role: .destructive) {
+                                print("Trash")
+                            } label: {
+                                Label("Trash", systemImage: "delete.backward.fill")
+                            }
+                        }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+                // .listStyle(.inset(alternatesRowBackgrounds: true))
             }
         }
     }
@@ -68,22 +62,16 @@ struct ConfigurationsList: View {
         Section(header: header) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
-                    if #available(macOS 12.0, *) {
-                        OneConfig(forestimated: forestimated,
-                                  config: configurations)
-                            .tag(configurations)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                Button {
-                                    print("Execute")
-                                } label: {
-                                    Label("Execute", systemImage: "play.square.fill")
-                                }
+                    OneConfig(forestimated: forestimated,
+                              config: configurations)
+                        .tag(configurations)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button {
+                                print("Execute")
+                            } label: {
+                                Label("Execute", systemImage: "play.square.fill")
                             }
-                    } else {
-                        OneConfig(forestimated: forestimated,
-                                  config: configurations)
-                            .tag(configurations)
-                    }
+                        }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }

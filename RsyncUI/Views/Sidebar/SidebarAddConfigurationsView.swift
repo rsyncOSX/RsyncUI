@@ -17,14 +17,10 @@ struct SidebarAddConfigurationsView: View {
                 .tabItem {
                     Text(NSLocalizedString("Add config", comment: "logsview"))
                 }
-            if #available(macOS 12.0, *) {
-                AddPostandPreView(selectedprofile: $selectedprofile, reload: $reload)
-                    .tabItem {
-                        Text(NSLocalizedString("Pre and post", comment: "logsview"))
-                    }
-            } else {
-                // Fallback on earlier versions
-            }
+            AddPostandPreView(selectedprofile: $selectedprofile, reload: $reload)
+                .tabItem {
+                    Text(NSLocalizedString("Pre and post", comment: "logsview"))
+                }
         }
         .padding()
     }
