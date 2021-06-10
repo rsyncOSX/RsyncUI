@@ -80,7 +80,9 @@ struct AddPostandPreView: View {
                 newdata.enablepre = true
                 newdata.enablepost = true
                 newdata.haltshelltasksonerror = true
-                validateandupdate()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    validateandupdate()
+                }
             default:
                 return
             }
@@ -180,8 +182,7 @@ struct AddPostandPreView: View {
                 })
                     .focused($focusField, equals: .posttask)
                     .textContentType(.none)
-                    .submitLabel(.continue
-                    )
+                    .submitLabel(.continue)
                     .onAppear(perform: {
                         if let task = newdata.selectedconfig?.posttask {
                             newdata.posttask = task
