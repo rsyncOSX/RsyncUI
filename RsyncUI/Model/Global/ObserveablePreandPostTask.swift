@@ -8,11 +8,6 @@
 import Combine
 import Foundation
 
-enum PreandPostTaskField: Hashable {
-    case pretask
-    case posttask
-}
-
 final class ObserveablePreandPostTask: ObservableObject {
     @Published var enablepre: Bool = false
     @Published var enablepost: Bool = false

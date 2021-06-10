@@ -14,6 +14,11 @@ struct AddPostandPreView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
+    enum PreandPostTaskField: Hashable {
+        case pretaskField
+        case posttaskField
+    }
+
     @StateObject var newdata = ObserveablePreandPostTask()
     @FocusState private var focusField: PreandPostTaskField?
 
@@ -48,7 +53,7 @@ struct AddPostandPreView: View {
                     // Column 2
                     VStack(alignment: .leading) {
                         ConfigurationsListSmall(selectedconfig: $newdata.selectedconfig.onChange {
-                            updateview()
+                            newdata.updateview()
                         })
 
                         Spacer()
@@ -74,15 +79,16 @@ struct AddPostandPreView: View {
         .padding()
         .onSubmit {
             switch focusField {
-            case .pretask:
-                focusField = .posttask
-            case .posttask:
+            case .pretaskField:
+                focusField = .posttaskField
+            case .posttaskField:
                 newdata.enablepre = true
                 newdata.enablepost = true
                 newdata.haltshelltasksonerror = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     validateandupdate()
                 }
+                focusField = nil
             default:
                 return
             }
@@ -147,7 +153,7 @@ struct AddPostandPreView: View {
                 EditValue(250, nil, $newdata.pretask.onChange {
                     newdata.inputchangedbyuser = true
                 })
-                    .focused($focusField, equals: .pretask)
+                    .focused($focusField, equals: .pretaskField)
                     .textContentType(.none)
                     .submitLabel(.continue)
                     .onAppear(perform: {
@@ -180,7 +186,7 @@ struct AddPostandPreView: View {
                 EditValue(250, nil, $newdata.posttask.onChange {
                     newdata.inputchangedbyuser = true
                 })
-                    .focused($focusField, equals: .posttask)
+                    .focused($focusField, equals: .posttaskField)
                     .textContentType(.none)
                     .submitLabel(.continue)
                     .onAppear(perform: {
@@ -223,9 +229,5 @@ extension AddPostandPreView {
                 newdata.updated = false
             }
         }
-    }
-
-    func updateview() {
-        newdata.updateview()
     }
 }
