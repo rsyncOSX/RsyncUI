@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 20/03/2021.
 //
-// swiftlint:disable function_body_length
+// swiftlint:disable function_body_length cyclomatic_complexity
 
 import Combine
 import Foundation
