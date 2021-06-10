@@ -47,7 +47,7 @@ struct AddPostandPreView: View {
                     // Column 2
                     VStack(alignment: .leading) {
                         ConfigurationsListSmall(selectedconfig: $newdata.selectedconfig.onChange {
-                            updateview()
+                            newdata.updateview()
                         })
 
                         Spacer()
@@ -201,9 +201,5 @@ extension AddPostandPreView {
                 newdata.updated = false
             }
         }
-    }
-
-    func updateview() {
-        newdata.updateview()
     }
 }

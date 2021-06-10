@@ -60,7 +60,7 @@ struct AddConfigurationView: View {
 
                     VStack(alignment: .leading) {
                         ConfigurationsListSmall(selectedconfig: $newdata.selectedconfig.onChange {
-                            updateviewwithselecteddata()
+                            newdata.updateview()
                         })
                     }
 
@@ -355,12 +355,6 @@ extension AddConfigurationView {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 newdata.deletedefaultprofile = false
             }
-        }
-    }
-
-    func updateviewwithselecteddata() {
-        if newdata.selectedconfig == nil {
-            newdata.inputchangedbyuser = false
         }
     }
 

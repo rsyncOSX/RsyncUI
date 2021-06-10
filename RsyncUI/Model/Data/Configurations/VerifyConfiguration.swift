@@ -192,7 +192,7 @@ final class VerifyConfiguration: Connected {
             newconfig.executeposttask = 0
         }
         // Halt pretask on error in posttask
-        if data.newhaltshelltasksonerror == true {
+        if data.newhaltshelltasksonerror == true, newconfig.posttask?.isEmpty == false {
             newconfig.haltshelltasksonerror = 1
         } else {
             newconfig.haltshelltasksonerror = 0
