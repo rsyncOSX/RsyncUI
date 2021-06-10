@@ -138,13 +138,11 @@ final class ObserveablePreandPostTask: ObservableObject {
                 } else {
                     haltshelltasksonerror = false
                 }
+            } else {
+                haltshelltasksonerror = false
             }
         } else {
-            enablepost = false
-            enablepre = false
-            pretask = ""
-            posttask = ""
-            haltshelltasksonerror = false
+            resetform()
         }
     }
 
