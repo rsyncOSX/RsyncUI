@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 23/04/2021.
 //
-// swiftlint:disable line_length cyclomatic_complexity
+// swiftlint:disable line_length
 
 import SwiftUI
 
