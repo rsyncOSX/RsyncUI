@@ -203,13 +203,8 @@ struct AddConfigurationView: View {
     }
 
     // Headers (in sections)
-    var headerprofile: some View {
-        Text(NSLocalizedString("Profile", comment: "settings"))
-            .modifier(FixedTag(200, .leading))
-    }
-
+   
     var adddeleteprofile: some View {
-        // Section(header: headerprofile) {
         HStack {
             Button(NSLocalizedString("Create", comment: "Add button")) { createprofile() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -231,7 +226,6 @@ struct AddConfigurationView: View {
                 .textContentType(.none)
                 .submitLabel(.return)
         }
-        // }
     }
 
     var setID: some View {
