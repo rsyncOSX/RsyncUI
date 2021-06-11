@@ -115,7 +115,8 @@ struct AddConfigurationView: View {
                 focusField = nil
             case .backupIDField:
                 if newdata.remotestorageislocal == true,
-                    newdata.selectedconfig == nil {
+                   newdata.selectedconfig == nil
+                {
                     addconfig()
                 } else {
                     focusField = .remoteuserField

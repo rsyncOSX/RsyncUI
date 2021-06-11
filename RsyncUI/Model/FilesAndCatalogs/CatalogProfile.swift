@@ -21,17 +21,15 @@ enum ProfileexistsError: LocalizedError {
 }
 
 final class CatalogProfile: Catalogsandfiles {
-    func createprofilecatalog(profile: String) throws {
+    func createprofilecatalog(profile: String) {
         var rootpath: Folder?
         if let path = fullpathmacserial {
             do {
                 rootpath = try Folder(path: path)
                 // check if profile exist
-
                 do {
                     let profilepath = path + "/" + profile
                     try Folder(path: profilepath)
-                    throw ProfileexistsError.profileexists
                 } catch {
                     do {
                         try rootpath?.createSubfolder(at: profile)

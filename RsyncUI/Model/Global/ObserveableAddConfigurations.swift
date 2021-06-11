@@ -7,6 +7,7 @@
 // swiftlint:disable function_body_length
 
 import Combine
+import Files
 import Foundation
 
 enum CannotUpdateSnaphotsError: LocalizedError {
@@ -68,6 +69,7 @@ final class ObserveableAddConfigurations: ObservableObject {
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
+                remotestorageislocal = verifyremotestorageislocal()
             }.store(in: &subscriptions)
         $remoteuser
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
@@ -187,12 +189,7 @@ final class ObserveableAddConfigurations: ObservableObject {
     func createprofile() {
         guard newprofile.isEmpty == false else { return }
         let catalogprofile = CatalogProfile()
-        do {
-            try catalogprofile.createprofilecatalog(profile: newprofile)
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-        }
+        catalogprofile.createprofilecatalog(profile: newprofile)
         selectedprofile = newprofile
         created = true
         newprofile = ""
@@ -261,6 +258,15 @@ final class ObserveableAddConfigurations: ObservableObject {
 
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
+    }
+
+    func verifyremotestorageislocal() -> Bool {
+        do {
+            try Folder(path: remotecatalog)
+            return true
+        } catch {
+            return false
+        }
     }
 }
 
