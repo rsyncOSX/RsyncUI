@@ -114,7 +114,12 @@ struct AddConfigurationView: View {
                 }
                 focusField = nil
             case .backupIDField:
-                focusField = .remoteuserField
+                if newdata.remotestorageislocal == true,
+                    newdata.selectedconfig == nil {
+                    addconfig()
+                } else {
+                    focusField = .remoteuserField
+                }
             case .newprofileField:
                 createprofile()
                 focusField = .localcatalogField
@@ -203,7 +208,7 @@ struct AddConfigurationView: View {
     }
 
     // Headers (in sections)
-   
+
     var adddeleteprofile: some View {
         HStack {
             Button(NSLocalizedString("Create", comment: "Add button")) { createprofile() }
