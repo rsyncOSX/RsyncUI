@@ -49,7 +49,7 @@
 "Add configuration completed" = "Konfiguration hinzufügen abgeschlossen";
 
 /* QuicktaskView */
-"Add local as remotecatalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
+"Add local as remote catalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
 
 /* QuicktaskView
    settings */
@@ -74,7 +74,7 @@
 
 /* QuicktaskView
    settings */
-"Add remotecatalog - required" = "Remotekatalog hinzufügen - erforderlich";
+"Add remote catalog - required" = "Remotekatalog hinzufügen - erforderlich";
 
 /* settings */
 "Add synchronize ID" = "Synchronisierungs-ID hinzufügen";
