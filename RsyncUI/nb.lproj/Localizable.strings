@@ -49,11 +49,11 @@
 "Add configuration completed" = "Legge til konfigurasjon fullført";
 
 /* QuicktaskView */
-"Add local as remotecatalog - required" = "Legg til lokal som eksternkatalog - kreves";
+"Add local as remotecatalog - required" = "Legg til lokal som ekstern katalog - kreves";
 
 /* QuicktaskView
    settings */
-"Add localcatalog - required" = "Legge til lokalkatalog - kreves";
+"Add local catalog - required" = "Legg til lokal katalog - kreves";
 
 /* settings */
 "Add posttask" = "Legg til postoppgave";
@@ -62,7 +62,7 @@
 "Add pretask" = "Legg til preoppgave";
 
 /* QuicktaskView */
-"Add remote as localcatalog - required" = "Legg til ekstern som lokal katalog - kreves";
+"Add remote as local catalog - required" = "Legg til ekstern som lokal katalog - kreves";
 
 /* QuicktaskView
    settings */
@@ -74,7 +74,7 @@
 
 /* QuicktaskView
    settings */
-"Add remotecatalog - required" = "Legg til eksternkatalog - kreves";
+"Add remote catalog - required" = "Legg til ekstern katalog - kreves";
 
 /* settings */
 "Add synchronize ID" = "Legg til synkroniserings ID";

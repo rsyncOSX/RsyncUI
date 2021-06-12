@@ -10,24 +10,25 @@ import Files
 import Foundation
 
 final class CatalogProfile: Catalogsandfiles {
-    func createprofilecatalog(profile: String) -> Bool {
+    func createprofilecatalog(profile: String) {
         var rootpath: Folder?
         if let path = fullpathmacserial {
             do {
                 rootpath = try Folder(path: path)
+                // check if profile exist
                 do {
-                    try rootpath?.createSubfolder(at: profile)
-                    return true
-                } catch let e {
-                    let error = e
-                    propogateerror(error: error)
-                    return false
+                    let profilepath = path + "/" + profile
+                    try Folder(path: profilepath)
+                } catch {
+                    do {
+                        try rootpath?.createSubfolder(at: profile)
+                    } catch let e {
+                        let error = e
+                        propogateerror(error: error)
+                    }
                 }
-            } catch {
-                return false
-            }
+            } catch {}
         }
-        return false
     }
 
     // Function for deleting profile directory

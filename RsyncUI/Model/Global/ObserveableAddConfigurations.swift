@@ -185,9 +185,7 @@ final class ObserveableAddConfigurations: ObservableObject {
     func createprofile() {
         guard newprofile.isEmpty == false else { return }
         let catalogprofile = CatalogProfile()
-        let existingprofiles = catalogprofile.getcatalogsasstringnames()
-        guard existingprofiles?.contains(newprofile) == false else { return }
-        _ = catalogprofile.createprofilecatalog(profile: newprofile)
+        catalogprofile.createprofilecatalog(profile: newprofile)
         selectedprofile = newprofile
         created = true
         newprofile = ""
