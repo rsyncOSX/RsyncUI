@@ -123,10 +123,10 @@ struct QuicktaskView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(250, NSLocalizedString("Add localcatalog - required", comment: "QuicktaskView"), $localcatalog)
+            EditValue(250, NSLocalizedString("Add local catalog - required", comment: "QuicktaskView"), $localcatalog)
 
             // remotecatalog
-            EditValue(250, NSLocalizedString("Add remotecatalog - required", comment: "QuicktaskView"), $remotecatalog)
+            EditValue(250, NSLocalizedString("Add remote catalog - required", comment: "QuicktaskView"), $remotecatalog)
         }
     }
 

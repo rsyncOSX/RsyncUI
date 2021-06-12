@@ -53,7 +53,7 @@
 
 /* QuicktaskView
    settings */
-"Add localcatalog - required" = "Lokalkatalog hinzufügen - erforderlich";
+"Add local catalog - required" = "Lokalkatalog hinzufügen - erforderlich";
 
 /* settings */
 "Add posttask" = "Posttask hinzufügen";
@@ -74,7 +74,7 @@
 
 /* QuicktaskView
    settings */
-"Add remotecatalog - required" = "Remotekatalog hinzufügen - erforderlich";
+"Add remote catalog - required" = "Remotekatalog hinzufügen - erforderlich";
 
 /* settings */
 "Add synchronize ID" = "Synchronisierungs-ID hinzufügen";

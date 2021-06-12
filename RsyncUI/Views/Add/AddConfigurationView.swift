@@ -154,7 +154,7 @@ struct AddConfigurationView: View {
 
     // Add and edit text values
     var setlocalcatalog: some View {
-        EditValue(250, NSLocalizedString("Add localcatalog - required", comment: "settings"),
+        EditValue(250, NSLocalizedString("Add local catalog - required", comment: "settings"),
                   $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
@@ -162,7 +162,7 @@ struct AddConfigurationView: View {
     }
 
     var setremotecatalog: some View {
-        EditValue(250, NSLocalizedString("Add remotecatalog - required", comment: "settings"),
+        EditValue(250, NSLocalizedString("Add remote catalog - required", comment: "settings"),
                   $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
