@@ -20,6 +20,11 @@ struct ConfigurationsTable: View {
             table
         }
         .searchable(text: $searchText)
+        .toolbar {
+            Button(action: sometablefunc) {
+                Label("Add", systemImage: "plus")
+            }
+        }
     }
 
     var table: some View {
@@ -57,4 +62,8 @@ struct ConfigurationsTable: View {
         }
         return []
     }
+}
+
+extension ConfigurationsTable {
+    func sometablefunc() {}
 }

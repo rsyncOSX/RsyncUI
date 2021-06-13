@@ -79,9 +79,13 @@ struct SingleTasksView: View {
         if shellout { notifyshellout }
 
         HStack {
-            // Shortcuts
-            if shortcuts.estimatesingletask { labelshortcutestimation }
-            if shortcuts.executesingletask { labelshortcutexecute }
+            /*
+              TODO: fix shortcuts
+
+             // Shortcuts
+             if shortcuts.estimatesingletask { labelshortcutestimation }
+             if shortcuts.executesingletask { labelshortcutexecute }
+              */
 
             Spacer()
         }
@@ -108,10 +112,16 @@ struct SingleTasksView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .onAppear(perform: {
-            shortcuts.enablesingletask()
+            /*
+              TODO: fix shortcuts
+             shortcuts.enablesingletask()
+              */
         })
         .onDisappear(perform: {
-            shortcuts.disablesingletask()
+            /*
+             TODO: fix shortcuts
+             shortcuts.disablesingletask()
+             */
         })
     }
 

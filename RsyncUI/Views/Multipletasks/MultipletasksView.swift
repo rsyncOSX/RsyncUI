@@ -53,8 +53,12 @@ struct MultipletasksView: View {
         }
 
         // Shortcuts for estimate and execute
-        if shortcuts.estimatemultipletasks { labelshortcutestimation }
-        if shortcuts.executemultipletasks { labelshortcutexecute }
+        /*
+          TODO: Fix shortcuts
+
+         if shortcuts.estimatemultipletasks { labelshortcutestimation }
+         if shortcuts.executemultipletasks { labelshortcutexecute }
+          */
 
         HStack {
             Button(NSLocalizedString("All", comment: "Select button")) { executall() }
@@ -103,10 +107,16 @@ struct MultipletasksView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .onAppear(perform: {
-            shortcuts.enablemultipletask()
+            /*
+             TODO: fix shortcuts
+             shortcuts.enablemultipletask()
+             */
         })
         .onDisappear(perform: {
-            shortcuts.disablemultipletask()
+            /*
+             TODO: fix shortcuts
+             shortcuts.disablemultipletask()
+             */
         })
     }
 
