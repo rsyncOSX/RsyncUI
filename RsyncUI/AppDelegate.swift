@@ -130,6 +130,7 @@ struct RsyncUIApp: App {
     @StateObject var rsyncUIData = RsyncUIdata(profile: nil)
     @StateObject var rsyncOSXViewGetRsyncversion = RsyncOSXViewGetRsyncversion()
     @StateObject var profilenames = Profilenames()
+    @StateObject var checkfornewversionofrsyncui = NewversionJSON()
 
     var body: some Scene {
         WindowGroup {
@@ -137,6 +138,15 @@ struct RsyncUIApp: App {
                 .environmentObject(rsyncUIData)
                 .environmentObject(rsyncOSXViewGetRsyncversion)
                 .environmentObject(profilenames)
+                .environmentObject(checkfornewversionofrsyncui)
+                .onAppear {
+                    // User notifications
+                    setusernotifications()
+                    // Create base profile catalog
+                    CatalogProfile().createrootprofilecatalog()
+                    ReadUserConfigurationPLIST()
+                    Running()
+                }
         }
         .commands {
             SidebarCommands()
@@ -148,15 +158,25 @@ struct RsyncUIApp: App {
                 .environmentObject(rsyncOSXViewGetRsyncversion)
         }
     }
+
+    func setusernotifications() {
+        let center = UNUserNotificationCenter.current()
+        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
+        center.requestAuthorization(options: options) { granted, _ in
+            if granted {
+                // application.registerForRemoteNotifications()
+            }
+        }
+    }
 }
 
 struct ContentView: View {
     @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
     @EnvironmentObject var profilenames: Profilenames
+    @EnvironmentObject var checkfornewversionofrsyncui: NewversionJSON
 
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
-    @StateObject private var new = NewversionJSON()
 
     var body: some View {
         VStack {
@@ -177,7 +197,7 @@ struct ContentView: View {
 
                 Spacer()
 
-                if new.notifynewversion { notifynewversion }
+                if checkfornewversionofrsyncui.notifynewversion { notifynewversion }
 
                 Spacer()
 
@@ -222,7 +242,7 @@ struct ContentView: View {
         .onAppear(perform: {
             // Show updated for 1 second
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                new.notifynewversion = false
+                checkfornewversionofrsyncui.notifynewversion = false
             }
         })
     }
