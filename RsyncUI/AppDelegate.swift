@@ -127,13 +127,16 @@ extension AppDelegate {
 struct RsyncUIApp: App {
     @State private var selectedprofile: String?
     @State private var reload: Bool = false
+    @StateObject var rsyncUIData = RsyncUIdata(profile: nil)
+    @StateObject var rsyncOSXViewGetRsyncversion = RsyncOSXViewGetRsyncversion()
+    @StateObject var profilenames = Profilenames()
 
     var body: some Scene {
         WindowGroup {
             ContentView(selectedprofile: $selectedprofile, reload: $reload)
-                .environmentObject(RsyncUIdata(profile: selectedprofile))
-                .environmentObject(RsyncOSXViewGetRsyncversion())
-                .environmentObject(Profilenames())
+                .environmentObject(rsyncUIData)
+                .environmentObject(rsyncOSXViewGetRsyncversion)
+                .environmentObject(profilenames)
         }
         .commands {
             SidebarCommands()
@@ -141,6 +144,8 @@ struct RsyncUIApp: App {
         }
         Settings {
             SidebarSettingsView(selectedprofile: $selectedprofile, reload: $reload)
+                .environmentObject(rsyncUIData)
+                .environmentObject(rsyncOSXViewGetRsyncversion)
         }
     }
 }
