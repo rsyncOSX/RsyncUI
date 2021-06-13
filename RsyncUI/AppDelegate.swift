@@ -35,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView:
             RsyncUIView()
-                .environmentObject(RsyncOSXViewGetRsyncversion())
+                .environmentObject(GetRsyncversion())
                 .environmentObject(Profilenames())
                 .environmentObject(shortcutactions))
         window.makeKeyAndOrderFront(nil)
@@ -75,7 +75,7 @@ extension AppDelegate {
         content.title = NSLocalizedString("RsyncUI settings", comment: "settings")
         let view = NSHostingView(rootView: Usersettings()
             .environmentObject(SharedReference.shared.errorobject!)
-            .environmentObject(RsyncOSXViewGetRsyncversion()))
+            .environmentObject(GetRsyncversion()))
         view.frame.size = view.fittingSize
         content.view = view
         let panel = NSPanel(contentViewController: content)
@@ -128,7 +128,7 @@ struct RsyncUIApp: App {
     @State private var selectedprofile: String?
     @State private var reload: Bool = false
     @StateObject var rsyncUIData = RsyncUIdata(profile: nil)
-    @StateObject var rsyncOSXViewGetRsyncversion = RsyncOSXViewGetRsyncversion()
+    @StateObject var getrsyncversion = GetRsyncversion()
     @StateObject var profilenames = Profilenames()
     @StateObject var checkfornewversionofrsyncui = NewversionJSON()
 
@@ -136,7 +136,7 @@ struct RsyncUIApp: App {
         WindowGroup {
             ContentView(selectedprofile: $selectedprofile, reload: $reload)
                 .environmentObject(rsyncUIData)
-                .environmentObject(rsyncOSXViewGetRsyncversion)
+                .environmentObject(getrsyncversion)
                 .environmentObject(profilenames)
                 .environmentObject(checkfornewversionofrsyncui)
                 .onAppear {
@@ -155,7 +155,7 @@ struct RsyncUIApp: App {
         Settings {
             SidebarSettingsView(selectedprofile: $selectedprofile, reload: $reload)
                 .environmentObject(rsyncUIData)
-                .environmentObject(rsyncOSXViewGetRsyncversion)
+                .environmentObject(getrsyncversion)
         }
     }
 
@@ -171,7 +171,7 @@ struct RsyncUIApp: App {
 }
 
 struct ContentView: View {
-    @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
+    @EnvironmentObject var rsyncversionObject: GetRsyncversion
     @EnvironmentObject var profilenames: Profilenames
     @EnvironmentObject var checkfornewversionofrsyncui: NewversionJSON
 

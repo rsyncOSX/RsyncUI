@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RsyncUIView: View {
-    @EnvironmentObject var rsyncversionObject: RsyncOSXViewGetRsyncversion
+    @EnvironmentObject var rsyncversionObject: GetRsyncversion
     @EnvironmentObject var profilenames: Profilenames
 
     @State private var selectedprofile: String?
