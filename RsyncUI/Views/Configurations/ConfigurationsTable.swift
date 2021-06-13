@@ -10,23 +10,28 @@ import SwiftUI
 struct ConfigurationsTable: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @State private var selection = Set<Configuration.ID>()
+    @State var searchText: String = ""
+    @State var sortOrder: [KeyPathComparator<Configuration>] = [
+        .init(\.dateRun, order: SortOrder.forward),
+    ]
 
     var body: some View {
         VStack {
             table
         }
+        .searchable(text: $searchText)
     }
 
     var table: some View {
-        Table(selection: $selection) {
+        Table(selection: $selection, sortOrder: $sortOrder) {
             TableColumn("Task", value: \.task)
             TableColumn("ID", value: \.backupID)
             TableColumn("Local catalog", value: \.localCatalog)
             TableColumn("Remote catalog", value: \.offsiteCatalog)
             TableColumn("Remote username", value: \.offsiteUsername)
             TableColumn("Remote server", value: \.offsiteServer)
-            // TableColumn("Date run", value: \.dateRun ?? "")
-            // TableColumn("Days since last", value: \.dayssincelastbackup ?? "")
+            TableColumn("Date run", value: \.dateRun!)
+            TableColumn("Days since last", value: \.dayssincelastbackup!)
         } rows: {
             ForEach(configurationssorted) { configuration in
                 TableRow(configuration)
