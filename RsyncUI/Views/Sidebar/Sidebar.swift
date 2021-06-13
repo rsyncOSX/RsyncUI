@@ -13,7 +13,7 @@ enum NavigationItem {
     case logs
     case singletasks
     case estimation
-    case settings
+    // case settings
     case none
     case snapshots
     case configurations
@@ -128,17 +128,21 @@ struct Sidebar: View {
                 .tag(NavigationItem.restore)
             }
 
-            Divider()
+            /*
+              TODO: delete settings here
 
-            Group {
-                NavigationLink(destination: SidebarSettingsView(selectedprofile: $selectedprofile,
-                                                                reload: $reload),
-                               tag: NavigationItem.settings,
-                               selection: $selection) {
-                    Label(NSLocalizedString("Settings", comment: "sidebar"), systemImage: "gearshape")
-                }
-                .tag(NavigationItem.settings)
-            }
+             Divider()
+
+             Group {
+                 NavigationLink(destination: SidebarSettingsView(selectedprofile: $selectedprofile,
+                                                                 reload: $reload),
+                                tag: NavigationItem.settings,
+                                selection: $selection) {
+                     Label(NSLocalizedString("Settings", comment: "sidebar"), systemImage: "gearshape")
+                 }
+                 .tag(NavigationItem.settings)
+             }
+              */
         }
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)
