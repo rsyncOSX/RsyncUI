@@ -184,7 +184,9 @@ struct ContentView: View {
         }
         .padding()
         .onAppear {
-            rsyncversionObject.update(SharedReference.shared.rsyncversion3)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                rsyncversionObject.update(SharedReference.shared.rsyncversion3)
+            }
         }
     }
 

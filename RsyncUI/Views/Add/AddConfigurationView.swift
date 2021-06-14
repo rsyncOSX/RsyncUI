@@ -417,7 +417,9 @@ struct AddConfigurationView: View {
     }
 
     var cannotdeletedefaultprofile: some View {
-        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("Cannot delete default profile", comment: "settings")), subTitle: Optional(""))
+        AlertToast(type: .error(Color.red),
+                   title: Optional(NSLocalizedString("Cannot delete default profile",
+                                                     comment: "settings")), subTitle: Optional(""))
     }
 
     var profile: String? {
