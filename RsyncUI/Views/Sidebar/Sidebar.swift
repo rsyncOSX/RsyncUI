@@ -13,7 +13,6 @@ enum NavigationItem {
     case logs
     case singletasks
     case estimation
-    case settings
     case none
     case snapshots
     case configurations
@@ -117,18 +116,6 @@ struct Sidebar: View {
                     Label(NSLocalizedString("Restore", comment: "sidebar"), systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.restore)
-            }
-
-            Divider()
-
-            Group {
-                NavigationLink(destination: SidebarSettingsView(selectedprofile: $selectedprofile,
-                                                                reload: $reload),
-                               tag: NavigationItem.settings,
-                               selection: $selection) {
-                    Label(NSLocalizedString("Settings", comment: "sidebar"), systemImage: "gearshape")
-                }
-                .tag(NavigationItem.settings)
             }
         }
         .listStyle(SidebarListStyle())

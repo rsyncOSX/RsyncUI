@@ -8,7 +8,7 @@
 import Foundation
 
 // Getting and setting the rsync version.
-final class RsyncOSXViewGetRsyncversion: ObservableObject, UpdateRsyncVersionString {
+final class GetRsyncversion: ObservableObject, UpdateRsyncVersionString {
     @Published var rsyncversion = ""
 
     func update(_ ver: Bool) {

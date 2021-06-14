@@ -13,8 +13,7 @@ import SwiftUI
 struct SingleTasksView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var outputfromrsync: OutputFromRsync
-    // Observing shortcuts
-    @EnvironmentObject var shortcuts: ShortcutActions
+
     // Execute estimate and execution
     @StateObject private var singletaskstate = SingleTaskState()
     // Execute singletask, no estimation
@@ -79,14 +78,6 @@ struct SingleTasksView: View {
         if shellout { notifyshellout }
 
         HStack {
-            // Shortcuts
-            if shortcuts.estimatesingletask { labelshortcutestimation }
-            if shortcuts.executesingletask { labelshortcutexecute }
-
-            Spacer()
-        }
-
-        HStack {
             HStack {
                 estimateandexecute
 
@@ -107,12 +98,7 @@ struct SingleTasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .onAppear(perform: {
-            shortcuts.enablesingletask()
-        })
-        .onDisappear(perform: {
-            shortcuts.disablesingletask()
-        })
+        .keyboardShortcut("e", modifiers: [.command, .shift])
     }
 
     // Estimate and the execute.
@@ -158,25 +144,6 @@ struct SingleTasksView: View {
             .progressViewStyle(GaugeProgressStyle())
             .frame(width: 50.0, height: 50.0)
             .contentShape(Rectangle())
-    }
-
-    // Shortcuts
-    var labelshortcutestimation: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                shortcuts.estimatesingletask = false
-                // Guard statement must be after resetting properties to false
-                initsingletask()
-            })
-    }
-
-    var labelshortcutexecute: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                shortcuts.executesingletask = false
-                // Guard statement must be after resetting properties to false
-                singletask()
-            })
     }
 
     // Output

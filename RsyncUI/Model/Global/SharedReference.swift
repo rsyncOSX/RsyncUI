@@ -90,8 +90,6 @@ class SharedReference {
     let fileconfigurationsjson = "configurations.json"
     // Object for propogate errors to views
     var errorobject: ErrorHandling?
-    // Object for shortcuts
-    var shortcutobject: ShortcutActions?
 
     private init() {
         synctasks = Set<String>()

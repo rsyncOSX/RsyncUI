@@ -12,8 +12,6 @@ struct MultipletasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
-    // Observing shortcuts
-    @EnvironmentObject var shortcuts: ShortcutActions
 
     // These two objects keeps track of the state and collects
     // the estimated values.
@@ -51,10 +49,6 @@ struct MultipletasksView: View {
             if notasks == true { notifyselecttask }
             if deleted == true { notifydeleted }
         }
-
-        // Shortcuts for estimate and execute
-        if shortcuts.estimatemultipletasks { labelshortcutestimation }
-        if shortcuts.executemultipletasks { labelshortcutexecute }
 
         HStack {
             Button(NSLocalizedString("All", comment: "Select button")) { executall() }
@@ -102,30 +96,6 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .onAppear(perform: {
-            shortcuts.enablemultipletask()
-        })
-        .onDisappear(perform: {
-            shortcuts.disablemultipletask()
-        })
-    }
-
-    var labelshortcutestimation: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                shortcuts.estimatemultipletasks = false
-                // Guard statement must be after resetting properties to false
-                startestimation()
-            })
-    }
-
-    var labelshortcutexecute: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                shortcuts.executemultipletasks = false
-                // Guard statement must be after resetting properties to false
-                startexecution()
-            })
     }
 
     var progressviewestimation: some View {
