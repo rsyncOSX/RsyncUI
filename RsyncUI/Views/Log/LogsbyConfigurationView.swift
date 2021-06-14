@@ -26,11 +26,6 @@ struct LogsbyConfigurationView: View {
 
     var body: some View {
         Form {
-            SearchbarView(text: $filterstring.onChange {
-                rsyncUIData.filterbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
-            })
-                .padding(.top, -20)
-
             ConfigurationsList(selectedconfig: $selectedconfig.onChange {
                 selecteduuids.removeAll()
                 rsyncUIData.filterbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
@@ -78,6 +73,9 @@ struct LogsbyConfigurationView: View {
             }
         }
         .padding()
+        .searchable(text: $filterstring.onChange {
+            rsyncUIData.filter(filterstring)
+        })
     }
 
     var numberoflogs: String {

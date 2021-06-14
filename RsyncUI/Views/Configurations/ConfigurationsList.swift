@@ -30,11 +30,6 @@ struct ConfigurationsList: View {
             }
         }
         .searchable(text: $searchText)
-        .toolbar {
-            Button(action: sometablefunc) {
-                Label("Add", systemImage: "plus")
-            }
-        }
     }
 
     // selectable configlist
@@ -47,12 +42,6 @@ struct ConfigurationsList: View {
                                   config: configurations)
                         .tag(configurations)
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button {
-                                print("Add")
-                            } label: {
-                                Label("Add", systemImage: "folder.badge.plus")
-                            }
-
                             Button(role: .destructive) {
                                 print("Trash")
                             } label: {

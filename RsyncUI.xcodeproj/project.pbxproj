@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E801DC662637FD990060723F /* WriteConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801DC652637FD990060723F /* WriteConfigurationJSON.swift */; };
 		E81CF81A25FF310D005D8667 /* SelectedstartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81CF81925FF310D005D8667 /* SelectedstartView.swift */; };
-		E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835457325FE4EBF00A724EE /* SearchbarView.swift */; };
 		E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8518C79263807F200128796 /* WriteScheduleJSON.swift */; };
 		E85E86BA265A66A300219B1C /* ConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */; };
 		E8753A9D265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */; };
@@ -233,7 +232,6 @@
 /* Begin PBXFileReference section */
 		E801DC652637FD990060723F /* WriteConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteConfigurationJSON.swift; sourceTree = "<group>"; };
 		E81CF81925FF310D005D8667 /* SelectedstartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedstartView.swift; sourceTree = "<group>"; };
-		E835457325FE4EBF00A724EE /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		E8518C79263807F200128796 /* WriteScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSON.swift; sourceTree = "<group>"; };
 		E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPLIST.swift; sourceTree = "<group>"; };
 		E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedulePLIST.swift; sourceTree = "<group>"; };
@@ -715,7 +713,6 @@
 				E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */,
 				E985C64525F3AD8400CB895C /* LogRow.swift */,
 				E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */,
-				E835457325FE4EBF00A724EE /* SearchbarView.swift */,
 				E9712FBB2602465D003842FD /* DeleteLogsView.swift */,
 			);
 			path = Log;
@@ -1339,7 +1336,6 @@
 				E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
 				E95DE0DA25F4A5120090FCD3 /* ChangeSchedulesView.swift in Sources */,
-				E835457425FE4EBF00A724EE /* SearchbarView.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
 				E98E086325FFCA25004E56F0 /* OtherProcess.swift in Sources */,
 				E985C76D25F3AD9700CB895C /* Estimation.swift in Sources */,
