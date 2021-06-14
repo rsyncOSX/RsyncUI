@@ -135,10 +135,12 @@ struct SingleTasksView: View {
                 // Estimate
                 Button(NSLocalizedString("Estimate", comment: "Estimate button")) { initsingletask() }
                     .buttonStyle(PrimaryButtonStyle())
+                    .keyboardShortcut("e", modifiers: [.command, .shift])
             } else {
                 // Execute estimated
                 Button(NSLocalizedString("Execute", comment: "Execute button")) { singletask() }
                     .buttonStyle(PrimaryButtonStyle())
+                    .keyboardShortcut("r", modifiers: [.command, .shift])
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color.red, lineWidth: 5)

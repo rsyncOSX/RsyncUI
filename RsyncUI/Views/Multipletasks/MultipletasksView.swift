@@ -74,9 +74,11 @@ struct MultipletasksView: View {
 
             Button(NSLocalizedString("Estimate", comment: "Estimate button")) { startestimation() }
                 .buttonStyle(PrimaryButtonStyle())
+                .keyboardShortcut("e", modifiers: [.command, .shift])
 
             Button(NSLocalizedString("Execute", comment: "Execute button")) { startexecution() }
                 .buttonStyle(PrimaryButtonStyle())
+                .keyboardShortcut("r", modifiers: [.command, .shift])
 
             Spacer()
 

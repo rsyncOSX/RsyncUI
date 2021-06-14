@@ -52,7 +52,11 @@ struct AddConfigurationView: View {
                     VStack(alignment: .leading) {
                         pickerselecttypeoftask
 
-                        VStack(alignment: .leading) { localandremotecatalog }
+                        if newdata.selectedrsynccommand == .syncremote {
+                            VStack(alignment: .leading) { localandremotecatalogsyncremote }
+                        } else {
+                            VStack(alignment: .leading) { localandremotecatalog }
+                        }
 
                         VStack(alignment: .leading) { synchronizeid }
 
@@ -153,8 +157,18 @@ struct AddConfigurationView: View {
     }
 
     // Add and edit text values
+    var setlocalcatalogsyncremote: some View {
+        EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: "settings"),
+                  $newdata.localcatalog)
+    }
+
+    var setremotecatalogsyncremote: some View {
+        EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: "settings"),
+                  $newdata.remotecatalog)
+    }
+
     var setlocalcatalog: some View {
-        EditValue(250, NSLocalizedString("Add local catalog - required", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add local catalog - required", comment: "settings"),
                   $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
@@ -162,7 +176,7 @@ struct AddConfigurationView: View {
     }
 
     var setremotecatalog: some View {
-        EditValue(250, NSLocalizedString("Add remote catalog - required", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add remote catalog - required", comment: "settings"),
                   $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
@@ -179,7 +193,7 @@ struct AddConfigurationView: View {
         Section(header: headerlocalremote) {
             // localcatalog
             if newdata.selectedconfig == nil { setlocalcatalog } else {
-                EditValue(250, nil, $newdata.localcatalog.onChange {
+                EditValue(300, nil, $newdata.localcatalog.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .focused($focusField, equals: .localcatalogField)
@@ -193,12 +207,43 @@ struct AddConfigurationView: View {
             }
             // remotecatalog
             if newdata.selectedconfig == nil { setremotecatalog } else {
-                EditValue(250, nil, $newdata.remotecatalog.onChange {
+                EditValue(300, nil, $newdata.remotecatalog.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
+                    .onAppear(perform: {
+                        if let catalog = newdata.selectedconfig?.offsiteCatalog {
+                            newdata.remotecatalog = catalog
+                        }
+                    })
+            }
+        }
+    }
+
+    var localandremotecatalogsyncremote: some View {
+        Section(header: headerlocalremote) {
+            // localcatalog
+            if newdata.selectedconfig == nil {
+                setlocalcatalogsyncremote
+            } else {
+                EditValue(300, nil, $newdata.localcatalog.onChange {
+                    newdata.inputchangedbyuser = true
+                })
+                    .onAppear(perform: {
+                        if let catalog = newdata.selectedconfig?.localCatalog {
+                            newdata.localcatalog = catalog
+                        }
+                    })
+            }
+            // remotecatalog
+            if newdata.selectedconfig == nil {
+                setremotecatalogsyncremote
+            } else {
+                EditValue(300, nil, $newdata.remotecatalog.onChange {
+                    newdata.inputchangedbyuser = true
+                })
                     .onAppear(perform: {
                         if let catalog = newdata.selectedconfig?.offsiteCatalog {
                             newdata.remotecatalog = catalog
@@ -235,7 +280,7 @@ struct AddConfigurationView: View {
     }
 
     var setID: some View {
-        EditValue(250, NSLocalizedString("Add synchronize ID", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add synchronize ID", comment: "settings"),
                   $newdata.backupID)
             .focused($focusField, equals: .backupIDField)
             .textContentType(.none)
@@ -251,7 +296,7 @@ struct AddConfigurationView: View {
         Section(header: headerID) {
             // Synchronize ID
             if newdata.selectedconfig == nil { setID } else {
-                EditValue(250, nil, $newdata.backupID.onChange {
+                EditValue(300, nil, $newdata.backupID.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .focused($focusField, equals: .backupIDField)
@@ -267,7 +312,7 @@ struct AddConfigurationView: View {
     }
 
     var setremoteuser: some View {
-        EditValue(250, NSLocalizedString("Add remote user", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add remote user", comment: "settings"),
                   $newdata.remoteuser)
             .focused($focusField, equals: .remoteuserField)
             .textContentType(.none)
@@ -275,7 +320,7 @@ struct AddConfigurationView: View {
     }
 
     var setremoteserver: some View {
-        EditValue(250, NSLocalizedString("Add remote server", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add remote server", comment: "settings"),
                   $newdata.remoteserver)
             .focused($focusField, equals: .remoteserverField)
             .textContentType(.none)
@@ -291,7 +336,7 @@ struct AddConfigurationView: View {
         Section(header: headerremote) {
             // Remote user
             if newdata.selectedconfig == nil { setremoteuser } else {
-                EditValue(250, nil, $newdata.remoteuser.onChange {
+                EditValue(300, nil, $newdata.remoteuser.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .focused($focusField, equals: .remoteuserField)
@@ -305,7 +350,7 @@ struct AddConfigurationView: View {
             }
             // Remote server
             if newdata.selectedconfig == nil { setremoteserver } else {
-                EditValue(250, nil, $newdata.remoteserver.onChange {
+                EditValue(300, nil, $newdata.remoteserver.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .focused($focusField, equals: .remoteserverField)
