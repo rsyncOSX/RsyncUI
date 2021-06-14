@@ -98,7 +98,6 @@ struct SingleTasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .keyboardShortcut("e", modifiers: [.command, .shift])
     }
 
     // Estimate and the execute.

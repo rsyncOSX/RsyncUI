@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct LogfileView: View {
+    @Binding var viewlogfile: Bool
     @State private var resetloggfile = false
 
     var body: some View {
@@ -28,6 +29,9 @@ struct LogfileView: View {
                 Spacer()
 
                 Button(NSLocalizedString("Reset", comment: "Reset button")) { reset() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                Button(NSLocalizedString("Dismiss", comment: "Dissmiss button")) { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -51,5 +55,9 @@ struct LogfileView: View {
 
     func afterareload() {
         resetloggfile = false
+    }
+
+    func dismiss() {
+        viewlogfile = false
     }
 }
