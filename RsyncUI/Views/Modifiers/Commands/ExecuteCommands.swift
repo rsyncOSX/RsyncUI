@@ -4,12 +4,11 @@
 //
 //  Created by Thomas Evensen on 14/06/2021.
 //
+// swiftlint:disable multiple_closures_with_trailing_closure
 
 import SwiftUI
 
 struct ExecuteCommands: Commands {
-    @FocusedBinding(\.configuration) private var configuration: Configuration?
-
     var body: some Commands {
         CommandMenu("Execute") {
             Button(action: {
@@ -41,16 +40,5 @@ struct ExecuteCommands: Commands {
             }
             .keyboardShortcut("s", modifiers: [.command, .shift])
         }
-    }
-}
-
-extension FocusedValues {
-    var configuration: Binding<Configuration>? {
-        get { self[ConfigurationKey.self] }
-        set { self[ConfigurationKey.self] = newValue }
-    }
-
-    private struct ConfigurationKey: FocusedValueKey {
-        typealias Value = Binding<Configuration>
     }
 }
