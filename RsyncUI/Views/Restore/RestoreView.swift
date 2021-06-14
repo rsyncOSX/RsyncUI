@@ -13,6 +13,7 @@ struct RestoreView: View {
     @StateObject var restoresettings = ObserveableRestore()
 
     @State private var presentsheetview = false
+    @State private var filterstring = ""
     // Not used but requiered in parameter
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork = -1
@@ -64,9 +65,14 @@ struct RestoreView: View {
             Button(NSLocalizedString("Abort", comment: "RestoreView")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .searchable(text: $restoresettings.filterstring.onChange {
+        .searchable(text: $filterstring.onChange {
             restoresettings.inputchangedbyuser = true
+            print("filer")
         })
+        
+        /*
+         TODO: search does not work
+         */
     }
 
     var setpathforrestore: some View {
