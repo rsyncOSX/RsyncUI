@@ -56,7 +56,7 @@
 		E983D2E526417082004621D5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E226417082004621D5 /* BlurView.swift */; };
 		E983D2E626417082004621D5 /* AlertToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E326417082004621D5 /* AlertToast.swift */; };
 		E983D2E726417082004621D5 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E426417082004621D5 /* ActivityIndicator.swift */; };
-		E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* AppDelegate.swift */; };
+		E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C65525F3AD8400CB895C /* SidebarMultipletasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60C25F3AD8400CB895C /* SidebarMultipletasksView.swift */; };
 		E985C65625F3AD8400CB895C /* RsyncUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60D25F3AD8400CB895C /* RsyncUIView.swift */; };
@@ -280,7 +280,7 @@
 		E983D2E326417082004621D5 /* AlertToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
 		E983D2E426417082004621D5 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E985C5C625F3AC0700CB895C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIApp.swift; sourceTree = "<group>"; };
 		E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E985C5D225F3AC0800CB895C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RsyncUI.entitlements; sourceTree = "<group>"; };
@@ -554,7 +554,7 @@
 		E985C5C525F3AC0700CB895C /* RsyncUI */ = {
 			isa = PBXGroup;
 			children = (
-				E985C5C625F3AC0700CB895C /* AppDelegate.swift */,
+				E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */,
 				E9FDDD4825F3D0610050718C /* Assets.xcassets */,
 				E985C5D225F3AC0800CB895C /* Info.plist */,
 				E95C8C322603962600407434 /* Localizable.strings */,
@@ -1354,7 +1354,7 @@
 				E9BD14C12643082100E29347 /* TrimThree.swift in Sources */,
 				E9DE981D2657A9F4004868A9 /* ReadConfigurationsPLIST.swift in Sources */,
 				E985C66A25F3AD8400CB895C /* SnapshotRow.swift in Sources */,
-				E985C5C725F3AC0700CB895C /* AppDelegate.swift in Sources */,
+				E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */,
 				E90B4AA1261DA7580043EFF6 /* GradientIndicatorView.swift in Sources */,
 				E90F7CA926344D60001D9CA2 /* TextExtensions.swift in Sources */,
 				E985C73F25F3AD9700CB895C /* Socket.swift in Sources */,

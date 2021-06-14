@@ -69,7 +69,7 @@ struct RestoreView: View {
             restoresettings.inputchangedbyuser = true
             print("filer")
         })
-        
+
         /*
          TODO: search does not work
          */

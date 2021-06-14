@@ -12,6 +12,7 @@ import UserNotifications
 struct RsyncUIApp: App {
     @State private var selectedprofile: String?
     @State private var reload: Bool = false
+    @State private var viewlogfile: Bool = false
     @StateObject var rsyncUIData = RsyncUIdata(profile: nil)
     @StateObject var getrsyncversion = GetRsyncversion()
     @StateObject var profilenames = Profilenames()
@@ -32,10 +33,51 @@ struct RsyncUIApp: App {
                     ReadUserConfigurationPLIST()
                     Running()
                 }
+                .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
         }
+
         .commands {
-            SidebarCommands()
-            ImportFromDevicesCommands()
+            // SidebarCommands()
+            // ImportFromDevicesCommands()
+            CommandMenu("Execute") {
+                Button(action: {
+                    //
+                }) {
+                    Text("Estimate")
+                }
+                .keyboardShortcut("e", modifiers: [.command, .shift])
+
+                Divider()
+
+                Button(action: {
+                    //
+                }) {
+                    Text("Execute")
+                }
+                .keyboardShortcut("r", modifiers: [.command, .shift])
+            }
+
+            CommandMenu("Log") {
+                Button(action: {
+                    presentlogfile()
+                }) {
+                    Text("Show logfile")
+                }
+                .keyboardShortcut("o", modifiers: [.command, .shift])
+            }
+
+            CommandMenu("Schedule") {
+                Button(action: {
+                    let running = Running()
+                    guard running.informifisrsyncshedulerunning() == false else { return }
+                    NSWorkspace.shared.open(URL(fileURLWithPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/")
+                            + SharedReference.shared.namersyncschedule))
+                    NSApp.terminate(self)
+                }) {
+                    Text("Scheduled tasks")
+                }
+                .keyboardShortcut("s", modifiers: [.command, .shift])
+            }
         }
         Settings {
             SidebarSettingsView(selectedprofile: $selectedprofile, reload: $reload)
@@ -52,6 +94,10 @@ struct RsyncUIApp: App {
                 // application.registerForRemoteNotifications()
             }
         }
+    }
+
+    func presentlogfile() {
+        viewlogfile = true
     }
 }
 
@@ -137,53 +183,3 @@ struct ContentView: View {
         })
     }
 }
-
-/*
- extension AppDelegate {
-     @IBAction func AboutPanel(_ sender: Any?) {
-         let content = NSViewController()
-         content.title = NSLocalizedString("About", comment: "about")
-         let view = NSHostingView(rootView: AboutView())
-         view.frame.size = view.fittingSize
-         content.view = view
-         let panel = NSPanel(contentViewController: content)
-         panel.styleMask = [.closable, .titled]
-         panel.orderFront(sender)
-         panel.makeKey()
-     }
-
-     @IBAction func showPreferences(_ sender: Any?) {
-         let content = NSViewController()
-         content.title = NSLocalizedString("RsyncUI settings", comment: "settings")
-         let view = NSHostingView(rootView: Usersettings()
-             .environmentObject(SharedReference.shared.errorobject!)
-             .environmentObject(GetRsyncversion()))
-         view.frame.size = view.fittingSize
-         content.view = view
-         let panel = NSPanel(contentViewController: content)
-         panel.styleMask = [.closable, .titled, .resizable]
-         panel.orderFront(sender)
-         panel.makeKey()
-     }
-
-     @IBAction func logview(_ sender: Any?) {
-         let content = NSViewController()
-         content.title = NSLocalizedString("RsyncUI logfile", comment: "settings")
-         let view = NSHostingView(rootView: LogfileView())
-         view.frame.size = view.fittingSize
-         content.view = view
-         let panel = NSPanel(contentViewController: content)
-         panel.styleMask = [.closable, .titled, .resizable]
-         panel.orderFront(sender)
-         panel.makeKey()
-     }
-
-     @IBAction func schedules(_: Any?) {
-         let running = Running()
-         guard running.informifisrsyncshedulerunning() == false else { return }
-         NSWorkspace.shared.open(URL(fileURLWithPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/")
-                 + SharedReference.shared.namersyncschedule))
-         NSApp.terminate(self)
-     }
- }
- */
