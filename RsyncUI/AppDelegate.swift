@@ -183,6 +183,9 @@ struct ContentView: View {
             .padding()
         }
         .padding()
+        .onAppear {
+            rsyncversionObject.update(SharedReference.shared.rsyncversion3)
+        }
     }
 
     var errorhandling: ErrorHandling {
