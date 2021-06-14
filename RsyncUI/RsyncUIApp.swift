@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/01/2021.
 //
+// swiftlint:disable multiple_closures_with_trailing_closure
 
 import SwiftUI
 import UserNotifications
@@ -36,27 +37,8 @@ struct RsyncUIApp: App {
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
         }
         .commands {
-            // SidebarCommands()
-            // ImportFromDevicesCommands()
-            CommandMenu("Execute") {
-                Button(action: {
-                    //
-                }) {
-                    Text("Estimate")
-                }
-                .keyboardShortcut("e", modifiers: [.command, .shift])
-
-                Divider()
-
-                Button(action: {
-                    //
-
-                }) {
-                    Text("Execute")
-                }
-                .keyboardShortcut("r", modifiers: [.command, .shift])
-            }
-
+            SidebarCommands()
+            ExecuteCommands()
             CommandMenu("Log") {
                 Button(action: {
                     presentlogfile()
@@ -64,19 +46,6 @@ struct RsyncUIApp: App {
                     Text("Show logfile")
                 }
                 .keyboardShortcut("o", modifiers: [.command, .shift])
-            }
-
-            CommandMenu("Schedule") {
-                Button(action: {
-                    let running = Running()
-                    guard running.informifisrsyncshedulerunning() == false else { return }
-                    NSWorkspace.shared.open(URL(fileURLWithPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/")
-                            + SharedReference.shared.namersyncschedule))
-                    NSApp.terminate(self)
-                }) {
-                    Text("Scheduled tasks")
-                }
-                .keyboardShortcut("s", modifiers: [.command, .shift])
             }
         }
         Settings {
