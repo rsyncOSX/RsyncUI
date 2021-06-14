@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             RsyncUIView()
                 .environmentObject(GetRsyncversion())
                 .environmentObject(Profilenames())
-                .environmentObject(shortcutactions))
+        )
         window.makeKeyAndOrderFront(nil)
         window.title = "RsyncUI"
         window.isMovableByWindowBackground = true
@@ -49,11 +49,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_: Notification) {
         // Insert code here to tear down your application
-    }
-
-    var shortcutactions: ShortcutActions {
-        SharedReference.shared.shortcutobject = ShortcutActions()
-        return SharedReference.shared.shortcutobject ?? ShortcutActions()
     }
 }
 
@@ -94,24 +89,6 @@ extension AppDelegate {
         panel.styleMask = [.closable, .titled, .resizable]
         panel.orderFront(sender)
         panel.makeKey()
-    }
-
-    @IBAction func executeselected(_: Any?) {
-        if SharedReference.shared.shortcutobject?.multipletaskviewisactive ?? false {
-            SharedReference.shared.shortcutobject?.executemultipletasks = true
-        }
-        if SharedReference.shared.shortcutobject?.singetaskviewisactive ?? false {
-            SharedReference.shared.shortcutobject?.executesingletask = true
-        }
-    }
-
-    @IBAction func estimateselected(_: Any?) {
-        if SharedReference.shared.shortcutobject?.multipletaskviewisactive ?? false {
-            SharedReference.shared.shortcutobject?.estimatemultipletasks = true
-        }
-        if SharedReference.shared.shortcutobject?.singetaskviewisactive ?? false {
-            SharedReference.shared.shortcutobject?.estimatesingletask = true
-        }
     }
 
     @IBAction func schedules(_: Any?) {

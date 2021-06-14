@@ -127,22 +127,6 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.restore)
             }
-
-            /*
-              TODO: delete settings here
-
-             Divider()
-
-             Group {
-                 NavigationLink(destination: SidebarSettingsView(selectedprofile: $selectedprofile,
-                                                                 reload: $reload),
-                                tag: NavigationItem.settings,
-                                selection: $selection) {
-                     Label(NSLocalizedString("Settings", comment: "sidebar"), systemImage: "gearshape")
-                 }
-                 .tag(NavigationItem.settings)
-             }
-              */
         }
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)
