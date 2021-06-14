@@ -53,7 +53,7 @@
 
 /* QuicktaskView
    settings */
-"Add localcatalog - required" = "Lokalkatalog hinzufügen - erforderlich";
+"Add local catalog - required" = "Lokalkatalog hinzufügen - erforderlich";
 
 /* settings */
 "Add posttask" = "Posttask hinzufügen";
@@ -62,7 +62,7 @@
 "Add pretask" = "Pretask hinzufügen";
 
 /* QuicktaskView */
-"Add remote as localcatalog - required" = "Remote als localcatalog hinzufügen - erforderlich";
+"Add remote as local catalog - required" = "Remote als localcatalog hinzufügen - erforderlich";
 
 /* QuicktaskView
    settings */
