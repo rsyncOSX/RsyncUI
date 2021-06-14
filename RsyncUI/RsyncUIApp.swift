@@ -37,8 +37,7 @@ struct RsyncUIApp: App {
         }
 
         .commands {
-            // SidebarCommands()
-            // ImportFromDevicesCommands()
+            SidebarCommands()
             CommandMenu("Execute") {
                 Button(action: {
                     //
