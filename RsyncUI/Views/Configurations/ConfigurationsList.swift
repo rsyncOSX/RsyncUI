@@ -15,6 +15,8 @@ struct ConfigurationsList: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
 
+    @State var searchText: String = ""
+
     // Either selectable configlist or not
     var selectable: Bool
     let forestimated = false
@@ -25,6 +27,12 @@ struct ConfigurationsList: View {
                 selecetableconfiglist
             } else {
                 configlist
+            }
+        }
+        .searchable(text: $searchText)
+        .toolbar {
+            Button(action: sometablefunc) {
+                Label("Add", systemImage: "plus")
             }
         }
     }
@@ -123,4 +131,6 @@ struct ConfigurationsList: View {
         Text(NSLocalizedString("Most recent updated tasks on top of list", comment: "ConfigurationsList") + "...")
             .foregroundColor(Color.blue)
     }
+
+    func sometablefunc() {}
 }
