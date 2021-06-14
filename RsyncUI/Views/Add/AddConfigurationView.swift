@@ -42,7 +42,11 @@ struct AddConfigurationView: View {
                     VStack(alignment: .leading) {
                         pickerselecttypeoftask
 
-                        VStack(alignment: .leading) { localandremotecatalog }
+                        if newdata.selectedrsynccommand == .syncremote {
+                            VStack(alignment: .leading) { localandremotecatalogsyncremote }
+                        } else {
+                            VStack(alignment: .leading) { localandremotecatalog }
+                        }
 
                         VStack(alignment: .leading) { synchronizeid }
 
@@ -51,7 +55,8 @@ struct AddConfigurationView: View {
 
                     // Column 2
                     VStack(alignment: .leading) {
-                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $newdata.donotaddtrailingslash)
+                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"),
+                                   $newdata.donotaddtrailingslash)
                     }
 
                     // Column 3
@@ -113,13 +118,24 @@ struct AddConfigurationView: View {
     }
 
     // Add and edit text values
+    var setlocalcatalogsyncremote: some View {
+        EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: "settings"),
+                  $newdata.localcatalog)
+    }
+
+    var setremotecatalogsyncremote: some View {
+        EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: "settings"),
+                  $newdata.remotecatalog)
+    }
+
+    // Add and edit text values
     var setlocalcatalog: some View {
-        EditValue(250, NSLocalizedString("Add local catalog - required", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add local catalog - required", comment: "settings"),
                   $newdata.localcatalog)
     }
 
     var setremotecatalog: some View {
-        EditValue(250, NSLocalizedString("Add remote catalog - required", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add remote catalog - required", comment: "settings"),
                   $newdata.remotecatalog)
     }
 
@@ -132,8 +148,10 @@ struct AddConfigurationView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            if newdata.selectedconfig == nil { setlocalcatalog } else {
-                EditValue(250, nil, $newdata.localcatalog.onChange {
+            if newdata.selectedconfig == nil {
+                setlocalcatalog
+            } else {
+                EditValue(300, nil, $newdata.localcatalog.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .onAppear(perform: {
@@ -143,8 +161,41 @@ struct AddConfigurationView: View {
                     })
             }
             // remotecatalog
-            if newdata.selectedconfig == nil { setremotecatalog } else {
-                EditValue(250, nil, $newdata.remotecatalog.onChange {
+            if newdata.selectedconfig == nil {
+                setremotecatalog
+            } else {
+                EditValue(300, nil, $newdata.remotecatalog.onChange {
+                    newdata.inputchangedbyuser = true
+                })
+                    .onAppear(perform: {
+                        if let catalog = newdata.selectedconfig?.offsiteCatalog {
+                            newdata.remotecatalog = catalog
+                        }
+                    })
+            }
+        }
+    }
+
+    var localandremotecatalogsyncremote: some View {
+        Section(header: headerlocalremote) {
+            // localcatalog
+            if newdata.selectedconfig == nil {
+                setlocalcatalogsyncremote
+            } else {
+                EditValue(300, nil, $newdata.localcatalog.onChange {
+                    newdata.inputchangedbyuser = true
+                })
+                    .onAppear(perform: {
+                        if let catalog = newdata.selectedconfig?.localCatalog {
+                            newdata.localcatalog = catalog
+                        }
+                    })
+            }
+            // remotecatalog
+            if newdata.selectedconfig == nil {
+                setremotecatalogsyncremote
+            } else {
+                EditValue(300, nil, $newdata.remotecatalog.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .onAppear(perform: {
@@ -178,7 +229,7 @@ struct AddConfigurationView: View {
     }
 
     var setID: some View {
-        EditValue(250, NSLocalizedString("Add synchronize ID", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add synchronize ID", comment: "settings"),
                   $newdata.backupID)
     }
 
@@ -191,7 +242,7 @@ struct AddConfigurationView: View {
         Section(header: headerID) {
             // Synchronize ID
             if newdata.selectedconfig == nil { setID } else {
-                EditValue(250, nil, $newdata.backupID.onChange {
+                EditValue(300, nil, $newdata.backupID.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .onAppear(perform: {
@@ -204,12 +255,12 @@ struct AddConfigurationView: View {
     }
 
     var setremoteuser: some View {
-        EditValue(250, NSLocalizedString("Add remote user", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add remote user", comment: "settings"),
                   $newdata.remoteuser)
     }
 
     var setremoteserver: some View {
-        EditValue(250, NSLocalizedString("Add remote server", comment: "settings"),
+        EditValue(300, NSLocalizedString("Add remote server", comment: "settings"),
                   $newdata.remoteserver)
     }
 
@@ -222,7 +273,7 @@ struct AddConfigurationView: View {
         Section(header: headerremote) {
             // Remote user
             if newdata.selectedconfig == nil { setremoteuser } else {
-                EditValue(250, nil, $newdata.remoteuser.onChange {
+                EditValue(300, nil, $newdata.remoteuser.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .onAppear(perform: {
@@ -233,7 +284,7 @@ struct AddConfigurationView: View {
             }
             // Remote server
             if newdata.selectedconfig == nil { setremoteserver } else {
-                EditValue(250, nil, $newdata.remoteserver.onChange {
+                EditValue(300, nil, $newdata.remoteserver.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .onAppear(perform: {
@@ -297,7 +348,9 @@ struct AddConfigurationView: View {
     }
 
     var cannotdeletedefaultprofile: some View {
-        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("Cannot delete default profile", comment: "settings")), subTitle: Optional(""))
+        AlertToast(type: .error(Color.red),
+                   title: Optional(NSLocalizedString("Cannot delete default profile",
+                                                     comment: "settings")), subTitle: Optional(""))
     }
 
     var profile: String? {
