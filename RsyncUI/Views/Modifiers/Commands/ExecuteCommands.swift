@@ -12,7 +12,7 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.startexecution) private var startexecution
 
     var body: some Commands {
-        CommandMenu("Execute") {
+        CommandMenu(NSLocalizedString("Execute", comment: "command")) {
             StarteestimateButton(startestimation: $startestimation)
             StartexecuteButton(startexecution: $startexecution)
         }
