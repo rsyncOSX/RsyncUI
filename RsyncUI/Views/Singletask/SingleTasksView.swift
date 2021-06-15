@@ -14,6 +14,8 @@ struct SingleTasksView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @EnvironmentObject var outputfromrsync: OutputFromRsync
 
+    @FocusedBinding(\.startestimation) var startestimation
+
     // Execute estimate and execution
     @StateObject private var singletaskstate = SingleTaskState()
     // Execute singletask, no estimation
@@ -76,6 +78,7 @@ struct SingleTasksView: View {
         }
 
         if shellout { notifyshellout }
+        if startestimation ?? false { notifyshellout }
 
         HStack {
             HStack {
