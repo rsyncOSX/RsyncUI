@@ -45,7 +45,7 @@ struct RsyncUIApp: App {
                 }) {
                     Text("Show logfile")
                 }
-                .keyboardShortcut("o", modifiers: [.command, .shift])
+                .keyboardShortcut("o", modifiers: [.command])
             }
         }
         Settings {
