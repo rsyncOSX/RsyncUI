@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/01/2021.
 //
+// swiftlint:disable multiple_closures_with_trailing_closure
 
 import SwiftUI
 import UserNotifications
@@ -78,6 +79,7 @@ struct ContentView: View {
 
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+    @State private var searchText = ""
 
     var body: some View {
         VStack {
@@ -112,6 +114,7 @@ struct ContentView: View {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
             }
         }
+        .searchable(text: $searchText)
     }
 
     var errorhandling: ErrorHandling {

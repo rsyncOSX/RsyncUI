@@ -77,22 +77,41 @@ struct ConfigurationsList: View {
     }
 
     var configurationssorted: [Configuration] {
-        if let configurations = rsyncUIData.configurations {
-            let sorted = configurations.sorted { conf1, conf2 in
-                if let days1 = conf1.dateRun?.en_us_date_from_string(),
-                   let days2 = conf2.dateRun?.en_us_date_from_string()
-                {
-                    if days1 > days2 {
-                        return true
-                    } else {
-                        return false
+        if searchText.isEmpty {
+            if let configurations = rsyncUIData.configurations {
+                let sorted = configurations.sorted { conf1, conf2 in
+                    if let days1 = conf1.dateRun?.en_us_date_from_string(),
+                       let days2 = conf2.dateRun?.en_us_date_from_string()
+                    {
+                        if days1 > days2 {
+                            return true
+                        } else {
+                            return false
+                        }
                     }
+                    return false
                 }
-                return false
+                return sorted
             }
-            return sorted
+            return []
+        } else {
+            if let configurations = rsyncUIData.filterconfigurations(searchText) {
+                let sorted = configurations.sorted { conf1, conf2 in
+                    if let days1 = conf1.dateRun?.en_us_date_from_string(),
+                       let days2 = conf2.dateRun?.en_us_date_from_string()
+                    {
+                        if days1 > days2 {
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                    return false
+                }
+                return sorted
+            }
+            return []
         }
-        return []
     }
 
     var header: some View {
