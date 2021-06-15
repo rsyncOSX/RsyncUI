@@ -42,6 +42,8 @@ struct SingleTasksView: View {
     // Alert for select tasks
     @State private var notasks: Bool = false
 
+    @State private var startestimation: Bool = false
+
     let selectable = false
 
     var body: some View {
@@ -74,8 +76,10 @@ struct SingleTasksView: View {
                     })
             }
         }
+        .focusedValue(\.startexecution, $startestimation)
 
         if shellout { notifyshellout }
+        if startestimation { Text("Startestimation") }
 
         HStack {
             HStack {

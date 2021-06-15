@@ -5,12 +5,11 @@
 //  Created by Thomas Evensen on 14/06/2021.
 //
 // swiftlint:disable multiple_closures_with_trailing_closure line_length
-
 import SwiftUI
 
 struct ExecuteCommands: Commands {
-    @FocusedBinding(\.startestimation) var startestimation
-    @FocusedBinding(\.startexecution) var startexecution
+    @FocusedBinding(\.startestimation) private var startestimation
+    @FocusedBinding(\.startexecution) private var startexecution
 
     var body: some Commands {
         CommandMenu("Execute") {
@@ -18,7 +17,7 @@ struct ExecuteCommands: Commands {
             StartexecuteButton(startexecution: $startexecution)
         }
 
-        CommandMenu("Schedule") {
+        CommandMenu(NSLocalizedString("Schedules", comment: "command")) {
             Button(action: {
                 let running = Running()
                 guard running.informifisrsyncshedulerunning() == false else { return }
@@ -26,9 +25,9 @@ struct ExecuteCommands: Commands {
                         + SharedReference.shared.namersyncschedule))
                 NSApp.terminate(self)
             }) {
-                Text("Scheduled tasks")
+                Text(NSLocalizedString("Scheduled tasks", comment: "command"))
             }
-            .keyboardShortcut("s", modifiers: [.command, .shift])
+            .keyboardShortcut("s", modifiers: [.command])
         }
     }
 }
@@ -40,7 +39,7 @@ struct StarteestimateButton: View {
         Button {
             startestimation = true
         } label: {
-            Label("Estimate", systemImage: "drop")
+            Label(NSLocalizedString("Estimate", comment: "command"), systemImage: "play.fill")
         }
         .keyboardShortcut("e", modifiers: [.command])
     }
@@ -53,24 +52,28 @@ struct StartexecuteButton: View {
         Button {
             startexecution = true
         } label: {
-            Label("Execute", systemImage: "drop")
+            Label(NSLocalizedString("Execute", comment: "command"), systemImage: "play.fill")
         }
         .keyboardShortcut("r", modifiers: [.command])
     }
 }
 
-struct FocusedNoteBinding: FocusedValueKey {
+struct FocusedEstimateBinding: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+struct FocusedExecuteBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
 extension FocusedValues {
-    var startestimation: FocusedNoteBinding.Value? {
-        get { self[FocusedNoteBinding.self] }
-        set { self[FocusedNoteBinding.self] = newValue }
+    var startestimation: FocusedEstimateBinding.Value? {
+        get { self[FocusedEstimateBinding.self] }
+        set { self[FocusedEstimateBinding.self] = newValue }
     }
 
-    var startexecution: FocusedNoteBinding.Value? {
-        get { self[FocusedNoteBinding.self] }
-        set { self[FocusedNoteBinding.self] = newValue }
+    var startexecution: FocusedExecuteBinding.Value? {
+        get { self[FocusedExecuteBinding.self] }
+        set { self[FocusedExecuteBinding.self] = newValue }
     }
 }
