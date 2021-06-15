@@ -61,7 +61,7 @@ class Catalogsandfiles: NamesandPaths {
                 // 2: create profilecatalog/macserialnumber
                 // config path (/.rsyncosx)
                 catalog = SharedReference.shared.configpath
-                root = Folder.home
+                root = Folder.documents
                 do {
                     try root?.createSubfolder(at: catalog ?? "")
                 } catch let e {
