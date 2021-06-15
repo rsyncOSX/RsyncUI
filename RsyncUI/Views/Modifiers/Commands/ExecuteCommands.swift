@@ -59,18 +59,22 @@ struct StartexecuteButton: View {
     }
 }
 
-struct FocusedNoteBinding: FocusedValueKey {
+struct FocusedEstimateBinding: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+struct FocusedExecuteBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
 extension FocusedValues {
-    var startestimation: FocusedNoteBinding.Value? {
-        get { self[FocusedNoteBinding.self] }
-        set { self[FocusedNoteBinding.self] = newValue }
+    var startestimation: FocusedEstimateBinding.Value? {
+        get { self[FocusedEstimateBinding.self] }
+        set { self[FocusedEstimateBinding.self] = newValue }
     }
 
-    var startexecution: FocusedNoteBinding.Value? {
-        get { self[FocusedNoteBinding.self] }
-        set { self[FocusedNoteBinding.self] = newValue }
+    var startexecution: FocusedExecuteBinding.Value? {
+        get { self[FocusedExecuteBinding.self] }
+        set { self[FocusedExecuteBinding.self] = newValue }
     }
 }
