@@ -123,29 +123,29 @@ struct QuicktaskView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(250, NSLocalizedString("Add local catalog - required", comment: "QuicktaskView"), $localcatalog)
+            EditValue(300, NSLocalizedString("Add local catalog - required", comment: "QuicktaskView"), $localcatalog)
 
             // remotecatalog
-            EditValue(250, NSLocalizedString("Add remote catalog - required", comment: "QuicktaskView"), $remotecatalog)
+            EditValue(300, NSLocalizedString("Add remote catalog - required", comment: "QuicktaskView"), $remotecatalog)
         }
     }
 
     var localandremotecatalogsyncremote: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(250, NSLocalizedString("Add remote as local catalog - required", comment: "QuicktaskView"), $localcatalog)
+            EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: "QuicktaskView"), $localcatalog)
 
             // remotecatalog
-            EditValue(250, NSLocalizedString("Add local as remote catalog - required", comment: "QuicktaskView"), $remotecatalog)
+            EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: "QuicktaskView"), $remotecatalog)
         }
     }
 
     var setremoteuser: some View {
-        EditValue(250, NSLocalizedString("Add remote user", comment: "QuicktaskView"), $remoteuser)
+        EditValue(300, NSLocalizedString("Add remote user", comment: "QuicktaskView"), $remoteuser)
     }
 
     var setremoteserver: some View {
-        EditValue(250, NSLocalizedString("Add remote server", comment: "QuicktaskView"), $remoteserver)
+        EditValue(300, NSLocalizedString("Add remote server", comment: "QuicktaskView"), $remoteserver)
     }
 
     var headerremote: some View {
@@ -156,9 +156,9 @@ struct QuicktaskView: View {
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
-            EditValue(250, NSLocalizedString("Add remote user", comment: "QuicktaskView"), $remoteuser)
+            EditValue(300, NSLocalizedString("Add remote user", comment: "QuicktaskView"), $remoteuser)
             // Remote server
-            EditValue(250, NSLocalizedString("Add remote server", comment: "QuicktaskView"), $remoteserver)
+            EditValue(300, NSLocalizedString("Add remote server", comment: "QuicktaskView"), $remoteserver)
         }
     }
 
