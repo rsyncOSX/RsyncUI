@@ -18,7 +18,7 @@ struct ExecuteCommands: Commands {
             StartexecuteButton(startexecution: $startexecution)
         }
 
-        CommandMenu("Schedule") {
+        CommandMenu(NSLocalizedString("Schedules", comment: "command")) {
             Button(action: {
                 let running = Running()
                 guard running.informifisrsyncshedulerunning() == false else { return }
@@ -26,9 +26,9 @@ struct ExecuteCommands: Commands {
                         + SharedReference.shared.namersyncschedule))
                 NSApp.terminate(self)
             }) {
-                Text("Scheduled tasks")
+                Text(NSLocalizedString("Scheduled tasks", comment: "command"))
             }
-            .keyboardShortcut("s", modifiers: [.command, .shift])
+            .keyboardShortcut("s", modifiers: [.command])
         }
     }
 }
@@ -40,7 +40,7 @@ struct StarteestimateButton: View {
         Button {
             startestimation = true
         } label: {
-            Label("Estimate", systemImage: "drop")
+            Label(NSLocalizedString("Estimate", comment: "command"), systemImage: "play.fill")
         }
         .keyboardShortcut("e", modifiers: [.command])
     }
@@ -53,7 +53,7 @@ struct StartexecuteButton: View {
         Button {
             startexecution = true
         } label: {
-            Label("Execute", systemImage: "drop")
+            Label(NSLocalizedString("Execute", comment: "command"), systemImage: "play.fill")
         }
         .keyboardShortcut("r", modifiers: [.command])
     }
