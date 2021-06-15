@@ -4,27 +4,18 @@
 //
 //  Created by Thomas Evensen on 14/06/2021.
 //
+// swiftlint:disable multiple_closures_with_trailing_closure line_length
 
 import SwiftUI
 
 struct ExecuteCommands: Commands {
+    @FocusedBinding(\.startestimation) var startestimation
+    @FocusedBinding(\.startexecution) var startexecution
+
     var body: some Commands {
         CommandMenu("Execute") {
-            Button(action: {
-                //
-            }) {
-                Text("Estimate")
-            }
-            .keyboardShortcut("e", modifiers: [.command, .shift])
-
-            Divider()
-
-            Button(action: {
-                //
-            }) {
-                Text("Execute")
-            }
-            .keyboardShortcut("r", modifiers: [.command, .shift])
+            StarteestimateButton(startestimation: $startestimation)
+            StartexecuteButton(startexecution: $startexecution)
         }
 
         CommandMenu("Schedule") {
@@ -39,5 +30,47 @@ struct ExecuteCommands: Commands {
             }
             .keyboardShortcut("s", modifiers: [.command, .shift])
         }
+    }
+}
+
+struct StarteestimateButton: View {
+    @Binding var startestimation: Bool?
+
+    var body: some View {
+        Button {
+            startestimation = true
+        } label: {
+            Label("Estimate", systemImage: "drop")
+        }
+        .keyboardShortcut("e", modifiers: [.command])
+    }
+}
+
+struct StartexecuteButton: View {
+    @Binding var startexecution: Bool?
+
+    var body: some View {
+        Button {
+            startexecution = true
+        } label: {
+            Label("Execute", systemImage: "drop")
+        }
+        .keyboardShortcut("r", modifiers: [.command])
+    }
+}
+
+struct FocusedNoteBinding: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+extension FocusedValues {
+    var startestimation: FocusedNoteBinding.Value? {
+        get { self[FocusedNoteBinding.self] }
+        set { self[FocusedNoteBinding.self] = newValue }
+    }
+
+    var startexecution: FocusedNoteBinding.Value? {
+        get { self[FocusedNoteBinding.self] }
+        set { self[FocusedNoteBinding.self] = newValue }
     }
 }
