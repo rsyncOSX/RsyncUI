@@ -267,3 +267,7 @@ extension MultipletasksView {
         deleted = true
     }
 }
+
+/*
+ TODO: when change profile reset stateobjects.
+ */
