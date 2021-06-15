@@ -35,6 +35,9 @@ struct MultipletasksView: View {
     @State private var deleted = false
     // Alert for select tasks
     @State private var notasks: Bool = false
+    // Focus buttons from the menu
+    @State private var focusstartestimation: Bool = false
+    @State private var focusstartexecution: Bool = false
 
     // Either selectable configlist or not
     let selectable = true
@@ -48,6 +51,8 @@ struct MultipletasksView: View {
 
             if notasks == true { notifyselecttask }
             if deleted == true { notifydeleted }
+            if focusstartestimation { Text("Start estimation...") }
+            if focusstartexecution { Text("Start execution...") }
         }
 
         HStack {
@@ -98,6 +103,8 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .focusedSceneValue(\.startestimation, $focusstartestimation)
+        .focusedSceneValue(\.startexecution, $focusstartexecution)
     }
 
     var progressviewestimation: some View {
@@ -138,6 +145,24 @@ struct MultipletasksView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     notasks = false
                 }
+            })
+    }
+
+    var labelshortcutestimation: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusstartestimation = false
+                // Guard statement must be after resetting properties to false
+                startestimation()
+            })
+    }
+
+    var labelshortcutexecute: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusstartexecution = false
+                // Guard statement must be after resetting properties to false
+                startexecution()
             })
     }
 }

@@ -41,6 +41,9 @@ struct SingleTasksView: View {
     @State private var shellout: Bool = false
     // Alert for select tasks
     @State private var notasks: Bool = false
+    // Focus buttons from the menu
+    @State private var focusstartestimation: Bool = false
+    @State private var focusstartexecution: Bool = false
 
     let selectable = false
 
@@ -76,6 +79,8 @@ struct SingleTasksView: View {
         }
 
         if shellout { notifyshellout }
+        if focusstartestimation { Text("Start estimation...") }
+        if focusstartexecution { Text("Start execution...") }
 
         HStack {
             HStack {
@@ -98,6 +103,8 @@ struct SingleTasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .focusedSceneValue(\.startestimation, $focusstartestimation)
+        .focusedSceneValue(\.startexecution, $focusstartexecution)
     }
 
     // Estimate and the execute.
@@ -133,6 +140,25 @@ struct SingleTasksView: View {
             .buttonStyle(PrimaryButtonStyle())
             .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
                 if singletasknowstate.executetasknowstate == .completed { completed() }
+            })
+    }
+
+    // Shortcuts
+    var labelshortcutestimation: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusstartestimation = false
+                // Guard statement must be after resetting properties to false
+                initsingletask()
+            })
+    }
+
+    var labelshortcutexecute: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusstartexecution = false
+                // Guard statement must be after resetting properties to false
+                singletask()
             })
     }
 

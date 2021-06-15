@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ExecuteCommands: Commands {
-    @FocusedBinding(\.startestimation) var startestimation
-    @FocusedBinding(\.startexecution) var startexecution
+    @FocusedBinding(\.startestimation) private var startestimation
+    @FocusedBinding(\.startexecution) private var startexecution
 
     var body: some Commands {
         CommandMenu("Execute") {
