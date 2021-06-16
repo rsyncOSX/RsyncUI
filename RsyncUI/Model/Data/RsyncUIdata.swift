@@ -24,10 +24,10 @@ struct Readdatafromstore {
 }
 
 final class RsyncUIdata: ObservableObject {
-    @Published var rsyncdata: Readdatafromstore?
-    @Published var configurations: [Configuration]?
-    @Published var schedulesandlogs: [ConfigurationSchedule]?
-    @Published var profile: String?
+    var rsyncdata: Readdatafromstore?
+    var configurations: [Configuration]?
+    var schedulesandlogs: [ConfigurationSchedule]?
+    var profile: String?
     // All logs and sorted logs
     // Sort and filter logs so the view does not trigger a refresh
     var alllogssorted: [Log]?
