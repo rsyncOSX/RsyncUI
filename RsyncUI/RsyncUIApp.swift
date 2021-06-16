@@ -71,7 +71,7 @@ struct ContentView: View {
 
     @StateObject var profilenames = Profilenames()
     @State private var selectedprofile: String?
-    @State private var reload: Bool = false
+    @State private var reload: Bool = true
 
     var body: some View {
         VStack {
