@@ -68,10 +68,10 @@ struct RsyncUIApp: App {
 struct ContentView: View {
     @EnvironmentObject var rsyncversionObject: GetRsyncversion
     @EnvironmentObject var checkfornewversionofrsyncui: NewversionJSON
-
     @StateObject var profilenames = Profilenames()
+
     @State private var selectedprofile: String?
-    @State private var reload: Bool = true
+    @State private var reload: Bool = false
 
     var body: some View {
         VStack {
