@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 14/06/2021.
 //
 // swiftlint:disable multiple_closures_with_trailing_closure line_length
-
 import SwiftUI
 
 struct ExecuteCommands: Commands {
