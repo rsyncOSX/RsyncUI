@@ -16,6 +16,7 @@ struct SchedulesView: View {
     @Binding var selecteduuids: Set<UUID>
     // Not used but requiered in parameter
     @State private var inwork = -1
+    @State private var searchText: String = ""
 
     let selectable = false
 
@@ -23,6 +24,7 @@ struct SchedulesView: View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { opendetails() },
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
+                           searchText: $searchText,
                            selectable: selectable)
     }
 

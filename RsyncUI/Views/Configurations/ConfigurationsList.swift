@@ -9,10 +9,12 @@ import SwiftUI
 
 struct ConfigurationsList: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
+
     @Binding var selectedconfig: Configuration?
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
+    @Binding var searchText: String
 
     // Either selectable configlist or not
     var selectable: Bool
@@ -26,6 +28,7 @@ struct ConfigurationsList: View {
                 configlist
             }
         }
+        .searchable(text: $searchText)
     }
 
     // selectable configlist
@@ -37,8 +40,16 @@ struct ConfigurationsList: View {
                                   inwork: $inwork,
                                   config: configurations)
                         .tag(configurations)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                print("Trash")
+                            } label: {
+                                Label("Trash", systemImage: "delete.backward.fill")
+                            }
+                        }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+                // .listStyle(.inset(alternatesRowBackgrounds: true))
             }
         }
     }
@@ -51,6 +62,13 @@ struct ConfigurationsList: View {
                     OneConfig(forestimated: forestimated,
                               config: configurations)
                         .tag(configurations)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button {
+                                print("shortcut")
+                            } label: {
+                                Label("Execute", systemImage: "play.square.fill")
+                            }
+                        }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
@@ -58,22 +76,33 @@ struct ConfigurationsList: View {
     }
 
     var configurationssorted: [Configuration] {
-        if let configurations = rsyncUIData.configurations {
-            let sorted = configurations.sorted { conf1, conf2 in
-                if let days1 = conf1.dateRun?.en_us_date_from_string(),
-                   let days2 = conf2.dateRun?.en_us_date_from_string()
-                {
-                    if days1 > days2 {
-                        return true
-                    } else {
-                        return false
+        if searchText.isEmpty {
+            if let configurations = rsyncUIData.configurations {
+                let sorted = configurations.sorted { conf1, conf2 in
+                    if let days1 = conf1.dateRun?.en_us_date_from_string(),
+                       let days2 = conf2.dateRun?.en_us_date_from_string()
+                    {
+                        return days1 > days2
                     }
+                    return false
                 }
-                return false
+                return sorted
             }
-            return sorted
+            return []
+        } else {
+            if let configurations = rsyncUIData.filterconfigurations(searchText) {
+                let sorted = configurations.sorted { conf1, conf2 in
+                    if let days1 = conf1.dateRun?.en_us_date_from_string(),
+                       let days2 = conf2.dateRun?.en_us_date_from_string()
+                    {
+                        return days1 > days2
+                    }
+                    return false
+                }
+                return sorted
+            }
+            return []
         }
-        return []
     }
 
     var header: some View {
@@ -101,4 +130,6 @@ struct ConfigurationsList: View {
         Text(NSLocalizedString("Most recent updated tasks on top of list", comment: "ConfigurationsList") + "...")
             .foregroundColor(Color.blue)
     }
+
+    func sometablefunc() {}
 }

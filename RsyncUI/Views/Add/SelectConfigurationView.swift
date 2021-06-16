@@ -15,6 +15,7 @@ struct SelectConfigurationView: View {
     // only parameters for configlist, noy used
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork: Int = -1
+    @State private var searchText: String = ""
 
     let selectable = false
 
@@ -23,6 +24,7 @@ struct SelectConfigurationView: View {
             ConfigurationsList(selectedconfig: $selectedconfig,
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
+                               searchText: $searchText,
                                selectable: selectable)
             Spacer()
 

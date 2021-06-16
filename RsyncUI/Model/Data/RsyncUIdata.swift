@@ -58,6 +58,12 @@ final class RsyncUIdata: ObservableObject {
         return rsyncdata?.scheduleData.getallactiveshedulesbyhiddenID(hiddenID: hiddenID) ?? 0
     }
 
+    func filterconfigurations(_ filter: String) -> [Configuration]? {
+        return configurations?.filter {
+            filter.isEmpty ? true : $0.backupID.contains(filter)
+        }
+    }
+
     func update() {
         objectWillChange.send()
     }

@@ -35,6 +35,10 @@ struct MultipletasksView: View {
     @State private var deleted = false
     // Alert for select tasks
     @State private var notasks: Bool = false
+    // Focus buttons from the menu
+    @State private var focusstartestimation: Bool = false
+    @State private var focusstartexecution: Bool = false
+    @State private var searchText: String = ""
 
     // Either selectable configlist or not
     let selectable = true
@@ -44,9 +48,12 @@ struct MultipletasksView: View {
             ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
+                               searchText: $searchText,
                                selectable: selectable)
             if notasks == true { notifyselecttask }
             if deleted == true { notifydeleted }
+            if focusstartestimation { labelshortcutestimation }
+            if focusstartexecution { labelshortcutexecute }
         }
 
         HStack {
@@ -95,6 +102,8 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .focusedSceneValue(\.startestimation, $focusstartestimation)
+        .focusedSceneValue(\.startexecution, $focusstartexecution)
     }
 
     var progressviewestimation: some View {
@@ -137,6 +146,24 @@ struct MultipletasksView: View {
                 }
             })
     }
+
+    var labelshortcutestimation: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusstartestimation = false
+                // Guard statement must be after resetting properties to false
+                startestimation()
+            })
+    }
+
+    var labelshortcutexecute: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusstartexecution = false
+                // Guard statement must be after resetting properties to false
+                startexecution()
+            })
+    }
 }
 
 extension MultipletasksView {
@@ -167,11 +194,13 @@ extension MultipletasksView {
         estimatetask = Estimation(configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
                                   estimationstateDelegate: estimationstate,
                                   updateinprogresscount: inprogresscountmultipletask,
-                                  uuids: selecteduuids)
+                                  uuids: selecteduuids,
+                                  filter: searchText)
         estimatetask?.startestimation()
     }
 
     func startestimation() {
+        inprogresscountmultipletask.resetcounts()
         executedetails.resetcounter()
         // Check if restart or new set of configurations
         if inprogresscountmultipletask.getuuids().count > 0 {

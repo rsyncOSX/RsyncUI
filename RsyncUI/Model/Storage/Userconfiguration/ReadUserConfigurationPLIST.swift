@@ -137,8 +137,12 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
                 switch completion {
                 case .finished:
                     return
-                case let .failure(error):
-                    self.propogateerror(error: error)
+                case .failure:
+                    /*
+                     case let .failure(error):
+                         self.propogateerror(error: error)
+                     */
+                    return
                 }
             }, receiveValue: { [unowned self] data in
                 if let items = data.object(forKey: SharedReference.shared.userconfigkey) as? NSArray {
