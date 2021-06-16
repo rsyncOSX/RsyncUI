@@ -80,6 +80,7 @@ struct ContentView: View {
                     .environmentObject(RsyncUIdata(profile: selectedprofile))
                     .environmentObject(errorhandling)
                     .environmentObject(InprogressCountExecuteOneTaskDetails())
+                    .environmentObject(profilenames)
                     .onChange(of: reload, perform: { _ in
                         reload = false
                     })
