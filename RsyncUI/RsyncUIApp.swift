@@ -24,6 +24,8 @@ struct RsyncUIApp: App {
                     // User notifications
                     setusernotifications()
                     // Create base profile catalog
+                    // Read user settings
+                    // Check if schedule app is running
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationPLIST()
                     Running()
@@ -77,7 +79,7 @@ struct ContentView: View {
 
             ZStack {
                 Sidebar(reload: $reload, selectedprofile: $selectedprofile)
-                    .environmentObject(RsyncUIdata(profile: selectedprofile))
+                    .environmentObject(rsyncUIdata)
                     .environmentObject(errorhandling)
                     .environmentObject(InprogressCountExecuteOneTaskDetails())
                     .environmentObject(profilenames)
@@ -105,6 +107,10 @@ struct ContentView: View {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
             }
         }
+    }
+
+    var rsyncUIdata: RsyncUIdata {
+        return RsyncUIdata(profile: selectedprofile)
     }
 
     var errorhandling: ErrorHandling {
