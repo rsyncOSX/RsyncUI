@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct Othersettings: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var usersettings = ObserveablePath()
-
-    @Binding var reload: Bool
-
     // Documents about convert
     var infoaboutconvert: String = "https://rsyncui.netlify.app/post/plist/"
     @State private var convertisready: Bool = false
@@ -222,28 +218,34 @@ extension Othersettings {
         _ = WriteUserConfigurationPLIST()
     }
 
+    /*
+     TODO: must fix
+     */
     func verifyconvert() {
-        let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
-        if configs.thereisplistdata == true {
-            convertisready = true
-        }
-        if configs.jsonfileexist == true {
-            jsonfileexists = true
-        }
+        /*
+         let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
+         if configs.thereisplistdata == true {
+             convertisready = true
+         }
+         if configs.jsonfileexist == true {
+             jsonfileexists = true
+         }
+         */
     }
 
     func convert() {
-        let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
-        let schedules = ReadSchedulesPLIST(rsyncUIData.profile)
-        if convertisconfirmed {
-            configs.writedatatojson()
-            schedules.writedatatojson()
-        }
-        convertisready = false
-        jsonfileexists = false
-        convertisconfirmed = false
-        convertcompleted = true
-        reload = true
+        /*
+         let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
+         let schedules = ReadSchedulesPLIST(rsyncUIData.profile)
+         if convertisconfirmed {
+             configs.writedatatojson()
+             schedules.writedatatojson()
+         }
+         convertisready = false
+         jsonfileexists = false
+         convertisconfirmed = false
+         convertcompleted = true
+         */
     }
 
     func openinfo() {

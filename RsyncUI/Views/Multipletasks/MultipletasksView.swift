@@ -45,7 +45,6 @@ struct MultipletasksView: View {
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                selectable: selectable)
-
             if notasks == true { notifyselecttask }
             if deleted == true { notifydeleted }
         }
@@ -164,11 +163,26 @@ extension MultipletasksView {
     }
 
     func estimatetasks() {
+        inprogresscountmultipletask.resetcounts()
         estimatetask = Estimation(configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
                                   estimationstateDelegate: estimationstate,
                                   updateinprogresscount: inprogresscountmultipletask,
                                   uuids: selecteduuids)
         estimatetask?.startestimation()
+    }
+
+    func startestimation() {
+        executedetails.resetcounter()
+        // Check if restart or new set of configurations
+        if inprogresscountmultipletask.getuuids().count > 0 {
+            resetandreload()
+            selecteduuids.removeAll()
+        }
+        if selecteduuids.count == 0 {
+            setuuidforselectedtask()
+        }
+        estimationstate.updatestate(state: .estimate)
+        estimatetasks()
     }
 
     func abort() {
@@ -180,22 +194,6 @@ extension MultipletasksView {
         _ = InterruptProcess()
         inwork = -1
         reload = true
-    }
-
-    func startestimation() {
-        inprogresscountmultipletask.resetcounts()
-        executedetails.resetcounter()
-        // Check if restart or new set of configurations
-        if inprogresscountmultipletask.getuuids().count > 0 {
-            // print("PROBLEM: (In EstimationView) clearing old uuids not done properly")
-            resetandreload()
-            selecteduuids.removeAll()
-        }
-        if selecteduuids.count == 0 {
-            setuuidforselectedtask()
-        }
-        estimationstate.updatestate(state: .estimate)
-        estimatetasks()
     }
 
     func presentoutput() {

@@ -72,6 +72,7 @@ final class RsyncUIdata: ObservableObject {
         configurations = rsyncdata?.configurationData.getallconfigurations()
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
+        print(configurations?.count ?? 0)
         filterlogsorted = alllogssorted
         filterlogsortedbyother = alllogssorted
         objectWillChange.send()

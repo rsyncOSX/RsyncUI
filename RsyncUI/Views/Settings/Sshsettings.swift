@@ -9,10 +9,7 @@
 import SwiftUI
 
 struct Sshsettings: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
     @StateObject var usersettings = ObservableSSH()
-    @Binding var selectedconfig: Configuration?
-    @Binding var reload: Bool
 
     @State private var selectedlogin: UniqueserversandLogins?
     @State private var showingAlert: Bool = false
@@ -133,10 +130,15 @@ struct Sshsettings: View {
         .border(Color.gray)
     }
 
+    /*
+     TODO: must fix
+     */
     var serversandlogins: [UniqueserversandLogins] {
-        if let servers = rsyncUIData.rsyncdata?.configurationData.getuniqueueserversandlogins() {
-            return servers
-        }
+        /*
+         if let servers = rsyncUIData.rsyncdata?.configurationData.getuniqueueserversandlogins() {
+             return servers
+         }
+         */
         return []
     }
 
@@ -168,7 +170,6 @@ extension Sshsettings {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             usersettings.localsshkeys = SshKeys().validatepublickeypresent()
         }
-        reload = true
     }
 
     func createkeys() {
