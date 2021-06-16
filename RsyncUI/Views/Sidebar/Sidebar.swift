@@ -101,9 +101,7 @@ struct Sidebar: View {
 
             Group {
                 NavigationLink(destination: SidebarLogsView(reload: $reload,
-                                                            selectedprofile: $selectedprofile.onChange {
-                                                                rsyncUIData.update()
-                                                            }),
+                                                            selectedprofile: $selectedprofile),
                                tag: NavigationItem.logs,
                                selection: $selection) {
                     Label(NSLocalizedString("Log listings", comment: "sidebar"), systemImage: "text.alignleft")
