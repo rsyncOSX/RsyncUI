@@ -17,8 +17,7 @@ struct SidebarSnapshotsView: View {
         VStack {
             headingtitle
 
-            SnapshotsView(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
-                          reload: $reload)
+            SnapshotsView(selectedconfig: $selectedconfig, reload: $reload)
         }
         .padding()
     }

@@ -37,7 +37,7 @@ struct DetailsScheduleView: View {
                                       selectedscheduletype: $selectedscheduletype)
                         .border(Color.gray)
 
-                    SchedulesList(selectedconfig: $selectedconfig.onChange { rsyncUIData.update() },
+                    SchedulesList(selectedconfig: $selectedconfig,
                                   selectedschedule: $selectedschedule,
                                   selecteduuids: $selecteduuids)
                         .border(Color.gray)

@@ -64,10 +64,6 @@ final class RsyncUIdata: ObservableObject {
         }
     }
 
-    func update() {
-        objectWillChange.send()
-    }
-
     init(profile: String?) {
         self.profile = profile
         if profile == NSLocalizedString("Default profile", comment: "default profile") || profile == nil {
@@ -81,6 +77,5 @@ final class RsyncUIdata: ObservableObject {
         print(configurations?.count ?? 0)
         filterlogsorted = alllogssorted
         filterlogsortedbyother = alllogssorted
-        objectWillChange.send()
     }
 }
