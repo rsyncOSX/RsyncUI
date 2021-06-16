@@ -72,6 +72,7 @@ struct ContentView: View {
     @StateObject var profilenames = Profilenames()
     @State private var selectedprofile: String?
     @State private var reload: Bool = false
+    @State private var searchText = ""
 
     var body: some View {
         VStack {
@@ -107,6 +108,7 @@ struct ContentView: View {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
             }
         }
+        .searchable(text: $searchText)
     }
 
     var rsyncUIdata: RsyncUIdata {
