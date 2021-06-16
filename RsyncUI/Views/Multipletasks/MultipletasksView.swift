@@ -183,6 +183,7 @@ extension MultipletasksView {
     }
 
     func startestimation() {
+        inprogresscountmultipletask.resetcounts()
         executedetails.resetcounter()
         // Check if restart or new set of configurations
         if inprogresscountmultipletask.getuuids().count > 0 {
