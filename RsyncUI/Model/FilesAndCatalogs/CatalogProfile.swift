@@ -9,6 +9,17 @@
 import Files
 import Foundation
 
+enum ProfileexistsError: LocalizedError {
+    case profileexists
+
+    var errorDescription: String? {
+        switch self {
+        case .profileexists:
+            return NSLocalizedString("Profile exists", comment: "cannot") + "..."
+        }
+    }
+}
+
 final class CatalogProfile: Catalogsandfiles {
     func createprofilecatalog(profile: String) {
         var rootpath: Folder?

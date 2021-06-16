@@ -13,12 +13,14 @@ enum NavigationItem {
     case logs
     case singletasks
     case estimation
+    // case settings
     case none
     case snapshots
     case configurations
     case schedules
     case restore
     case quicktask
+    case tabletest
 }
 
 struct Sidebar: View {
@@ -46,8 +48,8 @@ struct Sidebar: View {
                     .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.singletasks,
                     selection: $selection) {
-                    Label(NSLocalizedString("Single task", comment: "sidebar"),
-                          systemImage: "arrowshape.turn.up.backward.fill")
+                        Label(NSLocalizedString("Single task", comment: "sidebar"),
+                              systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.singletasks)
 
@@ -58,6 +60,14 @@ struct Sidebar: View {
                           systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.quicktask)
+
+                NavigationLink(destination: ConfigurationsTable(),
+                               tag: NavigationItem.tabletest,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Table test", comment: "sidebar"),
+                          systemImage: "arrowshape.turn.up.backward.fill")
+                }
+                .tag(NavigationItem.tabletest)
             }
 
             Divider()

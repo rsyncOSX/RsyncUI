@@ -36,9 +36,11 @@ struct RsyncUIApp: App {
                 }
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
         }
+
         .commands {
             SidebarCommands()
             ExecuteCommands()
+
             CommandMenu("Log") {
                 Button(action: {
                     presentlogfile()
@@ -77,6 +79,7 @@ struct ContentView: View {
 
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+    @State private var searchText = ""
 
     var body: some View {
         VStack {
@@ -111,6 +114,7 @@ struct ContentView: View {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
             }
         }
+        .searchable(text: $searchText)
     }
 
     var errorhandling: ErrorHandling {

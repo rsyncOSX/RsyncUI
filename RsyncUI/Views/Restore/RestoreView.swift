@@ -13,25 +13,23 @@ struct RestoreView: View {
     @StateObject var restoresettings = ObserveableRestore()
 
     @State private var presentsheetview = false
+    @State private var filterstring = ""
     // Not used but requiered in parameter
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork = -1
+    @State private var searchText: String = ""
 
     let selectable = false
 
     var body: some View {
         ZStack {
             VStack {
-                SearchbarView(text: $restoresettings.filterstring.onChange {
-                    restoresettings.inputchangedbyuser = true
-                })
-                    .padding(.top, -20)
-
                 ConfigurationsList(selectedconfig: $restoresettings.selectedconfig.onChange {
                     restoresettings.filestorestore = ""
                 },
                 selecteduuids: $selecteduuids,
                 inwork: $inwork,
+                searchText: $searchText,
                 selectable: selectable)
             }
 
@@ -69,6 +67,14 @@ struct RestoreView: View {
             Button(NSLocalizedString("Abort", comment: "RestoreView")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .searchable(text: $filterstring.onChange {
+            restoresettings.inputchangedbyuser = true
+            print("filer")
+        })
+
+        /*
+         TODO: search does not work
+         */
     }
 
     var setpathforrestore: some View {

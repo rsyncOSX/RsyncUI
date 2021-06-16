@@ -21,22 +21,19 @@ struct LogsbyConfigurationView: View {
     @State private var inwork = -1
     // Alert for delete
     @State private var showAlertfordelete = false
+    @State private var searchText: String = ""
 
     let selectable = false
 
     var body: some View {
         Form {
-            SearchbarView(text: $filterstring.onChange {
-                rsyncUIData.filterbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
-            })
-                .padding(.top, -20)
-
             ConfigurationsList(selectedconfig: $selectedconfig.onChange {
                 selecteduuids.removeAll()
                 rsyncUIData.filterbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
             },
             selecteduuids: $selecteduuids,
             inwork: $inwork,
+            searchText: $searchText,
             selectable: selectable)
 
             Spacer()
@@ -78,6 +75,9 @@ struct LogsbyConfigurationView: View {
             }
         }
         .padding()
+        .searchable(text: $filterstring.onChange {
+            rsyncUIData.filter(filterstring)
+        })
     }
 
     var numberoflogs: String {

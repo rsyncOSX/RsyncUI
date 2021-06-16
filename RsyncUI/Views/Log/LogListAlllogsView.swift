@@ -20,11 +20,6 @@ struct LogListAlllogsView: View {
 
     var body: some View {
         Form {
-            SearchbarView(text: $filterstring.onChange {
-                rsyncUIData.filter(filterstring)
-            })
-                .padding(.top, -20)
-
             List(selection: $selectedlog) {
                 if let logs = rsyncUIData.filterlogsorted {
                     ForEach(logs) { record in
@@ -62,6 +57,9 @@ struct LogListAlllogsView: View {
             }
         }
         .padding()
+        .searchable(text: $filterstring.onChange {
+            rsyncUIData.filter(filterstring)
+        })
     }
 
     var numberoflogs: String {
