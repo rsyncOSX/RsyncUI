@@ -28,7 +28,6 @@ struct ConfigurationsList: View {
                 configlist
             }
         }
-        .searchable(text: $searchText)
     }
 
     // selectable configlist
@@ -40,13 +39,6 @@ struct ConfigurationsList: View {
                                   inwork: $inwork,
                                   config: configurations)
                         .tag(configurations)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button(role: .destructive) {
-                                print("Trash")
-                            } label: {
-                                Label("Trash", systemImage: "delete.backward.fill")
-                            }
-                        }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
                 // .listStyle(.inset(alternatesRowBackgrounds: true))
@@ -62,13 +54,6 @@ struct ConfigurationsList: View {
                     OneConfig(forestimated: forestimated,
                               config: configurations)
                         .tag(configurations)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button {
-                                print("shortcut")
-                            } label: {
-                                Label("Execute", systemImage: "play.square.fill")
-                            }
-                        }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }

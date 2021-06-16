@@ -105,8 +105,6 @@ struct SingleTasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .focusedSceneValue(\.startestimation, $focusstartestimation)
-        .focusedSceneValue(\.startexecution, $focusstartexecution)
     }
 
     // Estimate and the execute.

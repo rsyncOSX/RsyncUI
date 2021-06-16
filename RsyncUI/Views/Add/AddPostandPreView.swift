@@ -20,7 +20,6 @@ struct AddPostandPreView: View {
     }
 
     @StateObject var newdata = ObserveablePreandPostTask()
-    @FocusState private var focusField: PreandPostTaskField?
 
     var body: some View {
         Form {
@@ -77,22 +76,6 @@ struct AddPostandPreView: View {
         }
         .lineSpacing(2)
         .padding()
-        .onSubmit {
-            switch focusField {
-            case .pretaskField:
-                focusField = .posttaskField
-            case .posttaskField:
-                newdata.enablepre = true
-                newdata.enablepost = true
-                newdata.haltshelltasksonerror = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    validateandupdate()
-                }
-                focusField = nil
-            default:
-                return
-            }
-        }
     }
 
     var updatebutton: some View {
@@ -153,9 +136,7 @@ struct AddPostandPreView: View {
                 EditValue(250, nil, $newdata.pretask.onChange {
                     newdata.inputchangedbyuser = true
                 })
-                    .focused($focusField, equals: .pretaskField)
                     .textContentType(.none)
-                    .submitLabel(.continue)
                     .onAppear(perform: {
                         if let task = newdata.selectedconfig?.pretask {
                             newdata.pretask = task
@@ -186,9 +167,7 @@ struct AddPostandPreView: View {
                 EditValue(250, nil, $newdata.posttask.onChange {
                     newdata.inputchangedbyuser = true
                 })
-                    .focused($focusField, equals: .posttaskField)
                     .textContentType(.none)
-                    .submitLabel(.continue)
                     .onAppear(perform: {
                         if let task = newdata.selectedconfig?.posttask {
                             newdata.posttask = task

@@ -39,7 +39,6 @@ struct AddConfigurationView: View {
     }
 
     @StateObject var newdata = ObserveableAddConfigurations()
-    @FocusState private var focusField: AddConfigurationField?
 
     var body: some View {
         Form {
@@ -102,36 +101,6 @@ struct AddConfigurationView: View {
         }
         .lineSpacing(2)
         .padding()
-        .onSubmit {
-            switch focusField {
-            case .localcatalogField:
-                focusField = .remotecatalogField
-            case .remotecatalogField:
-                focusField = .backupIDField
-            case .remoteuserField:
-                focusField = .remoteserverField
-            case .remoteserverField:
-                if newdata.selectedconfig == nil {
-                    addconfig()
-                } else {
-                    validateandupdate()
-                }
-                focusField = nil
-            case .backupIDField:
-                if newdata.remotestorageislocal == true,
-                   newdata.selectedconfig == nil
-                {
-                    addconfig()
-                } else {
-                    focusField = .remoteuserField
-                }
-            case .newprofileField:
-                createprofile()
-                focusField = .localcatalogField
-            default:
-                return
-            }
-        }
     }
 
     var updatebutton: some View {
@@ -170,17 +139,13 @@ struct AddConfigurationView: View {
     var setlocalcatalog: some View {
         EditValue(300, NSLocalizedString("Add local catalog - required", comment: "settings"),
                   $newdata.localcatalog)
-            .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
-            .submitLabel(.continue)
     }
 
     var setremotecatalog: some View {
         EditValue(300, NSLocalizedString("Add remote catalog - required", comment: "settings"),
                   $newdata.remotecatalog)
-            .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
-            .submitLabel(.continue)
     }
 
     // Headers (in sections)
@@ -196,9 +161,7 @@ struct AddConfigurationView: View {
                 EditValue(300, nil, $newdata.localcatalog.onChange {
                     newdata.inputchangedbyuser = true
                 })
-                    .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
-                    .submitLabel(.continue)
                     .onAppear(perform: {
                         if let catalog = newdata.selectedconfig?.localCatalog {
                             newdata.localcatalog = catalog
@@ -210,9 +173,7 @@ struct AddConfigurationView: View {
                 EditValue(300, nil, $newdata.remotecatalog.onChange {
                     newdata.inputchangedbyuser = true
                 })
-                    .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
-                    .submitLabel(.continue)
                     .onAppear(perform: {
                         if let catalog = newdata.selectedconfig?.offsiteCatalog {
                             newdata.remotecatalog = catalog
@@ -273,18 +234,14 @@ struct AddConfigurationView: View {
 
             EditValue(150, NSLocalizedString("New profile", comment: "settings"),
                       $newdata.newprofile)
-                .focused($focusField, equals: .newprofileField)
                 .textContentType(.none)
-                .submitLabel(.return)
         }
     }
 
     var setID: some View {
         EditValue(300, NSLocalizedString("Add synchronize ID", comment: "settings"),
                   $newdata.backupID)
-            .focused($focusField, equals: .backupIDField)
             .textContentType(.none)
-            .submitLabel(.continue)
     }
 
     var headerID: some View {
@@ -299,9 +256,7 @@ struct AddConfigurationView: View {
                 EditValue(300, nil, $newdata.backupID.onChange {
                     newdata.inputchangedbyuser = true
                 })
-                    .focused($focusField, equals: .backupIDField)
                     .textContentType(.none)
-                    .submitLabel(.continue)
                     .onAppear(perform: {
                         if let id = newdata.selectedconfig?.backupID {
                             newdata.backupID = id
@@ -314,17 +269,13 @@ struct AddConfigurationView: View {
     var setremoteuser: some View {
         EditValue(300, NSLocalizedString("Add remote user", comment: "settings"),
                   $newdata.remoteuser)
-            .focused($focusField, equals: .remoteuserField)
             .textContentType(.none)
-            .submitLabel(.continue)
     }
 
     var setremoteserver: some View {
         EditValue(300, NSLocalizedString("Add remote server", comment: "settings"),
                   $newdata.remoteserver)
-            .focused($focusField, equals: .remoteserverField)
             .textContentType(.none)
-            .submitLabel(.return)
     }
 
     var headerremote: some View {
@@ -339,9 +290,7 @@ struct AddConfigurationView: View {
                 EditValue(300, nil, $newdata.remoteuser.onChange {
                     newdata.inputchangedbyuser = true
                 })
-                    .focused($focusField, equals: .remoteuserField)
                     .textContentType(.none)
-                    .submitLabel(.continue)
                     .onAppear(perform: {
                         if let user = newdata.selectedconfig?.offsiteUsername {
                             newdata.remoteuser = user
@@ -353,9 +302,7 @@ struct AddConfigurationView: View {
                 EditValue(300, nil, $newdata.remoteserver.onChange {
                     newdata.inputchangedbyuser = true
                 })
-                    .focused($focusField, equals: .remoteserverField)
                     .textContentType(.none)
-                    .submitLabel(.return)
                     .onAppear(perform: {
                         if let server = newdata.selectedconfig?.offsiteServer {
                             newdata.remoteserver = server

@@ -75,9 +75,6 @@ struct LogsbyConfigurationView: View {
             }
         }
         .padding()
-        .searchable(text: $filterstring.onChange {
-            rsyncUIData.filter(filterstring)
-        })
     }
 
     var numberoflogs: String {

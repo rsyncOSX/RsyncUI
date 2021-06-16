@@ -35,13 +35,15 @@ struct RsyncCommandView: View {
             HStack {
                 Spacer()
 
+                Button(NSLocalizedString("Copy", comment: "Copy button")) { copytopasteboard() }
+                    .buttonStyle(PrimaryButtonStyle())
+
                 Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
         .frame(width: 600, height: 300)
         .padding()
-        .textSelection(.enabled)
     }
 
     var pickerselectcommand: some View {
@@ -84,5 +86,11 @@ struct RsyncCommandView: View {
 
     func dismissview() {
         isPresented = false
+    }
+
+    func copytopasteboard() {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(commandstring ?? "", forType: .string)
     }
 }

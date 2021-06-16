@@ -14,7 +14,7 @@ final class Macserialnumber {
     // Function for computing MacSerialNumber
     func computemacSerialNumber() -> String {
         // Get the platform expert
-        let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMainPortDefault,
+        let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMasterPortDefault,
                                                                        IOServiceMatching("IOPlatformExpertDevice"))
         // Get the serial number as a CFString ( actually as Unmanaged<AnyObject>! )
         let serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert,

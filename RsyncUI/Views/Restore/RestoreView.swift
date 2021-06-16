@@ -67,11 +67,6 @@ struct RestoreView: View {
             Button(NSLocalizedString("Abort", comment: "RestoreView")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .searchable(text: $filterstring.onChange {
-            restoresettings.inputchangedbyuser = true
-            print("filer")
-        })
-
         /*
          TODO: search does not work
          */
