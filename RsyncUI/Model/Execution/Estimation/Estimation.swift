@@ -34,7 +34,7 @@ final class Estimation {
     weak var stateDelegate: EstimationState?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
-    private func prepareandstartexecutetasks(_ configurations: [Configuration]?) {
+    private func prepareandstartexecutetasks() {
         stackoftasktobeestimated = [Int]()
         // Multiple selected indexes
         if let hiddenIDs = self.hiddenIDs {
@@ -43,10 +43,10 @@ final class Estimation {
             }
             // Estimate all or filtered tasks
         } else {
-            for i in 0 ..< (configurations?.count ?? 0) {
-                let task = configurations?[i].task
+            for i in 0 ..< (localconfigurationsSwiftUI?.getallconfigurations()?.count ?? 0) {
+                let task = localconfigurationsSwiftUI?.getallconfigurations()?[i].task
                 if SharedReference.shared.synctasks.contains(task ?? "") {
-                    if let hiddenID = configurations?[i].hiddenID {
+                    if let hiddenID = localconfigurationsSwiftUI?.getallconfigurations()?[i].hiddenID {
                         stackoftasktobeestimated?.append(hiddenID)
                     }
                 }
@@ -106,20 +106,18 @@ final class Estimation {
     init(configurationsSwiftUI: ConfigurationsSwiftUI?,
          estimationstateDelegate: EstimationState?,
          updateinprogresscount: UpdateEstimationCount?,
-         uuids: Set<UUID>,
-         filter: String)
+         uuids: Set<UUID>)
     {
         localconfigurationsSwiftUI = configurationsSwiftUI
         stateDelegate = estimationstateDelegate
         updateestimationcountDelegate = updateinprogresscount
-        let filteredconfigurations = configurationsSwiftUI?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         // Debug print
         // printdebugdata(uuids)
         // Debug print
         if uuids.count > 0 {
             // Estimate selected configurations
             hiddenIDs = [Int]()
-            let configurations = filteredconfigurations?.filter { uuids.contains($0.id) }
+            let configurations = localconfigurationsSwiftUI?.getallconfigurations()?.filter { uuids.contains($0.id) }
             for i in 0 ..< (configurations?.count ?? 0) {
                 if let hiddenID = configurations?[i].hiddenID {
                     hiddenIDs?.append(hiddenID)
@@ -134,7 +132,7 @@ final class Estimation {
             hiddenIDs = nil
         }
         records = [RemoteinfonumbersOnetask]()
-        prepareandstartexecutetasks(filteredconfigurations)
+        prepareandstartexecutetasks()
     }
 
     deinit {

@@ -23,7 +23,6 @@ struct ExecuteEstimatedView: View {
     @State private var selectedconfig: Configuration?
     @State private var presentsheetview = false
     @State private var inwork: Int = -1
-    @State private var searchText: String = ""
 
     // Either selectable configlist or not
     let selectable = true
@@ -32,7 +31,6 @@ struct ExecuteEstimatedView: View {
         ConfigurationsList(selectedconfig: $selectedconfig,
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
-                           searchText: $searchText,
                            selectable: selectable)
 
         // When completed

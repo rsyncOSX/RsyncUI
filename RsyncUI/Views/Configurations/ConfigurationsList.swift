@@ -14,7 +14,6 @@ struct ConfigurationsList: View {
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
-    @Binding var searchText: String
 
     // Either selectable configlist or not
     var selectable: Bool
@@ -61,33 +60,18 @@ struct ConfigurationsList: View {
     }
 
     var configurationssorted: [Configuration] {
-        if searchText.isEmpty {
-            if let configurations = rsyncUIData.configurations {
-                let sorted = configurations.sorted { conf1, conf2 in
-                    if let days1 = conf1.dateRun?.en_us_date_from_string(),
-                       let days2 = conf2.dateRun?.en_us_date_from_string()
-                    {
-                        return days1 > days2
-                    }
-                    return false
+        if let configurations = rsyncUIData.configurations {
+            let sorted = configurations.sorted { conf1, conf2 in
+                if let days1 = conf1.dateRun?.en_us_date_from_string(),
+                   let days2 = conf2.dateRun?.en_us_date_from_string()
+                {
+                    return days1 > days2
                 }
-                return sorted
+                return false
             }
-            return []
-        } else {
-            if let configurations = rsyncUIData.filterconfigurations(searchText) {
-                let sorted = configurations.sorted { conf1, conf2 in
-                    if let days1 = conf1.dateRun?.en_us_date_from_string(),
-                       let days2 = conf2.dateRun?.en_us_date_from_string()
-                    {
-                        return days1 > days2
-                    }
-                    return false
-                }
-                return sorted
-            }
-            return []
+            return sorted
         }
+        return []
     }
 
     var header: some View {

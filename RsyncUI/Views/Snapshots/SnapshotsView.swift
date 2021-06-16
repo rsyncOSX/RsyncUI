@@ -32,7 +32,6 @@ struct SnapshotsView: View {
     @State private var confirmdeletesnapshots = false
     // Alert for delete
     @State private var showAlertfordelete = false
-    @State private var searchText: String = ""
 
     let selectable = false
 
@@ -41,7 +40,6 @@ struct SnapshotsView: View {
             ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
-                               searchText: $searchText,
                                selectable: selectable)
 
             if notsnapshot == true { notasnapshottask }

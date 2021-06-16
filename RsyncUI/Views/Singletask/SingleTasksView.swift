@@ -44,7 +44,6 @@ struct SingleTasksView: View {
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
-    @State private var searchText: String = ""
 
     let selectable = false
 
@@ -53,7 +52,6 @@ struct SingleTasksView: View {
             ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
-                               searchText: $searchText,
                                selectable: selectable)
 
             // Estimate singletask or Execute task now

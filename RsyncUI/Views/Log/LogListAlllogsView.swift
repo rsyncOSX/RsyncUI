@@ -12,14 +12,18 @@ struct LogListAlllogsView: View {
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
 
+    @State private var filterstring: String = ""
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
-    @State private var filterstring: String = ""
     // Alert for delete
     @State private var showAlertfordelete = false
 
     var body: some View {
         Form {
+            SearchbarView(text: $filterstring.onChange {
+                rsyncUIData.filter(filterstring)
+            })
+                .padding(.top, -20)
             List(selection: $selectedlog) {
                 if let logs = rsyncUIData.filterlogsorted {
                     ForEach(logs) { record in
