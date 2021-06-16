@@ -12,6 +12,8 @@ struct RsyncParametersView: View {
     @Binding var reload: Bool
     @Binding var showdetails: Bool
     @Binding var selectedconfig: Configuration?
+
+    @State private var searchText: String = ""
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selecteduuids = Set<UUID>()
@@ -22,6 +24,7 @@ struct RsyncParametersView: View {
         ConfigurationsList(selectedconfig: $selectedconfig.onChange { opendetails() },
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
+                           searchText: $searchText,
                            selectable: selectable)
     }
 

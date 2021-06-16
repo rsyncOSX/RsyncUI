@@ -17,6 +17,7 @@ struct RestoreView: View {
     // Not used but requiered in parameter
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork = -1
+    @State private var searchText: String = ""
 
     let selectable = false
 
@@ -28,6 +29,7 @@ struct RestoreView: View {
                 },
                 selecteduuids: $selecteduuids,
                 inwork: $inwork,
+                searchText: $searchText,
                 selectable: selectable)
             }
 

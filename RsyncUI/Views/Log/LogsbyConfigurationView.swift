@@ -21,6 +21,7 @@ struct LogsbyConfigurationView: View {
     @State private var inwork = -1
     // Alert for delete
     @State private var showAlertfordelete = false
+    @State private var searchText: String = ""
 
     let selectable = false
 
@@ -32,6 +33,7 @@ struct LogsbyConfigurationView: View {
             },
             selecteduuids: $selecteduuids,
             inwork: $inwork,
+            searchText: $searchText,
             selectable: selectable)
 
             Spacer()

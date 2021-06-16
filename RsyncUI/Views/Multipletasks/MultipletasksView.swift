@@ -38,6 +38,7 @@ struct MultipletasksView: View {
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
+    @State private var searchText: String = ""
 
     // Either selectable configlist or not
     let selectable = true
@@ -47,6 +48,7 @@ struct MultipletasksView: View {
             ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
+                               searchText: $searchText,
                                selectable: selectable)
 
             if notasks == true { notifyselecttask }
@@ -194,7 +196,8 @@ extension MultipletasksView {
         estimatetask = Estimation(configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
                                   estimationstateDelegate: estimationstate,
                                   updateinprogresscount: inprogresscountmultipletask,
-                                  uuids: selecteduuids)
+                                  uuids: selecteduuids,
+                                  filter: searchText)
         estimatetask?.startestimation()
     }
 
@@ -294,3 +297,7 @@ extension MultipletasksView {
         deleted = true
     }
 }
+
+/*
+ searchText.isEmpty ? true : let index = rsyncUIData.configurations?.firstIndex(of: sel) ?? let index = rsyncUIData.configurations?.firstIndex(of: sel)
+ */

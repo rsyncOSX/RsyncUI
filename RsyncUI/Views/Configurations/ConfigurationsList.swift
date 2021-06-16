@@ -14,8 +14,7 @@ struct ConfigurationsList: View {
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
-
-    @State var searchText: String = ""
+    @Binding var searchText: String
 
     // Either selectable configlist or not
     var selectable: Bool
@@ -83,11 +82,7 @@ struct ConfigurationsList: View {
                     if let days1 = conf1.dateRun?.en_us_date_from_string(),
                        let days2 = conf2.dateRun?.en_us_date_from_string()
                     {
-                        if days1 > days2 {
-                            return true
-                        } else {
-                            return false
-                        }
+                        return days1 > days2
                     }
                     return false
                 }
@@ -100,11 +95,7 @@ struct ConfigurationsList: View {
                     if let days1 = conf1.dateRun?.en_us_date_from_string(),
                        let days2 = conf2.dateRun?.en_us_date_from_string()
                     {
-                        if days1 > days2 {
-                            return true
-                        } else {
-                            return false
-                        }
+                        return days1 > days2
                     }
                     return false
                 }
