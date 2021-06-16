@@ -81,8 +81,8 @@ struct SingleTasksView: View {
         }
 
         if shellout { notifyshellout }
-        if focusstartestimation { Text("Start estimation...") }
-        if focusstartexecution { Text("Start execution...") }
+        if focusstartestimation { labelshortcutestimation }
+        if focusstartexecution { labelshortcutexecute }
 
         HStack {
             HStack {
@@ -119,12 +119,10 @@ struct SingleTasksView: View {
                 // Estimate
                 Button(NSLocalizedString("Estimate", comment: "Estimate button")) { initsingletask() }
                     .buttonStyle(PrimaryButtonStyle())
-                    .keyboardShortcut("e", modifiers: [.command, .shift])
             } else {
                 // Execute estimated
                 Button(NSLocalizedString("Execute", comment: "Execute button")) { singletask() }
                     .buttonStyle(PrimaryButtonStyle())
-                    .keyboardShortcut("r", modifiers: [.command, .shift])
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color.red, lineWidth: 5)

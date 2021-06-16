@@ -53,8 +53,8 @@ struct MultipletasksView: View {
 
             if notasks == true { notifyselecttask }
             if deleted == true { notifydeleted }
-            if focusstartestimation { Text("Start estimation...") }
-            if focusstartexecution { Text("Start execution...") }
+            if focusstartestimation { labelshortcutestimation }
+            if focusstartexecution { labelshortcutexecute }
         }
 
         HStack {
@@ -71,11 +71,9 @@ struct MultipletasksView: View {
 
             Button(NSLocalizedString("Estimate", comment: "Estimate button")) { startestimation() }
                 .buttonStyle(PrimaryButtonStyle())
-                .keyboardShortcut("e", modifiers: [.command, .shift])
 
             Button(NSLocalizedString("Execute", comment: "Execute button")) { startexecution() }
                 .buttonStyle(PrimaryButtonStyle())
-                .keyboardShortcut("r", modifiers: [.command, .shift])
 
             Spacer()
 
@@ -297,7 +295,3 @@ extension MultipletasksView {
         deleted = true
     }
 }
-
-/*
- searchText.isEmpty ? true : let index = rsyncUIData.configurations?.firstIndex(of: sel) ?? let index = rsyncUIData.configurations?.firstIndex(of: sel)
- */
