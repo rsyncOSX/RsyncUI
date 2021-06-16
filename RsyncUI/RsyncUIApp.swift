@@ -11,36 +11,30 @@ import UserNotifications
 
 @main
 struct RsyncUIApp: App {
-    @State private var selectedprofile: String?
-    @State private var reload: Bool = false
     @State private var viewlogfile: Bool = false
-    @StateObject var rsyncUIData = RsyncUIdata(profile: nil)
     @StateObject var getrsyncversion = GetRsyncversion()
-    @StateObject var profilenames = Profilenames()
     @StateObject var checkfornewversionofrsyncui = NewversionJSON()
 
     var body: some Scene {
         WindowGroup {
-            ContentView(selectedprofile: $selectedprofile, reload: $reload)
-                .environmentObject(rsyncUIData)
+            ContentView()
                 .environmentObject(getrsyncversion)
-                .environmentObject(profilenames)
                 .environmentObject(checkfornewversionofrsyncui)
                 .onAppear {
                     // User notifications
                     setusernotifications()
                     // Create base profile catalog
+                    // Read user settings
+                    // Check if schedule app is running
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationPLIST()
                     Running()
                 }
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
         }
-
         .commands {
             SidebarCommands()
             ExecuteCommands()
-
             CommandMenu("Log") {
                 Button(action: {
                     presentlogfile()
@@ -51,8 +45,7 @@ struct RsyncUIApp: App {
             }
         }
         Settings {
-            SidebarSettingsView(selectedprofile: $selectedprofile, reload: $reload)
-                .environmentObject(rsyncUIData)
+            SidebarSettingsView()
                 .environmentObject(getrsyncversion)
         }
     }
@@ -74,11 +67,11 @@ struct RsyncUIApp: App {
 
 struct ContentView: View {
     @EnvironmentObject var rsyncversionObject: GetRsyncversion
-    @EnvironmentObject var profilenames: Profilenames
     @EnvironmentObject var checkfornewversionofrsyncui: NewversionJSON
 
-    @Binding var selectedprofile: String?
-    @Binding var reload: Bool
+    @StateObject var profilenames = Profilenames()
+    @State private var selectedprofile: String?
+    @State private var reload: Bool = false
     @State private var searchText = ""
 
     var body: some View {
@@ -87,9 +80,10 @@ struct ContentView: View {
 
             ZStack {
                 Sidebar(reload: $reload, selectedprofile: $selectedprofile)
-                    .environmentObject(RsyncUIdata(profile: selectedprofile))
+                    .environmentObject(rsyncUIdata)
                     .environmentObject(errorhandling)
                     .environmentObject(InprogressCountExecuteOneTaskDetails())
+                    .environmentObject(profilenames)
                     .onChange(of: reload, perform: { _ in
                         reload = false
                     })
@@ -115,6 +109,10 @@ struct ContentView: View {
             }
         }
         .searchable(text: $searchText)
+    }
+
+    var rsyncUIdata: RsyncUIdata {
+        return RsyncUIdata(profile: selectedprofile)
     }
 
     var errorhandling: ErrorHandling {
