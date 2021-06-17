@@ -9,10 +9,8 @@ import SwiftUI
 
 struct ConvertPLISTView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
-    @Binding var isPresented: Bool
     // Documents about convert
     var infoaboutconvert: String = "https://rsyncui.netlify.app/post/plist/"
-    @State private var convertisready: Bool = false
     @State private var jsonfileexists: Bool = false
     @State private var convertisconfirmed: Bool = false
     @State private var convertcompleted: Bool = false
@@ -21,26 +19,25 @@ struct ConvertPLISTView: View {
 
     var body: some View {
         VStack {
-            Text(NSLocalizedString("Convert from PLIST", comment: "OutputRsyncView"))
+            Text(NSLocalizedString("Convert from PLIST for", comment: "OutputRsyncView") + ": "
+                + (rsyncUIData.profile ?? NSLocalizedString("Default profile", comment: "default profile")))
                 .font(.title2)
                 .padding()
 
-            if convertisready {
-                HStack {
-                    Spacer()
+            HStack {
+                Spacer()
 
-                    prepareconvertplist
+                prepareconvertplist
 
-                    Spacer()
-                }
+                Spacer()
+            }
 
-                HStack {
-                    Spacer()
+            HStack {
+                Spacer()
 
-                    if jsonfileexists { alertjsonfileexists }
+                if jsonfileexists { alertjsonfileexists }
 
-                    Spacer()
-                }
+                Spacer()
             }
 
             if convertcompleted == true {
@@ -71,16 +68,10 @@ struct ConvertPLISTView: View {
 
             HStack {
                 Spacer()
-
-                Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
-                    .buttonStyle(PrimaryButtonStyle())
             }
         }
         .padding()
         .frame(minWidth: 800, minHeight: 600)
-        .onAppear(perform: {
-            convertisready = false
-        })
     }
 
     var prepareconvertplist: some View {
@@ -114,9 +105,6 @@ struct ConvertPLISTView: View {
 
     func verifyconvert() {
         let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
-        if configs.thereisplistdata == true {
-            convertisready = true
-        }
         if configs.jsonfileexist == true {
             jsonfileexists = true
         }
@@ -129,7 +117,6 @@ struct ConvertPLISTView: View {
             configs.writedatatojson()
             schedules.writedatatojson()
         }
-        convertisready = false
         jsonfileexists = false
         convertisconfirmed = false
         convertcompleted = true
@@ -142,9 +129,5 @@ struct ConvertPLISTView: View {
     func backupuserconfigs() {
         _ = Backupconfigfiles()
         backup = true
-    }
-
-    func dismissview() {
-        isPresented = false
     }
 }
