@@ -19,8 +19,9 @@ struct ConvertPLISTView: View {
 
     var body: some View {
         VStack {
-            Text(NSLocalizedString("Convert from PLIST for", comment: "OutputRsyncView") + ": "
-                + (rsyncUIData.profile ?? NSLocalizedString("Default profile", comment: "default profile")))
+            Text(NSLocalizedString("Convert from PLIST for", comment: "OutputRsyncView"))
+                .font(.title2)
+            Text(rsyncUIData.profile ?? NSLocalizedString("Default profile", comment: "default profile"))
                 .font(.title2)
                 .padding()
 
@@ -71,7 +72,6 @@ struct ConvertPLISTView: View {
             }
         }
         .padding()
-        .frame(minWidth: 800, minHeight: 600)
     }
 
     var prepareconvertplist: some View {
