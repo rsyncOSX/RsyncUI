@@ -129,7 +129,7 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.tabletest)
 
-                NavigationLink(destination: ConvertPLISTView(),
+                NavigationLink(destination: ConvertPLISTView(reload: $reload),
                                tag: NavigationItem.plist,
                                selection: $selection) {
                     Label(NSLocalizedString("Plist", comment: "sidebar"),

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ConvertPLISTView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @Binding var reload: Bool
     // Documents about convert
     var infoaboutconvert: String = "https://rsyncui.netlify.app/post/plist/"
     @State private var jsonfileexists: Bool = false
@@ -23,6 +24,7 @@ struct ConvertPLISTView: View {
                 .font(.title2)
             Text(rsyncUIData.profile ?? NSLocalizedString("Default profile", comment: "default profile"))
                 .font(.title2)
+                .foregroundColor(Color.blue)
                 .padding()
 
             HStack {
@@ -79,7 +81,9 @@ struct ConvertPLISTView: View {
             Button(NSLocalizedString("Info about convert", comment: "Othersettings")) { openinfo() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            ToggleView(NSLocalizedString("Confirm convert", comment: "Othersettings"), $convertisconfirmed)
+            ToggleView(NSLocalizedString("Confirm convert", comment: "Othersettings"), $convertisconfirmed.onChange {
+                verifyconvert()
+            })
 
             if convertisconfirmed {
                 VStack {
@@ -120,6 +124,7 @@ struct ConvertPLISTView: View {
         jsonfileexists = false
         convertisconfirmed = false
         convertcompleted = true
+        reload = true
     }
 
     func openinfo() {
