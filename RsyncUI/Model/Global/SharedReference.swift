@@ -45,6 +45,8 @@ class SharedReference {
     var sshkeypathandidentityfile: String?
     // Check input when loading schedules and adding config
     var checkinput: Bool = false
+    // Check for error in output from rsync
+    var checkforerrorinrsyncoutput: Bool = false
     // Check for network changes
     var monitornetworkconnection: Bool = false
     // Download URL if new version is avaliable
