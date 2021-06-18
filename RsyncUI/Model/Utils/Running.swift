@@ -51,7 +51,7 @@ final class Running {
             SharedReference.shared.menuappisrunning = true
         } else {
             rsyncUIscheduleisrunning = false
-            SharedReference.shared.menuappisrunning = true
+            SharedReference.shared.menuappisrunning = false
         }
     }
 }
