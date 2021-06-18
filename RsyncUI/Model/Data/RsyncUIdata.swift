@@ -65,6 +65,10 @@ final class RsyncUIdata: ObservableObject {
     }
 
     init(profile: String?) {
+        guard SharedReference.shared.reload == true else {
+            SharedReference.shared.reload = true
+            return
+        }
         self.profile = profile
         if profile == NSLocalizedString("Default profile", comment: "default profile") || profile == nil {
             rsyncdata = Readdatafromstore(profile: nil)
