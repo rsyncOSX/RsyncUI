@@ -1,15 +1,13 @@
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.1.1/total) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v0.99/total) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys)
 
 The development commenced in December 2020 and RsyncUI version 1.0.0 was released 6 May 2021. RsyncUI is build for **macOS Monterey**. The name is **RsyncUI**.  The main repository is updated with code for the updated SwiftUI and macOS Monterey (macOS 12).
+
+**Update 17 June 2021**. The builds are removed for the moment, the UI need some more polish and there is also discovered an issue with RsyncUI on macOS Big Sur. The issue does not exists on macOS Monterey with Xcode 13. I am not sure why and further QA of code is required. The updated Xcode 13 and SwiftUI 3 also introduces updates which enhances the UI a lot. For more info see. Please use the latest version of RsyncOSX. There might be another build on macOS Big Sur if I manage to solve the issue. If not there will not be any new releases of RsyncUI until macOS Monterey is public.
 
 - [the changelog](https://rsyncui.netlify.app/post/changelog/)
 - other [info about RsyncUI](https://rsyncui.netlify.app)
 - info about [the development of RsyncUI](https://rsyncui.netlify.app/post/development/)
 - info about [RsyncUI on macOS 12](https://rsyncui.netlify.app/post/macos12/)
-
-The released version of RsyncUI still need some more work on the details. There is a lot to learn about the new version of Swift, SwiftUI and macOS 12. RsyncUI is stabel and it works. But some parts of the UI and how it works still need some more polish. I am learning more about SwiftUI every day and the challenge for me is to learn about the built in API and use the most of it. And that takes some time. But there is every day some enhancments in the code.
-
-So, if you download RsyncUI and start using it please have this in mind. And as always, please report back if there something to dislike or request for new features.
 
 ## Dependencies
 

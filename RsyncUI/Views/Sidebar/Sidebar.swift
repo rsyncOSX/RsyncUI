@@ -19,6 +19,8 @@ enum NavigationItem {
     case schedules
     case restore
     case quicktask
+    case tabletest
+    case plist
 }
 
 struct Sidebar: View {
@@ -114,6 +116,26 @@ struct Sidebar: View {
                     Label(NSLocalizedString("Restore", comment: "sidebar"), systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.restore)
+            }
+
+            Divider()
+
+            Group {
+                NavigationLink(destination: ConfigurationsTable(),
+                               tag: NavigationItem.tabletest,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Table test", comment: "sidebar"),
+                          systemImage: "arrowshape.turn.up.backward.fill")
+                }
+                .tag(NavigationItem.tabletest)
+
+                NavigationLink(destination: ConvertPLISTView(reload: $reload),
+                               tag: NavigationItem.plist,
+                               selection: $selection) {
+                    Label(NSLocalizedString("Plist", comment: "sidebar"),
+                          systemImage: "arrowshape.turn.up.backward.fill")
+                }
+                .tag(NavigationItem.plist)
             }
         }
         .listStyle(SidebarListStyle())
