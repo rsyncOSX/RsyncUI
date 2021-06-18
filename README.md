@@ -2,7 +2,7 @@
 
 The development commenced in December 2020 and RsyncUI version 1.0.0 was released 6 May 2021. RsyncUI is build for **macOS Monterey**. The name is **RsyncUI**.  The main repository is updated with code for the updated SwiftUI and macOS Monterey (macOS 12).
 
-**Update 17 June 2021**. The builds are removed for the moment, the UI need some more polish and there is also discovered an issue with RsyncUI on macOS Big Sur. The issue does not exists on macOS Monterey with Xcode 13. I am not sure why and further QA of code is required. The updated Xcode 13 and SwiftUI 3 also introduces updates which enhances the UI a lot. For more info see. Please use the latest version of RsyncOSX. There might be another build on macOS Big Sur if I manage to solve the issue. If not there will not be any new releases of RsyncUI until macOS Monterey is public.
+**Update 17 June 2021**. The builds are removed for the moment, the UI need some more polish and there is also discovered an issue with RsyncUI on macOS Big Sur. The issue does not exists on macOS Monterey with Xcode 13. I am not sure why and further QA of code is required. The updated Xcode 13 and SwiftUI 3 also introduces updates which enhances the UI a lot. Please use the latest version of RsyncOSX. There might be another build on macOS Big Sur if I manage to solve the issue. If not there will not be any new releases of RsyncUI until macOS Monterey is public.
 
 - [the changelog](https://rsyncui.netlify.app/post/changelog/)
 - other [info about RsyncUI](https://rsyncui.netlify.app)
