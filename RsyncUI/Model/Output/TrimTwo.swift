@@ -46,12 +46,15 @@ final class TrimTwo {
             }, receiveValue: { [unowned self] line in
                 if line.last != "/" {
                     trimmeddata.append(line)
+                    
                     do {
                         try checkforrsyncerror(line)
                     } catch let e {
                         // Only want one notification about error, not multiple
                         // Multiple can be a kind of race situation
                         if errordiscovered == false {
+                            // Log data
+                            maxnumber = trimmeddata.count
                             let error = e
                             _ = Logfile(data, error: true)
                             propogateerror(error: error)

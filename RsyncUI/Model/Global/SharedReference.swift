@@ -90,7 +90,7 @@ class SharedReference {
     let fileconfigurationsjson = "configurations.json"
     // Object for propogate errors to views
     var errorobject: ErrorHandling?
-    //
+    // Used when starting up RsyncUI
     var reload: Bool = true
 
     private init() {
