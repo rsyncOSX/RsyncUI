@@ -24,6 +24,10 @@ struct RestoreView: View {
     var body: some View {
         ZStack {
             VStack {
+                SearchbarView(text: $restoresettings.filterstring.onChange {
+                    restoresettings.inputchangedbyuser = true
+                })
+                    .padding(.top, -20)
                 ConfigurationsList(selectedconfig: $restoresettings.selectedconfig.onChange {
                     restoresettings.filestorestore = ""
                 },
