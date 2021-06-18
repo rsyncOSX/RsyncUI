@@ -90,6 +90,8 @@ class SharedReference {
     let fileconfigurationsjson = "configurations.json"
     // Object for propogate errors to views
     var errorobject: ErrorHandling?
+    //
+    var reload: Bool = true
 
     private init() {
         synctasks = Set<String>()
