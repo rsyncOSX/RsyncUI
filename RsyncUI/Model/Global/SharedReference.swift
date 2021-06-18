@@ -45,6 +45,8 @@ class SharedReference {
     var sshkeypathandidentityfile: String?
     // Check input when loading schedules and adding config
     var checkinput: Bool = false
+    // Check for error in output from rsync
+    var checkforerrorinrsyncoutput: Bool = false
     // Check for network changes
     var monitornetworkconnection: Bool = false
     // Download URL if new version is avaliable
@@ -90,7 +92,7 @@ class SharedReference {
     let fileconfigurationsjson = "configurations.json"
     // Object for propogate errors to views
     var errorobject: ErrorHandling?
-    //
+    // Used when starting up RsyncUI
     var reload: Bool = true
 
     private init() {

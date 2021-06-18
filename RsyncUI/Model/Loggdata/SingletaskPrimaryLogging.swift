@@ -77,6 +77,9 @@ class SingletaskPrimaryLogging {
                 var log = Log()
                 log.dateExecuted = date
                 log.resultExecuted = result
+                if structschedules?[index].logrecords == nil {
+                    structschedules?[index].logrecords = [Log]()
+                }
                 structschedules?[index].logrecords?.append(log)
                 return true
             }
