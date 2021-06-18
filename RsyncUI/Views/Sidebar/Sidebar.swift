@@ -19,7 +19,6 @@ enum NavigationItem {
     case schedules
     case restore
     case quicktask
-    case tabletest
     case plist
 }
 
@@ -121,14 +120,6 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: ConfigurationsTable(),
-                               tag: NavigationItem.tabletest,
-                               selection: $selection) {
-                    Label(NSLocalizedString("Table test", comment: "sidebar"),
-                          systemImage: "arrowshape.turn.up.backward.fill")
-                }
-                .tag(NavigationItem.tabletest)
-
                 NavigationLink(destination: ConvertPLISTView(reload: $reload),
                                tag: NavigationItem.plist,
                                selection: $selection) {
