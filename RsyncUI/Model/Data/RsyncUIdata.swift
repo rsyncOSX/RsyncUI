@@ -24,7 +24,7 @@ struct Readdatafromstore {
 }
 
 final class RsyncUIdata: ObservableObject {
-    var rsyncdata: Readdatafromstore?
+    @Published var rsyncdata: Readdatafromstore?
     var configurations: [Configuration]?
     var schedulesandlogs: [ConfigurationSchedule]?
     var profile: String?
@@ -81,5 +81,6 @@ final class RsyncUIdata: ObservableObject {
         print(configurations?.count ?? 0)
         filterlogsorted = alllogssorted
         filterlogsortedbyother = alllogssorted
+        objectWillChange.send()
     }
 }
