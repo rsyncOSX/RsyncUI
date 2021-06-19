@@ -124,3 +124,57 @@ struct OutputEstimatedView: View {
         isPresented = false
     }
 }
+
+struct OutputTable: View {
+    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @Binding var isPresented: Bool
+    @Binding var selecteduuids: Set<UUID>
+
+    let forestimated = true
+    var estimatedlist: [RemoteinfonumbersOnetask]
+
+    var body: some View {
+        headingtitle
+
+        table
+
+        Spacer()
+
+        HStack {
+            Spacer()
+
+            Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
+                .buttonStyle(PrimaryButtonStyle())
+        }
+    }
+
+    var table: some View {
+        Table {
+            TableColumn("transferredNumber", value: \.transferredNumber!)
+            TableColumn("transferredNumberSizebytes", value: \.transferredNumberSizebytes!)
+            TableColumn("totalNumber", value: \.totalNumber!)
+            TableColumn("totalNumberSizebytes", value: \.totalNumberSizebytes!)
+            TableColumn("totalDirs", value: \.totalDirs!)
+            TableColumn("newfiles", value: \.newfiles!)
+            TableColumn("deletefiles", value: \.deletefiles!)
+        } rows: {
+            ForEach(estimatedlist) { estimates in
+                TableRow(estimates)
+            }
+        }
+    }
+
+    var headingtitle: some View {
+        Text(NSLocalizedString("Estimated tasks", comment: "RsyncCommandView"))
+            .font(.title2)
+            .padding()
+    }
+}
+
+extension OutputTable {
+    func sometablefunc() {}
+
+    func dismissview() {
+        isPresented = false
+    }
+}
