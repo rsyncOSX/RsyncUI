@@ -37,13 +37,13 @@ struct OutputEstimatedView: View {
                             }
                             HStack {
                                 Text(estimatedconfiguration.newfiles)
-                                    .modifier(FixedTag(35, .trailing))
+                                    .modifier(FixedTag(40, .trailing))
                                     .foregroundColor(Color.red)
                                 Text(estimatedconfiguration.deletefiles)
-                                    .modifier(FixedTag(35, .trailing))
+                                    .modifier(FixedTag(40, .trailing))
                                     .foregroundColor(Color.red)
                                 Text(estimatedconfiguration.transferredNumber)
-                                    .modifier(FixedTag(35, .trailing))
+                                    .modifier(FixedTag(40, .trailing))
                                     .foregroundColor(Color.red)
                                 Text(estimatedconfiguration.transferredNumberSizebytes)
                                     .modifier(FixedTag(80, .trailing))
@@ -53,7 +53,7 @@ struct OutputEstimatedView: View {
                                 Text(estimatedconfiguration.totalNumberSizebytes)
                                     .modifier(FixedTag(80, .trailing))
                                 Text(estimatedconfiguration.totalDirs)
-                                    .modifier(FixedTag(35, .trailing))
+                                    .modifier(FixedTag(80, .trailing))
                             }
                         }
                     }
@@ -99,7 +99,7 @@ struct OutputEstimatedView: View {
             }
             Group {
                 Text(NSLocalizedString("New", comment: "OutputEstimatedView"))
-                    .modifier(FixedTag(35, .trailing))
+                    .modifier(FixedTag(40, .trailing))
                     .foregroundColor(Color.red)
                 Text(NSLocalizedString("Delete", comment: "OutputEstimatedView"))
                     .modifier(FixedTag(40, .trailing))
