@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConvertPLISTView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var reload: Bool
     // Documents about convert
     var infoaboutconvert: String = "https://rsyncui.netlify.app/post/plist/"
@@ -22,7 +22,7 @@ struct ConvertPLISTView: View {
         VStack {
             Text(NSLocalizedString("Convert from PLIST for", comment: "OutputRsyncView"))
                 .font(.title2)
-            Text(rsyncUIData.profile ?? NSLocalizedString("Default profile", comment: "default profile"))
+            Text(rsyncUIdata.profile ?? NSLocalizedString("Default profile", comment: "default profile"))
                 .font(.title2)
                 .foregroundColor(Color.blue)
                 .padding()
@@ -108,15 +108,15 @@ struct ConvertPLISTView: View {
     }
 
     func verifyconvert() {
-        let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
+        let configs = ReadConfigurationsPLIST(rsyncUIdata.profile)
         if configs.jsonfileexist == true {
             jsonfileexists = true
         }
     }
 
     func convert() {
-        let configs = ReadConfigurationsPLIST(rsyncUIData.profile)
-        let schedules = ReadSchedulesPLIST(rsyncUIData.profile)
+        let configs = ReadConfigurationsPLIST(rsyncUIdata.profile)
+        let schedules = ReadSchedulesPLIST(rsyncUIdata.profile)
         if convertisconfirmed {
             configs.writedatatojson()
             schedules.writedatatojson()

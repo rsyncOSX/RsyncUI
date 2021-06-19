@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DetailedRsyncParametersView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @StateObject var parameters = ObserveableParametersRsync()
 
     @Binding var reload: Bool
@@ -177,8 +177,8 @@ extension DetailedRsyncParametersView {
     func saversyncparameters() {
         if let configuration = parameters.updatersyncparameters() {
             let updateconfiguration =
-                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
-                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
+                UpdateConfigurations(profile: rsyncUIdata.rsyncdata?.profile,
+                                     configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(configuration, true)
         }
         parameters.isDirty = false

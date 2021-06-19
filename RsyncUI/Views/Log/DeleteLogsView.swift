@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeleteLogsView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
     @Binding var reload: Bool
@@ -49,7 +49,7 @@ struct DeleteLogsView: View {
 
     func delete() {
         let deleteschedule = UpdateSchedules(profile: selectedprofile,
-                                             scheduleConfigurations: rsyncUIData.schedulesandlogs)
+                                             scheduleConfigurations: rsyncUIdata.schedulesandlogs)
         deleteschedule.deletelogs(uuids: selecteduuids)
         reload = true
         selecteduuids.removeAll()

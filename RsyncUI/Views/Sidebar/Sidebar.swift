@@ -24,7 +24,7 @@ enum NavigationItem {
 }
 
 struct Sidebar: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @EnvironmentObject var errorhandling: ErrorHandling
 
     @State private var selection: NavigationItem? = Optional.none
@@ -48,8 +48,8 @@ struct Sidebar: View {
                     .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.singletasks,
                     selection: $selection) {
-                        Label(NSLocalizedString("Single task", comment: "sidebar"),
-                              systemImage: "arrowshape.turn.up.backward.fill")
+                    Label(NSLocalizedString("Single task", comment: "sidebar"),
+                          systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.singletasks)
 

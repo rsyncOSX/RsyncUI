@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailsScheduleView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @Binding var showdetails: Bool
@@ -104,10 +104,10 @@ extension DetailsScheduleView {
 
     func setuuidforselectedschedule() {
         if let schedule = selectedschedule,
-           let schedules = rsyncUIData.schedulesandlogs
+           let schedules = rsyncUIdata.schedulesandlogs
         {
             if let index = schedules.firstIndex(of: schedule) {
-                if let id = rsyncUIData.schedulesandlogs?[index].id {
+                if let id = rsyncUIdata.schedulesandlogs?[index].id {
                     selecteduuids.insert(id)
                 }
             }
@@ -116,7 +116,7 @@ extension DetailsScheduleView {
 
     func addschedule() {
         let addschedule = UpdateSchedules(profile: selectedprofile,
-                                          scheduleConfigurations: rsyncUIData.schedulesandlogs)
+                                          scheduleConfigurations: rsyncUIdata.schedulesandlogs)
         let add = addschedule.add(selectedconfig?.hiddenID,
                                   selectedscheduletype,
                                   selecteddate)

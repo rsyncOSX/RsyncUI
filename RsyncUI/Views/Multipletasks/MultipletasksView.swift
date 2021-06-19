@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MultipletasksView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
@@ -191,7 +191,7 @@ extension MultipletasksView {
 
     func estimatetasks() {
         inprogresscountmultipletask.resetcounts()
-        estimatetask = Estimation(configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
+        estimatetask = Estimation(configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
                                   estimationstateDelegate: estimationstate,
                                   updateinprogresscount: inprogresscountmultipletask,
                                   uuids: selecteduuids,
@@ -265,9 +265,9 @@ extension MultipletasksView {
 
     func setuuidforselectedtask() {
         if let sel = selectedconfig,
-           let index = rsyncUIData.configurations?.firstIndex(of: sel)
+           let index = rsyncUIdata.configurations?.firstIndex(of: sel)
         {
-            if let id = rsyncUIData.configurations?[index].id {
+            if let id = rsyncUIdata.configurations?[index].id {
                 selecteduuids.insert(id)
             }
         }
@@ -287,8 +287,8 @@ extension MultipletasksView {
             return
         }
         let deleteconfigurations =
-            UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
-                                 configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
+            UpdateConfigurations(profile: rsyncUIdata.rsyncdata?.profile,
+                                 configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
         reload = true
