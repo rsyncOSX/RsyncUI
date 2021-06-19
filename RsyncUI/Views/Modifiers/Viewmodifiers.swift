@@ -74,7 +74,6 @@ struct GaugeProgressStyle: ProgressViewStyle {
                     .stroke(strokeColor, style: StrokeStyle(lineWidth: CGFloat(strokeWidth), lineCap: .round))
                     .rotationEffect(.degrees(-90))
                     .animation(.linear)
-
                 if fractionCompleted > 0 {
                     Text(String(Int(fractionCompleted * 100)) + "%")
                 }
