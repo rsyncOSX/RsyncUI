@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OutputTable: View {
+struct OutputEstimatedTableView: View {
     @Binding var isPresented: Bool
     var estimatedlist: [RemoteinfonumbersOnetask]
 
@@ -15,7 +15,11 @@ struct OutputTable: View {
         VStack {
             headingtitle
 
-            table
+            HStack {
+                table1
+
+                table2
+            }
 
             Spacer()
 
@@ -26,11 +30,11 @@ struct OutputTable: View {
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
-        .frame(minWidth: 1100, minHeight: 400)
+        .frame(minWidth: 1000, minHeight: 400)
         .padding()
     }
 
-    var table: some View {
+    var table1: some View {
         Table {
             TableColumn("Task", value: \.task)
             TableColumn("ID", value: \.backupID)
@@ -38,6 +42,16 @@ struct OutputTable: View {
             TableColumn("Remote", value: \.offsiteCatalog)
             TableColumn("Server", value: \.offsiteServer)
             TableColumn("Date run", value: \.dateRun)
+        } rows: {
+            ForEach(estimatedlist) { estimates in
+                TableRow(estimates)
+            }
+        }
+    }
+
+    var table2: some View {
+        Table {
+            TableColumn("ID", value: \.backupID)
             TableColumn("New", value: \.newfiles)
             TableColumn("Deleted", value: \.deletefiles)
             TableColumn("Files", value: \.transferredNumber)
@@ -45,7 +59,6 @@ struct OutputTable: View {
             TableColumn("Total number", value: \.totalNumber)
             TableColumn("Total size", value: \.totalNumberSizebytes)
             TableColumn("Total dir", value: \.totalDirs)
-
         } rows: {
             ForEach(estimatedlist) { estimates in
                 TableRow(estimates)
@@ -60,7 +73,7 @@ struct OutputTable: View {
     }
 }
 
-extension OutputTable {
+extension OutputEstimatedTableView {
     func sometablefunc() {}
 
     func dismissview() {
