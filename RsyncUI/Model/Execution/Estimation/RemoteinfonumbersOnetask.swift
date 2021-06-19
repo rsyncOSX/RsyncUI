@@ -10,7 +10,7 @@
 import Foundation
 
 struct RemoteinfonumbersOnetask: Identifiable, Hashable {
-    var id: UUID
+    var id: Int
     var hiddenID: Int
     var transferredNumber: String
     var transferredNumberSizebytes: String
@@ -20,22 +20,14 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
     var newfiles: String
     var deletefiles: String
     var selected = 0
-    // var config: Configuration?
-
-    var task: String
-    var localCatalog: String
-    var offsiteCatalog: String
-    var offsiteUsername: String
-    var offsiteServer: String
-    var backupID: String
-    var dateRun: String
+    var config: Configuration?
 
     init(hiddenID: Int?,
          outputprocess: OutputfromProcess?,
          config: Configuration?)
     {
         self.hiddenID = hiddenID ?? -1
-        // self.config = config
+        self.config = config
         let number = Numbers(outputprocess: outputprocess)
         transferredNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.none)
         transferredNumberSizebytes = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal)
@@ -44,14 +36,6 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
         totalDirs = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalDirs)), number: NumberFormatter.Style.decimal)
         newfiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .new)), number: NumberFormatter.Style.none)
         deletefiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .delete)), number: NumberFormatter.Style.none)
-        task = config?.task ?? ""
-        localCatalog = config?.localCatalog ?? ""
-        offsiteCatalog = config?.offsiteCatalog ?? ""
-        offsiteUsername = config?.offsiteUsername ?? ""
-        offsiteServer = config?.offsiteServer ?? ""
-        backupID = config?.backupID ?? ""
-        dateRun = config?.dateRun ?? ""
-
-        id = config?.id ?? UUID()
+        id = hiddenID ?? -1
     }
 }

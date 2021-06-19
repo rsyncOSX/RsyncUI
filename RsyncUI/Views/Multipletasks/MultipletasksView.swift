@@ -83,8 +83,9 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("View", comment: "View button")) { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentoutputsheetview) {
-                    OutputEstimatedTableView(isPresented: $presentoutputsheetview,
-                                             estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
+                    OutputEstimatedView(isPresented: $presentoutputsheetview,
+                                        selecteduuids: $selecteduuids,
+                                        estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
                 }
 
             Button(NSLocalizedString("Delete", comment: "Delete button")) { preparefordelete() }
@@ -230,7 +231,7 @@ extension MultipletasksView {
         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
         if selecteduuids.count == 0 {
             for i in 0 ..< (inprogresscountmultipletask.getestimatedlist()?.count ?? 0) {
-                if let id = inprogresscountmultipletask.getestimatedlist()?[i].id {
+                if let id = inprogresscountmultipletask.getestimatedlist()?[i].config?.id {
                     if inprogresscountmultipletask.getestimatedlist()?[i].selected == 1 {
                         selecteduuids.insert(id)
                     }
