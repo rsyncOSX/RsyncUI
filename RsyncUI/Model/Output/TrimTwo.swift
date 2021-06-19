@@ -53,6 +53,7 @@ final class TrimTwo {
                             // Only want one notification about error, not multiple
                             // Multiple can be a kind of race situation
                             if errordiscovered == false {
+                                maxnumber = trimmeddata.count
                                 let error = e
                                 _ = Logfile(data, error: true)
                                 propogateerror(error: error)

@@ -11,9 +11,9 @@ struct OutputEstimatedView: View {
     @EnvironmentObject var rsyncUIData: RsyncUIdata
     @Binding var isPresented: Bool
     @Binding var selecteduuids: Set<UUID>
+    var estimatedlist: [RemoteinfonumbersOnetask]
 
     let forestimated = true
-    var estimatedlist: [RemoteinfonumbersOnetask]
 
     var body: some View {
         VStack {
@@ -36,24 +36,24 @@ struct OutputEstimatedView: View {
                                           config: configuration)
                             }
                             HStack {
-                                Text(estimatedconfiguration.newfiles ?? "0")
-                                    .modifier(FixedTag(35, .trailing))
+                                Text(estimatedconfiguration.newfiles)
+                                    .modifier(FixedTag(40, .trailing))
                                     .foregroundColor(Color.red)
-                                Text(estimatedconfiguration.deletefiles ?? "0")
-                                    .modifier(FixedTag(35, .trailing))
+                                Text(estimatedconfiguration.deletefiles)
+                                    .modifier(FixedTag(40, .trailing))
                                     .foregroundColor(Color.red)
-                                Text(estimatedconfiguration.transferredNumber ?? "0")
-                                    .modifier(FixedTag(35, .trailing))
+                                Text(estimatedconfiguration.transferredNumber)
+                                    .modifier(FixedTag(40, .trailing))
                                     .foregroundColor(Color.red)
-                                Text(estimatedconfiguration.transferredNumberSizebytes ?? "0")
+                                Text(estimatedconfiguration.transferredNumberSizebytes)
                                     .modifier(FixedTag(80, .trailing))
                                     .foregroundColor(Color.red)
-                                Text(estimatedconfiguration.totalNumber ?? "0")
+                                Text(estimatedconfiguration.totalNumber)
                                     .modifier(FixedTag(80, .trailing))
-                                Text(estimatedconfiguration.totalNumberSizebytes ?? "0")
+                                Text(estimatedconfiguration.totalNumberSizebytes)
                                     .modifier(FixedTag(80, .trailing))
-                                Text(estimatedconfiguration.totalDirs ?? "0")
-                                    .modifier(FixedTag(35, .trailing))
+                                Text(estimatedconfiguration.totalDirs)
+                                    .modifier(FixedTag(80, .trailing))
                             }
                         }
                     }
@@ -99,7 +99,7 @@ struct OutputEstimatedView: View {
             }
             Group {
                 Text(NSLocalizedString("New", comment: "OutputEstimatedView"))
-                    .modifier(FixedTag(35, .trailing))
+                    .modifier(FixedTag(40, .trailing))
                     .foregroundColor(Color.red)
                 Text(NSLocalizedString("Delete", comment: "OutputEstimatedView"))
                     .modifier(FixedTag(40, .trailing))

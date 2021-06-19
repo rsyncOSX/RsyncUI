@@ -10,15 +10,15 @@
 import Foundation
 
 struct RemoteinfonumbersOnetask: Identifiable, Hashable {
-    var id = UUID()
-    var hiddenID: Int?
-    var transferredNumber: String?
-    var transferredNumberSizebytes: String?
-    var totalNumber: String?
-    var totalNumberSizebytes: String?
-    var totalDirs: String?
-    var newfiles: String?
-    var deletefiles: String?
+    var id: Int
+    var hiddenID: Int
+    var transferredNumber: String
+    var transferredNumberSizebytes: String
+    var totalNumber: String
+    var totalNumberSizebytes: String
+    var totalDirs: String
+    var newfiles: String
+    var deletefiles: String
     var selected = 0
     var config: Configuration?
 
@@ -26,7 +26,7 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
          outputprocess: OutputfromProcess?,
          config: Configuration?)
     {
-        self.hiddenID = hiddenID
+        self.hiddenID = hiddenID ?? -1
         self.config = config
         let number = Numbers(outputprocess: outputprocess)
         transferredNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.none)
@@ -36,5 +36,6 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
         totalDirs = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalDirs)), number: NumberFormatter.Style.decimal)
         newfiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .new)), number: NumberFormatter.Style.none)
         deletefiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .delete)), number: NumberFormatter.Style.none)
+        id = hiddenID ?? -1
     }
 }
