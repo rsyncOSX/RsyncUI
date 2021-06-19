@@ -84,7 +84,6 @@ struct MultipletasksView: View {
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentoutputsheetview) {
                     OutputTable(isPresented: $presentoutputsheetview,
-                                selecteduuids: $selecteduuids,
                                 estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
                 }
 
@@ -231,7 +230,7 @@ extension MultipletasksView {
         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
         if selecteduuids.count == 0 {
             for i in 0 ..< (inprogresscountmultipletask.getestimatedlist()?.count ?? 0) {
-                if let id = inprogresscountmultipletask.getestimatedlist()?[i].config?.id {
+                if let id = inprogresscountmultipletask.getestimatedlist()?[i].id {
                     if inprogresscountmultipletask.getestimatedlist()?[i].selected == 1 {
                         selecteduuids.insert(id)
                     }
