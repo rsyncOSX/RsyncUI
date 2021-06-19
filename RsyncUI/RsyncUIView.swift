@@ -21,7 +21,7 @@ struct RsyncUIView: View {
 
             ZStack {
                 Sidebar(reload: $reload, selectedprofile: $selectedprofile)
-                    .environmentObject(rsyncUIData)
+                    .environmentObject(rsyncUIdata)
                     .environmentObject(errorhandling)
                     .environmentObject(InprogressCountExecuteOneTaskDetails())
                     .environmentObject(profilenames)
@@ -51,7 +51,7 @@ struct RsyncUIView: View {
         }
     }
 
-    var rsyncUIData: RsyncUIdata {
+    var rsyncUIdata: RsyncUIdata {
         return RsyncUIdata(profile: selectedprofile)
     }
 

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RsyncCommandView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var selectedconfig: Configuration?
     @Binding var isPresented: Bool
 
@@ -74,7 +74,7 @@ struct RsyncCommandView: View {
     }
 
     var commandstring: String? {
-        if let index = rsyncUIData.configurations?.firstIndex(where: { $0.hiddenID == selectedconfig?.hiddenID }) {
+        if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.hiddenID == selectedconfig?.hiddenID }) {
             if let config = selectedconfig {
                 return RsyncCommandtoDisplay(index: index,
                                              display: selectedrsynccommand,

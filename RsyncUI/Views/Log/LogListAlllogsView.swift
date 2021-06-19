@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LogListAlllogsView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
 
@@ -21,11 +21,11 @@ struct LogListAlllogsView: View {
     var body: some View {
         Form {
             SearchbarView(text: $filterstring.onChange {
-                rsyncUIData.filter(filterstring)
+                rsyncUIdata.filter(filterstring)
             })
                 .padding(.top, -20)
             List(selection: $selectedlog) {
-                if let logs = rsyncUIData.filterlogsorted {
+                if let logs = rsyncUIdata.filterlogsorted {
                     ForEach(logs) { record in
                         LogRow(selecteduuids: $selecteduuids, logrecord: record)
                             .tag(record)
@@ -64,7 +64,7 @@ struct LogListAlllogsView: View {
     }
 
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIData.filterlogsorted?.count ?? 0)"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIdata.filterlogsorted?.count ?? 0)"
     }
 }
 
@@ -89,8 +89,8 @@ extension LogListAlllogsView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (rsyncUIData.filterlogsorted?.count ?? 0) {
-            if let id = rsyncUIData.filterlogsorted?[i].id {
+        for i in 0 ..< (rsyncUIdata.filterlogsorted?.count ?? 0) {
+            if let id = rsyncUIdata.filterlogsorted?[i].id {
                 selecteduuids.insert(id)
             }
         }
@@ -98,9 +98,9 @@ extension LogListAlllogsView {
 
     func setuuidforselectedlog() {
         if let sel = selectedlog,
-           let index = rsyncUIData.filterlogsorted?.firstIndex(of: sel)
+           let index = rsyncUIdata.filterlogsorted?.firstIndex(of: sel)
         {
-            if let id = rsyncUIData.filterlogsorted?[index].id {
+            if let id = rsyncUIdata.filterlogsorted?[index].id {
                 selecteduuids.insert(id)
             }
         }

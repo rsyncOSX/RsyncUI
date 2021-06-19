@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SnapshotsView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @StateObject var snapshotdata = SnapshotData()
 
     @Binding var selectedconfig: Configuration?
@@ -209,8 +209,8 @@ extension SnapshotsView {
                 self.snapdayofweek = snapdayofweek
             }
             _ = Snapshotlogsandcatalogs(config: config,
-                                        configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                        schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                        configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
+                                        schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                         snapshotdata: snapshotdata)
         }
     }
@@ -261,8 +261,8 @@ extension SnapshotsView {
         guard confirmdeletesnapshots == true else { return }
         if let config = selectedconfig {
             snapshotdata.delete = DeleteSnapshots(config: config,
-                                                  configurationsSwiftUI: rsyncUIData.rsyncdata?.configurationData,
-                                                  schedulesSwiftUI: rsyncUIData.rsyncdata?.scheduleData,
+                                                  configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
+                                                  schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                                   snapshotdata: snapshotdata,
                                                   logrecordssnapshot: snapshotdata.getsnapshotdata())
             snapshotdata.inprogressofdelete = true
@@ -283,8 +283,8 @@ extension SnapshotsView {
             }
             selectedconfig.snapdayoffweek = snapdayofweek
             let updateconfiguration =
-                UpdateConfigurations(profile: rsyncUIData.rsyncdata?.profile,
-                                     configurations: rsyncUIData.rsyncdata?.configurationData.getallconfigurations())
+                UpdateConfigurations(profile: rsyncUIdata.rsyncdata?.profile,
+                                     configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(selectedconfig, false)
             reload = true
             updated = true

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectConfigurationView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
 
     @Binding var selectedconfig: Configuration?
     @Binding var isPresented: Bool
