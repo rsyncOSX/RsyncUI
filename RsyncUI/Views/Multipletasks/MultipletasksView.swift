@@ -226,7 +226,7 @@ extension MultipletasksView {
         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
         if selecteduuids.count == 0 {
             for i in 0 ..< (inprogresscountmultipletask.getestimatedlist()?.count ?? 0) {
-                if let id = inprogresscountmultipletask.getestimatedlist()?[i].id {
+                if let id = inprogresscountmultipletask.getestimatedlist()?[i].config?.id {
                     if inprogresscountmultipletask.getestimatedlist()?[i].selected == 1 {
                         selecteduuids.insert(id)
                     }
