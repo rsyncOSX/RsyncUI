@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SchedulesView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @Binding var showdetails: Bool

@@ -135,7 +135,7 @@ struct Sshsettings: View {
      */
     var serversandlogins: [UniqueserversandLogins] {
         /*
-         if let servers = rsyncUIData.rsyncdata?.configurationData.getuniqueueserversandlogins() {
+         if let servers = rsyncUIdata.rsyncdata?.configurationData.getuniqueueserversandlogins() {
              return servers
          }
          */

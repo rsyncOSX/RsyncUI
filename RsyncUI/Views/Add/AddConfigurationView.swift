@@ -24,7 +24,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 }
 
 struct AddConfigurationView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -265,7 +265,7 @@ struct AddConfigurationView: View {
                 .sheet(isPresented: $newdata.showAlertfordelete) {
                     ConfirmDeleteProfileView(isPresented: $newdata.showAlertfordelete,
                                              delete: $newdata.confirmdeleteselectedprofile,
-                                             profile: $rsyncUIData.profile)
+                                             profile: $rsyncUIdata.profile)
                         .onDisappear(perform: {
                             deleteprofile()
                         })
@@ -423,11 +423,11 @@ struct AddConfigurationView: View {
     }
 
     var profile: String? {
-        return rsyncUIData.profile
+        return rsyncUIdata.profile
     }
 
     var configurations: [Configuration]? {
-        return rsyncUIData.rsyncdata?.configurationData.getallconfigurations()
+        return rsyncUIdata.rsyncdata?.configurationData.getallconfigurations()
     }
 }
 

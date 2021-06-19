@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SchedulesList: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var selectedconfig: Configuration?
     @Binding var selectedschedule: ConfigurationSchedule?
     @Binding var selecteduuids: Set<UUID>
@@ -24,7 +24,7 @@ struct SchedulesList: View {
     }
 
     var activeschedulesandlogs: [ConfigurationSchedule] {
-        if let schedulesandlogs = rsyncUIData.schedulesandlogs {
+        if let schedulesandlogs = rsyncUIdata.schedulesandlogs {
             return schedulesandlogs.filter { schedulesandlogs in selectedconfig?.hiddenID == schedulesandlogs.hiddenID
                 && schedulesandlogs.dateStop == "01 Jan 2100 00:00"
             }

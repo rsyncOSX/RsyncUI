@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AddPostandPreView: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -212,11 +212,11 @@ struct AddPostandPreView: View {
     }
 
     var profile: String? {
-        return rsyncUIData.profile
+        return rsyncUIdata.profile
     }
 
     var configurations: [Configuration]? {
-        return rsyncUIData.rsyncdata?.configurationData.getallconfigurations()
+        return rsyncUIdata.rsyncdata?.configurationData.getallconfigurations()
     }
 }
 

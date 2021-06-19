@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConfigurationsTable: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @State private var selection = Set<Configuration.ID>()
     @State var searchText: String = ""
     @State var sortOrder: [KeyPathComparator<Configuration>] = [
@@ -45,7 +45,7 @@ struct ConfigurationsTable: View {
     }
 
     var configurationssorted: [Configuration] {
-        if let configurations = rsyncUIData.configurations {
+        if let configurations = rsyncUIdata.configurations {
             let sorted = configurations.sorted { conf1, conf2 in
                 if let days1 = conf1.dateRun?.en_us_date_from_string(),
                    let days2 = conf2.dateRun?.en_us_date_from_string()

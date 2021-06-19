@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OneConfigSmall: View {
-    @EnvironmentObject var rsyncUIData: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
 
     var config: Configuration
 
