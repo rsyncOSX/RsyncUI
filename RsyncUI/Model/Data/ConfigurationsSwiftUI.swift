@@ -40,9 +40,20 @@ struct ConfigurationsSwiftUI {
         return uniqueueserversandlogins
     }
 
-    // Function for getting Configurations read into memory
+    // Function for getting Configurations read into memory, sorted by runddate
     func getallconfigurations() -> [Configuration]? {
-        return configurations
+        if let configurations = configurations {
+            let sorted = configurations.sorted { conf1, conf2 in
+                if let days1 = conf1.dateRun?.en_us_date_from_string(),
+                   let days2 = conf2.dateRun?.en_us_date_from_string()
+                {
+                    return days1 > days2
+                }
+                return false
+            }
+            return sorted
+        }
+        return nil
     }
 
     func getnumberofconfigurations() -> Int {
