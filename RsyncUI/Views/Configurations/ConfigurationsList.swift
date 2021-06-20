@@ -77,31 +77,9 @@ struct ConfigurationsList: View {
 
     var configurationssorted: [Configuration] {
         if searchText.isEmpty {
-            if let configurations = rsyncUIdata.configurations {
-                let sorted = configurations.sorted { conf1, conf2 in
-                    if let days1 = conf1.dateRun?.en_us_date_from_string(),
-                       let days2 = conf2.dateRun?.en_us_date_from_string()
-                    {
-                        return days1 > days2
-                    }
-                    return false
-                }
-                return sorted
-            }
-            return []
+            return rsyncUIdata.configurations ?? []
         } else {
-            if let configurations = rsyncUIdata.filterconfigurations(searchText) {
-                let sorted = configurations.sorted { conf1, conf2 in
-                    if let days1 = conf1.dateRun?.en_us_date_from_string(),
-                       let days2 = conf2.dateRun?.en_us_date_from_string()
-                    {
-                        return days1 > days2
-                    }
-                    return false
-                }
-                return sorted
-            }
-            return []
+            return rsyncUIdata.filterconfigurations(searchText) ?? []
         }
     }
 
