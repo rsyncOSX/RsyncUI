@@ -44,7 +44,7 @@ struct MultipletasksView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetandreload() },
+            ConfigurationsList(selectedconfig: $selectedconfig.onChange { reset() },
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                selectable: selectable)
@@ -168,7 +168,7 @@ extension MultipletasksView {
         showAlertforexecuteall = true
     }
 
-    func resetandreload() {
+    func reset() {
         inwork = -1
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
@@ -199,7 +199,7 @@ extension MultipletasksView {
         executedetails.resetcounter()
         // Check if restart or new set of configurations
         if inprogresscountmultipletask.getuuids().count > 0 {
-            resetandreload()
+            reset()
             selecteduuids.removeAll()
         }
         if selecteduuids.count == 0 {

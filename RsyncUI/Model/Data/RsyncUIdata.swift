@@ -81,6 +81,5 @@ final class RsyncUIdata: ObservableObject {
         print(configurations?.count ?? 0)
         filterlogsorted = alllogssorted
         filterlogsortedbyother = alllogssorted
-        objectWillChange.send()
     }
 }
