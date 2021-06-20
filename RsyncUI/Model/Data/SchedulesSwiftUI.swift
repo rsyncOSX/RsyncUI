@@ -71,11 +71,7 @@ struct SchedulesSwiftUI {
         self.profile = profile
         let schedulesdata = ReadScheduleJSON(profile, validhiddenIDs)
         scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
-            if log1.dateStart > log2.dateStart {
-                return true
-            } else {
-                return false
-            }
+            log1.dateStart > log2.dateStart
         }
     }
 }
