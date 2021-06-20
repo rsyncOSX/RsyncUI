@@ -14,7 +14,6 @@ struct ConfigurationsList: View {
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
-
     // Either selectable configlist or not
     var selectable: Bool
     let forestimated = false
@@ -33,7 +32,7 @@ struct ConfigurationsList: View {
     var selecetableconfiglist: some View {
         Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
-                ForEach(configurationssorted) { configurations in
+                ForEach(rsyncUIdata.configurations ?? []) { configurations in
                     OneConfigUUID(selecteduuids: $selecteduuids,
                                   inwork: $inwork,
                                   config: configurations)
@@ -49,7 +48,7 @@ struct ConfigurationsList: View {
     var configlist: some View {
         Section(header: header) {
             List(selection: $selectedconfig) {
-                ForEach(configurationssorted) { configurations in
+                ForEach(rsyncUIdata.configurations ?? []) { configurations in
                     OneConfig(forestimated: forestimated,
                               config: configurations)
                         .tag(configurations)
@@ -57,21 +56,6 @@ struct ConfigurationsList: View {
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
         }
-    }
-
-    var configurationssorted: [Configuration] {
-        if let configurations = rsyncUIdata.configurations {
-            let sorted = configurations.sorted { conf1, conf2 in
-                if let days1 = conf1.dateRun?.en_us_date_from_string(),
-                   let days2 = conf2.dateRun?.en_us_date_from_string()
-                {
-                    return days1 > days2
-                }
-                return false
-            }
-            return sorted
-        }
-        return []
     }
 
     var header: some View {

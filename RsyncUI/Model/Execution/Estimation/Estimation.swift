@@ -171,7 +171,7 @@ extension Estimation {
                                               outputprocess: outputprocess,
                                               config: getconfig(hiddenID: privatehiddenID))
         records?.append(record)
-        if Int(record.transferredNumber ?? "0") ?? 0 > 0 || Int(record.deletefiles ?? "0") ?? 0 > 0 {
+        if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: privatehiddenID) {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
             }

@@ -81,5 +81,7 @@ final class RsyncUIdata: ObservableObject {
         print(configurations?.count ?? 0)
         filterlogsorted = alllogssorted
         filterlogsortedbyother = alllogssorted
+        print("RsyncUIdata \(Unmanaged.passUnretained(self).toOpaque())")
+        print("RsyncUIdata count \(configurations?.count ?? 0)")
     }
 }
