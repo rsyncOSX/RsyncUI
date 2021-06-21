@@ -10,6 +10,7 @@ import Files
 import Foundation
 
 class WriteScheduleJSON: NamesandPaths {
+    var profile: String?
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
     var filename = SharedReference.shared.fileschedulesjson

@@ -12,6 +12,7 @@ import Combine
 import Foundation
 
 final class ReadConfigurationsPLIST: NamesandPaths {
+    var profile: String?
     var filenamedatastore = ["configRsync.plist"]
     var subscriptons = Set<AnyCancellable>()
     var configurations = [Configuration]()
@@ -78,7 +79,7 @@ final class ReadConfigurationsPLIST: NamesandPaths {
         if configurations.count > 0 { thereisplistdata = true }
     }
 
-    override init(_ profile: String?) {
+    init(_ profile: String?) {
         super.init(.configurations)
         self.profile = profile
         filenamedatastore.publisher
