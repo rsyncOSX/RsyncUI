@@ -12,6 +12,7 @@ import Combine
 import Foundation
 
 final class ReadSchedulesPLIST: NamesandPaths {
+    var profile: String?
     var filenamedatastore = ["scheduleRsync.plist"]
     var subscriptons = Set<AnyCancellable>()
     var schedules = [ConfigurationSchedule]()
@@ -70,7 +71,7 @@ final class ReadSchedulesPLIST: NamesandPaths {
         if schedules.count > 0 { thereisplistdata = true }
     }
 
-    override init(_ profile: String?) {
+    init(_ profile: String?) {
         super.init(.configurations)
         self.profile = profile
         filenamedatastore.publisher

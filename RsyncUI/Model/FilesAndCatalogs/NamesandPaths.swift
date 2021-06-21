@@ -27,8 +27,6 @@ class NamesandPaths {
     // configuration path, ViewControllerReference.shared.configpath
     // let configpath: String = "/.rsyncosx/"
     var configpath: String?
-    // Which profile to read
-    var profile: String?
 
     // Documentscatalog
     var documentscatalog: String? {
@@ -84,7 +82,8 @@ class NamesandPaths {
 
     // SANDBOX - replaced userHomeDirectoryPath with documentscatalog
     // Configurations are living inside the Sandbox
-    func setrootpath(_ path: Rootpath) {
+    init(_ path: Rootpath) {
+        configpath = SharedReference.shared.configpath
         switch path {
         case .configurations:
             fullpathmacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
@@ -93,16 +92,6 @@ class NamesandPaths {
             fullpathsshkeys = sshkeypath
             identityfile = sshkeypathandidentityfile
         }
-    }
-
-    init(_ path: Rootpath) {
-        configpath = SharedReference.shared.configpath
-        setrootpath(path)
-    }
-
-    init(_ profile: String?) {
-        configpath = SharedReference.shared.configpath
-        self.profile = profile
     }
 }
 
