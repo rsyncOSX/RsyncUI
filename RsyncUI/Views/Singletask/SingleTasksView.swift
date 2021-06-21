@@ -32,6 +32,7 @@ struct SingleTasksView: View {
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
     @Binding var reload: Bool
+    @Binding var selectedprofile: String?
 
     // Not used but requiered in parameter
     @State private var inwork = -1
@@ -107,6 +108,11 @@ struct SingleTasksView: View {
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
+            }
+        })
     }
 
     // Estimate and the execute.

@@ -10,12 +10,13 @@ import SwiftUI
 struct SidebarSingleTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var reload: Bool
+    @Binding var selectedprofile: String?
 
     var body: some View {
         VStack {
             headingtitle
 
-            SingleTasksView(reload: $reload)
+            SingleTasksView(reload: $reload, selectedprofile: $selectedprofile)
         }
 
         .padding()
