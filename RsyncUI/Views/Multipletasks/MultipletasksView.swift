@@ -19,6 +19,7 @@ struct MultipletasksView: View {
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
 
     @Binding var selectedconfig: Configuration?
+    @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var showestimateview: Bool
@@ -104,6 +105,11 @@ struct MultipletasksView: View {
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
+            }
+        })
     }
 
     var progressviewestimation: some View {

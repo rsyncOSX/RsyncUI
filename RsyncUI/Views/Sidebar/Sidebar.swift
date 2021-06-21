@@ -36,7 +36,7 @@ struct Sidebar: View {
             Spacer()
 
             Group {
-                NavigationLink(destination: SidebarMultipletasksView(reload: $reload),
+                NavigationLink(destination: SidebarMultipletasksView(reload: $reload, selectedprofile: $selectedprofile),
                                tag: NavigationItem.estimation,
                                selection: $selection) {
                     Label(NSLocalizedString("Multiple tasks", comment: "sidebar"),
@@ -44,7 +44,7 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.estimation)
 
-                NavigationLink(destination: SidebarSingleTasksView(reload: $reload)
+                NavigationLink(destination: SidebarSingleTasksView(reload: $reload, selectedprofile: $selectedprofile)
                     .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.singletasks,
                     selection: $selection) {

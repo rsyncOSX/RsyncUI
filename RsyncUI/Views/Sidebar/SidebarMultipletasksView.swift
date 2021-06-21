@@ -11,6 +11,7 @@ struct SidebarMultipletasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
+    @Binding var selectedprofile: String?
 
     // Show estimate when true, execute else
     @State var showestimateview: Bool = true
@@ -25,7 +26,7 @@ struct SidebarMultipletasksView: View {
 
                 if showestimateview == true {
                     MultipletasksView(selectedconfig: $selectedconfig,
-                                      reload: $reload,
+                                      selectedprofile: $selectedprofile, reload: $reload,
                                       selecteduuids: $selecteduuids,
                                       showestimateview: $showestimateview)
                 }

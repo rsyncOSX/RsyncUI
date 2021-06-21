@@ -108,9 +108,9 @@ class Catalogsandfiles: NamesandPaths {
             guard root.containsSubfolder(named: path) == false else { return }
             do {
                 try root.createSubfolder(at: path)
-            } catch {
-                // let error = e
-                // propogateerror(error: error)
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
                 return
             }
         }

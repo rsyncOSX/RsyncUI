@@ -86,6 +86,7 @@ struct AddConfigurationView: View {
                 if newdata.created == true { notifycreated }
                 if newdata.deleted == true { notifydeleted }
                 if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
+                if newdata.showselecteaprofile == true { selectaprofile }
             }
 
             Spacer()
@@ -363,6 +364,16 @@ struct AddConfigurationView: View {
                     })
             }
         }
+    }
+
+    var selectaprofile: some View {
+        AlertToast(type: .error(Color.red),
+                   title: Optional(NSLocalizedString("Select a profile", comment: "settings")), subTitle: Optional(""))
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    newdata.showselecteaprofile = false
+                }
+            })
     }
 
     var selectpickervalue: TypeofTask {
