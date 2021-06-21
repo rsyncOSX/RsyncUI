@@ -46,8 +46,6 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var inputchangedbyuser: Bool = false
     @Published var isDirty: Bool = false
 
-    @Published var showselecteaprofile: Bool = false
-
     // Combine
     var subscriptions = Set<AnyCancellable>()
     // Set true if remote storage is a local attached Volume
@@ -123,16 +121,9 @@ final class ObserveableAddConfigurations: ObservableObject {
             .sink { [unowned self] _ in
                 isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
-        $showselecteaprofile
-            .sink { _ in
-            }.store(in: &subscriptions)
     }
 
     func addconfig(_ profile: String?, _ configurations: [Configuration]?) {
-        guard selectedprofile != nil else {
-            showselecteaprofile = true
-            return
-        }
         let getdata = AppendConfig(selectedrsynccommand.rawValue,
                                    localcatalog,
                                    remotecatalog,

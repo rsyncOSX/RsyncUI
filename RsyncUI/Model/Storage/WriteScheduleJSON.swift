@@ -45,7 +45,11 @@ class WriteScheduleJSON: NamesandPaths {
     init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
         super.init(.configurations)
         // Set profile and filename ahead of encoding an write
-        self.profile = profile
+        if profile == NSLocalizedString("Default profile", comment: "default profile") {
+            self.profile = nil
+        } else {
+            self.profile = profile
+        }
         schedules.publisher
             .map { schedules -> [DecodeSchedule] in
                 var data = [DecodeSchedule]()

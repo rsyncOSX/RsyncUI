@@ -29,6 +29,8 @@ struct AddConfigurationView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
+    @State var showselecteaprofile: Bool = false
+
     enum AddConfigurationField: Hashable {
         case localcatalogField
         case remotecatalogField
@@ -86,7 +88,7 @@ struct AddConfigurationView: View {
                 if newdata.created == true { notifycreated }
                 if newdata.deleted == true { notifydeleted }
                 if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
-                if newdata.showselecteaprofile == true { selectaprofile }
+                if showselecteaprofile == true { selectaprofile }
             }
 
             Spacer()
@@ -371,7 +373,7 @@ struct AddConfigurationView: View {
                    title: Optional(NSLocalizedString("Select a profile", comment: "settings")), subTitle: Optional(""))
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    newdata.showselecteaprofile = false
+                    showselecteaprofile = false
                 }
             })
     }
@@ -444,6 +446,10 @@ struct AddConfigurationView: View {
 
 extension AddConfigurationView {
     func addconfig() {
+        guard selectedprofile != nil else {
+            showselecteaprofile = true
+            return
+        }
         newdata.addconfig(profile, configurations)
         reload = newdata.reload
         if newdata.added == true {
