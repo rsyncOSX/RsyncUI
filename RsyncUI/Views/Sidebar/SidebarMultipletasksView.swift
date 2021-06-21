@@ -10,6 +10,7 @@ import SwiftUI
 struct SidebarMultipletasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @State private var selectedconfig: Configuration?
+    @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
     // Show estimate when true, execute else
@@ -27,7 +28,8 @@ struct SidebarMultipletasksView: View {
                     MultipletasksView(selectedconfig: $selectedconfig,
                                       reload: $reload,
                                       selecteduuids: $selecteduuids,
-                                      showestimateview: $showestimateview)
+                                      showestimateview: $showestimateview,
+                                      selectedprofile: $selectedprofile)
                 }
 
                 if showestimateview == false {

@@ -35,7 +35,8 @@ struct Sidebar: View {
             Spacer()
 
             Group {
-                NavigationLink(destination: SidebarMultipletasksView(reload: $reload),
+                NavigationLink(destination: SidebarMultipletasksView(selectedprofile: $selectedprofile,
+                                                                     reload: $reload),
                                tag: NavigationItem.estimation,
                                selection: $selection) {
                     Label(NSLocalizedString("Multiple tasks", comment: "sidebar"),
@@ -43,12 +44,13 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.estimation)
 
-                NavigationLink(destination: SidebarSingleTasksView(reload: $reload)
-                    .environmentObject(OutputFromRsync()),
+                NavigationLink(destination: SidebarSingleTasksView(selectedprofile: $selectedprofile,
+                                                                   reload: $reload)
+                        .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.singletasks,
                     selection: $selection) {
-                        Label(NSLocalizedString("Single task", comment: "sidebar"),
-                              systemImage: "arrowshape.turn.up.backward.fill")
+                    Label(NSLocalizedString("Single task", comment: "sidebar"),
+                          systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.singletasks)
 

@@ -22,6 +22,7 @@ struct MultipletasksView: View {
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var showestimateview: Bool
+    @Binding var selectedprofile: String?
 
     @State private var presentoutputsheetview = false
     @State private var presentestimatedsheetview = false
@@ -100,6 +101,12 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
+                reload = true
+            }
+        })
     }
 
     var progressviewestimation: some View {

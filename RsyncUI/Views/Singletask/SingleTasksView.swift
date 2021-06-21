@@ -13,6 +13,8 @@ import SwiftUI
 struct SingleTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @EnvironmentObject var outputfromrsync: OutputFromRsync
+    @Binding var selectedprofile: String?
+    @Binding var reload: Bool
 
     // Execute estimate and execution
     @StateObject private var singletaskstate = SingleTaskState()
@@ -31,7 +33,6 @@ struct SingleTasksView: View {
     @State private var presentsheetview = false
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
-    @Binding var reload: Bool
 
     // Not used but requiered in parameter
     @State private var inwork = -1
@@ -103,6 +104,12 @@ struct SingleTasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
+                reload = true
+            }
+        })
     }
 
     // Estimate and the execute.
