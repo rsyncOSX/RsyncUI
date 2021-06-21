@@ -16,11 +16,11 @@ struct SidebarSettingsView: View {
                 }
             Sshsettings()
                 .tabItem {
-                    Label(NSLocalizedString("Ssh", comment: "user settings"), systemImage: "gear")
+                    Label(NSLocalizedString("Ssh", comment: "user settings"), systemImage: "terminal")
                 }
             Othersettings()
                 .tabItem {
-                    Label(NSLocalizedString("Paths", comment: "user settings"), systemImage: "gear")
+                    Label(NSLocalizedString("Paths", comment: "user settings"), systemImage: "play.square")
                 }
         }
         .frame(minWidth: 600, minHeight: 400)
