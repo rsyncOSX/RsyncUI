@@ -111,7 +111,7 @@ final class SshKeys: Catalogsandfiles {
 
     init() {
         super.init(.ssh)
-        keyFileStrings = getfilesasstringnames()
+        keyFileStrings = getfullpathsshkeys()
     }
 }
 

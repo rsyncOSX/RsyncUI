@@ -13,6 +13,7 @@ class WriteConfigurationJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
     var filename = SharedReference.shared.fileconfigurationsjson
+    var profile: String?
 
     private func writeJSONToPersistentStore(_ data: String?) {
         if var atpath = fullpathmacserial {
