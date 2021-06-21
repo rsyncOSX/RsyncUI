@@ -29,14 +29,7 @@ struct AddConfigurationView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
-    enum AddConfigurationField: Hashable {
-        case localcatalogField
-        case remotecatalogField
-        case remoteuserField
-        case remoteserverField
-        case backupIDField
-        case newprofileField
-    }
+    @State var showselecteaprofile: Bool = false
 
     @StateObject var newdata = ObserveableAddConfigurations()
 
@@ -85,7 +78,7 @@ struct AddConfigurationView: View {
                 if newdata.created == true { notifycreated }
                 if newdata.deleted == true { notifydeleted }
                 if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
-                if newdata.showselecteaprofile == true { selectaprofile }
+                if showselecteaprofile == true { selectaprofile }
             }
 
             Spacer()
@@ -164,6 +157,9 @@ struct AddConfigurationView: View {
                 })
                     .textContentType(.none)
                     .onAppear(perform: {
+                        // also copy the selected profile to verify that a profile is selected
+                        // The profile is checked ahead of writing new configurations
+                        newdata.selectedprofile = selectedprofile
                         if let catalog = newdata.selectedconfig?.localCatalog {
                             newdata.localcatalog = catalog
                         }
@@ -318,7 +314,7 @@ struct AddConfigurationView: View {
                    title: Optional(NSLocalizedString("Select a profile", comment: "settings")), subTitle: Optional(""))
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    newdata.showselecteaprofile = false
+                    showselecteaprofile = false
                 }
             })
     }
@@ -391,6 +387,10 @@ struct AddConfigurationView: View {
 
 extension AddConfigurationView {
     func addconfig() {
+        guard selectedprofile != nil else {
+            showselecteaprofile = true
+            return
+        }
         newdata.addconfig(profile, configurations)
         reload = newdata.reload
         if newdata.added == true {

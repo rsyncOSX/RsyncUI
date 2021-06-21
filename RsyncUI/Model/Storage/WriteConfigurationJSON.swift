@@ -45,7 +45,11 @@ class WriteConfigurationJSON: NamesandPaths {
     init(_ profile: String?, _ configurations: [Configuration]?) {
         super.init(.configurations)
         // Set profile and filename ahead of encoding an write
-        self.profile = profile
+        if profile == NSLocalizedString("Default profile", comment: "default profile") {
+            self.profile = nil
+        } else {
+            self.profile = profile
+        }
         configurations.publisher
             .map { configurations -> [DecodeConfiguration] in
                 var data = [DecodeConfiguration]()
