@@ -20,7 +20,7 @@ struct RsyncUIApp: App {
             RsyncUIView()
                 .environmentObject(getrsyncversion)
                 .environmentObject(checkfornewversionofrsyncui)
-                .onAppear {
+                .task {
                     // User notifications
                     setusernotifications()
                     // Create base profile catalog
