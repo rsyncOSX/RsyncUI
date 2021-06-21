@@ -101,10 +101,10 @@ struct MultipletasksView: View {
             Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .padding()
         .onAppear(perform: {
             if selectedprofile == nil {
                 selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
-                reload = true
             }
         })
     }
