@@ -1,7 +1,14 @@
 {
   "colors" : [
     {
+      "color" : {
+        "platform" : "osx",
+        "reference" : "systemBlueColor"
+      },
       "idiom" : "universal"
+    },
+    {
+      "idiom" : "mac"
     }
   ],
   "info" : {

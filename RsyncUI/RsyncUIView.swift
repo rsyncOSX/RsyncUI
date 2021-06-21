@@ -44,8 +44,8 @@ struct RsyncUIView: View {
             .padding()
         }
         .padding()
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        .task {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
             }
         }
