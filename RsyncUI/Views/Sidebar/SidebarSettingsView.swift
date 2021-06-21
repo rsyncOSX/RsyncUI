@@ -12,15 +12,15 @@ struct SidebarSettingsView: View {
         TabView {
             Usersettings()
                 .tabItem {
-                    Text(NSLocalizedString("Settings", comment: "user settings"))
+                    Label(NSLocalizedString("Settings", comment: "user settings"), systemImage: "gear")
                 }
             Sshsettings()
                 .tabItem {
-                    Text(NSLocalizedString("Ssh", comment: "user settings"))
+                    Label(NSLocalizedString("Ssh", comment: "user settings"), systemImage: "gear")
                 }
             Othersettings()
                 .tabItem {
-                    Text(NSLocalizedString("Paths", comment: "user settings"))
+                    Label(NSLocalizedString("Paths", comment: "user settings"), systemImage: "gear")
                 }
         }
         .frame(minWidth: 600, minHeight: 400)
