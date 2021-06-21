@@ -157,9 +157,6 @@ struct AddConfigurationView: View {
                 })
                     .textContentType(.none)
                     .onAppear(perform: {
-                        // also copy the selected profile to verify that a profile is selected
-                        // The profile is checked ahead of writing new configurations
-                        newdata.selectedprofile = selectedprofile
                         if let catalog = newdata.selectedconfig?.localCatalog {
                             newdata.localcatalog = catalog
                         }
