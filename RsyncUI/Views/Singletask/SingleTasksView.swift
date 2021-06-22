@@ -108,6 +108,7 @@ struct SingleTasksView: View {
         .onAppear(perform: {
             if selectedprofile == nil {
                 selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
+                reload = true
             }
         })
     }

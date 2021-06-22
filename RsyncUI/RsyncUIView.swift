@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RsyncUIView: View {
-    @EnvironmentObject var rsyncversionObject: GetRsyncversion
+    // @EnvironmentObject var rsyncversionObject: GetRsyncversion
     @EnvironmentObject var checkfornewversionofrsyncui: NewversionJSON
     @StateObject var profilenames = Profilenames()
 
@@ -31,7 +31,7 @@ struct RsyncUIView: View {
             }
 
             HStack {
-                Label(rsyncversionObject.rsyncversion, systemImage: "swift")
+                // Label(rsyncversionObject.rsyncversion, systemImage: "swift")
 
                 Spacer()
 
@@ -39,16 +39,10 @@ struct RsyncUIView: View {
 
                 Spacer()
 
-                Text(selectedprofile ?? NSLocalizedString("Default profile", comment: "default profile"))
+                // Text(selectedprofile ?? NSLocalizedString("Default profile", comment: "default profile"))
             }
-            .padding()
         }
         .padding()
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                rsyncversionObject.update(SharedReference.shared.rsyncversion3)
-            }
-        }
     }
 
     var rsyncUIdata: RsyncUIdata {

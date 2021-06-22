@@ -31,6 +31,11 @@ struct RsyncUIApp: App {
                     Running()
                 }
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        getrsyncversion.update(SharedReference.shared.rsyncversion3)
+                    }
+                }
         }
         .commands {
             SidebarCommands()

@@ -9,7 +9,11 @@ import Foundation
 
 // Getting and setting the rsync version.
 final class GetRsyncversion: ObservableObject, UpdateRsyncVersionString {
-    @Published var rsyncversion = ""
+    @Published var rsyncversion = "" {
+        didSet {
+            print(rsyncversion)
+        }
+    }
 
     func update(_ ver: Bool) {
         // Must set new valuesa ahead of save to get correct string

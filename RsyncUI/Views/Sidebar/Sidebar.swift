@@ -32,7 +32,7 @@ struct Sidebar: View {
 
     var sidebar: some View {
         List(selection: $selection) {
-            Spacer()
+            // Spacer()
 
             Group {
                 NavigationLink(destination: SidebarMultipletasksView(selectedprofile: $selectedprofile,
