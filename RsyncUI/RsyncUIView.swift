@@ -32,7 +32,7 @@ struct RsyncUIView: View {
             }
 
             HStack {
-                Label(rsyncversionObject.rsyncversion, systemImage: "swift")
+                // Label(rsyncversionObject.rsyncversion, systemImage: "swift")
 
                 Spacer()
 
@@ -40,7 +40,7 @@ struct RsyncUIView: View {
 
                 Spacer()
 
-                Text(selectedprofile ?? NSLocalizedString("Default profile", comment: "default profile"))
+                // Text(selectedprofile ?? NSLocalizedString("Default profile", comment: "default profile"))
             }
             .padding()
         }
