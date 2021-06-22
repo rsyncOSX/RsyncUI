@@ -13,7 +13,7 @@ struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonConfiguration) -> some View {
         configuration.label
             .padding()
-            .background(configuration.isPressed ? Color.blue.opacity(0.5) : Color.blue)
+            .background(configuration.isPressed ? Color.accentColor.opacity(0.5) : Color.accentColor)
             .foregroundColor(.white)
             .clipShape(Capsule())
     }
@@ -28,31 +28,5 @@ struct AbortButtonStyle: ButtonStyle {
             .background(configuration.isPressed ? Color.red.opacity(0.5) : Color.red)
             .foregroundColor(.white)
             .clipShape(Capsule())
-    }
-}
-
-struct GrayCircleButtonStyle: ButtonStyle {
-    typealias ButtonConfiguration = ButtonStyleConfiguration
-
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .padding()
-            .modifier(MakeSquareBounds())
-            .background(Circle().fill(Color.gray))
-    }
-}
-
-struct MakeSquareBounds: ViewModifier {
-    @State var size: CGFloat = 25
-    func body(content: Content) -> some View {
-        let c = ZStack {
-            content.alignmentGuide(HorizontalAlignment.center) { vd -> CGFloat in
-                DispatchQueue.main.async {
-                    self.size = max(vd.height, vd.width)
-                }
-                return vd[HorizontalAlignment.center]
-            }
-        }
-        return c.frame(width: size, height: size)
     }
 }
