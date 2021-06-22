@@ -27,6 +27,7 @@ struct SidebarSettingsView: View {
                     Label(NSLocalizedString("About", comment: "user settings"), systemImage: "info")
                 }
         }
+        .frame(minWidth: 800, minHeight: 400)
         .padding()
     }
 }
