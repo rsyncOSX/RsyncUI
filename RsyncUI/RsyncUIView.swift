@@ -56,8 +56,7 @@ struct RsyncUIView: View {
 
     var profilepicker: some View {
         HStack {
-            Picker(NSLocalizedString("Profile", comment: "default profile") + ":",
-                   selection: $selectedprofile) {
+            Picker("", selection: $selectedprofile) {
                 if let profiles = profilenames.profiles {
                     ForEach(profiles, id: \.self) { profile in
                         Text(profile.profile ?? "")
@@ -65,7 +64,8 @@ struct RsyncUIView: View {
                     }
                 }
             }
-            .frame(width: 200)
+            .frame(width: 180)
+            .accentColor(/*@START_MENU_TOKEN@*/ .blue/*@END_MENU_TOKEN@*/)
 
             Spacer()
         }
