@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 28/01/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -12,22 +11,11 @@ struct AboutView: View {
     @StateObject private var new = NewversionJSON()
 
     var iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "icon")
-    var chinesestring: String = NSLocalizedString("Chinese (Simplified) translation by: StringKe (Chen)", comment: "chinese")
     var norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "norwegian")
     var germanstring: String = NSLocalizedString("German translation by: Andre Voigtmann", comment: "german")
-    var italianstring: String = NSLocalizedString("Italian translation by: Stefano Steve Cutelle'", comment: "italian")
-    var dutchstring: String = NSLocalizedString("Dutch translation by: Marcellino Santoso", comment: "ducth")
-
-    // SwiftUI docs
     var changelog: String = "https://rsyncui.netlify.app/post/changelog/"
-    // RSyncOSX docs
     var documents: String = "https://rsyncui.netlify.app/"
-    /*
-     // Resource strings
-     var changelog: String = "https://rsyncosx.netlify.app/post/changelog/"
-     var documents: String = "https://rsyncosx.netlify.app/post/rsyncosxdocs/"
-     var urlplist: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncOSX/master/versionRsyncOSX/versionRsyncOSX.plist"
-     */
+
     var appName: String {
         (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "Control Room"
     }
@@ -68,12 +56,7 @@ struct AboutView: View {
     }
 
     var headingtitle: some View {
-        VStack(spacing: 8) {
-            Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
-                .resizable()
-                .aspectRatio(1.0, contentMode: .fit)
-                .frame(width: 64, height: 64)
-
+        VStack(spacing: 2) {
             Text("RsyncUI")
                 .fontWeight(.bold)
 
@@ -109,16 +92,9 @@ struct AboutView: View {
         VStack {
             Text(germanstring)
                 .font(.caption)
-
-            /*
-             Text(italianstring)
-                 .font(.caption)
-             */
-
             Text(norwegianstring)
                 .font(.caption)
         }
-        .padding()
     }
 
     var notifynewversion: some View {

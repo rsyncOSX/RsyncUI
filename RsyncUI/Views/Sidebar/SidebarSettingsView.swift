@@ -20,10 +20,13 @@ struct SidebarSettingsView: View {
                 }
             Othersettings()
                 .tabItem {
-                    Label(NSLocalizedString("Paths", comment: "user settings"), systemImage: "play.square")
+                    Label(NSLocalizedString("Paths", comment: "user settings"), systemImage: "play")
+                }
+            AboutView()
+                .tabItem {
+                    Label(NSLocalizedString("About", comment: "user settings"), systemImage: "info")
                 }
         }
-        .frame(minWidth: 600, minHeight: 400)
         .padding()
     }
 }
