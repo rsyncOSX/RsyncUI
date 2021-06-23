@@ -10,11 +10,10 @@ import SwiftUI
 struct AboutView: View {
     @StateObject private var new = NewversionJSON()
 
-    var iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "icon")
-    var norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "norwegian")
-    var germanstring: String = NSLocalizedString("German translation by: Andre Voigtmann", comment: "german")
-    var changelog: String = "https://rsyncui.netlify.app/post/changelog/"
-    var documents: String = "https://rsyncui.netlify.app/"
+    let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "icon")
+    let norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "norwegian")
+    let germanstring: String = NSLocalizedString("German translation by: Andre Voigtmann", comment: "german")
+    let changelog: String = "https://rsyncui.netlify.app/post/changelog/"
 
     var appName: String {
         (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "Control Room"
@@ -45,12 +44,22 @@ struct AboutView: View {
 
             if new.notifynewversion { notifynewversion }
 
+            Text("RsyncUI configpath: " + configpath)
+                .font(.caption)
+
             rsynclongstring
 
-            buttonsview
+            Spacer()
 
-            Text(configpath)
-                .font(.caption)
+            HStack {
+                Spacer()
+
+                Button(NSLocalizedString("Changelog", comment: "About button")) { openchangelog() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                Button(NSLocalizedString("Download", comment: "About button")) { opendownload() }
+                    .buttonStyle(PrimaryButtonStyle())
+            }
 
         }.padding()
     }
@@ -68,17 +77,6 @@ struct AboutView: View {
 
             Text(iconbystring)
                 .font(.caption)
-        }
-    }
-
-    var buttonsview: some View {
-        HStack {
-            Button(NSLocalizedString("Changelog", comment: "About button")) { openchangelog() }
-                .buttonStyle(PrimaryButtonStyle())
-            Button(NSLocalizedString("RsyncUI", comment: "About button")) { opendocumentation() }
-                .buttonStyle(PrimaryButtonStyle())
-            Button(NSLocalizedString("Download", comment: "About button")) { opendownload() }
-                .buttonStyle(PrimaryButtonStyle())
         }
     }
 
@@ -118,10 +116,6 @@ struct AboutView: View {
 extension AboutView {
     func openchangelog() {
         NSWorkspace.shared.open(URL(string: changelog)!)
-    }
-
-    func opendocumentation() {
-        NSWorkspace.shared.open(URL(string: documents)!)
     }
 
     func opendownload() {
