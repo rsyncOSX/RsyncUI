@@ -36,6 +36,15 @@ struct RsyncUIApp: App {
             SidebarCommands()
             ExecuteCommands()
 
+            CommandGroup(replacing: .help) {
+                Button(action: {
+                    let documents: String = "https://rsyncui.netlify.app/"
+                    NSWorkspace.shared.open(URL(string: documents)!)
+                }) {
+                    Text(NSLocalizedString("RsyncUI help", comment: "RsyncUIApp"))
+                }
+            }
+
             CommandMenu(NSLocalizedString("Logfile", comment: "RsyncUIApp")) {
                 Button(action: {
                     presentlogfile()
