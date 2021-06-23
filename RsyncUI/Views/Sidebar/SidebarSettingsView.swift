@@ -24,7 +24,7 @@ struct SidebarSettingsView: View {
                 }
             AboutView()
                 .tabItem {
-                    Label(NSLocalizedString("About", comment: "user settings"), systemImage: "info")
+                    Label(NSLocalizedString("Info", comment: "user settings"), systemImage: "info.circle.fill")
                 }
         }
         .padding()
