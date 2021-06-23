@@ -29,8 +29,6 @@ struct AddConfigurationView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
-    @State var showselecteaprofile: Bool = false
-
     @StateObject var newdata = ObserveableAddConfigurations()
 
     var body: some View {
@@ -78,7 +76,6 @@ struct AddConfigurationView: View {
                 if newdata.created == true { notifycreated }
                 if newdata.deleted == true { notifydeleted }
                 if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
-                if showselecteaprofile == true { selectaprofile }
             }
 
             Spacer()
@@ -95,6 +92,12 @@ struct AddConfigurationView: View {
         }
         .lineSpacing(2)
         .padding()
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
+                reload = true
+            }
+        })
     }
 
     var updatebutton: some View {
@@ -306,16 +309,6 @@ struct AddConfigurationView: View {
         }
     }
 
-    var selectaprofile: some View {
-        AlertToast(type: .error(Color.red),
-                   title: Optional(NSLocalizedString("Select a profile", comment: "settings")), subTitle: Optional(""))
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    showselecteaprofile = false
-                }
-            })
-    }
-
     var selectpickervalue: TypeofTask {
         switch newdata.selectedconfig?.task {
         case SharedReference.shared.synchronize:
@@ -373,10 +366,6 @@ struct AddConfigurationView: View {
                                                      comment: "settings")), subTitle: Optional(""))
     }
 
-    var profile: String? {
-        return rsyncUIdata.profile
-    }
-
     var configurations: [Configuration]? {
         return rsyncUIdata.rsyncdata?.configurationData.getallconfigurations()
     }
@@ -384,11 +373,7 @@ struct AddConfigurationView: View {
 
 extension AddConfigurationView {
     func addconfig() {
-        guard selectedprofile != nil else {
-            showselecteaprofile = true
-            return
-        }
-        newdata.addconfig(profile, configurations)
+        newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload
         if newdata.added == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -410,7 +395,7 @@ extension AddConfigurationView {
     }
 
     func deleteprofile() {
-        newdata.deleteprofile(profile)
+        newdata.deleteprofile(selectedprofile)
         profilenames.update()
         reload = true
         selectedprofile = nil
@@ -428,7 +413,7 @@ extension AddConfigurationView {
     }
 
     func validateandupdate() {
-        newdata.validateandupdate(profile, configurations)
+        newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
         if newdata.updated == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
