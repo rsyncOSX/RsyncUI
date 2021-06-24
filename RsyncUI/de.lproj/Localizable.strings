@@ -26,15 +26,9 @@
 /* No comment provided by engineer. */
 "%@" = "%@";
 
-/* No comment provided by engineer. */
-"0" = "0";
-
 /* Abort button
    RestoreView */
 "Abort" = "Abbrechen";
-
-/* about */
-"About" = "Über";
 
 /* ScheduleRowSchedules */
 "active" = "aktiv";
@@ -48,7 +42,8 @@
 /* No comment provided by engineer. */
 "Add configuration completed" = "Konfiguration hinzufügen abgeschlossen";
 
-/* QuicktaskView */
+/* QuicktaskView
+   settings */
 "Add local as remote catalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
 
 /* QuicktaskView
@@ -61,8 +56,13 @@
 /* settings */
 "Add pretask" = "Pretask hinzufügen";
 
-/* QuicktaskView */
+/* QuicktaskView
+   settings */
 "Add remote as local catalog - required" = "Remote als localcatalog hinzufügen - erforderlich";
+
+/* QuicktaskView
+   settings */
+"Add remote catalog - required" = "Remotekatalog hinzufügen - erforderlich";
 
 /* QuicktaskView
    settings */
@@ -71,10 +71,6 @@
 /* QuicktaskView
    settings */
 "Add remote user" = "Remote-Benutzer hinzufügen";
-
-/* QuicktaskView
-   settings */
-"Add remote catalog - required" = "Remotekatalog hinzufügen - erforderlich";
 
 /* settings */
 "Add synchronize ID" = "Synchronisierungs-ID hinzufügen";
@@ -118,9 +114,6 @@
 /* settings */
 "Check data" = "Daten prüfen";
 
-/* chinese */
-"Chinese (Simplified) translation by: StringKe (Chen)" = "Chinesisch (vereinfacht) Übersetzung von: StringKe (Chen)";
-
 /* Select button */
 "Clear" = "Leeren";
 
@@ -138,6 +131,9 @@
 
 /* Othersettings */
 "Convert" = "Konvertieren";
+
+/* OutputRsyncView */
+"Convert from PLIST for" = "Von PLIST umwandeln für";
 
 /* Copy button
    Verify button */
@@ -187,6 +183,7 @@
 "Detailed" = "Detailliert";
 
 /* Dismiss button
+   Dissmiss button
    ssh settings */
 "Dismiss" = "Verwerfen";
 
@@ -195,9 +192,6 @@
 
 /* About button */
 "Download" = "Download";
-
-/* ducth */
-"Dutch translation by: Marcellino Santoso" = "Niederländische Übersetzung von: Marcellino Santoso";
 
 /* plan */
 "earlier months" = "frühere Monate";
@@ -217,13 +211,15 @@
 /* Othersettings */
 "Environment variable" = "Umgebungsvariable";
 
-/* Estimate button */
+/* command
+   Estimate button */
 "Estimate" = "Schätzung";
 
 /* RsyncCommandView */
 "Estimated tasks" = "Geschätzte Aufgaben";
 
-/* Execute button
+/* command
+   Execute button
    QuicktaskView */
 "Execute" = "Ausführen";
 
@@ -275,9 +271,6 @@
 /* Othersettings */
 "Info about convert" = "Info über Konvertierung";
 
-/* italian */
-"Italian translation by: Stefano Steve Cutelle'" = "Italienische Übersetzung von: Stefano Steve Cutelle'";
-
 /* plan */
 "Keep" = "Behalten";
 
@@ -324,7 +317,8 @@
 /* settings */
 "Log to file" = "Log in Datei";
 
-/* Logs */
+/* Logs
+   RsyncUIApp */
 "Logfile" = "Protokolldatei";
 
 /* settings */
@@ -347,8 +341,7 @@
    sidebar */
 "Multiple tasks" = "Mehrere Aufgaben";
 
-/* network
-   network error */
+/* network error */
 "Network connection is dropped" = "Netzwerkverbindung wurde eingestellt";
 
 /* OutputEstimatedView */
@@ -362,9 +355,6 @@
 
 /* no rsync */
 "No rsync in path" = "Kein rsync im Pfad";
-
-/* ScheduleRowSchedules */
-"no startdate" = "kein Startdatum";
 
 /* no path */
 "No such path" = "Kein solcher Pfad";
@@ -464,9 +454,8 @@
 /* plan */
 "previous month" = "letzter Monat";
 
-/* default profile
-   settings */
-"Profile" = "Profil";
+/* cannot */
+"Profile exists" = "Profil existiert";
 
 /* sidebar */
 "Quick task" = "Schnelle Aufgabe";
@@ -529,14 +518,14 @@
 /* settings */
 "Rsync version and path" = "Rsync-Version und -Pfad";
 
-/* About button */
+/* No comment provided by engineer. */
 "RsyncUI" = "RsyncUI";
 
-/* settings */
-"RsyncUI logfile" = "RsyncUI-Logdatei";
+/* No comment provided by engineer. */
+"RsyncUI configpath: " = "RsyncUI-Konfigurationspfad: ";
 
-/* settings */
-"RsyncUI settings" = "RsyncUI-Einstellungen";
+/* RsyncUIApp */
+"RsyncUI help" = "RsyncUI Hilfe";
 
 /* plan */
 "Saturday" = "Samstag";
@@ -556,7 +545,11 @@
 /* SchedulesDatePickerView */
 "Schedule" = "Zeitplan";
 
-/* sidebar
+/* command */
+"Scheduled tasks" = "Geplante Aufgaben";
+
+/* command
+   sidebar
    SidebarLogsView */
 "Schedules" = "Zeitpläne";
 
@@ -594,8 +587,7 @@
    ssh settings */
 "Set ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
 
-/* sidebar
-   user settings */
+/* user settings */
 "Settings" = "Einstellungen";
 
 /* Execute tasks
@@ -712,6 +704,9 @@
    RestoreView
    View button */
 "View" = "Ansicht";
+
+/* RsyncUIApp */
+"View logfile" = "Logdatei anzeigen";
 
 /* plan */
 "Wednesday" = "Mittwoch";
