@@ -40,6 +40,11 @@ struct AboutView: View {
         VStack {
             headingtitle
 
+            Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
+                .resizable()
+                .aspectRatio(1.0, contentMode: .fit)
+                .frame(width: 64, height: 64)
+
             translations
 
             rsyncversionshortstring
