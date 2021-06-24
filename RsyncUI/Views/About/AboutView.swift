@@ -40,14 +40,20 @@ struct AboutView: View {
         VStack {
             headingtitle
 
+            Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
+                .resizable()
+                .aspectRatio(1.0, contentMode: .fit)
+                .frame(width: 64, height: 64)
+
             translations
 
-            if new.notifynewversion { notifynewversion }
+            rsyncversionshortstring
 
             Text("RsyncUI configpath: " + configpath)
                 .font(.caption)
+                .padding(3)
 
-            rsynclongstring
+            if new.notifynewversion { notifynewversion }
 
             Spacer()
 
@@ -60,12 +66,12 @@ struct AboutView: View {
                 Button(NSLocalizedString("Download", comment: "About button")) { opendownload() }
                     .buttonStyle(PrimaryButtonStyle())
             }
-
-        }.padding()
+        }
+        .padding()
     }
 
     var headingtitle: some View {
-        VStack(spacing: 2) {
+        VStack(spacing: 3) {
             Text("RsyncUI")
                 .fontWeight(.bold)
 
@@ -80,10 +86,10 @@ struct AboutView: View {
         }
     }
 
-    var rsynclongstring: some View {
-        Text(SharedReference.shared.rsyncversionstring ?? "")
-            .border(Color.gray)
+    var rsyncversionshortstring: some View {
+        Text(SharedReference.shared.rsyncversionshort ?? "")
             .font(.caption)
+            .padding(3)
     }
 
     var translations: some View {
@@ -93,6 +99,7 @@ struct AboutView: View {
             Text(norwegianstring)
                 .font(.caption)
         }
+        .padding(3)
     }
 
     var notifynewversion: some View {
