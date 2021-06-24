@@ -26,15 +26,9 @@
 /* No comment provided by engineer. */
 "%@" = "%@";
 
-/* No comment provided by engineer. */
-"0" = "0";
-
 /* Abort button
    RestoreView */
 "Abort" = "Avbryt";
-
-/* about */
-"About" = "Om";
 
 /* ScheduleRowSchedules */
 "active" = "aktiv";
@@ -48,12 +42,13 @@
 /* No comment provided by engineer. */
 "Add configuration completed" = "Legge til konfigurasjon fullført";
 
-/* QuicktaskView */
-"Add local as remote catalog - required" = "Legg til lokal som ekstern katalog - kreves";
+/* QuicktaskView
+   settings */
+"Add local as remote catalog - required" = "Legg til lokal som eksternkatalog - kreves";
 
 /* QuicktaskView
    settings */
-"Add local catalog - required" = "Legg til lokal katalog - kreves";
+"Add local catalog - required" = "Legge til lokalkatalog - kreves";
 
 /* settings */
 "Add posttask" = "Legg til postoppgave";
@@ -61,8 +56,13 @@
 /* settings */
 "Add pretask" = "Legg til preoppgave";
 
-/* QuicktaskView */
+/* QuicktaskView
+   settings */
 "Add remote as local catalog - required" = "Legg til ekstern som lokal katalog - kreves";
+
+/* QuicktaskView
+   settings */
+"Add remote catalog - required" = "Legg til eksternkatalog - kreves";
 
 /* QuicktaskView
    settings */
@@ -71,10 +71,6 @@
 /* QuicktaskView
    settings */
 "Add remote user" = "Legg til ekstern bruker";
-
-/* QuicktaskView
-   settings */
-"Add remote catalog - required" = "Legg til ekstern katalog - kreves";
 
 /* settings */
 "Add synchronize ID" = "Legg til synkroniserings ID";
@@ -118,9 +114,6 @@
 /* settings */
 "Check data" = "Sjekk data";
 
-/* chinese */
-"Chinese (Simplified) translation by: StringKe (Chen)" = "Kinesisk (forenklet) oversettelse av: StringKe (Chen)";
-
 /* Select button */
 "Clear" = "Tøm";
 
@@ -138,6 +131,9 @@
 
 /* Othersettings */
 "Convert" = "Konverter";
+
+/* OutputRsyncView */
+"Convert from PLIST for" = "Konverter fra PLIST for";
 
 /* Copy button
    Verify button */
@@ -187,6 +183,7 @@
 "Detailed" = "Detaljert";
 
 /* Dismiss button
+   Dissmiss button
    ssh settings */
 "Dismiss" = "Lukk";
 
@@ -195,9 +192,6 @@
 
 /* About button */
 "Download" = "Nedlasting";
-
-/* ducth */
-"Dutch translation by: Marcellino Santoso" = "Nederlandsk oversettelse av: Marcellino Santoso";
 
 /* plan */
 "earlier months" = "tidligere måneder";
@@ -217,13 +211,15 @@
 /* Othersettings */
 "Environment variable" = "Miljømessig variabel";
 
-/* Estimate button */
+/* command
+   Estimate button */
 "Estimate" = "Estimat";
 
 /* RsyncCommandView */
 "Estimated tasks" = "Estimerte oppgaver";
 
-/* Execute button
+/* command
+   Execute button
    QuicktaskView */
 "Execute" = "Utfør";
 
@@ -275,9 +271,6 @@
 /* Othersettings */
 "Info about convert" = "Informasjon om konvertering";
 
-/* italian */
-"Italian translation by: Stefano Steve Cutelle'" = "Italiensk oversettelse av: Stefano Steve Cutelle'";
-
 /* plan */
 "Keep" = "Behold";
 
@@ -324,7 +317,8 @@
 /* settings */
 "Log to file" = "Logg til fil";
 
-/* Logs */
+/* Logs
+   RsyncUIApp */
 "Logfile" = "Loggfil";
 
 /* settings */
@@ -347,8 +341,7 @@
    sidebar */
 "Multiple tasks" = "Flere oppgaver";
 
-/* network
-   network error */
+/* network error */
 "Network connection is dropped" = "Nettverkstilkobling er droppet";
 
 /* OutputEstimatedView */
@@ -362,9 +355,6 @@
 
 /* no rsync */
 "No rsync in path" = "Ingen rsync i stien";
-
-/* ScheduleRowSchedules */
-"no startdate" = "ingen startdato";
 
 /* no path */
 "No such path" = "Ingen slik bane";
@@ -464,9 +454,8 @@
 /* plan */
 "previous month" = "forrige måned";
 
-/* default profile
-   settings */
-"Profile" = "Profil";
+/* cannot */
+"Profile exists" = "Profilen eksisterer";
 
 /* sidebar */
 "Quick task" = "Hurtig oppgave";
@@ -529,14 +518,14 @@
 /* settings */
 "Rsync version and path" = "Rsync versjon og sti";
 
-/* About button */
+/* No comment provided by engineer. */
 "RsyncUI" = "RsyncUI";
 
-/* settings */
-"RsyncUI logfile" = "RsyncUI loggfil";
+/* No comment provided by engineer. */
+"RsyncUI configpath: " = "RsyncUI konfigurasjon: ";
 
-/* settings */
-"RsyncUI settings" = "RsyncUI innstillinger";
+/* RsyncUIApp */
+"RsyncUI help" = "RsyncUI hjelp";
 
 /* plan */
 "Saturday" = "lørdag";
@@ -556,7 +545,11 @@
 /* SchedulesDatePickerView */
 "Schedule" = "Oppgave";
 
-/* sidebar
+/* command */
+"Scheduled tasks" = "Planlagte oppgaver";
+
+/* command
+   sidebar
    SidebarLogsView */
 "Schedules" = "Oppgaver";
 
@@ -594,8 +587,7 @@
    ssh settings */
 "Set ssh keypath and identityfile" = "Sett ssh keypath og identityfile";
 
-/* sidebar
-   user settings */
+/* user settings */
 "Settings" = "Innstillinger";
 
 /* Execute tasks
@@ -712,6 +704,9 @@
    RestoreView
    View button */
 "View" = "Vis";
+
+/* RsyncUIApp */
+"View logfile" = "Vis loggfil";
 
 /* plan */
 "Wednesday" = "onsdag";
