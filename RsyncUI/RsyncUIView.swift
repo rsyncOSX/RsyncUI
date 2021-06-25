@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RsyncUIView: View {
-    // @EnvironmentObject var rsyncversionObject: GetRsyncversion
     @EnvironmentObject var checkfornewversionofrsyncui: NewversionJSON
     @StateObject var profilenames = Profilenames()
 
