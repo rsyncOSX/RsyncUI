@@ -33,12 +33,6 @@ struct ConfigurationsSwiftUI {
     // private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
     // valid hiddenIDs
     private var validhiddenIDs: Set<Int>?
-    // Uniqueue servers and logins
-    private var uniqueueserversandlogins: [UniqueserversandLogins]?
-
-    func getuniqueueserversandlogins() -> [UniqueserversandLogins]? {
-        return uniqueueserversandlogins
-    }
 
     // Function for getting Configurations read into memory, sorted by runddate
     func getallconfigurations() -> [Configuration]? {
@@ -134,7 +128,6 @@ struct ConfigurationsSwiftUI {
         let configurationsdata = ReadConfigurationJSON(profile)
         configurations = configurationsdata.configurations
         validhiddenIDs = configurationsdata.validhiddenIDs
-        uniqueueserversandlogins = configurationsdata.setuniqueserversandlogins()
         SharedReference.shared.process = nil
     }
 }

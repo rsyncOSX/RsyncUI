@@ -15,7 +15,7 @@ class ReadConfigurationJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
     var validhiddenIDs = Set<Int>()
 
-    func setuniqueserversandlogins() -> [UniqueserversandLogins]? {
+    func getuniqueserversandlogins() -> [UniqueserversandLogins]? {
         let configs = configurations?.filter {
             SharedReference.shared.synctasks.contains($0.task)
         }

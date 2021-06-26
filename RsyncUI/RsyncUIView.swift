@@ -9,9 +9,9 @@ import SwiftUI
 
 struct RsyncUIView: View {
     @EnvironmentObject var checkfornewversionofrsyncui: NewversionJSON
-    @StateObject var profilenames = Profilenames()
+    @Binding var selectedprofile: String?
 
-    @State private var selectedprofile: String?
+    @StateObject var profilenames = Profilenames()
     @State private var reload: Bool = false
 
     var body: some View {
@@ -30,15 +30,11 @@ struct RsyncUIView: View {
             }
 
             HStack {
-                // Label(rsyncversionObject.rsyncversion, systemImage: "swift")
-
                 Spacer()
 
                 if checkfornewversionofrsyncui.notifynewversion { notifynewversion }
 
                 Spacer()
-
-                // Text(selectedprofile ?? NSLocalizedString("Default profile", comment: "default profile"))
             }
         }
         .padding()

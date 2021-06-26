@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct SidebarSettingsView: View {
+    @Binding var selectedprofile: String?
     var body: some View {
         TabView {
             Usersettings()
                 .tabItem {
                     Label(NSLocalizedString("Settings", comment: "user settings"), systemImage: "gear")
                 }
-            Sshsettings()
+            Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(selectedprofile).getuniqueserversandlogins() ?? [])
                 .tabItem {
                     Label(NSLocalizedString("Ssh", comment: "user settings"), systemImage: "terminal")
                 }
