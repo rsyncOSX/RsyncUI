@@ -12,7 +12,7 @@ struct RsyncUIView: View {
     @EnvironmentObject var checkfornewversionofrsyncui: NewversionJSON
 
     @StateObject var profilenames = Profilenames()
-    @State private var selectedprofile: String?
+    @Binding var selectedprofile: String?
     @State private var reload: Bool = false
     @State private var searchText = ""
 

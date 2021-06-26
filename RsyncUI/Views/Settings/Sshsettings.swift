@@ -15,6 +15,8 @@ struct Sshsettings: View {
     @State private var showingAlert: Bool = false
     @State private var showsshverifysheet: Bool = false
 
+    var uniqueserversandlogins: [UniqueserversandLogins]
+
     var body: some View {
         Form {
             HStack {
@@ -121,25 +123,13 @@ struct Sshsettings: View {
 
     var uniqueuserversandloginslist: some View {
         List(selection: $selectedlogin) {
-            ForEach(serversandlogins) { record in
+            ForEach(uniqueserversandlogins) { record in
                 ServerRow(record: record)
                     .tag(record)
             }
         }
         .frame(width: 250, height: 100)
         .border(Color.gray)
-    }
-
-    /*
-     TODO: must fix
-     */
-    var serversandlogins: [UniqueserversandLogins] {
-        /*
-         if let servers = rsyncUIdata.rsyncdata?.configurationData.getuniqueueserversandlogins() {
-             return servers
-         }
-         */
-        return []
     }
 
     // Header user setting
