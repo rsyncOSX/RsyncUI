@@ -15,7 +15,7 @@ struct SidebarSettingsView: View {
                 .tabItem {
                     Label(NSLocalizedString("Settings", comment: "user settings"), systemImage: "gear")
                 }
-            Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(selectedprofile).getuniqueserversandlogins() ?? [])
+            Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(profile).getuniqueserversandlogins() ?? [])
                 .tabItem {
                     Label(NSLocalizedString("Ssh", comment: "user settings"), systemImage: "terminal")
                 }
@@ -30,5 +30,15 @@ struct SidebarSettingsView: View {
         }
         .frame(minWidth: 800, minHeight: 400)
         .padding()
+    }
+
+    var profile: String? {
+        if selectedprofile == NSLocalizedString("Default profile", comment: "default profile")
+            || selectedprofile == nil
+        {
+            return nil
+        } else {
+            return selectedprofile
+        }
     }
 }
