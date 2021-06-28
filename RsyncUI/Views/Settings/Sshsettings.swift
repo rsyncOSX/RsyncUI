@@ -24,7 +24,7 @@ struct Sshsettings: View {
                 Spacer()
                 // Column 1
                 VStack(alignment: .leading) {
-                    ToggleView(NSLocalizedString("Local ssh keys found", comment: "ssh"), $usersettings.localsshkeys)
+                    ToggleView("Local ssh keys found", $usersettings.localsshkeys)
 
                     Section(header: headerssh) {
                         setsshpath
@@ -50,10 +50,10 @@ struct Sshsettings: View {
             HStack {
                 Spacer()
 
-                Button(NSLocalizedString("Create", comment: "usersetting")) { createkeys() }
+                Button("Create") { createkeys() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Verify", comment: "usersetting")) { verifyssh() }
+                Button("Verify") { verifyssh() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 usersetting
@@ -71,14 +71,14 @@ struct Sshsettings: View {
     var usersetting: some View {
         HStack {
             if usersettings.isDirty {
-                Button(NSLocalizedString("Save", comment: "usersetting")) { saveusersettings() }
+                Button("Save") { saveusersettings() }
                     .buttonStyle(PrimaryButtonStyle())
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color.red, lineWidth: 5)
                     )
             } else {
-                Button(NSLocalizedString("Save", comment: "usersetting")) {}
+                Button("Save") {}
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -87,16 +87,16 @@ struct Sshsettings: View {
 
     // Ssh header
     var headerssh: some View {
-        Text(NSLocalizedString("Set ssh keypath and identityfile", comment: "ssh settings"))
+        Text("Set ssh keypath and identityfile")
     }
 
     // Ssh Unique
     var headeruniqueue: some View {
-        Text(NSLocalizedString("Unique usernames and servers", comment: "ssh settings"))
+        Text("Unique usernames and servers")
     }
 
     var setsshpath: some View {
-        EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: "settings"), $usersettings.sshkeypathandidentityfile.onChange {
+        EditValue(250, "Global ssh keypath and identityfile", $usersettings.sshkeypathandidentityfile.onChange {
             usersettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
@@ -107,7 +107,7 @@ struct Sshsettings: View {
     }
 
     var setsshport: some View {
-        EditValue(250, NSLocalizedString("Global ssh port", comment: "settings"), $usersettings.sshport.onChange {
+        EditValue(250, "Global ssh port", $usersettings.sshport.onChange {
             usersettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
@@ -130,7 +130,7 @@ struct Sshsettings: View {
 
     // Header user setting
     var headerusersetting: some View {
-        Text(NSLocalizedString("Save settings", comment: "settings"))
+        Text("Save settings")
     }
 }
 

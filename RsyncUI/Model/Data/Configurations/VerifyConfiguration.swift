@@ -18,15 +18,15 @@ enum ValidateInputError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .localcatalog:
-            return NSLocalizedString("Either local or remote cannot be empty", comment: "input error") + "..."
+            return "Either local or remote cannot be empty"
         case .offsiteusername:
-            return NSLocalizedString("Remote username cannot be empty", comment: "input error") + "..."
+            return "Remote username cannot be empty"
         case .notconnected:
-            return NSLocalizedString("Not connected, cannot create task", comment: "filesize error") + "..."
+            return "Not connected, cannot create task"
         case .offsiteserver:
-            return NSLocalizedString("Remote servername cannot be empty", comment: "input error") + "..."
+            return "Remote servername cannot be empty"
         case .snapshotnum:
-            return NSLocalizedString("Snapshotnum must be 1", comment: "filesize error") + "..."
+            return "Snapshotnum must be 1"
         }
     }
 }

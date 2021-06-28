@@ -15,11 +15,11 @@ struct SidebarAddConfigurationsView: View {
         TabView {
             AddConfigurationView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
-                    Text(NSLocalizedString("Add config", comment: "logsview"))
+                    Text("Add config")
                 }
             AddPostandPreView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
-                    Text(NSLocalizedString("Pre and post", comment: "logsview"))
+                    Text("Pre and post")
                 }
         }
         .padding()

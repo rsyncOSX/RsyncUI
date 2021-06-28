@@ -14,7 +14,7 @@ enum Rsyncerror: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .rsyncerror:
-            return NSLocalizedString("There are errors in output", comment: "rsync error") + "..."
+            return "There are errors in output"
         }
     }
 }

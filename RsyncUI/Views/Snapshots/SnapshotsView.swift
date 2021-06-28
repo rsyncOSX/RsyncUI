@@ -61,7 +61,7 @@ struct SnapshotsView: View {
         }
 
         HStack {
-            Button(NSLocalizedString("Save", comment: "Tag")) { updateplansnapshot() }
+            Button("Save") { updateplansnapshot() }
                 .buttonStyle(PrimaryButtonStyle())
 
             VStack(alignment: .leading) {
@@ -79,13 +79,13 @@ struct SnapshotsView: View {
             Spacer()
 
             Group {
-                Button(NSLocalizedString("Tag", comment: "Tag")) { tagsnapshots() }
+                Button("Tag") { tagsnapshots() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+                Button("Select") { select() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Delete", comment: "Delete")) { showAlertfordelete = true }
+                Button("Delete") { showAlertfordelete = true }
                     .sheet(isPresented: $showAlertfordelete) {
                         ConfirmDeleteSnapshots(isPresented: $showAlertfordelete,
                                                delete: $confirmdeletesnapshots,
@@ -96,7 +96,7 @@ struct SnapshotsView: View {
                     }
                     .buttonStyle(AbortButtonStyle())
 
-                Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
+                Button("Abort") { abort() }
                     .buttonStyle(AbortButtonStyle())
             }
         }
@@ -104,26 +104,26 @@ struct SnapshotsView: View {
 
     var labelnumberoflogs: some View {
         VStack(alignment: .leading) {
-            Text(NSLocalizedString("Number of logrecords", comment: "") +
+            Text("Number of logrecords" +
                 ": " + "\(snapshotdata.logrecordssnapshot?.count ?? 0)")
-            Text(NSLocalizedString("Number to delete", comment: "") +
+            Text("Number to delete" +
                 ": " + "\(snapshotdata.uuidsfordelete?.count ?? 0)")
         }
     }
 
     var notasnapshottask: some View {
         AlertToast(type: .error(Color.red),
-                   title: Optional(NSLocalizedString("Not a snapshot task", comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Not a snapshot task"), subTitle: Optional(""))
     }
 
     var gettingdatainprocess: some View {
         AlertToast(type: .error(Color.red),
-                   title: Optional(NSLocalizedString("In process in getting data", comment: "settings")), subTitle: Optional(""))
+                   title: Optional("In process in getting data"), subTitle: Optional(""))
     }
 
     var pickersnapdayoffweek: some View {
-        // Picker(NSLocalizedString("Day of week", comment: "SnapshotsView") + ":",
-        Picker(NSLocalizedString("", comment: "SnapshotsView"),
+        // Picker("Day of week" + ":",
+        Picker("",
                selection: $snapdayofweek) {
             ForEach(StringDayofweek.allCases) { Text($0.description)
                 .tag($0)
@@ -134,8 +134,8 @@ struct SnapshotsView: View {
     }
 
     var pickersnaplast: some View {
-        // Picker(NSLocalizedString("Plan", comment: "SnapshotsView") + ":",
-        Picker(NSLocalizedString("", comment: "SnapshotsView"),
+        // Picker("Plan" + ":",
+        Picker("",
                selection: $snaplast) {
             ForEach(PlanSnapshots.allCases) { Text($0.description)
                 .tag($0)
@@ -147,7 +147,7 @@ struct SnapshotsView: View {
 
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Updated", comment: "settings")),
+                   title: Optional("Updated"),
                    subTitle: Optional(""))
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

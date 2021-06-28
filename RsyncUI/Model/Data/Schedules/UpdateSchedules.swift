@@ -14,7 +14,7 @@ enum ScheduleError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notselectedconfig:
-            return NSLocalizedString("Please select a configuration", comment: "ScheduleError") + "..."
+            return "Please select a configuration"
         }
     }
 }

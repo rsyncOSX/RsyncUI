@@ -357,7 +357,7 @@ enum ParameterError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalid:
-            return NSLocalizedString("Not a valid ", comment: "ssh error") + "..."
+            return "Not a valid "
         }
     }
 }

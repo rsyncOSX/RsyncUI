@@ -36,7 +36,7 @@ struct AddPostandPreView: View {
 
                         HStack {
                             if newdata.selectedconfig == nil { disablehaltshelltasksonerror } else {
-                                ToggleView(NSLocalizedString("Halt on error", comment: "settings"), $newdata.haltshelltasksonerror)
+                                ToggleView("Halt on error", $newdata.haltshelltasksonerror)
                                     .onAppear(perform: {
                                         if newdata.selectedconfig?.haltshelltasksonerror == 1 {
                                             newdata.haltshelltasksonerror = true
@@ -81,18 +81,18 @@ struct AddPostandPreView: View {
     var updatebutton: some View {
         HStack {
             if newdata.selectedconfig == nil {
-                Button(NSLocalizedString("Update", comment: "Update button")) {}
+                Button("Update") {}
                     .buttonStyle(PrimaryButtonStyle())
             } else {
                 if newdata.inputchangedbyuser == true {
-                    Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
+                    Button("Update") { validateandupdate() }
                         .buttonStyle(PrimaryButtonStyle())
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.red, lineWidth: 5)
                         )
                 } else {
-                    Button(NSLocalizedString("Update", comment: "Update button")) {}
+                    Button("Update") {}
                         .buttonStyle(PrimaryButtonStyle())
                 }
             }
@@ -100,26 +100,26 @@ struct AddPostandPreView: View {
     }
 
     var setpretask: some View {
-        EditValue(250, NSLocalizedString("Add pretask", comment: "settings"), $newdata.pretask)
+        EditValue(250, "Add pretask", $newdata.pretask)
     }
 
     var setposttask: some View {
-        EditValue(250, NSLocalizedString("Add posttask", comment: "settings"), $newdata.posttask)
+        EditValue(250, "Add posttask", $newdata.posttask)
     }
 
     var disablepretask: some View {
-        ToggleView(NSLocalizedString("Enable", comment: "settings"), $newdata.enablepre)
+        ToggleView("Enable", $newdata.enablepre)
     }
 
     var disableposttask: some View {
-        ToggleView(NSLocalizedString("Enable", comment: "settings"), $newdata.enablepost)
+        ToggleView("Enable", $newdata.enablepost)
     }
 
     var pretaskandtoggle: some View {
         HStack {
             // Enable pretask
             if newdata.selectedconfig == nil { disablepretask } else {
-                ToggleView(NSLocalizedString("Enable", comment: "settings"), $newdata.enablepre.onChange {
+                ToggleView("Enable", $newdata.enablepre.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .onAppear(perform: {
@@ -150,7 +150,7 @@ struct AddPostandPreView: View {
         HStack {
             // Enable posttask
             if newdata.selectedconfig == nil { disableposttask } else {
-                ToggleView(NSLocalizedString("Enable", comment: "settings"), $newdata.enablepost.onChange {
+                ToggleView("Enable", $newdata.enablepost.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .onAppear(perform: {
@@ -178,7 +178,7 @@ struct AddPostandPreView: View {
     }
 
     var disablehaltshelltasksonerror: some View {
-        ToggleView(NSLocalizedString("Halt on error", comment: "settings"),
+        ToggleView("Halt on error",
                    $newdata.haltshelltasksonerror.onChange {
                        newdata.inputchangedbyuser = true
                    })
@@ -186,8 +186,7 @@ struct AddPostandPreView: View {
 
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Updated",
-                                                     comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Updated"), subTitle: Optional(""))
     }
 
     var profile: String? {

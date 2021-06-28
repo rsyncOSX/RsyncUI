@@ -18,11 +18,11 @@ enum SshError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidpath:
-            return NSLocalizedString("SSH keypath is not valid", comment: "ssh error") + "..."
+            return "SSH keypath is not valid"
         case .sshkeys:
-            return NSLocalizedString("SSH RSA keys exist, cannot create", comment: "ssh error") + "..."
+            return "SSH RSA keys exist, cannot create"
         case .noslash:
-            return NSLocalizedString("SSH keypath must be like ~/.ssh_keypath/identityfile", comment: "ssh error") + "..."
+            return "SSH keypath must be like ~/.ssh_keypath/identityfile"
         }
     }
 }

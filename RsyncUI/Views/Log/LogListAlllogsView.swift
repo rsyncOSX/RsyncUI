@@ -41,16 +41,16 @@ struct LogListAlllogsView: View {
 
                 Spacer()
 
-                Button(NSLocalizedString("Clear", comment: "Select button")) { selecteduuids.removeAll() }
+                Button("Clear") { selecteduuids.removeAll() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+                Button("Select") { select() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("All", comment: "Select button")) { selectall() }
+                Button("All") { selectall() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Delete", comment: "Delete button")) { delete() }
+                Button("Delete") { delete() }
                     .buttonStyle(AbortButtonStyle())
                     .sheet(isPresented: $showAlertfordelete) {
                         DeleteLogsView(selecteduuids: $selecteduuids,
@@ -64,7 +64,7 @@ struct LogListAlllogsView: View {
     }
 
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIdata.filterlogsorted?.count ?? 0)"
+        "Number of logs" + ": " + "\(rsyncUIdata.filterlogsorted?.count ?? 0)"
     }
 }
 

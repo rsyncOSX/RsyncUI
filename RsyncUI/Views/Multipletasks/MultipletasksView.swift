@@ -56,7 +56,7 @@ struct MultipletasksView: View {
         }
 
         HStack {
-            Button(NSLocalizedString("All", comment: "Select button")) { executall() }
+            Button("All") { executall() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $showAlertforexecuteall) {
                     ExecuteAlltasksView(selecteduuids: $selecteduuids,
@@ -64,13 +64,13 @@ struct MultipletasksView: View {
                                         presentestimatedsheetview: $presentestimatedsheetview)
                 }
 
-            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+            Button("Select") { select() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Estimate", comment: "Estimate button")) { startestimation() }
+            Button("Estimate") { startestimation() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Execute", comment: "Execute button")) { startexecution() }
+            Button("Execute") { startexecution() }
                 .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
@@ -79,7 +79,7 @@ struct MultipletasksView: View {
 
             Spacer()
 
-            Button(NSLocalizedString("View", comment: "View button")) { presentoutput() }
+            Button("View") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentoutputsheetview) {
                     OutputEstimatedView(isPresented: $presentoutputsheetview,
@@ -87,7 +87,7 @@ struct MultipletasksView: View {
                                         estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
                 }
 
-            Button(NSLocalizedString("Delete", comment: "Delete button")) { preparefordelete() }
+            Button("Delete") { preparefordelete() }
                 .buttonStyle(AbortButtonStyle())
                 .sheet(isPresented: $showAlertfordelete) {
                     ConfirmDeleteConfigurationsView(isPresented: $showAlertfordelete,
@@ -98,7 +98,7 @@ struct MultipletasksView: View {
                         }
                 }
 
-            Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
+            Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
         .padding()
@@ -125,8 +125,7 @@ struct MultipletasksView: View {
 
     var notifydeleted: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Deleted",
-                                                     comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Deleted"), subTitle: Optional(""))
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     deleted = false
@@ -136,8 +135,7 @@ struct MultipletasksView: View {
 
     var notifyselecttask: some View {
         AlertToast(type: .regular,
-                   title: Optional(NSLocalizedString("Select one or more tasks",
-                                                     comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Select one or more tasks"), subTitle: Optional(""))
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     notasks = false

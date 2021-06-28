@@ -124,9 +124,9 @@ enum InputError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidDouble:
-            return NSLocalizedString("Not a valid number (Double)", comment: "ssh error") + "..."
+            return "Not a valid number (Double)"
         case .notvalidInt:
-            return NSLocalizedString("Not a valid number (Int)", comment: "ssh error") + "..."
+            return "Not a valid number (Int)"
         }
     }
 }

@@ -70,7 +70,7 @@ final class RsyncUIdata: ObservableObject {
             return
         }
         self.profile = profile
-        if profile == NSLocalizedString("Default profile", comment: "default profile") || profile == nil {
+        if profile == "Default profile" || profile == nil {
             rsyncdata = Readdatafromstore(profile: nil)
         } else {
             rsyncdata = Readdatafromstore(profile: profile)

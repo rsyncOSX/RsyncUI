@@ -69,8 +69,7 @@ struct SingleTasksView: View {
             }
 
             if notasks == true {
-                AlertToast(type: .regular, title: Optional(NSLocalizedString("Select a task",
-                                                                             comment: "settings")), subTitle: Optional(""))
+                AlertToast(type: .regular, title: Optional("Select a task"), subTitle: Optional(""))
                     .onAppear(perform: {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             notasks = false
@@ -97,11 +96,11 @@ struct SingleTasksView: View {
 
             Spacer()
 
-            Button(NSLocalizedString("View", comment: "View button")) { presentoutput() }
+            Button("View") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentsheetview) { viewoutput }
 
-            Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
+            Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
         .padding()
@@ -115,11 +114,11 @@ struct SingleTasksView: View {
                 singletaskstate.singletaskstate == .completed
             {
                 // Estimate
-                Button(NSLocalizedString("Estimate", comment: "Estimate button")) { initsingletask() }
+                Button("Estimate") { initsingletask() }
                     .buttonStyle(PrimaryButtonStyle())
             } else {
                 // Execute estimated
-                Button(NSLocalizedString("Execute", comment: "Execute button")) { singletask() }
+                Button("Execute") { singletask() }
                     .buttonStyle(PrimaryButtonStyle())
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
@@ -134,7 +133,7 @@ struct SingleTasksView: View {
 
     // No estimation, just execute task now
     var executenow: some View {
-        Button(NSLocalizedString("Now", comment: "Now button")) { singletasknow() }
+        Button("Now") { singletasknow() }
             .buttonStyle(PrimaryButtonStyle())
             .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
                 if singletasknowstate.executetasknowstate == .completed { completed() }
@@ -161,7 +160,7 @@ struct SingleTasksView: View {
     }
 
     var progressviewexecute: some View {
-        ProgressView(NSLocalizedString("", comment: "Execute tasks") + "…",
+        ProgressView("" + "…",
                      value: inprogresscountrsyncoutput.getinprogress(),
                      total: Double(inprogresscountrsyncoutput.getmaxcount()))
             .onChange(of: inprogresscountrsyncoutput.getinprogress(), perform: { _ in
@@ -192,7 +191,7 @@ struct SingleTasksView: View {
     var notifyshellout: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("Pre and post task", comment: "settings"))
+            Text("Pre and post task")
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }

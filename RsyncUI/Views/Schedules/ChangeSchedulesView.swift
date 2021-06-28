@@ -21,13 +21,13 @@ struct ChangeSchedulesView: View {
             Spacer()
 
             HStack {
-                Button(NSLocalizedString("Cancel", comment: "Dismiss button")) { dismissview() }
+                Button("Cancel") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Stop", comment: "Dismiss button")) { stop() }
+                Button("Stop") { stop() }
                     .buttonStyle(AbortButtonStyle())
 
-                Button(NSLocalizedString("Delete", comment: "Dismiss button")) { delete() }
+                Button("Delete") { delete() }
                     .buttonStyle(AbortButtonStyle())
             }
             .padding()
@@ -37,9 +37,9 @@ struct ChangeSchedulesView: View {
 
     var header: some View {
         HStack {
-            let message = NSLocalizedString("Stop or delete", comment: "Alert delete")
+            let message = "Stop or delete"
                 + " \(selecteduuids.count)"
-                + NSLocalizedString(" schedules(s)?", comment: "Alert delete")
+                + " schedules(s)?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }

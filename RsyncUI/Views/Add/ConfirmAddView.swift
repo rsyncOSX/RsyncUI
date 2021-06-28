@@ -12,11 +12,11 @@ struct ConfirmAddView: View {
 
     var body: some View {
         VStack {
-            Text(NSLocalizedString("Add configuration completed", comment: ""))
+            Text("Add configuration completed")
 
             Spacer()
 
-            Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
+            Button("Dismiss") { dismissview() }
                 .buttonStyle(PrimaryButtonStyle())
         }
         .padding()

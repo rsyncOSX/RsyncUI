@@ -51,11 +51,11 @@ struct RsyncUIApp: App {
                 }
             }
 
-            CommandMenu(NSLocalizedString("Logfile", comment: "RsyncUIApp")) {
+            CommandMenu("Logfile") {
                 Button(action: {
                     presentlogfile()
                 }) {
-                    Text(NSLocalizedString("View logfile", comment: "RsyncUIApp"))
+                    Text("View logfile")
                 }
                 .keyboardShortcut("o", modifiers: [.command])
             }

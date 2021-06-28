@@ -21,10 +21,10 @@ struct DeleteLogsView: View {
             Spacer()
 
             HStack {
-                Button(NSLocalizedString("Delete", comment: "Dismiss button")) { delete() }
+                Button("Delete") { delete() }
                     .buttonStyle(AbortButtonStyle())
 
-                Button(NSLocalizedString("Cancel", comment: "Dismiss button")) { dismissview() }
+                Button("Cancel") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
             }
             .padding()
@@ -34,9 +34,9 @@ struct DeleteLogsView: View {
 
     var header: some View {
         HStack {
-            let message = NSLocalizedString("Delete", comment: "Alert delete")
+            let message = "Delete"
                 + " \(selecteduuids.count)"
-                + NSLocalizedString(" log(s)?", comment: "Alert delete")
+                + " log(s)?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }

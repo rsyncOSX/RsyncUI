@@ -35,10 +35,10 @@ struct RsyncCommandView: View {
             HStack {
                 Spacer()
 
-                Button(NSLocalizedString("Copy", comment: "Copy button")) { copytopasteboard() }
+                Button("Copy") { copytopasteboard() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
+                Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -47,7 +47,7 @@ struct RsyncCommandView: View {
     }
 
     var pickerselectcommand: some View {
-        Picker(NSLocalizedString("Command", comment: "CommandTab") + ":",
+        Picker("Command" + ":",
                selection: $selectedrsynccommand) {
             ForEach(RsyncCommand.allCases) { Text($0.description)
                 .tag($0)
@@ -58,7 +58,7 @@ struct RsyncCommandView: View {
     }
 
     var headingtitle: some View {
-        Text(NSLocalizedString("Rsync command and parameters", comment: "RsyncCommandView"))
+        Text("Rsync command and parameters")
             .font(.title2)
             .padding()
     }
@@ -81,7 +81,7 @@ struct RsyncCommandView: View {
                                              config: config).getrsyncommand()
             }
         }
-        return NSLocalizedString("Select a configuration", comment: "RsyncCommandView") + "..."
+        return "Select a configuration"
     }
 
     func dismissview() {
