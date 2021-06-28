@@ -46,7 +46,7 @@ struct ExecuteEstimatedView: View {
 
             Spacer()
 
-            Button(NSLocalizedString("Abort", comment: "Abort button")) { abort() }
+            Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
         .onAppear(perform: {
@@ -86,7 +86,7 @@ struct ExecuteEstimatedView: View {
     }
 
     var headingtitle: some View {
-        Text(NSLocalizedString("Execute tasks", comment: "RsyncCommandView"))
+        Text("Execute tasks")
             .font(.title2)
             .padding()
     }

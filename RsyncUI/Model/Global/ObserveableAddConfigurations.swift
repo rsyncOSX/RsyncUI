@@ -16,7 +16,7 @@ enum CannotUpdateSnaphotsError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .cannotupdate:
-            return NSLocalizedString("Only synchronize ID can be changed on a Snapshot task", comment: "cannot") + "..."
+            return "Only synchronize ID can be changed on a Snapshot task" + "..."
         }
     }
 }
@@ -198,7 +198,7 @@ final class ObserveableAddConfigurations: ObservableObject {
     func deleteprofile(_ profile: String?) {
         guard confirmdeleteselectedprofile == true else { return }
         if let profile = profile {
-            guard profile != NSLocalizedString("Default profile", comment: "default profile") else {
+            guard profile != "Default profile" else {
                 deletedefaultprofile = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
                     deletedefaultprofile = false

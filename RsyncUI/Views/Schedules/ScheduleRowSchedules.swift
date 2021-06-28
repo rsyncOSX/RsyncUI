@@ -23,7 +23,7 @@ struct ScheduleRowSchedules: View {
                 .modifier(FixedTag(50, .trailing))
             Text(localizeddatestart)
                 .modifier(FixedTag(130, .leading))
-            Text(NSLocalizedString("active", comment: "ScheduleRowSchedules"))
+            Text("active")
                 .modifier(FixedTag(50, .leading))
                 .foregroundColor(Color.green)
 
@@ -101,7 +101,7 @@ extension ScheduleRowSchedules {
                 result = String(format: "%.0f", min + 1) + "m"
             }
         } else if hr < 25 {
-            result = String(format: "%.0f", hr) + NSLocalizedString("h", comment: "datetime") + " "
+            result = String(format: "%.0f", hr) + "h" + " "
                 + String(format: "%.0f", min) + "m"
         } else {
             result = String(format: "%.0f", hr / 24) + "d"

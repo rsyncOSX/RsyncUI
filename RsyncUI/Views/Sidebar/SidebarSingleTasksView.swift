@@ -27,7 +27,7 @@ struct SidebarSingleTasksView: View {
             imagerssync
 
             VStack(alignment: .leading) {
-                Text(NSLocalizedString("Single task", comment: "Execute tasks"))
+                Text("Single task")
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

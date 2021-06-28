@@ -39,8 +39,7 @@ struct Othersettings: View {
 
                 if backup == true {
                     AlertToast(type: .complete(Color.green),
-                               title: Optional(NSLocalizedString("Saved",
-                                                                 comment: "settings")), subTitle: Optional(""))
+                               title: Optional("Saved"), subTitle: Optional(""))
                         .onAppear(perform: {
                             // Show updated for 1 second
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -66,14 +65,14 @@ struct Othersettings: View {
     var usersetting: some View {
         HStack {
             if usersettings.isDirty {
-                Button(NSLocalizedString("Save", comment: "Othersettings")) { saveusersettings() }
+                Button("Save") { saveusersettings() }
                     .buttonStyle(PrimaryButtonStyle())
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color.red, lineWidth: 5)
                     )
             } else {
-                Button(NSLocalizedString("Save", comment: "Othersettings")) {}
+                Button("Save") {}
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -82,16 +81,16 @@ struct Othersettings: View {
 
     // Environment
     var headerenvironment: some View {
-        Text(NSLocalizedString("Environment", comment: "Othersettings"))
+        Text("Environment")
     }
 
     // Paths
     var headerpaths: some View {
-        Text(NSLocalizedString("Paths for apps", comment: "Othersettings"))
+        Text("Paths for apps")
     }
 
     var setenvironment: some View {
-        EditValue(250, NSLocalizedString("Environment", comment: "Othersettings"),
+        EditValue(250, "Environment",
                   $usersettings.environment.onChange {
                       usersettings.inputchangedbyuser = true
                   })
@@ -103,7 +102,7 @@ struct Othersettings: View {
     }
 
     var setenvironmenvariable: some View {
-        EditValue(250, NSLocalizedString("Environment variable", comment: "Othersettings"),
+        EditValue(250, "Environment variable",
                   $usersettings.environmentvalue.onChange {
                       usersettings.inputchangedbyuser = true
                   })
@@ -115,7 +114,7 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncui: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: "Othersettings"),
+        EditValue(250, "Path to RsyncUI",
                   $usersettings.pathrsyncui.onChange {
                       usersettings.inputchangedbyuser = true
                   })
@@ -127,7 +126,7 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncschedule: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncSchedule", comment: "Othersettings"),
+        EditValue(250, "Path to RsyncSchedule",
                   $usersettings.pathrsyncschedule.onChange {
                       usersettings.inputchangedbyuser = true
                   })

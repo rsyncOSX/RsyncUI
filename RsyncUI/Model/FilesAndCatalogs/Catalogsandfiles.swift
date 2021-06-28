@@ -44,7 +44,7 @@ class Catalogsandfiles: NamesandPaths {
     func getcatalogsasstringnames() -> [String]? {
         if let atpath = fullpathmacserial {
             var array = [String]()
-            array.append(NSLocalizedString("Default profile", comment: "default profile"))
+            array.append("Default profile")
             do {
                 for folders in try Folder(path: atpath).subfolders {
                     array.append(folders.name)

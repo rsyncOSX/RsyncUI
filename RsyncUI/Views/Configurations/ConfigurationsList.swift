@@ -85,27 +85,27 @@ struct ConfigurationsList: View {
 
     var header: some View {
         HStack {
-            Text(NSLocalizedString("Synchronize ID", comment: "ConfigurationsList"))
+            Text("Synchronize ID")
                 .modifier(FixedTag(120, .center))
-            Text(NSLocalizedString("Task", comment: "ConfigurationsList"))
+            Text("Task")
                 .modifier(FixedTag(80, .center))
-            Text(NSLocalizedString("Local catalog", comment: "ConfigurationsList"))
+            Text("Local catalog")
                 .modifier(FixedTag(180, .center))
-            Text(NSLocalizedString("Remote catalog", comment: "ConfigurationsList"))
+            Text("Remote catalog")
                 .modifier(FixedTag(180, .center))
-            Text(NSLocalizedString("Server", comment: "ConfigurationsList"))
+            Text("Server")
                 .modifier(FixedTag(80, .center))
-            Text(NSLocalizedString("User", comment: "ConfigurationsList"))
+            Text("User")
                 .modifier(FixedTag(35, .center))
-            Text(NSLocalizedString("Days", comment: "ConfigurationsList"))
+            Text("Days")
                 .modifier(FixedTag(80, .trailing))
-            Text(NSLocalizedString("Last", comment: "ConfigurationsList"))
+            Text("Last")
                 .modifier(FixedTag(80, .trailing))
         }
     }
 
     var footer: some View {
-        Text(NSLocalizedString("Most recent updated tasks on top of list", comment: "ConfigurationsList") + "...")
+        Text("Most recent updated tasks on top of list" + "...")
             .foregroundColor(Color.blue)
     }
 

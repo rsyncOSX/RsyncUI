@@ -25,7 +25,7 @@ struct SidebarSnapshotsView: View {
     var headingtitle: some View {
         HStack {
             VStack {
-                Text(NSLocalizedString("Snapshots", comment: "SidebarSnapshotsView"))
+                Text("Snapshots")
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

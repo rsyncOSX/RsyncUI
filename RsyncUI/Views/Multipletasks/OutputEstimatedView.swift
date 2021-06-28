@@ -65,7 +65,7 @@ struct OutputEstimatedView: View {
             HStack {
                 Spacer()
 
-                Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
+                Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -74,7 +74,7 @@ struct OutputEstimatedView: View {
     }
 
     var headingtitle: some View {
-        Text(NSLocalizedString("Estimated tasks", comment: "RsyncCommandView"))
+        Text("Estimated tasks")
             .font(.title2)
             .padding()
     }
@@ -84,37 +84,37 @@ struct OutputEstimatedView: View {
             Group {
                 Text("")
                     .modifier(FixedTag(95, .center))
-                Text(NSLocalizedString("Synchronize ID", comment: "OutputEstimatedView"))
+                Text("Synchronize ID")
                     .modifier(FixedTag(120, .center))
-                Text(NSLocalizedString("Task", comment: "OutputEstimatedView"))
+                Text("Task")
                     .modifier(FixedTag(80, .center))
-                Text(NSLocalizedString("Local catalog", comment: "OutputEstimatedView"))
+                Text("Local catalog")
                     .modifier(FlexTag(200, .center))
-                Text(NSLocalizedString("Remote catalog", comment: "OutputEstimatedView"))
+                Text("Remote catalog")
                     .modifier(FlexTag(180, .center))
-                Text(NSLocalizedString("Server", comment: "OutputEstimatedView"))
+                Text("Server")
                     .modifier(FixedTag(80, .trailing))
-                Text(NSLocalizedString("User", comment: "OutputEstimatedView"))
+                Text("User")
                     .modifier(FixedTag(80, .trailing))
             }
             Group {
-                Text(NSLocalizedString("New", comment: "OutputEstimatedView"))
+                Text("New")
                     .modifier(FixedTag(40, .trailing))
                     .foregroundColor(Color.red)
-                Text(NSLocalizedString("Delete", comment: "OutputEstimatedView"))
+                Text("Delete")
                     .modifier(FixedTag(40, .trailing))
                     .foregroundColor(Color.red)
-                Text(NSLocalizedString("Files", comment: "OutputEstimatedView"))
+                Text("Files")
                     .modifier(FixedTag(40, .trailing))
                     .foregroundColor(Color.red)
-                Text(NSLocalizedString("Bytes", comment: "OutputEstimatedView"))
+                Text("Bytes")
                     .modifier(FixedTag(80, .trailing))
                     .foregroundColor(Color.red)
-                Text(NSLocalizedString("Tot num", comment: "OutputEstimatedView"))
+                Text("Tot num")
                     .modifier(FixedTag(80, .trailing))
-                Text(NSLocalizedString("Tot bytes", comment: "OutputEstimatedView"))
+                Text("Tot bytes")
                     .modifier(FixedTag(80, .trailing))
-                Text(NSLocalizedString("Tot dir", comment: "OutputEstimatedView"))
+                Text("Tot dir")
                     .modifier(FixedTag(80, .trailing))
             }
         }

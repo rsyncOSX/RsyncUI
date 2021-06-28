@@ -106,6 +106,6 @@ struct OneConfig: View {
             let usdate = daterun.en_us_date_from_string()
             return usdate.long_localized_string_from_date()
         }
-        return NSLocalizedString("not executed", comment: "OneConfig")
+        return "not executed"
     }
 }

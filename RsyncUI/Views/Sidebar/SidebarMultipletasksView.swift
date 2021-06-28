@@ -45,8 +45,7 @@ struct SidebarMultipletasksView: View {
 
             if showcompleted {
                 AlertToast(type: .complete(Color.green),
-                           title: Optional(NSLocalizedString("Completed",
-                                                             comment: "settings")), subTitle: Optional(""))
+                           title: Optional("Completed"), subTitle: Optional(""))
                     .onAppear(perform: {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             showcompleted = false
@@ -61,7 +60,7 @@ struct SidebarMultipletasksView: View {
             imagerssync
 
             VStack(alignment: .leading) {
-                Text(NSLocalizedString("Multiple tasks", comment: "Execute tasks"))
+                Text("Multiple tasks")
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

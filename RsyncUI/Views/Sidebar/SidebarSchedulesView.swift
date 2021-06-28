@@ -46,7 +46,7 @@ struct SidebarSchedulesView: View {
     var headingtitle: some View {
         HStack {
             VStack {
-                Text(NSLocalizedString("Schedules", comment: "SidebarLogsView"))
+                Text("Schedules")
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

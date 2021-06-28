@@ -17,7 +17,7 @@ struct OutputRsyncView: View {
 
     var body: some View {
         VStack {
-            Text(NSLocalizedString("Output from rsync", comment: "OutputRsyncView"))
+            Text("Output from rsync")
                 .font(.title2)
                 .padding()
 
@@ -33,7 +33,7 @@ struct OutputRsyncView: View {
             HStack {
                 Spacer()
 
-                Button(NSLocalizedString("Dismiss", comment: "Dismiss button")) { dismissview() }
+                Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }

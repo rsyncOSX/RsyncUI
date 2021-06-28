@@ -20,10 +20,10 @@ struct ExecuteAlltasksView: View {
             Spacer()
 
             HStack {
-                Button(NSLocalizedString("Execute all", comment: "Execute button")) { executeall() }
+                Button("Execute all") { executeall() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Cancel", comment: "Cancel button")) { dismissview() }
+                Button("Cancel") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -32,7 +32,7 @@ struct ExecuteAlltasksView: View {
 
     var header: some View {
         HStack {
-            let message = NSLocalizedString("Execute all tasks", comment: "Alert delete") + "?"
+            let message = "Execute all tasks" + "?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }

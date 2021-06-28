@@ -55,15 +55,15 @@ struct DetailsScheduleView: View {
         Spacer()
 
         HStack {
-            Button(NSLocalizedString("Add", comment: "Add button")) { addschedule() }
+            Button("Add") { addschedule() }
                 .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
 
-            Button(NSLocalizedString("Select", comment: "Select button")) { select() }
+            Button("Select") { select() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Change", comment: "Change button")) { change() }
+            Button("Change") { change() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $showAlertfordelete) {
                     ChangeSchedulesView(selecteduuids: $selecteduuids,
@@ -72,7 +72,7 @@ struct DetailsScheduleView: View {
                                         selectedprofile: $selectedprofile)
                 }
 
-            Button(NSLocalizedString("Return", comment: "RsyncParametersView")) {
+            Button("Return") {
                 selectedconfig = nil
                 showdetails = false
             }
@@ -82,7 +82,7 @@ struct DetailsScheduleView: View {
 
     var selectschdule: some View {
         AlertToast(type: .error(Color.red),
-                   title: Optional(NSLocalizedString("Select a schedule", comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Select a schedule"), subTitle: Optional(""))
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     notifyselect = false

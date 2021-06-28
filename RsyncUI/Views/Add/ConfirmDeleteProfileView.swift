@@ -19,13 +19,13 @@ struct ConfirmDeleteProfileView: View {
             Spacer()
 
             HStack {
-                Button(NSLocalizedString("Delete", comment: "Dismiss button")) {
+                Button("Delete") {
                     delete = true
                     dismissview()
                 }
                 .buttonStyle(AbortButtonStyle())
 
-                Button(NSLocalizedString("Cancel", comment: "Dismiss button")) {
+                Button("Cancel") {
                     delete = false
                     dismissview()
                 }
@@ -38,7 +38,7 @@ struct ConfirmDeleteProfileView: View {
 
     var header: some View {
         HStack {
-            let message = NSLocalizedString("Delete profile", comment: "Alert delete")
+            let message = "Delete profile"
                 + ": " + (profile ?? "") + "?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
