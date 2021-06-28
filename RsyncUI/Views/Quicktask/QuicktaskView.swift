@@ -46,9 +46,9 @@ struct QuicktaskView: View {
                             pickerselecttypeoftask
 
                             HStack {
-                                ToggleView(NSLocalizedString("--dry-run", comment: "ssh"), $dryrun)
+                                ToggleView("--dry-run", $dryrun)
 
-                                ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $donotaddtrailingslash)
+                                ToggleView("Don´t add /", $donotaddtrailingslash)
                             }
                         }
 
@@ -68,8 +68,7 @@ struct QuicktaskView: View {
                 }
 
                 if executed == true {
-                    AlertToast(type: .complete(Color.green), title: Optional(NSLocalizedString("Executed",
-                                                                                               comment: "settings")), subTitle: Optional(""))
+                    AlertToast(type: .complete(Color.green), title: Optional("Executed"), subTitle: Optional(""))
                 }
 
                 if showprogressview {
@@ -85,14 +84,14 @@ struct QuicktaskView: View {
                 HStack {
                     Spacer()
 
-                    Button(NSLocalizedString("Execute", comment: "QuicktaskView")) { getconfig() }
+                    Button("Execute") { getconfig() }
                         .buttonStyle(PrimaryButtonStyle())
 
-                    Button(NSLocalizedString("View", comment: "QuicktaskView")) { presentoutput() }
+                    Button("View") { presentoutput() }
                         .buttonStyle(PrimaryButtonStyle())
                         .sheet(isPresented: $presentsheetview) { viewoutput }
 
-                    Button(NSLocalizedString("Abort", comment: "RestoreView")) { abort() }
+                    Button("Abort") { abort() }
                         .buttonStyle(AbortButtonStyle())
                 }
             }
@@ -102,7 +101,7 @@ struct QuicktaskView: View {
     }
 
     var pickerselecttypeoftask: some View {
-        Picker(NSLocalizedString("Task", comment: "QuicktaskView") + ":",
+        Picker("Task" + ":",
                selection: $selectedrsynccommand.onChange {
                    resetform()
                }) {
@@ -116,49 +115,49 @@ struct QuicktaskView: View {
 
     // Headers (in sections)
     var headerlocalremote: some View {
-        Text(NSLocalizedString("Catalog parameters", comment: "QuicktaskView"))
+        Text("Catalog parameters")
             .modifier(FixedTag(200, .leading))
     }
 
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, NSLocalizedString("Add local catalog - required", comment: "QuicktaskView"), $localcatalog)
+            EditValue(300, "Add local catalog - required", $localcatalog)
 
             // remotecatalog
-            EditValue(300, NSLocalizedString("Add remote catalog - required", comment: "QuicktaskView"), $remotecatalog)
+            EditValue(300, "Add remote catalog - required", $remotecatalog)
         }
     }
 
     var localandremotecatalogsyncremote: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: "QuicktaskView"), $localcatalog)
+            EditValue(300, "Add remote as local catalog - required", $localcatalog)
 
             // remotecatalog
-            EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: "QuicktaskView"), $remotecatalog)
+            EditValue(300, "Add local as remote catalog - required", $remotecatalog)
         }
     }
 
     var setremoteuser: some View {
-        EditValue(300, NSLocalizedString("Add remote user", comment: "QuicktaskView"), $remoteuser)
+        EditValue(300, "Add remote user", $remoteuser)
     }
 
     var setremoteserver: some View {
-        EditValue(300, NSLocalizedString("Add remote server", comment: "QuicktaskView"), $remoteserver)
+        EditValue(300, "Add remote server", $remoteserver)
     }
 
     var headerremote: some View {
-        Text(NSLocalizedString("Remote parameters", comment: "QuicktaskView"))
+        Text("Remote parameters")
             .modifier(FixedTag(200, .leading))
     }
 
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
-            EditValue(300, NSLocalizedString("Add remote user", comment: "QuicktaskView"), $remoteuser)
+            EditValue(300, "Add remote user", $remoteuser)
             // Remote server
-            EditValue(300, NSLocalizedString("Add remote server", comment: "QuicktaskView"), $remoteserver)
+            EditValue(300, "Add remote server", $remoteserver)
         }
     }
 

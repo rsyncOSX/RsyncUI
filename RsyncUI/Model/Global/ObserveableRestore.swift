@@ -217,9 +217,9 @@ enum RestoreError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidtaskforrestore:
-            return NSLocalizedString("Restore not allowed for syncremote task", comment: "Restore") + "..."
+            return "Restore not allowed for syncremote task" + "..."
         case .notvalidrestore:
-            return NSLocalizedString("Either is path for restore or file to restore empty", comment: "Restore") + "..."
+            return "Either is path for restore or file to restore empty" + "..."
         }
     }
 }

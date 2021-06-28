@@ -28,10 +28,10 @@ struct LogfileView: View {
             HStack {
                 Spacer()
 
-                Button(NSLocalizedString("Reset", comment: "Reset button")) { reset() }
+                Button("Reset") { reset() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Dismiss", comment: "Dissmiss button")) { dismiss() }
+                Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -40,7 +40,7 @@ struct LogfileView: View {
     }
 
     var header: some View {
-        Text(NSLocalizedString("Logfile", comment: "Logs"))
+        Text("Logfile")
             .modifier(FixedTag(200, .center))
     }
 

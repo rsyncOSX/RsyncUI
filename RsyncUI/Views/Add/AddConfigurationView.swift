@@ -65,7 +65,7 @@ struct AddConfigurationView: View {
 
                     // Column 2
                     VStack(alignment: .leading) {
-                        ToggleView(NSLocalizedString("Don´t add /", comment: "settings"), $newdata.donotaddtrailingslash)
+                        ToggleView("Don´t add /", $newdata.donotaddtrailingslash)
                     }
 
                     // Column 3
@@ -104,7 +104,7 @@ struct AddConfigurationView: View {
         .padding()
         .onAppear(perform: {
             if selectedprofile == nil {
-                selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
+                selectedprofile = "Default profile"
             }
         })
         .onSubmit {
@@ -143,18 +143,18 @@ struct AddConfigurationView: View {
         HStack {
             // Add or Update button
             if newdata.selectedconfig == nil {
-                Button(NSLocalizedString("Add", comment: "Add button")) { addconfig() }
+                Button("Add") { addconfig() }
                     .buttonStyle(PrimaryButtonStyle())
             } else {
                 if newdata.inputchangedbyuser == true {
-                    Button(NSLocalizedString("Update", comment: "Update button")) { validateandupdate() }
+                    Button("Update") { validateandupdate() }
                         .buttonStyle(PrimaryButtonStyle())
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.red, lineWidth: 5)
                         )
                 } else {
-                    Button(NSLocalizedString("Update", comment: "Update button")) {}
+                    Button("Update") {}
                         .buttonStyle(PrimaryButtonStyle())
                 }
             }
@@ -163,17 +163,17 @@ struct AddConfigurationView: View {
 
     // Add and edit text values
     var setlocalcatalogsyncremote: some View {
-        EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: "settings"),
+        EditValue(300, "Add remote as local catalog - required",
                   $newdata.localcatalog)
     }
 
     var setremotecatalogsyncremote: some View {
-        EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: "settings"),
+        EditValue(300, "Add local as remote catalog - required",
                   $newdata.remotecatalog)
     }
 
     var setlocalcatalog: some View {
-        EditValue(300, NSLocalizedString("Add local catalog - required", comment: "settings"),
+        EditValue(300, "Add local catalog - required",
                   $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
@@ -181,7 +181,7 @@ struct AddConfigurationView: View {
     }
 
     var setremotecatalog: some View {
-        EditValue(300, NSLocalizedString("Add remote catalog - required", comment: "settings"),
+        EditValue(300, "Add remote catalog - required",
                   $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
@@ -190,7 +190,7 @@ struct AddConfigurationView: View {
 
     // Headers (in sections)
     var headerlocalremote: some View {
-        Text(NSLocalizedString("Catalog parameters", comment: "settings"))
+        Text("Catalog parameters")
             .modifier(FixedTag(200, .leading))
     }
 
@@ -262,10 +262,10 @@ struct AddConfigurationView: View {
 
     var adddeleteprofile: some View {
         HStack {
-            Button(NSLocalizedString("Create", comment: "Add button")) { createprofile() }
+            Button("Create") { createprofile() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Delete", comment: "Add button")) { newdata.showAlertfordelete = true }
+            Button("Delete") { newdata.showAlertfordelete = true }
                 .buttonStyle(AbortButtonStyle())
                 .sheet(isPresented: $newdata.showAlertfordelete) {
                     ConfirmDeleteProfileView(isPresented: $newdata.showAlertfordelete,
@@ -276,7 +276,7 @@ struct AddConfigurationView: View {
                         })
                 }
 
-            EditValue(150, NSLocalizedString("New profile", comment: "settings"),
+            EditValue(150, "New profile",
                       $newdata.newprofile)
                 .focused($focusField, equals: .newprofileField)
                 .textContentType(.none)
@@ -285,7 +285,7 @@ struct AddConfigurationView: View {
     }
 
     var setID: some View {
-        EditValue(300, NSLocalizedString("Add synchronize ID", comment: "settings"),
+        EditValue(300, "Add synchronize ID",
                   $newdata.backupID)
             .focused($focusField, equals: .backupIDField)
             .textContentType(.none)
@@ -293,7 +293,7 @@ struct AddConfigurationView: View {
     }
 
     var headerID: some View {
-        Text(NSLocalizedString("Synchronize ID", comment: "settings"))
+        Text("Synchronize ID")
             .modifier(FixedTag(200, .leading))
     }
 
@@ -317,7 +317,7 @@ struct AddConfigurationView: View {
     }
 
     var setremoteuser: some View {
-        EditValue(300, NSLocalizedString("Add remote user", comment: "settings"),
+        EditValue(300, "Add remote user",
                   $newdata.remoteuser)
             .focused($focusField, equals: .remoteuserField)
             .textContentType(.none)
@@ -325,7 +325,7 @@ struct AddConfigurationView: View {
     }
 
     var setremoteserver: some View {
-        EditValue(300, NSLocalizedString("Add remote server", comment: "settings"),
+        EditValue(300, "Add remote server",
                   $newdata.remoteserver)
             .focused($focusField, equals: .remoteserverField)
             .textContentType(.none)
@@ -333,7 +333,7 @@ struct AddConfigurationView: View {
     }
 
     var headerremote: some View {
-        Text(NSLocalizedString("Remote parameters", comment: "settings"))
+        Text("Remote parameters")
             .modifier(FixedTag(200, .leading))
     }
 
@@ -384,7 +384,7 @@ struct AddConfigurationView: View {
     }
 
     var pickerselecttypeoftask: some View {
-        Picker(NSLocalizedString("Task", comment: "AddConfigurationsView") + ":",
+        Picker("Task" + ":",
                selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description)
                 .tag($0)
@@ -399,32 +399,27 @@ struct AddConfigurationView: View {
 
     var notifyadded: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Added",
-                                                     comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Added"), subTitle: Optional(""))
     }
 
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Updated",
-                                                     comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Updated"), subTitle: Optional(""))
     }
 
     var notifycreated: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Created",
-                                                     comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Created"), subTitle: Optional(""))
     }
 
     var notifydeleted: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Deleted",
-                                                     comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Deleted"), subTitle: Optional(""))
     }
 
     var cannotdeletedefaultprofile: some View {
         AlertToast(type: .error(Color.red),
-                   title: Optional(NSLocalizedString("Cannot delete default profile",
-                                                     comment: "settings")), subTitle: Optional(""))
+                   title: Optional("Cannot delete default profile"), subTitle: Optional(""))
     }
 
     var configurations: [Configuration]? {

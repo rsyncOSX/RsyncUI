@@ -23,7 +23,7 @@ struct Usersettings: View {
                     // Column 1
                     VStack(alignment: .leading) {
                         Section(header: headerrsync) {
-                            ToggleView(NSLocalizedString("Rsync ver 3.x", comment: "settings"), $usersettings.rsyncversion3.onChange {
+                            ToggleView("Rsync ver 3.x", $usersettings.rsyncversion3.onChange {
                                 usersettings.inputchangedbyuser = true
                                 rsyncversionObject.update(usersettings.rsyncversion3)
                             })
@@ -47,7 +47,7 @@ struct Usersettings: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Section(header: headerloggingtofile) {
-                                    ToggleView(NSLocalizedString("None", comment: "settings"), $usersettings.nologging.onChange {
+                                    ToggleView("None", $usersettings.nologging.onChange {
                                         usersettings.inputchangedbyuser = true
                                         if usersettings.nologging == true {
                                             usersettings.minimumlogging = false
@@ -58,7 +58,7 @@ struct Usersettings: View {
                                         }
                                     })
 
-                                    ToggleView(NSLocalizedString("Min", comment: "settings"), $usersettings.minimumlogging.onChange {
+                                    ToggleView("Min", $usersettings.minimumlogging.onChange {
                                         usersettings.inputchangedbyuser = true
                                         if usersettings.minimumlogging == true {
                                             usersettings.nologging = false
@@ -66,7 +66,7 @@ struct Usersettings: View {
                                         }
                                     })
 
-                                    ToggleView(NSLocalizedString("Full", comment: "settings"), $usersettings.fulllogging.onChange {
+                                    ToggleView("Full", $usersettings.fulllogging.onChange {
                                         usersettings.inputchangedbyuser = true
                                         if usersettings.fulllogging == true {
                                             usersettings.nologging = false
@@ -78,7 +78,7 @@ struct Usersettings: View {
 
                             VStack(alignment: .leading) {
                                 Section(header: headerdetailedlogging) {
-                                    ToggleView(NSLocalizedString("Detailed", comment: "settings"), $usersettings.detailedlogging.onChange {
+                                    ToggleView("Detailed", $usersettings.detailedlogging.onChange {
                                         usersettings.inputchangedbyuser = true
                                     })
                                 }
@@ -93,11 +93,11 @@ struct Usersettings: View {
                     // Column 3
                     VStack(alignment: .leading) {
                         Section(header: headerothersettings) {
-                            ToggleView(NSLocalizedString("Monitor network", comment: "settings"), $usersettings.monitornetworkconnection.onChange {
+                            ToggleView("Monitor network", $usersettings.monitornetworkconnection.onChange {
                                 usersettings.inputchangedbyuser = true
                             })
 
-                            ToggleView(NSLocalizedString("Check data", comment: "settings"), $usersettings.checkinput.onChange {
+                            ToggleView("Check data", $usersettings.checkinput.onChange {
                                 usersettings.inputchangedbyuser = true
                             })
                         }
@@ -110,8 +110,7 @@ struct Usersettings: View {
 
                 if backup == true {
                     AlertToast(type: .complete(Color.green),
-                               title: Optional(NSLocalizedString("Saved",
-                                                                 comment: "settings")), subTitle: Optional(""))
+                               title: Optional("Saved"), subTitle: Optional(""))
                         .onAppear(perform: {
                             // Show updated for 1 second
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -128,7 +127,7 @@ struct Usersettings: View {
                 Spacer()
 
                 // Backup configuration files
-                Button(NSLocalizedString("Backup", comment: "usersetting")) { backupuserconfigs() }
+                Button("Backup") { backupuserconfigs() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 usersetting
@@ -143,14 +142,14 @@ struct Usersettings: View {
     var usersetting: some View {
         HStack {
             if usersettings.isDirty {
-                Button(NSLocalizedString("Save", comment: "usersetting")) { saveusersettings() }
+                Button("Save") { saveusersettings() }
                     .buttonStyle(PrimaryButtonStyle())
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color.red, lineWidth: 5)
                     )
             } else {
-                Button(NSLocalizedString("Save", comment: "usersetting")) {}
+                Button("Save") {}
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -159,7 +158,7 @@ struct Usersettings: View {
 
     // Rsync
     var headerrsync: some View {
-        Text(NSLocalizedString("Rsync version and path", comment: "settings"))
+        Text("Rsync version and path")
     }
 
     var setrsyncpathlocalpath: some View {
@@ -177,11 +176,11 @@ struct Usersettings: View {
 
     // Restore path
     var headerpathforrestore: some View {
-        Text(NSLocalizedString("Path for restore", comment: "settings"))
+        Text("Path for restore")
     }
 
     var setpathforrestore: some View {
-        EditValue(250, NSLocalizedString("Path for restore", comment: "settings"), $usersettings.temporarypathforrestore.onChange {
+        EditValue(250, "Path for restore", $usersettings.temporarypathforrestore.onChange {
             usersettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
@@ -193,27 +192,27 @@ struct Usersettings: View {
 
     // Logging
     var headerloggingtofile: some View {
-        Text(NSLocalizedString("Log to file", comment: "settings"))
+        Text("Log to file")
     }
 
     // Detail of logging
     var headerdetailedlogging: some View {
-        Text(NSLocalizedString("Level log", comment: "settings"))
+        Text("Level log")
     }
 
     // Header other settings
     var headerothersettings: some View {
-        Text(NSLocalizedString("Other settings", comment: "settings"))
+        Text("Other settings")
     }
 
     // Header user setting
     var headerusersetting: some View {
-        Text(NSLocalizedString("Save settings", comment: "settings"))
+        Text("Save settings")
     }
 
     // Header backup
     var headermarkdays: some View {
-        Text(NSLocalizedString("Mark days", comment: "settings"))
+        Text("Mark days")
     }
 
     var setmarkdays: some View {

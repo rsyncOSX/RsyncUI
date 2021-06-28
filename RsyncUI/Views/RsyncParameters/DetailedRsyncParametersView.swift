@@ -47,13 +47,13 @@ struct DetailedRsyncParametersView: View {
             VStack(alignment: .leading) {
                 Section(header: headerremove) {
                     HStack {
-                        ToggleView(NSLocalizedString("-e shh", comment: "RsyncParametersView"), $parameters.removessh.onChange {
+                        ToggleView("-e shh", $parameters.removessh.onChange {
                             parameters.inputchangedbyuser = true
                         })
-                        ToggleView(NSLocalizedString("--compress", comment: "RsyncParametersView"), $parameters.removecompress.onChange {
+                        ToggleView("--compress", $parameters.removecompress.onChange {
                             parameters.inputchangedbyuser = true
                         })
-                        ToggleView(NSLocalizedString("--delete", comment: "RsyncParametersView"), $parameters.removedelete.onChange {
+                        ToggleView("--delete", $parameters.removedelete.onChange {
                             parameters.inputchangedbyuser = true
                         })
                     }
@@ -72,25 +72,25 @@ struct DetailedRsyncParametersView: View {
         Spacer()
 
         HStack {
-            Button(NSLocalizedString("Linux", comment: "RsyncParametersView")) {
+            Button("Linux") {
                 parameters.suffixlinux = true
                 parameters.inputchangedbyuser = true
             }
             .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("FreeBSD", comment: "RsyncParametersView")) {
+            Button("FreeBSD") {
                 parameters.suffixfreebsd = true
                 parameters.inputchangedbyuser = true
             }
             .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Daemon", comment: "RsyncParametersView")) {
+            Button("Daemon") {
                 parameters.daemon = true
                 parameters.inputchangedbyuser = true
             }
             .buttonStyle(PrimaryButtonStyle())
 
-            Button(NSLocalizedString("Backup", comment: "RsyncParametersView")) {
+            Button("Backup") {
                 parameters.backup = true
                 parameters.inputchangedbyuser = true
             }
@@ -98,7 +98,7 @@ struct DetailedRsyncParametersView: View {
 
             Spacer()
 
-            Button(NSLocalizedString("Rsync", comment: "RsyncParametersView")) { presenteview() }
+            Button("Rsync") { presenteview() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentrsynccommandoview) {
                     RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
@@ -106,7 +106,7 @@ struct DetailedRsyncParametersView: View {
 
             saveparameters
 
-            Button(NSLocalizedString("Return", comment: "RsyncParametersView")) {
+            Button("Return") {
                 selectedconfig = nil
                 showdetails = false
             }
@@ -121,14 +121,14 @@ struct DetailedRsyncParametersView: View {
     var saveparameters: some View {
         HStack {
             if parameters.isDirty {
-                Button(NSLocalizedString("Save", comment: "RsyncParametersView")) { saversyncparameters() }
+                Button("Save") { saversyncparameters() }
                     .buttonStyle(PrimaryButtonStyle())
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color.red, lineWidth: 5)
                     )
             } else {
-                Button(NSLocalizedString("Save", comment: "RsyncParametersView")) {}
+                Button("Save") {}
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -137,16 +137,16 @@ struct DetailedRsyncParametersView: View {
 
     // Header remove
     var headerremove: some View {
-        Text(NSLocalizedString("Remove default rsync parameters", comment: "RsyncParametersView"))
+        Text("Remove default rsync parameters")
     }
 
     // Ssh header
     var headerssh: some View {
-        Text(NSLocalizedString("Set ssh keypath and identityfile", comment: "RsyncParametersView"))
+        Text("Set ssh keypath and identityfile")
     }
 
     var setsshpath: some View {
-        EditValue(250, NSLocalizedString("Local ssh keypath and identityfile", comment: "RsyncParametersView"),
+        EditValue(250, "Local ssh keypath and identityfile",
                   $parameters.sshkeypathandidentityfile.onChange {
                       parameters.inputchangedbyuser = true
                   })
@@ -158,7 +158,7 @@ struct DetailedRsyncParametersView: View {
     }
 
     var setsshport: some View {
-        EditValue(250, NSLocalizedString("Local ssh port", comment: "RsyncParametersView"), $parameters.sshport.onChange {
+        EditValue(250, "Local ssh port", $parameters.sshport.onChange {
             parameters.inputchangedbyuser = true
         })
             .onAppear(perform: {

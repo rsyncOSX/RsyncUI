@@ -14,11 +14,11 @@ struct Sshcopykey: View {
 
     var body: some View {
         HStack {
-            Button(NSLocalizedString("Copy", comment: "Copy button")) { copytopasteboard() }
+            Button("Copy") { copytopasteboard() }
                 .buttonStyle(PrimaryButtonStyle())
 
             if copystring.isEmpty {
-                Text(NSLocalizedString("Select", comment: "") + ": " + NSLocalizedString("Unique usernames and servers", comment: "ssh settings"))
+                Text("Select")
                     .padding(10)
                     .border(Color.gray)
             } else {
