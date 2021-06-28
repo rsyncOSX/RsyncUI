@@ -102,12 +102,6 @@ struct MultipletasksView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .padding()
-        .onAppear(perform: {
-            if selectedprofile == nil {
-                selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
-                reload = true
-            }
-        })
     }
 
     var progressviewestimation: some View {

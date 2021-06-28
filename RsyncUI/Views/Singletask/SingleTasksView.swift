@@ -105,12 +105,6 @@ struct SingleTasksView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .padding()
-        .onAppear(perform: {
-            if selectedprofile == nil {
-                selectedprofile = NSLocalizedString("Default profile", comment: "default profile")
-                reload = true
-            }
-        })
     }
 
     // Estimate and the execute.

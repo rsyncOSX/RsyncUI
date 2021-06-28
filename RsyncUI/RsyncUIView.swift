@@ -51,7 +51,9 @@ struct RsyncUIView: View {
 
     var profilepicker: some View {
         HStack {
-            Picker("", selection: $selectedprofile) {
+            Picker("", selection: $selectedprofile.onChange {
+                reload = true
+            }) {
                 if let profiles = profilenames.profiles {
                     ForEach(profiles, id: \.self) { profile in
                         Text(profile.profile ?? "")
