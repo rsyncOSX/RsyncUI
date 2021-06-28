@@ -16,11 +16,11 @@ struct SidebarLogsView: View {
         TabView {
             LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile)
                 .tabItem {
-                    Text(NSLocalizedString("All logs", comment: "logsview"))
+                    Text("All logs")
                 }
             LogsbyConfigurationView(reload: $reload, selectedprofile: $selectedprofile)
                 .tabItem {
-                    Text(NSLocalizedString("By config", comment: "logsview"))
+                    Text("By config")
                 }
         }
         .padding()

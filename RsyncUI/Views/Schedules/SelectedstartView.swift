@@ -33,10 +33,10 @@ struct SelectedstartView: View {
     }
 
     var startdate: String {
-        NSLocalizedString("Start", comment: "SchedulesDatePickerView") + ": "
+        "Start" + ": "
     }
 
     var schedule: String {
-        NSLocalizedString("Schedule", comment: "SchedulesDatePickerView") + ": "
+        "Schedule" + ": "
     }
 }

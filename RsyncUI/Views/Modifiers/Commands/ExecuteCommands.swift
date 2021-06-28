@@ -12,12 +12,12 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.startexecution) private var startexecution
 
     var body: some Commands {
-        CommandMenu(NSLocalizedString("Execute", comment: "command")) {
+        CommandMenu("Execute") {
             StarteestimateButton(startestimation: $startestimation)
             StartexecuteButton(startexecution: $startexecution)
         }
 
-        CommandMenu(NSLocalizedString("Schedules", comment: "command")) {
+        CommandMenu("Schedules") {
             Button(action: {
                 let running = Running()
                 guard running.informifisrsyncshedulerunning() == false else { return }
@@ -25,7 +25,7 @@ struct ExecuteCommands: Commands {
                         + SharedReference.shared.namersyncschedule))
                 NSApp.terminate(self)
             }) {
-                Text(NSLocalizedString("Scheduled tasks", comment: "command"))
+                Text("Scheduled tasks")
             }
             .keyboardShortcut("s", modifiers: [.command])
         }
@@ -39,7 +39,7 @@ struct StarteestimateButton: View {
         Button {
             startestimation = true
         } label: {
-            Label(NSLocalizedString("Estimate", comment: "command"), systemImage: "play.fill")
+            Label("Estimate", systemImage: "play.fill")
         }
         .keyboardShortcut("e", modifiers: [.command])
     }
@@ -52,7 +52,7 @@ struct StartexecuteButton: View {
         Button {
             startexecution = true
         } label: {
-            Label(NSLocalizedString("Execute", comment: "command"), systemImage: "play.fill")
+            Label("Execute", systemImage: "play.fill")
         }
         .keyboardShortcut("r", modifiers: [.command])
     }

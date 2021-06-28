@@ -11,9 +11,9 @@ struct AboutView: View {
     @EnvironmentObject var rsyncversionObject: GetRsyncversion
     @StateObject private var new = NewversionJSON()
 
-    let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "icon")
-    let norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "norwegian")
-    let germanstring: String = NSLocalizedString("German translation by: Andre Voigtmann", comment: "german")
+    let iconbystring: String = "Icon by: Zsolt Sándor"
+    let norwegianstring: String = "Norwegian translation by: Thomas Evensen"
+    let germanstring: String = "German translation by: Andre Voigtmann"
     let changelog: String = "https://rsyncui.netlify.app/post/changelog/"
 
     var appName: String {
@@ -30,7 +30,7 @@ struct AboutView: View {
 
     var copyright: String {
         let copyright = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String
-        return copyright ?? NSLocalizedString("Copyright ©2021 Thomas Evensen", comment: "copyright")
+        return copyright ?? "Copyright ©2021 Thomas Evensen"
     }
 
     var configpath: String {
@@ -61,10 +61,10 @@ struct AboutView: View {
             HStack {
                 Spacer()
 
-                Button(NSLocalizedString("Changelog", comment: "About button")) { openchangelog() }
+                Button("Changelog") { openchangelog() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button(NSLocalizedString("Download", comment: "About button")) { opendownload() }
+                Button("Download") { opendownload() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -106,7 +106,7 @@ struct AboutView: View {
     var notifynewversion: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("New version", comment: "settings"))
+            Text("New version")
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }

@@ -36,7 +36,7 @@ enum FilesizeError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .toobig:
-            return NSLocalizedString("Too big logfile", comment: "filesize error") + "..."
+            return "Too big logfile" + "..."
         }
     }
 }

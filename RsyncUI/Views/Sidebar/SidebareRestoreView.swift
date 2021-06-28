@@ -20,7 +20,7 @@ struct SidebareRestoreView: View {
     var headingtitle: some View {
         HStack {
             VStack {
-                Text(NSLocalizedString("Restore", comment: "SidebarRsyncParameter"))
+                Text("Restore")
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

@@ -20,9 +20,9 @@ struct ConvertPLISTView: View {
 
     var body: some View {
         VStack {
-            Text(NSLocalizedString("Convert from PLIST for", comment: "OutputRsyncView"))
+            Text("Convert from PLIST for")
                 .font(.title2)
-            Text(rsyncUIdata.profile ?? NSLocalizedString("Default profile", comment: "default profile"))
+            Text(rsyncUIdata.profile ?? "Default profile")
                 .font(.title2)
                 .foregroundColor(Color.blue)
                 .padding()
@@ -45,8 +45,7 @@ struct ConvertPLISTView: View {
 
             if convertcompleted == true {
                 AlertToast(type: .complete(Color.green),
-                           title: Optional(NSLocalizedString("Completed",
-                                                             comment: "settings")), subTitle: Optional(""))
+                           title: Optional("Completed"), subTitle: Optional(""))
                     .onAppear(perform: {
                         // Show updated for 1 second
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -57,8 +56,7 @@ struct ConvertPLISTView: View {
 
             if backup == true {
                 AlertToast(type: .complete(Color.green),
-                           title: Optional(NSLocalizedString("Saved",
-                                                             comment: "settings")), subTitle: Optional(""))
+                           title: Optional("Saved"), subTitle: Optional(""))
                     .onAppear(perform: {
                         // Show updated for 1 second
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -78,20 +76,20 @@ struct ConvertPLISTView: View {
 
     var prepareconvertplist: some View {
         HStack {
-            Button(NSLocalizedString("Info about convert", comment: "Othersettings")) { openinfo() }
+            Button("Info about convert") { openinfo() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            ToggleView(NSLocalizedString("Confirm convert", comment: "Othersettings"), $convertisconfirmed.onChange {
+            ToggleView("Confirm convert", $convertisconfirmed.onChange {
                 verifyconvert()
             })
 
             if convertisconfirmed {
                 VStack {
                     // Backup configuration files
-                    Button(NSLocalizedString("Backup", comment: "usersetting")) { backupuserconfigs() }
+                    Button("Backup") { backupuserconfigs() }
                         .buttonStyle(PrimaryButtonStyle())
 
-                    Button(NSLocalizedString("Convert", comment: "Othersettings")) { convert() }
+                    Button("Convert") { convert() }
                         .buttonStyle(PrimaryButtonStyle())
                 }
             }
@@ -103,7 +101,7 @@ struct ConvertPLISTView: View {
     }
 
     var convertbutton: some View {
-        Button(NSLocalizedString("PLIST", comment: "Othersettings")) { verifyconvert() }
+        Button("PLIST") { verifyconvert() }
             .buttonStyle(PrimaryButtonStyle())
     }
 

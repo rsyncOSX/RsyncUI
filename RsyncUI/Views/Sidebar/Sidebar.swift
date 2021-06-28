@@ -39,7 +39,7 @@ struct Sidebar: View {
                 NavigationLink(destination: SidebarMultipletasksView(reload: $reload, selectedprofile: $selectedprofile),
                                tag: NavigationItem.estimation,
                                selection: $selection) {
-                    Label(NSLocalizedString("Multiple tasks", comment: "sidebar"),
+                    Label("Multiple tasks",
                           systemImage: "arrowshape.turn.up.left.2.fill")
                 }
                 .tag(NavigationItem.estimation)
@@ -48,7 +48,7 @@ struct Sidebar: View {
                     .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.singletasks,
                     selection: $selection) {
-                        Label(NSLocalizedString("Single task", comment: "sidebar"),
+                        Label("Single task",
                               systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.singletasks)
@@ -56,7 +56,7 @@ struct Sidebar: View {
                 NavigationLink(destination: QuicktaskView(),
                                tag: NavigationItem.quicktask,
                                selection: $selection) {
-                    Label(NSLocalizedString("Quick task", comment: "sidebar"),
+                    Label("Quick task",
                           systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.quicktask)
@@ -69,14 +69,14 @@ struct Sidebar: View {
                                                                          reload: $reload),
                                tag: NavigationItem.configurations,
                                selection: $selection) {
-                    Label(NSLocalizedString("Configurations", comment: "sidebar"), systemImage: "text.badge.plus")
+                    Label("Configurations", systemImage: "text.badge.plus")
                 }
                 .tag(NavigationItem.configurations)
 
                 NavigationLink(destination: SidebarSnapshotsView(reload: $reload),
                                tag: NavigationItem.snapshots,
                                selection: $selection) {
-                    Label(NSLocalizedString("Snapshots", comment: "sidebar"), systemImage: "text.badge.plus")
+                    Label("Snapshots", systemImage: "text.badge.plus")
                 }
                 .tag(NavigationItem.snapshots)
             }
@@ -87,14 +87,14 @@ struct Sidebar: View {
                 NavigationLink(destination: SidebarRsyncParameter(reload: $reload),
                                tag: NavigationItem.rsync,
                                selection: $selection) {
-                    Label(NSLocalizedString("Rsync parameters", comment: "sidebar"), systemImage: "command.circle.fill")
+                    Label("Rsync parameters", systemImage: "command.circle.fill")
                 }
                 .tag(NavigationItem.rsync)
 
                 NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile, reload: $reload),
                                tag: NavigationItem.schedules,
                                selection: $selection) {
-                    Label(NSLocalizedString("Schedules", comment: "sidebar"), systemImage: "calendar.badge.plus")
+                    Label("Schedules", systemImage: "calendar.badge.plus")
                 }
                 .tag(NavigationItem.schedules)
             }
@@ -106,14 +106,14 @@ struct Sidebar: View {
                                                             selectedprofile: $selectedprofile),
                                tag: NavigationItem.logs,
                                selection: $selection) {
-                    Label(NSLocalizedString("Log listings", comment: "sidebar"), systemImage: "text.alignleft")
+                    Label("Log listings", systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.logs)
 
                 NavigationLink(destination: SidebareRestoreView(),
                                tag: NavigationItem.restore,
                                selection: $selection) {
-                    Label(NSLocalizedString("Restore", comment: "sidebar"), systemImage: "text.alignleft")
+                    Label("Restore", systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.restore)
             }
@@ -125,7 +125,7 @@ struct Sidebar: View {
                  NavigationLink(destination: ConfigurationsTable(),
                                 tag: NavigationItem.tabletest,
                                 selection: $selection) {
-                     Label(NSLocalizedString("Table test", comment: "sidebar"),
+                     Label("Table test",
                            systemImage: "arrowshape.turn.up.backward.fill")
                  }
                  .tag(NavigationItem.tabletest)
@@ -154,7 +154,7 @@ struct Sidebar: View {
             VStack {
                 imagersyncosx
 
-                Text(NSLocalizedString("Select task", comment: "sidebar") + " ...")
+                Text("Select task" + " ...")
                     .foregroundColor(.secondary)
                     .font(.title)
             }

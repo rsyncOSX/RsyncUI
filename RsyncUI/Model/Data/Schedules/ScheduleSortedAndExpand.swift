@@ -47,7 +47,7 @@ final class ScheduleSortedAndExpand {
         if let start: Date = calendar.date(byAdding: components, to: dateStart) {
             if start.timeIntervalSinceNow > 0 {
                 if let hiddenID = oneschedule?.hiddenID {
-                    let profilename = localeprofile ?? NSLocalizedString("Default profile", comment: "default profile")
+                    let profilename = localeprofile ?? "Default profile"
                     let time = start.timeIntervalSinceNow
                     sortedexpandedeschedules?.append(ActiveSchedules(time,
                                                                      hiddenID,
@@ -72,7 +72,7 @@ final class ScheduleSortedAndExpand {
         if let start: Date = calendar.date(byAdding: components, to: dateStart) {
             if start.timeIntervalSinceNow > 0 {
                 if let hiddenID = oneschedule?.hiddenID {
-                    let profilename = localeprofile ?? NSLocalizedString("Default profile", comment: "default profile")
+                    let profilename = localeprofile ?? "Default profile"
                     let time = start.timeIntervalSinceNow
                     sortedexpandedeschedules?.append(ActiveSchedules(time,
                                                                      hiddenID,
@@ -99,7 +99,7 @@ final class ScheduleSortedAndExpand {
                 switch schedule {
                 case Scheduletype.once.rawValue:
                     if let hiddenID = oneschedule?.hiddenID {
-                        let profilename = localeprofile ?? NSLocalizedString("Default profile", comment: "default profile")
+                        let profilename = localeprofile ?? "Default profile"
                         let time = seconds
                         sortedexpandedeschedules?.append(ActiveSchedules(time,
                                                                          hiddenID,

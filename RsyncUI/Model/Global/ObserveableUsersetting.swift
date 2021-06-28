@@ -217,7 +217,7 @@ enum Validatedpath: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .nopath:
-            return NSLocalizedString("No such path", comment: "no path") + "..."
+            return "No such path" + "..."
         }
     }
 }

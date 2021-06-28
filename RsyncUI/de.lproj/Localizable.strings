@@ -1,713 +1,626 @@
-/* Alert delete */
+
 " configuration(s)?" = "Konfiguration(en)?";
 
-/* Alert delete */
+
 " log(s)?" = "Protokolle?";
 
-/* Alert delete */
+
 " schedules(s)?" = "Zeitpläne";
 
-/* RsyncParametersView */
+
 "--compress" = "--komprimieren";
 
-/* RsyncParametersView */
+
 "--delete" = "--löschen";
 
-/* RestoreView
-   ssh */
 "--dry-run" = "--dry-run";
 
-/* RsyncParametersView */
+
 "-e shh" = "-e ssh";
 
-/* No comment provided by engineer. */
+
 "%" = "%";
 
-/* No comment provided by engineer. */
+
 "%@" = "%@";
 
-/* Abort button
-   RestoreView */
 "Abort" = "Abbrechen";
 
-/* ScheduleRowSchedules */
+
+"About" = "Über";
+
+
 "active" = "aktiv";
 
-/* Add button */
+
 "Add" = "Neu";
 
-/* logsview */
+
 "Add config" = "Konfiguration hinzufügen";
 
-/* No comment provided by engineer. */
+
 "Add configuration completed" = "Konfiguration hinzufügen abgeschlossen";
 
-/* QuicktaskView
-   settings */
 "Add local as remote catalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
 
-/* QuicktaskView
-   settings */
 "Add local catalog - required" = "Lokalkatalog hinzufügen - erforderlich";
 
-/* settings */
+
 "Add posttask" = "Posttask hinzufügen";
 
-/* settings */
+
 "Add pretask" = "Pretask hinzufügen";
 
-/* QuicktaskView
-   settings */
 "Add remote as local catalog - required" = "Remote als localcatalog hinzufügen - erforderlich";
 
-/* QuicktaskView
-   settings */
 "Add remote catalog - required" = "Remotekatalog hinzufügen - erforderlich";
 
-/* QuicktaskView
-   settings */
+
 "Add remote server" = "Remote-Server hinzufügen";
 
-/* QuicktaskView
-   settings */
+
 "Add remote user" = "Remote-Benutzer hinzufügen";
 
-/* settings */
+
 "Add synchronize ID" = "Synchronisierungs-ID hinzufügen";
 
-/* settings */
+
 "Added" = "Hinzugefügt";
 
-/* Select button */
+
 "All" = "Alle";
 
-/* logsview */
+
 "All logs" = "Alle Protokolle";
 
-/* RsyncParametersView
-   usersetting */
+
 "Backup" = "Sichern";
 
-/* logsview */
+
 "By config" = "Nach Konfiguration";
 
-/* OutputEstimatedView */
+
 "Bytes" = "Bytes";
 
-/* Cancel button
-   Dismiss button */
+
 "Cancel" = "Abbrechen";
 
-/* settings */
+
 "Cannot delete default profile" = "Standardprofil kann nicht gelöscht werden";
 
-/* QuicktaskView
-   settings */
+
 "Catalog parameters" = "Katalogparameter";
 
-/* Change button */
+
 "Change" = "Ändern";
 
-/* About button */
+
 "Changelog" = "Changelog";
 
-/* settings */
+
 "Check data" = "Daten prüfen";
 
-/* Select button */
+
 "Clear" = "Leeren";
 
-/* CommandTab */
+
 "Command" = "Befehl";
 
-/* settings */
+
 "Completed" = "Abgeschlossen";
 
-/* sidebar */
+
 "Configurations" = "Konfigurationen";
 
-/* Othersettings */
+
 "Confirm convert" = "Konvertierung bestätigen";
 
-/* Othersettings */
+
 "Convert" = "Konvertieren";
 
-/* OutputRsyncView */
+
 "Convert from PLIST for" = "Von PLIST umwandeln für";
 
-/* Copy button
-   Verify button */
+
 "Copy" = "Kopieren";
 
-/* ssh settings */
+
 "Copy and paste commands in terminal to verify" = "Kopieren und fügen Sie Befehle in Terminal ein, um zu überprüfen";
 
-/* copyright */
+
 "Copyright ©2021 Thomas Evensen" = "Copyright ©2021 Thomas Evensen";
 
-/* Add button
-   usersetting */
+
 "Create" = "Anlegen";
 
-/* settings */
+
 "Created" = "Erstellt";
 
-/* RsyncParametersView */
+
 "Daemon" = "Daemon";
 
-/* SnapshotsView */
+
 "Day of week" = "Wochentag";
 
-/* ConfigurationsList */
+
 "Days" = "Tage";
 
-/* default profile */
+
 "Default profile" = "Standardprofil";
 
-/* Add button
-   Alert delete
-   Delete
-   Delete button
-   Dismiss button
-   OutputEstimatedView
-   plan */
+
 "Delete" = "Löschen";
 
-/* Alert delete */
+
 "Delete profile" = "Profil löschen";
 
-/* settings */
+
 "Deleted" = "Gelöscht";
 
-/* settings */
+
 "Detailed" = "Detailliert";
 
-/* Dismiss button
-   Dissmiss button
-   ssh settings */
 "Dismiss" = "Verwerfen";
 
-/* settings */
+
 "Don´t add /" = "Nicht hinzufügen/";
 
-/* About button */
+
 "Download" = "Download";
 
-/* plan */
+
 "earlier months" = "frühere Monate";
 
-/* Restore */
+
 "Either is path for restore or file to restore empty" = "Entweder ist der Pfad für die Wiederherstellung oder Datei zum Wiederherstellen leer";
 
-/* input error */
+
 "Either local or remote cannot be empty" = "Lokal oder Remote darf nicht leer sein";
 
-/* settings */
+
 "Enable" = "Aktivieren";
 
-/* Othersettings */
+
 "Environment" = "Umgebung";
 
-/* Othersettings */
+
 "Environment variable" = "Umgebungsvariable";
 
-/* command
-   Estimate button */
 "Estimate" = "Schätzung";
 
-/* RsyncCommandView */
+
 "Estimated tasks" = "Geschätzte Aufgaben";
 
-/* command
-   Execute button
-   QuicktaskView */
 "Execute" = "Ausführen";
 
-/* Execute button */
+
 "Execute all" = "Alle ausführen";
 
-/* Alert delete */
+
 "Execute all tasks" = "Alle Aufgaben ausführen";
 
-/* RsyncCommandView */
+
 "Execute tasks" = "Aufgaben ausführen";
 
-/* settings */
+
 "Executed" = "Ausgeführt";
 
-/* OutputEstimatedView */
+
 "Files" = "Dateien";
 
-/* RsyncParametersView */
+
 "FreeBSD" = "FreeBSD";
 
-/* plan */
+
 "Friday" = "Freitag";
 
-/* settings */
+
 "Full" = "Voll";
 
-/* german */
+
 "German translation by: Andre Voigtmann" = "Deutsche Übersetzung von: Andre Voigtmann";
 
-/* settings */
+
 "Global ssh keypath and identityfile" = "Globale SSH-Tastatur und Identitätsdatei";
 
-/* settings */
+
 "Global ssh port" = "Globaler SSH-Port";
 
-/* datetime */
+
 "h" = "h";
 
-/* settings */
+
 "Halt on error" = "Bei Fehler stoppen";
 
-/* icon */
+
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
-/* settings */
+
 "In process in getting data" = "Daten werden gerade abgerufen";
 
-/* Othersettings */
+
 "Info about convert" = "Info über Konvertierung";
 
-/* plan */
+
 "Keep" = "Behalten";
 
-/* ConfigurationsList */
+
 "Last" = "Letzte";
 
-/* QuicktaskView
-   QuicktaskView: */
 "Last rundate" = "Datum der letzten Ausführung";
 
-/* settings */
+
 "Level log" = "Level Log";
 
-/* RsyncParametersView */
+
 "Linux" = "Linux";
 
-/* ConfigurationsList
-   OutputEstimatedView */
 "Local catalog" = "Lokaler Katalog";
 
-/* RsyncParametersView */
+
 "Local ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
 
-/* ssh */
+
 "Local ssh keys found" = "Lokale SSH-Schlüssel gefunden";
 
-/* RsyncParametersView */
+
 "Local ssh port" = "Lokaler SSH-Port";
 
-/* QuicktaskView
-   QuicktaskView: */
 "Localcatalog" = "Lokaler Katalog";
 
-/* No comment provided by engineer. */
+
 "localhost" = "localhost";
 
-/* QuicktaskView
-   QuicktaskView: */
 "Localhost" = "Localhost";
 
-/* sidebar */
+
 "Log listings" = "Protokolle";
 
-/* settings */
+
 "Log to file" = "Log in Datei";
 
-/* Logs
-   RsyncUIApp */
 "Logfile" = "Protokolldatei";
 
-/* settings */
+
 "Mark days" = "Markiere Tage";
 
-/* settings */
+
 "Min" = "Min";
 
-/* plan */
+
 "Monday" = "Montag";
 
-/* settings */
+
 "Monitor network" = "Netzwerk überwachen";
 
-/* ConfigurationsList
-   ConfigurationsList... */
+
 "Most recent updated tasks on top of list" = "Zuletzt aktualisierte Aufgaben am Anfang der Liste";
 
-/* Execute tasks
-   sidebar */
 "Multiple tasks" = "Mehrere Aufgaben";
 
-/* network error */
+
 "Network connection is dropped" = "Netzwerkverbindung wurde eingestellt";
 
-/* OutputEstimatedView */
+
 "New" = "Neu";
 
-/* settings */
+
 "New profile" = "Neues Profil";
 
-/* settings */
+
 "New version" = "Neue Version";
 
-/* no rsync */
+
 "No rsync in path" = "Kein rsync im Pfad";
 
-/* no path */
+
 "No such path" = "Kein solcher Pfad";
 
-/* No comment provided by engineer. */
+
 "no username" = "kein Benutzername";
 
-/* no rsync */
+
 "No ver3 of rsync in /usr/bin" = "Keine Ver3 von rsync in /usr/bin";
 
-/* settings */
+
 "None" = "Keine";
 
-/* norwegian */
+
 "Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
 
-/* settings */
+
 "Not a snapshot task" = "Keine Snapshot-Aufgabe";
 
-/* ssh error */
+
 "Not a valid " = "Nicht gültig ";
 
-/* ssh error */
+
 "Not a valid number (Double)" = "Keine gültige Zahl (Double)";
 
-/* ssh error */
+
 "Not a valid number (Int)" = "Keine gültige Zahl (Int)";
 
-/* filesize error */
+
 "Not connected, cannot create task" = "Nicht verbunden, kann keine Aufgabe erstellen";
 
-/* OneConfig */
+
 "not executed" = "nicht ausgeführt";
 
-/* No comment provided by engineer. */
+
 "not set" = "nicht gesetzt";
 
-/* Now button */
+
 "Now" = "Jetzt";
 
-/* RestoreView
-   RestoreView: */
 "Number of files" = "Anzahl der Dateien";
 
-/* : \(snapshotdata.logrecordssnapshot?.count ?? 0) */
+
 "Number of logrecords" = "Anzahl der Protokolle";
 
-/* No comment provided by engineer. */
+
 "Number of logs" = "Anzahl der Protokolle";
 
-/* : \(snapshotdata.uuidsfordelete?.count ?? 0) */
+
 "Number to delete" = "Zu löschende Nummer";
 
-/* No comment provided by engineer. */
+
 "OK" = "Ok";
 
-/* cannot */
+
 "Only synchronize ID can be changed on a Snapshot task" = "Nur Synchronisations-ID kann bei einer Snapshot-Aufgabe geändert werden";
 
-/* settings */
+
 "Other settings" = "Andere Einstellungen";
 
-/* OutputRsyncView */
+
 "Output from rsync" = "Ausgabe von rsync";
 
-/* RestoreView
-   settings */
 "Path for restore" = "Pfad zum Wiederherstellen";
 
-/* Othersettings */
+
 "Path to RsyncSchedule" = "Pfad zu RsyncSchedule";
 
-/* Othersettings */
+
 "Path to RsyncUI" = "Pfad zu RsyncUI";
 
-/* user settings */
+
 "Paths" = "Pfade";
 
-/* Othersettings */
+
 "Paths for apps" = "Pfade für Apps";
 
-/* SnapshotsView */
+
 "Plan" = "Plan";
 
-/* ScheduleError */
+
 "Please select a configuration" = "Bitte wählen Sie eine Konfiguration";
 
-/* Othersettings */
+
+"Plist" = "Plist";
+
+
 "PLIST" = "PLIST";
 
-/* logsview */
+
 "Pre and post" = "Vor- und Post";
 
-/* settings */
+
 "Pre and post task" = "Vor- und Post-Aufgabe";
 
-/* plan */
+
 "previous month" = "letzter Monat";
 
-/* cannot */
+
 "Profile exists" = "Profil existiert";
 
-/* sidebar */
+
 "Quick task" = "Schnelle Aufgabe";
 
-/* ConfigurationsList
-   OutputEstimatedView */
+
 "Remote catalog" = "Remote Katalog";
 
-/* QuicktaskView
-   settings */
+
 "Remote parameters" = "Remote Parameter";
 
-/* QuicktaskView
-   QuicktaskView: */
+
 "Remote server" = "Remote-Server";
 
-/* input error */
+
 "Remote servername cannot be empty" = "Remote-Servername darf nicht leer sein";
 
-/* input error */
+
 "Remote username cannot be empty" = "Remote-Benutzername darf nicht leer sein";
 
-/* QuicktaskView
-   QuicktaskView: */
+
 "Remotecatalog" = "Remote-Katalog";
 
-/* RsyncParametersView */
+
 "Remove default rsync parameters" = "Standard-rsync-Parameter entfernen";
 
-/* Reset button */
+
 "Reset" = "Reset";
 
-/* RestoreView
-   sidebar
-   SidebarRsyncParameter */
 "Restore" = "Wiederherstellen";
 
-/* Restore */
+
 "Restore not allowed for syncremote task" = "Wiederherstellung für Syncremote-Aufgabe nicht erlaubt";
 
-/* RsyncParametersView */
+
 "Return" = "Zurück";
 
-/* RsyncParametersView */
+
 "Rsync" = "Rsync";
 
-/* RsyncCommandView */
+
 "Rsync command and parameters" = "Rsync-Befehl und Parameter";
 
-/* EditRsyncParameter */
+
 "rsync parameter" = "rsync-Parameter";
 
-/* sidebar
-   SidebarRsyncParameter */
 "Rsync parameters" = "Rsync Parameter";
 
-/* settings */
+
 "Rsync ver 3.x" = "Rsync Version 3.x";
 
-/* settings */
+
 "Rsync version and path" = "Rsync-Version und -Pfad";
 
-/* No comment provided by engineer. */
+
 "RsyncUI" = "RsyncUI";
 
-/* No comment provided by engineer. */
+
 "RsyncUI configpath: " = "RsyncUI-Konfigurationspfad: ";
 
-/* RsyncUIApp */
+
 "RsyncUI help" = "RsyncUI Hilfe";
 
-/* plan */
+
 "Saturday" = "Samstag";
 
-/* Othersettings
-   RsyncParametersView
-   Tag
-   usersetting */
+
 "Save" = "Speichern";
 
-/* settings */
+
 "Save settings" = "Einstellungen speichern";
 
-/* settings */
+
 "Saved" = "Gespeichert";
 
-/* SchedulesDatePickerView */
+
 "Schedule" = "Zeitplan";
 
-/* command */
+
 "Scheduled tasks" = "Geplante Aufgaben";
 
-/* command
-   sidebar
-   SidebarLogsView */
 "Schedules" = "Zeitpläne";
 
-/* SearchbarView */
+
 "Search" = "Suchen";
 
-/* Select button
-   ssh settings */
 "Select" = "Auswählen";
 
-/* RsyncCommandView */
+
 "Select a configuration" = "Konfiguration auswählen";
 
-/* settings */
+
 "Select a schedule" = "Zeitplan auswählen";
 
-/* settings */
+
 "Select a task" = "Aufgabe auswählen";
 
-/* RestoreView */
+
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
-/* settings */
+
 "Select one or more tasks" = "Wählen Sie eine oder mehrere Aufgaben";
 
-/* sidebar
-   sidebar ... */
 "Select task" = "Aufgabe auswählen";
 
-/* ConfigurationsList
-   OutputEstimatedView */
 "Server" = "Server";
 
-/* RsyncParametersView
-   ssh settings */
 "Set ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
 
-/* user settings */
+
 "Settings" = "Einstellungen";
 
-/* Execute tasks
-   sidebar */
 "Single task" = "Einzelne Aufgabe";
 
-/* Alert delete */
+
 "snapshot(s)" = "snapshot(s)";
 
-/* filesize error */
+
 "Snapshotnum must be 1" = "Snapshotnummer muss 1 sein";
 
-/* sidebar
-   SidebarSnapshotsView */
 "Snapshots" = "Snapshots";
 
-/* user settings */
+
 "Ssh" = "Ssh";
 
-/* ssh error */
+
 "SSH keypath is not valid" = "SSH Schlüsselpfad ist ungültig";
 
-/* ssh error */
+
 "SSH keypath must be like ~/.ssh_keypath/identityfile" = "SSH Schlüsselpfad muss wie ~/.ssh_keypath/identityfile sein";
 
-/* ssh error */
+
 "SSH RSA keys exist, cannot create" = "SSH RSA Schlüssel existiert, kann nicht erstellt werden";
 
-/* SchedulesDatePickerView */
+
 "Start" = "Start";
 
-/* Dismiss button */
+
 "Stop" = "Stoppen";
 
-/* Alert delete */
+
 "Stop or delete" = "Stoppen oder löschen";
 
-/* plan */
+
 "Sunday" = "Sonntag";
 
-/* ConfigurationsList
-   OutputEstimatedView
-   QuicktaskView
-   QuicktaskView: 
-   settings */
 "Synchronize ID" = "Synchronisierungs-ID";
 
-/* Tag */
+
 "Tag" = "Markierung";
 
-/* AddConfigurationsView
-   ConfigurationsList
-   OutputEstimatedView
-   QuicktaskView
-   QuicktaskView: */
 "Task" = "Aufgabe";
 
-/* Restore */
+
 "The menu app is running" = "Die Menü-App läuft";
 
-/* rsync error */
+
 "There are errors in output" = "Es gibt Fehler in der Ausgabe";
 
-/* plan */
+
 "this month" = "in diesem Monat";
 
-/* plan */
+
 "this week" = "diese Woche";
 
-/* plan */
+
 "Thursday" = "Donnerstag";
 
-/* filesize error */
+
 "Too big logfile" = "Zu große Logdatei";
 
-/* OutputEstimatedView */
+
 "Tot bytes" = "Bytes Gesamt";
 
-/* OutputEstimatedView */
+
 "Tot dir" = "Verzeichnisse Gesamt";
 
-/* OutputEstimatedView */
+
 "Tot num" = "Anzahl Gesamt";
 
-/* plan */
+
 "Tuesday" = "Dienstag";
 
-/* ssh settings */
+
 "Unique usernames and servers" = "Eindeutige Benutzernamen und Server";
 
-/* Update button */
+
 "Update" = "Aktualisieren";
 
-/* No comment provided by engineer. */
+
 "Update configuration completed" = "Update-Konfiguration abgeschlossen";
 
-/* settings */
+
 "Updated" = "Aktualisiert";
 
-/* ConfigurationsList
-   OutputEstimatedView */
 "User" = "Benutzer";
 
-/* usersetting */
+
 "Verify" = "Überprüfen";
 
-/* ssh settings */
+
 "Verify SSH" = "SSH überprüfen";
 
-/* No comment provided by engineer. */
+
 "Version %@ (%@)" = "Version %1$@ (%2$@)";
 
-/* QuicktaskView
-   RestoreView
-   View button */
 "View" = "Ansicht";
 
-/* RsyncUIApp */
+
 "View logfile" = "Logdatei anzeigen";
 
-/* plan */
-"Wednesday" = "Mittwoch";
 
+"Wednesday" = "Mittwoch";

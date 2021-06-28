@@ -20,39 +20,39 @@ struct PresentOneconfigView: View {
             let usdate = daterun.en_us_date_from_string()
             return usdate.long_localized_string_from_date()
         }
-        return NSLocalizedString("not executed", comment: "OneConfig")
+        return "not executed"
     }
 
     @SpacedTextBuilder
     var infoaboutoneconfig: Text {
-        Text(NSLocalizedString("Task", comment: "QuicktaskView") + ": ")
+        Text("Task" + ": ")
             .foregroundColor(Color.blue)
         Text(config?.task ?? "")
         if config?.backupID.isEmpty ?? true {
-            Text(NSLocalizedString("Synchronize ID", comment: "QuicktaskView") + ": ")
+            Text("Synchronize ID" + ": ")
                 .foregroundColor(Color.blue)
             Text("not set")
         } else {
-            Text(NSLocalizedString("Synchronize ID", comment: "QuicktaskView") + ": ")
+            Text("Synchronize ID" + ": ")
                 .foregroundColor(Color.blue)
             Text(config?.backupID ?? "")
         }
-        Text(NSLocalizedString("Localcatalog", comment: "QuicktaskView") + ": ")
+        Text("Localcatalog" + ": ")
             .foregroundColor(Color.blue)
         Text(config?.localCatalog ?? "")
-        Text(NSLocalizedString("Remotecatalog", comment: "QuicktaskView") + ": ")
+        Text("Remotecatalog" + ": ")
             .foregroundColor(Color.blue)
         Text(config?.offsiteCatalog ?? "")
         if config?.offsiteServer.isEmpty ?? true {
-            Text(NSLocalizedString("Remote server", comment: "QuicktaskView") + ": ")
+            Text("Remote server" + ": ")
                 .foregroundColor(Color.blue)
-            Text(NSLocalizedString("Localhost", comment: "QuicktaskView") + ": ")
+            Text("Localhost" + ": ")
         } else {
-            Text(NSLocalizedString("Remote server", comment: "QuicktaskView") + ": ")
+            Text("Remote server" + ": ")
                 .foregroundColor(Color.blue)
             Text(config?.offsiteServer ?? "")
         }
-        Text(NSLocalizedString("Last rundate", comment: "QuicktaskView") + ": ")
+        Text("Last rundate" + ": ")
             .foregroundColor(Color.blue)
         Text(localizedrundate)
     }

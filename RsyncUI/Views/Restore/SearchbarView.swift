@@ -26,6 +26,6 @@ struct SearchbarView: View {
     }
 
     var searchlabel: String {
-        NSLocalizedString("Search", comment: "SearchbarView") + "..."
+        "Search" + "..."
     }
 }

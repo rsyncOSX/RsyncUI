@@ -19,13 +19,13 @@ struct ConfirmDeleteSnapshots: View {
             Spacer()
 
             HStack {
-                Button(NSLocalizedString("Delete", comment: "Dismiss button")) {
+                Button("Delete") {
                     delete = true
                     dismissview()
                 }
                 .buttonStyle(AbortButtonStyle())
 
-                Button(NSLocalizedString("Cancel", comment: "Dismiss button")) {
+                Button("Cancel") {
                     delete = false
                     dismissview()
                 }
@@ -38,9 +38,9 @@ struct ConfirmDeleteSnapshots: View {
 
     var header: some View {
         HStack {
-            let message = NSLocalizedString("Delete", comment: "Alert delete")
+            let message = "Delete"
                 + " \(uuidstodelete?.count ?? 0)" + " "
-                + NSLocalizedString("snapshot(s)", comment: "Alert delete")
+                + "snapshot(s)"
                 + "?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))

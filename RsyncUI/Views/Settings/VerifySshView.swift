@@ -12,7 +12,7 @@ struct VerifySshView: View {
     @Binding var isPresented: Bool
 
     var body: some View {
-        Text(NSLocalizedString("Verify SSH", comment: "ssh settings"))
+        Text("Verify SSH")
             .font(.title2)
             .padding()
 
@@ -28,7 +28,7 @@ struct VerifySshView: View {
             HStack {
                 Spacer()
 
-                Button(NSLocalizedString("Dismiss", comment: "ssh settings")) { dismissview() }
+                Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -37,7 +37,7 @@ struct VerifySshView: View {
 
     // Paths
     var header: some View {
-        Text(NSLocalizedString("Copy and paste commands in terminal to verify", comment: "ssh settings"))
+        Text("Copy and paste commands in terminal to verify")
     }
 
     func dismissview() {

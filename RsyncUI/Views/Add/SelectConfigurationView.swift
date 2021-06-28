@@ -28,7 +28,7 @@ struct SelectConfigurationView: View {
                                selectable: selectable)
             Spacer()
 
-            Button(NSLocalizedString("Select", comment: "Select button")) { dismissview() }
+            Button("Select") { dismissview() }
                 .buttonStyle(PrimaryButtonStyle())
         }
         .padding()

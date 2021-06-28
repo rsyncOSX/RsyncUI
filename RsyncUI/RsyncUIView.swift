@@ -40,7 +40,7 @@ struct RsyncUIView: View {
 
                 Spacer()
 
-                // Text(selectedprofile ?? NSLocalizedString("Default profile", comment: "default profile"))
+                // Text(selectedprofile ?? "Default profile")
             }
             .padding()
         }
@@ -82,7 +82,7 @@ struct RsyncUIView: View {
     var notifynewversion: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text(NSLocalizedString("New version", comment: "settings"))
+            Text("New version")
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }

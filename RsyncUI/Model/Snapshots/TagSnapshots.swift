@@ -12,13 +12,13 @@ import Foundation
 final class TagSnapshots {
     var day: NumDayofweek?
     var nameofday: StringDayofweek?
-    var daylocalized = [NSLocalizedString("Sunday", comment: "plan"),
-                        NSLocalizedString("Monday", comment: "plan"),
-                        NSLocalizedString("Tuesday", comment: "plan"),
-                        NSLocalizedString("Wednesday", comment: "plan"),
-                        NSLocalizedString("Thursday", comment: "plan"),
-                        NSLocalizedString("Friday", comment: "plan"),
-                        NSLocalizedString("Saturday", comment: "plan")]
+    var daylocalized = ["Sunday",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday"]
     var logrecordssnapshot: [Logrecordsschedules]?
     private var numberoflogs: Int?
     private var keepallselcteddayofweek: Bool = true
@@ -71,7 +71,7 @@ final class TagSnapshots {
             datecomponentsfromstring(datestringlocalized: datesnapshotstring).year ==
             datecomponentsfromstring(datestringlocalized: now).year
         {
-            let tag = NSLocalizedString("Keep", comment: "plan") + " " + NSLocalizedString("this week", comment: "plan")
+            let tag = "Keep" + " " + "this week"
             logrecordssnapshot?[index].period = tag
             return true
         }
@@ -88,11 +88,11 @@ final class TagSnapshots {
                 datecomponentsfromstring(datestringlocalized: datesnapshotstring).year == datecomponentsfromstring(datestringlocalized: now).year
             {
                 if datefromstring(datestringlocalized: datesnapshotstring).isSelectedDayofWeek(day: self.day!) == false {
-                    let tag = NSLocalizedString("Delete", comment: "plan") + " " + day + ", " + month + " " + NSLocalizedString("this month", comment: "plan")
+                    let tag = "Delete" + " " + day + ", " + month + " " + "this month"
                     logrecordssnapshot?[index].period = tag
                     return true
                 } else {
-                    let tag = NSLocalizedString("Keep", comment: "plan") + " " + month + " " + daylocalized[self.day!.rawValue - 1] + " " + NSLocalizedString("this month", comment: "plan")
+                    let tag = "Keep" + " " + month + " " + daylocalized[self.day!.rawValue - 1] + " " + "this month"
                     logrecordssnapshot?[index].period = tag
                     return false
                 }
@@ -121,20 +121,20 @@ final class TagSnapshots {
             {
                 if check!(datefromstring(datestringlocalized: datesnapshotstring)) == true {
                     if datecomponentsfromstring(datestringlocalized: datesnapshotstring).month == datecomponentsfromstring(datestringlocalized: now).month! - 1 {
-                        let tag = NSLocalizedString("Keep", comment: "plan") + " " + day + ", " + month + " " + NSLocalizedString("previous month", comment: "plan")
+                        let tag = "Keep" + " " + day + ", " + month + " " + "previous month"
                         logrecordssnapshot?[index].period = tag
                     } else {
-                        let tag = NSLocalizedString("Keep", comment: "plan") + " " + day + ", " + month + " " + NSLocalizedString("earlier months", comment: "plan")
+                        let tag = "Keep" + " " + day + ", " + month + " " + "earlier months"
                         logrecordssnapshot?[index].period = tag
                     }
                     return false
                 } else {
                     let date = datefromstring(datestringlocalized: datesnapshotstring)
                     if date.ispreviousmont {
-                        let tag = NSLocalizedString("Delete", comment: "plan") + " " + day + ", " + month + " " + NSLocalizedString("previous month", comment: "plan")
+                        let tag = "Delete" + " " + day + ", " + month + " " + "previous month"
                         logrecordssnapshot?[index].period = tag
                     } else {
-                        let tag = NSLocalizedString("Delete", comment: "plan") + " " + day + ", " + month + " " + NSLocalizedString("earlier months", comment: "plan")
+                        let tag = "Delete" + " " + day + ", " + month + " " + "earlier months"
                         logrecordssnapshot?[index].period = tag
                     }
                     return true

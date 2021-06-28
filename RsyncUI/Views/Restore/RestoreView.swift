@@ -49,7 +49,7 @@ struct RestoreView: View {
         HStack {
             Spacer()
 
-            ToggleView(NSLocalizedString("--dry-run", comment: "RestoreView"), $restoresettings.dryrun)
+            ToggleView("--dry-run", $restoresettings.dryrun)
 
             VStack(alignment: .leading) {
                 numberoffiles
@@ -61,14 +61,14 @@ struct RestoreView: View {
 
             Spacer()
 
-            Button(NSLocalizedString("View", comment: "RestoreView")) { presentoutput() }
+            Button("View") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentsheetview) { viewoutput }
 
-            Button(NSLocalizedString("Restore", comment: "RestoreView")) { restore() }
+            Button("Restore") { restore() }
                 .buttonStyle(AbortButtonStyle())
 
-            Button(NSLocalizedString("Abort", comment: "RestoreView")) { abort() }
+            Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
         .searchable(text: $filterstring.onChange {
@@ -82,7 +82,7 @@ struct RestoreView: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(500, NSLocalizedString("Path for restore", comment: "RestoreView"), $restoresettings.pathforrestore.onChange {
+        EditValue(500, "Path for restore", $restoresettings.pathforrestore.onChange {
             restoresettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
@@ -93,14 +93,14 @@ struct RestoreView: View {
     }
 
     var setfilestorestore: some View {
-        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: "RestoreView"), $restoresettings.filestorestore.onChange {
+        EditValue(500, "Select files to restore or \"./.\" for full restore", $restoresettings.filestorestore.onChange {
             restoresettings.inputchangedbyuser = true
         })
     }
 
     var numberoffiles: some View {
         HStack {
-            Text(NSLocalizedString("Number of files", comment: "RestoreView") + ": ")
+            Text("Number of files" + ": ")
             Text(NumberFormatter.localizedString(from: NSNumber(value: restoresettings.numberoffiles), number: NumberFormatter.Style.decimal))
                 .foregroundColor(Color.blue)
 
