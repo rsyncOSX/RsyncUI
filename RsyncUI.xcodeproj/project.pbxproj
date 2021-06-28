@@ -48,8 +48,6 @@
 		E94E0D35267508A500C35EC9 /* ConfigurationsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E0D34267508A500C35EC9 /* ConfigurationsTable.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
 		E959280426240B8C002631CB /* NewversionPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959280326240B8B002631CB /* NewversionPLIST.swift */; };
-		E95C8C312603962600407434 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C2F2603962600407434 /* InfoPlist.strings */; };
-		E95C8C342603962600407434 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95C8C322603962600407434 /* Localizable.strings */; };
 		E95DE0DA25F4A5120090FCD3 /* ChangeSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DE0D925F4A5120090FCD3 /* ChangeSchedulesView.swift */; };
 		E95EDC7926063118000018DE /* SidebarRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7826063118000018DE /* SidebarRsyncParameter.swift */; };
 		E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */; };
@@ -274,8 +272,6 @@
 		E94E0D34267508A500C35EC9 /* ConfigurationsTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsTable.swift; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
 		E959280326240B8B002631CB /* NewversionPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewversionPLIST.swift; sourceTree = "<group>"; };
-		E95C8C302603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E95C8C332603962600407434 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E95DE0D925F4A5120090FCD3 /* ChangeSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSchedulesView.swift; sourceTree = "<group>"; };
 		E95EDC7826063118000018DE /* SidebarRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRsyncParameter.swift; sourceTree = "<group>"; };
 		E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRsyncParameter.swift; sourceTree = "<group>"; };
@@ -425,8 +421,6 @@
 		E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentOneconfigView.swift; sourceTree = "<group>"; };
 		E99C23FA261C2D6C009D4DBF /* RestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreView.swift; sourceTree = "<group>"; };
 		E99C23FF261C322E009D4DBF /* ObserveableRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableRestore.swift; sourceTree = "<group>"; };
-		E9B1277C260501CA001A5FD3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E9B1277D260501CA001A5FD3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareOutput.swift; sourceTree = "<group>"; };
 		E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteProfileView.swift; sourceTree = "<group>"; };
 		E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarLogsView.swift; sourceTree = "<group>"; };
@@ -564,8 +558,6 @@
 				E8944891267B2CB0009F9C4A /* RsyncUIView.swift */,
 				E9FDDD4825F3D0610050718C /* Assets.xcassets */,
 				E985C5D225F3AC0800CB895C /* Info.plist */,
-				E95C8C322603962600407434 /* Localizable.strings */,
-				E95C8C2F2603962600407434 /* InfoPlist.strings */,
 				E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */,
 				E985C60925F3AD8400CB895C /* Views */,
 				E985C69225F3AD9600CB895C /* Model */,
@@ -1212,8 +1204,6 @@
 			knownRegions = (
 				en,
 				Base,
-				nb,
-				de,
 			);
 			mainGroup = E985C5BA25F3AC0700CB895C;
 			packageReferences = (
@@ -1236,8 +1226,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E95C8C342603962600407434 /* Localizable.strings in Resources */,
-				E95C8C312603962600407434 /* InfoPlist.strings in Resources */,
 				E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */,
 				E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */,
 			);
@@ -1515,27 +1503,6 @@
 			targetProxy = E985C5E425F3AC0800CB895C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		E95C8C2F2603962600407434 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E95C8C302603962600407434 /* nb */,
-				E9B1277D260501CA001A5FD3 /* de */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		E95C8C322603962600407434 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E95C8C332603962600407434 /* nb */,
-				E9B1277C260501CA001A5FD3 /* de */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E985C5EA25F3AC0800CB895C /* Debug */ = {
