@@ -14,9 +14,6 @@ struct Sshcopykey: View {
 
     var body: some View {
         HStack {
-            Button("Copy") { copytopasteboard() }
-                .buttonStyle(PrimaryButtonStyle())
-
             if copystring.isEmpty {
                 Text("Select")
                     .padding(10)
@@ -25,6 +22,7 @@ struct Sshcopykey: View {
                 Text(copystring)
                     .padding(10)
                     .border(Color.gray)
+                    .textSelection(.enabled)
             }
         }
 
@@ -37,12 +35,5 @@ struct Sshcopykey: View {
         } else {
             return ""
         }
-    }
-
-    func copytopasteboard() {
-        let pasteboard = NSPasteboard.general
-        pasteboard.clearContents()
-        pasteboard.setString(copystring, forType: .string)
-        isPresented = false
     }
 }
