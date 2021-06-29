@@ -21,8 +21,6 @@ struct RsyncCommandView: View {
     @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
-        headingtitle
-
         VStack {
             pickerselectcommand
 
@@ -41,7 +39,6 @@ struct RsyncCommandView: View {
         }
         .frame(width: 600, height: 300)
         .padding()
-        .textSelection(.enabled)
     }
 
     var pickerselectcommand: some View {
@@ -52,7 +49,7 @@ struct RsyncCommandView: View {
             }
         }
         .pickerStyle(SegmentedPickerStyle())
-        .frame(width: 300)
+        .frame(width: 400)
     }
 
     var headingtitle: some View {
@@ -65,6 +62,7 @@ struct RsyncCommandView: View {
         Text(commandstring ?? "")
             .padding()
             .border(Color.gray)
+            .textSelection(.enabled)
     }
 
     var parameterlist: some View {
