@@ -217,9 +217,9 @@ enum RestoreError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidtaskforrestore:
-            return "Restore not allowed for syncremote task" + "..."
+            return "Restore not allowed for syncremote task"
         case .notvalidrestore:
-            return "Either is path for restore or file to restore empty" + "..."
+            return "Either is path for restore or file to restore empty"
         }
     }
 }

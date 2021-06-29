@@ -14,7 +14,7 @@ enum ScheduleError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notselectedconfig:
-            return "Please select a configuration" + "..."
+            return "Please select a configuration"
         }
     }
 }

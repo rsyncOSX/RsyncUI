@@ -15,9 +15,9 @@ enum Validatedrsync: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .norsync:
-            return "No rsync in path" + "..."
+            return "No rsync in path"
         case .noversion3inusrbin:
-            return "No ver3 of rsync in /usr/bin" + "..."
+            return "No ver3 of rsync in /usr/bin"
         }
     }
 }

@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 23.04.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
 
 import Cocoa
 import Foundation
@@ -18,11 +17,11 @@ enum SshError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidpath:
-            return "SSH keypath is not valid" + "..."
+            return "SSH keypath is not valid"
         case .sshkeys:
-            return "SSH RSA keys exist, cannot create" + "..."
+            return "SSH RSA keys exist, cannot create"
         case .noslash:
-            return "SSH keypath must be like ~/.ssh_keypath/identityfile" + "..."
+            return "SSH keypath must be like ~/.ssh_keypath/identityfile"
         }
     }
 }

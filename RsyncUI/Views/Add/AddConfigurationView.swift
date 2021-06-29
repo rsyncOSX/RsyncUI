@@ -5,13 +5,6 @@
 //  Created by Thomas Evensen on 01/04/2021.
 //
 
-//
-//  AddView.swift
-//  RsyncUI
-//
-//  Created by Thomas Evensen on 19/03/2021.
-//
-
 import SwiftUI
 
 enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {

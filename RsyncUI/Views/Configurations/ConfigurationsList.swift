@@ -105,7 +105,7 @@ struct ConfigurationsList: View {
     }
 
     var footer: some View {
-        Text("Most recent updated tasks on top of list" + "...")
+        Text("Most recent updated tasks on top of list")
             .foregroundColor(Color.blue)
     }
 

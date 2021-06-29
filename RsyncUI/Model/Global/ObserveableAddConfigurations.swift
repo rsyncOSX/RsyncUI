@@ -16,7 +16,7 @@ enum CannotUpdateSnaphotsError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .cannotupdate:
-            return "Only synchronize ID can be changed on a Snapshot task" + "..."
+            return "Only synchronize ID can be changed on a Snapshot task"
         }
     }
 }
