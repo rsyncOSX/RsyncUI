@@ -36,7 +36,8 @@ struct Sidebar: View {
             Spacer()
 
             Group {
-                NavigationLink(destination: SidebarMultipletasksView(reload: $reload, selectedprofile: $selectedprofile),
+                NavigationLink(destination: SidebarMultipletasksView(reload: $reload,
+                                                                     selectedprofile: $selectedprofile),
                                tag: NavigationItem.estimation,
                                selection: $selection) {
                     Label("Multiple tasks",
@@ -44,12 +45,13 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.estimation)
 
-                NavigationLink(destination: SidebarSingleTasksView(reload: $reload, selectedprofile: $selectedprofile)
-                    .environmentObject(OutputFromRsync()),
+                NavigationLink(destination: SidebarSingleTasksView(reload: $reload,
+                                                                   selectedprofile: $selectedprofile)
+                        .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.singletasks,
                     selection: $selection) {
-                        Label("Single task",
-                              systemImage: "arrowshape.turn.up.backward.fill")
+                    Label("Single task",
+                          systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.singletasks)
 
@@ -91,7 +93,8 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.rsync)
 
-                NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile, reload: $reload),
+                NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile,
+                                                                 reload: $reload),
                                tag: NavigationItem.schedules,
                                selection: $selection) {
                     Label("Schedules", systemImage: "calendar.badge.plus")
@@ -154,7 +157,7 @@ struct Sidebar: View {
             VStack {
                 imagersyncosx
 
-                Text("Select task" + " ...")
+                Text("Select task")
                     .foregroundColor(.secondary)
                     .font(.title)
             }

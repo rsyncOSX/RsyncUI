@@ -15,7 +15,7 @@ enum ProfileexistsError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .profileexists:
-            return "Profile exists" + "..."
+            return "Profile exists"
         }
     }
 }

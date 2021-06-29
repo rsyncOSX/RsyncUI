@@ -77,7 +77,7 @@ struct RsyncCommandView: View {
                                              config: config).getrsyncommand()
             }
         }
-        return "Select a configuration" + "..."
+        return "Select a configuration"
     }
 
     func dismissview() {

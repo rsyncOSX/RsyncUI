@@ -18,15 +18,15 @@ enum ValidateInputError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .localcatalog:
-            return "Either local or remote cannot be empty" + "..."
+            return "Either local or remote cannot be empty"
         case .offsiteusername:
-            return "Remote username cannot be empty" + "..."
+            return "Remote username cannot be empty"
         case .notconnected:
-            return "Not connected, cannot create task" + "..."
+            return "Not connected, cannot create task"
         case .offsiteserver:
-            return "Remote servername cannot be empty" + "..."
+            return "Remote servername cannot be empty"
         case .snapshotnum:
-            return "Snapshotnum must be 1" + "..."
+            return "Snapshotnum must be 1"
         }
     }
 }

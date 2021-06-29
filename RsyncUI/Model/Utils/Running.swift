@@ -68,7 +68,7 @@ enum RunningError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .rsyncscheduleisrunning:
-            return "The menu app is running" + "..."
+            return "The menu app is running"
         }
     }
 }
