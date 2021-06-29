@@ -35,8 +35,8 @@ struct DeleteLogsView: View {
     var header: some View {
         HStack {
             let message = "Delete"
-                + " \(selecteduuids.count)"
-                + " log(s)?"
+                + " \(selecteduuids.count) "
+                + "log(s)?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }

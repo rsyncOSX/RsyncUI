@@ -39,8 +39,8 @@ struct ConfirmDeleteConfigurationsView: View {
     var header: some View {
         HStack {
             let message = "Delete"
-                + " \(selecteduuids.count)"
-                + " configuration(s)?"
+                + " \(selecteduuids.count) "
+                + "configuration(s)?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }

@@ -38,8 +38,8 @@ struct ChangeSchedulesView: View {
     var header: some View {
         HStack {
             let message = "Stop or delete"
-                + " \(selecteduuids.count)"
-                + " schedules(s)?"
+                + " \(selecteduuids.count) "
+                + "schedules(s)?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }
