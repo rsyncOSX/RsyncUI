@@ -14,9 +14,6 @@ struct Sshverifykey: View {
 
     var body: some View {
         HStack {
-            Button("Copy") { copytopasteboard() }
-                .buttonStyle(PrimaryButtonStyle())
-
             if verifystring.isEmpty {
                 Text("Select")
                     .padding(10)
@@ -25,6 +22,7 @@ struct Sshverifykey: View {
                 Text(verifystring)
                     .padding(10)
                     .border(Color.gray)
+                    .textSelection(.enabled)
             }
         }
 
@@ -37,12 +35,5 @@ struct Sshverifykey: View {
         } else {
             return ""
         }
-    }
-
-    func copytopasteboard() {
-        let pasteboard = NSPasteboard.general
-        pasteboard.clearContents()
-        pasteboard.setString(verifystring, forType: .string)
-        isPresented = false
     }
 }
