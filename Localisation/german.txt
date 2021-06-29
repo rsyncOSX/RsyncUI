@@ -1,0 +1,626 @@
+
+" configuration(s)?" = "Konfiguration(en)?";
+
+
+" log(s)?" = "Protokolle?";
+
+
+" schedules(s)?" = "Zeitpläne";
+
+
+"--compress" = "--komprimieren";
+
+
+"--delete" = "--löschen";
+
+"--dry-run" = "--dry-run";
+
+
+"-e shh" = "-e ssh";
+
+
+"%" = "%";
+
+
+"%@" = "%@";
+
+"Abort" = "Abbrechen";
+
+
+"About" = "Über";
+
+
+"active" = "aktiv";
+
+
+"Add" = "Neu";
+
+
+"Add config" = "Konfiguration hinzufügen";
+
+
+"Add configuration completed" = "Konfiguration hinzufügen abgeschlossen";
+
+"Add local as remote catalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
+
+"Add local catalog - required" = "Lokalkatalog hinzufügen - erforderlich";
+
+
+"Add posttask" = "Posttask hinzufügen";
+
+
+"Add pretask" = "Pretask hinzufügen";
+
+"Add remote as local catalog - required" = "Remote als localcatalog hinzufügen - erforderlich";
+
+"Add remote catalog - required" = "Remotekatalog hinzufügen - erforderlich";
+
+
+"Add remote server" = "Remote-Server hinzufügen";
+
+
+"Add remote user" = "Remote-Benutzer hinzufügen";
+
+
+"Add synchronize ID" = "Synchronisierungs-ID hinzufügen";
+
+
+"Added" = "Hinzugefügt";
+
+
+"All" = "Alle";
+
+
+"All logs" = "Alle Protokolle";
+
+
+"Backup" = "Sichern";
+
+
+"By config" = "Nach Konfiguration";
+
+
+"Bytes" = "Bytes";
+
+
+"Cancel" = "Abbrechen";
+
+
+"Cannot delete default profile" = "Standardprofil kann nicht gelöscht werden";
+
+
+"Catalog parameters" = "Katalogparameter";
+
+
+"Change" = "Ändern";
+
+
+"Changelog" = "Changelog";
+
+
+"Check data" = "Daten prüfen";
+
+
+"Clear" = "Leeren";
+
+
+"Command" = "Befehl";
+
+
+"Completed" = "Abgeschlossen";
+
+
+"Configurations" = "Konfigurationen";
+
+
+"Confirm convert" = "Konvertierung bestätigen";
+
+
+"Convert" = "Konvertieren";
+
+
+"Convert from PLIST for" = "Von PLIST umwandeln für";
+
+
+"Copy" = "Kopieren";
+
+
+"Copy and paste commands in terminal to verify" = "Kopieren und fügen Sie Befehle in Terminal ein, um zu überprüfen";
+
+
+"Copyright ©2021 Thomas Evensen" = "Copyright ©2021 Thomas Evensen";
+
+
+"Create" = "Anlegen";
+
+
+"Created" = "Erstellt";
+
+
+"Daemon" = "Daemon";
+
+
+"Day of week" = "Wochentag";
+
+
+"Days" = "Tage";
+
+
+"Default profile" = "Standardprofil";
+
+
+"Delete" = "Löschen";
+
+
+"Delete profile" = "Profil löschen";
+
+
+"Deleted" = "Gelöscht";
+
+
+"Detailed" = "Detailliert";
+
+"Dismiss" = "Verwerfen";
+
+
+"Don´t add /" = "Nicht hinzufügen/";
+
+
+"Download" = "Download";
+
+
+"earlier months" = "frühere Monate";
+
+
+"Either is path for restore or file to restore empty" = "Entweder ist der Pfad für die Wiederherstellung oder Datei zum Wiederherstellen leer";
+
+
+"Either local or remote cannot be empty" = "Lokal oder Remote darf nicht leer sein";
+
+
+"Enable" = "Aktivieren";
+
+
+"Environment" = "Umgebung";
+
+
+"Environment variable" = "Umgebungsvariable";
+
+"Estimate" = "Schätzung";
+
+
+"Estimated tasks" = "Geschätzte Aufgaben";
+
+"Execute" = "Ausführen";
+
+
+"Execute all" = "Alle ausführen";
+
+
+"Execute all tasks" = "Alle Aufgaben ausführen";
+
+
+"Execute tasks" = "Aufgaben ausführen";
+
+
+"Executed" = "Ausgeführt";
+
+
+"Files" = "Dateien";
+
+
+"FreeBSD" = "FreeBSD";
+
+
+"Friday" = "Freitag";
+
+
+"Full" = "Voll";
+
+
+"German translation by: Andre Voigtmann" = "Deutsche Übersetzung von: Andre Voigtmann";
+
+
+"Global ssh keypath and identityfile" = "Globale SSH-Tastatur und Identitätsdatei";
+
+
+"Global ssh port" = "Globaler SSH-Port";
+
+
+"h" = "h";
+
+
+"Halt on error" = "Bei Fehler stoppen";
+
+
+"Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
+
+
+"In process in getting data" = "Daten werden gerade abgerufen";
+
+
+"Info about convert" = "Info über Konvertierung";
+
+
+"Keep" = "Behalten";
+
+
+"Last" = "Letzte";
+
+"Last rundate" = "Datum der letzten Ausführung";
+
+
+"Level log" = "Level Log";
+
+
+"Linux" = "Linux";
+
+"Local catalog" = "Lokaler Katalog";
+
+
+"Local ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
+
+
+"Local ssh keys found" = "Lokale SSH-Schlüssel gefunden";
+
+
+"Local ssh port" = "Lokaler SSH-Port";
+
+"Localcatalog" = "Lokaler Katalog";
+
+
+"localhost" = "localhost";
+
+"Localhost" = "Localhost";
+
+
+"Log listings" = "Protokolle";
+
+
+"Log to file" = "Log in Datei";
+
+"Logfile" = "Protokolldatei";
+
+
+"Mark days" = "Markiere Tage";
+
+
+"Min" = "Min";
+
+
+"Monday" = "Montag";
+
+
+"Monitor network" = "Netzwerk überwachen";
+
+
+"Most recent updated tasks on top of list" = "Zuletzt aktualisierte Aufgaben am Anfang der Liste";
+
+"Multiple tasks" = "Mehrere Aufgaben";
+
+
+"Network connection is dropped" = "Netzwerkverbindung wurde eingestellt";
+
+
+"New" = "Neu";
+
+
+"New profile" = "Neues Profil";
+
+
+"New version" = "Neue Version";
+
+
+"No rsync in path" = "Kein rsync im Pfad";
+
+
+"No such path" = "Kein solcher Pfad";
+
+
+"no username" = "kein Benutzername";
+
+
+"No ver3 of rsync in /usr/bin" = "Keine Ver3 von rsync in /usr/bin";
+
+
+"None" = "Keine";
+
+
+"Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
+
+
+"Not a snapshot task" = "Keine Snapshot-Aufgabe";
+
+
+"Not a valid " = "Nicht gültig ";
+
+
+"Not a valid number (Double)" = "Keine gültige Zahl (Double)";
+
+
+"Not a valid number (Int)" = "Keine gültige Zahl (Int)";
+
+
+"Not connected, cannot create task" = "Nicht verbunden, kann keine Aufgabe erstellen";
+
+
+"not executed" = "nicht ausgeführt";
+
+
+"not set" = "nicht gesetzt";
+
+
+"Now" = "Jetzt";
+
+"Number of files" = "Anzahl der Dateien";
+
+
+"Number of logrecords" = "Anzahl der Protokolle";
+
+
+"Number of logs" = "Anzahl der Protokolle";
+
+
+"Number to delete" = "Zu löschende Nummer";
+
+
+"OK" = "Ok";
+
+
+"Only synchronize ID can be changed on a Snapshot task" = "Nur Synchronisations-ID kann bei einer Snapshot-Aufgabe geändert werden";
+
+
+"Other settings" = "Andere Einstellungen";
+
+
+"Output from rsync" = "Ausgabe von rsync";
+
+"Path for restore" = "Pfad zum Wiederherstellen";
+
+
+"Path to RsyncSchedule" = "Pfad zu RsyncSchedule";
+
+
+"Path to RsyncUI" = "Pfad zu RsyncUI";
+
+
+"Paths" = "Pfade";
+
+
+"Paths for apps" = "Pfade für Apps";
+
+
+"Plan" = "Plan";
+
+
+"Please select a configuration" = "Bitte wählen Sie eine Konfiguration";
+
+
+"Plist" = "Plist";
+
+
+"PLIST" = "PLIST";
+
+
+"Pre and post" = "Vor- und Post";
+
+
+"Pre and post task" = "Vor- und Post-Aufgabe";
+
+
+"previous month" = "letzter Monat";
+
+
+"Profile exists" = "Profil existiert";
+
+
+"Quick task" = "Schnelle Aufgabe";
+
+
+"Remote catalog" = "Remote Katalog";
+
+
+"Remote parameters" = "Remote Parameter";
+
+
+"Remote server" = "Remote-Server";
+
+
+"Remote servername cannot be empty" = "Remote-Servername darf nicht leer sein";
+
+
+"Remote username cannot be empty" = "Remote-Benutzername darf nicht leer sein";
+
+
+"Remotecatalog" = "Remote-Katalog";
+
+
+"Remove default rsync parameters" = "Standard-rsync-Parameter entfernen";
+
+
+"Reset" = "Reset";
+
+"Restore" = "Wiederherstellen";
+
+
+"Restore not allowed for syncremote task" = "Wiederherstellung für Syncremote-Aufgabe nicht erlaubt";
+
+
+"Return" = "Zurück";
+
+
+"Rsync" = "Rsync";
+
+
+"Rsync command and parameters" = "Rsync-Befehl und Parameter";
+
+
+"rsync parameter" = "rsync-Parameter";
+
+"Rsync parameters" = "Rsync Parameter";
+
+
+"Rsync ver 3.x" = "Rsync Version 3.x";
+
+
+"Rsync version and path" = "Rsync-Version und -Pfad";
+
+
+"RsyncUI" = "RsyncUI";
+
+
+"RsyncUI configpath: " = "RsyncUI-Konfigurationspfad: ";
+
+
+"RsyncUI help" = "RsyncUI Hilfe";
+
+
+"Saturday" = "Samstag";
+
+
+"Save" = "Speichern";
+
+
+"Save settings" = "Einstellungen speichern";
+
+
+"Saved" = "Gespeichert";
+
+
+"Schedule" = "Zeitplan";
+
+
+"Scheduled tasks" = "Geplante Aufgaben";
+
+"Schedules" = "Zeitpläne";
+
+
+"Search" = "Suchen";
+
+"Select" = "Auswählen";
+
+
+"Select a configuration" = "Konfiguration auswählen";
+
+
+"Select a schedule" = "Zeitplan auswählen";
+
+
+"Select a task" = "Aufgabe auswählen";
+
+
+"Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
+
+
+"Select one or more tasks" = "Wählen Sie eine oder mehrere Aufgaben";
+
+"Select task" = "Aufgabe auswählen";
+
+"Server" = "Server";
+
+"Set ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
+
+
+"Settings" = "Einstellungen";
+
+"Single task" = "Einzelne Aufgabe";
+
+
+"snapshot(s)" = "snapshot(s)";
+
+
+"Snapshotnum must be 1" = "Snapshotnummer muss 1 sein";
+
+"Snapshots" = "Snapshots";
+
+
+"Ssh" = "Ssh";
+
+
+"SSH keypath is not valid" = "SSH Schlüsselpfad ist ungültig";
+
+
+"SSH keypath must be like ~/.ssh_keypath/identityfile" = "SSH Schlüsselpfad muss wie ~/.ssh_keypath/identityfile sein";
+
+
+"SSH RSA keys exist, cannot create" = "SSH RSA Schlüssel existiert, kann nicht erstellt werden";
+
+
+"Start" = "Start";
+
+
+"Stop" = "Stoppen";
+
+
+"Stop or delete" = "Stoppen oder löschen";
+
+
+"Sunday" = "Sonntag";
+
+"Synchronize ID" = "Synchronisierungs-ID";
+
+
+"Tag" = "Markierung";
+
+"Task" = "Aufgabe";
+
+
+"The menu app is running" = "Die Menü-App läuft";
+
+
+"There are errors in output" = "Es gibt Fehler in der Ausgabe";
+
+
+"this month" = "in diesem Monat";
+
+
+"this week" = "diese Woche";
+
+
+"Thursday" = "Donnerstag";
+
+
+"Too big logfile" = "Zu große Logdatei";
+
+
+"Tot bytes" = "Bytes Gesamt";
+
+
+"Tot dir" = "Verzeichnisse Gesamt";
+
+
+"Tot num" = "Anzahl Gesamt";
+
+
+"Tuesday" = "Dienstag";
+
+
+"Unique usernames and servers" = "Eindeutige Benutzernamen und Server";
+
+
+"Update" = "Aktualisieren";
+
+
+"Update configuration completed" = "Update-Konfiguration abgeschlossen";
+
+
+"Updated" = "Aktualisiert";
+
+"User" = "Benutzer";
+
+
+"Verify" = "Überprüfen";
+
+
+"Verify SSH" = "SSH überprüfen";
+
+
+"Version %@ (%@)" = "Version %1$@ (%2$@)";
+
+"View" = "Ansicht";
+
+
+"View logfile" = "Logdatei anzeigen";
+
+
+"Wednesday" = "Mittwoch";
