@@ -5,3 +5,441 @@
   Created by Thomas Evensen on 29/06/2021.
   
 */
+
+" configuration(s)?" = " konfigurasjon(er)?";
+
+" log(s)?" = " logg(er)?";
+
+" schedules(s)?" = " oppgave(r)?";
+
+"--compress" = "--compress";
+
+"--delete" = "--delete";
+
+"--dry-run" = "--dry-run";
+
+"-e shh" = "-e ssh";
+
+"%" = "%";
+
+"%@" = "%@";
+
+"Abort" = "Avbryt";
+
+"About" = "Om";
+
+"active" = "aktiv";
+
+"Add" = "Legg til";
+
+"Add config" = "Legg til konfigurasjon";
+
+"Add configuration completed" = "Legge til konfigurasjon fullført";
+
+"Add local as remote catalog - required" = "Legg til lokal som eksternkatalog - kreves";
+
+"Add local catalog - required" = "Legge til lokalkatalog - kreves";
+
+"Add posttask" = "Legg til postoppgave";
+
+"Add pretask" = "Legg til preoppgave";
+
+"Add remote as local catalog - required" = "Legg til ekstern som lokal katalog - kreves";
+
+"Add remote catalog - required" = "Legg til eksternkatalog - kreves";
+
+"Add remote server" = "Legg til ekstern tjener";
+
+"Add remote user" = "Legg til ekstern bruker";
+
+"Add synchronize ID" = "Legg til synkroniserings ID";
+
+"Added" = "Lagt til";
+
+"All" = "Alle";
+
+"All logs" = "Alle logger";
+
+"Backup" = "Kopier";
+
+"By config" = "Etter konfigurasjon";
+
+"Bytes" = "bytes";
+
+"Cancel" = "Avbryt";
+
+"Cannot delete default profile" = "Kan ikke slette standard profil";
+
+"Catalog parameters" = "Katalog parametre";
+
+"Change" = "Endre";
+
+"Changelog" = "Endringslogg";
+
+"Check data" = "Sjekk data";
+
+"Clear" = "Tøm";
+
+"Command" = "Kommando";
+
+"Completed" = "Fullført";
+
+"Configurations" = "Konfigurasjoner";
+
+"Confirm convert" = "Bekreft konvertering";
+
+"Convert" = "Konverter";
+
+"Convert from PLIST for" = "Konverter fra PLIST for";
+
+"Copy" = "Kopier";
+
+"Copy and paste commands in terminal to verify" = "Kopier og lim inn kommandoer i terminal for å bekrefte";
+
+"Copyright ©2021 Thomas Evensen" = "Opphavsrett ©2021 Thomas Evensen";
+
+"Create" = "Opprett";
+
+"Created" = "Opprettet";
+
+"Daemon" = "Daemon";
+
+"Day of week" = "Dag i uken";
+
+"Days" = "Dager";
+
+"Default profile" = "Standard profil";
+
+"Delete" = "Slett";
+
+"Delete profile" = "Slett profil";
+
+"Deleted" = "Slettet";
+
+"Detailed" = "Detaljert";
+
+"Dismiss" = "Lukk";
+
+"Don´t add /" = "Ikke legg til /";
+
+"Download" = "Nedlasting";
+
+"earlier months" = "tidligere måneder";
+
+"Either is path for restore or file to restore empty" = "Enten er stien for gjenoppretting eller fil for å gjenopprette tom";
+
+"Either local or remote cannot be empty" = "Enten lokal eller ekstern kan ikke være tom";
+
+"Enable" = "Aktiver";
+
+"Environment" = "Miljø";
+
+"Environment variable" = "Miljømessig variabel";
+
+"Estimate" = "Estimat";
+
+"Estimated tasks" = "Estimerte oppgaver";
+
+"Execute" = "Utfør";
+
+"Execute all" = "Kjør alle";
+
+"Execute all tasks" = "Utfør alle oppgaver";
+
+"Execute tasks" = "Utfør oppgaver";
+
+"Executed" = "Utført";
+
+"Files" = "Filer";
+
+"FreeBSD" = "FreeBSD";
+
+"Friday" = "fredag";
+
+"Full" = "Full";
+
+"German translation by: Andre Voigtmann" = "Tysk oversettelse av: Andre Voigtmann";
+
+"Global ssh keypath and identityfile" = "Global ssh keypath og identifikasjonsfil";
+
+"Global ssh port" = "Global ssh port";
+
+"h" = "t";
+
+"Halt on error" = "Stopp ved feil";
+
+"Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
+
+"In process in getting data" = "I prosess for å hente data";
+
+"Info about convert" = "Informasjon om konvertering";
+
+"Keep" = "Behold";
+
+"Last" = "Siste";
+
+"Last rundate" = "Siste kjøredato";
+
+"Level log" = "Nivå logg";
+
+"Linux" = "Linux";
+
+"Local catalog" = "Lokal katalog";
+
+"Local ssh keypath and identityfile" = "Global ssh keypath og identifikasjonsfil";
+
+"Local ssh keys found" = "Lokale ssh nøkler funnet";
+
+"Local ssh port" = "Lokal ssh port";
+
+"Localcatalog" = "Lokal katalog";
+
+"localhost" = "localhost";
+
+"Localhost" = "Lokalvert";
+
+"Log listings" = "Liste logger";
+
+"Log to file" = "Logg til fil";
+
+"Logfile" = "Loggfil";
+
+"Mark days" = "Marker dager";
+
+"Min" = "Minimum";
+
+"Monday" = "mandag";
+
+"Monitor network" = "Overvåk nettverk";
+
+"Most recent updated tasks on top of list" = "Mest oppdaterte oppgaver på toppen av listen";
+
+"Multiple tasks" = "Flere oppgaver";
+
+"Network connection is dropped" = "Nettverkstilkobling er droppet";
+
+"New" = "Ny";
+
+"New profile" = "Ny profil";
+
+"New version" = "Ny versjon";
+
+"No rsync in path" = "Ingen rsync i stien";
+
+"No such path" = "Ingen slik bane";
+
+"no username" = "ingen brukernavn";
+
+"No ver3 of rsync in /usr/bin" = "Ingen ver3 av rsync i /usr/bin";
+
+"None" = "Ingen";
+
+"Norwegian translation by: Thomas Evensen" = "Norsk oversettelse av: Thomas Evensen";
+
+"Not a snapshot task" = "Ikke en snapshot oppgave";
+
+"Not a valid " = "Ikke en gyldig ";
+
+"Not a valid number (Double)" = "Ikke et gyldig tall (Bolig)";
+
+"Not a valid number (Int)" = "Ikke et gyldig nummer (Int)";
+
+"Not connected, cannot create task" = "Ikke tilkoblet, kan ikke opprette oppgave";
+
+"not executed" = "ikke kjørt";
+
+"not set" = "ikke angitt";
+
+"Now" = "Nå";
+
+"Number of files" = "Antall filer";
+
+"Number of logrecords" = "Antall logger";
+
+"Number of logs" = "Antall logger";
+
+"Number to delete" = "Antall å slette";
+
+"OK" = "Ok";
+
+"Only synchronize ID can be changed on a Snapshot task" = "Kun synkroniser ID kan endres på en Snapshot oppgave";
+
+"Other settings" = "Andre innstillinger";
+
+"Output from rsync" = "Resultat av rsync";
+
+"Path for restore" = "Sti for gjenoppretting";
+
+"Path to RsyncSchedule" = "Sti til RsyncSchedule";
+
+"Path to RsyncUI" = "Sti til RsyncUI";
+
+"Paths" = "Stier";
+
+"Paths for apps" = "Sti til apper";
+
+"Plan" = "Plan";
+
+"Please select a configuration" = "Velg en konfigurasjon";
+
+"Plist" = "Plist";
+
+"PLIST" = "PLIST";
+
+"Pre and post" = "Pre og post oppgave";
+
+"Pre and post task" = "Pre og post oppgave";
+
+"previous month" = "forrige måned";
+
+"Profile exists" = "Profilen eksisterer";
+
+"Quick task" = "Hurtig oppgave";
+
+"Remote catalog" = "Ekstern katalog";
+
+"Remote parameters" = "Eksterne parametere";
+
+"Remote server" = "Ekstern server";
+
+"Remote servername cannot be empty" = "Fjerntjenernavn kan ikke være tomt";
+
+"Remote username cannot be empty" = "Eksternt brukernavn kan ikke være tomt";
+
+"Remotecatalog" = "Ekstern katalog";
+
+"Remove default rsync parameters" = "Fjern standard rsync parametre";
+
+"Reset" = "Reset";
+
+"Restore" = "Gjenopprett";
+
+"Restore not allowed for syncremote task" = "Gjenopprett ikke tillatt for oppgaver med syncremote";
+
+"Return" = "Retur";
+
+"Rsync" = "Rsync";
+
+"Rsync command and parameters" = "Rsync kommando og parametere";
+
+"rsync parameter" = "rsync parameter";
+
+"Rsync parameters" = "Rsync parameter";
+
+"Rsync ver 3.x" = "Rsync ver 3,x";
+
+"Rsync version and path" = "Rsync versjon og sti";
+
+"RsyncUI" = "RsyncUI";
+
+"RsyncUI configpath: " = "RsyncUI konfigurasjon: ";
+
+"RsyncUI help" = "RsyncUI hjelp";
+
+"Saturday" = "lørdag";
+
+"Save" = "Lagre";
+
+"Save settings" = "Lagre innstillinger";
+
+"Saved" = "Lagret";
+
+"Schedule" = "Oppgave";
+
+"Scheduled tasks" = "Planlagte oppgaver";
+
+"Schedules" = "Oppgaver";
+
+"Search" = "Søk";
+
+"Select" = "Velg";
+
+"Select a configuration" = "Velg en konfigurasjon";
+
+"Select a schedule" = "Velg en oppgave";
+
+"Select a task" = "Velg en oppgave";
+
+"Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
+
+"Select one or more tasks" = "Velg en eller flere oppgaver";
+
+"Select task" = "Velg oppgave";
+
+"Server" = "Tjener";
+
+"Set ssh keypath and identityfile" = "Sett ssh keypath og identityfile";
+
+"Settings" = "Innstillinger";
+
+"Single task" = "En oppgave";
+
+"snapshot(s)" = "snapshot(s)";
+
+"Snapshotnum must be 1" = "Snapshotnum må være 1";
+
+"Snapshots" = "Snapshots";
+
+"Ssh" = "Ssh";
+
+"SSH keypath is not valid" = "SSH keypath er ikke gyldig";
+
+"SSH keypath must be like ~/.ssh_keypath/identityfile" = "SSH keypath må være som ~/.ssh_keypath/identityfile";
+
+"SSH RSA keys exist, cannot create" = "SSH RSA-nøkler finnes, kan ikke opprette";
+
+"Start" = "Start";
+
+"Stop" = "Stopp";
+
+"Stop or delete" = "Stopp eller slett";
+
+"Sunday" = "søndag";
+
+"Synchronize ID" = "Synkroniserings ID";
+
+"Tag" = "Tagg";
+
+"Task" = "Oppgave";
+
+"The menu app is running" = "Menyappen kjører";
+
+"There are errors in output" = "Det er feil i utdata";
+
+"this month" = "denne måneden";
+
+"this week" = "denne uken";
+
+"Thursday" = "torsdag";
+
+"Too big logfile" = "For stor loggfil";
+
+"Tot bytes" = "Tot bytes";
+
+"Tot dir" = "Tot dir";
+
+"Tot num" = "Tot num";
+
+"Tuesday" = "tirsdag";
+
+"Unique usernames and servers" = "Unike brukernavn og servere";
+
+"Update" = "Oppdater";
+
+"Update configuration completed" = "Oppdateringskonfigurasjon fullført";
+
+"Updated" = "Oppdatert";
+
+"User" = "Bruker";
+
+"Verify" = "Verifiser";
+
+"Verify SSH" = "Verifiser SSH";
+
+"Version %@ (%@)" = "Versjon %@ (%@)";
+
+"View" = "Vis";
+
+"View logfile" = "Vis loggfil";
+
+"Wednesday" = "onsdag";
