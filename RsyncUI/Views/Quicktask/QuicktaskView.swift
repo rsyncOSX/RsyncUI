@@ -48,7 +48,7 @@ struct QuicktaskView: View {
                             HStack {
                                 ToggleView("--dry-run", $dryrun)
 
-                                ToggleView("Don´t add /", $donotaddtrailingslash)
+                                ToggleView(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
                             }
                         }
 
@@ -101,7 +101,7 @@ struct QuicktaskView: View {
     }
 
     var pickerselecttypeoftask: some View {
-        Picker("Task" + ":",
+        Picker(NSLocalizedString("Task", comment: "") + ":",
                selection: $selectedrsynccommand.onChange {
                    resetform()
                }) {
@@ -122,29 +122,29 @@ struct QuicktaskView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, "Add local catalog - required", $localcatalog)
+            EditValue(300, NSLocalizedString("Add local catalog - required", comment: ""), $localcatalog)
 
             // remotecatalog
-            EditValue(300, "Add remote catalog - required", $remotecatalog)
+            EditValue(300, NSLocalizedString("Add remote catalog - required", comment: ""), $remotecatalog)
         }
     }
 
     var localandremotecatalogsyncremote: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, "Add remote as local catalog - required", $localcatalog)
+            EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: ""), $localcatalog)
 
             // remotecatalog
-            EditValue(300, "Add local as remote catalog - required", $remotecatalog)
+            EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""), $remotecatalog)
         }
     }
 
     var setremoteuser: some View {
-        EditValue(300, "Add remote user", $remoteuser)
+        EditValue(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
     }
 
     var setremoteserver: some View {
-        EditValue(300, "Add remote server", $remoteserver)
+        EditValue(300, NSLocalizedString("Add remote server", comment: ""), $remoteserver)
     }
 
     var headerremote: some View {
@@ -155,9 +155,9 @@ struct QuicktaskView: View {
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
-            EditValue(300, "Add remote user", $remoteuser)
+            EditValue(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
             // Remote server
-            EditValue(300, "Add remote server", $remoteserver)
+            EditValue(300, NSLocalizedString("Add remote server", comment: ""), $remoteserver)
         }
     }
 

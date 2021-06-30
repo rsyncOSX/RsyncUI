@@ -58,7 +58,7 @@ struct AddConfigurationView: View {
 
                     // Column 2
                     VStack(alignment: .leading) {
-                        ToggleView("Don´t add /", $newdata.donotaddtrailingslash)
+                        ToggleView(NSLocalizedString("Don´t add /", comment: ""), $newdata.donotaddtrailingslash)
                     }
 
                     // Column 3
@@ -156,17 +156,17 @@ struct AddConfigurationView: View {
 
     // Add and edit text values
     var setlocalcatalogsyncremote: some View {
-        EditValue(300, "Add remote as local catalog - required",
+        EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: ""),
                   $newdata.localcatalog)
     }
 
     var setremotecatalogsyncremote: some View {
-        EditValue(300, "Add local as remote catalog - required",
+        EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""),
                   $newdata.remotecatalog)
     }
 
     var setlocalcatalog: some View {
-        EditValue(300, "Add local catalog - required",
+        EditValue(300, NSLocalizedString("Add local catalog - required", comment: ""),
                   $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
@@ -174,7 +174,7 @@ struct AddConfigurationView: View {
     }
 
     var setremotecatalog: some View {
-        EditValue(300, "Add remote catalog - required",
+        EditValue(300, NSLocalizedString("Add remote catalog - required", comment: ""),
                   $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
@@ -269,7 +269,7 @@ struct AddConfigurationView: View {
                         })
                 }
 
-            EditValue(150, "New profile",
+            EditValue(150, NSLocalizedString("New profile", comment: ""),
                       $newdata.newprofile)
                 .focused($focusField, equals: .newprofileField)
                 .textContentType(.none)
@@ -278,7 +278,7 @@ struct AddConfigurationView: View {
     }
 
     var setID: some View {
-        EditValue(300, "Add synchronize ID",
+        EditValue(300, NSLocalizedString("Add synchronize ID", comment: ""),
                   $newdata.backupID)
             .focused($focusField, equals: .backupIDField)
             .textContentType(.none)
@@ -310,7 +310,7 @@ struct AddConfigurationView: View {
     }
 
     var setremoteuser: some View {
-        EditValue(300, "Add remote user",
+        EditValue(300, NSLocalizedString("Add remote user", comment: ""),
                   $newdata.remoteuser)
             .focused($focusField, equals: .remoteuserField)
             .textContentType(.none)
@@ -318,7 +318,7 @@ struct AddConfigurationView: View {
     }
 
     var setremoteserver: some View {
-        EditValue(300, "Add remote server",
+        EditValue(300, NSLocalizedString("Add remote server", comment: ""),
                   $newdata.remoteserver)
             .focused($focusField, equals: .remoteserverField)
             .textContentType(.none)
@@ -377,7 +377,7 @@ struct AddConfigurationView: View {
     }
 
     var pickerselecttypeoftask: some View {
-        Picker("Task" + ":",
+        Picker(NSLocalizedString("Task", comment: "") + ":",
                selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description)
                 .tag($0)
