@@ -11,9 +11,9 @@ struct AboutView: View {
     @EnvironmentObject var rsyncversionObject: GetRsyncversion
     @StateObject private var new = NewversionJSON()
 
-    let iconbystring: String = "Icon by: Zsolt Sándor"
-    let norwegianstring: String = "Norwegian translation by: Thomas Evensen"
-    let germanstring: String = "German translation by: Andre Voigtmann"
+    let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
+    let norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "")
+    let germanstring: String = NSLocalizedString("German translation by: Andre Voigtmann", comment: "")
     let changelog: String = "https://rsyncui.netlify.app/post/changelog/"
 
     var appName: String {
@@ -30,7 +30,7 @@ struct AboutView: View {
 
     var copyright: String {
         let copyright = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String
-        return copyright ?? "Copyright ©2021 Thomas Evensen"
+        return copyright ?? NSLocalizedString("Copyright ©2021 Thomas Evensen", comment: "")
     }
 
     var configpath: String {
