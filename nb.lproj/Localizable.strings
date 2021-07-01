@@ -6,11 +6,11 @@
   
 */
 
-"configuration(s)?" = "konfigurasjon(er)?";
+" configuration(s)?" = " konfigurasjon(er)?";
 
-"log(s)?" = " logg(er)?";
+" log(s)?" = " logg(er)?";
 
-"schedules(s)?" = " oppgave(r)?";
+" schedules(s)?" = " oppgave(r)?";
 
 "--compress" = "--compress";
 
@@ -443,3 +443,5 @@
 "View logfile" = "Vis loggfil";
 
 "Wednesday" = "onsdag";
+
+"JSON file exists" = "JSON fil eksisterer";

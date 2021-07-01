@@ -626,7 +626,6 @@
 				E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */,
 				E9FBEEAC264EBA7700E5F143 /* ConfigurationsListSmall.swift */,
 				E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */,
-				E87921D1267B1E2100195070 /* ConvertPLISTView.swift */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -634,6 +633,7 @@
 		E985C61A25F3AD8400CB895C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E87921D1267B1E2100195070 /* ConvertPLISTView.swift */,
 				E985C61B25F3AD8400CB895C /* Sshsettings.swift */,
 				E985C61C25F3AD8400CB895C /* Usersettings.swift */,
 				E985C61D25F3AD8400CB895C /* Othersettings.swift */,

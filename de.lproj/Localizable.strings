@@ -6,12 +6,11 @@
   
 */
 
+" configuration(s)?" = "Konfiguration(en)?";
 
-"configuration(s)?" = "Konfiguration(en)?";
+" log(s)?" = "Protokolle?";
 
-"log(s)?" = "Protokolle?";
-
-"schedules(s)?" = "Zeitpläne";
+" schedules(s)?" = "Zeitpläne";
 
 "--compress" = "--komprimieren";
 
@@ -444,3 +443,5 @@
 "View logfile" = "Logdatei anzeigen";
 
 "Wednesday" = "Mittwoch";
+
+"JSON file exists" = "JSON-Datei vorhanden";
