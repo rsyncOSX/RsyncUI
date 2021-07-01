@@ -63,7 +63,7 @@ struct LogListAlllogsView: View {
     }
 
     var numberoflogs: String {
-        "Number of logs" + ": " + "\(rsyncUIdata.filterlogsorted?.count ?? 0)"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIdata.filterlogsorted?.count ?? 0)"
     }
 }
 

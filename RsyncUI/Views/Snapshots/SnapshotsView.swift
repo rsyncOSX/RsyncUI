@@ -106,21 +106,21 @@ struct SnapshotsView: View {
 
     var labelnumberoflogs: some View {
         VStack(alignment: .leading) {
-            Text("Number of logrecords" +
+            Text(NSLocalizedString("Number of logrecords", comment: "") +
                 ": " + "\(snapshotdata.logrecordssnapshot?.count ?? 0)")
-            Text("Number to delete" +
+            Text(NSLocalizedString("Number to delete", comment: "") +
                 ": " + "\(snapshotdata.uuidsfordelete?.count ?? 0)")
         }
     }
 
     var notasnapshottask: some View {
         AlertToast(type: .error(Color.red),
-                   title: Optional("Not a snapshot task"), subTitle: Optional(""))
+                   title: Optional(NSLocalizedString("Not a snapshot task", comment: "")), subTitle: Optional(""))
     }
 
     var gettingdatainprocess: some View {
         AlertToast(type: .error(Color.red),
-                   title: Optional("In process in getting data"), subTitle: Optional(""))
+                   title: Optional(NSLocalizedString("In process in getting data", comment: "")), subTitle: Optional(""))
     }
 
     var pickersnapdayoffweek: some View {
@@ -149,7 +149,7 @@ struct SnapshotsView: View {
 
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional("Updated"),
+                   title: Optional(NSLocalizedString("Updated", comment: "")),
                    subTitle: Optional(""))
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
