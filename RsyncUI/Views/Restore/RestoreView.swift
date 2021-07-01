@@ -82,7 +82,7 @@ struct RestoreView: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(500, "Path for restore", $restoresettings.pathforrestore.onChange {
+        EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restoresettings.pathforrestore.onChange {
             restoresettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
@@ -93,14 +93,14 @@ struct RestoreView: View {
     }
 
     var setfilestorestore: some View {
-        EditValue(500, "Select files to restore or \"./.\" for full restore", $restoresettings.filestorestore.onChange {
+        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""), $restoresettings.filestorestore.onChange {
             restoresettings.inputchangedbyuser = true
         })
     }
 
     var numberoffiles: some View {
         HStack {
-            Text("Number of files" + ": ")
+            Text(NSLocalizedString("Number of files", comment: "") + ": ")
             Text(NumberFormatter.localizedString(from: NSNumber(value: restoresettings.numberoffiles), number: NumberFormatter.Style.decimal))
                 .foregroundColor(Color.blue)
 

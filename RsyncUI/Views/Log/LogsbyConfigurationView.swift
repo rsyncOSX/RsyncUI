@@ -81,7 +81,7 @@ struct LogsbyConfigurationView: View {
     }
 
     var numberoflogs: String {
-        "Number of logs" + ": " + "\(rsyncUIdata.filterlogsortedbyother?.count ?? 0)"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIdata.filterlogsortedbyother?.count ?? 0)"
     }
 }
 

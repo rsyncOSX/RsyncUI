@@ -37,7 +37,7 @@ struct AddPostandPreView: View {
 
                         HStack {
                             if newdata.selectedconfig == nil { disablehaltshelltasksonerror } else {
-                                ToggleView("Halt on error", $newdata.haltshelltasksonerror)
+                                ToggleView(NSLocalizedString("Halt on error", comment: ""), $newdata.haltshelltasksonerror)
                                     .onAppear(perform: {
                                         if newdata.selectedconfig?.haltshelltasksonerror == 1 {
                                             newdata.haltshelltasksonerror = true
@@ -117,26 +117,26 @@ struct AddPostandPreView: View {
     }
 
     var setpretask: some View {
-        EditValue(250, "Add pretask", $newdata.pretask)
+        EditValue(250, NSLocalizedString("Add pretask", comment: ""), $newdata.pretask)
     }
 
     var setposttask: some View {
-        EditValue(250, "Add posttask", $newdata.posttask)
+        EditValue(250, NSLocalizedString("Add posttask", comment: ""), $newdata.posttask)
     }
 
     var disablepretask: some View {
-        ToggleView("Enable", $newdata.enablepre)
+        ToggleView(NSLocalizedString("Enable", comment: ""), $newdata.enablepre)
     }
 
     var disableposttask: some View {
-        ToggleView("Enable", $newdata.enablepost)
+        ToggleView(NSLocalizedString("Enable", comment: ""), $newdata.enablepost)
     }
 
     var pretaskandtoggle: some View {
         HStack {
             // Enable pretask
             if newdata.selectedconfig == nil { disablepretask } else {
-                ToggleView("Enable", $newdata.enablepre.onChange {
+                ToggleView(NSLocalizedString("Enable", comment: ""), $newdata.enablepre.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .onAppear(perform: {
@@ -169,7 +169,7 @@ struct AddPostandPreView: View {
         HStack {
             // Enable posttask
             if newdata.selectedconfig == nil { disableposttask } else {
-                ToggleView("Enable", $newdata.enablepost.onChange {
+                ToggleView(NSLocalizedString("Enable", comment: ""), $newdata.enablepost.onChange {
                     newdata.inputchangedbyuser = true
                 })
                     .onAppear(perform: {
@@ -199,7 +199,7 @@ struct AddPostandPreView: View {
     }
 
     var disablehaltshelltasksonerror: some View {
-        ToggleView("Halt on error",
+        ToggleView(NSLocalizedString("Halt on error", comment: ""),
                    $newdata.haltshelltasksonerror.onChange {
                        newdata.inputchangedbyuser = true
                    })
@@ -207,7 +207,7 @@ struct AddPostandPreView: View {
 
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional("Updated"), subTitle: Optional(""))
+                   title: Optional(NSLocalizedString("Updated", comment: "")), subTitle: Optional(""))
     }
 
     var profile: String? {

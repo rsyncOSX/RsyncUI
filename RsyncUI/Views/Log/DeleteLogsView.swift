@@ -34,7 +34,7 @@ struct DeleteLogsView: View {
 
     var header: some View {
         HStack {
-            let message = "Delete"
+            let message = NSLocalizedString("Delete", comment: "")
                 + " \(selecteduuids.count) "
                 + "log(s)?"
             Text(message)
