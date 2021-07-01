@@ -45,7 +45,7 @@ struct ConvertPLISTView: View {
 
             if convertcompleted == true {
                 AlertToast(type: .complete(Color.green),
-                           title: Optional("Completed"), subTitle: Optional(""))
+                           title: Optional(NSLocalizedString("Completed", comment: "")), subTitle: Optional(""))
                     .onAppear(perform: {
                         // Show updated for 1 second
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -56,7 +56,7 @@ struct ConvertPLISTView: View {
 
             if backup == true {
                 AlertToast(type: .complete(Color.green),
-                           title: Optional("Saved"), subTitle: Optional(""))
+                           title: Optional(NSLocalizedString("Saved", comment: "")), subTitle: Optional(""))
                     .onAppear(perform: {
                         // Show updated for 1 second
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -79,7 +79,7 @@ struct ConvertPLISTView: View {
             Button("Info about convert") { openinfo() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            ToggleView("Confirm convert", $convertisconfirmed.onChange {
+            ToggleView(NSLocalizedString("Confirm convert", comment: ""), $convertisconfirmed.onChange {
                 verifyconvert()
             })
 
@@ -97,7 +97,7 @@ struct ConvertPLISTView: View {
     }
 
     var alertjsonfileexists: some View {
-        AlertToast(type: .error(Color.red), title: Optional("JSON file exists"), subTitle: Optional(""))
+        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("JSON file exists", comment: "")), subTitle: Optional(""))
     }
 
     var convertbutton: some View {
@@ -106,6 +106,10 @@ struct ConvertPLISTView: View {
     }
 
     func verifyconvert() {
+        guard jsonfileexists == false else {
+            jsonfileexists = false
+            return
+        }
         let configs = ReadConfigurationsPLIST(rsyncUIdata.profile)
         if configs.jsonfileexist == true {
             jsonfileexists = true

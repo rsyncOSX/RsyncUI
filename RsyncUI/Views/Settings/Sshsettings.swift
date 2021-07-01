@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 10/02/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -23,7 +24,7 @@ struct Sshsettings: View {
                 Spacer()
                 // Column 1
                 VStack(alignment: .leading) {
-                    ToggleView("Local ssh keys found", $usersettings.localsshkeys)
+                    ToggleView(NSLocalizedString("Local ssh keys found", comment: ""), $usersettings.localsshkeys)
 
                     Section(header: headerssh) {
                         setsshpath
@@ -95,7 +96,7 @@ struct Sshsettings: View {
     }
 
     var setsshpath: some View {
-        EditValue(250, "Global ssh keypath and identityfile", $usersettings.sshkeypathandidentityfile.onChange {
+        EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile.onChange {
             usersettings.inputchangedbyuser = true
         })
             .onAppear(perform: {
@@ -106,7 +107,7 @@ struct Sshsettings: View {
     }
 
     var setsshport: some View {
-        EditValue(250, "Global ssh port", $usersettings.sshport.onChange {
+        EditValue(250, NSLocalizedString("Global ssh port", comment: ""), $usersettings.sshport.onChange {
             usersettings.inputchangedbyuser = true
         })
             .onAppear(perform: {

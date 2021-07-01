@@ -39,7 +39,7 @@ struct Othersettings: View {
 
                 if backup == true {
                     AlertToast(type: .complete(Color.green),
-                               title: Optional("Saved"), subTitle: Optional(""))
+                               title: Optional(NSLocalizedString("Saved", comment: "")), subTitle: Optional(""))
                         .onAppear(perform: {
                             // Show updated for 1 second
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -90,7 +90,7 @@ struct Othersettings: View {
     }
 
     var setenvironment: some View {
-        EditValue(250, "Environment",
+        EditValue(250, NSLocalizedString("Environment", comment: ""),
                   $usersettings.environment.onChange {
                       usersettings.inputchangedbyuser = true
                   })
@@ -102,7 +102,7 @@ struct Othersettings: View {
     }
 
     var setenvironmenvariable: some View {
-        EditValue(250, "Environment variable",
+        EditValue(250, NSLocalizedString("Environment variable", comment: ""),
                   $usersettings.environmentvalue.onChange {
                       usersettings.inputchangedbyuser = true
                   })
@@ -114,7 +114,7 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncui: some View {
-        EditValue(250, "Path to RsyncUI",
+        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: ""),
                   $usersettings.pathrsyncui.onChange {
                       usersettings.inputchangedbyuser = true
                   })
@@ -126,7 +126,7 @@ struct Othersettings: View {
     }
 
     var setpathtorsyncschedule: some View {
-        EditValue(250, "Path to RsyncSchedule",
+        EditValue(250, NSLocalizedString("Path to RsyncSchedule", comment: ""),
                   $usersettings.pathrsyncschedule.onChange {
                       usersettings.inputchangedbyuser = true
                   })
