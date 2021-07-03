@@ -155,6 +155,9 @@
 "Log to file" = "Logg til fil";
 
 /* No comment provided by engineer. */
+"log(s)?" = "logg(er)?";
+
+/* No comment provided by engineer. */
 "Logfile" = "Loggfil";
 
 /* No comment provided by engineer. */
@@ -287,10 +290,16 @@
 "Schedules" = "Oppgaver";
 
 /* No comment provided by engineer. */
+"Search" = "Søk";
+
+/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
 
 /* No comment provided by engineer. */
 "Select task" = "Velg oppgave";
+
+/* No comment provided by engineer. */
+"Select: Unique usernames and servers" = "Unike brukernavn og servere";
 
 /* No comment provided by engineer. */
 "Server" = "Tjener";
@@ -300,6 +309,9 @@
 
 /* No comment provided by engineer. */
 "Single task" = "En oppgave";
+
+/* No comment provided by engineer. */
+"snapshot(s)" = "snapshot(s)";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
@@ -346,3 +358,47 @@
 /* No comment provided by engineer. */
 "View logfile" = "Vis loggfil";
 
+/* No comment provided by engineer. */
+"All" = "Alle";
+
+/* No comment provided by engineer. */
+"Select" = "Velg";
+
+/* No comment provided by engineer. */
+"Estimate" = "Estimat";
+
+/* No comment provided by engineer. */
+"Execute" = "Utfør";
+
+/* No comment provided by engineer. */
+"View" = "Vis";
+
+/* No comment provided by engineer. */
+"Now" = "Nå";
+
+/* No comment provided by engineer. */
+"Quick task" = "Hurtig oppgave";
+
+/* No comment provided by engineer. */
+"Configurations" = "Konfigurasjoner";
+
+/* No comment provided by engineer. */
+"Log listings" = "Liste logger";
+
+/* No comment provided by engineer. */
+"Create" = "Opprett";
+
+/* No comment provided by engineer. */
+"Add" = "Legg til";
+
+/* No comment provided by engineer. */
+"Update" = "Oppdater";
+
+/* No comment provided by engineer. */
+"Save" = "Lagre";
+
+/* No comment provided by engineer. */
+"Abort" = "Avbryt";
+
+/* No comment provided by engineer. */
+"Clear" = "Tøm";

@@ -155,6 +155,9 @@
 "Log to file" = "Log in Datei";
 
 /* No comment provided by engineer. */
+"log(s)?" = "log(n)?";
+
+/* No comment provided by engineer. */
 "Logfile" = "Protokolldatei";
 
 /* No comment provided by engineer. */
@@ -287,10 +290,16 @@
 "Schedules" = "Zeitpläne";
 
 /* No comment provided by engineer. */
+"Search" = "Suchen";
+
+/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
 "Select task" = "Aufgabe auswählen";
+
+/* No comment provided by engineer. */
+"Select: Unique usernames and servers" = "Eindeutige Benutzernamen und Server";
 
 /* No comment provided by engineer. */
 "Server" = "Server";
@@ -300,6 +309,9 @@
 
 /* No comment provided by engineer. */
 "Single task" = "Einzelne Aufgabe";
+
+/* No comment provided by engineer. */
+"snapshot(s)" = "snapshot(s)";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
@@ -346,3 +358,47 @@
 /* No comment provided by engineer. */
 "View logfile" = "Logdatei anzeigen";
 
+/* No comment provided by engineer. */
+"All" = "Alle";
+
+/* No comment provided by engineer. */
+"Select" = "Auswählen";
+
+/* No comment provided by engineer. */
+"Estimate" = "Schätzung";
+
+/* No comment provided by engineer. */
+"Execute" = "Ausführen";
+
+/* No comment provided by engineer. */
+"View" = "Ansicht";
+
+/* No comment provided by engineer. */
+"Now" = "Jetzt";
+
+/* No comment provided by engineer. */
+"Quick task" = "Schnelle Aufgabe";
+
+/* No comment provided by engineer. */
+"Configurations" = "Konfigurationen";
+
+/* No comment provided by engineer. */
+"Log listings" = "Protokolle";
+
+/* No comment provided by engineer. */
+"Create" = "Anlegen";
+
+/* No comment provided by engineer. */
+"Add" = "Neu";
+
+/* No comment provided by engineer. */
+"Update" = "Aktualisieren";
+
+/* No comment provided by engineer. */
+"Save" = "Speichern";
+
+/* No comment provided by engineer. */
+"Abort" = "Abbrechen";
+
+/* No comment provided by engineer. */
+"Clear" = "Leeren";
