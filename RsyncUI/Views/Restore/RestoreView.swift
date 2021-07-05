@@ -65,7 +65,6 @@ struct RestoreView: View {
         }
         .searchable(text: $restoresettings.filterstring.onChange {
             restoresettings.inputchangedbyuser = true
-            print("filer")
         })
     }
 

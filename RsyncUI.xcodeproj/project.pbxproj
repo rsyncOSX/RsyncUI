@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		E801DC662637FD990060723F /* WriteConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801DC652637FD990060723F /* WriteConfigurationJSON.swift */; };
-		E81254E1267C614B00E1BCA6 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81254E0267C614B00E1BCA6 /* SearchbarView.swift */; };
 		E81C244C267DEEAA00C50AE8 /* OutputEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */; };
 		E81CF81A25FF310D005D8667 /* SelectedstartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81CF81925FF310D005D8667 /* SelectedstartView.swift */; };
+		E83FAFDD2692F7DA0006AFE9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E83FAFDB2692F7DA0006AFE9 /* InfoPlist.strings */; };
+		E83FAFE02692F7DA0006AFE9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E83FAFDE2692F7DA0006AFE9 /* Localizable.strings */; };
+		E83FAFE62692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */; };
 		E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8518C79263807F200128796 /* WriteScheduleJSON.swift */; };
 		E85E86BA265A66A300219B1C /* ConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */; };
 		E8753A9D265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */; };
@@ -231,9 +233,13 @@
 
 /* Begin PBXFileReference section */
 		E801DC652637FD990060723F /* WriteConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteConfigurationJSON.swift; sourceTree = "<group>"; };
-		E81254E0267C614B00E1BCA6 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputEstimatedView.swift; sourceTree = "<group>"; };
 		E81CF81925FF310D005D8667 /* SelectedstartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedstartView.swift; sourceTree = "<group>"; };
+		E83FAFDC2692F7DA0006AFE9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E83FAFDF2692F7DA0006AFE9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E83FAFE12692F8030006AFE9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E83FAFE22692F8030006AFE9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsListNoSearch.swift; sourceTree = "<group>"; };
 		E8518C79263807F200128796 /* WriteScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSON.swift; sourceTree = "<group>"; };
 		E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPLIST.swift; sourceTree = "<group>"; };
 		E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedulePLIST.swift; sourceTree = "<group>"; };
@@ -556,6 +562,8 @@
 				E8944891267B2CB0009F9C4A /* RsyncUIView.swift */,
 				E9FDDD4825F3D0610050718C /* Assets.xcassets */,
 				E985C5D225F3AC0800CB895C /* Info.plist */,
+				E83FAFDE2692F7DA0006AFE9 /* Localizable.strings */,
+				E83FAFDB2692F7DA0006AFE9 /* InfoPlist.strings */,
 				E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */,
 				E985C60925F3AD8400CB895C /* Views */,
 				E985C69225F3AD9600CB895C /* Model */,
@@ -622,6 +630,7 @@
 				E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */,
 				E9FBEEAC264EBA7700E5F143 /* ConfigurationsListSmall.swift */,
 				E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */,
+				E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -1069,7 +1078,6 @@
 			isa = PBXGroup;
 			children = (
 				E99C23FA261C2D6C009D4DBF /* RestoreView.swift */,
-				E81254E0267C614B00E1BCA6 /* SearchbarView.swift */,
 			);
 			path = Restore;
 			sourceTree = "<group>";
@@ -1200,6 +1208,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
+				nb,
 				Base,
 			);
 			mainGroup = E985C5BA25F3AC0700CB895C;
@@ -1224,6 +1234,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */,
+				E83FAFE02692F7DA0006AFE9 /* Localizable.strings in Resources */,
+				E83FAFDD2692F7DA0006AFE9 /* InfoPlist.strings in Resources */,
 				E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1360,7 +1372,6 @@
 				E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */,
 				E90B4AA1261DA7580043EFF6 /* GradientIndicatorView.swift in Sources */,
 				E90F7CA926344D60001D9CA2 /* TextExtensions.swift in Sources */,
-				E81254E1267C614B00E1BCA6 /* SearchbarView.swift in Sources */,
 				E985C73F25F3AD9700CB895C /* Socket.swift in Sources */,
 				E95EDC7926063118000018DE /* SidebarRsyncParameter.swift in Sources */,
 				E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */,
@@ -1432,6 +1443,7 @@
 				E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */,
 				E985C68625F3AD8400CB895C /* ConfirmUpdatedView.swift in Sources */,
 				E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */,
+				E83FAFE62692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift in Sources */,
 				E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */,
 				E985C65F25F3AD8400CB895C /* OneConfigUUID.swift in Sources */,
 				E985C73325F3AD9700CB895C /* Environment.swift in Sources */,
@@ -1499,6 +1511,27 @@
 			targetProxy = E985C5E425F3AC0800CB895C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E83FAFDB2692F7DA0006AFE9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E83FAFDC2692F7DA0006AFE9 /* de */,
+				E83FAFE12692F8030006AFE9 /* nb */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E83FAFDE2692F7DA0006AFE9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E83FAFDF2692F7DA0006AFE9 /* de */,
+				E83FAFE22692F8030006AFE9 /* nb */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E985C5EA25F3AC0800CB895C /* Debug */ = {
