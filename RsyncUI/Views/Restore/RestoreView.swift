@@ -24,10 +24,6 @@ struct RestoreView: View {
     var body: some View {
         ZStack {
             VStack {
-                SearchbarView(text: $restoresettings.filterstring.onChange {
-                    restoresettings.inputchangedbyuser = true
-                })
-                    .padding(.top, -20)
                 ConfigurationsList(selectedconfig: $restoresettings.selectedconfig.onChange {
                     restoresettings.filestorestore = ""
                 },
@@ -71,14 +67,10 @@ struct RestoreView: View {
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .searchable(text: $filterstring.onChange {
+        .searchable(text: $restoresettings.filterstring.onChange {
             restoresettings.inputchangedbyuser = true
             print("filer")
         })
-
-        /*
-         TODO: search does not work
-         */
     }
 
     var setpathforrestore: some View {
