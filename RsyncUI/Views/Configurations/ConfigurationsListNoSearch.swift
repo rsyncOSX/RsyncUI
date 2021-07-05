@@ -1,55 +1,22 @@
 //
-//  ConfigurationsList.swift
-//  RsyncSwiftUI
+//  ConfigurationsListNoSearch.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 22/01/2021.
+//  Created by Thomas Evensen on 05/07/2021.
 //
 
 import SwiftUI
 
-struct ConfigurationsList: View {
+struct ConfigurationsListNoSearch: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
-
     @Binding var selectedconfig: Configuration?
-    // Used when selectable and starting progressview
-    @Binding var selecteduuids: Set<UUID>
-    @Binding var inwork: Int
-    @Binding var searchText: String
 
     // Either selectable configlist or not
-    var selectable: Bool
     let forestimated = false
 
     var body: some View {
         VStack {
-            if selectable {
-                selecetableconfiglist
-            } else {
-                configlist
-            }
-        }
-        .searchable(text: $searchText)
-    }
-
-    // selectable configlist
-    var selecetableconfiglist: some View {
-        Section(header: header, footer: footer) {
-            List(selection: $selectedconfig) {
-                ForEach(configurationssorted) { configurations in
-                    OneConfigUUID(selecteduuids: $selecteduuids,
-                                  inwork: $inwork,
-                                  config: configurations)
-                        .tag(configurations)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button(role: .destructive) {
-                                print("Trash")
-                            } label: {
-                                Label("Trash", systemImage: "delete.backward.fill")
-                            }
-                        }
-                }
-                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
-            }
+            configlist
         }
     }
 
@@ -75,11 +42,7 @@ struct ConfigurationsList: View {
     }
 
     var configurationssorted: [Configuration] {
-        if searchText.isEmpty {
-            return rsyncUIdata.configurations ?? []
-        } else {
-            return rsyncUIdata.filterconfigurations(searchText) ?? []
-        }
+        return rsyncUIdata.configurations ?? []
     }
 
     var header: some View {
