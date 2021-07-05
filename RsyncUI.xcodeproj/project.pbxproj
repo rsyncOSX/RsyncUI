@@ -57,8 +57,6 @@
 		E983D2E526417082004621D5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E226417082004621D5 /* BlurView.swift */; };
 		E983D2E626417082004621D5 /* AlertToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E326417082004621D5 /* AlertToast.swift */; };
 		E983D2E726417082004621D5 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E426417082004621D5 /* ActivityIndicator.swift */; };
-		E98485F4269068B2002DC272 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E98485F2269068B2002DC272 /* InfoPlist.strings */; };
-		E98485F7269068B2002DC272 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E98485F5269068B2002DC272 /* Localizable.strings */; };
 		E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C65525F3AD8400CB895C /* SidebarMultipletasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60C25F3AD8400CB895C /* SidebarMultipletasksView.swift */; };
@@ -282,10 +280,6 @@
 		E983D2E226417082004621D5 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		E983D2E326417082004621D5 /* AlertToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
 		E983D2E426417082004621D5 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
-		E98485F3269068B2002DC272 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E98485F6269068B2002DC272 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E98485F8269068D0002DC272 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E98485F9269068D0002DC272 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIApp.swift; sourceTree = "<group>"; };
 		E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -562,8 +556,6 @@
 				E8944891267B2CB0009F9C4A /* RsyncUIView.swift */,
 				E9FDDD4825F3D0610050718C /* Assets.xcassets */,
 				E985C5D225F3AC0800CB895C /* Info.plist */,
-				E98485F5269068B2002DC272 /* Localizable.strings */,
-				E98485F2269068B2002DC272 /* InfoPlist.strings */,
 				E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */,
 				E985C60925F3AD8400CB895C /* Views */,
 				E985C69225F3AD9600CB895C /* Model */,
@@ -1209,8 +1201,6 @@
 			knownRegions = (
 				en,
 				Base,
-				de,
-				nb,
 			);
 			mainGroup = E985C5BA25F3AC0700CB895C;
 			packageReferences = (
@@ -1234,8 +1224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */,
-				E98485F7269068B2002DC272 /* Localizable.strings in Resources */,
-				E98485F4269068B2002DC272 /* InfoPlist.strings in Resources */,
 				E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1511,27 +1499,6 @@
 			targetProxy = E985C5E425F3AC0800CB895C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		E98485F2269068B2002DC272 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E98485F3269068B2002DC272 /* de */,
-				E98485F8269068D0002DC272 /* nb */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		E98485F5269068B2002DC272 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E98485F6269068B2002DC272 /* de */,
-				E98485F9269068D0002DC272 /* nb */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E985C5EA25F3AC0800CB895C /* Debug */ = {

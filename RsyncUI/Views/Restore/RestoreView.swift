@@ -24,13 +24,9 @@ struct RestoreView: View {
     var body: some View {
         ZStack {
             VStack {
-                ConfigurationsList(selectedconfig: $restoresettings.selectedconfig.onChange {
+                ConfigurationsListNoSearch(selectedconfig: $restoresettings.selectedconfig.onChange {
                     restoresettings.filestorestore = ""
-                },
-                selecteduuids: $selecteduuids,
-                inwork: $inwork,
-                searchText: $searchText,
-                selectable: selectable)
+                })
             }
 
             if restoresettings.gettingfilelist == true {
