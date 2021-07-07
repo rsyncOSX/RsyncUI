@@ -28,8 +28,6 @@ final class RsyncUIdata: ObservableObject {
     var configurations: [Configuration]?
     var schedulesandlogs: [ConfigurationSchedule]?
     var profile: String?
-    // All logs and sorted logs
-    // Sort and filter logs so the view does not trigger a refresh
     var alllogssorted: [Log]?
 
     func filterlogrecords(_ filter: String) -> [Log]? {
@@ -100,6 +98,7 @@ final class RsyncUIdata: ObservableObject {
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
         print("RsyncUIdata \(Unmanaged.passUnretained(self).toOpaque())")
-        print("RsyncUIdata count \(configurations?.count ?? 0)")
+        print("RsyncUIdata configurations  count \(configurations?.count ?? 0)")
+        print("RsyncUIdata logrecord count \(alllogssorted?.count ?? 0)")
     }
 }
