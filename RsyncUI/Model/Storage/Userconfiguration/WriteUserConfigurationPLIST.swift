@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 17/05/2021.
 //
-// swiftlint:disable line_length function_body_length cyclomatic_complexity
+// swiftlint:disable line_length function_body_length cyclomatic_complexity trailing_comma
 
 import Foundation
 
