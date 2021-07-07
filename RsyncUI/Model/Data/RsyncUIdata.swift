@@ -41,20 +41,42 @@ final class RsyncUIdata: ObservableObject {
     }
 
     func filterlogrecordsbyhiddenID(_ filter: String, _ hiddenID: Int) -> [Log]? {
+        var joined: [Log]?
         guard hiddenID > -1 else { return nil }
-        // Important - must localize search in dates
-        return rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID)?.filter {
-            filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
-                filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+        let schedulerecords = schedulesandlogs?.filter { $0.hiddenID == hiddenID }
+        if (schedulerecords?.count ?? 0) > 0 {
+            joined = [Log]()
+            for i in 0 ..< (schedulerecords?.count ?? 0) {
+                if let logrecords = schedulerecords?[i].logrecords {
+                    joined?.append(contentsOf: logrecords)
+                }
+            }
+            if let joined = joined {
+                let test = joined.sorted(by: \.date, using: >)
+                return test.filter {
+                    filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+                        filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+                }
+            }
+        } else {
+            return nil
         }
+        return nil
     }
 
     func filterbyUUIDs(_ uuids: Set<UUID>?) -> [Log]? {
-        return rsyncdata?.scheduleData.getalllogsbyUUIDs(uuids)
+        if let uuids = uuids {
+            let logrecords = alllogssorted?.filter { uuids.contains($0.id) }
+            if let logrecords = logrecords {
+                return logrecords.sorted(by: \.date, using: >)
+            }
+        }
+        return nil
     }
 
     func activeschedules(_ hiddenID: Int) -> Int {
-        return rsyncdata?.scheduleData.getallactiveshedulesbyhiddenID(hiddenID: hiddenID) ?? 0
+        let schedulerecords = schedulesandlogs?.filter { $0.hiddenID == hiddenID }
+        return schedulerecords?.filter { $0.dateStop == "01 Jan 2100 00:00" }.count ?? 0
     }
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {

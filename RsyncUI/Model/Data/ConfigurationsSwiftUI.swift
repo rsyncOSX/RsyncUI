@@ -129,6 +129,7 @@ struct ConfigurationsSwiftUI {
         configurations = configurationsdata.configurations
         validhiddenIDs = configurationsdata.validhiddenIDs
         SharedReference.shared.process = nil
+        print("ConfigurationsSwiftUI")
     }
 }
 
