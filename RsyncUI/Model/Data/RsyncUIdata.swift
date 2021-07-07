@@ -28,34 +28,53 @@ final class RsyncUIdata: ObservableObject {
     var configurations: [Configuration]?
     var schedulesandlogs: [ConfigurationSchedule]?
     var profile: String?
-    // All logs and sorted logs
-    // Sort and filter logs so the view does not trigger a refresh
     var alllogssorted: [Log]?
-    var filterlogsorted: [Log]?
-    var filterlogsortedbyother: [Log]?
 
-    func filterlogrecords(_ filter: String) {
+    func filterlogrecords(_ filter: String) -> [Log]? {
         // Important - must localize search in dates
-        filterlogsorted = alllogssorted?.filter {
+        return alllogssorted?.filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
                 filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
         }
     }
 
-    func filterlogrecordsbyhiddenID(_ filter: String, _ hiddenID: Int) {
-        // Important - must localize search in dates
-        filterlogsortedbyother = rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID)?.filter {
-            filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
-                filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+    func filterlogrecordsbyhiddenID(_ filter: String, _ hiddenID: Int) -> [Log]? {
+        var joined: [Log]?
+        guard hiddenID > -1 else { return nil }
+        let schedulerecords = schedulesandlogs?.filter { $0.hiddenID == hiddenID }
+        if (schedulerecords?.count ?? 0) > 0 {
+            joined = [Log]()
+            for i in 0 ..< (schedulerecords?.count ?? 0) {
+                if let logrecords = schedulerecords?[i].logrecords {
+                    joined?.append(contentsOf: logrecords)
+                }
+            }
+            if let joined = joined {
+                let test = joined.sorted(by: \.date, using: >)
+                return test.filter {
+                    filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+                        filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+                }
+            }
+        } else {
+            return nil
         }
+        return nil
     }
 
-    func filterbyUUIDs(_ uuids: Set<UUID>?) {
-        filterlogsortedbyother = rsyncdata?.scheduleData.getalllogsbyUUIDs(uuids)
+    func filterbyUUIDs(_ uuids: Set<UUID>?) -> [Log]? {
+        if let uuids = uuids {
+            let logrecords = alllogssorted?.filter { uuids.contains($0.id) }
+            if let logrecords = logrecords {
+                return logrecords.sorted(by: \.date, using: >)
+            }
+        }
+        return nil
     }
 
     func activeschedules(_ hiddenID: Int) -> Int {
-        return rsyncdata?.scheduleData.getallactiveshedulesbyhiddenID(hiddenID: hiddenID) ?? 0
+        let schedulerecords = schedulesandlogs?.filter { $0.hiddenID == hiddenID }
+        return schedulerecords?.filter { $0.dateStop == "01 Jan 2100 00:00" }.count ?? 0
     }
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {
@@ -78,10 +97,8 @@ final class RsyncUIdata: ObservableObject {
         configurations = rsyncdata?.configurationData.getallconfigurations()
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
-        print(configurations?.count ?? 0)
-        filterlogsorted = alllogssorted
-        filterlogsortedbyother = alllogssorted
         print("RsyncUIdata \(Unmanaged.passUnretained(self).toOpaque())")
-        print("RsyncUIdata count \(configurations?.count ?? 0)")
+        print("RsyncUIdata configurations  count \(configurations?.count ?? 0)")
+        print("RsyncUIdata logrecord count \(alllogssorted?.count ?? 0)")
     }
 }

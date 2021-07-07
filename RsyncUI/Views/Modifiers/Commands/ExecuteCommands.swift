@@ -10,11 +10,13 @@ import SwiftUI
 struct ExecuteCommands: Commands {
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
+    @FocusedBinding(\.starttestfortcpconnections) private var starttestfortcpconnections
 
     var body: some Commands {
         CommandMenu("Execute") {
             StarteestimateButton(startestimation: $startestimation)
             StartexecuteButton(startexecution: $startexecution)
+            StartTCPconnectionsButton(starttestfortcpconnections: $starttestfortcpconnections)
         }
 
         CommandMenu("Schedules") {
@@ -58,11 +60,28 @@ struct StartexecuteButton: View {
     }
 }
 
+struct StartTCPconnectionsButton: View {
+    @Binding var starttestfortcpconnections: Bool?
+
+    var body: some View {
+        Button {
+            starttestfortcpconnections = true
+        } label: {
+            Label("TCP", systemImage: "play.fill")
+        }
+        .keyboardShortcut("t", modifiers: [.command])
+    }
+}
+
 struct FocusedEstimateBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
 struct FocusedExecuteBinding: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+struct FocusedTCPconnections: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
@@ -75,5 +94,10 @@ extension FocusedValues {
     var startexecution: FocusedExecuteBinding.Value? {
         get { self[FocusedExecuteBinding.self] }
         set { self[FocusedExecuteBinding.self] = newValue }
+    }
+
+    var starttestfortcpconnections: FocusedTCPconnections.Value? {
+        get { self[FocusedTCPconnections.self] }
+        set { self[FocusedTCPconnections.self] = newValue }
     }
 }

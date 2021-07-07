@@ -32,15 +32,11 @@ struct RsyncUIView: View {
             }
 
             HStack {
-                // Label(rsyncversionObject.rsyncversion, systemImage: "swift")
-
                 Spacer()
 
                 if checkfornewversionofrsyncui.notifynewversion { notifynewversion }
 
                 Spacer()
-
-                // Text(selectedprofile ?? "Default profile")
             }
             .padding()
         }
