@@ -21,7 +21,7 @@ struct LogListAlllogsView: View {
     var body: some View {
         Form {
             List(selection: $selectedlog) {
-                if let logs = rsyncUIdata.filterlogrecords(filterstring) {
+                if let logs = rsyncUIdata.filterlogs(filterstring) {
                     ForEach(logs) { record in
                         LogRow(selecteduuids: $selecteduuids, logrecord: record)
                             .tag(record)
@@ -60,7 +60,8 @@ struct LogListAlllogsView: View {
     }
 
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIdata.filterlogrecords(filterstring)?.count ?? 0)"
+        NSLocalizedString("Number of logs", comment: "") + ": " +
+            "\(rsyncUIdata.filterlogs(filterstring)?.count ?? 0)"
     }
 }
 
@@ -85,8 +86,8 @@ extension LogListAlllogsView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (rsyncUIdata.filterlogrecords(filterstring)?.count ?? 0) {
-            if let id = rsyncUIdata.filterlogrecords(filterstring)?[i].id {
+        for i in 0 ..< (rsyncUIdata.filterlogs(filterstring)?.count ?? 0) {
+            if let id = rsyncUIdata.filterlogs(filterstring)?[i].id {
                 selecteduuids.insert(id)
             }
         }
@@ -94,9 +95,9 @@ extension LogListAlllogsView {
 
     func setuuidforselectedlog() {
         if let sel = selectedlog,
-           let index = rsyncUIdata.filterlogrecords(filterstring)?.firstIndex(of: sel)
+           let index = rsyncUIdata.filterlogs(filterstring)?.firstIndex(of: sel)
         {
-            if let id = rsyncUIdata.filterlogrecords(filterstring)?[index].id {
+            if let id = rsyncUIdata.filterlogs(filterstring)?[index].id {
                 selecteduuids.insert(id)
             }
         }
