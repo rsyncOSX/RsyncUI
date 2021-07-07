@@ -39,6 +39,7 @@ struct MultipletasksView: View {
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
+    @State private var focusstarttestfortcpconnections: Bool = false
     @State private var searchText: String = ""
 
     // Either selectable configlist or not
@@ -55,6 +56,7 @@ struct MultipletasksView: View {
             if deleted == true { notifydeleted }
             if focusstartestimation { labelshortcutestimation }
             if focusstartexecution { labelshortcutexecute }
+            if focusstarttestfortcpconnections { notifyverifyTCPconnections }
         }
 
         HStack {
@@ -105,6 +107,7 @@ struct MultipletasksView: View {
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
+        .focusedSceneValue(\.starttestfortcpconnections, $focusstarttestfortcpconnections)
         .onAppear(perform: {
             if selectedprofile == nil {
                 selectedprofile = "Default profile"
@@ -167,6 +170,14 @@ struct MultipletasksView: View {
                 // Guard statement must be after resetting properties to false
                 startexecution()
             })
+    }
+
+    var notifyverifyTCPconnections: some View {
+        AlertToast(type: .regular,
+                   title: Optional("TCP"), subTitle: Optional(""))
+            .task {
+                await verifytcp()
+            }
     }
 }
 
@@ -300,8 +311,11 @@ extension MultipletasksView {
         reload = true
         deleted = true
     }
-}
 
-/*
- TODO: when change profile reset stateobjects.
- */
+    func verifytcp() async {
+        if let configurations = rsyncUIdata.rsyncdata?.configurationData.getallconfigurations() {
+            let tcpconnections = await TCPconnections(configurations).verifyallremoteserverTCPconnections()
+        }
+        focusstarttestfortcpconnections = false
+    }
+}
