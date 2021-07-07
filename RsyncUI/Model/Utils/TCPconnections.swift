@@ -34,32 +34,29 @@ class TCPconnections {
     // Testing all remote servers.
     // Adding connection true or false in array[bool]
     // Do the check in background que, reload table in global main queue
-    func testAllremoteserverConnections() {
-        indexBoolremoteserverOff = nil
+    func testAllremoteserverConnections() async {
         indexBoolremoteserverOff = [Bool]()
         guard (configurations?.getnumberofconfigurations() ?? 0) > 0 else {
             return
         }
-        globalBackgroundQueue.async { () -> Void in
-            var port: Int = 22
-            for i in 0 ..< (self.configurations?.getnumberofconfigurations() ?? 0) {
-                if let config = self.configurations?.getallconfigurations()?[i] {
-                    if config.offsiteServer.isEmpty == false {
-                        if let sshport: Int = config.sshport { port = sshport }
-                        let success = self.testTCPconnection(config.offsiteServer, port: port, timeout: 1)
-                        if success {
-                            self.indexBoolremoteserverOff?.append(false)
-                        } else {
-                            self.indexBoolremoteserverOff?.append(true)
-                        }
+        var port: Int = 22
+        for i in 0 ..< (configurations?.getnumberofconfigurations() ?? 0) {
+            if let config = configurations?.getallconfigurations()?[i] {
+                if config.offsiteServer.isEmpty == false {
+                    if let sshport: Int = config.sshport { port = sshport }
+                    let success = testTCPconnection(config.offsiteServer, port: port, timeout: 1)
+                    if success {
+                        indexBoolremoteserverOff?.append(false)
                     } else {
-                        self.indexBoolremoteserverOff?.append(false)
+                        indexBoolremoteserverOff?.append(true)
                     }
-                    // Reload table when all remote servers are checked
-                    if i == ((self.configurations?.getnumberofconfigurations() ?? 0) - 1) {
-                        // Send message to do a refresh table in main view
-                        self.connectionscheckcompleted = true
-                    }
+                } else {
+                    indexBoolremoteserverOff?.append(false)
+                }
+                // Reload table when all remote servers are checked
+                if i == ((configurations?.getnumberofconfigurations() ?? 0) - 1) {
+                    // Send message to do a refresh table in main view
+                    connectionscheckcompleted = true
                 }
             }
         }
