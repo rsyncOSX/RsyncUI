@@ -12,11 +12,12 @@ struct LogsbyConfigurationView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    @Binding var filterstring: String
 
     @State private var selectedconfig: Configuration?
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
-    @State private var filterstring: String = ""
+
     // Not used but requiered in parameter
     @State private var inwork = -1
     // Alert for delete
@@ -69,7 +70,6 @@ struct LogsbyConfigurationView: View {
             }
         }
         .padding()
-        .searchable(text: $filterstring)
     }
 
     var numberoflogs: String {

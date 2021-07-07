@@ -16,15 +16,16 @@ struct SidebarLogsView: View {
 
     var body: some View {
         TabView {
-            LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile)
+            LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile, filterstring: $filterstring)
                 .tabItem {
                     Text("All logs")
                 }
-            LogsbyConfigurationView(reload: $reload, selectedprofile: $selectedprofile)
+            LogsbyConfigurationView(reload: $reload, selectedprofile: $selectedprofile, filterstring: $filterstring)
                 .tabItem {
                     Text("By config")
                 }
         }
+        .searchable(text: $filterstring)
         .padding()
     }
 }

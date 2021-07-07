@@ -11,10 +11,10 @@ struct LogListAlllogsView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    @Binding var filterstring: String
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
-    @State private var filterstring: String = ""
     // Alert for delete
     @State private var showAlertfordelete = false
 
@@ -57,7 +57,6 @@ struct LogListAlllogsView: View {
             }
         }
         .padding()
-        .searchable(text: $filterstring)
     }
 
     var numberoflogs: String {
