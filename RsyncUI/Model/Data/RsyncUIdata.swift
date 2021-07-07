@@ -31,27 +31,26 @@ final class RsyncUIdata: ObservableObject {
     // All logs and sorted logs
     // Sort and filter logs so the view does not trigger a refresh
     var alllogssorted: [Log]?
-    var filterlogsorted: [Log]?
-    var filterlogsortedbyother: [Log]?
 
-    func filterlogrecords(_ filter: String) {
+    func filterlogrecords(_ filter: String) -> [Log]? {
         // Important - must localize search in dates
-        filterlogsorted = alllogssorted?.filter {
+        return alllogssorted?.filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
                 filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
         }
     }
 
-    func filterlogrecordsbyhiddenID(_ filter: String, _ hiddenID: Int) {
+    func filterlogrecordsbyhiddenID(_ filter: String, _ hiddenID: Int) -> [Log]? {
+        guard hiddenID > -1 else { return nil }
         // Important - must localize search in dates
-        filterlogsortedbyother = rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID)?.filter {
+        return rsyncdata?.scheduleData.getalllogsbyhiddenID(hiddenID)?.filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
                 filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
         }
     }
 
-    func filterbyUUIDs(_ uuids: Set<UUID>?) {
-        filterlogsortedbyother = rsyncdata?.scheduleData.getalllogsbyUUIDs(uuids)
+    func filterbyUUIDs(_ uuids: Set<UUID>?) -> [Log]? {
+        return rsyncdata?.scheduleData.getalllogsbyUUIDs(uuids)
     }
 
     func activeschedules(_ hiddenID: Int) -> Int {
@@ -78,9 +77,6 @@ final class RsyncUIdata: ObservableObject {
         configurations = rsyncdata?.configurationData.getallconfigurations()
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
-        print(configurations?.count ?? 0)
-        filterlogsorted = alllogssorted
-        filterlogsortedbyother = alllogssorted
         print("RsyncUIdata \(Unmanaged.passUnretained(self).toOpaque())")
         print("RsyncUIdata count \(configurations?.count ?? 0)")
     }

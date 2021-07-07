@@ -28,13 +28,12 @@ struct LogsbyConfigurationView: View {
         Form {
             ConfigurationsListNoSearch(selectedconfig: $selectedconfig.onChange {
                 selecteduuids.removeAll()
-                rsyncUIdata.filterlogrecordsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
             })
 
             Spacer()
 
             List(selection: $selectedlog) {
-                if let logs = rsyncUIdata.filterlogsortedbyother {
+                if let logs = rsyncUIdata.filterlogrecordsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1) {
                     ForEach(logs) { record in
                         LogRow(selecteduuids: $selecteduuids, logrecord: record)
                             .tag(record)
@@ -70,15 +69,11 @@ struct LogsbyConfigurationView: View {
             }
         }
         .padding()
-        .searchable(text: $filterstring.onChange {
-            if let hiddenID = selectedconfig?.hiddenID {
-                rsyncUIdata.filterlogrecordsbyhiddenID(filterstring, hiddenID)
-            }
-        })
+        .searchable(text: $filterstring)
     }
 
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIdata.filterlogsortedbyother?.count ?? 0)"
+        NSLocalizedString("Number of logs", comment: "") + ": " + "\(rsyncUIdata.filterlogrecordsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.count ?? 0)"
     }
 }
 
@@ -103,8 +98,8 @@ extension LogsbyConfigurationView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (rsyncUIdata.filterlogsortedbyother?.count ?? 0) {
-            if let id = rsyncUIdata.filterlogsortedbyother?[i].id {
+        for i in 0 ..< (rsyncUIdata.filterlogrecordsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.count ?? 0) {
+            if let id = rsyncUIdata.filterlogrecordsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?[i].id {
                 selecteduuids.insert(id)
             }
         }
@@ -112,9 +107,9 @@ extension LogsbyConfigurationView {
 
     func setuuidforselectedlog() {
         if let sel = selectedlog,
-           let index = rsyncUIdata.filterlogsorted?.firstIndex(of: sel)
+           let index = rsyncUIdata.filterlogrecordsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.firstIndex(of: sel)
         {
-            if let id = rsyncUIdata.filterlogsorted?[index].id {
+            if let id = rsyncUIdata.filterlogrecordsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?[index].id {
                 selecteduuids.insert(id)
             }
         }

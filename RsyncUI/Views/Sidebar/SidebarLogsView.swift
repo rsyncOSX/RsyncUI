@@ -12,6 +12,8 @@ struct SidebarLogsView: View {
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
 
+    @State private var filterstring: String = ""
+
     var body: some View {
         TabView {
             LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile)
