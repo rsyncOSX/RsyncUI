@@ -58,7 +58,7 @@ struct LogListAlllogsView: View {
         }
         .padding()
         .searchable(text: $filterstring.onChange {
-            rsyncUIdata.filter(filterstring)
+            rsyncUIdata.filterlogrecords(filterstring)
         })
     }
 
