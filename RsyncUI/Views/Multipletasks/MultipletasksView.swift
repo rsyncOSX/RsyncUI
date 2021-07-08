@@ -314,7 +314,9 @@ extension MultipletasksView {
 
     func verifytcp() async {
         if let configurations = rsyncUIdata.rsyncdata?.configurationData.getallconfigurations() {
-            let tcpconnections = await TCPconnections(configurations).verifyallremoteserverTCPconnections()
+            let tcpconnections = TCPconnections(configurations)
+            await tcpconnections.verifyallremoteserverTCPconnections()
+            print(tcpconnections.indexBoolremoteserverOff ?? [])
         }
         focusstarttestfortcpconnections = false
     }

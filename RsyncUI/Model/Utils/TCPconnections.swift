@@ -9,7 +9,7 @@
 import Foundation
 
 class TCPconnections {
-    private var indexBoolremoteserverOff: [Bool]?
+    var indexBoolremoteserverOff: [Bool]?
     var client: TCPClient?
     var configurations: [Configuration]?
 
@@ -25,14 +25,8 @@ class TCPconnections {
         }
     }
 
-    // Getting the structure for test connection
-    func gettestAllremoteserverConnections() -> [Bool]? {
-        return indexBoolremoteserverOff
-    }
-
     // Testing all remote servers.
     // Adding connection true or false in array[bool]
-    // Do the check in background que, reload table in global main queue
     func verifyallremoteserverTCPconnections() async {
         indexBoolremoteserverOff = [Bool]()
         guard (configurations?.count ?? 0) > 0 else { return }
@@ -42,17 +36,12 @@ class TCPconnections {
                 if config.offsiteServer.isEmpty == false {
                     if let sshport: Int = config.sshport { port = sshport }
                     let success = verifyTCPconnection(config.offsiteServer, port: port, timeout: 1)
-                    if success {
-                        indexBoolremoteserverOff?.append(false)
-                    } else {
-                        indexBoolremoteserverOff?.append(true)
-                    }
+                    indexBoolremoteserverOff?.append(success)
                 } else {
                     indexBoolremoteserverOff?.append(false)
                 }
             }
         }
-        print("TCP test done")
     }
 
     init(_ configurations: [Configuration]?) {
