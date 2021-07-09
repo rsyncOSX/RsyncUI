@@ -34,8 +34,7 @@ struct MultipletasksView: View {
     @State private var showAlertforexecuteall = false
     @State private var confirmdeleteselectedconfigurations = false
     @State private var deleted = false
-    // Alert for select tasks
-    @State private var notasks: Bool = false
+
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
@@ -52,7 +51,6 @@ struct MultipletasksView: View {
                                inwork: $inwork,
                                searchText: $searchText,
                                selectable: selectable)
-            if notasks == true { notifyselecttask }
             if deleted == true { notifydeleted }
             if focusstartestimation { labelshortcutestimation }
             if focusstartexecution { labelshortcutexecute }
@@ -60,8 +58,11 @@ struct MultipletasksView: View {
         }
 
         HStack {
-            Button("Estimate") { startestimation() }
-                .buttonStyle(PrimaryButtonStyle())
+            Button("Estimate") {
+                estimationstate.estimateonly = true
+                startestimation()
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
             Button("Execute") { startexecution() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -136,16 +137,6 @@ struct MultipletasksView: View {
             })
     }
 
-    var notifyselecttask: some View {
-        AlertToast(type: .regular,
-                   title: Optional("Select one or more tasks"), subTitle: Optional(""))
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    notasks = false
-                }
-            })
-    }
-
     var labelshortcutestimation: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -191,9 +182,11 @@ extension MultipletasksView {
         estimatetask = nil
 
         // Kick of execution
-        if selecteduuids.count > 0 {
+        if selecteduuids.count > 0, estimationstate.estimateonly == false {
             showestimateview = false
         }
+        // reset estimateonly
+        estimationstate.estimateonly = false
     }
 
     func estimatetasks() {
@@ -253,19 +246,11 @@ extension MultipletasksView {
     func startexecution() {
         if selecteduuids.count == 0 {
             startestimation()
-        } else {}
-
-        /*
-         if selecteduuids.count == 0 {
-             // Try if on task is selected
-             setuuidforselectedtask()
-         }
-         guard selecteduuids.count > 0 else {
-             notasks = true
-             return
-         }
-         showestimateview = false
-         */
+        } else {
+            // Estimation is done, kick of execution
+            // Or execute selected tasks without estimation
+            showestimateview = false
+        }
     }
 
     func select() {
