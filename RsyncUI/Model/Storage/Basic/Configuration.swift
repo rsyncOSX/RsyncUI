@@ -83,7 +83,7 @@ struct Configuration: Identifiable, Codable {
         if let date = dateRun {
             let lastbackup = date.en_us_date_from_string()
             let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
-            return seconds * (-1)
+            return seconds * -1
         } else {
             return nil
         }

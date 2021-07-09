@@ -95,7 +95,6 @@
 		E985C68625F3AD8400CB895C /* ConfirmUpdatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64925F3AD8400CB895C /* ConfirmUpdatedView.swift */; };
 		E985C68725F3AD8400CB895C /* EditValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64A25F3AD8400CB895C /* EditValue.swift */; };
 		E985C68825F3AD8400CB895C /* SidebarAddConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */; };
-		E985C68A25F3AD8400CB895C /* ExecuteAlltasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64F25F3AD8400CB895C /* ExecuteAlltasksView.swift */; };
 		E985C68C25F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65125F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift */; };
 		E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */; };
 		E985C68E25F3AD8400CB895C /* MultipletasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65325F3AD8400CB895C /* MultipletasksView.swift */; };
@@ -327,7 +326,6 @@
 		E985C64925F3AD8400CB895C /* ConfirmUpdatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmUpdatedView.swift; sourceTree = "<group>"; };
 		E985C64A25F3AD8400CB895C /* EditValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditValue.swift; sourceTree = "<group>"; };
 		E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarAddConfigurationsView.swift; sourceTree = "<group>"; };
-		E985C64F25F3AD8400CB895C /* ExecuteAlltasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteAlltasksView.swift; sourceTree = "<group>"; };
 		E985C65125F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteConfigurationsView.swift; sourceTree = "<group>"; };
 		E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteEstimatedView.swift; sourceTree = "<group>"; };
 		E985C65325F3AD8400CB895C /* MultipletasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipletasksView.swift; sourceTree = "<group>"; };
@@ -741,7 +739,6 @@
 		E985C64E25F3AD8400CB895C /* Multipletasks */ = {
 			isa = PBXGroup;
 			children = (
-				E985C64F25F3AD8400CB895C /* ExecuteAlltasksView.swift */,
 				E985C65125F3AD8400CB895C /* ConfirmDeleteConfigurationsView.swift */,
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */,
 				E985C65325F3AD8400CB895C /* MultipletasksView.swift */,
@@ -1405,7 +1402,6 @@
 				E90B4A9E261DA7580043EFF6 /* OpacityDotsIndicatorView.swift in Sources */,
 				E985C72F25F3AD9700CB895C /* OutputfromProcessRsync.swift in Sources */,
 				E985C65525F3AD8400CB895C /* SidebarMultipletasksView.swift in Sources */,
-				E985C68A25F3AD8400CB895C /* ExecuteAlltasksView.swift in Sources */,
 				E90B4AA5261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift in Sources */,
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
 				E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */,

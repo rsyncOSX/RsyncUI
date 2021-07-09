@@ -10,6 +10,8 @@ import Foundation
 final class EstimationState: ObservableObject {
     @Published var estimationstate: EstimatetaskWork = .start
 
+    var estimateonly: Bool = false
+
     func updatestate(state: EstimatetaskWork) {
         estimationstate = state
     }
