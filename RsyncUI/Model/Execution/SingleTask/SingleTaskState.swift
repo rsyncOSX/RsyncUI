@@ -10,6 +10,8 @@ import Foundation
 final class SingleTaskState: ObservableObject {
     var singletaskstate: SingleTaskWork = .start
 
+    var estimateonly: Bool = false
+
     func updatestate(state: SingleTaskWork) {
         singletaskstate = state
         objectWillChange.send()

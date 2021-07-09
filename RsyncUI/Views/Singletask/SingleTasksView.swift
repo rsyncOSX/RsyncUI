@@ -85,9 +85,11 @@ struct SingleTasksView: View {
 
         HStack {
             HStack {
-                estimateandexecute
+                // Estimate
+                Button("Estimate") { estimatesingletask() }
+                    .buttonStyle(PrimaryButtonStyle())
 
-                executenow
+                executebutton
             }
 
             Spacer()
@@ -113,38 +115,26 @@ struct SingleTasksView: View {
         })
     }
 
-    // Estimate and the execute.
-    var estimateandexecute: some View {
-        HStack {
-            if singletaskstate.singletaskstate == .start ||
-                singletaskstate.singletaskstate == .estimate ||
-                singletaskstate.singletaskstate == .completed
-            {
-                // Estimate
-                Button("Estimate") { initsingletask() }
-                    .buttonStyle(PrimaryButtonStyle())
+    // No estimation, just execute task now
+    var executebutton: some View {
+        Button("Execute") {
+            if singletaskstate.estimateonly == true {
+                executeestimatedsingletask()
             } else {
-                // Execute estimated
-                Button("Execute") { singletask() }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.red, lineWidth: 5)
-                    )
-                    .onDisappear(perform: {
-                        completed()
-                    })
+                executesingletasknow()
             }
         }
-    }
-
-    // No estimation, just execute task now
-    var executenow: some View {
-        Button("Execute") { singletasknow() }
-            .buttonStyle(PrimaryButtonStyle())
-            .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
-                if singletasknowstate.executetasknowstate == .completed { completed() }
-            })
+        .buttonStyle(PrimaryButtonStyle())
+        .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
+            if singletasknowstate.executetasknowstate == .completed {
+                completed()
+            }
+        })
+        .onChange(of: singletaskstate.singletaskstate, perform: { _ in
+            if singletaskstate.singletaskstate == .completed {
+                completed()
+            }
+        })
     }
 
     // Shortcuts
@@ -153,7 +143,7 @@ struct SingleTasksView: View {
             .onAppear(perform: {
                 focusstartestimation = false
                 // Guard statement must be after resetting properties to false
-                initsingletask()
+                estimatesingletask()
             })
     }
 
@@ -162,7 +152,7 @@ struct SingleTasksView: View {
             .onAppear(perform: {
                 focusstartexecution = false
                 // Guard statement must be after resetting properties to false
-                singletask()
+                executeestimatedsingletask()
             })
     }
 
@@ -219,18 +209,20 @@ extension SingleTasksView {
         inprogresscountrsyncoutput.resetcounts()
         executesingletasks = nil
         executetasknow = nil
+        singletaskstate.estimateonly = false
     }
 
-    func initsingletask() {
+    func estimatesingletask() {
+        singletaskstate.estimateonly = true
         setuuidforsingletask()
-        singletask()
+        executeestimatedsingletask()
     }
 
     func presentoutput() {
         presentsheetview = true
     }
 
-    func singletask() {
+    func executeestimatedsingletask() {
         guard selecteduuids.count == 1 else {
             notasks = true
             return
@@ -285,7 +277,7 @@ extension SingleTasksView {
         _ = InterruptProcess()
     }
 
-    func singletasknow() {
+    func executesingletasknow() {
         executesingletasks = nil
         executetasknow = nil
         setuuidforsingletask()
