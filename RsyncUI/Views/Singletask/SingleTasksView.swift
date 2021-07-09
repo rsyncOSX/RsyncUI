@@ -140,7 +140,7 @@ struct SingleTasksView: View {
 
     // No estimation, just execute task now
     var executenow: some View {
-        Button("Now") { singletasknow() }
+        Button("Execute") { singletasknow() }
             .buttonStyle(PrimaryButtonStyle())
             .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
                 if singletasknowstate.executetasknowstate == .completed { completed() }
