@@ -86,7 +86,7 @@ struct SingleTasksView: View {
         HStack {
             HStack {
                 // Estimate
-                Button("Estimate") { initsingletask() }
+                Button("Estimate") { estimatesingletask() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 executebutton
@@ -119,14 +119,21 @@ struct SingleTasksView: View {
     var executebutton: some View {
         Button("Execute") {
             if singletaskstate.estimateonly == true {
-                singletask()
+                executeestimatedsingletask()
             } else {
-                singletasknow()
+                executesingletasknow()
             }
         }
         .buttonStyle(PrimaryButtonStyle())
         .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
-            if singletasknowstate.executetasknowstate == .completed { completed() }
+            if singletasknowstate.executetasknowstate == .completed {
+                completed()
+            }
+        })
+        .onChange(of: singletaskstate.singletaskstate, perform: { _ in
+            if singletaskstate.singletaskstate == .completed {
+                completed()
+            }
         })
     }
 
@@ -136,7 +143,7 @@ struct SingleTasksView: View {
             .onAppear(perform: {
                 focusstartestimation = false
                 // Guard statement must be after resetting properties to false
-                initsingletask()
+                estimatesingletask()
             })
     }
 
@@ -145,7 +152,7 @@ struct SingleTasksView: View {
             .onAppear(perform: {
                 focusstartexecution = false
                 // Guard statement must be after resetting properties to false
-                singletask()
+                executeestimatedsingletask()
             })
     }
 
@@ -205,17 +212,17 @@ extension SingleTasksView {
         singletaskstate.estimateonly = false
     }
 
-    func initsingletask() {
+    func estimatesingletask() {
         singletaskstate.estimateonly = true
         setuuidforsingletask()
-        singletask()
+        executeestimatedsingletask()
     }
 
     func presentoutput() {
         presentsheetview = true
     }
 
-    func singletask() {
+    func executeestimatedsingletask() {
         guard selecteduuids.count == 1 else {
             notasks = true
             return
@@ -270,7 +277,7 @@ extension SingleTasksView {
         _ = InterruptProcess()
     }
 
-    func singletasknow() {
+    func executesingletasknow() {
         executesingletasks = nil
         executetasknow = nil
         setuuidforsingletask()
