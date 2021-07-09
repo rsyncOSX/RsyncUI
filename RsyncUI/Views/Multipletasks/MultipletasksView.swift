@@ -60,17 +60,6 @@ struct MultipletasksView: View {
         }
 
         HStack {
-            Button("All") { executall() }
-                .buttonStyle(PrimaryButtonStyle())
-                .sheet(isPresented: $showAlertforexecuteall) {
-                    ExecuteAlltasksView(selecteduuids: $selecteduuids,
-                                        isPresented: $showAlertforexecuteall,
-                                        presentestimatedsheetview: $presentestimatedsheetview)
-                }
-
-            Button("Select") { select() }
-                .buttonStyle(PrimaryButtonStyle())
-
             Button("Estimate") { startestimation() }
                 .buttonStyle(PrimaryButtonStyle())
 
@@ -90,6 +79,9 @@ struct MultipletasksView: View {
                                         selecteduuids: $selecteduuids,
                                         estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
                 }
+
+            Button("Select") { select() }
+                .buttonStyle(PrimaryButtonStyle())
 
             Button("Delete") { preparefordelete() }
                 .buttonStyle(AbortButtonStyle())
@@ -182,11 +174,6 @@ struct MultipletasksView: View {
 }
 
 extension MultipletasksView {
-    func executall() {
-        executedetails.resetcounter()
-        showAlertforexecuteall = true
-    }
-
     func reset() {
         inwork = -1
         inprogresscountmultipletask.resetcounts()
@@ -202,6 +189,11 @@ extension MultipletasksView {
         executedetails.resetcounter()
         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
         estimatetask = nil
+
+        // Kick of execution
+        if selecteduuids.count > 0 {
+            showestimateview = false
+        }
     }
 
     func estimatetasks() {
@@ -260,14 +252,20 @@ extension MultipletasksView {
 
     func startexecution() {
         if selecteduuids.count == 0 {
-            // Try if on task is selected
-            setuuidforselectedtask()
-        }
-        guard selecteduuids.count > 0 else {
-            notasks = true
-            return
-        }
-        showestimateview = false
+            startestimation()
+        } else {}
+
+        /*
+         if selecteduuids.count == 0 {
+             // Try if on task is selected
+             setuuidforselectedtask()
+         }
+         guard selecteduuids.count > 0 else {
+             notasks = true
+             return
+         }
+         showestimateview = false
+         */
     }
 
     func select() {

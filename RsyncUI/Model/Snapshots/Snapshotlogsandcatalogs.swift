@@ -127,7 +127,7 @@ final class Snapshotlogsandcatalogs {
         guard datestringlocalized != "" else { return nil }
         let lastbackup = datestringlocalized.localized_date_from_string()
         let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
-        return seconds * (-1)
+        return seconds * -1
     }
 
     func countbydays(num: Double) -> Int {
