@@ -19,15 +19,14 @@ struct OneConfigSmall: View {
     var forall: some View {
         HStack {
             Group {
-                if config.backupID.isEmpty {
-                    Text("Synchronize ID")
-                        .modifier(FixedTag(100, .leading))
+                if rsyncUIdata.getactiveschedules(config.hiddenID) > 0 {
+                    Text(config.task)
+                        .modifier(FixedTag(60, .leading))
+                        .foregroundColor(Color.green)
                 } else {
-                    Text(config.backupID)
-                        .modifier(FixedTag(100, .leading))
+                    Text(config.task)
+                        .modifier(FixedTag(60, .leading))
                 }
-                Text(config.task)
-                    .modifier(FixedTag(60, .leading))
                 Text(config.localCatalog)
                     .modifier(FlexTag(180, .leading))
                 Text(config.offsiteCatalog)
