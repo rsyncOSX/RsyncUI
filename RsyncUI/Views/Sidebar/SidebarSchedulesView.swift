@@ -11,34 +11,13 @@ import SwiftUI
 struct SidebarSchedulesView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
-    @State private var showdetails = false
-    @State private var selectedconfig: Configuration?
-    @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
         VStack(alignment: .leading) {
-            if showdetails == false {
-                headingtitle
+            headingtitle
 
-                SchedulesView(selectedprofile: $selectedprofile,
-                              reload: $reload,
-                              showdetails: $showdetails,
-                              selectedconfig: $selectedconfig,
-                              selecteduuids: $selecteduuids)
-
-            } else {
-                VStack(alignment: .leading) {
-                    headingtitle
-
-                    PresentOneconfigView(config: $selectedconfig)
-                }
-
-                DetailsScheduleView(selectedprofile: $selectedprofile,
-                                    reload: $reload,
-                                    showdetails: $showdetails,
-                                    selectedconfig: $selectedconfig,
-                                    selecteduuids: $selecteduuids)
-            }
+            ScheduleView(selectedprofile: $selectedprofile,
+                         reload: $reload)
         }
         .padding()
     }
