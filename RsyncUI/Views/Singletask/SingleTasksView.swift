@@ -79,6 +79,11 @@ struct SingleTasksView: View {
             }
         }
 
+        // When estimated singletaskstate is set to .execute
+        if singletaskstate.singletaskstate == .execute {
+            SingleTasksEstimatedView(output: inprogresscountrsyncoutput.getoutput() ?? [])
+        }
+
         if shellout { notifyshellout }
         if focusstartestimation { labelshortcutestimation }
         if focusstartexecution { labelshortcutexecute }
