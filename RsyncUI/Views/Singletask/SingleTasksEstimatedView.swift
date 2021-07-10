@@ -20,12 +20,12 @@ struct SingleTasksEstimatedView: View {
 
     var numberstopresent: some View {
         HStack {
-            Text("New :\(numbers.newfiles ?? 0)")
+            Text("New: \(numbers.newfiles ?? 0)")
             Text("Delete: \(numbers.deletefiles ?? 0)")
-            Text("Size transfer :\(numbers.transferNumSize ?? 0)")
+            Text("Size transfer: " + String(format: "%.2f", ((numbers.transferNumSize ?? 0) / 1024) / 1000) + " MB")
             Text("Numbers transfer: \(numbers.transferNum ?? 0)")
             Text("Total remote numbers: \(numbers.totNum ?? 0)")
-            Text("Total remote size: \(numbers.totNumSize ?? 0)")
+            Text("Total remote size: " + String(format: "%.2f", ((numbers.totNumSize ?? 0) / 1024) / 1000) + " MB")
         }
         .padding()
     }
