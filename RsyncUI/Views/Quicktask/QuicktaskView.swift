@@ -33,71 +33,65 @@ struct QuicktaskView: View {
     @State private var valueselectedrow: String = ""
 
     var body: some View {
-        headingtitle
+        ZStack {
+            VStack {
+                headingtitle
 
-        Form {
-            ZStack {
-                HStack {
-                    // For center
-                    Spacer()
+                Spacer()
 
-                    // Column 1
+                // Column 1
+                VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
-                        VStack(alignment: .leading) {
-                            pickerselecttypeoftask
+                        pickerselecttypeoftask
 
-                            HStack {
-                                ToggleView("--dry-run", $dryrun)
+                        HStack {
+                            ToggleView("--dry-run", $dryrun)
 
-                                ToggleView(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
-                            }
-                        }
-
-                        VStack(alignment: .leading) {
-                            if selectedrsynccommand == .synchronize {
-                                localandremotecatalog
-                            } else {
-                                localandremotecatalogsyncremote
-                            }
-
-                            remoteuserandserver
+                            ToggleView(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
                         }
                     }
 
-                    // For center
-                    Spacer()
-                }
+                    VStack(alignment: .leading) {
+                        if selectedrsynccommand == .synchronize {
+                            localandremotecatalog
+                        } else {
+                            localandremotecatalogsyncremote
+                        }
 
-                if executed == true {
-                    AlertToast(type: .complete(Color.green), title: Optional("Executed"), subTitle: Optional(""))
-                }
-
-                if showprogressview {
-                    RotatingDotsIndicatorView()
-                        .frame(width: 50.0, height: 50.0)
-                        .foregroundColor(.red)
+                        remoteuserandserver
+                    }
                 }
             }
+            .padding()           
+        }
 
-            VStack {
+        if executed == true {
+            AlertToast(type: .complete(Color.green), title: Optional("Executed"), subTitle: Optional(""))
+        }
+
+        if showprogressview {
+            RotatingDotsIndicatorView()
+                .frame(width: 50.0, height: 50.0)
+                .foregroundColor(.red)
+        }
+
+        VStack {
+            Spacer()
+
+            HStack {
                 Spacer()
 
-                HStack {
-                    Spacer()
+                Button("Execute") { getconfig() }
+                    .buttonStyle(PrimaryButtonStyle())
 
-                    Button("Execute") { getconfig() }
-                        .buttonStyle(PrimaryButtonStyle())
+                Button("View") { presentoutput() }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .sheet(isPresented: $presentsheetview) { viewoutput }
 
-                    Button("View") { presentoutput() }
-                        .buttonStyle(PrimaryButtonStyle())
-                        .sheet(isPresented: $presentsheetview) { viewoutput }
-
-                    Button("Abort") { abort() }
-                        .buttonStyle(AbortButtonStyle())
-                }
+                Button("Abort") { abort() }
+                    .buttonStyle(AbortButtonStyle())
             }
         }
-        .lineSpacing(2)
         .padding()
     }
 
@@ -113,7 +107,6 @@ struct QuicktaskView: View {
 
             Spacer()
         }
-        .padding()
     }
 
     var imagerssync: some View {
