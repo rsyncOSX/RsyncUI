@@ -16,6 +16,8 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
 }
 
 struct QuicktaskView: View {
+    @Binding var showcompleted: Bool
+
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
     @State private var selectedrsynccommand = TypeofTaskQuictask.synchronize
@@ -25,7 +27,6 @@ struct QuicktaskView: View {
     @State private var dryrun: Bool = true
 
     // Executed labels
-    @State private var executed = false
     @State private var presentsheetview = false
     @State private var showprogressview = false
     @State private var rsyncoutput: InprogressCountRsyncOutput?
@@ -33,70 +34,56 @@ struct QuicktaskView: View {
     @State private var valueselectedrow: String = ""
 
     var body: some View {
-        Form {
-            ZStack {
-                HStack {
-                    // For center
-                    Spacer()
+        ZStack {
+            Spacer()
 
-                    // Column 1
-                    VStack(alignment: .leading) {
-                        VStack(alignment: .leading) {
-                            pickerselecttypeoftask
+            // Column 1
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
+                    pickerselecttypeoftask
 
-                            HStack {
-                                ToggleView("--dry-run", $dryrun)
+                    HStack {
+                        ToggleView("--dry-run", $dryrun)
 
-                                ToggleView(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
-                            }
-                        }
+                        ToggleView(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
+                    }
+                }
 
-                        VStack(alignment: .leading) {
-                            if selectedrsynccommand == .synchronize {
-                                localandremotecatalog
-                            } else {
-                                localandremotecatalogsyncremote
-                            }
-
-                            remoteuserandserver
-                        }
+                VStack(alignment: .leading) {
+                    if selectedrsynccommand == .synchronize {
+                        localandremotecatalog
+                    } else {
+                        localandremotecatalogsyncremote
                     }
 
-                    // For center
-                    Spacer()
-                }
-
-                if executed == true {
-                    AlertToast(type: .complete(Color.green), title: Optional("Executed"), subTitle: Optional(""))
-                }
-
-                if showprogressview {
-                    RotatingDotsIndicatorView()
-                        .frame(width: 50.0, height: 50.0)
-                        .foregroundColor(.red)
+                    remoteuserandserver
                 }
             }
 
-            VStack {
-                Spacer()
-
-                HStack {
-                    Spacer()
-
-                    Button("Execute") { getconfig() }
-                        .buttonStyle(PrimaryButtonStyle())
-
-                    Button("View") { presentoutput() }
-                        .buttonStyle(PrimaryButtonStyle())
-                        .sheet(isPresented: $presentsheetview) { viewoutput }
-
-                    Button("Abort") { abort() }
-                        .buttonStyle(AbortButtonStyle())
-                }
+            if showprogressview {
+                RotatingDotsIndicatorView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(.red)
             }
         }
-        .lineSpacing(2)
-        .padding()
+
+        VStack {
+            Spacer()
+
+            HStack {
+                Button("Execute") { getconfig() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                Spacer()
+
+                Button("View") { presentoutput() }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .sheet(isPresented: $presentsheetview) { viewoutput }
+
+                Button("Abort") { abort() }
+                    .buttonStyle(AbortButtonStyle())
+            }
+        }
     }
 
     var pickerselecttypeoftask: some View {
@@ -221,11 +208,7 @@ extension QuicktaskView {
         // Stop progressview
         showprogressview = false
         rsyncoutput?.setoutput()
-        executed = true
-        // Show updated for 1 second
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            executed = false
-        }
+        showcompleted = true
     }
 
     func filehandler() {}

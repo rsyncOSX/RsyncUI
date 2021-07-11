@@ -55,7 +55,7 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.singletasks)
 
-                NavigationLink(destination: QuicktaskView(),
+                NavigationLink(destination: SidebarQuicktaskView(),
                                tag: NavigationItem.quicktask,
                                selection: $selection) {
                     Label("Quick task",
