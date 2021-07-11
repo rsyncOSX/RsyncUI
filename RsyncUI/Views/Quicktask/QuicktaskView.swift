@@ -16,6 +16,8 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
 }
 
 struct QuicktaskView: View {
+    @Binding var showcompleted: Bool
+
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
     @State private var selectedrsynccommand = TypeofTaskQuictask.synchronize
@@ -25,7 +27,6 @@ struct QuicktaskView: View {
     @State private var dryrun: Bool = true
 
     // Executed labels
-    @State private var executed = false
     @State private var presentsheetview = false
     @State private var showprogressview = false
     @State private var rsyncoutput: InprogressCountRsyncOutput?
@@ -34,55 +35,46 @@ struct QuicktaskView: View {
 
     var body: some View {
         ZStack {
-            VStack {
-                headingtitle
+            Spacer()
 
-                Spacer()
-
-                // Column 1
+            // Column 1
+            VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    VStack(alignment: .leading) {
-                        pickerselecttypeoftask
+                    pickerselecttypeoftask
 
-                        HStack {
-                            ToggleView("--dry-run", $dryrun)
+                    HStack {
+                        ToggleView("--dry-run", $dryrun)
 
-                            ToggleView(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
-                        }
-                    }
-
-                    VStack(alignment: .leading) {
-                        if selectedrsynccommand == .synchronize {
-                            localandremotecatalog
-                        } else {
-                            localandremotecatalogsyncremote
-                        }
-
-                        remoteuserandserver
+                        ToggleView(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
                     }
                 }
+
+                VStack(alignment: .leading) {
+                    if selectedrsynccommand == .synchronize {
+                        localandremotecatalog
+                    } else {
+                        localandremotecatalogsyncremote
+                    }
+
+                    remoteuserandserver
+                }
             }
-            .padding()           
-        }
 
-        if executed == true {
-            AlertToast(type: .complete(Color.green), title: Optional("Executed"), subTitle: Optional(""))
-        }
-
-        if showprogressview {
-            RotatingDotsIndicatorView()
-                .frame(width: 50.0, height: 50.0)
-                .foregroundColor(.red)
+            if showprogressview {
+                RotatingDotsIndicatorView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(.red)
+            }
         }
 
         VStack {
             Spacer()
 
             HStack {
-                Spacer()
-
                 Button("Execute") { getconfig() }
                     .buttonStyle(PrimaryButtonStyle())
+
+                Spacer()
 
                 Button("View") { presentoutput() }
                     .buttonStyle(PrimaryButtonStyle())
@@ -92,29 +84,6 @@ struct QuicktaskView: View {
                     .buttonStyle(AbortButtonStyle())
             }
         }
-        .padding()
-    }
-
-    var headingtitle: some View {
-        HStack {
-            imagerssync
-
-            VStack(alignment: .leading) {
-                Text("Quick task")
-                    .modifier(Tagheading(.title2, .leading))
-                    .foregroundColor(Color.blue)
-            }
-
-            Spacer()
-        }
-    }
-
-    var imagerssync: some View {
-        Image("rsync")
-            .resizable()
-            .aspectRatio(1.0, contentMode: .fit)
-            .frame(maxWidth: 48)
-            .padding(.bottom, 10)
     }
 
     var pickerselecttypeoftask: some View {
@@ -239,11 +208,7 @@ extension QuicktaskView {
         // Stop progressview
         showprogressview = false
         rsyncoutput?.setoutput()
-        executed = true
-        // Show updated for 1 second
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            executed = false
-        }
+        showcompleted = true
     }
 
     func filehandler() {}
