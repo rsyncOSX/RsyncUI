@@ -29,8 +29,6 @@ struct ScheduleView: View {
     @State private var notifyselect = false
 
     var body: some View {
-        PresentOneconfigView(config: $selectedconfig)
-
         HStack {
             Spacer()
 
@@ -59,6 +57,10 @@ struct ScheduleView: View {
 
             Spacer()
         }
+
+        Spacer()
+
+        PresentOneconfigView(config: $selectedconfig)
 
         Spacer()
 
