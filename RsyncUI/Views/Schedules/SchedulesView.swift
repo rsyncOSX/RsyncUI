@@ -22,43 +22,37 @@ struct ScheduleView: View {
     // Datepicker
     @State private var selecteddate = Date()
     @State private var selectedscheduletype = EnumScheduleDatePicker.once
-
     // Alert for delete
     @State private var showAlertfordelete = false
     // Alert for select
     @State private var notifyselect = false
 
     var body: some View {
-        PresentOneconfigView(config: $selectedconfig)
-
         HStack {
-            Spacer()
-
             ZStack {
                 HStack {
                     VStack(alignment: .leading) {
+                        SchedulesDatePickerView(selecteddate: $selecteddate)
+
                         SelectedstartView(selecteddate: $selecteddate,
                                           selectedscheduletype: $selectedscheduletype)
-                            .border(Color.gray)
-
-                        SchedulesDatePickerView(selecteddate: $selecteddate)
-                    }
-                    VStack(alignment: .leading) {
-                        ConfigurationsListSmall(selectedconfig: $selectedconfig)
 
                         SchedulesList(selectedconfig: $selectedconfig,
                                       selectedschedule: $selectedschedule,
                                       selecteduuids: $selecteduuids)
-                            .border(Color.gray)
+                    }
+
+                    VStack(alignment: .leading) {
+                        ConfigurationsListSmall(selectedconfig: $selectedconfig)
                     }
                 }
 
                 if notifyselect == true { selectschdule }
             }
             .padding()
-
-            Spacer()
         }
+
+        PresentOneconfigView(config: $selectedconfig)
 
         Spacer()
 
@@ -135,7 +129,6 @@ extension ScheduleView {
             return
         }
         showAlertfordelete = true
-        // selecteduuids.removeAll() is done in sheetview
     }
 }
 

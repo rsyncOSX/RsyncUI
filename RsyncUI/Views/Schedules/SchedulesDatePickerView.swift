@@ -25,8 +25,9 @@ struct SchedulesDatePickerView: View {
             DatePicker("", selection: $selecteddate,
                        in: Date()...,
                        displayedComponents: [.date, .hourAndMinute])
-                .datePickerStyle(GraphicalDatePickerStyle())
+                .datePickerStyle(FieldDatePickerStyle())
                 .labelsHidden()
+                .frame(width: 300)
         }
     }
 }
