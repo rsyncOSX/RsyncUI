@@ -59,6 +59,7 @@ final class UpdateSchedules {
         newrecord.dateStart = startdate.en_us_string_from_date()
         newrecord.dateStop = stop!.en_us_string_from_date()
         newrecord.schedule = scheduletype.rawValue
+        guard structschedules?.contains(newrecord) == false else { return }
         structschedules?.append(newrecord)
         WriteScheduleJSON(localeprofile, structschedules)
     }

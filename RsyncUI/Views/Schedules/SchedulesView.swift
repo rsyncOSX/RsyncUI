@@ -28,29 +28,31 @@ struct ScheduleView: View {
     @State private var notifyselect = false
 
     var body: some View {
-        HStack {
-            ZStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        SchedulesDatePickerView(selecteddate: $selecteddate)
-
+        ZStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack {
                         SelectedstartView(selecteddate: $selecteddate,
                                           selectedscheduletype: $selectedscheduletype)
 
-                        SchedulesList(selectedconfig: $selectedconfig,
-                                      selectedschedule: $selectedschedule,
-                                      selecteduuids: $selecteduuids)
+                        SchedulesDatePickerView(selecteddate: $selecteddate)
                     }
 
-                    VStack(alignment: .leading) {
-                        ConfigurationsListSmall(selectedconfig: $selectedconfig)
-                    }
+                    SchedulesList(selectedconfig: $selectedconfig,
+                                  selectedschedule: $selectedschedule,
+                                  selecteduuids: $selecteduuids)
                 }
 
-                if notifyselect == true { selectschdule }
+                VStack(alignment: .leading) {
+                    ConfigurationsListSmall(selectedconfig: $selectedconfig)
+                }
             }
-            .padding()
+
+            if notifyselect == true { selectschdule }
         }
+        .padding()
+
+        Spacer()
 
         PresentOneconfigView(config: $selectedconfig)
 
@@ -71,7 +73,8 @@ struct ScheduleView: View {
                     ChangeSchedulesView(selecteduuids: $selecteduuids,
                                         isPresented: $showAlertfordelete,
                                         reload: $reload,
-                                        selectedprofile: $selectedprofile)
+                                        selectedprofile: $selectedprofile,
+                                        selectedconfig: $selectedconfig)
                 }
         }
     }
@@ -120,6 +123,7 @@ extension ScheduleView {
             reload = true
         }
         selecteduuids.removeAll()
+        selectedconfig = nil
     }
 
     func change() {

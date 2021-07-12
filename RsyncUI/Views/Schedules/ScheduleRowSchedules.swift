@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 29/12/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
-
 import SwiftUI
 
 struct ScheduleRowSchedules: View {
@@ -20,12 +19,10 @@ struct ScheduleRowSchedules: View {
             Text(configschedule.schedule)
                 .modifier(FixedTag(50, .trailing))
             Text(localizeddatestart)
-                .modifier(FixedTag(150, .leading))
+                .modifier(FixedTag(200, .leading))
             Text("active")
                 .modifier(FixedTag(50, .leading))
                 .foregroundColor(Color.green)
-            Text(String(configschedule.logrecords?.count ?? 0))
-                .modifier(FixedTag(35, .trailing))
             Text(activeschedule)
                 .modifier(FixedTag(35, .trailing))
                 .foregroundColor(Color.green)

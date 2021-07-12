@@ -20,17 +20,8 @@ struct SelectedstartView: View {
             }
             .pickerStyle(RadioGroupPickerStyle())
             .labelsHidden()
-
-            VStack(alignment: .leading) {
-                Text(startdate) + Text("\(selecteddate.localized_string_from_date())")
-                    .foregroundColor(Color.blue)
-            }
         }
-        .frame(width: 300)
+        .frame(width: 200)
         .padding()
-    }
-
-    var startdate: String {
-        NSLocalizedString("Start", comment: "") + ": "
     }
 }

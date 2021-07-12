@@ -13,6 +13,7 @@ struct ChangeSchedulesView: View {
     @Binding var isPresented: Bool
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    @Binding var selectedconfig: Configuration?
 
     var body: some View {
         VStack {
@@ -38,8 +39,8 @@ struct ChangeSchedulesView: View {
     var header: some View {
         HStack {
             let message = "Stop or delete"
-                + " \(selecteduuids.count) "
-                + "schedules(s)?"
+                + " \(selecteduuids.count)"
+                + " schedules(s)?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }
@@ -58,6 +59,7 @@ struct ChangeSchedulesView: View {
         reload = true
         selecteduuids.removeAll()
         isPresented = false
+        selectedconfig = nil
     }
 
     func stop() {
@@ -67,5 +69,6 @@ struct ChangeSchedulesView: View {
         reload = true
         selecteduuids.removeAll()
         isPresented = false
+        selectedconfig = nil
     }
 }
