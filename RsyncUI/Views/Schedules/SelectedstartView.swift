@@ -12,19 +12,17 @@ struct SelectedstartView: View {
     @Binding var selectedscheduletype: EnumScheduleDatePicker
 
     var body: some View {
-        VStack(alignment: .leading) {
+        HStack {
             Picker("", selection: $selectedscheduletype) {
                 ForEach(EnumScheduleDatePicker.allCases) { Text($0.description)
                     .tag($0)
                 }
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .pickerStyle(RadioGroupPickerStyle())
             .labelsHidden()
 
             VStack(alignment: .leading) {
                 Text(startdate) + Text("\(selecteddate.localized_string_from_date())")
-                    .foregroundColor(Color.blue)
-                Text(schedule) + Text("\(selectedscheduletype.rawValue)")
                     .foregroundColor(Color.blue)
             }
         }
@@ -33,10 +31,6 @@ struct SelectedstartView: View {
     }
 
     var startdate: String {
-        "Start" + ": "
-    }
-
-    var schedule: String {
-        "Schedule" + ": "
+        NSLocalizedString("Start", comment: "") + ": "
     }
 }

@@ -15,26 +15,20 @@ struct ScheduleRowSchedules: View {
 
     var body: some View {
         HStack {
-            Spacer()
-
             selected
 
             Text(configschedule.schedule)
                 .modifier(FixedTag(50, .trailing))
             Text(localizeddatestart)
-                .modifier(FixedTag(130, .leading))
+                .modifier(FixedTag(150, .leading))
             Text("active")
                 .modifier(FixedTag(50, .leading))
                 .foregroundColor(Color.green)
-
             Text(String(configschedule.logrecords?.count ?? 0))
                 .modifier(FixedTag(35, .trailing))
-
             Text(activeschedule)
                 .modifier(FixedTag(35, .trailing))
                 .foregroundColor(Color.green)
-
-            Spacer()
         }
     }
 

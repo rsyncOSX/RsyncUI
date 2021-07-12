@@ -19,7 +19,6 @@ struct SchedulesList: View {
                 ScheduleRowSchedules(selecteduuids: $selecteduuids, configschedule: record)
                     .tag(record)
             }
-            .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
         }
     }
 
