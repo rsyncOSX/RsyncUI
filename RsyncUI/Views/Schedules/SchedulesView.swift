@@ -21,7 +21,7 @@ struct ScheduleView: View {
     @State private var selectable = false
     // Datepicker
     @State private var selecteddate = Date()
-    @State private var selectedscheduletype = EnumScheduleDatePicker.once
+    @State private var selectedscheduletype = EnumScheduleTypePicker.once
     // Alert for delete
     @State private var showAlertfordelete = false
     // Alert for select
@@ -32,10 +32,11 @@ struct ScheduleView: View {
             HStack {
                 VStack(alignment: .leading) {
                     HStack {
-                        SelectedstartView(selecteddate: $selecteddate,
-                                          selectedscheduletype: $selectedscheduletype)
+                        ScheduleTypePicker(selecteddate: $selecteddate,
+                                           selectedscheduletype: $selectedscheduletype)
 
-                        SchedulesDatePickerView(selecteddate: $selecteddate)
+                        ScheduleDatePicker(selecteddate: $selecteddate)
+                            .frame(width: 150)
                     }
 
                     SchedulesList(selectedconfig: $selectedconfig,
@@ -54,10 +55,6 @@ struct ScheduleView: View {
 
         Spacer()
 
-        PresentOneconfigView(config: $selectedconfig)
-
-        Spacer()
-
         HStack {
             Button("Add") { addschedule() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -73,8 +70,7 @@ struct ScheduleView: View {
                     ChangeSchedulesView(selecteduuids: $selecteduuids,
                                         isPresented: $showAlertfordelete,
                                         reload: $reload,
-                                        selectedprofile: $selectedprofile,
-                                        selectedconfig: $selectedconfig)
+                                        selectedprofile: $selectedprofile)
                 }
         }
     }
@@ -122,8 +118,7 @@ extension ScheduleView {
         if add == true {
             reload = true
         }
-        selecteduuids.removeAll()
-        selectedconfig = nil
+        // selecteduuids.removeAll()
     }
 
     func change() {

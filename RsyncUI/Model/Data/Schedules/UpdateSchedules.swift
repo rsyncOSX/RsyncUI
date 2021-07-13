@@ -23,7 +23,7 @@ final class UpdateSchedules {
     private var structschedules: [ConfigurationSchedule]?
     private var localeprofile: String?
 
-    func add(_ hiddenID: Int?, _ schedule: EnumScheduleDatePicker, _ startdate: Date) -> Bool {
+    func add(_ hiddenID: Int?, _ schedule: EnumScheduleTypePicker, _ startdate: Date) -> Bool {
         do {
             let validdate = try validateschedule(hiddenID, schedule, startdate)
             guard validdate == true else { return false }
@@ -38,7 +38,7 @@ final class UpdateSchedules {
 
     // Function adds new Shcedules (plans). Functions writes
     // schedule plans to permanent store.
-    func addschedule(_ hiddenID: Int?, _ schedule: EnumScheduleDatePicker, _ startdate: Date) {
+    func addschedule(_ hiddenID: Int?, _ schedule: EnumScheduleTypePicker, _ startdate: Date) {
         var stop: Date?
         var scheduletype: Scheduletype = .once
         if schedule == .once {
@@ -64,7 +64,7 @@ final class UpdateSchedules {
         WriteScheduleJSON(localeprofile, structschedules)
     }
 
-    func validateschedule(_ hiddenID: Int?, _: EnumScheduleDatePicker, _: Date) throws -> Bool {
+    func validateschedule(_ hiddenID: Int?, _: EnumScheduleTypePicker, _: Date) throws -> Bool {
         if hiddenID == nil {
             throw ScheduleError.notselectedconfig
         } else {

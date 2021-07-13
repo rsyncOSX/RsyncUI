@@ -13,7 +13,6 @@ struct ChangeSchedulesView: View {
     @Binding var isPresented: Bool
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
-    @Binding var selectedconfig: Configuration?
 
     var body: some View {
         VStack {
@@ -48,7 +47,7 @@ struct ChangeSchedulesView: View {
     }
 
     func dismissview() {
-        selecteduuids.removeAll()
+        // selecteduuids.removeAll()
         isPresented = false
     }
 
@@ -57,9 +56,8 @@ struct ChangeSchedulesView: View {
                                              scheduleConfigurations: rsyncUIdata.schedulesandlogs)
         deleteschedule.deleteschedules(uuids: selecteduuids)
         reload = true
-        selecteduuids.removeAll()
+        // selecteduuids.removeAll()
         isPresented = false
-        selectedconfig = nil
     }
 
     func stop() {
@@ -67,8 +65,7 @@ struct ChangeSchedulesView: View {
                                            scheduleConfigurations: rsyncUIdata.schedulesandlogs)
         stopschedule.stopschedule(uuids: selecteduuids)
         reload = true
-        selecteduuids.removeAll()
+        // selecteduuids.removeAll()
         isPresented = false
-        selectedconfig = nil
     }
 }

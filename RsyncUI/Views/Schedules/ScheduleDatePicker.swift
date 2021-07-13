@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum EnumScheduleDatePicker: String, CaseIterable, Identifiable, CustomStringConvertible {
+enum EnumScheduleTypePicker: String, CaseIterable, Identifiable, CustomStringConvertible {
     case once
     case daily
     case weekly
@@ -17,7 +17,7 @@ enum EnumScheduleDatePicker: String, CaseIterable, Identifiable, CustomStringCon
     var description: String { rawValue.localizedCapitalized }
 }
 
-struct SchedulesDatePickerView: View {
+struct ScheduleDatePicker: View {
     @Binding var selecteddate: Date
 
     var body: some View {
@@ -27,7 +27,6 @@ struct SchedulesDatePickerView: View {
                        displayedComponents: [.date, .hourAndMinute])
                 .datePickerStyle(FieldDatePickerStyle())
                 .labelsHidden()
-                .frame(width: 300)
         }
     }
 }
