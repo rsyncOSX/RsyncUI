@@ -1,10 +1,3 @@
-//
-//  SchedulesDatePickerView.swift
-//  RsyncSwiftUI
-//
-//  Created by Thomas Evensen on 05/03/2021.
-//
-
 import Foundation
 import SwiftUI
 
