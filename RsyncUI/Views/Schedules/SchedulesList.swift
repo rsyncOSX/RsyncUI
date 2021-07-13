@@ -22,22 +22,31 @@ struct SchedulesList: View {
         }
     }
 
+    /*
+     TODO: fix soring by date
+     */
     var activeschedulesandlogs: [ConfigurationSchedule] {
         if let schedulesandlogs = rsyncUIdata.schedulesandlogs {
-            return schedulesandlogs.filter { schedulesandlogs in selectedconfig?.hiddenID == schedulesandlogs.hiddenID
-                && schedulesandlogs.schedule != Scheduletype.manuel.rawValue
-                && isactive(schedulesandlogs)
+            let records = schedulesandlogs.filter { schedulesandlogs in
+                selectedconfig?.hiddenID == schedulesandlogs.hiddenID
+                    && schedulesandlogs.schedule != Scheduletype.manuel.rawValue
+                    && isactive(schedulesandlogs)
             }
+            return records.sorted(by: \.dateStart, using: >)
         } else {
             return []
         }
     }
 
     func isactive(_ schedule: ConfigurationSchedule) -> Bool {
-        if schedule.schedule == Scheduletype.once.rawValue {
-            return schedule.dateStart.en_us_date_from_string() > Date()
+        if schedule.schedule != Scheduletype.manuel.rawValue {
+            if let dateStop = schedule.dateStop {
+                return dateStop.en_us_date_from_string() > Date()
+            } else {
+                return schedule.dateStart.en_us_date_from_string() > Date()
+            }
         } else {
-            return true
+            return false
         }
     }
 }

@@ -63,7 +63,8 @@ struct ScheduleRow: View {
                                     scheduleConfigurations: rsyncUIdata.schedulesandlogs).sortedexpandedeschedules
         {
             let number = activeschedules.filter { $0.hiddenID == configschedule.hiddenID &&
-                $0.dateStart?.en_us_string_from_date() == configschedule.dateStart
+                $0.dateStart?.en_us_string_from_date() == configschedule.dateStart &&
+                $0.schedule == configschedule.schedule
             }
             guard number.count == 1 else { return "" }
             return timestring(number[0].timetostart ?? 0)
