@@ -19,7 +19,7 @@ struct OneConfigSmall: View {
     var forall: some View {
         HStack {
             Group {
-                if rsyncUIdata.getactiveschedules(config.hiddenID) > 0 {
+                if rsyncUIdata.isactiveschedules(config.hiddenID) {
                     Text(config.task)
                         .modifier(FixedTag(60, .leading))
                         .foregroundColor(Color.green)

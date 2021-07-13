@@ -40,7 +40,7 @@ struct OneConfig: View {
                 Text("")
                     .modifier(FixedTag(20, .leading))
                 if config.backupID.isEmpty {
-                    if rsyncUIdata.getactiveschedules(config.hiddenID) > 0 {
+                    if rsyncUIdata.isactiveschedules(config.hiddenID) {
                         Text("Synchronize ID")
                             .modifier(FixedTag(150, .leading))
                             .foregroundColor(Color.green)
@@ -49,7 +49,7 @@ struct OneConfig: View {
                             .modifier(FixedTag(150, .leading))
                     }
                 } else {
-                    if rsyncUIdata.getactiveschedules(config.hiddenID) > 0 {
+                    if rsyncUIdata.isactiveschedules(config.hiddenID) {
                         Text(config.backupID)
                             .modifier(FixedTag(150, .leading))
                             .foregroundColor(Color.green)
