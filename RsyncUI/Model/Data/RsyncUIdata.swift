@@ -61,7 +61,7 @@ final class RsyncUIdata: ObservableObject {
         return alllogssorted?.filter { uuids.contains($0.id) }.sorted(by: \.date, using: >)
     }
 
-    func isactiveschedules(_ hiddenID: Int) -> Bool {
+    func hasactiveschedules(_ hiddenID: Int) -> Bool {
         let datestopnil = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
             $0.schedule != Scheduletype.manuel.rawValue &&
             $0.dateStop == nil
