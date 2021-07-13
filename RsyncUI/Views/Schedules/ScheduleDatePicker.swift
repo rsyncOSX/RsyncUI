@@ -17,7 +17,7 @@ enum EnumScheduleDatePicker: String, CaseIterable, Identifiable, CustomStringCon
     var description: String { rawValue.localizedCapitalized }
 }
 
-struct SchedulesDatePickerView: View {
+struct ScheduleDatePicker: View {
     @Binding var selecteddate: Date
 
     var body: some View {

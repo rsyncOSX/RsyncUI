@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SelectedstartView: View {
+struct ScheduleTypePicker: View {
     @Binding var selecteddate: Date
     @Binding var selectedscheduletype: EnumScheduleDatePicker
 

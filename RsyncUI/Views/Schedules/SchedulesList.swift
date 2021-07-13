@@ -16,7 +16,7 @@ struct SchedulesList: View {
     var body: some View {
         List(selection: $selectedschedule) {
             ForEach(activeschedulesandlogs) { record in
-                ScheduleRowSchedules(selecteduuids: $selecteduuids, configschedule: record)
+                ScheduleRow(selecteduuids: $selecteduuids, configschedule: record)
                     .tag(record)
             }
         }

@@ -7,7 +7,7 @@
 //
 import SwiftUI
 
-struct ScheduleRowSchedules: View {
+struct ScheduleRow: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     var configschedule: ConfigurationSchedule
@@ -72,7 +72,7 @@ struct ScheduleRowSchedules: View {
     }
 }
 
-extension ScheduleRowSchedules {
+extension ScheduleRow {
     // Calculation of time to a spesific date
     func timestring(_ seconds: Double) -> String {
         var result: String?

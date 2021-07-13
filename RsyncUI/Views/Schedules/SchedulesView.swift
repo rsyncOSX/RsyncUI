@@ -32,10 +32,10 @@ struct ScheduleView: View {
             HStack {
                 VStack(alignment: .leading) {
                     HStack {
-                        SelectedstartView(selecteddate: $selecteddate,
+                        ScheduleTypePicker(selecteddate: $selecteddate,
                                           selectedscheduletype: $selectedscheduletype)
 
-                        SchedulesDatePickerView(selecteddate: $selecteddate)
+                        ScheduleDatePicker(selecteddate: $selecteddate)
                     }
 
                     SchedulesList(selectedconfig: $selectedconfig,
