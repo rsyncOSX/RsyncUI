@@ -25,10 +25,19 @@ struct SchedulesList: View {
     var activeschedulesandlogs: [ConfigurationSchedule] {
         if let schedulesandlogs = rsyncUIdata.schedulesandlogs {
             return schedulesandlogs.filter { schedulesandlogs in selectedconfig?.hiddenID == schedulesandlogs.hiddenID
-                && schedulesandlogs.dateStop == "01 Jan 2100 00:00"
+                && schedulesandlogs.schedule != Scheduletype.manuel.rawValue
+                && isactive(schedulesandlogs)
             }
         } else {
             return []
+        }
+    }
+
+    func isactive(_ schedule: ConfigurationSchedule) -> Bool {
+        if schedule.schedule == Scheduletype.once.rawValue {
+            return schedule.dateStart.en_us_date_from_string() > Date()
+        } else {
+            return true
         }
     }
 }

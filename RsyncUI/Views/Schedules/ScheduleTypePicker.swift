@@ -9,19 +9,18 @@ import SwiftUI
 
 struct ScheduleTypePicker: View {
     @Binding var selecteddate: Date
-    @Binding var selectedscheduletype: EnumScheduleDatePicker
+    @Binding var selectedscheduletype: EnumScheduleTypePicker
 
     var body: some View {
         HStack {
             Picker("", selection: $selectedscheduletype) {
-                ForEach(EnumScheduleDatePicker.allCases) { Text($0.description)
+                ForEach(EnumScheduleTypePicker.allCases) { Text($0.description)
                     .tag($0)
                 }
             }
             .pickerStyle(RadioGroupPickerStyle())
             .labelsHidden()
         }
-        .frame(width: 200)
         .padding()
     }
 }

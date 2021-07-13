@@ -24,7 +24,7 @@ struct ScheduleRow: View {
                 .modifier(FixedTag(50, .leading))
                 .foregroundColor(Color.green)
             Text(activeschedule)
-                .modifier(FixedTag(35, .trailing))
+                .modifier(FixedTag(80, .trailing))
                 .foregroundColor(Color.green)
         }
     }
