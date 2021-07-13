@@ -70,7 +70,14 @@ final class RsyncUIdata: ObservableObject {
             $0.schedule != Scheduletype.manuel.rawValue &&
             $0.dateStart.en_us_date_from_string() > Date()
         }
-        return (datestopnil?.count ?? 0 > 0 || datestartfuture?.count ?? 0 > 0)
+        let datestopfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
+            $0.schedule != Scheduletype.manuel.rawValue &&
+            $0.dateStop?.en_us_date_from_string() ?? Date() > Date()
+        }
+
+        return (datestopnil?.count ?? 0 > 0 ||
+            datestartfuture?.count ?? 0 > 0 ||
+            datestopfuture?.count ?? 0 > 0)
     }
 
     func isactive(_ schedule: ConfigurationSchedule) -> Bool {
