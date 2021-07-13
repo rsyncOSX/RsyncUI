@@ -61,9 +61,28 @@ final class RsyncUIdata: ObservableObject {
         return alllogssorted?.filter { uuids.contains($0.id) }.sorted(by: \.date, using: >)
     }
 
-    func getactiveschedules(_ hiddenID: Int) -> Int {
-        let schedulerecords = schedulesandlogs?.filter { $0.hiddenID == hiddenID }
-        return schedulerecords?.filter { $0.dateStop == "01 Jan 2100 00:00" }.count ?? 0
+    func isactiveschedules(_ hiddenID: Int) -> Bool {
+        let datestopnil = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
+            $0.schedule != Scheduletype.manuel.rawValue &&
+            $0.dateStop == nil
+        }
+        let datestartfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
+            $0.schedule != Scheduletype.manuel.rawValue &&
+            $0.dateStart.en_us_date_from_string() > Date()
+        }
+        return (datestopnil?.count ?? 0 > 0 || datestartfuture?.count ?? 0 > 0)
+    }
+
+    func isactive(_ schedule: ConfigurationSchedule) -> Bool {
+        if schedule.schedule != Scheduletype.manuel.rawValue {
+            if let dateStop = schedule.dateStop {
+                return dateStop.en_us_date_from_string() > Date()
+            } else {
+                return schedule.dateStart.en_us_date_from_string() > Date()
+            }
+        } else {
+            return false
+        }
     }
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {
