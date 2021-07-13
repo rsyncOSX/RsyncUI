@@ -80,18 +80,6 @@ final class RsyncUIdata: ObservableObject {
             datestopfuture?.count ?? 0 > 0)
     }
 
-    func isactive(_ schedule: ConfigurationSchedule) -> Bool {
-        if schedule.schedule != Scheduletype.manuel.rawValue {
-            if let dateStop = schedule.dateStop {
-                return dateStop.en_us_date_from_string() > Date()
-            } else {
-                return schedule.dateStart.en_us_date_from_string() > Date()
-            }
-        } else {
-            return false
-        }
-    }
-
     func filterconfigurations(_ filter: String) -> [Configuration]? {
         return configurations?.filter {
             filter.isEmpty ? true : $0.backupID.contains(filter)
