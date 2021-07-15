@@ -37,7 +37,7 @@ struct RsyncCommandView: View {
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
-        .frame(width: 600, height: 300)
+        .frame(maxWidth: 600, minHeight: 400)
         .padding()
     }
 
@@ -48,8 +48,8 @@ struct RsyncCommandView: View {
                 .tag($0)
             }
         }
-        .pickerStyle(SegmentedPickerStyle())
-        .frame(width: 400)
+        .pickerStyle(RadioGroupPickerStyle())
+        // .frame(width: 400)
     }
 
     var headingtitle: some View {
@@ -63,6 +63,8 @@ struct RsyncCommandView: View {
             .padding()
             .border(Color.gray)
             .textSelection(.enabled)
+            .lineLimit(nil)
+            .multilineTextAlignment(.leading)
     }
 
     var parameterlist: some View {
