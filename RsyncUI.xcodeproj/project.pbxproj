@@ -10,8 +10,6 @@
 		E801DC662637FD990060723F /* WriteConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801DC652637FD990060723F /* WriteConfigurationJSON.swift */; };
 		E81C244C267DEEAA00C50AE8 /* OutputEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */; };
 		E81CF81A25FF310D005D8667 /* ScheduleTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81CF81925FF310D005D8667 /* ScheduleTypePicker.swift */; };
-		E83FAFDD2692F7DA0006AFE9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E83FAFDB2692F7DA0006AFE9 /* InfoPlist.strings */; };
-		E83FAFE02692F7DA0006AFE9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E83FAFDE2692F7DA0006AFE9 /* Localizable.strings */; };
 		E83FAFE62692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */; };
 		E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8518C79263807F200128796 /* WriteScheduleJSON.swift */; };
 		E85E86BA265A66A300219B1C /* ConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */; };
@@ -41,6 +39,8 @@
 		E9168C0E2615ABFA00B139CE /* AddConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */; };
 		E91CC2622607260B00D69D0B /* RsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2612607260B00D69D0B /* RsyncParametersView.swift */; };
 		E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */; };
+		E91CF45B26A00AFA006A56B9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E91CF45926A00AFA006A56B9 /* InfoPlist.strings */; };
+		E91CF45E26A00AFA006A56B9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E91CF45C26A00AFA006A56B9 /* Localizable.strings */; };
 		E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927AAD22616E27300DC27A3 /* QuicktaskView.swift */; };
 		E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */; };
 		E9359B9A26691EFD00D40C43 /* ObserveableAddConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9359B9926691EFD00D40C43 /* ObserveableAddConfigurations.swift */; };
@@ -235,10 +235,6 @@
 		E801DC652637FD990060723F /* WriteConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteConfigurationJSON.swift; sourceTree = "<group>"; };
 		E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputEstimatedView.swift; sourceTree = "<group>"; };
 		E81CF81925FF310D005D8667 /* ScheduleTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTypePicker.swift; sourceTree = "<group>"; };
-		E83FAFDC2692F7DA0006AFE9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E83FAFDF2692F7DA0006AFE9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E83FAFE12692F8030006AFE9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E83FAFE22692F8030006AFE9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsListNoSearch.swift; sourceTree = "<group>"; };
 		E8518C79263807F200128796 /* WriteScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSON.swift; sourceTree = "<group>"; };
 		E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPLIST.swift; sourceTree = "<group>"; };
@@ -268,6 +264,8 @@
 		E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddConfigurationView.swift; sourceTree = "<group>"; };
 		E91CC2612607260B00D69D0B /* RsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncParametersView.swift; sourceTree = "<group>"; };
 		E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebareRestoreView.swift; sourceTree = "<group>"; };
+		E91CF45A26A00AFA006A56B9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E91CF45D26A00AFA006A56B9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E927AAD22616E27300DC27A3 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
 		E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteSnapshots.swift; sourceTree = "<group>"; };
 		E9359B9926691EFD00D40C43 /* ObserveableAddConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableAddConfigurations.swift; sourceTree = "<group>"; };
@@ -432,6 +430,8 @@
 		E9BD14BC2642FDC200E29347 /* TrimOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimOne.swift; sourceTree = "<group>"; };
 		E9BD14BE2642FE6300E29347 /* TrimTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimTwo.swift; sourceTree = "<group>"; };
 		E9BD14C02643082100E29347 /* TrimThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimThree.swift; sourceTree = "<group>"; };
+		E9C6151526A00CD0000A0E4C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E9C6151626A00CD0000A0E4C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableSSH.swift; sourceTree = "<group>"; };
 		E9C9306B25FEA4230049A76B /* ObserveablePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveablePath.swift; sourceTree = "<group>"; };
 		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
@@ -562,8 +562,8 @@
 				E8944891267B2CB0009F9C4A /* RsyncUIView.swift */,
 				E9FDDD4825F3D0610050718C /* Assets.xcassets */,
 				E985C5D225F3AC0800CB895C /* Info.plist */,
-				E83FAFDE2692F7DA0006AFE9 /* Localizable.strings */,
-				E83FAFDB2692F7DA0006AFE9 /* InfoPlist.strings */,
+				E91CF45C26A00AFA006A56B9 /* Localizable.strings */,
+				E91CF45926A00AFA006A56B9 /* InfoPlist.strings */,
 				E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */,
 				E985C60925F3AD8400CB895C /* Views */,
 				E985C69225F3AD9600CB895C /* Model */,
@@ -1208,9 +1208,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				de,
-				nb,
 				Base,
+				nb,
+				de,
 			);
 			mainGroup = E985C5BA25F3AC0700CB895C;
 			packageReferences = (
@@ -1234,8 +1234,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */,
-				E83FAFE02692F7DA0006AFE9 /* Localizable.strings in Resources */,
-				E83FAFDD2692F7DA0006AFE9 /* InfoPlist.strings in Resources */,
+				E91CF45E26A00AFA006A56B9 /* Localizable.strings in Resources */,
+				E91CF45B26A00AFA006A56B9 /* InfoPlist.strings in Resources */,
 				E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1513,20 +1513,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E83FAFDB2692F7DA0006AFE9 /* InfoPlist.strings */ = {
+		E91CF45926A00AFA006A56B9 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E83FAFDC2692F7DA0006AFE9 /* de */,
-				E83FAFE12692F8030006AFE9 /* nb */,
+				E91CF45A26A00AFA006A56B9 /* nb */,
+				E9C6151526A00CD0000A0E4C /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		E83FAFDE2692F7DA0006AFE9 /* Localizable.strings */ = {
+		E91CF45C26A00AFA006A56B9 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E83FAFDF2692F7DA0006AFE9 /* de */,
-				E83FAFE22692F8030006AFE9 /* nb */,
+				E91CF45D26A00AFA006A56B9 /* nb */,
+				E9C6151626A00CD0000A0E4C /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
