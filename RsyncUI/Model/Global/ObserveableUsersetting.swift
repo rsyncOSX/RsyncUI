@@ -10,8 +10,6 @@ import Combine
 import Foundation
 
 final class ObserveableUsersetting: ObservableObject {
-    // When property is changed set isDirty = true
-    @Published var isDirty: Bool = false
     // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
     @Published var rsyncversion3: Bool = SharedReference.shared.rsyncversion3
     // Optional path to rsync, the settings View is picking up the current value
@@ -39,6 +37,8 @@ final class ObserveableUsersetting: ObservableObject {
     @Published var checkinput: Bool = SharedReference.shared.checkinput
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
+    // When property is changed set isDirty = true
+    var isDirty: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()

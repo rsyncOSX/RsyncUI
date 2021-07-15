@@ -135,6 +135,10 @@ struct Usersettings: View {
         }
         .lineSpacing(2)
         .padding()
+        .onDisappear {
+            usersettings.inputchangedbyuser = false
+            usersettings.isDirty = false
+        }
     }
 
     // Save usersetting is changed
