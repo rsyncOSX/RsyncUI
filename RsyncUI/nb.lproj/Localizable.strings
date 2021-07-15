@@ -1,11 +1,11 @@
 /* No comment provided by engineer. */
-"%" = "%";
-
-/* No comment provided by engineer. */
-"%@" = "%@";
+"Abort" = "Avbryt";
 
 /* No comment provided by engineer. */
 "active" = "aktiv";
+
+/* No comment provided by engineer. */
+"Add" = "Legg til";
 
 /* No comment provided by engineer. */
 "Add config" = "Legg til konfigurasjon";
@@ -41,6 +41,9 @@
 "Add synchronize ID" = "Legg til synkroniserings ID";
 
 /* No comment provided by engineer. */
+"All" = "Alle";
+
+/* No comment provided by engineer. */
 "All logs" = "Alle logger";
 
 /* No comment provided by engineer. */
@@ -56,7 +59,13 @@
 "Check data" = "Sjekk data";
 
 /* No comment provided by engineer. */
+"Clear" = "Tøm";
+
+/* No comment provided by engineer. */
 "Completed" = "Fullført";
+
+/* No comment provided by engineer. */
+"Configurations" = "Konfigurasjoner";
 
 /* No comment provided by engineer. */
 "Confirm convert" = "Bekreft konvertering";
@@ -71,10 +80,10 @@
 "Copyright ©2021 Thomas Evensen" = "Opphavsrett ©2021 Thomas Evensen";
 
 /* No comment provided by engineer. */
-"Days" = "Dager";
+"Create" = "Opprett";
 
 /* No comment provided by engineer. */
-"Default profile" = "Standard profil";
+"Days" = "Dager";
 
 /* No comment provided by engineer. */
 "Delete" = "Slett";
@@ -95,7 +104,13 @@
 "Environment variable" = "Miljømessig variabel";
 
 /* No comment provided by engineer. */
+"Estimate" = "Estimat";
+
+/* No comment provided by engineer. */
 "Estimated tasks" = "Estimerte oppgaver";
+
+/* No comment provided by engineer. */
+"Execute" = "Utfør";
 
 /* No comment provided by engineer. */
 "Execute tasks" = "Utfør oppgaver";
@@ -131,9 +146,6 @@
 "Last" = "Siste";
 
 /* No comment provided by engineer. */
-"Last rundate: " = "Siste kjøredato: ";
-
-/* No comment provided by engineer. */
 "Level log" = "Nivå logg";
 
 /* No comment provided by engineer. */
@@ -143,19 +155,13 @@
 "Local ssh keys found" = "Lokale ssh nøkler funnet";
 
 /* No comment provided by engineer. */
-"Localcatalog: " = "Lokal katalog: ";
-
-/* No comment provided by engineer. */
 "localhost" = "localhost";
 
 /* No comment provided by engineer. */
-"Localhost: " = "Localhost: ";
+"Log listings" = "Liste logger";
 
 /* No comment provided by engineer. */
 "Log to file" = "Logg til fil";
-
-/* No comment provided by engineer. */
-"log(s)?" = "logg(er)?";
 
 /* No comment provided by engineer. */
 "Logfile" = "Loggfil";
@@ -185,9 +191,6 @@
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
-"no username" = "ingen brukernavn";
-
-/* No comment provided by engineer. */
 "None" = "Ingen";
 
 /* No comment provided by engineer. */
@@ -199,16 +202,16 @@
 /* No comment provided by engineer. */
 "not set" = "ikke angitt";
 
-/* : */
+/* No comment provided by engineer. */
 "Number of files" = "Antall filer";
 
-/* : \(snapshotdata.logrecordssnapshot?.count ?? 0) */
+/* No comment provided by engineer. */
 "Number of logrecords" = "Antall logger";
 
 /* No comment provided by engineer. */
 "Number of logs" = "Antall logger";
 
-/* : \(snapshotdata.uuidsfordelete?.count ?? 0) */
+/* No comment provided by engineer. */
 "Number to delete" = "Antall å slette";
 
 /* No comment provided by engineer. */
@@ -239,19 +242,13 @@
 "Pre and post task" = "Pre og post oppgave";
 
 /* No comment provided by engineer. */
+"Quick task" = "Hurtig oppgave";
+
+/* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
 
 /* No comment provided by engineer. */
 "Remote parameters" = "Eksterne parametere";
-
-/* No comment provided by engineer. */
-"Remote server: " = "Ekstern server: ";
-
-/* No comment provided by engineer. */
-"Remotecatalog: " = "Ekstern katalog: ";
-
-/* No comment provided by engineer. */
-"Remove default rsync parameters" = "Fjern standard rsync parametre";
 
 /* No comment provided by engineer. */
 "Restore" = "Gjenopprett";
@@ -272,10 +269,10 @@
 "RsyncUI" = "RsyncUI";
 
 /* No comment provided by engineer. */
-"RsyncUI configpath: " = "RsyncUI konfigurasjon: ";
+"RsyncUI help" = "RsyncUI hjelp";
 
 /* No comment provided by engineer. */
-"RsyncUI help" = "RsyncUI hjelp";
+"Save" = "Lagre";
 
 /* No comment provided by engineer. */
 "Save settings" = "Lagre innstillinger";
@@ -290,16 +287,13 @@
 "Schedules" = "Oppgaver";
 
 /* No comment provided by engineer. */
-"Search" = "Søk";
+"Select" = "Velg";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
 
 /* No comment provided by engineer. */
 "Select task" = "Velg oppgave";
-
-/* No comment provided by engineer. */
-"Select: Unique usernames and servers" = "Unike brukernavn og servere";
 
 /* No comment provided by engineer. */
 "Server" = "Tjener";
@@ -311,22 +305,13 @@
 "Single task" = "En oppgave";
 
 /* No comment provided by engineer. */
-"snapshot(s)" = "snapshot(s)";
-
-/* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";
 
 /* No comment provided by engineer. */
-"Synchronize ID: " = "Synkroniserings ID: ";
-
-/* No comment provided by engineer. */
 "Task" = "Oppgave";
-
-/* No comment provided by engineer. */
-"Task: " = "Oppgave: ";
 
 /* No comment provided by engineer. */
 "Tot bytes" = "Tot bytes";
@@ -339,6 +324,9 @@
 
 /* No comment provided by engineer. */
 "Unique usernames and servers" = "Unike brukernavn og servere";
+
+/* No comment provided by engineer. */
+"Update" = "Oppdater";
 
 /* No comment provided by engineer. */
 "Update configuration completed" = "Oppdateringskonfigurasjon fullført";
@@ -356,49 +344,8 @@
 "Version %@ (%@)" = "Versjon %@ (%@)";
 
 /* No comment provided by engineer. */
-"View logfile" = "Vis loggfil";
-
-/* No comment provided by engineer. */
-"All" = "Alle";
-
-/* No comment provided by engineer. */
-"Select" = "Velg";
-
-/* No comment provided by engineer. */
-"Estimate" = "Estimat";
-
-/* No comment provided by engineer. */
-"Execute" = "Utfør";
-
-/* No comment provided by engineer. */
 "View" = "Vis";
 
 /* No comment provided by engineer. */
-"Now" = "Nå";
+"View logfile" = "Vis loggfil";
 
-/* No comment provided by engineer. */
-"Quick task" = "Hurtig oppgave";
-
-/* No comment provided by engineer. */
-"Configurations" = "Konfigurasjoner";
-
-/* No comment provided by engineer. */
-"Log listings" = "Liste logger";
-
-/* No comment provided by engineer. */
-"Create" = "Opprett";
-
-/* No comment provided by engineer. */
-"Add" = "Legg til";
-
-/* No comment provided by engineer. */
-"Update" = "Oppdater";
-
-/* No comment provided by engineer. */
-"Save" = "Lagre";
-
-/* No comment provided by engineer. */
-"Abort" = "Avbryt";
-
-/* No comment provided by engineer. */
-"Clear" = "Tøm";
