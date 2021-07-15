@@ -32,3 +32,24 @@ struct ToggleView: View {
         mybinding = binding
     }
 }
+
+struct ToggleViewDefault: View {
+    private var mytext: String?
+    private var mybinding: Binding<Bool>
+
+    var body: some View {
+        HStack {
+            Text(mytext ?? "")
+                .foregroundColor(mybinding.wrappedValue ? .green : .gray)
+                .toggleStyle(SwitchToggleStyle(tint: .red))
+            Toggle(mytext ?? "", isOn: mybinding)
+                .labelsHidden()
+                .toggleStyle(SwitchToggleStyle(tint: .red))
+        }.padding()
+    }
+
+    init(_ text: String, _ binding: Binding<Bool>) {
+        mytext = text
+        mybinding = binding
+    }
+}

@@ -51,17 +51,16 @@ struct AddConfigurationView: View {
                             VStack(alignment: .leading) { localandremotecatalog }
                         }
 
+                        VStack(alignment: .leading) {
+                            ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""), $newdata.donotaddtrailingslash)
+                        }
+
                         VStack(alignment: .leading) { synchronizeid }
 
                         VStack(alignment: .leading) { remoteuserandserver }
                     }
 
                     // Column 2
-                    VStack(alignment: .leading) {
-                        ToggleView(NSLocalizedString("Don´t add /", comment: ""), $newdata.donotaddtrailingslash)
-                    }
-
-                    // Column 3
 
                     VStack(alignment: .leading) {
                         ConfigurationsListSmall(selectedconfig: $newdata.selectedconfig.onChange {
