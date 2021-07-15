@@ -47,13 +47,25 @@
 "All logs" = "Alle logger";
 
 /* No comment provided by engineer. */
+"Backup" = "Backup";
+
+/* No comment provided by engineer. */
 "By config" = "Etter konfigurasjon";
 
 /* No comment provided by engineer. */
 "Bytes" = "bytes";
 
 /* No comment provided by engineer. */
+"Cancel" = "Kanseler";
+
+/* No comment provided by engineer. */
 "Catalog parameters" = "Katalog parametre";
+
+/* No comment provided by engineer. */
+"Change" = "Endre";
+
+/* No comment provided by engineer. */
+"Changelog" = "Endringslogg";
 
 /* No comment provided by engineer. */
 "Check data" = "Sjekk data";
@@ -69,6 +81,9 @@
 
 /* No comment provided by engineer. */
 "Confirm convert" = "Bekreft konvertering";
+
+/* No comment provided by engineer. */
+"Convert" = "Konverter";
 
 /* No comment provided by engineer. */
 "Convert from PLIST for" = "Konverter fra PLIST for";
@@ -89,10 +104,19 @@
 "Delete" = "Slett";
 
 /* No comment provided by engineer. */
+"Delete: %lld" = "Slett: %lld";
+
+/* No comment provided by engineer. */
 "Detailed" = "Detaljert";
 
 /* No comment provided by engineer. */
+"Dismiss" = "Lukk";
+
+/* No comment provided by engineer. */
 "Don´t add /" = "Ikke legg til /";
+
+/* No comment provided by engineer. */
+"Download" = "Last ned";
 
 /* No comment provided by engineer. */
 "Enable" = "Aktiver";
@@ -138,6 +162,12 @@
 
 /* No comment provided by engineer. */
 "In process in getting data" = "I prosess for å hente data";
+
+/* No comment provided by engineer. */
+"Info" = "Info";
+
+/* No comment provided by engineer. */
+"Info about convert" = "Info om konvertering";
 
 /* No comment provided by engineer. */
 "JSON file exists" = "JSON filen eksisterer";
@@ -191,6 +221,9 @@
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
+"New: %lld" = "Ny: %lld";
+
+/* No comment provided by engineer. */
 "None" = "Ingen";
 
 /* No comment provided by engineer. */
@@ -215,6 +248,9 @@
 "Number to delete" = "Antall å slette";
 
 /* No comment provided by engineer. */
+"Numbers transfer: %lld" = "Antall overføre: %lld";
+
+/* No comment provided by engineer. */
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
@@ -233,7 +269,16 @@
 "Path to RsyncUI" = "Sti til RsyncUI";
 
 /* No comment provided by engineer. */
+"Paths" = "Sti";
+
+/* No comment provided by engineer. */
 "Paths for apps" = "Sti til apper";
+
+/* No comment provided by engineer. */
+"Plist" = "Plist";
+
+/* No comment provided by engineer. */
+"PLIST" = "PLIST";
 
 /* No comment provided by engineer. */
 "Pre and post" = "Pre og post oppgave";
@@ -249,6 +294,9 @@
 
 /* No comment provided by engineer. */
 "Remote parameters" = "Eksterne parametere";
+
+/* No comment provided by engineer. */
+"Reset" = "Reset";
 
 /* No comment provided by engineer. */
 "Restore" = "Gjenopprett";
@@ -302,16 +350,31 @@
 "Set ssh keypath and identityfile" = "Sett ssh keypath og identityfile";
 
 /* No comment provided by engineer. */
+"Settings" = "Setting";
+
+/* No comment provided by engineer. */
 "Single task" = "En oppgave";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
 
 /* No comment provided by engineer. */
+"Ssh" = "Ssh";
+
+/* No comment provided by engineer. */
+"Stop" = "Stopp";
+
+/* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";
 
 /* No comment provided by engineer. */
+"Tag" = "Merk";
+
+/* No comment provided by engineer. */
 "Task" = "Oppgave";
+
+/* No comment provided by engineer. */
+"TCP" = "TCP";
 
 /* No comment provided by engineer. */
 "Tot bytes" = "Tot bytes";
@@ -321,6 +384,12 @@
 
 /* No comment provided by engineer. */
 "Tot num" = "Tot num";
+
+/* No comment provided by engineer. */
+"Total remote numbers: %lld" = "Totalt remote natal: %lld";
+
+/* No comment provided by engineer. */
+"Trash" = "Søppel";
 
 /* No comment provided by engineer. */
 "Unique usernames and servers" = "Unike brukernavn og servere";
