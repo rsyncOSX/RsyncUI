@@ -47,13 +47,25 @@
 "All logs" = "Alle Protokolle";
 
 /* No comment provided by engineer. */
+"Backup" = "Sichern";
+
+/* No comment provided by engineer. */
 "By config" = "Nach Konfiguration";
 
 /* No comment provided by engineer. */
 "Bytes" = "Bytes";
 
 /* No comment provided by engineer. */
+"Cancel" = "Abbrechen";
+
+/* No comment provided by engineer. */
 "Catalog parameters" = "Katalogparameter";
+
+/* No comment provided by engineer. */
+"Change" = "Ändern";
+
+/* No comment provided by engineer. */
+"Changelog" = "Änderungsprotokoll";
 
 /* No comment provided by engineer. */
 "Check data" = "Daten prüfen";
@@ -69,6 +81,9 @@
 
 /* No comment provided by engineer. */
 "Confirm convert" = "Konvertierung bestätigen";
+
+/* No comment provided by engineer. */
+"Convert" = "Konvertieren";
 
 /* No comment provided by engineer. */
 "Convert from PLIST for" = "Von PLIST umwandeln für";
@@ -89,10 +104,19 @@
 "Delete" = "Löschen";
 
 /* No comment provided by engineer. */
+"Delete: %lld" = "Löschen: %lld";
+
+/* No comment provided by engineer. */
 "Detailed" = "Detailliert";
 
 /* No comment provided by engineer. */
+"Dismiss" = "Verwerfen";
+
+/* No comment provided by engineer. */
 "Don´t add /" = "Nicht hinzufügen/";
+
+/* No comment provided by engineer. */
+"Download" = "Download";
 
 /* No comment provided by engineer. */
 "Enable" = "Aktivieren";
@@ -138,6 +162,12 @@
 
 /* No comment provided by engineer. */
 "In process in getting data" = "Daten werden gerade abgerufen";
+
+/* No comment provided by engineer. */
+"Info" = "Info";
+
+/* No comment provided by engineer. */
+"Info about convert" = "Info über Konvertierung";
 
 /* No comment provided by engineer. */
 "JSON file exists" = "JSON-Datei existiert";
@@ -191,6 +221,9 @@
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
+"New: %lld" = "Neu: %lld";
+
+/* No comment provided by engineer. */
 "None" = "Keine";
 
 /* No comment provided by engineer. */
@@ -215,6 +248,9 @@
 "Number to delete" = "Zu löschende Nummer";
 
 /* No comment provided by engineer. */
+"Numbers transfer: %lld" = "Nummerübertragung: %lld";
+
+/* No comment provided by engineer. */
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
@@ -233,7 +269,16 @@
 "Path to RsyncUI" = "Pfad zu RsyncUI";
 
 /* No comment provided by engineer. */
+"Paths" = "Pfade";
+
+/* No comment provided by engineer. */
 "Paths for apps" = "Pfade für Apps";
+
+/* No comment provided by engineer. */
+"Plist" = "Plist";
+
+/* No comment provided by engineer. */
+"PLIST" = "PLIST";
 
 /* No comment provided by engineer. */
 "Pre and post" = "Vor- und Post";
@@ -249,6 +294,9 @@
 
 /* No comment provided by engineer. */
 "Remote parameters" = "Remote Parameter";
+
+/* No comment provided by engineer. */
+"Reset" = "Reset";
 
 /* No comment provided by engineer. */
 "Restore" = "Wiederherstellen";
@@ -302,16 +350,31 @@
 "Set ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
 
 /* No comment provided by engineer. */
+"Settings" = "Einstellungen";
+
+/* No comment provided by engineer. */
 "Single task" = "Einzelne Aufgabe";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
 
 /* No comment provided by engineer. */
+"Ssh" = "Ssh";
+
+/* No comment provided by engineer. */
+"Stop" = "Stoppen";
+
+/* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
+"Tag" = "Markierung";
+
+/* No comment provided by engineer. */
 "Task" = "Aufgabe";
+
+/* No comment provided by engineer. */
+"TCP" = "TCP";
 
 /* No comment provided by engineer. */
 "Tot bytes" = "Bytes Gesamt";
@@ -321,6 +384,12 @@
 
 /* No comment provided by engineer. */
 "Tot num" = "Anzahl Gesamt";
+
+/* No comment provided by engineer. */
+"Total remote numbers: %lld" = "Anzahl remote: %lld";
+
+/* No comment provided by engineer. */
+"Trash" = "Müll";
 
 /* No comment provided by engineer. */
 "Unique usernames and servers" = "Eindeutige Benutzernamen und Server";
@@ -336,6 +405,9 @@
 
 /* No comment provided by engineer. */
 "User" = "Benutzer";
+
+/* No comment provided by engineer. */
+"Verify" = "Überprüfen";
 
 /* No comment provided by engineer. */
 "Verify SSH" = "SSH überprüfen";

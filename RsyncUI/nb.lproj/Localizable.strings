@@ -350,7 +350,7 @@
 "Set ssh keypath and identityfile" = "Sett ssh keypath og identityfile";
 
 /* No comment provided by engineer. */
-"Settings" = "Setting";
+"Settings" = "Innstillinger";
 
 /* No comment provided by engineer. */
 "Single task" = "En oppgave";
@@ -405,6 +405,9 @@
 
 /* No comment provided by engineer. */
 "User" = "Bruker";
+
+/* No comment provided by engineer. */
+"Verify" = "Verifiser";
 
 /* No comment provided by engineer. */
 "Verify SSH" = "Verifiser SSH";
