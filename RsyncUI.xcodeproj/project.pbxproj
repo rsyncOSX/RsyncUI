@@ -430,6 +430,8 @@
 		E9BD14BC2642FDC200E29347 /* TrimOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimOne.swift; sourceTree = "<group>"; };
 		E9BD14BE2642FE6300E29347 /* TrimTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimTwo.swift; sourceTree = "<group>"; };
 		E9BD14C02643082100E29347 /* TrimThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimThree.swift; sourceTree = "<group>"; };
+		E9C6151526A00CD0000A0E4C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E9C6151626A00CD0000A0E4C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableSSH.swift; sourceTree = "<group>"; };
 		E9C9306B25FEA4230049A76B /* ObserveablePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveablePath.swift; sourceTree = "<group>"; };
 		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
@@ -1515,6 +1517,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E91CF45A26A00AFA006A56B9 /* nb */,
+				E9C6151526A00CD0000A0E4C /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1523,6 +1526,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E91CF45D26A00AFA006A56B9 /* nb */,
+				E9C6151626A00CD0000A0E4C /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
