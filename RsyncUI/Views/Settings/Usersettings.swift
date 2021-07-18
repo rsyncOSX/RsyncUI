@@ -6,6 +6,7 @@
 //
 // swiftlint:disable line_length
 
+import AlertToast
 import SwiftUI
 
 struct Usersettings: View {

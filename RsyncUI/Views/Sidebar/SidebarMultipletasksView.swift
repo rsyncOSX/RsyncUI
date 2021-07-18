@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 19/01/2021.
 //
 
+import AlertToast
 import SwiftUI
 
 struct SidebarMultipletasksView: View {

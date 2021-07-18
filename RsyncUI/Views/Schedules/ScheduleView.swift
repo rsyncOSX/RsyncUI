@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 23/04/2021.
 //
 
+import AlertToast
 import SwiftUI
 
 struct ScheduleView: View {

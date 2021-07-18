@@ -37,6 +37,7 @@
 		E90F7CA926344D60001D9CA2 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA826344D60001D9CA2 /* TextExtensions.swift */; };
 		E9168C092615AB8500B139CE /* AddPostandPreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C082615AB8500B139CE /* AddPostandPreView.swift */; };
 		E9168C0E2615ABFA00B139CE /* AddConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */; };
+		E91BB98326A3FBFD006A7E7D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = E91BB98226A3FBFD006A7E7D /* AlertToast */; };
 		E91CC2622607260B00D69D0B /* RsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2612607260B00D69D0B /* RsyncParametersView.swift */; };
 		E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */; };
 		E91CF45B26A00AFA006A56B9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E91CF45926A00AFA006A56B9 /* InfoPlist.strings */; };
@@ -56,9 +57,6 @@
 		E96F6CD7269AC41B008CE33E /* SidebarQuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F6CD6269AC41B008CE33E /* SidebarQuicktaskView.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
 		E97844DF260DB3D6007874A1 /* ScheduleSortedAndExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */; };
-		E983D2E526417082004621D5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E226417082004621D5 /* BlurView.swift */; };
-		E983D2E626417082004621D5 /* AlertToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E326417082004621D5 /* AlertToast.swift */; };
-		E983D2E726417082004621D5 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D2E426417082004621D5 /* ActivityIndicator.swift */; };
 		E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C65525F3AD8400CB895C /* SidebarMultipletasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60C25F3AD8400CB895C /* SidebarMultipletasksView.swift */; };
@@ -282,9 +280,6 @@
 		E96F6CD6269AC41B008CE33E /* SidebarQuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarQuicktaskView.swift; sourceTree = "<group>"; };
 		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
 		E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSortedAndExpand.swift; sourceTree = "<group>"; };
-		E983D2E226417082004621D5 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
-		E983D2E326417082004621D5 /* AlertToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
-		E983D2E426417082004621D5 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIApp.swift; sourceTree = "<group>"; };
 		E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -452,6 +447,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E91BB98326A3FBFD006A7E7D /* AlertToast in Frameworks */,
 				E985C7A425F3AFDE00CB895C /* Files in Frameworks */,
 				E985C79E25F3AF9C00CB895C /* ShellOut in Frameworks */,
 			);
@@ -527,16 +523,6 @@
 				E9EA67CC2632B11100BB6DEB /* DetailedRsyncParametersView.swift */,
 			);
 			path = RsyncParameters;
-			sourceTree = "<group>";
-		};
-		E983D2E126417082004621D5 /* AlertToast */ = {
-			isa = PBXGroup;
-			children = (
-				E983D2E226417082004621D5 /* BlurView.swift */,
-				E983D2E326417082004621D5 /* AlertToast.swift */,
-				E983D2E426417082004621D5 /* ActivityIndicator.swift */,
-			);
-			path = AlertToast;
 			sourceTree = "<group>";
 		};
 		E985C5BA25F3AC0700CB895C = {
@@ -665,7 +651,6 @@
 			isa = PBXGroup;
 			children = (
 				E9E9CD2326779E0A00EB377B /* Commands */,
-				E983D2E126417082004621D5 /* AlertToast */,
 				E90F7CAA26344FC6001D9CA2 /* TextBuilder */,
 				E90B4A91261DA7580043EFF6 /* Indicators */,
 				E985C62125F3AD8400CB895C /* ToggleView.swift */,
@@ -1142,6 +1127,7 @@
 			packageProductDependencies = (
 				E985C79D25F3AF9C00CB895C /* ShellOut */,
 				E985C7A325F3AFDE00CB895C /* Files */,
+				E91BB98226A3FBFD006A7E7D /* AlertToast */,
 			);
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
@@ -1219,6 +1205,7 @@
 			packageReferences = (
 				E985C79C25F3AF9C00CB895C /* XCRemoteSwiftPackageReference "ShellOut" */,
 				E985C7A225F3AFDE00CB895C /* XCRemoteSwiftPackageReference "Files" */,
+				E91BB98126A3FBFD006A7E7D /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = E985C5C425F3AC0700CB895C /* Products */;
 			projectDirPath = "";
@@ -1310,7 +1297,6 @@
 				E985C76C25F3AD9700CB895C /* RemoteinfonumbersOnetask.swift in Sources */,
 				E985C68425F3AD8400CB895C /* ConfirmAddView.swift in Sources */,
 				E95EDC8A26063EAA000018DE /* ObserveableParametersRsync.swift in Sources */,
-				E983D2E626417082004621D5 /* AlertToast.swift in Sources */,
 				E985C65A25F3AD8400CB895C /* Sidebar.swift in Sources */,
 				E985C78325F3AD9700CB895C /* Equal.swift in Sources */,
 				E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */,
@@ -1404,7 +1390,6 @@
 				E9FBEEAD264EBA7700E5F143 /* ConfigurationsListSmall.swift in Sources */,
 				E90B4A9D261DA7580043EFF6 /* EqualizerIndicatorView.swift in Sources */,
 				E985C72A25F3AD9700CB895C /* NamesandPaths.swift in Sources */,
-				E983D2E526417082004621D5 /* BlurView.swift in Sources */,
 				E985C65C25F3AD8400CB895C /* SidebarSingleTasksView.swift in Sources */,
 				E943B0A925FFC22200A4F30D /* RsyncProcess.swift in Sources */,
 				E90B4A9E261DA7580043EFF6 /* OpacityDotsIndicatorView.swift in Sources */,
@@ -1464,7 +1449,6 @@
 				E985C66825F3AD8400CB895C /* OutputRsyncView.swift in Sources */,
 				E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */,
 				E90B4A9F261DA7580043EFF6 /* DefaultIndicatorView.swift in Sources */,
-				E983D2E726417082004621D5 /* ActivityIndicator.swift in Sources */,
 				E88F68BB25F8A7D30010F33C /* Sshverifykey.swift in Sources */,
 				E985C68725F3AD8400CB895C /* EditValue.swift in Sources */,
 				E879883525F8B512004D68C2 /* VerifySshView.swift in Sources */,
@@ -1837,6 +1821,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E91BB98126A3FBFD006A7E7D /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rsyncOSX/AlertToast";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		E985C79C25F3AF9C00CB895C /* XCRemoteSwiftPackageReference "ShellOut" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/ShellOut";
@@ -1856,6 +1848,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E91BB98226A3FBFD006A7E7D /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E91BB98126A3FBFD006A7E7D /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
 		E985C79D25F3AF9C00CB895C /* ShellOut */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E985C79C25F3AF9C00CB895C /* XCRemoteSwiftPackageReference "ShellOut" */;
