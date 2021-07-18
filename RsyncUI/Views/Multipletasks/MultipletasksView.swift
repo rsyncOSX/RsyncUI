@@ -55,6 +55,8 @@ struct MultipletasksView: View {
             if focusstartestimation { labelshortcutestimation }
             if focusstartexecution { labelshortcutexecute }
             if focusstarttestfortcpconnections { notifyverifyTCPconnections }
+
+            if estimationstate.estimationstate == .estimate { progressviewestimation }
         }
 
         HStack {
@@ -66,10 +68,6 @@ struct MultipletasksView: View {
 
             Button("Execute") { startexecution() }
                 .buttonStyle(PrimaryButtonStyle())
-
-            Spacer()
-
-            if estimationstate.estimationstate == .estimate { progressviewestimation }
 
             Spacer()
 

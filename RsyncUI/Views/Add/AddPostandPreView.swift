@@ -103,11 +103,7 @@ struct AddPostandPreView: View {
             } else {
                 if newdata.inputchangedbyuser == true {
                     Button("Update") { validateandupdate() }
-                        .buttonStyle(PrimaryButtonStyle())
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.red, lineWidth: 5)
-                        )
+                        .buttonStyle(SaveButtonStyle())
                 } else {
                     Button("Update") {}
                         .buttonStyle(PrimaryButtonStyle())

@@ -48,3 +48,20 @@ struct AbortButtonStyle: ButtonStyle {
             }
     }
 }
+
+struct SaveButtonStyle: ButtonStyle {
+    typealias ButtonConfiguration = ButtonStyleConfiguration
+
+    func makeBody(configuration: ButtonConfiguration) -> some View {
+        configuration.label
+            .foregroundColor(configuration.isPressed ? Color.red.opacity(0.9) : Color.red)
+            .padding(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.green, lineWidth: 3)
+            )
+            .onHover { hover in
+                hover ? NSCursor.pointingHand.push() : NSCursor.pop()
+            }
+    }
+}

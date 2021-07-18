@@ -77,6 +77,9 @@ struct SingleTasksView: View {
                         }
                     })
             }
+
+            // Progressview for execute of estimated task
+            if singletaskstate.singletaskstate == .estimated { progressviewexecute }
         }
 
         // When estimated singletaskstate is set to .execute
@@ -96,11 +99,6 @@ struct SingleTasksView: View {
 
                 executebutton
             }
-
-            Spacer()
-
-            // Progressview for execute of estimated task
-            if singletaskstate.singletaskstate == .estimated { progressviewexecute }
 
             Spacer()
 

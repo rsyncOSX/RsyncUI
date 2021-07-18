@@ -121,11 +121,7 @@ struct DetailedRsyncParametersView: View {
         HStack {
             if parameters.isDirty {
                 Button("Save") { saversyncparameters() }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.red, lineWidth: 5)
-                    )
+                    .buttonStyle(SaveButtonStyle())
             } else {
                 Button("Save") {}
                     .buttonStyle(PrimaryButtonStyle())
