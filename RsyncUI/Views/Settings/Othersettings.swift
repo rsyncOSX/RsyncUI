@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 03/03/2021.
 //
+import AlertToast
 import SwiftUI
 
 struct Othersettings: View {

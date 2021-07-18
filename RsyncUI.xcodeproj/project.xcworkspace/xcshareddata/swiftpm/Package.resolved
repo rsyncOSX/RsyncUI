@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "AlertToast",
+        "repositoryURL": "https://github.com/rsyncOSX/AlertToast",
+        "state": {
+          "branch": "master",
+          "revision": "cc5bd856ea850d3adf04e05b747a476bf37e8754",
+          "version": null
+        }
+      },
+      {
         "package": "Files",
         "repositoryURL": "https://github.com/rsyncOSX/Files",
         "state": {

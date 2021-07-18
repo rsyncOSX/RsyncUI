@@ -6,6 +6,7 @@
 //  Copyright © 2021 Thomas Evensen. All rights reserved.
 //
 
+import AlertToast
 import Foundation
 import SwiftUI
 

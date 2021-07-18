@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 11/07/2021.
 //
 
+import AlertToast
 import SwiftUI
 
 struct SidebarQuicktaskView: View {
