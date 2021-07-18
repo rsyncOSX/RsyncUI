@@ -58,7 +58,7 @@ struct RestoreView: View {
                 .sheet(isPresented: $presentsheetview) { viewoutput }
 
             Button("Restore") { restore() }
-                .buttonStyle(AbortButtonStyle())
+                .buttonStyle(PrimaryButtonStyle())
 
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())

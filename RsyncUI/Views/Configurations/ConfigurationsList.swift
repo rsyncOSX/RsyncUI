@@ -55,7 +55,7 @@ struct ConfigurationsList: View {
 
     // Non selectable
     var configlist: some View {
-        Section(header: header) {
+        Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
                     OneConfig(forestimated: forestimated,

@@ -72,11 +72,7 @@ struct Sshsettings: View {
         HStack {
             if usersettings.isDirty {
                 Button("Save") { saveusersettings() }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.red, lineWidth: 5)
-                    )
+                    .buttonStyle(SaveButtonStyle())
             } else {
                 Button("Save") {}
                     .buttonStyle(PrimaryButtonStyle())
