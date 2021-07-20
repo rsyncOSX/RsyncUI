@@ -43,9 +43,9 @@ struct QuicktaskView: View {
                     pickerselecttypeoftask
 
                     HStack {
-                        ToggleView("--dry-run", $dryrun)
+                        ToggleViewDefault("--dry-run", $dryrun)
 
-                        ToggleView(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
+                        ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
                     }
                 }
 

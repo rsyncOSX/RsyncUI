@@ -14,11 +14,11 @@ struct ToggleView: View {
     var body: some View {
         VStack {
             Text(mytext ?? "")
-                .foregroundColor(mybinding.wrappedValue ? .green : .gray)
-                .toggleStyle(SwitchToggleStyle(tint: .red))
+                .foregroundColor(mybinding.wrappedValue ? .white : .gray)
+                .toggleStyle(SwitchToggleStyle(tint: .green))
             Toggle(mytext ?? "", isOn: mybinding)
                 .labelsHidden()
-                .toggleStyle(SwitchToggleStyle(tint: .red))
+                .toggleStyle(SwitchToggleStyle(tint: .green))
         }.padding()
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
@@ -40,11 +40,11 @@ struct ToggleViewDefault: View {
     var body: some View {
         HStack {
             Text(mytext ?? "")
-                .foregroundColor(mybinding.wrappedValue ? .green : .gray)
-                .toggleStyle(SwitchToggleStyle(tint: .red))
+                .foregroundColor(mybinding.wrappedValue ? .white : .gray)
+                .toggleStyle(SwitchToggleStyle(tint: .green))
             Toggle(mytext ?? "", isOn: mybinding)
                 .labelsHidden()
-                .toggleStyle(SwitchToggleStyle(tint: .red))
+                .toggleStyle(SwitchToggleStyle(tint: .green))
         }.padding()
     }
 
