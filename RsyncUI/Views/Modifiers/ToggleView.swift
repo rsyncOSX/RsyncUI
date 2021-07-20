@@ -21,8 +21,8 @@ struct ToggleView: View {
                 .toggleStyle(SwitchToggleStyle(tint: .green))
         }.padding()
             .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(lineWidth: 2)
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(lineWidth: 1)
                     .foregroundColor(mybinding.wrappedValue ? .green : .gray)
             )
     }
