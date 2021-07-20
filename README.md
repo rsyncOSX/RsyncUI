@@ -1,11 +1,11 @@
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.1.2/total) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys)
 
-The development commenced in December 2020 and still going on. The target for RsyncUI is macOS Monterey, but there will be a few prerelease builds on macOS Big Sur.
+The development commenced in December 2020 and still going on. The target for RsyncUI is macOS Monterey.
 
 - [the changelog](https://rsyncui.netlify.app/post/changelog/)
 - other [info about RsyncUI](https://rsyncui.netlify.app)
-- info about [the development of RsyncUI](https://rsyncui.netlify.app/post/development/)
-- info about [RsyncUI on macOS 12](https://rsyncui.netlify.app/post/macos12/)
+- about [the development of RsyncUI](https://rsyncui.netlify.app/post/development/)
+- about [RsyncUI on macOS 12](https://rsyncui.netlify.app/post/macos12/)
 
 ## Dependencies
 
@@ -43,8 +43,6 @@ RsyncUI is localized to:
 - English - the base language of RsyncOSX
 - German - by [Andre Voigtmann](https://github.com/andre68723)
 - Norwegian - by me
-
-Localization is done by utilizing [Crowdin](https://rsyncosx.crowdin.com/u/projects/30) to translate the xliff files which are imported into Xcode after translating. Xcode then creates the required language strings. [Crowdin is free for open source projects](https://crowdin.com/page/open-source-project-setup-request).
 
 ## Signing and notarizing
 
