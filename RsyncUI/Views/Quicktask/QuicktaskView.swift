@@ -47,6 +47,7 @@ struct QuicktaskView: View {
 
                         ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
                     }
+                    .padding()
                 }
 
                 VStack(alignment: .leading) {
