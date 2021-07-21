@@ -80,7 +80,7 @@ struct ConvertPLISTView: View {
             Button("Info about convert") { openinfo() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            ToggleView(NSLocalizedString("Confirm convert", comment: ""), $convertisconfirmed.onChange {
+            ToggleViewDefault(NSLocalizedString("Confirm convert", comment: ""), $convertisconfirmed.onChange {
                 verifyconvert()
             })
 

@@ -45,7 +45,7 @@ struct ToggleViewDefault: View {
             Toggle(mytext ?? "", isOn: mybinding)
                 .labelsHidden()
                 .toggleStyle(SwitchToggleStyle(tint: .green))
-        }.padding()
+        }
     }
 
     init(_ text: String, _ binding: Binding<Bool>) {

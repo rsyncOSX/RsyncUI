@@ -45,14 +45,14 @@ struct DetailedRsyncParametersView: View {
 
             VStack(alignment: .leading) {
                 Section(header: headerremove) {
-                    HStack {
-                        ToggleView("-e shh", $parameters.removessh.onChange {
+                    VStack(alignment: .leading) {
+                        ToggleViewDefault("-e shh", $parameters.removessh.onChange {
                             parameters.inputchangedbyuser = true
                         })
-                        ToggleView("--compress", $parameters.removecompress.onChange {
+                        ToggleViewDefault("--compress", $parameters.removecompress.onChange {
                             parameters.inputchangedbyuser = true
                         })
-                        ToggleView("--delete", $parameters.removedelete.onChange {
+                        ToggleViewDefault("--delete", $parameters.removedelete.onChange {
                             parameters.inputchangedbyuser = true
                         })
                     }
