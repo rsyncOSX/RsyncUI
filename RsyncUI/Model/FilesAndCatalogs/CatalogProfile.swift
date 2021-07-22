@@ -29,7 +29,8 @@ final class CatalogProfile: Catalogsandfiles {
                 // check if profile exist
                 do {
                     let profilepath = path + "/" + profile
-                    try Folder(path: profilepath)
+                    _ = try Folder(path: profilepath)
+
                 } catch {
                     do {
                         try rootpath?.createSubfolder(at: profile)

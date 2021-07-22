@@ -98,7 +98,8 @@ struct ConvertPLISTView: View {
     }
 
     var alertjsonfileexists: some View {
-        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("JSON file exists", comment: "")), subTitle: Optional(""))
+        AlertToast(type: .error(Color.red), title: Optional(NSLocalizedString("JSON file exists", comment: "")),
+                   subTitle: Optional(""))
     }
 
     var convertbutton: some View {

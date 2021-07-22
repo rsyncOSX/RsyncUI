@@ -262,7 +262,7 @@ final class ObserveableAddConfigurations: ObservableObject {
 
     func verifyremotestorageislocal() -> Bool {
         do {
-            try Folder(path: remotecatalog)
+            _ = try Folder(path: remotecatalog)
             return true
         } catch {
             return false

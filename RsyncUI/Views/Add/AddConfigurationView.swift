@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 01/04/2021.
 //
+// swiftlint:disable file_length type_body_length
 
 import AlertToast
 import SwiftUI
@@ -53,7 +54,8 @@ struct AddConfigurationView: View {
                         }
 
                         VStack(alignment: .leading) {
-                            ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""), $newdata.donotaddtrailingslash)
+                            ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""),
+                                              $newdata.donotaddtrailingslash)
                         }
 
                         VStack(alignment: .leading) { synchronizeid }

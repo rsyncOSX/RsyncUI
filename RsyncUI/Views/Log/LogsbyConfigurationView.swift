@@ -108,7 +108,8 @@ extension LogsbyConfigurationView {
 
     func setuuidforselectedlog() {
         if let sel = selectedlog,
-           let index = rsyncUIdata.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.firstIndex(of: sel)
+           let index = rsyncUIdata.filterlogsbyhiddenID(filterstring,
+                                                        selectedconfig?.hiddenID ?? -1)?.firstIndex(of: sel)
         {
             if let id = rsyncUIdata.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?[index].id {
                 selecteduuids.insert(id)
