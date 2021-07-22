@@ -29,21 +29,19 @@ struct ExecuteEstimatedView: View {
     let selectable = true
 
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig,
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           searchText: $searchText,
-                           selectable: selectable)
+        ZStack {
+            ConfigurationsList(selectedconfig: $selectedconfig,
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               searchText: $searchText,
+                               selectable: selectable)
 
-        // When completed
-        if multipletaskstate.executionstate == .completed { labelcompleted }
-
-        HStack {
-            Spacer()
-
+            // When completed
+            if multipletaskstate.executionstate == .completed { labelcompleted }
             // Execute multiple tasks progress
             if multipletaskstate.executionstate == .execute { progressviewexecuting }
-
+        }
+        HStack {
             Spacer()
 
             Button("Abort") { abort() }
