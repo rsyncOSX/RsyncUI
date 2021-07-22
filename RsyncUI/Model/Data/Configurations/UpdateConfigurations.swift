@@ -23,20 +23,13 @@ class UpdateConfigurations {
     // MaxhiddenID is used when new configurations are added.
     var maxhiddenID: Int {
         // Reading Configurations from memory
-        if let configurations = self.configurations {
-            if configurations.count > 0 {
-                _ = configurations.sorted { config1, config2 -> Bool in
-                    if config1.hiddenID > config2.hiddenID {
-                        return true
-                    } else {
-                        return false
-                    }
-                }
-                let index = configurations.count - 1
-                return configurations[index].hiddenID
+        if let configs = configurations {
+            var setofhiddenIDs = Set<Int>()
+            // Fill set with existing hiddenIDS
+            for i in 0 ..< configs.count {
+                setofhiddenIDs.insert(configs[i].hiddenID)
             }
-        } else {
-            return 0
+            return setofhiddenIDs.max() ?? 0
         }
         return 0
     }
