@@ -71,9 +71,15 @@ struct GaugeProgressStyle: ProgressViewStyle {
             ZStack {
                 Circle()
                     .trim(from: 0, to: CGFloat(fractionCompleted))
-                    .stroke(strokeColor, style: StrokeStyle(lineWidth: CGFloat(strokeWidth), lineCap: .round))
+                    .stroke(
+                        strokeColor,
+                        style: StrokeStyle(
+                            lineWidth: CGFloat(strokeWidth),
+                            lineCap: .round
+                        )
+                    )
                     .rotationEffect(.degrees(-90))
-                    .animation(.linear, value: 1)
+                    .animation(.linear, value: fractionCompleted)
                 if fractionCompleted > 0 {
                     Text(String(Int(fractionCompleted * 100)) + "%")
                 }
