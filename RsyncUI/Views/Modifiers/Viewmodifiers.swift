@@ -61,29 +61,29 @@ struct Tagheading: ViewModifier {
 struct GaugeProgressStyle: ProgressViewStyle {
     typealias ProgressViewStyle = ProgressViewStyleConfiguration
 
-    var strokeColor = Color.red
+    var strokeColor = Color.accentColor
     var strokeWidth = 5.0
 
     func makeBody(configuration: ProgressViewStyle) -> some View {
         let fractionCompleted = configuration.fractionCompleted ?? 0
 
         return ZStack {
-            ZStack {
-                Circle()
-                    .trim(from: 0, to: CGFloat(fractionCompleted))
-                    .stroke(
-                        strokeColor,
-                        style: StrokeStyle(
-                            lineWidth: CGFloat(strokeWidth),
-                            lineCap: .round
-                        )
+            // ZStack {
+            Circle()
+                .trim(from: 0, to: CGFloat(fractionCompleted))
+                .stroke(
+                    strokeColor,
+                    style: StrokeStyle(
+                        lineWidth: CGFloat(strokeWidth),
+                        lineCap: .round
                     )
-                    .rotationEffect(.degrees(-90))
-                    .animation(.linear, value: fractionCompleted)
-                if fractionCompleted > 0 {
-                    Text(String(Int(fractionCompleted * 100)) + "%")
-                }
-            }
+                )
+                .rotationEffect(.degrees(-90))
+                .animation(.linear, value: fractionCompleted)
+            // if fractionCompleted > 0 {
+            //    Text(String(Int(fractionCompleted * 100)) + "%")
+            // }
+            // }
         }
     }
 }
