@@ -23,7 +23,7 @@ struct ToggleView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(lineWidth: 1)
-                    .foregroundColor(mybinding.wrappedValue ? .green : .gray)
+                    .foregroundColor(mybinding.wrappedValue ? .accentColor : .gray)
             )
     }
 
