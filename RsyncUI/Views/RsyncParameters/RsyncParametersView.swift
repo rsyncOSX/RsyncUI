@@ -25,6 +25,7 @@ struct RsyncParametersView: View {
                            selecteduuids: $selecteduuids,
                            inwork: $inwork,
                            searchText: $searchText,
+                           reload: $reload,
                            selectable: selectable)
     }
 

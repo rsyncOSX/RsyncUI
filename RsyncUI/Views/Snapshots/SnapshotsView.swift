@@ -43,6 +43,7 @@ struct SnapshotsView: View {
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                searchText: $searchText,
+                               reload: $reload,
                                selectable: selectable)
 
             if notsnapshot == true { notasnapshottask }

@@ -10,12 +10,26 @@ import SwiftUI
 struct ConfigurationsListSmall: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var selectedconfig: Configuration?
+    @Binding var reload: Bool
+
+    // Alert for delete
+    @State private var showAlertfordelete = false
+    @State private var confirmdeleteselectedconfigurations = false
+    @State private var selecteduuids = Set<UUID>()
 
     let forestimated = false
 
     var body: some View {
         VStack {
             configlist
+        }
+        .sheet(isPresented: $showAlertfordelete) {
+            ConfirmDeleteConfigurationsView(isPresented: $showAlertfordelete,
+                                            delete: $confirmdeleteselectedconfigurations,
+                                            selecteduuids: $selecteduuids)
+                .onDisappear {
+                    delete()
+                }
         }
     }
 
@@ -24,8 +38,40 @@ struct ConfigurationsListSmall: View {
             ForEach(rsyncUIdata.configurations ?? []) { configurations in
                 OneConfigSmall(config: configurations)
                     .tag(configurations)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                        Button(role: .destructive) {
+                            setuuidforselectedtask()
+                            showAlertfordelete = true
+                        } label: {
+                            Label("Trash", systemImage: "delete.backward.fill")
+                        }
+                    }
             }
             .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
         }
+    }
+
+    func setuuidforselectedtask() {
+        selecteduuids.removeAll()
+        if let sel = selectedconfig,
+           let index = rsyncUIdata.configurations?.firstIndex(of: sel)
+        {
+            if let id = rsyncUIdata.configurations?[index].id {
+                selecteduuids.insert(id)
+            }
+        }
+    }
+
+    func delete() {
+        guard confirmdeleteselectedconfigurations == true else {
+            selecteduuids.removeAll()
+            return
+        }
+        let deleteconfigurations =
+            UpdateConfigurations(profile: rsyncUIdata.rsyncdata?.profile,
+                                 configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
+        deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
+        selecteduuids.removeAll()
+        reload = true
     }
 }

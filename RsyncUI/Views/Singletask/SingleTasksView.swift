@@ -55,6 +55,7 @@ struct SingleTasksView: View {
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                searchText: $searchText,
+                               reload: $reload,
                                selectable: selectable)
 
             // Estimate singletask or Execute task now

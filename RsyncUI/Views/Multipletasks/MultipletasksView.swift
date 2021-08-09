@@ -51,6 +51,7 @@ struct MultipletasksView: View {
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                searchText: $searchText,
+                               reload: $reload,
                                selectable: selectable)
             if deleted == true { notifydeleted }
             if focusstartestimation { labelshortcutestimation }

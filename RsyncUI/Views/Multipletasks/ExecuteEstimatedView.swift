@@ -34,6 +34,7 @@ struct ExecuteEstimatedView: View {
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                searchText: $searchText,
+                               reload: $reload,
                                selectable: selectable)
 
             // When completed

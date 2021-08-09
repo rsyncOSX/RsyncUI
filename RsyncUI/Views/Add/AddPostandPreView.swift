@@ -55,7 +55,7 @@ struct AddPostandPreView: View {
                     VStack(alignment: .leading) {
                         ConfigurationsListSmall(selectedconfig: $newdata.selectedconfig.onChange {
                             newdata.updateview()
-                        })
+                        }, reload: $reload)
 
                         Spacer()
                     }
