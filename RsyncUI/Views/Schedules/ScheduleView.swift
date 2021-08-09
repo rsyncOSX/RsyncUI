@@ -46,7 +46,7 @@ struct ScheduleView: View {
                 }
 
                 VStack(alignment: .leading) {
-                    ConfigurationsListSmall(selectedconfig: $selectedconfig)
+                    ConfigurationsListSmall(selectedconfig: $selectedconfig, reload: $reload)
                 }
             }
 

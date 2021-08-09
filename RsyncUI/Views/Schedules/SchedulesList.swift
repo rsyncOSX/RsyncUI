@@ -23,7 +23,7 @@ struct SchedulesList: View {
     }
 
     /*
-     TODO: fix soring by date
+     TODO: fix sorting by date
      */
     var activeschedulesandlogs: [ConfigurationSchedule] {
         if let schedulesandlogs = rsyncUIdata.schedulesandlogs {

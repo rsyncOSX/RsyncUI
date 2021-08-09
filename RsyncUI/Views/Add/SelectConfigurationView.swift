@@ -12,6 +12,7 @@ struct SelectConfigurationView: View {
 
     @Binding var selectedconfig: Configuration?
     @Binding var isPresented: Bool
+    @Binding var reload: Bool
     // only parameters for configlist, noy used
     @State private var selecteduuids = Set<UUID>()
     @State private var inwork: Int = -1
@@ -25,6 +26,7 @@ struct SelectConfigurationView: View {
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                searchText: $searchText,
+                               reload: $reload,
                                selectable: selectable)
             Spacer()
 
