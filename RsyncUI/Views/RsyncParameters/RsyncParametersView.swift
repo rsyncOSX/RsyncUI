@@ -18,15 +18,12 @@ struct RsyncParametersView: View {
     @State private var inwork = -1
     @State private var selecteduuids = Set<UUID>()
 
-    let selectable = false
-
     var body: some View {
-        ConfigurationsList(selectedconfig: $selectedconfig.onChange { opendetails() },
-                           selecteduuids: $selecteduuids,
-                           inwork: $inwork,
-                           searchText: $searchText,
-                           reload: $reload,
-                           selectable: selectable)
+        ConfigurationsListNonSelectable(selectedconfig: $selectedconfig.onChange { opendetails() },
+                                        selecteduuids: $selecteduuids,
+                                        inwork: $inwork,
+                                        searchText: $searchText,
+                                        reload: $reload)
     }
 
     func opendetails() {
