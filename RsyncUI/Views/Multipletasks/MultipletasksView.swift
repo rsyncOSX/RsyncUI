@@ -84,17 +84,6 @@ struct MultipletasksView: View {
             Button("Select") { select() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button("Delete") { preparefordelete() }
-                .buttonStyle(AbortButtonStyle())
-                .sheet(isPresented: $showAlertfordelete) {
-                    ConfirmDeleteConfigurationsView(isPresented: $showAlertfordelete,
-                                                    delete: $confirmdeleteselectedconfigurations,
-                                                    selecteduuids: $selecteduuids)
-                        .onDisappear {
-                            delete()
-                        }
-                }
-
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }

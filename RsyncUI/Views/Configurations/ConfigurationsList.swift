@@ -16,10 +16,8 @@ struct ConfigurationsList: View {
     @Binding var inwork: Int
     @Binding var searchText: String
     @Binding var reload: Bool
-
     // Alert for delete
-    @State private var showAlertfordelete = false
-    @State private var confirmdeleteselectedconfigurations = false
+    @State private var confirmationShown = false
 
     // Either selectable configlist or not
     var selectable: Bool
@@ -34,14 +32,6 @@ struct ConfigurationsList: View {
             }
         }
         .searchable(text: $searchText)
-        .sheet(isPresented: $showAlertfordelete) {
-            ConfirmDeleteConfigurationsView(isPresented: $showAlertfordelete,
-                                            delete: $confirmdeleteselectedconfigurations,
-                                            selecteduuids: $selecteduuids)
-                .onDisappear {
-                    delete()
-                }
-        }
     }
 
     // selectable configlist
@@ -55,10 +45,19 @@ struct ConfigurationsList: View {
                         .tag(configurations)
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             Button(role: .destructive) {
-                                setuuidforselectedtask()
-                                showAlertfordelete = true
+                                confirmationShown = true
                             } label: {
                                 Label("Trash", systemImage: "delete.backward.fill")
+                            }
+                        }
+                        .confirmationDialog(
+                            NSLocalizedString("Delete configuration", comment: "")
+                                + "?",
+                            isPresented: $confirmationShown
+                        ) {
+                            Button("Delete") {
+                                setuuidforselectedtask()
+                                delete()
                             }
                         }
                 }
@@ -134,10 +133,6 @@ struct ConfigurationsList: View {
     }
 
     func delete() {
-        guard confirmdeleteselectedconfigurations == true else {
-            selecteduuids.removeAll()
-            return
-        }
         let deleteconfigurations =
             UpdateConfigurations(profile: rsyncUIdata.rsyncdata?.profile,
                                  configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
