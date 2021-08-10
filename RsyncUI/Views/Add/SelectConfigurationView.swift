@@ -18,16 +18,13 @@ struct SelectConfigurationView: View {
     @State private var inwork: Int = -1
     @State private var searchText: String = ""
 
-    let selectable = false
-
     var body: some View {
         VStack {
-            ConfigurationsList(selectedconfig: $selectedconfig,
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               searchText: $searchText,
-                               reload: $reload,
-                               selectable: selectable)
+            ConfigurationsListNonSelectable(selectedconfig: $selectedconfig,
+                                            selecteduuids: $selecteduuids,
+                                            inwork: $inwork,
+                                            searchText: $searchText,
+                                            reload: $reload)
             Spacer()
 
             Button("Select") { dismissview() }

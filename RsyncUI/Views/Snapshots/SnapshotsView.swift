@@ -35,16 +35,13 @@ struct SnapshotsView: View {
     @State private var showAlertfordelete = false
     @State private var searchText: String = ""
 
-    let selectable = false
-
     var body: some View {
         ZStack {
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange { getdata() },
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               searchText: $searchText,
-                               reload: $reload,
-                               selectable: selectable)
+            ConfigurationsListNonSelectable(selectedconfig: $selectedconfig.onChange { getdata() },
+                                            selecteduuids: $selecteduuids,
+                                            inwork: $inwork,
+                                            searchText: $searchText,
+                                            reload: $reload)
 
             if notsnapshot == true { notasnapshottask }
             if gettingdata == true { gettingdatainprocess }

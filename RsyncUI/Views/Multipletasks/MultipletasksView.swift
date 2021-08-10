@@ -29,12 +29,6 @@ struct MultipletasksView: View {
     @State private var presentestimatedsheetview = false
     @State private var inwork: Int = -1
     @State private var estimatetask: Estimation?
-    // Alert for delete
-    @State private var showAlertfordelete = false
-    // Alert for execute all
-    @State private var showAlertforexecuteall = false
-    @State private var confirmdeleteselectedconfigurations = false
-    @State private var deleted = false
 
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
@@ -42,18 +36,13 @@ struct MultipletasksView: View {
     @State private var focusstarttestfortcpconnections: Bool = false
     @State private var searchText: String = ""
 
-    // Either selectable configlist or not
-    let selectable = true
-
     var body: some View {
         ZStack {
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange { reset() },
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               searchText: $searchText,
-                               reload: $reload,
-                               selectable: selectable)
-            if deleted == true { notifydeleted }
+            ConfigurationsListSelectable(selectedconfig: $selectedconfig.onChange { reset() },
+                                         selecteduuids: $selecteduuids,
+                                         inwork: $inwork,
+                                         searchText: $searchText,
+                                         reload: $reload)
             if focusstartestimation { labelshortcutestimation }
             if focusstartexecution { labelshortcutexecute }
             if focusstarttestfortcpconnections { notifyverifyTCPconnections }
@@ -114,16 +103,6 @@ struct MultipletasksView: View {
             .progressViewStyle(GaugeProgressStyle())
             .frame(width: 50.0, height: 50.0)
             .contentShape(Rectangle())
-    }
-
-    var notifydeleted: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Deleted"), subTitle: Optional(""))
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    deleted = false
-                }
-            })
     }
 
     var labelshortcutestimation: some View {
@@ -260,28 +239,6 @@ extension MultipletasksView {
                 selecteduuids.insert(id)
             }
         }
-    }
-
-    func preparefordelete() {
-        if selecteduuids.count == 0 {
-            setuuidforselectedtask()
-        }
-        guard selecteduuids.count > 0 else { return }
-        showAlertfordelete = true
-    }
-
-    func delete() {
-        guard confirmdeleteselectedconfigurations == true else {
-            selecteduuids.removeAll()
-            return
-        }
-        let deleteconfigurations =
-            UpdateConfigurations(profile: rsyncUIdata.rsyncdata?.profile,
-                                 configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
-        deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
-        selecteduuids.removeAll()
-        reload = true
-        deleted = true
     }
 
     func verifytcp() async {

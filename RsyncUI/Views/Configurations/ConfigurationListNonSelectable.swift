@@ -1,5 +1,5 @@
 //
-//  ConfigurationsList.swift
+//  ConfigurationsListNonSelectable.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 22/01/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConfigurationsList: View {
+struct ConfigurationsListNonSelectable: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
 
     @Binding var selectedconfig: Configuration?
@@ -19,54 +19,15 @@ struct ConfigurationsList: View {
     // Alert for delete
     @State private var confirmationShown = false
 
-    // Either selectable configlist or not
-    var selectable: Bool
     let forestimated = false
 
     var body: some View {
         VStack {
-            if selectable {
-                selecetableconfiglist
-            } else {
-                configlist
-            }
+            configlist
         }
         .searchable(text: $searchText)
     }
 
-    // selectable configlist
-    var selecetableconfiglist: some View {
-        Section(header: header, footer: footer) {
-            List(selection: $selectedconfig) {
-                ForEach(configurationssorted) { configurations in
-                    OneConfigUUID(selecteduuids: $selecteduuids,
-                                  inwork: $inwork,
-                                  config: configurations)
-                        .tag(configurations)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button(role: .destructive) {
-                                confirmationShown = true
-                            } label: {
-                                Label("Trash", systemImage: "delete.backward.fill")
-                            }
-                        }
-                        .confirmationDialog(
-                            NSLocalizedString("Delete configuration", comment: "")
-                                + "?",
-                            isPresented: $confirmationShown
-                        ) {
-                            Button("Delete") {
-                                setuuidforselectedtask()
-                                delete()
-                            }
-                        }
-                }
-                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
-            }
-        }
-    }
-
-    // Non selectable
     var configlist: some View {
         Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
@@ -74,13 +35,6 @@ struct ConfigurationsList: View {
                     OneConfig(forestimated: forestimated,
                               config: configurations)
                         .tag(configurations)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button {
-                                print("shortcut")
-                            } label: {
-                                Label("Execute", systemImage: "play.square.fill")
-                            }
-                        }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }

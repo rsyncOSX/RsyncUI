@@ -47,16 +47,13 @@ struct SingleTasksView: View {
     @State private var focusstartexecution: Bool = false
     @State private var searchText: String = ""
 
-    let selectable = false
-
     var body: some View {
         ZStack {
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               searchText: $searchText,
-                               reload: $reload,
-                               selectable: selectable)
+            ConfigurationsListNonSelectable(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
+                                            selecteduuids: $selecteduuids,
+                                            inwork: $inwork,
+                                            searchText: $searchText,
+                                            reload: $reload)
 
             // Estimate singletask or Execute task now
             if singletasknowstate.executetasknowstate == .execute {
