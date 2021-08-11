@@ -615,13 +615,13 @@
 			children = (
 				E9D2680726C2ECD900AA24DD /* ConfigurationListNonSelectable.swift */,
 				E985C61625F3AD8400CB895C /* ConfigurationsListSelectable.swift */,
+				E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */,
 				E985C61725F3AD8400CB895C /* OneConfigUUID.swift */,
 				E985C61825F3AD8400CB895C /* ParametersList.swift */,
 				E985C61925F3AD8400CB895C /* OneConfig.swift */,
 				E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */,
 				E9FBEEAC264EBA7700E5F143 /* ConfigurationsListSmall.swift */,
 				E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */,
-				E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";

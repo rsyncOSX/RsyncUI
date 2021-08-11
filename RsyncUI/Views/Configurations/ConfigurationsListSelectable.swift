@@ -89,8 +89,11 @@ struct ConfigurationsListSelectable: View {
     }
 
     var footer: some View {
-        Text("Most recent updated tasks on top of list")
-            .foregroundColor(Color.blue)
+        VStack {
+            Text("Most recent updated tasks on top of list")
+                .foregroundColor(Color.blue)
+            Text("Slide left to delete a configuration")
+        }
     }
 
     func setuuidforselectedtask() {

@@ -36,6 +36,7 @@ struct ConfigurationsListNonSelectable: View {
                     OneConfig(forestimated: forestimated,
                               config: configurations)
                         .tag(configurations)
+                    /*
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             Button {
                                 print("shortcut")
@@ -43,6 +44,7 @@ struct ConfigurationsListNonSelectable: View {
                                 Label("Execute", systemImage: "play.square.fill")
                             }
                         }
+                     */
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
