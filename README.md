@@ -1,11 +1,9 @@
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.1.2/total) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.1.2/total)  [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 The development commenced in December 2020 and still going on. The target for RsyncUI is macOS Monterey.
 
-- [the changelog](https://rsyncui.netlify.app/post/changelog/)
-- other [info about RsyncUI](https://rsyncui.netlify.app)
-- about [the development of RsyncUI](https://rsyncui.netlify.app/post/development/)
-- about [RsyncUI on macOS 12](https://rsyncui.netlify.app/post/macos12/)
+- [the documentation of RsyncUI](https://rsyncui.netlify.app/)
+- [the development of RsyncUI](https://rsyncui.netlify.app/post/development/)
 
 ## Dependencies
 
