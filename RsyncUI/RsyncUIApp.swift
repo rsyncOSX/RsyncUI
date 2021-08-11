@@ -21,7 +21,7 @@ struct RsyncUIApp: App {
             RsyncUIView(selectedprofile: $selectedprofile)
                 .environmentObject(getrsyncversion)
                 .environmentObject(checkfornewversionofrsyncui)
-                .task {
+                .onAppear(perform: {
                     // User notifications
                     setusernotifications()
                     // Create base profile catalog
@@ -30,7 +30,20 @@ struct RsyncUIApp: App {
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationPLIST()
                     Running()
-                }
+                })
+                // TODO: either .task or .anAppear
+                /*
+                 .task {
+                     // User notifications
+                     setusernotifications()
+                     // Create base profile catalog
+                     // Read user settings
+                     // Check if schedule app is running
+                     CatalogProfile().createrootprofilecatalog()
+                     ReadUserConfigurationPLIST()
+                     Running()
+                 }
+                 */
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
         }
         .commands {
