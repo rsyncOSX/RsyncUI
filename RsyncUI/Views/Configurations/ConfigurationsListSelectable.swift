@@ -92,7 +92,7 @@ struct ConfigurationsListSelectable: View {
         VStack {
             Text("Most recent updated tasks on top of list")
                 .foregroundColor(Color.blue)
-            Text("Slide left to delete a configuration")
+            Text("Select and slide to left for delete")
         }
     }
 
