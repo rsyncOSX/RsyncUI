@@ -28,6 +28,7 @@ struct ConfigurationsListNonSelectable: View {
         .searchable(text: $searchText)
     }
 
+    // Non selectable
     var configlist: some View {
         Section(header: header, footer: footer) {
             List(selection: $selectedconfig) {
@@ -35,6 +36,13 @@ struct ConfigurationsListNonSelectable: View {
                     OneConfig(forestimated: forestimated,
                               config: configurations)
                         .tag(configurations)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button {
+                                print("shortcut")
+                            } label: {
+                                Label("Execute", systemImage: "play.square.fill")
+                            }
+                        }
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
