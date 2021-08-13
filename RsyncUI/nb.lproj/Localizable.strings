@@ -104,6 +104,9 @@
 "Delete" = "Slett";
 
 /* No comment provided by engineer. */
+"Delete configuration" = "Slett konfigurasjon";
+
+/* No comment provided by engineer. */
 "Delete: %lld" = "Slett: %lld";
 
 /* No comment provided by engineer. */
@@ -224,6 +227,9 @@
 "New: %lld" = "Ny: %lld";
 
 /* No comment provided by engineer. */
+"no username" = "ingen brukernavn";
+
+/* No comment provided by engineer. */
 "None" = "Ingen";
 
 /* No comment provided by engineer. */
@@ -338,7 +344,10 @@
 "Select" = "Velg";
 
 /* No comment provided by engineer. */
-"Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
+"Select and slide to left for delete" = "Velg og dra til venstre for å slette";
+
+/* No comment provided by engineer. */
+"Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for fullstendig gjenoppretting";
 
 /* No comment provided by engineer. */
 "Select task" = "Velg oppgave";

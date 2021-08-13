@@ -41,20 +41,20 @@ struct RsyncUIView: View {
             .padding()
         }
         .padding()
-        .onAppear(perform: {
+        .searchable(text: $searchText)
+        .task {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
             }
-        })
-        // TODO: either .task or .anAppear
+        }
+
         /*
-         .task {
+         .onAppear(perform: {
              DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                  rsyncversionObject.update(SharedReference.shared.rsyncversion3)
              }
-         }
+         })
           */
-        .searchable(text: $searchText)
     }
 
     var rsyncUIdata: RsyncUIdata {
