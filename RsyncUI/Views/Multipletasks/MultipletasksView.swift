@@ -61,6 +61,9 @@ struct MultipletasksView: View {
                 .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
+            
+            Button("Select") { select() }
+                .buttonStyle(PrimaryButtonStyle())
 
             Button("View") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -69,9 +72,6 @@ struct MultipletasksView: View {
                                         selecteduuids: $selecteduuids,
                                         estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
                 }
-
-            Button("Select") { select() }
-                .buttonStyle(PrimaryButtonStyle())
 
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
