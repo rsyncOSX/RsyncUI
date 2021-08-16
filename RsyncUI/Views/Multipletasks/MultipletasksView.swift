@@ -61,7 +61,7 @@ struct MultipletasksView: View {
                 .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
-            
+
             Button("Select") { select() }
                 .buttonStyle(PrimaryButtonStyle())
 
