@@ -50,10 +50,6 @@ struct AboutView: View {
 
             rsyncversionshortstring
 
-            Text("RsyncUI configpath: " + configpath)
-                .font(.caption)
-                .padding(3)
-
             if new.notifynewversion { notifynewversion }
 
             Spacer()
@@ -88,9 +84,12 @@ struct AboutView: View {
     }
 
     var rsyncversionshortstring: some View {
-        Text(rsyncversionObject.rsyncversion)
-            .font(.caption)
-            .padding(3)
+        VStack {
+            Text(rsyncversionObject.rsyncversion)
+            Text("RsyncUI configpath: " + configpath)
+        }
+        .font(.caption)
+        .padding(3)
     }
 
     var translations: some View {
