@@ -109,6 +109,7 @@ final class ObserveablePreandPostTask: ObservableObject {
     func updateview() {
         if let config = selectedconfig {
             // pre task
+            pretask = config.pretask ?? ""
             if config.pretask != nil {
                 if config.executepretask == 1 {
                     enablepre = true
@@ -116,11 +117,11 @@ final class ObserveablePreandPostTask: ObservableObject {
                     enablepre = false
                 }
             } else {
-                pretask = config.pretask ?? ""
                 enablepre = false
             }
 
             // post task
+            posttask = config.posttask ?? ""
             if config.posttask != nil {
                 if config.executeposttask == 1 {
                     enablepost = true
@@ -128,7 +129,6 @@ final class ObserveablePreandPostTask: ObservableObject {
                     enablepost = false
                 }
             } else {
-                posttask = config.posttask ?? ""
                 enablepost = false
             }
 
