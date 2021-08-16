@@ -46,6 +46,13 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var inputchangedbyuser: Bool = false
     @Published var isDirty: Bool = false
 
+    // For update post and pretasks
+    var enablepre: Bool = false
+    var enablepost: Bool = false
+    var pretask: String = ""
+    var posttask: String = ""
+    var haltshelltasksonerror: Bool = false
+
     // Combine
     var subscriptions = Set<AnyCancellable>()
     // Set true if remote storage is a local attached Volume
@@ -151,6 +158,7 @@ final class ObserveableAddConfigurations: ObservableObject {
     }
 
     func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
+        updatepreandpost()
         let updateddata = AppendConfig(selectedrsynccommand.rawValue,
                                        localcatalog,
                                        remotecatalog,
@@ -158,12 +166,13 @@ final class ObserveableAddConfigurations: ObservableObject {
                                        remoteuser,
                                        remoteserver,
                                        backupID,
-                                       // add post and pretask in it own view, set nil here
-                                       nil,
-                                       nil,
-                                       nil,
-                                       nil,
-                                       nil,
+                                       // add post and pretask in it own view,
+                                       // but if update save pre and post task
+                                       enablepre,
+                                       pretask,
+                                       enablepost,
+                                       posttask,
+                                       haltshelltasksonerror,
                                        selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
@@ -266,6 +275,44 @@ final class ObserveableAddConfigurations: ObservableObject {
             return true
         } catch {
             return false
+        }
+    }
+
+    private func updatepreandpost() {
+        if let config = selectedconfig {
+            // pre task
+            pretask = config.pretask ?? ""
+            if config.pretask != nil {
+                if config.executepretask == 1 {
+                    enablepre = true
+                } else {
+                    enablepre = false
+                }
+            } else {
+                enablepre = false
+            }
+
+            // post task
+            posttask = config.posttask ?? ""
+            if config.posttask != nil {
+                if config.executeposttask == 1 {
+                    enablepost = true
+                } else {
+                    enablepost = false
+                }
+            } else {
+                enablepost = false
+            }
+
+            if config.posttask != nil {
+                if config.haltshelltasksonerror == 1 {
+                    haltshelltasksonerror = true
+                } else {
+                    haltshelltasksonerror = false
+                }
+            } else {
+                haltshelltasksonerror = false
+            }
         }
     }
 }
