@@ -121,7 +121,7 @@ struct DetailedRsyncParametersView: View {
         HStack {
             if parameters.isDirty {
                 Button("Save") { saversyncparameters() }
-                    .buttonStyle(SaveButtonStyle())
+                    .buttonStyle(PrimaryButtonStyle())
             } else {
                 Button("Save") {}
                     .buttonStyle(PrimaryButtonStyle())
