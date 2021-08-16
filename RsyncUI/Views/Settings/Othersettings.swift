@@ -67,7 +67,7 @@ struct Othersettings: View {
         HStack {
             if usersettings.isDirty {
                 Button("Save") { saveusersettings() }
-                    .buttonStyle(SaveButtonStyle())
+                    .buttonStyle(PrimaryButtonStyle())
             } else {
                 Button("Save") {}
                     .buttonStyle(PrimaryButtonStyle())
