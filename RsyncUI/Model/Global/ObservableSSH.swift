@@ -9,8 +9,6 @@ import Combine
 import Foundation
 
 final class ObservableSSH: ObservableObject {
-    // When property is changed set isDirty = true
-    @Published var isDirty: Bool = false
     // Global SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
@@ -22,6 +20,7 @@ final class ObservableSSH: ObservableObject {
     @Published var localsshkeys: Bool = SshKeys().validatepublickeypresent()
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
+    var isDirty: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
