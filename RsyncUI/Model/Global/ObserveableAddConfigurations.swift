@@ -44,7 +44,7 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var showAlertfordelete: Bool = false
 
     @Published var inputchangedbyuser: Bool = false
-    @Published var isDirty: Bool = false
+    var isDirty: Bool = false
 
     // For update post and pretasks
     var enablepre: Bool = false

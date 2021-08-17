@@ -10,8 +10,6 @@ import Combine
 import Foundation
 
 final class ObserveableParametersRsync: ObservableObject {
-    // When property is changed set isDirty = true
-    @Published var isDirty: Bool = false
     // Rsync parameters
     @Published var parameter8: String = ""
     @Published var parameter9: String = ""
@@ -29,8 +27,6 @@ final class ObserveableParametersRsync: ObservableObject {
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
     @Published var sshkeypathandidentityfile: String = ""
-    // If local public sshkeys are present
-    @Published var inputchangedbyuser: Bool = false
     // Remove parameters
     @Published var removessh: Bool = false
     @Published var removecompress: Bool = false
@@ -47,6 +43,11 @@ final class ObserveableParametersRsync: ObservableObject {
     var parameter4: String?
     var parameter5: String?
     var rsyncdaemon: Int?
+
+    // Value to check if input field is changed by user
+    @Published var inputchangedbyuser: Bool = false
+    // When property is changed set isDirty = true
+    var isDirty: Bool = false
 
     init() {
         $inputchangedbyuser

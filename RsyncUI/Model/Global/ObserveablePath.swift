@@ -9,8 +9,6 @@ import Combine
 import Foundation
 
 final class ObserveablePath: ObservableObject {
-    // When property is changed set isDirty = true
-    @Published var isDirty: Bool = false
     // Environment
     @Published var environment: String = SharedReference.shared.environment ?? ""
     @Published var environmentvalue: String = SharedReference.shared.environmentvalue ?? ""
@@ -18,6 +16,7 @@ final class ObserveablePath: ObservableObject {
     @Published var pathrsyncui: String = SharedReference.shared.pathrsyncui ?? ""
     @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     @Published var inputchangedbyuser: Bool = false
+    var isDirty: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
