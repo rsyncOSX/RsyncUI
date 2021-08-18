@@ -103,37 +103,30 @@ final class ObserveableParametersRsync: ObservableObject {
                 sshport(port)
             }.store(in: &subscriptions)
         $removessh
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] ssh in
                 deletessh(ssh)
             }.store(in: &subscriptions)
         $removedelete
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] delete in
                 deletedelete(delete)
             }.store(in: &subscriptions)
         $removecompress
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] compress in
                 deletecompress(compress)
             }.store(in: &subscriptions)
         $suffixlinux
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setsuffixlinux()
             }.store(in: &subscriptions)
         $suffixfreebsd
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setsuffixfreebsd()
             }.store(in: &subscriptions)
         $daemon
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setrsyncdaemon()
             }.store(in: &subscriptions)
         $backup
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setbackup()
             }.store(in: &subscriptions)
@@ -272,12 +265,24 @@ extension ObserveableParametersRsync {
         if let config = configuration {
             let localcatalog = config.localCatalog
             let localcatalogparts = (localcatalog as AnyObject).components(separatedBy: "/")
-            parameter12 = RsyncArguments().backupstrings[0]
+            if parameter12.isEmpty == false {
+                parameter12 = ""
+            } else {
+                parameter12 = RsyncArguments().backupstrings[0]
+            }
             guard localcatalogparts.count > 2 else { return }
             if config.offsiteCatalog.contains("~") {
-                parameter13 = "~/backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+                if parameter13.isEmpty == false {
+                    parameter13 = ""
+                } else {
+                    parameter13 = "~/backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+                }
             } else {
-                parameter13 = "../backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+                if parameter13.isEmpty == false {
+                    parameter13 = ""
+                } else {
+                    parameter13 = "../backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+                }
             }
             isDirty = true
         }
@@ -286,14 +291,22 @@ extension ObserveableParametersRsync {
     func setsuffixlinux() {
         guard inputchangedbyuser == true else { return }
         guard configuration != nil else { return }
-        parameter14 = RsyncArguments().suffixstringlinux
+        if parameter14.isEmpty == false {
+            parameter14 = ""
+        } else {
+            parameter14 = RsyncArguments().suffixstringlinux
+        }
         isDirty = true
     }
 
     func setsuffixfreebsd() {
         guard inputchangedbyuser == true else { return }
         guard configuration != nil else { return }
-        parameter14 = RsyncArguments().suffixstringfreebsd
+        if parameter14.isEmpty == false {
+            parameter14 = ""
+        } else {
+            parameter14 = RsyncArguments().suffixstringfreebsd
+        }
         isDirty = true
     }
 

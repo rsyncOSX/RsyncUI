@@ -72,26 +72,26 @@ struct DetailedRsyncParametersView: View {
 
         HStack {
             Button("Linux") {
-                parameters.suffixlinux = true
                 parameters.inputchangedbyuser = true
+                parameters.suffixlinux = true
             }
             .buttonStyle(PrimaryButtonStyle())
 
             Button("FreeBSD") {
-                parameters.suffixfreebsd = true
                 parameters.inputchangedbyuser = true
+                parameters.suffixfreebsd = true
             }
             .buttonStyle(PrimaryButtonStyle())
 
             Button("Daemon") {
-                parameters.daemon = true
                 parameters.inputchangedbyuser = true
+                parameters.daemon = true
             }
             .buttonStyle(PrimaryButtonStyle())
 
             Button("Backup") {
-                parameters.backup = true
                 parameters.inputchangedbyuser = true
+                parameters.backup = true
             }
             .buttonStyle(PrimaryButtonStyle())
 
