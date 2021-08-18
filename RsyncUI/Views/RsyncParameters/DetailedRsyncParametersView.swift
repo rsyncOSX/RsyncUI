@@ -41,6 +41,9 @@ struct DetailedRsyncParametersView: View {
                 EditRsyncParameter(550, $parameters.parameter14.onChange {
                     parameters.inputchangedbyuser = true
                 })
+                ToggleViewDefault("daemon", $parameters.daemon.onChange {
+                    parameters.inputchangedbyuser = true
+                })
             }
 
             VStack(alignment: .leading) {
@@ -83,12 +86,6 @@ struct DetailedRsyncParametersView: View {
             }
             .buttonStyle(PrimaryButtonStyle())
 
-            Button("Daemon") {
-                parameters.inputchangedbyuser = true
-                parameters.daemon = true
-            }
-            .buttonStyle(PrimaryButtonStyle())
-
             Button("Backup") {
                 parameters.inputchangedbyuser = true
                 parameters.backup = true
@@ -103,7 +100,8 @@ struct DetailedRsyncParametersView: View {
                     RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
                 }
 
-            saveparameters
+            Button("Save") { saversyncparameters() }
+                .buttonStyle(PrimaryButtonStyle())
 
             Button("Return") {
                 selectedconfig = nil
@@ -114,20 +112,6 @@ struct DetailedRsyncParametersView: View {
         .onAppear(perform: {
             parameters.configuration = selectedconfig
         })
-    }
-
-    // Save usersetting is changed
-    var saveparameters: some View {
-        HStack {
-            if parameters.isDirty {
-                Button("Save") { saversyncparameters() }
-                    .buttonStyle(PrimaryButtonStyle())
-            } else {
-                Button("Save") {}
-                    .buttonStyle(PrimaryButtonStyle())
-            }
-        }
-        .disabled(!parameters.isDirty)
     }
 
     // Header remove
@@ -176,7 +160,9 @@ extension DetailedRsyncParametersView {
                                      configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(configuration, true)
         }
-        parameters.isDirty = false
         parameters.inputchangedbyuser = false
+        selectedconfig = nil
+        showdetails = false
+        reload = true
     }
 }

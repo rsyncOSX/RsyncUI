@@ -17,7 +17,7 @@ struct SidebarAddConfigurationsView: View {
                 .tabItem {
                     Text("Add config")
                 }
-            AddPostandPreView(selectedprofile: $selectedprofile, reload: $reload)
+            AddPreandPostView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
                     Text("Pre and post")
                 }

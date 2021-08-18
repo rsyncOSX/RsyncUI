@@ -16,7 +16,6 @@ final class ObserveablePath: ObservableObject {
     @Published var pathrsyncui: String = SharedReference.shared.pathrsyncui ?? ""
     @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     @Published var inputchangedbyuser: Bool = false
-    var isDirty: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -27,27 +26,23 @@ final class ObserveablePath: ObservableObject {
             }.store(in: &subscriptions)
         $environment
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] environment in
+            .sink { environment in
                 SharedReference.shared.environment = environment
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $environmentvalue
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] environmentvalue in
+            .sink { environmentvalue in
                 SharedReference.shared.environmentvalue = environmentvalue
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $pathrsyncui
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncui in
                 setandvalidapathrsyncui(pathtorsyncui)
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $pathrsyncschedule
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] pathtorsyncschedule in
                 setandvalidapathpathrsyncschedule(pathtorsyncschedule)
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
     }
 }
@@ -59,7 +54,6 @@ extension ObserveablePath {
         do {
             let ok = try validatepath(atpath)
             if ok {
-                isDirty = true
                 if atpath.hasSuffix("/") == false {
                     SharedReference.shared.pathrsyncui = atpath + "/"
                     SharedReference.shared.pathrsyncschedule = atpath + "/"
@@ -80,7 +74,6 @@ extension ObserveablePath {
         do {
             let ok = try validatepath(atpath)
             if ok {
-                isDirty = true
                 if atpath.hasSuffix("/") == false {
                     SharedReference.shared.pathrsyncui = atpath + "/"
                     SharedReference.shared.pathrsyncschedule = atpath + "/"

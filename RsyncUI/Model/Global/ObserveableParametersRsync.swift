@@ -46,8 +46,6 @@ final class ObserveableParametersRsync: ObservableObject {
 
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
-    // When property is changed set isDirty = true
-    var isDirty: Bool = false
 
     init() {
         $inputchangedbyuser
@@ -55,38 +53,31 @@ final class ObserveableParametersRsync: ObservableObject {
             }.store(in: &subscriptions)
         $parameter8
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter9
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter10
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter11
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter12
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter13
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter14
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $configuration
             .sink { [unowned self] config in
@@ -103,30 +94,38 @@ final class ObserveableParametersRsync: ObservableObject {
                 sshport(port)
             }.store(in: &subscriptions)
         $removessh
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] ssh in
                 deletessh(ssh)
             }.store(in: &subscriptions)
         $removedelete
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] delete in
                 deletedelete(delete)
             }.store(in: &subscriptions)
         $removecompress
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] compress in
                 deletecompress(compress)
             }.store(in: &subscriptions)
         $suffixlinux
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setsuffixlinux()
             }.store(in: &subscriptions)
         $suffixfreebsd
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setsuffixfreebsd()
             }.store(in: &subscriptions)
         $daemon
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
-                setrsyncdaemon()
+                // TODO: fix rsyncdaemon
+                // setrsyncdaemon()
             }.store(in: &subscriptions)
         $backup
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setbackup()
             }.store(in: &subscriptions)
@@ -135,7 +134,6 @@ final class ObserveableParametersRsync: ObservableObject {
 
 extension ObserveableParametersRsync {
     func setvalues(_ config: Configuration) {
-        isDirty = false
         inputchangedbyuser = false
         parameter8 = config.parameter8 ?? ""
         parameter9 = config.parameter9 ?? ""
@@ -170,7 +168,6 @@ extension ObserveableParametersRsync {
         } else {
             parameter5 = "-e"
         }
-        isDirty = true
     }
 
     // parameter4 --delete
@@ -182,7 +179,6 @@ extension ObserveableParametersRsync {
         } else {
             parameter4 = "--delete"
         }
-        isDirty = true
     }
 
     // parameter3 --compress
@@ -194,7 +190,6 @@ extension ObserveableParametersRsync {
         } else {
             parameter3 = "--compress"
         }
-        isDirty = true
     }
 
     // SSH identityfile
@@ -214,14 +209,12 @@ extension ObserveableParametersRsync {
         // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             configuration?.sshkeypathandidentityfile = nil
-            isDirty = true
             return
         }
         do {
             let verified = try checksshkeypathbeforesaving(keypath)
             if verified {
                 configuration?.sshkeypathandidentityfile = keypath
-                isDirty = true
             }
         } catch let e {
             let error = e
@@ -245,14 +238,12 @@ extension ObserveableParametersRsync {
         // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
             configuration?.sshport = nil
-            isDirty = true
             return
         }
         do {
             let verified = try checksshport(port)
             if verified {
                 configuration?.sshport = Int(port)
-                isDirty = true
             }
         } catch let e {
             let error = e
@@ -284,7 +275,6 @@ extension ObserveableParametersRsync {
                     parameter13 = "../backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
                 }
             }
-            isDirty = true
         }
     }
 
@@ -296,7 +286,6 @@ extension ObserveableParametersRsync {
         } else {
             parameter14 = RsyncArguments().suffixstringlinux
         }
-        isDirty = true
     }
 
     func setsuffixfreebsd() {
@@ -307,27 +296,18 @@ extension ObserveableParametersRsync {
         } else {
             parameter14 = RsyncArguments().suffixstringfreebsd
         }
-        isDirty = true
     }
 
     func setrsyncdaemon() {
         guard inputchangedbyuser == true else { return }
         guard configuration != nil else { return }
-        // either reverse or set
-        if let daemon = rsyncdaemon {
-            if daemon == 1 {
-                rsyncdaemon = nil
-                parameter5 = "-e"
-            } else {
-                rsyncdaemon = 1
-                parameter5 = ""
-            }
-
-        } else {
+        if daemon {
             rsyncdaemon = 1
             parameter5 = ""
+        } else {
+            rsyncdaemon = nil
+            parameter5 = "-e"
         }
-        isDirty = true
     }
 
     // Return the updated configuration
@@ -353,6 +333,7 @@ extension ObserveableParametersRsync {
             if parameter3 == nil { configuration.parameter3 = "" } else { configuration.parameter3 = parameter3 ?? "" }
             if parameter4 == nil { configuration.parameter4 = "" } else { configuration.parameter4 = parameter4 ?? "" }
             if parameter5 == nil { configuration.parameter5 = "" } else { configuration.parameter5 = parameter5 ?? "" }
+            configuration.rsyncdaemon = rsyncdaemon
             return configuration
         }
         return nil

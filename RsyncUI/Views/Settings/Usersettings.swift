@@ -131,30 +131,15 @@ struct Usersettings: View {
                 Button("Backup") { backupuserconfigs() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                usersetting
+                Button("Save") { saveusersettings() }
+                    .buttonStyle(PrimaryButtonStyle())
             }
         }
         .lineSpacing(2)
         .padding()
         .onDisappear {
             usersettings.inputchangedbyuser = false
-            usersettings.isDirty = false
         }
-    }
-
-    // Save usersetting is changed
-    // Disabled if not dirty
-    var usersetting: some View {
-        HStack {
-            if usersettings.isDirty {
-                Button("Save") { saveusersettings() }
-                    .buttonStyle(PrimaryButtonStyle())
-            } else {
-                Button("Save") {}
-                    .buttonStyle(PrimaryButtonStyle())
-            }
-        }
-        .disabled(!usersettings.isDirty)
     }
 
     // Rsync
@@ -227,7 +212,6 @@ struct Usersettings: View {
 
 extension Usersettings {
     func saveusersettings() {
-        usersettings.isDirty = false
         usersettings.inputchangedbyuser = false
         _ = WriteUserConfigurationPLIST()
     }

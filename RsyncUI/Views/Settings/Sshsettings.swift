@@ -56,7 +56,8 @@ struct Sshsettings: View {
                 Button("Verify") { verifyssh() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                usersetting
+                Button("Save") { saveusersettings() }
+                    .buttonStyle(PrimaryButtonStyle())
             }
         }
         .lineSpacing(2)
@@ -65,20 +66,6 @@ struct Sshsettings: View {
             VerifySshView(selectedlogin: $selectedlogin,
                           isPresented: $showsshverifysheet)
         }
-    }
-
-    // Save usersetting is changed
-    var usersetting: some View {
-        HStack {
-            if usersettings.isDirty {
-                Button("Save") { saveusersettings() }
-                    .buttonStyle(PrimaryButtonStyle())
-            } else {
-                Button("Save") {}
-                    .buttonStyle(PrimaryButtonStyle())
-            }
-        }
-        .disabled(!usersettings.isDirty)
     }
 
     // Ssh header
@@ -145,7 +132,6 @@ struct ServerRow: View {
 
 extension Sshsettings {
     func saveusersettings() {
-        usersettings.isDirty = false
         usersettings.inputchangedbyuser = false
         _ = WriteUserConfigurationPLIST()
         // wait for a half second and then force a new check if keys are created and exists

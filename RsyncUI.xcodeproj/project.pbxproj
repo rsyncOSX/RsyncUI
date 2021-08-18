@@ -35,7 +35,7 @@
 		E90F7CA526344D5B001D9CA2 /* TextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */; };
 		E90F7CA726344D5E001D9CA2 /* TextBuilderSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA626344D5E001D9CA2 /* TextBuilderSeparator.swift */; };
 		E90F7CA926344D60001D9CA2 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA826344D60001D9CA2 /* TextExtensions.swift */; };
-		E9168C092615AB8500B139CE /* AddPostandPreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C082615AB8500B139CE /* AddPostandPreView.swift */; };
+		E9168C092615AB8500B139CE /* AddPreandPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C082615AB8500B139CE /* AddPreandPostView.swift */; };
 		E9168C0E2615ABFA00B139CE /* AddConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */; };
 		E91BB98326A3FBFD006A7E7D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = E91BB98226A3FBFD006A7E7D /* AlertToast */; };
 		E91CC2622607260B00D69D0B /* RsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2612607260B00D69D0B /* RsyncParametersView.swift */; };
@@ -259,7 +259,7 @@
 		E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuilder.swift; sourceTree = "<group>"; };
 		E90F7CA626344D5E001D9CA2 /* TextBuilderSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuilderSeparator.swift; sourceTree = "<group>"; };
 		E90F7CA826344D60001D9CA2 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
-		E9168C082615AB8500B139CE /* AddPostandPreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostandPreView.swift; sourceTree = "<group>"; };
+		E9168C082615AB8500B139CE /* AddPreandPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPreandPostView.swift; sourceTree = "<group>"; };
 		E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddConfigurationView.swift; sourceTree = "<group>"; };
 		E91CC2612607260B00D69D0B /* RsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncParametersView.swift; sourceTree = "<group>"; };
 		E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebareRestoreView.swift; sourceTree = "<group>"; };
@@ -721,7 +721,7 @@
 				E985C64825F3AD8400CB895C /* SelectConfigurationView.swift */,
 				E985C64925F3AD8400CB895C /* ConfirmUpdatedView.swift */,
 				E985C64A25F3AD8400CB895C /* EditValue.swift */,
-				E9168C082615AB8500B139CE /* AddPostandPreView.swift */,
+				E9168C082615AB8500B139CE /* AddPreandPostView.swift */,
 				E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */,
 				E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */,
 			);
@@ -1437,7 +1437,7 @@
 				E985C73325F3AD9700CB895C /* Environment.swift in Sources */,
 				E9E811F92669E2EA0049E672 /* ObserveablePreandPostTask.swift in Sources */,
 				E985C66025F3AD8400CB895C /* ParametersList.swift in Sources */,
-				E9168C092615AB8500B139CE /* AddPostandPreView.swift in Sources */,
+				E9168C092615AB8500B139CE /* AddPreandPostView.swift in Sources */,
 				E85E86BA265A66A300219B1C /* ConfigurationPLIST.swift in Sources */,
 				E985C77B25F3AD9700CB895C /* DuArgumentsSsh.swift in Sources */,
 				E985C76925F3AD9700CB895C /* ExecuteSingleTaskNow.swift in Sources */,

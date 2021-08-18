@@ -56,6 +56,7 @@ class UpdateConfigurations {
                 configurations?[index].parameter14 = config.parameter14
                 configurations?[index].sshport = config.sshport
                 configurations?[index].sshkeypathandidentityfile = config.sshkeypathandidentityfile
+                configurations?[index].rsyncdaemon = config.rsyncdaemon
             } else {
                 // Updated all other data but parameters
                 // keep last run date

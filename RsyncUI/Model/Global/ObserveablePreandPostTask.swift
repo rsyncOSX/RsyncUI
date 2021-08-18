@@ -18,42 +18,28 @@ final class ObserveablePreandPostTask: ObservableObject {
     @Published var selectedconfig: Configuration?
     // Added and updated labels
     @Published var updated = false
-
-    @Published var inputchangedbyuser: Bool = false
     @Published var reload: Bool = false
-    var isDirty: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
     init() {
-        $inputchangedbyuser
+        $enablepre
             .sink { _ in
             }.store(in: &subscriptions)
-        $enablepre
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
-            }.store(in: &subscriptions)
         $enablepost
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $pretask
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $posttask
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $haltshelltasksonerror
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
     }
 
