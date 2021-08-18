@@ -20,8 +20,8 @@ final class ObserveablePreandPostTask: ObservableObject {
     @Published var updated = false
 
     @Published var inputchangedbyuser: Bool = false
-    @Published var isDirty: Bool = false
     @Published var reload: Bool = false
+    var isDirty: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
