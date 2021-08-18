@@ -1,51 +1,23 @@
 //
-//  DetailedRsyncParametersView.swift
+//  RsyncDefaultParametersView.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 23/04/2021.
+//  Created by Thomas Evensen on 21/03/2021.
 //
 
 import SwiftUI
 
-struct DetailedRsyncParametersView: View {
+struct RsyncDefaultParametersView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
-    @StateObject var parameters = ObserveableParametersRsync()
-
+    @StateObject var parameters = ObserveableParametersDefault()
     @Binding var reload: Bool
-    @Binding var showdetails: Bool
-    @Binding var selectedconfig: Configuration?
+
+    @State private var selectedconfig: Configuration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     @State private var presentrsynccommandoview = false
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
-                EditRsyncParameter(550, $parameters.parameter8.onChange {
-                    parameters.inputchangedbyuser = true
-                })
-                EditRsyncParameter(550, $parameters.parameter9.onChange {
-                    parameters.inputchangedbyuser = true
-                })
-                EditRsyncParameter(550, $parameters.parameter10.onChange {
-                    parameters.inputchangedbyuser = true
-                })
-                EditRsyncParameter(550, $parameters.parameter11.onChange {
-                    parameters.inputchangedbyuser = true
-                })
-                EditRsyncParameter(550, $parameters.parameter12.onChange {
-                    parameters.inputchangedbyuser = true
-                })
-                EditRsyncParameter(550, $parameters.parameter13.onChange {
-                    parameters.inputchangedbyuser = true
-                })
-                EditRsyncParameter(550, $parameters.parameter14.onChange {
-                    parameters.inputchangedbyuser = true
-                })
-                ToggleViewDefault("daemon", $parameters.daemon.onChange {
-                    parameters.inputchangedbyuser = true
-                })
-            }
-
             VStack(alignment: .leading) {
                 Section(header: headerremove) {
                     VStack(alignment: .leading) {
@@ -61,37 +33,22 @@ struct DetailedRsyncParametersView: View {
                     }
                 }
 
-                VStack(alignment: .leading) {
-                    Section(header: headerssh) {
-                        setsshpath
+                Section(header: headerssh) {
+                    setsshpath
 
-                        setsshport
-                    }
+                    setsshport
                 }
             }
+
+            ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                parameters.configuration = selectedconfig
+            },
+            reload: $reload)
         }
 
         Spacer()
 
         HStack {
-            Button("Linux") {
-                parameters.inputchangedbyuser = true
-                parameters.suffixlinux = true
-            }
-            .buttonStyle(PrimaryButtonStyle())
-
-            Button("FreeBSD") {
-                parameters.inputchangedbyuser = true
-                parameters.suffixfreebsd = true
-            }
-            .buttonStyle(PrimaryButtonStyle())
-
-            Button("Backup") {
-                parameters.inputchangedbyuser = true
-                parameters.backup = true
-            }
-            .buttonStyle(PrimaryButtonStyle())
-
             Spacer()
 
             Button("Rsync") { presenteview() }
@@ -102,12 +59,6 @@ struct DetailedRsyncParametersView: View {
 
             Button("Save") { saversyncparameters() }
                 .buttonStyle(PrimaryButtonStyle())
-
-            Button("Return") {
-                selectedconfig = nil
-                showdetails = false
-            }
-            .buttonStyle(PrimaryButtonStyle())
         }
         .onAppear(perform: {
             parameters.configuration = selectedconfig
@@ -148,7 +99,7 @@ struct DetailedRsyncParametersView: View {
     }
 }
 
-extension DetailedRsyncParametersView {
+extension RsyncDefaultParametersView {
     func presenteview() {
         presentrsynccommandoview = true
     }
@@ -162,7 +113,6 @@ extension DetailedRsyncParametersView {
         }
         parameters.inputchangedbyuser = false
         selectedconfig = nil
-        showdetails = false
         reload = true
     }
 }

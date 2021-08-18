@@ -24,35 +24,32 @@ struct RsyncParametersView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                EditRsyncParameter(550, $parameters.parameter8.onChange {
+                EditRsyncParameter(450, $parameters.parameter8.onChange {
                     parameters.inputchangedbyuser = true
                 })
-                EditRsyncParameter(550, $parameters.parameter9.onChange {
+                EditRsyncParameter(450, $parameters.parameter9.onChange {
                     parameters.inputchangedbyuser = true
                 })
-                EditRsyncParameter(550, $parameters.parameter10.onChange {
+                EditRsyncParameter(450, $parameters.parameter10.onChange {
                     parameters.inputchangedbyuser = true
                 })
-                EditRsyncParameter(550, $parameters.parameter11.onChange {
+                EditRsyncParameter(450, $parameters.parameter11.onChange {
                     parameters.inputchangedbyuser = true
                 })
-                EditRsyncParameter(550, $parameters.parameter12.onChange {
+                EditRsyncParameter(450, $parameters.parameter12.onChange {
                     parameters.inputchangedbyuser = true
                 })
-                EditRsyncParameter(550, $parameters.parameter13.onChange {
+                EditRsyncParameter(450, $parameters.parameter13.onChange {
                     parameters.inputchangedbyuser = true
                 })
-                EditRsyncParameter(550, $parameters.parameter14.onChange {
+                EditRsyncParameter(450, $parameters.parameter14.onChange {
                     parameters.inputchangedbyuser = true
                 })
             }
 
-            ConfigurationsListNonSelectable(selectedconfig: $selectedconfig.onChange {
+            ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
                 parameters.configuration = selectedconfig
             },
-            selecteduuids: $selecteduuids,
-            inwork: $inwork,
-            searchText: $searchText,
             reload: $reload)
         }
 

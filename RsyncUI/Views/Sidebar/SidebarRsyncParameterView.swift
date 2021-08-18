@@ -1,5 +1,5 @@
 //
-//  SidebarRsyncParameter.swift
+//  SidebarRsyncParameterView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 20/03/2021.
@@ -7,16 +7,17 @@
 
 import SwiftUI
 
-struct SidebarRsyncParameter: View {
+struct SidebarRsyncParameterView: View {
     @Binding var reload: Bool
     @State private var showdetails = false
     @State private var selectedconfig: Configuration?
 
     var body: some View {
         VStack {
+            headingtitle
+
             RsyncParametersView(reload: $reload)
         }
-        .padding()
     }
 
     var headingtitle: some View {
@@ -30,6 +31,5 @@ struct SidebarRsyncParameter: View {
             Spacer()
         }
         .padding()
-        .frame(width: 200)
     }
 }

@@ -19,9 +19,7 @@ struct ConfigurationsListSmall: View {
     let forestimated = false
 
     var body: some View {
-        VStack {
-            configlist
-        }
+        configlist
     }
 
     var configlist: some View {
