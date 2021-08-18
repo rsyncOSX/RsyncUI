@@ -13,24 +13,8 @@ struct SidebarRsyncParameter: View {
     @State private var selectedconfig: Configuration?
 
     var body: some View {
-        VStack(alignment: .leading) {
-            if showdetails == false {
-                headingtitle
-
-                RsyncParametersView(reload: $reload,
-                                    showdetails: $showdetails,
-                                    selectedconfig: $selectedconfig)
-            } else {
-                VStack(alignment: .leading) {
-                    headingtitle
-
-                    PresentOneconfigView(config: $selectedconfig)
-                }
-
-                DetailedRsyncParametersView(reload: $reload,
-                                            showdetails: $showdetails,
-                                            selectedconfig: $selectedconfig)
-            }
+        VStack {
+            RsyncParametersView(reload: $reload)
         }
         .padding()
     }
