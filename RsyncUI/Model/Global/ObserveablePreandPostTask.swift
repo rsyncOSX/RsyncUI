@@ -31,11 +31,11 @@ final class ObserveablePreandPostTask: ObservableObject {
             .sink { _ in
             }.store(in: &subscriptions)
         $pretask
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
         $posttask
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
         $haltshelltasksonerror
