@@ -101,6 +101,9 @@
 "Days" = "Dager";
 
 /* No comment provided by engineer. */
+"Default" = "Standard";
+
+/* No comment provided by engineer. */
 "Delete" = "Slett";
 
 /* No comment provided by engineer. */
@@ -125,6 +128,9 @@
 "Enable" = "Aktiver";
 
 /* No comment provided by engineer. */
+"Enable rsync daemon" = "Aktiver rsync daemon";
+
+/* No comment provided by engineer. */
 "Environment" = "Miljø";
 
 /* No comment provided by engineer. */
@@ -144,6 +150,9 @@
 
 /* No comment provided by engineer. */
 "Files" = "Filer";
+
+/* No comment provided by engineer. */
+"FreeBSD" = "FreeBSD";
 
 /* No comment provided by engineer. */
 "Full" = "Full";
@@ -180,6 +189,9 @@
 
 /* No comment provided by engineer. */
 "Level log" = "Nivå logg";
+
+/* No comment provided by engineer. */
+"Linux" = "Linux";
 
 /* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
@@ -266,6 +278,9 @@
 "Output from rsync" = "Resultat av rsync";
 
 /* No comment provided by engineer. */
+"Parameters" = "Parametre";
+
+/* No comment provided by engineer. */
 "Path for restore" = "Sti for gjenoppretting";
 
 /* No comment provided by engineer. */
@@ -302,6 +317,9 @@
 "Remote parameters" = "Eksterne parametere";
 
 /* No comment provided by engineer. */
+"Remove default rsync parameters" = "Slett standard rsync parametre";
+
+/* No comment provided by engineer. */
 "Reset" = "Reset";
 
 /* No comment provided by engineer. */
@@ -311,7 +329,7 @@
 "Rsync command and parameters" = "Rsync kommando og parametere";
 
 /* No comment provided by engineer. */
-"Rsync parameters" = "Rsync parameter";
+"Rsync parameters" = "Rsync parametre";
 
 /* No comment provided by engineer. */
 "Rsync ver 3.x" = "Rsync ver 3,x";
@@ -407,7 +425,7 @@
 "Update" = "Oppdater";
 
 /* No comment provided by engineer. */
-"Update configuration completed" = "Oppdateringskonfigurasjon fullført";
+"Update configuration completed" = "Oppdaterings konfigurasjon fullført";
 
 /* No comment provided by engineer. */
 "Updated" = "Oppdatert";
