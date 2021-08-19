@@ -33,6 +33,8 @@ struct RsyncParametersView: View {
                     EditRsyncParameter(450, $parameters.parameter12)
                     EditRsyncParameter(450, $parameters.parameter13)
                     EditRsyncParameter(450, $parameters.parameter14)
+
+                    Spacer()
                 }
 
                 ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {

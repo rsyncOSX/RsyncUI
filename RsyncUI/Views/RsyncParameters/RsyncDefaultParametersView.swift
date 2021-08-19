@@ -38,10 +38,12 @@ struct RsyncDefaultParametersView: View {
 
                         setsshport
                     }
+
+                    Spacer()
                 }
 
                 ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                    parameters.configuration = selectedconfig
+                    // parameters.configuration = selectedconfig
                 },
                 reload: $reload)
             }
