@@ -17,52 +17,51 @@ struct RsyncDefaultParametersView: View {
     @State private var presentrsynccommandoview = false
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Section(header: headerremove) {
-                    VStack(alignment: .leading) {
-                        ToggleViewDefault("-e ssh", $parameters.removessh.onChange {
-                            parameters.inputchangedbyuser = true
-                        })
-                        ToggleViewDefault("--compress", $parameters.removecompress.onChange {
-                            parameters.inputchangedbyuser = true
-                        })
-                        ToggleViewDefault("--delete", $parameters.removedelete.onChange {
-                            parameters.inputchangedbyuser = true
-                        })
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Section(header: headerremove) {
+                        VStack(alignment: .leading) {
+                            ToggleViewDefault("-e ssh", $parameters.removessh.onChange {
+                                parameters.inputchangedbyuser = true
+                            })
+                            ToggleViewDefault("--compress", $parameters.removecompress.onChange {
+                                parameters.inputchangedbyuser = true
+                            })
+                            ToggleViewDefault("--delete", $parameters.removedelete.onChange {
+                                parameters.inputchangedbyuser = true
+                            })
+                        }
+                    }
+
+                    Section(header: headerssh) {
+                        setsshpath
+
+                        setsshport
                     }
                 }
 
-                Section(header: headerssh) {
-                    setsshpath
-
-                    setsshport
-                }
+                ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                    parameters.configuration = selectedconfig
+                },
+                reload: $reload)
             }
 
-            ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                parameters.configuration = selectedconfig
-            },
-            reload: $reload)
-        }
-
-        Spacer()
-
-        HStack {
             Spacer()
 
-            Button("Rsync") { presenteview() }
-                .buttonStyle(PrimaryButtonStyle())
-                .sheet(isPresented: $presentrsynccommandoview) {
-                    RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
-                }
+            HStack {
+                Spacer()
 
-            Button("Save") { saversyncparameters() }
-                .buttonStyle(PrimaryButtonStyle())
+                Button("Rsync") { presenteview() }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .sheet(isPresented: $presentrsynccommandoview) {
+                        RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
+                    }
+
+                Button("Save") { saversyncparameters() }
+                    .buttonStyle(PrimaryButtonStyle())
+            }
         }
-        .onAppear(perform: {
-            parameters.configuration = selectedconfig
-        })
     }
 
     // Header remove
