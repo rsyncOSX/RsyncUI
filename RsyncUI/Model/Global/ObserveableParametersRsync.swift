@@ -18,20 +18,17 @@ final class ObserveableParametersRsync: ObservableObject {
     @Published var parameter12: String = ""
     @Published var parameter13: String = ""
     @Published var parameter14: String = ""
-    // Selected configuration
-    @Published var configuration: Configuration?
+
     // Buttons
     @Published var suffixlinux: Bool = false
     @Published var suffixfreebsd: Bool = false
     @Published var backup: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
+    // Selected configuration
+    var configuration: Configuration?
 
     init() {
-        $configuration
-            .sink { [unowned self] config in
-                if let config = config { setvalues(config) }
-            }.store(in: &subscriptions)
         $parameter8
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { _ in
@@ -60,7 +57,6 @@ final class ObserveableParametersRsync: ObservableObject {
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
-
         $suffixlinux
             .sink { [unowned self] _ in
                 setsuffixlinux()
@@ -77,14 +73,18 @@ final class ObserveableParametersRsync: ObservableObject {
 }
 
 extension ObserveableParametersRsync {
-    func setvalues(_ config: Configuration) {
-        parameter8 = config.parameter8 ?? ""
-        parameter9 = config.parameter9 ?? ""
-        parameter10 = config.parameter10 ?? ""
-        parameter11 = config.parameter11 ?? ""
-        parameter12 = config.parameter12 ?? ""
-        parameter13 = config.parameter13 ?? ""
-        parameter14 = config.parameter14 ?? ""
+    func setvalues(_ config: Configuration?) {
+        if let config = config {
+            parameter8 = config.parameter8 ?? ""
+            parameter9 = config.parameter9 ?? ""
+            parameter10 = config.parameter10 ?? ""
+            parameter11 = config.parameter11 ?? ""
+            parameter12 = config.parameter12 ?? ""
+            parameter13 = config.parameter13 ?? ""
+            parameter14 = config.parameter14 ?? ""
+        } else {
+            reset()
+        }
     }
 
     func setbackup() {
@@ -144,6 +144,17 @@ extension ObserveableParametersRsync {
             return configuration
         }
         return nil
+    }
+
+    private func reset() {
+        configuration = nil
+        parameter8 = ""
+        parameter9 = ""
+        parameter10 = ""
+        parameter11 = ""
+        parameter12 = ""
+        parameter13 = ""
+        parameter14 = ""
     }
 }
 
