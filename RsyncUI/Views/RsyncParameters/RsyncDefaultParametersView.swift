@@ -43,7 +43,7 @@ struct RsyncDefaultParametersView: View {
                 }
 
                 ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                    // parameters.configuration = selectedconfig
+                    parameters.setvalues(selectedconfig)
                 },
                 reload: $reload)
             }
