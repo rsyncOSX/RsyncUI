@@ -9,14 +9,6 @@ import Combine
 import Foundation
 
 final class ObserveableParametersDefault: ObservableObject {
-    // Rsync parameters
-    @Published var parameter8: String = ""
-    @Published var parameter9: String = ""
-    @Published var parameter10: String = ""
-    @Published var parameter11: String = ""
-    @Published var parameter12: String = ""
-    @Published var parameter13: String = ""
-    @Published var parameter14: String = ""
     // Selected configuration
     @Published var configuration: Configuration?
     // Local SSH parameters
@@ -30,10 +22,6 @@ final class ObserveableParametersDefault: ObservableObject {
     @Published var removessh: Bool = false
     @Published var removecompress: Bool = false
     @Published var removedelete: Bool = false
-    // Buttons
-    @Published var suffixlinux: Bool = false
-    @Published var suffixfreebsd: Bool = false
-    @Published var backup: Bool = false
     @Published var daemon: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -48,34 +36,6 @@ final class ObserveableParametersDefault: ObservableObject {
 
     init() {
         $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter8
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter9
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter10
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter11
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter12
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter13
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter14
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
         $configuration
@@ -107,26 +67,11 @@ final class ObserveableParametersDefault: ObservableObject {
             .sink { [unowned self] compress in
                 deletecompress(compress)
             }.store(in: &subscriptions)
-        $suffixlinux
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                setsuffixlinux()
-            }.store(in: &subscriptions)
-        $suffixfreebsd
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                setsuffixfreebsd()
-            }.store(in: &subscriptions)
         $daemon
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 // TODO: fix rsyncdaemon
                 // setrsyncdaemon()
-            }.store(in: &subscriptions)
-        $backup
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                setbackup()
             }.store(in: &subscriptions)
     }
 }
@@ -134,13 +79,6 @@ final class ObserveableParametersDefault: ObservableObject {
 extension ObserveableParametersDefault {
     func setvalues(_ config: Configuration) {
         inputchangedbyuser = false
-        parameter8 = config.parameter8 ?? ""
-        parameter9 = config.parameter9 ?? ""
-        parameter10 = config.parameter10 ?? ""
-        parameter11 = config.parameter11 ?? ""
-        parameter12 = config.parameter12 ?? ""
-        parameter13 = config.parameter13 ?? ""
-        parameter14 = config.parameter14 ?? ""
         if let configsshport = config.sshport {
             sshport = String(configsshport)
         } else {
@@ -250,53 +188,6 @@ extension ObserveableParametersDefault {
         }
     }
 
-    func setbackup() {
-        guard inputchangedbyuser == true else { return }
-        if let config = configuration {
-            let localcatalog = config.localCatalog
-            let localcatalogparts = (localcatalog as AnyObject).components(separatedBy: "/")
-            if parameter12.isEmpty == false {
-                parameter12 = ""
-            } else {
-                parameter12 = RsyncArguments().backupstrings[0]
-            }
-            guard localcatalogparts.count > 2 else { return }
-            if config.offsiteCatalog.contains("~") {
-                if parameter13.isEmpty == false {
-                    parameter13 = ""
-                } else {
-                    parameter13 = "~/backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
-                }
-            } else {
-                if parameter13.isEmpty == false {
-                    parameter13 = ""
-                } else {
-                    parameter13 = "../backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
-                }
-            }
-        }
-    }
-
-    func setsuffixlinux() {
-        guard inputchangedbyuser == true else { return }
-        guard configuration != nil else { return }
-        if parameter14.isEmpty == false {
-            parameter14 = ""
-        } else {
-            parameter14 = RsyncArguments().suffixstringlinux
-        }
-    }
-
-    func setsuffixfreebsd() {
-        guard inputchangedbyuser == true else { return }
-        guard configuration != nil else { return }
-        if parameter14.isEmpty == false {
-            parameter14 = ""
-        } else {
-            parameter14 = RsyncArguments().suffixstringfreebsd
-        }
-    }
-
     func setrsyncdaemon() {
         guard inputchangedbyuser == true else { return }
         guard configuration != nil else { return }
@@ -312,13 +203,6 @@ extension ObserveableParametersDefault {
     // Return the updated configuration
     func updatersyncparameters() -> Configuration? {
         if var configuration = configuration {
-            if parameter8.isEmpty { configuration.parameter8 = nil } else { configuration.parameter8 = parameter8 }
-            if parameter9.isEmpty { configuration.parameter9 = nil } else { configuration.parameter9 = parameter9 }
-            if parameter10.isEmpty { configuration.parameter10 = nil } else { configuration.parameter10 = parameter10 }
-            if parameter11.isEmpty { configuration.parameter11 = nil } else { configuration.parameter11 = parameter11 }
-            if parameter12.isEmpty { configuration.parameter12 = nil } else { configuration.parameter12 = parameter12 }
-            if parameter13.isEmpty { configuration.parameter13 = nil } else { configuration.parameter13 = parameter13 }
-            if parameter14.isEmpty { configuration.parameter14 = nil } else { configuration.parameter14 = parameter14 }
             if sshport.isEmpty {
                 configuration.sshport = nil
             } else {
