@@ -85,7 +85,8 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarParametersView(reload: $reload),
+                NavigationLink(destination: SidebarParametersView(selectedprofile: $selectedprofile,
+                                                                  reload: $reload),
                                tag: NavigationItem.rsync,
                                selection: $selection) {
                     Label("Rsync parameters", systemImage: "command.circle.fill")

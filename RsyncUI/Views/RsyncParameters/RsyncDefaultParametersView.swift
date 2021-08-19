@@ -10,6 +10,7 @@ import SwiftUI
 struct RsyncDefaultParametersView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @StateObject var parameters = ObserveableParametersDefault()
+    @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
@@ -34,6 +35,12 @@ struct RsyncDefaultParametersView: View {
                         }
                     }
 
+                    Section(header: headerdaemon) {
+                        ToggleViewDefault("daemon", $parameters.daemon.onChange {
+                            parameters.inputchangedbyuser = true
+                        })
+                    }
+
                     Section(header: headerssh) {
                         setsshpath
 
@@ -55,13 +62,20 @@ struct RsyncDefaultParametersView: View {
                 Button("Rsync") { presenteview() }
                     .buttonStyle(PrimaryButtonStyle())
                     .sheet(isPresented: $presentrsynccommandoview) {
-                        RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
+                        RsyncCommandView(selectedconfig: $parameters.configuration,
+                                         isPresented: $presentrsynccommandoview)
                     }
 
                 Button("Save") { saversyncparameters() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
+        .padding()
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = "Default profile"
+            }
+        })
     }
 
     // Header remove
@@ -72,6 +86,11 @@ struct RsyncDefaultParametersView: View {
     // Ssh header
     var headerssh: some View {
         Text("Set ssh keypath and identityfile")
+    }
+
+    // Daemon header
+    var headerdaemon: some View {
+        Text("Enable rsync daemon")
     }
 
     var setsshpath: some View {

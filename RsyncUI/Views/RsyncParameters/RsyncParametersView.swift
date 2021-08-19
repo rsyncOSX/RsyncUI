@@ -10,6 +10,7 @@ import SwiftUI
 struct RsyncParametersView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @StateObject var parameters = ObserveableParametersRsync()
+    @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
@@ -89,6 +90,12 @@ struct RsyncParametersView: View {
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
+        .padding()
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = "Default profile"
+            }
+        })
     }
 }
 

@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct SidebarParametersView: View {
+    @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
     var body: some View {
         TabView {
-            RsyncParametersView(reload: $reload)
+            RsyncParametersView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
                     Text("Parameters")
                 }
-            RsyncDefaultParametersView(reload: $reload)
+            RsyncDefaultParametersView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
                     Text("Default")
                 }
