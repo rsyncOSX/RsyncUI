@@ -42,12 +42,11 @@ final class ObserveableParametersDefault: ObservableObject {
                 sshkeypathandidentiyfile(identityfile)
             }.store(in: &subscriptions)
         $sshport
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] port in
                 sshport(port)
             }.store(in: &subscriptions)
         $removessh
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] ssh in
                 deletessh(ssh)
             }.store(in: &subscriptions)
@@ -57,15 +56,13 @@ final class ObserveableParametersDefault: ObservableObject {
                 deletedelete(delete)
             }.store(in: &subscriptions)
         $removecompress
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] compress in
                 deletecompress(compress)
             }.store(in: &subscriptions)
         $daemon
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 // TODO: fix rsyncdaemon
-                // setrsyncdaemon()
+                setrsyncdaemon()
             }.store(in: &subscriptions)
     }
 }
@@ -181,7 +178,7 @@ extension ObserveableParametersDefault {
         guard configuration != nil else { return }
         if daemon {
             rsyncdaemon = 1
-            parameter5 = ""
+            parameter5 = nil
         } else {
             rsyncdaemon = nil
             parameter5 = "-e"
