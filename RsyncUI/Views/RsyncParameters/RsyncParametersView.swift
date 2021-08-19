@@ -26,27 +26,13 @@ struct RsyncParametersView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    EditRsyncParameter(450, $parameters.parameter8.onChange {
-                        parameters.inputchangedbyuser = true
-                    })
-                    EditRsyncParameter(450, $parameters.parameter9.onChange {
-                        parameters.inputchangedbyuser = true
-                    })
-                    EditRsyncParameter(450, $parameters.parameter10.onChange {
-                        parameters.inputchangedbyuser = true
-                    })
-                    EditRsyncParameter(450, $parameters.parameter11.onChange {
-                        parameters.inputchangedbyuser = true
-                    })
-                    EditRsyncParameter(450, $parameters.parameter12.onChange {
-                        parameters.inputchangedbyuser = true
-                    })
-                    EditRsyncParameter(450, $parameters.parameter13.onChange {
-                        parameters.inputchangedbyuser = true
-                    })
-                    EditRsyncParameter(450, $parameters.parameter14.onChange {
-                        parameters.inputchangedbyuser = true
-                    })
+                    EditRsyncParameter(450, $parameters.parameter8)
+                    EditRsyncParameter(450, $parameters.parameter9)
+                    EditRsyncParameter(450, $parameters.parameter10)
+                    EditRsyncParameter(450, $parameters.parameter11)
+                    EditRsyncParameter(450, $parameters.parameter12)
+                    EditRsyncParameter(450, $parameters.parameter13)
+                    EditRsyncParameter(450, $parameters.parameter14)
                 }
 
                 ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
@@ -59,19 +45,16 @@ struct RsyncParametersView: View {
 
             HStack {
                 Button("Linux") {
-                    parameters.inputchangedbyuser = true
                     parameters.suffixlinux = true
                 }
                 .buttonStyle(PrimaryButtonStyle())
 
                 Button("FreeBSD") {
-                    parameters.inputchangedbyuser = true
                     parameters.suffixfreebsd = true
                 }
                 .buttonStyle(PrimaryButtonStyle())
 
                 Button("Backup") {
-                    parameters.inputchangedbyuser = true
                     parameters.backup = true
                 }
                 .buttonStyle(PrimaryButtonStyle())
@@ -81,12 +64,11 @@ struct RsyncParametersView: View {
                 Button("Rsync") { presenteview() }
                     .buttonStyle(PrimaryButtonStyle())
                     .sheet(isPresented: $presentrsynccommandoview) {
-                        RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
+                        RsyncCommandView(selectedconfig: $parameters.configuration,
+                                         isPresented: $presentrsynccommandoview)
                     }
 
                 Button("Save") { saversyncparameters() }
-                    .buttonStyle(PrimaryButtonStyle())
-
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -111,7 +93,6 @@ extension RsyncParametersView {
                                      configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(configuration, true)
         }
-        parameters.inputchangedbyuser = false
         selectedconfig = nil
         reload = true
     }

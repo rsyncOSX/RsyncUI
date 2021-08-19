@@ -23,22 +23,14 @@ struct RsyncDefaultParametersView: View {
                 VStack(alignment: .leading) {
                     Section(header: headerremove) {
                         VStack(alignment: .leading) {
-                            ToggleViewDefault("-e ssh", $parameters.removessh.onChange {
-                                parameters.inputchangedbyuser = true
-                            })
-                            ToggleViewDefault("--compress", $parameters.removecompress.onChange {
-                                parameters.inputchangedbyuser = true
-                            })
-                            ToggleViewDefault("--delete", $parameters.removedelete.onChange {
-                                parameters.inputchangedbyuser = true
-                            })
+                            ToggleViewDefault("-e ssh", $parameters.removessh)
+                            ToggleViewDefault("--compress", $parameters.removecompress)
+                            ToggleViewDefault("--delete", $parameters.removedelete)
                         }
                     }
 
                     Section(header: headerdaemon) {
-                        ToggleViewDefault("daemon", $parameters.daemon.onChange {
-                            parameters.inputchangedbyuser = true
-                        })
+                        ToggleViewDefault("daemon", $parameters.daemon)
                     }
 
                     Section(header: headerssh) {
@@ -95,9 +87,7 @@ struct RsyncDefaultParametersView: View {
 
     var setsshpath: some View {
         EditValue(250, "Local ssh keypath and identityfile",
-                  $parameters.sshkeypathandidentityfile.onChange {
-                      parameters.inputchangedbyuser = true
-                  })
+                  $parameters.sshkeypathandidentityfile)
             .onAppear(perform: {
                 if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
                     parameters.sshkeypathandidentityfile = sshkeypath
@@ -106,9 +96,7 @@ struct RsyncDefaultParametersView: View {
     }
 
     var setsshport: some View {
-        EditValue(250, "Local ssh port", $parameters.sshport.onChange {
-            parameters.inputchangedbyuser = true
-        })
+        EditValue(250, "Local ssh port", $parameters.sshport)
             .onAppear(perform: {
                 if let sshport = parameters.configuration?.sshport {
                     parameters.sshport = String(sshport)
@@ -129,7 +117,6 @@ extension RsyncDefaultParametersView {
                                      configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(configuration, true)
         }
-        parameters.inputchangedbyuser = false
         selectedconfig = nil
         reload = true
     }

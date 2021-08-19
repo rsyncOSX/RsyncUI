@@ -27,57 +27,49 @@ final class ObserveableParametersRsync: ObservableObject {
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
-    // Value to check if input field is changed by user
-    @Published var inputchangedbyuser: Bool = false
-
     init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter8
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter9
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter10
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter11
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter12
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter13
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $parameter14
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
         $configuration
             .sink { [unowned self] config in
                 if let config = config { setvalues(config) }
             }.store(in: &subscriptions)
-        $suffixlinux
+        $parameter8
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { _ in
+            }.store(in: &subscriptions)
+        $parameter9
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { _ in
+            }.store(in: &subscriptions)
+        $parameter10
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { _ in
+            }.store(in: &subscriptions)
+        $parameter11
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { _ in
+            }.store(in: &subscriptions)
+        $parameter12
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { _ in
+            }.store(in: &subscriptions)
+        $parameter13
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { _ in
+            }.store(in: &subscriptions)
+        $parameter14
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { _ in
+            }.store(in: &subscriptions)
+
+        $suffixlinux
             .sink { [unowned self] _ in
                 setsuffixlinux()
             }.store(in: &subscriptions)
         $suffixfreebsd
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setsuffixfreebsd()
             }.store(in: &subscriptions)
         $backup
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setbackup()
             }.store(in: &subscriptions)
@@ -86,7 +78,6 @@ final class ObserveableParametersRsync: ObservableObject {
 
 extension ObserveableParametersRsync {
     func setvalues(_ config: Configuration) {
-        inputchangedbyuser = false
         parameter8 = config.parameter8 ?? ""
         parameter9 = config.parameter9 ?? ""
         parameter10 = config.parameter10 ?? ""
@@ -96,67 +87,7 @@ extension ObserveableParametersRsync {
         parameter14 = config.parameter14 ?? ""
     }
 
-    // SSH identityfile
-    private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
-        if keypath.first != "~" { throw SshError.noslash }
-        let tempsshkeypath = keypath
-        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
-        guard sshkeypathandidentityfilesplit.count > 2 else { throw SshError.noslash }
-        guard sshkeypathandidentityfilesplit[1].count > 1 else { throw SshError.notvalidpath }
-        guard sshkeypathandidentityfilesplit[2].count > 1 else { throw SshError.notvalidpath }
-        return true
-    }
-
-    func sshkeypathandidentiyfile(_ keypath: String) {
-        guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
-        // If keypath is empty set it to nil, e.g default value
-        guard keypath.isEmpty == false else {
-            configuration?.sshkeypathandidentityfile = nil
-            return
-        }
-        do {
-            let verified = try checksshkeypathbeforesaving(keypath)
-            if verified {
-                configuration?.sshkeypathandidentityfile = keypath
-            }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-        }
-    }
-
-    // SSH port number
-    private func checksshport(_ port: String) throws -> Bool {
-        guard port.isEmpty == false else { return false }
-        if Int(port) != nil {
-            return true
-        } else {
-            throw InputError.notvalidInt
-        }
-    }
-
-    func sshport(_ port: String) {
-        guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
-        // if port is empty set it to nil, e.g. default value
-        guard port.isEmpty == false else {
-            configuration?.sshport = nil
-            return
-        }
-        do {
-            let verified = try checksshport(port)
-            if verified {
-                configuration?.sshport = Int(port)
-            }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-        }
-    }
-
     func setbackup() {
-        guard inputchangedbyuser == true else { return }
         if let config = configuration {
             let localcatalog = config.localCatalog
             let localcatalogparts = (localcatalog as AnyObject).components(separatedBy: "/")
@@ -183,7 +114,6 @@ extension ObserveableParametersRsync {
     }
 
     func setsuffixlinux() {
-        guard inputchangedbyuser == true else { return }
         guard configuration != nil else { return }
         if parameter14.isEmpty == false {
             parameter14 = ""
@@ -193,7 +123,6 @@ extension ObserveableParametersRsync {
     }
 
     func setsuffixfreebsd() {
-        guard inputchangedbyuser == true else { return }
         guard configuration != nil else { return }
         if parameter14.isEmpty == false {
             parameter14 = ""
