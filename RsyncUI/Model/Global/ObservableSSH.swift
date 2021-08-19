@@ -20,7 +20,6 @@ final class ObservableSSH: ObservableObject {
     @Published var localsshkeys: Bool = SshKeys().validatepublickeypresent()
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
-    var isDirty: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
@@ -58,7 +57,6 @@ extension ObservableSSH {
         // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             SharedReference.shared.sshkeypathandidentityfile = nil
-            isDirty = true
             return
         }
         do {
@@ -69,7 +67,6 @@ extension ObservableSSH {
                 if let port = Int(sshport) {
                     SharedReference.shared.sshport = port
                 }
-                isDirty = true
             }
         } catch let e {
             let error = e
@@ -92,7 +89,6 @@ extension ObservableSSH {
         // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
             SharedReference.shared.sshport = nil
-            isDirty = true
             return
         }
         do {
@@ -101,7 +97,6 @@ extension ObservableSSH {
                 SharedReference.shared.sshport = Int(port)
                 // Save identityfile also
                 SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
-                isDirty = true
             }
         } catch let e {
             let error = e

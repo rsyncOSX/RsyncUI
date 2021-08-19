@@ -44,7 +44,6 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var showAlertfordelete: Bool = false
 
     @Published var inputchangedbyuser: Bool = false
-    var isDirty: Bool = false
 
     // For update post and pretasks
     var enablepre: Bool = false
@@ -64,69 +63,56 @@ final class ObserveableAddConfigurations: ObservableObject {
             }.store(in: &subscriptions)
         $donotaddtrailingslash
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $localcatalog
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $remotecatalog
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
                 remotestorageislocal = verifyremotestorageislocal()
             }.store(in: &subscriptions)
         $remoteuser
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $remoteserver
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $backupID
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $selectedrsynccommand
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $newprofile
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $selectedprofile
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $deletedefaultprofile
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $confirmdeleteselectedprofile
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $showAlertfordelete
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $selectedconfig
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
     }
 

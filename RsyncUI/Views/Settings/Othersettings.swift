@@ -55,25 +55,12 @@ struct Othersettings: View {
             HStack {
                 Spacer()
 
-                usersetting
+                Button("Save") { saveusersettings() }
+                    .buttonStyle(PrimaryButtonStyle())
             }
         }
         .lineSpacing(2)
         .padding()
-    }
-
-    // Save usersetting is changed
-    var usersetting: some View {
-        HStack {
-            if usersettings.isDirty {
-                Button("Save") { saveusersettings() }
-                    .buttonStyle(PrimaryButtonStyle())
-            } else {
-                Button("Save") {}
-                    .buttonStyle(PrimaryButtonStyle())
-            }
-        }
-        .disabled(!usersettings.isDirty)
     }
 
     // Environment
@@ -137,7 +124,6 @@ struct Othersettings: View {
 
 extension Othersettings {
     func saveusersettings() {
-        usersettings.isDirty = false
         usersettings.inputchangedbyuser = false
         _ = WriteUserConfigurationPLIST()
     }

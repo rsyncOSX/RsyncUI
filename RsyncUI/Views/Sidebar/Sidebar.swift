@@ -19,7 +19,6 @@ enum NavigationItem {
     case schedules
     case restore
     case quicktask
-    // case tabletest
     case plist
 }
 
@@ -86,7 +85,8 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarRsyncParameter(reload: $reload),
+                NavigationLink(destination: SidebarParametersView(selectedprofile: $selectedprofile,
+                                                                  reload: $reload),
                                tag: NavigationItem.rsync,
                                selection: $selection) {
                     Label("Rsync parameters", systemImage: "command.circle.fill")

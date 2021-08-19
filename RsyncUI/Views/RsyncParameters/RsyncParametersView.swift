@@ -1,17 +1,21 @@
 //
 //  RsyncParametersView.swift
-//  RsyncUI
+//  RsyncParametersView
 //
-//  Created by Thomas Evensen on 21/03/2021.
+//  Created by Thomas Evensen on 18/08/2021.
 //
 
 import SwiftUI
 
 struct RsyncParametersView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @StateObject var parameters = ObserveableParametersRsync()
+    @Binding var selectedprofile: String?
     @Binding var reload: Bool
-    @Binding var showdetails: Bool
-    @Binding var selectedconfig: Configuration?
+
+    @State private var selectedconfig: Configuration?
+    @State private var selectedrsynccommand = RsyncCommand.synchronize
+    @State private var presentrsynccommandoview = false
 
     @State private var searchText: String = ""
     // Not used but requiered in parameter
@@ -19,16 +23,96 @@ struct RsyncParametersView: View {
     @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
-        ConfigurationsListNonSelectable(selectedconfig: $selectedconfig.onChange { opendetails() },
-                                        selecteduuids: $selecteduuids,
-                                        inwork: $inwork,
-                                        searchText: $searchText,
-                                        reload: $reload)
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    EditRsyncParameter(450, $parameters.parameter8.onChange {
+                        parameters.inputchangedbyuser = true
+                    })
+                    EditRsyncParameter(450, $parameters.parameter9.onChange {
+                        parameters.inputchangedbyuser = true
+                    })
+                    EditRsyncParameter(450, $parameters.parameter10.onChange {
+                        parameters.inputchangedbyuser = true
+                    })
+                    EditRsyncParameter(450, $parameters.parameter11.onChange {
+                        parameters.inputchangedbyuser = true
+                    })
+                    EditRsyncParameter(450, $parameters.parameter12.onChange {
+                        parameters.inputchangedbyuser = true
+                    })
+                    EditRsyncParameter(450, $parameters.parameter13.onChange {
+                        parameters.inputchangedbyuser = true
+                    })
+                    EditRsyncParameter(450, $parameters.parameter14.onChange {
+                        parameters.inputchangedbyuser = true
+                    })
+                }
+
+                ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                    parameters.configuration = selectedconfig
+                },
+                reload: $reload)
+            }
+
+            Spacer()
+
+            HStack {
+                Button("Linux") {
+                    parameters.inputchangedbyuser = true
+                    parameters.suffixlinux = true
+                }
+                .buttonStyle(PrimaryButtonStyle())
+
+                Button("FreeBSD") {
+                    parameters.inputchangedbyuser = true
+                    parameters.suffixfreebsd = true
+                }
+                .buttonStyle(PrimaryButtonStyle())
+
+                Button("Backup") {
+                    parameters.inputchangedbyuser = true
+                    parameters.backup = true
+                }
+                .buttonStyle(PrimaryButtonStyle())
+
+                Spacer()
+
+                Button("Rsync") { presenteview() }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .sheet(isPresented: $presentrsynccommandoview) {
+                        RsyncCommandView(selectedconfig: $parameters.configuration, isPresented: $presentrsynccommandoview)
+                    }
+
+                Button("Save") { saversyncparameters() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                    .buttonStyle(PrimaryButtonStyle())
+            }
+        }
+        .padding()
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = "Default profile"
+            }
+        })
+    }
+}
+
+extension RsyncParametersView {
+    func presenteview() {
+        presentrsynccommandoview = true
     }
 
-    func opendetails() {
-        if selectedconfig != nil {
-            showdetails = true
+    func saversyncparameters() {
+        if let configuration = parameters.updatersyncparameters() {
+            let updateconfiguration =
+                UpdateConfigurations(profile: rsyncUIdata.rsyncdata?.profile,
+                                     configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
+            updateconfiguration.updateconfiguration(configuration, true)
         }
+        parameters.inputchangedbyuser = false
+        selectedconfig = nil
+        reload = true
     }
 }

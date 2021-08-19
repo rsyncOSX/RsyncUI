@@ -37,8 +37,6 @@ final class ObserveableUsersetting: ObservableObject {
     @Published var checkinput: Bool = SharedReference.shared.checkinput
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
-    // When property is changed set isDirty = true
-    var isDirty: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -49,9 +47,8 @@ final class ObserveableUsersetting: ObservableObject {
             }.store(in: &subscriptions)
         $rsyncversion3
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] rsyncver3 in
+            .sink { rsyncver3 in
                 SharedReference.shared.rsyncversion3 = rsyncver3
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $localrsyncpath
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
@@ -65,33 +62,28 @@ final class ObserveableUsersetting: ObservableObject {
             }.store(in: &subscriptions)
         $nologging
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] value in
+            .sink { value in
                 SharedReference.shared.nologging = value
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $minimumlogging
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] min in
+            .sink { min in
                 SharedReference.shared.minimumlogging = min
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $fulllogging
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] full in
+            .sink { full in
                 SharedReference.shared.fulllogging = full
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $detailedlogging
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] detailed in
+            .sink { detailed in
                 SharedReference.shared.detailedlogging = detailed
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $monitornetworkconnection
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] monitor in
+            .sink { monitor in
                 SharedReference.shared.monitornetworkconnection = monitor
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $checkinput
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
@@ -105,15 +97,13 @@ final class ObserveableUsersetting: ObservableObject {
             }.store(in: &subscriptions)
         $pathrsyncui
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] pathtorsyncosx in
+            .sink { pathtorsyncosx in
                 SharedReference.shared.pathrsyncui = pathtorsyncosx
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
         $pathrsyncschedule
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] pathtorsyncosxsched in
+            .sink { pathtorsyncosxsched in
                 SharedReference.shared.pathrsyncschedule = pathtorsyncosxsched
-                isDirty = inputchangedbyuser
             }.store(in: &subscriptions)
     }
 }
@@ -122,7 +112,6 @@ extension ObserveableUsersetting {
     // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) { guard inputchangedbyuser == true else { return }
         guard path.isEmpty == false, rsyncversion3 == true else {
-            isDirty = true
             // Set rsync path = nil
             let validate = SetandValidatepathforrsync()
             validate.setlocalrsyncpath("")
@@ -131,11 +120,7 @@ extension ObserveableUsersetting {
         let validate = SetandValidatepathforrsync()
         validate.setlocalrsyncpath(path)
         do {
-            let ok = try validate.validateandrsyncpath()
-            if ok {
-                isDirty = true
-                return
-            }
+            _ = try validate.validateandrsyncpath()
         } catch let e {
             // Default back to default values of rsync
             setdefaultvaulesrsync()
@@ -150,21 +135,18 @@ extension ObserveableUsersetting {
         validate.setdefaultvaluesver2rsync()
         rsyncversion3 = false
         localrsyncpath = ""
-        isDirty = true
     }
 
     func setandvalidapathforrestore(_ atpath: String) {
         guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else {
             // Delete path
-            isDirty = true
             SharedReference.shared.pathforrestore = nil
             return
         }
         do {
             let ok = try validatepath(atpath)
             if ok {
-                isDirty = true
                 SharedReference.shared.pathforrestore = atpath
             }
         } catch let e {
@@ -196,7 +178,6 @@ extension ObserveableUsersetting {
             let verified = try checkmarkdays(days)
             if verified {
                 SharedReference.shared.marknumberofdayssince = Double(days) ?? 5
-                isDirty = true
             }
         } catch let e {
             let error = e

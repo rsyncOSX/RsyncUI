@@ -9,7 +9,7 @@
 import AlertToast
 import SwiftUI
 
-struct AddPostandPreView: View {
+struct AddPreandPostView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
@@ -99,16 +99,15 @@ struct AddPostandPreView: View {
     var updatebutton: some View {
         HStack {
             if newdata.selectedconfig == nil {
-                Button("Update") {}
-                    .buttonStyle(PrimaryButtonStyle())
-            } else {
-                if newdata.inputchangedbyuser == true {
-                    Button("Update") { validateandupdate() }
-                        .buttonStyle(PrimaryButtonStyle())
-                } else {
-                    Button("Update") {}
-                        .buttonStyle(PrimaryButtonStyle())
+                Button("Update") {
+                    // No update
                 }
+                .buttonStyle(PrimaryButtonStyle())
+            } else {
+                Button("Update") {
+                    validateandupdate()
+                }
+                .buttonStyle(PrimaryButtonStyle())
             }
         }
     }
@@ -133,9 +132,7 @@ struct AddPostandPreView: View {
         VStack(alignment: .leading) {
             // Enable pretask
             if newdata.selectedconfig == nil { disablepretask } else {
-                ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepre.onChange {
-                    newdata.inputchangedbyuser = true
-                })
+                ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepre.onChange {})
                     .onAppear(perform: {
                         if newdata.selectedconfig?.executepretask == 1 {
                             newdata.enablepre = true
@@ -147,9 +144,7 @@ struct AddPostandPreView: View {
 
             // Pretask
             if newdata.selectedconfig == nil { setpretask } else {
-                EditValue(250, nil, $newdata.pretask.onChange {
-                    newdata.inputchangedbyuser = true
-                })
+                EditValue(250, nil, $newdata.pretask.onChange {})
                     .focused($focusField, equals: .pretaskField)
                     .textContentType(.none)
                     .submitLabel(.continue)
@@ -166,9 +161,7 @@ struct AddPostandPreView: View {
         VStack(alignment: .leading) {
             // Enable posttask
             if newdata.selectedconfig == nil { disableposttask } else {
-                ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepost.onChange {
-                    newdata.inputchangedbyuser = true
-                })
+                ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepost.onChange {})
                     .onAppear(perform: {
                         if newdata.selectedconfig?.executeposttask == 1 {
                             newdata.enablepost = true
@@ -180,9 +173,7 @@ struct AddPostandPreView: View {
 
             // Posttask
             if newdata.selectedconfig == nil { setposttask } else {
-                EditValue(250, nil, $newdata.posttask.onChange {
-                    newdata.inputchangedbyuser = true
-                })
+                EditValue(250, nil, $newdata.posttask.onChange {})
                     .focused($focusField, equals: .posttaskField)
                     .textContentType(.none)
                     .submitLabel(.continue)
@@ -197,9 +188,7 @@ struct AddPostandPreView: View {
 
     var disablehaltshelltasksonerror: some View {
         ToggleViewDefault(NSLocalizedString("Halt on error", comment: ""),
-                          $newdata.haltshelltasksonerror.onChange {
-                              newdata.inputchangedbyuser = true
-                          })
+                          $newdata.haltshelltasksonerror.onChange {})
     }
 
     var notifyupdated: some View {
@@ -216,7 +205,7 @@ struct AddPostandPreView: View {
     }
 }
 
-extension AddPostandPreView {
+extension AddPreandPostView {
     func validateandupdate() {
         newdata.validateandupdate(profile, configurations)
         reload = newdata.reload

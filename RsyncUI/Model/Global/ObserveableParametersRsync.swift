@@ -20,34 +20,15 @@ final class ObserveableParametersRsync: ObservableObject {
     @Published var parameter14: String = ""
     // Selected configuration
     @Published var configuration: Configuration?
-    // Local SSH parameters
-    // Have to convert String -> Int before saving
-    // Set the current value as placeholder text
-    @Published var sshport: String = ""
-    // SSH keypath and identityfile, the settings View is picking up the current value
-    // Set the current value as placeholder text
-    @Published var sshkeypathandidentityfile: String = ""
-    // Remove parameters
-    @Published var removessh: Bool = false
-    @Published var removecompress: Bool = false
-    @Published var removedelete: Bool = false
     // Buttons
     @Published var suffixlinux: Bool = false
     @Published var suffixfreebsd: Bool = false
     @Published var backup: Bool = false
-    @Published var daemon: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
-    // parameters for delete
-    var parameter3: String?
-    var parameter4: String?
-    var parameter5: String?
-    var rsyncdaemon: Int?
 
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
-    // When property is changed set isDirty = true
-    var isDirty: Bool = false
 
     init() {
         $inputchangedbyuser
@@ -55,78 +36,48 @@ final class ObserveableParametersRsync: ObservableObject {
             }.store(in: &subscriptions)
         $parameter8
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter9
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter10
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter11
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter12
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter13
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $parameter14
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                isDirty = inputchangedbyuser
+            .sink { _ in
             }.store(in: &subscriptions)
         $configuration
             .sink { [unowned self] config in
                 if let config = config { setvalues(config) }
             }.store(in: &subscriptions)
-        $sshkeypathandidentityfile
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] identityfile in
-                sshkeypathandidentiyfile(identityfile)
-            }.store(in: &subscriptions)
-        $sshport
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] port in
-                sshport(port)
-            }.store(in: &subscriptions)
-        $removessh
-            .sink { [unowned self] ssh in
-                deletessh(ssh)
-            }.store(in: &subscriptions)
-        $removedelete
-            .sink { [unowned self] delete in
-                deletedelete(delete)
-            }.store(in: &subscriptions)
-        $removecompress
-            .sink { [unowned self] compress in
-                deletecompress(compress)
-            }.store(in: &subscriptions)
         $suffixlinux
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setsuffixlinux()
             }.store(in: &subscriptions)
         $suffixfreebsd
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setsuffixfreebsd()
             }.store(in: &subscriptions)
-        $daemon
-            .sink { [unowned self] _ in
-                setrsyncdaemon()
-            }.store(in: &subscriptions)
         $backup
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 setbackup()
             }.store(in: &subscriptions)
@@ -135,7 +86,6 @@ final class ObserveableParametersRsync: ObservableObject {
 
 extension ObserveableParametersRsync {
     func setvalues(_ config: Configuration) {
-        isDirty = false
         inputchangedbyuser = false
         parameter8 = config.parameter8 ?? ""
         parameter9 = config.parameter9 ?? ""
@@ -144,57 +94,6 @@ extension ObserveableParametersRsync {
         parameter12 = config.parameter12 ?? ""
         parameter13 = config.parameter13 ?? ""
         parameter14 = config.parameter14 ?? ""
-        if let configsshport = config.sshport {
-            sshport = String(configsshport)
-        } else {
-            sshport = ""
-        }
-        sshkeypathandidentityfile = config.sshkeypathandidentityfile ?? ""
-        parameter3 = config.parameter3
-        parameter4 = config.parameter4
-        parameter5 = config.parameter5
-        // set delete toggles
-        if (parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
-        if (parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
-        if (parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
-        // Rsync daemon
-        rsyncdaemon = config.rsyncdaemon
-    }
-
-    // parameter5 -e ssh
-    private func deletessh(_ delete: Bool) {
-        guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
-        if delete {
-            parameter5 = nil
-        } else {
-            parameter5 = "-e"
-        }
-        isDirty = true
-    }
-
-    // parameter4 --delete
-    private func deletedelete(_ delete: Bool) {
-        guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
-        if delete {
-            parameter4 = nil
-        } else {
-            parameter4 = "--delete"
-        }
-        isDirty = true
-    }
-
-    // parameter3 --compress
-    private func deletecompress(_ delete: Bool) {
-        guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
-        if delete {
-            parameter3 = nil
-        } else {
-            parameter3 = "--compress"
-        }
-        isDirty = true
     }
 
     // SSH identityfile
@@ -214,14 +113,12 @@ extension ObserveableParametersRsync {
         // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             configuration?.sshkeypathandidentityfile = nil
-            isDirty = true
             return
         }
         do {
             let verified = try checksshkeypathbeforesaving(keypath)
             if verified {
                 configuration?.sshkeypathandidentityfile = keypath
-                isDirty = true
             }
         } catch let e {
             let error = e
@@ -245,14 +142,12 @@ extension ObserveableParametersRsync {
         // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
             configuration?.sshport = nil
-            isDirty = true
             return
         }
         do {
             let verified = try checksshport(port)
             if verified {
                 configuration?.sshport = Int(port)
-                isDirty = true
             }
         } catch let e {
             let error = e
@@ -284,7 +179,6 @@ extension ObserveableParametersRsync {
                     parameter13 = "../backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
                 }
             }
-            isDirty = true
         }
     }
 
@@ -296,7 +190,6 @@ extension ObserveableParametersRsync {
         } else {
             parameter14 = RsyncArguments().suffixstringlinux
         }
-        isDirty = true
     }
 
     func setsuffixfreebsd() {
@@ -307,27 +200,6 @@ extension ObserveableParametersRsync {
         } else {
             parameter14 = RsyncArguments().suffixstringfreebsd
         }
-        isDirty = true
-    }
-
-    func setrsyncdaemon() {
-        guard inputchangedbyuser == true else { return }
-        guard configuration != nil else { return }
-        // either reverse or set
-        if let daemon = rsyncdaemon {
-            if daemon == 1 {
-                rsyncdaemon = nil
-                parameter5 = "-e"
-            } else {
-                rsyncdaemon = 1
-                parameter5 = ""
-            }
-
-        } else {
-            rsyncdaemon = 1
-            parameter5 = ""
-        }
-        isDirty = true
     }
 
     // Return the updated configuration
@@ -340,19 +212,6 @@ extension ObserveableParametersRsync {
             if parameter12.isEmpty { configuration.parameter12 = nil } else { configuration.parameter12 = parameter12 }
             if parameter13.isEmpty { configuration.parameter13 = nil } else { configuration.parameter13 = parameter13 }
             if parameter14.isEmpty { configuration.parameter14 = nil } else { configuration.parameter14 = parameter14 }
-            if sshport.isEmpty {
-                configuration.sshport = nil
-            } else {
-                configuration.sshport = Int(sshport)
-            }
-            if sshkeypathandidentityfile.isEmpty {
-                configuration.sshkeypathandidentityfile = nil
-            } else {
-                configuration.sshkeypathandidentityfile = sshkeypathandidentityfile
-            }
-            if parameter3 == nil { configuration.parameter3 = "" } else { configuration.parameter3 = parameter3 ?? "" }
-            if parameter4 == nil { configuration.parameter4 = "" } else { configuration.parameter4 = parameter4 ?? "" }
-            if parameter5 == nil { configuration.parameter5 = "" } else { configuration.parameter5 = parameter5 ?? "" }
             return configuration
         }
         return nil
