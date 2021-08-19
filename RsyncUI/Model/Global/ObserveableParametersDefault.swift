@@ -31,19 +31,13 @@ final class ObserveableParametersDefault: ObservableObject {
     var parameter5: String?
     var rsyncdaemon: Int?
 
-    // Value to check if input field is changed by user
-    @Published var inputchangedbyuser: Bool = false
-
     init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
         $configuration
             .sink { [unowned self] config in
                 if let config = config { setvalues(config) }
             }.store(in: &subscriptions)
         $sshkeypathandidentityfile
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] identityfile in
                 sshkeypathandidentiyfile(identityfile)
             }.store(in: &subscriptions)
@@ -78,7 +72,6 @@ final class ObserveableParametersDefault: ObservableObject {
 
 extension ObserveableParametersDefault {
     func setvalues(_ config: Configuration) {
-        inputchangedbyuser = false
         if let configsshport = config.sshport {
             sshport = String(configsshport)
         } else {
@@ -94,12 +87,12 @@ extension ObserveableParametersDefault {
         if (parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
         // Rsync daemon
         rsyncdaemon = config.rsyncdaemon
+        if (config.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
     }
 
     // parameter5 -e ssh
     private func deletessh(_ delete: Bool) {
         guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
         if delete {
             parameter5 = nil
         } else {
@@ -110,7 +103,6 @@ extension ObserveableParametersDefault {
     // parameter4 --delete
     private func deletedelete(_ delete: Bool) {
         guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
         if delete {
             parameter4 = nil
         } else {
@@ -121,7 +113,6 @@ extension ObserveableParametersDefault {
     // parameter3 --compress
     private func deletecompress(_ delete: Bool) {
         guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
         if delete {
             parameter3 = nil
         } else {
@@ -142,7 +133,6 @@ extension ObserveableParametersDefault {
 
     func sshkeypathandidentiyfile(_ keypath: String) {
         guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
         // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             configuration?.sshkeypathandidentityfile = nil
@@ -171,7 +161,6 @@ extension ObserveableParametersDefault {
 
     func sshport(_ port: String) {
         guard configuration != nil else { return }
-        guard inputchangedbyuser == true else { return }
         // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
             configuration?.sshport = nil
@@ -189,7 +178,6 @@ extension ObserveableParametersDefault {
     }
 
     func setrsyncdaemon() {
-        guard inputchangedbyuser == true else { return }
         guard configuration != nil else { return }
         if daemon {
             rsyncdaemon = 1
