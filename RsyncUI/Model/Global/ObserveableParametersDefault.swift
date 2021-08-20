@@ -178,11 +178,11 @@ extension ObserveableParametersDefault {
     func setrsyncdaemon() {
         guard configuration != nil else { return }
         if daemon {
-            rsyncdaemon = 1
-            parameter5 = nil
-        } else {
             rsyncdaemon = nil
             parameter5 = "-e"
+        } else {
+            rsyncdaemon = 1
+            parameter5 = nil
         }
     }
 
