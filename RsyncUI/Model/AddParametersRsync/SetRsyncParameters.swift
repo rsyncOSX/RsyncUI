@@ -98,6 +98,7 @@ struct SetRsyncParameters {
         guard splitstr.count > 1 else { return "" }
         let argument = splitstr[0]
         let value = splitstr[1]
+        guard argument.isEmpty == false || value.isEmpty == false else { return "" }
         var returnvalue: String?
         var returnindex = -1
         if argument != value, indexrsyncargument(argument) >= 0 {

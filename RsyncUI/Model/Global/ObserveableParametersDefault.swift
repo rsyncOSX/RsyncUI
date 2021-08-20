@@ -208,7 +208,7 @@ extension ObserveableParametersDefault {
         return nil
     }
 
-    private func reset() {
+    func reset() {
         configuration = nil
         sshport = ""
         sshkeypathandidentityfile = ""

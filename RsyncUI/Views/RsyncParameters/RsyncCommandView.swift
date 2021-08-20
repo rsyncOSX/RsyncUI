@@ -10,7 +10,6 @@ import SwiftUI
 
 struct RsyncCommandView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
-    @Binding var selectedconfig: Configuration?
     @Binding var isPresented: Bool
 
     @State private var selectedrsynccommand = RsyncCommand.synchronize
@@ -19,6 +18,8 @@ struct RsyncCommandView: View {
     @State private var inwork = -1
     @State private var selectable = false
     @State private var selecteduuids = Set<UUID>()
+
+    var selectedconfig: Configuration?
 
     var body: some View {
         VStack {
@@ -68,7 +69,7 @@ struct RsyncCommandView: View {
     }
 
     var parameterlist: some View {
-        ParametersList(selectedconfig: $selectedconfig)
+        ParametersList(selectedconfig: selectedconfig)
     }
 
     var commandstring: String? {
