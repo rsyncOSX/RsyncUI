@@ -75,6 +75,7 @@ final class ObserveableParametersRsync: ObservableObject {
 extension ObserveableParametersRsync {
     func setvalues(_ config: Configuration?) {
         if let config = config {
+            configuration = config
             parameter8 = config.parameter8 ?? ""
             parameter9 = config.parameter9 ?? ""
             parameter10 = config.parameter10 ?? ""
@@ -101,13 +102,15 @@ extension ObserveableParametersRsync {
                 if parameter13.isEmpty == false {
                     parameter13 = ""
                 } else {
-                    parameter13 = "~/backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+                    parameter13 = RsyncArguments().backupstrings[1] + "_"
+                        + localcatalogparts[localcatalogparts.count - 2]
                 }
             } else {
                 if parameter13.isEmpty == false {
                     parameter13 = ""
                 } else {
-                    parameter13 = "../backup" + "_" + localcatalogparts[localcatalogparts.count - 2]
+                    parameter13 = RsyncArguments().backupstrings[2] + "_"
+                        + localcatalogparts[localcatalogparts.count - 2]
                 }
             }
         }
@@ -146,7 +149,7 @@ extension ObserveableParametersRsync {
         return nil
     }
 
-    private func reset() {
+    func reset() {
         configuration = nil
         parameter8 = ""
         parameter9 = ""

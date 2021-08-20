@@ -56,8 +56,7 @@ struct RsyncDefaultParametersView: View {
                 Button("Rsync") { presenteview() }
                     .buttonStyle(PrimaryButtonStyle())
                     .sheet(isPresented: $presentrsynccommandoview) {
-                        RsyncCommandView(selectedconfig: $parameters.configuration,
-                                         isPresented: $presentrsynccommandoview)
+                        RsyncCommandView(isPresented: $presentrsynccommandoview, selectedconfig: selectedconfig)
                     }
 
                 Button("Save") { saversyncparameters() }
@@ -119,6 +118,7 @@ extension RsyncDefaultParametersView {
                                      configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(configuration, true)
         }
+        parameters.reset()
         selectedconfig = nil
         reload = true
     }

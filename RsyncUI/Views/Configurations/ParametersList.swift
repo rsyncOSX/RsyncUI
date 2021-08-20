@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ParametersList: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
-    @Binding var selectedconfig: Configuration?
+    var selectedconfig: Configuration?
 
     var body: some View {
         VStack(alignment: .leading) {
