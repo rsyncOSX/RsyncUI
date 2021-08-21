@@ -57,6 +57,11 @@ struct LogListAlllogsView: View {
             }
         }
         .padding()
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = "Default profile"
+            }
+        })
     }
 
     var numberoflogs: String {

@@ -10,8 +10,10 @@ import SwiftUI
 struct SidebarSnapshotsView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
 
-    @State private var selectedconfig: Configuration?
+    @Binding var selectedprofile: String?
     @Binding var reload: Bool
+
+    @State private var selectedconfig: Configuration?
 
     var body: some View {
         VStack {
@@ -20,6 +22,11 @@ struct SidebarSnapshotsView: View {
             SnapshotsView(selectedconfig: $selectedconfig, reload: $reload)
         }
         .padding()
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = "Default profile"
+            }
+        })
     }
 
     var headingtitle: some View {

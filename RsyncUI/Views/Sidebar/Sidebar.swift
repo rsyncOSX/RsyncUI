@@ -74,17 +74,6 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.configurations)
 
-                NavigationLink(destination: SidebarSnapshotsView(reload: $reload),
-                               tag: NavigationItem.snapshots,
-                               selection: $selection) {
-                    Label("Snapshots", systemImage: "text.badge.plus")
-                }
-                .tag(NavigationItem.snapshots)
-            }
-
-            Divider()
-
-            Group {
                 NavigationLink(destination: SidebarParametersView(selectedprofile: $selectedprofile,
                                                                   reload: $reload),
                                tag: NavigationItem.rsync,
@@ -92,7 +81,11 @@ struct Sidebar: View {
                     Label("Rsync parameters", systemImage: "command.circle.fill")
                 }
                 .tag(NavigationItem.rsync)
+            }
 
+            Divider()
+
+            Group {
                 NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile,
                                                                  reload: $reload),
                                tag: NavigationItem.schedules,
@@ -100,6 +93,14 @@ struct Sidebar: View {
                     Label("Schedules", systemImage: "calendar.badge.plus")
                 }
                 .tag(NavigationItem.schedules)
+
+                NavigationLink(destination: SidebarSnapshotsView(selectedprofile: $selectedprofile,
+                                                                 reload: $reload),
+                               tag: NavigationItem.snapshots,
+                               selection: $selection) {
+                    Label("Snapshots", systemImage: "text.badge.plus")
+                }
+                .tag(NavigationItem.snapshots)
             }
 
             Divider()
