@@ -20,6 +20,11 @@ struct SidebarSchedulesView: View {
                          reload: $reload)
         }
         .padding()
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = "Default profile"
+            }
+        })
     }
 
     var headingtitle: some View {
