@@ -15,6 +15,8 @@ struct AddPreandPostView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
+    @State private var selectedconfig: Configuration?
+
     enum PreandPostTaskField: Hashable {
         case pretaskField
         case posttaskField
@@ -53,8 +55,8 @@ struct AddPreandPostView: View {
 
                     // Column 2
                     VStack(alignment: .leading) {
-                        ConfigurationsListSmall(selectedconfig: $newdata.selectedconfig.onChange {
-                            newdata.updateview()
+                        ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                            newdata.updateview(selectedconfig)
                         }, reload: $reload)
 
                         Spacer()

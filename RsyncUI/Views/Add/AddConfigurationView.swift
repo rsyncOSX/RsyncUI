@@ -24,6 +24,8 @@ struct AddConfigurationView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
+    @State private var selectedconfig: Configuration?
+
     enum AddConfigurationField: Hashable {
         case localcatalogField
         case remotecatalogField
@@ -66,8 +68,8 @@ struct AddConfigurationView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        ConfigurationsListSmall(selectedconfig: $newdata.selectedconfig.onChange {
-                            newdata.updateview()
+                        ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                            newdata.updateview(selectedconfig)
                         }, reload: $reload)
                     }
 
