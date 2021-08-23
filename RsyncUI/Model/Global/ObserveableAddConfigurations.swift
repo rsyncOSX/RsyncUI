@@ -43,8 +43,6 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var confirmdeleteselectedprofile: Bool = false
     @Published var showAlertfordelete: Bool = false
 
-    @Published var inputchangedbyuser: Bool = false
-
     // For update post and pretasks
     var enablepre: Bool = false
     var enablepost: Bool = false
@@ -58,9 +56,6 @@ final class ObserveableAddConfigurations: ObservableObject {
     var remotestorageislocal: Bool = false
 
     init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
         $donotaddtrailingslash
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { _ in
