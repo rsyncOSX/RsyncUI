@@ -79,9 +79,7 @@ struct Sshsettings: View {
     }
 
     var setsshpath: some View {
-        EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile.onChange {
-            usersettings.inputchangedbyuser = true
-        })
+        EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile)
             .onAppear(perform: {
                 if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
                     usersettings.sshkeypathandidentityfile = sshkeypath
@@ -90,9 +88,7 @@ struct Sshsettings: View {
     }
 
     var setsshport: some View {
-        EditValue(250, NSLocalizedString("Global ssh port", comment: ""), $usersettings.sshport.onChange {
-            usersettings.inputchangedbyuser = true
-        })
+        EditValue(250, NSLocalizedString("Global ssh port", comment: ""), $usersettings.sshport)
             .onAppear(perform: {
                 if let sshport = SharedReference.shared.sshport {
                     usersettings.sshport = String(sshport)
@@ -132,7 +128,6 @@ struct ServerRow: View {
 
 extension Sshsettings {
     func saveusersettings() {
-        usersettings.inputchangedbyuser = false
         _ = WriteUserConfigurationPLIST()
         // wait for a half second and then force a new check if keys are created and exists
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
