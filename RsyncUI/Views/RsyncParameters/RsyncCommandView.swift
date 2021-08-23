@@ -23,11 +23,14 @@ struct RsyncCommandView: View {
 
     var body: some View {
         VStack {
-            pickerselectcommand
+            HStack {
+                pickerselectcommand
+
+                parameterlist
+            }
+            .padding()
 
             showcommand
-
-            parameterlist
 
             Spacer()
 
@@ -38,25 +41,17 @@ struct RsyncCommandView: View {
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
-        .frame(maxWidth: 600, minHeight: 400)
+        .frame(maxWidth: 500, minHeight: 300)
         .padding()
     }
 
     var pickerselectcommand: some View {
-        Picker("Command" + ":",
-               selection: $selectedrsynccommand) {
+        Picker("", selection: $selectedrsynccommand) {
             ForEach(RsyncCommand.allCases) { Text($0.description)
                 .tag($0)
             }
         }
         .pickerStyle(RadioGroupPickerStyle())
-        // .frame(width: 400)
-    }
-
-    var headingtitle: some View {
-        Text("Rsync command and parameters")
-            .font(.title2)
-            .padding()
     }
 
     var showcommand: some View {
