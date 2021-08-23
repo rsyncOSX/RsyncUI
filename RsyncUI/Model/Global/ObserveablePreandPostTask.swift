@@ -14,14 +14,13 @@ final class ObserveablePreandPostTask: ObservableObject {
     @Published var pretask: String = ""
     @Published var posttask: String = ""
     @Published var haltshelltasksonerror: Bool = false
-    // Sheet for selecting configuration if edit
-    @Published var selectedconfig: Configuration?
     // Added and updated labels
     @Published var updated = false
     @Published var reload: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
+    var selectedconfig: Configuration?
 
     init() {
         $enablepre
@@ -92,7 +91,8 @@ final class ObserveablePreandPostTask: ObservableObject {
         }
     }
 
-    func updateview() {
+    func updateview(_ config: Configuration?) {
+        selectedconfig = config
         if let config = selectedconfig {
             // pre task
             pretask = config.pretask ?? ""

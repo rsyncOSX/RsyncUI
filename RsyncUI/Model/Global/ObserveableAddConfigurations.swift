@@ -28,7 +28,7 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var remoteuser: String = ""
     @Published var remoteserver: String = ""
     @Published var backupID: String = ""
-    @Published var selectedconfig: Configuration?
+    // @Published var selectedconfig: Configuration?
     @Published var selectedrsynccommand = TypeofTask.synchronize
 
     @Published var newprofile: String = ""
@@ -43,8 +43,6 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var confirmdeleteselectedprofile: Bool = false
     @Published var showAlertfordelete: Bool = false
 
-    @Published var inputchangedbyuser: Bool = false
-
     // For update post and pretasks
     var enablepre: Bool = false
     var enablepost: Bool = false
@@ -57,10 +55,9 @@ final class ObserveableAddConfigurations: ObservableObject {
     // Set true if remote storage is a local attached Volume
     var remotestorageislocal: Bool = false
 
+    var selectedconfig: Configuration?
+
     init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
         $donotaddtrailingslash
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { _ in
@@ -107,10 +104,6 @@ final class ObserveableAddConfigurations: ObservableObject {
             .sink { _ in
             }.store(in: &subscriptions)
         $showAlertfordelete
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $selectedconfig
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
@@ -224,7 +217,8 @@ final class ObserveableAddConfigurations: ObservableObject {
         }
     }
 
-    func updateview() {
+    func updateview(_ config: Configuration?) {
+        selectedconfig = config
         if let config = selectedconfig {
             localcatalog = config.localCatalog
             remotecatalog = config.offsiteCatalog
@@ -232,6 +226,7 @@ final class ObserveableAddConfigurations: ObservableObject {
             remoteserver = config.offsiteServer
             backupID = config.backupID
         } else {
+            selectedconfig = nil
             localcatalog = ""
             remotecatalog = ""
             remoteuser = ""

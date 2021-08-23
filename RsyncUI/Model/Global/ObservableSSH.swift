@@ -18,15 +18,11 @@ final class ObservableSSH: ObservableObject {
     @Published var sshkeypathandidentityfile: String = ""
     // If local public sshkeys are present
     @Published var localsshkeys: Bool = SshKeys().validatepublickeypresent()
-    // Value to check if input field is changed by user
-    @Published var inputchangedbyuser: Bool = false
+
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
     init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
         $sshkeypathandidentityfile
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] identityfile in
@@ -53,7 +49,6 @@ extension ObservableSSH {
     }
 
     func sshkeypathandidentiyfile(_ keypath: String) {
-        guard inputchangedbyuser == true else { return }
         // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             SharedReference.shared.sshkeypathandidentityfile = nil
@@ -85,7 +80,6 @@ extension ObservableSSH {
     }
 
     func sshport(_ port: String) {
-        guard inputchangedbyuser == true else { return }
         // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
             SharedReference.shared.sshport = nil
