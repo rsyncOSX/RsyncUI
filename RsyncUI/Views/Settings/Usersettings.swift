@@ -25,7 +25,6 @@ struct Usersettings: View {
                     VStack(alignment: .leading) {
                         Section(header: headerrsync) {
                             ToggleView(NSLocalizedString("Rsync ver 3.x", comment: ""), $usersettings.rsyncversion3.onChange {
-                                usersettings.inputchangedbyuser = true
                                 rsyncversionObject.update(usersettings.rsyncversion3)
                             })
 
@@ -49,7 +48,6 @@ struct Usersettings: View {
                             VStack(alignment: .leading) {
                                 Section(header: headerloggingtofile) {
                                     ToggleView(NSLocalizedString("None", comment: ""), $usersettings.nologging.onChange {
-                                        usersettings.inputchangedbyuser = true
                                         if usersettings.nologging == true {
                                             usersettings.minimumlogging = false
                                             usersettings.fulllogging = false
@@ -60,7 +58,6 @@ struct Usersettings: View {
                                     })
 
                                     ToggleView(NSLocalizedString("Min", comment: ""), $usersettings.minimumlogging.onChange {
-                                        usersettings.inputchangedbyuser = true
                                         if usersettings.minimumlogging == true {
                                             usersettings.nologging = false
                                             usersettings.fulllogging = false
@@ -68,7 +65,6 @@ struct Usersettings: View {
                                     })
 
                                     ToggleView(NSLocalizedString("Full", comment: ""), $usersettings.fulllogging.onChange {
-                                        usersettings.inputchangedbyuser = true
                                         if usersettings.fulllogging == true {
                                             usersettings.nologging = false
                                             usersettings.minimumlogging = false
@@ -79,9 +75,7 @@ struct Usersettings: View {
 
                             VStack(alignment: .leading) {
                                 Section(header: headerdetailedlogging) {
-                                    ToggleView(NSLocalizedString("Detailed", comment: ""), $usersettings.detailedlogging.onChange {
-                                        usersettings.inputchangedbyuser = true
-                                    })
+                                    ToggleView(NSLocalizedString("Detailed", comment: ""), $usersettings.detailedlogging)
                                 }
 
                                 Section(header: headermarkdays) {
@@ -94,13 +88,9 @@ struct Usersettings: View {
                     // Column 3
                     VStack(alignment: .leading) {
                         Section(header: headerothersettings) {
-                            ToggleView(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection.onChange {
-                                usersettings.inputchangedbyuser = true
-                            })
+                            ToggleView(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
 
-                            ToggleView(NSLocalizedString("Check data", comment: ""), $usersettings.checkinput.onChange {
-                                usersettings.inputchangedbyuser = true
-                            })
+                            ToggleView(NSLocalizedString("Check data", comment: ""), $usersettings.checkinput)
                         }
                     }
                     .padding()
@@ -137,9 +127,6 @@ struct Usersettings: View {
         }
         .lineSpacing(2)
         .padding()
-        .onDisappear {
-            usersettings.inputchangedbyuser = false
-        }
     }
 
     // Rsync
@@ -148,9 +135,7 @@ struct Usersettings: View {
     }
 
     var setrsyncpathlocalpath: some View {
-        EditValue(250, nil, $usersettings.localrsyncpath.onChange {
-            usersettings.inputchangedbyuser = true
-        })
+        EditValue(250, nil, $usersettings.localrsyncpath)
             .onAppear(perform: {
                 usersettings.localrsyncpath = SetandValidatepathforrsync().getpathforrsync()
             })
@@ -166,9 +151,7 @@ struct Usersettings: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(250, NSLocalizedString("Path for restore", comment: ""), $usersettings.temporarypathforrestore.onChange {
-            usersettings.inputchangedbyuser = true
-        })
+        EditValue(250, NSLocalizedString("Path for restore", comment: ""), $usersettings.temporarypathforrestore)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     usersettings.temporarypathforrestore = pathforrestore
@@ -212,7 +195,6 @@ struct Usersettings: View {
 
 extension Usersettings {
     func saveusersettings() {
-        usersettings.inputchangedbyuser = false
         _ = WriteUserConfigurationPLIST()
     }
 

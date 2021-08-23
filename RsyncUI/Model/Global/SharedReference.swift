@@ -104,8 +104,6 @@ class SharedReference {
 // These has to be cleaned up, only a few used.
 enum DictionaryStrings: String {
     case localCatalog
-    case profile
-    case remoteCatalog
     case offsiteServer
     case task
     case backupID
@@ -123,8 +121,6 @@ enum DictionaryStrings: String {
     case dateRun
     case executepretask
     case executeposttask
-    case snap
-    case runDate
     case haltshelltasksonerror
     case parameter1
     case parameter2
@@ -160,33 +156,5 @@ enum DictionaryStrings: String {
     case environmentvalue
     case haltonerror
     case monitornetworkconnection
-    case json
-    case used
-    case avail
-    case availpercent
-    case remotecomputers
-    case remoteusers
-    case remotehome
-    case catalogs
-    case localhome
-    case transferredNumber
-    case sibling
-    case parent
-    case timetostart
-    case start
-    case snapshotCatalog
-    case days
-    case totalNumber
-    case totalDirs
-    case transferredNumberSizebytes
-    case totalNumberSizebytes
-    case newfiles
-    case deletefiles
-    case select
-    case startsin
-    case delta
-    case profilename
-    case index
     case localhost
-    case period
 }

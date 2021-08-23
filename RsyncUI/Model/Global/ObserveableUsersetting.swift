@@ -36,15 +36,17 @@ final class ObserveableUsersetting: ObservableObject {
     // Check input when loading schedules and adding config
     @Published var checkinput: Bool = SharedReference.shared.checkinput
     // Value to check if input field is changed by user
-    @Published var inputchangedbyuser: Bool = false
+    // @Published var inputchangedbyuser: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
     init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
+        /*
+         $inputchangedbyuser
+             .sink { _ in
+             }.store(in: &subscriptions)
+          */
         $rsyncversion3
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { rsyncver3 in
@@ -110,7 +112,7 @@ final class ObserveableUsersetting: ObservableObject {
 
 extension ObserveableUsersetting {
     // Only validate path if rsyncver3 is true
-    func setandvalidatepathforrsync(_ path: String) { guard inputchangedbyuser == true else { return }
+    func setandvalidatepathforrsync(_ path: String) {
         guard path.isEmpty == false, rsyncversion3 == true else {
             // Set rsync path = nil
             let validate = SetandValidatepathforrsync()
@@ -138,7 +140,6 @@ extension ObserveableUsersetting {
     }
 
     func setandvalidapathforrestore(_ atpath: String) {
-        guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else {
             // Delete path
             SharedReference.shared.pathforrestore = nil
@@ -173,7 +174,6 @@ extension ObserveableUsersetting {
     }
 
     func markdays(days: String) {
-        guard inputchangedbyuser == true else { return }
         do {
             let verified = try checkmarkdays(days)
             if verified {
