@@ -1,438 +1,449 @@
-
-" configuration(s)?" = " konfigurasjon(er)?";
-
-" log(s)?" = " logg(er)?";
-
-" schedules(s)?" = " oppgave(r)?";
-
-"--compress" = "--compress";
-
-"--delete" = "--delete";
-
-"--dry-run" = "--dry-run";
-
-"-e shh" = "-e ssh";
-
-"%" = "%";
-
-"%@" = "%@";
-
+/* No comment provided by engineer. */
 "Abort" = "Avbryt";
 
-"About" = "Om";
-
+/* No comment provided by engineer. */
 "active" = "aktiv";
 
+/* No comment provided by engineer. */
 "Add" = "Legg til";
 
+/* No comment provided by engineer. */
 "Add config" = "Legg til konfigurasjon";
 
+/* No comment provided by engineer. */
 "Add configuration completed" = "Legge til konfigurasjon fullført";
 
+/* No comment provided by engineer. */
 "Add local as remote catalog - required" = "Legg til lokal som eksternkatalog - kreves";
 
-"Add local catalog - required" = "Legge til lokalkatalog - kreves";
+/* No comment provided by engineer. */
+"Add local catalog - required" = "Legg til lokalkatalog - kreves";
 
+/* No comment provided by engineer. */
 "Add posttask" = "Legg til postoppgave";
 
+/* No comment provided by engineer. */
 "Add pretask" = "Legg til preoppgave";
 
+/* No comment provided by engineer. */
 "Add remote as local catalog - required" = "Legg til ekstern som lokal katalog - kreves";
 
+/* No comment provided by engineer. */
 "Add remote catalog - required" = "Legg til eksternkatalog - kreves";
 
+/* No comment provided by engineer. */
 "Add remote server" = "Legg til ekstern tjener";
 
+/* No comment provided by engineer. */
 "Add remote user" = "Legg til ekstern bruker";
 
+/* No comment provided by engineer. */
 "Add synchronize ID" = "Legg til synkroniserings ID";
 
-"Added" = "Lagt til";
-
+/* No comment provided by engineer. */
 "All" = "Alle";
 
+/* No comment provided by engineer. */
 "All logs" = "Alle logger";
 
-"Backup" = "Kopier";
+/* No comment provided by engineer. */
+"Backup" = "Backup";
 
+/* No comment provided by engineer. */
 "By config" = "Etter konfigurasjon";
 
+/* No comment provided by engineer. */
 "Bytes" = "bytes";
 
-"Cancel" = "Avbryt";
+/* No comment provided by engineer. */
+"Cancel" = "Kanseler";
 
-"Cannot delete default profile" = "Kan ikke slette standard profil";
-
+/* No comment provided by engineer. */
 "Catalog parameters" = "Katalog parametre";
 
+/* No comment provided by engineer. */
 "Change" = "Endre";
 
+/* No comment provided by engineer. */
 "Changelog" = "Endringslogg";
 
+/* No comment provided by engineer. */
 "Check data" = "Sjekk data";
 
+/* No comment provided by engineer. */
 "Clear" = "Tøm";
 
-"Command" = "Kommando";
-
+/* No comment provided by engineer. */
 "Completed" = "Fullført";
 
+/* No comment provided by engineer. */
 "Configurations" = "Konfigurasjoner";
 
+/* No comment provided by engineer. */
 "Confirm convert" = "Bekreft konvertering";
 
+/* No comment provided by engineer. */
 "Convert" = "Konverter";
 
+/* No comment provided by engineer. */
 "Convert from PLIST for" = "Konverter fra PLIST for";
 
-"Copy" = "Kopier";
-
+/* No comment provided by engineer. */
 "Copy and paste commands in terminal to verify" = "Kopier og lim inn kommandoer i terminal for å bekrefte";
 
+/* No comment provided by engineer. */
 "Copyright ©2021 Thomas Evensen" = "Opphavsrett ©2021 Thomas Evensen";
 
+/* No comment provided by engineer. */
 "Create" = "Opprett";
 
-"Created" = "Opprettet";
-
-"Daemon" = "Daemon";
-
-"Day of week" = "Dag i uken";
-
+/* No comment provided by engineer. */
 "Days" = "Dager";
 
-"Default profile" = "Standard profil";
+/* No comment provided by engineer. */
+"Default" = "Standard";
 
+/* No comment provided by engineer. */
 "Delete" = "Slett";
 
-"Delete profile" = "Slett profil";
+/* No comment provided by engineer. */
+"Delete configuration" = "Slett konfigurasjon";
 
-"Deleted" = "Slettet";
+/* No comment provided by engineer. */
+"Delete: %lld" = "Slett: %lld";
 
+/* No comment provided by engineer. */
 "Detailed" = "Detaljert";
 
+/* No comment provided by engineer. */
 "Dismiss" = "Lukk";
 
+/* No comment provided by engineer. */
 "Don´t add /" = "Ikke legg til /";
 
-"Download" = "Nedlasting";
+/* No comment provided by engineer. */
+"Download" = "Last ned";
 
-"earlier months" = "tidligere måneder";
-
-"Either is path for restore or file to restore empty" = "Enten er stien for gjenoppretting eller fil for å gjenopprette tom";
-
-"Either local or remote cannot be empty" = "Enten lokal eller ekstern kan ikke være tom";
-
+/* No comment provided by engineer. */
 "Enable" = "Aktiver";
 
+/* No comment provided by engineer. */
+"Enable rsync daemon" = "Aktiver rsync daemon";
+
+/* No comment provided by engineer. */
 "Environment" = "Miljø";
 
+/* No comment provided by engineer. */
 "Environment variable" = "Miljømessig variabel";
 
+/* No comment provided by engineer. */
 "Estimate" = "Estimat";
 
+/* No comment provided by engineer. */
 "Estimated tasks" = "Estimerte oppgaver";
 
+/* No comment provided by engineer. */
 "Execute" = "Utfør";
 
-"Execute all" = "Kjør alle";
-
-"Execute all tasks" = "Utfør alle oppgaver";
-
+/* No comment provided by engineer. */
 "Execute tasks" = "Utfør oppgaver";
 
-"Executed" = "Utført";
-
+/* No comment provided by engineer. */
 "Files" = "Filer";
 
+/* No comment provided by engineer. */
 "FreeBSD" = "FreeBSD";
 
-"Friday" = "fredag";
-
+/* No comment provided by engineer. */
 "Full" = "Full";
 
+/* No comment provided by engineer. */
 "German translation by: Andre Voigtmann" = "Tysk oversettelse av: Andre Voigtmann";
 
+/* No comment provided by engineer. */
 "Global ssh keypath and identityfile" = "Global ssh keypath og identifikasjonsfil";
 
+/* No comment provided by engineer. */
 "Global ssh port" = "Global ssh port";
 
-"h" = "t";
-
+/* No comment provided by engineer. */
 "Halt on error" = "Stopp ved feil";
 
+/* No comment provided by engineer. */
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
 
+/* No comment provided by engineer. */
 "In process in getting data" = "I prosess for å hente data";
 
-"Info about convert" = "Informasjon om konvertering";
+/* No comment provided by engineer. */
+"Info" = "Info";
 
-"Keep" = "Behold";
+/* No comment provided by engineer. */
+"Info about convert" = "Info om konvertering";
 
+/* No comment provided by engineer. */
+"JSON file exists" = "JSON filen eksisterer";
+
+/* No comment provided by engineer. */
 "Last" = "Siste";
 
-"Last rundate" = "Siste kjøredato";
-
+/* No comment provided by engineer. */
 "Level log" = "Nivå logg";
 
+/* No comment provided by engineer. */
 "Linux" = "Linux";
 
+/* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
 
-"Local ssh keypath and identityfile" = "Global ssh keypath og identifikasjonsfil";
-
+/* No comment provided by engineer. */
 "Local ssh keys found" = "Lokale ssh nøkler funnet";
 
-"Local ssh port" = "Lokal ssh port";
-
-"Localcatalog" = "Lokal katalog";
-
+/* No comment provided by engineer. */
 "localhost" = "localhost";
 
-"Localhost" = "Lokalvert";
-
+/* No comment provided by engineer. */
 "Log listings" = "Liste logger";
 
+/* No comment provided by engineer. */
 "Log to file" = "Logg til fil";
 
+/* No comment provided by engineer. */
 "Logfile" = "Loggfil";
 
+/* No comment provided by engineer. */
 "Mark days" = "Marker dager";
 
+/* No comment provided by engineer. */
 "Min" = "Minimum";
 
-"Monday" = "mandag";
-
+/* No comment provided by engineer. */
 "Monitor network" = "Overvåk nettverk";
 
+/* No comment provided by engineer. */
 "Most recent updated tasks on top of list" = "Mest oppdaterte oppgaver på toppen av listen";
 
+/* No comment provided by engineer. */
 "Multiple tasks" = "Flere oppgaver";
 
-"Network connection is dropped" = "Nettverkstilkobling er droppet";
-
+/* No comment provided by engineer. */
 "New" = "Ny";
 
+/* No comment provided by engineer. */
 "New profile" = "Ny profil";
 
+/* No comment provided by engineer. */
 "New version" = "Ny versjon";
 
-"No rsync in path" = "Ingen rsync i stien";
+/* No comment provided by engineer. */
+"New: %lld" = "Ny: %lld";
 
-"No such path" = "Ingen slik bane";
-
+/* No comment provided by engineer. */
 "no username" = "ingen brukernavn";
 
-"No ver3 of rsync in /usr/bin" = "Ingen ver3 av rsync i /usr/bin";
-
+/* No comment provided by engineer. */
 "None" = "Ingen";
 
+/* No comment provided by engineer. */
 "Norwegian translation by: Thomas Evensen" = "Norsk oversettelse av: Thomas Evensen";
 
+/* No comment provided by engineer. */
 "Not a snapshot task" = "Ikke en snapshot oppgave";
 
-"Not a valid " = "Ikke en gyldig ";
-
-"Not a valid number (Double)" = "Ikke et gyldig tall (Bolig)";
-
-"Not a valid number (Int)" = "Ikke et gyldig nummer (Int)";
-
-"Not connected, cannot create task" = "Ikke tilkoblet, kan ikke opprette oppgave";
-
-"not executed" = "ikke kjørt";
-
+/* No comment provided by engineer. */
 "not set" = "ikke angitt";
 
-"Now" = "Nå";
-
+/* No comment provided by engineer. */
 "Number of files" = "Antall filer";
 
+/* No comment provided by engineer. */
 "Number of logrecords" = "Antall logger";
 
+/* No comment provided by engineer. */
 "Number of logs" = "Antall logger";
 
+/* No comment provided by engineer. */
 "Number to delete" = "Antall å slette";
 
+/* No comment provided by engineer. */
+"Numbers transfer: %lld" = "Antall overføre: %lld";
+
+/* No comment provided by engineer. */
 "OK" = "Ok";
 
-"Only synchronize ID can be changed on a Snapshot task" = "Kun synkroniser ID kan endres på en Snapshot oppgave";
-
+/* No comment provided by engineer. */
 "Other settings" = "Andre innstillinger";
 
+/* No comment provided by engineer. */
 "Output from rsync" = "Resultat av rsync";
 
+/* No comment provided by engineer. */
+"Parameters" = "Parametre";
+
+/* No comment provided by engineer. */
 "Path for restore" = "Sti for gjenoppretting";
 
+/* No comment provided by engineer. */
 "Path to RsyncSchedule" = "Sti til RsyncSchedule";
 
+/* No comment provided by engineer. */
 "Path to RsyncUI" = "Sti til RsyncUI";
 
-"Paths" = "Stier";
+/* No comment provided by engineer. */
+"Paths" = "Sti";
 
+/* No comment provided by engineer. */
 "Paths for apps" = "Sti til apper";
 
-"Plan" = "Plan";
-
-"Please select a configuration" = "Velg en konfigurasjon";
-
+/* No comment provided by engineer. */
 "Plist" = "Plist";
 
+/* No comment provided by engineer. */
 "PLIST" = "PLIST";
 
+/* No comment provided by engineer. */
 "Pre and post" = "Pre og post oppgave";
 
+/* No comment provided by engineer. */
 "Pre and post task" = "Pre og post oppgave";
 
-"previous month" = "forrige måned";
-
-"Profile exists" = "Profilen eksisterer";
-
+/* No comment provided by engineer. */
 "Quick task" = "Hurtig oppgave";
 
+/* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
 
+/* No comment provided by engineer. */
 "Remote parameters" = "Eksterne parametere";
 
-"Remote server" = "Ekstern server";
+/* No comment provided by engineer. */
+"Remove default rsync parameters" = "Slett standard rsync parametre";
 
-"Remote servername cannot be empty" = "Fjerntjenernavn kan ikke være tomt";
-
-"Remote username cannot be empty" = "Eksternt brukernavn kan ikke være tomt";
-
-"Remotecatalog" = "Ekstern katalog";
-
-"Remove default rsync parameters" = "Fjern standard rsync parametre";
-
+/* No comment provided by engineer. */
 "Reset" = "Reset";
 
+/* No comment provided by engineer. */
 "Restore" = "Gjenopprett";
 
-"Restore not allowed for syncremote task" = "Gjenopprett ikke tillatt for oppgaver med syncremote";
-
-"Return" = "Retur";
-
-"Rsync" = "Rsync";
-
+/* No comment provided by engineer. */
 "Rsync command and parameters" = "Rsync kommando og parametere";
 
-"rsync parameter" = "rsync parameter";
+/* No comment provided by engineer. */
+"Rsync parameters" = "Rsync parametre";
 
-"Rsync parameters" = "Rsync parameter";
-
+/* No comment provided by engineer. */
 "Rsync ver 3.x" = "Rsync ver 3,x";
 
+/* No comment provided by engineer. */
 "Rsync version and path" = "Rsync versjon og sti";
 
+/* No comment provided by engineer. */
 "RsyncUI" = "RsyncUI";
 
-"RsyncUI configpath: " = "RsyncUI konfigurasjon: ";
-
+/* No comment provided by engineer. */
 "RsyncUI help" = "RsyncUI hjelp";
 
-"Saturday" = "lørdag";
-
+/* No comment provided by engineer. */
 "Save" = "Lagre";
 
+/* No comment provided by engineer. */
 "Save settings" = "Lagre innstillinger";
 
+/* No comment provided by engineer. */
 "Saved" = "Lagret";
 
-"Schedule" = "Oppgave";
-
+/* No comment provided by engineer. */
 "Scheduled tasks" = "Planlagte oppgaver";
 
+/* No comment provided by engineer. */
 "Schedules" = "Oppgaver";
 
-"Search" = "Søk";
-
+/* No comment provided by engineer. */
 "Select" = "Velg";
 
-"Select a configuration" = "Velg en konfigurasjon";
+/* No comment provided by engineer. */
+"Select and slide to left for delete" = "Velg og dra til venstre for å slette";
 
-"Select a schedule" = "Velg en oppgave";
+/* No comment provided by engineer. */
+"Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for fullstendig gjenoppretting";
 
-"Select a task" = "Velg en oppgave";
-
-"Select files to restore or \"./.\" for full restore" = "Velg filer som skal gjenopprettes, eller \"./.\" for fullstendig gjenoppretting";
-
-"Select one or more tasks" = "Velg en eller flere oppgaver";
-
+/* No comment provided by engineer. */
 "Select task" = "Velg oppgave";
 
+/* No comment provided by engineer. */
 "Server" = "Tjener";
 
+/* No comment provided by engineer. */
 "Set ssh keypath and identityfile" = "Sett ssh keypath og identityfile";
 
+/* No comment provided by engineer. */
 "Settings" = "Innstillinger";
 
+/* No comment provided by engineer. */
 "Single task" = "En oppgave";
 
-"snapshot(s)" = "snapshot(s)";
-
-"Snapshotnum must be 1" = "Snapshotnum må være 1";
-
+/* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
 
+/* No comment provided by engineer. */
 "Ssh" = "Ssh";
 
-"SSH keypath is not valid" = "SSH keypath er ikke gyldig";
-
-"SSH keypath must be like ~/.ssh_keypath/identityfile" = "SSH keypath må være som ~/.ssh_keypath/identityfile";
-
-"SSH RSA keys exist, cannot create" = "SSH RSA-nøkler finnes, kan ikke opprette";
-
-"Start" = "Start";
-
+/* No comment provided by engineer. */
 "Stop" = "Stopp";
 
-"Stop or delete" = "Stopp eller slett";
-
-"Sunday" = "søndag";
-
+/* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";
 
-"Tag" = "Tagg";
+/* No comment provided by engineer. */
+"Tag" = "Merk";
 
+/* No comment provided by engineer. */
 "Task" = "Oppgave";
 
-"The menu app is running" = "Menyappen kjører";
+/* No comment provided by engineer. */
+"TCP" = "TCP";
 
-"There are errors in output" = "Det er feil i utdata";
-
-"this month" = "denne måneden";
-
-"this week" = "denne uken";
-
-"Thursday" = "torsdag";
-
-"Too big logfile" = "For stor loggfil";
-
+/* No comment provided by engineer. */
 "Tot bytes" = "Tot bytes";
 
+/* No comment provided by engineer. */
 "Tot dir" = "Tot dir";
 
+/* No comment provided by engineer. */
 "Tot num" = "Tot num";
 
-"Tuesday" = "tirsdag";
+/* No comment provided by engineer. */
+"Total remote numbers: %lld" = "Totalt remote antal: %lld";
 
+/* No comment provided by engineer. */
+"Trash" = "Søppel";
+
+/* No comment provided by engineer. */
 "Unique usernames and servers" = "Unike brukernavn og servere";
 
+/* No comment provided by engineer. */
 "Update" = "Oppdater";
 
-"Update configuration completed" = "Oppdateringskonfigurasjon fullført";
+/* No comment provided by engineer. */
+"Update configuration completed" = "Oppdaterings konfigurasjon fullført";
 
+/* No comment provided by engineer. */
 "Updated" = "Oppdatert";
 
+/* No comment provided by engineer. */
 "User" = "Bruker";
 
+/* No comment provided by engineer. */
 "Verify" = "Verifiser";
 
+/* No comment provided by engineer. */
 "Verify SSH" = "Verifiser SSH";
 
+/* No comment provided by engineer. */
 "Version %@ (%@)" = "Versjon %@ (%@)";
 
+/* No comment provided by engineer. */
 "View" = "Vis";
 
+/* No comment provided by engineer. */
 "View logfile" = "Vis loggfil";
-
-"Wednesday" = "onsdag";
