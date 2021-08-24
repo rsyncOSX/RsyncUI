@@ -16,15 +16,14 @@ class ReadScheduleJSON: NamesandPaths {
 
     init(_ profile: String?, _ validhiddenID: Set<Int>) {
         super.init(.configurations)
-        // self.profile = profile
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename: String = ""
                 if let profile = profile, let path = fullpathmacserial {
                     filename = path + "/" + profile + "/" + filenamejson
                 } else {
-                    if let fullroot = fullpathmacserial {
-                        filename = fullroot + "/" + filenamejson
+                    if let path = fullpathmacserial {
+                        filename = path + "/" + filenamejson
                     }
                 }
                 return URL(fileURLWithPath: filename)
