@@ -40,7 +40,6 @@ struct SchedulesSwiftUI {
         scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
             log1.dateStart > log2.dateStart
         }
-        print("SchedulesSwiftUI")
     }
 }
 

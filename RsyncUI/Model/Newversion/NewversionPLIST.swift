@@ -27,9 +27,9 @@ final class NewversionPLIST: ObservableObject {
     private var runningversion: String?
     private var subscriber: AnyCancellable?
 
-    func verifynewversion(_ runningversion: String, _ data: String) {
-        print(runningversion)
-        print(data)
+    func verifynewversion(_: String, _: String) {
+        // print(runningversion)
+        // print(data)
         subscriber?.cancel()
     }
 

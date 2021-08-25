@@ -21,12 +21,14 @@ struct ConvertPLISTView: View {
 
     var body: some View {
         VStack {
-            Text("Convert from PLIST for")
-                .font(.title2)
-            Text(rsyncUIdata.profile ?? "Default profile")
-                .font(.title2)
-                .foregroundColor(Color.blue)
-                .padding()
+            HStack {
+                Text("Convert from PLIST for:")
+                    .font(.title2)
+                Text(rsyncUIdata.profile ?? "Default profile")
+                    .font(.title2)
+                    .foregroundColor(Color.blue)
+            }
+            .padding()
 
             HStack {
                 Spacer()
@@ -76,7 +78,7 @@ struct ConvertPLISTView: View {
     }
 
     var prepareconvertplist: some View {
-        HStack {
+        VStack {
             Button("Info about convert") { openinfo() }
                 .buttonStyle(PrimaryButtonStyle())
 

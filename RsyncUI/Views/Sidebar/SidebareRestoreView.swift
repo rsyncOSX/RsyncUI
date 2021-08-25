@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SidebareRestoreView: View {
+    @Binding var selectedprofile: String?
+
     var body: some View {
         VStack {
             headingtitle
@@ -15,6 +17,11 @@ struct SidebareRestoreView: View {
             RestoreView()
         }
         .padding()
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = "Default profile"
+            }
+        })
     }
 
     var headingtitle: some View {
