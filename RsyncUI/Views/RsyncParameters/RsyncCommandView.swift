@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RsyncCommandView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
-    
+
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
     // Not used but requiered in parameter
