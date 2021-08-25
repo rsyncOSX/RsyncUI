@@ -15,7 +15,6 @@ struct RsyncParametersView: View {
 
     @State private var selectedconfig: Configuration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
-    @State private var presentrsynccommandoview = false
 
     @State private var searchText: String = ""
     // Not used but requiered in parameter
@@ -37,10 +36,14 @@ struct RsyncParametersView: View {
                     Spacer()
                 }
 
-                ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                    parameters.setvalues(selectedconfig)
-                },
-                reload: $reload)
+                VStack {
+                    ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                        parameters.setvalues(selectedconfig)
+                    },
+                    reload: $reload)
+
+                    RsyncCommandView(selectedconfig: selectedconfig)
+                }
             }
 
             Spacer()
@@ -63,12 +66,6 @@ struct RsyncParametersView: View {
 
                 Spacer()
 
-                Button("Rsync") { presenteview() }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .sheet(isPresented: $presentrsynccommandoview) {
-                        RsyncCommandView(isPresented: $presentrsynccommandoview, selectedconfig: selectedconfig)
-                    }
-
                 Button("Save") { saversyncparameters() }
                     .buttonStyle(PrimaryButtonStyle())
             }
@@ -83,10 +80,6 @@ struct RsyncParametersView: View {
 }
 
 extension RsyncParametersView {
-    func presenteview() {
-        presentrsynccommandoview = true
-    }
-
     func saversyncparameters() {
         if let configuration = parameters.updatersyncparameters() {
             let updateconfiguration =
