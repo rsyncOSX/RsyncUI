@@ -100,8 +100,8 @@ final class RsyncUIdata: ObservableObject {
         configurations = rsyncdata?.configurationData.getallconfigurations()
         schedulesandlogs = rsyncdata?.scheduleData.getschedules()
         alllogssorted = rsyncdata?.scheduleData.getalllogs()
-        print("RsyncUIdata \(Unmanaged.passUnretained(self).toOpaque())")
-        print("RsyncUIdata configurations  count \(configurations?.count ?? 0)")
-        print("RsyncUIdata logrecord count \(alllogssorted?.count ?? 0)")
+        // print("RsyncUIdata \(Unmanaged.passUnretained(self).toOpaque())")
+        // print("RsyncUIdata configurations  count \(configurations?.count ?? 0)")
+        // print("RsyncUIdata logrecord count \(alllogssorted?.count ?? 0)")
     }
 }

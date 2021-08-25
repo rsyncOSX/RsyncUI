@@ -114,7 +114,7 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.logs)
 
-                NavigationLink(destination: SidebareRestoreView(),
+                NavigationLink(destination: SidebareRestoreView(selectedprofile: $selectedprofile),
                                tag: NavigationItem.restore,
                                selection: $selection) {
                     Label("Restore", systemImage: "text.alignleft")

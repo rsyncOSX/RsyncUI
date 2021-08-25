@@ -158,8 +158,8 @@ extension MultipletasksView {
     }
 
     func estimatetasks() {
-        print("estimatetasks \(Unmanaged.passUnretained(rsyncUIdata).toOpaque())")
-        print("estimatetasks count \(rsyncUIdata.configurations?.count ?? 0)")
+        // print("estimatetasks \(Unmanaged.passUnretained(rsyncUIdata).toOpaque())")
+        // print("estimatetasks count \(rsyncUIdata.configurations?.count ?? 0)")
         inprogresscountmultipletask.resetcounts()
         estimatetask = Estimation(configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
                                   estimationstateDelegate: estimationstate,
