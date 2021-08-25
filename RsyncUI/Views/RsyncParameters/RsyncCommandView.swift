@@ -10,8 +10,7 @@ import SwiftUI
 
 struct RsyncCommandView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIdata
-    @Binding var isPresented: Bool
-
+    
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
     // Not used but requiered in parameter
@@ -22,26 +21,11 @@ struct RsyncCommandView: View {
     var selectedconfig: Configuration?
 
     var body: some View {
-        VStack {
-            HStack {
-                pickerselectcommand
-
-                parameterlist
-            }
-            .padding()
+        HStack {
+            pickerselectcommand
 
             showcommand
-
-            Spacer()
-
-            HStack {
-                Spacer()
-
-                Button("Dismiss") { dismissview() }
-                    .buttonStyle(PrimaryButtonStyle())
-            }
         }
-        .frame(maxWidth: 500, minHeight: 300)
         .padding()
     }
 
@@ -57,14 +41,9 @@ struct RsyncCommandView: View {
     var showcommand: some View {
         Text(commandstring ?? "")
             .padding()
-            .border(Color.gray)
             .textSelection(.enabled)
             .lineLimit(nil)
             .multilineTextAlignment(.leading)
-    }
-
-    var parameterlist: some View {
-        ParametersList(selectedconfig: selectedconfig)
     }
 
     var commandstring: String? {
@@ -75,10 +54,6 @@ struct RsyncCommandView: View {
                                              config: config).getrsyncommand()
             }
         }
-        return "Select a configuration"
-    }
-
-    func dismissview() {
-        isPresented = false
+        return NSLocalizedString("Select a configuration", comment: "")
     }
 }
