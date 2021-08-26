@@ -91,6 +91,9 @@ struct QuicktaskView: View {
                 return
             }
         }
+        .onAppear {
+            focusField = .localcatalogField
+        }
 
         VStack {
             Spacer()
@@ -162,19 +165,6 @@ struct QuicktaskView: View {
         }
     }
 
-    var setremoteuser: some View {
-        EditValue(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
-            .focused($focusField, equals: .remoteuserField)
-            .textContentType(.none)
-            .submitLabel(.continue)
-    }
-
-    var setremoteserver: some View {
-        EditValue(300, NSLocalizedString("Add remote server", comment: ""), $remoteserver)
-            .focused($focusField, equals: .remoteserverField)
-            .submitLabel(.return)
-    }
-
     var headerremote: some View {
         Text("Remote parameters")
             .modifier(FixedTag(200, .leading))
@@ -184,8 +174,14 @@ struct QuicktaskView: View {
         Section(header: headerremote) {
             // Remote user
             EditValue(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
+                .focused($focusField, equals: .remoteuserField)
+                .textContentType(.none)
+                .submitLabel(.continue)
             // Remote server
             EditValue(300, NSLocalizedString("Add remote server", comment: ""), $remoteserver)
+                .focused($focusField, equals: .remoteserverField)
+                .textContentType(.none)
+                .submitLabel(.return)
         }
     }
 

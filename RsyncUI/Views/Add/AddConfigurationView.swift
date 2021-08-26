@@ -100,6 +100,7 @@ struct AddConfigurationView: View {
         .lineSpacing(2)
         .padding()
         .onAppear(perform: {
+            focusField = .localcatalogField
             if selectedprofile == nil {
                 selectedprofile = "Default profile"
             }
