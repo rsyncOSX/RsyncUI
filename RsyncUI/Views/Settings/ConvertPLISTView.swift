@@ -22,7 +22,7 @@ struct ConvertPLISTView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Convert from PLIST for:")
+                Text("Convert PLIST to JSON for:")
                     .font(.title2)
                 Text(rsyncUIdata.profile ?? "Default profile")
                     .font(.title2)

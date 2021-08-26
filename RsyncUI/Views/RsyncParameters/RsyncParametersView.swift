@@ -41,10 +41,10 @@ struct RsyncParametersView: View {
                         parameters.setvalues(selectedconfig)
                     },
                     reload: $reload)
-
-                    RsyncCommandView(selectedconfig: selectedconfig)
                 }
             }
+
+            RsyncCommandView(selectedconfig: selectedconfig)
 
             Spacer()
 
