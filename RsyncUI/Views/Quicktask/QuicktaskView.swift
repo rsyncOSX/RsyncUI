@@ -33,6 +33,15 @@ struct QuicktaskView: View {
     // Selected row in output
     @State private var valueselectedrow: String = ""
 
+    enum QuicktaskField: Hashable {
+        case localcatalogField
+        case remotecatalogField
+        case remoteuserField
+        case remoteserverField
+    }
+
+    @FocusState private var focusField: QuicktaskField?
+
     var body: some View {
         ZStack {
             Spacer()
@@ -65,6 +74,21 @@ struct QuicktaskView: View {
                 RotatingDotsIndicatorView()
                     .frame(width: 50.0, height: 50.0)
                     .foregroundColor(.red)
+            }
+        }
+        .onSubmit {
+            switch focusField {
+            case .localcatalogField:
+                focusField = .remotecatalogField
+            case .remotecatalogField:
+                focusField = .remoteuserField
+            case .remoteuserField:
+                focusField = .remoteserverField
+            case .remoteserverField:
+                focusField = nil
+                return
+            default:
+                return
             }
         }
 
@@ -110,9 +134,15 @@ struct QuicktaskView: View {
         Section(header: headerlocalremote) {
             // localcatalog
             EditValue(300, NSLocalizedString("Add local catalog - required", comment: ""), $localcatalog)
+                .focused($focusField, equals: .localcatalogField)
+                .textContentType(.none)
+                .submitLabel(.continue)
 
             // remotecatalog
             EditValue(300, NSLocalizedString("Add remote catalog - required", comment: ""), $remotecatalog)
+                .focused($focusField, equals: .remotecatalogField)
+                .textContentType(.none)
+                .submitLabel(.continue)
         }
     }
 
@@ -120,18 +150,29 @@ struct QuicktaskView: View {
         Section(header: headerlocalremote) {
             // localcatalog
             EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: ""), $localcatalog)
+                .focused($focusField, equals: .localcatalogField)
+                .textContentType(.none)
+                .submitLabel(.continue)
 
             // remotecatalog
             EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""), $remotecatalog)
+                .focused($focusField, equals: .remotecatalogField)
+                .textContentType(.none)
+                .submitLabel(.continue)
         }
     }
 
     var setremoteuser: some View {
         EditValue(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
+            .focused($focusField, equals: .remoteuserField)
+            .textContentType(.none)
+            .submitLabel(.continue)
     }
 
     var setremoteserver: some View {
         EditValue(300, NSLocalizedString("Add remote server", comment: ""), $remoteserver)
+            .focused($focusField, equals: .remoteserverField)
+            .submitLabel(.return)
     }
 
     var headerremote: some View {
