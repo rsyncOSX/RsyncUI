@@ -111,7 +111,7 @@ struct OneConfig: View {
 
     var task: String {
         if (config.executepretask ?? 0) == 1 {
-            return "*" + config.task
+            return "* " + config.task
         } else {
             return config.task
         }
