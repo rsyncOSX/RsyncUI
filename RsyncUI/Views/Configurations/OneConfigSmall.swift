@@ -20,11 +20,11 @@ struct OneConfigSmall: View {
         HStack {
             Group {
                 if rsyncUIdata.hasactiveschedules(config.hiddenID) {
-                    Text(config.task)
+                    Text(task)
                         .modifier(FixedTag(60, .leading))
-                        .foregroundColor(Color.green)
+                        .foregroundColor(Color.accentColor)
                 } else {
-                    Text(config.task)
+                    Text(task)
                         .modifier(FixedTag(60, .leading))
                 }
                 Text(config.localCatalog)
@@ -40,6 +40,14 @@ struct OneConfigSmall: View {
                 Text(config.offsiteServer)
                     .modifier(FixedTag(60, .leading))
             }
+        }
+    }
+
+    var task: String {
+        if (config.executepretask ?? 0) == 1 {
+            return "* " + config.task
+        } else {
+            return config.task
         }
     }
 }

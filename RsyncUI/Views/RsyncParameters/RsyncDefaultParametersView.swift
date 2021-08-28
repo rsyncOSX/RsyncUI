@@ -20,6 +20,12 @@ struct RsyncDefaultParametersView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
+                    Section(header: headerssh) {
+                        setsshpath
+
+                        setsshport
+                    }
+
                     Section(header: headerremove) {
                         VStack(alignment: .leading) {
                             ToggleViewDefault("-e ssh", $parameters.removessh)
@@ -32,12 +38,6 @@ struct RsyncDefaultParametersView: View {
                         ToggleViewDefault("daemon", $parameters.daemon)
                     }
 
-                    Section(header: headerssh) {
-                        setsshpath
-
-                        setsshport
-                    }
-
                     Spacer()
                 }
 
@@ -47,7 +47,11 @@ struct RsyncDefaultParametersView: View {
                     },
                     reload: $reload)
 
-                    RsyncCommandView(selectedconfig: selectedconfig)
+                    HStack {
+                        RsyncCommandView(selectedconfig: selectedconfig)
+
+                        Spacer()
+                    }
                 }
             }
 
