@@ -43,7 +43,7 @@ struct OneConfig: View {
                     if rsyncUIdata.hasactiveschedules(config.hiddenID) {
                         Text("Synchronize ID")
                             .modifier(FixedTag(150, .leading))
-                            .foregroundColor(Color.green)
+                            .foregroundColor(Color.accentColor)
                     } else {
                         Text("Synchronize ID")
                             .modifier(FixedTag(150, .leading))
@@ -52,13 +52,13 @@ struct OneConfig: View {
                     if rsyncUIdata.hasactiveschedules(config.hiddenID) {
                         Text(config.backupID)
                             .modifier(FixedTag(150, .leading))
-                            .foregroundColor(Color.green)
+                            .foregroundColor(Color.accentColor)
                     } else {
                         Text(config.backupID)
                             .modifier(FixedTag(150, .leading))
                     }
                 }
-                Text(config.task)
+                Text(task)
                     .modifier(FixedTag(80, .leading))
                 Text(config.localCatalog)
                     .modifier(FlexTag(180, .leading))
@@ -107,5 +107,13 @@ struct OneConfig: View {
             return usdate.long_localized_string_from_date()
         }
         return "not executed"
+    }
+
+    var task: String {
+        if (config.executepretask ?? 0) == 1 {
+            return "*" + config.task
+        } else {
+            return config.task
+        }
     }
 }
