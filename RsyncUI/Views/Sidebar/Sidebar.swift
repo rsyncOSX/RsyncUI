@@ -19,7 +19,7 @@ enum NavigationItem {
     case schedules
     case restore
     case quicktask
-    case plist
+    // case plist
 }
 
 struct Sidebar: View {
@@ -122,17 +122,19 @@ struct Sidebar: View {
                 .tag(NavigationItem.restore)
             }
 
-            Divider()
+            /*
+             Divider()
 
-            Group {
-                NavigationLink(destination: ConvertPLISTView(reload: $reload),
-                               tag: NavigationItem.plist,
-                               selection: $selection) {
-                    Label("Plist",
-                          systemImage: "arrowshape.turn.up.backward.fill")
-                }
-                .tag(NavigationItem.plist)
-            }
+             Group {
+                 NavigationLink(destination: ConvertPLISTView(reload: $reload),
+                                tag: NavigationItem.plist,
+                                selection: $selection) {
+                     Label("Plist",
+                           systemImage: "arrowshape.turn.up.backward.fill")
+                 }
+                 .tag(NavigationItem.plist)
+             }
+              */
         }
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)
