@@ -192,7 +192,7 @@ struct SingleTasksView: View {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
             Text("Pre and post task")
                 .font(.title3)
-                .foregroundColor(Color.blue)
+                .foregroundColor(Color.accentColor)
         }
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
