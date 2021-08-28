@@ -43,7 +43,6 @@ struct SnapshotsView: View {
                                             searchText: $searchText,
                                             reload: $reload)
 
-            if notsnapshot == true { notasnapshottask }
             if gettingdata == true { gettingdatainprocess }
             if updated == true { notifyupdated }
         }
@@ -60,6 +59,8 @@ struct SnapshotsView: View {
             .frame(width: 50.0, height: 50.0)
             .foregroundColor(.red)
         }
+
+        if notsnapshot == true { notasnapshottask }
 
         HStack {
             Button("Save") { updateplansnapshot() }
@@ -113,8 +114,14 @@ struct SnapshotsView: View {
     }
 
     var notasnapshottask: some View {
-        AlertToast(type: .error(Color.red),
-                   title: Optional(NSLocalizedString("Not a snapshot task", comment: "")), subTitle: Optional(""))
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text("Not a snapshot task")
+                .font(.title3)
+                .foregroundColor(Color.accentColor)
+        }
+        .frame(width: 200, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 
     var gettingdatainprocess: some View {
