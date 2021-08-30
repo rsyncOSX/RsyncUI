@@ -76,9 +76,6 @@ struct SingleTasksView: View {
                         }
                     })
             }
-
-            // Progressview for execute of estimated task
-            if singletaskstate.singletaskstate == .estimated { progressviewexecute }
         }
 
         // When estimated singletaskstate is set to .execute
@@ -98,6 +95,11 @@ struct SingleTasksView: View {
 
                 executebutton
             }
+
+            Spacer()
+
+            // Progressview for execute of estimated task
+            if singletaskstate.singletaskstate == .estimated { progressviewexecute }
 
             Spacer()
 
@@ -165,7 +167,7 @@ struct SingleTasksView: View {
             .onChange(of: inprogresscountrsyncoutput.getinprogress(), perform: { _ in
             })
             .progressViewStyle(GaugeProgressStyle())
-            .frame(width: 50.0, height: 50.0)
+            .frame(width: 25.0, height: 25.0)
             .contentShape(Rectangle())
     }
 

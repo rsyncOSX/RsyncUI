@@ -35,10 +35,13 @@ struct ExecuteEstimatedView: View {
 
             // When completed
             if multipletaskstate.executionstate == .completed { labelcompleted }
-            // Execute multiple tasks progress
-            if multipletaskstate.executionstate == .execute { progressviewexecuting }
         }
         HStack {
+            Spacer()
+
+            // Execute multiple tasks progress
+            if multipletaskstate.executionstate == .execute { progressviewexecuting }
+
             Spacer()
 
             Button("Abort") { abort() }
@@ -66,7 +69,7 @@ struct ExecuteEstimatedView: View {
                 executedetails.setcurrentprogress(0)
             })
             .progressViewStyle(GaugeProgressStyle())
-            .frame(width: 50.0, height: 50.0)
+            .frame(width: 25.0, height: 25.0)
             .contentShape(Rectangle())
     }
 
