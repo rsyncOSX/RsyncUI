@@ -44,7 +44,7 @@ struct RsyncUIApp: App {
                  })
                   */
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
-                .frame(minWidth: 650, minHeight: 350)
+                .frame(minWidth: 800, minHeight: 400)
         }
         .commands {
             SidebarCommands()
