@@ -7,13 +7,12 @@ The development commenced in December 2020 and still going on. The target for Rs
 
 ## Dependencies
 
-RsyncUI is implemented by utilizing the SwiftUI and Combine declarative frameworks, and Swift 5.5. There are though three source code dependencies:
+RsyncUI is implemented by utilizing the SwiftUI and Combine declarative frameworks, and Swift 5.5. There are though a few source code dependencies:
 
-- check for TCP connectivity by utilizing [SwiftSocket](https://github.com/swiftsocket/SwiftSocket), some functions require connections to remote servers
 - execute pre and post shell scripts by utilizing John Sundell´s [ShellOut](https://github.com/JohnSundell/ShellOut)
 - utilizing John Sundell´s [Files](https://github.com/JohnSundell/Files) for reading files and catalogs
 
-All three are available as source code and automatically included as part of building RsyncOSX. There are also a couple of other sources from GitHub included as source code. Two of those are:
+They are available as source code and automatically included as part of building RsyncOSX. There are also a couple of other sources from GitHub included as source code. Two of those are:
 
 - [ActivityIndicatorView](https://github.com/exyte/ActivityIndicatorView) - RsyncUI is using RotatingDotsIndicatorView
 - [AlertToast](https://github.com/elai950/AlertToast) - a better looking Alert for simple messages to the user
@@ -24,8 +23,7 @@ When RsyncUI is throwing an error, it is presented as a SwiftUI Alert.
 
 The following tools are used in development:
 
-- Xcode 13, the main tool, Swift 5.5 and SwiftUI 3
-  - a few SwiftUI features in code require macOS Monterey (macOS 12)
+- Xcode 13, the main tool, latest version or beta of Swift and SwiftUI
 - make to compile new versions in terminal
 - [create-dmg](https://github.com/sindresorhus/create-dmg) to create new releases
 - [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift style and conventions
@@ -36,7 +34,7 @@ All the above tools, except Xcode and GitHub Desktop are installed by using [Hom
 
 ## Signing and notarizing
 
-The app is signed with my Apple ID developer certificate and [notarized](https://support.apple.com/en-us/HT202491) by Apple. See [signing and notarizing](https://rsyncui.netlify.app/post/notarized/) for info. Signing and notarizing is required to run on macOS Big Sur.
+The app is signed with my Apple ID developer certificate and notarized by Apple.
 
 ## Version of rsync
 
