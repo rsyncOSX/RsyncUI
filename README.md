@@ -1,4 +1,4 @@
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.1.2/total)  [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.1.2/total) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 The development commenced in December 2020 and still going on. The target for RsyncUI is macOS Monterey.
 
@@ -33,14 +33,6 @@ The following tools are used in development:
 - [GitHub Desktop](https://desktop.github.com/) for git and GitHub
 
 All the above tools, except Xcode and GitHub Desktop are installed by using [Homebrew](https://brew.sh/).
-
-## Localization
-
-RsyncUI is localized to:
-
-- English - the base language of RsyncOSX
-- German - by [Andre Voigtmann](https://github.com/andre68723)
-- Norwegian - by me
 
 ## Signing and notarizing
 
