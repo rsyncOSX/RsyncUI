@@ -87,7 +87,6 @@ struct QuicktaskView: View {
             case .remoteserverField:
                 focusField = nil
                 dryrun = true
-                getconfig()
             default:
                 return
             }
