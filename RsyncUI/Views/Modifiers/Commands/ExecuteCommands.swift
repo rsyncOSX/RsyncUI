@@ -4,33 +4,35 @@
 //
 //  Created by Thomas Evensen on 14/06/2021.
 //
-// swiftlint:disable multiple_closures_with_trailing_closure line_length
+// swiftlint:disable line_length
 import SwiftUI
 
 struct ExecuteCommands: Commands {
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
-    @FocusedBinding(\.starttestfortcpconnections) private var starttestfortcpconnections
+    // @FocusedBinding(\.starttestfortcpconnections) private var starttestfortcpconnections
 
     var body: some Commands {
         CommandMenu("Execute") {
             StarteestimateButton(startestimation: $startestimation)
             StartexecuteButton(startexecution: $startexecution)
-            StartTCPconnectionsButton(starttestfortcpconnections: $starttestfortcpconnections)
+            // StartTCPconnectionsButton(starttestfortcpconnections: $starttestfortcpconnections)
         }
 
-        CommandMenu("Schedules") {
-            Button(action: {
-                let running = Running()
-                guard running.informifisrsyncshedulerunning() == false else { return }
-                NSWorkspace.shared.open(URL(fileURLWithPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/")
-                        + SharedReference.shared.namersyncschedule))
-                NSApp.terminate(self)
-            }) {
-                Text("Scheduled tasks")
-            }
-            .keyboardShortcut("s", modifiers: [.command])
-        }
+        /*
+         CommandMenu("Schedules") {
+             Button(action: {
+                 let running = Running()
+                 guard running.informifisrsyncshedulerunning() == false else { return }
+                 NSWorkspace.shared.open(URL(fileURLWithPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/")
+                         + SharedReference.shared.namersyncschedule))
+                 NSApp.terminate(self)
+             }) {
+                 Text("Scheduled tasks")
+             }
+             .keyboardShortcut("s", modifiers: [.command])
+         }
+         */
     }
 }
 
