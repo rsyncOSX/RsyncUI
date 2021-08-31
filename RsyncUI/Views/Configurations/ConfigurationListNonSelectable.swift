@@ -30,7 +30,8 @@ struct ConfigurationsListNonSelectable: View {
 
     // Non selectable
     var configlist: some View {
-        Section(header: header, footer: footer) {
+        // Section(header: header, footer: footer) {
+        Section(header: header) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
                     OneConfig(forestimated: forestimated,

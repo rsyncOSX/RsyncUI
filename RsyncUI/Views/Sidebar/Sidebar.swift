@@ -16,7 +16,7 @@ enum NavigationItem {
     case none
     case snapshots
     case configurations
-    case schedules
+    // case schedules
     case restore
     case quicktask
     // case plist
@@ -85,23 +85,24 @@ struct Sidebar: View {
 
             Divider()
 
-            Group {
-                NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile,
-                                                                 reload: $reload),
-                               tag: NavigationItem.schedules,
-                               selection: $selection) {
-                    Label("Schedules", systemImage: "calendar.badge.plus")
-                }
-                .tag(NavigationItem.schedules)
-
-                NavigationLink(destination: SidebarSnapshotsView(selectedprofile: $selectedprofile,
-                                                                 reload: $reload),
-                               tag: NavigationItem.snapshots,
-                               selection: $selection) {
-                    Label("Snapshots", systemImage: "text.badge.plus")
-                }
-                .tag(NavigationItem.snapshots)
+            /*
+             Group {
+                 NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile,
+                                                                  reload: $reload),
+                                tag: NavigationItem.schedules,
+                                selection: $selection) {
+                     Label("Schedules", systemImage: "calendar.badge.plus")
+                 }
+                 .tag(NavigationItem.schedules)
+              */
+            NavigationLink(destination: SidebarSnapshotsView(selectedprofile: $selectedprofile,
+                                                             reload: $reload),
+                           tag: NavigationItem.snapshots,
+                           selection: $selection) {
+                Label("Snapshots", systemImage: "text.badge.plus")
             }
+            .tag(NavigationItem.snapshots)
+            // }
 
             Divider()
 
