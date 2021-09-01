@@ -61,25 +61,26 @@ final class RsyncUIdata: ObservableObject {
         return alllogssorted?.filter { uuids.contains($0.id) }.sorted(by: \.date, using: >)
     }
 
-    func hasactiveschedules(_ hiddenID: Int) -> Bool {
-        let datestopnil = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
-            $0.schedule != Scheduletype.manuel.rawValue &&
-            $0.dateStop == nil
-        }
-        let datestartfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
-            $0.schedule != Scheduletype.manuel.rawValue &&
-            $0.dateStart.en_us_date_from_string() > Date()
-        }
-        let datestopfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
-            $0.schedule != Scheduletype.manuel.rawValue &&
-            $0.dateStop?.en_us_date_from_string() ?? Date() > Date()
-        }
+    /*
+     func hasactiveschedules(_ hiddenID: Int) -> Bool {
+         let datestopnil = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
+             $0.schedule != Scheduletype.manuel.rawValue &&
+             $0.dateStop == nil
+         }
+         let datestartfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
+             $0.schedule != Scheduletype.manuel.rawValue &&
+             $0.dateStart.en_us_date_from_string() > Date()
+         }
+         let datestopfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
+             $0.schedule != Scheduletype.manuel.rawValue &&
+             $0.dateStop?.en_us_date_from_string() ?? Date() > Date()
+         }
 
-        return (datestopnil?.count ?? 0 > 0 ||
-            datestartfuture?.count ?? 0 > 0 ||
-            datestopfuture?.count ?? 0 > 0)
-    }
-
+         return (datestopnil?.count ?? 0 > 0 ||
+             datestartfuture?.count ?? 0 > 0 ||
+             datestopfuture?.count ?? 0 > 0)
+     }
+     */
     func filterconfigurations(_ filter: String) -> [Configuration]? {
         return configurations?.filter {
             filter.isEmpty ? true : $0.backupID.contains(filter)
