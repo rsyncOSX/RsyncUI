@@ -33,6 +33,9 @@ struct AddProfileView: View {
                 selectedprofile = "Default profile"
             }
         })
+        .onSubmit {
+            createprofile()
+        }
     }
 
     var adddeleteprofile: some View {
