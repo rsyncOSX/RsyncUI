@@ -32,7 +32,7 @@ struct AddConfigurationView: View {
         case remoteuserField
         case remoteserverField
         case backupIDField
-        case newprofileField
+        // case newprofileField
     }
 
     @StateObject var newdata = ObserveableAddConfigurations()
@@ -89,8 +89,6 @@ struct AddConfigurationView: View {
 
             VStack {
                 HStack {
-                    adddeleteprofile
-
                     Spacer()
 
                     updatebutton
@@ -128,9 +126,6 @@ struct AddConfigurationView: View {
                 } else {
                     focusField = .remoteuserField
                 }
-            case .newprofileField:
-                createprofile()
-                focusField = .localcatalogField
             default:
                 return
             }
@@ -240,30 +235,6 @@ struct AddConfigurationView: View {
     }
 
     // Headers (in sections)
-
-    var adddeleteprofile: some View {
-        HStack {
-            Button("Create") { createprofile() }
-                .buttonStyle(PrimaryButtonStyle())
-
-            Button("Delete") { newdata.showAlertfordelete = true }
-                .buttonStyle(AbortButtonStyle())
-                .sheet(isPresented: $newdata.showAlertfordelete) {
-                    ConfirmDeleteProfileView(isPresented: $newdata.showAlertfordelete,
-                                             delete: $newdata.confirmdeleteselectedprofile,
-                                             profile: $rsyncUIdata.profile)
-                        .onDisappear(perform: {
-                            deleteprofile()
-                        })
-                }
-
-            EditValue(150, NSLocalizedString("New profile", comment: ""),
-                      $newdata.newprofile)
-                .focused($focusField, equals: .newprofileField)
-                .textContentType(.none)
-                .submitLabel(.return)
-        }
-    }
 
     var setID: some View {
         EditValue(300, NSLocalizedString("Add synchronize ID", comment: ""),

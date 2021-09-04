@@ -21,6 +21,10 @@ struct SidebarAddConfigurationsView: View {
                 .tabItem {
                     Text("Pre and post")
                 }
+            AddProfileView(selectedprofile: $selectedprofile, reload: $reload)
+                .tabItem {
+                    Text("Profile")
+                }
         }
         .padding()
     }
