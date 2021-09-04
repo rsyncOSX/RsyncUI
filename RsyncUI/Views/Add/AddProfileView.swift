@@ -19,31 +19,25 @@ struct AddProfileView: View {
     var body: some View {
         Form {
             ZStack {
-                adddeleteprofile
+                Spacer()
 
-                if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
-                if newdata.created == true { notifycreated }
-                if newdata.deleted == true { notifydeleted }
-            }
-        }
-        .lineSpacing(2)
-        .padding()
-        .onAppear(perform: {
-            if selectedprofile == nil {
-                selectedprofile = "Default profile"
-            }
-        })
-        .onSubmit {
-            createprofile()
-        }
-    }
+                HStack {
+                    EditValue(150, NSLocalizedString("New profile", comment: ""),
+                              $newdata.newprofile)
 
-    var adddeleteprofile: some View {
-        VStack(alignment: .leading) {
-            EditValue(150, NSLocalizedString("New profile", comment: ""),
-                      $newdata.newprofile)
+                    if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
+                    if newdata.created == true { notifycreated }
+                    if newdata.deleted == true { notifydeleted }
+                }
+
+                Spacer()
+            }
+
+            Spacer()
 
             HStack {
+                Spacer()
+
                 Button("Create") { createprofile() }
                     .buttonStyle(PrimaryButtonStyle())
 
@@ -58,17 +52,21 @@ struct AddProfileView: View {
                             })
                     }
             }
+            .padding()
+            .onAppear(perform: {
+                if selectedprofile == nil {
+                    selectedprofile = "Default profile"
+                }
+            })
+            .onSubmit {
+                createprofile()
+            }
         }
     }
 
     var notifyadded: some View {
         AlertToast(type: .complete(Color.green),
                    title: Optional("Added"), subTitle: Optional(""))
-    }
-
-    var notifyupdated: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Updated"), subTitle: Optional(""))
     }
 
     var notifycreated: some View {
