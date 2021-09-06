@@ -39,6 +39,8 @@ struct AboutView: View {
 
     var body: some View {
         VStack {
+            Spacer()
+
             headingtitle
 
             Image(nsImage: NSImage(named: NSImage.applicationIconName)!)

@@ -30,7 +30,7 @@ struct SidebarSettingsView: View {
                 }
         }
         .padding()
-        .frame(minWidth: 800, minHeight: 500)
+        .frame(minWidth: 700, minHeight: 400)
     }
 
     var profile: String? {

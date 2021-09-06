@@ -586,7 +586,6 @@
 				E985C63C25F3AD8400CB895C /* Schedules */,
 				E985C61A25F3AD8400CB895C /* Settings */,
 				E985C61E25F3AD8400CB895C /* FilelogView */,
-				E985C63A25F3AD8400CB895C /* About */,
 				E985C64125F3AD8400CB895C /* Log */,
 				E985C64625F3AD8400CB895C /* Add */,
 			);
@@ -630,6 +629,7 @@
 		E985C61A25F3AD8400CB895C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E985C63B25F3AD8400CB895C /* AboutView.swift */,
 				E87921D1267B1E2100195070 /* ConvertPLISTView.swift */,
 				E985C61B25F3AD8400CB895C /* Sshsettings.swift */,
 				E985C61C25F3AD8400CB895C /* Usersettings.swift */,
@@ -679,14 +679,6 @@
 				E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */,
 			);
 			path = Snapshots;
-			sourceTree = "<group>";
-		};
-		E985C63A25F3AD8400CB895C /* About */ = {
-			isa = PBXGroup;
-			children = (
-				E985C63B25F3AD8400CB895C /* AboutView.swift */,
-			);
-			path = About;
 			sourceTree = "<group>";
 		};
 		E985C63C25F3AD8400CB895C /* Schedules */ = {
