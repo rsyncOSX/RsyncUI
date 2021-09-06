@@ -79,7 +79,7 @@ struct Othersettings: View {
     }
 
     var setenvironment: some View {
-        EditValue(250, NSLocalizedString("Environment", comment: ""),
+        EditValue(350, NSLocalizedString("Environment", comment: ""),
                   $usersettings.environment.onChange {
                       usersettings.inputchangedbyuser = true
                   })
@@ -91,7 +91,7 @@ struct Othersettings: View {
     }
 
     var setenvironmenvariable: some View {
-        EditValue(250, NSLocalizedString("Environment variable", comment: ""),
+        EditValue(350, NSLocalizedString("Environment variable", comment: ""),
                   $usersettings.environmentvalue.onChange {
                       usersettings.inputchangedbyuser = true
                   })
