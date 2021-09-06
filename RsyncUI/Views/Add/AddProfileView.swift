@@ -19,18 +19,27 @@ struct AddProfileView: View {
     var body: some View {
         Form {
             ZStack {
-                Spacer()
-
                 HStack {
-                    EditValue(150, NSLocalizedString("New profile", comment: ""),
-                              $newdata.newprofile)
+                    // For center
+                    Spacer()
 
-                    if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
-                    if newdata.created == true { notifycreated }
-                    if newdata.deleted == true { notifydeleted }
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Selected profile:")
+                            Text(rsyncUIdata.profile ?? "Default profile")
+                                .foregroundColor(Color.blue)
+                        }
+
+                        EditValue(150, NSLocalizedString("New profile", comment: ""),
+                                  $newdata.newprofile)
+                    }
+
+                    Spacer()
                 }
 
-                Spacer()
+                if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
+                if newdata.created == true { notifycreated }
+                if newdata.deleted == true { notifydeleted }
             }
 
             Spacer()
