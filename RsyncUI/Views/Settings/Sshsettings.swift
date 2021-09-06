@@ -19,6 +19,8 @@ struct Sshsettings: View {
 
     var body: some View {
         Form {
+            Spacer()
+
             HStack {
                 // For center
                 Spacer()

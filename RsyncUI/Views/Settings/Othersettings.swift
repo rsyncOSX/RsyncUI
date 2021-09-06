@@ -13,6 +13,8 @@ struct Othersettings: View {
 
     var body: some View {
         Form {
+            Spacer()
+
             ZStack {
                 HStack {
                     // For center
