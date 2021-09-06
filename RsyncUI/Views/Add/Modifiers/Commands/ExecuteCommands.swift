@@ -20,6 +20,7 @@ struct ExecuteCommands: Commands {
         }
 
         /*
+         // **Schedules**
          CommandMenu("Schedules") {
              Button(action: {
                  let running = Running()

@@ -16,6 +16,7 @@ enum NavigationItem {
     case none
     case snapshots
     case configurations
+    // **Schedules**
     // case schedules
     case restore
     case quicktask
@@ -86,6 +87,7 @@ struct Sidebar: View {
             Divider()
 
             /*
+             **Schedules**
              Group {
                  NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile,
                                                                   reload: $reload),

@@ -566,9 +566,9 @@
 		E985C60925F3AD8400CB895C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E985C60A25F3AD8400CB895C /* Sidebar */,
 				E99C23F9261C2D21009D4DBF /* Restore */,
 				E927AAD12616E23100DC27A3 /* Quicktask */,
-				E985C60A25F3AD8400CB895C /* Sidebar */,
 				E95EDC7D26063C7F000018DE /* RsyncParameters */,
 				E985C64E25F3AD8400CB895C /* Multipletasks */,
 				E985C62325F3AD8400CB895C /* Singletask */,
@@ -577,7 +577,6 @@
 				E985C63C25F3AD8400CB895C /* Schedules */,
 				E985C61A25F3AD8400CB895C /* Settings */,
 				E985C61E25F3AD8400CB895C /* FilelogView */,
-				E985C62025F3AD8400CB895C /* Modifiers */,
 				E985C63A25F3AD8400CB895C /* About */,
 				E985C64125F3AD8400CB895C /* Log */,
 				E985C64625F3AD8400CB895C /* Add */,
@@ -718,6 +717,7 @@
 				E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */,
 				E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */,
 				E93E14B326E34B95004A293E /* AddProfileView.swift */,
+				E985C62025F3AD8400CB895C /* Modifiers */,
 			);
 			path = Add;
 			sourceTree = "<group>";

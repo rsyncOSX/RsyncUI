@@ -23,7 +23,7 @@ struct SidebarAddConfigurationsView: View {
                 }
             AddProfileView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
-                    Text("Profile")
+                    Text("Profiles")
                 }
         }
         .padding()
