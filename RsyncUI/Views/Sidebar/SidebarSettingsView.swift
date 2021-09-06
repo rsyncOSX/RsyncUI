@@ -22,7 +22,7 @@ struct SidebarSettingsView: View {
                 }
             Othersettings()
                 .tabItem {
-                    Label("Paths", systemImage: "play.square")
+                    Label("Environment", systemImage: "gear")
                 }
             AboutView()
                 .tabItem {
@@ -30,7 +30,7 @@ struct SidebarSettingsView: View {
                 }
         }
         .padding()
-        .frame(minWidth: 700, minHeight: 400)
+        .frame(minWidth: 700, minHeight: 450)
     }
 
     var profile: String? {

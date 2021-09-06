@@ -13,7 +13,6 @@ struct Sshsettings: View {
 
     @State private var selectedlogin: UniqueserversandLogins?
     @State private var showingAlert: Bool = false
-    @State private var showsshverifysheet: Bool = false
 
     var uniqueserversandlogins: [UniqueserversandLogins]
 
@@ -46,16 +45,16 @@ struct Sshsettings: View {
                 // For center
                 Spacer()
             }
+
             // Save button right down corner
             Spacer()
 
             HStack {
+                if selectedlogin != nil { strings }
+
                 Spacer()
 
                 Button("Create") { createkeys() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button("Verify") { verifyssh() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 Button("Save") { saveusersettings() }
@@ -64,10 +63,16 @@ struct Sshsettings: View {
         }
         .lineSpacing(2)
         .padding()
-        .sheet(isPresented: $showsshverifysheet) {
-            VerifySshView(selectedlogin: $selectedlogin,
-                          isPresented: $showsshverifysheet)
+    }
+
+    // Copy strings
+
+    var strings: some View {
+        VStack(alignment: .leading) {
+            Text(verifystring)
+            Text(copystring)
         }
+        .textSelection(.enabled)
     }
 
     // Ssh header
@@ -113,6 +118,22 @@ struct Sshsettings: View {
     var headerusersetting: some View {
         Text("Save settings")
     }
+
+    var verifystring: String {
+        if let login = selectedlogin {
+            return SshKeys().verifyremotekey(remote: login)
+        } else {
+            return ""
+        }
+    }
+
+    var copystring: String {
+        if let login = selectedlogin {
+            return SshKeys().copylocalpubrsakeyfile(remote: login)
+        } else {
+            return ""
+        }
+    }
 }
 
 struct ServerRow: View {
@@ -147,7 +168,9 @@ extension Sshsettings {
         }
     }
 
-    func verifyssh() {
-        showsshverifysheet = true
-    }
+    /*
+     func verifyssh() {
+         showsshverifysheet = true
+     }
+     */
 }

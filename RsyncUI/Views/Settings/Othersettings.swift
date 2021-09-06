@@ -20,13 +20,16 @@ struct Othersettings: View {
                     // For center
                     Spacer()
                     // Column 1
-                    VStack(alignment: .leading) {
-                        Section(header: headerpaths) {
-                            setpathtorsyncui
+                    /*
+                     **Schedules**
+                     VStack(alignment: .leading) {
+                         Section(header: headerpaths) {
+                             setpathtorsyncui
 
-                            setpathtorsyncschedule
-                        }
-                    }.padding()
+                             setpathtorsyncschedule
+                         }
+                     }.padding()
+                     */
 
                     // Column 2
                     VStack(alignment: .leading) {
