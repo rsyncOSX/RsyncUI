@@ -27,11 +27,11 @@ struct Sshsettings: View {
                 VStack(alignment: .leading) {
                     ToggleView(NSLocalizedString("Local ssh keys found", comment: ""), $usersettings.localsshkeys)
 
-                    Section(header: headerssh) {
-                        setsshpath
+                    // Section(header: headerssh) {
+                    setsshpath
 
-                        setsshport
-                    }
+                    setsshport
+                    // }
 
                 }.padding()
 

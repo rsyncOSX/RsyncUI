@@ -33,11 +33,11 @@ struct Othersettings: View {
 
                     // Column 2
                     VStack(alignment: .leading) {
-                        Section(header: headerenvironment) {
-                            setenvironment
+                        // Section(header: headerenvironment) {
+                        setenvironment
 
-                            setenvironmenvariable
-                        }
+                        setenvironmenvariable
+                        // }
                     }.padding()
 
                     Spacer()
