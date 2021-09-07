@@ -17,7 +17,7 @@ final class ObservableSSH: ObservableObject {
     // Set the current value as placeholder text
     @Published var sshkeypathandidentityfile: String = ""
     // If local public sshkeys are present
-    @Published var localsshkeys: Bool = SshKeys().validatepublickeypresent()
+    var localsshkeys: Bool = SshKeys().validatepublickeypresent()
 
     // Combine
     var subscriptions = Set<AnyCancellable>()

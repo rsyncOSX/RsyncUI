@@ -25,7 +25,7 @@ struct Sshsettings: View {
                 Spacer()
                 // Column 1
                 VStack(alignment: .leading) {
-                    ToggleView(NSLocalizedString("Local ssh keys found", comment: ""), $usersettings.localsshkeys)
+                    ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $usersettings.localsshkeys)
 
                     // Section(header: headerssh) {
                     setsshpath
@@ -37,9 +37,9 @@ struct Sshsettings: View {
 
                 // Column 2
                 VStack(alignment: .leading) {
-                    Section(header: headeruniqueue) {
-                        uniqueuserversandloginslist
-                    }
+                    // Section(header: headeruniqueue) {
+                    uniqueuserversandloginslist
+                    // }
                 }.padding()
 
                 // For center
@@ -111,7 +111,7 @@ struct Sshsettings: View {
             }
         }
         .frame(width: 250, height: 100)
-        .border(Color.gray)
+        // .border(Color.gray)
     }
 
     // Header user setting
