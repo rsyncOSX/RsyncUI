@@ -26,7 +26,7 @@ struct Usersettings: View {
                     // Column 1
                     VStack(alignment: .leading) {
                         Section(header: headerrsync) {
-                            ToggleView(NSLocalizedString("Rsync ver 3.x", comment: ""), $usersettings.rsyncversion3.onChange {
+                            ToggleViewDefault(NSLocalizedString("Rsync ver 3.x", comment: ""), $usersettings.rsyncversion3.onChange {
                                 rsyncversionObject.update(usersettings.rsyncversion3)
                             })
 
@@ -49,7 +49,7 @@ struct Usersettings: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Section(header: headerloggingtofile) {
-                                    ToggleView(NSLocalizedString("None", comment: ""), $usersettings.nologging.onChange {
+                                    ToggleViewDefault(NSLocalizedString("None", comment: ""), $usersettings.nologging.onChange {
                                         if usersettings.nologging == true {
                                             usersettings.minimumlogging = false
                                             usersettings.fulllogging = false
@@ -59,14 +59,14 @@ struct Usersettings: View {
                                         }
                                     })
 
-                                    ToggleView(NSLocalizedString("Min", comment: ""), $usersettings.minimumlogging.onChange {
+                                    ToggleViewDefault(NSLocalizedString("Min", comment: ""), $usersettings.minimumlogging.onChange {
                                         if usersettings.minimumlogging == true {
                                             usersettings.nologging = false
                                             usersettings.fulllogging = false
                                         }
                                     })
 
-                                    ToggleView(NSLocalizedString("Full", comment: ""), $usersettings.fulllogging.onChange {
+                                    ToggleViewDefault(NSLocalizedString("Full", comment: ""), $usersettings.fulllogging.onChange {
                                         if usersettings.fulllogging == true {
                                             usersettings.nologging = false
                                             usersettings.minimumlogging = false
@@ -77,7 +77,7 @@ struct Usersettings: View {
 
                             VStack(alignment: .leading) {
                                 Section(header: headerdetailedlogging) {
-                                    ToggleView(NSLocalizedString("Detailed", comment: ""), $usersettings.detailedlogging)
+                                    ToggleViewDefault(NSLocalizedString("Detailed", comment: ""), $usersettings.detailedlogging)
                                 }
 
                                 Section(header: headermarkdays) {
@@ -90,9 +90,9 @@ struct Usersettings: View {
                     // Column 3
                     VStack(alignment: .leading) {
                         Section(header: headerothersettings) {
-                            ToggleView(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
+                            ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
 
-                            ToggleView(NSLocalizedString("Check data", comment: ""), $usersettings.checkinput)
+                            ToggleViewDefault(NSLocalizedString("Check data", comment: ""), $usersettings.checkinput)
                         }
                     }
                     .padding()

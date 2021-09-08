@@ -39,11 +39,11 @@ struct ToggleViewDefault: View {
 
     var body: some View {
         HStack {
-            Text(mytext ?? "")
-                .foregroundColor(mybinding.wrappedValue ? .white : .gray)
-                .toggleStyle(SwitchToggleStyle(tint: .green))
             Toggle(mytext ?? "", isOn: mybinding)
                 .labelsHidden()
+                .toggleStyle(SwitchToggleStyle(tint: .green))
+            Text(mytext ?? "")
+                .foregroundColor(mybinding.wrappedValue ? .white : .gray)
                 .toggleStyle(SwitchToggleStyle(tint: .green))
         }
     }
