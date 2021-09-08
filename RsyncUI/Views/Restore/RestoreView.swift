@@ -39,9 +39,11 @@ struct RestoreView: View {
         Spacer()
 
         HStack {
-            Spacer()
+            Button("Files") { presentoutput() }
+                .buttonStyle(PrimaryButtonStyle())
+                .sheet(isPresented: $presentsheetview) { viewoutput }
 
-            ToggleViewDefault("--dry-run", $restoresettings.dryrun)
+            Spacer()
 
             VStack(alignment: .leading) {
                 numberoffiles
@@ -53,9 +55,7 @@ struct RestoreView: View {
 
             Spacer()
 
-            Button("View") { presentoutput() }
-                .buttonStyle(PrimaryButtonStyle())
-                .sheet(isPresented: $presentsheetview) { viewoutput }
+            ToggleViewDefault("--dry-run", $restoresettings.dryrun)
 
             Button("Restore") { restore() }
                 .buttonStyle(PrimaryButtonStyle())
