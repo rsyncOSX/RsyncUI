@@ -27,20 +27,17 @@ struct Sshsettings: View {
                 VStack(alignment: .leading) {
                     ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $usersettings.localsshkeys)
 
-                    // Section(header: headerssh) {
                     setsshpath
 
                     setsshport
-                    // }
-
-                }.padding()
+                }
 
                 // Column 2
                 VStack(alignment: .leading) {
                     // Section(header: headeruniqueue) {
                     uniqueuserversandloginslist
                     // }
-                }.padding()
+                }
 
                 // For center
                 Spacer()
@@ -61,7 +58,6 @@ struct Sshsettings: View {
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
-        .lineSpacing(2)
         .padding()
     }
 
@@ -111,7 +107,6 @@ struct Sshsettings: View {
             }
         }
         .frame(width: 250, height: 100)
-        // .border(Color.gray)
     }
 
     // Header user setting
@@ -167,10 +162,4 @@ extension Sshsettings {
             }
         }
     }
-
-    /*
-     func verifyssh() {
-         showsshverifysheet = true
-     }
-     */
 }
