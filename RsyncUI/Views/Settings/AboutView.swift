@@ -48,7 +48,7 @@ struct AboutView: View {
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 64, height: 64)
 
-            translations
+            // translations
 
             rsyncversionshortstring
 

@@ -41,7 +41,7 @@ struct RestoreView: View {
         HStack {
             Spacer()
 
-            ToggleView("--dry-run", $restoresettings.dryrun)
+            ToggleViewDefault("--dry-run", $restoresettings.dryrun)
 
             VStack(alignment: .leading) {
                 numberoffiles
