@@ -32,7 +32,7 @@ struct AddProfileView: View {
                                 .foregroundColor(Color.blue)
                         }
 
-                        EditValue(150, NSLocalizedString("New profile", comment: ""),
+                        EditValue(150, NSLocalizedString("Create profile", comment: ""),
                                   $newdata.newprofile)
                     }
 
