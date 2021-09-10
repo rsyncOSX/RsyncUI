@@ -2,8 +2,9 @@
 
 The development commenced in December 2020 and still going on. The target for RsyncUI is macOS Monterey.
 
-- [the documentation of RsyncUI](https://rsyncui.netlify.app/)
-- [the development of RsyncUI](https://rsyncui.netlify.app/post/development/)
+- the [documentation of RsyncUI](https://rsyncui.netlify.app/)
+- the [development of RsyncUI](https://rsyncui.netlify.app/post/development/)
+- the [changelog](https://rsyncui.netlify.app/post/changelog/)
 
 ## Dependencies
 
