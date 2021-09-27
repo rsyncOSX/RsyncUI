@@ -31,7 +31,7 @@ class ReadScheduleJSON: NamesandPaths {
             .tryMap { url -> Data in
                 try Data(contentsOf: url)
             }
-            .decode(type: [DecodeSchedule].self, decoder: JSONDecoder())
+            .decode(type: [DecodeConfigurationSchedule].self, decoder: JSONDecoder())
             .sink { completion in
                 switch completion {
                 case .finished:

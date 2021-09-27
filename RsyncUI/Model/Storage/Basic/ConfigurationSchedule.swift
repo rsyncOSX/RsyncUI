@@ -29,7 +29,7 @@ struct ConfigurationSchedule: Identifiable, Codable {
 
     // Used when reading JSON data from store
     // see in ReadScheduleJSON
-    init(_ data: DecodeSchedule) {
+    init(_ data: DecodeConfigurationSchedule) {
         dateStart = data.dateStart ?? ""
         dateStop = data.dateStop
         hiddenID = data.hiddenID ?? -1
