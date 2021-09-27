@@ -139,7 +139,7 @@ struct AddConfigurationView: View {
                 Button("Add") { addconfig() }
                     .buttonStyle(PrimaryButtonStyle())
             } else {
-                Button("Update") {}
+                Button("Update") { validateandupdate() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
