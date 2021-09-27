@@ -28,7 +28,7 @@ struct AddProfileView: View {
                     VStack(alignment: .leading) {
                         HStack {
                             Text("Selected profile:")
-                            Text(rsyncUIdata.profile ?? "Default profile")
+                            Text(rsyncUIdata.profile ?? SharedReference.shared.defaultprofile)
                                 .foregroundColor(Color.blue)
                         }
 
@@ -66,7 +66,7 @@ struct AddProfileView: View {
             .padding()
             .onAppear(perform: {
                 if selectedprofile == nil {
-                    selectedprofile = "Default profile"
+                    selectedprofile = SharedReference.shared.defaultprofile
                 }
             })
             .onSubmit {

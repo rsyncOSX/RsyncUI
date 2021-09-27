@@ -100,7 +100,7 @@ struct AddConfigurationView: View {
         .onAppear(perform: {
             focusField = .localcatalogField
             if selectedprofile == nil {
-                selectedprofile = "Default profile"
+                selectedprofile = SharedReference.shared.defaultprofile
             }
         })
         .onSubmit {

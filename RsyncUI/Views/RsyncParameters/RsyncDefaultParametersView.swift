@@ -67,7 +67,7 @@ struct RsyncDefaultParametersView: View {
         .padding()
         .onAppear(perform: {
             if selectedprofile == nil {
-                selectedprofile = "Default profile"
+                selectedprofile = SharedReference.shared.defaultprofile
             }
         })
     }

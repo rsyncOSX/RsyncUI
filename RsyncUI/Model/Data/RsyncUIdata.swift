@@ -93,7 +93,7 @@ final class RsyncUIdata: ObservableObject {
             return
         }
         self.profile = profile
-        if profile == "Default profile" || profile == nil {
+        if profile == SharedReference.shared.defaultprofile || profile == nil {
             rsyncdata = Readdatafromstore(profile: nil)
         } else {
             rsyncdata = Readdatafromstore(profile: profile)

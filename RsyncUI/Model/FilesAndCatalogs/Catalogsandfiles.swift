@@ -44,7 +44,7 @@ class Catalogsandfiles: NamesandPaths {
     func getcatalogsasstringnames() -> [String]? {
         if let atpath = fullpathmacserial {
             var array = [String]()
-            array.append("Default profile")
+            array.append(SharedReference.shared.defaultprofile)
             do {
                 for folders in try Folder(path: atpath).subfolders {
                     array.append(folders.name)

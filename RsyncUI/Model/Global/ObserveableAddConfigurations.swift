@@ -186,7 +186,7 @@ final class ObserveableAddConfigurations: ObservableObject {
     func deleteprofile(_ profile: String?) {
         guard confirmdeleteselectedprofile == true else { return }
         if let profile = profile {
-            guard profile != "Default profile" else {
+            guard profile != SharedReference.shared.defaultprofile else {
                 deletedefaultprofile = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
                     deletedefaultprofile = false

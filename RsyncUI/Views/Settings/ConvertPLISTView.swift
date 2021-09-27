@@ -24,7 +24,7 @@ struct ConvertPLISTView: View {
             HStack {
                 Text("Convert PLIST to JSON for:")
                     .font(.title2)
-                Text(rsyncUIdata.profile ?? "Default profile")
+                Text(rsyncUIdata.profile ?? SharedReference.shared.defaultprofile)
                     .font(.title2)
                     .foregroundColor(Color.blue)
             }

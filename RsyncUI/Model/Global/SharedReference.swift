@@ -94,6 +94,8 @@ class SharedReference {
     var errorobject: ErrorHandling?
     // Used when starting up RsyncUI
     var reload: Bool = true
+    // Default profile
+    let defaultprofile = "Default profile"
 
     private init() {
         synctasks = Set<String>()

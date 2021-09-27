@@ -34,7 +34,7 @@ struct SidebarSettingsView: View {
     }
 
     var profile: String? {
-        if selectedprofile == "Default profile"
+        if selectedprofile == SharedReference.shared.defaultprofile
             || selectedprofile == nil
         {
             return nil

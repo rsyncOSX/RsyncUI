@@ -84,7 +84,7 @@ struct MultipletasksView: View {
         .focusedSceneValue(\.starttestfortcpconnections, $focusstarttestfortcpconnections)
         .onAppear(perform: {
             if selectedprofile == nil {
-                selectedprofile = "Default profile"
+                selectedprofile = SharedReference.shared.defaultprofile
             }
         })
     }

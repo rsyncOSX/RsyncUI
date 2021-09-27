@@ -45,7 +45,7 @@ class WriteConfigurationJSON: NamesandPaths {
     init(_ profile: String?, _ configurations: [Configuration]?) {
         super.init(.configurations)
         // Set profile and filename ahead of encoding an write
-        if profile == "Default profile" {
+        if profile == SharedReference.shared.defaultprofile {
             self.profile = nil
         } else {
             self.profile = profile
