@@ -9,19 +9,19 @@ import SwiftUI
 
 struct EditValue: View {
     var myvalue: Binding<String>
-    var mytext: String?
     var mywidth: CGFloat?
+    var myprompt: Text?
 
     var body: some View {
-        TextField(mytext ?? "", text: myvalue)
+        TextField("", text: myvalue, prompt: myprompt)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .frame(width: mywidth)
             .lineLimit(1)
     }
 
-    init(_ width: CGFloat, _ text: String?, _ value: Binding<String>) {
+    init(_ width: CGFloat, _ str: String?, _ value: Binding<String>) {
         mywidth = width
         myvalue = value
-        mytext = text
+        myprompt = Text(str ?? "")
     }
 }
