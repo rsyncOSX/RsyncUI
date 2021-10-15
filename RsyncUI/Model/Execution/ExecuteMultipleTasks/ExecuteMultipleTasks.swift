@@ -92,7 +92,7 @@ final class ExecuteMultipleTasks {
     {
         structprofile = profile
         localconfigurationsSwiftUI = configurationsSwiftUI
-        // localschedulesSwiftUI = schedulesSwiftUI
+        localschedulesSwiftUI = SchedulesSwiftUI(profile: profile, validhiddenIDs: configurationsSwiftUI?.validhiddenIDs ?? Set())
         multipletasksateDelegate = executionstateDelegate
         updateestimationcountDelegate = updateinprogresscount
         updateprogessDelegate = singletaskupdate

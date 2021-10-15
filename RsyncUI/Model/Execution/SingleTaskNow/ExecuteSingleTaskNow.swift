@@ -51,7 +51,8 @@ class ExecuteSingleTaskNow {
     init(uuids: Set<UUID>,
          profile: String?,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         schedulesSwiftUI: SchedulesSwiftUI?,
+         // TODO: fix schedules
+         // schedulesSwiftUI: SchedulesSwiftUI?,
          executetaskstate: SingletaskNowState?,
          updateinprogresscount: UpdateOutputprocessCountProtcol?)
     {
@@ -59,7 +60,7 @@ class ExecuteSingleTaskNow {
         guard configurations?.count == 1 else { return }
         hiddenID = configurations?[0].hiddenID
         localconfigurationsSwiftUI = configurationsSwiftUI
-        localschedulesSwiftUI = schedulesSwiftUI
+        localschedulesSwiftUI = SchedulesSwiftUI(profile: profile, validhiddenIDs: configurationsSwiftUI?.validhiddenIDs ?? Set())
         executetasknowstateDelegate = executetaskstate
         structprofile = profile
         updateestimationcountDelegate = updateinprogresscount

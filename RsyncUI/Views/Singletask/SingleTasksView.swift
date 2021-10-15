@@ -296,7 +296,9 @@ extension SingleTasksView {
                     ExecuteSingleTaskNowShellout(uuids: selecteduuids,
                                                  profile: rsyncUIdata.rsyncdata?.profile,
                                                  configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
-                                                 schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
+                                                 // TODO: fix schedules
+                                                 // schedulesSwiftUI: SchedulesSwiftUI?,
+                                                 // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                                  executetaskstate: singletasknowstate,
                                                  updateinprogresscount: inprogresscountrsyncoutput)
             } else {
@@ -304,7 +306,9 @@ extension SingleTasksView {
                     ExecuteSingleTaskNow(uuids: selecteduuids,
                                          profile: rsyncUIdata.rsyncdata?.profile,
                                          configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
-                                         schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
+                                         // TODO: fix schedules
+                                         // schedulesSwiftUI: SchedulesSwiftUI?,
+                                         // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                          executetaskstate: singletasknowstate,
                                          updateinprogresscount: inprogresscountrsyncoutput)
             }
