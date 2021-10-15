@@ -12,7 +12,7 @@ final class ArgumentsLocalcatalogInfo: ComputeRsyncParameters {
     var config: Configuration?
 
     func argumentslocalcataloginfo(dryRun: Bool, forDisplay: Bool) -> [String]? {
-        if let config = self.config {
+        if let config = config {
             localCatalog = config.localCatalog
             setParameters1To6(config: config, dryRun: dryRun, forDisplay: forDisplay, verify: false)
             setParameters8To14(config: config, dryRun: dryRun, forDisplay: forDisplay)

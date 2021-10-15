@@ -37,7 +37,7 @@ final class Estimation {
     private func prepareandstartexecutetasks(_ configurations: [Configuration]?) {
         stackoftasktobeestimated = [Int]()
         // Multiple selected indexes
-        if let hiddenIDs = self.hiddenIDs {
+        if let hiddenIDs = hiddenIDs {
             for i in 0 ..< hiddenIDs.count {
                 stackoftasktobeestimated?.append(hiddenIDs[i])
             }

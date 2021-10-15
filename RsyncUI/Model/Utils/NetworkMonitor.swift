@@ -65,7 +65,7 @@ final class NetworkMonitor {
     }
 
     func stopMonitoring() {
-        if let monitor = self.monitor {
+        if let monitor = monitor {
             monitor.cancel()
             self.monitor = nil
         }

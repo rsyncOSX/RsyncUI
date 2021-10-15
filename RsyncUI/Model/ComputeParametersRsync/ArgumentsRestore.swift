@@ -12,7 +12,7 @@ final class ArgumentsRestore: ComputeRsyncParameters {
     var config: Configuration?
 
     func argumentsrestore(dryRun: Bool, forDisplay: Bool, tmprestore: Bool) -> [String]? {
-        if let config = self.config {
+        if let config = config {
             localCatalog = config.localCatalog
             if config.snapshotnum != nil {
                 remoteargssnapshot(config: config)

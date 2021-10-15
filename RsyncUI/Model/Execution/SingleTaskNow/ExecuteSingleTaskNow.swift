@@ -32,7 +32,7 @@ class ExecuteSingleTaskNow {
 
     func executetasknow() {
         guard SharedReference.shared.process == nil else { return }
-        if let hiddenID = self.hiddenID {
+        if let hiddenID = hiddenID {
             outputprocess = OutputfromProcessRsync()
             if let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
                 command = RsyncProcess(arguments: arguments,
@@ -75,7 +75,7 @@ extension ExecuteSingleTaskNow {
     func processtermination() {
         guard setabort == false else { return }
         updateestimationcountDelegate?.setoutput(data: outputprocess?.getOutput())
-        if let hiddenID = self.hiddenID {
+        if let hiddenID = hiddenID {
             executetasknowstateDelegate?.updatestate(state: .completed)
             let update = SingletaskPrimaryLogging(profile: structprofile,
                                                   hiddenID: hiddenID,

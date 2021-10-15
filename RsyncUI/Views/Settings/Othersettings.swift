@@ -83,11 +83,11 @@ struct Othersettings: View {
                   $usersettings.environment.onChange {
                       usersettings.inputchangedbyuser = true
                   })
-            .onAppear(perform: {
-                if let environment = SharedReference.shared.environment {
-                    usersettings.environment = environment
-                }
-            })
+                  .onAppear(perform: {
+                      if let environment = SharedReference.shared.environment {
+                          usersettings.environment = environment
+                      }
+                  })
     }
 
     var setenvironmenvariable: some View {
@@ -95,11 +95,11 @@ struct Othersettings: View {
                   $usersettings.environmentvalue.onChange {
                       usersettings.inputchangedbyuser = true
                   })
-            .onAppear(perform: {
-                if let environmentvalue = SharedReference.shared.environmentvalue {
-                    usersettings.environmentvalue = environmentvalue
-                }
-            })
+                  .onAppear(perform: {
+                      if let environmentvalue = SharedReference.shared.environmentvalue {
+                          usersettings.environmentvalue = environmentvalue
+                      }
+                  })
     }
 
     var setpathtorsyncui: some View {
@@ -107,11 +107,11 @@ struct Othersettings: View {
                   $usersettings.pathrsyncui.onChange {
                       usersettings.inputchangedbyuser = true
                   })
-            .onAppear(perform: {
-                if let pathrsyncui = SharedReference.shared.pathrsyncui {
-                    usersettings.pathrsyncui = pathrsyncui
-                }
-            })
+                  .onAppear(perform: {
+                      if let pathrsyncui = SharedReference.shared.pathrsyncui {
+                          usersettings.pathrsyncui = pathrsyncui
+                      }
+                  })
     }
 
     var setpathtorsyncschedule: some View {
@@ -119,11 +119,11 @@ struct Othersettings: View {
                   $usersettings.pathrsyncschedule.onChange {
                       usersettings.inputchangedbyuser = true
                   })
-            .onAppear(perform: {
-                if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
-                    usersettings.pathrsyncschedule = pathrsyncschedule
-                }
-            })
+                  .onAppear(perform: {
+                      if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
+                          usersettings.pathrsyncschedule = pathrsyncschedule
+                      }
+                  })
     }
 }
 

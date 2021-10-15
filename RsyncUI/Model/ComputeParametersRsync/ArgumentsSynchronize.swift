@@ -12,7 +12,7 @@ final class ArgumentsSynchronize: ComputeRsyncParameters {
     var config: Configuration?
 
     func argumentssynchronize(dryRun: Bool, forDisplay: Bool) -> [String]? {
-        if let config = self.config {
+        if let config = config {
             localCatalog = config.localCatalog
             if self.config?.task == SharedReference.shared.syncremote {
                 remoteargssyncremote(config: config)

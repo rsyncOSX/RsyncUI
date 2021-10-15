@@ -13,7 +13,7 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
     var error: Bool = false
 
     func executepretask() throws {
-        if let hiddenID = self.hiddenID {
+        if let hiddenID = hiddenID {
             if let pretask = localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.pretask {
                 let task = try shellOut(to: pretask)
                 if task.contains("error"), (localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.haltshelltasksonerror ?? 0) == 1 {
@@ -27,7 +27,7 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
     }
 
     func executeposttask() throws {
-        if let hiddenID = self.hiddenID {
+        if let hiddenID = hiddenID {
             if let posttask = localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.posttask {
                 let task = try shellOut(to: posttask)
                 if task.contains("error"), (localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.haltshelltasksonerror ?? 0) == 1 {
@@ -41,7 +41,7 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
 
     override func executetasknow() {
         guard SharedReference.shared.process == nil else { return }
-        if let hiddenID = self.hiddenID {
+        if let hiddenID = hiddenID {
             // Execute pretask
             if localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.executepretask == 1 {
                 do {

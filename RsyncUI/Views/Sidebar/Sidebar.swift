@@ -50,18 +50,18 @@ struct Sidebar: View {
                         .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.singletasks,
                     selection: $selection) {
-                    Label("Single task",
-                          systemImage: "arrowshape.turn.up.backward.fill")
-                }
-                .tag(NavigationItem.singletasks)
+                        Label("Single task",
+                              systemImage: "arrowshape.turn.up.backward.fill")
+                    }
+                    .tag(NavigationItem.singletasks)
 
-                NavigationLink(destination: SidebarQuicktaskView(),
-                               tag: NavigationItem.quicktask,
-                               selection: $selection) {
-                    Label("Quick task",
-                          systemImage: "arrowshape.turn.up.backward.fill")
-                }
-                .tag(NavigationItem.quicktask)
+                    NavigationLink(destination: SidebarQuicktaskView(),
+                                   tag: NavigationItem.quicktask,
+                                   selection: $selection) {
+                        Label("Quick task",
+                              systemImage: "arrowshape.turn.up.backward.fill")
+                    }
+                    .tag(NavigationItem.quicktask)
             }
 
             Divider()

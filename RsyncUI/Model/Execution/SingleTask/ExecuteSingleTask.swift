@@ -42,7 +42,7 @@ final class ExecuteSingleTask {
         // Debug print
         // printdebugdata(uuid)
         // Debug print
-        if let hiddenID = self.hiddenID {
+        if let hiddenID = hiddenID {
             outputprocess = OutputfromProcessRsync()
             if let arguments = structconfigurations?.arguments4rsync(hiddenID: hiddenID, argtype: .argdryRun),
                let config = structconfigurations?.getconfiguration(hiddenID: hiddenID)
@@ -61,7 +61,7 @@ final class ExecuteSingleTask {
         // Debug print
         // printdebugdata(uuid)
         // Debug print
-        if let hiddenID = self.hiddenID {
+        if let hiddenID = hiddenID {
             outputprocess = OutputfromProcessRsync()
             if let arguments = structconfigurations?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
                 command = RsyncProcess(arguments: arguments,
@@ -116,7 +116,7 @@ extension ExecuteSingleTask {
     func processtermination() {
         guard setabort == false else { return }
         if let workload = workqueu,
-           let hiddenID = self.hiddenID
+           let hiddenID = hiddenID
         {
             // Sending output from rsync to the observed object
             updateoutputprocesscountDelegate?.setoutput(data: outputprocess?.getOutput())

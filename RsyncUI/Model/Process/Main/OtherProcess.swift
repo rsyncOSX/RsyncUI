@@ -24,7 +24,7 @@ final class OtherProcess {
         // Process
         let task = Process()
         // If self.command != nil either alternativ path for rsync or other command than rsync to be executed
-        if let command = self.command {
+        if let command = command {
             task.launchPath = command
         }
         task.arguments = arguments

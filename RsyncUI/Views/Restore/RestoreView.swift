@@ -72,11 +72,11 @@ struct RestoreView: View {
         EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restoresettings.pathforrestore.onChange {
             restoresettings.inputchangedbyuser = true
         })
-            .onAppear(perform: {
-                if let pathforrestore = SharedReference.shared.pathforrestore {
-                    restoresettings.pathforrestore = pathforrestore
-                }
-            })
+        .onAppear(perform: {
+            if let pathforrestore = SharedReference.shared.pathforrestore {
+                restoresettings.pathforrestore = pathforrestore
+            }
+        })
     }
 
     var setfilestorestore: some View {

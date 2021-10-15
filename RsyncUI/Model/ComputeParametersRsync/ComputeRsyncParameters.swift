@@ -238,10 +238,10 @@ class ComputeRsyncParameters {
         offsiteUsername = config.offsiteUsername
         offsiteServer = config.offsiteServer
         if (offsiteServer ?? "").isEmpty == false {
-            if let offsiteUsername = self.offsiteUsername,
-               let offsiteServer = self.offsiteServer,
+            if let offsiteUsername = offsiteUsername,
+               let offsiteServer = offsiteServer,
                // NB: offsiteCatalog
-               let offsiteCatalog = self.offsiteCatalog
+               let offsiteCatalog = offsiteCatalog
             {
                 if config.rsyncdaemon != nil {
                     if config.rsyncdaemon == 1 {
@@ -262,10 +262,10 @@ class ComputeRsyncParameters {
         offsiteUsername = config.offsiteUsername
         offsiteServer = config.offsiteServer
         if (offsiteServer ?? "").isEmpty == false {
-            if let offsiteUsername = self.offsiteUsername,
-               let offsiteServer = self.offsiteServer,
+            if let offsiteUsername = offsiteUsername,
+               let offsiteServer = offsiteServer,
                // NB: locaCatalog
-               let localCatalog = self.localCatalog
+               let localCatalog = localCatalog
             {
                 if config.rsyncdaemon != nil {
                     if config.rsyncdaemon == 1 {
@@ -286,10 +286,10 @@ class ComputeRsyncParameters {
         offsiteUsername = config.offsiteUsername
         offsiteServer = config.offsiteServer
         if (offsiteServer ?? "").isEmpty == false {
-            if let offsiteUsername = self.offsiteUsername,
-               let offsiteServer = self.offsiteServer,
+            if let offsiteUsername = offsiteUsername,
+               let offsiteServer = offsiteServer,
                // NB: offsiteCatalog
-               let offsiteCatalog = self.offsiteCatalog
+               let offsiteCatalog = offsiteCatalog
             {
                 if config.rsyncdaemon != nil {
                     if config.rsyncdaemon == 1 {

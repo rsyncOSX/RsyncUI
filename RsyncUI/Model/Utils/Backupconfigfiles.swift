@@ -17,7 +17,7 @@ final class Backupconfigfiles {
 
     func backup() {
         if let documentscatalog = backuppath,
-           let usedpath = self.usedpath
+           let usedpath = usedpath
         {
             var originFolder: Folder?
             do {

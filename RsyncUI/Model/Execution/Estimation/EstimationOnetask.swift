@@ -15,7 +15,7 @@ final class EstimationOnetask {
     var config: Configuration?
 
     func startestimation() {
-        if let arguments = self.arguments {
+        if let arguments = arguments {
             let process = RsyncProcess(arguments: arguments,
                                        config: config,
                                        processtermination: processtermination,

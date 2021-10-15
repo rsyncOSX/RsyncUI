@@ -63,7 +63,7 @@ class Catalogsandfiles: NamesandPaths {
         var root: Folder?
         var catalog: String?
         // First check if profilecatalog exists, if yes bail out
-        if let macserialnumber = self.macserialnumber,
+        if let macserialnumber = macserialnumber,
            let fullrootnomacserial = fullpathnomacserial
         {
             do {

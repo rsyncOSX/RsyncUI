@@ -15,7 +15,7 @@ final class ExecuteOneTask {
     var config: Configuration?
 
     func startexecution() {
-        if let arguments = self.arguments {
+        if let arguments = arguments {
             let process = RsyncProcess(arguments: arguments,
                                        config: config,
                                        processtermination: processtermination,
