@@ -13,21 +13,23 @@ struct Readdatafromstore {
     var profile: String?
     var configurationData: ConfigurationsSwiftUI
     var validhiddenIDs: Set<Int>
-    var scheduleData: SchedulesSwiftUI
+    // TODO: remove
+    var scheduleData: SchedulesSwiftUI?
 
     init(profile: String?) {
         self.profile = profile
         configurationData = ConfigurationsSwiftUI(profile: self.profile)
         validhiddenIDs = configurationData.getvalidhiddenIDs() ?? Set()
-        scheduleData = SchedulesSwiftUI(profile: self.profile, validhiddenIDs: validhiddenIDs)
+        // scheduleData = SchedulesSwiftUI(profile: self.profile, validhiddenIDs: validhiddenIDs)
     }
 }
 
 final class RsyncUIdata: ObservableObject {
     @Published var rsyncdata: Readdatafromstore?
     var configurations: [Configuration]?
-    var schedulesandlogs: [ConfigurationSchedule]?
     var profile: String?
+
+    var schedulesandlogs: [ConfigurationSchedule]?
     var alllogssorted: [Log]?
     var validhiddenIDs: Set<Int>?
 
@@ -80,8 +82,8 @@ final class RsyncUIdata: ObservableObject {
             rsyncdata = Readdatafromstore(profile: profile)
         }
         configurations = rsyncdata?.configurationData.getallconfigurations()
-        schedulesandlogs = rsyncdata?.scheduleData.getschedules()
-        alllogssorted = rsyncdata?.scheduleData.getalllogs()
+        // schedulesandlogs = rsyncdata?.scheduleData.getschedules()
+        // alllogssorted = rsyncdata?.scheduleData.getalllogs()
         validhiddenIDs = rsyncdata?.validhiddenIDs
     }
 }
