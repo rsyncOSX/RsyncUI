@@ -12,6 +12,8 @@ struct SidebarLogsView: View {
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
 
+    @StateObject private var logrecords = RsyncUIlogrecords()
+
     @State private var filterstring: String = ""
 
     var body: some View {
@@ -27,5 +29,12 @@ struct SidebarLogsView: View {
         }
         .searchable(text: $filterstring)
         .padding()
+        .onAppear(perform: {
+            if selectedprofile == nil {
+                selectedprofile = SharedReference.shared.defaultprofile
+            }
+            // Initialize the Stateobject
+            logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
+        })
     }
 }

@@ -12,7 +12,7 @@
      }
      // Initialize the Stateobject
      logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.rsyncdata?.validhiddenIDs)
- })s
+ })
  */
 
 import SwiftUI
@@ -84,7 +84,7 @@ final class RsyncUIlogrecords: ObservableObject {
              datestopfuture?.count ?? 0 > 0)
      }
      */
-    
+
     func update(profile: String?, validhiddenIDs: Set<Int>?) {
         guard SharedReference.shared.reload == true else {
             SharedReference.shared.reload = true
