@@ -115,12 +115,14 @@ class SingletaskPrimaryLogging {
     init(profile: String?,
          hiddenID: Int?,
          configurations: [Configuration]?,
-         scheduleConfigurations: [ConfigurationSchedule]?)
+         validhiddenIDs: Set<Int>)
+    // TODO: verify hiddenIDS and structschedules
+    // scheduleConfigurations: [ConfigurationSchedule]?)
     {
         localeprofile = profile
         localehiddenID = hiddenID
         structconfigurations = configurations
-        structschedules = scheduleConfigurations
+        structschedules = SchedulesSwiftUI(profile: profile, validhiddenIDs: validhiddenIDs).scheduleConfigurations
     }
 
     deinit {

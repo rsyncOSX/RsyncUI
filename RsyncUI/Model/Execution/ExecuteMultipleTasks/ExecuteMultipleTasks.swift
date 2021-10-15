@@ -84,14 +84,15 @@ final class ExecuteMultipleTasks {
     init(uuids: Set<UUID>,
          profile: String?,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         schedulesSwiftUI: SchedulesSwiftUI?,
+         // TODO: fix schedules
+         // schedulesSwiftUI: SchedulesSwiftUI?,
          executionstateDelegate: MultipleTaskState?,
          updateinprogresscount: UpdateEstimationCount?,
          singletaskupdate: ExecuteDetailsProtocol?)
     {
         structprofile = profile
         localconfigurationsSwiftUI = configurationsSwiftUI
-        localschedulesSwiftUI = schedulesSwiftUI
+        // localschedulesSwiftUI = schedulesSwiftUI
         multipletasksateDelegate = executionstateDelegate
         updateestimationcountDelegate = updateinprogresscount
         updateprogessDelegate = singletaskupdate
@@ -148,7 +149,7 @@ extension ExecuteMultipleTasks {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: privatehiddenID,
                                                      configurations: localconfigurationsSwiftUI?.getallconfigurations(),
-                                                     scheduleConfigurations: localschedulesSwiftUI?.getschedules())
+                                                     validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration(configrecords: configrecords)
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             return

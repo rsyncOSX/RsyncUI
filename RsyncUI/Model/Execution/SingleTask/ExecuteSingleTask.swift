@@ -130,7 +130,7 @@ extension ExecuteSingleTask {
                 let update = SingletaskPrimaryLogging(profile: structprofile,
                                                       hiddenID: hiddenID,
                                                       configurations: structconfigurations?.getallconfigurations(),
-                                                      scheduleConfigurations: structschedules?.getschedules())
+                                                      validhiddenIDs: structconfigurations?.validhiddenIDs ?? Set())
                 update.setCurrentDateonConfiguration()
                 update.addlogpermanentstore(outputprocess: outputprocess)
                 singletaskstateDelegate?.updatestate(state: .completed)

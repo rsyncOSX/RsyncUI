@@ -9,8 +9,8 @@
 import Foundation
 
 struct SchedulesSwiftUI {
-    private var scheduleConfigurations: [ConfigurationSchedule]?
-    private var profile: String?
+    var scheduleConfigurations: [ConfigurationSchedule]?
+    var profile: String?
 
     // Return reference to Schedule data
     func getschedules() -> [ConfigurationSchedule] {

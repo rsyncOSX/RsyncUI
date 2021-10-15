@@ -32,7 +32,7 @@ struct ConfigurationsSwiftUI {
     // Initialized during startup
     // private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
     // valid hiddenIDs
-    private var validhiddenIDs: Set<Int>?
+    var validhiddenIDs: Set<Int>?
 
     // Function for getting Configurations read into memory, sorted by runddate
     func getallconfigurations() -> [Configuration]? {

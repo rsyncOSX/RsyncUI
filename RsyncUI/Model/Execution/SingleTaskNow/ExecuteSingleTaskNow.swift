@@ -80,7 +80,7 @@ extension ExecuteSingleTaskNow {
             let update = SingletaskPrimaryLogging(profile: structprofile,
                                                   hiddenID: hiddenID,
                                                   configurations: localconfigurationsSwiftUI?.getallconfigurations(),
-                                                  scheduleConfigurations: localschedulesSwiftUI?.getschedules())
+                                                  validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration()
             update.addlogpermanentstore(outputprocess: outputprocess)
         }
