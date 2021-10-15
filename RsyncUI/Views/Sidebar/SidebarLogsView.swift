@@ -19,10 +19,12 @@ struct SidebarLogsView: View {
     var body: some View {
         TabView {
             LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile, filterstring: $filterstring)
+                .environmentObject(logrecords)
                 .tabItem {
                     Text("All logs")
                 }
             LogsbyConfigurationView(reload: $reload, selectedprofile: $selectedprofile, filterstring: $filterstring)
+                .environmentObject(logrecords)
                 .tabItem {
                     Text("By config")
                 }

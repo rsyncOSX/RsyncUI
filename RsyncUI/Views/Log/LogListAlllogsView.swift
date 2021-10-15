@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct LogListAlllogsView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var logrecords: RsyncUIlogrecords
+    // @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
@@ -21,7 +22,7 @@ struct LogListAlllogsView: View {
     var body: some View {
         Form {
             List(selection: $selectedlog) {
-                if let logs = rsyncUIdata.filterlogs(filterstring) {
+                if let logs = logrecords.filterlogs(filterstring) {
                     ForEach(logs) { record in
                         LogRow(selecteduuids: $selecteduuids, logrecord: record)
                             .tag(record)
@@ -66,7 +67,7 @@ struct LogListAlllogsView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(rsyncUIdata.filterlogs(filterstring)?.count ?? 0)"
+            "\(logrecords.filterlogs(filterstring)?.count ?? 0)"
     }
 }
 
@@ -91,8 +92,8 @@ extension LogListAlllogsView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (rsyncUIdata.filterlogs(filterstring)?.count ?? 0) {
-            if let id = rsyncUIdata.filterlogs(filterstring)?[i].id {
+        for i in 0 ..< (logrecords.filterlogs(filterstring)?.count ?? 0) {
+            if let id = logrecords.filterlogs(filterstring)?[i].id {
                 selecteduuids.insert(id)
             }
         }
@@ -100,9 +101,9 @@ extension LogListAlllogsView {
 
     func setuuidforselectedlog() {
         if let sel = selectedlog,
-           let index = rsyncUIdata.filterlogs(filterstring)?.firstIndex(of: sel)
+           let index = logrecords.filterlogs(filterstring)?.firstIndex(of: sel)
         {
-            if let id = rsyncUIdata.filterlogs(filterstring)?[index].id {
+            if let id = logrecords.filterlogs(filterstring)?[index].id {
                 selecteduuids.insert(id)
             }
         }
