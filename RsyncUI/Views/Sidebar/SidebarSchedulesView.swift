@@ -9,8 +9,11 @@
 import SwiftUI
 
 struct SidebarSchedulesView: View {
+    @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+
+    @StateObject private var logrecords = RsyncUIlogrecords()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -18,12 +21,15 @@ struct SidebarSchedulesView: View {
 
             ScheduleView(selectedprofile: $selectedprofile,
                          reload: $reload)
+                .environmentObject(logrecords)
         }
         .padding()
         .onAppear(perform: {
             if selectedprofile == nil {
                 selectedprofile = SharedReference.shared.defaultprofile
             }
+            // Initialize the Stateobject
+            logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
         })
     }
 

@@ -9,7 +9,8 @@ import AlertToast
 import SwiftUI
 
 struct ScheduleView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    // @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var logrecords: RsyncUIlogrecords
 
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -100,10 +101,10 @@ extension ScheduleView {
 
     func setuuidforselectedschedule() {
         if let schedule = selectedschedule,
-           let schedules = rsyncUIdata.schedulesandlogs
+           let schedules = logrecords.schedulesandlogs
         {
             if let index = schedules.firstIndex(of: schedule) {
-                if let id = rsyncUIdata.schedulesandlogs?[index].id {
+                if let id = logrecords.schedulesandlogs?[index].id {
                     selecteduuids.insert(id)
                 }
             }
@@ -112,7 +113,7 @@ extension ScheduleView {
 
     func addschedule() {
         let addschedule = UpdateSchedules(profile: selectedprofile,
-                                          scheduleConfigurations: rsyncUIdata.schedulesandlogs)
+                                          scheduleConfigurations: logrecords.schedulesandlogs)
         let add = addschedule.add(selectedconfig?.hiddenID,
                                   selectedscheduletype,
                                   selecteddate)

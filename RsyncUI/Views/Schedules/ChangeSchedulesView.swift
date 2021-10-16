@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ChangeSchedulesView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    // @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
     @Binding var reload: Bool
@@ -53,7 +54,7 @@ struct ChangeSchedulesView: View {
 
     func delete() {
         let deleteschedule = UpdateSchedules(profile: selectedprofile,
-                                             scheduleConfigurations: rsyncUIdata.schedulesandlogs)
+                                             scheduleConfigurations: logrecords.schedulesandlogs)
         deleteschedule.deleteschedules(uuids: selecteduuids)
         reload = true
         // selecteduuids.removeAll()
@@ -62,7 +63,7 @@ struct ChangeSchedulesView: View {
 
     func stop() {
         let stopschedule = UpdateSchedules(profile: selectedprofile,
-                                           scheduleConfigurations: rsyncUIdata.schedulesandlogs)
+                                           scheduleConfigurations: logrecords.schedulesandlogs)
         stopschedule.stopschedule(uuids: selecteduuids)
         reload = true
         // selecteduuids.removeAll()
