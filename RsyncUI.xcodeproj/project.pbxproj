@@ -978,8 +978,8 @@
 				E985C71225F3AD9700CB895C /* OutputFromMultipleTasks.swift */,
 				E985C71325F3AD9700CB895C /* OutputFromRsync.swift */,
 				E985C71425F3AD9700CB895C /* ErrorHandling.swift */,
-				E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */,
 				E985C71625F3AD9700CB895C /* ConfigurationsSwiftUI.swift */,
+				E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */,
 				E997613A271998BD007153DD /* RsyncUIlogrecords.swift */,
 			);
 			path = Data;

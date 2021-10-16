@@ -38,6 +38,7 @@ class ReadConfigurationJSON: NamesandPaths {
 
     init(_ profile: String?) {
         super.init(.configurations)
+        print("ReadConfigurationJSON")
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename: String = ""
