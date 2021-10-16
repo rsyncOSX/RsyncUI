@@ -81,13 +81,11 @@ final class ExecuteSingleTask {
     init(uuids: Set<UUID>,
          profile: String?,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         // schedulesSwiftUI: SchedulesSwiftUI?,
          singletaskstate: SingleTaskState?,
          updateinprogresscount: UpdateOutputprocessCountProtcol?)
     {
         uuid = uuids
         structconfigurations = configurationsSwiftUI
-        // structschedules = schedulesSwiftUI
         singletaskstateDelegate = singletaskstate
         structprofile = profile
         updateoutputprocesscountDelegate = updateinprogresscount

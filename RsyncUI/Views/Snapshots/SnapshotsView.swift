@@ -270,8 +270,6 @@ extension SnapshotsView {
         guard confirmdeletesnapshots == true else { return }
         if let config = selectedconfig {
             snapshotdata.delete = DeleteSnapshots(config: config,
-                                                  configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                                  // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                                   snapshotdata: snapshotdata,
                                                   logrecordssnapshot: snapshotdata.getsnapshotdata())
             snapshotdata.inprogressofdelete = true

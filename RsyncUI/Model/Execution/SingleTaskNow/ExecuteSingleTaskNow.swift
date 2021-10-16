@@ -25,7 +25,6 @@ class ExecuteSingleTaskNow {
     var outputprocess: OutputfromProcess?
     var command: RsyncProcess?
     var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
-    var localschedulesSwiftUI: SchedulesSwiftUI?
     var structprofile: String?
     // Set if abort is executed
     private var setabort = false
@@ -51,8 +50,6 @@ class ExecuteSingleTaskNow {
     init(uuids: Set<UUID>,
          profile: String?,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         // TODO: fix schedules
-         // schedulesSwiftUI: SchedulesSwiftUI?,
          executetaskstate: SingletaskNowState?,
          updateinprogresscount: UpdateOutputprocessCountProtcol?)
     {
@@ -60,7 +57,6 @@ class ExecuteSingleTaskNow {
         guard configurations?.count == 1 else { return }
         hiddenID = configurations?[0].hiddenID
         localconfigurationsSwiftUI = configurationsSwiftUI
-        localschedulesSwiftUI = SchedulesSwiftUI(profile: profile, validhiddenIDs: configurationsSwiftUI?.validhiddenIDs ?? Set())
         executetasknowstateDelegate = executetaskstate
         structprofile = profile
         updateestimationcountDelegate = updateinprogresscount

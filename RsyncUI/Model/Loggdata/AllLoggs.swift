@@ -80,12 +80,10 @@ final class AllLoggs {
     init(hiddenID: Int?,
          profile: String?,
          configurationsSwiftUI: ConfigurationsSwiftUI?)
-    // schedulesSwiftUI: SchedulesSwiftUI?)
     {
         localehiddenID = hiddenID
         structconfigurations = configurationsSwiftUI
         structschedules = SchedulesSwiftUI(profile: profile, validhiddenIDs: structconfigurations?.validhiddenIDs ?? Set())
-
         if loggrecords == nil {
             readandsortallloggdata(hiddenID: hiddenID)
         }
