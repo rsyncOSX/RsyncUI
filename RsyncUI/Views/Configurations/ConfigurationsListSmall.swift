@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 14/05/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 

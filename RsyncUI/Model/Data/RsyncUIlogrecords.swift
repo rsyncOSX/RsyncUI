@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 15/10/2021.
 //
+// swiftlint:disable line_length
 
 /*
  .onAppear(perform: {
