@@ -13,15 +13,16 @@ struct SidebarLogsView: View {
 
     @StateObject private var logrecords = RsyncUIlogrecords()
     @State private var filterstring: String = ""
+    @State private var deleted = false
 
     var body: some View {
         TabView {
-            LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring)
+            LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring, deleted: $deleted)
                 .environmentObject(logrecords)
                 .tabItem {
                     Text("All logs")
                 }
-            LogsbyConfigurationView(selectedprofile: $selectedprofile, filterstring: $filterstring)
+            LogsbyConfigurationView(selectedprofile: $selectedprofile, filterstring: $filterstring, deleted: $deleted)
                 .environmentObject(logrecords)
                 .tabItem {
                     Text("By config")

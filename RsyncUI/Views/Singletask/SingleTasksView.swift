@@ -237,8 +237,8 @@ extension SingleTasksView {
             executetasknow = nil
             singletaskstate.updatestate(state: .estimate)
             executesingletasks = ExecuteSingleTask(uuids: selecteduuids,
-                                                   profile: rsyncUIdata.rsyncdata?.profile,
-                                                   configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
+                                                   profile: rsyncUIdata.configurationsfromstore?.profile,
+                                                   configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                    singletaskstate: singletaskstate,
                                                    updateinprogresscount: inprogresscountrsyncoutput)
             executesingletasks?.estimate()
@@ -293,8 +293,8 @@ extension SingleTasksView {
             if PreandPostTasks(config: config).executepretask || PreandPostTasks(config: config).executeposttask {
                 executetasknow =
                     ExecuteSingleTaskNowShellout(uuids: selecteduuids,
-                                                 profile: rsyncUIdata.rsyncdata?.profile,
-                                                 configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
+                                                 profile: rsyncUIdata.configurationsfromstore?.profile,
+                                                 configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                  // TODO: fix schedules
                                                  // schedulesSwiftUI: SchedulesSwiftUI?,
                                                  // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
@@ -303,8 +303,8 @@ extension SingleTasksView {
             } else {
                 executetasknow =
                     ExecuteSingleTaskNow(uuids: selecteduuids,
-                                         profile: rsyncUIdata.rsyncdata?.profile,
-                                         configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
+                                         profile: rsyncUIdata.configurationsfromstore?.profile,
+                                         configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                          // TODO: fix schedules
                                          // schedulesSwiftUI: SchedulesSwiftUI?,
                                          // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,

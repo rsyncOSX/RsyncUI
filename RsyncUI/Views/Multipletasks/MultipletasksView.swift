@@ -164,7 +164,7 @@ extension MultipletasksView {
         // print("estimatetasks \(Unmanaged.passUnretained(rsyncUIdata).toOpaque())")
         // print("estimatetasks count \(rsyncUIdata.configurations?.count ?? 0)")
         inprogresscountmultipletask.resetcounts()
-        estimatetask = Estimation(configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
+        estimatetask = Estimation(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                   estimationstateDelegate: estimationstate,
                                   updateinprogresscount: inprogresscountmultipletask,
                                   uuids: selecteduuids,
@@ -245,7 +245,7 @@ extension MultipletasksView {
     }
 
     func verifytcp() async {
-        if let configurations = rsyncUIdata.rsyncdata?.configurationData.getallconfigurations() {
+        if let configurations = rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations() {
             let tcpconnections = TCPconnections(configurations)
             await tcpconnections.verifyallremoteserverTCPconnections()
             print(tcpconnections.indexBoolremoteserverOff ?? [])

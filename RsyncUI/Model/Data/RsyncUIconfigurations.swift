@@ -21,7 +21,7 @@ struct Readconfigurationsfromstore {
 }
 
 final class RsyncUIconfigurations: ObservableObject {
-    @Published var rsyncdata: Readconfigurationsfromstore?
+    @Published var configurationsfromstore: Readconfigurationsfromstore?
     var configurations: [Configuration]?
     var profile: String?
     var validhiddenIDs: Set<Int>?
@@ -39,11 +39,11 @@ final class RsyncUIconfigurations: ObservableObject {
         }
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {
-            rsyncdata = Readconfigurationsfromstore(profile: nil)
+            configurationsfromstore = Readconfigurationsfromstore(profile: nil)
         } else {
-            rsyncdata = Readconfigurationsfromstore(profile: profile)
+            configurationsfromstore = Readconfigurationsfromstore(profile: profile)
         }
-        configurations = rsyncdata?.configurationData.getallconfigurations()
-        validhiddenIDs = rsyncdata?.validhiddenIDs
+        configurations = configurationsfromstore?.configurationData.getallconfigurations()
+        validhiddenIDs = configurationsfromstore?.validhiddenIDs
     }
 }

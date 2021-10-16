@@ -12,6 +12,7 @@ struct LogsbyConfigurationView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
+    @Binding var deleted: Bool
 
     @State private var selectedconfig: Configuration?
     @State private var selectedlog: Log?
@@ -21,7 +22,6 @@ struct LogsbyConfigurationView: View {
     @State private var inwork = -1
     // Alert for delete
     @State private var showAlertfordelete = false
-    @State private var deleted = false
 
     let selectable = false
 

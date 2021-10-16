@@ -11,12 +11,12 @@ struct LogListAlllogsView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
+    @Binding var deleted: Bool
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
     // Alert for delete
     @State private var showAlertfordelete = false
-    @State private var deleted = false
 
     var body: some View {
         Form {

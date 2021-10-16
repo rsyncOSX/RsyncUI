@@ -218,7 +218,7 @@ extension SnapshotsView {
             }
             _ = Snapshotlogsandcatalogs(profile: rsyncUIdata.profile,
                                         config: config,
-                                        configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
+                                        configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                         // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                         snapshotdata: snapshotdata)
         }
@@ -270,7 +270,7 @@ extension SnapshotsView {
         guard confirmdeletesnapshots == true else { return }
         if let config = selectedconfig {
             snapshotdata.delete = DeleteSnapshots(config: config,
-                                                  configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
+                                                  configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                   // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                                   snapshotdata: snapshotdata,
                                                   logrecordssnapshot: snapshotdata.getsnapshotdata())
@@ -292,8 +292,8 @@ extension SnapshotsView {
             }
             selectedconfig.snapdayoffweek = snapdayofweek
             let updateconfiguration =
-                UpdateConfigurations(profile: rsyncUIdata.rsyncdata?.profile,
-                                     configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
+                UpdateConfigurations(profile: rsyncUIdata.configurationsfromstore?.profile,
+                                     configurations: rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(selectedconfig, false)
             reload = true
             updated = true

@@ -28,7 +28,7 @@ struct Readlogsfromstore {
 }
 
 final class RsyncUIlogrecords: ObservableObject {
-    @Published var rsyncdata: Readlogsfromstore?
+    @Published var logrecordsfromstore: Readlogsfromstore?
     var schedulesandlogs: [ConfigurationSchedule]?
     var profile: String?
     var alllogssorted: [Log]?
@@ -92,12 +92,12 @@ final class RsyncUIlogrecords: ObservableObject {
         }
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {
-            rsyncdata = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
+            logrecordsfromstore = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
         } else {
-            rsyncdata = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
+            logrecordsfromstore = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
         }
-        schedulesandlogs = rsyncdata?.scheduleData.getschedules()
-        alllogssorted = rsyncdata?.scheduleData.getalllogs()
+        schedulesandlogs = logrecordsfromstore?.scheduleData.getschedules()
+        alllogssorted = logrecordsfromstore?.scheduleData.getalllogs()
     }
 
     init(profile _: String? = nil, validhiddenIDs _: Set<Int>? = nil) {

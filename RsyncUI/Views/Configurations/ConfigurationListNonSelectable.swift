@@ -99,8 +99,8 @@ struct ConfigurationsListNonSelectable: View {
 
     func delete() {
         let deleteconfigurations =
-            UpdateConfigurations(profile: rsyncUIdata.rsyncdata?.profile,
-                                 configurations: rsyncUIdata.rsyncdata?.configurationData.getallconfigurations())
+            UpdateConfigurations(profile: rsyncUIdata.configurationsfromstore?.profile,
+                                 configurations: rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations())
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
         reload = true

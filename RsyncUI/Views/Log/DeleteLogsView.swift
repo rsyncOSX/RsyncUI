@@ -51,8 +51,8 @@ struct DeleteLogsView: View {
         let deleteschedule = UpdateSchedules(profile: selectedprofile,
                                              scheduleConfigurations: logrecords.schedulesandlogs)
         deleteschedule.deletelogs(uuids: selecteduuids)
-        deleted = true
         selecteduuids.removeAll()
+        deleted = true
         isPresented = false
     }
 }
