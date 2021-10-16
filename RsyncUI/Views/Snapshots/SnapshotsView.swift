@@ -10,7 +10,7 @@ import AlertToast
 import SwiftUI
 
 struct SnapshotsView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @StateObject var snapshotdata = SnapshotData()
 
     @Binding var selectedconfig: Configuration?

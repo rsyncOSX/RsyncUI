@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SidebarSchedulesView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 

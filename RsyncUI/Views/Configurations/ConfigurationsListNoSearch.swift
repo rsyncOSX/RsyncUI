@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConfigurationsListNoSearch: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedconfig: Configuration?
 
     // Either selectable configlist or not

@@ -9,7 +9,7 @@ import AlertToast
 import SwiftUI
 
 struct AddProfileView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool

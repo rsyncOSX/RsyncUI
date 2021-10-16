@@ -20,7 +20,7 @@ struct Readconfigurationsfromstore {
     }
 }
 
-final class RsyncUIdata: ObservableObject {
+final class RsyncUIconfigurations: ObservableObject {
     @Published var rsyncdata: Readconfigurationsfromstore?
     var configurations: [Configuration]?
     var profile: String?

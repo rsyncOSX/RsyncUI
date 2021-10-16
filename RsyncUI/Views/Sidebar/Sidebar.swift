@@ -24,7 +24,7 @@ enum NavigationItem {
 }
 
 struct Sidebar: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var errorhandling: ErrorHandling
 
     @State private var selection: NavigationItem? = Optional.none

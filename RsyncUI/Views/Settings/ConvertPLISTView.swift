@@ -9,7 +9,7 @@ import AlertToast
 import SwiftUI
 
 struct ConvertPLISTView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var reload: Bool
     // Documents about convert
     var infoaboutconvert: String = "https://rsyncui.netlify.app/post/plist/"

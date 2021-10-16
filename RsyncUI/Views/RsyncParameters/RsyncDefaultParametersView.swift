@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RsyncDefaultParametersView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @StateObject var parameters = ObserveableParametersDefault()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool

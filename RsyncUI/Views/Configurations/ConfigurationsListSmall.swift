@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConfigurationsListSmall: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
 

@@ -19,7 +19,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 }
 
 struct AddConfigurationView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool

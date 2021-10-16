@@ -11,7 +11,7 @@ import Foundation
 import SwiftUI
 
 struct SingleTasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var outputfromrsync: OutputFromRsync
 
     // Execute estimate and execution

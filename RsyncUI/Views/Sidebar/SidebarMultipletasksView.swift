@@ -9,7 +9,7 @@ import AlertToast
 import SwiftUI
 
 struct SidebarMultipletasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var selectedprofile: String?

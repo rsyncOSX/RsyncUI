@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OneConfig: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
 
     let forestimated: Bool
     var config: Configuration

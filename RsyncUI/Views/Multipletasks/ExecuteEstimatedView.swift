@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct ExecuteEstimatedView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
 
     @StateObject private var multipletaskstate = MultipleTaskState()

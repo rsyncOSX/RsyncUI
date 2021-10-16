@@ -9,7 +9,7 @@ import AlertToast
 import SwiftUI
 
 struct MultipletasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails

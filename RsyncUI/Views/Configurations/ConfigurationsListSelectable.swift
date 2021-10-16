@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConfigurationsListSelectable: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
 
     @Binding var selectedconfig: Configuration?
     // Used when selectable and starting progressview
