@@ -9,7 +9,6 @@ import AlertToast
 import SwiftUI
 
 struct ScheduleView: View {
-    // @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @EnvironmentObject var logrecords: RsyncUIlogrecords
 
     @Binding var selectedprofile: String?

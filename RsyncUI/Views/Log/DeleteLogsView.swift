@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DeleteLogsView: View {
-    // @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool

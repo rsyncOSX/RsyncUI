@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ScheduleRow: View {
-    // @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @EnvironmentObject var logrecords: RsyncUIlogrecords
 
     @Binding var selecteduuids: Set<UUID>

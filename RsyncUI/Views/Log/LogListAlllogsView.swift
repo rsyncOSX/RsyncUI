@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LogListAlllogsView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
-    // @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var filterstring: String

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SchedulesList: View {
-    // @EnvironmentObject var rsyncUIdata: RsyncUIdata
     @EnvironmentObject var logrecords: RsyncUIlogrecords
 
     @Binding var selectedconfig: Configuration?
