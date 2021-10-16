@@ -162,18 +162,19 @@ final class Snapshotlogsandcatalogs {
         prepareremotesnapshotcatalogs()
     }
 
-    init(config: Configuration,
+    init(profile: String?,
+         config: Configuration,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         schedulesSwiftUI: SchedulesSwiftUI?,
+         // schedulesSwiftUI: SchedulesSwiftUI?,
          snapshotdata: SnapshotData)
     {
         guard config.task == SharedReference.shared.snapshot else { return }
         localeconfig = config
         mysnapshotdata = snapshotdata
         // Getting log records from schedules, sorted after date
-        var alllogs: AllLoggs? = AllLoggs(hiddenID: config.hiddenID,
-                                          configurationsSwiftUI: configurationsSwiftUI,
-                                          schedulesSwiftUI: schedulesSwiftUI)
+        var alllogs: AllLoggs? = AllLoggs(hiddenID: config.hiddenID, profile: profile,
+                                          configurationsSwiftUI: configurationsSwiftUI)
+        // schedulesSwiftUI: schedulesSwiftUI)
         logrecordssnapshot = alllogs?.loggrecords
         uuidsfromlogrecords = alllogs?.uuidsfromlogrecords
         // release the object - dont need it more

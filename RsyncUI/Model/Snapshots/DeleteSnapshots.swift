@@ -57,7 +57,7 @@ final class DeleteSnapshots {
 
     init(config: Configuration,
          configurationsSwiftUI _: ConfigurationsSwiftUI?,
-         schedulesSwiftUI _: SchedulesSwiftUI?,
+         // schedulesSwiftUI _: SchedulesSwiftUI?,
          snapshotdata: SnapshotData,
          logrecordssnapshot: [Logrecordsschedules]?)
     {

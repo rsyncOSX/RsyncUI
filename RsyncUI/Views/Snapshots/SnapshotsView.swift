@@ -216,9 +216,10 @@ extension SnapshotsView {
             if let snapdayofweek = config.snapdayoffweek {
                 self.snapdayofweek = snapdayofweek
             }
-            _ = Snapshotlogsandcatalogs(config: config,
+            _ = Snapshotlogsandcatalogs(profile: rsyncUIdata.profile,
+                                        config: config,
                                         configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
-                                        schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
+                                        // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                         snapshotdata: snapshotdata)
         }
     }
@@ -270,7 +271,7 @@ extension SnapshotsView {
         if let config = selectedconfig {
             snapshotdata.delete = DeleteSnapshots(config: config,
                                                   configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
-                                                  schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
+                                                  // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                                   snapshotdata: snapshotdata,
                                                   logrecordssnapshot: snapshotdata.getsnapshotdata())
             snapshotdata.inprogressofdelete = true

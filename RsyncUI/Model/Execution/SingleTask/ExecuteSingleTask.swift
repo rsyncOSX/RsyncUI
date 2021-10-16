@@ -28,7 +28,7 @@ final class ExecuteSingleTask {
     var workqueu: SingleTaskWorkQueu?
     var command: RsyncProcess?
     var structconfigurations: ConfigurationsSwiftUI?
-    var structschedules: SchedulesSwiftUI?
+    // var structschedules: SchedulesSwiftUI?
     var structprofile: String?
     var uuid = Set<UUID>()
     // Set if abort is executed
@@ -82,13 +82,13 @@ final class ExecuteSingleTask {
     init(uuids: Set<UUID>,
          profile: String?,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         schedulesSwiftUI: SchedulesSwiftUI?,
+         // schedulesSwiftUI: SchedulesSwiftUI?,
          singletaskstate: SingleTaskState?,
          updateinprogresscount: UpdateOutputprocessCountProtcol?)
     {
         uuid = uuids
         structconfigurations = configurationsSwiftUI
-        structschedules = schedulesSwiftUI
+        // structschedules = schedulesSwiftUI
         singletaskstateDelegate = singletaskstate
         structprofile = profile
         updateoutputprocesscountDelegate = updateinprogresscount
