@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct Readdatafromstore {
+struct Readconfigurationsfromstore {
     var profile: String?
     var configurationData: ConfigurationsSwiftUI
     var validhiddenIDs: Set<Int>
@@ -25,7 +25,7 @@ struct Readdatafromstore {
 }
 
 final class RsyncUIdata: ObservableObject {
-    @Published var rsyncdata: Readdatafromstore?
+    @Published var rsyncdata: Readconfigurationsfromstore?
     var configurations: [Configuration]?
     var profile: String?
 
@@ -79,9 +79,9 @@ final class RsyncUIdata: ObservableObject {
         }
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {
-            rsyncdata = Readdatafromstore(profile: nil)
+            rsyncdata = Readconfigurationsfromstore(profile: nil)
         } else {
-            rsyncdata = Readdatafromstore(profile: profile)
+            rsyncdata = Readconfigurationsfromstore(profile: profile)
         }
         configurations = rsyncdata?.configurationData.getallconfigurations()
         // schedulesandlogs = rsyncdata?.scheduleData.getschedules()
