@@ -215,6 +215,7 @@ extension MultipletasksView {
     }
 
     func startexecution() {
+        setuuidforselectedtask()
         if selecteduuids.count == 0 {
             startestimation()
         } else {
