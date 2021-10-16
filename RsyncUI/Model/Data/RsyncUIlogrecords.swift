@@ -105,18 +105,5 @@ final class RsyncUIlogrecords: ObservableObject {
             SharedReference.shared.reload = true
             return
         }
-        /*
-         self.profile = profile
-         if profile == SharedReference.shared.defaultprofile || profile == nil {
-             rsyncdata = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
-         } else {
-             rsyncdata = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
-         }
-         */
-        // schedulesandlogs = rsyncdata?.scheduleData.getschedules()
-        // alllogssorted = rsyncdata?.scheduleData.getalllogs()
-        // print("RsyncUIdata \(Unmanaged.passUnretained(self).toOpaque())")
-        // print("RsyncUIdata configurations  count \(configurations?.count ?? 0)")
-        // print("RsyncUIdata logrecord count \(alllogssorted?.count ?? 0)")
     }
 }
