@@ -239,7 +239,6 @@ extension SingleTasksView {
             executesingletasks = ExecuteSingleTask(uuids: selecteduuids,
                                                    profile: rsyncUIdata.rsyncdata?.profile,
                                                    configurationsSwiftUI: rsyncUIdata.rsyncdata?.configurationData,
-                                                   // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                                    singletaskstate: singletaskstate,
                                                    updateinprogresscount: inprogresscountrsyncoutput)
             executesingletasks?.estimate()

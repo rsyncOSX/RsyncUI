@@ -28,7 +28,6 @@ final class ExecuteSingleTask {
     var workqueu: SingleTaskWorkQueu?
     var command: RsyncProcess?
     var structconfigurations: ConfigurationsSwiftUI?
-    // var structschedules: SchedulesSwiftUI?
     var structprofile: String?
     var uuid = Set<UUID>()
     // Set if abort is executed
