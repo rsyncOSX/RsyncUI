@@ -10,7 +10,6 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
-    @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
 
@@ -22,6 +21,7 @@ struct LogsbyConfigurationView: View {
     @State private var inwork = -1
     // Alert for delete
     @State private var showAlertfordelete = false
+    @State private var deleted = false
 
     let selectable = false
 
@@ -64,8 +64,8 @@ struct LogsbyConfigurationView: View {
                     .sheet(isPresented: $showAlertfordelete) {
                         DeleteLogsView(selecteduuids: $selecteduuids,
                                        isPresented: $showAlertfordelete,
-                                       reload: $reload,
-                                       selectedprofile: $selectedprofile)
+                                       selectedprofile: $selectedprofile,
+                                       deleted: $deleted)
                     }
             }
         }

@@ -22,7 +22,6 @@ enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertibl
 
 final class ExecuteMultipleTasks {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
-    private var localschedulesSwiftUI: SchedulesSwiftUI?
     private var structprofile: String?
     private var privatehiddenID: Int?
     private var stackoftasktobeexecuted: [Int]?
@@ -40,7 +39,6 @@ final class ExecuteMultipleTasks {
 
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
-
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
 
@@ -84,15 +82,12 @@ final class ExecuteMultipleTasks {
     init(uuids: Set<UUID>,
          profile: String?,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         // TODO: fix schedules
-         // schedulesSwiftUI: SchedulesSwiftUI?,
          executionstateDelegate: MultipleTaskState?,
          updateinprogresscount: UpdateEstimationCount?,
          singletaskupdate: ExecuteDetailsProtocol?)
     {
         structprofile = profile
         localconfigurationsSwiftUI = configurationsSwiftUI
-        localschedulesSwiftUI = SchedulesSwiftUI(profile: profile, validhiddenIDs: configurationsSwiftUI?.validhiddenIDs ?? Set())
         multipletasksateDelegate = executionstateDelegate
         updateestimationcountDelegate = updateinprogresscount
         updateprogessDelegate = singletaskupdate

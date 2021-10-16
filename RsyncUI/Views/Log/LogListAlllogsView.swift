@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LogListAlllogsView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
-    @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
 
@@ -17,6 +16,7 @@ struct LogListAlllogsView: View {
     @State private var selecteduuids = Set<UUID>()
     // Alert for delete
     @State private var showAlertfordelete = false
+    @State private var deleted = false
 
     var body: some View {
         Form {
@@ -51,8 +51,8 @@ struct LogListAlllogsView: View {
                     .sheet(isPresented: $showAlertfordelete) {
                         DeleteLogsView(selecteduuids: $selecteduuids,
                                        isPresented: $showAlertfordelete,
-                                       reload: $reload,
-                                       selectedprofile: $selectedprofile)
+                                       selectedprofile: $selectedprofile,
+                                       deleted: $deleted)
                     }
             }
         }

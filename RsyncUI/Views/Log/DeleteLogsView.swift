@@ -11,8 +11,8 @@ struct DeleteLogsView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
-    @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    @Binding var deleted: Bool
 
     var body: some View {
         VStack {
@@ -51,7 +51,7 @@ struct DeleteLogsView: View {
         let deleteschedule = UpdateSchedules(profile: selectedprofile,
                                              scheduleConfigurations: logrecords.schedulesandlogs)
         deleteschedule.deletelogs(uuids: selecteduuids)
-        reload = true
+        deleted = true
         selecteduuids.removeAll()
         isPresented = false
     }

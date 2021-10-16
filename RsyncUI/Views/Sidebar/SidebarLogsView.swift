@@ -9,21 +9,19 @@ import SwiftUI
 
 struct SidebarLogsView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var reload: Bool
     @Binding var selectedprofile: String?
 
     @StateObject private var logrecords = RsyncUIlogrecords()
-
     @State private var filterstring: String = ""
 
     var body: some View {
         TabView {
-            LogListAlllogsView(reload: $reload, selectedprofile: $selectedprofile, filterstring: $filterstring)
+            LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring)
                 .environmentObject(logrecords)
                 .tabItem {
                     Text("All logs")
                 }
-            LogsbyConfigurationView(reload: $reload, selectedprofile: $selectedprofile, filterstring: $filterstring)
+            LogsbyConfigurationView(selectedprofile: $selectedprofile, filterstring: $filterstring)
                 .environmentObject(logrecords)
                 .tabItem {
                     Text("By config")

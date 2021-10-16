@@ -109,8 +109,7 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarLogsView(reload: $reload,
-                                                            selectedprofile: $selectedprofile),
+                NavigationLink(destination: SidebarLogsView(selectedprofile: $selectedprofile),
                                tag: NavigationItem.logs,
                                selection: $selection) {
                     Label("Log listings", systemImage: "text.alignleft")

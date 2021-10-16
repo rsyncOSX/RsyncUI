@@ -116,8 +116,6 @@ class SingletaskPrimaryLogging {
          hiddenID: Int?,
          configurations: [Configuration]?,
          validhiddenIDs: Set<Int>)
-    // TODO: verify hiddenIDS and structschedules
-    // scheduleConfigurations: [ConfigurationSchedule]?)
     {
         localeprofile = profile
         localehiddenID = hiddenID
