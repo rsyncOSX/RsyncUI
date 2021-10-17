@@ -518,6 +518,7 @@
 		E94C3161271B4E6E0054B644 /* NotUsedCode */ = {
 			isa = PBXGroup;
 			children = (
+				E959280326240B8B002631CB /* NewversionPLIST.swift */,
 				E94C3162271B4EB80054B644 /* PLIST */,
 				E985C63C25F3AD8400CB895C /* Schedules */,
 			);
@@ -1090,7 +1091,6 @@
 		E9CCECD52643AD3A007BE237 /* Newversion */ = {
 			isa = PBXGroup;
 			children = (
-				E959280326240B8B002631CB /* NewversionPLIST.swift */,
 				E9E9DEAC262451AE009D0014 /* NewversionJSON.swift */,
 			);
 			path = Newversion;
