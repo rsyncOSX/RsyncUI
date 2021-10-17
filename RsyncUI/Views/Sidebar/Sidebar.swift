@@ -55,13 +55,13 @@ struct Sidebar: View {
                     }
                     .tag(NavigationItem.singletasks)
 
-                NavigationLink(destination: SidebarQuicktaskView(),
-                               tag: NavigationItem.quicktask,
-                               selection: $selection) {
-                    Label("Quick task",
-                          systemImage: "arrowshape.turn.up.backward.fill")
-                }
-                .tag(NavigationItem.quicktask)
+                    NavigationLink(destination: SidebarQuicktaskView(),
+                                   tag: NavigationItem.quicktask,
+                                   selection: $selection) {
+                        Label("Quick task",
+                              systemImage: "arrowshape.turn.up.backward.fill")
+                    }
+                    .tag(NavigationItem.quicktask)
             }
 
             Divider()
