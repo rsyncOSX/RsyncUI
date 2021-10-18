@@ -86,7 +86,7 @@ final class RsyncUIlogrecords: ObservableObject {
      }
      */
 
-    func update(profile: String?, validhiddenIDs: Set<Int>?) {
+    func update(profile: String?, validhiddenIDs: Set<Int>?) async {
         guard SharedReference.shared.reload == true else {
             SharedReference.shared.reload = true
             return

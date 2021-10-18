@@ -14,28 +14,35 @@ struct SidebarLogsView: View {
     @StateObject private var logrecords = RsyncUIlogrecords()
     @State private var filterstring: String = ""
     @State private var deleted = false
+    @State private var showloading = true
 
     var body: some View {
-        TabView {
-            LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring, deleted: $deleted)
-                .environmentObject(logrecords)
-                .tabItem {
-                    Text("All logs")
-                }
-            LogsbyConfigurationView(selectedprofile: $selectedprofile, filterstring: $filterstring, deleted: $deleted)
-                .environmentObject(logrecords)
-                .tabItem {
-                    Text("By config")
-                }
+        ZStack {
+            TabView {
+                LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring, deleted: $deleted)
+                    .environmentObject(logrecords)
+                    .tabItem {
+                        Text("All logs")
+                    }
+                LogsbyConfigurationView(selectedprofile: $selectedprofile, filterstring: $filterstring, deleted: $deleted)
+                    .environmentObject(logrecords)
+                    .tabItem {
+                        Text("By config")
+                    }
+            }
+
+            if showloading { ProgressView() }
         }
+
         .searchable(text: $filterstring)
         .padding()
-        .onAppear(perform: {
+        .task {
             if selectedprofile == nil {
                 selectedprofile = SharedReference.shared.defaultprofile
             }
             // Initialize the Stateobject
-            logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
-        })
+            await logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
+            showloading = false
+        }
     }
 }

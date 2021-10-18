@@ -25,13 +25,13 @@ struct SidebarSchedulesView: View {
                 .environmentObject(logrecords)
         }
         .padding()
-        .onAppear(perform: {
+        .task {
             if selectedprofile == nil {
                 selectedprofile = SharedReference.shared.defaultprofile
             }
             // Initialize the Stateobject
-            logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
-        })
+            await logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
+        }
     }
 
     var headingtitle: some View {
