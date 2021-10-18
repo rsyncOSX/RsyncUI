@@ -58,6 +58,7 @@ class ReadScheduleJSON: NamesandPaths {
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
         // Sorting schedule after hiddenID
+        /* Dont need to sort
         schedules?.sort { schedule1, schedule2 -> Bool in
             if schedule1.hiddenID > schedule2.hiddenID {
                 return false
@@ -65,6 +66,7 @@ class ReadScheduleJSON: NamesandPaths {
                 return true
             }
         }
+        */
         if SharedReference.shared.checkinput {
             schedules = Reorgschedule().mergerecords(data: schedules)
         }
