@@ -160,6 +160,6 @@ struct Sidebar: View {
         Image("rsyncosx")
             .resizable()
             .aspectRatio(1.0, contentMode: .fit)
-            .frame(maxWidth: 64)
+            .frame(maxWidth: 128)
     }
 }
