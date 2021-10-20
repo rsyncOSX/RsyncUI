@@ -31,18 +31,6 @@ struct RsyncUIApp: App {
                     ReadUserConfigurationPLIST()
                     Running()
                 }
-                /*
-                 .onAppear(perform: {
-                     // User notifications
-                     setusernotifications()
-                     // Create base profile catalog
-                     // Read user settings
-                     // Check if schedule app is running
-                     CatalogProfile().createrootprofilecatalog()
-                     ReadUserConfigurationPLIST()
-                     Running()
-                 })
-                  */
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
                 .frame(minWidth: 1350, minHeight: 500)
         }

@@ -151,10 +151,6 @@ struct Sidebar: View {
 
             VStack {
                 imagersyncosx
-
-                Text("Select task")
-                    .foregroundColor(.secondary)
-                    .font(.title)
             }
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
