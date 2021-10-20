@@ -47,14 +47,6 @@ struct RsyncUIView: View {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
             }
         }
-
-        /*
-         .onAppear(perform: {
-             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
-             }
-         })
-          */
     }
 
     var rsyncUIdata: RsyncUIconfigurations {

@@ -91,6 +91,7 @@ final class RsyncUIlogrecords: ObservableObject {
             SharedReference.shared.reload = true
             return
         }
+        guard validhiddenIDs != nil else { return }
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {
             logrecordsfromstore = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
