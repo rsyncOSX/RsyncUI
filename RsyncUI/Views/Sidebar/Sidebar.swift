@@ -12,7 +12,7 @@ enum NavigationItem {
     case rsync
     case logs
     case singletasks
-    case estimation
+    case multipletasks
     case none
     case snapshots
     case configurations
@@ -26,10 +26,9 @@ enum NavigationItem {
 struct Sidebar: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var errorhandling: ErrorHandling
-
-    @State private var selection: NavigationItem? = Optional.none
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    @Binding var selection: NavigationItem?
 
     var sidebar: some View {
         List(selection: $selection) {
@@ -38,12 +37,12 @@ struct Sidebar: View {
             Group {
                 NavigationLink(destination: SidebarMultipletasksView(reload: $reload,
                                                                      selectedprofile: $selectedprofile),
-                               tag: NavigationItem.estimation,
+                               tag: NavigationItem.multipletasks,
                                selection: $selection) {
                     Label("Multiple tasks",
                           systemImage: "arrowshape.turn.up.left.2.fill")
                 }
-                .tag(NavigationItem.estimation)
+                .tag(NavigationItem.multipletasks)
 
                 NavigationLink(destination: SidebarSingleTasksView(reload: $reload,
                                                                    selectedprofile: $selectedprofile)

@@ -16,12 +16,15 @@ struct RsyncUIView: View {
     @State private var reload: Bool = false
     @State private var searchText = ""
 
+    // Initial view in tasks
+    @State private var selection: NavigationItem? = Optional.none
+
     var body: some View {
         VStack {
             profilepicker
 
             ZStack {
-                Sidebar(reload: $reload, selectedprofile: $selectedprofile)
+                Sidebar(reload: $reload, selectedprofile: $selectedprofile, selection: $selection)
                     .environmentObject(rsyncUIdata)
                     .environmentObject(errorhandling)
                     .environmentObject(InprogressCountExecuteOneTaskDetails())
@@ -45,6 +48,7 @@ struct RsyncUIView: View {
         .task {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
+                selection = .multipletasks
             }
         }
     }
