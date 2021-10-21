@@ -57,11 +57,6 @@ struct LogListAlllogsView: View {
             }
         }
         .padding()
-        .onAppear(perform: {
-            if selectedprofile == nil {
-                selectedprofile = SharedReference.shared.defaultprofile
-            }
-        })
     }
 
     var numberoflogs: String {
