@@ -151,7 +151,11 @@ struct Sidebar: View {
 
             VStack {
                 imagersyncosx
+                Text("RsyncUI")
+                    .font(.title)
+                Text("Reading default profile")
             }
+            .padding()
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
     }
@@ -160,6 +164,6 @@ struct Sidebar: View {
         Image("rsyncosx")
             .resizable()
             .aspectRatio(1.0, contentMode: .fit)
-            .frame(maxWidth: 128)
+            .frame(maxWidth: 64)
     }
 }
