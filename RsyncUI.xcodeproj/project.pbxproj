@@ -711,9 +711,9 @@
 		E985C64125F3AD8400CB895C /* Log */ = {
 			isa = PBXGroup;
 			children = (
+				E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */,
 				E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */,
 				E985C64525F3AD8400CB895C /* LogRow.swift */,
-				E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */,
 				E9712FBB2602465D003842FD /* DeleteLogsView.swift */,
 			);
 			path = Log;

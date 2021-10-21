@@ -46,7 +46,7 @@ struct RsyncUIView: View {
         .padding()
         .searchable(text: $searchText)
         .task {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
                 selection = .multipletasks
             }
