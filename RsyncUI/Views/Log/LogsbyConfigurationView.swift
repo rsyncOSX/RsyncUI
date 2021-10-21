@@ -9,12 +9,10 @@
 import SwiftUI
 
 struct LogsbyConfigurationView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
     @Binding var deleted: Bool
-
-    @StateObject private var logrecords = RsyncUIlogrecords()
 
     @State private var selectedconfig: Configuration?
     @State private var selectedlog: Log?
@@ -24,7 +22,6 @@ struct LogsbyConfigurationView: View {
     @State private var inwork = -1
     // Alert for delete
     @State private var showAlertfordelete = false
-    @State private var showloading = true
 
     let selectable = false
 
@@ -36,26 +33,14 @@ struct LogsbyConfigurationView: View {
 
             Spacer()
 
-            ZStack {
-                List(selection: $selectedlog) {
-                    if let logs = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1) {
-                        ForEach(logs) { record in
-                            LogRow(selecteduuids: $selecteduuids, logrecord: record)
-                                .tag(record)
-                        }
-                        .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+            List(selection: $selectedlog) {
+                if let logs = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1) {
+                    ForEach(logs) { record in
+                        LogRow(selecteduuids: $selecteduuids, logrecord: record)
+                            .tag(record)
                     }
+                    .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
                 }
-                .task {
-                    if selectedprofile == nil {
-                        selectedprofile = SharedReference.shared.defaultprofile
-                    }
-                    // Initialize the Stateobject
-                    await logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
-                    showloading = false
-                }
-
-                if showloading { ProgressView() }
             }
 
             Spacer()

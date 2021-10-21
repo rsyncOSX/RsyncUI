@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct LogListAlllogsView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
     @Binding var deleted: Bool
-
-    @StateObject private var logrecords = RsyncUIlogrecords()
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
@@ -23,26 +21,14 @@ struct LogListAlllogsView: View {
 
     var body: some View {
         Form {
-            ZStack {
-                List(selection: $selectedlog) {
-                    if let logs = logrecords.filterlogs(filterstring) {
-                        ForEach(logs) { record in
-                            LogRow(selecteduuids: $selecteduuids, logrecord: record)
-                                .tag(record)
-                        }
-                        .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+            List(selection: $selectedlog) {
+                if let logs = logrecords.filterlogs(filterstring) {
+                    ForEach(logs) { record in
+                        LogRow(selecteduuids: $selecteduuids, logrecord: record)
+                            .tag(record)
                     }
+                    .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
                 }
-                .task {
-                    if selectedprofile == nil {
-                        selectedprofile = SharedReference.shared.defaultprofile
-                    }
-                    // Initialize the Stateobject
-                    await logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
-                    showloading = false
-                }
-
-                if showloading { ProgressView() }
             }
 
             Spacer()

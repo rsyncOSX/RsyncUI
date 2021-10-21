@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Readconfigurationsfromstore {
+struct Readconfigurationsfromstore: Equatable {
     var profile: String?
     var configurationData: ConfigurationsSwiftUI
     var validhiddenIDs: Set<Int>
