@@ -15,6 +15,9 @@ struct Log: Identifiable, Codable {
     var date: Date {
         return dateExecuted?.en_us_date_from_string() ?? Date()
     }
+
+    // Used only in view logs
+    var hiddenID: Int?
 }
 
 struct ConfigurationSchedule: Identifiable, Codable {
@@ -40,6 +43,7 @@ struct ConfigurationSchedule: Identifiable, Codable {
             var log = Log()
             log.dateExecuted = data.logrecords?[i].dateExecuted
             log.resultExecuted = data.logrecords?[i].resultExecuted
+            log.hiddenID = hiddenID
             logrecords?.append(log)
         }
     }

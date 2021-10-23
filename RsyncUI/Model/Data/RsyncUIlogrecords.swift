@@ -30,9 +30,10 @@ struct Readlogsfromstore {
 
 final class RsyncUIlogrecords: ObservableObject {
     @Published var logrecordsfromstore: Readlogsfromstore?
-    var schedulesandlogs: [ConfigurationSchedule]?
     var profile: String?
-    var alllogssorted: [Log]?
+    @Published var alllogssorted: [Log]?
+
+    var schedulesandlogs: [ConfigurationSchedule]?
 
     func filterlogs(_ filter: String) -> [Log]? {
         // Important - must localize search in dates
@@ -43,22 +44,11 @@ final class RsyncUIlogrecords: ObservableObject {
     }
 
     func filterlogsbyhiddenID(_ filter: String, _ hiddenID: Int) -> [Log]? {
-        var joined: [Log]?
         guard hiddenID > -1 else { return nil }
-        let schedulerecords = schedulesandlogs?.filter { $0.hiddenID == hiddenID }
-        if (schedulerecords?.count ?? 0) > 0 {
-            joined = [Log]()
-            for i in 0 ..< (schedulerecords?.count ?? 0) {
-                if let logrecords = schedulerecords?[i].logrecords {
-                    joined?.append(contentsOf: logrecords)
-                }
-            }
-            return joined?.sorted(by: \.date, using: >).filter {
-                filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
-                    filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
-            }
+        return alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
+            filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+                filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
         }
-        return nil
     }
 
     func filterlogsbyUUIDs(_ uuids: Set<UUID>) -> [Log]? {
@@ -66,7 +56,9 @@ final class RsyncUIlogrecords: ObservableObject {
     }
 
     func removerecords(_ uuids: Set<UUID>) {
+        print(alllogssorted?.count ?? 0)
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
+        print(alllogssorted?.count ?? 0)
     }
 
     /*
@@ -102,8 +94,9 @@ final class RsyncUIlogrecords: ObservableObject {
         } else {
             logrecordsfromstore = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
         }
-        schedulesandlogs = logrecordsfromstore?.scheduleData.getschedules()
         alllogssorted = logrecordsfromstore?.scheduleData.getalllogs()
+        // NOT USED
+        // schedulesandlogs = logrecordsfromstore?.scheduleData.getschedules()
     }
 
     init(profile _: String? = nil, validhiddenIDs _: Set<Int>? = nil) {
@@ -113,4 +106,3 @@ final class RsyncUIlogrecords: ObservableObject {
         }
     }
 }
-
