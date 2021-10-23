@@ -65,6 +65,10 @@ final class RsyncUIlogrecords: ObservableObject {
         return alllogssorted?.filter { uuids.contains($0.id) }.sorted(by: \.date, using: >)
     }
 
+    func removerecords(_ uuids: Set<UUID>) {
+        alllogssorted?.removeAll(where: { uuids.contains($0.id) })
+    }
+
     /*
      func hasactiveschedules(_ hiddenID: Int) -> Bool {
          let datestopnil = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
@@ -109,3 +113,4 @@ final class RsyncUIlogrecords: ObservableObject {
         }
     }
 }
+

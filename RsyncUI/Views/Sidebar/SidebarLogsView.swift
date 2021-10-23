@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 12/03/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -14,18 +13,17 @@ struct SidebarLogsView: View {
 
     @StateObject private var logrecords = RsyncUIlogrecords()
     @State private var filterstring: String = ""
-    @State private var deleted = false
     @State private var showloading = true
 
     var body: some View {
         ZStack {
             TabView {
-                LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring, deleted: $deleted)
+                LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("All logs")
                     }
-                LogsbyConfigurationView(selectedprofile: $selectedprofile, filterstring: $filterstring, deleted: $deleted)
+                LogsbyConfigurationView(selectedprofile: $selectedprofile, filterstring: $filterstring)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("By config")
@@ -56,5 +54,25 @@ struct SidebarLogsView: View {
                 showloading = false
             }
         }
+        /*
+         .onChange(of: deleted) { _ in
+             showloading = true
+             guard deleted == true else {
+                 showloading = false
+                 return
+             }
+             Task {
+                 // Update the Stateobject
+                 if selectedprofile == SharedReference.shared.defaultprofile {
+                     selectedprofile = nil
+                 }
+                 let validhiddenIDs = ReadConfigurationJSON(selectedprofile).validhiddenIDs
+                 await logrecords.update(profile: selectedprofile, validhiddenIDs: validhiddenIDs)
+                 // await logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
+                 showloading = false
+                 deleted = false
+             }
+         }
+          */
     }
 }

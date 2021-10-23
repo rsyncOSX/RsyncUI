@@ -12,7 +12,6 @@ struct DeleteLogsView: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var isPresented: Bool
     @Binding var selectedprofile: String?
-    @Binding var deleted: Bool
 
     var body: some View {
         VStack {
@@ -48,11 +47,11 @@ struct DeleteLogsView: View {
     }
 
     func delete() {
-        let deleteschedule = UpdateSchedules(profile: selectedprofile,
-                                             scheduleConfigurations: logrecords.schedulesandlogs)
-        deleteschedule.deletelogs(uuids: selecteduuids)
+         let deleteschedule = UpdateSchedules(profile: selectedprofile,
+                                              scheduleConfigurations: logrecords.schedulesandlogs)
+         deleteschedule.deletelogs(uuids: selecteduuids)
+        logrecords.removerecords(selecteduuids)
         selecteduuids.removeAll()
-        deleted = true
         isPresented = false
     }
 }

@@ -12,7 +12,6 @@ struct LogsbyConfigurationView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
-    @Binding var deleted: Bool
 
     @State private var selectedconfig: Configuration?
     @State private var selectedlog: Log?
@@ -64,8 +63,7 @@ struct LogsbyConfigurationView: View {
                     .sheet(isPresented: $showAlertfordelete) {
                         DeleteLogsView(selecteduuids: $selecteduuids,
                                        isPresented: $showAlertfordelete,
-                                       selectedprofile: $selectedprofile,
-                                       deleted: $deleted)
+                                       selectedprofile: $selectedprofile)
                     }
             }
         }

@@ -11,7 +11,6 @@ struct LogListAlllogsView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
-    @Binding var deleted: Bool
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
@@ -52,8 +51,7 @@ struct LogListAlllogsView: View {
                     .sheet(isPresented: $showAlertfordelete) {
                         DeleteLogsView(selecteduuids: $selecteduuids,
                                        isPresented: $showAlertfordelete,
-                                       selectedprofile: $selectedprofile,
-                                       deleted: $deleted)
+                                       selectedprofile: $selectedprofile)
                     }
             }
         }
