@@ -21,13 +21,11 @@ struct LogListAlllogsView: View {
     var body: some View {
         Form {
             List(selection: $selectedlog) {
-                if let logs = logrecords.filterlogs(filterstring) {
-                    ForEach(logs) { record in
-                        LogRow(selecteduuids: $selecteduuids, logrecord: record)
-                            .tag(record)
-                    }
-                    .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+                ForEach(filteredlogrecords) { record in
+                    LogRow(selecteduuids: $selecteduuids, logrecord: record)
+                        .tag(record)
                 }
+                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
 
             Spacer()
@@ -60,7 +58,11 @@ struct LogListAlllogsView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(logrecords.filterlogs(filterstring)?.count ?? 0)"
+            "\(filteredlogrecords.count)"
+    }
+
+    var filteredlogrecords: [Log] {
+        return logrecords.filterlogs(filterstring) ?? []
     }
 }
 

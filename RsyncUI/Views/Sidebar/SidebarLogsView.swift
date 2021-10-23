@@ -54,25 +54,5 @@ struct SidebarLogsView: View {
                 showloading = false
             }
         }
-        /*
-         .onChange(of: deleted) { _ in
-             showloading = true
-             guard deleted == true else {
-                 showloading = false
-                 return
-             }
-             Task {
-                 // Update the Stateobject
-                 if selectedprofile == SharedReference.shared.defaultprofile {
-                     selectedprofile = nil
-                 }
-                 let validhiddenIDs = ReadConfigurationJSON(selectedprofile).validhiddenIDs
-                 await logrecords.update(profile: selectedprofile, validhiddenIDs: validhiddenIDs)
-                 // await logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
-                 showloading = false
-                 deleted = false
-             }
-         }
-          */
     }
 }
