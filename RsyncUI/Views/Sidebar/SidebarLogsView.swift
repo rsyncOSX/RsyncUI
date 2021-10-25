@@ -46,11 +46,12 @@ struct SidebarLogsView: View {
             Task {
                 // Update the Stateobject
                 if selectedprofile == SharedReference.shared.defaultprofile {
-                    selectedprofile = nil
+                    let validhiddenIDs = ReadConfigurationJSON(nil).validhiddenIDs
+                    await logrecords.update(profile: nil, validhiddenIDs: validhiddenIDs)
+                } else {
+                    let validhiddenIDs = ReadConfigurationJSON(selectedprofile).validhiddenIDs
+                    await logrecords.update(profile: selectedprofile, validhiddenIDs: validhiddenIDs)
                 }
-                let validhiddenIDs = ReadConfigurationJSON(selectedprofile).validhiddenIDs
-                await logrecords.update(profile: selectedprofile, validhiddenIDs: validhiddenIDs)
-                // await logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
                 showloading = false
             }
         }
