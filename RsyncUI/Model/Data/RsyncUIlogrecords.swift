@@ -6,16 +6,6 @@
 //
 // swiftlint:disable line_length
 
-/*
- .onAppear(perform: {
-     if selectedprofile == nil {
-         selectedprofile = SharedReference.shared.defaultprofile
-     }
-     // Initialize the Stateobject
-     logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.rsyncdata?.validhiddenIDs)
- })
- */
-
 import SwiftUI
 
 struct Readlogsfromstore {
@@ -33,6 +23,10 @@ final class RsyncUIlogrecords: ObservableObject {
     var profile: String?
     @Published var alllogssorted: [Log]?
 
+    // NOT USED
+    // In code because of Schedules which are not yet (or ever) enabled in RsyncUI
+    // but code is still in repository. Will decide later (2022?) if Schedules will
+    // be enabled in RsyncUI.
     var schedulesandlogs: [ConfigurationSchedule]?
 
     func filterlogs(_ filter: String) -> [Log]? {
@@ -61,27 +55,6 @@ final class RsyncUIlogrecords: ObservableObject {
         print(alllogssorted?.count ?? 0)
     }
 
-    /*
-     func hasactiveschedules(_ hiddenID: Int) -> Bool {
-         let datestopnil = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
-             $0.schedule != Scheduletype.manuel.rawValue &&
-             $0.dateStop == nil
-         }
-         let datestartfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
-             $0.schedule != Scheduletype.manuel.rawValue &&
-             $0.dateStart.en_us_date_from_string() > Date()
-         }
-         let datestopfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
-             $0.schedule != Scheduletype.manuel.rawValue &&
-             $0.dateStop?.en_us_date_from_string() ?? Date() > Date()
-         }
-
-         return (datestopnil?.count ?? 0 > 0 ||
-             datestartfuture?.count ?? 0 > 0 ||
-             datestopfuture?.count ?? 0 > 0)
-     }
-     */
-
     func update(profile: String?, validhiddenIDs: Set<Int>?) async {
         guard SharedReference.shared.reload == true else {
             SharedReference.shared.reload = true
@@ -106,3 +79,24 @@ final class RsyncUIlogrecords: ObservableObject {
         }
     }
 }
+
+/*
+ func hasactiveschedules(_ hiddenID: Int) -> Bool {
+     let datestopnil = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
+         $0.schedule != Scheduletype.manuel.rawValue &&
+         $0.dateStop == nil
+     }
+     let datestartfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
+         $0.schedule != Scheduletype.manuel.rawValue &&
+         $0.dateStart.en_us_date_from_string() > Date()
+     }
+     let datestopfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
+         $0.schedule != Scheduletype.manuel.rawValue &&
+         $0.dateStop?.en_us_date_from_string() ?? Date() > Date()
+     }
+
+     return (datestopnil?.count ?? 0 > 0 ||
+         datestartfuture?.count ?? 0 > 0 ||
+         datestopfuture?.count ?? 0 > 0)
+ }
+ */
