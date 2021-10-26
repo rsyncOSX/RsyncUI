@@ -35,7 +35,7 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
             // Optional path for rsync
             if let rsyncPath = dict.value(forKey: DictionaryStrings.rsyncPath.rawValue) as? String {
                 SharedReference.shared.localrsyncpath = rsyncPath
-                validatepathforrsync(rsyncPath)
+                // validatepathforrsync(rsyncPath)
             }
             // Temporary path for restores single files or directory
             if let restorePath = dict.value(forKey: DictionaryStrings.restorePath.rawValue) as? String {
@@ -111,17 +111,19 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
         }
     }
 
+    /*
     func validatepathforrsync(_ path: String) {
         let validate = SetandValidatepathforrsync()
         validate.setlocalrsyncpath(path)
         do {
             let ok = try validate.validateandrsyncpath()
             if ok { return }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
+        } catch _ {
+            // let error = e
+            // propogateerror(error: error)
         }
     }
+     */
 
     @discardableResult
     init() {

@@ -123,11 +123,10 @@ extension ObserveableUsersetting {
         validate.setlocalrsyncpath(path)
         do {
             _ = try validate.validateandrsyncpath()
-        } catch let e {
-            // Default back to default values of rsync
-            setdefaultvaulesrsync()
-            let error = e
-            propogateerror(error: error)
+        } catch _ {
+            // let error = e
+            // propogateerror(error: error)
+            // localrsyncpath = "NOT valid path"
         }
     }
 
@@ -150,9 +149,10 @@ extension ObserveableUsersetting {
             if ok {
                 SharedReference.shared.pathforrestore = atpath
             }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
+        } catch _ {
+            // let error = e
+            // propogateerror(error: error)
+            // temporarypathforrestore = "NOT valid pah"
         }
     }
 
