@@ -37,6 +37,7 @@ final class ObserveableUsersetting: ObservableObject {
     @Published var checkinput: Bool = SharedReference.shared.checkinput
     // Value to check if input field is changed by user
     // @Published var inputchangedbyuser: Bool = false
+    @Published var novalidpathmessage: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -127,6 +128,7 @@ extension ObserveableUsersetting {
             // let error = e
             // propogateerror(error: error)
             // localrsyncpath = "NOT valid path"
+            novalidpathmessage = true
         }
     }
 
@@ -153,6 +155,7 @@ extension ObserveableUsersetting {
             // let error = e
             // propogateerror(error: error)
             // temporarypathforrestore = "NOT valid pah"
+            novalidpathmessage = true
         }
     }
 
