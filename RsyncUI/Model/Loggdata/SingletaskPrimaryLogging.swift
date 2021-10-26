@@ -121,6 +121,9 @@ class SingletaskPrimaryLogging {
         localehiddenID = hiddenID
         structconfigurations = configurations
         structschedules = SchedulesSwiftUI(profile: profile, validhiddenIDs: validhiddenIDs).scheduleConfigurations
+        if structschedules == nil {
+            structschedules = [ConfigurationSchedule]()
+        }
     }
 
     deinit {
