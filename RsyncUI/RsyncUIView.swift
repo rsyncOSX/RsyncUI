@@ -48,7 +48,7 @@ struct RsyncUIView: View {
         .task {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
-                selection = .multipletasks
+                // selection = .multipletasks
             }
         }
     }
