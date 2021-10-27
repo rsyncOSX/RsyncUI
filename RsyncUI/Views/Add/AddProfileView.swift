@@ -65,12 +65,12 @@ struct AddProfileView: View {
             }
             .padding()
             /*
-            .onAppear(perform: {
-                if selectedprofile == nil {
-                    selectedprofile = SharedReference.shared.defaultprofile
-                }
-            })
-             */
+             .onAppear(perform: {
+                 if selectedprofile == nil {
+                     selectedprofile = SharedReference.shared.defaultprofile
+                 }
+             })
+              */
             .onSubmit {
                 createprofile()
             }

@@ -23,12 +23,12 @@ struct SidebarSnapshotsView: View {
         }
         .padding()
         /*
-        .onAppear(perform: {
-            if selectedprofile == nil {
-                selectedprofile = SharedReference.shared.defaultprofile
-            }
-        })
-         */
+         .onAppear(perform: {
+             if selectedprofile == nil {
+                 selectedprofile = SharedReference.shared.defaultprofile
+             }
+         })
+          */
     }
 
     var headingtitle: some View {

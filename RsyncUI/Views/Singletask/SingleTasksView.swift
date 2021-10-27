@@ -114,12 +114,12 @@ struct SingleTasksView: View {
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         /*
-        .onAppear(perform: {
-            if selectedprofile == nil {
-                selectedprofile = SharedReference.shared.defaultprofile
-            }
-        })
-         */
+         .onAppear(perform: {
+             if selectedprofile == nil {
+                 selectedprofile = SharedReference.shared.defaultprofile
+             }
+         })
+          */
     }
 
     // No estimation, just execute task now

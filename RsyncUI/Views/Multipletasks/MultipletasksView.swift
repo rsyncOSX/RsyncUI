@@ -83,12 +83,12 @@ struct MultipletasksView: View {
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.starttestfortcpconnections, $focusstarttestfortcpconnections)
         /*
-        .onAppear(perform: {
-            if selectedprofile == nil {
-                selectedprofile = SharedReference.shared.defaultprofile
-            }
-        })
-         */
+         .onAppear(perform: {
+             if selectedprofile == nil {
+                 selectedprofile = SharedReference.shared.defaultprofile
+             }
+         })
+          */
     }
 
     var progressviewestimation: some View {
