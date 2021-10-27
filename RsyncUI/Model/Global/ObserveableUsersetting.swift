@@ -44,7 +44,6 @@ final class ObserveableUsersetting: ObservableObject {
 
     init() {
         $rsyncversion3
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { rsyncver3 in
                 SharedReference.shared.rsyncversion3 = rsyncver3
             }.store(in: &subscriptions)
@@ -59,37 +58,31 @@ final class ObserveableUsersetting: ObservableObject {
                 setandvalidapathforrestore(restorepath)
             }.store(in: &subscriptions)
         $nologging
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { value in
                 SharedReference.shared.nologging = value
             }.store(in: &subscriptions)
         $minimumlogging
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { min in
                 SharedReference.shared.minimumlogging = min
             }.store(in: &subscriptions)
         $fulllogging
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { full in
                 SharedReference.shared.fulllogging = full
             }.store(in: &subscriptions)
         $detailedlogging
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { detailed in
                 SharedReference.shared.detailedlogging = detailed
             }.store(in: &subscriptions)
         $monitornetworkconnection
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { monitor in
                 SharedReference.shared.monitornetworkconnection = monitor
             }.store(in: &subscriptions)
         $checkinput
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { check in
                 SharedReference.shared.checkinput = check
             }.store(in: &subscriptions)
         $marknumberofdayssince
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] value in
                 markdays(days: value)
             }.store(in: &subscriptions)
