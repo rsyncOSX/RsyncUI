@@ -54,8 +54,9 @@ class SharedReference {
     // rsync command
     let rsync: String = "rsync"
     let usrbin: String = "/usr/bin"
-    // let usrlocalbin: String = "/usr/local/bin"
-    let usrlocalbin: String = "/opt/homebrew/bin"
+    let usrlocalbin: String = "/usr/local/bin"
+    let usrlocalbinarm: String = "/opt/homebrew/bin"
+    var macbookarm: Bool = true
     // Sandboxed
     // The configpath must live inside the Sanbox
     // See NamesandPaths

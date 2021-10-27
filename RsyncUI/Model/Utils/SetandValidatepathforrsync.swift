@@ -73,7 +73,7 @@ struct SetandValidatepathforrsync {
 
     func getpathforrsync() -> String {
         if SharedReference.shared.rsyncversion3 == true {
-            return SharedReference.shared.localrsyncpath ?? SharedReference.shared.usrlocalbin
+            return SharedReference.shared.localrsyncpath ?? SharedReference.shared.usrlocalbinarm
         } else {
             return SharedReference.shared.usrbin
         }
