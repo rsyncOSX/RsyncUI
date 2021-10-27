@@ -47,7 +47,7 @@ struct RsyncUIView: View {
         .searchable(text: $searchText)
         .task {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                rsyncversionObject.update(SharedReference.shared.rsyncversion3)
+                rsyncversionObject.update()
             }
         }
     }
