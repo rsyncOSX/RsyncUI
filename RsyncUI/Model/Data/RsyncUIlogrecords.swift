@@ -56,10 +56,7 @@ final class RsyncUIlogrecords: ObservableObject {
     }
 
     func update(profile: String?, validhiddenIDs: Set<Int>?) async {
-        guard SharedReference.shared.reload == true else {
-            SharedReference.shared.reload = true
-            return
-        }
+
         guard validhiddenIDs != nil else { return }
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {
@@ -72,12 +69,7 @@ final class RsyncUIlogrecords: ObservableObject {
         // schedulesandlogs = logrecordsfromstore?.scheduleData.getschedules()
     }
 
-    init(profile _: String? = nil, validhiddenIDs _: Set<Int>? = nil) {
-        guard SharedReference.shared.reload == true else {
-            SharedReference.shared.reload = true
-            return
-        }
-    }
+    init(profile _: String? = nil, validhiddenIDs _: Set<Int>? = nil) {}
 }
 
 /*

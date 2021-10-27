@@ -33,10 +33,6 @@ final class RsyncUIconfigurations: ObservableObject {
     }
 
     init(profile: String?) {
-        guard SharedReference.shared.reload == true else {
-            SharedReference.shared.reload = true
-            return
-        }
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {
             configurationsfromstore = Readconfigurationsfromstore(profile: nil)

@@ -95,7 +95,7 @@ class SharedReference {
     // Object for propogate errors to views
     var errorobject: ErrorHandling?
     // Used when starting up RsyncUI
-    var reload: Bool = true
+    // var reload: Bool = true
     // Default profile
     let defaultprofile = "Default profile"
 

@@ -48,7 +48,6 @@ struct RsyncUIView: View {
         .task {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 rsyncversionObject.update(SharedReference.shared.rsyncversion3)
-                // selection = .multipletasks
             }
         }
     }
@@ -89,7 +88,7 @@ struct RsyncUIView: View {
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear(perform: {
-            // Show updated for 1 second
+            // Show updated for 3 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 checkfornewversionofrsyncui.notifynewversion = false
             }

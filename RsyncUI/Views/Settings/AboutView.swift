@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AboutView: View {
-    @EnvironmentObject var rsyncversionObject: GetRsyncversion
     @StateObject private var new = NewversionJSON()
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
@@ -87,7 +86,7 @@ struct AboutView: View {
 
     var rsyncversionshortstring: some View {
         VStack {
-            Text(rsyncversionObject.rsyncversion)
+            Text(SharedReference.shared.rsyncversionshort ?? "")
             Text("RsyncUI configpath: " + configpath)
         }
         .font(.caption)
