@@ -44,7 +44,7 @@ class WriteScheduleJSON: NamesandPaths {
     @discardableResult
     init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
         super.init(.configurations)
-        print("WriteScheduleJSON")
+        // print("WriteScheduleJSON")
         // Set profile and filename ahead of encoding an write
         if profile == SharedReference.shared.defaultprofile {
             self.profile = nil

@@ -16,7 +16,7 @@ class ReadScheduleJSON: NamesandPaths {
 
     init(_ profile: String?, _ validhiddenID: Set<Int>) {
         super.init(.configurations)
-        print("ReadScheduleJSON")
+        // print("ReadScheduleJSON")
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename: String = ""
