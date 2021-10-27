@@ -153,7 +153,6 @@ struct Sidebar: View {
                 imagersyncosx
                 Text("RsyncUI")
                     .font(.title)
-                Text("Select a task")
             }
             .padding()
         }
