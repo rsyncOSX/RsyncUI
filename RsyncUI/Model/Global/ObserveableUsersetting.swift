@@ -35,19 +35,14 @@ final class ObserveableUsersetting: ObservableObject {
     @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // Check input when loading schedules and adding config
     @Published var checkinput: Bool = SharedReference.shared.checkinput
-    // Value to check if input field is changed by user
-    // @Published var inputchangedbyuser: Bool = false
+    
+    // Set if path for rsync and restore is not valid
     @Published var novalidpathmessage: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
     init() {
-        /*
-         $inputchangedbyuser
-             .sink { _ in
-             }.store(in: &subscriptions)
-          */
         $rsyncversion3
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { rsyncver3 in
