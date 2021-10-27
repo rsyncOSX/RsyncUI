@@ -26,9 +26,11 @@ struct SidebarSchedulesView: View {
         }
         .padding()
         .task {
+            /*
             if selectedprofile == nil {
                 selectedprofile = SharedReference.shared.defaultprofile
             }
+             */
             // Initialize the Stateobject
             await logrecords.update(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
         }

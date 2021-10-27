@@ -20,14 +20,14 @@ struct Readlogsfromstore {
 
 final class RsyncUIlogrecords: ObservableObject {
     @Published var logrecordsfromstore: Readlogsfromstore?
-    var profile: String?
     @Published var alllogssorted: [Log]?
+    var profile: String?
 
     // NOT USED
+    var schedulesandlogs: [ConfigurationSchedule]?
     // In code because of Schedules which are not yet (or ever) enabled in RsyncUI
     // but code is still in repository. Will decide later (2022?) if Schedules will
     // be enabled in RsyncUI.
-    var schedulesandlogs: [ConfigurationSchedule]?
 
     func filterlogs(_ filter: String) -> [Log]? {
         // Important - must localize search in dates
@@ -64,8 +64,6 @@ final class RsyncUIlogrecords: ObservableObject {
             logrecordsfromstore = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
         }
         alllogssorted = logrecordsfromstore?.scheduleData.getalllogs()
-        // NOT USED
-        // schedulesandlogs = logrecordsfromstore?.scheduleData.getschedules()
     }
 
     init(profile _: String? = nil, validhiddenIDs _: Set<Int>? = nil) {}

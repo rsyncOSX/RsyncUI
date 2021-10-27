@@ -99,9 +99,11 @@ struct AddConfigurationView: View {
         .padding()
         .onAppear(perform: {
             focusField = .localcatalogField
+            /*
             if selectedprofile == nil {
                 selectedprofile = SharedReference.shared.defaultprofile
             }
+             */
         })
         .onSubmit {
             switch focusField {
