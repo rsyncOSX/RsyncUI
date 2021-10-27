@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AboutView: View {
     @StateObject private var new = NewversionJSON()
+    @State var rsyncversion: String = ""
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
     let norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "")
@@ -66,6 +67,9 @@ struct AboutView: View {
             }
         }
         .padding()
+        .onAppear {
+            rsyncversion = SharedReference.shared.rsyncversionshort ?? ""
+        }
     }
 
     var headingtitle: some View {
@@ -86,7 +90,7 @@ struct AboutView: View {
 
     var rsyncversionshortstring: some View {
         VStack {
-            Text(SharedReference.shared.rsyncversionshort ?? "")
+            Text(rsyncversion)
             Text("RsyncUI configpath: " + configpath)
         }
         .font(.caption)
