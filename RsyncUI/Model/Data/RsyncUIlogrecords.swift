@@ -56,7 +56,6 @@ final class RsyncUIlogrecords: ObservableObject {
     }
 
     func update(profile: String?, validhiddenIDs: Set<Int>?) async {
-
         guard validhiddenIDs != nil else { return }
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {

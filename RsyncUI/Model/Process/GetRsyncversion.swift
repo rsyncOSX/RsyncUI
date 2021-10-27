@@ -9,9 +9,8 @@ import Foundation
 
 // Getting and setting the rsync version.
 final class GetRsyncversion: ObservableObject, UpdateRsyncVersionString {
-
     var rsyncversion = ""
-    
+
     func update(_ ver: Bool) {
         // Must set new values ahead of save to get correct string
         SharedReference.shared.rsyncversion3 = ver
