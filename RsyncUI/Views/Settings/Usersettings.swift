@@ -111,8 +111,8 @@ struct Usersettings: View {
                             }
                         })
                 }
-                
-                if usersettings.novalidpathmessage  {
+
+                if usersettings.novalidpathmessage {
                     AlertToast(type: .error(Color.red),
                                title: Optional(NSLocalizedString("Not valid path", comment: "")), subTitle: Optional(""))
                         .onAppear(perform: {

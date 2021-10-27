@@ -35,7 +35,7 @@ final class ObserveableUsersetting: ObservableObject {
     @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // Check input when loading schedules and adding config
     @Published var checkinput: Bool = SharedReference.shared.checkinput
-    
+
     // Set if path for rsync and restore is not valid
     @Published var novalidpathmessage: Bool = false
 
