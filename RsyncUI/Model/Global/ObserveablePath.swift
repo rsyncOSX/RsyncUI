@@ -15,15 +15,11 @@ final class ObserveablePath: ObservableObject {
     // Paths for apps
     @Published var pathrsyncui: String = SharedReference.shared.pathrsyncui ?? ""
     @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
-    @Published var inputchangedbyuser: Bool = false
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
     init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
         $environment
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { environment in
@@ -49,7 +45,6 @@ final class ObserveablePath: ObservableObject {
 
 extension ObserveablePath {
     func setandvalidapathrsyncui(_ atpath: String) {
-        guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else { return }
         do {
             let ok = try validatepath(atpath)
@@ -69,7 +64,6 @@ extension ObserveablePath {
     }
 
     func setandvalidapathpathrsyncschedule(_ atpath: String) {
-        guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else { return }
         do {
             let ok = try validatepath(atpath)

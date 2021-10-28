@@ -6,6 +6,7 @@
 //
 // swiftlint:disable line_length
 
+import AlertToast
 import SwiftUI
 
 struct Sshsettings: View {
@@ -13,6 +14,7 @@ struct Sshsettings: View {
 
     @State private var selectedlogin: UniqueserversandLogins?
     @State private var showingAlert: Bool = false
+    @State private var backup = false
 
     var uniqueserversandlogins: [UniqueserversandLogins]
 
@@ -20,29 +22,41 @@ struct Sshsettings: View {
         Form {
             Spacer()
 
-            HStack {
-                // For center
-                Spacer()
-                // Column 1
-                VStack(alignment: .leading) {
-                    ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $usersettings.localsshkeys)
+            ZStack {
+                HStack {
+                    // For center
+                    Spacer()
+                    // Column 1
+                    VStack(alignment: .leading) {
+                        ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $usersettings.localsshkeys)
 
-                    setsshpath
+                        setsshpath
 
-                    setsshport
+                        setsshport
+                    }
+
+                    // Column 2
+                    VStack(alignment: .leading) {
+                        // Section(header: headeruniqueue) {
+                        uniqueuserversandloginslist
+                        // }
+                    }
+
+                    // For center
+                    Spacer()
                 }
 
-                // Column 2
-                VStack(alignment: .leading) {
-                    // Section(header: headeruniqueue) {
-                    uniqueuserversandloginslist
-                    // }
+                if backup == true {
+                    AlertToast(type: .complete(Color.green),
+                               title: Optional(NSLocalizedString("Saved", comment: "")), subTitle: Optional(""))
+                        .onAppear(perform: {
+                            // Show updated for 1 second
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                backup = false
+                            }
+                        })
                 }
-
-                // For center
-                Spacer()
             }
-
             // Save button right down corner
             Spacer()
 
@@ -147,6 +161,7 @@ struct ServerRow: View {
 extension Sshsettings {
     func saveusersettings() {
         _ = WriteUserConfigurationPLIST()
+        backup = true
         // wait for a half second and then force a new check if keys are created and exists
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             usersettings.localsshkeys = SshKeys().validatepublickeypresent()

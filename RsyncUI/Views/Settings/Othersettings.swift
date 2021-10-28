@@ -19,6 +19,7 @@ struct Othersettings: View {
                 HStack {
                     // For center
                     Spacer()
+
                     // Column 1
                     /*
                      **Schedules**
@@ -30,8 +31,7 @@ struct Othersettings: View {
                          }
                      }.padding()
                      */
-
-                    // Column 2
+                    // Column 1
                     VStack(alignment: .leading) {
                         // Section(header: headerenvironment) {
                         setenvironment
@@ -80,61 +80,48 @@ struct Othersettings: View {
 
     var setenvironment: some View {
         EditValue(350, NSLocalizedString("Environment", comment: ""),
-                  $usersettings.environment.onChange {
-                      usersettings.inputchangedbyuser = true
-                  })
-                  .onAppear(perform: {
-                      if let environment = SharedReference.shared.environment {
-                          usersettings.environment = environment
-                      }
-                  })
+                  $usersettings.environment)
+            .onAppear(perform: {
+                if let environment = SharedReference.shared.environment {
+                    usersettings.environment = environment
+                }
+            })
     }
 
     var setenvironmenvariable: some View {
         EditValue(350, NSLocalizedString("Environment variable", comment: ""),
-                  $usersettings.environmentvalue.onChange {
-                      usersettings.inputchangedbyuser = true
-                  })
-                  .onAppear(perform: {
-                      if let environmentvalue = SharedReference.shared.environmentvalue {
-                          usersettings.environmentvalue = environmentvalue
-                      }
-                  })
+                  $usersettings.environmentvalue)
+            .onAppear(perform: {
+                if let environmentvalue = SharedReference.shared.environmentvalue {
+                    usersettings.environmentvalue = environmentvalue
+                }
+            })
     }
 
     var setpathtorsyncui: some View {
         EditValue(250, NSLocalizedString("Path to RsyncUI", comment: ""),
-                  $usersettings.pathrsyncui.onChange {
-                      usersettings.inputchangedbyuser = true
-                  })
-                  .onAppear(perform: {
-                      if let pathrsyncui = SharedReference.shared.pathrsyncui {
-                          usersettings.pathrsyncui = pathrsyncui
-                      }
-                  })
+                  $usersettings.pathrsyncui)
+            .onAppear(perform: {
+                if let pathrsyncui = SharedReference.shared.pathrsyncui {
+                    usersettings.pathrsyncui = pathrsyncui
+                }
+            })
     }
 
     var setpathtorsyncschedule: some View {
         EditValue(250, NSLocalizedString("Path to RsyncSchedule", comment: ""),
-                  $usersettings.pathrsyncschedule.onChange {
-                      usersettings.inputchangedbyuser = true
-                  })
-                  .onAppear(perform: {
-                      if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
-                          usersettings.pathrsyncschedule = pathrsyncschedule
-                      }
-                  })
+                  $usersettings.pathrsyncschedule)
+            .onAppear(perform: {
+                if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
+                    usersettings.pathrsyncschedule = pathrsyncschedule
+                }
+            })
     }
 }
 
 extension Othersettings {
     func saveusersettings() {
-        usersettings.inputchangedbyuser = false
         _ = WriteUserConfigurationPLIST()
-    }
-
-    func backupuserconfigs() {
-        _ = Backupconfigfiles()
         backup = true
     }
 }
