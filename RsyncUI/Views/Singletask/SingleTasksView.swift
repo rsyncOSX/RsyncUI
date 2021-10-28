@@ -158,8 +158,12 @@ struct SingleTasksView: View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 focusstartexecution = false
-                // Guard statement must be after resetting properties to false
-                executeestimatedsingletask()
+                if executesingletasks == nil {
+                    executesingletasknow()
+                } else {
+                    // Guard statement must be after resetting properties to false
+                    executeestimatedsingletask()
+                }
             })
     }
 
