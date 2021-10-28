@@ -26,17 +26,16 @@ struct Usersettings: View {
                     // Column 1
                     VStack(alignment: .leading) {
                         Section(header: headerrsync) {
-                            ToggleViewDefault(NSLocalizedString("Rsync ver 3.x", comment: ""), $usersettings.rsyncversion3)
-
-                            // Only preset localpath for rsync if locapath is set. If default values either in /usr/bin or
-                            // /usr/local/bin set as placeholder value to present path
-                            if usersettings.localrsyncpath.isEmpty == true {
-                                setrsyncpathdefault
-                            } else {
-                                setrsyncpathlocalpath
+                            HStack {
+                                ToggleViewDefault(NSLocalizedString("Rsync ver 3.x", comment: ""), $usersettings.rsyncversion3)
+                                ToggleViewDefault(NSLocalizedString("Apple Silicon based Mac", comment: ""), $usersettings.macosarm)
                             }
+                        }
 
-                            ToggleViewDefault(NSLocalizedString("ARM", comment: ""), $usersettings.macosarm)
+                        if usersettings.localrsyncpath.isEmpty == true {
+                            setrsyncpathdefault
+                        } else {
+                            setrsyncpathlocalpath
                         }
 
                         Section(header: headerpathforrestore) {
