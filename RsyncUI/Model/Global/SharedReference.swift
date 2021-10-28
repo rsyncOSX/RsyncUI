@@ -56,7 +56,7 @@ class SharedReference {
     let usrbin: String = "/usr/bin"
     let usrlocalbin: String = "/usr/local/bin"
     let usrlocalbinarm: String = "/opt/homebrew/bin"
-    var macbookarm: Bool = true
+    var macosarm: Bool = true
     // Sandboxed
     // The configpath must live inside the Sanbox
     // See NamesandPaths

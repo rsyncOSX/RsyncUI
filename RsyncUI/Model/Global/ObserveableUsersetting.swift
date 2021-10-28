@@ -38,6 +38,8 @@ final class ObserveableUsersetting: ObservableObject {
 
     // Set if path for rsync and restore is not valid
     @Published var novalidpathmessage: Bool = false
+    // True if on ARM based Mac
+    @Published var macosarm: Bool = true
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -46,6 +48,10 @@ final class ObserveableUsersetting: ObservableObject {
         $rsyncversion3
             .sink { rsyncver3 in
                 SharedReference.shared.rsyncversion3 = rsyncver3
+            }.store(in: &subscriptions)
+        $macosarm
+            .sink { arm in
+                SharedReference.shared.macosarm = arm
             }.store(in: &subscriptions)
         $localrsyncpath
             .debounce(for: .seconds(1), scheduler: globalMainQueue)

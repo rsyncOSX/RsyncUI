@@ -17,7 +17,7 @@ struct GetfullpathforRsync {
                 // localrsyncpath is set with trailing "/"
                 rsyncpath = localrsyncpath + SharedReference.shared.rsync
             } else {
-                if SharedReference.shared.macbookarm {
+                if SharedReference.shared.macosarm {
                     rsyncpath = SharedReference.shared.usrlocalbinarm + "/" + SharedReference.shared.rsync
                 } else {
                     rsyncpath = SharedReference.shared.usrlocalbin + "/" + SharedReference.shared.rsync

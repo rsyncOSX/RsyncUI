@@ -26,10 +26,7 @@ struct Usersettings: View {
                     // Column 1
                     VStack(alignment: .leading) {
                         Section(header: headerrsync) {
-                            ToggleViewDefault(NSLocalizedString("Rsync ver 3.x", comment: ""), $usersettings.rsyncversion3.onChange {
-                                rsyncversionObject.update()
-
-                            })
+                            ToggleViewDefault(NSLocalizedString("Rsync ver 3.x", comment: ""), $usersettings.rsyncversion3)
 
                             // Only preset localpath for rsync if locapath is set. If default values either in /usr/bin or
                             // /usr/local/bin set as placeholder value to present path
@@ -38,6 +35,8 @@ struct Usersettings: View {
                             } else {
                                 setrsyncpathlocalpath
                             }
+
+                            ToggleViewDefault(NSLocalizedString("ARM", comment: ""), $usersettings.macosarm)
                         }
 
                         Section(header: headerpathforrestore) {
@@ -210,6 +209,8 @@ struct Usersettings: View {
 extension Usersettings {
     func saveusersettings() {
         _ = WriteUserConfigurationPLIST()
+        // Update the rsync version string
+        rsyncversionObject.update()
         backup = true
     }
 
