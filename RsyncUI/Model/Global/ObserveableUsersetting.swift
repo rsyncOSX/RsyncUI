@@ -39,7 +39,7 @@ final class ObserveableUsersetting: ObservableObject {
     // Set if path for rsync and restore is not valid
     @Published var novalidpathmessage: Bool = false
     // True if on ARM based Mac
-    @Published var macosarm: Bool = true
+    @Published var macosarm: Bool = SharedReference.shared.macosarm
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
