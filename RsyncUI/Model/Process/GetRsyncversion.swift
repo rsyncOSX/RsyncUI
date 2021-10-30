@@ -33,8 +33,8 @@ final class GetRsyncversion: ObservableObject, UpdateRsyncVersionString {
 }
 
 extension ProcessInfo {
-    /// Returns a `String` representing the machine hardware name or nil if there was an error invoking `uname(_:)` or decoding the response.
-    /// Return value is the equivalent to running `$ uname -m` in shell.
+    /// Returns a `String` representing the machine hardware name or nil if there was an error invoking `uname(_:)`
+    ///  or decoding the response. Return value is the equivalent to running `$ uname -m` in shell.
     var machineHardwareName: String? {
         var sysinfo = utsname()
         let result = uname(&sysinfo)
