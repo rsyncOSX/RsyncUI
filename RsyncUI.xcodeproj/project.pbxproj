@@ -19,16 +19,7 @@
 		E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8902992260B0EF700F4F0DC /* ButtonStyles.swift */; };
 		E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8944891267B2CB0009F9C4A /* RsyncUIView.swift */; };
 		E900748D2651838A00514BBC /* ReadUserConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */; };
-		E90B4A9C261DA7580043EFF6 /* ScalingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A92261DA7580043EFF6 /* ScalingDotsIndicatorView.swift */; };
-		E90B4A9D261DA7580043EFF6 /* EqualizerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A93261DA7580043EFF6 /* EqualizerIndicatorView.swift */; };
-		E90B4A9E261DA7580043EFF6 /* OpacityDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A94261DA7580043EFF6 /* OpacityDotsIndicatorView.swift */; };
-		E90B4A9F261DA7580043EFF6 /* DefaultIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A95261DA7580043EFF6 /* DefaultIndicatorView.swift */; };
-		E90B4AA0261DA7580043EFF6 /* ArcsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A96261DA7580043EFF6 /* ArcsIndicatorView.swift */; };
-		E90B4AA1261DA7580043EFF6 /* GradientIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A97261DA7580043EFF6 /* GradientIndicatorView.swift */; };
 		E90B4AA2261DA7580043EFF6 /* RotatingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */; };
-		E90B4AA3261DA7580043EFF6 /* GrowingArcIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A99261DA7580043EFF6 /* GrowingArcIndicatorView.swift */; };
-		E90B4AA4261DA7580043EFF6 /* GrowingCircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A9A261DA7580043EFF6 /* GrowingCircleIndicatorView.swift */; };
-		E90B4AA5261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A9B261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift */; };
 		E90D4F2226523D5400EAD08F /* WriteUserConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */; };
 		E90F7CA526344D5B001D9CA2 /* TextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */; };
 		E90F7CA726344D5E001D9CA2 /* TextBuilderSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA626344D5E001D9CA2 /* TextBuilderSeparator.swift */; };
@@ -51,6 +42,7 @@
 		E95DE0DA25F4A5120090FCD3 /* ChangeSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DE0D925F4A5120090FCD3 /* ChangeSchedulesView.swift */; };
 		E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */; };
 		E95EDC8A26063EAA000018DE /* ObserveableParametersRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC8926063EAA000018DE /* ObserveableParametersRsync.swift */; };
+		E96A165E272E735F00B95D3D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E96A165C272E735F00B95D3D /* Localizable.strings */; };
 		E96F125D26046FCF003AD3A9 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F125C26046FCF003AD3A9 /* ScheduleView.swift */; };
 		E96F6CD7269AC41B008CE33E /* SidebarQuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F6CD6269AC41B008CE33E /* SidebarQuicktaskView.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
@@ -240,16 +232,7 @@
 		E8902992260B0EF700F4F0DC /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		E8944891267B2CB0009F9C4A /* RsyncUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIView.swift; sourceTree = "<group>"; };
 		E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUserConfigurationPLIST.swift; sourceTree = "<group>"; };
-		E90B4A92261DA7580043EFF6 /* ScalingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalingDotsIndicatorView.swift; sourceTree = "<group>"; };
-		E90B4A93261DA7580043EFF6 /* EqualizerIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EqualizerIndicatorView.swift; sourceTree = "<group>"; };
-		E90B4A94261DA7580043EFF6 /* OpacityDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpacityDotsIndicatorView.swift; sourceTree = "<group>"; };
-		E90B4A95261DA7580043EFF6 /* DefaultIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultIndicatorView.swift; sourceTree = "<group>"; };
-		E90B4A96261DA7580043EFF6 /* ArcsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcsIndicatorView.swift; sourceTree = "<group>"; };
-		E90B4A97261DA7580043EFF6 /* GradientIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientIndicatorView.swift; sourceTree = "<group>"; };
 		E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatingDotsIndicatorView.swift; sourceTree = "<group>"; };
-		E90B4A99261DA7580043EFF6 /* GrowingArcIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrowingArcIndicatorView.swift; sourceTree = "<group>"; };
-		E90B4A9A261DA7580043EFF6 /* GrowingCircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrowingCircleIndicatorView.swift; sourceTree = "<group>"; };
-		E90B4A9B261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickeringDotsIndicatorView.swift; sourceTree = "<group>"; };
 		E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteUserConfigurationPLIST.swift; sourceTree = "<group>"; };
 		E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuilder.swift; sourceTree = "<group>"; };
 		E90F7CA626344D5E001D9CA2 /* TextBuilderSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuilderSeparator.swift; sourceTree = "<group>"; };
@@ -271,6 +254,8 @@
 		E95DE0D925F4A5120090FCD3 /* ChangeSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSchedulesView.swift; sourceTree = "<group>"; };
 		E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRsyncParameter.swift; sourceTree = "<group>"; };
 		E95EDC8926063EAA000018DE /* ObserveableParametersRsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableParametersRsync.swift; sourceTree = "<group>"; };
+		E96A165D272E735F00B95D3D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E96A165F272E737000B95D3D /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E96F125C26046FCF003AD3A9 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		E96F6CD6269AC41B008CE33E /* SidebarQuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarQuicktaskView.swift; sourceTree = "<group>"; };
 		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
@@ -465,7 +450,7 @@
 		E8AC45CB26E5ED2500E0AE43 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				E90B4A91261DA7580043EFF6 /* Indicators */,
+				E90B4A91261DA7580043EFF6 /* Indicator */,
 				E9E9CD2326779E0A00EB377B /* Commands */,
 			);
 			path = Tools;
@@ -480,21 +465,12 @@
 			path = Userconfiguration;
 			sourceTree = "<group>";
 		};
-		E90B4A91261DA7580043EFF6 /* Indicators */ = {
+		E90B4A91261DA7580043EFF6 /* Indicator */ = {
 			isa = PBXGroup;
 			children = (
-				E90B4A92261DA7580043EFF6 /* ScalingDotsIndicatorView.swift */,
-				E90B4A93261DA7580043EFF6 /* EqualizerIndicatorView.swift */,
-				E90B4A94261DA7580043EFF6 /* OpacityDotsIndicatorView.swift */,
-				E90B4A95261DA7580043EFF6 /* DefaultIndicatorView.swift */,
-				E90B4A96261DA7580043EFF6 /* ArcsIndicatorView.swift */,
-				E90B4A97261DA7580043EFF6 /* GradientIndicatorView.swift */,
 				E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */,
-				E90B4A99261DA7580043EFF6 /* GrowingArcIndicatorView.swift */,
-				E90B4A9A261DA7580043EFF6 /* GrowingCircleIndicatorView.swift */,
-				E90B4A9B261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift */,
 			);
-			path = Indicators;
+			path = Indicator;
 			sourceTree = "<group>";
 		};
 		E90F7CAA26344FC6001D9CA2 /* TextBuilder */ = {
@@ -573,6 +549,7 @@
 				E8944891267B2CB0009F9C4A /* RsyncUIView.swift */,
 				E9FDDD4825F3D0610050718C /* Assets.xcassets */,
 				E985C5D225F3AC0800CB895C /* Info.plist */,
+				E96A165C272E735F00B95D3D /* Localizable.strings */,
 				E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */,
 				E985C60925F3AD8400CB895C /* Views */,
 				E94C3161271B4E6E0054B644 /* NotUsedCode */,
@@ -1195,6 +1172,8 @@
 			knownRegions = (
 				en,
 				Base,
+				nb,
+				de,
 			);
 			mainGroup = E985C5BA25F3AC0700CB895C;
 			packageReferences = (
@@ -1219,6 +1198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */,
+				E96A165E272E735F00B95D3D /* Localizable.strings in Resources */,
 				E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */,
 				E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */,
 			);
@@ -1273,7 +1253,6 @@
 				E985C77D25F3AD9700CB895C /* ArgumentsSsh.swift in Sources */,
 				E985C76A25F3AD9700CB895C /* ExecuteSingleTaskNowShellout.swift in Sources */,
 				E985C78725F3AD9700CB895C /* UpdateSchedules.swift in Sources */,
-				E90B4A9C261DA7580043EFF6 /* ScalingDotsIndicatorView.swift in Sources */,
 				E985C78A25F3AD9700CB895C /* OutputFromRsync.swift in Sources */,
 				E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */,
 				E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */,
@@ -1329,11 +1308,9 @@
 				E985C74625F3AD9700CB895C /* Numbers.swift in Sources */,
 				E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */,
 				E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */,
-				E90B4AA4261DA7580043EFF6 /* GrowingCircleIndicatorView.swift in Sources */,
 				E985C68525F3AD8400CB895C /* SelectConfigurationView.swift in Sources */,
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,
 				E959280426240B8C002631CB /* NewversionPLIST.swift in Sources */,
-				E90B4AA0261DA7580043EFF6 /* ArcsIndicatorView.swift in Sources */,
 				E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */,
 				E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
@@ -1354,7 +1331,6 @@
 				E9DE981D2657A9F4004868A9 /* ReadConfigurationsPLIST.swift in Sources */,
 				E985C66A25F3AD8400CB895C /* SnapshotRow.swift in Sources */,
 				E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */,
-				E90B4AA1261DA7580043EFF6 /* GradientIndicatorView.swift in Sources */,
 				E90F7CA926344D60001D9CA2 /* TextExtensions.swift in Sources */,
 				E985C73F25F3AD9700CB895C /* Socket.swift in Sources */,
 				E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */,
@@ -1383,14 +1359,11 @@
 				E985C73525F3AD9700CB895C /* Backupconfigfiles.swift in Sources */,
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
 				E9FBEEAD264EBA7700E5F143 /* ConfigurationsListSmall.swift in Sources */,
-				E90B4A9D261DA7580043EFF6 /* EqualizerIndicatorView.swift in Sources */,
 				E985C72A25F3AD9700CB895C /* NamesandPaths.swift in Sources */,
 				E985C65C25F3AD8400CB895C /* SidebarSingleTasksView.swift in Sources */,
 				E943B0A925FFC22200A4F30D /* RsyncProcess.swift in Sources */,
-				E90B4A9E261DA7580043EFF6 /* OpacityDotsIndicatorView.swift in Sources */,
 				E985C72F25F3AD9700CB895C /* OutputfromProcessRsync.swift in Sources */,
 				E985C65525F3AD8400CB895C /* SidebarMultipletasksView.swift in Sources */,
-				E90B4AA5261DA7580043EFF6 /* FlickeringDotsIndicatorView.swift in Sources */,
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
 				E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */,
 				E985C68325F3AD8400CB895C /* LogRow.swift in Sources */,
@@ -1413,7 +1386,6 @@
 				E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */,
 				E985C65B25F3AD8400CB895C /* LogsbyConfigurationView.swift in Sources */,
 				E985C67E25F3AD8400CB895C /* ScheduleRow.swift in Sources */,
-				E90B4AA3261DA7580043EFF6 /* GrowingArcIndicatorView.swift in Sources */,
 				E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */,
 				E900748D2651838A00514BBC /* ReadUserConfigurationPLIST.swift in Sources */,
 				E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */,
@@ -1442,7 +1414,6 @@
 				E98C7AB5262D662200555977 /* ReadScheduleJSON.swift in Sources */,
 				E985C66825F3AD8400CB895C /* OutputRsyncView.swift in Sources */,
 				E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */,
-				E90B4A9F261DA7580043EFF6 /* DefaultIndicatorView.swift in Sources */,
 				E985C68725F3AD8400CB895C /* EditValue.swift in Sources */,
 				E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */,
 				E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */,
@@ -1491,6 +1462,18 @@
 			targetProxy = E985C5E425F3AC0800CB895C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E96A165C272E735F00B95D3D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E96A165D272E735F00B95D3D /* de */,
+				E96A165F272E737000B95D3D /* nb */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E985C5EA25F3AC0800CB895C /* Debug */ = {
