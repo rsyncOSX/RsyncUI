@@ -47,7 +47,7 @@
 "All logs" = "Alle Protokolle";
 
 /* No comment provided by engineer. */
-"Apple Silicon based Mac" = "Apple Silicon basierter Mac";
+"Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
 "Backup" = "Sichern";
@@ -323,7 +323,7 @@
 "Rsync parameters" = "Rsync Parameter";
 
 /* No comment provided by engineer. */
-"Rsync ver 3.x" = "Rsync Version 3.x";
+"Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
 "Rsync version and path" = "Rsync-Version und -Pfad";

@@ -27,8 +27,8 @@ struct Usersettings: View {
                     VStack(alignment: .leading) {
                         Section(header: headerrsync) {
                             HStack {
-                                ToggleViewDefault(NSLocalizedString("Rsync ver 3.x", comment: ""), $usersettings.rsyncversion3)
-                                ToggleViewDefault(NSLocalizedString("Apple Silicon based Mac", comment: ""), $usersettings.macosarm)
+                                ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""), $usersettings.rsyncversion3)
+                                ToggleViewDefault(NSLocalizedString("Apple Silicon", comment: ""), $usersettings.macosarm)
                             }
                         }
 
