@@ -17,7 +17,7 @@ struct AboutView: View {
     let changelog: String = "https://rsyncui.netlify.app/post/changelog/"
 
     var appName: String {
-        (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "Control Room"
+        (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "RsyncUI"
     }
 
     var appVersion: String {
