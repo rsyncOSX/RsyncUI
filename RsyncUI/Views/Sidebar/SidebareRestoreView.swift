@@ -17,13 +17,6 @@ struct SidebareRestoreView: View {
             RestoreView()
         }
         .padding()
-        /*
-         .onAppear(perform: {
-             if selectedprofile == nil {
-                 selectedprofile = SharedReference.shared.defaultprofile
-             }
-         })
-          */
     }
 
     var headingtitle: some View {

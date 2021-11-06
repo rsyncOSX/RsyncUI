@@ -37,30 +37,30 @@ struct SnapshotsView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsListNonSelectable(selectedconfig: $selectedconfig.onChange { getdata() },
-                                            selecteduuids: $selecteduuids,
-                                            inwork: $inwork,
-                                            searchText: $searchText,
-                                            reload: $reload)
+            HStack {
+                SnapshotListView(selectedconfig: $selectedconfig,
+                                 snapshotrecords: $snapshotrecords,
+                                 selecteduuids: $selecteduuids)
+                    .environmentObject(snapshotdata)
+                    .onDeleteCommand(perform: { delete() })
+
+                ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange { getdata() },
+                                        reload: $reload)
+
+                /*
+                 ConfigurationsListNonSelectable(selectedconfig: $selectedconfig.onChange { getdata() },
+                                                 selecteduuids: $selecteduuids,
+                                                 inwork: $inwork,
+                                                 searchText: $searchText,
+                                                 reload: $reload)
+                  */
+            }.padding()
 
             if gettingdata == true { gettingdatainprocess }
             if updated == true { notifyupdated }
         }
 
         Spacer()
-
-        SnapshotListView(selectedconfig: $selectedconfig,
-                         snapshotrecords: $snapshotrecords,
-                         selecteduuids: $selecteduuids)
-            .environmentObject(snapshotdata)
-            .onDeleteCommand(perform: { delete() })
-
-        if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
-            .frame(width: 50.0, height: 50.0)
-            .foregroundColor(.red)
-        }
-
-        if notsnapshot == true { notasnapshottask }
 
         HStack {
             Button("Save") { updateplansnapshot() }
@@ -77,6 +77,11 @@ struct SnapshotsView: View {
             Spacer()
 
             if snapshotdata.inprogressofdelete == true { progressdelete }
+            if notsnapshot == true { notasnapshottask }
+            if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
+                .frame(width: 25.0, height: 25.0)
+                .foregroundColor(.red)
+            }
 
             Spacer()
 
