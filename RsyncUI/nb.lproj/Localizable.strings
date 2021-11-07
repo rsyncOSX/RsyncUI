@@ -299,6 +299,9 @@
 "Pre and post task" = "Pre og post oppgave";
 
 /* No comment provided by engineer. */
+"Profiles" = "Profiler";
+
+/* No comment provided by engineer. */
 "Quick task" = "Hurtig oppgave";
 
 /* No comment provided by engineer. */
@@ -356,7 +359,7 @@
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for fullstendig gjenoppretting";
 
 /* No comment provided by engineer. */
-"Selected profile:" = "Velg profil";
+"Selected profile:" = "Valgt profil";
 
 /* No comment provided by engineer. */
 "Server" = "Tjener";

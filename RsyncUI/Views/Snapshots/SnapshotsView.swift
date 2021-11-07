@@ -47,13 +47,6 @@ struct SnapshotsView: View {
                 ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange { getdata() },
                                         reload: $reload)
 
-                /*
-                 ConfigurationsListNonSelectable(selectedconfig: $selectedconfig.onChange { getdata() },
-                                                 selecteduuids: $selecteduuids,
-                                                 inwork: $inwork,
-                                                 searchText: $searchText,
-                                                 reload: $reload)
-                  */
             }.padding()
 
             if gettingdata == true { gettingdatainprocess }
