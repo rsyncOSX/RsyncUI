@@ -39,7 +39,7 @@ The app is signed with my Apple ID developer certificate and notarized by Apple.
 
 ## Version of rsync
 
-RsyncUI is verified with rsync versions 2.6.9, 3.1.2, 3.1.3 and 3.2.x. Other versions of rsync will work but numbers about transferred files is not set in logs. It is recommended to [install](https://rsyncui.netlify.app/post/rsync/) the latest version of rsync.
+RsyncUI is verified with rsync versions 2.6.9 and 3.2.x. Other versions of rsync will work but numbers about transferred files is not set in logs. It is recommended to [install](https://rsyncui.netlify.app/post/rsync/) the latest version of rsync by Homebrew.
 
 ## Application icon
 
