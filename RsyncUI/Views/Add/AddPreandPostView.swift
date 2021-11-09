@@ -16,6 +16,7 @@ struct AddPreandPostView: View {
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
+    var choosecatalog = false
 
     enum PreandPostTaskField: Hashable {
         case pretaskField
@@ -145,16 +146,19 @@ struct AddPreandPostView: View {
             }
 
             // Pretask
-            if newdata.selectedconfig == nil { setpretask } else {
-                EditValue(250, nil, $newdata.pretask.onChange {})
-                    .focused($focusField, equals: .pretaskField)
-                    .textContentType(.none)
-                    .submitLabel(.continue)
-                    .onAppear(perform: {
-                        if let task = newdata.selectedconfig?.pretask {
-                            newdata.pretask = task
-                        }
-                    })
+            HStack {
+                if newdata.selectedconfig == nil { setpretask } else {
+                    EditValue(250, nil, $newdata.pretask.onChange {})
+                        .focused($focusField, equals: .pretaskField)
+                        .textContentType(.none)
+                        .submitLabel(.continue)
+                        .onAppear(perform: {
+                            if let task = newdata.selectedconfig?.pretask {
+                                newdata.pretask = task
+                            }
+                        })
+                }
+                OpencatalogView(catalog: $newdata.pretask, choosecatalog: choosecatalog)
             }
         }
     }
@@ -174,16 +178,19 @@ struct AddPreandPostView: View {
             }
 
             // Posttask
-            if newdata.selectedconfig == nil { setposttask } else {
-                EditValue(250, nil, $newdata.posttask.onChange {})
-                    .focused($focusField, equals: .posttaskField)
-                    .textContentType(.none)
-                    .submitLabel(.continue)
-                    .onAppear(perform: {
-                        if let task = newdata.selectedconfig?.posttask {
-                            newdata.posttask = task
-                        }
-                    })
+            HStack {
+                if newdata.selectedconfig == nil { setposttask } else {
+                    EditValue(250, nil, $newdata.posttask.onChange {})
+                        .focused($focusField, equals: .posttaskField)
+                        .textContentType(.none)
+                        .submitLabel(.continue)
+                        .onAppear(perform: {
+                            if let task = newdata.selectedconfig?.posttask {
+                                newdata.posttask = task
+                            }
+                        })
+                }
+                OpencatalogView(catalog: $newdata.posttask, choosecatalog: choosecatalog)
             }
         }
     }

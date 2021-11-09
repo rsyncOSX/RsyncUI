@@ -25,6 +25,7 @@ struct AddConfigurationView: View {
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
+    var choosecatalog = true
 
     enum AddConfigurationField: Hashable {
         case localcatalogField
@@ -51,8 +52,11 @@ struct AddConfigurationView: View {
 
                         if newdata.selectedrsynccommand == .syncremote {
                             VStack(alignment: .leading) { localandremotecatalogsyncremote }
+                            // OpencatalogView(catalog: $newdata.localcatalog)
+
                         } else {
                             VStack(alignment: .leading) { localandremotecatalog }
+                            // OpencatalogView(catalog: $newdata.localcatalog)
                         }
 
                         VStack(alignment: .leading) {
@@ -182,56 +186,64 @@ struct AddConfigurationView: View {
 
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
-            // localcatalog
-            if newdata.selectedconfig == nil { setlocalcatalog } else {
-                EditValue(300, nil, $newdata.localcatalog)
-                    .focused($focusField, equals: .localcatalogField)
-                    .textContentType(.none)
-                    .submitLabel(.continue)
-                    .onAppear(perform: {
-                        if let catalog = newdata.selectedconfig?.localCatalog {
-                            newdata.localcatalog = catalog
-                        }
-                    })
+            HStack {
+                // localcatalog
+                if newdata.selectedconfig == nil { setlocalcatalog } else {
+                    EditValue(300, nil, $newdata.localcatalog)
+                        .focused($focusField, equals: .localcatalogField)
+                        .textContentType(.none)
+                        .submitLabel(.continue)
+                        .onAppear(perform: {
+                            if let catalog = newdata.selectedconfig?.localCatalog {
+                                newdata.localcatalog = catalog
+                            }
+                        })
+                }
+                OpencatalogView(catalog: $newdata.localcatalog, choosecatalog: choosecatalog)
             }
-            // remotecatalog
-            if newdata.selectedconfig == nil { setremotecatalog } else {
-                EditValue(300, nil, $newdata.remotecatalog)
-                    .focused($focusField, equals: .remotecatalogField)
-                    .textContentType(.none)
-                    .submitLabel(.continue)
-                    .onAppear(perform: {
-                        if let catalog = newdata.selectedconfig?.offsiteCatalog {
-                            newdata.remotecatalog = catalog
-                        }
-                    })
+            HStack {
+                // remotecatalog
+                if newdata.selectedconfig == nil { setremotecatalog } else {
+                    EditValue(300, nil, $newdata.remotecatalog)
+                        .focused($focusField, equals: .remotecatalogField)
+                        .textContentType(.none)
+                        .submitLabel(.continue)
+                        .onAppear(perform: {
+                            if let catalog = newdata.selectedconfig?.offsiteCatalog {
+                                newdata.remotecatalog = catalog
+                            }
+                        })
+                }
+                OpencatalogView(catalog: $newdata.remotecatalog, choosecatalog: choosecatalog)
             }
         }
     }
 
     var localandremotecatalogsyncremote: some View {
         Section(header: headerlocalremote) {
-            // localcatalog
-            if newdata.selectedconfig == nil {
-                setlocalcatalogsyncremote
-            } else {
-                EditValue(300, nil, $newdata.localcatalog)
-                    .onAppear(perform: {
-                        if let catalog = newdata.selectedconfig?.localCatalog {
-                            newdata.localcatalog = catalog
-                        }
-                    })
+            HStack {
+                // localcatalog
+                if newdata.selectedconfig == nil { setlocalcatalogsyncremote } else {
+                    EditValue(300, nil, $newdata.localcatalog)
+                        .onAppear(perform: {
+                            if let catalog = newdata.selectedconfig?.localCatalog {
+                                newdata.localcatalog = catalog
+                            }
+                        })
+                }
+                OpencatalogView(catalog: $newdata.localcatalog, choosecatalog: choosecatalog)
             }
-            // remotecatalog
-            if newdata.selectedconfig == nil {
-                setremotecatalogsyncremote
-            } else {
-                EditValue(300, nil, $newdata.remotecatalog)
-                    .onAppear(perform: {
-                        if let catalog = newdata.selectedconfig?.offsiteCatalog {
-                            newdata.remotecatalog = catalog
-                        }
-                    })
+            HStack {
+                // remotecatalog
+                if newdata.selectedconfig == nil { setremotecatalogsyncremote } else {
+                    EditValue(300, nil, $newdata.remotecatalog)
+                        .onAppear(perform: {
+                            if let catalog = newdata.selectedconfig?.offsiteCatalog {
+                                newdata.remotecatalog = catalog
+                            }
+                        })
+                }
+                OpencatalogView(catalog: $newdata.remotecatalog, choosecatalog: choosecatalog)
             }
         }
     }
