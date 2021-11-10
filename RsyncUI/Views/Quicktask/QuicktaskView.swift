@@ -32,6 +32,7 @@ struct QuicktaskView: View {
     @State private var rsyncoutput: InprogressCountRsyncOutput?
     // Selected row in output
     @State private var valueselectedrow: String = ""
+    var choosecatalog = true
 
     enum QuicktaskField: Hashable {
         case localcatalogField
@@ -136,32 +137,48 @@ struct QuicktaskView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, NSLocalizedString("Add local catalog - required", comment: ""), $localcatalog)
-                .focused($focusField, equals: .localcatalogField)
-                .textContentType(.none)
-                .submitLabel(.continue)
+            HStack {
+                EditValue(300, NSLocalizedString("Add local catalog - required", comment: ""), $localcatalog)
+                    .focused($focusField, equals: .localcatalogField)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+
+                OpencatalogView(catalog: $localcatalog, choosecatalog: choosecatalog)
+            }
 
             // remotecatalog
-            EditValue(300, NSLocalizedString("Add remote catalog - required", comment: ""), $remotecatalog)
-                .focused($focusField, equals: .remotecatalogField)
-                .textContentType(.none)
-                .submitLabel(.continue)
+            HStack {
+                EditValue(300, NSLocalizedString("Add remote catalog - required", comment: ""), $remotecatalog)
+                    .focused($focusField, equals: .remotecatalogField)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+
+                OpencatalogView(catalog: $remotecatalog, choosecatalog: choosecatalog)
+            }
         }
     }
 
     var localandremotecatalogsyncremote: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: ""), $localcatalog)
-                .focused($focusField, equals: .localcatalogField)
-                .textContentType(.none)
-                .submitLabel(.continue)
+            HStack {
+                EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: ""), $localcatalog)
+                    .focused($focusField, equals: .localcatalogField)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+
+                OpencatalogView(catalog: $localcatalog, choosecatalog: choosecatalog)
+            }
 
             // remotecatalog
-            EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""), $remotecatalog)
-                .focused($focusField, equals: .remotecatalogField)
-                .textContentType(.none)
-                .submitLabel(.continue)
+            HStack {
+                EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""), $remotecatalog)
+                    .focused($focusField, equals: .remotecatalogField)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+
+                OpencatalogView(catalog: $remotecatalog, choosecatalog: choosecatalog)
+            }
         }
     }
 
