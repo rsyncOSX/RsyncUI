@@ -1,4 +1,4 @@
-/* No comment provided by engineer. */
+/* (No Comment) */
 "Abort" = "Abbrechen";
 
 /* No comment provided by engineer. */
@@ -47,6 +47,9 @@
 "All logs" = "Alle Protokolle";
 
 /* No comment provided by engineer. */
+"Apple Silicon" = "Apple Silicon";
+
+/* No comment provided by engineer. */
 "Backup" = "Sichern";
 
 /* No comment provided by engineer. */
@@ -86,22 +89,25 @@
 "Convert" = "Konvertieren";
 
 /* No comment provided by engineer. */
-"Convert from PLIST for" = "Von PLIST umwandeln für";
-
-/* No comment provided by engineer. */
-"Copy and paste commands in terminal to verify" = "Kopieren und fügen Sie Befehle in Terminal ein, um zu überprüfen";
-
-/* No comment provided by engineer. */
 "Copyright ©2021 Thomas Evensen" = "Copyright ©2021 Thomas Evensen";
 
 /* No comment provided by engineer. */
 "Create" = "Anlegen";
 
 /* No comment provided by engineer. */
+"Create profile" = "Profil erstellen";
+
+/* No comment provided by engineer. */
 "Days" = "Tage";
 
 /* No comment provided by engineer. */
+"Default" = "Standard";
+
+/* No comment provided by engineer. */
 "Delete" = "Löschen";
+
+/* No comment provided by engineer. */
+"Delete configuration" = "Konfiguration löschen";
 
 /* No comment provided by engineer. */
 "Delete: %lld" = "Löschen: %lld";
@@ -120,6 +126,9 @@
 
 /* No comment provided by engineer. */
 "Enable" = "Aktivieren";
+
+/* No comment provided by engineer. */
+"Enable rsync daemon" = "Rsync daemon aktivieren";
 
 /* No comment provided by engineer. */
 "Environment" = "Umgebung";
@@ -141,6 +150,9 @@
 
 /* No comment provided by engineer. */
 "Files" = "Dateien";
+
+/* No comment provided by engineer. */
+"FreeBSD" = "FreeBSD";
 
 /* No comment provided by engineer. */
 "Full" = "Voll";
@@ -182,7 +194,7 @@
 "Local catalog" = "Lokaler Katalog";
 
 /* No comment provided by engineer. */
-"Local ssh keys found" = "Lokale SSH-Schlüssel gefunden";
+"Local ssh keys are present" = "Lokale ssh schlüssel sind vorhanden";
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
@@ -215,13 +227,13 @@
 "New" = "Neu";
 
 /* No comment provided by engineer. */
-"New profile" = "Neues Profil";
-
-/* No comment provided by engineer. */
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
 "New: %lld" = "Neu: %lld";
+
+/* No comment provided by engineer. */
+"no username" = "kein Benutzername";
 
 /* No comment provided by engineer. */
 "None" = "Keine";
@@ -234,6 +246,9 @@
 
 /* No comment provided by engineer. */
 "not set" = "nicht gesetzt";
+
+/* No comment provided by engineer. */
+"Not valid path" = "Ungültiger Pfad";
 
 /* No comment provided by engineer. */
 "Number of files" = "Anzahl der Dateien";
@@ -260,6 +275,9 @@
 "Output from rsync" = "Ausgabe von rsync";
 
 /* No comment provided by engineer. */
+"Parameters" = "Parameter";
+
+/* No comment provided by engineer. */
 "Path for restore" = "Pfad zum Wiederherstellen";
 
 /* No comment provided by engineer. */
@@ -269,13 +287,7 @@
 "Path to RsyncUI" = "Pfad zu RsyncUI";
 
 /* No comment provided by engineer. */
-"Paths" = "Pfade";
-
-/* No comment provided by engineer. */
 "Paths for apps" = "Pfade für Apps";
-
-/* No comment provided by engineer. */
-"Plist" = "Plist";
 
 /* No comment provided by engineer. */
 "PLIST" = "PLIST";
@@ -287,6 +299,9 @@
 "Pre and post task" = "Vor- und Post-Aufgabe";
 
 /* No comment provided by engineer. */
+"Profiles" = "Profile";
+
+/* No comment provided by engineer. */
 "Quick task" = "Schnelle Aufgabe";
 
 /* No comment provided by engineer. */
@@ -296,19 +311,19 @@
 "Remote parameters" = "Remote Parameter";
 
 /* No comment provided by engineer. */
+"Remove default rsync parameters" = "Entfernen Sie die Standard-rsync-Parameter";
+
+/* No comment provided by engineer. */
 "Reset" = "Reset";
 
 /* No comment provided by engineer. */
 "Restore" = "Wiederherstellen";
 
 /* No comment provided by engineer. */
-"Rsync command and parameters" = "Rsync-Befehl und Parameter";
-
-/* No comment provided by engineer. */
 "Rsync parameters" = "Rsync Parameter";
 
 /* No comment provided by engineer. */
-"Rsync ver 3.x" = "Rsync Version 3.x";
+"Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
 "Rsync version and path" = "Rsync-Version und -Pfad";
@@ -329,19 +344,22 @@
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
-"Scheduled tasks" = "Geplante Aufgaben";
-
-/* No comment provided by engineer. */
 "Schedules" = "Zeitpläne";
 
 /* No comment provided by engineer. */
 "Select" = "Auswählen";
 
 /* No comment provided by engineer. */
+"Select a configuration" = "Wählen Sie eine Konfiguration";
+
+/* No comment provided by engineer. */
+"Select and slide to left for delete" = "Zum Löschen auswählen und nach links schieben";
+
+/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
-"Select task" = "Aufgabe auswählen";
+"Selected profile:" = "Ausgewähltes Profil:";
 
 /* No comment provided by engineer. */
 "Server" = "Server";
@@ -407,12 +425,6 @@
 "User" = "Benutzer";
 
 /* No comment provided by engineer. */
-"Verify" = "Überprüfen";
-
-/* No comment provided by engineer. */
-"Verify SSH" = "SSH überprüfen";
-
-/* No comment provided by engineer. */
 "Version %@ (%@)" = "Version %1$@ (%2$@)";
 
 /* No comment provided by engineer. */
@@ -420,3 +432,4 @@
 
 /* No comment provided by engineer. */
 "View logfile" = "Logdatei anzeigen";
+
