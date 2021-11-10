@@ -32,7 +32,6 @@ struct AddPreandPostView: View {
                 HStack {
                     // For center
                     Spacer()
-
                     // Column 1
                     VStack(alignment: .leading) {
                         pretaskandtoggle
@@ -133,20 +132,21 @@ struct AddPreandPostView: View {
 
     var pretaskandtoggle: some View {
         VStack(alignment: .leading) {
-            // Enable pretask
-            if newdata.selectedconfig == nil { disablepretask } else {
-                ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepre.onChange {})
-                    .onAppear(perform: {
-                        if newdata.selectedconfig?.executepretask == 1 {
-                            newdata.enablepre = true
-                        } else {
-                            newdata.enablepre = false
-                        }
-                    })
-            }
-
-            // Pretask
             HStack {
+                // Enable pretask
+                if newdata.selectedconfig == nil { disablepretask } else {
+                    ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepre.onChange {})
+                        .onAppear(perform: {
+                            if newdata.selectedconfig?.executepretask == 1 {
+                                newdata.enablepre = true
+                            } else {
+                                newdata.enablepre = false
+                            }
+                        })
+                }
+
+                // Pretask
+
                 if newdata.selectedconfig == nil { setpretask } else {
                     EditValue(250, nil, $newdata.pretask.onChange {})
                         .focused($focusField, equals: .pretaskField)
@@ -165,20 +165,21 @@ struct AddPreandPostView: View {
 
     var posttaskandtoggle: some View {
         VStack(alignment: .leading) {
-            // Enable posttask
-            if newdata.selectedconfig == nil { disableposttask } else {
-                ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepost.onChange {})
-                    .onAppear(perform: {
-                        if newdata.selectedconfig?.executeposttask == 1 {
-                            newdata.enablepost = true
-                        } else {
-                            newdata.enablepost = false
-                        }
-                    })
-            }
-
-            // Posttask
             HStack {
+                // Enable posttask
+                if newdata.selectedconfig == nil { disableposttask } else {
+                    ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepost.onChange {})
+                        .onAppear(perform: {
+                            if newdata.selectedconfig?.executeposttask == 1 {
+                                newdata.enablepost = true
+                            } else {
+                                newdata.enablepost = false
+                            }
+                        })
+                }
+
+                // Posttask
+
                 if newdata.selectedconfig == nil { setposttask } else {
                     EditValue(250, nil, $newdata.posttask.onChange {})
                         .focused($focusField, equals: .posttaskField)

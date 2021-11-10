@@ -10,7 +10,6 @@ import SwiftUI
 struct OpencatalogView: View {
     @Binding var catalog: String
     var choosecatalog: Bool
-    @State var showFileChooser = false
 
     var body: some View {
         HStack {
