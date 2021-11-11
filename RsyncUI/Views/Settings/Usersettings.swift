@@ -197,7 +197,7 @@ struct Usersettings: View {
     }
 
     var setmarkdays: some View {
-        TextField(String(SharedReference.shared.marknumberofdayssince),
+        TextField("",
                   text: $usersettings.marknumberofdayssince)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .frame(width: 70)
