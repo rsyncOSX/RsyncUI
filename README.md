@@ -13,7 +13,7 @@ RsyncUI is implemented by utilizing the SwiftUI and Combine declarative framewor
 - execute pre and post shell scripts by utilizing John Sundell´s [ShellOut](https://github.com/JohnSundell/ShellOut)
 - utilizing John Sundell´s [Files](https://github.com/JohnSundell/Files) for reading files and catalogs
 
-They are available as source code and automatically included as part of building RsyncOSX. There are also a couple of other sources from GitHub included as source code. Two of those are:
+They are available as source code and automatically included as part of building RsyncUI. There are also a couple of other sources from GitHub included as source code. Two of those are:
 
 - [ActivityIndicatorView](https://github.com/exyte/ActivityIndicatorView) - RsyncUI is using RotatingDotsIndicatorView
 - [AlertToast](https://github.com/elai950/AlertToast) - a better looking Alert for simple messages to the user
