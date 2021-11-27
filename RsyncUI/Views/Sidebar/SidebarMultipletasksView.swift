@@ -20,16 +20,28 @@ struct SidebarMultipletasksView: View {
     // Show completed
     @State private var showcompleted: Bool = false
 
+    // Singletask
+    @State private var singletaskview: Bool = false
+
     var body: some View {
         ZStack {
             VStack {
                 headingtitle
 
                 if showestimateview == true {
-                    MultipletasksView(selectedconfig: $selectedconfig,
-                                      selectedprofile: $selectedprofile, reload: $reload,
-                                      selecteduuids: $selecteduuids,
-                                      showestimateview: $showestimateview)
+                    if singletaskview == false {
+                        MultipletasksView(selectedconfig: $selectedconfig,
+                                          selectedprofile: $selectedprofile,
+                                          reload: $reload,
+                                          selecteduuids: $selecteduuids,
+                                          showestimateview: $showestimateview,
+                                          singletaskview: $singletaskview)
+                    } else {
+                        SingleTasksView(selectedconfig: $selectedconfig,
+                                        selectedprofile: $selectedprofile,
+                                        reload: $reload,
+                                        singletaskview: $singletaskview)
+                    }
                 }
 
                 if showestimateview == false {
@@ -61,7 +73,7 @@ struct SidebarMultipletasksView: View {
             imagerssync
 
             VStack(alignment: .leading) {
-                Text("Multiple tasks")
+                Text("Tasks")
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

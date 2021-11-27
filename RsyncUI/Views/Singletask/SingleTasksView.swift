@@ -23,17 +23,18 @@ struct SingleTasksView: View {
     // Also progress about synchronizing, if estimated first
     @StateObject private var inprogresscountrsyncoutput = InprogressCountRsyncOutput()
 
+    @Binding var selectedconfig: Configuration?
+    @Binding var selectedprofile: String?
+    @Binding var reload: Bool
+
     // Must be a @State because it is changed
     @State private var executesingletasks: ExecuteSingleTask?
     @State private var executetasknow: ExecuteSingleTaskNow?
 
-    @State private var selectedconfig: Configuration?
     @State private var executestate: SingleTaskWork = .start
     @State private var presentsheetview = false
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
-    @Binding var reload: Bool
-    @Binding var selectedprofile: String?
 
     // Not used but requiered in parameter
     @State private var inwork = -1
@@ -47,6 +48,9 @@ struct SingleTasksView: View {
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
     @State private var searchText: String = ""
+
+    // Singletaskview
+    @Binding var singletaskview: Bool
 
     var body: some View {
         ZStack {
@@ -104,6 +108,8 @@ struct SingleTasksView: View {
 
             Spacer()
 
+            Button("Close") { singletaskview = false }
+
             Button("View") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentsheetview) { viewoutput }
@@ -113,6 +119,10 @@ struct SingleTasksView: View {
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
+        .onAppear {
+            // singletaskstate.singletaskstate = .estimate
+            estimatesingletask()
+        }
     }
 
     // No estimation, just execute task now

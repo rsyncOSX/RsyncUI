@@ -11,7 +11,7 @@ import SwiftUI
 enum NavigationItem {
     case rsync
     case logs
-    case singletasks
+    // case singletasks
     case multipletasks
     case none
     case snapshots
@@ -36,23 +36,14 @@ struct Sidebar: View {
 
             Group {
                 NavigationLink(destination: SidebarMultipletasksView(reload: $reload,
-                                                                     selectedprofile: $selectedprofile),
-                               tag: NavigationItem.multipletasks,
-                               selection: $selection) {
-                    Label("Multiple tasks",
-                          systemImage: "arrowshape.turn.up.left.2.fill")
-                }
-                .tag(NavigationItem.multipletasks)
-
-                NavigationLink(destination: SidebarSingleTasksView(reload: $reload,
-                                                                   selectedprofile: $selectedprofile)
+                                                                     selectedprofile: $selectedprofile)
                         .environmentObject(OutputFromRsync()),
-                    tag: NavigationItem.singletasks,
+                    tag: NavigationItem.multipletasks,
                     selection: $selection) {
-                        Label("Single task",
-                              systemImage: "arrowshape.turn.up.backward.fill")
+                        Label("Tasks",
+                              systemImage: "arrowshape.turn.up.left.2.fill")
                     }
-                    .tag(NavigationItem.singletasks)
+                    .tag(NavigationItem.multipletasks)
 
                 NavigationLink(destination: SidebarQuicktaskView(),
                                tag: NavigationItem.quicktask,

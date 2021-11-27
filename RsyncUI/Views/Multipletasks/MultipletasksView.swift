@@ -36,6 +36,9 @@ struct MultipletasksView: View {
     @State private var focusstarttestfortcpconnections: Bool = false
     @State private var searchText: String = ""
 
+    // Singletaskview
+    @Binding var singletaskview: Bool
+
     var body: some View {
         ZStack {
             ConfigurationsListSelectable(selectedconfig: $selectedconfig.onChange { reset() },
@@ -63,6 +66,8 @@ struct MultipletasksView: View {
             if estimationstate.estimationstate == .estimate { progressviewestimation }
 
             Spacer()
+
+            Button("Open") { singletaskview = true }
 
             Button("Select") { select() }
                 .buttonStyle(PrimaryButtonStyle())
