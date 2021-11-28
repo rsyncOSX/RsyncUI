@@ -24,9 +24,8 @@ struct OutputEstimatedView: View {
                     ForEach(estimatedlist) { estimatedconfiguration in
                         HStack {
                             if selecteduuids.contains(estimatedconfiguration.config!.id) {
-                                Text(Image(systemName: "arrowtriangle.right.fill"))
+                                Text(Image(systemName: "arrowtriangle.right"))
                                     .modifier(FixedTag(25, .leading))
-                                    .foregroundColor(.green)
                             } else {
                                 Text("")
                                     .modifier(FixedTag(25, .leading))

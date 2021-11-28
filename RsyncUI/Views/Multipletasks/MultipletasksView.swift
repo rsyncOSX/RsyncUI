@@ -157,7 +157,6 @@ extension MultipletasksView {
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
         estimatetask = nil
-        selecteduuids.removeAll()
     }
 
     func estimationcompleted() {

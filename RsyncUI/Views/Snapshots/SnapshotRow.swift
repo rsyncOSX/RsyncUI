@@ -16,8 +16,7 @@ struct SnapshotRow: View {
             Spacer()
 
             if selecteduuids.contains(logrecord.id) {
-                Text(Image(systemName: "arrowtriangle.right.fill"))
-                    .foregroundColor(.green)
+                Text(Image(systemName: "arrowtriangle.right"))
                     .frame(width: 20, alignment: .leading)
             } else {
                 Text("")

@@ -36,9 +36,8 @@ struct OneConfigUUID: View {
                     .modifier(FixedTag(20, .leading))
             }
             if selecteduuids.contains(config.id) && config.hiddenID != inwork {
-                Text(Image(systemName: "arrowtriangle.right.fill"))
+                Text(Image(systemName: "arrowtriangle.right"))
                     .modifier(FixedTag(20, .leading))
-                    .foregroundColor(.green)
             } else {
                 Text("")
                     .modifier(FixedTag(20, .leading))

@@ -33,8 +33,7 @@ struct ScheduleRow: View {
     var selected: some View {
         HStack {
             if selecteduuids.contains(configschedule.id) {
-                Text(Image(systemName: "arrowtriangle.right.fill"))
-                    .foregroundColor(.green)
+                Text(Image(systemName: "arrowtriangle.right"))
                     .frame(width: 20, alignment: .leading)
             } else {
                 Text("")
