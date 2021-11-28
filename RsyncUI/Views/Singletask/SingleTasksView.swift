@@ -96,7 +96,7 @@ struct SingleTasksView: View {
             Button("Reset") { singletaskview = false }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button("View") { presentoutput() }
+            Button("Log") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentsheetview) { viewoutput }
 

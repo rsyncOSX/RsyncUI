@@ -105,7 +105,7 @@ struct QuicktaskView: View {
 
                 Spacer()
 
-                Button("View") { presentoutput() }
+                Button("Log") { presentoutput() }
                     .buttonStyle(PrimaryButtonStyle())
                     .sheet(isPresented: $presentsheetview) { viewoutput }
 

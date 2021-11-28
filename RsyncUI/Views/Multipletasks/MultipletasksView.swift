@@ -77,7 +77,7 @@ struct MultipletasksView: View {
             Button("Select") { select() }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button("View") { presentoutput() }
+            Button("Log") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentoutputsheetview) {
                     OutputEstimatedView(isPresented: $presentoutputsheetview,

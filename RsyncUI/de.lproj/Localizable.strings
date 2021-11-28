@@ -11,9 +11,6 @@
 "Add config" = "Konfiguration hinzufügen";
 
 /* No comment provided by engineer. */
-"Add configuration completed" = "Konfiguration hinzufügen abgeschlossen";
-
-/* No comment provided by engineer. */
 "Add local as remote catalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
 
 /* No comment provided by engineer. */
@@ -191,6 +188,9 @@
 "Level log" = "Level Log";
 
 /* No comment provided by engineer. */
+"Linux" = "Linux";
+
+/* No comment provided by engineer. */
 "Local catalog" = "Lokaler Katalog";
 
 /* No comment provided by engineer. */
@@ -198,6 +198,9 @@
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
+
+/* No comment provided by engineer. */
+"Log" = "Protkoll";
 
 /* No comment provided by engineer. */
 "Log listings" = "Protokolle";
@@ -219,9 +222,6 @@
 
 /* No comment provided by engineer. */
 "Most recent updated tasks on top of list" = "Zuletzt aktualisierte Aufgaben am Anfang der Liste";
-
-/* No comment provided by engineer. */
-"Tasks" = "Aufgaben";
 
 /* No comment provided by engineer. */
 "New" = "Neu";
@@ -314,7 +314,7 @@
 "Remove default rsync parameters" = "Entfernen Sie die Standard-rsync-Parameter";
 
 /* No comment provided by engineer. */
-"Reset" = "Reset";
+"Reset" = "Zurücksetzen";
 
 /* No comment provided by engineer. */
 "Restore" = "Wiederherstellen";
@@ -371,9 +371,6 @@
 "Settings" = "Einstellungen";
 
 /* No comment provided by engineer. */
-"Single task" = "Einzelne Aufgabe";
-
-/* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
 
 /* No comment provided by engineer. */
@@ -390,6 +387,9 @@
 
 /* No comment provided by engineer. */
 "Task" = "Aufgabe";
+
+/* No comment provided by engineer. */
+"Tasks" = "Aufgaben";
 
 /* No comment provided by engineer. */
 "TCP" = "TCP";
@@ -416,9 +416,6 @@
 "Update" = "Aktualisieren";
 
 /* No comment provided by engineer. */
-"Update configuration completed" = "Update-Konfiguration abgeschlossen";
-
-/* No comment provided by engineer. */
 "Updated" = "Aktualisiert";
 
 /* No comment provided by engineer. */
@@ -426,9 +423,6 @@
 
 /* No comment provided by engineer. */
 "Version %@ (%@)" = "Version %1$@ (%2$@)";
-
-/* No comment provided by engineer. */
-"View" = "Ansicht";
 
 /* No comment provided by engineer. */
 "View logfile" = "Logdatei anzeigen";
