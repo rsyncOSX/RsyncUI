@@ -76,9 +76,6 @@
 		E985C67E25F3AD8400CB895C /* ScheduleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C63F25F3AD8400CB895C /* ScheduleRow.swift */; };
 		E985C67F25F3AD8400CB895C /* SidebarSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64025F3AD8400CB895C /* SidebarSchedulesView.swift */; };
 		E985C68325F3AD8400CB895C /* LogRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64525F3AD8400CB895C /* LogRow.swift */; };
-		E985C68425F3AD8400CB895C /* ConfirmAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64725F3AD8400CB895C /* ConfirmAddView.swift */; };
-		E985C68525F3AD8400CB895C /* SelectConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64825F3AD8400CB895C /* SelectConfigurationView.swift */; };
-		E985C68625F3AD8400CB895C /* ConfirmUpdatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64925F3AD8400CB895C /* ConfirmUpdatedView.swift */; };
 		E985C68725F3AD8400CB895C /* EditValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64A25F3AD8400CB895C /* EditValue.swift */; };
 		E985C68825F3AD8400CB895C /* SidebarAddConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */; };
 		E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */; };
@@ -295,9 +292,6 @@
 		E985C63F25F3AD8400CB895C /* ScheduleRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleRow.swift; sourceTree = "<group>"; };
 		E985C64025F3AD8400CB895C /* SidebarSchedulesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarSchedulesView.swift; sourceTree = "<group>"; };
 		E985C64525F3AD8400CB895C /* LogRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogRow.swift; sourceTree = "<group>"; };
-		E985C64725F3AD8400CB895C /* ConfirmAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmAddView.swift; sourceTree = "<group>"; };
-		E985C64825F3AD8400CB895C /* SelectConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectConfigurationView.swift; sourceTree = "<group>"; };
-		E985C64925F3AD8400CB895C /* ConfirmUpdatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmUpdatedView.swift; sourceTree = "<group>"; };
 		E985C64A25F3AD8400CB895C /* EditValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditValue.swift; sourceTree = "<group>"; };
 		E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarAddConfigurationsView.swift; sourceTree = "<group>"; };
 		E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteEstimatedView.swift; sourceTree = "<group>"; };
@@ -700,9 +694,6 @@
 			isa = PBXGroup;
 			children = (
 				E9B34966273AE658000B053E /* OpencatalogView.swift */,
-				E985C64725F3AD8400CB895C /* ConfirmAddView.swift */,
-				E985C64825F3AD8400CB895C /* SelectConfigurationView.swift */,
-				E985C64925F3AD8400CB895C /* ConfirmUpdatedView.swift */,
 				E985C64A25F3AD8400CB895C /* EditValue.swift */,
 				E9168C082615AB8500B139CE /* AddPreandPostView.swift */,
 				E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */,
@@ -1268,7 +1259,6 @@
 				E985C66B25F3AD8400CB895C /* SnapshotListView.swift in Sources */,
 				E985C73225F3AD9700CB895C /* GetfullpathforRsync.swift in Sources */,
 				E985C76C25F3AD9700CB895C /* RemoteinfonumbersOnetask.swift in Sources */,
-				E985C68425F3AD8400CB895C /* ConfirmAddView.swift in Sources */,
 				E95EDC8A26063EAA000018DE /* ObserveableParametersRsync.swift in Sources */,
 				E985C65A25F3AD8400CB895C /* Sidebar.swift in Sources */,
 				E985C78325F3AD9700CB895C /* Equal.swift in Sources */,
@@ -1309,7 +1299,6 @@
 				E985C74625F3AD9700CB895C /* Numbers.swift in Sources */,
 				E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */,
 				E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */,
-				E985C68525F3AD8400CB895C /* SelectConfigurationView.swift in Sources */,
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,
 				E959280426240B8C002631CB /* NewversionPLIST.swift in Sources */,
 				E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */,
@@ -1397,7 +1386,6 @@
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
 				E90F7CA726344D5E001D9CA2 /* TextBuilderSeparator.swift in Sources */,
 				E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */,
-				E985C68625F3AD8400CB895C /* ConfirmUpdatedView.swift in Sources */,
 				E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */,
 				E83FAFE62692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift in Sources */,
 				E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */,
