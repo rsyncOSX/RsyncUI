@@ -80,10 +80,10 @@ struct SingleTasksView: View {
         if focusstartexecution { labelshortcutexecute }
 
         HStack {
-            HStack {
-                // Execute button
-                executebutton
-            }
+            executebutton
+
+            Button("Reset") { singletaskview = false }
+                .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
 
@@ -91,9 +91,6 @@ struct SingleTasksView: View {
             if singletaskstate.singletaskstate == .estimated { progressviewexecute }
 
             Spacer()
-
-            Button("Reset") { singletaskview = false }
-                .buttonStyle(PrimaryButtonStyle())
 
             Button("Log") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
