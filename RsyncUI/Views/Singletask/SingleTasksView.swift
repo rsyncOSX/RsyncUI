@@ -42,8 +42,6 @@ struct SingleTasksView: View {
     @State private var valueselectedrow: String = ""
     // If shellout
     @State private var shellout: Bool = false
-    // Alert for select tasks
-    @State private var notasks: Bool = false
     // Focus buttons from the menu
     // @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
@@ -72,15 +70,6 @@ struct SingleTasksView: View {
                     .frame(width: 50.0, height: 50.0)
                     .foregroundColor(.red)
             }
-
-            if notasks == true {
-                AlertToast(type: .regular, title: Optional("Select a task"), subTitle: Optional(""))
-                    .onAppear(perform: {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            notasks = false
-                        }
-                    })
-            }
         }
 
         // When estimated singletaskstate is set to .execute
@@ -104,7 +93,8 @@ struct SingleTasksView: View {
 
             Spacer()
 
-            Button("Close") { singletaskview = false }
+            Button("Reset") { singletaskview = false }
+                .buttonStyle(PrimaryButtonStyle())
 
             Button("View") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -113,7 +103,6 @@ struct SingleTasksView: View {
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        // .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .task {
             estimatesingletask()
@@ -209,6 +198,7 @@ extension SingleTasksView {
         executesingletasks = nil
         executetasknow = nil
         singletaskstate.estimateonly = false
+        singletaskview = false
     }
 
     func estimatesingletask() {
@@ -222,10 +212,7 @@ extension SingleTasksView {
     }
 
     func executeestimatedsingletask() {
-        guard selecteduuids.count == 1 else {
-            notasks = true
-            return
-        }
+        guard selecteduuids.count == 1 else { return }
         switch singletaskstate.singletaskstate {
         case .start:
             executesingletasks = nil
@@ -279,10 +266,7 @@ extension SingleTasksView {
         executesingletasks = nil
         executetasknow = nil
         setuuidforsingletask()
-        guard selecteduuids.count == 1 else {
-            notasks = true
-            return
-        }
+        guard selecteduuids.count == 1 else { return }
         singletasknowstate.updatestate(state: .execute)
         if let config = selectedconfig {
             if PreandPostTasks(config: config).executepretask || PreandPostTasks(config: config).executeposttask {

@@ -74,8 +74,6 @@ struct MultipletasksView: View {
 
             Spacer()
 
-            Button("Open") { singletaskview = true }
-
             Button("Select") { select() }
                 .buttonStyle(PrimaryButtonStyle())
 
