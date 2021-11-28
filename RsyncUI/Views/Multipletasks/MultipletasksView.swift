@@ -63,6 +63,8 @@ struct MultipletasksView: View {
 
             Spacer()
 
+            footer
+
             if estimationstate.estimationstate == .estimate { progressviewestimation }
 
             Spacer()
@@ -131,6 +133,14 @@ struct MultipletasksView: View {
             .task {
                 await verifytcp()
             }
+    }
+
+    var footer: some View {
+        VStack {
+            Text("Most recent updated tasks on top of list")
+                .foregroundColor(Color.blue)
+            Text("Select and slide to left for delete")
+        }
     }
 }
 
