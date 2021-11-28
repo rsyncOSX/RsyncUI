@@ -1,5 +1,7 @@
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.2.3/total) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
+Next version (v1.2.4) will merge the two task views, multiple tasks and single task into one view. The work has commenced and there will probably be a release late December or early January.
+
 RsyncUI is released for macOS Monterey.
 
 - the [documentation of RsyncUI](https://rsyncui.netlify.app/)
