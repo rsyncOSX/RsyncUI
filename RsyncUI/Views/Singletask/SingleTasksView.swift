@@ -54,11 +54,11 @@ struct SingleTasksView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsListNonSelectable(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
-                                            selecteduuids: $selecteduuids,
-                                            inwork: $inwork,
-                                            searchText: $searchText,
-                                            reload: $reload)
+            ConfigurationsListSelectable(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
+                                         selecteduuids: $selecteduuids,
+                                         inwork: $inwork,
+                                         searchText: $searchText,
+                                         reload: $reload)
 
             // Estimate singletask or Execute task now
             if singletasknowstate.executetasknowstate == .execute {
@@ -94,10 +94,7 @@ struct SingleTasksView: View {
 
         HStack {
             HStack {
-                // Estimate
-                Button("Estimate") { estimatesingletask() }
-                    .buttonStyle(PrimaryButtonStyle())
-
+                // Execute button
                 executebutton
             }
 

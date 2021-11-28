@@ -53,6 +53,8 @@ struct SidebarMultipletasksView: View {
                             showcompleted = true
                         })
                 }
+
+                footer
             }
             .padding()
 
@@ -65,6 +67,14 @@ struct SidebarMultipletasksView: View {
                         }
                     })
             }
+        }
+    }
+
+    var footer: some View {
+        VStack {
+            Text("Most recent updated tasks on top of list")
+                .foregroundColor(Color.blue)
+            Text("Select and slide to left for delete")
         }
     }
 

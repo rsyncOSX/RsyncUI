@@ -30,7 +30,7 @@ struct ConfigurationsListSelectable: View {
     }
 
     var configlist: some View {
-        Section(header: header, footer: footer) {
+        Section(header: header) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
                     OneConfigUUID(selecteduuids: $selecteduuids,
@@ -86,14 +86,6 @@ struct ConfigurationsListSelectable: View {
                 .modifier(FixedTag(80, .trailing))
             Text("Last")
                 .modifier(FixedTag(80, .trailing))
-        }
-    }
-
-    var footer: some View {
-        VStack {
-            Text("Most recent updated tasks on top of list")
-                .foregroundColor(Color.blue)
-            Text("Select and slide to left for delete")
         }
     }
 
