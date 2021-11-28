@@ -52,11 +52,10 @@ struct SingleTasksView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsListSelectable(selectedconfig: $selectedconfig,
-                                         selecteduuids: $selecteduuids,
-                                         inwork: $inwork,
-                                         searchText: $searchText,
-                                         reload: $reload)
+            ConfigurationSelected(selectedconfig: $selectedconfig,
+                                  selecteduuids: $selecteduuids,
+                                  inwork: $inwork,
+                                  reload: $reload)
 
             // Estimate singletask or Execute task now
             if singletasknowstate.executetasknowstate == .execute {

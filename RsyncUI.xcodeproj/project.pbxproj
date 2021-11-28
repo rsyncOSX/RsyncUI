@@ -178,6 +178,7 @@
 		E99C2400261C322E009D4DBF /* ObserveableRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObserveableRestore.swift */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E9AB1B8A2699C95C00290ECF /* SingleTasksEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AB1B892699C95C00290ECF /* SingleTasksEstimatedView.swift */; };
+		E9B052BC2753FFDC00896540 /* ConfigurationSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B052BB2753FFDC00896540 /* ConfigurationSelected.swift */; };
 		E9B34967273AE658000B053E /* OpencatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B34966273AE658000B053E /* OpencatalogView.swift */; };
 		E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */; };
 		E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */; };
@@ -392,6 +393,7 @@
 		E99C23FF261C322E009D4DBF /* ObserveableRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableRestore.swift; sourceTree = "<group>"; };
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E9AB1B892699C95C00290ECF /* SingleTasksEstimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTasksEstimatedView.swift; sourceTree = "<group>"; };
+		E9B052BB2753FFDC00896540 /* ConfigurationSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSelected.swift; sourceTree = "<group>"; };
 		E9B34966273AE658000B053E /* OpencatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpencatalogView.swift; sourceTree = "<group>"; };
 		E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareOutput.swift; sourceTree = "<group>"; };
 		E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteProfileView.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 			isa = PBXGroup;
 			children = (
 				E985C61625F3AD8400CB895C /* ConfigurationsListSelectable.swift */,
+				E9B052BB2753FFDC00896540 /* ConfigurationSelected.swift */,
 				E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */,
 				E985C61725F3AD8400CB895C /* OneConfigUUID.swift */,
 				E985C61925F3AD8400CB895C /* OneConfig.swift */,
@@ -1360,6 +1363,7 @@
 				E985C77A25F3AD9700CB895C /* RsyncParametersSingleFilesArguments.swift in Sources */,
 				E985C72C25F3AD9700CB895C /* SnapshotData.swift in Sources */,
 				E985C67A25F3AD8400CB895C /* RsyncCommandView.swift in Sources */,
+				E9B052BC2753FFDC00896540 /* ConfigurationSelected.swift in Sources */,
 				E985C73125F3AD9700CB895C /* Running.swift in Sources */,
 				E985C66C25F3AD8400CB895C /* SnapshotsView.swift in Sources */,
 				E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */,
