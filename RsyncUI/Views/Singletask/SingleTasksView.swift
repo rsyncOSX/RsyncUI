@@ -52,7 +52,7 @@ struct SingleTasksView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsListSelectable(selectedconfig: $selectedconfig.onChange { resetexecutestate() },
+            ConfigurationsListSelectable(selectedconfig: $selectedconfig,
                                          selecteduuids: $selecteduuids,
                                          inwork: $inwork,
                                          searchText: $searchText,
@@ -105,6 +105,13 @@ struct SingleTasksView: View {
         }
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .task {
+            if let config = selectedconfig {
+                if (config.executepretask ?? -1) == 1 {
+                    shellout = true
+                } else {
+                    shellout = false
+                }
+            }
             estimatesingletask()
         }
     }
@@ -250,13 +257,6 @@ extension SingleTasksView {
         executesingletasks = nil
         executetasknow = nil
         inprogresscountrsyncoutput.resetcounts()
-        if let config = selectedconfig {
-            if (config.executepretask ?? -1) == 1 {
-                shellout = true
-            } else {
-                shellout = false
-            }
-        }
         // kill any ongoing processes
         _ = InterruptProcess()
     }
