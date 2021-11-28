@@ -53,8 +53,13 @@ struct MultipletasksView: View {
 
         HStack {
             Button("Estimate") {
-                estimationstate.estimateonly = true
-                startestimation()
+                // Guard statement must be after resetting properties to false
+                if selecteduuids.count == 0, selectedconfig != nil {
+                    singletaskview = true
+                } else {
+                    estimationstate.estimateonly = true
+                    startestimation()
+                }
             }
             .buttonStyle(PrimaryButtonStyle())
 
@@ -114,7 +119,11 @@ struct MultipletasksView: View {
             .onAppear(perform: {
                 focusstartestimation = false
                 // Guard statement must be after resetting properties to false
-                startestimation()
+                if selecteduuids.count == 0, selectedconfig != nil {
+                    singletaskview = true
+                } else {
+                    startestimation()
+                }
             })
     }
 
@@ -150,6 +159,7 @@ extension MultipletasksView {
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
         estimatetask = nil
+        selecteduuids.removeAll()
     }
 
     func estimationcompleted() {
