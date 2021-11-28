@@ -112,10 +112,10 @@ struct SingleTasksView: View {
     // No estimation, just execute task now
     var executebutton: some View {
         Button("Execute") {
-            if singletaskstate.estimateonly == true {
-                executeestimatedsingletask()
-            } else {
+            if selectedconfig?.executepretask == 1 {
                 executesingletasknow()
+            } else {
+                executeestimatedsingletask()
             }
         }
         .buttonStyle(PrimaryButtonStyle())
@@ -135,7 +135,7 @@ struct SingleTasksView: View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 focusstartexecution = false
-                if executesingletasks == nil {
+                if selectedconfig?.executepretask == 1 {
                     executesingletasknow()
                 } else {
                     // Guard statement must be after resetting properties to false
@@ -148,8 +148,7 @@ struct SingleTasksView: View {
         ProgressView("" + "…",
                      value: inprogresscountrsyncoutput.getinprogress(),
                      total: Double(inprogresscountrsyncoutput.getmaxcount()))
-            .onChange(of: inprogresscountrsyncoutput.getinprogress(), perform: { _ in
-            })
+            .onChange(of: inprogresscountrsyncoutput.getinprogress(), perform: { _ in })
             .progressViewStyle(GaugeProgressStyle())
             .frame(width: 25.0, height: 25.0)
             .contentShape(Rectangle())
