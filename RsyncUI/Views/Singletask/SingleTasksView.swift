@@ -119,8 +119,7 @@ struct SingleTasksView: View {
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
-        .onAppear {
-            // singletaskstate.singletaskstate = .estimate
+        .task {
             estimatesingletask()
         }
     }
