@@ -33,7 +33,6 @@ struct MultipletasksView: View {
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
-    @State private var focusstarttestfortcpconnections: Bool = false
     @State private var searchText: String = ""
 
     // Singletaskview
@@ -48,7 +47,6 @@ struct MultipletasksView: View {
                                          reload: $reload)
             if focusstartestimation { labelshortcutestimation }
             if focusstartexecution { labelshortcutexecute }
-            if focusstarttestfortcpconnections { notifyverifyTCPconnections }
         }
 
         HStack {
@@ -65,6 +63,12 @@ struct MultipletasksView: View {
 
             Button("Execute") { startexecution() }
                 .buttonStyle(PrimaryButtonStyle())
+
+            Button("Reset") {
+                selecteduuids.removeAll()
+                reset()
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
 
@@ -90,7 +94,6 @@ struct MultipletasksView: View {
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
-        .focusedSceneValue(\.starttestfortcpconnections, $focusstarttestfortcpconnections)
     }
 
     var progressviewestimation: some View {
@@ -134,14 +137,6 @@ struct MultipletasksView: View {
             })
     }
 
-    var notifyverifyTCPconnections: some View {
-        AlertToast(type: .regular,
-                   title: Optional("TCP"), subTitle: Optional(""))
-            .task {
-                await verifytcp()
-            }
-    }
-
     var footer: some View {
         VStack {
             Text("Most recent updated tasks on top of list")
@@ -167,7 +162,6 @@ extension MultipletasksView {
         executedetails.resetcounter()
         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
         estimatetask = nil
-
         // Kick of execution
         if selecteduuids.count > 0, estimationstate.estimateonly == false {
             showestimateview = false
@@ -259,14 +253,5 @@ extension MultipletasksView {
                 selecteduuids.insert(id)
             }
         }
-    }
-
-    func verifytcp() async {
-        if let configurations = rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations() {
-            let tcpconnections = TCPconnections(configurations)
-            await tcpconnections.verifyallremoteserverTCPconnections()
-            print(tcpconnections.indexBoolremoteserverOff ?? [])
-        }
-        focusstarttestfortcpconnections = false
     }
 }
