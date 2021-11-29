@@ -82,8 +82,11 @@ struct SingleTasksView: View {
         HStack {
             executebutton
 
-            Button("Reset") { singletaskview = false }
-                .buttonStyle(PrimaryButtonStyle())
+            Button("Reset") {
+                singletaskview = false
+                selectedconfig = nil
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
 
