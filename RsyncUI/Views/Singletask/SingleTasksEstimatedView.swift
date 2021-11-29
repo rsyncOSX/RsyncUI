@@ -11,7 +11,7 @@ struct SingleTasksEstimatedView: View {
 
     var body: some View {
         numberstopresent
-            .border(Color.blue)
+            .padding()
     }
 
     var numbers: Numbers {
@@ -20,13 +20,24 @@ struct SingleTasksEstimatedView: View {
 
     var numberstopresent: some View {
         HStack {
-            Text("New: \(numbers.newfiles ?? 0)")
-            Text("Delete: \(numbers.deletefiles ?? 0)")
-            Text("Size transfer: " + String(format: "%.2f", ((numbers.transferNumSize ?? 0) / 1024) / 1000) + " MB")
-            Text("Numbers transfer: \(numbers.transferNum ?? 0)")
-            Text("Total remote numbers: \(numbers.totNum ?? 0)")
-            Text("Total remote size: " + String(format: "%.2f", ((numbers.totNumSize ?? 0) / 1024) / 1000) + " MB")
+            VStack(alignment: .leading) {
+                Text("New: ")
+                Text("Delete: ")
+                Text("Numbers transfer: ")
+                Text("Size transfer: ")
+                Text("")
+                Text("Total remote numbers: ")
+                Text("Total remote size: ")
+            }
+            VStack(alignment: .trailing) {
+                Text("\(numbers.newfiles ?? 0)")
+                Text("\(numbers.deletefiles ?? 0)")
+                Text("\(numbers.transferNum ?? 0)")
+                Text(String(format: "%.2f", ((numbers.transferNumSize ?? 0) / 1024) / 1000) + " MB")
+                Text("")
+                Text("\(numbers.totNum ?? 0)")
+                Text(String(format: "%.2f", ((numbers.totNumSize ?? 0) / 1024) / 1000) + " MB")
+            }
         }
-        .padding()
     }
 }
