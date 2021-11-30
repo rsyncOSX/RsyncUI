@@ -107,7 +107,7 @@
 "Delete configuration" = "Konfiguration löschen";
 
 /* No comment provided by engineer. */
-"Delete: %lld" = "Löschen: %lld";
+"Delete: " = "Löschen";
 
 /* No comment provided by engineer. */
 "Detailed" = "Detailliert";
@@ -230,7 +230,7 @@
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
-"New: %lld" = "Neu: %lld";
+"New: " = "Neu:";
 
 /* No comment provided by engineer. */
 "no username" = "kein Benutzername";
@@ -263,7 +263,7 @@
 "Number to delete" = "Zu löschende Nummer";
 
 /* No comment provided by engineer. */
-"Numbers transfer: %lld" = "Nummerübertragung: %lld";
+"Numbers transfer: " = "Rufnummernübertragung:";
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
@@ -353,10 +353,13 @@
 "Select a configuration" = "Wählen Sie eine Konfiguration";
 
 /* No comment provided by engineer. */
-"Select and slide to left for delete" = "Zum Löschen auswählen und nach links schieben";
+"Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
-"Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
+"Select log" = "Protokoll auswählen";
+
+/* No comment provided by engineer. */
+"Select task" = "Aufgabe auswählen";
 
 /* No comment provided by engineer. */
 "Selected profile:" = "Ausgewähltes Profil:";
@@ -369,6 +372,9 @@
 
 /* No comment provided by engineer. */
 "Settings" = "Einstellungen";
+
+/* No comment provided by engineer. */
+"Size transfer: " = "Größenübertragung";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
@@ -404,7 +410,10 @@
 "Tot num" = "Anzahl Gesamt";
 
 /* No comment provided by engineer. */
-"Total remote numbers: %lld" = "Anzahl remote: %lld";
+"Total remote numbers: " = "Gesamtzahl der Remote-Zugriffe:";
+
+/* No comment provided by engineer. */
+"Total remote size: " = "Gesamtgröße der Fernbedienung:";
 
 /* No comment provided by engineer. */
 "Trash" = "Müll";

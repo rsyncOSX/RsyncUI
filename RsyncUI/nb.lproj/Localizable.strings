@@ -1,3 +1,6 @@
+/* No comment provided by engineer. */
+"%lld" = "%lld";
+
 /* (No Comment) */
 "Abort" = "Avbryt";
 
@@ -108,9 +111,6 @@
 
 /* No comment provided by engineer. */
 "Delete configuration" = "Slett konfigurasjon";
-
-/* No comment provided by engineer. */
-"Delete: %lld" = "Slett: %lld";
 
 /* No comment provided by engineer. */
 "Detailed" = "Detaljert";
@@ -233,7 +233,7 @@
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
-"New: %lld" = "Ny: %lld";
+"New: " = "Ny:";
 
 /* No comment provided by engineer. */
 "no username" = "ingen brukernavn";
@@ -264,9 +264,6 @@
 
 /* No comment provided by engineer. */
 "Number to delete" = "Antall å slette";
-
-/* No comment provided by engineer. */
-"Numbers transfer: %lld" = "Antall overføre: %lld";
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
@@ -356,10 +353,13 @@
 "Select a configuration" = "Velg en konfigurasjon";
 
 /* No comment provided by engineer. */
-"Select and slide to left for delete" = "Velg og dra til venstre for å slette";
+"Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for fullstendig gjenoppretting";
 
 /* No comment provided by engineer. */
-"Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for fullstendig gjenoppretting";
+"Select log" = "Velg logg";
+
+/* No comment provided by engineer. */
+"Select task" = "Velg oppgave";
 
 /* No comment provided by engineer. */
 "Selected profile:" = "Valgt profil";
@@ -372,6 +372,9 @@
 
 /* No comment provided by engineer. */
 "Settings" = "Innstillinger";
+
+/* No comment provided by engineer. */
+"Size transfer: " = "Størrelse overføring";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
@@ -407,7 +410,10 @@
 "Tot num" = "Tot num";
 
 /* No comment provided by engineer. */
-"Total remote numbers: %lld" = "Totalt remote antal: %lld";
+"Total remote numbers: " = "Totalt antall eksterne filer:";
+
+/* No comment provided by engineer. */
+"Total remote size: " = "Total størrelse eksternt:";
 
 /* No comment provided by engineer. */
 "Trash" = "Søppel";
