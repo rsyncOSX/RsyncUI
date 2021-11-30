@@ -37,9 +37,9 @@ struct SelectLog: View {
         Button {
             selectlog = true
         } label: {
-            Label("Select", systemImage: "play.fill")
+            Label("Select log", systemImage: "play.fill")
         }
-        .keyboardShortcut("s", modifiers: [.command])
+        .keyboardShortcut("l", modifiers: [.command])
     }
 }
 

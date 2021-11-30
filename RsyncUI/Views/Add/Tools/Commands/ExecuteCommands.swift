@@ -86,9 +86,9 @@ struct SelectTask: View {
         Button {
             selecttask = true
         } label: {
-            Label("Select", systemImage: "play.fill")
+            Label("Select task", systemImage: "play.fill")
         }
-        .keyboardShortcut("s", modifiers: [.command])
+        .keyboardShortcut("t", modifiers: [.command])
     }
 }
 
