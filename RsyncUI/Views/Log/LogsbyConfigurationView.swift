@@ -22,6 +22,8 @@ struct LogsbyConfigurationView: View {
     // Alert for delete
     @State private var showAlertfordelete = false
 
+    @State private var focusselecttask: Bool = false
+
     let selectable = false
 
     var body: some View {
@@ -41,6 +43,8 @@ struct LogsbyConfigurationView: View {
                     .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
                 }
             }
+
+            if focusselecttask { labelselecttask }
 
             Spacer()
 
@@ -68,6 +72,15 @@ struct LogsbyConfigurationView: View {
             }
         }
         .padding()
+        .focusedSceneValue(\.selecttask, $focusselecttask)
+    }
+
+    var labelselecttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusselecttask = false
+                select()
+            })
     }
 
     var numberoflogs: String {
