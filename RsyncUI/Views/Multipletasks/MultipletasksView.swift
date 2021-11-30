@@ -33,6 +33,8 @@ struct MultipletasksView: View {
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
+    @State private var focusselecttask: Bool = false
+
     @State private var searchText: String = ""
 
     // Singletaskview
@@ -47,6 +49,7 @@ struct MultipletasksView: View {
                                          reload: $reload)
             if focusstartestimation { labelshortcutestimation }
             if focusstartexecution { labelshortcutexecute }
+            if focusselecttask { labelselecttask }
         }
 
         HStack {
@@ -78,9 +81,6 @@ struct MultipletasksView: View {
 
             Spacer()
 
-            Button("Select") { select() }
-                .buttonStyle(PrimaryButtonStyle())
-
             Button("Log") { presentoutput() }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentoutputsheetview) {
@@ -94,6 +94,7 @@ struct MultipletasksView: View {
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
+        .focusedSceneValue(\.selecttask, $focusselecttask)
     }
 
     var progressviewestimation: some View {
@@ -134,6 +135,14 @@ struct MultipletasksView: View {
                 focusstartexecution = false
                 // Guard statement must be after resetting properties to false
                 startexecution()
+            })
+    }
+
+    var labelselecttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusselecttask = false
+                select()
             })
     }
 

@@ -11,11 +11,13 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
     // @FocusedBinding(\.starttestfortcpconnections) private var starttestfortcpconnections
+    @FocusedBinding(\.selecttask) private var selectttask
 
     var body: some Commands {
         CommandMenu("Execute") {
             StarteestimateButton(startestimation: $startestimation)
             StartexecuteButton(startexecution: $startexecution)
+            SelectTask(selecttask: $selectttask)
             // StartTCPconnectionsButton(starttestfortcpconnections: $starttestfortcpconnections)
         }
 
@@ -76,6 +78,19 @@ struct StartTCPconnectionsButton: View {
     }
 }
 
+struct SelectTask: View {
+    @Binding var selecttask: Bool?
+
+    var body: some View {
+        Button {
+            selecttask = true
+        } label: {
+            Label("Select", systemImage: "play.fill")
+        }
+        .keyboardShortcut("s", modifiers: [.command])
+    }
+}
+
 struct FocusedEstimateBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -85,6 +100,10 @@ struct FocusedExecuteBinding: FocusedValueKey {
 }
 
 struct FocusedTCPconnections: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+struct FocusedSelecttask: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
@@ -102,5 +121,10 @@ extension FocusedValues {
     var starttestfortcpconnections: FocusedTCPconnections.Value? {
         get { self[FocusedTCPconnections.self] }
         set { self[FocusedTCPconnections.self] = newValue }
+    }
+
+    var selecttask: FocusedSelecttask.Value? {
+        get { self[FocusedSelecttask.self] }
+        set { self[FocusedSelecttask.self] = newValue }
     }
 }
