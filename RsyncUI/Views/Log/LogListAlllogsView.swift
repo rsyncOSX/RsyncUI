@@ -18,6 +18,8 @@ struct LogListAlllogsView: View {
     @State private var showAlertfordelete = false
     @State private var showloading = true
 
+    @State private var focusselecttask: Bool = false
+
     var body: some View {
         Form {
             List(selection: $selectedlog) {
@@ -28,6 +30,8 @@ struct LogListAlllogsView: View {
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
 
+            if focusselecttask { labelselecttask }
+
             Spacer()
 
             HStack {
@@ -36,9 +40,6 @@ struct LogListAlllogsView: View {
                 Spacer()
 
                 Button("Clear") { selecteduuids.removeAll() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button("Select") { select() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 Button("All") { selectall() }
@@ -54,6 +55,15 @@ struct LogListAlllogsView: View {
             }
         }
         .padding()
+        .focusedSceneValue(\.selecttask, $focusselecttask)
+    }
+
+    var labelselecttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusselecttask = false
+                select()
+            })
     }
 
     var numberoflogs: String {

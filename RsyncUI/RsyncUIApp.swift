@@ -37,6 +37,7 @@ struct RsyncUIApp: App {
         .commands {
             SidebarCommands()
             ExecuteCommands()
+            LogCommands(viewlogfile: $viewlogfile)
 
             CommandGroup(replacing: .help) {
                 Button(action: {
@@ -45,15 +46,6 @@ struct RsyncUIApp: App {
                 }) {
                     Text("RsyncUI help")
                 }
-            }
-
-            CommandMenu("Logfile") {
-                Button(action: {
-                    presentlogfile()
-                }) {
-                    Text("View logfile")
-                }
-                .keyboardShortcut("o", modifiers: [.command])
             }
         }
         Settings {
@@ -70,9 +62,5 @@ struct RsyncUIApp: App {
                 // application.registerForRemoteNotifications()
             }
         }
-    }
-
-    func presentlogfile() {
-        viewlogfile = true
     }
 }
