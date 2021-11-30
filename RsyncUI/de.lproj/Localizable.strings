@@ -107,9 +107,6 @@
 "Delete configuration" = "Konfiguration löschen";
 
 /* No comment provided by engineer. */
-"Delete: " = "Löschen";
-
-/* No comment provided by engineer. */
 "Detailed" = "Detailliert";
 
 /* No comment provided by engineer. */
@@ -230,9 +227,6 @@
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
-"New: " = "Neu:";
-
-/* No comment provided by engineer. */
 "no username" = "kein Benutzername";
 
 /* No comment provided by engineer. */
@@ -263,7 +257,7 @@
 "Number to delete" = "Zu löschende Nummer";
 
 /* No comment provided by engineer. */
-"Numbers transfer: " = "Rufnummernübertragung:";
+"Numbers transfer" = "Rufnummernübertragung";
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
@@ -410,10 +404,10 @@
 "Tot num" = "Anzahl Gesamt";
 
 /* No comment provided by engineer. */
-"Total remote numbers: " = "Gesamtzahl der Remote-Zugriffe:";
+"Total remote numbers" = "Gesamtzahl der Remote-Zugriffe";
 
 /* No comment provided by engineer. */
-"Total remote size: " = "Gesamtgröße der Fernbedienung:";
+"Total remote size" = "Gesamtgröße der Fernbedienung";
 
 /* No comment provided by engineer. */
 "Trash" = "Müll";

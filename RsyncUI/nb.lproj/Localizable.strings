@@ -233,9 +233,6 @@
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
-"New: " = "Ny:";
-
-/* No comment provided by engineer. */
 "no username" = "ingen brukernavn";
 
 /* No comment provided by engineer. */
@@ -410,10 +407,10 @@
 "Tot num" = "Tot num";
 
 /* No comment provided by engineer. */
-"Total remote numbers: " = "Totalt antall eksterne filer:";
+"Total remote numbers" = "Totalt antall eksterne filer";
 
 /* No comment provided by engineer. */
-"Total remote size: " = "Total størrelse eksternt:";
+"Total remote size" = "Total størrelse eksternt";
 
 /* No comment provided by engineer. */
 "Trash" = "Søppel";

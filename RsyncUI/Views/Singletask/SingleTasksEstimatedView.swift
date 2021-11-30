@@ -21,13 +21,13 @@ struct SingleTasksEstimatedView: View {
     var numberstopresent: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("New: ")
-                Text("Delete: ")
-                Text("Numbers transfer: ")
-                Text("Size transfer: ")
+                Text("New")
+                Text("Delete")
+                Text("Numbers transfer")
+                Text("Size transfer")
                 Text("")
-                Text("Total remote numbers: ")
-                Text("Total remote size: ")
+                Text("Total remote numbers")
+                Text("Total remote size")
             }
             VStack(alignment: .trailing) {
                 Text("\(numbers.newfiles ?? 0)")
