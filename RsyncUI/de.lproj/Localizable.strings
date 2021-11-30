@@ -347,6 +347,9 @@
 "Select a configuration" = "Wählen Sie eine Konfiguration";
 
 /* No comment provided by engineer. */
+"Select and slide to left for delete" = "Zum Löschen auswählen und nach links schieben";
+
+/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
@@ -368,7 +371,7 @@
 "Settings" = "Einstellungen";
 
 /* No comment provided by engineer. */
-"Size transfer: " = "Größenübertragung";
+"Size transfer" = "Größenübertragung";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
