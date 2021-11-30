@@ -11,14 +11,13 @@ struct LogListAlllogsView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
+    @Binding var focusselectlog: Bool
 
     @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
     // Alert for delete
     @State private var showAlertfordelete = false
     @State private var showloading = true
-
-    @State private var focusselectlog: Bool = false
 
     var body: some View {
         Form {
@@ -55,7 +54,6 @@ struct LogListAlllogsView: View {
             }
         }
         .padding()
-        .focusedSceneValue(\.selectlog, $focusselectlog)
     }
 
     var labelselectlog: some View {

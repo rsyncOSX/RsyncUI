@@ -15,15 +15,21 @@ struct SidebarLogsView: View {
     @State private var filterstring: String = ""
     @State private var showloading = true
 
+    @State private var focusselectlog: Bool = false
+
     var body: some View {
         ZStack {
             TabView {
-                LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring)
+                LogListAlllogsView(selectedprofile: $selectedprofile,
+                                   filterstring: $filterstring,
+                                   focusselectlog: $focusselectlog)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("All logs")
                     }
-                LogsbyConfigurationView(selectedprofile: $selectedprofile, filterstring: $filterstring)
+                LogsbyConfigurationView(selectedprofile: $selectedprofile,
+                                        filterstring: $filterstring,
+                                        focusselectlog: $focusselectlog)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("By config")
@@ -55,5 +61,6 @@ struct SidebarLogsView: View {
                 showloading = false
             }
         }
+        .focusedSceneValue(\.selectlog, $focusselectlog)
     }
 }

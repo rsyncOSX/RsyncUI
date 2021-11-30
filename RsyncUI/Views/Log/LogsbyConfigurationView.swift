@@ -12,6 +12,7 @@ struct LogsbyConfigurationView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
+    @Binding var focusselectlog: Bool
 
     @State private var selectedconfig: Configuration?
     @State private var selectedlog: Log?
@@ -21,8 +22,6 @@ struct LogsbyConfigurationView: View {
     @State private var inwork = -1
     // Alert for delete
     @State private var showAlertfordelete = false
-
-    @State private var focusselecttask: Bool = false
 
     let selectable = false
 
@@ -44,7 +43,7 @@ struct LogsbyConfigurationView: View {
                 }
             }
 
-            if focusselecttask { labelselecttask }
+            if focusselectlog { labelselectlog }
 
             Spacer()
 
@@ -54,9 +53,6 @@ struct LogsbyConfigurationView: View {
                 Spacer()
 
                 Button("Clear") { selecteduuids.removeAll() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button("Select") { select() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 Button("All") { selectall() }
@@ -72,13 +68,12 @@ struct LogsbyConfigurationView: View {
             }
         }
         .padding()
-        .focusedSceneValue(\.selecttask, $focusselecttask)
     }
 
-    var labelselecttask: some View {
+    var labelselectlog: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
-                focusselecttask = false
+                focusselectlog = false
                 select()
             })
     }
