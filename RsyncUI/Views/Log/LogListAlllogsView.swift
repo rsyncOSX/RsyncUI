@@ -18,7 +18,7 @@ struct LogListAlllogsView: View {
     @State private var showAlertfordelete = false
     @State private var showloading = true
 
-    @State private var focusselecttask: Bool = false
+    @State private var focusselectlog: Bool = false
 
     var body: some View {
         Form {
@@ -30,7 +30,7 @@ struct LogListAlllogsView: View {
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
 
-            if focusselecttask { labelselecttask }
+            if focusselectlog { labelselectlog }
 
             Spacer()
 
@@ -55,13 +55,13 @@ struct LogListAlllogsView: View {
             }
         }
         .padding()
-        .focusedSceneValue(\.selecttask, $focusselecttask)
+        .focusedSceneValue(\.selectlog, $focusselectlog)
     }
 
-    var labelselecttask: some View {
+    var labelselectlog: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
-                focusselecttask = false
+                focusselectlog = false
                 select()
             })
     }

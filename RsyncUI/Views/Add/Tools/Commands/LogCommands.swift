@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LogCommands: Commands {
-    @FocusedBinding(\.selecttask) private var selectttask
+    @FocusedBinding(\.selectlog) private var selectlog
 
     @Binding var viewlogfile: Bool
 
@@ -21,11 +21,35 @@ struct LogCommands: Commands {
             }
             .keyboardShortcut("o", modifiers: [.command])
 
-            SelectTask(selecttask: $selectttask)
+            SelectLog(selectlog: $selectlog)
         }
     }
 
     func presentlogfile() {
         viewlogfile = true
+    }
+}
+
+struct SelectLog: View {
+    @Binding var selectlog: Bool?
+
+    var body: some View {
+        Button {
+            selectlog = true
+        } label: {
+            Label("Select", systemImage: "play.fill")
+        }
+        .keyboardShortcut("s", modifiers: [.command])
+    }
+}
+
+struct FocusedSelectlog: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+extension FocusedValues {
+    var selectlog: FocusedSelectlog.Value? {
+        get { self[FocusedSelectlog.self] }
+        set { self[FocusedSelectlog.self] = newValue }
     }
 }
