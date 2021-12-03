@@ -13,7 +13,6 @@ struct MultipletasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
-
     // These two objects keeps track of the state and collects
     // the estimated values.
     @StateObject private var estimationstate = EstimationState()
@@ -29,20 +28,17 @@ struct MultipletasksView: View {
     @State private var presentestimatedsheetview = false
     @State private var inwork: Int = -1
     @State private var estimatetask: Estimation?
-
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
     @State private var focusselecttask: Bool = false
-
     @State private var searchText: String = ""
-
     // Singletaskview
     @Binding var singletaskview: Bool
 
     var body: some View {
         ZStack {
-            ConfigurationsListSelectable(selectedconfig: $selectedconfig.onChange { reset() },
+            ConfigurationsListSelectable(selectedconfig: $selectedconfig,
                                          selecteduuids: $selecteduuids,
                                          inwork: $inwork,
                                          searchText: $searchText,
@@ -54,7 +50,6 @@ struct MultipletasksView: View {
 
         HStack {
             Button("Estimate") {
-                // Guard statement must be after resetting properties to false
                 if selecteduuids.count == 0, selectedconfig != nil {
                     singletaskview = true
                 } else {
@@ -75,13 +70,15 @@ struct MultipletasksView: View {
 
             Spacer()
 
-            footer
+            ZStack {
+                footer
 
-            if estimationstate.estimationstate == .estimate { progressviewestimation }
+                if estimationstate.estimationstate == .estimate { progressviewestimation }
+            }
 
             Spacer()
 
-            Button("Log") { presentoutput() }
+            Button("Log") { presentoutputsheetview = true }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentoutputsheetview) {
                     OutputEstimatedView(isPresented: $presentoutputsheetview,
@@ -120,7 +117,6 @@ struct MultipletasksView: View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 focusstartestimation = false
-                // Guard statement must be after resetting properties to false
                 if selecteduuids.count == 0, selectedconfig != nil {
                     singletaskview = true
                 } else {
@@ -180,8 +176,6 @@ extension MultipletasksView {
     }
 
     func estimatetasks() {
-        // print("estimatetasks \(Unmanaged.passUnretained(rsyncUIdata).toOpaque())")
-        // print("estimatetasks count \(rsyncUIdata.configurations?.count ?? 0)")
         inprogresscountmultipletask.resetcounts()
         estimatetask = Estimation(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                   estimationstateDelegate: estimationstate,
@@ -217,29 +211,11 @@ extension MultipletasksView {
         reload = true
     }
 
-    func presentoutput() {
-        // Reset and prepare
-        executedetails.resetcounter()
-        executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
-        if selecteduuids.count == 0 {
-            for i in 0 ..< (inprogresscountmultipletask.getestimatedlist()?.count ?? 0) {
-                if let id = inprogresscountmultipletask.getestimatedlist()?[i].config?.id {
-                    if inprogresscountmultipletask.getestimatedlist()?[i].selected == 1 {
-                        selecteduuids.insert(id)
-                    }
-                }
-            }
-        }
-        presentoutputsheetview = true
-    }
-
     func startexecution() {
         setuuidforselectedtask()
         if selecteduuids.count == 0 {
             startestimation()
         } else {
-            // Estimation is done, kick of execution
-            // Or execute selected tasks without estimation
             showestimateview = false
         }
     }

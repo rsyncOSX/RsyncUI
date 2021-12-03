@@ -83,7 +83,6 @@ struct GaugeProgressStyle: ProgressViewStyle {
             // if fractionCompleted > 0 {
             //    Text(String(Int(fractionCompleted * 100)) + "%")
             // }
-            // }
         }
     }
 }
