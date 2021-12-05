@@ -32,6 +32,8 @@ struct MultipletasksView: View {
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
     @State private var focusselecttask: Bool = false
+    @State private var focusfirsttaskinfo: Bool = false
+
     @State private var searchText: String = ""
     // Singletaskview
     @Binding var singletaskview: Bool
@@ -50,6 +52,7 @@ struct MultipletasksView: View {
             if focusstartestimation { labelshortcutestimation }
             if focusstartexecution { labelshortcutexecute }
             if focusselecttask { labelselecttask }
+            if focusfirsttaskinfo { labelfirsttime }
         }
 
         HStack {
@@ -96,6 +99,7 @@ struct MultipletasksView: View {
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.selecttask, $focusselecttask)
+        .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
         .task {
             // Discover if firsttime use, if true present view for firsttime
             firsttime = SharedReference.shared.firsttime
@@ -151,6 +155,14 @@ struct MultipletasksView: View {
             .onAppear(perform: {
                 focusselecttask = false
                 select()
+            })
+    }
+
+    var labelfirsttime: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusfirsttaskinfo = false
+                firsttime = true
             })
     }
 

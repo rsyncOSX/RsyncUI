@@ -17,16 +17,19 @@ struct FirsttimeView: View {
 
     var body: some View {
         VStack {
-            Text("About RsyncUI and some important info")
+            Text("Welcome to RsyncUI")
                 .font(.title)
+
+            imagersyncosx
+
             Text("")
-            Text("Please read and understand the information below.")
-            Text("Setting the wrong parameters to rsync can result in deleted data.")
-            Text("RsyncUI will NOT stop you from doing so. That is why it is very important ")
-            Text("to execute a simulated run and inspect what happens before a real run.")
+            Text("Please read and understand the information below. There is more info")
+            Text("selecting Important. Setting the wrong parameters to rsync can result in")
+            Text("deleted data. RsyncUI will NOT stop you from doing so. That is why it is very")
+            Text("important to execute a simulated run and inspect what happens before a real run.")
 
             HStack {
-                Button("Read") { openimportantinfo() }
+                Button("Important") { openimportantinfo() }
                     .buttonStyle(PrimaryButtonStyle())
 
                 Button("Add tasks") { openaboutadd() }
@@ -42,6 +45,13 @@ struct FirsttimeView: View {
             selection = .configurations
         }
         .frame(width: 800, height: 400)
+    }
+
+    var imagersyncosx: some View {
+        Image("rsyncosx")
+            .resizable()
+            .aspectRatio(1.0, contentMode: .fit)
+            .frame(maxWidth: 64)
     }
 
     func openimportantinfo() {
