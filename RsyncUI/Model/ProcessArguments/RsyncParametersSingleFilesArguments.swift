@@ -26,7 +26,7 @@ final class RsyncParametersSingleFilesArguments {
             // Drop the two first characeters ("./") as result from the find . -name
             let remote_with_whitespace = String(remoteFile!.dropFirst(2))
             // Replace remote for white spaces
-            let whitespace: String = "\\ "
+            let whitespace = "\\ "
             let remote = remote_with_whitespace.replacingOccurrences(of: " ", with: whitespace)
             let local: String = localCatalog!
             if config.sshport != nil {

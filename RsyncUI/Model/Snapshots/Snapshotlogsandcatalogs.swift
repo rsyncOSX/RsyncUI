@@ -132,7 +132,7 @@ final class Snapshotlogsandcatalogs {
 
     func countbydays(num: Double) -> Int {
         guard logrecordssnapshot?.count ?? 0 > 0 else { return 0 }
-        var j: Int = 0
+        var j = 0
         for i in 0 ..< (logrecordssnapshot?.count ?? 0) - 1 {
             if let days: String = logrecordssnapshot?[i].days {
                 if Double(days) ?? 0 >= num {

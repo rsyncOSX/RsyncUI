@@ -19,6 +19,7 @@
 		E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8902992260B0EF700F4F0DC /* ButtonStyles.swift */; };
 		E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8944891267B2CB0009F9C4A /* RsyncUIView.swift */; };
 		E900748D2651838A00514BBC /* ReadUserConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */; };
+		E904E02E275CED770070DF92 /* FirsttimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904E02D275CED770070DF92 /* FirsttimeView.swift */; };
 		E90B4AA2261DA7580043EFF6 /* RotatingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */; };
 		E90D4F2226523D5400EAD08F /* WriteUserConfigurationPLIST.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */; };
 		E90F7CA526344D5B001D9CA2 /* TextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */; };
@@ -230,6 +231,7 @@
 		E8902992260B0EF700F4F0DC /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		E8944891267B2CB0009F9C4A /* RsyncUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIView.swift; sourceTree = "<group>"; };
 		E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUserConfigurationPLIST.swift; sourceTree = "<group>"; };
+		E904E02D275CED770070DF92 /* FirsttimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirsttimeView.swift; sourceTree = "<group>"; };
 		E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatingDotsIndicatorView.swift; sourceTree = "<group>"; };
 		E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteUserConfigurationPLIST.swift; sourceTree = "<group>"; };
 		E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuilder.swift; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */,
 				E985C65325F3AD8400CB895C /* MultipletasksView.swift */,
 				E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */,
+				E904E02D275CED770070DF92 /* FirsttimeView.swift */,
 			);
 			path = Multipletasks;
 			sourceTree = "<group>";
@@ -1359,6 +1362,7 @@
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
 				E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */,
 				E985C68325F3AD8400CB895C /* LogRow.swift in Sources */,
+				E904E02E275CED770070DF92 /* FirsttimeView.swift in Sources */,
 				E985C76425F3AD9700CB895C /* ExecuteSingleTask.swift in Sources */,
 				E985C77F25F3AD9700CB895C /* MultipletasksPrimaryLogging.swift in Sources */,
 				E985C78825F3AD9700CB895C /* Reorgschedule.swift in Sources */,

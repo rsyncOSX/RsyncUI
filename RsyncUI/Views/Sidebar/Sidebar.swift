@@ -36,7 +36,8 @@ struct Sidebar: View {
 
             Group {
                 NavigationLink(destination: SidebarMultipletasksView(reload: $reload,
-                                                                     selectedprofile: $selectedprofile)
+                                                                     selectedprofile: $selectedprofile,
+                                                                     selection: $selection)
                         .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.multipletasks,
                     selection: $selection) {

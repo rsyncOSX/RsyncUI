@@ -35,6 +35,10 @@ struct MultipletasksView: View {
     @State private var searchText: String = ""
     // Singletaskview
     @Binding var singletaskview: Bool
+    // Firsttime use of RsyncUI
+    @State private var firsttime: Bool = false
+    // Which sidebar function
+    @Binding var selection: NavigationItem?
 
     var body: some View {
         ZStack {
@@ -92,6 +96,14 @@ struct MultipletasksView: View {
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.selecttask, $focusselecttask)
+        .task {
+            // Discover if firsttime use, if true present view for firsttime
+            firsttime = SharedReference.shared.firsttime
+        }
+        .sheet(isPresented: $firsttime) {
+            FirsttimeView(dismiss: $firsttime,
+                          selection: $selection)
+        }
     }
 
     var progressviewestimation: some View {

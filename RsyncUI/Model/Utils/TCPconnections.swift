@@ -30,7 +30,7 @@ class TCPconnections {
     func verifyallremoteserverTCPconnections() async {
         indexBoolremoteserverOff = [Bool]()
         guard (configurations?.count ?? 0) > 0 else { return }
-        var port: Int = 22
+        var port = 22
         for i in 0 ..< (configurations?.count ?? 0) {
             if let config = configurations?[i] {
                 if config.offsiteServer.isEmpty == false {

@@ -98,6 +98,8 @@ class SharedReference {
     // var reload: Bool = true
     // Default profile
     let defaultprofile = "Default profile"
+    // If firstime use
+    var firsttime = false
 
     private init() {
         synctasks = Set<String>()

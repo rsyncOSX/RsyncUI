@@ -233,7 +233,7 @@ extension SnapshotsView {
              plan == 0, keep last day of week every week
              dayofweek
              */
-            var localsnaplast: Int = 0
+            var localsnaplast = 0
             if snaplast == PlanSnapshots.Last.rawValue {
                 localsnaplast = 0 // keep selected day of week every week of month
             } else {

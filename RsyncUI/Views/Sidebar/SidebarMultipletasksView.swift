@@ -13,6 +13,8 @@ struct SidebarMultipletasksView: View {
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    // Which sidebar function
+    @Binding var selection: NavigationItem?
 
     // Show estimate when true, execute else
     @State var showestimateview: Bool = true
@@ -35,7 +37,8 @@ struct SidebarMultipletasksView: View {
                                           reload: $reload,
                                           selecteduuids: $selecteduuids,
                                           showestimateview: $showestimateview,
-                                          singletaskview: $singletaskview)
+                                          singletaskview: $singletaskview,
+                                          selection: $selection)
                     } else {
                         SingleTasksView(selectedconfig: $selectedconfig,
                                         selectedprofile: $selectedprofile,

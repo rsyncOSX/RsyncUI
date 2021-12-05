@@ -138,7 +138,7 @@ final class Logfile: NamesandPaths {
     private func fulllogging(_ data: [String]) {
         let date = Date().localized_string_from_date()
         readloggfile()
-        let tmplogg: String = "\n" + date + "\n"
+        let tmplogg = "\n" + date + "\n"
         if logfile == nil {
             logfile = tmplogg + data.joined(separator: "\n")
         } else {
