@@ -68,15 +68,9 @@ struct AddPreandPostView: View {
                 if newdata.updated == true { notifyupdated }
             }
 
+            updatebutton
+
             Spacer()
-
-            VStack {
-                HStack {
-                    Spacer()
-
-                    updatebutton
-                }
-            }
         }
         .lineSpacing(2)
         .padding()

@@ -89,15 +89,9 @@ struct AddConfigurationView: View {
                 if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
             }
 
+            updatebutton
+
             Spacer()
-
-            VStack {
-                HStack {
-                    Spacer()
-
-                    updatebutton
-                }
-            }
         }
         .lineSpacing(2)
         .padding()
