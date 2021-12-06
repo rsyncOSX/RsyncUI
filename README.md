@@ -24,7 +24,7 @@ When RsyncUI is throwing an error, it is presented as a SwiftUI Alert.
 
 The following tools are used in development:
 
-- Xcode 13, the main tool, latest version or beta of Swift and SwiftUI
+- Xcode 13, the main tool and current versions of Swift and SwiftUI
 - make to compile new versions in terminal
 - [create-dmg](https://github.com/sindresorhus/create-dmg) to create new releases
 - [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift style and conventions
