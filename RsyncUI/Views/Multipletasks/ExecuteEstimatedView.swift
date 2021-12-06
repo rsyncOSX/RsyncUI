@@ -27,11 +27,11 @@ struct ExecuteEstimatedView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsListSelectable(selectedconfig: $selectedconfig,
-                                         selecteduuids: $selecteduuids,
-                                         inwork: $inwork,
-                                         searchText: $searchText,
-                                         reload: $reload)
+            ConfigurationsList(selectedconfig: $selectedconfig,
+                               selecteduuids: $selecteduuids,
+                               inwork: $inwork,
+                               searchText: $searchText,
+                               reload: $reload)
 
             // When completed
             if multipletaskstate.executionstate == .completed { labelcompleted }

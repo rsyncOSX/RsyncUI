@@ -1,5 +1,5 @@
 //
-//  ConfigurationsListSelectable.swift
+//  ConfigurationsList.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 22/01/2021.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ConfigurationsListSelectable: View {
+struct ConfigurationsList: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
 
     @Binding var selectedconfig: Configuration?
