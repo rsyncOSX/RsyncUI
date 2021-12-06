@@ -32,6 +32,7 @@ struct AddPreandPostView: View {
                 HStack {
                     // For center
                     Spacer()
+
                     // Column 1
                     VStack(alignment: .leading) {
                         pretaskandtoggle
@@ -51,16 +52,15 @@ struct AddPreandPostView: View {
                             }
                         }
                     }
-                    .padding()
 
                     // Column 2
+
                     VStack(alignment: .leading) {
                         ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
                             newdata.updateview(selectedconfig)
                         }, reload: $reload)
-
-                        Spacer()
                     }
+
                     // For center
                     Spacer()
                 }
