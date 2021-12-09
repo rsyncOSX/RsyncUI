@@ -51,6 +51,7 @@ struct ConfigurationsList: View {
                             Button("Delete") {
                                 setuuidforselectedtask()
                                 delete()
+                                confirmdelete = false
                             }
                         }
                 }
