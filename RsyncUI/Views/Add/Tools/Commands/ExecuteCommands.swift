@@ -11,16 +11,24 @@ import SwiftUI
 struct ExecuteCommands: Commands {
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
-    // @FocusedBinding(\.starttestfortcpconnections) private var starttestfortcpconnections
     @FocusedBinding(\.selecttask) private var selectttask
     @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
+    @FocusedBinding(\.deletetask) private var deletetask
+    // @FocusedBinding(\.starttestfortcpconnections) private var starttestfortcpconnections
 
     var body: some Commands {
-        CommandMenu("Execute") {
+        CommandMenu("Tasks") {
             StarteestimateButton(startestimation: $startestimation)
             StartexecuteButton(startexecution: $startexecution)
+
+            Divider()
+
             SelectTask(selecttask: $selectttask)
             FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
+
+            Divider()
+
+            Deletetask(deletetask: $deletetask)
             // StartTCPconnectionsButton(starttestfortcpconnections: $starttestfortcpconnections)
         }
 
@@ -107,6 +115,19 @@ struct FirsttaskInfo: View {
     }
 }
 
+struct Deletetask: View {
+    @Binding var deletetask: Bool?
+
+    var body: some View {
+        Button {
+            deletetask = true
+        } label: {
+            Label("Delete task", systemImage: "trash.fill")
+        }
+        .keyboardShortcut("d", modifiers: [.command])
+    }
+}
+
 struct FocusedEstimateBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -124,6 +145,10 @@ struct FocusedSelecttask: FocusedValueKey {
 }
 
 struct FocusedFirsttaskInfo: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+struct FocusedDeletetask: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
@@ -151,5 +176,10 @@ extension FocusedValues {
     var firsttaskinfo: FocusedFirsttaskInfo.Value? {
         get { self[FocusedFirsttaskInfo.self] }
         set { self[FocusedFirsttaskInfo.self] = newValue }
+    }
+
+    var deletetask: FocusedDeletetask.Value? {
+        get { self[FocusedDeletetask.self] }
+        set { self[FocusedDeletetask.self] = newValue }
     }
 }
