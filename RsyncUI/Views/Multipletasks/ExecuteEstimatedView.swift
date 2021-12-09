@@ -25,7 +25,7 @@ struct ExecuteEstimatedView: View {
     @State private var inwork: Int = -1
     @State private var searchText: String = ""
 
-    @State private var confirdeletemenu = false
+    @State private var confirdelete = false
 
     var body: some View {
         ZStack {
@@ -34,7 +34,7 @@ struct ExecuteEstimatedView: View {
                                inwork: $inwork,
                                searchText: $searchText,
                                reload: $reload,
-                               confirmdeletemenu: $confirdeletemenu)
+                               confirmdelete: $confirdelete)
 
             // When completed
             if multipletaskstate.executionstate == .completed { labelcompleted }

@@ -53,7 +53,7 @@ struct MultipletasksView: View {
                                inwork: $inwork,
                                searchText: $searchText,
                                reload: $reload,
-                               confirmdeletemenu: $confirmdeletemenu)
+                               confirmdelete: $confirmdeletemenu)
             if focusstartestimation { labelshortcutestimation }
             if focusstartexecution { labelshortcutexecute }
             if focusselecttask { labelselecttask }

@@ -17,9 +17,7 @@ struct ConfigurationsList: View {
     @Binding var inwork: Int
     @Binding var searchText: String
     @Binding var reload: Bool
-    @Binding var confirmdeletemenu: Bool
-    // Alert for delete
-    @State private var confirmdelete = false
+    @Binding var confirmdelete: Bool
 
     let forestimated = false
 
