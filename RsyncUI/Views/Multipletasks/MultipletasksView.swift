@@ -6,6 +6,7 @@
 //
 
 import AlertToast
+import Network
 import SwiftUI
 
 struct MultipletasksView: View {
@@ -33,6 +34,7 @@ struct MultipletasksView: View {
     @State private var focusstartexecution: Bool = false
     @State private var focusselecttask: Bool = false
     @State private var focusfirsttaskinfo: Bool = false
+    @State private var focusdeletetask: Bool = false
 
     @State private var searchText: String = ""
     // Singletaskview
@@ -41,6 +43,8 @@ struct MultipletasksView: View {
     @State private var firsttime: Bool = false
     // Which sidebar function
     @Binding var selection: NavigationItem?
+    // Delete
+    @State private var confirmdeletemenu: Bool = false
 
     var body: some View {
         ZStack {
@@ -48,11 +52,13 @@ struct MultipletasksView: View {
                                selecteduuids: $selecteduuids,
                                inwork: $inwork,
                                searchText: $searchText,
-                               reload: $reload)
+                               reload: $reload,
+                               confirmdeletemenu: $confirmdeletemenu)
             if focusstartestimation { labelshortcutestimation }
             if focusstartexecution { labelshortcutexecute }
             if focusselecttask { labelselecttask }
             if focusfirsttaskinfo { labelfirsttime }
+            if focusdeletetask { labeldeletetask }
         }
 
         HStack {
@@ -100,6 +106,7 @@ struct MultipletasksView: View {
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.selecttask, $focusselecttask)
         .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
+        .focusedSceneValue(\.deletetask, $focusdeletetask)
         .task {
             // Discover if firsttime use, if true present view for firsttime
             firsttime = SharedReference.shared.firsttime
@@ -163,6 +170,14 @@ struct MultipletasksView: View {
             .onAppear(perform: {
                 focusfirsttaskinfo = false
                 firsttime = true
+            })
+    }
+
+    var labeldeletetask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusdeletetask = false
+                confirmdeletemenu = true
             })
     }
 

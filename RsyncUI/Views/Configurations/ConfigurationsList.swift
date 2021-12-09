@@ -17,8 +17,9 @@ struct ConfigurationsList: View {
     @Binding var inwork: Int
     @Binding var searchText: String
     @Binding var reload: Bool
+    @Binding var confirmdeletemenu: Bool
     // Alert for delete
-    @State private var confirmationShown = false
+    @State private var confirmdelete = false
 
     let forestimated = false
 
@@ -39,7 +40,7 @@ struct ConfigurationsList: View {
                         .tag(configurations)
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             Button(role: .destructive) {
-                                confirmationShown = true
+                                confirmdelete = true
                             } label: {
                                 Label("Trash", systemImage: "delete.backward.fill")
                             }
@@ -47,7 +48,7 @@ struct ConfigurationsList: View {
                         .confirmationDialog(
                             NSLocalizedString("Delete configuration", comment: "")
                                 + "?",
-                            isPresented: $confirmationShown
+                            isPresented: $confirmdelete
                         ) {
                             Button("Delete") {
                                 setuuidforselectedtask()
