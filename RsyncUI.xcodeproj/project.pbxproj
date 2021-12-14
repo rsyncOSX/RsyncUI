@@ -526,6 +526,16 @@
 			path = RsyncParameters;
 			sourceTree = "<group>";
 		};
+		E9615FF62769153E00B3F748 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				E999F9252769104200B80DF6 /* AlertToast.swift */,
+				E999F9272769108A00B80DF6 /* ActivityIndicator.swift */,
+				E999F929276910BD00B80DF6 /* BlurView.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		E985C5BA25F3AC0700CB895C = {
 			isa = PBXGroup;
 			children = (
@@ -1053,11 +1063,9 @@
 		E999F92027690F0300B80DF6 /* Imports */ = {
 			isa = PBXGroup;
 			children = (
+				E9615FF62769153E00B3F748 /* Alert */,
 				E999F92127690F3400B80DF6 /* Files.swift */,
 				E999F92327690FD100B80DF6 /* ShellOut.swift */,
-				E999F9252769104200B80DF6 /* AlertToast.swift */,
-				E999F9272769108A00B80DF6 /* ActivityIndicator.swift */,
-				E999F929276910BD00B80DF6 /* BlurView.swift */,
 			);
 			path = Imports;
 			sourceTree = "<group>";
