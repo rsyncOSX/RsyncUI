@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 04/09/2021.
 //
 
-import AlertToast
 import SwiftUI
 
 struct AddProfileView: View {

@@ -6,7 +6,6 @@
 //
 
 import Combine
-import Files
 import Foundation
 
 class ReadScheduleJSON: NamesandPaths {

@@ -7,7 +7,6 @@
 //
 // swiftlint:disable opening_brace
 
-import Files
 import Foundation
 
 class Catalogsandfiles: NamesandPaths {

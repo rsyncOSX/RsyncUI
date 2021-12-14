@@ -7,7 +7,6 @@
 //
 // swiftlint:disable line_length
 
-import AlertToast
 import Foundation
 import SwiftUI
 

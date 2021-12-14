@@ -41,7 +41,7 @@ extension RsyncVersionString {
             SharedReference.shared.rsyncversionshort = rsyncversionshort
             SharedReference.shared.rsyncversionstring = rsyncversionstring
             self.rsyncversionshort = rsyncversionshort
-            self.rsyncversionstring = rsyncversionstring
+            // rsyncversionstring = rsyncversionstring
             updateRsyncVersionStringDelegate?.updatersyncversionstring(rsyncversion: rsyncversionshort)
         }
     }
