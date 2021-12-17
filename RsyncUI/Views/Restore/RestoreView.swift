@@ -14,10 +14,6 @@ struct RestoreView: View {
 
     @State private var presentsheetview = false
     @State private var filterstring = ""
-    // Not used but requiered in parameter
-    @State private var selecteduuids = Set<UUID>()
-    @State private var inwork = -1
-    @State private var searchText: String = ""
 
     let selectable = false
 
