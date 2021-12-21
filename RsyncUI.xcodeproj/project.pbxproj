@@ -685,6 +685,9 @@
 		E985C63C25F3AD8400CB895C /* Schedules */ = {
 			isa = PBXGroup;
 			children = (
+				E985C70F25F3AD9700CB895C /* UpdateSchedules.swift */,
+				E985C71125F3AD9700CB895C /* Reorgschedule.swift */,
+				E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */,
 				E985C64025F3AD8400CB895C /* SidebarSchedulesView.swift */,
 				E985C63D25F3AD8400CB895C /* SchedulesList.swift */,
 				E985C63E25F3AD8400CB895C /* ScheduleDatePicker.swift */,
@@ -982,7 +985,6 @@
 			isa = PBXGroup;
 			children = (
 				E985C70825F3AD9700CB895C /* Configurations */,
-				E985C70E25F3AD9700CB895C /* Schedules */,
 				E985C70D25F3AD9700CB895C /* SchedulesSwiftUI.swift */,
 				E985C71225F3AD9700CB895C /* OutputFromMultipleTasks.swift */,
 				E985C71325F3AD9700CB895C /* OutputFromRsync.swift */,
@@ -1002,16 +1004,6 @@
 				E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */,
 			);
 			path = Configurations;
-			sourceTree = "<group>";
-		};
-		E985C70E25F3AD9700CB895C /* Schedules */ = {
-			isa = PBXGroup;
-			children = (
-				E985C70F25F3AD9700CB895C /* UpdateSchedules.swift */,
-				E985C71125F3AD9700CB895C /* Reorgschedule.swift */,
-				E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */,
-			);
-			path = Schedules;
 			sourceTree = "<group>";
 		};
 		E985C71725F3AD9700CB895C /* AddParametersRsync */ = {
