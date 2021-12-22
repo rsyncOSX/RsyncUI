@@ -43,6 +43,7 @@ class WriteConfigurationJSON: NamesandPaths {
     @discardableResult
     init(_ profile: String?, _ configurations: [Configuration]?) {
         super.init(.configurations)
+        SharedReference.shared.firsttime = false
         // print("WriteConfigurationJSON")
         // Set profile and filename ahead of encoding an write
         if profile == SharedReference.shared.defaultprofile {
