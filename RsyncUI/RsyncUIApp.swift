@@ -23,13 +23,13 @@ struct RsyncUIApp: App {
                 .environmentObject(checkfornewversionofrsyncui)
                 .task {
                     // User notifications
-                    setusernotifications()
+                    // setusernotifications()
                     // Create base profile catalog
                     // Read user settings
                     // Check if schedule app is running
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationPLIST()
-                    Running()
+                    // Running()
                 }
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
                 .frame(minWidth: 1350, minHeight: 500)

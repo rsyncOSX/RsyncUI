@@ -685,6 +685,7 @@
 		E985C63C25F3AD8400CB895C /* Schedules */ = {
 			isa = PBXGroup;
 			children = (
+				E985C6A425F3AD9600CB895C /* Running.swift */,
 				E985C70F25F3AD9700CB895C /* UpdateSchedules.swift */,
 				E985C71125F3AD9700CB895C /* Reorgschedule.swift */,
 				E97844DE260DB3D6007874A1 /* ScheduleSortedAndExpand.swift */,
@@ -809,7 +810,6 @@
 		E985C6A225F3AD9600CB895C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E985C6A425F3AD9600CB895C /* Running.swift */,
 				E985C6A525F3AD9600CB895C /* GetfullpathforRsync.swift */,
 				E985C6A625F3AD9600CB895C /* Environment.swift */,
 				E985C6A725F3AD9600CB895C /* RsyncCommandtoDisplay.swift */,
