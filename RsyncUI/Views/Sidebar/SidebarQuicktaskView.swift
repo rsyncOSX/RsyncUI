@@ -37,7 +37,7 @@ struct SidebarQuicktaskView: View {
             imagerssync
 
             VStack(alignment: .leading) {
-                Text("Quick task")
+                Text("Quick synchronize")
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

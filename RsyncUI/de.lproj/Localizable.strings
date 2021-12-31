@@ -8,9 +8,6 @@
 "Add" = "Neu";
 
 /* No comment provided by engineer. */
-"Add config" = "Konfiguration hinzufügen";
-
-/* No comment provided by engineer. */
 "Add local as remote catalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
 
 /* No comment provided by engineer. */
@@ -36,6 +33,12 @@
 
 /* No comment provided by engineer. */
 "Add synchronize ID" = "Synchronisierungs-ID hinzufügen";
+
+/* No comment provided by engineer. */
+"Add task" = "Aufgabe hinzufügen";
+
+/* No comment provided by engineer. */
+"Add tasks" = "Aufgaben hinzufügen";
 
 /* No comment provided by engineer. */
 "All" = "Alle";
@@ -77,9 +80,6 @@
 "Completed" = "Abgeschlossen";
 
 /* No comment provided by engineer. */
-"Configurations" = "Konfigurationen";
-
-/* No comment provided by engineer. */
 "Confirm convert" = "Konvertierung bestätigen";
 
 /* No comment provided by engineer. */
@@ -105,6 +105,9 @@
 
 /* No comment provided by engineer. */
 "Delete configuration" = "Konfiguration löschen";
+
+/* No comment provided by engineer. */
+"Delete task" = "Aufgabe löschen";
 
 /* No comment provided by engineer. */
 "Detailed" = "Detailliert";
@@ -144,6 +147,9 @@
 
 /* No comment provided by engineer. */
 "Files" = "Dateien";
+
+/* No comment provided by engineer. */
+"First task" = "Erste Aufgabe";
 
 /* No comment provided by engineer. */
 "FreeBSD" = "FreeBSD";
@@ -287,16 +293,13 @@
 "PLIST" = "PLIST";
 
 /* No comment provided by engineer. */
-"Pre and post" = "Vor- und Post";
-
-/* No comment provided by engineer. */
 "Pre and post task" = "Vor- und Post-Aufgabe";
 
 /* No comment provided by engineer. */
 "Profiles" = "Profile";
 
 /* No comment provided by engineer. */
-"Quick task" = "Schnelle Aufgabe";
+"Quick synchronize" = "Schnell synchronisieren";
 
 /* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
@@ -371,6 +374,9 @@
 "Settings" = "Einstellungen";
 
 /* No comment provided by engineer. */
+"Shell scripts" = "Shell scripts";
+
+/* No comment provided by engineer. */
 "Size transfer" = "Größenübertragung";
 
 /* No comment provided by engineer. */
@@ -381,6 +387,9 @@
 
 /* No comment provided by engineer. */
 "Stop" = "Stoppen";
+
+/* No comment provided by engineer. */
+"Synchronize" = "Synchronisieren";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";

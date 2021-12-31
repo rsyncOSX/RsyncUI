@@ -15,11 +15,11 @@ struct SidebarAddConfigurationsView: View {
         TabView {
             AddConfigurationView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
-                    Text("Add config")
+                    Text("Add task")
                 }
             AddPreandPostView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
-                    Text("Pre and post")
+                    Text("Shell scripts")
                 }
             AddProfileView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {

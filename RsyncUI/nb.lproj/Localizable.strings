@@ -11,9 +11,6 @@
 "Add" = "Legg til";
 
 /* No comment provided by engineer. */
-"Add config" = "Legg til konfigurasjon";
-
-/* No comment provided by engineer. */
 "Add local as remote catalog - required" = "Legg til lokal som eksternkatalog - kreves";
 
 /* No comment provided by engineer. */
@@ -39,6 +36,12 @@
 
 /* No comment provided by engineer. */
 "Add synchronize ID" = "Legg til synkroniserings ID";
+
+/* No comment provided by engineer. */
+"Add task" = "Legg til oppgave";
+
+/* No comment provided by engineer. */
+"Add tasks" = "Legg til oppgaver";
 
 /* No comment provided by engineer. */
 "All" = "Alle";
@@ -80,9 +83,6 @@
 "Completed" = "Fullført";
 
 /* No comment provided by engineer. */
-"Configurations" = "Konfigurasjoner";
-
-/* No comment provided by engineer. */
 "Confirm convert" = "Bekreft konvertering";
 
 /* No comment provided by engineer. */
@@ -111,6 +111,9 @@
 
 /* No comment provided by engineer. */
 "Delete configuration" = "Slett konfigurasjon";
+
+/* No comment provided by engineer. */
+"Delete task" = "Slett oppgave";
 
 /* No comment provided by engineer. */
 "Detailed" = "Detaljert";
@@ -150,6 +153,9 @@
 
 /* No comment provided by engineer. */
 "Files" = "Filer";
+
+/* No comment provided by engineer. */
+"First task" = "Første oppgave";
 
 /* No comment provided by engineer. */
 "FreeBSD" = "FreeBSD";
@@ -293,16 +299,13 @@
 "PLIST" = "PLIST";
 
 /* No comment provided by engineer. */
-"Pre and post" = "Pre og post oppgave";
-
-/* No comment provided by engineer. */
 "Pre and post task" = "Pre og post oppgave";
 
 /* No comment provided by engineer. */
 "Profiles" = "Profiler";
 
 /* No comment provided by engineer. */
-"Quick task" = "Hurtig oppgave";
+"Quick synchronize" = "Rask synkronisering";
 
 /* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
@@ -377,6 +380,9 @@
 "Settings" = "Innstillinger";
 
 /* No comment provided by engineer. */
+"Shell scripts" = "Shell script";
+
+/* No comment provided by engineer. */
 "Size transfer" = "Størrelse overføring";
 
 /* No comment provided by engineer. */
@@ -387,6 +393,9 @@
 
 /* No comment provided by engineer. */
 "Stop" = "Stopp";
+
+/* No comment provided by engineer. */
+"Synchronize" = "Synkronisere";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";

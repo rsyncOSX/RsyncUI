@@ -75,7 +75,7 @@ struct SidebarMultipletasksView: View {
             imagerssync
 
             VStack(alignment: .leading) {
-                Text("Tasks")
+                Text("Synchronize")
                     .modifier(Tagheading(.title2, .leading))
                     .foregroundColor(Color.blue)
             }

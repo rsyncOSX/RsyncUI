@@ -41,7 +41,7 @@ struct Sidebar: View {
                         .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.multipletasks,
                     selection: $selection) {
-                        Label("Tasks",
+                        Label("Synchronize",
                               systemImage: "arrowshape.turn.up.left.2.fill")
                     }
                     .tag(NavigationItem.multipletasks)
@@ -49,7 +49,7 @@ struct Sidebar: View {
                 NavigationLink(destination: SidebarQuicktaskView(),
                                tag: NavigationItem.quicktask,
                                selection: $selection) {
-                    Label("Quick task",
+                    Label("Quick synchronize",
                           systemImage: "arrowshape.turn.up.backward.fill")
                 }
                 .tag(NavigationItem.quicktask)
@@ -62,7 +62,7 @@ struct Sidebar: View {
                                                                          reload: $reload),
                                tag: NavigationItem.configurations,
                                selection: $selection) {
-                    Label("Configurations", systemImage: "text.badge.plus")
+                    Label("Tasks", systemImage: "text.badge.plus")
                 }
                 .tag(NavigationItem.configurations)
 
