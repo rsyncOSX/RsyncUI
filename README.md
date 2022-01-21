@@ -1,4 +1,4 @@
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.2.6/total) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.2.5/total) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.2.6/total) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 RsyncUI is released for macOS Monterey.
 
@@ -8,14 +8,12 @@ RsyncUI is released for macOS Monterey.
 
 ## Dependencies
 
-RsyncUI is implemented by utilizing the SwiftUI and Combine declarative frameworks, and Swift 5. There are though a few source code dependencies:
+RsyncUI is implemented by utilizing the SwiftUI and Combine declarative frameworks and Swift 5. There are a few source code dependencies:
 
 - execute pre and post shell scripts by utilizing John Sundell´s [ShellOut](https://github.com/JohnSundell/ShellOut)
 - utilizing John Sundell´s [Files](https://github.com/JohnSundell/Files) for reading files and catalogs
 - [ActivityIndicatorView](https://github.com/exyte/ActivityIndicatorView) - RsyncUI is using RotatingDotsIndicatorView
 - [AlertToast](https://github.com/elai950/AlertToast) - a better looking Alert for simple messages to the user
-
-When RsyncUI is throwing an error, it is presented as a SwiftUI Alert.
 
 ## Tools used
 
@@ -23,7 +21,7 @@ The following tools are used in development:
 
 - Xcode 13, the main tool and current versions of Swift and SwiftUI
 - make to compile new versions in terminal
-- [create-dmg](https://github.com/sindresorhus/create-dmg) to create new releases
+- [create-dmg](https://github.com/sindresorhus/create-dmg) to create new dmg for release
 - [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift style and conventions
 - [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) for reformatting Swift code
 - [GitHub Desktop](https://desktop.github.com/) for git and GitHub
