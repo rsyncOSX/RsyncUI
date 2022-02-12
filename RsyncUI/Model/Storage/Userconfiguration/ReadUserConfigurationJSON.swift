@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class ReadUserConfigurationsJSON: NamesandPaths {
+class ReadUserConfigurationJSON: NamesandPaths {
     var userconfiguration = UserConfiguration()
     var filenamedatastore = [SharedReference.shared.userconfigjson]
     var subscriptons = Set<AnyCancellable>()
@@ -33,8 +33,8 @@ class ReadUserConfigurationsJSON: NamesandPaths {
                 case .finished:
                     // print("The publisher finished normally.")
                     return
-                case let .failure(error):
-                    self.propogateerror(error: error)
+                case .failure:
+                    WriteUserConfigurationJSON(UserConfiguration())
                 }
             } receiveValue: { [unowned self] data in
                 if data.count == 1 {
