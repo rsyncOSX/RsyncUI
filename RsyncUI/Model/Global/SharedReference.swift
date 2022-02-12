@@ -66,6 +66,8 @@ class SharedReference {
     let userconfigplist: String = "/rsyncuiconfig.plist"
     let userconfigkey: String = "config"
     let logname: String = "rsyncui.txt"
+    // Userconfiguration json file
+    let userconfigjson: String = "rsyncuiconfig.json"
     // String tasks
     let synchronize: String = "synchronize"
     let snapshot: String = "snapshot"
