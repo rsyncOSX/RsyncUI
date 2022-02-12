@@ -14,7 +14,7 @@ class ReadUserConfigurationJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
     var validhiddenIDs = Set<Int>()
 
-    init(_: String?) {
+    init() {
         super.init(.configurations)
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in

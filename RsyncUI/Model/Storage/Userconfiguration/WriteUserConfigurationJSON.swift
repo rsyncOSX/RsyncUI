@@ -9,17 +9,13 @@ import Combine
 import Foundation
 
 class WriteUserConfigurationJSON: NamesandPaths {
-    var profile: String?
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
     var filename = SharedReference.shared.userconfigjson
 
     private func writeJSONToPersistentStore(_ data: String?) {
-        if var atpath = fullpathmacserial {
+        if let atpath = fullpathmacserial {
             do {
-                if profile != nil {
-                    atpath += "/" + (profile ?? "")
-                }
                 let folder = try Folder(path: atpath)
                 let file = try folder.createFile(named: filename)
                 if let data = data {
@@ -38,8 +34,8 @@ class WriteUserConfigurationJSON: NamesandPaths {
     init(_ userconfiguration: UserConfiguration?) {
         super.init(.configurations)
         userconfiguration.publisher
-            .map { schedules in
-                schedules
+            .map { userconfiguration in
+                userconfiguration
             }
             .encode(encoder: JSONEncoder())
             .sink(receiveCompletion: { completion in

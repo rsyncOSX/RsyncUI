@@ -29,6 +29,7 @@ struct RsyncUIApp: App {
                     // Check if schedule app is running
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationPLIST()
+                    ReadUserConfigurationJSON()
                     // Running()
                 }
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
