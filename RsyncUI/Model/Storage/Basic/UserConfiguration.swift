@@ -17,6 +17,12 @@ struct UserConfiguration: Codable {
     var nologging: Int = 1
     // Montor network connection
     var monitornetworkconnection: Int = -1
+    // local path for rsync
+    var localrsyncpath: String?
+    // temporary path for restore
+    var pathforrestore: String?
+    // days for mark days since last synchronize
+    var marknumberofdayssince: String = "5.0"
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -49,6 +55,19 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.monitornetworkconnection = false
         }
+        if localrsyncpath != nil {
+            SharedReference.shared.localrsyncpath = localrsyncpath
+        } else {
+            SharedReference.shared.localrsyncpath = nil
+        }
+        if pathforrestore != nil {
+            SharedReference.shared.pathforrestore = pathforrestore
+        } else {
+            SharedReference.shared.pathforrestore = nil
+        }
+        if Double(marknumberofdayssince) ?? 0 > 0 {
+            SharedReference.shared.marknumberofdayssince = Double(marknumberofdayssince)!
+        }
     }
 
     // Used when reading JSON data from store
@@ -60,6 +79,9 @@ struct UserConfiguration: Codable {
         fulllogging = data.fulllogging ?? -1
         nologging = data.nologging ?? 1
         monitornetworkconnection = data.monitornetworkconnection ?? -1
+        localrsyncpath = data.localrsyncpath
+        pathforrestore = data.pathforrestore
+        marknumberofdayssince = data.marknumberofdayssince ?? "5.0"
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -98,6 +120,17 @@ struct UserConfiguration: Codable {
             } else {
                 monitornetworkconnection = -1
             }
+            if SharedReference.shared.localrsyncpath != nil {
+                localrsyncpath = SharedReference.shared.localrsyncpath
+            } else {
+                localrsyncpath = nil
+            }
+            if SharedReference.shared.pathforrestore != nil {
+                pathforrestore = SharedReference.shared.pathforrestore
+            } else {
+                pathforrestore = nil
+            }
+            marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
         }
     }
 }

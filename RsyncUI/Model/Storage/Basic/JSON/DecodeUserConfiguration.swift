@@ -17,6 +17,12 @@ struct DecodeUserConfiguration: Codable {
     let nologging: Int?
     // Monitor network connection
     let monitornetworkconnection: Int?
+    // local path for rsync
+    let localrsyncpath: String?
+    // temporary path for restore
+    let pathforrestore: String?
+    // days for mark days since last synchronize
+    let marknumberofdayssince: String?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -25,6 +31,9 @@ struct DecodeUserConfiguration: Codable {
         case fulllogging
         case nologging
         case monitornetworkconnection
+        case localrsyncpath
+        case pathforrestore
+        case marknumberofdayssince
     }
 
     init(from decoder: Decoder) throws {
@@ -35,6 +44,9 @@ struct DecodeUserConfiguration: Codable {
         fulllogging = try values.decodeIfPresent(Int.self, forKey: .fulllogging)
         nologging = try values.decodeIfPresent(Int.self, forKey: .nologging)
         monitornetworkconnection = try values.decodeIfPresent(Int.self, forKey: .monitornetworkconnection)
+        localrsyncpath = try values.decodeIfPresent(String.self, forKey: .localrsyncpath)
+        pathforrestore = try values.decodeIfPresent(String.self, forKey: .pathforrestore)
+        marknumberofdayssince = try values.decodeIfPresent(String.self, forKey: .marknumberofdayssince)
     }
 
     init(_ userconfiguration: UserConfiguration) {
@@ -44,5 +56,8 @@ struct DecodeUserConfiguration: Codable {
         fulllogging = userconfiguration.fulllogging
         nologging = userconfiguration.nologging
         monitornetworkconnection = userconfiguration.monitornetworkconnection
+        localrsyncpath = userconfiguration.localrsyncpath
+        pathforrestore = userconfiguration.pathforrestore
+        marknumberofdayssince = userconfiguration.marknumberofdayssince
     }
 }
