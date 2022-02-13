@@ -78,20 +78,16 @@ struct Usersettings: View {
                                     ToggleViewDefault(NSLocalizedString("Detailed", comment: ""), $usersettings.detailedlogging)
                                 }
 
+                                Section(header: headerothersettings) {
+                                    ToggleViewDefault(NSLocalizedString("Monitor", comment: ""), $usersettings.monitornetworkconnection)
+                                }
+
                                 Section(header: headermarkdays) {
                                     setmarkdays
                                 }
                             }
                         }
                     }.padding()
-
-                    // Column 3
-                    VStack(alignment: .leading) {
-                        Section(header: headerothersettings) {
-                            ToggleViewDefault(NSLocalizedString("Monitor", comment: ""), $usersettings.monitornetworkconnection)
-                        }
-                    }
-                    .padding()
 
                     // For center
                     Spacer()

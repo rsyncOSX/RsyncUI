@@ -57,6 +57,7 @@ struct UserConfiguration: Codable {
         }
         if localrsyncpath != nil {
             SharedReference.shared.localrsyncpath = localrsyncpath
+            validatepathforrsync(localrsyncpath ?? "")
         } else {
             SharedReference.shared.localrsyncpath = nil
         }
@@ -68,6 +69,22 @@ struct UserConfiguration: Codable {
         if Double(marknumberofdayssince) ?? 0 > 0 {
             SharedReference.shared.marknumberofdayssince = Double(marknumberofdayssince)!
         }
+    }
+
+    func validatepathforrsync(_ path: String) {
+        let validate = SetandValidatepathforrsync()
+        validate.setlocalrsyncpath(path)
+        do {
+            let ok = try validate.validateandrsyncpath()
+            if ok { return }
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
+        }
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 
     // Used when reading JSON data from store
@@ -122,6 +139,7 @@ struct UserConfiguration: Codable {
             }
             if SharedReference.shared.localrsyncpath != nil {
                 localrsyncpath = SharedReference.shared.localrsyncpath
+                validatepathforrsync(localrsyncpath ?? "")
             } else {
                 localrsyncpath = nil
             }
