@@ -88,7 +88,7 @@ class SharedReference {
     // Mac serialnumer
     var macserialnumber: String?
     // True if menuapp is running
-    var menuappisrunning: Bool = false
+    // var menuappisrunning: Bool = false
     // Reference to the active process
     var process: Process?
     // JSON names

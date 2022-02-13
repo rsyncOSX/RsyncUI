@@ -27,7 +27,7 @@ class ReadUserConfigurationJSON: NamesandPaths {
             .tryMap { url -> Data in
                 try Data(contentsOf: url)
             }
-            .decode(type: [DecodeUserConfiguration].self, decoder: JSONDecoder())
+            .decode(type: DecodeUserConfiguration.self, decoder: JSONDecoder())
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -37,9 +37,7 @@ class ReadUserConfigurationJSON: NamesandPaths {
                     WriteUserConfigurationJSON(UserConfiguration())
                 }
             } receiveValue: { [unowned self] data in
-                if data.count == 1 {
-                    self.userconfiguration = UserConfiguration(data[0])
-                }
+                self.userconfiguration = UserConfiguration(data)
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
     }

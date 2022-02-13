@@ -24,12 +24,14 @@ class WriteScheduleJSON: NamesandPaths {
                 let file = try folder.createFile(named: filename)
                 if let data = data {
                     try file.write(data)
-                    if SharedReference.shared.menuappisrunning {
-                        Notifications().showNotification(SharedReference.shared.reloadstring)
-                        DistributedNotificationCenter.default()
-                            .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
-                                                  object: nil, deliverImmediately: true)
-                    }
+                    /*
+                     if SharedReference.shared.menuappisrunning {
+                         Notifications().showNotification(SharedReference.shared.reloadstring)
+                         DistributedNotificationCenter.default()
+                             .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
+                                                   object: nil, deliverImmediately: true)
+                     }
+                     */
                 }
             } catch let e {
                 let error = e

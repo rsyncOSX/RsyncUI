@@ -100,12 +100,14 @@ final class WriteUserConfigurationPLIST: NamesandPaths {
             let dictionary = NSDictionary(object: data, forKey: SharedReference.shared.userconfigkey as NSCopying)
             let write = dictionary.write(toFile: path + SharedReference.shared.userconfigplist,
                                          atomically: true)
-            if write && SharedReference.shared.menuappisrunning {
-                Notifications().showNotification("Sending reload message to menu app")
-                DistributedNotificationCenter.default()
-                    .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
-                                          object: nil, deliverImmediately: true)
-            }
+            /*
+             if write && SharedReference.shared.menuappisrunning {
+                 Notifications().showNotification("Sending reload message to menu app")
+                 DistributedNotificationCenter.default()
+                     .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
+                                           object: nil, deliverImmediately: true)
+             }
+              */
             return write
         }
         return false

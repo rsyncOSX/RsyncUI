@@ -48,10 +48,10 @@ final class Running {
         let rsyncschedule = applications.filter { $0.bundleIdentifier == self.rsyncschedule }
         if rsyncschedule.count > 0 {
             rsyncUIscheduleisrunning = true
-            SharedReference.shared.menuappisrunning = true
+            // SharedReference.shared.menuappisrunning = true
         } else {
             rsyncUIscheduleisrunning = false
-            SharedReference.shared.menuappisrunning = false
+            // SharedReference.shared.menuappisrunning = false
         }
     }
 }
