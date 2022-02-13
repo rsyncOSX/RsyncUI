@@ -15,6 +15,8 @@ struct DecodeUserConfiguration: Codable {
     let minimumlogging: Int?
     let fulllogging: Int?
     let nologging: Int?
+    // Monitor network connection
+    let monitornetworkconnection: Int?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -22,6 +24,7 @@ struct DecodeUserConfiguration: Codable {
         case minimumlogging
         case fulllogging
         case nologging
+        case monitornetworkconnection
     }
 
     init(from decoder: Decoder) throws {
@@ -31,6 +34,7 @@ struct DecodeUserConfiguration: Codable {
         minimumlogging = try values.decodeIfPresent(Int.self, forKey: .minimumlogging)
         fulllogging = try values.decodeIfPresent(Int.self, forKey: .fulllogging)
         nologging = try values.decodeIfPresent(Int.self, forKey: .nologging)
+        monitornetworkconnection = try values.decodeIfPresent(Int.self, forKey: .monitornetworkconnection)
     }
 
     init(_ userconfiguration: UserConfiguration) {
@@ -39,5 +43,6 @@ struct DecodeUserConfiguration: Codable {
         minimumlogging = userconfiguration.minimumlogging
         fulllogging = userconfiguration.fulllogging
         nologging = userconfiguration.nologging
+        monitornetworkconnection = userconfiguration.monitornetworkconnection
     }
 }

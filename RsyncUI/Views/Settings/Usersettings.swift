@@ -88,9 +88,7 @@ struct Usersettings: View {
                     // Column 3
                     VStack(alignment: .leading) {
                         Section(header: headerothersettings) {
-                            ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
-
-                            ToggleViewDefault(NSLocalizedString("Check data", comment: ""), $usersettings.checkinput)
+                            ToggleViewDefault(NSLocalizedString("Monitor", comment: ""), $usersettings.monitornetworkconnection)
                         }
                     }
                     .padding()
@@ -182,7 +180,7 @@ struct Usersettings: View {
 
     // Header other settings
     var headerothersettings: some View {
-        Text("Other settings")
+        Text("Monitor network")
     }
 
     // Header user setting

@@ -15,6 +15,8 @@ struct UserConfiguration: Codable {
     var minimumlogging: Int = -1
     var fulllogging: Int = -1
     var nologging: Int = 1
+    // Montor network connection
+    var monitornetworkconnection: Int = -1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -42,6 +44,11 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.nologging = false
         }
+        if monitornetworkconnection == 1 {
+            SharedReference.shared.monitornetworkconnection = true
+        } else {
+            SharedReference.shared.monitornetworkconnection = false
+        }
     }
 
     // Used when reading JSON data from store
@@ -52,6 +59,7 @@ struct UserConfiguration: Codable {
         minimumlogging = data.minimumlogging ?? -1
         fulllogging = data.fulllogging ?? -1
         nologging = data.nologging ?? 1
+        monitornetworkconnection = data.monitornetworkconnection ?? -1
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -84,6 +92,11 @@ struct UserConfiguration: Codable {
                 nologging = 1
             } else {
                 nologging = -1
+            }
+            if SharedReference.shared.monitornetworkconnection {
+                monitornetworkconnection = 1
+            } else {
+                monitornetworkconnection = -1
             }
         }
     }

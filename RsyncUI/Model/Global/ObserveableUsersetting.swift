@@ -33,8 +33,6 @@ final class ObserveableUsersetting: ObservableObject {
     @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     // Check for network changes
     @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
-    // Check input when loading schedules and adding config
-    @Published var checkinput: Bool = SharedReference.shared.checkinput
 
     // Set if path for rsync and restore is not valid
     @Published var novalidpathmessage: Bool = false
@@ -82,10 +80,6 @@ final class ObserveableUsersetting: ObservableObject {
         $monitornetworkconnection
             .sink { monitor in
                 SharedReference.shared.monitornetworkconnection = monitor
-            }.store(in: &subscriptions)
-        $checkinput
-            .sink { check in
-                SharedReference.shared.checkinput = check
             }.store(in: &subscriptions)
         $marknumberofdayssince
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
