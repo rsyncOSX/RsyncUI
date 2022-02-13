@@ -57,9 +57,6 @@ class SharedReference {
     let usrlocalbin: String = "/usr/local/bin"
     let usrlocalbinarm: String = "/opt/homebrew/bin"
     var macosarm: Bool = false
-    // Sandboxed
-    // The configpath must live inside the Sanbox
-    // See NamesandPaths
     // RsyncUI config files and path
     let configpath: String = "/.rsyncosx/"
     // Userconfiguration plistnames and key

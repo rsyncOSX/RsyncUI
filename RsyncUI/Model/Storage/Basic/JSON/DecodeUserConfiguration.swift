@@ -8,19 +8,19 @@
 import Foundation
 
 struct DecodeUserConfiguration: Codable {
-    let version3rsync: Int?
+    let rsyncversion3: Int?
 
     enum CodingKeys: String, CodingKey {
-        case version3rsync
+        case rsyncversion3
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        version3rsync = try values.decodeIfPresent(Int.self, forKey: .version3rsync)
+        rsyncversion3 = try values.decodeIfPresent(Int.self, forKey: .rsyncversion3)
     }
 
     // This init is used in WriteScheduleJSON
     init(_ data: UserConfiguration) {
-        version3rsync = data.version3rsync
+        rsyncversion3 = data.rsyncversion3
     }
 }

@@ -8,16 +8,16 @@
 import Foundation
 
 struct UserConfiguration: Codable {
-    var version3rsync: Int?
+    var rsyncversion3: Int?
 
     // Used when reading JSON data from store
     // see in ReadScheduleJSON
     init(_ data: DecodeUserConfiguration) {
-        version3rsync = data.version3rsync ?? -1
+        rsyncversion3 = data.rsyncversion3 ?? -1
     }
 
     // Create an empty record with no values
     init() {
-        version3rsync = -1
+        rsyncversion3 = -1
     }
 }
