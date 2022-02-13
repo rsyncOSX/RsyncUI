@@ -12,7 +12,6 @@ import Foundation
 // Reading userconfiguration from file into RsyncOSX
 struct Userconfiguration {
     private func readUserconfiguration(dict: NSDictionary) {
-        SharedReference.shared.inloading = true
         // Another version of rsync
         if let version3rsync = dict.value(forKey: DictionaryStrings.version3Rsync.rawValue) as? Int {
             if version3rsync == 1 {
@@ -104,7 +103,6 @@ struct Userconfiguration {
                 SharedReference.shared.monitornetworkconnection = false
             }
         }
-        SharedReference.shared.inloading = false
     }
 
     func validatepathforrsync(_ path: String) {

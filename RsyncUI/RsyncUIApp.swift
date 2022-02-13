@@ -28,7 +28,7 @@ struct RsyncUIApp: App {
                     // Read user settings
                     // Check if schedule app is running
                     CatalogProfile().createrootprofilecatalog()
-                    ReadUserConfigurationPLIST()
+                    // ReadUserConfigurationPLIST()
                     ReadUserConfigurationJSON()
                     // Running()
                 }

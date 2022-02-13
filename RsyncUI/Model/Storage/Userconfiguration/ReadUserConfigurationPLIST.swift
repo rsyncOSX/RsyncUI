@@ -15,7 +15,6 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
 
     private func setuserconfiguration(_ dict: NSDictionary?) {
         if let dict = dict {
-            SharedReference.shared.inloading = true
             // Another version of rsync
             if let version3rsync = dict.value(forKey: DictionaryStrings.version3Rsync.rawValue) as? Int {
                 if version3rsync == 1 {
@@ -106,7 +105,6 @@ final class ReadUserConfigurationPLIST: NamesandPaths {
                     SharedReference.shared.monitornetworkconnection = false
                 }
             }
-            SharedReference.shared.inloading = false
         }
     }
 

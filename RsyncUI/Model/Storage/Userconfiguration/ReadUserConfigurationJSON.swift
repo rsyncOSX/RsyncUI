@@ -9,11 +9,11 @@ import Combine
 import Foundation
 
 class ReadUserConfigurationJSON: NamesandPaths {
-    var userconfiguration = UserConfiguration()
     var filenamedatastore = [SharedReference.shared.userconfigjson]
     var subscriptons = Set<AnyCancellable>()
     var validhiddenIDs = Set<Int>()
 
+    @discardableResult
     init() {
         super.init(.configurations)
         filenamedatastore.publisher
@@ -34,10 +34,11 @@ class ReadUserConfigurationJSON: NamesandPaths {
                     // print("The publisher finished normally.")
                     return
                 case .failure:
-                    WriteUserConfigurationJSON(UserConfiguration())
+                    // No file, write new file with default values
+                    WriteUserConfigurationJSON(UserConfiguration(false))
                 }
             } receiveValue: { [unowned self] data in
-                self.userconfiguration = UserConfiguration(data)
+                UserConfiguration(data)
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
     }
