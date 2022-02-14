@@ -74,8 +74,8 @@ class SharedReference {
     // filsize logfile warning
     var logfilesize: Int = 100_000
     // Paths
-    var pathrsyncui: String?
-    var pathrsyncschedule: String?
+    // var pathrsyncui: String?
+    // var pathrsyncschedule: String?
     let namersyncui = "RsyncUI.app"
     let namersyncschedule = "RsyncSchedule.app"
     // Mac serialnumer

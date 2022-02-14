@@ -47,21 +47,23 @@ struct Userconfiguration {
                 SharedReference.shared.marknumberofdayssince = Double(marknumberofdayssince)!
             }
         }
-        // Paths rsyncUI and RsyncSchedule
-        if let pathrsyncui = dict.value(forKey: DictionaryStrings.pathrsyncui.rawValue) as? String {
-            if pathrsyncui.isEmpty == true {
-                SharedReference.shared.pathrsyncui = nil
-            } else {
-                SharedReference.shared.pathrsyncui = pathrsyncui
-            }
-        }
-        if let pathrsyncschedule = dict.value(forKey: DictionaryStrings.pathrsyncschedule.rawValue) as? String {
-            if pathrsyncschedule.isEmpty == true {
-                SharedReference.shared.pathrsyncschedule = nil
-            } else {
-                SharedReference.shared.pathrsyncschedule = pathrsyncschedule
-            }
-        }
+        /*
+         // Paths rsyncUI and RsyncSchedule
+         if let pathrsyncui = dict.value(forKey: DictionaryStrings.pathrsyncui.rawValue) as? String {
+             if pathrsyncui.isEmpty == true {
+                 SharedReference.shared.pathrsyncui = nil
+             } else {
+                 SharedReference.shared.pathrsyncui = pathrsyncui
+             }
+         }
+         if let pathrsyncschedule = dict.value(forKey: DictionaryStrings.pathrsyncschedule.rawValue) as? String {
+             if pathrsyncschedule.isEmpty == true {
+                 SharedReference.shared.pathrsyncschedule = nil
+             } else {
+                 SharedReference.shared.pathrsyncschedule = pathrsyncschedule
+             }
+         }
+          */
         // No logging, minimum logging or full logging
         if let minimumlogging = dict.value(forKey: DictionaryStrings.minimumlogging.rawValue) as? Int {
             if minimumlogging == 1 {

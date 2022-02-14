@@ -98,30 +98,32 @@ struct Othersettings: View {
             })
     }
 
-    var setpathtorsyncui: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncUI", comment: ""),
-                  $usersettings.pathrsyncui)
-            .onAppear(perform: {
-                if let pathrsyncui = SharedReference.shared.pathrsyncui {
-                    usersettings.pathrsyncui = pathrsyncui
-                }
-            })
-    }
+    /*
+     var setpathtorsyncui: some View {
+         EditValue(250, NSLocalizedString("Path to RsyncUI", comment: ""),
+                   $usersettings.pathrsyncui)
+             .onAppear(perform: {
+                 if let pathrsyncui = SharedReference.shared.pathrsyncui {
+                     usersettings.pathrsyncui = pathrsyncui
+                 }
+             })
+     }
 
-    var setpathtorsyncschedule: some View {
-        EditValue(250, NSLocalizedString("Path to RsyncSchedule", comment: ""),
-                  $usersettings.pathrsyncschedule)
-            .onAppear(perform: {
-                if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
-                    usersettings.pathrsyncschedule = pathrsyncschedule
-                }
-            })
-    }
+     var setpathtorsyncschedule: some View {
+         EditValue(250, NSLocalizedString("Path to RsyncSchedule", comment: ""),
+                   $usersettings.pathrsyncschedule)
+             .onAppear(perform: {
+                 if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
+                     usersettings.pathrsyncschedule = pathrsyncschedule
+                 }
+             })
+     }
+      */
 }
 
 extension Othersettings {
     func saveusersettings() {
-        _ = WriteUserConfigurationPLIST()
+        _ = WriteUserConfigurationJSON(UserConfiguration(true))
         backup = true
     }
 }

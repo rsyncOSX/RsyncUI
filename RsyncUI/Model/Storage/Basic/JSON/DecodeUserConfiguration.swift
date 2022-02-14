@@ -23,6 +23,12 @@ struct DecodeUserConfiguration: Codable {
     let pathforrestore: String?
     // days for mark days since last synchronize
     let marknumberofdayssince: String?
+    // Global ssh keypath and port
+    let sshkeypathandidentityfile: String?
+    let sshport: Int?
+    // Environment variable
+    let environment: String?
+    let environmentvalue: String?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -34,6 +40,10 @@ struct DecodeUserConfiguration: Codable {
         case localrsyncpath
         case pathforrestore
         case marknumberofdayssince
+        case sshkeypathandidentityfile
+        case sshport
+        case environment
+        case environmentvalue
     }
 
     init(from decoder: Decoder) throws {
@@ -47,6 +57,10 @@ struct DecodeUserConfiguration: Codable {
         localrsyncpath = try values.decodeIfPresent(String.self, forKey: .localrsyncpath)
         pathforrestore = try values.decodeIfPresent(String.self, forKey: .pathforrestore)
         marknumberofdayssince = try values.decodeIfPresent(String.self, forKey: .marknumberofdayssince)
+        sshkeypathandidentityfile = try values.decodeIfPresent(String.self, forKey: .sshkeypathandidentityfile)
+        sshport = try values.decodeIfPresent(Int.self, forKey: .sshport)
+        environment = try values.decodeIfPresent(String.self, forKey: .environment)
+        environmentvalue = try values.decodeIfPresent(String.self, forKey: .environmentvalue)
     }
 
     init(_ userconfiguration: UserConfiguration) {
@@ -59,5 +73,9 @@ struct DecodeUserConfiguration: Codable {
         localrsyncpath = userconfiguration.localrsyncpath
         pathforrestore = userconfiguration.pathforrestore
         marknumberofdayssince = userconfiguration.marknumberofdayssince
+        sshkeypathandidentityfile = userconfiguration.sshkeypathandidentityfile
+        sshport = userconfiguration.sshport
+        environment = userconfiguration.environment
+        environmentvalue = userconfiguration.environmentvalue
     }
 }

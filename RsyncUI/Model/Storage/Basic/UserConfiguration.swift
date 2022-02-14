@@ -23,6 +23,12 @@ struct UserConfiguration: Codable {
     var pathforrestore: String?
     // days for mark days since last synchronize
     var marknumberofdayssince: String = "5.0"
+    // Global ssh keypath and port
+    var sshkeypathandidentityfile: String?
+    var sshport: Int?
+    // Environment variable
+    var environment: String?
+    var environmentvalue: String?
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -69,6 +75,18 @@ struct UserConfiguration: Codable {
         if Double(marknumberofdayssince) ?? 0 > 0 {
             SharedReference.shared.marknumberofdayssince = Double(marknumberofdayssince)!
         }
+        if sshkeypathandidentityfile != nil {
+            SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
+        }
+        if sshport != nil {
+            SharedReference.shared.sshport = sshport
+        }
+        if environment != nil {
+            SharedReference.shared.environment = environment
+        }
+        if environmentvalue != nil {
+            SharedReference.shared.environmentvalue = environmentvalue
+        }
     }
 
     func validatepathforrsync(_ path: String) {
@@ -99,6 +117,10 @@ struct UserConfiguration: Codable {
         localrsyncpath = data.localrsyncpath
         pathforrestore = data.pathforrestore
         marknumberofdayssince = data.marknumberofdayssince ?? "5.0"
+        sshkeypathandidentityfile = data.sshkeypathandidentityfile
+        sshport = data.sshport
+        environment = data.environment
+        environmentvalue = data.environmentvalue
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -149,6 +171,18 @@ struct UserConfiguration: Codable {
                 pathforrestore = nil
             }
             marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
+            if SharedReference.shared.sshkeypathandidentityfile != nil {
+                sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
+            }
+            if SharedReference.shared.sshport != nil {
+                sshport = SharedReference.shared.sshport
+            }
+            if SharedReference.shared.environment != nil {
+                environment = SharedReference.shared.environment
+            }
+            if SharedReference.shared.environmentvalue != nil {
+                environmentvalue = SharedReference.shared.environmentvalue
+            }
         }
     }
 }

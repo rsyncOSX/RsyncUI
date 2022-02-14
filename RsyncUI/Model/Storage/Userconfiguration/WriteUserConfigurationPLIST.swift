@@ -59,16 +59,18 @@ final class WriteUserConfigurationPLIST: NamesandPaths {
         } else {
             dict.setObject("", forKey: DictionaryStrings.restorePath.rawValue as NSCopying)
         }
-        if let pathrsyncui = SharedReference.shared.pathrsyncui {
-            if pathrsyncui.isEmpty == false {
-                dict.setObject(pathrsyncui, forKey: DictionaryStrings.pathrsyncui.rawValue as NSCopying)
-            }
-        }
-        if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
-            if pathrsyncschedule.isEmpty == false {
-                dict.setObject(pathrsyncschedule, forKey: DictionaryStrings.pathrsyncschedule.rawValue as NSCopying)
-            }
-        }
+        /*
+         if let pathrsyncui = SharedReference.shared.pathrsyncui {
+             if pathrsyncui.isEmpty == false {
+                 dict.setObject(pathrsyncui, forKey: DictionaryStrings.pathrsyncui.rawValue as NSCopying)
+             }
+         }
+         if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
+             if pathrsyncschedule.isEmpty == false {
+                 dict.setObject(pathrsyncschedule, forKey: DictionaryStrings.pathrsyncschedule.rawValue as NSCopying)
+             }
+         }
+         */
         if let environment = SharedReference.shared.environment {
             if environment.isEmpty == false {
                 dict.setObject(environment, forKey: DictionaryStrings.environment.rawValue as NSCopying)
