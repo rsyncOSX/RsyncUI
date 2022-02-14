@@ -40,6 +40,11 @@ struct Usersettings: View {
                         Section(header: headerpathforrestore) {
                             setpathforrestore
                         }
+
+                        Section(header: headermarkdays) {
+                            setmarkdays
+                        }
+
                     }.padding()
 
                     // Column 2
@@ -80,10 +85,6 @@ struct Usersettings: View {
 
                                 Section(header: headerothersettings) {
                                     ToggleViewDefault(NSLocalizedString("Monitor", comment: ""), $usersettings.monitornetworkconnection)
-                                }
-
-                                Section(header: headermarkdays) {
-                                    setmarkdays
                                 }
                             }
                         }
