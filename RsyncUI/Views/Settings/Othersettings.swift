@@ -123,7 +123,7 @@ struct Othersettings: View {
 
 extension Othersettings {
     func saveusersettings() {
-        _ = WriteUserConfigurationJSON(UserConfiguration(true))
+        _ = WriteUserConfigurationJSON(UserConfiguration())
         backup = true
     }
 }

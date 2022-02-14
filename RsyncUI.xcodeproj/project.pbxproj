@@ -85,7 +85,6 @@
 		E985C68825F3AD8400CB895C /* SidebarAddConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */; };
 		E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */; };
 		E985C68E25F3AD8400CB895C /* MultipletasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65325F3AD8400CB895C /* MultipletasksView.swift */; };
-		E985C72625F3AD9700CB895C /* Userconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C69425F3AD9600CB895C /* Userconfiguration.swift */; };
 		E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C69625F3AD9600CB895C /* CatalogProfile.swift */; };
 		E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C69725F3AD9600CB895C /* Catalogsandfiles.swift */; };
 		E985C72925F3AD9700CB895C /* Keypathidentityfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C69825F3AD9600CB895C /* Keypathidentityfile.swift */; };
@@ -310,7 +309,6 @@
 		E985C64B25F3AD8400CB895C /* SidebarAddConfigurationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarAddConfigurationsView.swift; sourceTree = "<group>"; };
 		E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteEstimatedView.swift; sourceTree = "<group>"; };
 		E985C65325F3AD8400CB895C /* MultipletasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipletasksView.swift; sourceTree = "<group>"; };
-		E985C69425F3AD9600CB895C /* Userconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Userconfiguration.swift; sourceTree = "<group>"; };
 		E985C69625F3AD9600CB895C /* CatalogProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogProfile.swift; sourceTree = "<group>"; };
 		E985C69725F3AD9600CB895C /* Catalogsandfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Catalogsandfiles.swift; sourceTree = "<group>"; };
 		E985C69825F3AD9600CB895C /* Keypathidentityfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keypathidentityfile.swift; sourceTree = "<group>"; };
@@ -471,7 +469,6 @@
 			isa = PBXGroup;
 			children = (
 				E900748C2651838A00514BBC /* ReadUserConfigurationPLIST.swift */,
-				E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */,
 				E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */,
 				E902C10E27B836CC00A75D7A /* WriteUserConfigurationJSON.swift */,
 			);
@@ -517,6 +514,7 @@
 		E94C3162271B4EB80054B644 /* PLIST */ = {
 			isa = PBXGroup;
 			children = (
+				E90D4F2126523D5400EAD08F /* WriteUserConfigurationPLIST.swift */,
 				E8753A9C265A6F26003DCBAA /* ConfigurationSchedulePLIST.swift */,
 				E9DE981A2657A9D9004868A9 /* ReadSchedulesPLIST.swift */,
 				E85E86B9265A66A300219B1C /* ConfigurationPLIST.swift */,
@@ -752,7 +750,6 @@
 			children = (
 				E999F92027690F0300B80DF6 /* Imports */,
 				E9CCECD52643AD3A007BE237 /* Newversion */,
-				E985C69325F3AD9600CB895C /* Userconfiguration */,
 				E985C69525F3AD9600CB895C /* FilesAndCatalogs */,
 				E985C69A25F3AD9600CB895C /* Snapshots */,
 				E985C69F25F3AD9600CB895C /* Output */,
@@ -771,14 +768,6 @@
 				E94C3161271B4E6E0054B644 /* NotUsed */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		E985C69325F3AD9600CB895C /* Userconfiguration */ = {
-			isa = PBXGroup;
-			children = (
-				E985C69425F3AD9600CB895C /* Userconfiguration.swift */,
-			);
-			path = Userconfiguration;
 			sourceTree = "<group>";
 		};
 		E985C69525F3AD9600CB895C /* FilesAndCatalogs */ = {
@@ -1315,7 +1304,6 @@
 				E985C66625F3AD8400CB895C /* ToggleView.swift in Sources */,
 				E985C72925F3AD9700CB895C /* Keypathidentityfile.swift in Sources */,
 				E87921D2267B1E2100195070 /* ConvertPLISTView.swift in Sources */,
-				E985C72625F3AD9700CB895C /* Userconfiguration.swift in Sources */,
 				E81CF81A25FF310D005D8667 /* ScheduleTypePicker.swift in Sources */,
 				E985C72E25F3AD9700CB895C /* OutputfromProcess.swift in Sources */,
 				E98C7ABA262D664900555977 /* ReadConfigurationJSON.swift in Sources */,

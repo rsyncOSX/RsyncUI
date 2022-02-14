@@ -159,7 +159,7 @@ struct ServerRow: View {
 
 extension Sshsettings {
     func saveusersettings() {
-        _ = WriteUserConfigurationJSON(UserConfiguration(true))
+        _ = WriteUserConfigurationJSON(UserConfiguration())
         backup = true
         // wait for a half second and then force a new check if keys are created and exists
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

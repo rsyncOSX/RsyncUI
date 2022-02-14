@@ -63,7 +63,6 @@ struct UserConfiguration: Codable {
         }
         if localrsyncpath != nil {
             SharedReference.shared.localrsyncpath = localrsyncpath
-            validatepathforrsync(localrsyncpath ?? "")
         } else {
             SharedReference.shared.localrsyncpath = nil
         }
@@ -89,22 +88,6 @@ struct UserConfiguration: Codable {
         }
     }
 
-    func validatepathforrsync(_ path: String) {
-        let validate = SetandValidatepathforrsync()
-        validate.setlocalrsyncpath(path)
-        do {
-            let ok = try validate.validateandrsyncpath()
-            if ok { return }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-        }
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
-    }
-
     // Used when reading JSON data from store
     @discardableResult
     init(_ data: DecodeUserConfiguration) {
@@ -127,62 +110,59 @@ struct UserConfiguration: Codable {
 
     // Default values user configuration
     @discardableResult
-    init(_ save: Bool) {
-        if save {
-            if SharedReference.shared.rsyncversion3 {
-                rsyncversion3 = 1
-            } else {
-                rsyncversion3 = -1
-            }
-            if SharedReference.shared.detailedlogging {
-                detailedlogging = 1
-            } else {
-                detailedlogging = -1
-            }
-            if SharedReference.shared.minimumlogging {
-                minimumlogging = 1
-            } else {
-                minimumlogging = -1
-            }
-            if SharedReference.shared.fulllogging {
-                fulllogging = 1
-            } else {
-                fulllogging = -1
-            }
-            if SharedReference.shared.nologging {
-                nologging = 1
-            } else {
-                nologging = -1
-            }
-            if SharedReference.shared.monitornetworkconnection {
-                monitornetworkconnection = 1
-            } else {
-                monitornetworkconnection = -1
-            }
-            if SharedReference.shared.localrsyncpath != nil {
-                localrsyncpath = SharedReference.shared.localrsyncpath
-                validatepathforrsync(localrsyncpath ?? "")
-            } else {
-                localrsyncpath = nil
-            }
-            if SharedReference.shared.pathforrestore != nil {
-                pathforrestore = SharedReference.shared.pathforrestore
-            } else {
-                pathforrestore = nil
-            }
-            marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
-            if SharedReference.shared.sshkeypathandidentityfile != nil {
-                sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
-            }
-            if SharedReference.shared.sshport != nil {
-                sshport = SharedReference.shared.sshport
-            }
-            if SharedReference.shared.environment != nil {
-                environment = SharedReference.shared.environment
-            }
-            if SharedReference.shared.environmentvalue != nil {
-                environmentvalue = SharedReference.shared.environmentvalue
-            }
+    init() {
+        if SharedReference.shared.rsyncversion3 {
+            rsyncversion3 = 1
+        } else {
+            rsyncversion3 = -1
+        }
+        if SharedReference.shared.detailedlogging {
+            detailedlogging = 1
+        } else {
+            detailedlogging = -1
+        }
+        if SharedReference.shared.minimumlogging {
+            minimumlogging = 1
+        } else {
+            minimumlogging = -1
+        }
+        if SharedReference.shared.fulllogging {
+            fulllogging = 1
+        } else {
+            fulllogging = -1
+        }
+        if SharedReference.shared.nologging {
+            nologging = 1
+        } else {
+            nologging = -1
+        }
+        if SharedReference.shared.monitornetworkconnection {
+            monitornetworkconnection = 1
+        } else {
+            monitornetworkconnection = -1
+        }
+        if SharedReference.shared.localrsyncpath != nil {
+            localrsyncpath = SharedReference.shared.localrsyncpath
+        } else {
+            localrsyncpath = nil
+        }
+        if SharedReference.shared.pathforrestore != nil {
+            pathforrestore = SharedReference.shared.pathforrestore
+        } else {
+            pathforrestore = nil
+        }
+        marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
+        if SharedReference.shared.sshkeypathandidentityfile != nil {
+            sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
+        }
+        if SharedReference.shared.sshport != nil {
+            sshport = SharedReference.shared.sshport
+        }
+        if SharedReference.shared.environment != nil {
+            environment = SharedReference.shared.environment
+        }
+        if SharedReference.shared.environmentvalue != nil {
+            environmentvalue = SharedReference.shared.environmentvalue
         }
     }
 }

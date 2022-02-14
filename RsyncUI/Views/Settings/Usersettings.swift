@@ -201,7 +201,7 @@ struct Usersettings: View {
 
 extension Usersettings {
     func saveusersettings() {
-        _ = WriteUserConfigurationJSON(UserConfiguration(true))
+        _ = WriteUserConfigurationJSON(UserConfiguration())
         // Update the rsync version string
         rsyncversionObject.update()
         backup = true
