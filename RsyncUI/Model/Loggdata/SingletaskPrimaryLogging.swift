@@ -7,6 +7,14 @@
 
 import Foundation
 
+enum Scheduletype: String {
+    case once
+    case daily
+    case weekly
+    case manuel
+    case stopped
+}
+
 class SingletaskPrimaryLogging {
     var structconfigurations: [Configuration]?
     var structschedules: [ConfigurationSchedule]?
