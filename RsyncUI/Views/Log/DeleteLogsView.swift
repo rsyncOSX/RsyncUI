@@ -47,9 +47,11 @@ struct DeleteLogsView: View {
     }
 
     func delete() {
-        let deleteschedule = UpdateLogs(profile: selectedprofile,
-                                        scheduleConfigurations: logrecords.schedulesandlogs)
-        deleteschedule.deletelogs(uuids: selecteduuids)
+        /*
+         let deleteschedule = UpdateLogs(profile: selectedprofile,
+                                         scheduleConfigurations: logrecords.schedulesandlogs)
+         deleteschedule.deletelogs(uuids: selecteduuids)
+         */
         logrecords.removerecords(selecteduuids)
         selecteduuids.removeAll()
         isPresented = false

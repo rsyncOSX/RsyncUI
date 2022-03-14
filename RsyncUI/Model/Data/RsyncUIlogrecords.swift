@@ -23,12 +23,6 @@ final class RsyncUIlogrecords: ObservableObject {
     @Published var alllogssorted: [Log]?
     var profile: String?
 
-    // NOT USED
-    var schedulesandlogs: [ConfigurationSchedule]?
-    // In code because of Schedules which are not yet (or ever) enabled in RsyncUI
-    // but code is still in repository. Will decide later (2022?) if Schedules will
-    // be enabled in RsyncUI.
-
     func filterlogs(_ filter: String) -> [Log]? {
         // Important - must localize search in dates
         return alllogssorted?.filter {
@@ -68,24 +62,3 @@ final class RsyncUIlogrecords: ObservableObject {
 
     init(profile _: String? = nil, validhiddenIDs _: Set<Int>? = nil) {}
 }
-
-/*
- func hasactiveschedules(_ hiddenID: Int) -> Bool {
-     let datestopnil = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
-         $0.schedule != Scheduletype.manuel.rawValue &&
-         $0.dateStop == nil
-     }
-     let datestartfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
-         $0.schedule != Scheduletype.manuel.rawValue &&
-         $0.dateStart.en_us_date_from_string() > Date()
-     }
-     let datestopfuture = schedulesandlogs?.filter { $0.hiddenID == hiddenID &&
-         $0.schedule != Scheduletype.manuel.rawValue &&
-         $0.dateStop?.en_us_date_from_string() ?? Date() > Date()
-     }
-
-     return (datestopnil?.count ?? 0 > 0 ||
-         datestartfuture?.count ?? 0 > 0 ||
-         datestopfuture?.count ?? 0 > 0)
- }
- */
