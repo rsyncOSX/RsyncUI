@@ -39,11 +39,11 @@ final class RsyncUIlogrecords: ObservableObject {
         }
     }
 
-    func filterlogsbyUUIDs(_ uuids: Set<UUID>) -> [Log]? {
+    func filterlogsbyUUIDs(_ uuids: Set<UUID>) async -> [Log]? {
         return alllogssorted?.filter { uuids.contains($0.id) }.sorted(by: \.date, using: >)
     }
 
-    func removerecords(_ uuids: Set<UUID>) {
+    func removerecords(_ uuids: Set<UUID>) async {
         print(alllogssorted?.count ?? 0)
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
         print(alllogssorted?.count ?? 0)

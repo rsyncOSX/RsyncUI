@@ -70,7 +70,7 @@ struct LogListAlllogsView: View {
     }
 
     var filteredlogrecords: [Log] {
-        return logrecords.filterlogs(filterstring) ?? []
+        logrecords.filterlogs(filterstring) ?? []
     }
 }
 
