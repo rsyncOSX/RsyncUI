@@ -52,6 +52,7 @@ struct DeleteLogsView: View {
                                          scheduleConfigurations: logrecords.schedulesandlogs)
          deleteschedule.deletelogs(uuids: selecteduuids)
          */
+
         logrecords.removerecords(selecteduuids)
         selecteduuids.removeAll()
         isPresented = false
