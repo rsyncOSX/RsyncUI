@@ -297,8 +297,3 @@ final class ObserveableAddConfigurations: ObservableObject {
         }
     }
 }
-
-/*
- TODO:
- - fix that ID can be changed on snapshot tasks.
- */

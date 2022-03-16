@@ -44,12 +44,10 @@ final class RsyncUIlogrecords: ObservableObject {
     }
 
     func removerecords(_ uuids: Set<UUID>) async {
-        print(alllogssorted?.count ?? 0)
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
-        print(alllogssorted?.count ?? 0)
     }
 
-    func update(profile: String?, validhiddenIDs: Set<Int>?) async {
+    func readlogrecords(profile: String?, validhiddenIDs: Set<Int>?) async {
         guard validhiddenIDs != nil else { return }
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {

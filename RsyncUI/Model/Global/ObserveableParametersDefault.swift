@@ -57,7 +57,6 @@ final class ObserveableParametersDefault: ObservableObject {
             }.store(in: &subscriptions)
         $daemon
             .sink { [unowned self] _ in
-                // TODO: fix rsyncdaemon
                 setrsyncdaemon()
             }.store(in: &subscriptions)
     }
