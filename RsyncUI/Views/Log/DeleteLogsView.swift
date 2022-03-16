@@ -51,14 +51,12 @@ struct DeleteLogsView: View {
     }
 
     func delete() async {
-        /*
-         let deleteschedule = UpdateLogs(profile: selectedprofile,
-                                         scheduleConfigurations: logrecords.schedulesandlogs)
-         deleteschedule.deletelogs(uuids: selecteduuids)
-         */
-
         await logrecords.removerecords(selecteduuids)
+        let deleteschedule = UpdateLogs(profile: selectedprofile,
+                                        scheduleConfigurations: logrecords.logrecordsfromstore?.scheduleData.scheduleConfigurations)
+        deleteschedule.deletelogs(uuids: selecteduuids)
         selecteduuids.removeAll()
+        // WriteScheduleJSON(selectedprofile, logrecords.logrecordsfromstore?.scheduleData.scheduleConfigurations)
         isPresented = false
     }
 }

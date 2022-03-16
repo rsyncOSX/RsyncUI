@@ -7,17 +7,6 @@
 
 import Foundation
 
-enum ScheduleError: LocalizedError {
-    case notselectedconfig
-
-    var errorDescription: String? {
-        switch self {
-        case .notselectedconfig:
-            return "Please select a configuration"
-        }
-    }
-}
-
 final class UpdateLogs {
     private var structschedules: [ConfigurationSchedule]?
     private var localeprofile: String?
@@ -50,11 +39,5 @@ final class UpdateLogs {
 
     deinit {
         // print("deinit UpdateSchedules")
-    }
-}
-
-extension UpdateLogs: PropogateError {
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
