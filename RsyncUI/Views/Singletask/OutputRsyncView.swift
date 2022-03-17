@@ -14,6 +14,7 @@ struct OutputRsyncView: View {
     var output: [String]
 
     @State private var selection: String?
+    @State private var text = ""
 
     var body: some View {
         VStack {
@@ -21,7 +22,7 @@ struct OutputRsyncView: View {
                 .font(.title2)
                 .padding()
 
-            List(output, id: \.self, selection: $selection.onChange {
+            List(listitems, id: \.self, selection: $selection.onChange {
                 valueselectedrow = selection ?? ""
             }) { line in
                 Text(line)
@@ -33,12 +34,22 @@ struct OutputRsyncView: View {
             HStack {
                 Spacer()
 
+                TextField("Search", text: $text)
+
                 Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
         .padding()
         .frame(minWidth: 800, minHeight: 600)
+    }
+
+    var listitems: [String] {
+        if text == "" || text == " " {
+            return output
+        } else {
+            return output.filter { $0.contains(text) }
+        }
     }
 
     func dismissview() {
