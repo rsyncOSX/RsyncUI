@@ -38,11 +38,14 @@ struct LogListAlllogsView: View {
 
                 Spacer()
 
-                Button("Clear") { selecteduuids.removeAll() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button("All") { selectall() }
-                    .buttonStyle(PrimaryButtonStyle())
+                Button("Select") {
+                    if selecteduuids.count > 0 {
+                        selecteduuids.removeAll()
+                    } else {
+                        selectall()
+                    }
+                }
+                .buttonStyle(PrimaryButtonStyle())
 
                 Button("Delete") { delete() }
                     .buttonStyle(AbortButtonStyle())
