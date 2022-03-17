@@ -95,8 +95,10 @@ extension LogListAlllogsView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (logrecords.filterlogs(filterstring)?.count ?? 0) {
-            if let id = logrecords.filterlogs(filterstring)?[i].id {
+        let filteredlogscount = logrecords.filterlogs(filterstring)?.count ?? 0
+        let filteredlogs = logrecords.filterlogs(filterstring)
+        for i in 0 ..< filteredlogscount {
+            if let id = filteredlogs?[i].id {
                 selecteduuids.insert(id)
             }
         }
