@@ -24,7 +24,7 @@ final class PrepareOutput {
     func alignsplitlines() {
         for i in 0 ..< trimmeddata.count - 1 {
             guard i < (trimmeddata.count - 1) else { return }
-            if trimmeddata[i].count < 40 {
+            if trimmeddata[i].count < 40, i > 0 {
                 // Must decide which two lines to merge
                 if trimmeddata[i - 1].count > trimmeddata[i + 1].count {
                     // Merge i and i+1, remove i+1
