@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 04/01/2021.
 //  Copyright © 2021 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -52,11 +53,14 @@ struct LogsbyConfigurationView: View {
 
                 Spacer()
 
-                Button("Clear") { selecteduuids.removeAll() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button("All") { selectall() }
-                    .buttonStyle(PrimaryButtonStyle())
+                Button("Select") {
+                    if selecteduuids.count > 0 {
+                        selecteduuids.removeAll()
+                    } else {
+                        selectall()
+                    }
+                }
+                .buttonStyle(PrimaryButtonStyle())
 
                 Button("Delete") { delete() }
                     .buttonStyle(AbortButtonStyle())
@@ -105,8 +109,10 @@ extension LogsbyConfigurationView {
 
     func selectall() {
         selecteduuids.removeAll()
-        for i in 0 ..< (logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.count ?? 0) {
-            if let id = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?[i].id {
+        let filteredlogscount = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.count ?? 0
+        let filteredlogs = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
+        for i in 0 ..< filteredlogscount {
+            if let id = filteredlogs?[i].id {
                 selecteduuids.insert(id)
             }
         }
