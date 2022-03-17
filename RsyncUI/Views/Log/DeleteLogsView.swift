@@ -20,12 +20,8 @@ struct DeleteLogsView: View {
             Spacer()
 
             HStack {
-                Button("Delete") {
-                    Task {
-                        await delete()
-                    }
-                }
-                .buttonStyle(AbortButtonStyle())
+                Button("Delete") { delete() }
+                    .buttonStyle(AbortButtonStyle())
 
                 Button("Cancel") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
@@ -50,8 +46,8 @@ struct DeleteLogsView: View {
         isPresented = false
     }
 
-    func delete() async {
-        await logrecords.removerecords(selecteduuids)
+    func delete() {
+        logrecords.removerecords(selecteduuids)
         let deleteschedule = UpdateLogs(profile: selectedprofile,
                                         scheduleConfigurations: logrecords.logrecordsfromstore?.scheduleData.scheduleConfigurations)
         deleteschedule.deletelogs(uuids: selecteduuids)
