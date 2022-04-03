@@ -44,6 +44,8 @@ struct MultipletasksView: View {
     @Binding var selection: NavigationItem?
     // Delete
     @State private var confirmdeletemenu: Bool = false
+    //
+    @State private var estimatefirst: Bool = true
 
     var body: some View {
         ZStack {
@@ -61,24 +63,43 @@ struct MultipletasksView: View {
         }
 
         HStack {
-            Button("Estimate") {
-                if selecteduuids.count == 0, selectedconfig != nil {
-                    singletaskview = true
-                } else {
-                    estimationstate.estimateonly = true
-                    startestimation()
+            /*
+             Button("Estimate") {
+                 if selecteduuids.count == 0, selectedconfig != nil {
+                     singletaskview = true
+                 } else {
+                     estimationstate.estimateonly = true
+                     startestimation()
+                 }
+             }
+             .buttonStyle(PrimaryButtonStyle())
+              */
+
+            VStack(alignment: .center) {
+                ToggleViewDefault(NSLocalizedString("Estimate", comment: ""), $estimatefirst)
+
+                HStack {
+                    Button("Execute") {
+                        if estimatefirst == true {
+                            if selecteduuids.count == 0, selectedconfig != nil {
+                                singletaskview = true
+                            } else {
+                                estimationstate.estimateonly = true
+                                startestimation()
+                            }
+                        } else {
+                            startexecution()
+                        }
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                    Button("Reset") {
+                        selecteduuids.removeAll()
+                        reset()
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
                 }
             }
-            .buttonStyle(PrimaryButtonStyle())
-
-            Button("Execute") { startexecution() }
-                .buttonStyle(PrimaryButtonStyle())
-
-            Button("Reset") {
-                selecteduuids.removeAll()
-                reset()
-            }
-            .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
 
@@ -125,6 +146,9 @@ struct MultipletasksView: View {
             })
             .onDisappear(perform: {
                 estimationcompleted()
+                // show log automatic
+                presentoutputsheetview = true
+                estimatefirst = false
             })
             .onAppear(perform: {
                 // To set ProgressView spinnig wheel on correct task when estimating
