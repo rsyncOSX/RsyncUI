@@ -178,6 +178,9 @@ struct MultipletasksView: View {
                 // Guard statement must be after resetting properties to false
                 startexecution()
             })
+            .onDisappear(perform: {
+                alwaysestimate = SharedReference.shared.alwaysestimate
+            })
     }
 
     var labelselecttask: some View {
