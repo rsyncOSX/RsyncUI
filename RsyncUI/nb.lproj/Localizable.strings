@@ -5,9 +5,6 @@
 "Abort" = "Avbryt";
 
 /* No comment provided by engineer. */
-"active" = "aktiv";
-
-/* No comment provided by engineer. */
 "Add" = "Legg til";
 
 /* No comment provided by engineer. */
@@ -44,10 +41,10 @@
 "Add tasks" = "Legg til oppgaver";
 
 /* No comment provided by engineer. */
-"Select" = "Velg";
+"All logs" = "Alle logger";
 
 /* No comment provided by engineer. */
-"All logs" = "Alle logger";
+"Always estimate" = "Estimer først";
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
@@ -68,25 +65,7 @@
 "Catalog parameters" = "Katalog parametre";
 
 /* No comment provided by engineer. */
-"Change" = "Endre";
-
-/* No comment provided by engineer. */
 "Changelog" = "Endringslogg";
-
-/* No comment provided by engineer. */
-"Check data" = "Sjekk data";
-
-/* No comment provided by engineer. */
-"Completed" = "Fullført";
-
-/* No comment provided by engineer. */
-"Confirm convert" = "Bekreft konvertering";
-
-/* No comment provided by engineer. */
-"Convert" = "Konverter";
-
-/* No comment provided by engineer. */
-"Convert PLIST to JSON for:" = "Konverter PLIST to JSON for:";
 
 /* No comment provided by engineer. */
 "Copyright ©2021 Thomas Evensen" = "Opphavsrett ©2021 Thomas Evensen";
@@ -137,7 +116,7 @@
 "Environment variable" = "Miljømessig variabel";
 
 /* No comment provided by engineer. */
-"Estimate" = "Estimat";
+"Estimate" = "Estimer";
 
 /* No comment provided by engineer. */
 "Estimated tasks" = "Estimerte oppgaver";
@@ -176,16 +155,16 @@
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
 
 /* No comment provided by engineer. */
+"Important" = "Viktig";
+
+/* No comment provided by engineer. */
+"important to execute a simulated run and inspect what happens before a real run." = "viktig å utføre en simulert kjøring og inspisere resultatet før synkronisering";
+
+/* No comment provided by engineer. */
 "In process in getting data" = "I prosess for å hente data";
 
 /* No comment provided by engineer. */
 "Info" = "Info";
-
-/* No comment provided by engineer. */
-"Info about convert" = "Info om konvertering";
-
-/* No comment provided by engineer. */
-"JSON file exists" = "JSON filen eksisterer";
 
 /* No comment provided by engineer. */
 "Last" = "Siste";
@@ -224,10 +203,10 @@
 "Min" = "Minimum";
 
 /* No comment provided by engineer. */
-"Monitor network" = "Overvåk nettverk";
+"Monitor" = "Overvåk";
 
 /* No comment provided by engineer. */
-"Monitor" = "Overvåk";
+"Monitor network" = "Overvåk nettverk";
 
 /* No comment provided by engineer. */
 "Most recent updated tasks on top of list" = "Mest oppdaterte oppgaver på toppen av listen";
@@ -275,9 +254,6 @@
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
-"Other settings" = "Andre innstillinger";
-
-/* No comment provided by engineer. */
 "Output from rsync" = "Resultat av rsync";
 
 /* No comment provided by engineer. */
@@ -296,7 +272,7 @@
 "Paths for apps" = "Sti til apper";
 
 /* No comment provided by engineer. */
-"PLIST" = "PLIST";
+"Please read and understand the information below. There is more info" = "Les og forstå informasjonen under. Det er mer info";
 
 /* No comment provided by engineer. */
 "Pre and post task" = "Pre og post oppgave";
@@ -347,9 +323,6 @@
 "Saved" = "Lagret";
 
 /* No comment provided by engineer. */
-"Schedules" = "Oppgaver";
-
-/* No comment provided by engineer. */
 "Select" = "Velg";
 
 /* No comment provided by engineer. */
@@ -390,9 +363,6 @@
 
 /* No comment provided by engineer. */
 "Ssh" = "Ssh";
-
-/* No comment provided by engineer. */
-"Stop" = "Stopp";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synkronisere";
@@ -447,4 +417,7 @@
 
 /* No comment provided by engineer. */
 "View logfile" = "Vis loggfil";
+
+/* No comment provided by engineer. */
+"Welcome to RsyncUI" = "Velkommen til RsyncUI";
 

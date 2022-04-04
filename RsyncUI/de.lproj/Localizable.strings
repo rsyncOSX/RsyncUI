@@ -2,9 +2,6 @@
 "Abort" = "Abbrechen";
 
 /* No comment provided by engineer. */
-"active" = "aktiv";
-
-/* No comment provided by engineer. */
 "Add" = "Neu";
 
 /* No comment provided by engineer. */
@@ -41,10 +38,10 @@
 "Add tasks" = "Aufgaben hinzufügen";
 
 /* No comment provided by engineer. */
-"Select" = "Auswählen";
+"All logs" = "Alle Protokolle";
 
 /* No comment provided by engineer. */
-"All logs" = "Alle Protokolle";
+"Always estimate" = "Immer schätzen";
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
@@ -65,22 +62,7 @@
 "Catalog parameters" = "Katalogparameter";
 
 /* No comment provided by engineer. */
-"Change" = "Ändern";
-
-/* No comment provided by engineer. */
 "Changelog" = "Änderungsprotokoll";
-
-/* No comment provided by engineer. */
-"Check data" = "Daten prüfen";
-
-/* No comment provided by engineer. */
-"Completed" = "Abgeschlossen";
-
-/* No comment provided by engineer. */
-"Confirm convert" = "Konvertierung bestätigen";
-
-/* No comment provided by engineer. */
-"Convert" = "Konvertieren";
 
 /* No comment provided by engineer. */
 "Copyright ©2021 Thomas Evensen" = "Copyright ©2021 Thomas Evensen";
@@ -170,16 +152,13 @@
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
 /* No comment provided by engineer. */
+"Important" = "Wichtig";
+
+/* No comment provided by engineer. */
 "In process in getting data" = "Daten werden gerade abgerufen";
 
 /* No comment provided by engineer. */
 "Info" = "Info";
-
-/* No comment provided by engineer. */
-"Info about convert" = "Info über Konvertierung";
-
-/* No comment provided by engineer. */
-"JSON file exists" = "JSON-Datei existiert";
 
 /* No comment provided by engineer. */
 "Last" = "Letzte";
@@ -218,10 +197,10 @@
 "Min" = "Min";
 
 /* No comment provided by engineer. */
-"Monitor network" = "Netzwerk überwachen";
+"Monitor" = "Überwachen";
 
 /* No comment provided by engineer. */
-"Monitor" = "Überwachen";
+"Monitor network" = "Netzwerk überwachen";
 
 /* No comment provided by engineer. */
 "Most recent updated tasks on top of list" = "Zuletzt aktualisierte Aufgaben am Anfang der Liste";
@@ -269,9 +248,6 @@
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
-"Other settings" = "Andere Einstellungen";
-
-/* No comment provided by engineer. */
 "Output from rsync" = "Ausgabe von rsync";
 
 /* No comment provided by engineer. */
@@ -288,9 +264,6 @@
 
 /* No comment provided by engineer. */
 "Paths for apps" = "Pfade für Apps";
-
-/* No comment provided by engineer. */
-"PLIST" = "PLIST";
 
 /* No comment provided by engineer. */
 "Pre and post task" = "Vor- und Post-Aufgabe";
@@ -341,7 +314,7 @@
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
-"Schedules" = "Zeitpläne";
+"Search" = "Suche";
 
 /* No comment provided by engineer. */
 "Select" = "Auswählen";
@@ -384,9 +357,6 @@
 
 /* No comment provided by engineer. */
 "Ssh" = "Ssh";
-
-/* No comment provided by engineer. */
-"Stop" = "Stoppen";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synchronisieren";
@@ -441,4 +411,7 @@
 
 /* No comment provided by engineer. */
 "View logfile" = "Logdatei anzeigen";
+
+/* No comment provided by engineer. */
+"Welcome to RsyncUI" = "Willkommen bei RsyncUI";
 
