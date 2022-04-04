@@ -86,6 +86,9 @@ struct Usersettings: View {
                                 Section(header: headerothersettings) {
                                     ToggleViewDefault(NSLocalizedString("Monitor", comment: ""), $usersettings.monitornetworkconnection)
                                 }
+                                Section(header: headeralwaysestimate) {
+                                    ToggleViewDefault(NSLocalizedString("Estimate", comment: ""), $usersettings.alwaysestimate)
+                                }
                             }
                         }
                     }.padding()
@@ -196,6 +199,11 @@ struct Usersettings: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .frame(width: 70)
             .lineLimit(1)
+    }
+
+    // Header other settings
+    var headeralwaysestimate: some View {
+        Text("Always estimate")
     }
 }
 

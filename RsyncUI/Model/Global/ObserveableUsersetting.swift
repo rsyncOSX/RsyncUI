@@ -33,11 +33,12 @@ final class ObserveableUsersetting: ObservableObject {
     // @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     // Check for network changes
     @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
-
     // Set if path for rsync and restore is not valid
     @Published var novalidpathmessage: Bool = false
     // True if on ARM based Mac
     @Published var macosarm: Bool = SharedReference.shared.macosarm
+    // Always estimate before execute task
+    @Published var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -86,18 +87,10 @@ final class ObserveableUsersetting: ObservableObject {
             .sink { [unowned self] value in
                 markdays(days: value)
             }.store(in: &subscriptions)
-        /*
-         $pathrsyncui
-             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-             .sink { pathtorsyncosx in
-                 SharedReference.shared.pathrsyncui = pathtorsyncosx
-             }.store(in: &subscriptions)
-         $pathrsyncschedule
-             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-             .sink { pathtorsyncosxsched in
-                 SharedReference.shared.pathrsyncschedule = pathtorsyncosxsched
-             }.store(in: &subscriptions)
-          */
+        $alwaysestimate
+            .sink { estimate in
+                SharedReference.shared.alwaysestimate = estimate
+            }.store(in: &subscriptions)
     }
 }
 

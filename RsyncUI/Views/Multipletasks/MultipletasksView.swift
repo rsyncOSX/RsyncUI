@@ -44,8 +44,8 @@ struct MultipletasksView: View {
     @Binding var selection: NavigationItem?
     // Delete
     @State private var confirmdeletemenu: Bool = false
-    //
-    @State private var estimatefirst: Bool = true
+    // Estimate ahead of execute task
+    @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
 
     var body: some View {
         ZStack {
@@ -76,11 +76,11 @@ struct MultipletasksView: View {
               */
 
             VStack(alignment: .center) {
-                ToggleViewDefault(NSLocalizedString("Estimate", comment: ""), $estimatefirst)
+                ToggleViewDefault(NSLocalizedString("Estimate", comment: ""), $alwaysestimate)
 
                 HStack {
                     Button("Execute") {
-                        if estimatefirst == true {
+                        if alwaysestimate == true {
                             if selecteduuids.count == 0, selectedconfig != nil {
                                 singletaskview = true
                             } else {
@@ -148,7 +148,7 @@ struct MultipletasksView: View {
                 estimationcompleted()
                 // show log automatic
                 presentoutputsheetview = true
-                estimatefirst = false
+                alwaysestimate = false
             })
             .onAppear(perform: {
                 // To set ProgressView spinnig wheel on correct task when estimating
