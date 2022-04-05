@@ -92,6 +92,9 @@
 "Delete task" = "Aufgabe löschen";
 
 /* No comment provided by engineer. */
+"deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "gelöschte Daten. RsyncUI wird Sie NICHT davon abhalten. Deshalb ist es sehr";
+
+/* No comment provided by engineer. */
 "Detailed log level" = "Detaillierte Protokollebene";
 
 /* No comment provided by engineer. */
@@ -156,6 +159,9 @@
 
 /* No comment provided by engineer. */
 "Important" = "Wichtig";
+
+/* No comment provided by engineer. */
+"important to execute a simulated run and inspect what happens before a real run." = "ist es sehr wichtig, einen simulierten Lauf durchzuführen und zu überprüfen, was vor einem echten Lauf passiert.";
 
 /* No comment provided by engineer. */
 "In process in getting data" = "Daten werden gerade abgerufen";

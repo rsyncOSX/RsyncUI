@@ -92,7 +92,7 @@
 "Delete task" = "Slett oppgave";
 
 /* No comment provided by engineer. */
-"deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "slette data. RsyncUI vil ikke hindre deg. Derfor er det viktig";
+"deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "i sletting av data. Og RsyncUI vil ikke hindre deg i det. Derfor er det";
 
 /* No comment provided by engineer. */
 "Detailed log level" = "Detaljert log nivå";
@@ -347,7 +347,7 @@
 "Selected profile:" = "Valgt profil";
 
 /* No comment provided by engineer. */
-"selecting Important. Setting the wrong parameters to rsync can result in" = "velg viktig. Sette gale parametre til rsync kan resultere i";
+"selecting Important. Setting the wrong parameters to rsync can result in" = "under Viktig. Sette gale parametre til rsync kan resultere i";
 
 /* No comment provided by engineer. */
 "Server" = "Tjener";
