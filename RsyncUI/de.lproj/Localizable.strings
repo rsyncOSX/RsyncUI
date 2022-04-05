@@ -161,7 +161,7 @@
 "Important" = "Wichtig";
 
 /* No comment provided by engineer. */
-"important to execute a simulated run and inspect what happens before a real run." = "ist es sehr wichtig, einen simulierten Lauf durchzuführen und zu überprüfen, was vor einem echten Lauf passiert.";
+"important to execute a simulated run and inspect what happens before a real run." = "wichtig, einen simulierten Lauf durchzuführen und zu überprüfen, was vor einem echten Lauf passiert.";
 
 /* No comment provided by engineer. */
 "In process in getting data" = "Daten werden gerade abgerufen";
