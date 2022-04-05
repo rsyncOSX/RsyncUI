@@ -222,6 +222,7 @@ extension MultipletasksView {
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
         estimatetask = nil
+        alwaysestimate = SharedReference.shared.alwaysestimate
     }
 
     func estimationcompleted() {

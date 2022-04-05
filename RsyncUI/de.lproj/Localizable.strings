@@ -1,3 +1,6 @@
+/* No comment provided by engineer. */
+"%lld" = "%lld";
+
 /* (No Comment) */
 "Abort" = "Abbrechen";
 
@@ -89,7 +92,7 @@
 "Delete task" = "Aufgabe löschen";
 
 /* No comment provided by engineer. */
-"Detailed" = "Detailliert";
+"Detailed log level" = "Detaillierte Protokollebene";
 
 /* No comment provided by engineer. */
 "Dismiss" = "Verwerfen";
@@ -164,9 +167,6 @@
 "Last" = "Letzte";
 
 /* No comment provided by engineer. */
-"Level log" = "Level Log";
-
-/* No comment provided by engineer. */
 "Linux" = "Linux";
 
 /* No comment provided by engineer. */
@@ -195,9 +195,6 @@
 
 /* No comment provided by engineer. */
 "Min" = "Min";
-
-/* No comment provided by engineer. */
-"Monitor" = "Überwachen";
 
 /* No comment provided by engineer. */
 "Monitor network" = "Netzwerk überwachen";
@@ -248,6 +245,9 @@
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
+"Other settings" = "Andere Einstellungen";
+
+/* No comment provided by engineer. */
 "Output from rsync" = "Ausgabe von rsync";
 
 /* No comment provided by engineer. */
@@ -264,6 +264,9 @@
 
 /* No comment provided by engineer. */
 "Paths for apps" = "Pfade für Apps";
+
+/* No comment provided by engineer. */
+"Please read and understand the information below. There is more info" = "Bitte lesen und verstehen Sie die nachstehenden Informationen. Es gibt mehr Informationen";
 
 /* No comment provided by engineer. */
 "Pre and post task" = "Vor- und Post-Aufgabe";
@@ -336,6 +339,9 @@
 
 /* No comment provided by engineer. */
 "Selected profile:" = "Ausgewähltes Profil:";
+
+/* No comment provided by engineer. */
+"selecting Important. Setting the wrong parameters to rsync can result in" = "wählen Sie Wichtig aus. Das Einstellen der falschen Parameter für rsync kann dazu führen";
 
 /* No comment provided by engineer. */
 "Server" = "Server";

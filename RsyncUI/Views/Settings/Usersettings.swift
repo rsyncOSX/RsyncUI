@@ -79,15 +79,10 @@ struct Usersettings: View {
                             }
 
                             VStack(alignment: .leading) {
-                                Section(header: headerdetailedlogging) {
-                                    ToggleViewDefault(NSLocalizedString("Detailed", comment: ""), $usersettings.detailedlogging)
-                                }
-
-                                Section(header: headerothersettings) {
-                                    ToggleViewDefault(NSLocalizedString("Monitor", comment: ""), $usersettings.monitornetworkconnection)
-                                }
-                                Section(header: headeralwaysestimate) {
-                                    ToggleViewDefault(NSLocalizedString("Estimate", comment: ""), $usersettings.alwaysestimate)
+                                Section(header: othersettings) {
+                                    ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
+                                    ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
+                                    ToggleViewDefault(NSLocalizedString("Always estimate", comment: ""), $usersettings.alwaysestimate)
                                 }
                             }
                         }
@@ -174,13 +169,8 @@ struct Usersettings: View {
     }
 
     // Detail of logging
-    var headerdetailedlogging: some View {
-        Text("Level log")
-    }
-
-    // Header other settings
-    var headerothersettings: some View {
-        Text("Monitor network")
+    var othersettings: some View {
+        Text("Other settings")
     }
 
     // Header user setting
@@ -199,11 +189,6 @@ struct Usersettings: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .frame(width: 70)
             .lineLimit(1)
-    }
-
-    // Header other settings
-    var headeralwaysestimate: some View {
-        Text("Always estimate")
     }
 }
 

@@ -92,7 +92,10 @@
 "Delete task" = "Slett oppgave";
 
 /* No comment provided by engineer. */
-"Detailed" = "Detaljert";
+"deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "slette data. RsyncUI vil ikke hindre deg. Derfor er det viktig";
+
+/* No comment provided by engineer. */
+"Detailed log level" = "Detaljert log nivå";
 
 /* No comment provided by engineer. */
 "Dismiss" = "Lukk";
@@ -170,9 +173,6 @@
 "Last" = "Siste";
 
 /* No comment provided by engineer. */
-"Level log" = "Nivå logg";
-
-/* No comment provided by engineer. */
 "Linux" = "Linux";
 
 /* No comment provided by engineer. */
@@ -201,9 +201,6 @@
 
 /* No comment provided by engineer. */
 "Min" = "Minimum";
-
-/* No comment provided by engineer. */
-"Monitor" = "Overvåk";
 
 /* No comment provided by engineer. */
 "Monitor network" = "Overvåk nettverk";
@@ -252,6 +249,9 @@
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
+
+/* No comment provided by engineer. */
+"Other settings" = "Andre settinger";
 
 /* No comment provided by engineer. */
 "Output from rsync" = "Resultat av rsync";
@@ -323,6 +323,9 @@
 "Saved" = "Lagret";
 
 /* No comment provided by engineer. */
+"Search" = "Søke";
+
+/* No comment provided by engineer. */
 "Select" = "Velg";
 
 /* No comment provided by engineer. */
@@ -342,6 +345,9 @@
 
 /* No comment provided by engineer. */
 "Selected profile:" = "Valgt profil";
+
+/* No comment provided by engineer. */
+"selecting Important. Setting the wrong parameters to rsync can result in" = "velg viktig. Sette gale parametre til rsync kan resultere i";
 
 /* No comment provided by engineer. */
 "Server" = "Tjener";
