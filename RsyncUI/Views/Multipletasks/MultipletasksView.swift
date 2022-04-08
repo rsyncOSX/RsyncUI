@@ -148,7 +148,11 @@ struct MultipletasksView: View {
                 estimationcompleted()
                 // show log automatic
                 presentoutputsheetview = true
-                alwaysestimate = false
+                if selecteduuids.count == 0 {
+                    alwaysestimate = SharedReference.shared.alwaysestimate
+                } else {
+                    alwaysestimate = false
+                }
             })
             .onAppear(perform: {
                 // To set ProgressView spinnig wheel on correct task when estimating
@@ -167,6 +171,13 @@ struct MultipletasksView: View {
                     singletaskview = true
                 } else {
                     startestimation()
+                }
+            })
+            .onDisappear(perform: {
+                if selecteduuids.count == 0 {
+                    alwaysestimate = SharedReference.shared.alwaysestimate
+                } else {
+                    alwaysestimate = false
                 }
             })
     }
