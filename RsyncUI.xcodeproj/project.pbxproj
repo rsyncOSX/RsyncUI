@@ -534,6 +534,8 @@
 		E985C60925F3AD8400CB895C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E8AC45CB26E5ED2500E0AE43 /* Tools */,
+				E985C62025F3AD8400CB895C /* Modifiers */,
 				E985C60A25F3AD8400CB895C /* Sidebar */,
 				E99C23F9261C2D21009D4DBF /* Restore */,
 				E927AAD12616E23100DC27A3 /* Quicktask */,
@@ -654,8 +656,6 @@
 				E9168C0D2615ABFA00B139CE /* AddConfigurationView.swift */,
 				E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */,
 				E93E14B326E34B95004A293E /* AddProfileView.swift */,
-				E8AC45CB26E5ED2500E0AE43 /* Tools */,
-				E985C62025F3AD8400CB895C /* Modifiers */,
 			);
 			path = Add;
 			sourceTree = "<group>";
