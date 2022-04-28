@@ -96,6 +96,7 @@ struct RestoreView: View {
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
                         valueselectedrow: $restoresettings.filestorestorefromview,
+                        numberoffiles: $restoresettings.numberoffiles,
                         output: restoresettings.getoutput() ?? [])
     }
 }

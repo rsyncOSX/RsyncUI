@@ -49,6 +49,8 @@ struct SingleTasksView: View {
     // Singletaskview
     @Binding var singletaskview: Bool
 
+    @State private var numberoffiles: Int = 0
+
     var body: some View {
         ZStack {
             ConfigurationSelected(selectedconfig: $selectedconfig,
@@ -168,11 +170,13 @@ struct SingleTasksView: View {
             // real run output
             return OutputRsyncView(isPresented: $presentsheetview,
                                    valueselectedrow: $valueselectedrow,
+                                   numberoffiles: $numberoffiles,
                                    output: outputfromrsync.getoutput() ?? [])
         } else {
             // estimated run output
             return OutputRsyncView(isPresented: $presentsheetview,
                                    valueselectedrow: $valueselectedrow,
+                                   numberoffiles: $numberoffiles,
                                    output: inprogresscountrsyncoutput.getoutput() ?? [])
         }
     }

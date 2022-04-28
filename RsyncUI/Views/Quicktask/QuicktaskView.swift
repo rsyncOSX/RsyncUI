@@ -43,6 +43,8 @@ struct QuicktaskView: View {
 
     @FocusState private var focusField: QuicktaskField?
 
+    @State private var numberoffiles: Int = 0
+
     var body: some View {
         ZStack {
             Spacer()
@@ -206,6 +208,7 @@ struct QuicktaskView: View {
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
                         valueselectedrow: $valueselectedrow,
+                        numberoffiles: $numberoffiles,
                         output: rsyncoutput?.getoutput() ?? [])
     }
 }

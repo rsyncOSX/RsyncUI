@@ -75,7 +75,9 @@ extension ObserveableRestore {
         gettingfilelist = false
     }
 
-    func filehandler() {}
+    func filehandler() {
+        print(TrimOne(outputprocess?.getOutput() ?? []))
+    }
 
     // Validate task for remote restore and remote filelist
     func validatetaskandgetfilelist(_ config: Configuration) {

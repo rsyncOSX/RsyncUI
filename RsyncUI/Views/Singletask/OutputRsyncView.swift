@@ -11,6 +11,7 @@ struct OutputRsyncView: View {
     // @Binding var config: Configuration?
     @Binding var isPresented: Bool
     @Binding var valueselectedrow: String
+    @Binding var numberoffiles: Int
     var output: [String]
 
     @State private var selection: String?
@@ -46,8 +47,10 @@ struct OutputRsyncView: View {
 
     var listitems: [String] {
         if text == "" || text == " " {
+            numberoffiles = output.count
             return output
         } else {
+            numberoffiles = output.filter { $0.contains(text) }.count
             return output.filter { $0.contains(text) }
         }
     }
