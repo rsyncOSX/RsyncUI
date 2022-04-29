@@ -23,7 +23,7 @@ final class ObserveableRestore: ObservableObject {
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
     // Number of files restored
-    @Published var numberoffilestorestore: Int = 0
+    @Published var numberoffilesrestored: Int = 0
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -75,11 +75,11 @@ extension ObserveableRestore {
     func processtermination() {
         numberoffiles = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         gettingfilelist = false
-        numberoffilestorestore = numberoffiles
+        numberoffilesrestored = 0
     }
 
     func filehandler() {
-        numberoffilestorestore = (outputprocess?.getOutput() ?? []).count
+        numberoffilesrestored = (outputprocess?.getOutput() ?? []).count
     }
 
     // Validate task for remote restore and remote filelist

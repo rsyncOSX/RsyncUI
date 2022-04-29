@@ -50,7 +50,7 @@ struct RestoreView: View {
                             .frame(width: 50.0, height: 50.0)
                             .foregroundColor(.red)
 
-                        Text("\(restoresettings.numberoffilestorestore)")
+                        Text("\(restoresettings.numberoffilesrestored)")
                     }
                 }
             }
