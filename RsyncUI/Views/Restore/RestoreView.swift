@@ -15,8 +15,6 @@ struct RestoreView: View {
     @State private var presentsheetview = false
     @State private var filterstring = ""
 
-    @State private var remainingfilestorestore: Int = 0
-
     let selectable = false
 
     var body: some View {
@@ -52,7 +50,7 @@ struct RestoreView: View {
                             .frame(width: 50.0, height: 50.0)
                             .foregroundColor(.red)
 
-                        Text("\(remainingfilestorestore)")
+                        Text("\(restoresettings.numberoffilestorestore)")
                     }
                 }
             }
