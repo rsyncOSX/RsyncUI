@@ -15,6 +15,8 @@ struct RestoreView: View {
     @State private var presentsheetview = false
     @State private var filterstring = ""
 
+    @State private var remainingfilestorestore: Int = 0
+
     let selectable = false
 
     var body: some View {
@@ -23,12 +25,6 @@ struct RestoreView: View {
                 ConfigurationsListNoSearch(selectedconfig: $restoresettings.selectedconfig.onChange {
                     restoresettings.filestorestore = ""
                 })
-            }
-
-            if restoresettings.gettingfilelist == true {
-                RotatingDotsIndicatorView()
-                    .frame(width: 50.0, height: 50.0)
-                    .foregroundColor(.red)
             }
         }
 
@@ -41,12 +37,24 @@ struct RestoreView: View {
 
             Spacer()
 
-            VStack(alignment: .leading) {
-                numberoffiles
+            ZStack {
+                VStack(alignment: .leading) {
+                    numberoffiles
 
-                setfilestorestore
+                    setfilestorestore
 
-                setpathforrestore
+                    setpathforrestore
+                }
+
+                if restoresettings.gettingfilelist == true {
+                    ZStack {
+                        RotatingDotsIndicatorView()
+                            .frame(width: 50.0, height: 50.0)
+                            .foregroundColor(.red)
+
+                        Text("\(remainingfilestorestore)")
+                    }
+                }
             }
 
             Spacer()
