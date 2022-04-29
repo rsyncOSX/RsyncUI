@@ -25,6 +25,7 @@ struct OutputRsyncView: View {
 
             List(listitems, id: \.self, selection: $selection.onChange {
                 valueselectedrow = selection ?? ""
+                text = valueselectedrow
             }) { line in
                 Text(line)
                     .modifier(FixedTag(750, .leading))
