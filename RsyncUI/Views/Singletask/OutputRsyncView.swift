@@ -25,7 +25,6 @@ struct OutputRsyncView: View {
 
             List(listitems, id: \.self, selection: $selection.onChange {
                 valueselectedrow = selection ?? ""
-                text = valueselectedrow
             }) { line in
                 Text(line)
                     .modifier(FixedTag(750, .leading))
@@ -44,6 +43,12 @@ struct OutputRsyncView: View {
         }
         .padding()
         .frame(minWidth: 800, minHeight: 600)
+        .onDisappear {
+            text = valueselectedrow
+            if (selection ?? "").count > 0 {
+                numberoffiles = output.filter { $0.contains(selection ?? "") }.count
+            }
+        }
     }
 
     var listitems: [String] {
