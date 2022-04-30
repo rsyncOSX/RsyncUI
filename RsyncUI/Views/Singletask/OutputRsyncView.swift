@@ -49,6 +49,12 @@ struct OutputRsyncView: View {
                 numberoffiles = output.filter { $0.contains(selection ?? "") }.count
             }
         }
+        .onAppear(perform: {
+            if valueselectedrow.count > 0 {
+                numberoffiles = output.filter { $0.contains(valueselectedrow) }.count
+            }
+            text = valueselectedrow
+        })
     }
 
     var listitems: [String] {
