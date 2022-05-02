@@ -15,7 +15,6 @@ struct OutputRsyncView: View {
     var output: [String]
 
     @State private var selection: String?
-    @State private var text = ""
 
     var body: some View {
         VStack {
@@ -35,7 +34,7 @@ struct OutputRsyncView: View {
             HStack {
                 Spacer()
 
-                TextField("Search", text: $text)
+                TextField("Search", text: $valueselectedrow)
 
                 Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
@@ -44,7 +43,6 @@ struct OutputRsyncView: View {
         .padding()
         .frame(minWidth: 800, minHeight: 600)
         .onDisappear {
-            text = valueselectedrow
             if (selection ?? "").count > 0 {
                 numberoffiles = output.filter { $0.contains(selection ?? "") }.count
             }
@@ -53,17 +51,16 @@ struct OutputRsyncView: View {
             if valueselectedrow.count > 0 {
                 numberoffiles = output.filter { $0.contains(valueselectedrow) }.count
             }
-            text = valueselectedrow
         })
     }
 
     var listitems: [String] {
-        if text == "" || text == " " {
+        if valueselectedrow == "" || valueselectedrow == " " {
             numberoffiles = output.count
             return output
         } else {
-            numberoffiles = output.filter { $0.contains(text) }.count
-            return output.filter { $0.contains(text) }
+            numberoffiles = output.filter { $0.contains(valueselectedrow) }.count
+            return output.filter { $0.contains(valueselectedrow) }
         }
     }
 
