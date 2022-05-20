@@ -45,6 +45,9 @@ struct OutputRsyncView: View {
         .onDisappear {
             if (selection ?? "").count > 0 {
                 numberoffiles = output.filter { $0.contains(selection ?? "") }.count
+            } else {
+                numberoffiles = output.count
+                valueselectedrow = ""
             }
         }
         .onAppear(perform: {
