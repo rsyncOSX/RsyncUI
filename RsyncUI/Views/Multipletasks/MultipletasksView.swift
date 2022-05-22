@@ -45,7 +45,7 @@ struct MultipletasksView: View {
     // Delete
     @State private var confirmdeletemenu: Bool = false
     // Estimate ahead of execute task
-    @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
+    @Binding var alwaysestimate: Bool
 
     var body: some View {
         ZStack {
@@ -63,18 +63,6 @@ struct MultipletasksView: View {
         }
 
         HStack {
-            /*
-             Button("Estimate") {
-                 if selecteduuids.count == 0, selectedconfig != nil {
-                     singletaskview = true
-                 } else {
-                     estimationstate.estimateonly = true
-                     startestimation()
-                 }
-             }
-             .buttonStyle(PrimaryButtonStyle())
-              */
-
             VStack(alignment: .center) {
                 ToggleViewDefault(NSLocalizedString("Estimate", comment: ""), $alwaysestimate)
 
@@ -188,9 +176,6 @@ struct MultipletasksView: View {
                 focusstartexecution = false
                 // Guard statement must be after resetting properties to false
                 startexecution()
-            })
-            .onDisappear(perform: {
-                alwaysestimate = SharedReference.shared.alwaysestimate
             })
     }
 

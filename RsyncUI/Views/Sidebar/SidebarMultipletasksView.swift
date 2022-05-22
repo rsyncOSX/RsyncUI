@@ -20,9 +20,10 @@ struct SidebarMultipletasksView: View {
     @State private var selecteduuids = Set<UUID>()
     // Show completed
     @State private var showcompleted: Bool = false
-
     // Singletask
     @State private var singletaskview: Bool = false
+    // Estimate ahead of execute task
+    @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
 
     var body: some View {
         ZStack {
@@ -37,7 +38,8 @@ struct SidebarMultipletasksView: View {
                                           selecteduuids: $selecteduuids,
                                           showestimateview: $showestimateview,
                                           singletaskview: $singletaskview,
-                                          selection: $selection)
+                                          selection: $selection,
+                                          alwaysestimate: $alwaysestimate)
                     } else {
                         SingleTasksView(selectedconfig: $selectedconfig,
                                         selectedprofile: $selectedprofile,
@@ -65,6 +67,9 @@ struct SidebarMultipletasksView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             showcompleted = false
                         }
+                    })
+                    .onDisappear(perform: {
+                        alwaysestimate = SharedReference.shared.alwaysestimate
                     })
             }
         }
