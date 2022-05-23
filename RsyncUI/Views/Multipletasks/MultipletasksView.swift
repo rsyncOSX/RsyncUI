@@ -19,7 +19,6 @@ struct MultipletasksView: View {
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
 
     @Binding var selectedconfig: Configuration?
-    @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var showestimateview: Bool

@@ -23,7 +23,6 @@ struct SingleTasksView: View {
     @StateObject private var inprogresscountrsyncoutput = InprogressCountRsyncOutput()
 
     @Binding var selectedconfig: Configuration?
-    @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
     // Must be a @State because it is changed

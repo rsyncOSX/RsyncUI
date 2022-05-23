@@ -11,7 +11,7 @@ struct SidebarMultipletasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
-    @Binding var selectedprofile: String?
+    // @Binding var selectedprofile: String?
     // Which sidebar function
     @Binding var selection: NavigationItem?
 
@@ -33,7 +33,6 @@ struct SidebarMultipletasksView: View {
                 if showestimateview == true {
                     if singletaskview == false {
                         MultipletasksView(selectedconfig: $selectedconfig,
-                                          selectedprofile: $selectedprofile,
                                           reload: $reload,
                                           selecteduuids: $selecteduuids,
                                           showestimateview: $showestimateview,
@@ -42,7 +41,6 @@ struct SidebarMultipletasksView: View {
                                           alwaysestimate: $alwaysestimate)
                     } else {
                         SingleTasksView(selectedconfig: $selectedconfig,
-                                        selectedprofile: $selectedprofile,
                                         reload: $reload,
                                         singletaskview: $singletaskview)
                     }

@@ -11,16 +11,12 @@ import SwiftUI
 enum NavigationItem {
     case rsync
     case logs
-    // case singletasks
     case multipletasks
     case none
     case snapshots
     case configurations
-    // **Schedules**
-    // case schedules
     case restore
     case quicktask
-    // case plist
 }
 
 struct Sidebar: View {
@@ -36,7 +32,6 @@ struct Sidebar: View {
 
             Group {
                 NavigationLink(destination: SidebarMultipletasksView(reload: $reload,
-                                                                     selectedprofile: $selectedprofile,
                                                                      selection: $selection)
                         .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.multipletasks,
@@ -77,17 +72,6 @@ struct Sidebar: View {
 
             Divider()
 
-            /*
-             **Schedules**
-             Group {
-                 NavigationLink(destination: SidebarSchedulesView(selectedprofile: $selectedprofile,
-                                                                  reload: $reload),
-                                tag: NavigationItem.schedules,
-                                selection: $selection) {
-                     Label("Schedules", systemImage: "calendar.badge.plus")
-                 }
-                 .tag(NavigationItem.schedules)
-              */
             NavigationLink(destination: SidebarSnapshotsView(selectedprofile: $selectedprofile,
                                                              reload: $reload),
                            tag: NavigationItem.snapshots,
@@ -95,7 +79,6 @@ struct Sidebar: View {
                 Label("Snapshots", systemImage: "text.badge.plus")
             }
             .tag(NavigationItem.snapshots)
-            // }
 
             Divider()
 
@@ -114,20 +97,6 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.restore)
             }
-
-            /*
-             Divider()
-
-             Group {
-                 NavigationLink(destination: ConvertPLISTView(reload: $reload),
-                                tag: NavigationItem.plist,
-                                selection: $selection) {
-                     Label("Plist",
-                           systemImage: "arrowshape.turn.up.backward.fill")
-                 }
-                 .tag(NavigationItem.plist)
-             }
-              */
         }
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)
