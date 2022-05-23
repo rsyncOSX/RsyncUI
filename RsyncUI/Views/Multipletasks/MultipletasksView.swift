@@ -44,7 +44,7 @@ struct MultipletasksView: View {
     // Delete
     @State private var confirmdeletemenu: Bool = false
     // Estimate ahead of execute task
-    @Binding var alwaysestimate: Bool
+    @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
 
     var body: some View {
         ZStack {
