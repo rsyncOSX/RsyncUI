@@ -11,10 +11,8 @@ struct SidebarMultipletasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
-    // @Binding var selectedprofile: String?
     // Which sidebar function
     @Binding var selection: NavigationItem?
-
     // Show estimate when true, execute else
     @State var showestimateview: Bool = true
     @State private var selecteduuids = Set<UUID>()
