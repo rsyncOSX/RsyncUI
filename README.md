@@ -19,14 +19,13 @@ RsyncUI is implemented by utilizing the SwiftUI and Combine declarative framewor
 
 The following tools are used in development:
 
-- Xcode 13, the main tool and current versions of Swift and SwiftUI
+- Xcode (the main tool)
 - make to compile new versions in terminal
-- [create-dmg](https://github.com/sindresorhus/create-dmg) to create new dmg for release
+- [create-dmg](https://github.com/sindresorhus/create-dmg) to create new releases
 - [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift style and conventions
 - [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) for reformatting Swift code
-- [GitHub Desktop](https://desktop.github.com/) for git and GitHub
 
-All the above tools, except Xcode and GitHub Desktop are installed by using [Homebrew](https://brew.sh/).
+All the above, except Xcode are installed by using [Homebrew](https://brew.sh/).
 
 ## Signing and notarizing
 
@@ -34,7 +33,7 @@ The app is signed with my Apple ID developer certificate and notarized by Apple.
 
 ## Version of rsync
 
-RsyncUI is verified with rsync versions 2.6.9 and 3.2.x. It is recommended to install the latest version of [rsync](https://rsyncui.netlify.app/post/rsync/) by Homebrew.
+It is recommended to install the latest version of [rsync](https://rsyncui.netlify.app/post/rsync/) by Homebrew.
 
 ## Application icon
 
