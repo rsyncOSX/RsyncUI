@@ -1,7 +1,6 @@
 // MIT License
 //
 // Copyright (c) 2021 Elai Zuberman
-// swiftlint:disable line_length file_length function_body_length type_body_length
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 //
@@ -376,7 +375,6 @@ public struct AlertToast: View {
                 }
             }
         }
-        .fixedSize(horizontal: true, vertical: false)
         .padding()
         .withFrame(type != .regular && type != .loading)
         .alertBackground(style?.backgroundColor ?? nil)
@@ -413,8 +411,8 @@ public struct AlertToastModifier: ViewModifier {
     var alert: () -> AlertToast
 
     /// Completion block returns `true` after dismiss
-    var onTap: (() -> Void)?
-    var completion: (() -> Void)?
+    var onTap: (() -> Void)? = nil
+    var completion: (() -> Void)? = nil
 
     @State private var workItem: DispatchWorkItem?
 
@@ -430,11 +428,7 @@ public struct AlertToastModifier: ViewModifier {
     }
 
     private var offset: CGFloat {
-        #if os(iOS)
-            return -hostRect.midY + alertRect.height
-        #else
-            return (-hostRect.midY + screen.midY) + alertRect.height
-        #endif
+        return -hostRect.midY + alertRect.height
     }
 
     @ViewBuilder
@@ -566,6 +560,10 @@ public struct AlertToastModifier: ViewModifier {
     }
 
     private func onAppearAction() {
+        guard workItem == nil else {
+            return
+        }
+
         if alert().type == .loading {
             duration = 0
             tapToDismiss = false
