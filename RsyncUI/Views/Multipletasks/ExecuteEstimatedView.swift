@@ -58,9 +58,8 @@ struct ExecuteEstimatedView: View {
     // Present progressview during executing multiple tasks, progress about the number of
     // tasks are executed.
     var progressviewexecuting: some View {
-        ProgressView("",
-                     value: inprogresscountmultipletask.getinprogress(),
-                     total: Double(inprogresscountmultipletask.getmaxcount()))
+        ProgressView()
+            .frame(width: 25, height: 25)
             .onAppear(perform: {
                 // To set ProgressView spinnig wheel on correct task when estimating
                 inwork = inprogresscountmultipletask.hiddenID
@@ -71,9 +70,24 @@ struct ExecuteEstimatedView: View {
                 inwork = inprogresscountmultipletask.hiddenID
                 executedetails.setcurrentprogress(0)
             })
-            .progressViewStyle(GaugeProgressStyle())
-            .frame(width: 25.0, height: 25.0)
-            .contentShape(Rectangle())
+        /*
+         ProgressView("",
+                      value: inprogresscountmultipletask.getinprogress(),
+                      total: Double(inprogresscountmultipletask.getmaxcount()))
+             .onAppear(perform: {
+                 // To set ProgressView spinnig wheel on correct task when estimating
+                 inwork = inprogresscountmultipletask.hiddenID
+                 // executedetails.setcurrentprogress(0)
+             })
+             .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
+                 // To set ProgressView spinnig wheel on correct task when estimating
+                 inwork = inprogresscountmultipletask.hiddenID
+                 executedetails.setcurrentprogress(0)
+             })
+             .progressViewStyle(GaugeProgressStyle())
+             .frame(width: 25.0, height: 25.0)
+             .contentShape(Rectangle())
+          */
     }
 
     // When status execution is .completed, presenet label and execute completed.

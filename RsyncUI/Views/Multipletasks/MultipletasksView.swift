@@ -125,12 +125,7 @@ struct MultipletasksView: View {
     }
 
     var progressviewestimation: some View {
-        ProgressView("", value: inprogresscountmultipletask.getinprogress(),
-                     total: Double(inprogresscountmultipletask.getmaxcount()))
-            .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
-                inwork = inprogresscountmultipletask.hiddenID
-                selecteduuids = inprogresscountmultipletask.getuuids()
-            })
+        ProgressView()
             .onDisappear(perform: {
                 estimationcompleted()
                 // show log automatic
@@ -145,9 +140,32 @@ struct MultipletasksView: View {
                 // To set ProgressView spinnig wheel on correct task when estimating
                 inwork = inprogresscountmultipletask.hiddenID
             })
-            .progressViewStyle(GaugeProgressStyle())
             .frame(width: 25.0, height: 25.0)
-            .contentShape(Rectangle())
+        /*
+         ProgressView("", value: inprogresscountmultipletask.getinprogress(),
+                      total: Double(inprogresscountmultipletask.getmaxcount()))
+             .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
+                 inwork = inprogresscountmultipletask.hiddenID
+                 selecteduuids = inprogresscountmultipletask.getuuids()
+             })
+             .onDisappear(perform: {
+                 estimationcompleted()
+                 // show log automatic
+                 presentoutputsheetview = true
+                 if selecteduuids.count == 0 {
+                     alwaysestimate = SharedReference.shared.alwaysestimate
+                 } else {
+                     alwaysestimate = false
+                 }
+             })
+             .onAppear(perform: {
+                 // To set ProgressView spinnig wheel on correct task when estimating
+                 inwork = inprogresscountmultipletask.hiddenID
+             })
+             .progressViewStyle(GaugeProgressStyle())
+             .frame(width: 25.0, height: 25.0)
+             .contentShape(Rectangle())
+          */
     }
 
     var labelshortcutestimation: some View {
