@@ -91,7 +91,7 @@ struct MultipletasksView: View {
             Spacer()
 
             ZStack {
-                footer
+                if estimationstate.estimationstate != .estimate { footer }
 
                 if estimationstate.estimationstate == .estimate { progressviewestimation }
             }
