@@ -18,6 +18,7 @@ struct Readlogsfromstore {
     }
 }
 
+@MainActor
 final class RsyncUIlogrecords: ObservableObject {
     @Published var logrecordsfromstore: Readlogsfromstore?
     @Published var alllogssorted: [Log]?
