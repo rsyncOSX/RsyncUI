@@ -27,9 +27,7 @@ struct OneConfigUUID: View {
 
     var progress: some View {
         ZStack {
-            if config.hiddenID == inwork && executedetails.isestimating() {
-                progressviewestimating
-            } else if config.hiddenID == inwork {
+            if config.hiddenID == inwork && executedetails.isestimating() == false {
                 progressexecution
             } else {
                 Text("")
@@ -44,13 +42,6 @@ struct OneConfigUUID: View {
             }
         }
         .frame(width: 40, alignment: .center)
-    }
-
-    // Progressview for estimating and execute tasks without estimation
-    var progressviewestimating: some View {
-        RotatingDotsIndicatorView()
-            .frame(width: 18.0, height: 18.0)
-            .foregroundColor(.red)
     }
 
     // Progressview for execute estimated tasks
