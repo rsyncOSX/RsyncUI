@@ -1,4 +1,5 @@
 // MIT License
+// swiftlint:disable line_length function_body_length file_length
 //
 // Copyright (c) 2021 Elai Zuberman
 //
@@ -411,8 +412,8 @@ public struct AlertToastModifier: ViewModifier {
     var alert: () -> AlertToast
 
     /// Completion block returns `true` after dismiss
-    var onTap: (() -> Void)? = nil
-    var completion: (() -> Void)? = nil
+    var onTap: (() -> Void)?
+    var completion: (() -> Void)?
 
     @State private var workItem: DispatchWorkItem?
 
