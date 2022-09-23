@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class RsyncAsync {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
@@ -68,6 +69,7 @@ final class RsyncAsync {
             if data.count > 0 {
                 if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                     self.outputprocess?.addlinefromoutput(str: str as String)
+                    print(str)
                 }
                 outHandle.waitForDataInBackgroundAndNotify()
             }
@@ -102,7 +104,7 @@ final class RsyncAsync {
     {
         self.arguments = arguments
         self.config = config
-        executemonitornetworkconnection()
+        // executemonitornetworkconnection()
         outputprocess = OutputfromProcess()
     }
 

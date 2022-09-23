@@ -33,6 +33,7 @@ struct MultipletasksView: View {
     @State private var focusselecttask: Bool = false
     @State private var focusfirsttaskinfo: Bool = false
     @State private var focusdeletetask: Bool = false
+    @State private var focusshowinfotask: Bool = false
 
     @State private var searchText: String = ""
     // Singletaskview
@@ -59,6 +60,7 @@ struct MultipletasksView: View {
             if focusselecttask { labelselecttask }
             if focusfirsttaskinfo { labelfirsttime }
             if focusdeletetask { labeldeletetask }
+            if focusshowinfotask { labelshowinfotask }
         }
 
         HStack {
@@ -92,7 +94,6 @@ struct MultipletasksView: View {
 
             ZStack {
                 if estimationstate.estimationstate != .estimate { footer }
-
                 if estimationstate.estimationstate == .estimate { progressviewestimation }
             }
 
@@ -114,6 +115,7 @@ struct MultipletasksView: View {
         .focusedSceneValue(\.selecttask, $focusselecttask)
         .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
         .focusedSceneValue(\.deletetask, $focusdeletetask)
+        .focusedSceneValue(\.showinfotask, $focusshowinfotask)
         .task {
             // Discover if firsttime use, if true present view for firsttime
             firsttime = SharedReference.shared.firsttime
@@ -219,13 +221,23 @@ struct MultipletasksView: View {
                 confirmdeletemenu = true
             })
     }
+    
+    var labelshowinfotask: some View {
+        ProgressView()
+            .onAppear {
+                Task {
+                    let arguments = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
+                    let task = RsyncAsync(arguments: arguments, config: selectedconfig)
+                    await task.executeProcess()
+                }
+            }
+    }
 
     var footer: some View {
-        VStack {
+       
             Text("Most recent updated tasks on top of list")
                 .foregroundColor(Color.blue)
             // Text("Select and slide to left for delete")
-        }
     }
 }
 
