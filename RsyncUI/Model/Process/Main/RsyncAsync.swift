@@ -79,8 +79,7 @@ final class RsyncAsync {
         .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
         .sink { _ in
             // Logg to file
-            _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
-            //b print(self.outputprocess?.getOutput() ?? [])
+            // _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
             // Release Combine subscribers
             self.subscriptons.removeAll()
         }.store(in: &subscriptons)
