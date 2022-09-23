@@ -69,7 +69,6 @@ final class RsyncAsync {
             if data.count > 0 {
                 if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                     self.outputprocess?.addlinefromoutput(str: str as String)
-                    print(str)
                 }
                 outHandle.waitForDataInBackgroundAndNotify()
             }
@@ -81,6 +80,7 @@ final class RsyncAsync {
         .sink { _ in
             // Logg to file
             _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+            //b print(self.outputprocess?.getOutput() ?? [])
             // Release Combine subscribers
             self.subscriptons.removeAll()
         }.store(in: &subscriptons)
