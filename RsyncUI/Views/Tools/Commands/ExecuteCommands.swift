@@ -14,6 +14,7 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.selecttask) private var selectttask
     @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
     @FocusedBinding(\.deletetask) private var deletetask
+    @FocusedBinding(\.showinfotask) private var showinfotask
     // @FocusedBinding(\.starttestfortcpconnections) private var starttestfortcpconnections
 
     var body: some Commands {
@@ -25,6 +26,7 @@ struct ExecuteCommands: Commands {
 
             SelectTask(selecttask: $selectttask)
             FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
+            Showinfotask(showinfotask: $showinfotask)
 
             Divider()
 
@@ -128,6 +130,19 @@ struct Deletetask: View {
     }
 }
 
+struct Showinfotask: View {
+    @Binding var showinfotask: Bool?
+
+    var body: some View {
+        Button {
+            showinfotask = true
+        } label: {
+            Label("Show info", systemImage: "play.fill")
+        }
+        .keyboardShortcut("s", modifiers: [.command])
+    }
+}
+
 struct FocusedEstimateBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -149,6 +164,10 @@ struct FocusedFirsttaskInfo: FocusedValueKey {
 }
 
 struct FocusedDeletetask: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+struct FocusedShowinfoTask: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
@@ -181,5 +200,10 @@ extension FocusedValues {
     var deletetask: FocusedDeletetask.Value? {
         get { self[FocusedDeletetask.self] }
         set { self[FocusedDeletetask.self] = newValue }
+    }
+    
+    var showinfotask: FocusedShowinfoTask.Value? {
+        get { self[FocusedShowinfoTask.self] }
+        set { self[FocusedShowinfoTask.self] = newValue }
     }
 }

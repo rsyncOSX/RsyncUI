@@ -224,7 +224,7 @@ struct MultipletasksView: View {
         VStack {
             Text("Most recent updated tasks on top of list")
                 .foregroundColor(Color.blue)
-            Text("Select and slide to left for delete")
+            // Text("Select and slide to left for delete")
         }
     }
 }
