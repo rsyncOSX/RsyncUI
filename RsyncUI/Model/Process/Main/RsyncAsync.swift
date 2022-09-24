@@ -17,30 +17,10 @@ final class RsyncAsync {
     var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
+    // Process termination and filehandler closures
+    var processtermination: ([String]?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
-
-    func executemonitornetworkconnection() {
-        guard config?.offsiteServer.isEmpty == false else { return }
-        guard SharedReference.shared.monitornetworkconnection == true else { return }
-        monitor = NetworkMonitor()
-        monitor?.netStatusChangeHandler = { [unowned self] in
-            do {
-                try statusDidChange()
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-            }
-        }
-    }
-
-    // Throws error
-    func statusDidChange() throws {
-        if monitor?.monitor?.currentPath.status != .satisfied {
-            _ = InterruptProcess()
-            throw Networkerror.networkdropped
-        }
-    }
 
     func executeProcess() async {
         // Must check valid rsync exists
@@ -80,11 +60,13 @@ final class RsyncAsync {
         .sink { _ in
             // Logg to file
             // _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+            self.processtermination(self.outputprocess?.getOutput())
             // Release Combine subscribers
+            print("process termination")
             self.subscriptons.removeAll()
         }.store(in: &subscriptons)
-        
         SharedReference.shared.process = task
+        print("end task")
         do {
             try task.run()
         } catch let e {
@@ -100,12 +82,12 @@ final class RsyncAsync {
 
     init(arguments: [String]?,
          config: Configuration?,
-         outputprocess: OutputfromProcess?)
+         processtermination: @escaping ([String]?) -> Void)
     {
         self.arguments = arguments
         self.config = config
-        // executemonitornetworkconnection()
-        self.outputprocess = outputprocess
+        self.processtermination = processtermination
+        self.outputprocess = OutputfromProcess()
     }
 
     deinit {

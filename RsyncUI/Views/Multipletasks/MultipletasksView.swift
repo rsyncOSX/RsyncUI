@@ -227,7 +227,7 @@ struct MultipletasksView: View {
             .onAppear {
                 let arguments = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
                 let outputprocess = OutputfromProcess()
-                let task = RsyncAsync(arguments: arguments, config: selectedconfig, outputprocess: outputprocess)
+                let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processtermination)
                 Task {
                     await task.executeProcess()
                 }
@@ -331,5 +331,9 @@ extension MultipletasksView {
                 selecteduuids.insert(id)
             }
         }
+    }
+    
+    func processtermination(data: [String]?) {
+        print(data ?? [])
     }
 }
