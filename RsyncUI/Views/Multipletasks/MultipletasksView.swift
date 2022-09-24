@@ -49,6 +49,8 @@ struct MultipletasksView: View {
     
     // Data
     @State private var data: [String] = []
+    // Modale view
+    @State private var modaleview = false
 
     var body: some View {
         ZStack {
@@ -122,10 +124,24 @@ struct MultipletasksView: View {
         .task {
             // Discover if firsttime use, if true present view for firsttime
             firsttime = SharedReference.shared.firsttime
+            modaleview = firsttime
         }
-        .sheet(isPresented: $firsttime) {
-            FirsttimeView(dismiss: $firsttime,
-                          selection: $selection)
+        .sheet(isPresented: $modaleview) {
+            if firsttime {
+                FirsttimeView(dismiss: $modaleview,
+                              selection: $selection)
+            } else {
+                LocalRemoteInfoView(dismiss: $modaleview, data: data)
+                    .onAppear {
+                        focusshowinfotask = false
+                        let arguments = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
+                        let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processtermination)
+                        Task {
+                            await task.executeProcess()
+                        }
+                    }
+            }
+            
         }
     }
 
@@ -189,6 +205,7 @@ struct MultipletasksView: View {
             .onAppear(perform: {
                 focusfirsttaskinfo = false
                 firsttime = true
+                modaleview = true
             })
     }
 
@@ -202,13 +219,10 @@ struct MultipletasksView: View {
     
     var labelshowinfotask: some View {
         // ProgressView()
-        LocalRemoteInfoView(dismiss: $focusshowinfotask, data: data)
+        Label("", systemImage: "play.fill")
             .onAppear {
-                let arguments = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
-                let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processtermination)
-                Task {
-                    await task.executeProcess()
-                }
+                focusshowinfotask = true
+                modaleview = true
             }
     }
 
