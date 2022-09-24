@@ -32,7 +32,7 @@ struct SidebarLogsView: View {
                                         focusselectlog: $focusselectlog)
                     .environmentObject(logrecords)
                     .tabItem {
-                        Text("By config")
+                        Text("By task")
                     }
             }
             if showloading { ProgressView() }
