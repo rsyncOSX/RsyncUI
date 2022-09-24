@@ -99,12 +99,13 @@ final class RsyncAsync {
     }
 
     init(arguments: [String]?,
-         config: Configuration?)
+         config: Configuration?,
+         outputprocess: OutputfromProcess?)
     {
         self.arguments = arguments
         self.config = config
         // executemonitornetworkconnection()
-        outputprocess = OutputfromProcess()
+        self.outputprocess = outputprocess
     }
 
     deinit {

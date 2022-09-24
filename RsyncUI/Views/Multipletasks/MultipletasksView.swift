@@ -225,11 +225,13 @@ struct MultipletasksView: View {
     var labelshowinfotask: some View {
         ProgressView()
             .onAppear {
+                let arguments = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
+                let outputprocess = OutputfromProcess()
+                let task = RsyncAsync(arguments: arguments, config: selectedconfig, outputprocess: outputprocess)
                 Task {
-                    let arguments = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
-                    let task = RsyncAsync(arguments: arguments, config: selectedconfig)
                     await task.executeProcess()
                 }
+                focusshowinfotask = false
             }
     }
 
