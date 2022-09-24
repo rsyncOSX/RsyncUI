@@ -46,6 +46,9 @@ struct MultipletasksView: View {
     @State private var confirmdeletemenu: Bool = false
     // Estimate ahead of execute task
     @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
+    
+    // Data
+    @State private var data: [String] = []
 
     var body: some View {
         ZStack {
@@ -143,31 +146,6 @@ struct MultipletasksView: View {
                 inwork = inprogresscountmultipletask.hiddenID
             })
             .frame(width: 25.0, height: 25.0)
-        /*
-         ProgressView("", value: inprogresscountmultipletask.getinprogress(),
-                      total: Double(inprogresscountmultipletask.getmaxcount()))
-             .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
-                 inwork = inprogresscountmultipletask.hiddenID
-                 selecteduuids = inprogresscountmultipletask.getuuids()
-             })
-             .onDisappear(perform: {
-                 estimationcompleted()
-                 // show log automatic
-                 presentoutputsheetview = true
-                 if selecteduuids.count == 0 {
-                     alwaysestimate = SharedReference.shared.alwaysestimate
-                 } else {
-                     alwaysestimate = false
-                 }
-             })
-             .onAppear(perform: {
-                 // To set ProgressView spinnig wheel on correct task when estimating
-                 inwork = inprogresscountmultipletask.hiddenID
-             })
-             .progressViewStyle(GaugeProgressStyle())
-             .frame(width: 25.0, height: 25.0)
-             .contentShape(Rectangle())
-          */
     }
 
     var labelshortcutestimation: some View {
@@ -223,15 +201,14 @@ struct MultipletasksView: View {
     }
     
     var labelshowinfotask: some View {
-        ProgressView()
+        // ProgressView()
+        LocalRemoteInfoView(dismiss: $focusshowinfotask, data: data)
             .onAppear {
                 let arguments = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
-                let outputprocess = OutputfromProcess()
                 let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processtermination)
                 Task {
                     await task.executeProcess()
                 }
-                focusshowinfotask = false
             }
     }
 
@@ -239,7 +216,6 @@ struct MultipletasksView: View {
        
             Text("Most recent updated tasks on top of list")
                 .foregroundColor(Color.blue)
-            // Text("Select and slide to left for delete")
     }
 }
 
@@ -334,6 +310,7 @@ extension MultipletasksView {
     }
     
     func processtermination(data: [String]?) {
+        self.data = data ?? []
         print(data ?? [])
     }
 }
