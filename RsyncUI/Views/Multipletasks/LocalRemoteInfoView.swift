@@ -16,8 +16,6 @@ struct LocalRemoteInfoView: View {
         VStack {
             Text("Welcome to RsyncUI")
                 .font(.title)
-
-            Text("Text")
             
             HStack {
                 

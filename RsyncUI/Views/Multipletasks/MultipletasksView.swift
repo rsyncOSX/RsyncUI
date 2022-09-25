@@ -134,10 +134,12 @@ struct MultipletasksView: View {
                 LocalRemoteInfoView(dismiss: $modaleview, data: data)
                     .onAppear {
                         focusshowinfotask = false
-                        let arguments = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
+                        let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
+                        let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo, config: selectedconfig, processtermination: processtermination)
+                        let arguments = ArgumentsSynchronize(config: selectedconfig).argumentssynchronize(dryRun: true, forDisplay: false)
                         let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processtermination)
                         Task {
-                            await task.executeProcess()
+                            await tasklocalinfo.executeProcess()
                         }
                     }
             }
