@@ -48,7 +48,9 @@ final class RsyncAsync {
             let data = outHandle.availableData
             if data.count > 0 {
                 if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                    self.outputprocess?.addlinefromoutput(str: str as String)
+                    if str.contains("Number") {
+                        self.outputprocess?.addlinefromoutput(str: str as String)
+                    }
                 }
                 outHandle.waitForDataInBackgroundAndNotify()
             }
