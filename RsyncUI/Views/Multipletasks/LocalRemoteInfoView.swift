@@ -14,8 +14,12 @@ struct LocalRemoteInfoView: View {
 
     var body: some View {
         VStack {
-            Text("Welcome to RsyncUI")
-                .font(.title)
+            Section(header: header) {
+                List(data) { line in
+                    Text(line)
+                        .modifier(FixedTag(750, .leading))
+                }
+            }
             
             HStack {
                 
@@ -25,5 +29,10 @@ struct LocalRemoteInfoView: View {
         }
         .padding()
         .frame(width: 800, height: 400)
+    }
+    
+    var header: some View {
+        Text("Seksjon")
+            .modifier(FixedTag(200, .center))
     }
 }
