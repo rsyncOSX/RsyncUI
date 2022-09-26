@@ -48,23 +48,54 @@ struct LocalRemoteInfoView: View {
     }
     
     var local: some View {
-        VStack {
+        VStack (alignment: .leading) {
+            HStack {
+                Text("Last run" + ": ")
                 Text(selectedconfig?.dateRun ?? "")
+            }
+            HStack {
+                Text("Number of files" + ": ")
                 Text(remoteinfonumberslocalcatalog.totalNumber ?? "")
-                Text(remoteinfonumberslocalcatalog.totalNumberSizebytes ?? "")
+            }
+            HStack {
+                Text("Number of catalogs" + ": ")
                 Text(remoteinfonumberslocalcatalog.totalDirs ?? "")
+            }
             
+            HStack {
+                Text("Total size (kB)" + ": ")
+                Text(remoteinfonumberslocalcatalog.totalNumberSizebytes ?? "")
+            }
         }
     }
     
     var remote: some View {
-      VStack {
-                Text(remoteinfonumbersremotecatalog.transferredNumber ?? "")
-                Text(remoteinfonumbersremotecatalog.transferredNumberSizebytes ?? "")
-                Text(remoteinfonumbersremotecatalog.totalNumber ?? "")
-                Text(remoteinfonumbersremotecatalog.totalNumberSizebytes ?? "")
-                Text(remoteinfonumbersremotecatalog.newfiles ?? "")
-                Text(remoteinfonumbersremotecatalog.deletefiles ?? "")
+        VStack (alignment: .leading) {
+          HStack {
+              Text("Number of files" + ": ")
+              Text(remoteinfonumbersremotecatalog.transferredNumber ?? "")
+          }
+          HStack {
+              Text("KB to be transferred" + ": ")
+              Text(remoteinfonumbersremotecatalog.transferredNumberSizebytes ?? "")
+          }
+          HStack {
+              Text("Number of catalogs" + ": ")
+              Text(remoteinfonumbersremotecatalog.totalNumber ?? "")
+          }
+          HStack {
+              Text("Total size (kB)" + ": ")
+              Text(remoteinfonumbersremotecatalog.totalNumberSizebytes ?? "")
+          }
+          HStack {
+              Text("New files" + ": ")
+              Text(remoteinfonumbersremotecatalog.newfiles ?? "")
+          }
+          HStack {
+              Text("Delete files" + ": ")
+              Text(remoteinfonumbersremotecatalog.deletefiles ?? "")
+          }
+                
         }
     }
     
