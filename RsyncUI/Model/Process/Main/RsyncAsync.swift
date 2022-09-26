@@ -14,7 +14,6 @@ final class RsyncAsync {
     var subscriptons = Set<AnyCancellable>()
     // Verify network connection
     var config: Configuration?
-    var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
     // Process termination and filehandler closures
@@ -48,9 +47,7 @@ final class RsyncAsync {
             let data = outHandle.availableData
             if data.count > 0 {
                 if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                    if str.contains("Number") {
-                        self.outputprocess?.addlinefromoutput(str: str as String)
-                    }
+                    self.outputprocess?.addlinefromoutput(str: str as String)
                 }
                 outHandle.waitForDataInBackgroundAndNotify()
             }
@@ -61,14 +58,12 @@ final class RsyncAsync {
         .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
         .sink { _ in
             // Logg to file
-            // _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
             self.processtermination(self.outputprocess?.getOutput())
             // Release Combine subscribers
             print("process termination")
             self.subscriptons.removeAll()
         }.store(in: &subscriptons)
         SharedReference.shared.process = task
-        print("end task")
         do {
             try task.run()
         } catch let e {
@@ -93,8 +88,6 @@ final class RsyncAsync {
     }
 
     deinit {
-        self.monitor?.stopMonitoring()
-        self.monitor = nil
         SharedReference.shared.process = nil
         print("deinit RsyncAsync")
     }
