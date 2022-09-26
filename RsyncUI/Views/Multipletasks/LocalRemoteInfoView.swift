@@ -9,17 +9,13 @@ import SwiftUI
 
 struct LocalRemoteInfoView: View {
     @Binding var dismiss: Bool
-    @Binding var data: [String]
+    @Binding var localdata: [String]
     @Binding var selectedconfig: Configuration?
-
 
     var body: some View {
         VStack {
             Section(header: header) {
-                List(data) { line in
-                    Text(line)
-                        .modifier(FixedTag(750, .leading))
-                }
+                local
             }
             
             HStack {
@@ -45,15 +41,20 @@ struct LocalRemoteInfoView: View {
         Text("Seksjon")
             .modifier(FixedTag(200, .center))
     }
+    
+    var local: some View {
+        VStack {
+            Text(selectedconfig?.dateRun ?? "")
+            Text(remoteinfonumbers.totalDirs ?? "")
+        }
+    }
+    
+    var remoteinfonumbers: RemoteinfoNumbers {
+        return RemoteinfoNumbers(data: localdata)
+    }
 }
 
 extension LocalRemoteInfoView {
     func processtermination(data: [String]?) {
-        if self.data.count > 0 {
-            for i in 0 ..< (data?.count ?? 0) {
-                self.data.append(data?[i] ?? "")
-            }
-        }
-        self.data = data ?? []
     }
 }

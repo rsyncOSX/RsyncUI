@@ -47,8 +47,8 @@ struct MultipletasksView: View {
     // Estimate ahead of execute task
     @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
     
-    // Data
-    @State private var data: [String] = []
+    // Local data
+    @State private var localdata: [String] = []
     // Modale view
     @State private var modaleview = false
 
@@ -131,7 +131,7 @@ struct MultipletasksView: View {
                 FirsttimeView(dismiss: $modaleview,
                               selection: $selection)
             } else {
-                LocalRemoteInfoView(dismiss: $modaleview, data: $data, selectedconfig: $selectedconfig)
+                LocalRemoteInfoView(dismiss: $modaleview, localdata: $localdata, selectedconfig: $selectedconfig)
                     .onAppear {
                         focusshowinfotask = false
                         let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
@@ -324,6 +324,6 @@ extension MultipletasksView {
     }
     
     func processtermination(data: [String]?) {
-        self.data = data ?? []
+        self.localdata = data ?? []
     }
 }
