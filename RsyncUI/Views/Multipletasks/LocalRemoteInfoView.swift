@@ -22,18 +22,22 @@ struct LocalRemoteInfoView: View {
                 remote
             }
                 
+            Button("Remote") {
+                let arguments = ArgumentsSynchronize(config: selectedconfig).argumentssynchronize(dryRun: true, forDisplay: false)
+                let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processtermination)
+                Task {
+                    await task.executeProcess()
+                }
+            }
+            .buttonStyle(PrimaryButtonStyle())
             
+            Spacer()
             
             HStack {
                 
-                Button("Remote") {
-                    let arguments = ArgumentsSynchronize(config: selectedconfig).argumentssynchronize(dryRun: true, forDisplay: false)
-                    let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processtermination)
-                    Task {
-                        await task.executeProcess()
-                    }
-                }
-                .buttonStyle(PrimaryButtonStyle())
+            Spacer()
+                
+                
                 
                 Button("Dismiss") { dismiss = false }
                     .buttonStyle(PrimaryButtonStyle())
@@ -45,14 +49,22 @@ struct LocalRemoteInfoView: View {
     
     var local: some View {
         VStack {
-            Text(selectedconfig?.dateRun ?? "")
-            Text(remoteinfonumberslocalcatalog.totalDirs ?? "")
+                Text(selectedconfig?.dateRun ?? "")
+                Text(remoteinfonumberslocalcatalog.totalNumber ?? "")
+                Text(remoteinfonumberslocalcatalog.totalNumberSizebytes ?? "")
+                Text(remoteinfonumberslocalcatalog.totalDirs ?? "")
+            
         }
     }
     
     var remote: some View {
-        VStack {
-            Text(remoteinfonumberslocalcatalog.totalDirs ?? "")
+      VStack {
+                Text(remoteinfonumbersremotecatalog.transferredNumber ?? "")
+                Text(remoteinfonumbersremotecatalog.transferredNumberSizebytes ?? "")
+                Text(remoteinfonumbersremotecatalog.totalNumber ?? "")
+                Text(remoteinfonumbersremotecatalog.totalNumberSizebytes ?? "")
+                Text(remoteinfonumbersremotecatalog.newfiles ?? "")
+                Text(remoteinfonumbersremotecatalog.deletefiles ?? "")
         }
     }
     
