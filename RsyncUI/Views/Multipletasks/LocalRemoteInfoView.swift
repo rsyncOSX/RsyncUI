@@ -11,12 +11,18 @@ struct LocalRemoteInfoView: View {
     @Binding var dismiss: Bool
     @Binding var localdata: [String]
     @Binding var selectedconfig: Configuration?
+    
+    @State private var remotedata: [String] = []
 
     var body: some View {
         VStack {
-            Section(header: header) {
+            HStack {
                 local
+                
+                remote
             }
+                
+            
             
             HStack {
                 
@@ -37,24 +43,30 @@ struct LocalRemoteInfoView: View {
         .frame(width: 800, height: 400)
     }
     
-    var header: some View {
-        Text("Seksjon")
-            .modifier(FixedTag(200, .center))
-    }
-    
     var local: some View {
         VStack {
             Text(selectedconfig?.dateRun ?? "")
-            Text(remoteinfonumbers.totalDirs ?? "")
+            Text(remoteinfonumberslocalcatalog.totalDirs ?? "")
         }
     }
     
-    var remoteinfonumbers: RemoteinfoNumbers {
+    var remote: some View {
+        VStack {
+            Text(remoteinfonumberslocalcatalog.totalDirs ?? "")
+        }
+    }
+    
+    var remoteinfonumberslocalcatalog: RemoteinfoNumbers {
         return RemoteinfoNumbers(data: localdata)
+    }
+    
+    var remoteinfonumbersremotecatalog: RemoteinfoNumbers {
+        return RemoteinfoNumbers(data: remotedata)
     }
 }
 
 extension LocalRemoteInfoView {
     func processtermination(data: [String]?) {
+        remotedata = data ?? []
     }
 }
