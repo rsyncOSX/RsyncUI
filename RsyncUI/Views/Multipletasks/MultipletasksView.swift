@@ -131,16 +131,13 @@ struct MultipletasksView: View {
                 FirsttimeView(dismiss: $modaleview,
                               selection: $selection)
             } else {
-                LocalRemoteInfoView(dismiss: $modaleview, data: data)
+                LocalRemoteInfoView(dismiss: $modaleview, data: $data, selectedconfig: $selectedconfig)
                     .onAppear {
                         focusshowinfotask = false
                         let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
-                        let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo, config: selectedconfig, processtermination: processterminationlocalinfo)
-                        let arguments = ArgumentsSynchronize(config: selectedconfig).argumentssynchronize(dryRun: true, forDisplay: false)
-                        let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processterminationremoteinfo)
-                        Task {
+                        let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo, config: selectedconfig, processtermination: processtermination)
+                                                Task {
                             await tasklocalinfo.executeProcess()
-                            await task.executeProcess()
                         }
                     }
             }
@@ -326,16 +323,7 @@ extension MultipletasksView {
         }
     }
     
-    func processterminationlocalinfo(data: [String]?) {
-        self.data = data ?? []
-    }
-    
-    func processterminationremoteinfo(data: [String]?) {
-        if self.data.count > 0 {
-            for i in 0 ..< (data?.count ?? 0) {
-                self.data.append(data?[i] ?? "")
-            }
-        }
+    func processtermination(data: [String]?) {
         self.data = data ?? []
     }
 }
