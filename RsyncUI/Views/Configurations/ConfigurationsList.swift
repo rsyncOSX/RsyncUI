@@ -36,15 +36,15 @@ struct ConfigurationsList: View {
                                   inwork: $inwork,
                                   config: configurations)
                         .tag(configurations)
-                    /*
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button(role: .destructive) {
-                                confirmdelete = true
-                            } label: {
-                                Label("Trash", systemImage: "delete.backward.fill")
+                        /*
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    confirmdelete = true
+                                } label: {
+                                    Label("Trash", systemImage: "delete.backward.fill")
+                                }
                             }
-                        }
-                     */
+                         */
                         .confirmationDialog(
                             NSLocalizedString("Delete configuration", comment: "")
                                 + "?",

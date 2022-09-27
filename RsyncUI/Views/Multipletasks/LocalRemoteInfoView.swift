@@ -11,18 +11,35 @@ struct LocalRemoteInfoView: View {
     @Binding var dismiss: Bool
     @Binding var localdata: [String]
     @Binding var selectedconfig: Configuration?
-    
+
     @State private var remotedata: [String] = []
+    @State private var gettingremotedata: Bool = false
 
     var body: some View {
-        VStack {
-            HStack {
-                local
-                
-                remote
+        ZStack {
+            VStack(alignment: .leading) {
+                Section("Local") {
+                    local
+                }
+
+                Section("Remote") {
+                    remote
+                }
             }
-                
+            if gettingremotedata {
+                ProgressView()
+            }
+        }
+        .padding()
+        // .frame(width: 800, height: 400)
+
+        Spacer()
+
+        HStack {
+            Spacer()
+
             Button("Remote") {
+                gettingremotedata = true
                 let arguments = ArgumentsSynchronize(config: selectedconfig).argumentssynchronize(dryRun: true, forDisplay: false)
                 let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processtermination)
                 Task {
@@ -30,25 +47,15 @@ struct LocalRemoteInfoView: View {
                 }
             }
             .buttonStyle(PrimaryButtonStyle())
-            
-            Spacer()
-            
-            HStack {
-                
-            Spacer()
-                
-                
-                
-                Button("Dismiss") { dismiss = false }
-                    .buttonStyle(PrimaryButtonStyle())
-            }
+
+            Button("Dismiss") { dismiss = false }
+                .buttonStyle(PrimaryButtonStyle())
         }
         .padding()
-        .frame(width: 800, height: 400)
     }
-    
+
     var local: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             HStack {
                 Text("Last run" + ": ")
                 Text(selectedconfig?.dateRun ?? "")
@@ -61,48 +68,47 @@ struct LocalRemoteInfoView: View {
                 Text("Number of catalogs" + ": ")
                 Text(remoteinfonumberslocalcatalog.totalDirs ?? "")
             }
-            
+
             HStack {
                 Text("Total size (kB)" + ": ")
                 Text(remoteinfonumberslocalcatalog.totalNumberSizebytes ?? "")
             }
         }
     }
-    
+
     var remote: some View {
-        VStack (alignment: .leading) {
-          HStack {
-              Text("Number of files" + ": ")
-              Text(remoteinfonumbersremotecatalog.transferredNumber ?? "")
-          }
-          HStack {
-              Text("KB to be transferred" + ": ")
-              Text(remoteinfonumbersremotecatalog.transferredNumberSizebytes ?? "")
-          }
-          HStack {
-              Text("Number of catalogs" + ": ")
-              Text(remoteinfonumbersremotecatalog.totalNumber ?? "")
-          }
-          HStack {
-              Text("Total size (kB)" + ": ")
-              Text(remoteinfonumbersremotecatalog.totalNumberSizebytes ?? "")
-          }
-          HStack {
-              Text("New files" + ": ")
-              Text(remoteinfonumbersremotecatalog.newfiles ?? "")
-          }
-          HStack {
-              Text("Delete files" + ": ")
-              Text(remoteinfonumbersremotecatalog.deletefiles ?? "")
-          }
-                
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Number of files" + ": ")
+                Text(remoteinfonumbersremotecatalog.transferredNumber ?? "")
+            }
+            HStack {
+                Text("KB to be transferred" + ": ")
+                Text(remoteinfonumbersremotecatalog.transferredNumberSizebytes ?? "")
+            }
+            HStack {
+                Text("Number of catalogs" + ": ")
+                Text(remoteinfonumbersremotecatalog.totalNumber ?? "")
+            }
+            HStack {
+                Text("Total size (kB)" + ": ")
+                Text(remoteinfonumbersremotecatalog.totalNumberSizebytes ?? "")
+            }
+            HStack {
+                Text("New files" + ": ")
+                Text(remoteinfonumbersremotecatalog.newfiles ?? "")
+            }
+            HStack {
+                Text("Delete files" + ": ")
+                Text(remoteinfonumbersremotecatalog.deletefiles ?? "")
+            }
         }
     }
-    
+
     var remoteinfonumberslocalcatalog: RemoteinfoNumbers {
         return RemoteinfoNumbers(data: localdata)
     }
-    
+
     var remoteinfonumbersremotecatalog: RemoteinfoNumbers {
         return RemoteinfoNumbers(data: remotedata)
     }
@@ -111,5 +117,6 @@ struct LocalRemoteInfoView: View {
 extension LocalRemoteInfoView {
     func processtermination(data: [String]?) {
         remotedata = data ?? []
+        gettingremotedata = false
     }
 }

@@ -201,7 +201,7 @@ extension FocusedValues {
         get { self[FocusedDeletetask.self] }
         set { self[FocusedDeletetask.self] = newValue }
     }
-    
+
     var showinfotask: FocusedShowinfoTask.Value? {
         get { self[FocusedShowinfoTask.self] }
         set { self[FocusedShowinfoTask.self] = newValue }

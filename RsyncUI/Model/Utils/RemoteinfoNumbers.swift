@@ -27,4 +27,3 @@ struct RemoteinfoNumbers {
         deletefiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .delete)), number: NumberFormatter.Style.none)
     }
 }
-

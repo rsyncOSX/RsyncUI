@@ -46,7 +46,7 @@ struct MultipletasksView: View {
     @State private var confirmdeletemenu: Bool = false
     // Estimate ahead of execute task
     @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
-    
+
     // Local data
     @State private var localdata: [String] = []
     // Modale view
@@ -136,12 +136,11 @@ struct MultipletasksView: View {
                         focusshowinfotask = false
                         let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
                         let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo, config: selectedconfig, processtermination: processtermination)
-                                                Task {
+                        Task {
                             await tasklocalinfo.executeProcess()
                         }
                     }
             }
-            
         }
     }
 
@@ -216,7 +215,7 @@ struct MultipletasksView: View {
                 confirmdeletemenu = true
             })
     }
-    
+
     var labelshowinfotask: some View {
         // ProgressView()
         Label("", systemImage: "play.fill")
@@ -227,9 +226,8 @@ struct MultipletasksView: View {
     }
 
     var footer: some View {
-       
-            Text("Most recent updated tasks on top of list")
-                .foregroundColor(Color.blue)
+        Text("Most recent updated tasks on top of list")
+            .foregroundColor(Color.blue)
     }
 }
 
@@ -322,8 +320,8 @@ extension MultipletasksView {
             }
         }
     }
-    
+
     func processtermination(data: [String]?) {
-        self.localdata = data ?? []
+        localdata = data ?? []
     }
 }

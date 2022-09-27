@@ -43,26 +43,26 @@ final class RsyncAsync {
         // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
         NotificationCenter.default.publisher(
             for: NSNotification.Name.NSFileHandleDataAvailable)
-        .sink { _ in
-            let data = outHandle.availableData
-            if data.count > 0 {
-                if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                    self.outputprocess?.addlinefromoutput(str: str as String)
+            .sink { _ in
+                let data = outHandle.availableData
+                if data.count > 0 {
+                    if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                        self.outputprocess?.addlinefromoutput(str: str as String)
+                    }
+                    outHandle.waitForDataInBackgroundAndNotify()
                 }
-                outHandle.waitForDataInBackgroundAndNotify()
-            }
-        }.store(in: &subscriptons)
+            }.store(in: &subscriptons)
         // Combine, subscribe to Process.didTerminateNotification
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
-        .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-        .sink { _ in
-            // Logg to file
-            self.processtermination(self.outputprocess?.getOutput())
-            // Release Combine subscribers
-            print("process termination")
-            self.subscriptons.removeAll()
-        }.store(in: &subscriptons)
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .sink { _ in
+                // Logg to file
+                self.processtermination(self.outputprocess?.getOutput())
+                // Release Combine subscribers
+                print("process termination")
+                self.subscriptons.removeAll()
+            }.store(in: &subscriptons)
         SharedReference.shared.process = task
         do {
             try task.run()
@@ -84,7 +84,7 @@ final class RsyncAsync {
         self.arguments = arguments
         self.config = config
         self.processtermination = processtermination
-        self.outputprocess = OutputfromProcess()
+        outputprocess = OutputfromProcess()
     }
 
     deinit {
@@ -98,4 +98,3 @@ extension RsyncAsync: PropogateError {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
-
