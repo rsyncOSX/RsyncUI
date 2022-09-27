@@ -131,15 +131,9 @@ struct MultipletasksView: View {
                 FirsttimeView(dismiss: $modaleview,
                               selection: $selection)
             } else {
-                LocalRemoteInfoView(dismiss: $modaleview, localdata: $localdata, selectedconfig: $selectedconfig)
-                    .onAppear {
-                        focusshowinfotask = false
-                        let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig).argumentslocalcataloginfo(dryRun: true, forDisplay: false)
-                        let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo, config: selectedconfig, processtermination: processtermination)
-                        Task {
-                            await tasklocalinfo.executeProcess()
-                        }
-                    }
+                LocalRemoteInfoView(dismiss: $modaleview,
+                                    localdata: $localdata,
+                                    selectedconfig: $selectedconfig)
             }
         }
     }
@@ -219,10 +213,16 @@ struct MultipletasksView: View {
     var labelshowinfotask: some View {
         // ProgressView()
         Label("", systemImage: "play.fill")
-            .onAppear {
-                focusshowinfotask = true
-                modaleview = true
-            }
+            .onAppear(perform: {
+                let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig)
+                    .argumentslocalcataloginfo(dryRun: true, forDisplay: false)
+                let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo, config: selectedconfig,
+                                               processtermination: processtermination)
+                Task {
+                    await tasklocalinfo.executeProcess()
+                }
+                focusshowinfotask = false
+            })
     }
 
     var footer: some View {
@@ -323,5 +323,6 @@ extension MultipletasksView {
 
     func processtermination(data: [String]?) {
         localdata = data ?? []
+        modaleview = true
     }
 }

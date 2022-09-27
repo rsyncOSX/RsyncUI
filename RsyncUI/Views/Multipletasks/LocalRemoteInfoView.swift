@@ -33,24 +33,21 @@ struct LocalRemoteInfoView: View {
             }
         }
         .padding()
-        // .frame(width: 800, height: 400)
+        .onAppear(perform: {
+            gettingremotedata = true
+            let arguments = ArgumentsSynchronize(config: selectedconfig)
+                .argumentssynchronize(dryRun: true, forDisplay: false)
+            let task = RsyncAsync(arguments: arguments, config: selectedconfig,
+                                  processtermination: processtermination)
+            Task {
+                await task.executeProcess()
+            }
+        })
 
         Spacer()
 
         HStack {
             Spacer()
-
-            Button("Remote") {
-                gettingremotedata = true
-                let arguments = ArgumentsSynchronize(config: selectedconfig)
-                    .argumentssynchronize(dryRun: true, forDisplay: false)
-                let task = RsyncAsync(arguments: arguments, config: selectedconfig,
-                                      processtermination: processtermination)
-                Task {
-                    await task.executeProcess()
-                }
-            }
-            .buttonStyle(PrimaryButtonStyle())
 
             Button("Dismiss") { dismiss = false }
                 .buttonStyle(PrimaryButtonStyle())
