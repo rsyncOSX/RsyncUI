@@ -22,6 +22,8 @@ struct LocalRemoteInfoView: View {
                     local
                 }
 
+                Spacer()
+
                 Section("Remote") {
                     remote
                 }
@@ -40,8 +42,10 @@ struct LocalRemoteInfoView: View {
 
             Button("Remote") {
                 gettingremotedata = true
-                let arguments = ArgumentsSynchronize(config: selectedconfig).argumentssynchronize(dryRun: true, forDisplay: false)
-                let task = RsyncAsync(arguments: arguments, config: selectedconfig, processtermination: processtermination)
+                let arguments = ArgumentsSynchronize(config: selectedconfig)
+                    .argumentssynchronize(dryRun: true, forDisplay: false)
+                let task = RsyncAsync(arguments: arguments, config: selectedconfig,
+                                      processtermination: processtermination)
                 Task {
                     await task.executeProcess()
                 }
@@ -68,7 +72,6 @@ struct LocalRemoteInfoView: View {
                 Text("Number of catalogs" + ": ")
                 Text(remoteinfonumberslocalcatalog.totalDirs ?? "")
             }
-
             HStack {
                 Text("Total size (kB)" + ": ")
                 Text(remoteinfonumberslocalcatalog.totalNumberSizebytes ?? "")
@@ -79,28 +82,28 @@ struct LocalRemoteInfoView: View {
     var remote: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Number of files" + ": ")
-                Text(remoteinfonumbersremotecatalog.transferredNumber ?? "")
-            }
-            HStack {
-                Text("KB to be transferred" + ": ")
-                Text(remoteinfonumbersremotecatalog.transferredNumberSizebytes ?? "")
-            }
-            HStack {
-                Text("Number of catalogs" + ": ")
-                Text(remoteinfonumbersremotecatalog.totalNumber ?? "")
-            }
-            HStack {
-                Text("Total size (kB)" + ": ")
-                Text(remoteinfonumbersremotecatalog.totalNumberSizebytes ?? "")
-            }
-            HStack {
                 Text("New files" + ": ")
                 Text(remoteinfonumbersremotecatalog.newfiles ?? "")
             }
             HStack {
                 Text("Delete files" + ": ")
                 Text(remoteinfonumbersremotecatalog.deletefiles ?? "")
+            }
+            HStack {
+                Text("KB to be transferred" + ": ")
+                Text(remoteinfonumbersremotecatalog.transferredNumberSizebytes ?? "")
+            }
+            HStack {
+                Text("Number of files" + ": ")
+                Text(remoteinfonumbersremotecatalog.totalNumber ?? "")
+            }
+            HStack {
+                Text("Number of catalogs" + ": ")
+                Text(remoteinfonumbersremotecatalog.totalDirs ?? "")
+            }
+            HStack {
+                Text("Total size (kB)" + ": ")
+                Text(remoteinfonumbersremotecatalog.totalNumberSizebytes ?? "")
             }
         }
     }
