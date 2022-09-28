@@ -31,7 +31,7 @@ enum ValidateInputError: LocalizedError {
     }
 }
 
-struct AppendConfig {
+struct AppendTask {
     var newtask: String
     var newlocalCatalog: String
     var newoffsiteCatalog: String
@@ -117,7 +117,7 @@ final class VerifyConfiguration: Connected {
     var outputprocess: OutputfromProcess?
 
     // Verify parameters for new config.
-    func verify(_ data: AppendConfig) -> Configuration? {
+    func verify(_ data: AppendTask) -> Configuration? {
         var newconfig = Configuration()
         newconfig.task = data.newtask
         newconfig.backupID = data.newbackupID ?? ""

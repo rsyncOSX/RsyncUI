@@ -45,19 +45,19 @@ final class ObserveablePreandPostTask: ObservableObject {
     func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
         // Append default config data to the update,
         // only post and pretask is new
-        let updateddata = AppendConfig(selectedconfig?.task ?? "",
-                                       selectedconfig?.localCatalog ?? "",
-                                       selectedconfig?.offsiteCatalog ?? "",
-                                       false,
-                                       selectedconfig?.offsiteUsername,
-                                       selectedconfig?.offsiteServer,
-                                       selectedconfig?.backupID,
-                                       enablepre,
-                                       pretask,
-                                       enablepost,
-                                       posttask,
-                                       haltshelltasksonerror,
-                                       selectedconfig?.hiddenID ?? -1)
+        let updateddata = AppendTask(selectedconfig?.task ?? "",
+                                     selectedconfig?.localCatalog ?? "",
+                                     selectedconfig?.offsiteCatalog ?? "",
+                                     false,
+                                     selectedconfig?.offsiteUsername,
+                                     selectedconfig?.offsiteServer,
+                                     selectedconfig?.backupID,
+                                     enablepre,
+                                     pretask,
+                                     enablepost,
+                                     posttask,
+                                     haltshelltasksonerror,
+                                     selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
                 UpdateConfigurations(profile: profile,

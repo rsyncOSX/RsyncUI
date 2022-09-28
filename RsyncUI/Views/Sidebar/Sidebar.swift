@@ -53,8 +53,8 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarAddConfigurationsView(selectedprofile: $selectedprofile,
-                                                                         reload: $reload),
+                NavigationLink(destination: SidebarAddTaskView(selectedprofile: $selectedprofile,
+                                                               reload: $reload),
                                tag: NavigationItem.configurations,
                                selection: $selection) {
                     Label("Tasks", systemImage: "text.badge.plus")

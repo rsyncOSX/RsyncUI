@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct SidebarAddConfigurationsView: View {
+struct SidebarAddTaskView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
     var body: some View {
         TabView {
-            AddConfigurationView(selectedprofile: $selectedprofile, reload: $reload)
+            AddTaskView(selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem {
                     Text("Add task")
                 }

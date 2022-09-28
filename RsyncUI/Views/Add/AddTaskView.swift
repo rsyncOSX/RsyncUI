@@ -17,13 +17,13 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
     var description: String { rawValue.localizedLowercase }
 }
 
-struct AddConfigurationView: View {
+struct AddTaskView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
-
     @State private var selectedconfig: Configuration?
+
     var choosecatalog = true
 
     enum AddConfigurationField: Hashable {
@@ -375,7 +375,7 @@ struct AddConfigurationView: View {
     }
 }
 
-extension AddConfigurationView {
+extension AddTaskView {
     func addconfig() {
         newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload

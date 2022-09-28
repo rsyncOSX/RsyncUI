@@ -110,19 +110,19 @@ final class ObserveableAddConfigurations: ObservableObject {
     }
 
     func addconfig(_ profile: String?, _ configurations: [Configuration]?) {
-        let getdata = AppendConfig(selectedrsynccommand.rawValue,
-                                   localcatalog,
-                                   remotecatalog,
-                                   donotaddtrailingslash,
-                                   remoteuser,
-                                   remoteserver,
-                                   backupID,
-                                   // add post and pretask in it own view, set nil here
-                                   nil,
-                                   nil,
-                                   nil,
-                                   nil,
-                                   nil)
+        let getdata = AppendTask(selectedrsynccommand.rawValue,
+                                 localcatalog,
+                                 remotecatalog,
+                                 donotaddtrailingslash,
+                                 remoteuser,
+                                 remoteserver,
+                                 backupID,
+                                 // add post and pretask in it own view, set nil here
+                                 nil,
+                                 nil,
+                                 nil,
+                                 nil,
+                                 nil)
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
@@ -138,21 +138,21 @@ final class ObserveableAddConfigurations: ObservableObject {
 
     func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
         updatepreandpost()
-        let updateddata = AppendConfig(selectedrsynccommand.rawValue,
-                                       localcatalog,
-                                       remotecatalog,
-                                       donotaddtrailingslash,
-                                       remoteuser,
-                                       remoteserver,
-                                       backupID,
-                                       // add post and pretask in it own view,
-                                       // but if update save pre and post task
-                                       enablepre,
-                                       pretask,
-                                       enablepost,
-                                       posttask,
-                                       haltshelltasksonerror,
-                                       selectedconfig?.hiddenID ?? -1)
+        let updateddata = AppendTask(selectedrsynccommand.rawValue,
+                                     localcatalog,
+                                     remotecatalog,
+                                     donotaddtrailingslash,
+                                     remoteuser,
+                                     remoteserver,
+                                     backupID,
+                                     // add post and pretask in it own view,
+                                     // but if update save pre and post task
+                                     enablepre,
+                                     pretask,
+                                     enablepost,
+                                     posttask,
+                                     haltshelltasksonerror,
+                                     selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
                 UpdateConfigurations(profile: profile,
