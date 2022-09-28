@@ -220,6 +220,11 @@ struct MultipletasksView: View {
                 progressviewshowinfo = true
                 let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig)
                     .argumentslocalcataloginfo(dryRun: true, forDisplay: false)
+                guard argumentslocalinfo != nil else {
+                    focusshowinfotask = false
+                    progressviewshowinfo = false
+                    return
+                }
                 let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo, config: selectedconfig,
                                                processtermination: processtermination)
                 Task {
