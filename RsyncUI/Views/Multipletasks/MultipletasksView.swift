@@ -47,8 +47,9 @@ struct MultipletasksView: View {
     // Estimate ahead of execute task
     @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
 
-    // Local data
+    // Local data for present local and remote info about task
     @State private var localdata: [String] = []
+    @State private var progressviewshowinfo = false
     // Modale view
     @State private var modaleview = false
 
@@ -66,6 +67,8 @@ struct MultipletasksView: View {
             if focusfirsttaskinfo { labelfirsttime }
             if focusdeletetask { labeldeletetask }
             if focusshowinfotask { labelshowinfotask }
+
+            if progressviewshowinfo { ProgressView() }
         }
 
         HStack {
@@ -214,6 +217,7 @@ struct MultipletasksView: View {
         // ProgressView()
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
+                progressviewshowinfo = true
                 let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig)
                     .argumentslocalcataloginfo(dryRun: true, forDisplay: false)
                 let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo, config: selectedconfig,
@@ -324,5 +328,6 @@ extension MultipletasksView {
     func processtermination(data: [String]?) {
         localdata = data ?? []
         modaleview = true
+        progressviewshowinfo = false
     }
 }

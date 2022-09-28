@@ -100,7 +100,7 @@ struct SelectTask: View {
         } label: {
             Label("Select task", systemImage: "play.fill")
         }
-        .keyboardShortcut("t", modifiers: [.command])
+        .keyboardShortcut("s", modifiers: [.command])
     }
 }
 
@@ -113,7 +113,7 @@ struct FirsttaskInfo: View {
         } label: {
             Label("First task", systemImage: "play.fill")
         }
-        .keyboardShortcut("i", modifiers: [.command])
+        .keyboardShortcut("f", modifiers: [.command])
     }
 }
 
@@ -139,7 +139,7 @@ struct Showinfotask: View {
         } label: {
             Label("Show info", systemImage: "play.fill")
         }
-        .keyboardShortcut("s", modifiers: [.command])
+        .keyboardShortcut("i", modifiers: [.command])
     }
 }
 
