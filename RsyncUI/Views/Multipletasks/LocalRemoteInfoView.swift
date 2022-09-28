@@ -16,21 +16,9 @@ struct LocalRemoteInfoView: View {
     @State private var gettingremotedata: Bool = false
 
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading) {
-                Section("Local") {
-                    local
-                }
-
-                Spacer()
-
-                Section("Remote") {
-                    remote
-                }
-            }
-            if gettingremotedata {
-                ProgressView()
-            }
+        HStack(alignment: .bottom) {
+            local
+            remote
         }
         .padding()
         .onAppear(perform: {
@@ -49,14 +37,25 @@ struct LocalRemoteInfoView: View {
         HStack {
             Spacer()
 
+            if gettingremotedata {
+                ProgressView()
+            }
+
+            Spacer()
+
             Button("Dismiss") { dismiss = false }
                 .buttonStyle(PrimaryButtonStyle())
         }
         .padding()
+        .frame(minWidth: 440, minHeight: 75)
     }
 
     var local: some View {
         VStack(alignment: .leading) {
+            HStack {
+                Text("Local data")
+                Text(" ")
+            }
             HStack {
                 Text("Last run" + ": ")
                 Text(selectedconfig?.dateRun ?? "")
@@ -78,6 +77,10 @@ struct LocalRemoteInfoView: View {
 
     var remote: some View {
         VStack(alignment: .leading) {
+            HStack {
+                Text("Remote data")
+                Text(" ")
+            }
             HStack {
                 Text("New files" + ": ")
                 Text(remoteinfonumbersremotecatalog.newfiles ?? "")
