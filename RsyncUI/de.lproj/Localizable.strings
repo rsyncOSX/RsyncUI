@@ -53,7 +53,7 @@
 "Backup" = "Sichern";
 
 /* No comment provided by engineer. */
-"By config" = "Nach Aufgabe";
+"By task" = "Nach Aufgabe";
 
 /* No comment provided by engineer. */
 "Bytes" = "Bytes";
@@ -179,6 +179,9 @@
 "Local catalog" = "Lokaler Katalog";
 
 /* No comment provided by engineer. */
+"Local data" = "Lokaler Data";
+
+/* No comment provided by engineer. */
 "Local ssh keys are present" = "Lokale ssh schlüssel sind vorhanden";
 
 /* No comment provided by engineer. */
@@ -287,6 +290,9 @@
 "Remote catalog" = "Remote Katalog";
 
 /* No comment provided by engineer. */
+"Remote data" = "Remote Data";
+
+/* No comment provided by engineer. */
 "Remote parameters" = "Remote Parameter";
 
 /* No comment provided by engineer. */
@@ -332,9 +338,6 @@
 "Select a configuration" = "Wählen Sie eine Konfiguration";
 
 /* No comment provided by engineer. */
-"Select and slide to left for delete" = "Zum Löschen auswählen und nach links schieben";
-
-/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
@@ -360,6 +363,9 @@
 
 /* No comment provided by engineer. */
 "Shell scripts" = "Shell scripts";
+
+/* No comment provided by engineer. */
+"Show info" = "Zeige Info";
 
 /* No comment provided by engineer. */
 "Size transfer" = "Größenübertragung";

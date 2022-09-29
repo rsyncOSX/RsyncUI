@@ -53,7 +53,7 @@
 "Backup" = "Backup";
 
 /* No comment provided by engineer. */
-"By config" = "Etter oppgave";
+"By task" = "Etter oppgave";
 
 /* No comment provided by engineer. */
 "Bytes" = "bytes";
@@ -179,6 +179,9 @@
 "Local catalog" = "Lokal katalog";
 
 /* No comment provided by engineer. */
+"Local data" = "Lokale data";
+
+/* No comment provided by engineer. */
 "Local ssh keys are present" = "Lokale ssh nøkler funnet";
 
 /* No comment provided by engineer. */
@@ -287,6 +290,9 @@
 "Remote catalog" = "Ekstern katalog";
 
 /* No comment provided by engineer. */
+"Remote data" = "Eksterne data";
+
+/* No comment provided by engineer. */
 "Remote parameters" = "Eksterne parametere";
 
 /* No comment provided by engineer. */
@@ -332,9 +338,6 @@
 "Select a configuration" = "Velg en konfigurasjon";
 
 /* No comment provided by engineer. */
-"Select and slide to left for delete" = "Velg og skyv til venstre for å slette";
-
-/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
 
 /* No comment provided by engineer. */
@@ -360,6 +363,9 @@
 
 /* No comment provided by engineer. */
 "Shell scripts" = "Shell script";
+
+/* No comment provided by engineer. */
+"Show info" = "Vis info";
 
 /* No comment provided by engineer. */
 "Size transfer" = "Størrelse overføring";
