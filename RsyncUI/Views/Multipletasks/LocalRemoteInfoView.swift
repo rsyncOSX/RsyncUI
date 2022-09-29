@@ -54,7 +54,8 @@ struct LocalRemoteInfoView: View {
         VStack(alignment: .leading) {
             HStack {
                 Text("Local data")
-                Text(" ")
+                    .font(.title)
+                    .frame(alignment: .leading)
             }
             HStack {
                 Text("Last run" + ": ")
@@ -79,7 +80,8 @@ struct LocalRemoteInfoView: View {
         VStack(alignment: .leading) {
             HStack {
                 Text("Remote data")
-                Text(" ")
+                    .font(.title)
+                    .frame(alignment: .leading)
             }
             HStack {
                 Text("New files" + ": ")
