@@ -14,29 +14,28 @@ struct SingleTasksEstimatedView: View {
             .padding()
     }
 
-    var numbers: Numbers {
-        return Numbers(output)
+    var remoteinfonumbers: RemoteinfoNumbers {
+        return RemoteinfoNumbers(data: output)
+        // return Numbers(output)
     }
 
     var numberstopresent: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("New")
-                Text("Delete")
-                Text("Numbers transfer")
-                Text("Size transfer")
+                Text("New files" + ": ")
+                Text("Delete files" + ": ")
+                Text("KB to be transferred" + ": ")
                 Text("")
-                Text("Total remote numbers")
-                Text("Total remote size")
+                Text("Number of files" + ": ")
+                Text("Total size (kB)" + ": ")
             }
             VStack(alignment: .trailing) {
-                Text("\(numbers.newfiles ?? 0)")
-                Text("\(numbers.deletefiles ?? 0)")
-                Text("\(numbers.transferNum ?? 0)")
-                Text(String(format: "%.2f", ((numbers.transferNumSize ?? 0) / 1024) / 1000) + " MB")
+                Text(remoteinfonumbers.newfiles ?? "")
+                Text(remoteinfonumbers.deletefiles ?? "")
+                Text(remoteinfonumbers.transferredNumberSizebytes ?? "")
                 Text("")
-                Text("\(numbers.totNum ?? 0)")
-                Text(String(format: "%.2f", ((numbers.totNumSize ?? 0) / 1024) / 1000) + " MB")
+                Text(remoteinfonumbers.totalNumber ?? "")
+                Text(remoteinfonumbers.totalNumberSizebytes ?? "")
             }
         }
     }
