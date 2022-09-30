@@ -248,9 +248,6 @@
 "Number to delete" = "Antall å slette";
 
 /* No comment provided by engineer. */
-"Numbers transfer" = "Antall for overføring";
-
-/* No comment provided by engineer. */
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
@@ -368,9 +365,6 @@
 "Show info" = "Vis info";
 
 /* No comment provided by engineer. */
-"Size transfer" = "Størrelse overføring";
-
-/* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
 
 /* No comment provided by engineer. */
@@ -402,12 +396,6 @@
 
 /* No comment provided by engineer. */
 "Tot num" = "Tot num";
-
-/* No comment provided by engineer. */
-"Total remote numbers" = "Totalt antall eksterne filer";
-
-/* No comment provided by engineer. */
-"Total remote size" = "Total størrelse eksternt";
 
 /* No comment provided by engineer. */
 "Trash" = "Søppel";
