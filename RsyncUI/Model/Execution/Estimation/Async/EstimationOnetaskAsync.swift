@@ -9,31 +9,25 @@ import Foundation
 
 final class EstimationOnetaskAsync {
     var arguments: [String]?
-    var processtermination: () -> Void
-    var filehandler: () -> Void
-    var outputprocess: OutputfromProcess?
+    var processtermination: ([String]?) -> Void
     var config: Configuration?
 
-    func startestimation() {
+    @MainActor
+    func startestimation() async {
         if let arguments = arguments {
-            let process = RsyncProcess(arguments: arguments,
-                                       config: config,
-                                       processtermination: processtermination,
-                                       filehandler: filehandler)
-            process.executeProcess(outputprocess: outputprocess)
+            let process = RsyncProcessAsync(arguments: arguments,
+                                            config: config,
+                                            processtermination: processtermination)
+            await process.executeProcess()
         }
     }
 
     init(hiddenID: Int,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         outputprocess: OutputfromProcess?,
          local: Bool,
-         processtermination: @escaping () -> Void,
-         filehandler: @escaping () -> Void)
+         processtermination: @escaping ([String]?) -> Void)
     {
-        self.outputprocess = outputprocess
         self.processtermination = processtermination
-        self.filehandler = filehandler
         // local is true for getting info about local catalogs.
         // used when shwoing diff local files vs remote files
         if local {

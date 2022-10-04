@@ -11,11 +11,10 @@ final class EstimationAsync {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     private var privatehiddenID: Int?
     private var stackoftasktobeestimated: [Int]?
-    private var outputprocess: OutputfromProcess?
     private var records: [RemoteinfonumbersOnetask]?
     private var max: Int?
     private var hiddenIDs: [Int]?
-    private var estimationonetask: EstimationOnetask?
+    private var estimationonetask: EstimationOnetaskAsync?
     // Set if abort is executed
     private var setabort = false
 
@@ -65,19 +64,17 @@ final class EstimationAsync {
         }
     }
 
-    func startestimation() {
+    @MainActor
+    func startestimation() async {
         guard (stackoftasktobeestimated?.count ?? 0) > 0 else { return }
         if let hiddenID = stackoftasktobeestimated?.remove(at: 0) {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)
-            outputprocess = OutputfromProcess()
-            estimationonetask = EstimationOnetask(hiddenID: hiddenID,
-                                                  configurationsSwiftUI: localconfigurationsSwiftUI,
-                                                  outputprocess: outputprocess,
-                                                  local: false,
-                                                  processtermination: processtermination,
-                                                  filehandler: filehandler)
-            estimationonetask?.startestimation()
+            estimationonetask = EstimationOnetaskAsync(hiddenID: hiddenID,
+                                                       configurationsSwiftUI: localconfigurationsSwiftUI,
+                                                       local: false,
+                                                       processtermination: processtermination)
+            await estimationonetask?.startestimation()
         }
     }
 
@@ -101,9 +98,6 @@ final class EstimationAsync {
         stateDelegate = estimationstateDelegate
         updateestimationcountDelegate = updateinprogresscount
         let filteredconfigurations = configurationsSwiftUI?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
-        // Debug print
-        // printdebugdata(uuids)
-        // Debug print
         if uuids.count > 0 {
             // Estimate selected configurations
             hiddenIDs = [Int]()
@@ -139,13 +133,11 @@ final class EstimationAsync {
 }
 
 extension EstimationAsync {
-    func processtermination() {
+    func processtermination(outputfromrsync: [String]?) {
         guard setabort == false else { return }
-        // print("processtermination()")
-        // print("Total number of configurations to process in processtermination(): \(stackoftasktobeestimated?.count ?? 0) of \(max ?? 0)")
         updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeestimated?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
-                                              outputfromrsync: outputprocess?.getOutput(),
+                                              outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: privatehiddenID))
         records?.append(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
@@ -163,17 +155,14 @@ extension EstimationAsync {
             updateestimationcountDelegate?.setestimatedlist(records)
             return
         }
-        outputprocess = OutputfromProcessRsync()
         if let hiddenID = stackoftasktobeestimated?.remove(at: 0) {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)
-            estimationonetask = EstimationOnetask(hiddenID: hiddenID,
-                                                  configurationsSwiftUI: localconfigurationsSwiftUI,
-                                                  outputprocess: outputprocess,
-                                                  local: false,
-                                                  processtermination: processtermination,
-                                                  filehandler: filehandler)
-            estimationonetask?.startestimation()
+            estimationonetask = EstimationOnetaskAsync(hiddenID: hiddenID,
+                                                       configurationsSwiftUI: localconfigurationsSwiftUI,
+                                                       local: false,
+                                                       processtermination: processtermination)
+            // async estimationonetask?.startestimation()
         }
     }
 
