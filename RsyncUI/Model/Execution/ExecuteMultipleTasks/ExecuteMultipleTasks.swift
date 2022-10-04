@@ -134,7 +134,7 @@ extension ExecuteMultipleTasks {
         // Log records
         updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
-                                              outputprocess: outputprocess,
+                                              outputfromrsync: outputprocess?.getOutput(),
                                               config: getconfig(hiddenID: privatehiddenID))
         records?.append(record)
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {

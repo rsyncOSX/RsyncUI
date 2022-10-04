@@ -1,25 +1,13 @@
 //
-//  Estimation.swift
-//  RsyncSwiftUI
+//  EstimationAsync.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 18/01/2021.
+//  Created by Thomas Evensen on 04/10/2022.
 //
-//
-// swiftlint:disable line_length
 
 import Foundation
 
-enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case start
-    case estimate
-    case completed
-    case error
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedCapitalized }
-}
-
-final class Estimation {
+final class EstimationAsync {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     private var privatehiddenID: Int?
     private var stackoftasktobeestimated: [Int]?
@@ -148,22 +136,9 @@ final class Estimation {
         updateestimationcountDelegate?.resetcounts()
         setabort = true
     }
-
-    // debug
-    func printdebugdata(_ uuids: Set<UUID>) {
-        print("ESTIMATION start: \(localconfigurationsSwiftUI?.getallconfigurations()?.count ?? 0) number of configurations")
-        if uuids.count > 0 {
-            let test = localconfigurationsSwiftUI?.getallconfigurations()?.filter { uuids.contains($0.id) }
-            print("Number of configurations to estimate: \(test?.count ?? 0)")
-            if (test?.count ?? 0) == 0 {
-                print("PROBLEM: clearing old uuids not done properly")
-                print("CLEARING old uuids and estimating all configurations: \(localconfigurationsSwiftUI?.getallconfigurations()?.count ?? 0)")
-            }
-        }
-    }
 }
 
-extension Estimation {
+extension EstimationAsync {
     func processtermination() {
         guard setabort == false else { return }
         // print("processtermination()")
