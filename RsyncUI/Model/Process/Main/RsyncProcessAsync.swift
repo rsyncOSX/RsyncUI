@@ -1,5 +1,5 @@
 //
-//  RsyncProcess.swift
+//  RsyncProcessAsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 15/03/2021.
@@ -8,17 +8,19 @@
 import Combine
 import Foundation
 
-final class RsyncProcess {
+@MainActor
+final class RsyncProcessAsync {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
-    // Process termination and filehandler closures
-    var processtermination: () -> Void
-    var filehandler: () -> Void
     // Verify network connection
     var config: Configuration?
     var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
+    // Process termination
+    var processtermination: ([String]?) -> Void
+    // Output
+    var outputprocess: OutputfromProcess?
 
     func executemonitornetworkconnection() {
         guard config?.offsiteServer.isEmpty == false else { return }
@@ -42,7 +44,7 @@ final class RsyncProcess {
         }
     }
 
-    func executeProcess(outputprocess: OutputfromProcess?) {
+    func executeProcess() async {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         // Process
@@ -68,9 +70,7 @@ final class RsyncProcess {
                 let data = outHandle.availableData
                 if data.count > 0 {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                        outputprocess?.addlinefromoutput(str: str as String)
-                        // Send message about files
-                        self.filehandler()
+                        self.outputprocess?.addlinefromoutput(str: str as String)
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
@@ -79,14 +79,13 @@ final class RsyncProcess {
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [self] _ in
-                self.processtermination()
+            .sink { _ in
                 // Logg to file
-                _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+                self.processtermination(self.outputprocess?.getOutput())
                 // Release Combine subscribers
-                subscriptons.removeAll()
+                // print("process termination")
+                self.subscriptons.removeAll()
             }.store(in: &subscriptons)
-
         SharedReference.shared.process = task
         do {
             try task.run()
@@ -103,13 +102,12 @@ final class RsyncProcess {
 
     init(arguments: [String]?,
          config: Configuration?,
-         processtermination: @escaping () -> Void,
-         filehandler: @escaping () -> Void)
+         processtermination: @escaping ([String]?) -> Void)
     {
         self.arguments = arguments
         self.processtermination = processtermination
-        self.filehandler = filehandler
         self.config = config
+        outputprocess = OutputfromProcess()
         executemonitornetworkconnection()
     }
 
@@ -117,11 +115,11 @@ final class RsyncProcess {
         self.monitor?.stopMonitoring()
         self.monitor = nil
         SharedReference.shared.process = nil
-        // print("deinit RsyncProcessCmdCombine")
+        print("deinit RsyncProcessAsync")
     }
 }
 
-extension RsyncProcess: PropogateError {
+extension RsyncProcessAsync: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
