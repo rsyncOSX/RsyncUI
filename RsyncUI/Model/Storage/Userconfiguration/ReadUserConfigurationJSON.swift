@@ -35,7 +35,6 @@ class ReadUserConfigurationJSON: NamesandPaths {
                     return
                 case .failure:
                     // No file, write new file with default values
-                    ReadUserConfigurationPLIST()
                     WriteUserConfigurationJSON(UserConfiguration())
                 }
             } receiveValue: { [unowned self] data in
