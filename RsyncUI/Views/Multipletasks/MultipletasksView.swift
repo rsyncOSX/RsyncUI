@@ -107,6 +107,17 @@ struct MultipletasksView: View {
 
             Spacer()
 
+            Button("Test") {
+                Task {
+                    let estimation = EstimationAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                                     estimationstateDelegate: estimationstate,
+                                                     updateinprogresscount: inprogresscountmultipletask,
+                                                     uuids: selecteduuids,
+                                                     filter: searchText)
+                    await estimation.startestimation()
+                }
+            }
+
             Button("Log") { presentoutputsheetview = true }
                 .buttonStyle(PrimaryButtonStyle())
                 .sheet(isPresented: $presentoutputsheetview) {
