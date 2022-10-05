@@ -67,15 +67,22 @@ final class EstimationAsync {
     @MainActor
     func startestimation() async {
         guard (stackoftasktobeestimated?.count ?? 0) > 0 else { return }
-        if let hiddenID = stackoftasktobeestimated?.remove(at: 0) {
-            privatehiddenID = hiddenID
-            updateestimationcountDelegate?.sethiddenID(hiddenID)
-            estimationonetask = EstimationOnetaskAsync(hiddenID: hiddenID,
-                                                       configurationsSwiftUI: localconfigurationsSwiftUI,
-                                                       local: false,
-                                                       processtermination: processtermination)
-            await estimationonetask?.startestimation()
+        for i in 0 ..< (stackoftasktobeestimated?.count ?? 0) {
+            if let hiddenID = stackoftasktobeestimated?[i] {
+                privatehiddenID = hiddenID
+                updateestimationcountDelegate?.sethiddenID(hiddenID)
+                estimationonetask = EstimationOnetaskAsync(hiddenID: hiddenID,
+                                                           configurationsSwiftUI: localconfigurationsSwiftUI,
+                                                           local: false,
+                                                           processtermination: processtermination)
+                await estimationonetask?.startestimation()
+            }
         }
+        selectalltaskswithnumbers()
+        // Prepare tasks with changes for synchronization
+        finalizeandpreparesynchronizelist()
+        stateDelegate?.updatestate(state: .completed)
+        updateestimationcountDelegate?.setestimatedlist(records)
     }
 
     private func getconfig(hiddenID: Int?) -> Configuration? {
@@ -147,23 +154,6 @@ extension EstimationAsync {
         }
         // Release the estimation object
         estimationonetask = nil
-        guard stackoftasktobeestimated?.count ?? 0 > 0 else {
-            selectalltaskswithnumbers()
-            // Prepare tasks with changes for synchronization
-            finalizeandpreparesynchronizelist()
-            stateDelegate?.updatestate(state: .completed)
-            updateestimationcountDelegate?.setestimatedlist(records)
-            return
-        }
-        if let hiddenID = stackoftasktobeestimated?.remove(at: 0) {
-            privatehiddenID = hiddenID
-            updateestimationcountDelegate?.sethiddenID(hiddenID)
-            estimationonetask = EstimationOnetaskAsync(hiddenID: hiddenID,
-                                                       configurationsSwiftUI: localconfigurationsSwiftUI,
-                                                       local: false,
-                                                       processtermination: processtermination)
-            // async estimationonetask?.startestimation()
-        }
     }
 
     func filehandler() {}
