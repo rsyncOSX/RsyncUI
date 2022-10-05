@@ -68,6 +68,7 @@ final class EstimationAsync {
     @MainActor
     func startestimation() async {
         guard (stackoftasktobeestimated?.count ?? 0) > 0 else { return }
+        stateDelegate?.updatestate(state: .start)
         for i in 0 ..< (stackoftasktobeestimated?.count ?? 0) {
             if let hiddenID = stackoftasktobeestimated?[i] {
                 print(hiddenID)
