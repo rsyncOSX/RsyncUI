@@ -141,16 +141,16 @@ final class EstimationAsync {
 }
 
 extension EstimationAsync {
-    func processtermination(outputfromrsync: [String]?) {
+    func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
         guard setabort == false else { return }
         updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeestimated?.count ?? 0)))
-        let record = RemoteinfonumbersOnetask(hiddenID: estimationonetask?.hiddenID,
+        let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: estimationonetask?.hiddenID))
         records?.append(record)
         print(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
-            if let config = getconfig(hiddenID: estimationonetask?.hiddenID) {
+            if let config = getconfig(hiddenID: hiddenID) {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
             }
         }

@@ -18,7 +18,7 @@ final class RsyncProcessAsync {
     // Arguments to command
     var arguments: [String]?
     // Process termination
-    var processtermination: ([String]?) -> Void
+    var processtermination: ([String]?, Int?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
 
@@ -81,7 +81,7 @@ final class RsyncProcessAsync {
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { _ in
                 // Logg to file
-                self.processtermination(self.outputprocess?.getOutput())
+                self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
                 // Release Combine subscribers
                 // print("process termination")
                 self.subscriptons.removeAll()
@@ -102,7 +102,7 @@ final class RsyncProcessAsync {
 
     init(arguments: [String]?,
          config: Configuration?,
-         processtermination: @escaping ([String]?) -> Void)
+         processtermination: @escaping ([String]?, Int?) -> Void)
     {
         self.arguments = arguments
         self.processtermination = processtermination

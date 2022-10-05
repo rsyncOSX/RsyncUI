@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 final class EstimationOnetaskAsync {
     var arguments: [String]?
-    var processtermination: ([String]?) -> Void
+    var processtermination: ([String]?, Int?) -> Void
     var config: Configuration?
     var hiddenID: Int?
 
@@ -26,7 +26,7 @@ final class EstimationOnetaskAsync {
     init(hiddenID: Int,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
          local: Bool,
-         processtermination: @escaping ([String]?) -> Void)
+         processtermination: @escaping ([String]?, Int?) -> Void)
     {
         self.hiddenID = hiddenID
         self.processtermination = processtermination
