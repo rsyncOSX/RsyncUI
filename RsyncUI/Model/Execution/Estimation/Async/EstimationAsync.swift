@@ -7,9 +7,10 @@
 
 import Foundation
 
+@MainActor
 final class EstimationAsync {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
-    private var privatehiddenID: Int?
+    // private var privatehiddenID: Int?
     private var stackoftasktobeestimated: [Int]?
     private var records: [RemoteinfonumbersOnetask]?
     private var max: Int?
@@ -69,7 +70,7 @@ final class EstimationAsync {
         guard (stackoftasktobeestimated?.count ?? 0) > 0 else { return }
         for i in 0 ..< (stackoftasktobeestimated?.count ?? 0) {
             if let hiddenID = stackoftasktobeestimated?[i] {
-                privatehiddenID = hiddenID
+                print(hiddenID)
                 updateestimationcountDelegate?.sethiddenID(hiddenID)
                 estimationonetask = EstimationOnetaskAsync(hiddenID: hiddenID,
                                                            configurationsSwiftUI: localconfigurationsSwiftUI,
@@ -143,18 +144,17 @@ extension EstimationAsync {
     func processtermination(outputfromrsync: [String]?) {
         guard setabort == false else { return }
         updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeestimated?.count ?? 0)))
-        let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
+        let record = RemoteinfonumbersOnetask(hiddenID: estimationonetask?.hiddenID,
                                               outputfromrsync: outputfromrsync,
-                                              config: getconfig(hiddenID: privatehiddenID))
+                                              config: getconfig(hiddenID: estimationonetask?.hiddenID))
         records?.append(record)
+        print(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
-            if let config = getconfig(hiddenID: privatehiddenID) {
+            if let config = getconfig(hiddenID: estimationonetask?.hiddenID) {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
             }
         }
         // Release the estimation object
         estimationonetask = nil
     }
-
-    func filehandler() {}
 }

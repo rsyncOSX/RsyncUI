@@ -7,12 +7,13 @@
 
 import Foundation
 
+@MainActor
 final class EstimationOnetaskAsync {
     var arguments: [String]?
     var processtermination: ([String]?) -> Void
     var config: Configuration?
+    var hiddenID: Int?
 
-    @MainActor
     func startestimation() async {
         if let arguments = arguments {
             let process = RsyncProcessAsync(arguments: arguments,
@@ -27,6 +28,7 @@ final class EstimationOnetaskAsync {
          local: Bool,
          processtermination: @escaping ([String]?) -> Void)
     {
+        self.hiddenID = hiddenID
         self.processtermination = processtermination
         // local is true for getting info about local catalogs.
         // used when shwoing diff local files vs remote files
