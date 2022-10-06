@@ -156,6 +156,7 @@ extension EstimationAsync {
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
+                print(config.id)
             }
         }
         // Release the estimation object

@@ -78,7 +78,7 @@ final class RsyncProcessAsync {
         // Combine, subscribe to Process.didTerminateNotification
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .debounce(for: .milliseconds(1000), scheduler: globalMainQueue)
             .sink { _ in
                 // Logg to file
                 self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
