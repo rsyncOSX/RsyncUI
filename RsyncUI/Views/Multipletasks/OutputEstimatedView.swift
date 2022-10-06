@@ -23,7 +23,7 @@ struct OutputEstimatedView: View {
                 List {
                     ForEach(estimatedlist) { estimatedconfiguration in
                         HStack {
-                            if selecteduuids.contains(estimatedconfiguration.config!.id) {
+                            if selecteduuids.contains(estimatedconfiguration.config?.id ?? UUID()) {
                                 Text(Image(systemName: "arrowtriangle.right"))
                                     .modifier(FixedTag(25, .leading))
                             } else {

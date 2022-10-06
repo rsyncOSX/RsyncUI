@@ -65,7 +65,6 @@ final class EstimationAsync {
         }
     }
 
-    @MainActor
     func startestimation() async {
         guard (stackoftasktobeestimated?.count ?? 0) > 0 else { return }
         stateDelegate?.updatestate(state: .start)
@@ -80,6 +79,9 @@ final class EstimationAsync {
                 await estimationonetask?.startestimation()
             }
         }
+    }
+
+    private func preparelist() {
         selectalltaskswithnumbers()
         // Prepare tasks with changes for synchronization
         finalizeandpreparesynchronizelist()
@@ -147,8 +149,9 @@ extension EstimationAsync {
         updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeestimated?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
-                                              config: getconfig(hiddenID: estimationonetask?.hiddenID))
-        records?.append(record)
+                                              config: getconfig(hiddenID: hiddenID))
+        updateestimationcountDelegate?.appendrecord(record: record)
+        // records?.append(record)
         print(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
