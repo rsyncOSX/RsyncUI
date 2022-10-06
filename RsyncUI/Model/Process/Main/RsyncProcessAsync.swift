@@ -21,6 +21,8 @@ final class RsyncProcessAsync {
     var processtermination: ([String]?, Int?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
+    // Process termination
+    var termination: Bool = false
 
     func executemonitornetworkconnection() {
         guard config?.offsiteServer.isEmpty == false else { return }
@@ -69,6 +71,7 @@ final class RsyncProcessAsync {
             .sink { _ in
                 let data = outHandle.availableData
                 if data.count > 0 {
+                    if self.termination { print("data after processtermination") }
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                         self.outputprocess?.addlinefromoutput(str: str as String)
                     }
@@ -78,12 +81,13 @@ final class RsyncProcessAsync {
         // Combine, subscribe to Process.didTerminateNotification
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
-            .debounce(for: .milliseconds(1500), scheduler: globalMainQueue)
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { _ in
                 // Logg to file
                 self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
                 // Release Combine subscribers
                 // print("process termination")
+                self.termination = true
                 self.subscriptons.removeAll()
             }.store(in: &subscriptons)
         SharedReference.shared.process = task

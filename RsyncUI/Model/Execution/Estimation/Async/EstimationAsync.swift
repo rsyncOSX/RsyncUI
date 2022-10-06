@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 final class EstimationAsync {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     // private var privatehiddenID: Int?
@@ -65,6 +64,7 @@ final class EstimationAsync {
         }
     }
 
+    @MainActor
     func startestimation() async {
         guard (stackoftasktobeestimated?.count ?? 0) > 0 else { return }
         stateDelegate?.updatestate(state: .start)
@@ -151,12 +151,9 @@ extension EstimationAsync {
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
         updateestimationcountDelegate?.appendrecord(record: record)
-        // records?.append(record)
-        // print(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
-                print(config.id)
             }
         }
         // Release the estimation object
