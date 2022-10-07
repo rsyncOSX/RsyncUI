@@ -11,7 +11,6 @@ final class EstimationAsync {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     // private var privatehiddenID: Int?
     private var stackoftasktobeestimated: [Int]?
-    private var records: [RemoteinfonumbersOnetask]?
     private var max: Int?
     private var hiddenIDs: [Int]?
     private var estimationonetask: EstimationOnetaskAsync?
@@ -43,50 +42,19 @@ final class EstimationAsync {
         updateestimationcountDelegate?.setmaxcount(num: stackoftasktobeestimated?.count ?? 0)
     }
 
-    func selectalltaskswithnumbers() {
-        guard records != nil else { return }
-        for i in 0 ..< (records?.count ?? 0) {
-            let number = records?[i].transferredNumber ?? "0"
-            let delete = records?[i].deletefiles ?? "0"
-            if Int(number) ?? 0 > 0 || Int(delete) ?? 0 > 0 {
-                records?[i].selected = 1
-            }
-        }
-    }
-
-    private func finalizeandpreparesynchronizelist() {
-        guard self.records != nil else { return }
-        var records = [RemoteinfonumbersOnetask]()
-        for i in 0 ..< (self.records?.count ?? 0) where self.records?[i].selected == 1 {
-            if let record = self.records?[i] {
-                records.append(record)
-            }
-        }
-    }
-
     @MainActor
     func startestimation() async {
         guard (stackoftasktobeestimated?.count ?? 0) > 0 else { return }
         stateDelegate?.updatestate(state: .start)
-        for i in 0 ..< (stackoftasktobeestimated?.count ?? 0) {
-            if let hiddenID = stackoftasktobeestimated?[i] {
-                print(hiddenID)
-                updateestimationcountDelegate?.sethiddenID(hiddenID)
-                estimationonetask = EstimationOnetaskAsync(hiddenID: hiddenID,
-                                                           configurationsSwiftUI: localconfigurationsSwiftUI,
-                                                           local: false,
-                                                           processtermination: processtermination)
-                await estimationonetask?.startestimation()
-            }
+        if let hiddenID = stackoftasktobeestimated?.remove(at: 0) {
+            print(hiddenID)
+            updateestimationcountDelegate?.sethiddenID(hiddenID)
+            estimationonetask = EstimationOnetaskAsync(hiddenID: hiddenID,
+                                                       configurationsSwiftUI: localconfigurationsSwiftUI,
+                                                       local: false,
+                                                       processtermination: processtermination)
+            await estimationonetask?.startestimation()
         }
-    }
-
-    private func preparelist() {
-        selectalltaskswithnumbers()
-        // Prepare tasks with changes for synchronization
-        finalizeandpreparesynchronizelist()
-        stateDelegate?.updatestate(state: .completed)
-        updateestimationcountDelegate?.setestimatedlist(records)
     }
 
     private func getconfig(hiddenID: Int?) -> Configuration? {
@@ -126,7 +94,6 @@ final class EstimationAsync {
             // Estimate all configurations
             hiddenIDs = nil
         }
-        records = [RemoteinfonumbersOnetask]()
         prepareandstartexecutetasks(filteredconfigurations)
     }
 
@@ -145,8 +112,10 @@ final class EstimationAsync {
 
 extension EstimationAsync {
     func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
+        // Release the estimation object
+        estimationonetask = nil
         guard setabort == false else { return }
-        updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeestimated?.count ?? 0)))
+        // updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeestimated?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
@@ -156,7 +125,5 @@ extension EstimationAsync {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
             }
         }
-        // Release the estimation object
-        estimationonetask = nil
     }
 }

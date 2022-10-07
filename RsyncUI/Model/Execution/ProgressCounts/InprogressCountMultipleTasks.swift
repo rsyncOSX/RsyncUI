@@ -21,6 +21,8 @@ protocol UpdateEstimationCount: AnyObject {
 }
 
 final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCount {
+    var executenexttask: Bool = false
+
     private var estimatedlist: [RemoteinfonumbersOnetask]?
     private var inprogresscount: Double = 0
     private var max: Int = 0
@@ -78,6 +80,7 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
             estimatedlist = [RemoteinfonumbersOnetask]()
         }
         estimatedlist?.append(record)
+        executenexttask = true
     }
 
     func getestimatedlist() -> [RemoteinfonumbersOnetask]? {
