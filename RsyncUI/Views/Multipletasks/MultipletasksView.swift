@@ -53,6 +53,8 @@ struct MultipletasksView: View {
     // Modale view
     @State private var modaleview = false
 
+    @State private var estimationasync: EstimationAsync?
+
     var body: some View {
         ZStack {
             ConfigurationsList(selectedconfig: $selectedconfig,
@@ -109,12 +111,15 @@ struct MultipletasksView: View {
 
             Button("Estimate") {
                 Task {
-                    let estimationasync = EstimationAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                    if estimationasync == nil {
+                        estimationasync = EstimationAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                           estimationstateDelegate: estimationstate,
                                                           updateinprogresscount: inprogresscountmultipletask,
                                                           uuids: selecteduuids,
                                                           filter: searchText)
-                    await estimationasync.startestimation()
+                    }
+
+                    await estimationasync?.startestimation()
                 }
             }
 
