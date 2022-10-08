@@ -110,10 +110,10 @@ struct MultipletasksView: View {
             Button("Estimate") {
                 Task {
                     let estimationasync =
-                        EstimationAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                        estimationstateDelegate: estimationstate,
-                                        updateinprogresscount: inprogresscountmultipletask,
-                                        hiddenID: selectedconfig?.hiddenID ?? 0)
+                        EstimationOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                               estimationstateDelegate: estimationstate,
+                                               updateinprogresscount: inprogresscountmultipletask,
+                                               hiddenID: selectedconfig?.hiddenID ?? 0)
                     await estimationasync.startestimation()
                 }
             }

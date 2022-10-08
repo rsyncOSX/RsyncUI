@@ -7,13 +7,19 @@
 
 import Foundation
 
-@MainActor
 final class EstimationOnetaskAsync {
+    private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
+    private var estimationonetask: EstimationOnetaskAsync?
+    private var localhiddenID: Int = 0
+
+    weak var stateDelegate: EstimationState?
+    weak var updateestimationcountDelegate: UpdateEstimationCount?
+
     var arguments: [String]?
-    var processtermination: ([String]?, Int?) -> Void
     var config: Configuration?
     var hiddenID: Int?
 
+    @MainActor
     func startestimation() async {
         if let arguments = arguments {
             let process = RsyncProcessAsync(arguments: arguments,
@@ -23,24 +29,46 @@ final class EstimationOnetaskAsync {
         }
     }
 
-    init(hiddenID: Int,
-         configurationsSwiftUI: ConfigurationsSwiftUI?,
-         local: Bool,
-         processtermination: @escaping ([String]?, Int?) -> Void)
+    init(configurationsSwiftUI: ConfigurationsSwiftUI?,
+         estimationstateDelegate: EstimationState?,
+         updateinprogresscount: UpdateEstimationCount?,
+         hiddenID: Int)
     {
-        self.hiddenID = hiddenID
-        self.processtermination = processtermination
+        localconfigurationsSwiftUI = configurationsSwiftUI
+        stateDelegate = estimationstateDelegate
+        updateestimationcountDelegate = updateinprogresscount
+        localhiddenID = hiddenID
         // local is true for getting info about local catalogs.
         // used when shwoing diff local files vs remote files
-        if local {
-            arguments = configurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .argdryRunlocalcataloginfo)
-        } else {
-            arguments = configurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .argdryRun)
+        arguments = configurationsSwiftUI?.arguments4rsync(hiddenID: localhiddenID, argtype: .argdryRun)
+        config = configurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID)
+    }
+
+    private func getconfig(hiddenID: Int?) -> Configuration? {
+        if let hiddenID = hiddenID {
+            if let configurations = localconfigurationsSwiftUI?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
+                guard configurations.count == 1 else { return nil }
+                return configurations[0]
+            }
         }
-        config = configurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)
+        return nil
     }
 
     deinit {
         // print("deinit EstimationOnetask")
+    }
+}
+
+extension EstimationOnetaskAsync {
+    func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
+        let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
+                                              outputfromrsync: outputfromrsync,
+                                              config: getconfig(hiddenID: hiddenID))
+        updateestimationcountDelegate?.appendrecord(record: record)
+        if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
+            if let config = getconfig(hiddenID: hiddenID) {
+                updateestimationcountDelegate?.appenduuid(id: config.id)
+            }
+        }
     }
 }
