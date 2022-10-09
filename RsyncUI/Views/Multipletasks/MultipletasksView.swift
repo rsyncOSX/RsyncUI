@@ -113,7 +113,7 @@ struct MultipletasksView: View {
                         EstimationOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                estimationstateDelegate: estimationstate,
                                                updateinprogresscount: inprogresscountmultipletask,
-                                               hiddenID: selectedconfig?.hiddenID ?? 0)
+                                               hiddenID: selectedconfig?.hiddenID)
                     await estimationasync.startestimation()
                 }
             }

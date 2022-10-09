@@ -10,18 +10,18 @@ import Foundation
 final class EstimationOnetaskAsync {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     private var estimationonetask: EstimationOnetaskAsync?
-    private var localhiddenID: Int = 0
+    private var localhiddenID: Int?
 
     weak var stateDelegate: EstimationState?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
     var arguments: [String]?
     var config: Configuration?
-    var hiddenID: Int?
 
     @MainActor
     func startestimation() async {
         if let arguments = arguments {
+            guard arguments.count > 0 else { return }
             let process = RsyncProcessAsync(arguments: arguments,
                                             config: config,
                                             processtermination: processtermination)
@@ -32,7 +32,7 @@ final class EstimationOnetaskAsync {
     init(configurationsSwiftUI: ConfigurationsSwiftUI?,
          estimationstateDelegate: EstimationState?,
          updateinprogresscount: UpdateEstimationCount?,
-         hiddenID: Int)
+         hiddenID: Int?)
     {
         localconfigurationsSwiftUI = configurationsSwiftUI
         stateDelegate = estimationstateDelegate
@@ -40,8 +40,8 @@ final class EstimationOnetaskAsync {
         localhiddenID = hiddenID
         // local is true for getting info about local catalogs.
         // used when shwoing diff local files vs remote files
-        arguments = configurationsSwiftUI?.arguments4rsync(hiddenID: localhiddenID, argtype: .argdryRun)
-        config = configurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID)
+        arguments = configurationsSwiftUI?.arguments4rsync(hiddenID: localhiddenID ?? 0, argtype: .argdryRun)
+        config = configurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID ?? 0)
     }
 
     private func getconfig(hiddenID: Int?) -> Configuration? {
