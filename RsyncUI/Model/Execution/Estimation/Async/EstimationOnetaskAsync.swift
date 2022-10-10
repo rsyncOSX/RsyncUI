@@ -15,8 +15,8 @@ final class EstimationOnetaskAsync {
     weak var stateDelegate: EstimationState?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
-    var arguments: [String]?
-    var config: Configuration?
+    private var arguments: [String]?
+    private var config: Configuration?
 
     @MainActor
     func startestimation() async {

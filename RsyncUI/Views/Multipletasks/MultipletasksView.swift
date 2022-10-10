@@ -117,6 +117,7 @@ struct MultipletasksView: View {
                     await estimationasync.startestimation()
                 }
             }
+            .buttonStyle(PrimaryButtonStyle())
 
             Button("Log") { presentoutputsheetview = true }
                 .buttonStyle(PrimaryButtonStyle())
@@ -163,10 +164,6 @@ struct MultipletasksView: View {
                 } else {
                     alwaysestimate = false
                 }
-            })
-            .onAppear(perform: {
-                // To set ProgressView spinnig wheel on correct task when estimating
-                inwork = inprogresscountmultipletask.hiddenID
             })
             .frame(width: 25.0, height: 25.0)
     }
