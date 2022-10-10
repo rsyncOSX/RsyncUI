@@ -70,24 +70,6 @@ struct ExecuteEstimatedView: View {
                 inwork = inprogresscountmultipletask.hiddenID
                 executedetails.setcurrentprogress(0)
             })
-        /*
-         ProgressView("",
-                      value: inprogresscountmultipletask.getinprogress(),
-                      total: Double(inprogresscountmultipletask.getmaxcount()))
-             .onAppear(perform: {
-                 // To set ProgressView spinnig wheel on correct task when estimating
-                 inwork = inprogresscountmultipletask.hiddenID
-                 // executedetails.setcurrentprogress(0)
-             })
-             .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
-                 // To set ProgressView spinnig wheel on correct task when estimating
-                 inwork = inprogresscountmultipletask.hiddenID
-                 executedetails.setcurrentprogress(0)
-             })
-             .progressViewStyle(GaugeProgressStyle())
-             .frame(width: 25.0, height: 25.0)
-             .contentShape(Rectangle())
-          */
     }
 
     // When status execution is .completed, presenet label and execute completed.

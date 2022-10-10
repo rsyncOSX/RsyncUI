@@ -11,8 +11,6 @@ final class EstimationOnetaskAsync {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     private var estimationonetask: EstimationOnetaskAsync?
     private var localhiddenID: Int?
-
-    weak var stateDelegate: EstimationState?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
     private var arguments: [String]?
@@ -30,12 +28,10 @@ final class EstimationOnetaskAsync {
     }
 
     init(configurationsSwiftUI: ConfigurationsSwiftUI?,
-         estimationstateDelegate: EstimationState?,
          updateinprogresscount: UpdateEstimationCount?,
          hiddenID: Int?)
     {
         localconfigurationsSwiftUI = configurationsSwiftUI
-        stateDelegate = estimationstateDelegate
         updateestimationcountDelegate = updateinprogresscount
         localhiddenID = hiddenID
         // local is true for getting info about local catalogs.

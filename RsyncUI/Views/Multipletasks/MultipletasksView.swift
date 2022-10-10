@@ -111,7 +111,6 @@ struct MultipletasksView: View {
                 Task {
                     let estimationasync =
                         EstimationOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                               estimationstateDelegate: estimationstate,
                                                updateinprogresscount: inprogresscountmultipletask,
                                                hiddenID: selectedconfig?.hiddenID)
                     await estimationasync.startestimation()
@@ -151,6 +150,11 @@ struct MultipletasksView: View {
                                     selectedconfig: $selectedconfig)
             }
         }
+    }
+
+    var progressvieestimationasync: some View {
+        ProgressView()
+            .frame(width: 25.0, height: 25.0)
     }
 
     var progressviewestimation: some View {
