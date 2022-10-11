@@ -112,18 +112,8 @@ struct MultipletasksView: View {
 
             Spacer()
 
-            Button("Estimate") {
-                Task {
-                    inprogresscountmultipletask.startestimateasync()
-
-                    let estimationasync =
-                        EstimationOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                               updateinprogresscount: inprogresscountmultipletask,
-                                               hiddenID: selectedconfig?.hiddenID)
-                    await estimationasync.startestimation()
-                }
-            }
-            .buttonStyle(PrimaryButtonStyle())
+            Button("Estimate") { inprogresscountmultipletask.startestimateasync() }
+                .buttonStyle(PrimaryButtonStyle())
 
             Button("Log") { presentoutputsheetview = true }
                 .buttonStyle(PrimaryButtonStyle())
@@ -162,6 +152,15 @@ struct MultipletasksView: View {
     var progressvieestimationasync: some View {
         ProgressView()
             .frame(width: 25.0, height: 25.0)
+            .onAppear {
+                Task {
+                    let estimationasync =
+                        EstimationOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                               updateinprogresscount: inprogresscountmultipletask,
+                                               hiddenID: selectedconfig?.hiddenID)
+                    await estimationasync.startestimation()
+                }
+            }
     }
 
     var progressviewestimation: some View {
