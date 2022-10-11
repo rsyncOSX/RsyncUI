@@ -21,8 +21,6 @@ protocol UpdateEstimationCount: AnyObject {
 }
 
 final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCount {
-    var executenexttask: Bool = false
-
     private var estimatedlist: [RemoteinfonumbersOnetask]?
     private var inprogresscount: Double = 0
     private var max: Int = 0
@@ -30,6 +28,8 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
     var hiddenID: Int = -1
     // set uuid if data to be transferred
     private var uuids = Set<UUID>()
+    // Estimate async
+    var estimateasync: Bool = false
 
     func getuuids() -> Set<UUID> {
         return uuids
@@ -80,7 +80,13 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
             estimatedlist = [RemoteinfonumbersOnetask]()
         }
         estimatedlist?.append(record)
-        executenexttask = true
+        estimateasync = false
+        objectWillChange.send()
+    }
+
+    func startestimateasync() {
+        estimateasync = true
+        objectWillChange.send()
     }
 
     func getestimatedlist() -> [RemoteinfonumbersOnetask]? {

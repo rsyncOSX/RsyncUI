@@ -53,6 +53,9 @@ struct MultipletasksView: View {
     // Modale view
     @State private var modaleview = false
 
+    // Async estimation
+    // @State private var estimateasync = false
+
     var body: some View {
         ZStack {
             ConfigurationsList(selectedconfig: $selectedconfig,
@@ -69,6 +72,8 @@ struct MultipletasksView: View {
             if focusshowinfotask { labelshowinfotask }
 
             if progressviewshowinfo { ProgressView() }
+
+            if inprogresscountmultipletask.estimateasync { progressvieestimationasync }
         }
 
         HStack {
@@ -109,6 +114,8 @@ struct MultipletasksView: View {
 
             Button("Estimate") {
                 Task {
+                    inprogresscountmultipletask.startestimateasync()
+
                     let estimationasync =
                         EstimationOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                updateinprogresscount: inprogresscountmultipletask,
