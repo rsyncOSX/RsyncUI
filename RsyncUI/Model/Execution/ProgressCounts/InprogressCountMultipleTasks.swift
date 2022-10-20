@@ -18,6 +18,7 @@ protocol UpdateEstimationCount: AnyObject {
     func appenduuid(id: UUID)
     func getuuids() -> Set<UUID>
     func appendrecord(record: RemoteinfonumbersOnetask)
+    func asyncestimationcomplete()
 }
 
 final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCount {
@@ -80,6 +81,9 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
             estimatedlist = [RemoteinfonumbersOnetask]()
         }
         estimatedlist?.append(record)
+    }
+
+    func asyncestimationcomplete() {
         estimateasync = false
         objectWillChange.send()
     }
