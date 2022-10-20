@@ -28,6 +28,7 @@ final class EstimateAlltasksAsync {
 
     @MainActor
     func startestimation() async {
+        guard stackoftasktobeestimated?.count ?? 0 > 0 else { return }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
         guard localhiddenID != nil else { return }
         let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: localhiddenID ?? 0, argtype: .argdryRun)

@@ -155,9 +155,9 @@ struct MultipletasksView: View {
             .onAppear {
                 Task {
                     let estimationasync =
-                        EstimationOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                               updateinprogresscount: inprogresscountmultipletask,
-                                               hiddenID: selectedconfig?.hiddenID)
+                        EstimateAlltasksAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                              updateinprogresscount: inprogresscountmultipletask,
+                                              filter: searchText)
                     await estimationasync.startestimation()
                 }
             }
