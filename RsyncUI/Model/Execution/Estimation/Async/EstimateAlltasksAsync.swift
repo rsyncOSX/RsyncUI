@@ -13,19 +13,6 @@ final class EstimateAlltasksAsync {
     private var stackoftasktobeestimated: [Int]?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
-    private func prepareandstartexecutetasks(_ configurations: [Configuration]?) {
-        stackoftasktobeestimated = [Int]()
-        for i in 0 ..< (configurations?.count ?? 0) {
-            let task = configurations?[i].task
-            if SharedReference.shared.synctasks.contains(task ?? "") {
-                if let hiddenID = configurations?[i].hiddenID {
-                    stackoftasktobeestimated?.append(hiddenID)
-                }
-            }
-        }
-        updateestimationcountDelegate?.setmaxcount(num: stackoftasktobeestimated?.count ?? 0)
-    }
-
     @MainActor
     func startestimation() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
@@ -45,12 +32,33 @@ final class EstimateAlltasksAsync {
 
     init(configurationsSwiftUI: ConfigurationsSwiftUI?,
          updateinprogresscount: UpdateEstimationCount?,
+         uuids: Set<UUID>,
          filter: String)
     {
         localconfigurationsSwiftUI = configurationsSwiftUI
         updateestimationcountDelegate = updateinprogresscount
         let filteredconfigurations = configurationsSwiftUI?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
-        prepareandstartexecutetasks(filteredconfigurations)
+        stackoftasktobeestimated = [Int]()
+        // Estimate selected configurations
+        if uuids.count > 0 {
+            let configurations = filteredconfigurations?.filter { uuids.contains($0.id) }
+            for i in 0 ..< (configurations?.count ?? 0) {
+                if let hiddenID = configurations?[i].hiddenID {
+                    stackoftasktobeestimated?.append(hiddenID)
+                }
+            }
+        } else {
+            // Or estimate all tasks
+            for i in 0 ..< (filteredconfigurations?.count ?? 0) {
+                let task = filteredconfigurations?[i].task
+                if SharedReference.shared.synctasks.contains(task ?? "") {
+                    if let hiddenID = filteredconfigurations?[i].hiddenID {
+                        stackoftasktobeestimated?.append(hiddenID)
+                    }
+                }
+            }
+        }
+        updateestimationcountDelegate?.setmaxcount(num: stackoftasktobeestimated?.count ?? 0)
     }
 
     private func getconfig(hiddenID: Int?) -> Configuration? {
@@ -79,8 +87,7 @@ extension EstimateAlltasksAsync {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
             }
         }
-
-        let task = Task.detached {
+        _ = Task.detached {
             await self.startestimation()
         }
     }

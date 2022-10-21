@@ -77,6 +77,8 @@ struct MultipletasksView: View {
             if inprogresscountmultipletask.estimateasync {
                 if selectedconfig == nil {
                     progressviestimatealltaskseasync
+                } else if selecteduuids.count > 0 {
+                    progressviestimatealltaskseasync
                 } else {
                     progressviestimateonetaskeasync
                 }
@@ -164,6 +166,7 @@ struct MultipletasksView: View {
                     let estimationasync =
                         EstimateAlltasksAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                               updateinprogresscount: inprogresscountmultipletask,
+                                              uuids: selecteduuids,
                                               filter: searchText)
                     await estimationasync.startestimation()
                 }
