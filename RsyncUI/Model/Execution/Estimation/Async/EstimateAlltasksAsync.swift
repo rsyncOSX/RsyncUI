@@ -9,7 +9,7 @@ import Foundation
 
 final class EstimateAlltasksAsync {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
-    private var estimationonetask: EstimationOnetaskAsync?
+    private var estimationonetask: EstimateOnetaskAsync?
     private var stackoftasktobeestimated: [Int]?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
@@ -49,9 +49,6 @@ final class EstimateAlltasksAsync {
     {
         localconfigurationsSwiftUI = configurationsSwiftUI
         updateestimationcountDelegate = updateinprogresscount
-        // local is true for getting info about local catalogs.
-        // used when shwoing diff local files vs remote files
-
         let filteredconfigurations = configurationsSwiftUI?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         prepareandstartexecutetasks(filteredconfigurations)
     }

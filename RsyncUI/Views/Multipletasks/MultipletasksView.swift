@@ -73,7 +73,14 @@ struct MultipletasksView: View {
 
             if progressviewshowinfo { ProgressView() }
 
-            if inprogresscountmultipletask.estimateasync { progressvieestimationasync }
+            // Estimate async
+            if inprogresscountmultipletask.estimateasync {
+                if selectedconfig == nil {
+                    progressviestimatealltaskseasync
+                } else {
+                    progressviestimateonetaskeasync
+                }
+            }
         }
 
         HStack {
@@ -149,7 +156,7 @@ struct MultipletasksView: View {
         }
     }
 
-    var progressvieestimationasync: some View {
+    var progressviestimatealltaskseasync: some View {
         ProgressView()
             .frame(width: 25.0, height: 25.0)
             .onAppear {
@@ -158,6 +165,20 @@ struct MultipletasksView: View {
                         EstimateAlltasksAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                               updateinprogresscount: inprogresscountmultipletask,
                                               filter: searchText)
+                    await estimationasync.startestimation()
+                }
+            }
+    }
+
+    var progressviestimateonetaskeasync: some View {
+        ProgressView()
+            .frame(width: 25.0, height: 25.0)
+            .onAppear {
+                Task {
+                    let estimationasync =
+                        EstimateOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                             updateinprogresscount: inprogresscountmultipletask,
+                                             hiddenID: selectedconfig?.hiddenID)
                     await estimationasync.startestimation()
                 }
             }
