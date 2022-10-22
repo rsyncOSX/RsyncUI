@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 19/01/2021.
 //
+// swiftlint:disable line_length
 
 import Network
 import SwiftUI
@@ -225,7 +226,6 @@ struct MultipletasksView: View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 focusstartexecution = false
-                // Guard statement must be after resetting properties to false
                 startexecution()
             })
     }
@@ -256,7 +256,6 @@ struct MultipletasksView: View {
     }
 
     var labelshowinfotask: some View {
-        // ProgressView()
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 progressviewshowinfo = true
