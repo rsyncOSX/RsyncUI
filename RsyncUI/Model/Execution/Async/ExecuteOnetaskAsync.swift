@@ -15,8 +15,7 @@ final class ExecuteOnetaskAsync: EstimateOnetaskAsync {
         guard arguments?.count ?? 0 > 0 else { return }
         let process = RsyncProcessAsync(arguments: arguments,
                                         config: config,
-                                        processtermination: processtermination,
-                                        newlineisread: newlineisread)
+                                        processtermination: processtermination)
         await process.executeProcess()
     }
 }

@@ -19,7 +19,6 @@ final class RsyncProcessAsync {
     var arguments: [String]?
     // Process termination
     var processtermination: ([String]?, Int?) -> Void
-    var newlineisread: () -> Void
     // Output
     var outputprocess: OutputfromProcess?
 
@@ -73,7 +72,6 @@ final class RsyncProcessAsync {
                 if data.count > 0 {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                         self.outputprocess?.addlinefromoutput(str: str as String)
-                        self.newlineisread
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
@@ -105,13 +103,11 @@ final class RsyncProcessAsync {
 
     init(arguments: [String]?,
          config: Configuration?,
-         processtermination: @escaping ([String]?, Int?) -> Void,
-         newlineisread: @escaping () -> Void)
+         processtermination: @escaping ([String]?, Int?) -> Void)
     {
         self.arguments = arguments
         self.config = config
         self.processtermination = processtermination
-        self.newlineisread = newlineisread
         outputprocess = OutputfromProcess()
         executemonitornetworkconnection()
     }
