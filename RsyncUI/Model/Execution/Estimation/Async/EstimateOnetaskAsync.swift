@@ -20,7 +20,8 @@ class EstimateOnetaskAsync {
         guard arguments?.count ?? 0 > 0 else { return }
         let process = RsyncProcessAsync(arguments: arguments,
                                         config: config,
-                                        processtermination: processtermination)
+                                        processtermination: processtermination,
+                                        newlineisread: newlineisread)
         await process.executeProcess()
     }
 
@@ -61,4 +62,6 @@ extension EstimateOnetaskAsync {
         }
         updateestimationcountDelegate?.asyncestimationcomplete()
     }
+
+    func newlineisread() {}
 }
