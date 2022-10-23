@@ -29,9 +29,14 @@ extension ExecuteOnetaskAsync {
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
+                let update = SingletaskPrimaryLogging(profile: config.profile,
+                                                      hiddenID: hiddenID,
+                                                      configurations: localconfigurationsSwiftUI?.getallconfigurations(),
+                                                      validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
+                update.setCurrentDateonConfiguration()
+                update.addlogpermanentstore(outputrsync: outputfromrsync)
             }
         }
-        _ = Logfile(TrimTwo(outputfromrsync ?? []).trimmeddata, error: false)
         updateestimationcountDelegate?.asyncestimationcomplete()
     }
 }
