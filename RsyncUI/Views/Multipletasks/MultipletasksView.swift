@@ -47,7 +47,6 @@ struct MultipletasksView: View {
     @State private var confirmdeletemenu: Bool = false
     // Estimate ahead of execute task
     @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
-
     // Local data for present local and remote info about task
     @State private var localdata: [String] = []
     @State private var progressviewshowinfo = false
@@ -168,45 +167,32 @@ struct MultipletasksView: View {
                     }
                 }
             }
-            .onDisappear {}
     }
 
-    /*
+    var progressviewexecuteasync: some View {
+        ProgressView()
+            .frame(width: 25.0, height: 25.0)
+            .onAppear {
+                Task {
+                    if selectedconfig != nil && selecteduuids.count == 0 {
+                        let executeonetaskasync =
+                            ExecuteOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                                updateinprogresscount: inprogresscountmultipletask,
+                                                hiddenID: selectedconfig?.hiddenID)
+                        await executeonetaskasync.startestimation()
 
-     var progressviewestimation: some View {
-         ProgressView()
-             .onDisappear(perform: {
-                 estimationcompleted()
-                 // show log automatic
-                 presentoutputsheetview = true
-                 if selecteduuids.count == 0 {
-                     alwaysestimate = SharedReference.shared.alwaysestimate
-                 } else {
-                     alwaysestimate = false
-                 }
-             })
-             .frame(width: 25.0, height: 25.0)
-     }
+                    } else {
+                        let executealltasksasync =
+                            ExecuteAlltasksAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                                 updateinprogresscount: inprogresscountmultipletask,
+                                                 uuids: selecteduuids,
+                                                 filter: searchText)
+                        await executealltasksasync.startestimation()
+                    }
+                }
+            }
+    }
 
-     var labelshortcutestimation: some View {
-         Label("", systemImage: "play.fill")
-             .onAppear(perform: {
-                 focusstartestimation = false
-                 if selecteduuids.count == 0, selectedconfig != nil {
-                     singletaskview = true
-                 } else {
-                     startestimation()
-                 }
-             })
-             .onDisappear(perform: {
-                 if selecteduuids.count == 0 {
-                     alwaysestimate = SharedReference.shared.alwaysestimate
-                 } else {
-                     alwaysestimate = false
-                 }
-             })
-     }
-     */
     var labelshortcutexecute: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -275,48 +261,6 @@ extension MultipletasksView {
         alwaysestimate = SharedReference.shared.alwaysestimate
     }
 
-    /*
-     func estimationcompleted() {
-         inwork = -1
-         selecteduuids = inprogresscountmultipletask.getuuids()
-         estimationstate.updatestate(state: .start)
-         // Reset and prepare
-         executedetails.resetcounter()
-         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
-         estimatetask = nil
-         // Kick of execution
-         if selecteduuids.count > 0, estimationstate.estimateonly == false {
-             showestimateview = false
-         }
-         // reset estimateonly
-         estimationstate.estimateonly = false
-     }
-
-     func estimatetasks() {
-         inprogresscountmultipletask.resetcounts()
-         estimatetask = Estimation(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                   estimationstateDelegate: estimationstate,
-                                   updateinprogresscount: inprogresscountmultipletask,
-                                   uuids: selecteduuids,
-                                   filter: searchText)
-         estimatetask?.startestimation()
-     }
-
-     func startestimation() {
-         inprogresscountmultipletask.resetcounts()
-         executedetails.resetcounter()
-         // Check if restart or new set of configurations
-         if inprogresscountmultipletask.getuuids().count > 0 {
-             reset()
-             selecteduuids.removeAll()
-         }
-         if selecteduuids.count == 0 {
-             setuuidforselectedtask()
-         }
-         estimationstate.updatestate(state: .estimate)
-         estimatetasks()
-     }
-     */
     func abort() {
         selecteduuids.removeAll()
         estimationstate.updatestate(state: .start)
@@ -330,14 +274,6 @@ extension MultipletasksView {
 
     func startexecution() {
         showestimateview = false
-        /*
-         setuuidforselectedtask()
-         if selecteduuids.count == 0 {
-             // startestimation()
-         } else {
-             showestimateview = false
-         }
-         */
     }
 
     func select() {
