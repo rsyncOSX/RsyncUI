@@ -19,7 +19,7 @@ enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertib
     var description: String { rawValue.localizedCapitalized }
 }
 
-final class Estimation {
+final class EEstimation {
     private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     private var privatehiddenID: Int?
     private var stackoftasktobeestimated: [Int]?
@@ -163,7 +163,7 @@ final class Estimation {
     }
 }
 
-extension Estimation {
+extension EEstimation {
     func processtermination() {
         guard setabort == false else { return }
         // print("processtermination()")

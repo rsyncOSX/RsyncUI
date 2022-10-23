@@ -27,7 +27,7 @@ struct MultipletasksView: View {
     @State private var presentoutputsheetview = false
     @State private var presentestimatedsheetview = false
     @State private var inwork: Int = -1
-    @State private var estimatetask: Estimation?
+    // @State private var estimatetask: Estimation?
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
@@ -65,43 +65,32 @@ struct MultipletasksView: View {
                                searchText: $searchText,
                                reload: $reload,
                                confirmdelete: $confirmdeletemenu)
-            if focusstartestimation { labelshortcutestimation }
+            if focusstartestimation { progressviewestimateasync }
             if focusstartexecution { labelshortcutexecute }
             if focusselecttask { labelselecttask }
             if focusfirsttaskinfo { labelfirsttime }
             if focusdeletetask { labeldeletetask }
             if focusshowinfotask { labelshowinfotask }
-
-            if progressviewshowinfo { ProgressView() }
-
-            // Estimate async
-            if inprogresscountmultipletask.estimateasync {
-                if selectedconfig == nil {
-                    progressviestimatealltaskseasync
-                } else if selecteduuids.count > 0 {
-                    progressviestimatealltaskseasync
-                } else {
-                    progressviestimateonetaskeasync
-                }
-            }
         }
 
         HStack {
             VStack(alignment: .center) {
-                ToggleViewDefault(NSLocalizedString("Estimate", comment: ""), $alwaysestimate)
+                // ToggleViewDefault(NSLocalizedString("Estimate", comment: ""), $alwaysestimate)
 
                 HStack {
+                    Button("Estimate") {
+                        inprogresscountmultipletask.resetcounts()
+                        executedetails.resetcounter()
+                        inprogresscountmultipletask.startestimateasync()
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+
                     Button("Execute") {
-                        if alwaysestimate == true {
-                            if selecteduuids.count == 0, selectedconfig != nil {
-                                singletaskview = true
-                            } else {
-                                estimationstate.estimateonly = true
-                                startestimation()
-                            }
-                        } else {
-                            startexecution()
-                        }
+                        selecteduuids = inprogresscountmultipletask.getuuids()
+                        estimationstate.updatestate(state: .start)
+                        executedetails.resetcounter()
+                        executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+                        showestimateview = false
                     }
                     .buttonStyle(PrimaryButtonStyle())
 
@@ -117,13 +106,11 @@ struct MultipletasksView: View {
 
             ZStack {
                 if estimationstate.estimationstate != .estimate { footer }
-                if estimationstate.estimationstate == .estimate { progressviewestimation }
+                if progressviewshowinfo { ProgressView() }
+                if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
             }
 
             Spacer()
-
-            Button("Estimate") { inprogresscountmultipletask.startestimateasync() }
-                .buttonStyle(PrimaryButtonStyle())
 
             Button("Log") { presentoutputsheetview = true }
                 .buttonStyle(PrimaryButtonStyle())
@@ -159,69 +146,67 @@ struct MultipletasksView: View {
         }
     }
 
-    var progressviestimatealltaskseasync: some View {
+    var progressviewestimateasync: some View {
         ProgressView()
             .frame(width: 25.0, height: 25.0)
             .onAppear {
                 Task {
-                    let estimationasync =
-                        EstimateAlltasksAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                              updateinprogresscount: inprogresscountmultipletask,
-                                              uuids: selecteduuids,
-                                              filter: searchText)
-                    await estimationasync.startestimation()
+                    if selectedconfig != nil && selecteduuids.count == 0 {
+                        let estimateonetaskasync =
+                            EstimateOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                                 updateinprogresscount: inprogresscountmultipletask,
+                                                 hiddenID: selectedconfig?.hiddenID)
+                        await estimateonetaskasync.startestimation()
+
+                    } else {
+                        let estimatealltasksasync =
+                            EstimateAlltasksAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                                  updateinprogresscount: inprogresscountmultipletask,
+                                                  uuids: selecteduuids,
+                                                  filter: searchText)
+                        await estimatealltasksasync.startestimation()
+                    }
                 }
             }
+            .onDisappear {}
     }
 
-    var progressviestimateonetaskeasync: some View {
-        ProgressView()
-            .frame(width: 25.0, height: 25.0)
-            .onAppear {
-                Task {
-                    let estimationasync =
-                        EstimateOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                             updateinprogresscount: inprogresscountmultipletask,
-                                             hiddenID: selectedconfig?.hiddenID)
-                    await estimationasync.startestimation()
-                }
-            }
-    }
+    /*
 
-    var progressviewestimation: some View {
-        ProgressView()
-            .onDisappear(perform: {
-                estimationcompleted()
-                // show log automatic
-                presentoutputsheetview = true
-                if selecteduuids.count == 0 {
-                    alwaysestimate = SharedReference.shared.alwaysestimate
-                } else {
-                    alwaysestimate = false
-                }
-            })
-            .frame(width: 25.0, height: 25.0)
-    }
+     var progressviewestimation: some View {
+         ProgressView()
+             .onDisappear(perform: {
+                 estimationcompleted()
+                 // show log automatic
+                 presentoutputsheetview = true
+                 if selecteduuids.count == 0 {
+                     alwaysestimate = SharedReference.shared.alwaysestimate
+                 } else {
+                     alwaysestimate = false
+                 }
+             })
+             .frame(width: 25.0, height: 25.0)
+     }
 
-    var labelshortcutestimation: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusstartestimation = false
-                if selecteduuids.count == 0, selectedconfig != nil {
-                    singletaskview = true
-                } else {
-                    startestimation()
-                }
-            })
-            .onDisappear(perform: {
-                if selecteduuids.count == 0 {
-                    alwaysestimate = SharedReference.shared.alwaysestimate
-                } else {
-                    alwaysestimate = false
-                }
-            })
-    }
-
+     var labelshortcutestimation: some View {
+         Label("", systemImage: "play.fill")
+             .onAppear(perform: {
+                 focusstartestimation = false
+                 if selecteduuids.count == 0, selectedconfig != nil {
+                     singletaskview = true
+                 } else {
+                     startestimation()
+                 }
+             })
+             .onDisappear(perform: {
+                 if selecteduuids.count == 0 {
+                     alwaysestimate = SharedReference.shared.alwaysestimate
+                 } else {
+                     alwaysestimate = false
+                 }
+             })
+     }
+     */
     var labelshortcutexecute: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -286,69 +271,73 @@ extension MultipletasksView {
         inwork = -1
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
-        estimatetask = nil
+        // estimatetask = nil
         alwaysestimate = SharedReference.shared.alwaysestimate
     }
 
-    func estimationcompleted() {
-        inwork = -1
-        selecteduuids = inprogresscountmultipletask.getuuids()
-        estimationstate.updatestate(state: .start)
-        // Reset and prepare
-        executedetails.resetcounter()
-        executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
-        estimatetask = nil
-        // Kick of execution
-        if selecteduuids.count > 0, estimationstate.estimateonly == false {
-            showestimateview = false
-        }
-        // reset estimateonly
-        estimationstate.estimateonly = false
-    }
+    /*
+     func estimationcompleted() {
+         inwork = -1
+         selecteduuids = inprogresscountmultipletask.getuuids()
+         estimationstate.updatestate(state: .start)
+         // Reset and prepare
+         executedetails.resetcounter()
+         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+         estimatetask = nil
+         // Kick of execution
+         if selecteduuids.count > 0, estimationstate.estimateonly == false {
+             showestimateview = false
+         }
+         // reset estimateonly
+         estimationstate.estimateonly = false
+     }
 
-    func estimatetasks() {
-        inprogresscountmultipletask.resetcounts()
-        estimatetask = Estimation(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                  estimationstateDelegate: estimationstate,
-                                  updateinprogresscount: inprogresscountmultipletask,
-                                  uuids: selecteduuids,
-                                  filter: searchText)
-        estimatetask?.startestimation()
-    }
+     func estimatetasks() {
+         inprogresscountmultipletask.resetcounts()
+         estimatetask = Estimation(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                   estimationstateDelegate: estimationstate,
+                                   updateinprogresscount: inprogresscountmultipletask,
+                                   uuids: selecteduuids,
+                                   filter: searchText)
+         estimatetask?.startestimation()
+     }
 
-    func startestimation() {
-        inprogresscountmultipletask.resetcounts()
-        executedetails.resetcounter()
-        // Check if restart or new set of configurations
-        if inprogresscountmultipletask.getuuids().count > 0 {
-            reset()
-            selecteduuids.removeAll()
-        }
-        if selecteduuids.count == 0 {
-            setuuidforselectedtask()
-        }
-        estimationstate.updatestate(state: .estimate)
-        estimatetasks()
-    }
-
+     func startestimation() {
+         inprogresscountmultipletask.resetcounts()
+         executedetails.resetcounter()
+         // Check if restart or new set of configurations
+         if inprogresscountmultipletask.getuuids().count > 0 {
+             reset()
+             selecteduuids.removeAll()
+         }
+         if selecteduuids.count == 0 {
+             setuuidforselectedtask()
+         }
+         estimationstate.updatestate(state: .estimate)
+         estimatetasks()
+     }
+     */
     func abort() {
         selecteduuids.removeAll()
         estimationstate.updatestate(state: .start)
         inprogresscountmultipletask.resetcounts()
-        estimatetask?.abort()
-        estimatetask = nil
+        // estimatetask?.abort()
+        // estimatetask = nil
         _ = InterruptProcess()
         inwork = -1
         reload = true
     }
 
     func startexecution() {
-        setuuidforselectedtask()
-        if selecteduuids.count == 0 {
-            startestimation()
-        } else {
-            showestimateview = false
-        }
+        showestimateview = false
+        /*
+         setuuidforselectedtask()
+         if selecteduuids.count == 0 {
+             // startestimation()
+         } else {
+             showestimateview = false
+         }
+         */
     }
 
     func select() {

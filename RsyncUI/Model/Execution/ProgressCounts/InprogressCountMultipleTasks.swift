@@ -38,7 +38,7 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
 
     func appenduuid(id: UUID) {
         uuids.insert(id)
-        objectWillChange.send()
+        // objectWillChange.send()
     }
 
     // Set and notify when new hiddenID is set

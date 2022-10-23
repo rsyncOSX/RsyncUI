@@ -17,6 +17,7 @@ class EstimateAlltasksAsync {
     func startestimation() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             updateestimationcountDelegate?.asyncestimationcomplete()
+
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
