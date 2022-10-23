@@ -61,13 +61,13 @@ struct SingleTasksView: View {
             if singletasknowstate.executetasknowstate == .execute {
                 RotatingDotsIndicatorView()
                     .frame(width: 25.0, height: 25.0)
-                    .foregroundColor(.green)
+                    .foregroundColor(.blue)
             }
 
             if singletaskstate.singletaskstate == .estimate {
                 RotatingDotsIndicatorView()
                     .frame(width: 25.0, height: 25.0)
-                    .foregroundColor(.green)
+                    .foregroundColor(.blue)
             }
         }
 

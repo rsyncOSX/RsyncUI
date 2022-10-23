@@ -47,8 +47,8 @@ struct RestoreView: View {
                 if restoresettings.gettingfilelist == true {
                     ZStack {
                         RotatingDotsIndicatorView()
-                            .frame(width: 50.0, height: 50.0)
-                            .foregroundColor(.red)
+                            .frame(width: 25.0, height: 25.0)
+                            .foregroundColor(.blue)
 
                         Text("\(restoresettings.numberoffilesrestored)")
                     }

@@ -72,7 +72,7 @@ struct SnapshotsView: View {
             if notsnapshot == true { notasnapshottask }
             if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
                 .frame(width: 25.0, height: 25.0)
-                .foregroundColor(.red)
+                .foregroundColor(.blue)
             }
 
             Spacer()

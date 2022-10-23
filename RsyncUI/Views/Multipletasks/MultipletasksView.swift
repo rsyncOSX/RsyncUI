@@ -108,7 +108,7 @@ struct MultipletasksView: View {
                 if progressviewshowinfo {
                     RotatingDotsIndicatorView()
                         .frame(width: 25.0, height: 25.0)
-                        .foregroundColor(.green)
+                        .foregroundColor(.blue)
                 }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
             }
@@ -152,7 +152,7 @@ struct MultipletasksView: View {
     var progressviewestimateasync: some View {
         RotatingDotsIndicatorView()
             .frame(width: 25.0, height: 25.0)
-            .foregroundColor(.green)
+            .foregroundColor(.blue)
             .onAppear {
                 Task {
                     if selectedconfig != nil && selecteduuids.count == 0 {
@@ -172,18 +172,14 @@ struct MultipletasksView: View {
                 }
             }
             .onDisappear {
-                if selectedconfig != nil && selecteduuids.count == 0 {
-                    singletaskview = true
-                } else {
-                    presentoutputsheetview = true
-                }
+                presentoutputsheetview = true
             }
     }
 
     var progressviewexecuteasync: some View {
         RotatingDotsIndicatorView()
             .frame(width: 25.0, height: 25.0)
-            .foregroundColor(.green)
+            .foregroundColor(.blue)
             .onAppear {
                 Task {
                     if selectedconfig != nil && selecteduuids.count == 0 {

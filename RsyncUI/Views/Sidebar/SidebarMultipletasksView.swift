@@ -26,22 +26,22 @@ struct SidebarMultipletasksView: View {
             VStack {
                 headingtitle
 
-                if showestimateview == true {
-                    if singletaskview == false {
-                        MultipletasksView(selectedconfig: $selectedconfig,
-                                          reload: $reload,
-                                          selecteduuids: $selecteduuids,
-                                          showestimateview: $showestimateview,
-                                          singletaskview: $singletaskview,
-                                          selection: $selection)
-                    } else {
-                        SingleTasksView(selectedconfig: $selectedconfig,
-                                        reload: $reload,
-                                        singletaskview: $singletaskview)
-                    }
+                if showestimateview == true && singletaskview == false {
+                    MultipletasksView(selectedconfig: $selectedconfig,
+                                      reload: $reload,
+                                      selecteduuids: $selecteduuids,
+                                      showestimateview: $showestimateview,
+                                      singletaskview: $singletaskview,
+                                      selection: $selection)
                 }
 
-                if showestimateview == false {
+                if singletaskview == true {
+                    SingleTasksView(selectedconfig: $selectedconfig,
+                                    reload: $reload,
+                                    singletaskview: $singletaskview)
+                }
+
+                if showestimateview == false && singletaskview == false {
                     ExecuteEstimatedView(selecteduuids: $selecteduuids,
                                          reload: $reload,
                                          showestimateview: $showestimateview)
