@@ -31,6 +31,7 @@ struct SidebarMultipletasksView: View {
                                       reload: $reload,
                                       selecteduuids: $selecteduuids,
                                       showestimateview: $showestimateview,
+                                      showcompleted: $showcompleted,
                                       singletaskview: $singletaskview,
                                       selection: $selection)
                 }

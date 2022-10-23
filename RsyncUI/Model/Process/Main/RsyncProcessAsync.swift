@@ -45,7 +45,6 @@ final class RsyncProcessAsync {
     }
 
     func executeProcess() async {
-        print("executeProcess()")
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         // Process

@@ -23,11 +23,12 @@ struct MultipletasksView: View {
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var showestimateview: Bool
+    @Binding var showcompleted: Bool
 
     @State private var presentoutputsheetview = false
     @State private var presentestimatedsheetview = false
     @State private var inwork: Int = -1
-    // @State private var estimatetask: Estimation?
+
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
@@ -200,6 +201,9 @@ struct MultipletasksView: View {
                         await executealltasksasync.startestimation()
                     }
                 }
+            }
+            .onDisappear {
+                showcompleted = true
             }
     }
 

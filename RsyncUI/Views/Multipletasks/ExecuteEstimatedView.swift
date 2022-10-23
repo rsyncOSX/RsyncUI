@@ -63,7 +63,6 @@ struct ExecuteEstimatedView: View {
             .onAppear(perform: {
                 // To set ProgressView spinnig wheel on correct task when estimating
                 inwork = inprogresscountmultipletask.hiddenID
-                // executedetails.setcurrentprogress(0)
             })
             .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
                 // To set ProgressView spinnig wheel on correct task when estimating
@@ -72,9 +71,7 @@ struct ExecuteEstimatedView: View {
             })
     }
 
-    // When status execution is .completed, presenet label and execute completed.
-    // The label will probably not been seen by user, the status changes to .start in
-    // completed job.
+    // When status execution is .completed, present label and execute completed.
     var labelcompleted: some View {
         Label(multipletaskstate.executionstate.rawValue, systemImage: "play.fill")
             .onAppear(perform: {
