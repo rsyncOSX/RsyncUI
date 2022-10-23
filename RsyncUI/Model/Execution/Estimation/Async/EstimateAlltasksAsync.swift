@@ -17,7 +17,6 @@ class EstimateAlltasksAsync {
     func startestimation() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             updateestimationcountDelegate?.asyncestimationcomplete()
-
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
@@ -88,9 +87,6 @@ extension EstimateAlltasksAsync {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
             }
         }
-
-        // _ = Logfile(TrimTwo(outputfromrsync ?? []).trimmeddata, error: false)
-
         _ = Task.detached {
             await self.startestimation()
         }

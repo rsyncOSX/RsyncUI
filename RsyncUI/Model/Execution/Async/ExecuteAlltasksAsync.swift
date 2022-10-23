@@ -37,7 +37,12 @@ extension ExecuteAlltasksAsync {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
             }
         }
-        _ = Logfile(TrimTwo(outputfromrsync ?? []).trimmeddata, error: false)
+        let update = SingletaskPrimaryLogging(profile: nil,
+                                              hiddenID: hiddenID,
+                                              configurations: localconfigurationsSwiftUI?.getallconfigurations(),
+                                              validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
+        update.setCurrentDateonConfiguration()
+        update.addlogpermanentstore(outputrsync: outputfromrsync)
         _ = Task.detached {
             await self.startestimation()
         }

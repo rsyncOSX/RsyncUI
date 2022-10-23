@@ -81,8 +81,9 @@ final class RsyncProcessAsync {
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { _ in
-                // Logg to file
+                // Process termination and Log to file
                 self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
+                _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 // Release Combine subscribers
                 print("process termination")
                 self.subscriptons.removeAll()
