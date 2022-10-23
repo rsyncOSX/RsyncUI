@@ -155,8 +155,7 @@ struct MultipletasksView: View {
                             EstimateOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                  updateinprogresscount: inprogresscountmultipletask,
                                                  hiddenID: selectedconfig?.hiddenID)
-                        await estimateonetaskasync.startestimation()
-
+                        await estimateonetaskasync.execute()
                     } else {
                         let estimatealltasksasync =
                             EstimateAlltasksAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
@@ -165,6 +164,13 @@ struct MultipletasksView: View {
                                                   filter: searchText)
                         await estimatealltasksasync.startestimation()
                     }
+                }
+            }
+            .onDisappear {
+                if selectedconfig != nil && selecteduuids.count == 0 {
+                    singletaskview = true
+                } else {
+                    presentoutputsheetview = true
                 }
             }
     }
@@ -179,7 +185,7 @@ struct MultipletasksView: View {
                             ExecuteOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                 updateinprogresscount: inprogresscountmultipletask,
                                                 hiddenID: selectedconfig?.hiddenID)
-                        await executeonetaskasync.startestimation()
+                        await executeonetaskasync.execute()
 
                     } else {
                         let executealltasksasync =
@@ -296,6 +302,7 @@ extension MultipletasksView {
         }
     }
 
+    // For info about one task
     func processtermination(data: [String]?) {
         localdata = data ?? []
         modaleview = true

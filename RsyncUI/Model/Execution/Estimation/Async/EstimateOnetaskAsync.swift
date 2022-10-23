@@ -14,7 +14,7 @@ class EstimateOnetaskAsync {
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
     @MainActor
-    func startestimation() async {
+    func execute() async {
         let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: localhiddenID ?? 0, argtype: .argdryRun)
         let config = localconfigurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID ?? 0)
         guard arguments?.count ?? 0 > 0 else { return }
