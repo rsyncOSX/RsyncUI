@@ -53,9 +53,6 @@ struct MultipletasksView: View {
     // Modale view
     @State private var modaleview = false
 
-    // Async estimation
-    // @State private var estimateasync = false
-
     var body: some View {
         ZStack {
             ConfigurationsList(selectedconfig: $selectedconfig,
@@ -86,6 +83,10 @@ struct MultipletasksView: View {
 
                     Button("Execute") {
                         selecteduuids = inprogresscountmultipletask.getuuids()
+                        guard selecteduuids.count > 0 else {
+                            inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
+                            return
+                        }
                         estimationstate.updatestate(state: .start)
                         executedetails.resetcounter()
                         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
@@ -111,6 +112,7 @@ struct MultipletasksView: View {
                         .foregroundColor(.blue)
                 }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
+                if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasync }
             }
 
             Spacer()
@@ -265,7 +267,6 @@ extension MultipletasksView {
         inwork = -1
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
-        // estimatetask = nil
         alwaysestimate = SharedReference.shared.alwaysestimate
     }
 
@@ -273,8 +274,6 @@ extension MultipletasksView {
         selecteduuids.removeAll()
         estimationstate.updatestate(state: .start)
         inprogresscountmultipletask.resetcounts()
-        // estimatetask?.abort()
-        // estimatetask = nil
         _ = InterruptProcess()
         inwork = -1
         reload = true

@@ -15,7 +15,23 @@ final class ExecuteOnetaskAsync: EstimateOnetaskAsync {
         guard arguments?.count ?? 0 > 0 else { return }
         let process = RsyncProcessAsync(arguments: arguments,
                                         config: config,
-                                        processtermination: processtermination)
+                                        processtermination: processterminationexecute)
         await process.executeProcess()
+    }
+}
+
+extension ExecuteOnetaskAsync {
+    func processterminationexecute(outputfromrsync: [String]?, hiddenID: Int?) {
+        let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
+                                              outputfromrsync: outputfromrsync,
+                                              config: getconfig(hiddenID: hiddenID))
+        updateestimationcountDelegate?.appendrecord(record: record)
+        if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
+            if let config = getconfig(hiddenID: hiddenID) {
+                updateestimationcountDelegate?.appenduuid(id: config.id)
+            }
+        }
+        _ = Logfile(TrimTwo(outputfromrsync ?? []).trimmeddata, error: false)
+        updateestimationcountDelegate?.asyncestimationcomplete()
     }
 }

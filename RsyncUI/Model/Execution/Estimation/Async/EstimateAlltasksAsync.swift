@@ -62,7 +62,7 @@ class EstimateAlltasksAsync {
         updateestimationcountDelegate?.setmaxcount(num: stackoftasktobeestimated?.count ?? 0)
     }
 
-    private func getconfig(hiddenID: Int?) -> Configuration? {
+    func getconfig(hiddenID: Int?) -> Configuration? {
         if let hiddenID = hiddenID {
             if let configurations = localconfigurationsSwiftUI?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
                 guard configurations.count == 1 else { return nil }
@@ -88,6 +88,9 @@ extension EstimateAlltasksAsync {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
             }
         }
+
+        // _ = Logfile(TrimTwo(outputfromrsync ?? []).trimmeddata, error: false)
+
         _ = Task.detached {
             await self.startestimation()
         }

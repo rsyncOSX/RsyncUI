@@ -33,7 +33,7 @@ class EstimateOnetaskAsync {
         localhiddenID = hiddenID
     }
 
-    private func getconfig(hiddenID: Int?) -> Configuration? {
+    func getconfig(hiddenID: Int?) -> Configuration? {
         if let hiddenID = hiddenID {
             if let configurations = localconfigurationsSwiftUI?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
                 guard configurations.count == 1 else { return nil }
@@ -61,6 +61,4 @@ extension EstimateOnetaskAsync {
         }
         updateestimationcountDelegate?.asyncestimationcomplete()
     }
-
-    func newlineisread() {}
 }
