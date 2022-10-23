@@ -35,14 +35,14 @@ extension ExecuteAlltasksAsync {
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
                 updateestimationcountDelegate?.appenduuid(id: config.id)
+                let update = SingletaskPrimaryLogging(profile: config.profile,
+                                                      hiddenID: hiddenID,
+                                                      configurations: localconfigurationsSwiftUI?.getallconfigurations(),
+                                                      validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
+                update.setCurrentDateonConfiguration()
+                update.addlogpermanentstore(outputrsync: outputfromrsync)
             }
         }
-        let update = SingletaskPrimaryLogging(profile: nil,
-                                              hiddenID: hiddenID,
-                                              configurations: localconfigurationsSwiftUI?.getallconfigurations(),
-                                              validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
-        update.setCurrentDateonConfiguration()
-        update.addlogpermanentstore(outputrsync: outputfromrsync)
         _ = Task.detached {
             await self.startestimation()
         }
