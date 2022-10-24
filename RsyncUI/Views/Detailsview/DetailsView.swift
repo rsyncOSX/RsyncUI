@@ -1,15 +1,14 @@
 //
-//  SingleTasksView.swift
-//  RsyncOSXSwiftUI
+//  DetailsView.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 09/01/2021.
-//  Copyright © 2021 Thomas Evensen. All rights reserved.
+//  Created by Thomas Evensen on 24/10/2022.
 //
 
 import Foundation
 import SwiftUI
 
-struct SingleTasksView: View {
+struct DetailsView: View {
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var singletaskview: Bool
@@ -28,6 +27,7 @@ struct SingleTasksView: View {
                                   selecteduuids: $selecteduuids,
                                   inwork: $inwork,
                                   reload: $reload)
+                .frame(height: 57)
 
             List(remotedata, id: \.self) { line in
                 Text(line)
@@ -54,7 +54,7 @@ struct SingleTasksView: View {
     }
 }
 
-extension SingleTasksView {
+extension DetailsView {
     func processtermination(data: [String]?) {
         remotedata = data ?? []
         gettingremotedata = false

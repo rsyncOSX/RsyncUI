@@ -68,9 +68,9 @@ struct MultipletasksView: View {
             if focusdeletetask { labeldeletetask }
             if focusshowinfotask { labelshowinfotask }
             if singletaskview {
-                SingleTasksView(selectedconfig: $selectedconfig,
-                                reload: $reload,
-                                singletaskview: $singletaskview)
+                DetailsView(selectedconfig: $selectedconfig,
+                            reload: $reload,
+                            singletaskview: $singletaskview)
             }
         }
 
