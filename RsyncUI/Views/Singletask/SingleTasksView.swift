@@ -24,6 +24,7 @@ struct SingleTasksView: View {
 
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
+    @Binding var singletaskview: Bool
 
     // Must be a @State because it is changed
     @State private var executesingletasks: ExecuteSingleTask?
@@ -45,9 +46,6 @@ struct SingleTasksView: View {
     @State private var focusstartexecution: Bool = false
     @State private var searchText: String = ""
 
-    // Singletaskview
-    @Binding var singletaskview: Bool
-
     @State private var numberoffiles: Int = 0
 
     var body: some View {
@@ -61,13 +59,13 @@ struct SingleTasksView: View {
             if singletasknowstate.executetasknowstate == .execute {
                 RotatingDotsIndicatorView()
                     .frame(width: 25.0, height: 25.0)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.red)
             }
 
             if singletaskstate.singletaskstate == .estimate {
                 RotatingDotsIndicatorView()
                     .frame(width: 25.0, height: 25.0)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.red)
             }
         }
 

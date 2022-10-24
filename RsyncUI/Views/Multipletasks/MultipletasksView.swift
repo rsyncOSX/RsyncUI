@@ -38,21 +38,19 @@ struct MultipletasksView: View {
     @State private var focusshowinfotask: Bool = false
 
     @State private var searchText: String = ""
-    // Singletaskview
-    @Binding var singletaskview: Bool
     // Firsttime use of RsyncUI
     @State private var firsttime: Bool = false
     // Which sidebar function
     @Binding var selection: NavigationItem?
     // Delete
     @State private var confirmdeletemenu: Bool = false
-    // Estimate ahead of execute task
-    @State private var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
     // Local data for present local and remote info about task
     @State private var localdata: [String] = []
     @State private var progressviewshowinfo = false
     // Modale view
     @State private var modaleview = false
+    // Single task
+    @State private var singletaskview = false
 
     var body: some View {
         ZStack {
@@ -62,12 +60,18 @@ struct MultipletasksView: View {
                                searchText: $searchText,
                                reload: $reload,
                                confirmdelete: $confirmdeletemenu)
+
             if focusstartestimation { progressviewestimateasync }
-            if focusstartexecution { labelshortcutexecute }
+            if focusstartexecution { progressviewexecuteasync }
             if focusselecttask { labelselecttask }
             if focusfirsttaskinfo { labelfirsttime }
             if focusdeletetask { labeldeletetask }
             if focusshowinfotask { labelshowinfotask }
+            if singletaskview {
+                SingleTasksView(selectedconfig: $selectedconfig,
+                                reload: $reload,
+                                singletaskview: $singletaskview)
+            }
         }
 
         HStack {
@@ -95,6 +99,9 @@ struct MultipletasksView: View {
                     }
                     .buttonStyle(PrimaryButtonStyle())
 
+                    Button("Single") { singletaskview = true }
+                        .buttonStyle(PrimaryButtonStyle())
+
                     Button("Reset") {
                         selecteduuids.removeAll()
                         reset()
@@ -110,7 +117,7 @@ struct MultipletasksView: View {
                 if progressviewshowinfo {
                     RotatingDotsIndicatorView()
                         .frame(width: 25.0, height: 25.0)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.red)
                 }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
                 if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasync }
@@ -155,7 +162,7 @@ struct MultipletasksView: View {
     var progressviewestimateasync: some View {
         RotatingDotsIndicatorView()
             .frame(width: 25.0, height: 25.0)
-            .foregroundColor(.blue)
+            .foregroundColor(.red)
             .onAppear {
                 Task {
                     if selectedconfig != nil && selecteduuids.count == 0 {
@@ -182,7 +189,7 @@ struct MultipletasksView: View {
     var progressviewexecuteasync: some View {
         RotatingDotsIndicatorView()
             .frame(width: 25.0, height: 25.0)
-            .foregroundColor(.blue)
+            .foregroundColor(.red)
             .onAppear {
                 Task {
                     if selectedconfig != nil && selecteduuids.count == 0 {
@@ -205,14 +212,6 @@ struct MultipletasksView: View {
             .onDisappear {
                 showcompleted = true
             }
-    }
-
-    var labelshortcutexecute: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusstartexecution = false
-                startexecution()
-            })
     }
 
     var labelselecttask: some View {
@@ -271,7 +270,6 @@ extension MultipletasksView {
         inwork = -1
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
-        alwaysestimate = SharedReference.shared.alwaysestimate
     }
 
     func abort() {
@@ -281,10 +279,6 @@ extension MultipletasksView {
         _ = InterruptProcess()
         inwork = -1
         reload = true
-    }
-
-    func startexecution() {
-        showestimateview = false
     }
 
     func select() {

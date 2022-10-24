@@ -95,8 +95,6 @@ class SharedReference {
     let defaultprofile = "Default profile"
     // If firstime use
     var firsttime = false
-    // Always estimate before execute task
-    var alwaysestimate = true
 
     private init() {
         synctasks = Set<String>()

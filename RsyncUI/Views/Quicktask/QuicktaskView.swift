@@ -76,7 +76,7 @@ struct QuicktaskView: View {
             if showprogressview {
                 RotatingDotsIndicatorView()
                     .frame(width: 25.0, height: 25.0)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.red)
             }
         }
         .onSubmit {
