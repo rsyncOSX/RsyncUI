@@ -11,7 +11,7 @@ import SwiftUI
 struct DetailsView: View {
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
-    @Binding var singletaskview: Bool
+    @Binding var isPresented: Bool
 
     @State private var remotedata: [String] = []
     @State private var gettingremotedata: Bool = false
@@ -33,6 +33,15 @@ struct DetailsView: View {
                 Text(line)
                     .modifier(FixedTag(750, .leading))
             }
+
+            Spacer()
+
+            HStack {
+                Spacer()
+
+                Button("Dismiss") { dismissview() }
+                    .buttonStyle(PrimaryButtonStyle())
+            }
         }
         .onAppear(perform: {
             selecteduuids.insert(selectedconfig?.id ?? UUID())
@@ -45,12 +54,16 @@ struct DetailsView: View {
                 await task.executeProcess()
             }
         })
+        .padding()
+        .frame(minWidth: 1100, minHeight: 400)
 
-        if gettingremotedata {
-            RotatingDotsIndicatorView()
-                .frame(width: 25.0, height: 25.0)
-                .foregroundColor(.red)
-        }
+        /*
+         if gettingremotedata {
+             RotatingDotsIndicatorView()
+                 .frame(width: 25.0, height: 25.0)
+                 .foregroundColor(.red)
+         }
+         */
     }
 }
 
@@ -58,5 +71,9 @@ extension DetailsView {
     func processtermination(data: [String]?) {
         remotedata = data ?? []
         gettingremotedata = false
+    }
+
+    func dismissview() {
+        isPresented = false
     }
 }

@@ -49,8 +49,6 @@ struct MultipletasksView: View {
     @State private var progressviewshowinfo = false
     // Modale view
     @State private var modaleview = false
-    // Single task
-    @State private var singletaskview = false
 
     var body: some View {
         ZStack {
@@ -67,11 +65,6 @@ struct MultipletasksView: View {
             if focusfirsttaskinfo { labelfirsttime }
             if focusdeletetask { labeldeletetask }
             if focusshowinfotask { labelshowinfotask }
-            if singletaskview {
-                DetailsView(selectedconfig: $selectedconfig,
-                            reload: $reload,
-                            singletaskview: $singletaskview)
-            }
         }
 
         HStack {
@@ -99,13 +92,9 @@ struct MultipletasksView: View {
                     }
                     .buttonStyle(PrimaryButtonStyle())
 
-                    Button("Details") { singletaskview = true }
-                        .buttonStyle(PrimaryButtonStyle())
-
                     Button("Reset") {
                         selecteduuids.removeAll()
                         reset()
-                        singletaskview = false
                     }
                     .buttonStyle(PrimaryButtonStyle())
                 }
@@ -150,8 +139,13 @@ struct MultipletasksView: View {
         }
         .sheet(isPresented: $modaleview) {
             if firsttime {
-                FirsttimeView(dismiss: $modaleview,
-                              selection: $selection)
+                DetailsView(selectedconfig: $selectedconfig,
+                            reload: $reload,
+                            isPresented: $modaleview)
+                /*
+                 FirsttimeView(dismiss: $modaleview,
+                               selection: $selection)
+                  */
             } else {
                 LocalRemoteInfoView(dismiss: $modaleview,
                                     localdata: $localdata,
