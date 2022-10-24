@@ -74,7 +74,7 @@ struct QuicktaskView: View {
             }
 
             if showprogressview {
-                RotatingDotsIndicatorView()
+                RotatingDotsIndicatorView(count: 5)
                     .frame(width: 25.0, height: 25.0)
                     .foregroundColor(.red)
             }
