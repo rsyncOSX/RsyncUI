@@ -49,6 +49,8 @@ struct MultipletasksView: View {
     @State private var progressviewshowinfo = false
     // Modale view
     @State private var modaleview = false
+    // Details view
+    @State private var detailsview = false
 
     var body: some View {
         ZStack {
@@ -91,6 +93,16 @@ struct MultipletasksView: View {
                         showestimateview = false
                     }
                     .buttonStyle(PrimaryButtonStyle())
+
+                    Button("Details") {
+                        detailsview = true
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .sheet(isPresented: $detailsview) {
+                        DetailsView(selectedconfig: $selectedconfig,
+                                    reload: $reload,
+                                    isPresented: $detailsview)
+                    }
 
                     Button("Reset") {
                         selecteduuids.removeAll()
@@ -139,13 +151,8 @@ struct MultipletasksView: View {
         }
         .sheet(isPresented: $modaleview) {
             if firsttime {
-                DetailsView(selectedconfig: $selectedconfig,
-                            reload: $reload,
-                            isPresented: $modaleview)
-                /*
-                 FirsttimeView(dismiss: $modaleview,
-                               selection: $selection)
-                  */
+                FirsttimeView(dismiss: $modaleview,
+                              selection: $selection)
             } else {
                 LocalRemoteInfoView(dismiss: $modaleview,
                                     localdata: $localdata,

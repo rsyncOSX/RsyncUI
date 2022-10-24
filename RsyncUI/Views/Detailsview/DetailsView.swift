@@ -15,6 +15,7 @@ struct DetailsView: View {
 
     @State private var remotedata: [String] = []
     @State private var gettingremotedata: Bool = false
+    @State private var progressviewshowinfo = false
 
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
@@ -23,15 +24,23 @@ struct DetailsView: View {
 
     var body: some View {
         VStack {
-            ConfigurationSelected(selectedconfig: $selectedconfig,
-                                  selecteduuids: $selecteduuids,
-                                  inwork: $inwork,
-                                  reload: $reload)
-                .frame(height: 57)
+            ZStack {
+                VStack {
+                    ConfigurationSelected(selectedconfig: $selectedconfig,
+                                          selecteduuids: $selecteduuids,
+                                          inwork: $inwork,
+                                          reload: $reload)
+                        .frame(height: 57)
 
-            List(remotedata, id: \.self) { line in
-                Text(line)
-                    .modifier(FixedTag(750, .leading))
+                    List(remotedata, id: \.self) { line in
+                        Text(line)
+                            .modifier(FixedTag(750, .leading))
+                    }
+                }
+
+                if progressviewshowinfo {
+                    ProgressView()
+                }
             }
 
             Spacer()
@@ -46,6 +55,7 @@ struct DetailsView: View {
         .onAppear(perform: {
             selecteduuids.insert(selectedconfig?.id ?? UUID())
             gettingremotedata = true
+            progressviewshowinfo = true
             let arguments = ArgumentsSynchronize(config: selectedconfig)
                 .argumentssynchronize(dryRun: true, forDisplay: false)
             let task = RsyncAsync(arguments: arguments, config: selectedconfig,
@@ -55,15 +65,7 @@ struct DetailsView: View {
             }
         })
         .padding()
-        .frame(minWidth: 1100, minHeight: 400)
-
-        /*
-         if gettingremotedata {
-             RotatingDotsIndicatorView()
-                 .frame(width: 25.0, height: 25.0)
-                 .foregroundColor(.red)
-         }
-         */
+        .frame(minWidth: 1100, minHeight: 500)
     }
 }
 
@@ -71,6 +73,7 @@ extension DetailsView {
     func processtermination(data: [String]?) {
         remotedata = data ?? []
         gettingremotedata = false
+        progressviewshowinfo = false
     }
 
     func dismissview() {
