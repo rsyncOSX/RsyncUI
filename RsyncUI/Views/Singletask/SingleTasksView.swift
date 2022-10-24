@@ -50,10 +50,20 @@ struct SingleTasksView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationSelected(selectedconfig: $selectedconfig,
-                                  selecteduuids: $selecteduuids,
-                                  inwork: $inwork,
-                                  reload: $reload)
+            VStack {
+                ConfigurationSelected(selectedconfig: $selectedconfig,
+                                      selecteduuids: $selecteduuids,
+                                      inwork: $inwork,
+                                      reload: $reload)
+
+                List(listitems, id: \.self) { line in
+                    Text(line)
+                        .modifier(FixedTag(750, .leading))
+                }
+            }
+            .task {
+                estimatesingletask()
+            }
 
             // Estimate singletask or Execute task now
             if singletasknowstate.executetasknowstate == .execute {
@@ -68,125 +78,10 @@ struct SingleTasksView: View {
                     .foregroundColor(.red)
             }
         }
-
-        // When estimated singletaskstate is set to .execute
-        if singletaskstate.singletaskstate == .execute {
-            SingleTasksEstimatedView(output: inprogresscountrsyncoutput.getoutput() ?? [])
-        }
-
-        if shellout { notifyshellout }
-        if focusstartexecution { labelshortcutexecute }
-
-        HStack {
-            executebutton
-
-            Button("Reset") {
-                singletaskview = false
-                selectedconfig = nil
-            }
-            .buttonStyle(PrimaryButtonStyle())
-
-            Spacer()
-
-            // Progressview for execute of estimated task
-            if singletaskstate.singletaskstate == .estimated { progressviewexecute }
-
-            Spacer()
-
-            Button("Log") { presentoutput() }
-                .buttonStyle(PrimaryButtonStyle())
-                .sheet(isPresented: $presentsheetview) { viewoutput }
-
-            Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
-        }
-        .focusedSceneValue(\.startexecution, $focusstartexecution)
-        .task {
-            if let config = selectedconfig {
-                if (config.executepretask ?? -1) == 1 {
-                    shellout = true
-                } else {
-                    shellout = false
-                }
-            }
-            estimatesingletask()
-        }
     }
 
-    // No estimation, just execute task now
-    var executebutton: some View {
-        Button("Execute") {
-            if selectedconfig?.executepretask == 1 {
-                executesingletasknow()
-            } else {
-                executeestimatedsingletask()
-            }
-        }
-        .buttonStyle(PrimaryButtonStyle())
-        .onChange(of: singletasknowstate.executetasknowstate, perform: { _ in
-            if singletasknowstate.executetasknowstate == .completed {
-                completed()
-            }
-        })
-        .onChange(of: singletaskstate.singletaskstate, perform: { _ in
-            if singletaskstate.singletaskstate == .completed {
-                completed()
-            }
-        })
-    }
-
-    var labelshortcutexecute: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusstartexecution = false
-                if selectedconfig?.executepretask == 1 {
-                    executesingletasknow()
-                } else {
-                    // Guard statement must be after resetting properties to false
-                    executeestimatedsingletask()
-                }
-            })
-    }
-
-    var progressviewexecute: some View {
-        ProgressView("" + "…",
-                     value: inprogresscountrsyncoutput.getinprogress(),
-                     total: Double(inprogresscountrsyncoutput.getmaxcount()))
-            .onChange(of: inprogresscountrsyncoutput.getinprogress(), perform: { _ in })
-            .progressViewStyle(GaugeProgressStyle())
-            .frame(width: 25.0, height: 25.0)
-            .contentShape(Rectangle())
-    }
-
-    // Output
-    var viewoutput: some View {
-        if singletaskstate.singletaskstate == .start ||
-            singletaskstate.singletaskstate == .estimate ||
-            singletaskstate.singletaskstate == .completed
-        {
-            // real run output
-            return OutputRsyncView(isPresented: $presentsheetview,
-                                   valueselectedrow: $valueselectedrow,
-                                   numberoffiles: $numberoffiles,
-                                   output: outputfromrsync.getoutput() ?? [])
-        } else {
-            // estimated run output
-            return OutputRsyncView(isPresented: $presentsheetview,
-                                   valueselectedrow: $valueselectedrow,
-                                   numberoffiles: $numberoffiles,
-                                   output: inprogresscountrsyncoutput.getoutput() ?? [])
-        }
-    }
-
-    var notifyshellout: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Pre and post task")
-                .font(.title3)
-                .foregroundColor(Color.accentColor)
-        }
-        .frame(width: 200, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    var listitems: [String] {
+        return inprogresscountrsyncoutput.getoutput() ?? []
     }
 }
 
@@ -203,7 +98,6 @@ extension SingleTasksView {
         executesingletasks = nil
         executetasknow = nil
         singletaskstate.estimateonly = false
-        singletaskview = false
     }
 
     func estimatesingletask() {

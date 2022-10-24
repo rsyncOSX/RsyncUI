@@ -105,6 +105,7 @@ struct MultipletasksView: View {
                     Button("Reset") {
                         selecteduuids.removeAll()
                         reset()
+                        singletaskview = false
                     }
                     .buttonStyle(PrimaryButtonStyle())
                 }

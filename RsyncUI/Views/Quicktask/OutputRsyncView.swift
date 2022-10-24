@@ -1,8 +1,8 @@
 //
-//  OutputView.swift
-//  RsyncSwiftUI
+//  OutputRsyncView.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 12/01/2021.
+//  Created by Thomas Evensen on 24/10/2022.
 //
 
 import SwiftUI
