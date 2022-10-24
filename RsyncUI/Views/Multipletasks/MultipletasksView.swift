@@ -99,7 +99,7 @@ struct MultipletasksView: View {
                     }
                     .buttonStyle(PrimaryButtonStyle())
 
-                    Button("Single") { singletaskview = true }
+                    Button("Details") { singletaskview = true }
                         .buttonStyle(PrimaryButtonStyle())
 
                     Button("Reset") {
