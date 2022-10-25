@@ -114,9 +114,6 @@
 		E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */; };
 		E985C76625F3AD9700CB895C /* MultipleTaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E425F3AD9600CB895C /* MultipleTaskState.swift */; };
 		E985C76725F3AD9700CB895C /* ExecuteOneTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */; };
-		E985C76825F3AD9700CB895C /* SingletaskNowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E725F3AD9600CB895C /* SingletaskNowState.swift */; };
-		E985C76925F3AD9700CB895C /* ExecuteSingleTaskNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E825F3AD9600CB895C /* ExecuteSingleTaskNow.swift */; };
-		E985C76A25F3AD9700CB895C /* ExecuteSingleTaskNowShellout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E925F3AD9600CB895C /* ExecuteSingleTaskNowShellout.swift */; };
 		E985C76C25F3AD9700CB895C /* RemoteinfonumbersOnetask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EC25F3AD9600CB895C /* RemoteinfonumbersOnetask.swift */; };
 		E985C76E25F3AD9700CB895C /* EstimationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EE25F3AD9600CB895C /* EstimationState.swift */; };
 		E985C76F25F3AD9700CB895C /* InprogressCountRsyncOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F025F3AD9600CB895C /* InprogressCountRsyncOutput.swift */; };
@@ -324,9 +321,6 @@
 		E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteMultipleTasks.swift; sourceTree = "<group>"; };
 		E985C6E425F3AD9600CB895C /* MultipleTaskState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleTaskState.swift; sourceTree = "<group>"; };
 		E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteOneTask.swift; sourceTree = "<group>"; };
-		E985C6E725F3AD9600CB895C /* SingletaskNowState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingletaskNowState.swift; sourceTree = "<group>"; };
-		E985C6E825F3AD9600CB895C /* ExecuteSingleTaskNow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteSingleTaskNow.swift; sourceTree = "<group>"; };
-		E985C6E925F3AD9600CB895C /* ExecuteSingleTaskNowShellout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteSingleTaskNowShellout.swift; sourceTree = "<group>"; };
 		E985C6EC25F3AD9600CB895C /* RemoteinfonumbersOnetask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteinfonumbersOnetask.swift; sourceTree = "<group>"; };
 		E985C6EE25F3AD9600CB895C /* EstimationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimationState.swift; sourceTree = "<group>"; };
 		E985C6F025F3AD9600CB895C /* InprogressCountRsyncOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InprogressCountRsyncOutput.swift; sourceTree = "<group>"; };
@@ -818,7 +812,6 @@
 			children = (
 				E9BB4F572903C07E00FEEA0A /* Async */,
 				E985C6E225F3AD9600CB895C /* ExecuteMultipleTasks */,
-				E985C6E625F3AD9600CB895C /* SingleTaskNow */,
 				E985C6EA25F3AD9600CB895C /* Estimation */,
 				E985C6EF25F3AD9600CB895C /* ProgressCounts */,
 			);
@@ -833,16 +826,6 @@
 				E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */,
 			);
 			path = ExecuteMultipleTasks;
-			sourceTree = "<group>";
-		};
-		E985C6E625F3AD9600CB895C /* SingleTaskNow */ = {
-			isa = PBXGroup;
-			children = (
-				E985C6E725F3AD9600CB895C /* SingletaskNowState.swift */,
-				E985C6E825F3AD9600CB895C /* ExecuteSingleTaskNow.swift */,
-				E985C6E925F3AD9600CB895C /* ExecuteSingleTaskNowShellout.swift */,
-			);
-			path = SingleTaskNow;
 			sourceTree = "<group>";
 		};
 		E985C6EA25F3AD9600CB895C /* Estimation */ = {
@@ -1200,7 +1183,6 @@
 				E985C65825F3AD8400CB895C /* SidebarSettingsView.swift in Sources */,
 				E99C23FB261C2D6C009D4DBF /* RestoreView.swift in Sources */,
 				E985C77D25F3AD9700CB895C /* ArgumentsSsh.swift in Sources */,
-				E985C76A25F3AD9700CB895C /* ExecuteSingleTaskNowShellout.swift in Sources */,
 				E985C78A25F3AD9700CB895C /* OutputFromRsync.swift in Sources */,
 				E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */,
 				E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */,
@@ -1208,7 +1190,6 @@
 				E985C78625F3AD9700CB895C /* SchedulesSwiftUI.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,
 				E985C78925F3AD9700CB895C /* OutputFromMultipleTasks.swift in Sources */,
-				E985C76825F3AD9700CB895C /* SingletaskNowState.swift in Sources */,
 				E985C65E25F3AD8400CB895C /* ConfigurationsList.swift in Sources */,
 				E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */,
 				E9BB4F562903C00A00FEEA0A /* ExecuteAlltasksAsync.swift in Sources */,
@@ -1350,7 +1331,6 @@
 				E9E811F92669E2EA0049E672 /* ObserveablePreandPostTask.swift in Sources */,
 				E9168C092615AB8500B139CE /* AddPreandPostView.swift in Sources */,
 				E985C77B25F3AD9700CB895C /* DuArgumentsSsh.swift in Sources */,
-				E985C76925F3AD9700CB895C /* ExecuteSingleTaskNow.swift in Sources */,
 				E985C79225F3AD9700CB895C /* Extensions.swift in Sources */,
 				E92B19092755F7F600B16B03 /* LogCommands.swift in Sources */,
 				E985C78025F3AD9700CB895C /* AllLoggs.swift in Sources */,
