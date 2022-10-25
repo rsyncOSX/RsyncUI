@@ -67,6 +67,14 @@ struct MultipletasksView: View {
             if focusfirsttaskinfo { labelfirsttime }
             if focusdeletetask { labeldeletetask }
             if focusshowinfotask { labelshowinfotask }
+
+            if progressviewshowinfo {
+                RotatingDotsIndicatorView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(.red)
+            }
+            if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
+            if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasync }
         }
 
         HStack {
@@ -117,13 +125,6 @@ struct MultipletasksView: View {
 
             ZStack {
                 if estimationstate.estimationstate != .estimate { footer }
-                if progressviewshowinfo {
-                    RotatingDotsIndicatorView()
-                        .frame(width: 50.0, height: 50.0)
-                        .foregroundColor(.red)
-                }
-                if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
-                if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasync }
             }
 
             Spacer()
