@@ -64,6 +64,7 @@ struct TasksView: View {
 
             if focusstartestimation { labelstartestimation }
             if focusstartexecution { labelstartexecution }
+
             if focusselecttask { labelselecttask }
             if focusfirsttaskinfo { labelfirsttime }
             if focusdeletetask { labeldeletetask }
@@ -214,6 +215,7 @@ struct TasksView: View {
             }
             .onDisappear {
                 presentoutputsheetview = true
+                focusstartestimation = false
             }
     }
 
@@ -242,6 +244,7 @@ struct TasksView: View {
             }
             .onDisappear {
                 showcompleted = true
+                focusstartexecution = false
             }
     }
 
