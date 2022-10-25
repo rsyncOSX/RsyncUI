@@ -166,6 +166,7 @@ struct TasksView: View {
 
     var labelstartestimation: some View {
         Label("", systemImage: "play.fill")
+            .foregroundColor(.black)
             .onAppear(perform: {
                 inprogresscountmultipletask.resetcounts()
                 executedetails.resetcounter()
@@ -175,6 +176,7 @@ struct TasksView: View {
 
     var labelstartexecution: some View {
         Label("", systemImage: "play.fill")
+            .foregroundColor(.black)
             .onAppear(perform: {
                 selecteduuids = inprogresscountmultipletask.getuuids()
                 guard selecteduuids.count > 0 else {
