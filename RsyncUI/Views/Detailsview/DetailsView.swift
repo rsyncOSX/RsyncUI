@@ -14,8 +14,8 @@ struct DetailsView: View {
     @Binding var isPresented: Bool
 
     @State private var remotedata: [String] = []
-    @State private var gettingremotedata: Bool = false
-    @State private var progressviewshowinfo = true
+    @State private var gettingremotedata = true
+    // @State private var progressviewshowinfo = true
 
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
@@ -38,8 +38,10 @@ struct DetailsView: View {
                     }
                 }
 
-                if progressviewshowinfo {
-                    ProgressView()
+                if gettingremotedata {
+                    RotatingDotsIndicatorView()
+                        .frame(width: 50.0, height: 50.0)
+                        .foregroundColor(.red)
                 }
             }
 
@@ -54,7 +56,7 @@ struct DetailsView: View {
         }
         .onAppear(perform: {
             selecteduuids.insert(selectedconfig?.id ?? UUID())
-            gettingremotedata = true
+            // gettingremotedata = true
             // progressviewshowinfo = true
             let arguments = ArgumentsSynchronize(config: selectedconfig)
                 .argumentssynchronize(dryRun: true, forDisplay: false)
@@ -73,7 +75,7 @@ extension DetailsView {
     func processtermination(data: [String]?) {
         remotedata = data ?? []
         gettingremotedata = false
-        progressviewshowinfo = false
+        // progressviewshowinfo = false
     }
 
     func dismissview() {

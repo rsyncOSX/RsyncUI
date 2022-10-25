@@ -118,7 +118,7 @@ struct MultipletasksView: View {
             ZStack {
                 if estimationstate.estimationstate != .estimate { footer }
                 if progressviewshowinfo {
-                    RotatingDotsIndicatorView(count: 5)
+                    RotatingDotsIndicatorView()
                         .frame(width: 50.0, height: 50.0)
                         .foregroundColor(.red)
                 }
@@ -163,7 +163,7 @@ struct MultipletasksView: View {
     }
 
     var progressviewestimateasync: some View {
-        RotatingDotsIndicatorView(count: 5)
+        RotatingDotsIndicatorView()
             .frame(width: 50.0, height: 50.0)
             .foregroundColor(.red)
             .onAppear {
@@ -190,7 +190,7 @@ struct MultipletasksView: View {
     }
 
     var progressviewexecuteasync: some View {
-        RotatingDotsIndicatorView(count: 5)
+        RotatingDotsIndicatorView()
             .frame(width: 50.0, height: 50.0)
             .foregroundColor(.red)
             .onAppear {
