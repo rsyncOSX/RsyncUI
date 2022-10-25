@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 19/01/2021.
 //
-// swiftlint:disable line_length
+// swiftlint:disable line_length type_body_length
 
 import Network
 import SwiftUI
@@ -50,8 +50,8 @@ struct TasksView: View {
     @State private var progressviewshowinfo = false
     // Modale view
     @State private var modaleview = false
-    // Details view
-    @State private var detailsview = false
+    // Dryrun view
+    @State private var dryrunview = false
 
     var body: some View {
         ZStack {
@@ -104,15 +104,15 @@ struct TasksView: View {
                     }
                     .buttonStyle(PrimaryButtonStyle())
 
-                    Button("Details") {
+                    Button("DryRun") {
                         guard selectedconfig != nil else { return }
-                        detailsview = true
+                        dryrunview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
-                    .sheet(isPresented: $detailsview) {
+                    .sheet(isPresented: $dryrunview) {
                         DetailsView(selectedconfig: $selectedconfig,
                                     reload: $reload,
-                                    isPresented: $detailsview)
+                                    isPresented: $dryrunview)
                     }
 
                     Button("Reset") {
