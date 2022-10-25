@@ -37,8 +37,6 @@ final class ObserveableUsersetting: ObservableObject {
     @Published var novalidpathmessage: Bool = false
     // True if on ARM based Mac
     @Published var macosarm: Bool = SharedReference.shared.macosarm
-    // Always estimate before execute task
-    @Published var alwaysestimate: Bool = SharedReference.shared.alwaysestimate
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -86,10 +84,6 @@ final class ObserveableUsersetting: ObservableObject {
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] value in
                 markdays(days: value)
-            }.store(in: &subscriptions)
-        $alwaysestimate
-            .sink { estimate in
-                SharedReference.shared.alwaysestimate = estimate
             }.store(in: &subscriptions)
     }
 }

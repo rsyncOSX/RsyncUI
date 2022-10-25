@@ -23,12 +23,12 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
     var config: Configuration?
 
     init(hiddenID: Int?,
-         outputprocess: OutputfromProcess?,
+         outputfromrsync: [String]?,
          config: Configuration?)
     {
         self.hiddenID = hiddenID ?? -1
         self.config = config
-        let number = Numbers(outputprocess: outputprocess)
+        let number = Numbers(outputfromrsync ?? [])
         transferredNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.none)
         transferredNumberSizebytes = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal)
         totalNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber)), number: NumberFormatter.Style.decimal)

@@ -18,8 +18,6 @@ struct SidebarMultipletasksView: View {
     @State private var selecteduuids = Set<UUID>()
     // Show completed
     @State private var showcompleted: Bool = false
-    // Singletask
-    @State private var singletaskview: Bool = false
 
     var body: some View {
         ZStack {
@@ -27,18 +25,12 @@ struct SidebarMultipletasksView: View {
                 headingtitle
 
                 if showestimateview == true {
-                    if singletaskview == false {
-                        MultipletasksView(selectedconfig: $selectedconfig,
-                                          reload: $reload,
-                                          selecteduuids: $selecteduuids,
-                                          showestimateview: $showestimateview,
-                                          singletaskview: $singletaskview,
-                                          selection: $selection)
-                    } else {
-                        SingleTasksView(selectedconfig: $selectedconfig,
-                                        reload: $reload,
-                                        singletaskview: $singletaskview)
-                    }
+                    TasksView(selectedconfig: $selectedconfig,
+                              reload: $reload,
+                              selecteduuids: $selecteduuids,
+                              showestimateview: $showestimateview,
+                              showcompleted: $showcompleted,
+                              selection: $selection)
                 }
 
                 if showestimateview == false {

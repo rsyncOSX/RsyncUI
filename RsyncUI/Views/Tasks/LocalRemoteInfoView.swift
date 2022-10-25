@@ -38,7 +38,9 @@ struct LocalRemoteInfoView: View {
             Spacer()
 
             if gettingremotedata {
-                ProgressView()
+                RotatingDotsIndicatorView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(.red)
             }
 
             Spacer()

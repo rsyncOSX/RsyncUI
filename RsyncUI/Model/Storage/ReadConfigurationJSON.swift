@@ -69,7 +69,8 @@ class ReadConfigurationJSON: NamesandPaths {
             } receiveValue: { [unowned self] data in
                 var configurations = [Configuration]()
                 for i in 0 ..< data.count {
-                    let configuration = Configuration(data[i])
+                    var configuration = Configuration(data[i])
+                    configuration.profile = profile
                     // Validate sync task
                     if SharedReference.shared.synctasks.contains(configuration.task) {
                         if validhiddenIDs.contains(configuration.hiddenID) == false {

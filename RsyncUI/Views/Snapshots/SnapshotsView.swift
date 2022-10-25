@@ -70,9 +70,10 @@ struct SnapshotsView: View {
 
             if snapshotdata.inprogressofdelete == true { progressdelete }
             if notsnapshot == true { notasnapshottask }
-            if snapshotdata.state == .getdata { RotatingDotsIndicatorView()
-                .frame(width: 25.0, height: 25.0)
-                .foregroundColor(.red)
+            if snapshotdata.state == .getdata {
+                RotatingDotsIndicatorView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(.red)
             }
 
             Spacer()

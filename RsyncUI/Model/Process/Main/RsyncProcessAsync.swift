@@ -18,7 +18,7 @@ final class RsyncProcessAsync {
     // Arguments to command
     var arguments: [String]?
     // Process termination
-    var processtermination: ([String]?) -> Void
+    var processtermination: ([String]?, Int?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
 
@@ -80,10 +80,11 @@ final class RsyncProcessAsync {
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { _ in
-                // Logg to file
-                self.processtermination(self.outputprocess?.getOutput())
+                // Process termination and Log to file
+                self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
+                _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 // Release Combine subscribers
-                // print("process termination")
+                print("process termination")
                 self.subscriptons.removeAll()
             }.store(in: &subscriptons)
         SharedReference.shared.process = task
@@ -102,11 +103,11 @@ final class RsyncProcessAsync {
 
     init(arguments: [String]?,
          config: Configuration?,
-         processtermination: @escaping ([String]?) -> Void)
+         processtermination: @escaping ([String]?, Int?) -> Void)
     {
         self.arguments = arguments
-        self.processtermination = processtermination
         self.config = config
+        self.processtermination = processtermination
         outputprocess = OutputfromProcess()
         executemonitornetworkconnection()
     }

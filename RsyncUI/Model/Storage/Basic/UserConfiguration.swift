@@ -30,8 +30,6 @@ struct UserConfiguration: Codable {
     // Environment variable
     var environment: String?
     var environmentvalue: String?
-    // Always estimate a task
-    var alwaysestimate: Int = 1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -63,11 +61,6 @@ struct UserConfiguration: Codable {
             SharedReference.shared.monitornetworkconnection = true
         } else {
             SharedReference.shared.monitornetworkconnection = false
-        }
-        if alwaysestimate == 1 {
-            SharedReference.shared.alwaysestimate = true
-        } else {
-            SharedReference.shared.alwaysestimate = false
         }
         if localrsyncpath != nil {
             SharedReference.shared.localrsyncpath = localrsyncpath
@@ -112,7 +105,6 @@ struct UserConfiguration: Codable {
         sshport = data.sshport
         environment = data.environment
         environmentvalue = data.environmentvalue
-        alwaysestimate = data.alwaysestimate ?? 1
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -149,11 +141,6 @@ struct UserConfiguration: Codable {
             monitornetworkconnection = 1
         } else {
             monitornetworkconnection = -1
-        }
-        if SharedReference.shared.alwaysestimate {
-            alwaysestimate = 1
-        } else {
-            alwaysestimate = 0
         }
         if SharedReference.shared.localrsyncpath != nil {
             localrsyncpath = SharedReference.shared.localrsyncpath

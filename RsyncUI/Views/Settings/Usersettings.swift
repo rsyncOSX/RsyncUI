@@ -82,7 +82,6 @@ struct Usersettings: View {
                                 Section(header: othersettings) {
                                     ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
                                     ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
-                                    ToggleViewDefault(NSLocalizedString("Always estimate", comment: ""), $usersettings.alwaysestimate)
                                 }
                             }
                         }

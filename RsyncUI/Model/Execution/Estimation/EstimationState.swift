@@ -7,6 +7,16 @@
 
 import Foundation
 
+enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case start
+    case estimate
+    case completed
+    case error
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedCapitalized }
+}
+
 final class EstimationState: ObservableObject {
     @Published var estimationstate: EstimatetaskWork = .start
 

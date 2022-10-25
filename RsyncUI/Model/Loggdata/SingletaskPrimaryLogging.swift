@@ -75,6 +75,40 @@ class SingletaskPrimaryLogging {
         }
     }
 
+    // Caution, the snapshotnum is alrady increased in setCurrentDateonConfiguration().
+    // Must set -1 to get correct num in log
+    func addlogpermanentstore(outputrsync: [String]?) {
+        if let hiddenID = localehiddenID {
+            if SharedReference.shared.detailedlogging {
+                let stats = Numbers(outputrsync ?? []).stats()
+                // Set the current date
+                let currendate = Date()
+                let date = currendate.en_us_string_from_date()
+                if let config = getconfig(hiddenID: hiddenID) {
+                    var resultannotaded: String?
+                    if config.task == SharedReference.shared.snapshot {
+                        if let snapshotnum = config.snapshotnum {
+                            resultannotaded = "(" + String(snapshotnum - 1) + ") " + stats
+                        } else {
+                            resultannotaded = "(" + "1" + ") " + stats
+                        }
+                    } else {
+                        resultannotaded = stats
+                    }
+                    var inserted: Bool = addlogexisting(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
+                    // Record does not exist, create new Schedule (not inserted)
+                    if inserted == false {
+                        inserted = addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
+                    }
+                    if inserted {
+                        WriteScheduleJSON(localeprofile, structschedules)
+                    }
+                    _ = Logfile(TrimTwo(outputrsync ?? []).trimmeddata, error: false)
+                }
+            }
+        }
+    }
+
     func addlogexisting(hiddenID: Int, result: String, date: String) -> Bool {
         let configdata = GetConfigurationData(configurations: structconfigurations)
         if SharedReference.shared.synctasks.contains(configdata.getconfigurationdata(hiddenID, resource: .task) ?? "") {
@@ -135,6 +169,6 @@ class SingletaskPrimaryLogging {
     }
 
     deinit {
-        // print("deinit SingletaskPrimaryLogging")
+        print("deinit SingletaskPrimaryLogging")
     }
 }
