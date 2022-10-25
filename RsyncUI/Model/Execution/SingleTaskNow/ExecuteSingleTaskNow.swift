@@ -22,23 +22,23 @@ class ExecuteSingleTaskNow {
     weak var updateestimationcountDelegate: UpdateOutputprocessCountProtcol?
 
     var hiddenID: Int?
-    var outputprocess: OutputfromProcess?
-    var command: RsyncProcess?
+    // var outputprocess: OutputfromProcess?
+    var command: RsyncProcessAsync?
     var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     var structprofile: String?
     // Set if abort is executed
     private var setabort = false
 
-    func executetasknow() {
+    @MainActor
+    func executetasknow() async {
         guard SharedReference.shared.process == nil else { return }
         if let hiddenID = hiddenID {
-            outputprocess = OutputfromProcessRsync()
+            // outputprocess = OutputfromProcessRsync()
             if let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
-                command = RsyncProcess(arguments: arguments,
-                                       config: localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID),
-                                       processtermination: processtermination,
-                                       filehandler: filehandler)
-                command?.executeProcess(outputprocess: outputprocess)
+                command = RsyncProcessAsync(arguments: arguments,
+                                            config: localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID),
+                                            processtermination: processtermination)
+                await command?.executeProcess()
             }
         }
     }
@@ -51,8 +51,7 @@ class ExecuteSingleTaskNow {
          profile: String?,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
          executetaskstate: SingletaskNowState?,
-         updateinprogresscount: UpdateOutputprocessCountProtcol?)
-    {
+         updateinprogresscount: UpdateOutputprocessCountProtcol?) async {
         let configurations = configurationsSwiftUI?.getallconfigurations()?.filter { uuids.contains($0.id) }
         guard configurations?.count == 1 else { return }
         hiddenID = configurations?[0].hiddenID
@@ -60,7 +59,7 @@ class ExecuteSingleTaskNow {
         executetasknowstateDelegate = executetaskstate
         structprofile = profile
         updateestimationcountDelegate = updateinprogresscount
-        executetasknow()
+        await executetasknow()
     }
 
     deinit {
@@ -69,9 +68,9 @@ class ExecuteSingleTaskNow {
 }
 
 extension ExecuteSingleTaskNow {
-    func processtermination() {
+    func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
         guard setabort == false else { return }
-        updateestimationcountDelegate?.setoutput(data: outputprocess?.getOutput())
+        updateestimationcountDelegate?.setoutput(data: outputfromrsync)
         if let hiddenID = hiddenID {
             executetasknowstateDelegate?.updatestate(state: .completed)
             let update = SingletaskPrimaryLogging(profile: structprofile,
@@ -79,12 +78,10 @@ extension ExecuteSingleTaskNow {
                                                   configurations: localconfigurationsSwiftUI?.getallconfigurations(),
                                                   validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration()
-            update.addlogpermanentstore(outputprocess: outputprocess)
+            update.addlogpermanentstore(outputrsync: outputfromrsync)
         }
         command = nil
     }
-
-    func filehandler() {}
 }
 
 extension ExecuteSingleTaskNow: RsyncError {

@@ -111,8 +111,6 @@
 		E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6CD25F3AD9600CB895C /* ConfigurationSchedule.swift */; };
 		E985C75925F3AD9700CB895C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D125F3AD9600CB895C /* Configuration.swift */; };
 		E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6DD25F3AD9600CB895C /* SshKeys.swift */; };
-		E985C76325F3AD9700CB895C /* SingleTaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E025F3AD9600CB895C /* SingleTaskState.swift */; };
-		E985C76425F3AD9700CB895C /* ExecuteSingleTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E125F3AD9600CB895C /* ExecuteSingleTask.swift */; };
 		E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */; };
 		E985C76625F3AD9700CB895C /* MultipleTaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E425F3AD9600CB895C /* MultipleTaskState.swift */; };
 		E985C76725F3AD9700CB895C /* ExecuteOneTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */; };
@@ -323,8 +321,6 @@
 		E985C6CD25F3AD9600CB895C /* ConfigurationSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedule.swift; sourceTree = "<group>"; };
 		E985C6D125F3AD9600CB895C /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		E985C6DD25F3AD9600CB895C /* SshKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SshKeys.swift; sourceTree = "<group>"; };
-		E985C6E025F3AD9600CB895C /* SingleTaskState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleTaskState.swift; sourceTree = "<group>"; };
-		E985C6E125F3AD9600CB895C /* ExecuteSingleTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteSingleTask.swift; sourceTree = "<group>"; };
 		E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteMultipleTasks.swift; sourceTree = "<group>"; };
 		E985C6E425F3AD9600CB895C /* MultipleTaskState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleTaskState.swift; sourceTree = "<group>"; };
 		E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteOneTask.swift; sourceTree = "<group>"; };
@@ -821,22 +817,12 @@
 			isa = PBXGroup;
 			children = (
 				E9BB4F572903C07E00FEEA0A /* Async */,
-				E985C6DF25F3AD9600CB895C /* SingleTask */,
 				E985C6E225F3AD9600CB895C /* ExecuteMultipleTasks */,
 				E985C6E625F3AD9600CB895C /* SingleTaskNow */,
 				E985C6EA25F3AD9600CB895C /* Estimation */,
 				E985C6EF25F3AD9600CB895C /* ProgressCounts */,
 			);
 			path = Execution;
-			sourceTree = "<group>";
-		};
-		E985C6DF25F3AD9600CB895C /* SingleTask */ = {
-			isa = PBXGroup;
-			children = (
-				E985C6E025F3AD9600CB895C /* SingleTaskState.swift */,
-				E985C6E125F3AD9600CB895C /* ExecuteSingleTask.swift */,
-			);
-			path = SingleTask;
 			sourceTree = "<group>";
 		};
 		E985C6E225F3AD9600CB895C /* ExecuteMultipleTasks */ = {
@@ -1328,7 +1314,6 @@
 				E985C68325F3AD8400CB895C /* LogRow.swift in Sources */,
 				E904E02E275CED770070DF92 /* FirsttimeView.swift in Sources */,
 				E999F92427690FD100B80DF6 /* ShellOut.swift in Sources */,
-				E985C76425F3AD9700CB895C /* ExecuteSingleTask.swift in Sources */,
 				E985C77F25F3AD9700CB895C /* MultipletasksPrimaryLogging.swift in Sources */,
 				E985C73E25F3AD9700CB895C /* ytcpsocket.swift in Sources */,
 				E985C77A25F3AD9700CB895C /* RsyncParametersSingleFilesArguments.swift in Sources */,
@@ -1350,7 +1335,6 @@
 				E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */,
 				E985C75925F3AD9700CB895C /* Configuration.swift in Sources */,
 				E985C68825F3AD8400CB895C /* SidebarAddTaskView.swift in Sources */,
-				E985C76325F3AD9700CB895C /* SingleTaskState.swift in Sources */,
 				E943D4242906CE6F0042A560 /* DetailsView.swift in Sources */,
 				E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,

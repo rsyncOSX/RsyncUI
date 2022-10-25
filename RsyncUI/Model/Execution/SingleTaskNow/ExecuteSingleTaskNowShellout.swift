@@ -19,7 +19,6 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
                     let outputprocess = OutputfromProcess()
                     outputprocess.addlinefromoutput(str: "ShellOut: pretask containes error, aborting")
                     error = true
-                    // _ = Logging(outputprocess, true)
                 }
             }
         }
@@ -32,13 +31,13 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
                 if task.contains("error"), (localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)?.haltshelltasksonerror ?? 0) == 1 {
                     let outputprocess = OutputfromProcess()
                     outputprocess.addlinefromoutput(str: "ShellOut: posstak containes error")
-                    // _ = Logging(outputprocess, true)
                 }
             }
         }
     }
 
-    override func executetasknow() {
+    @MainActor
+    override func executetasknow() async {
         guard SharedReference.shared.process == nil else { return }
         if let hiddenID = hiddenID {
             // Execute pretask
@@ -51,17 +50,14 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
                     outputprocess.addlinefromoutput(str: "ShellOut: pretask fault, aborting")
                     outputprocess.addlinefromoutput(str: error?.message ?? "")
                     self.error = true
-                    // _ = Logging(outputprocess, true)
                 }
             }
             guard error == false else { return }
-            outputprocess = OutputfromProcessRsync()
             if let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg) {
-                command = RsyncProcess(arguments: arguments,
-                                       config: localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID),
-                                       processtermination: processtermination,
-                                       filehandler: filehandler)
-                command?.executeProcess(outputprocess: outputprocess)
+                command = RsyncProcessAsync(arguments: arguments,
+                                            config: localconfigurationsSwiftUI?.getconfiguration(hiddenID: hiddenID),
+                                            processtermination: processtermination)
+                await command?.executeProcess()
             }
         }
     }
@@ -78,7 +74,6 @@ final class ExecuteSingleTaskNowShellout: ExecuteSingleTaskNow {
                     let outputprocess = OutputfromProcess()
                     outputprocess.addlinefromoutput(str: "ShellOut: posttask fault")
                     outputprocess.addlinefromoutput(str: error?.message ?? "")
-                    // _ = Logging(outputprocess, true)
                 }
             }
         }
