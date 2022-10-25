@@ -46,6 +46,7 @@ struct TasksView: View {
     @State private var confirmdeletemenu: Bool = false
     // Local data for present local and remote info about task
     @State private var localdata: [String] = []
+    // For get local and remote info one task
     @State private var progressviewshowinfo = false
     // Modale view
     @State private var modaleview = false
@@ -61,8 +62,8 @@ struct TasksView: View {
                                reload: $reload,
                                confirmdelete: $confirmdeletemenu)
 
-            if focusstartestimation { progressviewestimateasync }
-            if focusstartexecution { progressviewexecuteasync }
+            if focusstartestimation { labelstartestimation }
+            if focusstartexecution { labelstartexecution }
             if focusselecttask { labelselecttask }
             if focusfirsttaskinfo { labelfirsttime }
             if focusdeletetask { labeldeletetask }
@@ -161,6 +162,30 @@ struct TasksView: View {
                                     selectedconfig: $selectedconfig)
             }
         }
+    }
+
+    var labelstartestimation: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                inprogresscountmultipletask.resetcounts()
+                executedetails.resetcounter()
+                inprogresscountmultipletask.startestimateasync()
+            })
+    }
+
+    var labelstartexecution: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                selecteduuids = inprogresscountmultipletask.getuuids()
+                guard selecteduuids.count > 0 else {
+                    inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
+                    return
+                }
+                estimationstate.updatestate(state: .start)
+                executedetails.resetcounter()
+                executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+                showestimateview = false
+            })
     }
 
     var progressviewestimateasync: some View {
