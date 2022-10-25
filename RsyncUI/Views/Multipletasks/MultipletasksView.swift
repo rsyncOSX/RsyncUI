@@ -95,6 +95,7 @@ struct MultipletasksView: View {
                     .buttonStyle(PrimaryButtonStyle())
 
                     Button("Details") {
+                        guard selectedconfig != nil else { return }
                         detailsview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
@@ -118,7 +119,7 @@ struct MultipletasksView: View {
                 if estimationstate.estimationstate != .estimate { footer }
                 if progressviewshowinfo {
                     RotatingDotsIndicatorView(count: 5)
-                        .frame(width: 25.0, height: 25.0)
+                        .frame(width: 50.0, height: 50.0)
                         .foregroundColor(.red)
                 }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
@@ -163,7 +164,7 @@ struct MultipletasksView: View {
 
     var progressviewestimateasync: some View {
         RotatingDotsIndicatorView(count: 5)
-            .frame(width: 25.0, height: 25.0)
+            .frame(width: 50.0, height: 50.0)
             .foregroundColor(.red)
             .onAppear {
                 Task {
@@ -190,7 +191,7 @@ struct MultipletasksView: View {
 
     var progressviewexecuteasync: some View {
         RotatingDotsIndicatorView(count: 5)
-            .frame(width: 25.0, height: 25.0)
+            .frame(width: 50.0, height: 50.0)
             .foregroundColor(.red)
             .onAppear {
                 Task {

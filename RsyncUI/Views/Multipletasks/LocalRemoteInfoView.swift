@@ -39,7 +39,7 @@ struct LocalRemoteInfoView: View {
 
             if gettingremotedata {
                 RotatingDotsIndicatorView(count: 5)
-                    .frame(width: 25.0, height: 25.0)
+                    .frame(width: 50.0, height: 50.0)
                     .foregroundColor(.red)
             }
 

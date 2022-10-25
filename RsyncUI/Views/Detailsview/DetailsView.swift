@@ -15,7 +15,7 @@ struct DetailsView: View {
 
     @State private var remotedata: [String] = []
     @State private var gettingremotedata: Bool = false
-    @State private var progressviewshowinfo = false
+    @State private var progressviewshowinfo = true
 
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
@@ -55,7 +55,7 @@ struct DetailsView: View {
         .onAppear(perform: {
             selecteduuids.insert(selectedconfig?.id ?? UUID())
             gettingremotedata = true
-            progressviewshowinfo = true
+            // progressviewshowinfo = true
             let arguments = ArgumentsSynchronize(config: selectedconfig)
                 .argumentssynchronize(dryRun: true, forDisplay: false)
             let task = RsyncAsync(arguments: arguments, config: selectedconfig,
