@@ -25,12 +25,12 @@ struct SidebarMultipletasksView: View {
                 headingtitle
 
                 if showestimateview == true {
-                    MultipletasksView(selectedconfig: $selectedconfig,
-                                      reload: $reload,
-                                      selecteduuids: $selecteduuids,
-                                      showestimateview: $showestimateview,
-                                      showcompleted: $showcompleted,
-                                      selection: $selection)
+                    TasksView(selectedconfig: $selectedconfig,
+                              reload: $reload,
+                              selecteduuids: $selecteduuids,
+                              showestimateview: $showestimateview,
+                              showcompleted: $showcompleted,
+                              selection: $selection)
                 }
 
                 if showestimateview == false {

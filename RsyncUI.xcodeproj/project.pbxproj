@@ -75,7 +75,7 @@
 		E985C68725F3AD8400CB895C /* EditValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64A25F3AD8400CB895C /* EditValue.swift */; };
 		E985C68825F3AD8400CB895C /* SidebarAddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C64B25F3AD8400CB895C /* SidebarAddTaskView.swift */; };
 		E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */; };
-		E985C68E25F3AD8400CB895C /* MultipletasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65325F3AD8400CB895C /* MultipletasksView.swift */; };
+		E985C68E25F3AD8400CB895C /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C65325F3AD8400CB895C /* TasksView.swift */; };
 		E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C69625F3AD9600CB895C /* CatalogProfile.swift */; };
 		E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C69725F3AD9600CB895C /* Catalogsandfiles.swift */; };
 		E985C72925F3AD9700CB895C /* Keypathidentityfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C69825F3AD9600CB895C /* Keypathidentityfile.swift */; };
@@ -281,7 +281,7 @@
 		E985C64A25F3AD8400CB895C /* EditValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditValue.swift; sourceTree = "<group>"; };
 		E985C64B25F3AD8400CB895C /* SidebarAddTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarAddTaskView.swift; sourceTree = "<group>"; };
 		E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteEstimatedView.swift; sourceTree = "<group>"; };
-		E985C65325F3AD8400CB895C /* MultipletasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipletasksView.swift; sourceTree = "<group>"; };
+		E985C65325F3AD8400CB895C /* TasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		E985C69625F3AD9600CB895C /* CatalogProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogProfile.swift; sourceTree = "<group>"; };
 		E985C69725F3AD9600CB895C /* Catalogsandfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Catalogsandfiles.swift; sourceTree = "<group>"; };
 		E985C69825F3AD9600CB895C /* Keypathidentityfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keypathidentityfile.swift; sourceTree = "<group>"; };
@@ -547,7 +547,7 @@
 				E99C23F9261C2D21009D4DBF /* Restore */,
 				E927AAD12616E23100DC27A3 /* Quicktask */,
 				E95EDC7D26063C7F000018DE /* RsyncParameters */,
-				E985C64E25F3AD8400CB895C /* Multipletasks */,
+				E985C64E25F3AD8400CB895C /* Tasks */,
 				E985C62325F3AD8400CB895C /* Detailsview */,
 				E985C62625F3AD8400CB895C /* Snapshots */,
 				E985C61525F3AD8400CB895C /* Configurations */,
@@ -665,16 +665,16 @@
 			path = Add;
 			sourceTree = "<group>";
 		};
-		E985C64E25F3AD8400CB895C /* Multipletasks */ = {
+		E985C64E25F3AD8400CB895C /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedView.swift */,
-				E985C65325F3AD8400CB895C /* MultipletasksView.swift */,
+				E985C65325F3AD8400CB895C /* TasksView.swift */,
 				E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */,
 				E904E02D275CED770070DF92 /* FirsttimeView.swift */,
 				E9FAE97828DF4F8F000C0F93 /* LocalRemoteInfoView.swift */,
 			);
-			path = Multipletasks;
+			path = Tasks;
 			sourceTree = "<group>";
 		};
 		E985C69225F3AD9600CB895C /* Model */ = {
@@ -1267,7 +1267,7 @@
 				E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */,
 				E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */,
 				E90B4AA2261DA7580043EFF6 /* RotatingDotsIndicatorView.swift in Sources */,
-				E985C68E25F3AD8400CB895C /* MultipletasksView.swift in Sources */,
+				E985C68E25F3AD8400CB895C /* TasksView.swift in Sources */,
 				E93D7B7F26CE117300E290A1 /* SidebarParametersView.swift in Sources */,
 				E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */,
 				E964FFE72906A86000BFEC94 /* OutputRsyncView.swift in Sources */,
