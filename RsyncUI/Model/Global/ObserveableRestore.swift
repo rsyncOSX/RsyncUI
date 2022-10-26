@@ -27,8 +27,8 @@ final class ObserveableRestore: ObservableObject {
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
-    var outputprocess: OutputfromProcess?
     var files: Bool = false
+    var rsyncdata: [String]?
 
     init() {
         $inputchangedbyuser
@@ -60,33 +60,33 @@ final class ObserveableRestore: ObservableObject {
             }.store(in: &subscriptions)
         $selectedconfig
             .sink { [unowned self] config in
-                // Only one process at time
-                // If change selection abort process
-                guard SharedReference.shared.process == nil else {
-                    _ = InterruptProcess()
-                    return
+                Task {
+                    // Only one process at time
+                    // If change selection abort process
+                    guard SharedReference.shared.process == nil else {
+                        _ = InterruptProcess()
+                        return
+                    }
+                    if let config = config { await validatetaskandgetfilelist(config) }
                 }
-                if let config = config { validatetaskandgetfilelist(config) }
+
             }.store(in: &subscriptions)
     }
 }
 
 extension ObserveableRestore {
-    func processtermination() {
-        numberoffiles = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
+    func processtermination(data: [String]?) {
+        numberoffiles = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         gettingfilelist = false
         numberoffilesrestored = 0
-    }
-
-    func filehandler() {
-        numberoffilesrestored = (outputprocess?.getOutput() ?? []).count
+        rsyncdata = data
     }
 
     // Validate task for remote restore and remote filelist
-    func validatetaskandgetfilelist(_ config: Configuration) {
+    func validatetaskandgetfilelist(_ config: Configuration) async {
         do {
             let ok = try validatetask(config)
-            if ok { getfilelist(config) }
+            if ok { await getfilelist(config) }
         } catch let e {
             let error = e
             propogateerror(error: error)
@@ -126,13 +126,14 @@ extension ObserveableRestore {
     func reloadfiles() {
         guard inputchangedbyuser == true else { return }
         if files {
-            numberoffiles = TrimOne(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
+            numberoffiles = TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         } else {
-            numberoffiles = TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
+            numberoffiles = TrimTwo(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         }
     }
 
-    func getfilelist(_ config: Configuration) {
+    @MainActor
+    func getfilelist(_ config: Configuration) async {
         gettingfilelist = true
         files = true
         let arguments = RestorefilesArguments(task: .rsyncfilelistings,
@@ -140,15 +141,14 @@ extension ObserveableRestore {
                                               remoteFile: nil,
                                               localCatalog: nil,
                                               drynrun: nil).getArguments()
-        outputprocess = OutputfromProcess()
-        let command = RsyncProcess(arguments: arguments,
-                                   config: config,
-                                   processtermination: processtermination,
-                                   filehandler: filehandler)
-        command.executeProcess(outputprocess: outputprocess)
+        let command = RsyncAsync(arguments: arguments,
+                                 config: config,
+                                 processtermination: processtermination)
+        await command.executeProcess()
     }
 
-    func restore(_ config: Configuration) {
+    @MainActor
+    func restore(_ config: Configuration) async {
         files = false
         var arguments: [String]?
         do {
@@ -165,12 +165,10 @@ extension ObserveableRestore {
                 }
                 if let arguments = arguments {
                     gettingfilelist = true
-                    outputprocess = OutputfromProcess()
-                    let command = RsyncProcess(arguments: arguments,
-                                               config: config,
-                                               processtermination: processtermination,
-                                               filehandler: filehandler)
-                    command.executeProcess(outputprocess: outputprocess)
+                    let command = RsyncAsync(arguments: arguments,
+                                             config: config,
+                                             processtermination: processtermination)
+                    await command.executeProcess()
                 }
             }
         } catch let e {
@@ -201,10 +199,10 @@ extension ObserveableRestore {
     func getoutput() -> [String]? {
         if files {
             // trim one
-            return TrimOne(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+            return TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         } else {
             // trim two
-            return TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+            return TrimTwo(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         }
     }
 }

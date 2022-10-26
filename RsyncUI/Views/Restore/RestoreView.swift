@@ -59,8 +59,12 @@ struct RestoreView: View {
 
             ToggleViewDefault("--dry-run", $restoresettings.dryrun)
 
-            Button("Restore") { restore() }
-                .buttonStyle(PrimaryButtonStyle())
+            Button("Restore") {
+                Task {
+                    await restore()
+                }
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
@@ -116,16 +120,15 @@ extension RestoreView {
         // Check that files are not been collected
         guard SharedReference.shared.process == nil else { return }
         guard restoresettings.selectedconfig != nil else {
-            restoresettings.outputprocess = nil
             restoresettings.numberoffiles = 0
             return
         }
         presentsheetview = true
     }
 
-    func restore() {
+    func restore() async {
         if let config = restoresettings.selectedconfig {
-            restoresettings.restore(config)
+            await restoresettings.restore(config)
         }
     }
 }

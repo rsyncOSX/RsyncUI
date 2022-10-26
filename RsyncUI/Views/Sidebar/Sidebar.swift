@@ -31,8 +31,8 @@ struct Sidebar: View {
             Spacer()
 
             Group {
-                NavigationLink(destination: SidebarMultipletasksView(reload: $reload,
-                                                                     selection: $selection)
+                NavigationLink(destination: SidebarTasksView(reload: $reload,
+                                                             selection: $selection)
                         .environmentObject(OutputFromRsync()),
                     tag: NavigationItem.multipletasks,
                     selection: $selection) {
