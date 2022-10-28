@@ -57,7 +57,7 @@ struct DetailsView: View {
             selecteduuids.insert(selectedconfig?.id ?? UUID())
             let arguments = ArgumentsSynchronize(config: selectedconfig)
                 .argumentssynchronize(dryRun: true, forDisplay: false)
-            let task = RsyncAsync(arguments: arguments, config: selectedconfig,
+            let task = RsyncAsync(arguments: arguments,
                                   processtermination: processtermination)
             Task {
                 await task.executeProcess()

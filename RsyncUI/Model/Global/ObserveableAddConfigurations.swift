@@ -60,56 +60,57 @@ final class ObserveableAddConfigurations: ObservableObject {
     init() {
         $donotaddtrailingslash
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $localcatalog
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $remotecatalog
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
+            .receive(on: DispatchQueue.main).sink { [unowned self] _ in
                 remotestorageislocal = verifyremotestorageislocal()
             }.store(in: &subscriptions)
         $remoteuser
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $remoteserver
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $backupID
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $selectedrsynccommand
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $newprofile
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $selectedprofile
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $deletedefaultprofile
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $confirmdeleteselectedprofile
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
         $showAlertfordelete
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
+            .receive(on: DispatchQueue.main).sink { _ in
             }.store(in: &subscriptions)
     }
 
-    func addconfig(_ profile: String?, _ configurations: [Configuration]?) {
+    @MainActor
+    func addconfig(_ profile: String?, _ configurations: [Configuration]?) async {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
@@ -124,7 +125,7 @@ final class ObserveableAddConfigurations: ObservableObject {
                                  nil,
                                  nil)
         // If newconfig is verified add it
-        if let newconfig = VerifyConfiguration().verify(getdata) {
+        if let newconfig = await VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
@@ -136,7 +137,7 @@ final class ObserveableAddConfigurations: ObservableObject {
         }
     }
 
-    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
+    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) async {
         updatepreandpost()
         let updateddata = AppendTask(selectedrsynccommand.rawValue,
                                      localcatalog,
@@ -153,7 +154,7 @@ final class ObserveableAddConfigurations: ObservableObject {
                                      posttask,
                                      haltshelltasksonerror,
                                      selectedconfig?.hiddenID ?? -1)
-        if let updatedconfig = VerifyConfiguration().verify(updateddata) {
+        if let updatedconfig = await VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
@@ -204,12 +205,12 @@ final class ObserveableAddConfigurations: ObservableObject {
         }
     }
 
-    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) {
+    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) async {
         // Validate not a snapshot task
         do {
             let validated = try validatenotsnapshottask()
             if validated {
-                updateconfig(profile, configurations)
+                await updateconfig(profile, configurations)
             }
         } catch let e {
             let error = e

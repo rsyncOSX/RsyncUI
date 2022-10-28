@@ -1,32 +1,32 @@
 //
-//  OtherProcessCmdCombine.swift
+//  RsyncAsync.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 15/03/2021.
+//  Created by Thomas Evensen on 22/09/2022.
 //
 
 import Combine
 import Foundation
 
-final class OtherProcess {
+@MainActor
+final class RsyncAsync {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
-    // Process termination and filehandler closures
-    var processtermination: () -> Void
-    var filehandler: () -> Void
-    // Command to be executed, normally rsync
-    var command: String?
+    // Verify network connection
     // Arguments to command
     var arguments: [String]?
+    // Process termination and filehandler closures
+    var processtermination: ([String]?) -> Void
+    // Output
+    var outputprocess: OutputfromProcess?
 
-    func executeProcess(outputprocess: OutputfromProcess?) {
-        guard command != nil else { return }
+    func executeProcess() async {
+        // Must check valid rsync exists
+        guard SharedReference.shared.norsync == false else { return }
         // Process
         let task = Process()
-        // If self.command != nil either alternativ path for rsync or other command than rsync to be executed
-        if let command = command {
-            task.launchPath = command
-        }
+        // Getting version of rsync
+        task.launchPath = GetfullpathforRsync().rsyncpath
         task.arguments = arguments
         // If there are any Environmentvariables like
         // SSH_AUTH_SOCK": "/Users/user/.gnupg/S.gpg-agent.ssh"
@@ -46,9 +46,7 @@ final class OtherProcess {
                 let data = outHandle.availableData
                 if data.count > 0 {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                        outputprocess?.addlinefromoutput(str: str as String)
-                        // Send message about files
-                        self.filehandler()
+                        self.outputprocess?.addlinefromoutput(str: str as String)
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
@@ -57,14 +55,13 @@ final class OtherProcess {
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { [self] _ in
-                self.processtermination()
+            .sink { _ in
                 // Logg to file
-                _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+                self.processtermination(self.outputprocess?.getOutput())
                 // Release Combine subscribers
-                subscriptons.removeAll()
+                // print("process termination")
+                self.subscriptons.removeAll()
             }.store(in: &subscriptons)
-
         SharedReference.shared.process = task
         do {
             try task.run()
@@ -74,24 +71,26 @@ final class OtherProcess {
         }
     }
 
-    init(command: String?,
-         arguments: [String]?,
-         processtermination: @escaping () -> Void,
-         filehandler: @escaping () -> Void)
+    // Terminate Process, used when user Aborts task.
+    func abortProcess() {
+        _ = InterruptProcess()
+    }
+
+    init(arguments: [String]?,
+         processtermination: @escaping ([String]?) -> Void)
     {
-        self.command = command
         self.arguments = arguments
         self.processtermination = processtermination
-        self.filehandler = filehandler
+        outputprocess = OutputfromProcess()
     }
 
     deinit {
         SharedReference.shared.process = nil
-        // print("deinit OtherProcessCmdCombine")
+        // print("deinit RsyncAsync")
     }
 }
 
-extension OtherProcess: PropogateError {
+extension RsyncAsync: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

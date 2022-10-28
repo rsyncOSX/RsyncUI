@@ -42,7 +42,7 @@ final class ObserveablePreandPostTask: ObservableObject {
             }.store(in: &subscriptions)
     }
 
-    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
+    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) async {
         // Append default config data to the update,
         // only post and pretask is new
         let updateddata = AppendTask(selectedconfig?.task ?? "",
@@ -58,7 +58,7 @@ final class ObserveablePreandPostTask: ObservableObject {
                                      posttask,
                                      haltshelltasksonerror,
                                      selectedconfig?.hiddenID ?? -1)
-        if let updatedconfig = VerifyConfiguration().verify(updateddata) {
+        if let updatedconfig = await VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
@@ -78,12 +78,12 @@ final class ObserveablePreandPostTask: ObservableObject {
         selectedconfig = nil
     }
 
-    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) {
+    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) async {
         // Validate not a snapshot task
         do {
             let validated = try validatenotsnapshottask()
             if validated {
-                updateconfig(profile, configurations)
+                await updateconfig(profile, configurations)
             }
         } catch let e {
             let error = e

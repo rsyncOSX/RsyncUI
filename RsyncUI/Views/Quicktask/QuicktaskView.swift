@@ -102,8 +102,12 @@ struct QuicktaskView: View {
             Spacer()
 
             HStack {
-                Button("Execute") { getconfig() }
-                    .buttonStyle(PrimaryButtonStyle())
+                Button("Execute") {
+                    Task {
+                        await getconfig()
+                    }
+                }
+                .buttonStyle(PrimaryButtonStyle())
 
                 Spacer()
 
@@ -226,7 +230,7 @@ extension QuicktaskView {
         presentsheetview = true
     }
 
-    func getconfig() {
+    func getconfig() async {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
@@ -240,7 +244,7 @@ extension QuicktaskView {
                                  nil,
                                  nil)
         // If newconfig is verified add it
-        if let newconfig = VerifyConfiguration().verify(getdata) {
+        if let newconfig = await VerifyConfiguration().verify(getdata) {
             // Now can prepare for execute.
             execute(config: newconfig, dryrun: dryrun)
         }

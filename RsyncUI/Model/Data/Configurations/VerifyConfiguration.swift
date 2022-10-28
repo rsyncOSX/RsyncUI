@@ -114,10 +114,8 @@ final class VerifyConfiguration: Connected {
     let eparam: String = "-e"
     let ssh: String = "ssh"
 
-    var outputprocess: OutputfromProcess?
-
     // Verify parameters for new config.
-    func verify(_ data: AppendTask) -> Configuration? {
+    func verify(_ data: AppendTask) async -> Configuration? {
         var newconfig = Configuration()
         newconfig.task = data.newtask
         newconfig.backupID = data.newbackupID ?? ""
@@ -164,9 +162,8 @@ final class VerifyConfiguration: Connected {
         // If validated and snapshottask create remote snapshotcatalog
         // Must be connected to create base remote snapshot catalog
         if data.newtask == SharedReference.shared.snapshot {
-            outputprocess = OutputfromProcess()
             // If connected create base remote snapshotcatalog
-            snapshotcreateremotecatalog(config: newconfig, outputprocess: outputprocess)
+            await snapshotcreateremotecatalog(config: newconfig)
         }
         // Add pre and post task if set
         // Pre task
@@ -202,14 +199,14 @@ final class VerifyConfiguration: Connected {
     }
 
     // Create remote snapshot catalog
-    private func snapshotcreateremotecatalog(config: Configuration, outputprocess: OutputfromProcess?) {
+    @MainActor
+    private func snapshotcreateremotecatalog(config: Configuration) async {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = SnapshotCreateCatalogArguments(config: config)
-        let updatecurrent = OtherProcess(command: args.getCommand(),
-                                         arguments: args.getArguments(),
-                                         processtermination: processtermination,
-                                         filehandler: filehandler)
-        updatecurrent.executeProcess(outputprocess: outputprocess)
+        let updatecurrent = CommandProcessAsync(command: args.getCommand(),
+                                                arguments: args.getArguments(),
+                                                processtermination: processtermination)
+        await updatecurrent.executeProcess()
     }
 
     // Validate input, throws errors
@@ -253,9 +250,7 @@ final class VerifyConfiguration: Connected {
 }
 
 extension VerifyConfiguration {
-    func processtermination() {}
-
-    func filehandler() {}
+    func processtermination(data _: [String]?) {}
 }
 
 extension VerifyConfiguration: PropogateError {

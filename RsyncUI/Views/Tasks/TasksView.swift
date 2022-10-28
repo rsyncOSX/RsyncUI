@@ -284,7 +284,7 @@ struct TasksView: View {
                     progressviewshowinfo = false
                     return
                 }
-                let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo, config: selectedconfig,
+                let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo,
                                                processtermination: processtermination)
                 Task {
                     await tasklocalinfo.executeProcess()
