@@ -142,7 +142,6 @@ extension ObserveableRestore {
                                               localCatalog: nil,
                                               drynrun: nil).getArguments()
         let command = RsyncAsync(arguments: arguments,
-                                 config: config,
                                  processtermination: processtermination)
         await command.executeProcess()
     }
@@ -166,7 +165,6 @@ extension ObserveableRestore {
                 if let arguments = arguments {
                     gettingfilelist = true
                     let command = RsyncAsync(arguments: arguments,
-                                             config: config,
                                              processtermination: processtermination)
                     await command.executeProcess()
                 }

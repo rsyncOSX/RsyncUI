@@ -1,37 +1,34 @@
 //
-//  RsyncAsync.swift
+//  OtherProcessAsync.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 22/09/2022.
+//  Created by Thomas Evensen on 28/10/2022.
 //
 
 import Combine
 import Foundation
 
 @MainActor
-final class RsyncAsync {
+final class OtherProcessAsync {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
-    // Verify network connection
+    // Command to be executed, normally rsync
+    var command: String?
     // Arguments to command
     var arguments: [String]?
-    // Process termination and filehandler closures
+    // Process termination closure
     var processtermination: ([String]?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
 
     func executeProcess() async {
-        // Must check valid rsync exists
-        guard SharedReference.shared.norsync == false else { return }
+        guard command != nil else { return }
+        // Process
         // Process
         let task = Process()
-        // Getting version of rsync
-        task.launchPath = GetfullpathforRsync().rsyncpath
-        task.arguments = arguments
-        // If there are any Environmentvariables like
-        // SSH_AUTH_SOCK": "/Users/user/.gnupg/S.gpg-agent.ssh"
-        if let environment = Environment() {
-            task.environment = environment.environment
+        // If self.command != nil either alternativ path for rsync or other command than rsync to be executed
+        if let command = command {
+            task.launchPath = command
         }
         // Pipe for reading output from Process
         let pipe = Pipe()
@@ -76,9 +73,11 @@ final class RsyncAsync {
         _ = InterruptProcess()
     }
 
-    init(arguments: [String]?,
+    init(command: String?,
+         arguments: [String]?,
          processtermination: @escaping ([String]?) -> Void)
     {
+        self.command = command
         self.arguments = arguments
         self.processtermination = processtermination
         outputprocess = OutputfromProcess()
@@ -90,7 +89,7 @@ final class RsyncAsync {
     }
 }
 
-extension RsyncAsync: PropogateError {
+extension OtherProcessAsync: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

@@ -35,10 +35,9 @@ final class SshKeys: Catalogsandfiles {
     var argumentsssh: ArgumentsSsh?
     var command: String?
     var arguments: [String]?
-    var outputprocess: OutputfromProcess?
 
     // Create rsa keypair
-    func createPublicPrivateRSAKeyPair() -> Bool {
+    func createPublicPrivateRSAKeyPair() async -> Bool {
         do {
             let present = try islocalpublicrsakeypresent()
             if present == false {
@@ -49,7 +48,7 @@ final class SshKeys: Catalogsandfiles {
                     "/" + (identityfile ?? ""))
                 arguments = argumentsssh?.argumentscreatekey()
                 command = argumentsssh?.getCommand()
-                executesshcreatekeys()
+                await executesshcreatekeys()
                 return true
             }
         } catch let e {
@@ -98,14 +97,13 @@ final class SshKeys: Catalogsandfiles {
     }
 
     // Execute command
-    func executesshcreatekeys() {
+    @MainActor
+    func executesshcreatekeys() async {
         guard arguments != nil else { return }
-        outputprocess = OutputfromProcess()
-        let process = OtherProcess(command: command,
-                                   arguments: arguments,
-                                   processtermination: processtermination,
-                                   filehandler: filehandler)
-        process.executeProcess(outputprocess: outputprocess)
+        let process = OtherProcessAsync(command: command,
+                                        arguments: arguments,
+                                        processtermination: processtermination)
+        await process.executeProcess()
     }
 
     init() {
@@ -115,9 +113,7 @@ final class SshKeys: Catalogsandfiles {
 }
 
 extension SshKeys {
-    func processtermination() {
-        _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+    func processtermination(data: [String]?) {
+        _ = Logfile(TrimTwo(data ?? []).trimmeddata, error: false)
     }
-
-    func filehandler() {}
 }
