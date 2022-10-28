@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 @MainActor
-final class OtherProcessAsync {
+final class CommandProcessAsync {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Command to be executed, normally rsync
@@ -89,7 +89,7 @@ final class OtherProcessAsync {
     }
 }
 
-extension OtherProcessAsync: PropogateError {
+extension CommandProcessAsync: PropogateError {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

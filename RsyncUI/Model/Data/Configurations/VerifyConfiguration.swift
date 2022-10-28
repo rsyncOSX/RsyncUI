@@ -203,9 +203,9 @@ final class VerifyConfiguration: Connected {
     private func snapshotcreateremotecatalog(config: Configuration) async {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = SnapshotCreateCatalogArguments(config: config)
-        let updatecurrent = OtherProcessAsync(command: args.getCommand(),
-                                              arguments: args.getArguments(),
-                                              processtermination: processtermination)
+        let updatecurrent = CommandProcessAsync(command: args.getCommand(),
+                                                arguments: args.getArguments(),
+                                                processtermination: processtermination)
         await updatecurrent.executeProcess()
     }
 

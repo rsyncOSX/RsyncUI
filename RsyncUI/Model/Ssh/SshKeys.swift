@@ -100,9 +100,9 @@ final class SshKeys: Catalogsandfiles {
     @MainActor
     func executesshcreatekeys() async {
         guard arguments != nil else { return }
-        let process = OtherProcessAsync(command: command,
-                                        arguments: arguments,
-                                        processtermination: processtermination)
+        let process = CommandProcessAsync(command: command,
+                                          arguments: arguments,
+                                          processtermination: processtermination)
         await process.executeProcess()
     }
 

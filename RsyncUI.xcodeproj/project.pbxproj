@@ -34,7 +34,7 @@
 		E943B0A925FFC22200A4F30D /* RsyncProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcess.swift */; };
 		E943D4242906CE6F0042A560 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943D4232906CE6F0042A560 /* DetailsView.swift */; };
 		E94C2DEC264EC0BF00C0A7E1 /* OneConfigSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */; };
-		E950C92A290BBDC200B8B49F /* OtherProcessAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950C929290BBDC200B8B49F /* OtherProcessAsync.swift */; };
+		E950C92A290BBDC200B8B49F /* CommandProcessAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
 		E9569EA927B809EE0038799C /* ReadUserConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */; };
 		E9569EAB27B80BEB0038799C /* UserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EAA27B80BEB0038799C /* UserConfiguration.swift */; };
@@ -155,7 +155,6 @@
 		E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72425F3AD9700CB895C /* InterruptProcess.swift */; };
 		E98C7AB5262D662200555977 /* ReadScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */; };
 		E98C7ABA262D664900555977 /* ReadConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */; };
-		E98E086325FFCA25004E56F0 /* OtherProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98E086225FFCA25004E56F0 /* OtherProcess.swift */; };
 		E99209B52632F0430018BFE8 /* PresentOneconfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */; };
 		E997613B271998BD007153DD /* RsyncUIlogrecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = E997613A271998BD007153DD /* RsyncUIlogrecords.swift */; };
 		E999F92227690F3400B80DF6 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999F92127690F3400B80DF6 /* Files.swift */; };
@@ -235,7 +234,7 @@
 		E943D4232906CE6F0042A560 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneConfigSmall.swift; sourceTree = "<group>"; };
 		E94F8337272E7ABA00D3924B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E950C929290BBDC200B8B49F /* OtherProcessAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProcessAsync.swift; sourceTree = "<group>"; };
+		E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandProcessAsync.swift; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
 		E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUserConfigurationJSON.swift; sourceTree = "<group>"; };
 		E9569EAA27B80BEB0038799C /* UserConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfiguration.swift; sourceTree = "<group>"; };
@@ -363,7 +362,6 @@
 		E985C72425F3AD9700CB895C /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
 		E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadScheduleJSON.swift; sourceTree = "<group>"; };
 		E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadConfigurationJSON.swift; sourceTree = "<group>"; };
-		E98E086225FFCA25004E56F0 /* OtherProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProcess.swift; sourceTree = "<group>"; };
 		E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentOneconfigView.swift; sourceTree = "<group>"; };
 		E997613A271998BD007153DD /* RsyncUIlogrecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIlogrecords.swift; sourceTree = "<group>"; };
 		E999F92127690F3400B80DF6 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
@@ -474,6 +472,13 @@
 				E964FFE62906A86000BFEC94 /* OutputRsyncView.swift */,
 			);
 			path = Quicktask;
+			sourceTree = "<group>";
+		};
+		E9556ACB290C0CB700B1752A /* Async */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Async;
 			sourceTree = "<group>";
 		};
 		E95EDC7D26063C7F000018DE /* RsyncParameters */ = {
@@ -958,12 +963,12 @@
 		E985C72225F3AD9700CB895C /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				E9556ACB290C0CB700B1752A /* Async */,
 				E985C72425F3AD9700CB895C /* InterruptProcess.swift */,
 				E943B0A825FFC22200A4F30D /* RsyncProcess.swift */,
-				E98E086225FFCA25004E56F0 /* OtherProcess.swift */,
 				E97F62F428DC845100DCF475 /* RsyncAsync.swift */,
 				E95DD7F328EC738B007654BC /* RsyncProcessAsync.swift */,
-				E950C929290BBDC200B8B49F /* OtherProcessAsync.swift */,
+				E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1241,12 +1246,11 @@
 				E9E9DEAD262451AE009D0014 /* NewversionJSON.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
-				E98E086325FFCA25004E56F0 /* OtherProcess.swift in Sources */,
 				E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */,
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
 				E985C74525F3AD9700CB895C /* RemoteNumbers.swift in Sources */,
 				E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */,
-				E950C92A290BBDC200B8B49F /* OtherProcessAsync.swift in Sources */,
+				E950C92A290BBDC200B8B49F /* CommandProcessAsync.swift in Sources */,
 				E985C73725F3AD9700CB895C /* extensionDate.swift in Sources */,
 				E97B367D28E1884F00E136A2 /* RemoteinfoNumbers.swift in Sources */,
 				E9F5354C290185AA007EFAE7 /* EstimateAlltasksAsync.swift in Sources */,

@@ -46,9 +46,9 @@ final class DeleteSnapshots {
             mysnapshotdata?.progressindelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
             if let config = localeconfig {
                 let arguments = SnapshotDeleteCatalogsArguments(config: config, remotecatalog: remotecatalog)
-                let command = OtherProcessAsync(command: arguments.getCommand(),
-                                                arguments: arguments.getArguments(),
-                                                processtermination: processtermination)
+                let command = CommandProcessAsync(command: arguments.getCommand(),
+                                                  arguments: arguments.getArguments(),
+                                                  processtermination: processtermination)
                 await command.executeProcess()
             }
         }
