@@ -477,6 +477,9 @@
 		E9556ACB290C0CB700B1752A /* Async */ = {
 			isa = PBXGroup;
 			children = (
+				E97F62F428DC845100DCF475 /* RsyncAsync.swift */,
+				E95DD7F328EC738B007654BC /* RsyncProcessAsync.swift */,
+				E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */,
 			);
 			path = Async;
 			sourceTree = "<group>";
@@ -966,9 +969,6 @@
 				E9556ACB290C0CB700B1752A /* Async */,
 				E985C72425F3AD9700CB895C /* InterruptProcess.swift */,
 				E943B0A825FFC22200A4F30D /* RsyncProcess.swift */,
-				E97F62F428DC845100DCF475 /* RsyncAsync.swift */,
-				E95DD7F328EC738B007654BC /* RsyncProcessAsync.swift */,
-				E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
