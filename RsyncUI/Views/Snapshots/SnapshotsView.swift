@@ -41,7 +41,11 @@ struct SnapshotsView: View {
                                  snapshotrecords: $snapshotrecords,
                                  selecteduuids: $selecteduuids)
                     .environmentObject(snapshotdata)
-                    .onDeleteCommand(perform: { delete() })
+                    .onDeleteCommand(perform: {
+                        Task {
+                            await delete()
+                        }
+                    })
 
                 ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange { getdata() },
                                         reload: $reload)
@@ -91,7 +95,9 @@ struct SnapshotsView: View {
                                                delete: $confirmdeletesnapshots,
                                                uuidstodelete: $snapshotdata.uuidsfordelete)
                             .onDisappear {
-                                delete()
+                                Task {
+                                    await delete()
+                                }
                             }
                     }
                     .buttonStyle(AbortButtonStyle())
@@ -264,14 +270,14 @@ extension SnapshotsView {
         }
     }
 
-    func delete() {
+    func delete() async {
         guard confirmdeletesnapshots == true else { return }
         if let config = selectedconfig {
             snapshotdata.delete = DeleteSnapshots(config: config,
                                                   snapshotdata: snapshotdata,
                                                   logrecordssnapshot: snapshotdata.getsnapshotdata())
             snapshotdata.inprogressofdelete = true
-            snapshotdata.delete?.deletesnapshots()
+            await snapshotdata.delete?.deletesnapshots()
         }
     }
 

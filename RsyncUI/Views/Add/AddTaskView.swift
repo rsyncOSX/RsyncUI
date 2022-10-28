@@ -107,16 +107,22 @@ struct AddTaskView: View {
                 focusField = .remoteserverField
             case .remoteserverField:
                 if newdata.selectedconfig == nil {
-                    addconfig()
+                    Task {
+                        await addconfig()
+                    }
                 } else {
-                    validateandupdate()
+                    Task {
+                        await validateandupdate()
+                    }
                 }
                 focusField = nil
             case .backupIDField:
                 if newdata.remotestorageislocal == true,
                    newdata.selectedconfig == nil
                 {
-                    addconfig()
+                    Task {
+                        await addconfig()
+                    }
                 } else {
                     focusField = .remoteuserField
                 }
@@ -130,11 +136,19 @@ struct AddTaskView: View {
         HStack {
             // Add or Update button
             if newdata.selectedconfig == nil {
-                Button("Add") { addconfig() }
-                    .buttonStyle(PrimaryButtonStyle())
+                Button("Add") {
+                    Task {
+                        await addconfig()
+                    }
+                }
+                .buttonStyle(PrimaryButtonStyle())
             } else {
-                Button("Update") { validateandupdate() }
-                    .buttonStyle(PrimaryButtonStyle())
+                Button("Update") {
+                    Task {
+                        await validateandupdate()
+                    }
+                }
+                .buttonStyle(PrimaryButtonStyle())
             }
         }
     }
@@ -376,8 +390,8 @@ struct AddTaskView: View {
 }
 
 extension AddTaskView {
-    func addconfig() {
-        newdata.addconfig(selectedprofile, configurations)
+    func addconfig() async {
+        await newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload
         if newdata.added == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -416,8 +430,8 @@ extension AddTaskView {
         }
     }
 
-    func validateandupdate() {
-        newdata.validateandupdate(selectedprofile, configurations)
+    func validateandupdate() async {
+        await newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
         if newdata.updated == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

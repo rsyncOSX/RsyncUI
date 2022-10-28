@@ -9,7 +9,6 @@ import Foundation
 
 final class DeleteSnapshots {
     var localeconfig: Configuration?
-    var outputprocess: OutputfromProcess?
     var snapshotcatalogstodelete: [String]?
     var mysnapshotdata: SnapshotData?
 
@@ -31,7 +30,8 @@ final class DeleteSnapshots {
         mysnapshotdata?.progressindelete = snapshotcatalogstodelete?.count ?? 0
     }
 
-    func deletesnapshots() {
+    @MainActor
+    func deletesnapshots() async {
         guard (snapshotcatalogstodelete?.count ?? 0) > 0 else {
             mysnapshotdata?.inprogressofdelete = false
             return
@@ -46,11 +46,10 @@ final class DeleteSnapshots {
             mysnapshotdata?.progressindelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
             if let config = localeconfig {
                 let arguments = SnapshotDeleteCatalogsArguments(config: config, remotecatalog: remotecatalog)
-                let command = OtherProcess(command: arguments.getCommand(),
-                                           arguments: arguments.getArguments(),
-                                           processtermination: processtermination,
-                                           filehandler: filehandler)
-                command.executeProcess(outputprocess: nil)
+                let command = OtherProcessAsync(command: arguments.getCommand(),
+                                                arguments: arguments.getArguments(),
+                                                processtermination: processtermination)
+                await command.executeProcess()
             }
         }
     }
@@ -71,9 +70,9 @@ final class DeleteSnapshots {
 }
 
 extension DeleteSnapshots {
-    func processtermination() {
-        deletesnapshots()
+    func processtermination(data _: [String]?) {
+        Task {
+            await deletesnapshots()
+        }
     }
-
-    func filehandler() {}
 }
