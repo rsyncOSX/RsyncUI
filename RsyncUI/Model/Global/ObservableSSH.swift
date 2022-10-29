@@ -16,8 +16,6 @@ final class ObservableSSH: ObservableObject {
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
     @Published var sshkeypathandidentityfile: String = ""
-    // If local public sshkeys are present
-    @Published var localsshkeys: Bool = SshKeys().validatepublickeypresent()
 
     // Combine
     var subscriptions = Set<AnyCancellable>()

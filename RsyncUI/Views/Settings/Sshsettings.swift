@@ -14,6 +14,7 @@ struct Sshsettings: View {
     @State private var selectedlogin: UniqueserversandLogins?
     @State private var showingAlert: Bool = false
     @State private var backup = false
+    @State private var localsshkeys: Bool = false // SshKeys().validatepublickeypresent()
 
     var uniqueserversandlogins: [UniqueserversandLogins]
 
@@ -27,7 +28,7 @@ struct Sshsettings: View {
                     Spacer()
                     // Column 1
                     VStack(alignment: .leading) {
-                        ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $usersettings.localsshkeys)
+                        ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $localsshkeys)
 
                         setsshpath
 
@@ -72,6 +73,9 @@ struct Sshsettings: View {
             }
         }
         .padding()
+        .onAppear(perform: {
+            localsshkeys = SshKeys().validatepublickeypresent()
+        })
     }
 
     // Copy strings
@@ -142,6 +146,10 @@ struct Sshsettings: View {
             return ""
         }
     }
+
+    var checkforlocalsshkeys: Bool {
+        return SshKeys().validatepublickeypresent()
+    }
 }
 
 struct ServerRow: View {
@@ -163,7 +171,7 @@ extension Sshsettings {
         backup = true
         // wait for a half second and then force a new check if keys are created and exists
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            usersettings.localsshkeys = SshKeys().validatepublickeypresent()
+            localsshkeys = SshKeys().validatepublickeypresent()
         }
     }
 
@@ -172,7 +180,7 @@ extension Sshsettings {
         if create == true {
             // wait for a half second and then force a new check if keys are created and exists
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                usersettings.localsshkeys = SshKeys().validatepublickeypresent()
+                localsshkeys = SshKeys().validatepublickeypresent()
             }
         }
     }
