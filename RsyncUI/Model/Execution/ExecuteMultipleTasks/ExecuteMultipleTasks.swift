@@ -91,9 +91,6 @@ final class ExecuteMultipleTasks {
         multipletasksateDelegate = executionstateDelegate
         updateestimationcountDelegate = updateinprogresscount
         updateprogessDelegate = singletaskupdate
-        // Debug print
-        // printdebugdata(uuids)
-        // Debug print
         guard uuids.count > 0 else { return }
         let configurations = configurationsSwiftUI?.getallconfigurations()?.filter { uuids.contains($0.id) }
         guard configurations?.count ?? 0 > 0 else { return }
@@ -111,15 +108,6 @@ final class ExecuteMultipleTasks {
         stackoftasktobeexecuted = nil
         updateestimationcountDelegate?.resetcounts()
         setabort = true
-    }
-
-    // debug
-    func printdebugdata(_ uuids: Set<UUID>) {
-        let configurations = localconfigurationsSwiftUI?.getallconfigurations()?.filter { uuids.contains($0.id) }
-        print("EXECUTION start: \(configurations?.count ?? 0) number of configurations")
-        if uuids.count != (configurations?.count ?? 0) {
-            print("PROBLEM: clearing old uuids not done properly")
-        }
     }
 }
 

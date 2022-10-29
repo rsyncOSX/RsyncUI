@@ -84,7 +84,6 @@ final class RsyncProcessAsync {
                 self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
                 _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 // Release Combine subscribers
-                print("process termination")
                 self.subscriptons.removeAll()
             }.store(in: &subscriptons)
         SharedReference.shared.process = task
@@ -116,7 +115,6 @@ final class RsyncProcessAsync {
         self.monitor?.stopMonitoring()
         self.monitor = nil
         SharedReference.shared.process = nil
-        print("deinit RsyncProcessAsync")
     }
 }
 

@@ -169,6 +169,6 @@ class SingletaskPrimaryLogging {
     }
 
     deinit {
-        print("deinit SingletaskPrimaryLogging")
+        // print("deinit SingletaskPrimaryLogging")
     }
 }
