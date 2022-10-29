@@ -313,6 +313,9 @@ extension TasksView {
         _ = InterruptProcess()
         inwork = -1
         reload = true
+        progressviewshowinfo = false
+        focusstartestimation = false
+        focusstartexecution = false
     }
 
     func select() {
