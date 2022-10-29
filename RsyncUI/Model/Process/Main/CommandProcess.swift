@@ -12,14 +12,15 @@ final class CommandProcess {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
-    var processtermination: () -> Void
-    var filehandler: () -> Void
+    var processtermination: ([String]?) -> Void
+    // Output
+    var outputprocess: OutputfromProcess?
     // Command to be executed, normally rsync
     var command: String?
     // Arguments to command
     var arguments: [String]?
 
-    func executeProcess(outputprocess: OutputfromProcess?) {
+    func executeProcess() {
         guard command != nil else { return }
         // Process
         let task = Process()
@@ -46,9 +47,7 @@ final class CommandProcess {
                 let data = outHandle.availableData
                 if data.count > 0 {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                        outputprocess?.addlinefromoutput(str: str as String)
-                        // Send message about files
-                        self.filehandler()
+                        self.outputprocess?.addlinefromoutput(str: str as String)
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
@@ -58,9 +57,7 @@ final class CommandProcess {
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [self] _ in
-                self.processtermination()
-                // Logg to file
-                _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+                self.processtermination(self.outputprocess?.getOutput())
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
@@ -76,13 +73,12 @@ final class CommandProcess {
 
     init(command: String?,
          arguments: [String]?,
-         processtermination: @escaping () -> Void,
-         filehandler: @escaping () -> Void)
+         processtermination: @escaping ([String]?) -> Void)
     {
         self.command = command
         self.arguments = arguments
         self.processtermination = processtermination
-        self.filehandler = filehandler
+        outputprocess = OutputfromProcess()
     }
 
     deinit {

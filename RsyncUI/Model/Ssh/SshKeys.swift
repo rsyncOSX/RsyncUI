@@ -35,7 +35,6 @@ final class SshKeys: Catalogsandfiles {
     var argumentsssh: ArgumentsSsh?
     var command: String?
     var arguments: [String]?
-    var outputprocess: OutputfromProcess?
 
     // Create rsa keypair
     func createPublicPrivateRSAKeyPair() -> Bool {
@@ -100,24 +99,18 @@ final class SshKeys: Catalogsandfiles {
     // Execute command
     func executesshcreatekeys() {
         guard arguments != nil else { return }
-        outputprocess = OutputfromProcess()
         let process = CommandProcess(command: command,
                                      arguments: arguments,
-                                     processtermination: processtermination,
-                                     filehandler: filehandler)
-        process.executeProcess(outputprocess: outputprocess)
+                                     processtermination: processtermination)
+        process.executeProcess()
+    }
+
+    func processtermination(data: [String]?) {
+        _ = Logfile(TrimTwo(data ?? []).trimmeddata, error: false)
     }
 
     init() {
         super.init(.ssh)
         keyFileStrings = getfullpathsshkeys()
     }
-}
-
-extension SshKeys {
-    func processtermination() {
-        _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
-    }
-
-    func filehandler() {}
 }
