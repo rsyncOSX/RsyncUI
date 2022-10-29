@@ -35,9 +35,10 @@ final class SshKeys: Catalogsandfiles {
     var argumentsssh: ArgumentsSsh?
     var command: String?
     var arguments: [String]?
+    var outputprocess: OutputfromProcess?
 
     // Create rsa keypair
-    func createPublicPrivateRSAKeyPair() async -> Bool {
+    func createPublicPrivateRSAKeyPair() -> Bool {
         do {
             let present = try islocalpublicrsakeypresent()
             if present == false {
@@ -48,7 +49,7 @@ final class SshKeys: Catalogsandfiles {
                     "/" + (identityfile ?? ""))
                 arguments = argumentsssh?.argumentscreatekey()
                 command = argumentsssh?.getCommand()
-                await executesshcreatekeys()
+                executesshcreatekeys()
                 return true
             }
         } catch let e {
@@ -97,13 +98,14 @@ final class SshKeys: Catalogsandfiles {
     }
 
     // Execute command
-    @MainActor
-    func executesshcreatekeys() async {
+    func executesshcreatekeys() {
         guard arguments != nil else { return }
-        let process = CommandProcessAsync(command: command,
-                                          arguments: arguments,
-                                          processtermination: processtermination)
-        await process.executeProcess()
+        outputprocess = OutputfromProcess()
+        let process = CommandProcess(command: command,
+                                     arguments: arguments,
+                                     processtermination: processtermination,
+                                     filehandler: filehandler)
+        process.executeProcess(outputprocess: outputprocess)
     }
 
     init() {
@@ -113,7 +115,9 @@ final class SshKeys: Catalogsandfiles {
 }
 
 extension SshKeys {
-    func processtermination(data: [String]?) {
-        _ = Logfile(TrimTwo(data ?? []).trimmeddata, error: false)
+    func processtermination() {
+        _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
     }
+
+    func filehandler() {}
 }

@@ -64,12 +64,8 @@ struct Sshsettings: View {
 
                 Spacer()
 
-                Button("Create") {
-                    Task {
-                        await createkeys()
-                    }
-                }
-                .buttonStyle(PrimaryButtonStyle())
+                Button("Create") { createkeys() }
+                    .buttonStyle(PrimaryButtonStyle())
 
                 Button("Save") { saveusersettings() }
                     .buttonStyle(PrimaryButtonStyle())
@@ -171,9 +167,8 @@ extension Sshsettings {
         }
     }
 
-    @MainActor
-    func createkeys() async {
-        let create = await SshKeys().createPublicPrivateRSAKeyPair()
+    func createkeys() {
+        let create = SshKeys().createPublicPrivateRSAKeyPair()
         if create == true {
             // wait for a half second and then force a new check if keys are created and exists
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
