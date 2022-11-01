@@ -77,15 +77,6 @@ class UpdateConfigurations {
         }
     }
 
-    // Function deletes Configuration in memory at hiddenID and
-    // then saves updated Configurations from memory to persistent store.
-    // Function computes index by hiddenID.
-    private func removeconfiguration(hiddenID: Int) {
-        if let index = configurations?.firstIndex(where: { $0.hiddenID == hiddenID }) {
-            configurations?.remove(at: index)
-        }
-    }
-
     func deleteconfigurations(uuids: Set<UUID>) {
         if let configs = configurations {
             var indexset = IndexSet()
@@ -116,12 +107,6 @@ class UpdateConfigurations {
             return true
         } else {
             return false
-        }
-    }
-
-    private func increasesnapshotnum(index: Int) {
-        if let num = configurations?[index].snapshotnum {
-            configurations?[index].snapshotnum = num + 1
         }
     }
 

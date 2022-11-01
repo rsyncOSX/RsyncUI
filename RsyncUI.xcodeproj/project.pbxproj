@@ -140,13 +140,10 @@
 		E985C78425F3AD9700CB895C /* UpdateConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70B25F3AD9700CB895C /* UpdateConfigurations.swift */; };
 		E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */; };
 		E985C78625F3AD9700CB895C /* SchedulesSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70D25F3AD9700CB895C /* SchedulesSwiftUI.swift */; };
-		E985C78925F3AD9700CB895C /* OutputFromMultipleTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71225F3AD9700CB895C /* OutputFromMultipleTasks.swift */; };
-		E985C78A25F3AD9700CB895C /* OutputFromRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71325F3AD9700CB895C /* OutputFromRsync.swift */; };
 		E985C78B25F3AD9700CB895C /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71425F3AD9700CB895C /* ErrorHandling.swift */; };
 		E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */; };
 		E985C78D25F3AD9700CB895C /* ConfigurationsSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71625F3AD9700CB895C /* ConfigurationsSwiftUI.swift */; };
 		E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71825F3AD9700CB895C /* RsyncArguments.swift */; };
-		E985C78F25F3AD9700CB895C /* SetRsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71925F3AD9700CB895C /* SetRsyncParameters.swift */; };
 		E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71B25F3AD9700CB895C /* SharedReference.swift */; };
 		E985C79125F3AD9700CB895C /* ObserveableUsersetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71C25F3AD9700CB895C /* ObserveableUsersetting.swift */; };
 		E985C79225F3AD9700CB895C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71D25F3AD9700CB895C /* Extensions.swift */; };
@@ -348,13 +345,10 @@
 		E985C70B25F3AD9700CB895C /* UpdateConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateConfigurations.swift; sourceTree = "<group>"; };
 		E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyConfiguration.swift; sourceTree = "<group>"; };
 		E985C70D25F3AD9700CB895C /* SchedulesSwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesSwiftUI.swift; sourceTree = "<group>"; };
-		E985C71225F3AD9700CB895C /* OutputFromMultipleTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputFromMultipleTasks.swift; sourceTree = "<group>"; };
-		E985C71325F3AD9700CB895C /* OutputFromRsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputFromRsync.swift; sourceTree = "<group>"; };
 		E985C71425F3AD9700CB895C /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncUIconfigurations.swift; sourceTree = "<group>"; };
 		E985C71625F3AD9700CB895C /* ConfigurationsSwiftUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationsSwiftUI.swift; sourceTree = "<group>"; };
 		E985C71825F3AD9700CB895C /* RsyncArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncArguments.swift; sourceTree = "<group>"; };
-		E985C71925F3AD9700CB895C /* SetRsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRsyncParameters.swift; sourceTree = "<group>"; };
 		E985C71B25F3AD9700CB895C /* SharedReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedReference.swift; sourceTree = "<group>"; };
 		E985C71C25F3AD9700CB895C /* ObserveableUsersetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserveableUsersetting.swift; sourceTree = "<group>"; };
 		E985C71D25F3AD9700CB895C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -909,8 +903,6 @@
 			children = (
 				E985C70825F3AD9700CB895C /* Configurations */,
 				E985C70D25F3AD9700CB895C /* SchedulesSwiftUI.swift */,
-				E985C71225F3AD9700CB895C /* OutputFromMultipleTasks.swift */,
-				E985C71325F3AD9700CB895C /* OutputFromRsync.swift */,
 				E985C71425F3AD9700CB895C /* ErrorHandling.swift */,
 				E985C71625F3AD9700CB895C /* ConfigurationsSwiftUI.swift */,
 				E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */,
@@ -933,7 +925,6 @@
 			isa = PBXGroup;
 			children = (
 				E985C71825F3AD9700CB895C /* RsyncArguments.swift */,
-				E985C71925F3AD9700CB895C /* SetRsyncParameters.swift */,
 			);
 			path = AddParametersRsync;
 			sourceTree = "<group>";
@@ -1194,13 +1185,11 @@
 				E985C65825F3AD8400CB895C /* SidebarSettingsView.swift in Sources */,
 				E99C23FB261C2D6C009D4DBF /* RestoreView.swift in Sources */,
 				E985C77D25F3AD9700CB895C /* ArgumentsSsh.swift in Sources */,
-				E985C78A25F3AD9700CB895C /* OutputFromRsync.swift in Sources */,
 				E985C68D25F3AD8400CB895C /* ExecuteEstimatedView.swift in Sources */,
 				E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */,
 				E985C78D25F3AD9700CB895C /* ConfigurationsSwiftUI.swift in Sources */,
 				E985C78625F3AD9700CB895C /* SchedulesSwiftUI.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,
-				E985C78925F3AD9700CB895C /* OutputFromMultipleTasks.swift in Sources */,
 				E985C65E25F3AD8400CB895C /* ConfigurationsList.swift in Sources */,
 				E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */,
 				E9BB4F562903C00A00FEEA0A /* ExecuteAlltasksAsync.swift in Sources */,
@@ -1317,7 +1306,6 @@
 				E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */,
 				E985C73B25F3AD9700CB895C /* yudpsocket.c in Sources */,
 				E997613B271998BD007153DD /* RsyncUIlogrecords.swift in Sources */,
-				E985C78F25F3AD9700CB895C /* SetRsyncParameters.swift in Sources */,
 				E99209B52632F0430018BFE8 /* PresentOneconfigView.swift in Sources */,
 				E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */,
 				E971F17828F1B6AD00CF3BD6 /* EstimateOnetaskAsync.swift in Sources */,

@@ -32,14 +32,13 @@ struct Sidebar: View {
 
             Group {
                 NavigationLink(destination: SidebarTasksView(reload: $reload,
-                                                             selection: $selection)
-                        .environmentObject(OutputFromRsync()),
-                    tag: NavigationItem.multipletasks,
-                    selection: $selection) {
-                        Label("Synchronize",
-                              systemImage: "arrowshape.turn.up.left.2.fill")
-                    }
-                    .tag(NavigationItem.multipletasks)
+                                                             selection: $selection),
+                               tag: NavigationItem.multipletasks,
+                               selection: $selection) {
+                    Label("Synchronize",
+                          systemImage: "arrowshape.turn.up.left.2.fill")
+                }
+                .tag(NavigationItem.multipletasks)
 
                 NavigationLink(destination: SidebarQuicktaskView(),
                                tag: NavigationItem.quicktask,

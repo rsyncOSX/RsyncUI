@@ -8,10 +8,6 @@
 import Foundation
 import SwiftUI
 
-protocol RsyncError: AnyObject {
-    func rsyncerror()
-}
-
 // Protocol for reporting file errors
 protocol PropogateError: AnyObject {
     func propogateerror(error: Error)

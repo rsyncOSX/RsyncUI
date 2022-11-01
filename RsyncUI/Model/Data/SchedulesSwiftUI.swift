@@ -10,7 +10,6 @@ import Foundation
 
 struct SchedulesSwiftUI {
     var scheduleConfigurations: [ConfigurationSchedule]?
-    var profile: String?
 
     // Return reference to Schedule data
     func getschedules() -> [ConfigurationSchedule] {
@@ -35,7 +34,6 @@ struct SchedulesSwiftUI {
     }
 
     init(profile: String?, validhiddenIDs: Set<Int>) {
-        self.profile = profile
         let schedulesdata = ReadScheduleJSON(profile, validhiddenIDs)
         scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
             log1.dateStart > log2.dateStart

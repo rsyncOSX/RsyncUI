@@ -22,7 +22,6 @@ struct Readlogsfromstore {
 final class RsyncUIlogrecords: ObservableObject {
     @Published var logrecordsfromstore: Readlogsfromstore?
     @Published var alllogssorted: [Log]?
-    var profile: String?
 
     func filterlogs(_ filter: String) -> [Log]? {
         // Important - must localize search in dates
@@ -40,17 +39,12 @@ final class RsyncUIlogrecords: ObservableObject {
         }
     }
 
-    func filterlogsbyUUIDs(_ uuids: Set<UUID>) -> [Log]? {
-        return alllogssorted?.filter { uuids.contains($0.id) }.sorted(by: \.date, using: >)
-    }
-
     func removerecords(_ uuids: Set<UUID>) {
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
     }
 
     func readlogrecords(profile: String?, validhiddenIDs: Set<Int>?) async {
         guard validhiddenIDs != nil else { return }
-        self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {
             logrecordsfromstore = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
         } else {
@@ -58,6 +52,4 @@ final class RsyncUIlogrecords: ObservableObject {
         }
         alllogssorted = logrecordsfromstore?.scheduleData.getalllogs()
     }
-
-    init(profile _: String? = nil, validhiddenIDs _: Set<Int>? = nil) {}
 }

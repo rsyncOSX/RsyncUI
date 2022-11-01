@@ -50,10 +50,6 @@ struct ConfigurationsSwiftUI {
         return nil
     }
 
-    func getnumberofconfigurations() -> Int {
-        return configurations?.count ?? 0
-    }
-
     // Function for getting Configurations read into memory
     func getconfiguration(hiddenID: Int) -> Configuration? {
         let configuration = configurations?.filter { $0.hiddenID == hiddenID }
@@ -79,46 +75,6 @@ struct ConfigurationsSwiftUI {
                 guard config[0].task != SharedReference.shared.syncremote else { return [] }
                 return ArgumentsLocalcatalogInfo(config: config[0]).argumentslocalcataloginfo(dryRun: true, forDisplay: false) ?? []
             }
-        }
-        return []
-    }
-
-    // Function return arguments for rsync, either arguments for
-    // real runn or arguments for --dry-run for Configuration at selected index
-    func arguments4restore(hiddenID: Int, argtype: ArgumentsRsync) -> [String] {
-        if let config = configurations?.filter({ $0.hiddenID == hiddenID }) {
-            guard config.count == 1 else { return [] }
-            switch argtype {
-            case .arg:
-                return ArgumentsRestore(config: config[0]).argumentsrestore(dryRun: false, forDisplay: false, tmprestore: false) ?? []
-            case .argdryRun:
-                return ArgumentsRestore(config: config[0]).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: false) ?? []
-            default:
-                return []
-            }
-        }
-        return []
-    }
-
-    func arguments4tmprestore(hiddenID: Int, argtype: ArgumentsRsync) -> [String] {
-        if let config = configurations?.filter({ $0.hiddenID == hiddenID }) {
-            guard config.count == 1 else { return [] }
-            switch argtype {
-            case .arg:
-                return ArgumentsRestore(config: config[0]).argumentsrestore(dryRun: false, forDisplay: false, tmprestore: true) ?? []
-            case .argdryRun:
-                return ArgumentsRestore(config: config[0]).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true) ?? []
-            default:
-                return []
-            }
-        }
-        return []
-    }
-
-    func arguments4verify(hiddenID: Int) -> [String] {
-        if let config = configurations?.filter({ $0.hiddenID == hiddenID }) {
-            guard config.count == 1 else { return [] }
-            return ArgumentsVerify(config: config[0]).argumentsverify(forDisplay: false) ?? []
         }
         return []
     }

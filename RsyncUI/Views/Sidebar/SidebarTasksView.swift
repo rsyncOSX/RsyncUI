@@ -37,7 +37,6 @@ struct SidebarTasksView: View {
                     ExecuteEstimatedView(selecteduuids: $selecteduuids,
                                          reload: $reload,
                                          showestimateview: $showestimateview)
-                        .environmentObject(OutputFromMultipleTasks())
                         .onDisappear(perform: {
                             showcompleted = true
                         })
