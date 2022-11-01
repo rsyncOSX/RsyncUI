@@ -13,14 +13,7 @@ struct RsyncParametersView: View {
     @StateObject var parameters = ObserveableParametersRsync()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
-
     @State private var selectedconfig: Configuration?
-    @State private var selectedrsynccommand = RsyncCommand.synchronize
-
-    @State private var searchText: String = ""
-    // Not used but requiered in parameter
-    @State private var inwork = -1
-    @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
         VStack {

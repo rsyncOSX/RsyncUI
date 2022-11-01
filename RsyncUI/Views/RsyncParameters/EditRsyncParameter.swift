@@ -10,7 +10,6 @@ import SwiftUI
 struct EditRsyncParameter: View {
     @State private var selectedparameter = EnumRsyncArguments.select
     var myvalue: Binding<String>
-    var mytext: String?
     var mywidth: CGFloat?
 
     var body: some View {

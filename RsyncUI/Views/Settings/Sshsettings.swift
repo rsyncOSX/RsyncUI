@@ -12,7 +12,6 @@ struct Sshsettings: View {
     @StateObject var usersettings = ObservableSSH()
 
     @State private var selectedlogin: UniqueserversandLogins?
-    @State private var showingAlert: Bool = false
     @State private var backup = false
     @State private var localsshkeys: Bool = false // SshKeys().validatepublickeypresent()
 
@@ -88,16 +87,6 @@ struct Sshsettings: View {
         .textSelection(.enabled)
     }
 
-    // Ssh header
-    var headerssh: some View {
-        Text("Set ssh keypath and identityfile")
-    }
-
-    // Ssh Unique
-    var headeruniqueue: some View {
-        Text("Unique usernames and servers")
-    }
-
     var setsshpath: some View {
         EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile)
             .onAppear(perform: {
@@ -126,11 +115,6 @@ struct Sshsettings: View {
         .frame(width: 250, height: 100)
     }
 
-    // Header user setting
-    var headerusersetting: some View {
-        Text("Save settings")
-    }
-
     var verifystring: String {
         if let login = selectedlogin {
             return SshKeys().verifyremotekey(remote: login)
@@ -145,10 +129,6 @@ struct Sshsettings: View {
         } else {
             return ""
         }
-    }
-
-    var checkforlocalsshkeys: Bool {
-        return SshKeys().validatepublickeypresent()
     }
 }
 

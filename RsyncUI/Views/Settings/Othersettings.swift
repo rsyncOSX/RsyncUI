@@ -21,23 +21,10 @@ struct Othersettings: View {
                     Spacer()
 
                     // Column 1
-                    /*
-                     **Schedules**
-                     VStack(alignment: .leading) {
-                         Section(header: headerpaths) {
-                             setpathtorsyncui
-
-                             setpathtorsyncschedule
-                         }
-                     }.padding()
-                     */
-                    // Column 1
                     VStack(alignment: .leading) {
-                        // Section(header: headerenvironment) {
                         setenvironment
 
                         setenvironmenvariable
-                        // }
                     }.padding()
 
                     Spacer()
@@ -68,16 +55,6 @@ struct Othersettings: View {
         .padding()
     }
 
-    // Environment
-    var headerenvironment: some View {
-        Text("Environment")
-    }
-
-    // Paths
-    var headerpaths: some View {
-        Text("Paths for apps")
-    }
-
     var setenvironment: some View {
         EditValue(350, NSLocalizedString("Environment", comment: ""),
                   $usersettings.environment)
@@ -97,28 +74,6 @@ struct Othersettings: View {
                 }
             })
     }
-
-    /*
-     var setpathtorsyncui: some View {
-         EditValue(250, NSLocalizedString("Path to RsyncUI", comment: ""),
-                   $usersettings.pathrsyncui)
-             .onAppear(perform: {
-                 if let pathrsyncui = SharedReference.shared.pathrsyncui {
-                     usersettings.pathrsyncui = pathrsyncui
-                 }
-             })
-     }
-
-     var setpathtorsyncschedule: some View {
-         EditValue(250, NSLocalizedString("Path to RsyncSchedule", comment: ""),
-                   $usersettings.pathrsyncschedule)
-             .onAppear(perform: {
-                 if let pathrsyncschedule = SharedReference.shared.pathrsyncschedule {
-                     usersettings.pathrsyncschedule = pathrsyncschedule
-                 }
-             })
-     }
-      */
 }
 
 extension Othersettings {

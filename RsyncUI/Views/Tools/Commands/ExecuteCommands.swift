@@ -31,24 +31,7 @@ struct ExecuteCommands: Commands {
             Divider()
 
             Deletetask(deletetask: $deletetask)
-            // StartTCPconnectionsButton(starttestfortcpconnections: $starttestfortcpconnections)
         }
-
-        /*
-         // **Schedules**
-         CommandMenu("Schedules") {
-             Button(action: {
-                 let running = Running()
-                 guard running.informifisrsyncshedulerunning() == false else { return }
-                 NSWorkspace.shared.open(URL(fileURLWithPath: (SharedReference.shared.pathrsyncschedule ?? "/Applications/")
-                         + SharedReference.shared.namersyncschedule))
-                 NSApp.terminate(self)
-             }) {
-                 Text("Scheduled tasks")
-             }
-             .keyboardShortcut("s", modifiers: [.command])
-         }
-         */
     }
 }
 
@@ -75,19 +58,6 @@ struct StartexecuteButton: View {
             Label("Execute", systemImage: "play.fill")
         }
         .keyboardShortcut("r", modifiers: [.command])
-    }
-}
-
-struct StartTCPconnectionsButton: View {
-    @Binding var starttestfortcpconnections: Bool?
-
-    var body: some View {
-        Button {
-            starttestfortcpconnections = true
-        } label: {
-            Label("TCP", systemImage: "play.fill")
-        }
-        .keyboardShortcut("t", modifiers: [.command])
     }
 }
 
@@ -151,10 +121,6 @@ struct FocusedExecuteBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
-struct FocusedTCPconnections: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
-
 struct FocusedSelecttask: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -180,11 +146,6 @@ extension FocusedValues {
     var startexecution: FocusedExecuteBinding.Value? {
         get { self[FocusedExecuteBinding.self] }
         set { self[FocusedExecuteBinding.self] = newValue }
-    }
-
-    var starttestfortcpconnections: FocusedTCPconnections.Value? {
-        get { self[FocusedTCPconnections.self] }
-        set { self[FocusedTCPconnections.self] = newValue }
     }
 
     var selecttask: FocusedSelecttask.Value? {

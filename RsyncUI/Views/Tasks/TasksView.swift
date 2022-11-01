@@ -26,7 +26,6 @@ struct TasksView: View {
     @Binding var showcompleted: Bool
 
     @State private var presentoutputsheetview = false
-    @State private var presentestimatedsheetview = false
     @State private var inwork: Int = -1
 
     // Focus buttons from the menu
@@ -324,16 +323,6 @@ extension TasksView {
                 selecteduuids.remove(selectedconfig.id)
             } else {
                 selecteduuids.insert(selectedconfig.id)
-            }
-        }
-    }
-
-    func setuuidforselectedtask() {
-        if let sel = selectedconfig,
-           let index = rsyncUIdata.configurations?.firstIndex(of: sel)
-        {
-            if let id = rsyncUIdata.configurations?[index].id {
-                selecteduuids.insert(id)
             }
         }
     }
