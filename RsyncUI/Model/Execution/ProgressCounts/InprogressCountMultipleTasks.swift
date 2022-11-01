@@ -10,7 +10,6 @@ import Foundation
 protocol UpdateEstimationCount: AnyObject {
     func resetcounts()
     func updateinprogresscount(num: Double)
-    func getmaxcount() -> Int
     func setmaxcount(num: Int)
     func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?)
     func getestimatedlist() -> [RemoteinfonumbersOnetask]?
@@ -57,10 +56,6 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
         max = 0
         uuids.removeAll()
         estimatedlist = nil
-    }
-
-    func getmaxcount() -> Int {
-        return max
     }
 
     func getinprogress() -> Double {
