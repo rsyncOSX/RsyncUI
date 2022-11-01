@@ -400,36 +400,6 @@ extension AddTaskView {
         }
     }
 
-    func createprofile() {
-        newdata.createprofile()
-        profilenames.update()
-        selectedprofile = newdata.selectedprofile
-        reload = true
-        if newdata.created == true {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.created = false
-            }
-        }
-    }
-
-    func deleteprofile() {
-        newdata.deleteprofile(selectedprofile)
-        profilenames.update()
-        reload = true
-        selectedprofile = nil
-        if newdata.deleted == true {
-            profilenames.update()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.deleted = false
-            }
-        }
-        if newdata.deletedefaultprofile == true {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.deletedefaultprofile = false
-            }
-        }
-    }
-
     func validateandupdate() async {
         await newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
