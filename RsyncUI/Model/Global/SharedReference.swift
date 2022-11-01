@@ -55,9 +55,6 @@ class SharedReference {
     var macosarm: Bool = false
     // RsyncUI config files and path
     let configpath: String = "/.rsyncosx/"
-    // Userconfiguration plistnames and key
-    let userconfigplist: String = "/rsyncuiconfig.plist"
-    let userconfigkey: String = "config"
     let logname: String = "rsyncui.txt"
     // Userconfiguration json file
     let userconfigjson: String = "rsyncuiconfig.json"
@@ -65,19 +62,11 @@ class SharedReference {
     let synchronize: String = "synchronize"
     let snapshot: String = "snapshot"
     let syncremote: String = "syncremote"
-    let reloadstring: String = "no.blogspot.RsyncUI.reload"
     var synctasks: Set<String>
-    // rsync version string
-    var rsyncversionstring: String?
     // rsync short version
     var rsyncversionshort: String?
     // filsize logfile warning
     var logfilesize: Int = 100_000
-    // Paths
-    // var pathrsyncui: String?
-    // var pathrsyncschedule: String?
-    let namersyncui = "RsyncUI.app"
-    let namersyncschedule = "RsyncSchedule.app"
     // Mac serialnumer
     var macserialnumber: String?
     // True if menuapp is running

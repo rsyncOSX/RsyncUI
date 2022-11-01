@@ -11,7 +11,6 @@ import Foundation
 final class PrepareOutput {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
-    var adjustedtrimdata = [String]()
     var splitlines: Bool = false
 
     // A split of lines are always after each other.

@@ -16,7 +16,6 @@ protocol UpdateRsyncVersionString: AnyObject {
 final class RsyncVersionString {
     var outputprocess: OutputfromProcess?
     var rsyncversionshort: String?
-    var rsyncversionstring: String?
     weak var updateRsyncVersionStringDelegate: UpdateRsyncVersionString?
 
     init(object: UpdateRsyncVersionString?) {
@@ -35,13 +34,9 @@ final class RsyncVersionString {
 extension RsyncVersionString {
     func processtermination() {
         guard outputprocess?.getOutput()?.count ?? 0 > 0 else { return }
-        if let rsyncversionshort = outputprocess?.getOutput()?[0],
-           let rsyncversionstring = outputprocess?.getOutput()?.joined(separator: "\n")
-        {
+        if let rsyncversionshort = outputprocess?.getOutput()?[0] {
             SharedReference.shared.rsyncversionshort = rsyncversionshort
-            SharedReference.shared.rsyncversionstring = rsyncversionstring
             self.rsyncversionshort = rsyncversionshort
-            // rsyncversionstring = rsyncversionstring
             updateRsyncVersionStringDelegate?.updatersyncversionstring(rsyncversion: rsyncversionshort)
         }
     }
