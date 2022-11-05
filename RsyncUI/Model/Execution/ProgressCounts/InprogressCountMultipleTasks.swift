@@ -20,6 +20,7 @@ protocol UpdateEstimationCount: AnyObject {
     func asyncestimationcomplete()
     func asyncexecutealltasksnoestiamtioncomplete()
     func startasyncexecutealltasksnoestimation()
+    func asyncexecutecomplete()
 }
 
 final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCount {
@@ -84,6 +85,11 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
 
     func asyncestimationcomplete() {
         estimateasync = false
+        objectWillChange.send()
+    }
+
+    func asyncexecutecomplete() {
+        executeasyncnoestimation = false
         objectWillChange.send()
     }
 

@@ -38,6 +38,6 @@ extension ExecuteOnetaskAsync {
                 update.addlogpermanentstore(outputrsync: outputfromrsync)
             }
         }
-        updateestimationcountDelegate?.asyncestimationcomplete()
+        updateestimationcountDelegate?.asyncexecutecomplete()
     }
 }
