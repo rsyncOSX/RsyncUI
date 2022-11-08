@@ -33,17 +33,17 @@ extension ExecuteAlltasksAsync {
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
         updateestimationcountDelegate?.appendrecord(record: record)
-        if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
-            if let config = getconfig(hiddenID: hiddenID) {
-                updateestimationcountDelegate?.appenduuid(id: config.id)
-                let update = SingletaskPrimaryLogging(profile: config.profile,
-                                                      hiddenID: hiddenID,
-                                                      configurations: localconfigurationsSwiftUI?.getallconfigurations(),
-                                                      validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
-                update.setCurrentDateonConfiguration()
-                update.addlogpermanentstore(outputrsync: outputfromrsync)
-            }
+        // if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
+        if let config = getconfig(hiddenID: hiddenID) {
+            updateestimationcountDelegate?.appenduuid(id: config.id)
+            let update = SingletaskPrimaryLogging(profile: config.profile,
+                                                  hiddenID: hiddenID,
+                                                  configurations: localconfigurationsSwiftUI?.getallconfigurations(),
+                                                  validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
+            update.setCurrentDateonConfiguration()
+            update.addlogpermanentstore(outputrsync: outputfromrsync)
         }
+        // }
         _ = Task.detached {
             await self.startestimation()
         }
