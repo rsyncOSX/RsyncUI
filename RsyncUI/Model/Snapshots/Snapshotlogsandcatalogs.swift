@@ -14,6 +14,7 @@ final class Snapshotlogsandcatalogs {
     var localeconfig: Configuration?
     var snapshotcatalogstodelete: [String]?
     var mysnapshotdata: SnapshotData?
+    var firstsnapshotctalognodelete: String?
 
     // Remote snapshot catalags
     typealias Catalogsanddates = (String, Date)
@@ -117,6 +118,8 @@ final class Snapshotlogsandcatalogs {
         }
         // Add records to the StateObject for use in View
         mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
+        guard logrecordssnapshot?.count ?? 0 > 0 else { return }
+        firstsnapshotctalognodelete = logrecordssnapshot?[(logrecordssnapshot?.count ?? 0) - 1].snapshotCatalog
     }
 
     func calculatedays(datestringlocalized: String) -> Double? {
@@ -147,11 +150,14 @@ final class Snapshotlogsandcatalogs {
                     if uuidsfordelete.contains(id) {
                         let snaproot = localeconfig?.offsiteCatalog
                         let snapcatalog = logrecordssnapshot?[i].snapshotCatalog
-                        snapshotcatalogstodelete?.append((snaproot ?? "") + (snapcatalog ?? "").dropFirst(2))
+                        if snapcatalog != firstsnapshotctalognodelete {
+                            self.snapshotcatalogstodelete?.append((snaproot ?? "") + (snapcatalog ?? "").dropFirst(2))
+                        }
                     }
                 }
             }
         }
+        if self.snapshotcatalogstodelete?.count ?? 0  == 0 { self.snapshotcatalogstodelete = nil}
     }
 
     init(profile: String?,
