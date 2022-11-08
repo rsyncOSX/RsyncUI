@@ -37,6 +37,7 @@ struct RsyncUIApp: App {
             SidebarCommands()
             ExecuteCommands()
             LogCommands(viewlogfile: $viewlogfile)
+            SnapshotCommands()
 
             CommandGroup(replacing: .help) {
                 Button(action: {

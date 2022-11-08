@@ -20,7 +20,7 @@ struct LogCommands: Commands {
             }) {
                 Text("View logfile")
             }
-            .keyboardShortcut("o", modifiers: [.command])
+            .keyboardShortcut("v", modifiers: [.command])
 
             SelectLog(selectlog: $selectlog)
         }
