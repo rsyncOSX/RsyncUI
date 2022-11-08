@@ -10,8 +10,8 @@
 import Foundation
 
 final class TagSnapshots {
-    var day: NumDayofweek?
-    var nameofday: StringDayofweek?
+    var day: NumDayofweek = .Monday
+    var nameofday: StringDayofweek = .Monday
     var daylocalized = ["Sunday",
                         "Monday",
                         "Tuesday",
@@ -87,12 +87,12 @@ final class TagSnapshots {
                 datecomponentsfromstring(datestringlocalized: now).month,
                 datecomponentsfromstring(datestringlocalized: datesnapshotstring).year == datecomponentsfromstring(datestringlocalized: now).year
             {
-                if datefromstring(datestringlocalized: datesnapshotstring).isSelectedDayofWeek(day: self.day!) == false {
+                if datefromstring(datestringlocalized: datesnapshotstring).isSelectedDayofWeek(day: self.day) == false {
                     let tag = "Delete" + " " + day + ", " + month + " " + "this month"
                     logrecordssnapshot?[index].period = tag
                     return true
                 } else {
-                    let tag = "Keep" + " " + month + " " + daylocalized[self.day!.rawValue - 1] + " " + "this month"
+                    let tag = "Keep" + " " + month + " " + daylocalized[self.day.rawValue - 1] + " " + "this month"
                     logrecordssnapshot?[index].period = tag
                     return false
                 }
@@ -146,7 +146,7 @@ final class TagSnapshots {
     }
 
     func islastSelectedDayinMonth(_ date: Date) -> Bool {
-        if date.isSelectedDayofWeek(day: day!), date.daymonth() > 24 {
+        if date.isSelectedDayofWeek(day: day), date.daymonth() > 24 {
             return true
         } else {
             return false
@@ -154,7 +154,7 @@ final class TagSnapshots {
     }
 
     func isselectedDayinWeek(_ date: Date) -> Bool {
-        return day?.rawValue == date.getWeekday()
+        return day.rawValue == date.getWeekday()
     }
 
     private func setweekdaytokeep(snapdayoffweek: String) {

@@ -12,7 +12,6 @@ final class Snapshotlogsandcatalogs {
     // Number of local logrecords
     var logrecordssnapshot: [Logrecordsschedules]?
     var localeconfig: Configuration?
-    var outputprocess: OutputfromProcess?
     var snapshotcatalogstodelete: [String]?
     var mysnapshotdata: SnapshotData?
 
@@ -25,26 +24,23 @@ final class Snapshotlogsandcatalogs {
     // can be used to delete logs
     var uuidsfromlogrecords: Set<UUID>?
 
-    private func getremotecataloginfo() {
-        outputprocess = OutputfromProcess()
+    @MainActor
+    private func getremotecataloginfo() async {
         let arguments = RestorefilesArguments(task: .snapshotcatalogs,
                                               config: localeconfig,
                                               remoteFile: nil,
                                               localCatalog: nil,
                                               drynrun: nil)
-        let command = RsyncProcess(arguments: arguments.getArguments(),
-                                   config: nil,
-                                   processtermination: processtermination,
-                                   filehandler: filehandler)
-        mysnapshotdata?.state = .getdata
-        command.executeProcess(outputprocess: outputprocess)
+        let command = RsyncAsync(arguments: arguments.getArguments(),
+                                 processtermination: processtermination)
+        await command.executeProcess()
     }
 
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
-    private func prepareremotesnapshotcatalogs() {
+    private func prepareremotesnapshotcatalogs(data: [String]?) {
         // Check for split lines and merge lines if true
-        let data = PrepareOutput(outputprocess?.getOutput() ?? [])
+        let data = PrepareOutput(data ?? [])
         if data.splitlines { data.alignsplitlines() }
         var catalogs = TrimOne(data.trimmeddata).trimmeddata
         var datescatalogs = TrimFour(data.trimmeddata).trimmeddata
@@ -133,7 +129,7 @@ final class Snapshotlogsandcatalogs {
     func countbydays(num: Double) -> Int {
         guard logrecordssnapshot?.count ?? 0 > 0 else { return 0 }
         var j = 0
-        for i in 0 ..< (logrecordssnapshot?.count ?? 0) - 1 {
+        for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
             if let days: String = logrecordssnapshot?[i].days {
                 if Double(days) ?? 0 >= num {
                     j += 1
@@ -146,7 +142,7 @@ final class Snapshotlogsandcatalogs {
     private func preparesnapshotcatalogsfordelete() {
         if snapshotcatalogstodelete == nil { snapshotcatalogstodelete = [] }
         if let uuidsfordelete = mysnapshotdata?.uuidsfordelete {
-            for i in 0 ..< ((logrecordssnapshot?.count ?? 0) - 1) {
+            for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
                 if let id = logrecordssnapshot?[i].id {
                     if uuidsfordelete.contains(id) {
                         let snaproot = localeconfig?.offsiteCatalog
@@ -156,10 +152,6 @@ final class Snapshotlogsandcatalogs {
                 }
             }
         }
-    }
-
-    func deletesnapshots() {
-        prepareremotesnapshotcatalogs()
     }
 
     init(profile: String?,
@@ -178,7 +170,9 @@ final class Snapshotlogsandcatalogs {
         // release the object - dont need it more
         alllogs = nil
         // Getting remote catalogdata about all snapshots
-        getremotecataloginfo()
+        Task {
+            await getremotecataloginfo()
+        }
     }
 
     deinit {
@@ -187,8 +181,8 @@ final class Snapshotlogsandcatalogs {
 }
 
 extension Snapshotlogsandcatalogs {
-    func processtermination() {
-        prepareremotesnapshotcatalogs()
+    func processtermination(data: [String]?) {
+        prepareremotesnapshotcatalogs(data: data)
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         mysnapshotdata?.state = .gotit
