@@ -30,8 +30,7 @@ final class DeleteSnapshots {
         mysnapshotdata?.progressindelete = snapshotcatalogstodelete?.count ?? 0
     }
 
-    @MainActor
-    func deletesnapshots() async {
+    func deletesnapshots() {
         guard (snapshotcatalogstodelete?.count ?? 0) > 0 else {
             mysnapshotdata?.inprogressofdelete = false
             return
@@ -46,10 +45,10 @@ final class DeleteSnapshots {
             mysnapshotdata?.progressindelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
             if let config = localeconfig {
                 let arguments = SnapshotDeleteCatalogsArguments(config: config, remotecatalog: remotecatalog)
-                let command = CommandProcessAsync(command: arguments.getCommand(),
-                                                  arguments: arguments.getArguments(),
-                                                  processtermination: processtermination)
-                await command.executeProcess()
+                let command = CommandProcess(command: arguments.getCommand(),
+                                             arguments: arguments.getArguments(),
+                                             processtermination: processtermination)
+                command.executeProcess()
             }
         }
     }
@@ -71,8 +70,6 @@ final class DeleteSnapshots {
 
 extension DeleteSnapshots {
     func processtermination(data _: [String]?) {
-        Task {
-            await deletesnapshots()
-        }
+        deletesnapshots()
     }
 }
