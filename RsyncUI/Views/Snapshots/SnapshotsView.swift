@@ -40,14 +40,14 @@ struct SnapshotsView: View {
     var body: some View {
         ZStack {
             HStack {
+                ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange { getdata() },
+                                        reload: $reload)
+
                 SnapshotListView(selectedconfig: $selectedconfig,
                                  snapshotrecords: $snapshotrecords,
                                  selecteduuids: $selecteduuids)
                     .environmentObject(snapshotdata)
                     .onDeleteCommand(perform: { delete() })
-
-                ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange { getdata() },
-                                        reload: $reload)
 
             }.padding()
 
@@ -305,6 +305,4 @@ extension SnapshotsView {
             updated = true
         }
     }
-
-    func deletelogs() {}
 }
