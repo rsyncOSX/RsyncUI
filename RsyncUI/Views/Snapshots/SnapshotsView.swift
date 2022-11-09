@@ -83,25 +83,17 @@ struct SnapshotsView: View {
 
             Spacer()
 
-            Group {
-                Button("Tag") { tagsnapshots() }
-                    .buttonStyle(PrimaryButtonStyle())
+            Button("Delete") { showAlertfordelete = true }
+                .sheet(isPresented: $showAlertfordelete) {
+                    ConfirmDeleteSnapshots(isPresented: $showAlertfordelete,
+                                           delete: $confirmdeletesnapshots,
+                                           uuidstodelete: $snapshotdata.uuidsfordelete)
+                        .onDisappear { delete() }
+                }
+                .buttonStyle(AbortButtonStyle())
 
-                Button("Select") { select() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button("Delete") { showAlertfordelete = true }
-                    .sheet(isPresented: $showAlertfordelete) {
-                        ConfirmDeleteSnapshots(isPresented: $showAlertfordelete,
-                                               delete: $confirmdeletesnapshots,
-                                               uuidstodelete: $snapshotdata.uuidsfordelete)
-                            .onDisappear { delete() }
-                    }
-                    .buttonStyle(AbortButtonStyle())
-
-                Button("Abort") { abort() }
-                    .buttonStyle(AbortButtonStyle())
-            }
+            Button("Abort") { abort() }
+                .buttonStyle(AbortButtonStyle())
         }
         .focusedSceneValue(\.selectsnapshot, $focusselectsnapshot)
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
@@ -133,7 +125,6 @@ struct SnapshotsView: View {
     }
 
     var pickersnapdayoffweek: some View {
-        // Picker("Day of week" + ":",
         Picker("",
                selection: $snapdayofweek) {
             ForEach(StringDayofweek.allCases) { Text($0.description)
@@ -145,7 +136,6 @@ struct SnapshotsView: View {
     }
 
     var pickersnaplast: some View {
-        // Picker("Plan" + ":",
         Picker("",
                selection: $snaplast) {
             ForEach(PlanSnapshots.allCases) { Text($0.description)
@@ -238,7 +228,6 @@ extension SnapshotsView {
             _ = Snapshotlogsandcatalogs(profile: rsyncUIdata.profile,
                                         config: config,
                                         configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                        // schedulesSwiftUI: rsyncUIdata.rsyncdata?.scheduleData,
                                         snapshotdata: snapshotdata)
         }
     }
