@@ -18,10 +18,6 @@ struct SnapshotCommands: Commands {
             Tagsnapshot(tagsnapshot: $tagsnapshot)
         }
     }
-
-    func select() {
-        selectsnapshot = true
-    }
 }
 
 struct Selectsnapshot: View {
@@ -33,7 +29,7 @@ struct Selectsnapshot: View {
         } label: {
             Text("Select snapshot")
         }
-        .keyboardShortcut("o", modifiers: [.command])
+        .keyboardShortcut("n", modifiers: [.command])
     }
 }
 

@@ -34,6 +34,9 @@ struct SnapshotsView: View {
     @State private var showAlertfordelete = false
     @State private var searchText: String = ""
 
+    @State private var focusselectsnapshot: Bool = false
+    @State private var focustagsnapshot: Bool = false
+
     var body: some View {
         ZStack {
             HStack {
@@ -41,11 +44,7 @@ struct SnapshotsView: View {
                                  snapshotrecords: $snapshotrecords,
                                  selecteduuids: $selecteduuids)
                     .environmentObject(snapshotdata)
-                    .onDeleteCommand(perform: {
-                        Task {
-                            await delete()
-                        }
-                    })
+                    .onDeleteCommand(perform: { delete() })
 
                 ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange { getdata() },
                                         reload: $reload)
@@ -54,6 +53,8 @@ struct SnapshotsView: View {
 
             if gettingdata == true { gettingdatainprocess }
             if updated == true { notifyupdated }
+            if focustagsnapshot == true { labeltagsnapshot }
+            if focusselectsnapshot == true { labelselectsnapshot }
         }
 
         Spacer()
@@ -94,11 +95,7 @@ struct SnapshotsView: View {
                         ConfirmDeleteSnapshots(isPresented: $showAlertfordelete,
                                                delete: $confirmdeletesnapshots,
                                                uuidstodelete: $snapshotdata.uuidsfordelete)
-                            .onDisappear {
-                                Task {
-                                    await delete()
-                                }
-                            }
+                            .onDisappear { delete() }
                     }
                     .buttonStyle(AbortButtonStyle())
 
@@ -106,6 +103,8 @@ struct SnapshotsView: View {
                     .buttonStyle(AbortButtonStyle())
             }
         }
+        .focusedSceneValue(\.selectsnapshot, $focusselectsnapshot)
+        .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
     }
 
     var labelnumberoflogs: some View {
@@ -177,6 +176,22 @@ struct SnapshotsView: View {
             .contentShape(Rectangle())
             .onDisappear(perform: {
                 getdata()
+            })
+    }
+
+    var labelselectsnapshot: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusselectsnapshot = false
+                select()
+            })
+    }
+
+    var labeltagsnapshot: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focustagsnapshot = false
+                tagsnapshots()
             })
     }
 }
@@ -270,14 +285,14 @@ extension SnapshotsView {
         }
     }
 
-    func delete() async {
+    func delete() {
         guard confirmdeletesnapshots == true else { return }
         if let config = selectedconfig {
             snapshotdata.delete = DeleteSnapshots(config: config,
                                                   snapshotdata: snapshotdata,
                                                   logrecordssnapshot: snapshotdata.getsnapshotdata())
             snapshotdata.inprogressofdelete = true
-            await snapshotdata.delete?.deletesnapshots()
+            snapshotdata.delete?.deletesnapshots()
         }
     }
 
