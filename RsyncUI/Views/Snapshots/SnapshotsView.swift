@@ -37,6 +37,8 @@ struct SnapshotsView: View {
     @State private var focusselectsnapshot: Bool = false
     @State private var focustagsnapshot: Bool = false
 
+    @State private var selectatask: Bool = false
+
     var body: some View {
         ZStack {
             HStack {
@@ -73,12 +75,15 @@ struct SnapshotsView: View {
 
             Spacer()
 
-            if snapshotdata.inprogressofdelete == true { progressdelete }
-            if notsnapshot == true { notasnapshottask }
-            if snapshotdata.state == .getdata {
-                RotatingDotsIndicatorView()
-                    .frame(width: 50.0, height: 50.0)
-                    .foregroundColor(.red)
+            Group {
+                if selectatask == true { notifyselecttask }
+                if snapshotdata.inprogressofdelete == true { progressdelete }
+                if notsnapshot == true { notasnapshottask }
+                if snapshotdata.state == .getdata {
+                    RotatingDotsIndicatorView()
+                        .frame(width: 50.0, height: 50.0)
+                        .foregroundColor(.red)
+                }
             }
 
             Spacer()
@@ -183,6 +188,23 @@ struct SnapshotsView: View {
                 focustagsnapshot = false
                 tagsnapshots()
             })
+    }
+
+    var notifyselecttask: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text("Select a task")
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 200, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .onAppear(perform: {
+            // Show updated for 3 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                selectatask = false
+            }
+        })
     }
 }
 
@@ -303,6 +325,8 @@ extension SnapshotsView {
             updateconfiguration.updateconfiguration(selectedconfig, false)
             reload = true
             updated = true
+        } else {
+            selectatask = true
         }
     }
 }
