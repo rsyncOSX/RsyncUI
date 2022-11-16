@@ -26,7 +26,6 @@ struct RsyncCommandView: View {
 
             showcommand
         }
-        .padding()
     }
 
     var pickerselectcommand: some View {
@@ -40,10 +39,10 @@ struct RsyncCommandView: View {
 
     var showcommand: some View {
         Text(commandstring ?? "")
-            .padding()
             .textSelection(.enabled)
             .lineLimit(nil)
             .multilineTextAlignment(.leading)
+            .frame(maxWidth: .infinity)
     }
 
     var commandstring: String? {
