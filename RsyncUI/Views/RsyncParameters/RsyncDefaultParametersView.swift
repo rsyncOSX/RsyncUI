@@ -42,16 +42,13 @@ struct RsyncDefaultParametersView: View {
                     Spacer()
                 }
 
-                VStack {
+                VStack(alignment: .leading) {
                     ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
                         parameters.setvalues(selectedconfig)
-                    },
-                    reload: $reload)
+                    }, reload: $reload)
 
                     HStack {
                         RsyncCommandView(selectedconfig: selectedconfig)
-
-                        Spacer()
                     }
                 }
             }
