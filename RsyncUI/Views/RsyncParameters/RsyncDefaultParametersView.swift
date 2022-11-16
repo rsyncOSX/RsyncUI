@@ -49,7 +49,7 @@ struct RsyncDefaultParametersView: View {
                         .frame(maxWidth: .infinity)
 
                     HStack(alignment: .center) {
-                        RsyncCommandView(selectedconfig: selectedconfig)
+                        RsyncCommandView(config: parameters.updatersyncparameters())
                     }
                 }
             }
@@ -58,6 +58,9 @@ struct RsyncDefaultParametersView: View {
 
             HStack {
                 Spacer()
+
+                Button("Reload") { reload = true }
+                    .buttonStyle(PrimaryButtonStyle())
 
                 Button("Save") { saversyncparameters() }
                     .buttonStyle(PrimaryButtonStyle())

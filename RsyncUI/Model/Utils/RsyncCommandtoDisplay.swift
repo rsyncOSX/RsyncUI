@@ -29,11 +29,9 @@ struct RsyncCommandtoDisplay {
         return rsynccommand
     }
 
-    init(index: Int,
-         display: RsyncCommand,
+    init(display: RsyncCommand,
          config: Configuration)
     {
-        guard index > -1 else { return }
         var str = ""
         str = GetfullpathforRsync().rsyncpath ?? ""
         str += " "

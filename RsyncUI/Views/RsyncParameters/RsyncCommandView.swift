@@ -18,7 +18,7 @@ struct RsyncCommandView: View {
     @State private var selectable = false
     @State private var selecteduuids = Set<UUID>()
 
-    var selectedconfig: Configuration?
+    var config: Configuration?
 
     var body: some View {
         HStack {
@@ -46,13 +46,11 @@ struct RsyncCommandView: View {
     }
 
     var commandstring: String? {
-        if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.hiddenID == selectedconfig?.hiddenID }) {
-            if let config = selectedconfig {
-                return RsyncCommandtoDisplay(index: index,
-                                             display: selectedrsynccommand,
-                                             config: config).getrsyncommand()
-            }
+        if let config = config {
+            return RsyncCommandtoDisplay(display: selectedrsynccommand,
+                                         config: config).getrsyncommand()
+        } else {
+            return NSLocalizedString("Select a configuration", comment: "")
         }
-        return NSLocalizedString("Select a configuration", comment: "")
     }
 }
