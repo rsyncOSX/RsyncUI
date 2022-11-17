@@ -50,8 +50,8 @@ final class ObserveableParametersDefault: ObservableObject {
                 deletecompress(removecompress)
             }.store(in: &subscriptions)
         $daemon
-            .sink { [unowned self] _ in
-                setrsyncdaemon()
+            .sink { [unowned self] setdaemon in
+                setrsyncdaemon(setdaemon)
             }.store(in: &subscriptions)
     }
 }
@@ -167,14 +167,14 @@ extension ObserveableParametersDefault {
         }
     }
 
-    func setrsyncdaemon() {
+    func setrsyncdaemon(_ setdaemon: Bool) {
         guard configuration != nil else { return }
-        if daemon {
-            configuration?.rsyncdaemon = nil
-            configuration?.parameter5 = "-e"
-        } else {
+        if setdaemon {
             configuration?.rsyncdaemon = 1
             configuration?.parameter5 = ""
+        } else {
+            configuration?.rsyncdaemon = nil
+            configuration?.parameter5 = "-e"
         }
     }
 
