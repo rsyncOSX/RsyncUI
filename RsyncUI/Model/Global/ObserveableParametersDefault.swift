@@ -25,11 +25,6 @@ final class ObserveableParametersDefault: ObservableObject {
     @Published var daemon: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
-    // parameters for delete
-    var parameter3: String?
-    var parameter4: String?
-    var parameter5: String?
-    var rsyncdaemon: Int?
 
     init() {
         $sshkeypathandidentityfile
@@ -43,16 +38,16 @@ final class ObserveableParametersDefault: ObservableObject {
                 sshport(port)
             }.store(in: &subscriptions)
         $removessh
-            .sink { [unowned self] ssh in
-                deletessh(ssh)
+            .sink { [unowned self] removessh in
+                deletessh(removessh)
             }.store(in: &subscriptions)
         $removedelete
-            .sink { [unowned self] delete in
-                deletedelete(delete)
+            .sink { [unowned self] removedelete in
+                deletedelete(removedelete)
             }.store(in: &subscriptions)
         $removecompress
-            .sink { [unowned self] compress in
-                deletecompress(compress)
+            .sink { [unowned self] removecompress in
+                deletecompress(removecompress)
             }.store(in: &subscriptions)
         $daemon
             .sink { [unowned self] _ in
@@ -70,17 +65,16 @@ extension ObserveableParametersDefault {
             } else {
                 sshport = ""
             }
-            sshkeypathandidentityfile = config.sshkeypathandidentityfile ?? ""
-            parameter3 = config.parameter3
-            parameter4 = config.parameter4
-            parameter5 = config.parameter5
+            // --compress parameter3
+            // --delete parameter4
+            // -e (parameter 6 = "ssh"
             // set delete toggles
-            if (parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
-            if (parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
-            if (parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
+            if (configuration?.parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
+            if (configuration?.parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
+            if (configuration?.parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
             // Rsync daemon
-            rsyncdaemon = config.rsyncdaemon
-            if (config.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
+            configuration?.rsyncdaemon = config.rsyncdaemon
+            if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
         } else {
             reset()
         }
@@ -90,9 +84,9 @@ extension ObserveableParametersDefault {
     private func deletessh(_ delete: Bool) {
         guard configuration != nil else { return }
         if delete {
-            parameter5 = nil
+            configuration?.parameter5 = ""
         } else {
-            parameter5 = "-e"
+            configuration?.parameter5 = "-e"
         }
     }
 
@@ -100,9 +94,9 @@ extension ObserveableParametersDefault {
     private func deletedelete(_ delete: Bool) {
         guard configuration != nil else { return }
         if delete {
-            parameter4 = nil
+            configuration?.parameter4 = ""
         } else {
-            parameter4 = "--delete"
+            configuration?.parameter4 = "--delete"
         }
     }
 
@@ -110,9 +104,9 @@ extension ObserveableParametersDefault {
     private func deletecompress(_ delete: Bool) {
         guard configuration != nil else { return }
         if delete {
-            parameter3 = nil
+            configuration?.parameter3 = ""
         } else {
-            parameter3 = "--compress"
+            configuration?.parameter3 = "--compress"
         }
     }
 
@@ -176,11 +170,11 @@ extension ObserveableParametersDefault {
     func setrsyncdaemon() {
         guard configuration != nil else { return }
         if daemon {
-            rsyncdaemon = nil
-            parameter5 = "-e"
+            configuration?.rsyncdaemon = nil
+            configuration?.parameter5 = "-e"
         } else {
-            rsyncdaemon = 1
-            parameter5 = nil
+            configuration?.rsyncdaemon = 1
+            configuration?.parameter5 = ""
         }
     }
 
@@ -197,10 +191,6 @@ extension ObserveableParametersDefault {
             } else {
                 configuration.sshkeypathandidentityfile = sshkeypathandidentityfile
             }
-            if parameter3 == nil { configuration.parameter3 = "" } else { configuration.parameter3 = parameter3 ?? "" }
-            if parameter4 == nil { configuration.parameter4 = "" } else { configuration.parameter4 = parameter4 ?? "" }
-            if parameter5 == nil { configuration.parameter5 = "" } else { configuration.parameter5 = parameter5 ?? "" }
-            configuration.rsyncdaemon = rsyncdaemon
             return configuration
         }
         return nil
