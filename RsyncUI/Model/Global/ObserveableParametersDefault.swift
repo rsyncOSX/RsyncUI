@@ -47,7 +47,6 @@ final class ObserveableParametersDefault: ObservableObject {
                 deletessh(ssh)
             }.store(in: &subscriptions)
         $removedelete
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] delete in
                 deletedelete(delete)
             }.store(in: &subscriptions)
