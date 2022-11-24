@@ -109,9 +109,15 @@ struct TasksView: View {
                     }
                     .buttonStyle(PrimaryButtonStyle())
                     .sheet(isPresented: $dryrunview) {
-                        DetailsView(selectedconfig: $selectedconfig,
-                                    reload: $reload,
-                                    isPresented: $dryrunview)
+                        /*
+                         DetailsView(selectedconfig: $selectedconfig,
+                                     reload: $reload,
+                                     isPresented: $dryrunview)
+                          */
+                        DetailsViewAlreadyEstimated(selectedconfig: $selectedconfig,
+                                                    reload: $reload,
+                                                    isPresented: $dryrunview,
+                                                    estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
                     }
 
                     Button("Reset") {
