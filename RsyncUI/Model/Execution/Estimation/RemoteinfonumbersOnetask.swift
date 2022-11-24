@@ -21,6 +21,8 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
     var deletefiles: String
     var selected = 0
     var config: Configuration?
+    // Detailed output
+    var outputfromrsync: [String]?
 
     init(hiddenID: Int?,
          outputfromrsync: [String]?,
@@ -28,6 +30,7 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
     {
         self.hiddenID = hiddenID ?? -1
         self.config = config
+        self.outputfromrsync = outputfromrsync
         let number = Numbers(outputfromrsync ?? [])
         transferredNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.none)
         transferredNumberSizebytes = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal)
