@@ -61,21 +61,28 @@ struct TasksView: View {
                                reload: $reload,
                                confirmdelete: $confirmdeletemenu)
 
-            if focusstartestimation { labelstartestimation }
-            if focusstartexecution { labelstartexecution }
+            Group {
+                if focusstartestimation { labelstartestimation }
+                if focusstartexecution { labelstartexecution }
 
-            if focusselecttask { labelselecttask }
-            if focusfirsttaskinfo { labelfirsttime }
-            if focusdeletetask { labeldeletetask }
-            if focusshowinfotask { labelshowinfotask }
+                if focusselecttask { labelselecttask }
+                if focusfirsttaskinfo { labelfirsttime }
+                if focusdeletetask { labeldeletetask }
+                if focusshowinfotask { labelshowinfotask }
 
-            if progressviewshowinfo {
-                RotatingDotsIndicatorView()
-                    .frame(width: 50.0, height: 50.0)
-                    .foregroundColor(.red)
+                if progressviewshowinfo {
+                    RotatingDotsIndicatorView()
+                        .frame(width: 50.0, height: 50.0)
+                        .foregroundColor(.red)
+                }
+
+                if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
+                if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasync }
             }
-            if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
-            if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasync }
+
+            Group {
+                if alltasksestimated { alltasksestimatedtext }
+            }
         }
 
         HStack {
@@ -170,6 +177,14 @@ struct TasksView: View {
                                     selectedconfig: $selectedconfig)
             }
         }
+    }
+
+    var alltasksestimated: Bool {
+        return inprogresscountmultipletask.getestimatedlist()?.count == rsyncUIdata.configurations?.count
+    }
+
+    var alltasksestimatedtext: some View {
+        Text("All tasks are estimated - select task and DryRun to view details")
     }
 
     var labelstartestimation: some View {
