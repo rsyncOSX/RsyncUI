@@ -81,7 +81,7 @@ struct TasksView: View {
             }
 
             Group {
-                if alltasksestimated { alltasksestimatedtext }
+                //
             }
         }
 
@@ -140,7 +140,10 @@ struct TasksView: View {
             Spacer()
 
             ZStack {
-                if estimationstate.estimationstate != .estimate { footer }
+                VStack {
+                    if alltasksestimated { alltasksestimatedtext }
+                    if estimationstate.estimationstate != .estimate { footer }
+                }
             }
 
             Spacer()
