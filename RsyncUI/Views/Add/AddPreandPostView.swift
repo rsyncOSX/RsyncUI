@@ -62,14 +62,16 @@ struct AddPreandPostView: View {
 
                     // For center
                     Spacer()
+
+                    VStack(alignment: .leading) {
+                        Spacer()
+
+                        updatebutton
+                    }
                 }
 
                 if newdata.updated == true { notifyupdated }
             }
-
-            updatebutton
-
-            Spacer()
         }
         .lineSpacing(2)
         .padding()
@@ -129,7 +131,7 @@ struct AddPreandPostView: View {
 
     var pretaskandtoggle: some View {
         VStack(alignment: .leading) {
-            HStack {
+            VStack(alignment: .leading) {
                 // Enable pretask
                 if newdata.selectedconfig == nil { disablepretask } else {
                     ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepre.onChange {})
@@ -144,25 +146,28 @@ struct AddPreandPostView: View {
 
                 // Pretask
 
-                if newdata.selectedconfig == nil { setpretask } else {
-                    EditValue(250, nil, $newdata.pretask.onChange {})
-                        .focused($focusField, equals: .pretaskField)
-                        .textContentType(.none)
-                        .submitLabel(.continue)
-                        .onAppear(perform: {
-                            if let task = newdata.selectedconfig?.pretask {
-                                newdata.pretask = task
-                            }
-                        })
+                HStack {
+                    if newdata.selectedconfig == nil { setpretask } else {
+                        EditValue(250, nil, $newdata.pretask.onChange {})
+                            .focused($focusField, equals: .pretaskField)
+                            .textContentType(.none)
+                            .submitLabel(.continue)
+                            .onAppear(perform: {
+                                if let task = newdata.selectedconfig?.pretask {
+                                    newdata.pretask = task
+                                }
+                            })
+                    }
+
+                    OpencatalogView(catalog: $newdata.pretask, choosecatalog: choosecatalog)
                 }
-                OpencatalogView(catalog: $newdata.pretask, choosecatalog: choosecatalog)
             }
         }
     }
 
     var posttaskandtoggle: some View {
         VStack(alignment: .leading) {
-            HStack {
+            VStack(alignment: .leading) {
                 // Enable posttask
                 if newdata.selectedconfig == nil { disableposttask } else {
                     ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepost.onChange {})
@@ -177,18 +182,20 @@ struct AddPreandPostView: View {
 
                 // Posttask
 
-                if newdata.selectedconfig == nil { setposttask } else {
-                    EditValue(250, nil, $newdata.posttask.onChange {})
-                        .focused($focusField, equals: .posttaskField)
-                        .textContentType(.none)
-                        .submitLabel(.continue)
-                        .onAppear(perform: {
-                            if let task = newdata.selectedconfig?.posttask {
-                                newdata.posttask = task
-                            }
-                        })
+                HStack {
+                    if newdata.selectedconfig == nil { setposttask } else {
+                        EditValue(250, nil, $newdata.posttask.onChange {})
+                            .focused($focusField, equals: .posttaskField)
+                            .textContentType(.none)
+                            .submitLabel(.continue)
+                            .onAppear(perform: {
+                                if let task = newdata.selectedconfig?.posttask {
+                                    newdata.posttask = task
+                                }
+                            })
+                    }
+                    OpencatalogView(catalog: $newdata.posttask, choosecatalog: choosecatalog)
                 }
-                OpencatalogView(catalog: $newdata.posttask, choosecatalog: choosecatalog)
             }
         }
     }

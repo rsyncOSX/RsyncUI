@@ -51,11 +51,9 @@ struct AddTaskView: View {
 
                         if newdata.selectedrsynccommand == .syncremote {
                             VStack(alignment: .leading) { localandremotecatalogsyncremote }
-                            // OpencatalogView(catalog: $newdata.localcatalog)
 
                         } else {
                             VStack(alignment: .leading) { localandremotecatalog }
-                            // OpencatalogView(catalog: $newdata.localcatalog)
                         }
 
                         VStack(alignment: .leading) {
@@ -78,6 +76,12 @@ struct AddTaskView: View {
 
                     // For center
                     Spacer()
+
+                    VStack(alignment: .trailing) {
+                        Spacer()
+
+                        updatebutton
+                    }
                 }
 
                 // Present when either added, updated or profile created, deleted
@@ -87,10 +91,6 @@ struct AddTaskView: View {
                 if newdata.deleted == true { notifydeleted }
                 if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
             }
-
-            updatebutton
-
-            Spacer()
         }
         .lineSpacing(2)
         .padding()
