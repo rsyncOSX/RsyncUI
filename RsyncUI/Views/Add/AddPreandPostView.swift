@@ -50,6 +50,8 @@ struct AddPreandPostView: View {
                                     })
                             }
                         }
+
+                        Spacer()
                     }
 
                     // Column 2

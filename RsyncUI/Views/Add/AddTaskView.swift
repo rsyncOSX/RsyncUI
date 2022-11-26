@@ -64,6 +64,8 @@ struct AddTaskView: View {
                         VStack(alignment: .leading) { synchronizeid }
 
                         VStack(alignment: .leading) { remoteuserandserver }
+
+                        Spacer()
                     }
 
                     // Column 2
