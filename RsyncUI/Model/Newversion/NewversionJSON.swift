@@ -78,7 +78,7 @@ extension URLSession {
     }
 }
 
-extension NewversionJSON: PropogateError {
+extension NewversionJSON {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

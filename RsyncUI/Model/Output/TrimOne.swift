@@ -36,7 +36,7 @@ final class TrimOne {
     }
 }
 
-extension TrimOne: PropogateError {
+extension TrimOne {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

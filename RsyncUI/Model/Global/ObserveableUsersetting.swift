@@ -166,7 +166,7 @@ extension ObserveableUsersetting {
     }
 }
 
-extension ObserveableUsersetting: PropogateError {
+extension ObserveableUsersetting {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

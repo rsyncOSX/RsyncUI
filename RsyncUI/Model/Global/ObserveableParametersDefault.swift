@@ -207,7 +207,7 @@ extension ObserveableParametersDefault {
     }
 }
 
-extension ObserveableParametersDefault: PropogateError {
+extension ObserveableParametersDefault {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

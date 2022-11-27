@@ -89,7 +89,7 @@ final class CommandProcessAsync {
     }
 }
 
-extension CommandProcessAsync: PropogateError {
+extension CommandProcessAsync {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

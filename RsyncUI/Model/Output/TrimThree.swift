@@ -46,7 +46,7 @@ final class TrimThree {
     }
 }
 
-extension TrimThree: PropogateError {
+extension TrimThree {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

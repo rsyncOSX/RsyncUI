@@ -95,7 +95,7 @@ class NamesandPaths {
     }
 }
 
-extension NamesandPaths: PropogateError {
+extension NamesandPaths {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

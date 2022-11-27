@@ -205,7 +205,7 @@ extension ObserveableRestore {
     }
 }
 
-extension ObserveableRestore: PropogateError {
+extension ObserveableRestore {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

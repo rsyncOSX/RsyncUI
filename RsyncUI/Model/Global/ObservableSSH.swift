@@ -97,7 +97,7 @@ extension ObservableSSH {
     }
 }
 
-extension ObservableSSH: PropogateError {
+extension ObservableSSH {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

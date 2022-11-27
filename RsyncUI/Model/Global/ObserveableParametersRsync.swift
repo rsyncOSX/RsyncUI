@@ -160,7 +160,7 @@ extension ObserveableParametersRsync {
     }
 }
 
-extension ObserveableParametersRsync: PropogateError {
+extension ObserveableParametersRsync {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

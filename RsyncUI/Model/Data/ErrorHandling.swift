@@ -8,12 +8,7 @@
 import Foundation
 import SwiftUI
 
-// Protocol for reporting file errors
-protocol PropogateError: AnyObject {
-    func propogateerror(error: Error)
-}
-
-final class ErrorHandling: ObservableObject, PropogateError {
+final class ErrorHandling: ObservableObject {
     @Published private(set) var activeError: Error?
 
     func propogateerror(error: Error) {

@@ -90,7 +90,7 @@ final class RsyncAsync {
     }
 }
 
-extension RsyncAsync: PropogateError {
+extension RsyncAsync {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

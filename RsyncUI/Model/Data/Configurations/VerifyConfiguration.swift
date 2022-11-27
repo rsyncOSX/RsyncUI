@@ -253,7 +253,7 @@ extension VerifyConfiguration {
     func processtermination(data _: [String]?) {}
 }
 
-extension VerifyConfiguration: PropogateError {
+extension VerifyConfiguration {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

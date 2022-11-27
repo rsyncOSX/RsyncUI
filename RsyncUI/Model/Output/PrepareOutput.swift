@@ -59,7 +59,7 @@ final class PrepareOutput {
     }
 }
 
-extension PrepareOutput: PropogateError {
+extension PrepareOutput {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
