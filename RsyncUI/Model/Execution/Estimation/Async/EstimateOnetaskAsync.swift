@@ -10,7 +10,6 @@ import Foundation
 
 class EstimateOnetaskAsync {
     var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
-    var estimationonetask: EstimateOnetaskAsync?
     var localhiddenID: Int?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 

@@ -28,7 +28,6 @@ final class ExecuteMultipleTasks {
     private var outputprocess: OutputfromProcess?
     private var records: [RemoteinfonumbersOnetask]?
     private var max: Int?
-    private var uuids: Set<UUID>?
     // Set if abort is executed
     private var setabort = false
 

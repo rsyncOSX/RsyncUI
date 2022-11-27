@@ -10,7 +10,6 @@ import Foundation
 
 class EstimateAlltasksAsync {
     var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
-    var estimationonetask: EstimateOnetaskAsync?
     var stackoftasktobeestimated: [Int]?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 

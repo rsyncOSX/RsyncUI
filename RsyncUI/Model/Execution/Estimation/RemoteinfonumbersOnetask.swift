@@ -19,7 +19,6 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
     var totalDirs: String
     var newfiles: String
     var deletefiles: String
-    var selected = 0
     var config: Configuration?
     // Detailed output
     var outputfromrsync: [String]?
