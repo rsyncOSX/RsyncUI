@@ -54,12 +54,15 @@ struct TasksView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsList(selectedconfig: $selectedconfig,
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               searchText: $searchText,
-                               reload: $reload,
-                               confirmdelete: $confirmdeletemenu)
+            ConfigurationsList(selectedconfig: $selectedconfig.onChange {
+                guard selectedconfig != nil else { return }
+                if alltasksestimated { dryrunview = true }
+            },
+            selecteduuids: $selecteduuids,
+            inwork: $inwork,
+            searchText: $searchText,
+            reload: $reload,
+            confirmdelete: $confirmdeletemenu)
 
             Group {
                 if focusstartestimation { labelstartestimation }
@@ -187,7 +190,7 @@ struct TasksView: View {
     }
 
     var alltasksestimatedtext: some View {
-        Text("All tasks are estimated - select task and DryRun to view details")
+        Text("All tasks are estimated - select task to view details or Reset for reset")
     }
 
     var labelstartestimation: some View {
