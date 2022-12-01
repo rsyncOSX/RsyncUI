@@ -124,6 +124,9 @@ struct TasksView: View {
                                                         reload: $reload,
                                                         isPresented: $dryrunview,
                                                         estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
+                                .onDisappear(perform: {
+                                    selectedconfig = nil
+                                })
 
                         } else {
                             DetailsView(selectedconfig: $selectedconfig,
@@ -332,6 +335,9 @@ extension TasksView {
         inwork = -1
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
+        selectedconfig = nil
+        progressviewshowinfo = false
+        inprogresscountmultipletask.estimateasync = false
     }
 
     func abort() {
