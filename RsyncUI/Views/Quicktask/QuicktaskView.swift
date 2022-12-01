@@ -103,9 +103,7 @@ struct QuicktaskView: View {
 
             HStack {
                 Button("Execute") {
-                    Task {
-                        await getconfig()
-                    }
+                    getconfig()
                 }
                 .buttonStyle(PrimaryButtonStyle())
 
@@ -230,7 +228,7 @@ extension QuicktaskView {
         presentsheetview = true
     }
 
-    func getconfig() async {
+    func getconfig() {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
@@ -244,34 +242,35 @@ extension QuicktaskView {
                                  nil,
                                  nil)
         // If newconfig is verified add it
-        if let newconfig = await VerifyConfiguration().verify(getdata) {
+        if let newconfig = VerifyConfiguration().verify(getdata) {
             // Now can prepare for execute.
-            execute(config: newconfig, dryrun: dryrun)
+            Task {
+                await execute(config: newconfig, dryrun: dryrun)
+            }
         }
     }
 
-    func execute(config: Configuration, dryrun: Bool) {
+    @MainActor
+    func execute(config: Configuration, dryrun: Bool) async {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
         rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
         // Start progressview
         showprogressview = true
-        let command = RsyncProcess(arguments: arguments,
-                                   config: nil,
-                                   processtermination: processtermination,
-                                   filehandler: filehandler)
-        command.executeProcess(outputprocess: rsyncoutput?.myoutputprocess)
+        let process = RsyncProcessAsync(arguments: arguments,
+                                        config: config,
+                                        processtermination: processtermination)
+        await process.executeProcess()
     }
 
     func abort() {
         _ = InterruptProcess()
     }
 
-    func processtermination() {
+    func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
         // Stop progressview
         showprogressview = false
         rsyncoutput?.setoutput()
         showcompleted = true
+        rsyncoutput?.setoutput(data: outputfromrsync)
     }
-
-    func filehandler() {}
 }

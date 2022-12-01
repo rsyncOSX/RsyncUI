@@ -115,7 +115,7 @@ final class VerifyConfiguration: Connected {
     let ssh: String = "ssh"
 
     // Verify parameters for new config.
-    func verify(_ data: AppendTask) async -> Configuration? {
+    func verify(_ data: AppendTask) -> Configuration? {
         var newconfig = Configuration()
         newconfig.task = data.newtask
         newconfig.backupID = data.newbackupID ?? ""
@@ -163,7 +163,7 @@ final class VerifyConfiguration: Connected {
         // Must be connected to create base remote snapshot catalog
         if data.newtask == SharedReference.shared.snapshot {
             // If connected create base remote snapshotcatalog
-            await snapshotcreateremotecatalog(config: newconfig)
+            snapshotcreateremotecatalog(config: newconfig)
         }
         // Add pre and post task if set
         // Pre task
@@ -199,14 +199,13 @@ final class VerifyConfiguration: Connected {
     }
 
     // Create remote snapshot catalog
-    @MainActor
-    private func snapshotcreateremotecatalog(config: Configuration) async {
+    private func snapshotcreateremotecatalog(config: Configuration) {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = SnapshotCreateCatalogArguments(config: config)
-        let updatecurrent = CommandProcessAsync(command: args.getCommand(),
-                                                arguments: args.getArguments(),
-                                                processtermination: processtermination)
-        await updatecurrent.executeProcess()
+        let updatecurrent = CommandProcess(command: args.getCommand(),
+                                           arguments: args.getArguments(),
+                                           processtermination: processtermination)
+        updatecurrent.executeProcess()
     }
 
     // Validate input, throws errors
