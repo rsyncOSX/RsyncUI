@@ -119,7 +119,11 @@ extension ObserveableParametersRsync {
     func setsuffixlinux() {
         guard configuration != nil else { return }
         if parameter14.isEmpty == false {
-            parameter14 = ""
+            if parameter14 == RsyncArguments().suffixstringfreebsd {
+                parameter14 = RsyncArguments().suffixstringlinux
+            } else {
+                parameter14 = ""
+            }
         } else {
             parameter14 = RsyncArguments().suffixstringlinux
         }
@@ -128,7 +132,11 @@ extension ObserveableParametersRsync {
     func setsuffixfreebsd() {
         guard configuration != nil else { return }
         if parameter14.isEmpty == false {
-            parameter14 = ""
+            if parameter14 == RsyncArguments().suffixstringlinux {
+                parameter14 = RsyncArguments().suffixstringfreebsd
+            } else {
+                parameter14 = ""
+            }
         } else {
             parameter14 = RsyncArguments().suffixstringfreebsd
         }
