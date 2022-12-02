@@ -392,8 +392,8 @@ struct AddTaskView: View {
 }
 
 extension AddTaskView {
-    func addconfig() async {
-        await newdata.addconfig(selectedprofile, configurations)
+    func addconfig() {
+        newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload
         if newdata.added == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -402,8 +402,8 @@ extension AddTaskView {
         }
     }
 
-    func validateandupdate() async {
-        await newdata.validateandupdate(selectedprofile, configurations)
+    func validateandupdate() {
+        newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
         if newdata.updated == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

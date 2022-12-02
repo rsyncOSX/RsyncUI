@@ -109,8 +109,7 @@ final class ObserveableAddConfigurations: ObservableObject {
             }.store(in: &subscriptions)
     }
 
-    @MainActor
-    func addconfig(_ profile: String?, _ configurations: [Configuration]?) async {
+    func addconfig(_ profile: String?, _ configurations: [Configuration]?) {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
@@ -125,7 +124,7 @@ final class ObserveableAddConfigurations: ObservableObject {
                                  nil,
                                  nil)
         // If newconfig is verified add it
-        if let newconfig = await VerifyConfiguration().verify(getdata) {
+        if let newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
@@ -137,7 +136,7 @@ final class ObserveableAddConfigurations: ObservableObject {
         }
     }
 
-    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) async {
+    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
         updatepreandpost()
         let updateddata = AppendTask(selectedrsynccommand.rawValue,
                                      localcatalog,
@@ -154,7 +153,7 @@ final class ObserveableAddConfigurations: ObservableObject {
                                      posttask,
                                      haltshelltasksonerror,
                                      selectedconfig?.hiddenID ?? -1)
-        if let updatedconfig = await VerifyConfiguration().verify(updateddata) {
+        if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfiguration =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
@@ -205,12 +204,12 @@ final class ObserveableAddConfigurations: ObservableObject {
         }
     }
 
-    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) async {
+    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) {
         // Validate not a snapshot task
         do {
             let validated = try validatenotsnapshottask()
             if validated {
-                await updateconfig(profile, configurations)
+                updateconfig(profile, configurations)
             }
         } catch let e {
             let error = e

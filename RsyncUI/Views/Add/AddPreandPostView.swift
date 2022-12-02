@@ -222,8 +222,8 @@ struct AddPreandPostView: View {
 }
 
 extension AddPreandPostView {
-    func validateandupdate() async {
-        await newdata.validateandupdate(profile, configurations)
+    func validateandupdate() {
+        newdata.validateandupdate(profile, configurations)
         reload = newdata.reload
         if newdata.updated == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
