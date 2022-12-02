@@ -75,8 +75,12 @@ extension ObserveableParametersDefault {
             configuration?.rsyncdaemon = config.rsyncdaemon
             if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
             // ssh keypath
-            configuration?.sshport = Int(sshport)
-            configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
+            if configuration?.sshport != nil {
+                sshport = String(configuration?.sshport ?? 0)
+            }
+            if (configuration?.sshkeypathandidentityfile ?? "").isEmpty { sshkeypathandidentityfile = "" } else {
+                sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
+            }
         } else {
             reset()
         }
