@@ -48,8 +48,8 @@ struct SidebarLogsView: View {
             showloading = false
         }
         .onChange(of: selectedprofile) { _ in
-            showloading = true
             Task {
+                showloading = true
                 // Update the Stateobject
                 if selectedprofile == SharedReference.shared.defaultprofile {
                     let validhiddenIDs = ReadConfigurationJSON(nil).validhiddenIDs

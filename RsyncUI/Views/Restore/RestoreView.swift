@@ -61,7 +61,9 @@ struct RestoreView: View {
 
             Button("Restore") {
                 Task {
-                    await restore()
+                    if let config = restore.selectedconfig {
+                        await restore.restore(config)
+                    }
                 }
             }
             .buttonStyle(PrimaryButtonStyle())
@@ -124,11 +126,5 @@ extension RestoreView {
             return
         }
         presentsheetview = true
-    }
-
-    func restore() async {
-        if let config = restore.selectedconfig {
-            await restore.restore(config)
-        }
     }
 }
