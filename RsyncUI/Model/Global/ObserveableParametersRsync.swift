@@ -30,21 +30,27 @@ final class ObserveableParametersRsync: ObservableObject {
 
     init() {
         $parameter8
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
         $parameter9
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
         $parameter10
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
         $parameter11
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
         $parameter12
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
         $parameter13
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
             }.store(in: &subscriptions)
         $parameter14

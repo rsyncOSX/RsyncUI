@@ -39,7 +39,7 @@ struct RsyncParametersView: View {
             }
 
             HStack {
-                RsyncCommandView(config: selectedconfig)
+                RsyncCommandView(config: $parameters.configuration)
 
                 Spacer()
             }

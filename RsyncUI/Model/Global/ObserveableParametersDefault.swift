@@ -11,7 +11,7 @@ import Foundation
 @MainActor
 final class ObserveableParametersDefault: ObservableObject {
     // Selected configuration
-    var configuration: Configuration?
+    @Published var configuration: Configuration?
     // Local SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
@@ -29,10 +29,12 @@ final class ObserveableParametersDefault: ObservableObject {
 
     init() {
         $sshkeypathandidentityfile
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] identityfile in
                 sshkeypathandidentiyfile(identityfile)
             }.store(in: &subscriptions)
         $sshport
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] port in
                 sshport(port)
             }.store(in: &subscriptions)
@@ -59,11 +61,6 @@ extension ObserveableParametersDefault {
     func setvalues(_ config: Configuration?) {
         if let config = config {
             configuration = config
-            if let configsshport = config.sshport {
-                sshport = String(configsshport)
-            } else {
-                sshport = ""
-            }
             // --compress parameter3
             // --delete parameter4
             // -e (parameter 6 = "ssh"
@@ -74,13 +71,11 @@ extension ObserveableParametersDefault {
             // Rsync daemon
             configuration?.rsyncdaemon = config.rsyncdaemon
             if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
-            // ssh keypath
-            if configuration?.sshport != nil {
-                sshport = String(configuration?.sshport ?? 0)
-            }
-            if (configuration?.sshkeypathandidentityfile ?? "").isEmpty { sshkeypathandidentityfile = "" } else {
-                sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
-            }
+            // ssh keypath and port
+            configuration?.sshport = Int(sshport)
+            if sshport.isEmpty { configuration?.sshport = nil }
+            configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
+            if sshkeypathandidentityfile.isEmpty { configuration?.sshkeypathandidentityfile = nil }
         } else {
             reset()
         }

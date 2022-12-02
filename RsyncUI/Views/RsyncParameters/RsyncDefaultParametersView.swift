@@ -49,7 +49,7 @@ struct RsyncDefaultParametersView: View {
                         .frame(maxWidth: .infinity)
 
                     HStack(alignment: .center) {
-                        RsyncCommandView(config: parameters.updatersyncparameters())
+                        RsyncCommandView(config: $parameters.configuration)
                     }
                 }
             }
@@ -88,21 +88,25 @@ struct RsyncDefaultParametersView: View {
 
     var setsshpath: some View {
         EditValue(250, "Local ssh keypath and identityfile",
-                  $parameters.sshkeypathandidentityfile)
-            .onAppear(perform: {
-                if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
-                    parameters.sshkeypathandidentityfile = sshkeypath
-                }
-            })
+                  $parameters.sshkeypathandidentityfile.onChange {
+                      parameters.setvalues(selectedconfig)
+                  })
+                  .onAppear(perform: {
+                      if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
+                          parameters.sshkeypathandidentityfile = sshkeypath
+                      }
+                  })
     }
 
     var setsshport: some View {
-        EditValue(250, "Local ssh port", $parameters.sshport)
-            .onAppear(perform: {
-                if let sshport = parameters.configuration?.sshport {
-                    parameters.sshport = String(sshport)
-                }
-            })
+        EditValue(250, "Local ssh port", $parameters.sshport.onChange {
+            parameters.setvalues(selectedconfig)
+        })
+        .onAppear(perform: {
+            if let sshport = parameters.configuration?.sshport {
+                parameters.sshport = String(sshport)
+            }
+        })
     }
 }
 
