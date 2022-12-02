@@ -29,12 +29,10 @@ final class ObserveableParametersDefault: ObservableObject {
 
     init() {
         $sshkeypathandidentityfile
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] identityfile in
                 sshkeypathandidentiyfile(identityfile)
             }.store(in: &subscriptions)
         $sshport
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [unowned self] port in
                 sshport(port)
             }.store(in: &subscriptions)
@@ -76,6 +74,9 @@ extension ObserveableParametersDefault {
             // Rsync daemon
             configuration?.rsyncdaemon = config.rsyncdaemon
             if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
+            // ssh keypath
+            configuration?.sshport = Int(sshport)
+            configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
         } else {
             reset()
         }
