@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class ObserveablePath: ObservableObject {
     // Environment
     @Published var environment: String = SharedReference.shared.environment ?? ""

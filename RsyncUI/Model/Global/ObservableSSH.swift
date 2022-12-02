@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class ObservableSSH: ObservableObject {
     // Global SSH parameters
     // Have to convert String -> Int before saving

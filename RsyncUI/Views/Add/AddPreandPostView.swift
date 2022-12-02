@@ -86,9 +86,7 @@ struct AddPreandPostView: View {
                 newdata.enablepost = true
                 newdata.haltshelltasksonerror = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    Task {
-                        await validateandupdate()
-                    }
+                    validateandupdate()
                 }
                 focusField = nil
             default:
@@ -106,9 +104,7 @@ struct AddPreandPostView: View {
                 .buttonStyle(PrimaryButtonStyle())
             } else {
                 Button("Update") {
-                    Task {
-                        await validateandupdate()
-                    }
+                    validateandupdate()
                 }
                 .buttonStyle(PrimaryButtonStyle())
             }

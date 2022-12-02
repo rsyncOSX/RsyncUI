@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RestoreView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @StateObject var restoresettings = ObserveableRestore()
+    @StateObject var restore = ObserveableRestore()
 
     @State private var presentsheetview = false
     @State private var filterstring = ""
@@ -20,8 +20,8 @@ struct RestoreView: View {
     var body: some View {
         ZStack {
             VStack {
-                ConfigurationsListNoSearch(selectedconfig: $restoresettings.selectedconfig.onChange {
-                    restoresettings.filestorestore = ""
+                ConfigurationsListNoSearch(selectedconfig: $restore.selectedconfig.onChange {
+                    restore.filestorestore = ""
                 })
             }
         }
@@ -44,20 +44,20 @@ struct RestoreView: View {
                     setpathforrestore
                 }
 
-                if restoresettings.gettingfilelist == true {
+                if restore.gettingfilelist == true {
                     ZStack {
                         RotatingDotsIndicatorView()
                             .frame(width: 50.0, height: 50.0)
                             .foregroundColor(.red)
 
-                        Text("\(restoresettings.numberoffilesrestored)")
+                        Text("\(restore.numberoffilesrestored)")
                     }
                 }
             }
 
             Spacer()
 
-            ToggleViewDefault("--dry-run", $restoresettings.dryrun)
+            ToggleViewDefault("--dry-run", $restore.dryrun)
 
             Button("Restore") {
                 Task {
@@ -69,32 +69,32 @@ struct RestoreView: View {
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .searchable(text: $restoresettings.filterstring.onChange {
-            restoresettings.inputchangedbyuser = true
+        .searchable(text: $restore.filterstring.onChange {
+            restore.inputchangedbyuser = true
         })
     }
 
     var setpathforrestore: some View {
-        EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restoresettings.pathforrestore.onChange {
-            restoresettings.inputchangedbyuser = true
+        EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore.onChange {
+            restore.inputchangedbyuser = true
         })
         .onAppear(perform: {
             if let pathforrestore = SharedReference.shared.pathforrestore {
-                restoresettings.pathforrestore = pathforrestore
+                restore.pathforrestore = pathforrestore
             }
         })
     }
 
     var setfilestorestore: some View {
-        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""), $restoresettings.filestorestore.onChange {
-            restoresettings.inputchangedbyuser = true
+        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""), $restore.filestorestore.onChange {
+            restore.inputchangedbyuser = true
         })
     }
 
     var numberoffiles: some View {
         HStack {
             Text(NSLocalizedString("Number of files", comment: "") + ": ")
-            Text(NumberFormatter.localizedString(from: NSNumber(value: restoresettings.numberoffiles), number: NumberFormatter.Style.decimal))
+            Text(NumberFormatter.localizedString(from: NSNumber(value: restore.numberoffiles), number: NumberFormatter.Style.decimal))
                 .foregroundColor(Color.blue)
 
             Spacer()
@@ -105,9 +105,9 @@ struct RestoreView: View {
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
-                        valueselectedrow: $restoresettings.filestorestorefromview,
-                        numberoffiles: $restoresettings.numberoffiles,
-                        output: restoresettings.getoutput() ?? [])
+                        valueselectedrow: $restore.filestorestorefromview,
+                        numberoffiles: $restore.numberoffiles,
+                        output: restore.getoutput() ?? [])
     }
 }
 
@@ -119,16 +119,16 @@ extension RestoreView {
     func presentoutput() {
         // Check that files are not been collected
         guard SharedReference.shared.process == nil else { return }
-        guard restoresettings.selectedconfig != nil else {
-            restoresettings.numberoffiles = 0
+        guard restore.selectedconfig != nil else {
+            restore.numberoffiles = 0
             return
         }
         presentsheetview = true
     }
 
     func restore() async {
-        if let config = restoresettings.selectedconfig {
-            await restoresettings.restore(config)
+        if let config = restore.selectedconfig {
+            await restore.restore(config)
         }
     }
 }

@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class ObserveableParametersRsync: ObservableObject {
     // Rsync parameters
     @Published var parameter8: String = ""

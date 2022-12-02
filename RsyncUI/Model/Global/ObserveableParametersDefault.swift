@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class ObserveableParametersDefault: ObservableObject {
     // Selected configuration
     var configuration: Configuration?

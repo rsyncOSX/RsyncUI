@@ -4,11 +4,11 @@
 //
 //  Created by Thomas Evensen on 16/02/2021.
 //
-// swiftlint:disable function_body_length
 
 import Combine
 import Foundation
 
+@MainActor
 final class ObserveableUsersetting: ObservableObject {
     // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
     @Published var rsyncversion3: Bool = SharedReference.shared.rsyncversion3

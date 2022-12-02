@@ -25,25 +25,27 @@ class TCPconnections {
         }
     }
 
-    // Testing all remote servers.
-    // Adding connection true or false in array[bool]
-    func verifyallremoteserverTCPconnections() async {
-        indexBoolremoteserverOff = [Bool]()
-        guard (configurations?.count ?? 0) > 0 else { return }
-        var port = 22
-        for i in 0 ..< (configurations?.count ?? 0) {
-            if let config = configurations?[i] {
-                if config.offsiteServer.isEmpty == false {
-                    if let sshport: Int = config.sshport { port = sshport }
-                    let success = verifyTCPconnection(config.offsiteServer, port: port, timeout: 1)
-                    indexBoolremoteserverOff?.append(success)
-                } else {
-                    indexBoolremoteserverOff?.append(false)
+    /*
+        // Testing all remote servers.
+        // Adding connection true or false in array[bool]
+        func verifyallremoteserverTCPconnections() async {
+            indexBoolremoteserverOff = [Bool]()
+            guard (configurations?.count ?? 0) > 0 else { return }
+            var port = 22
+            for i in 0 ..< (configurations?.count ?? 0) {
+                if let config = configurations?[i] {
+                    if config.offsiteServer.isEmpty == false {
+                        if let sshport: Int = config.sshport { port = sshport }
+                        let success = verifyTCPconnection(config.offsiteServer, port: port, timeout: 1)
+                        indexBoolremoteserverOff?.append(success)
+                    } else {
+                        indexBoolremoteserverOff?.append(false)
+                    }
                 }
             }
         }
-    }
 
+     */
     init(_ configurations: [Configuration]?) {
         self.configurations = configurations
     }

@@ -109,22 +109,16 @@ struct AddTaskView: View {
                 focusField = .remoteserverField
             case .remoteserverField:
                 if newdata.selectedconfig == nil {
-                    Task {
-                        await addconfig()
-                    }
+                    addconfig()
                 } else {
-                    Task {
-                        await validateandupdate()
-                    }
+                    validateandupdate()
                 }
                 focusField = nil
             case .backupIDField:
                 if newdata.remotestorageislocal == true,
                    newdata.selectedconfig == nil
                 {
-                    Task {
-                        await addconfig()
-                    }
+                    addconfig()
                 } else {
                     focusField = .remoteuserField
                 }
@@ -139,16 +133,12 @@ struct AddTaskView: View {
             // Add or Update button
             if newdata.selectedconfig == nil {
                 Button("Add") {
-                    Task {
-                        await addconfig()
-                    }
+                    addconfig()
                 }
                 .buttonStyle(PrimaryButtonStyle())
             } else {
                 Button("Update") {
-                    Task {
-                        await validateandupdate()
-                    }
+                    validateandupdate()
                 }
                 .buttonStyle(PrimaryButtonStyle())
             }

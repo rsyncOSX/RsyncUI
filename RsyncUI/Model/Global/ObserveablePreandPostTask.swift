@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class ObserveablePreandPostTask: ObservableObject {
     @Published var enablepre: Bool = false
     @Published var enablepost: Bool = false
