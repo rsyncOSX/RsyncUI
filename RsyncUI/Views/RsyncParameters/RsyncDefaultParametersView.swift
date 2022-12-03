@@ -146,7 +146,6 @@ extension RsyncDefaultParametersView {
     func verify(config: Configuration) async {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
         rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
-        // Start progressview
         showprogressview = true
         let process = RsyncProcessAsync(arguments: arguments,
                                         config: config,
@@ -155,9 +154,7 @@ extension RsyncDefaultParametersView {
     }
 
     func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
-        // Stop progressview
         showprogressview = false
-        rsyncoutput?.setoutput()
         // showcompleted = true
         rsyncoutput?.setoutput(data: outputfromrsync)
     }
