@@ -69,13 +69,21 @@ extension ObserveableParametersDefault {
             if (configuration?.parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
             if (configuration?.parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
             // Rsync daemon
-            configuration?.rsyncdaemon = config.rsyncdaemon
+            // configuration?.rsyncdaemon = config.rsyncdaemon
             if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
-            // ssh keypath and port
-            configuration?.sshport = Int(sshport)
-            if sshport.isEmpty { configuration?.sshport = nil }
-            configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
-            if sshkeypathandidentityfile.isEmpty { configuration?.sshkeypathandidentityfile = nil }
+            // ssh port and keypart
+            if sshport.isEmpty == false {
+                configuration?.sshport = Int(sshport)
+            } else {
+                sshport = String(configuration?.sshport ?? -1)
+            }
+            if sshkeypathandidentityfile.isEmpty == false {
+                configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
+            } else {
+                sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
+            }
+            print(configuration?.sshkeypathandidentityfile)
+            print(configuration?.sshport)
         } else {
             reset()
         }
