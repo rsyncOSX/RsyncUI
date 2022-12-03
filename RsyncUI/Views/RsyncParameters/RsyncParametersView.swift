@@ -13,7 +13,9 @@ struct RsyncParametersView: View {
     @StateObject var parameters = ObserveableParametersRsync()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+
     @State private var selectedconfig: Configuration?
+    @State private var rsyncoutput: InprogressCountRsyncOutput?
 
     var body: some View {
         VStack {
@@ -63,6 +65,9 @@ struct RsyncParametersView: View {
                 .buttonStyle(PrimaryButtonStyle())
 
                 Spacer()
+
+                Button("Verify") {}
+                    .buttonStyle(PrimaryButtonStyle())
 
                 Button("Save") { saversyncparameters() }
                     .buttonStyle(PrimaryButtonStyle())

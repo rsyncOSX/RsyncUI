@@ -82,8 +82,6 @@ extension ObserveableParametersDefault {
             } else {
                 sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
             }
-            print(configuration?.sshkeypathandidentityfile)
-            print(configuration?.sshport)
         } else {
             reset()
         }
