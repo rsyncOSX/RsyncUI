@@ -67,10 +67,6 @@ struct RsyncDefaultParametersView: View {
                 HStack {
                     Spacer()
 
-                    Button("Log") { presentsheetview = true }
-                        .buttonStyle(PrimaryButtonStyle())
-                        .sheet(isPresented: $presentsheetview) { viewoutput }
-
                     Button("Verify") {
                         if let configuration = parameters.updatersyncparameters() {
                             Task {
@@ -90,6 +86,7 @@ struct RsyncDefaultParametersView: View {
                     selectedprofile = SharedReference.shared.defaultprofile
                 }
             })
+            .sheet(isPresented: $presentsheetview) { viewoutput }
 
             if showprogressview {
                 RotatingDotsIndicatorView()
@@ -172,7 +169,7 @@ extension RsyncDefaultParametersView {
 
     func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
-        // showcompleted = true
         rsyncoutput?.setoutput(data: outputfromrsync)
+        presentsheetview = true
     }
 }
