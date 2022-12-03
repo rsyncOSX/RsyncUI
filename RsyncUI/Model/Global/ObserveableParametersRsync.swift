@@ -31,30 +31,37 @@ final class ObserveableParametersRsync: ObservableObject {
     init() {
         $parameter8
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
+            .sink { [unowned self] parameter in
+                configuration?.parameter8 = parameter
             }.store(in: &subscriptions)
         $parameter9
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
+            .sink { [unowned self] parameter in
+                configuration?.parameter9 = parameter
             }.store(in: &subscriptions)
         $parameter10
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
+            .sink { [unowned self] parameter in
+                configuration?.parameter10 = parameter
             }.store(in: &subscriptions)
         $parameter11
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
+            .sink { [unowned self] parameter in
+                configuration?.parameter11 = parameter
             }.store(in: &subscriptions)
         $parameter12
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
+            .sink { [unowned self] parameter in
+                configuration?.parameter12 = parameter
             }.store(in: &subscriptions)
         $parameter13
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
+            .sink { [unowned self] parameter in
+                configuration?.parameter13 = parameter
             }.store(in: &subscriptions)
         $parameter14
-            .sink { _ in
+            .sink { [unowned self] parameter in
+                configuration?.parameter14 = parameter
             }.store(in: &subscriptions)
         $suffixlinux
             .sink { [unowned self] _ in
