@@ -26,7 +26,7 @@ final class ObserveableParametersRsync: ObservableObject {
     // Combine
     var subscriptions = Set<AnyCancellable>()
     // Selected configuration
-    var configuration: Configuration?
+    @Published var configuration: Configuration?
 
     init() {
         $parameter8
@@ -75,13 +75,13 @@ extension ObserveableParametersRsync {
     func setvalues(_ config: Configuration?) {
         if let config = config {
             configuration = config
-            parameter8 = config.parameter8 ?? ""
-            parameter9 = config.parameter9 ?? ""
-            parameter10 = config.parameter10 ?? ""
-            parameter11 = config.parameter11 ?? ""
-            parameter12 = config.parameter12 ?? ""
-            parameter13 = config.parameter13 ?? ""
-            parameter14 = config.parameter14 ?? ""
+            parameter8 = configuration?.parameter8 ?? ""
+            parameter9 = configuration?.parameter9 ?? ""
+            parameter10 = configuration?.parameter10 ?? ""
+            parameter11 = configuration?.parameter11 ?? ""
+            parameter12 = configuration?.parameter12 ?? ""
+            parameter13 = configuration?.parameter13 ?? ""
+            parameter14 = configuration?.parameter14 ?? ""
         } else {
             reset()
         }
@@ -112,6 +112,8 @@ extension ObserveableParametersRsync {
                         + localcatalogparts[localcatalogparts.count - 2]
                 }
             }
+            configuration?.parameter12 = parameter12
+            configuration?.parameter13 = parameter13
         }
     }
 
@@ -126,6 +128,7 @@ extension ObserveableParametersRsync {
         } else {
             parameter14 = RsyncArguments().suffixstringlinux
         }
+        configuration?.parameter14 = parameter14
     }
 
     func setsuffixfreebsd() {
@@ -139,6 +142,7 @@ extension ObserveableParametersRsync {
         } else {
             parameter14 = RsyncArguments().suffixstringfreebsd
         }
+        configuration?.parameter14 = parameter14
     }
 
     // Return the updated configuration

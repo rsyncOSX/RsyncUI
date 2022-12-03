@@ -11,14 +11,12 @@ import SwiftUI
 struct RsyncCommandView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var config: Configuration?
-    
+
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false
     @State private var selecteduuids = Set<UUID>()
-
-    
 
     var body: some View {
         HStack {
