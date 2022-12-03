@@ -17,7 +17,11 @@ struct RsyncDefaultParametersView: View {
     @State private var selectedconfig: Configuration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     @State private var rsyncoutput: InprogressCountRsyncOutput?
+
     @State private var showprogressview = false
+    @State private var presentsheetview = false
+    @State private var valueselectedrow: String = ""
+    @State private var numberoffiles: Int = 0
 
     var body: some View {
         ZStack {
@@ -61,6 +65,10 @@ struct RsyncDefaultParametersView: View {
 
                 HStack {
                     Spacer()
+
+                    Button("Log") { presentsheetview = true }
+                        .buttonStyle(PrimaryButtonStyle())
+                        .sheet(isPresented: $presentsheetview) { viewoutput }
 
                     Button("Verify") {
                         if let configuration = parameters.updatersyncparameters() {
@@ -126,6 +134,14 @@ struct RsyncDefaultParametersView: View {
                 parameters.sshport = String(sshport)
             }
         })
+    }
+
+    // Output
+    var viewoutput: some View {
+        OutputRsyncView(isPresented: $presentsheetview,
+                        valueselectedrow: $valueselectedrow,
+                        numberoffiles: $numberoffiles,
+                        output: rsyncoutput?.getoutput() ?? [])
     }
 }
 

@@ -109,7 +109,7 @@ struct QuicktaskView: View {
 
                 Spacer()
 
-                Button("Log") { presentoutput() }
+                Button("Log") { presentsheetview = true }
                     .buttonStyle(PrimaryButtonStyle())
                     .sheet(isPresented: $presentsheetview) { viewoutput }
 
@@ -221,11 +221,6 @@ extension QuicktaskView {
         remotecatalog = ""
         remoteuser = ""
         remoteserver = ""
-    }
-
-    // Set output from rsync
-    func presentoutput() {
-        presentsheetview = true
     }
 
     func getconfig() {
