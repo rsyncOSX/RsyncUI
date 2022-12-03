@@ -51,6 +51,7 @@ struct RsyncDefaultParametersView: View {
 
                     VStack(alignment: .leading) {
                         ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                            parameters.reset()
                             parameters.setvalues(selectedconfig)
                         }, reload: $reload)
                             .frame(maxWidth: .infinity)

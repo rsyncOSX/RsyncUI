@@ -76,6 +76,9 @@ extension ObserveableParametersDefault {
                 configuration?.sshport = Int(sshport)
             } else {
                 sshport = String(configuration?.sshport ?? -1)
+                if sshport == "-1" {
+                    sshport = ""
+                }
             }
             if sshkeypathandidentityfile.isEmpty == false {
                 configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
