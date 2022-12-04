@@ -156,7 +156,6 @@ extension RsyncDefaultParametersView {
         reload = true
     }
 
-    @MainActor
     func verify(config: Configuration) async {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
         rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
