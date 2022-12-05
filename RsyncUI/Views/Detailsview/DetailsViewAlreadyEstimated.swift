@@ -53,7 +53,7 @@ struct DetailsViewAlreadyEstimated: View {
     }
 
     var remotedata: [String] {
-        let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.hiddenID == selectedconfig?.hiddenID }
+        let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selectedconfig?.id }
         guard output.count > 0 else { return [] }
         return output[0].outputfromrsync ?? []
     }

@@ -10,7 +10,7 @@
 import Foundation
 
 struct RemoteinfonumbersOnetask: Identifiable, Hashable {
-    var id: Int
+    var id: UUID
     var hiddenID: Int
     var transferredNumber: String
     var transferredNumberSizebytes: String
@@ -38,6 +38,6 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
         totalDirs = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalDirs)), number: NumberFormatter.Style.decimal)
         newfiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .new)), number: NumberFormatter.Style.none)
         deletefiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .delete)), number: NumberFormatter.Style.none)
-        id = hiddenID ?? -1
+        id = config?.id ?? UUID()
     }
 }
