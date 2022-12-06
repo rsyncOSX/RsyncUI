@@ -44,7 +44,7 @@
 "All logs" = "Alle logger";
 
 /* No comment provided by engineer. */
-"Always estimate" = "Estimer først";
+"All tasks are estimated - select task to view details or Reset for reset" = "Alle oppgaver er estimert - velg oppgave for detaljer eller Nullstille for å nulstille";
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
@@ -105,6 +105,9 @@
 
 /* No comment provided by engineer. */
 "Download" = "Last ned";
+
+/* No comment provided by engineer. */
+"DryRun" = "DryRun";
 
 /* No comment provided by engineer. */
 "Enable" = "Aktiver";
@@ -263,19 +266,7 @@
 "Path for restore" = "Sti for gjenoppretting";
 
 /* No comment provided by engineer. */
-"Path to RsyncSchedule" = "Sti til RsyncSchedule";
-
-/* No comment provided by engineer. */
-"Path to RsyncUI" = "Sti til RsyncUI";
-
-/* No comment provided by engineer. */
-"Paths for apps" = "Sti til apper";
-
-/* No comment provided by engineer. */
 "Please read and understand the information below. There is more info" = "Les og forstå informasjonen under. Det er mer info";
-
-/* No comment provided by engineer. */
-"Pre and post task" = "Pre og post oppgave";
 
 /* No comment provided by engineer. */
 "Profiles" = "Profiler";
@@ -335,10 +326,16 @@
 "Select a configuration" = "Velg en konfigurasjon";
 
 /* No comment provided by engineer. */
+"Select a task" = "Velg oppgave";
+
+/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
 
 /* No comment provided by engineer. */
 "Select log" = "Velg logg";
+
+/* No comment provided by engineer. */
+"Select snapshot" = "Velg snapshot";
 
 /* No comment provided by engineer. */
 "Select task" = "Velg oppgave";
@@ -377,16 +374,13 @@
 "Synchronize ID" = "Synkroniserings ID";
 
 /* No comment provided by engineer. */
-"Tag" = "Merk";
+"Tag snapshot" = "Tagg snapshot";
 
 /* No comment provided by engineer. */
 "Task" = "Oppgave";
 
 /* No comment provided by engineer. */
 "Tasks" = "Oppgaver";
-
-/* No comment provided by engineer. */
-"TCP" = "TCP";
 
 /* No comment provided by engineer. */
 "Tot bytes" = "Tot bytes";
@@ -401,9 +395,6 @@
 "Trash" = "Søppel";
 
 /* No comment provided by engineer. */
-"Unique usernames and servers" = "Unike brukernavn og servere";
-
-/* No comment provided by engineer. */
 "Update" = "Oppdater";
 
 /* No comment provided by engineer. */
@@ -411,6 +402,9 @@
 
 /* No comment provided by engineer. */
 "User" = "Bruker";
+
+/* No comment provided by engineer. */
+"Verify" = "Verifiser";
 
 /* No comment provided by engineer. */
 "Version %@ (%@)" = "Versjon %@ (%@)";

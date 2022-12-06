@@ -44,7 +44,7 @@
 "All logs" = "Alle Protokolle";
 
 /* No comment provided by engineer. */
-"Always estimate" = "Immer schätzen";
+"All tasks are estimated - select task to view details or Reset for reset" = "Alle Aufgaben werden geschätzt – Wählen Sie eine Aufgabe aus, um Details anzuzeigen, oder Zurücksetzen, um sie zurückzusetzen";
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
@@ -105,6 +105,9 @@
 
 /* No comment provided by engineer. */
 "Download" = "Download";
+
+/* No comment provided by engineer. */
+"DryRun" = "DryRun";
 
 /* No comment provided by engineer. */
 "Enable" = "Aktivieren";
@@ -263,19 +266,7 @@
 "Path for restore" = "Pfad zum Wiederherstellen";
 
 /* No comment provided by engineer. */
-"Path to RsyncSchedule" = "Pfad zu RsyncSchedule";
-
-/* No comment provided by engineer. */
-"Path to RsyncUI" = "Pfad zu RsyncUI";
-
-/* No comment provided by engineer. */
-"Paths for apps" = "Pfade für Apps";
-
-/* No comment provided by engineer. */
 "Please read and understand the information below. There is more info" = "Bitte lesen und verstehen Sie die nachstehenden Informationen. Es gibt mehr Informationen";
-
-/* No comment provided by engineer. */
-"Pre and post task" = "Vor- und Post-Aufgabe";
 
 /* No comment provided by engineer. */
 "Profiles" = "Profile";
@@ -332,13 +323,19 @@
 "Select" = "Auswählen";
 
 /* No comment provided by engineer. */
-"Select a configuration" = "Wählen Sie eine Konfiguration";
+"Select a configuration" = "Konfiguration auswählen";
+
+/* No comment provided by engineer. */
+"Select a task" = "Aufgabe auswählen";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
 "Select log" = "Protokoll auswählen";
+
+/* No comment provided by engineer. */
+"Select snapshot" = "Snapshot auswählen";
 
 /* No comment provided by engineer. */
 "Select task" = "Aufgabe auswählen";
@@ -377,16 +374,13 @@
 "Synchronize ID" = "Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
-"Tag" = "Markierung";
+"Tag snapshot" = "Tag snapshot";
 
 /* No comment provided by engineer. */
 "Task" = "Aufgabe";
 
 /* No comment provided by engineer. */
 "Tasks" = "Aufgaben";
-
-/* No comment provided by engineer. */
-"TCP" = "TCP";
 
 /* No comment provided by engineer. */
 "Tot bytes" = "Bytes Gesamt";
@@ -401,9 +395,6 @@
 "Trash" = "Müll";
 
 /* No comment provided by engineer. */
-"Unique usernames and servers" = "Eindeutige Benutzernamen und Server";
-
-/* No comment provided by engineer. */
 "Update" = "Aktualisieren";
 
 /* No comment provided by engineer. */
@@ -411,6 +402,9 @@
 
 /* No comment provided by engineer. */
 "User" = "Benutzer";
+
+/* No comment provided by engineer. */
+"Verify" = "Verifizieren";
 
 /* No comment provided by engineer. */
 "Version %@ (%@)" = "Version %1$@ (%2$@)";
