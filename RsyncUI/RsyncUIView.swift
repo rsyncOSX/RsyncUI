@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RsyncUIView: View {
-    @StateObject var getrsyncversion = GetRsyncversion()
+    @StateObject var rsyncversion = GetRsyncversion()
     @StateObject var profilenames = Profilenames()
     @StateObject var newversion = CheckfornewversionofRsyncUI()
 
@@ -50,8 +50,8 @@ struct RsyncUIView: View {
         .searchable(text: $searchText)
         .task {
             selection = .multipletasks
-            getrsyncversion.macosrm()
-            await getrsyncversion.getrsyncversion()
+            rsyncversion.macosrm()
+            await rsyncversion.getrsyncversion()
         }
     }
 

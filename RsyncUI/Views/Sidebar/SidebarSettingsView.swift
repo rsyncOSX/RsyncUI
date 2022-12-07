@@ -1,5 +1,5 @@
 //
-//  SettingsView.swift
+//  SidebarSettingsView.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 01/02/2021.
@@ -34,9 +34,7 @@ struct SidebarSettingsView: View {
     }
 
     var profile: String? {
-        if selectedprofile == SharedReference.shared.defaultprofile
-            || selectedprofile == nil
-        {
+        if selectedprofile == SharedReference.shared.defaultprofile || selectedprofile == nil {
             return nil
         } else {
             return selectedprofile

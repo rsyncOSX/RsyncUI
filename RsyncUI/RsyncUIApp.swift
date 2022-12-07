@@ -18,11 +18,6 @@ struct RsyncUIApp: App {
         WindowGroup {
             RsyncUIView(selectedprofile: $selectedprofile)
                 .task {
-                    // User notifications
-                    // setusernotifications()
-                    // Create base profile catalog
-                    // Read user settings
-                    // Check if schedule app is running
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationJSON()
                 }
