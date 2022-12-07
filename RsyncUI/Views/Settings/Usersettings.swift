@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct Usersettings: View {
-    @EnvironmentObject var rsyncversionObject: GetRsyncversion
+    @StateObject var getrsyncversion = GetRsyncversion()
     @StateObject var usersettings = ObserveableUsersetting()
     @State private var backup = false
 
@@ -195,7 +195,9 @@ extension Usersettings {
     func saveusersettings() {
         _ = WriteUserConfigurationJSON(UserConfiguration())
         // Update the rsync version string
-        rsyncversionObject.update()
+        Task {
+            await getrsyncversion.getrsyncversion()
+        }
         backup = true
     }
 

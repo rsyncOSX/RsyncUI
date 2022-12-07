@@ -8,27 +8,29 @@
 import Foundation
 
 // Getting and setting the rsync version.
-final class GetRsyncversion: ObservableObject, UpdateRsyncVersionString {
-    var rsyncversion = ""
+final class GetRsyncversion: ObservableObject {
+    func getrsyncversion() async {
+        if SharedReference.shared.norsync == false {
+            _ = await RsyncAsync(arguments: ["--version"],
+                                 processtermination: processtermination).executeProcess()
+        }
+    }
 
-    func update() {
+    func macosrm() {
         let silicon = ProcessInfo().machineHardwareName?.contains("arm64") ?? false
         if silicon {
             SharedReference.shared.macosarm = true
         } else {
             SharedReference.shared.macosarm = false
         }
-        // Must set new values ahead of save to get correct string
-        // SharedReference.shared.rsyncversion3 = ver
-        _ = RsyncVersionString(object: self)
     }
+}
 
-    func updatersyncversionstring(rsyncversion: String) {
-        self.rsyncversion = rsyncversion
-    }
-
-    init() {
-        _ = RsyncVersionString(object: self)
+extension GetRsyncversion {
+    func processtermination(data: [String]?) {
+        if let rsyncversionshort = data?[0] {
+            SharedReference.shared.rsyncversionshort = rsyncversionshort
+        }
     }
 }
 

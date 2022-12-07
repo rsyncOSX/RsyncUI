@@ -13,13 +13,10 @@ import UserNotifications
 struct RsyncUIApp: App {
     @State private var viewlogfile: Bool = false
     @State private var selectedprofile: String?
-    @StateObject var getrsyncversion = GetRsyncversion()
 
     var body: some Scene {
         WindowGroup {
             RsyncUIView(selectedprofile: $selectedprofile)
-                .environmentObject(getrsyncversion)
-                // .environmentObject(checkfornewversionofrsyncui)
                 .task {
                     // User notifications
                     // setusernotifications()
@@ -49,7 +46,6 @@ struct RsyncUIApp: App {
         }
         Settings {
             SidebarSettingsView(selectedprofile: $selectedprofile)
-                .environmentObject(getrsyncversion)
         }
     }
 
