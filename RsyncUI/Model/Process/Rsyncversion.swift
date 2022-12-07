@@ -7,7 +7,6 @@
 
 import Foundation
 
-// Getting and setting the rsync version.
 final class Rsyncversion: ObservableObject {
     func getrsyncversion() async {
         if SharedReference.shared.norsync == false {

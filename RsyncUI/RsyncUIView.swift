@@ -32,9 +32,6 @@ struct RsyncUIView: View {
                     .onChange(of: reload, perform: { _ in
                         reload = false
                     })
-                    .task {
-                        _ = await newversion.getversionsofrsyncui()
-                    }
             }
 
             HStack {
@@ -51,6 +48,7 @@ struct RsyncUIView: View {
         .task {
             selection = .multipletasks
             await rsyncversion.getrsyncversion()
+            await newversion.getversionsofrsyncui()
         }
     }
 
