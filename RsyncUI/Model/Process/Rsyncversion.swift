@@ -1,5 +1,5 @@
 //
-//  RsyncOSXViewGetRsyncversion.swift
+//  Rsyncversion.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 18/01/2021.
@@ -8,7 +8,7 @@
 import Foundation
 
 // Getting and setting the rsync version.
-final class GetRsyncversion: ObservableObject {
+final class Rsyncversion: ObservableObject {
     func getrsyncversion() async {
         if SharedReference.shared.norsync == false {
             _ = await RsyncAsync(arguments: ["--version"],
@@ -16,7 +16,7 @@ final class GetRsyncversion: ObservableObject {
         }
     }
 
-    func macosrm() {
+    init() {
         let silicon = ProcessInfo().machineHardwareName?.contains("arm64") ?? false
         if silicon {
             SharedReference.shared.macosarm = true
@@ -26,7 +26,7 @@ final class GetRsyncversion: ObservableObject {
     }
 }
 
-extension GetRsyncversion {
+extension Rsyncversion {
     func processtermination(data: [String]?) {
         if let rsyncversionshort = data?[0] {
             SharedReference.shared.rsyncversionshort = rsyncversionshort
