@@ -9,9 +9,10 @@ import SwiftUI
 
 struct RsyncUIView: View {
     @EnvironmentObject var rsyncversionObject: GetRsyncversion
-    @EnvironmentObject var checkfornewversionofrsyncui: NewversionJSON
 
     @StateObject var profilenames = Profilenames()
+    @StateObject var newversion = CheckfornewversionofRsyncUI()
+
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
     @State private var searchText = ""
@@ -32,12 +33,15 @@ struct RsyncUIView: View {
                     .onChange(of: reload, perform: { _ in
                         reload = false
                     })
+                    .task {
+                        _ = await newversion.getversionsofrsyncui()
+                    }
             }
 
             HStack {
                 Spacer()
 
-                if checkfornewversionofrsyncui.notifynewversion { notifynewversion }
+                if newversion.notifynewversion { notifynewversion }
 
                 Spacer()
             }
@@ -91,7 +95,7 @@ struct RsyncUIView: View {
         .onAppear(perform: {
             // Show updated for 3 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                checkfornewversionofrsyncui.notifynewversion = false
+                newversion.notifynewversion = false
             }
         })
     }

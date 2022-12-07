@@ -14,13 +14,12 @@ struct RsyncUIApp: App {
     @State private var viewlogfile: Bool = false
     @State private var selectedprofile: String?
     @StateObject var getrsyncversion = GetRsyncversion()
-    @StateObject var checkfornewversionofrsyncui = NewversionJSON()
 
     var body: some Scene {
         WindowGroup {
             RsyncUIView(selectedprofile: $selectedprofile)
                 .environmentObject(getrsyncversion)
-                .environmentObject(checkfornewversionofrsyncui)
+                // .environmentObject(checkfornewversionofrsyncui)
                 .task {
                     // User notifications
                     // setusernotifications()

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AboutView: View {
-    @StateObject private var new = NewversionJSON()
+    @StateObject var newversion = CheckfornewversionofRsyncUI()
     @State var rsyncversion: String = ""
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
@@ -52,7 +52,7 @@ struct AboutView: View {
 
             rsyncversionshortstring
 
-            if new.notifynewversion { notifynewversion }
+            if newversion.notifynewversion { notifynewversion }
 
             Spacer()
 
@@ -69,6 +69,9 @@ struct AboutView: View {
         .padding()
         .onAppear {
             rsyncversion = SharedReference.shared.rsyncversionshort ?? ""
+        }
+        .task {
+            _ = await newversion.getversionsofrsyncui()
         }
     }
 
@@ -119,7 +122,7 @@ struct AboutView: View {
         .onAppear(perform: {
             // Show updated for 1 second
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                new.notifynewversion = false
+                newversion.notifynewversion = false
             }
         })
     }
