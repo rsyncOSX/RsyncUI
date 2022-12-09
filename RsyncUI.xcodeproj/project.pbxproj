@@ -470,6 +470,15 @@
 			path = Quicktask;
 			sourceTree = "<group>";
 		};
+		E92A71432943755700A5C734 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */,
+				E8944891267B2CB0009F9C4A /* RsyncUIView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		E9556ACB290C0CB700B1752A /* Async */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,12 +532,11 @@
 		E985C5C525F3AC0700CB895C /* RsyncUI */ = {
 			isa = PBXGroup;
 			children = (
-				E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */,
-				E8944891267B2CB0009F9C4A /* RsyncUIView.swift */,
 				E9FDDD4825F3D0610050718C /* Assets.xcassets */,
 				E985C5D225F3AC0800CB895C /* Info.plist */,
 				E96A165C272E735F00B95D3D /* Localizable.strings */,
 				E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */,
+				E92A71432943755700A5C734 /* Main */,
 				E985C60925F3AD8400CB895C /* Views */,
 				E985C69225F3AD9600CB895C /* Model */,
 				E985C5CC25F3AC0800CB895C /* Preview Content */,
