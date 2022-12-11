@@ -42,6 +42,10 @@ struct SnapshotsView: View {
         ZStack {
             HStack {
                 ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                    guard selectedconfig != nil else {
+                        snapshotdata.logrecordssnapshot = nil
+                        return
+                    }
                     snapshotdata.snapshotlist = true
                     getdata()
                 },
