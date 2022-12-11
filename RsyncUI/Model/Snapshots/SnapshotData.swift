@@ -19,6 +19,8 @@ final class SnapshotData: ObservableObject {
     // Deleteobject
     @Published var delete: DeleteSnapshots?
     @Published var inprogressofdelete: Bool = false
+    // Show progress view when getting data
+    @Published var snapshotlist: Bool = false
 
     var logrecordssnapshot: [Logrecordsschedules]?
     var state: Snapshotdatastat = .start

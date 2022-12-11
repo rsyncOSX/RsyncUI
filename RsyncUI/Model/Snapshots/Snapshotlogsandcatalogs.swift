@@ -195,6 +195,8 @@ extension Snapshotlogsandcatalogs {
         mergeremotecatalogsandlogs()
         mysnapshotdata?.state = .gotit
         mysnapshotdata?.uuidsfromlogrecords = uuidsfromlogrecords
+        // Getting data is completed
+        mysnapshotdata?.snapshotlist = false
     }
 
     func filehandler() {}

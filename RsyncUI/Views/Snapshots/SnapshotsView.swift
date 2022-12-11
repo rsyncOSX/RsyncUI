@@ -36,20 +36,28 @@ struct SnapshotsView: View {
 
     @State private var focusselectsnapshot: Bool = false
     @State private var focustagsnapshot: Bool = false
-
     @State private var selectatask: Bool = false
 
     var body: some View {
         ZStack {
             HStack {
-                ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange { getdata() },
-                                        reload: $reload)
+                ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                    snapshotdata.snapshotlist = true
+                    getdata()
+                },
+                reload: $reload)
 
-                SnapshotListView(selectedconfig: $selectedconfig,
-                                 snapshotrecords: $snapshotrecords,
-                                 selecteduuids: $selecteduuids)
-                    .environmentObject(snapshotdata)
-                    .onDeleteCommand(perform: { delete() })
+                ZStack {
+                    SnapshotListView(selectedconfig: $selectedconfig,
+                                     snapshotrecords: $snapshotrecords,
+                                     selecteduuids: $selecteduuids)
+                        .environmentObject(snapshotdata)
+                        .onDeleteCommand(perform: { delete() })
+
+                    if snapshotdata.snapshotlist {
+                        ProgressView()
+                    }
+                }
 
             }.padding()
 
