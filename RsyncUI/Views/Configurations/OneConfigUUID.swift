@@ -51,5 +51,6 @@ struct OneConfigUUID: View {
                      total: executedetails.getmaxcountbytask(inwork))
             .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
             .frame(width: 40, alignment: .center)
+            .badge(Int(executedetails.getcurrentprogress()))
     }
 }
