@@ -379,6 +379,10 @@ struct AddTaskView: View {
     var configurations: [Configuration]? {
         return rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations()
     }
+
+    var assist: Assist? {
+        return Assist(configurations: rsyncUIdata.configurations)
+    }
 }
 
 extension AddTaskView {

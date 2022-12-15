@@ -14,17 +14,11 @@ struct SidebarAddTaskView: View {
     var body: some View {
         TabView {
             AddTaskView(selectedprofile: $selectedprofile, reload: $reload)
-                .tabItem {
-                    Text("Add task")
-                }
+                .tabItem { Text("Add task") }
             AddPreandPostView(selectedprofile: $selectedprofile, reload: $reload)
-                .tabItem {
-                    Text("Shell scripts")
-                }
+                .tabItem { Text("Shell scripts") }
             AddProfileView(selectedprofile: $selectedprofile, reload: $reload)
-                .tabItem {
-                    Text("Profiles")
-                }
+                .tabItem { Text("Profiles") }
         }
         .padding()
     }
