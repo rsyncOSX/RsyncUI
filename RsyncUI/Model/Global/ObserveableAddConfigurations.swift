@@ -27,7 +27,6 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var remoteuser: String = ""
     @Published var remoteserver: String = ""
     @Published var backupID: String = ""
-    // @Published var selectedconfig: Configuration?
     @Published var selectedrsynccommand = TypeofTask.synchronize
 
     @Published var newprofile: String = ""
@@ -42,6 +41,10 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var confirmdeleteselectedprofile: Bool = false
     @Published var showAlertfordelete: Bool = false
 
+    @Published var assistlocalcatalog: String = ""
+    @Published var assistremoteuser: String = ""
+    @Published var assistremoteserver: String = ""
+
     // For update post and pretasks
     var enablepre: Bool = false
     var enablepost: Bool = false
@@ -53,8 +56,10 @@ final class ObserveableAddConfigurations: ObservableObject {
     var subscriptions = Set<AnyCancellable>()
     // Set true if remote storage is a local attached Volume
     var remotestorageislocal: Bool = false
-
     var selectedconfig: Configuration?
+    var localhome: String {
+        return NamesandPaths(.configurations).userHomeDirectoryPath ?? ""
+    }
 
     init() {
         $donotaddtrailingslash
@@ -105,6 +110,18 @@ final class ObserveableAddConfigurations: ObservableObject {
         $showAlertfordelete
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $assistlocalcatalog
+            .sink { [unowned self] assistlocalcatalog in
+                assistfunclocalcatalog(assistlocalcatalog)
+            }.store(in: &subscriptions)
+        $assistremoteuser
+            .sink { [unowned self] assistremoteuser in
+                assistfuncremoteuser(assistremoteuser)
+            }.store(in: &subscriptions)
+        $assistremoteserver
+            .sink { [unowned self] assistremoteserver in
+                assistfuncremoteserver(assistremoteserver)
             }.store(in: &subscriptions)
     }
 
@@ -295,4 +312,10 @@ final class ObserveableAddConfigurations: ObservableObject {
             }
         }
     }
+
+    func assistfunclocalcatalog(_: String) {}
+
+    func assistfuncremoteuser(_: String) {}
+
+    func assistfuncremoteserver(_: String) {}
 }

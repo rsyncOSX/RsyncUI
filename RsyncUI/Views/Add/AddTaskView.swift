@@ -32,7 +32,6 @@ struct AddTaskView: View {
         case remoteuserField
         case remoteserverField
         case backupIDField
-        // case newprofileField
     }
 
     @StateObject var newdata = ObserveableAddConfigurations()
@@ -64,6 +63,16 @@ struct AddTaskView: View {
                         VStack(alignment: .leading) { synchronizeid }
 
                         VStack(alignment: .leading) { remoteuserandserver }
+
+                        Spacer()
+
+                        HStack {
+                            localcatalogspicker
+
+                            remoteuserpicker
+
+                            remoteserverpicker
+                        }
 
                         Spacer()
                     }
@@ -242,8 +251,6 @@ struct AddTaskView: View {
         }
     }
 
-    // Headers (in sections)
-
     var setID: some View {
         EditValue(300, NSLocalizedString("Add synchronize ID", comment: ""),
                   $newdata.backupID)
@@ -382,6 +389,45 @@ struct AddTaskView: View {
 
     var assist: Assist? {
         return Assist(configurations: rsyncUIdata.configurations)
+    }
+
+    var localcatalogspicker: some View {
+        HStack {
+            Picker("", selection: $newdata.assistlocalcatalog) {
+                ForEach((assist?.catalogs.sorted(by: <)) ?? [""], id: \.self) { catalog in
+                    Text(catalog)
+                        .tag(catalog)
+                }
+            }
+            .frame(width: 100)
+            .accentColor(.blue)
+        }
+    }
+
+    var remoteuserpicker: some View {
+        HStack {
+            Picker("", selection: $newdata.assistremoteuser) {
+                ForEach((assist?.remoteusers.sorted(by: <)) ?? [""], id: \.self) { catalog in
+                    Text(catalog)
+                        .tag(catalog)
+                }
+            }
+            .frame(width: 100)
+            .accentColor(.blue)
+        }
+    }
+
+    var remoteserverpicker: some View {
+        HStack {
+            Picker("", selection: $newdata.assistremoteserver) {
+                ForEach((assist?.remoteservers.sorted(by: <)) ?? [""], id: \.self) { catalog in
+                    Text(catalog)
+                        .tag(catalog)
+                }
+            }
+            .frame(width: 100)
+            .accentColor(.blue)
+        }
     }
 }
 
