@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 03/06/2021.
 //
+// swiftlint: disable type_body_length
 
 import Combine
 
@@ -319,7 +320,13 @@ final class ObserveableAddConfigurations: ObservableObject {
         self.localcatalog = localhome + "/" + localcatalog
     }
 
-    func assistfuncremoteuser(_: String) {}
+    func assistfuncremoteuser(_ remoteuser: String) {
+        guard remoteuser.isEmpty == false else { return }
+        self.remoteuser = remoteuser
+    }
 
-    func assistfuncremoteserver(_: String) {}
+    func assistfuncremoteserver(_ remoteserver: String) {
+        guard remoteserver.isEmpty == false else { return }
+        self.remoteserver = remoteserver
+    }
 }

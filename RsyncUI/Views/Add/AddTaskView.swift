@@ -355,7 +355,7 @@ struct AddTaskView: View {
             })
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 180)
+        .frame(width: 140)
     }
 
     var notifyadded: some View {
@@ -399,7 +399,7 @@ struct AddTaskView: View {
                         .tag(catalog)
                 }
             }
-            .frame(width: 100)
+            .frame(width: 93)
             .accentColor(.blue)
         }
     }
@@ -412,7 +412,7 @@ struct AddTaskView: View {
                         .tag(catalog)
                 }
             }
-            .frame(width: 100)
+            .frame(width: 93)
             .accentColor(.blue)
         }
     }
@@ -425,7 +425,7 @@ struct AddTaskView: View {
                         .tag(catalog)
                 }
             }
-            .frame(width: 100)
+            .frame(width: 93)
             .accentColor(.blue)
         }
     }
