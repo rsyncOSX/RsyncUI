@@ -313,7 +313,11 @@ final class ObserveableAddConfigurations: ObservableObject {
         }
     }
 
-    func assistfunclocalcatalog(_: String) {}
+    func assistfunclocalcatalog(_ localcatalog: String) {
+        guard localcatalog.isEmpty == false else { return }
+        remotecatalog = "/mounted_Volume/" + localcatalog
+        self.localcatalog = localhome + "/" + localcatalog
+    }
 
     func assistfuncremoteuser(_: String) {}
 
