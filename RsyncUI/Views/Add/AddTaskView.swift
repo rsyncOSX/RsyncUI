@@ -392,11 +392,16 @@ struct AddTaskView: View {
     }
 
     var localcatalogspicker: some View {
-        HStack {
+        VStack(alignment: .trailing) {
+            Text("Local catalogs")
+                .font(Font.footnote)
             Picker("", selection: $newdata.assistlocalcatalog) {
-                ForEach((assist?.catalogs.sorted(by: <)) ?? [""], id: \.self) { catalog in
-                    Text(catalog)
-                        .tag(catalog)
+                Text("").tag("")
+                if let catalogs = assist?.catalogs {
+                    ForEach(catalogs.sorted(by: <), id: \.self) { catalog in
+                        Text(catalog)
+                            .tag(catalog)
+                    }
                 }
             }
             .frame(width: 93)
@@ -405,11 +410,16 @@ struct AddTaskView: View {
     }
 
     var remoteuserpicker: some View {
-        HStack {
+        VStack(alignment: .trailing) {
+            Text("Remote user")
+                .font(Font.footnote)
             Picker("", selection: $newdata.assistremoteuser) {
-                ForEach((assist?.remoteusers.sorted(by: <)) ?? [""], id: \.self) { catalog in
-                    Text(catalog)
-                        .tag(catalog)
+                Text("").tag("")
+                if let remoteusers = assist?.remoteusers {
+                    ForEach(remoteusers.sorted(by: <), id: \.self) { remoteuser in
+                        Text(remoteuser)
+                            .tag(remoteuser)
+                    }
                 }
             }
             .frame(width: 93)
@@ -418,11 +428,16 @@ struct AddTaskView: View {
     }
 
     var remoteserverpicker: some View {
-        HStack {
+        VStack(alignment: .trailing) {
+            Text("Remote server")
+                .font(Font.footnote)
             Picker("", selection: $newdata.assistremoteserver) {
-                ForEach((assist?.remoteservers.sorted(by: <)) ?? [""], id: \.self) { catalog in
-                    Text(catalog)
-                        .tag(catalog)
+                Text("").tag("")
+                if let remoteservers = assist?.remoteservers {
+                    ForEach(remoteservers.sorted(by: <), id: \.self) { remoteserver in
+                        Text(remoteserver)
+                            .tag(remoteserver)
+                    }
                 }
             }
             .frame(width: 93)

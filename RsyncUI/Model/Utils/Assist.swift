@@ -16,9 +16,6 @@ final class Assist {
 
     func setserversandlogins(_ configurations: [Configuration]?) {
         guard configurations != nil else { return }
-        var configurations = configurations?.filter {
-            SharedReference.shared.synctasks.contains($0.task)
-        }
         for i in 0 ..< (configurations?.count ?? 0) {
             if let config = configurations?[i] {
                 let remoteserver = config.offsiteServer

@@ -65,6 +65,7 @@ struct RsyncUIView: View {
         HStack {
             Picker("", selection: $selectedprofile) {
                 if let profiles = profilenames.profiles {
+                    Text("").tag("")
                     ForEach(profiles, id: \.self) { profile in
                         Text(profile.profile ?? "")
                             .tag(profile.profile)

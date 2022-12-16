@@ -23,6 +23,9 @@ struct RsyncUIApp: App {
                 }
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
                 .frame(minWidth: 1350, minHeight: 500)
+                .onAppear {
+                    selectedprofile = "Default profile"
+                }
         }
         .commands {
             SidebarCommands()
