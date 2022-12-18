@@ -12,6 +12,7 @@ struct OneConfigUUID: View {
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
+    @State var maxcount: Double = 0
 
     let forestimated = false
     var config: Configuration
@@ -42,13 +43,16 @@ struct OneConfigUUID: View {
             }
         }
         .frame(width: 40, alignment: .center)
+        .onAppear (perform: {
+            maxcount = executedetails.getmaxcountbytask(inwork)
+        })
     }
 
     // Progressview for execute estimated tasks
     var progressexecution: some View {
         ProgressView("",
                      value: executedetails.getcurrentprogress(),
-                     total: executedetails.getmaxcountbytask(inwork))
+                     total: maxcount)
             .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
             .frame(width: 40, alignment: .center)
             .badge(Int(executedetails.getcurrentprogress()))

@@ -32,23 +32,17 @@ final class InprogressCountExecuteOneTaskDetails: ObservableObject, ExecuteDetai
     }
 
     func getcurrentprogress() -> Double {
-        // print(" -> \(currenttaskprogress ?? 0)")
+        print(" getcurrentprogress -> \(currenttaskprogress)")
         return currenttaskprogress ?? 0
     }
 
     func getmaxcountbytask(_ hiddenID: Int) -> Double {
         let max = estimatedlist?.filter { $0.hiddenID == hiddenID }
         if (max?.count ?? 0) == 1 {
-            let maxnum = Double(max?[0].transferredNumber ?? "0") ?? 0
-            if maxnum < (currenttaskprogress ?? 0) {
-                // print(" maxcount \(currenttaskprogress ?? 0)")
-                return (currenttaskprogress ?? 0)
-            } else {
-                // print(" maxcount \(maxnum)")
-                return maxnum
-            }
+            return Double(max?[0].outputfromrsync?.count ?? 0)
+        } else {
+            return 0
         }
-        return 0
     }
 
     func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {

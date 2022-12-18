@@ -34,9 +34,9 @@ struct SidebarTasksView: View {
                 }
 
                 if showestimateview == false {
-                    ExecuteEstimatedView(selecteduuids: $selecteduuids,
-                                         reload: $reload,
-                                         showestimateview: $showestimateview)
+                    ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
+                                              reload: $reload,
+                                              showestimateview: $showestimateview)
                         .onDisappear(perform: {
                             showcompleted = true
                         })

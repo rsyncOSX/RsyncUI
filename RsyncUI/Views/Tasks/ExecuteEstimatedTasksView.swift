@@ -1,5 +1,5 @@
 //
-//  ExecuteEstimatedTasks.swift
+//  ExecuteEstimatedTasksView.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 07/02/2021.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ExecuteEstimatedView: View {
+struct ExecuteEstimatedTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
 
@@ -86,7 +86,7 @@ struct ExecuteEstimatedView: View {
     }
 }
 
-extension ExecuteEstimatedView {
+extension ExecuteEstimatedTasksView {
     func completed() {
         inwork = -1
         multipletaskstate.updatestate(state: .start)
