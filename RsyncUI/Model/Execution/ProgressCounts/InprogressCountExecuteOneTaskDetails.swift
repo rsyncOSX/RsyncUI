@@ -32,7 +32,7 @@ final class InprogressCountExecuteOneTaskDetails: ObservableObject, ExecuteDetai
     }
 
     func getcurrentprogress() -> Double {
-        print(" getcurrentprogress -> \(currenttaskprogress)")
+        // print(" getcurrentprogress -> \(currenttaskprogress)")
         return currenttaskprogress ?? 0
     }
 

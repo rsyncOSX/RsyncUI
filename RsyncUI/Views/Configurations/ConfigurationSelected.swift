@@ -28,9 +28,9 @@ struct ConfigurationSelected: View {
         Section(header: header) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
-                    OneConfigUUID(selecteduuids: $selecteduuids,
-                                  inwork: $inwork,
-                                  config: configurations)
+                    OneConfigProgressView(selecteduuids: $selecteduuids,
+                                          inwork: $inwork,
+                                          config: configurations)
                         .tag(configurations)
                 }
                 .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))

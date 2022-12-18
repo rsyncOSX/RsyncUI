@@ -32,9 +32,9 @@ struct ConfigurationsList: View {
         Section(header: header) {
             List(selection: $selectedconfig) {
                 ForEach(configurationssorted) { configurations in
-                    OneConfigUUID(selecteduuids: $selecteduuids,
-                                  inwork: $inwork,
-                                  config: configurations)
+                    OneConfigProgressView(selecteduuids: $selecteduuids,
+                                          inwork: $inwork,
+                                          config: configurations)
                         .tag(configurations)
                         .confirmationDialog(
                             NSLocalizedString("Delete configuration", comment: "")

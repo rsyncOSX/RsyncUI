@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct OneConfigUUID: View {
+struct OneConfigProgressView: View {
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
@@ -19,8 +19,7 @@ struct OneConfigUUID: View {
 
     var body: some View {
         HStack {
-            progress
-
+            if selecteduuids.count > 0 { progress }
             OneConfig(forestimated: forestimated,
                       config: config)
         }
@@ -43,7 +42,7 @@ struct OneConfigUUID: View {
             }
         }
         .frame(width: 40, alignment: .center)
-        .onAppear (perform: {
+        .onAppear(perform: {
             maxcount = executedetails.getmaxcountbytask(inwork)
         })
     }
@@ -55,6 +54,5 @@ struct OneConfigUUID: View {
                      total: maxcount)
             .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
             .frame(width: 40, alignment: .center)
-            .badge(Int(executedetails.getcurrentprogress()))
     }
 }

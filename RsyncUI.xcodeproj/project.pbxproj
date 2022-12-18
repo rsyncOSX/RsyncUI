@@ -61,7 +61,7 @@
 		E985C65B25F3AD8400CB895C /* LogsbyConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */; };
 		E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61425F3AD8400CB895C /* Profilenames.swift */; };
 		E985C65E25F3AD8400CB895C /* ConfigurationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61625F3AD8400CB895C /* ConfigurationsList.swift */; };
-		E985C65F25F3AD8400CB895C /* OneConfigUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61725F3AD8400CB895C /* OneConfigUUID.swift */; };
+		E985C65F25F3AD8400CB895C /* OneConfigProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61725F3AD8400CB895C /* OneConfigProgressView.swift */; };
 		E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61925F3AD8400CB895C /* OneConfig.swift */; };
 		E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61B25F3AD8400CB895C /* Sshsettings.swift */; };
 		E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61C25F3AD8400CB895C /* Usersettings.swift */; };
@@ -266,7 +266,7 @@
 		E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsbyConfigurationView.swift; sourceTree = "<group>"; };
 		E985C61425F3AD8400CB895C /* Profilenames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profilenames.swift; sourceTree = "<group>"; };
 		E985C61625F3AD8400CB895C /* ConfigurationsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationsList.swift; sourceTree = "<group>"; };
-		E985C61725F3AD8400CB895C /* OneConfigUUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneConfigUUID.swift; sourceTree = "<group>"; };
+		E985C61725F3AD8400CB895C /* OneConfigProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneConfigProgressView.swift; sourceTree = "<group>"; };
 		E985C61925F3AD8400CB895C /* OneConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneConfig.swift; sourceTree = "<group>"; };
 		E985C61B25F3AD8400CB895C /* Sshsettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sshsettings.swift; sourceTree = "<group>"; };
 		E985C61C25F3AD8400CB895C /* Usersettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Usersettings.swift; sourceTree = "<group>"; };
@@ -598,7 +598,7 @@
 				E985C61625F3AD8400CB895C /* ConfigurationsList.swift */,
 				E9B052BB2753FFDC00896540 /* ConfigurationSelected.swift */,
 				E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */,
-				E985C61725F3AD8400CB895C /* OneConfigUUID.swift */,
+				E985C61725F3AD8400CB895C /* OneConfigProgressView.swift */,
 				E985C61925F3AD8400CB895C /* OneConfig.swift */,
 				E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */,
 				E9FBEEAC264EBA7700E5F143 /* ConfigurationsListSmall.swift */,
@@ -1336,7 +1336,7 @@
 				E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */,
 				E83FAFE62692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift in Sources */,
 				E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */,
-				E985C65F25F3AD8400CB895C /* OneConfigUUID.swift in Sources */,
+				E985C65F25F3AD8400CB895C /* OneConfigProgressView.swift in Sources */,
 				E95DD7F428EC738B007654BC /* RsyncProcessAsync.swift in Sources */,
 				E985C73325F3AD9700CB895C /* Environment.swift in Sources */,
 				E9E811F92669E2EA0049E672 /* ObserveablePreandPostTask.swift in Sources */,
