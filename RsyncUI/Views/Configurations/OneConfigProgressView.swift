@@ -55,14 +55,5 @@ struct OneConfigProgressView: View {
                      total: maxcount)
             .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
             .frame(width: 40, alignment: .center)
-            .badge(badgevalue)
-    }
-
-    var badgevalue: Int {
-        if maxcount < executedetails.getcurrentprogress() {
-            return 0
-        } else {
-            return Int(maxcount)
-        }
     }
 }
