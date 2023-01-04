@@ -321,7 +321,7 @@ struct TasksView: View {
                     await tasklocalinfo.executeProcess()
                 }
                 focusshowinfotask = false
-            })
+                })
     }
 
     var footer: some View {
