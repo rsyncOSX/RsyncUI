@@ -16,8 +16,6 @@ struct ConfigurationSelected: View {
     @Binding var inwork: Int
     @Binding var reload: Bool
 
-    let forestimated = false
-
     var body: some View {
         VStack {
             configlist

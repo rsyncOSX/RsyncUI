@@ -19,8 +19,6 @@ struct ConfigurationsList: View {
     @Binding var reload: Bool
     @Binding var confirmdelete: Bool
 
-    let forestimated = false
-
     var body: some View {
         VStack {
             configlist

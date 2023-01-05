@@ -12,15 +12,13 @@ struct OneConfigProgressView: View {
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
-    // @State var maxcount: Double = 0
 
-    let forestimated = false
     var config: Configuration
 
     var body: some View {
         HStack {
             if selecteduuids.count > 0 { progress }
-            OneConfig(forestimated: forestimated,
+            OneConfig(forestimated: false,
                       config: config)
         }
     }

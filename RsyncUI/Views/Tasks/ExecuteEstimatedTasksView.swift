@@ -21,7 +21,6 @@ struct ExecuteEstimatedTasksView: View {
 
     @State private var executemultipletasks: ExecuteMultipleTasks?
     @State private var selectedconfig: Configuration?
-    @State private var presentsheetview = false
     @State private var inwork: Int = -1
     @State private var searchText: String = ""
 
@@ -77,12 +76,6 @@ struct ExecuteEstimatedTasksView: View {
             .onAppear(perform: {
                 completed()
             })
-    }
-
-    var headingtitle: some View {
-        Text("Execute tasks")
-            .font(.title2)
-            .padding()
     }
 }
 

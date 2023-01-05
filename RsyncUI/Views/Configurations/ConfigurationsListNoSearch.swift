@@ -10,13 +10,9 @@ import SwiftUI
 struct ConfigurationsListNoSearch: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedconfig: Configuration?
-
     // Needed in OneConfigProgressView
     @State var selecteduuids = Set<UUID>()
     @State var inwork: Int = -1
-
-    // Either selectable configlist or not
-    let forestimated = false
 
     var body: some View {
         VStack {
@@ -61,11 +57,4 @@ struct ConfigurationsListNoSearch: View {
                 .modifier(FixedTag(80, .trailing))
         }
     }
-
-    var footer: some View {
-        Text("Most recent updated tasks on top of list")
-            .foregroundColor(Color.blue)
-    }
-
-    func sometablefunc() {}
 }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AboutView: View {
     @StateObject var newversion = CheckfornewversionofRsyncUI()
-    @State var rsyncversion: String = ""
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
     let norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "")
@@ -30,7 +29,7 @@ struct AboutView: View {
 
     var copyright: String {
         let copyright = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String
-        return copyright ?? NSLocalizedString("Copyright ©2021 Thomas Evensen", comment: "")
+        return copyright ?? NSLocalizedString("Copyright ©2023 Thomas Evensen", comment: "")
     }
 
     var configpath: String {
@@ -67,11 +66,8 @@ struct AboutView: View {
             }
         }
         .padding()
-        .onAppear {
-            rsyncversion = SharedReference.shared.rsyncversionshort ?? ""
-        }
         .task {
-            _ = await newversion.getversionsofrsyncui()
+            await newversion.getversionsofrsyncui()
         }
     }
 
@@ -93,7 +89,7 @@ struct AboutView: View {
 
     var rsyncversionshortstring: some View {
         VStack {
-            Text(rsyncversion)
+            Text(SharedReference.shared.rsyncversionshort ?? "")
             Text("RsyncUI configpath: " + configpath)
         }
         .font(.caption)

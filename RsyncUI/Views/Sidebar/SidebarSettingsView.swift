@@ -31,6 +31,11 @@ struct SidebarSettingsView: View {
         }
         .padding()
         .frame(minWidth: 700, minHeight: 450)
+        .onAppear {
+            Task {
+                await Rsyncversion().getrsyncversion()
+            }
+        }
     }
 
     var profile: String? {

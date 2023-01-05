@@ -13,8 +13,6 @@ struct OutputEstimatedView: View {
     @Binding var selecteduuids: Set<UUID>
     var estimatedlist: [RemoteinfonumbersOnetask]
 
-    let forestimated = true
-
     var body: some View {
         VStack {
             headingtitle
@@ -31,7 +29,7 @@ struct OutputEstimatedView: View {
                                     .modifier(FixedTag(25, .leading))
                             }
                             if let configuration = estimatedconfiguration.config {
-                                OneConfig(forestimated: forestimated,
+                                OneConfig(forestimated: true,
                                           config: configuration)
                             }
                             HStack {
