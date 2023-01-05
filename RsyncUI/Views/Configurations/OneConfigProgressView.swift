@@ -12,7 +12,7 @@ struct OneConfigProgressView: View {
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
-    @State var maxcount: Double = 0
+    // @State var maxcount: Double = 0
 
     let forestimated = false
     var config: Configuration
@@ -28,7 +28,11 @@ struct OneConfigProgressView: View {
     var progress: some View {
         ZStack {
             if config.hiddenID == inwork && executedetails.isestimating() == false {
-                progressexecution
+                ProgressView("",
+                             value: executedetails.getcurrentprogress(),
+                             total: maxcount)
+                    .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
+                    .frame(width: 40, alignment: .center)
             } else {
                 Text("")
                     .modifier(FixedTag(20, .leading))
@@ -42,18 +46,9 @@ struct OneConfigProgressView: View {
             }
         }
         .frame(width: 40, alignment: .center)
-        .onAppear(perform: {
-            maxcount = executedetails.getmaxcountbytask(inwork)
-            print(maxcount)
-        })
     }
 
-    // Progressview for execute estimated tasks
-    var progressexecution: some View {
-        ProgressView("",
-                     value: executedetails.getcurrentprogress(),
-                     total: maxcount)
-            .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
-            .frame(width: 40, alignment: .center)
+    var maxcount: Double {
+        return executedetails.getmaxcountbytask(inwork)
     }
 }

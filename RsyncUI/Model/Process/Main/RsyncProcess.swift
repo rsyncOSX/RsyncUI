@@ -124,7 +124,7 @@ final class RsyncProcess {
         self.monitor?.stopMonitoring()
         self.monitor = nil
         SharedReference.shared.process = nil
-        print("deinit RsyncProcess")
+        // print("deinit RsyncProcess")
     }
 }
 

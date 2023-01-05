@@ -46,27 +46,6 @@ struct OneConfig: View {
                     Text(config.backupID)
                         .modifier(FixedTag(150, .leading))
                 }
-                /*
-                 if config.backupID.isEmpty {
-                     if rsyncUIdata.hasactiveschedules(config.hiddenID) {
-                         Text("Synchronize ID")
-                             .modifier(FixedTag(150, .leading))
-                             .foregroundColor(Color.accentColor)
-                     } else {
-                         Text("Synchronize ID")
-                             .modifier(FixedTag(150, .leading))
-                     }
-                 } else {
-                     if rsyncUIdata.hasactiveschedules(config.hiddenID) {
-                         Text(config.backupID)
-                             .modifier(FixedTag(150, .leading))
-                             .foregroundColor(Color.accentColor)
-                     } else {
-                         Text(config.backupID)
-                             .modifier(FixedTag(150, .leading))
-                     }
-                 }
-                 */
                 Text(task)
                     .modifier(FixedTag(80, .leading))
                 Text(config.localCatalog)
