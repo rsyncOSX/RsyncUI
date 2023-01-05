@@ -12,13 +12,15 @@ final class RsyncProcess {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
-    var processtermination: () -> Void
-    var filehandler: () -> Void
+    var processtermination: ([String]?, Int?) -> Void
+    var filehandler: (Int) -> Void
     // Verify network connection
     var config: Configuration?
     var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
+    // Output
+    var outputprocess: OutputfromProcess?
 
     func executemonitornetworkconnection() {
         guard config?.offsiteServer.isEmpty == false else { return }
@@ -42,7 +44,11 @@ final class RsyncProcess {
         }
     }
 
-    func executeProcess(outputprocess: OutputfromProcess?) {
+    private func localfilehandler() -> Int {
+        return outputprocess?.getOutput()?.count ?? 0
+    }
+
+    func executeProcess() {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         // Process
@@ -64,13 +70,13 @@ final class RsyncProcess {
         // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
         NotificationCenter.default.publisher(
             for: NSNotification.Name.NSFileHandleDataAvailable)
-            .sink { _ in
+            .sink { [self] _ in
                 let data = outHandle.availableData
                 if data.count > 0 {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                        outputprocess?.addlinefromoutput(str: str as String)
+                        self.outputprocess?.addlinefromoutput(str: str as String)
                         // Send message about files
-                        self.filehandler()
+                        self.filehandler(self.outputprocess?.getOutput()?.count ?? 0)
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
@@ -80,7 +86,7 @@ final class RsyncProcess {
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
             .sink { [self] _ in
-                self.processtermination()
+                self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
                 // Logg to file
                 _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 // Release Combine subscribers
@@ -103,13 +109,14 @@ final class RsyncProcess {
 
     init(arguments: [String]?,
          config: Configuration?,
-         processtermination: @escaping () -> Void,
-         filehandler: @escaping () -> Void)
+         processtermination: @escaping ([String]?, Int?) -> Void,
+         filehandler: @escaping (Int) -> Void)
     {
         self.arguments = arguments
         self.processtermination = processtermination
         self.filehandler = filehandler
         self.config = config
+        outputprocess = OutputfromProcess()
         executemonitornetworkconnection()
     }
 
@@ -117,7 +124,7 @@ final class RsyncProcess {
         self.monitor?.stopMonitoring()
         self.monitor = nil
         SharedReference.shared.process = nil
-        // print("deinit RsyncProcessCmdCombine")
+        print("deinit RsyncProcess")
     }
 }
 

@@ -9,29 +9,26 @@ import Foundation
 
 final class ExecuteOneTask {
     var arguments: [String]?
-    var processtermination: () -> Void
-    var filehandler: () -> Void
-    var outputprocess: OutputfromProcess?
+    var termination: ([String]?, Int?) -> Void
+    var filehandler: (Int) -> Void
     var config: Configuration?
 
     func startexecution() {
         if let arguments = arguments {
             let process = RsyncProcess(arguments: arguments,
                                        config: config,
-                                       processtermination: processtermination,
+                                       processtermination: termination,
                                        filehandler: filehandler)
-            process.executeProcess(outputprocess: outputprocess)
+            process.executeProcess()
         }
     }
 
     init(hiddenID: Int,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
-         outputprocess: OutputfromProcess?,
-         processtermination: @escaping () -> Void,
-         filehandler: @escaping () -> Void)
+         termination: @escaping ([String]?, Int?) -> Void,
+         filehandler: @escaping (Int) -> Void)
     {
-        self.outputprocess = outputprocess
-        self.processtermination = processtermination
+        self.termination = termination
         self.filehandler = filehandler
         arguments = configurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg)
         config = configurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)

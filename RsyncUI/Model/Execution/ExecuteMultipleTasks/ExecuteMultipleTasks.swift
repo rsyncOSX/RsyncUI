@@ -25,11 +25,12 @@ final class ExecuteMultipleTasks {
     private var structprofile: String?
     private var privatehiddenID: Int?
     private var stackoftasktobeexecuted: [Int]?
-    private var outputprocess: OutputfromProcess?
     private var records: [RemoteinfonumbersOnetask]?
     private var max: Int?
     // Set if abort is executed
     private var setabort = false
+    // output from rsync
+    private var outputfromrsync: [String]?
 
     weak var multipletasksateDelegate: MultipleTaskState?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
@@ -58,11 +59,9 @@ final class ExecuteMultipleTasks {
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)
-            outputprocess = OutputfromProcess()
             let estimation = ExecuteOneTask(hiddenID: hiddenID,
                                             configurationsSwiftUI: localconfigurationsSwiftUI,
-                                            outputprocess: outputprocess,
-                                            processtermination: processtermination,
+                                            termination: processtermination,
                                             filehandler: filehandler)
             estimation.startexecution()
         }
@@ -108,20 +107,18 @@ final class ExecuteMultipleTasks {
         updateestimationcountDelegate?.resetcounts()
         setabort = true
     }
-}
 
-extension ExecuteMultipleTasks {
-    func processtermination() {
+    func processtermination(data: [String]?, hiddenID _: Int?) {
         guard setabort == false else { return }
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
         configrecords.append((privatehiddenID ?? -1, Date().en_us_string_from_date()))
-        schedulerecords.append((privatehiddenID ?? -1, Numbers(outputprocess: outputprocess).stats()))
+        schedulerecords.append((privatehiddenID ?? -1, Numbers(data ?? []).stats()))
         // Log records
         updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
-                                              outputfromrsync: outputprocess?.getOutput(),
+                                              outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: privatehiddenID))
         records?.append(record)
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
@@ -136,20 +133,18 @@ extension ExecuteMultipleTasks {
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             return
         }
-        outputprocess = OutputfromProcessRsync()
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)
             let execution = ExecuteOneTask(hiddenID: hiddenID,
                                            configurationsSwiftUI: localconfigurationsSwiftUI,
-                                           outputprocess: outputprocess,
-                                           processtermination: processtermination,
+                                           termination: processtermination,
                                            filehandler: filehandler)
             execution.startexecution()
         }
     }
 
-    func filehandler() {
-        updateprogessDelegate?.setcurrentprogress(Double(outputprocess?.getOutput()?.count ?? 0))
+    func filehandler(count: Int) {
+        updateprogessDelegate?.setcurrentprogress(Double(count))
     }
 }
