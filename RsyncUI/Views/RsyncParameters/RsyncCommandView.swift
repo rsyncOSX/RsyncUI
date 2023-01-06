@@ -11,8 +11,8 @@ import SwiftUI
 struct RsyncCommandView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var config: Configuration?
+    @Binding var selectedrsynccommand: RsyncCommand
 
-    @State private var selectedrsynccommand = RsyncCommand.synchronize
     // Not used but requiered in parameter
     @State private var inwork = -1
     @State private var selectable = false

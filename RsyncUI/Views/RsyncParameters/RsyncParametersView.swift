@@ -22,6 +22,8 @@ struct RsyncParametersView: View {
     @State private var valueselectedrow: String = ""
     @State private var numberoffiles: Int = 0
 
+    @State private var selectedrsynccommand = RsyncCommand.synchronize
+
     var body: some View {
         ZStack {
             VStack {
@@ -47,7 +49,8 @@ struct RsyncParametersView: View {
                 }
 
                 HStack {
-                    RsyncCommandView(config: $parameters.configuration)
+                    RsyncCommandView(config: $parameters.configuration,
+                                     selectedrsynccommand: $selectedrsynccommand)
 
                     Spacer()
                 }
@@ -119,7 +122,15 @@ extension RsyncParametersView {
     }
 
     func verify(config: Configuration) async {
-        let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
+        var arguments: [String]?
+        switch selectedrsynccommand {
+        case .synchronize:
+            arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
+        case .restore:
+            arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
+        case .verify:
+            arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
+        }
         rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
         showprogressview = true
         let process = RsyncProcessAsync(arguments: arguments,

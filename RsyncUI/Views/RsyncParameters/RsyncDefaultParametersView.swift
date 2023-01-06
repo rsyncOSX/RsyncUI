@@ -57,7 +57,7 @@ struct RsyncDefaultParametersView: View {
                             .frame(maxWidth: .infinity)
 
                         HStack(alignment: .center) {
-                            RsyncCommandView(config: $parameters.configuration)
+                            RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
                         }
                     }
                 }
@@ -157,7 +157,15 @@ extension RsyncDefaultParametersView {
     }
 
     func verify(config: Configuration) async {
-        let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
+        var arguments: [String]?
+        switch selectedrsynccommand {
+        case .synchronize:
+            arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
+        case .restore:
+            arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
+        case .verify:
+            arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
+        }
         rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
         showprogressview = true
         let process = RsyncProcessAsync(arguments: arguments,
