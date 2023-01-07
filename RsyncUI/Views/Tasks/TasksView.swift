@@ -35,6 +35,7 @@ struct TasksView: View {
     @State private var focusfirsttaskinfo: Bool = false
     @State private var focusdeletetask: Bool = false
     @State private var focusshowinfotask: Bool = false
+    @State private var focusaborttask: Bool = false
 
     @State private var searchText: String = ""
     // Firsttime use of RsyncUI
@@ -72,6 +73,8 @@ struct TasksView: View {
                 if focusfirsttaskinfo { labelfirsttime }
                 if focusdeletetask { labeldeletetask }
                 if focusshowinfotask { labelshowinfotask }
+
+                if focusaborttask { labelaborttask }
 
                 if progressviewshowinfo {
                     RotatingDotsIndicatorView()
@@ -171,6 +174,7 @@ struct TasksView: View {
         .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
         .focusedSceneValue(\.deletetask, $focusdeletetask)
         .focusedSceneValue(\.showinfotask, $focusshowinfotask)
+        .focusedSceneValue(\.aborttask, $focusaborttask)
         .task {
             // Discover if firsttime use, if true present view for firsttime
             firsttime = SharedReference.shared.firsttime
@@ -322,6 +326,14 @@ struct TasksView: View {
                 }
                 focusshowinfotask = false
                 })
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
+            })
     }
 
     var footer: some View {

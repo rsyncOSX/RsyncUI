@@ -24,6 +24,9 @@ struct RsyncParametersView: View {
 
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
+    // Focus buttons from the menu
+    @State private var focusaborttask: Bool = false
+
     var body: some View {
         ZStack {
             VStack {
@@ -46,6 +49,8 @@ struct RsyncParametersView: View {
                         },
                         reload: $reload)
                     }
+
+                    if focusaborttask { labelaborttask }
                 }
 
                 HStack {
@@ -87,6 +92,7 @@ struct RsyncParametersView: View {
                     Button("Save") { saversyncparameters() }
                         .buttonStyle(PrimaryButtonStyle())
                 }
+                .focusedSceneValue(\.aborttask, $focusaborttask)
                 .sheet(isPresented: $presentsheetview) { viewoutput }
                 .padding()
             }
@@ -105,6 +111,14 @@ struct RsyncParametersView: View {
                         valueselectedrow: $valueselectedrow,
                         numberoffiles: $numberoffiles,
                         output: rsyncoutput?.getoutput() ?? [])
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
+            })
     }
 }
 
@@ -143,5 +157,10 @@ extension RsyncParametersView {
         showprogressview = false
         rsyncoutput?.setoutput(data: outputfromrsync)
         presentsheetview = true
+    }
+
+    func abort() {
+        showprogressview = false
+        _ = InterruptProcess()
     }
 }

@@ -14,7 +14,7 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
     @FocusedBinding(\.deletetask) private var deletetask
     @FocusedBinding(\.showinfotask) private var showinfotask
-    // @FocusedBinding(\.starttestfortcpconnections) private var starttestfortcpconnections
+    @FocusedBinding(\.aborttask) private var aborttask
 
     var body: some Commands {
         CommandMenu("Tasks") {
@@ -30,6 +30,10 @@ struct ExecuteCommands: Commands {
             Divider()
 
             Deletetask(deletetask: $deletetask)
+
+            Divider()
+
+            Abborttask(aborttask: $aborttask)
         }
     }
 }
@@ -112,6 +116,19 @@ struct Showinfotask: View {
     }
 }
 
+struct Abborttask: View {
+    @Binding var aborttask: Bool?
+
+    var body: some View {
+        Button {
+            aborttask = true
+        } label: {
+            Label("Abort task", systemImage: "play.fill")
+        }
+        .keyboardShortcut("a", modifiers: [.command])
+    }
+}
+
 struct FocusedEstimateBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -133,6 +150,10 @@ struct FocusedDeletetask: FocusedValueKey {
 }
 
 struct FocusedShowinfoTask: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+struct FocusedAborttask: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
@@ -165,5 +186,10 @@ extension FocusedValues {
     var showinfotask: FocusedShowinfoTask.Value? {
         get { self[FocusedShowinfoTask.self] }
         set { self[FocusedShowinfoTask.self] = newValue }
+    }
+
+    var aborttask: FocusedAborttask.Value? {
+        get { self[FocusedAborttask.self] }
+        set { self[FocusedAborttask.self] = newValue }
     }
 }
