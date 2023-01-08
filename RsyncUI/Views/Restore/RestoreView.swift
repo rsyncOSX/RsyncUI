@@ -15,6 +15,9 @@ struct RestoreView: View {
     @State private var presentsheetview = false
     @State private var filterstring = ""
 
+    // Focus buttons from the menu
+    @State private var focusaborttask: Bool = false
+
     let selectable = false
 
     var body: some View {
@@ -53,6 +56,8 @@ struct RestoreView: View {
                         Text("\(restore.numberoffilesrestored)")
                     }
                 }
+
+                if focusaborttask { labelaborttask }
             }
 
             Spacer()
@@ -74,6 +79,15 @@ struct RestoreView: View {
         .searchable(text: $restore.filterstring.onChange {
             restore.inputchangedbyuser = true
         })
+        .focusedSceneValue(\.aborttask, $focusaborttask)
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
+            })
     }
 
     var setpathforrestore: some View {

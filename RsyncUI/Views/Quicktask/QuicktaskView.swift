@@ -32,6 +32,9 @@ struct QuicktaskView: View {
     @State private var rsyncoutput: InprogressCountRsyncOutput?
     // Selected row in output
     @State private var valueselectedrow: String = ""
+    // Focus buttons from the menu
+    @State private var focusaborttask: Bool = false
+
     var choosecatalog = true
 
     enum QuicktaskField: Hashable {
@@ -78,6 +81,8 @@ struct QuicktaskView: View {
                     .frame(width: 50.0, height: 50.0)
                     .foregroundColor(.red)
             }
+
+            if focusaborttask { labelaborttask }
         }
         .onSubmit {
             switch focusField {
@@ -97,6 +102,7 @@ struct QuicktaskView: View {
         .onAppear {
             focusField = .localcatalogField
         }
+        .focusedSceneValue(\.aborttask, $focusaborttask)
 
         VStack {
             Spacer()
@@ -117,6 +123,14 @@ struct QuicktaskView: View {
                     .buttonStyle(AbortButtonStyle())
             }
         }
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
+            })
     }
 
     var pickerselecttypeoftask: some View {

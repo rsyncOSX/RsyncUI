@@ -34,8 +34,11 @@ struct SnapshotsView: View {
     @State private var showAlertfordelete = false
     @State private var searchText: String = ""
 
+    // Focus buttons from the menu
     @State private var focusselectsnapshot: Bool = false
     @State private var focustagsnapshot: Bool = false
+    @State private var focusaborttask: Bool = false
+
     @State private var selectatask: Bool = false
 
     var body: some View {
@@ -69,6 +72,7 @@ struct SnapshotsView: View {
             if updated == true { notifyupdated }
             if focustagsnapshot == true { labeltagsnapshot }
             if focusselectsnapshot == true { labelselectsnapshot }
+            if focusaborttask { labelaborttask }
         }
 
         Spacer()
@@ -114,6 +118,7 @@ struct SnapshotsView: View {
         }
         .focusedSceneValue(\.selectsnapshot, $focusselectsnapshot)
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
+        .focusedSceneValue(\.aborttask, $focusaborttask)
     }
 
     var labelnumberoflogs: some View {
@@ -199,6 +204,14 @@ struct SnapshotsView: View {
             .onAppear(perform: {
                 focustagsnapshot = false
                 tagsnapshots()
+            })
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
             })
     }
 
