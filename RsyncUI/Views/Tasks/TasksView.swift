@@ -280,7 +280,7 @@ struct TasksView: View {
             .onDisappear {
                 showcompleted = true
                 focusstartexecution = false
-                reload = true
+                // reload = true
             }
     }
 
