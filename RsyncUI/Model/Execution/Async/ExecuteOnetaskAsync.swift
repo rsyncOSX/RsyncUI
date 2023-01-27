@@ -26,7 +26,6 @@ extension ExecuteOnetaskAsync {
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
         updateestimationcountDelegate?.appendrecord(record: record)
-        // if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
         if let config = getconfig(hiddenID: hiddenID) {
             updateestimationcountDelegate?.appenduuid(id: config.id)
             let update = SingletaskPrimaryLogging(profile: config.profile,
@@ -36,7 +35,6 @@ extension ExecuteOnetaskAsync {
             update.setCurrentDateonConfiguration()
             update.addlogpermanentstore(outputrsync: outputfromrsync)
         }
-        // }
         updateestimationcountDelegate?.asyncexecutecomplete()
     }
 }
