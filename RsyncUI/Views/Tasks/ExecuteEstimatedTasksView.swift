@@ -87,7 +87,7 @@ extension ExecuteEstimatedTasksView {
         executemultipletasks = nil
         selecteduuids.removeAll()
         showestimateview = true
-        reload = true
+        // reload = true
     }
 
     func abort() {
