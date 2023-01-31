@@ -51,7 +51,7 @@ struct RestoreView: View {
                     ZStack {
                         RotatingDotsIndicatorView()
                             .frame(width: 50.0, height: 50.0)
-                            .foregroundColor(.red)
+                            .foregroundColor(.blue)
 
                         Text("\(restore.numberoffilesrestored)")
                     }

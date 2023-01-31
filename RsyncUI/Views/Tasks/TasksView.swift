@@ -80,11 +80,11 @@ struct TasksView: View {
                 if progressviewshowinfo {
                     RotatingDotsIndicatorView()
                         .frame(width: 50.0, height: 50.0)
-                        .foregroundColor(.red)
+                        .foregroundColor(.blue)
                 }
 
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
-                if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasync }
+                if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasyncseelectedonetask }
             }
 
             Group {
@@ -94,8 +94,6 @@ struct TasksView: View {
 
         HStack {
             VStack(alignment: .center) {
-                // ToggleViewDefault(NSLocalizedString("Estimate", comment: ""), $alwaysestimate)
-
                 HStack {
                     Button("Estimate") {
                         inprogresscountmultipletask.resetcounts()
@@ -218,7 +216,6 @@ struct TasksView: View {
             .onAppear(perform: {
                 selecteduuids = inprogresscountmultipletask.getuuids()
                 guard selecteduuids.count > 0 else {
-                    // inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
                     showexecutenoestimateview = true
                     return
                 }
@@ -232,7 +229,7 @@ struct TasksView: View {
     var progressviewestimateasync: some View {
         RotatingDotsIndicatorView()
             .frame(width: 50.0, height: 50.0)
-            .foregroundColor(.red)
+            .foregroundColor(.blue)
             .onAppear {
                 Task {
                     if selectedconfig != nil && selecteduuids.count == 0 {
@@ -257,10 +254,10 @@ struct TasksView: View {
             }
     }
 
-    var progressviewexecuteasync: some View {
+    var progressviewexecuteasyncseelectedonetask: some View {
         RotatingDotsIndicatorView()
             .frame(width: 50.0, height: 50.0)
-            .foregroundColor(.red)
+            .foregroundColor(.blue)
             .onAppear {
                 Task {
                     if selectedconfig != nil && selecteduuids.count == 0 {
@@ -269,21 +266,12 @@ struct TasksView: View {
                                                 updateinprogresscount: inprogresscountmultipletask,
                                                 hiddenID: selectedconfig?.hiddenID)
                         await executeonetaskasync.execute()
-
-                    } else {
-                        let executealltasksasync =
-                            ExecuteAlltasksAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                                 updateinprogresscount: inprogresscountmultipletask,
-                                                 uuids: selecteduuids,
-                                                 filter: searchText)
-                        await executealltasksasync.startexecution()
                     }
                 }
             }
             .onDisappear {
                 showcompleted = true
                 focusstartexecution = false
-                // reload = true
             }
     }
 

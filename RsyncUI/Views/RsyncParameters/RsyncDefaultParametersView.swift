@@ -97,7 +97,7 @@ struct RsyncDefaultParametersView: View {
             if showprogressview {
                 RotatingDotsIndicatorView()
                     .frame(width: 50.0, height: 50.0)
-                    .foregroundColor(.red)
+                    .foregroundColor(.blue)
             }
         }
     }

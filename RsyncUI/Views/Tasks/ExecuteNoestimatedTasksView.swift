@@ -23,7 +23,7 @@ struct ExecuteNoestimatedTasksView: View {
 
     @State private var inwork: Int = -1
     @State private var searchText: String = ""
-    @State private var progressviewshowinfo: Bool = false
+    @State private var progressviewshowinfo: Bool = true
 
     @State private var executealltasksasync: ExecuteAlltasksAsync?
 
@@ -58,13 +58,13 @@ struct ExecuteNoestimatedTasksView: View {
 
     var progressviewexecuteasync: some View {
         RotatingDotsIndicatorView()
-            .frame(width: 50.0, height: 25.0)
-            .foregroundColor(.red)
+            .frame(width: 50.0, height: 50.0)
+            .foregroundColor(.blue)
     }
 
     // When status execution is .completed, present label and execute completed.
     var labelcompleted: some View {
-        Label("inprogresscountmultipletask.executeasyncnoestimation.rawValue", systemImage: "play.fill")
+        Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 completed()
             })
