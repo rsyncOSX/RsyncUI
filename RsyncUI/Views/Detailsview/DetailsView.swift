@@ -62,7 +62,7 @@ struct DetailsView: View {
             Task {
                 await task.executeProcess()
             }
-            })
+        })
         .padding()
         .frame(minWidth: 1100, minHeight: 500)
     }

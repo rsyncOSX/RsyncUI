@@ -13,8 +13,10 @@ struct SidebarTasksView: View {
     @Binding var reload: Bool
     // Which sidebar function
     @Binding var selection: NavigationItem?
-    // Show estimate when true, execute else
     @State var showestimateview: Bool = true
+
+    @State var showexecutenoestimateview: Bool = false
+
     @State private var selecteduuids = Set<UUID>()
     // Show completed
     @State private var showcompleted: Bool = false
@@ -24,19 +26,31 @@ struct SidebarTasksView: View {
             VStack {
                 headingtitle
 
-                if showestimateview == true {
+                if showestimateview == true && showexecutenoestimateview == false {
                     TasksView(selectedconfig: $selectedconfig,
                               reload: $reload,
                               selecteduuids: $selecteduuids,
                               showestimateview: $showestimateview,
                               showcompleted: $showcompleted,
+                              showexecutenoestimateview: $showexecutenoestimateview,
                               selection: $selection)
                 }
 
-                if showestimateview == false {
+                if showestimateview == false && showexecutenoestimateview == false {
                     ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                               reload: $reload,
                                               showestimateview: $showestimateview)
+                        .onDisappear(perform: {
+                            showcompleted = true
+                        })
+                }
+
+                if showexecutenoestimateview == true {
+                    ExecuteNoestimatedTasksView(selectedconfig: $selectedconfig,
+                                                reload: $reload,
+                                                selecteduuids: $selecteduuids,
+                                                showcompleted: $showcompleted,
+                                                showexecutenoestimateview: $showexecutenoestimateview)
                         .onDisappear(perform: {
                             showcompleted = true
                         })

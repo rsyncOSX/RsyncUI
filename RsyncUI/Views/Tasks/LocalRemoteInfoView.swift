@@ -30,7 +30,7 @@ struct LocalRemoteInfoView: View {
             Task {
                 await task.executeProcess()
             }
-            })
+        })
 
         Spacer()
 

@@ -1,6 +1,6 @@
 //
-//  MultipletasksView.swift
-//  RsyncSwiftUI
+//  TasksView.swift
+//  RsyncUI
 //
 //  Created by Thomas Evensen on 19/01/2021.
 //
@@ -24,6 +24,7 @@ struct TasksView: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var showestimateview: Bool
     @Binding var showcompleted: Bool
+    @Binding var showexecutenoestimateview: Bool
 
     @State private var presentoutputsheetview = false
     @State private var inwork: Int = -1
@@ -106,7 +107,8 @@ struct TasksView: View {
                     Button("Execute") {
                         selecteduuids = inprogresscountmultipletask.getuuids()
                         guard selecteduuids.count > 0 else {
-                            inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
+                            // inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
+                            showexecutenoestimateview = true
                             return
                         }
                         estimationstate.updatestate(state: .start)
@@ -326,7 +328,7 @@ struct TasksView: View {
                     await tasklocalinfo.executeProcess()
                 }
                 focusshowinfotask = false
-                })
+            })
     }
 
     var labelaborttask: some View {
