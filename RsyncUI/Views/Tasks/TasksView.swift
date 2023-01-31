@@ -218,7 +218,8 @@ struct TasksView: View {
             .onAppear(perform: {
                 selecteduuids = inprogresscountmultipletask.getuuids()
                 guard selecteduuids.count > 0 else {
-                    inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
+                    // inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
+                    showexecutenoestimateview = true
                     return
                 }
                 estimationstate.updatestate(state: .start)

@@ -40,12 +40,10 @@ struct ExecuteNoestimatedTasksView: View {
 
             // When completed
             if inprogresscountmultipletask.executeasyncnoestimationcompleted == true { labelcompleted }
-        }
-        HStack {
-            Spacer()
 
             if progressviewshowinfo { progressviewexecuteasync }
-
+        }
+        HStack {
             Spacer()
 
             Button("Abort") { abort() }
@@ -60,7 +58,7 @@ struct ExecuteNoestimatedTasksView: View {
 
     var progressviewexecuteasync: some View {
         RotatingDotsIndicatorView()
-            .frame(width: 25.0, height: 25.0)
+            .frame(width: 50.0, height: 25.0)
             .foregroundColor(.red)
     }
 
