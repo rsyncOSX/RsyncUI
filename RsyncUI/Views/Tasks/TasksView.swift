@@ -246,7 +246,7 @@ struct TasksView: View {
                                                   updateinprogresscount: inprogresscountmultipletask,
                                                   uuids: selecteduuids,
                                                   filter: searchText)
-                        await estimatealltasksasync.startestimation()
+                        await estimatealltasksasync.startexecution()
                     }
                 }
             }
@@ -275,7 +275,7 @@ struct TasksView: View {
                                                  updateinprogresscount: inprogresscountmultipletask,
                                                  uuids: selecteduuids,
                                                  filter: searchText)
-                        await executealltasksasync.startestimation()
+                        await executealltasksasync.startexecution()
                     }
                 }
             }

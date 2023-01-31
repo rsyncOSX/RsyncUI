@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 31/01/2023.
 //
-// swiftlint:disable line_length type_body_length
+// swiftlint:disable type_body_length
 
 import Network
 import SwiftUI
@@ -23,6 +23,7 @@ struct ExecuteNoestimatedTasksView: View {
 
     @State private var inwork: Int = -1
     @State private var searchText: String = ""
+    @State private var progressviewshowinfo: Bool = false
 
     @State private var executealltasksasync: ExecuteAlltasksAsync?
 
@@ -38,9 +39,13 @@ struct ExecuteNoestimatedTasksView: View {
                                confirmdelete: $confirmdelete)
 
             // When completed
-            if inprogresscountmultipletask.executeasyncnoestimation == false { labelcompleted }
+            if inprogresscountmultipletask.executeasyncnoestimationcompleted == true { labelcompleted }
         }
         HStack {
+            Spacer()
+
+            if progressviewshowinfo { progressviewexecuteasync }
+
             Spacer()
 
             Button("Abort") { abort() }
@@ -55,7 +60,7 @@ struct ExecuteNoestimatedTasksView: View {
 
     var progressviewexecuteasync: some View {
         RotatingDotsIndicatorView()
-            .frame(width: 50.0, height: 50.0)
+            .frame(width: 25.0, height: 25.0)
             .foregroundColor(.red)
     }
 
@@ -75,7 +80,7 @@ extension ExecuteNoestimatedTasksView {
         showcompleted = true
         inprogresscountmultipletask.resetcounts()
         selectedconfig = nil
-        // progressviewshowinfo = false
+        progressviewshowinfo = false
         inprogresscountmultipletask.estimateasync = false
         showexecutenoestimateview = false
     }
@@ -86,7 +91,7 @@ extension ExecuteNoestimatedTasksView {
         _ = InterruptProcess()
         inwork = -1
         reload = true
-        // progressviewshowinfo = false
+        progressviewshowinfo = false
         showexecutenoestimateview = false
     }
 
@@ -97,6 +102,6 @@ extension ExecuteNoestimatedTasksView {
                                  updateinprogresscount: inprogresscountmultipletask,
                                  uuids: selecteduuids,
                                  filter: searchText)
-        await executealltasksasync?.startestimation()
+        await executealltasksasync?.startexecution()
     }
 }

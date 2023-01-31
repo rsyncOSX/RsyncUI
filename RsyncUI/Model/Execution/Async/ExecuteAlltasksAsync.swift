@@ -9,7 +9,7 @@ import Foundation
 
 final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
     @MainActor
-    override func startestimation() async {
+    override func startexecution() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             updateestimationcountDelegate?.asyncexecutealltasksnoestiamtioncomplete()
             return
@@ -42,7 +42,7 @@ extension ExecuteAlltasksAsync {
             update.addlogpermanentstore(outputrsync: outputfromrsync)
         }
         _ = Task.detached {
-            await self.startestimation()
+            await self.startexecution()
         }
     }
 }

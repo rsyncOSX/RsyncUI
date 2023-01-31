@@ -35,6 +35,7 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
     var estimateasync: Bool = false
     // Execute async no estimation
     var executeasyncnoestimation: Bool = false
+    var executeasyncnoestimationcompleted: Bool = false
 
     func getuuids() -> Set<UUID> {
         return uuids
@@ -99,12 +100,13 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
     }
 
     func asyncexecutealltasksnoestiamtioncomplete() {
-        executeasyncnoestimation = false
+        executeasyncnoestimationcompleted = true
         objectWillChange.send()
     }
 
     func startasyncexecutealltasksnoestimation() {
         executeasyncnoestimation = true
+        executeasyncnoestimationcompleted = false
         objectWillChange.send()
     }
 

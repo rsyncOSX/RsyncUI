@@ -14,7 +14,7 @@ class EstimateAlltasksAsync {
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
     @MainActor
-    func startestimation() async {
+    func startexecution() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             updateestimationcountDelegate?.asyncestimationcomplete()
             return
@@ -88,7 +88,7 @@ extension EstimateAlltasksAsync {
             }
         }
         _ = Task.detached {
-            await self.startestimation()
+            await self.startexecution()
         }
     }
 }
