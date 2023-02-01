@@ -9,6 +9,7 @@
 import Foundation
 
 class EstimateAlltasksAsync {
+    var structprofile: String?
     var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
     var stackoftasktobeestimated: [Int]?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
@@ -30,11 +31,13 @@ class EstimateAlltasksAsync {
         await process.executeProcess()
     }
 
-    init(configurationsSwiftUI: ConfigurationsSwiftUI?,
+    init(profile: String?,
+         configurationsSwiftUI: ConfigurationsSwiftUI?,
          updateinprogresscount: UpdateEstimationCount?,
          uuids: Set<UUID>,
          filter: String)
     {
+        structprofile = profile
         localconfigurationsSwiftUI = configurationsSwiftUI
         updateestimationcountDelegate = updateinprogresscount
         let filteredconfigurations = configurationsSwiftUI?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
