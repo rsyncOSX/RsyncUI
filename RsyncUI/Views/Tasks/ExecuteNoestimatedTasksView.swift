@@ -4,9 +4,7 @@
 //
 //  Created by Thomas Evensen on 31/01/2023.
 //
-// swiftlint:disable type_body_length
 
-import Network
 import SwiftUI
 
 struct ExecuteNoestimatedTasksView: View {

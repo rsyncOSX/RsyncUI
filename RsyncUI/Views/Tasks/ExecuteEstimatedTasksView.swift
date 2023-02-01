@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 07/02/2021.
 //
 
-import Foundation
 import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
@@ -17,7 +16,7 @@ struct ExecuteEstimatedTasksView: View {
 
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
-    @Binding var showestimateview: Bool
+    @Binding var showeexecutestimatedview: Bool
 
     @State private var executemultipletasks: ExecuteMultipleTasks?
     @State private var selectedconfig: Configuration?
@@ -54,8 +53,7 @@ struct ExecuteEstimatedTasksView: View {
         })
     }
 
-    // Present progressview during executing multiple tasks, progress about the number of
-    // tasks are executed.
+    // Present progressview during executing multiple tasks
     var progressviewexecuting: some View {
         ProgressView()
             .frame(width: 25, height: 25)
@@ -86,7 +84,7 @@ extension ExecuteEstimatedTasksView {
         inprogresscountmultipletask.resetcounts()
         executemultipletasks = nil
         selecteduuids.removeAll()
-        showestimateview = true
+        showeexecutestimatedview = false
         reload = true
     }
 
@@ -98,7 +96,7 @@ extension ExecuteEstimatedTasksView {
         executemultipletasks = nil
         selecteduuids.removeAll()
         _ = InterruptProcess()
-        showestimateview = true
+        showeexecutestimatedview = false
         reload = true
     }
 

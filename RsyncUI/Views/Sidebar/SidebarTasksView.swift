@@ -13,12 +13,9 @@ struct SidebarTasksView: View {
     @Binding var reload: Bool
     // Which sidebar function
     @Binding var selection: NavigationItem?
-    @State var showestimateview: Bool = true
-
+    @State var showeexecutestimatedview: Bool = false
     @State var showexecutenoestimateview: Bool = false
-
     @State private var selecteduuids = Set<UUID>()
-    // Show completed
     @State private var showcompleted: Bool = false
 
     var body: some View {
@@ -26,20 +23,20 @@ struct SidebarTasksView: View {
             VStack {
                 headingtitle
 
-                if showestimateview == true && showexecutenoestimateview == false {
+                if showeexecutestimatedview == false && showexecutenoestimateview == false {
                     TasksView(selectedconfig: $selectedconfig,
                               reload: $reload,
                               selecteduuids: $selecteduuids,
-                              showestimateview: $showestimateview,
+                              showeexecutestimatedview: $showeexecutestimatedview,
                               showcompleted: $showcompleted,
                               showexecutenoestimateview: $showexecutenoestimateview,
                               selection: $selection)
                 }
 
-                if showestimateview == false && showexecutenoestimateview == false {
+                if showeexecutestimatedview == true && showexecutenoestimateview == false {
                     ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                               reload: $reload,
-                                              showestimateview: $showestimateview)
+                                              showeexecutestimatedview: $showeexecutestimatedview)
                         .onDisappear(perform: {
                             showcompleted = true
                         })

@@ -22,7 +22,7 @@ struct TasksView: View {
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
-    @Binding var showestimateview: Bool
+    @Binding var showeexecutestimatedview: Bool
     @Binding var showcompleted: Bool
     @Binding var showexecutenoestimateview: Bool
 
@@ -112,7 +112,7 @@ struct TasksView: View {
                         estimationstate.updatestate(state: .start)
                         executedetails.resetcounter()
                         executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
-                        showestimateview = false
+                        showeexecutestimatedview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
 
@@ -222,7 +222,7 @@ struct TasksView: View {
                 estimationstate.updatestate(state: .start)
                 executedetails.resetcounter()
                 executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
-                showestimateview = false
+                showeexecutestimatedview = true
             })
     }
 
