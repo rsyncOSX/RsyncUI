@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 19/01/2021.
 //
-// swiftlint:disable line_length type_body_length
+// swiftlint:disable line_length
 
 import Network
 import SwiftUI
@@ -66,6 +66,7 @@ struct TasksView: View {
             reload: $reload,
             confirmdelete: $confirmdeletemenu)
 
+            // Remember max 10 in one Group
             Group {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
@@ -86,35 +87,16 @@ struct TasksView: View {
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
                 if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasyncseelectedonetask }
             }
-
-            Group {
-                //
-            }
         }
 
         HStack {
             VStack(alignment: .center) {
                 HStack {
-                    Button("Estimate") {
-                        inprogresscountmultipletask.resetcounts()
-                        executedetails.resetcounter()
-                        inprogresscountmultipletask.startestimateasync()
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
+                    Button("Estimate") { estimate() }
+                        .buttonStyle(PrimaryButtonStyle())
 
-                    Button("Execute") {
-                        selecteduuids = inprogresscountmultipletask.getuuids()
-                        guard selecteduuids.count > 0 else {
-                            // inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
-                            showexecutenoestimateview = true
-                            return
-                        }
-                        estimationstate.updatestate(state: .start)
-                        executedetails.resetcounter()
-                        executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
-                        showeexecutestimatedview = true
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
+                    Button("Execute") { execute() }
+                        .buttonStyle(PrimaryButtonStyle())
 
                     Button("DryRun") {
                         guard selectedconfig != nil else { return }
@@ -204,9 +186,7 @@ struct TasksView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                inprogresscountmultipletask.resetcounts()
-                executedetails.resetcounter()
-                inprogresscountmultipletask.startestimateasync()
+                estimate()
             })
     }
 
@@ -214,15 +194,7 @@ struct TasksView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                selecteduuids = inprogresscountmultipletask.getuuids()
-                guard selecteduuids.count > 0 else {
-                    showexecutenoestimateview = true
-                    return
-                }
-                estimationstate.updatestate(state: .start)
-                executedetails.resetcounter()
-                executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
-                showeexecutestimatedview = true
+                execute()
             })
     }
 
@@ -335,6 +307,26 @@ struct TasksView: View {
 }
 
 extension TasksView {
+    func estimate() {
+        inprogresscountmultipletask.resetcounts()
+        executedetails.resetcounter()
+        inprogresscountmultipletask.startestimateasync()
+    }
+
+    func execute() {
+        selecteduuids = inprogresscountmultipletask.getuuids()
+        guard selecteduuids.count > 0 else {
+            // Execute all tasks, no estimate.
+            showexecutenoestimateview = true
+            return
+        }
+        // Execute all estimated tasks.
+        estimationstate.updatestate(state: .start)
+        executedetails.resetcounter()
+        executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+        showeexecutestimatedview = true
+    }
+
     func reset() {
         inwork = -1
         inprogresscountmultipletask.resetcounts()

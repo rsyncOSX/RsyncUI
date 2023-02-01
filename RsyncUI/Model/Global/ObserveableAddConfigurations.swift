@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 03/06/2021.
 //
-// swiftlint: disable type_body_length
+// swiftlint: disable type_body_length function_body_length
 
 import Combine
 
