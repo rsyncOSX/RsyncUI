@@ -38,6 +38,7 @@
 		E94C2DEC264EC0BF00C0A7E1 /* OneConfigSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */; };
 		E950C92A290BBDC200B8B49F /* CommandProcessAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
+		E9549A85298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549A84298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift */; };
 		E9569EA927B809EE0038799C /* ReadUserConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */; };
 		E9569EAB27B80BEB0038799C /* UserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EAA27B80BEB0038799C /* UserConfiguration.swift */; };
 		E9569EAD27B80C220038799C /* DecodeUserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EAC27B80C220038799C /* DecodeUserConfiguration.swift */; };
@@ -238,6 +239,7 @@
 		E94F8337272E7ABA00D3924B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandProcessAsync.swift; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
+		E9549A84298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteNoestimateOneTaskView.swift; sourceTree = "<group>"; };
 		E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUserConfigurationJSON.swift; sourceTree = "<group>"; };
 		E9569EAA27B80BEB0038799C /* UserConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfiguration.swift; sourceTree = "<group>"; };
 		E9569EAC27B80C220038799C /* DecodeUserConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeUserConfiguration.swift; sourceTree = "<group>"; };
@@ -689,6 +691,7 @@
 			children = (
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedTasksView.swift */,
 				E9134B4829893BF900FDD55D /* ExecuteNoestimatedTasksView.swift */,
+				E9549A84298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift */,
 				E985C65325F3AD8400CB895C /* TasksView.swift */,
 				E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */,
 				E904E02D275CED770070DF92 /* FirsttimeView.swift */,
@@ -1287,6 +1290,7 @@
 				E98F608D290D034300952149 /* CommandProcess.swift in Sources */,
 				E97F62F528DC845100DCF475 /* RsyncAsync.swift in Sources */,
 				E93E14B426E34B95004A293E /* AddProfileView.swift in Sources */,
+				E9549A85298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift in Sources */,
 				E999F9262769104200B80DF6 /* AlertToast.swift in Sources */,
 				E9D94DB6294B9409007C21D2 /* Assist.swift in Sources */,
 				E985C77025F3AD9700CB895C /* InprogressCountMultipleTasks.swift in Sources */,

@@ -25,6 +25,7 @@ struct TasksView: View {
     @Binding var showeexecutestimatedview: Bool
     @Binding var showcompleted: Bool
     @Binding var showexecutenoestimateview: Bool
+    @Binding var showexecutenoestiamteonetask: Bool
 
     @State private var presentoutputsheetview = false
     @State private var inwork: Int = -1
@@ -70,22 +71,17 @@ struct TasksView: View {
             Group {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
-
                 if focusselecttask { labelselecttask }
                 if focusfirsttaskinfo { labelfirsttime }
                 if focusdeletetask { labeldeletetask }
                 if focusshowinfotask { labelshowinfotask }
-
                 if focusaborttask { labelaborttask }
-
+                if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
                 if progressviewshowinfo {
                     RotatingDotsIndicatorView()
                         .frame(width: 50.0, height: 50.0)
                         .foregroundColor(.blue)
                 }
-
-                if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
-                if inprogresscountmultipletask.executeasyncnoestimation { progressviewexecuteasyncseelectedonetask }
             }
         }
 
@@ -227,27 +223,6 @@ struct TasksView: View {
             }
     }
 
-    var progressviewexecuteasyncseelectedonetask: some View {
-        RotatingDotsIndicatorView()
-            .frame(width: 50.0, height: 50.0)
-            .foregroundColor(.blue)
-            .onAppear {
-                Task {
-                    if selectedconfig != nil && selecteduuids.count == 0 {
-                        let executeonetaskasync =
-                            ExecuteOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                                updateinprogresscount: inprogresscountmultipletask,
-                                                hiddenID: selectedconfig?.hiddenID)
-                        await executeonetaskasync.execute()
-                    }
-                }
-            }
-            .onDisappear {
-                showcompleted = true
-                focusstartexecution = false
-            }
-    }
-
     var labelselecttask: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -317,8 +292,15 @@ extension TasksView {
     func execute() {
         selecteduuids = inprogresscountmultipletask.getuuids()
         guard selecteduuids.count > 0 else {
-            // Execute all tasks, no estimate.
-            showexecutenoestimateview = true
+            if selectedconfig == nil {
+                // Execute all tasks, no estimate
+                showexecutenoestimateview = true
+                showexecutenoestiamteonetask = false
+            } else {
+                // Execute one task, no estimte
+                showexecutenoestiamteonetask = true
+                showexecutenoestimateview = false
+            }
             return
         }
         // Execute all estimated tasks.

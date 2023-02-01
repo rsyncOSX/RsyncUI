@@ -13,8 +13,11 @@ struct SidebarTasksView: View {
     @Binding var reload: Bool
     // Which sidebar function
     @Binding var selection: NavigationItem?
+
     @State var showeexecutestimatedview: Bool = false
     @State var showexecutenoestimateview: Bool = false
+    @State var showexecutenoestiamteonetask: Bool = false
+
     @State private var selecteduuids = Set<UUID>()
     @State private var showcompleted: Bool = false
 
@@ -23,17 +26,18 @@ struct SidebarTasksView: View {
             VStack {
                 headingtitle
 
-                if showeexecutestimatedview == false && showexecutenoestimateview == false {
+                if showeexecutestimatedview == false && showexecutenoestimateview == false && showexecutenoestiamteonetask == false {
                     TasksView(selectedconfig: $selectedconfig,
                               reload: $reload,
                               selecteduuids: $selecteduuids,
                               showeexecutestimatedview: $showeexecutestimatedview,
                               showcompleted: $showcompleted,
                               showexecutenoestimateview: $showexecutenoestimateview,
+                              showexecutenoestiamteonetask: $showexecutenoestiamteonetask,
                               selection: $selection)
                 }
 
-                if showeexecutestimatedview == true && showexecutenoestimateview == false {
+                if showeexecutestimatedview == true && showexecutenoestimateview == false && showexecutenoestiamteonetask == false {
                     ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                               reload: $reload,
                                               showeexecutestimatedview: $showeexecutestimatedview)
@@ -48,6 +52,17 @@ struct SidebarTasksView: View {
                                                 selecteduuids: $selecteduuids,
                                                 showcompleted: $showcompleted,
                                                 showexecutenoestimateview: $showexecutenoestimateview)
+                        .onDisappear(perform: {
+                            showcompleted = true
+                        })
+                }
+
+                if showexecutenoestiamteonetask == true {
+                    ExecuteNoestimateOneTaskView(selectedconfig: $selectedconfig,
+                                                 reload: $reload,
+                                                 selecteduuids: $selecteduuids,
+                                                 showcompleted: $showcompleted,
+                                                 showexecutenoestiamteonetask: $showexecutenoestiamteonetask)
                         .onDisappear(perform: {
                             showcompleted = true
                         })
