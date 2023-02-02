@@ -26,6 +26,7 @@ struct ExecuteNoestimateOneTaskView: View {
     @State private var executeonetaskasync: ExecuteOnetaskAsync?
 
     @State private var confirmdelete = false
+    @State private var focusaborttask: Bool = false
 
     var body: some View {
         ZStack {
@@ -52,6 +53,7 @@ struct ExecuteNoestimateOneTaskView: View {
                 await executeonenotestimatedtask()
             }
         })
+        .focusedSceneValue(\.aborttask, $focusaborttask)
     }
 
     var progressviewexecuteasync: some View {
@@ -65,6 +67,14 @@ struct ExecuteNoestimateOneTaskView: View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 completed()
+            })
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
             })
     }
 }

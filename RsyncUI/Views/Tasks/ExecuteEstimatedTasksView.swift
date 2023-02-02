@@ -24,6 +24,7 @@ struct ExecuteEstimatedTasksView: View {
     @State private var searchText: String = ""
 
     @State private var confirmdelete = false
+    @State private var focusaborttask: Bool = false
 
     var body: some View {
         ZStack {
@@ -51,6 +52,7 @@ struct ExecuteEstimatedTasksView: View {
         .onAppear(perform: {
             executemultipleestimatedtasks()
         })
+        .focusedSceneValue(\.aborttask, $focusaborttask)
     }
 
     // Present progressview during executing multiple tasks
@@ -73,6 +75,14 @@ struct ExecuteEstimatedTasksView: View {
         Label(multipletaskstate.executionstate.rawValue, systemImage: "play.fill")
             .onAppear(perform: {
                 completed()
+            })
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
             })
     }
 }

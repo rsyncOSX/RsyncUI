@@ -26,7 +26,9 @@ struct SidebarTasksView: View {
             VStack {
                 headingtitle
 
-                if showeexecutestimatedview == false && showexecutenoestimateview == false && showexecutenoestiamteonetask == false {
+                if showeexecutestimatedview == false && showexecutenoestimateview == false &&
+                    showexecutenoestiamteonetask == false
+                {
                     TasksView(selectedconfig: $selectedconfig,
                               reload: $reload,
                               selecteduuids: $selecteduuids,
@@ -37,7 +39,9 @@ struct SidebarTasksView: View {
                               selection: $selection)
                 }
 
-                if showeexecutestimatedview == true && showexecutenoestimateview == false && showexecutenoestiamteonetask == false {
+                if showeexecutestimatedview == true && showexecutenoestimateview == false &&
+                    showexecutenoestiamteonetask == false
+                {
                     ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                               reload: $reload,
                                               showeexecutestimatedview: $showeexecutestimatedview)
