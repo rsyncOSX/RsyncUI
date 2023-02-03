@@ -23,7 +23,7 @@ struct RestoreView: View {
     var body: some View {
         ZStack {
             VStack {
-                ConfigurationsListNoSearch(selectedconfig: $restore.selectedconfig.onChange {
+                ListofAllTasks(selectedconfig: $restore.selectedconfig.onChange {
                     restore.filestorestore = ""
                 })
             }

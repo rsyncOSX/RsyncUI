@@ -28,7 +28,7 @@ struct LogsbyConfigurationView: View {
 
     var body: some View {
         Form {
-            ConfigurationsListNoSearch(selectedconfig: $selectedconfig.onChange {
+            ListofAllTasks(selectedconfig: $selectedconfig.onChange {
                 selecteduuids.removeAll()
             })
 

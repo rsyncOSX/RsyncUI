@@ -1,5 +1,5 @@
 //
-//  ConfigurationsListNoSearch.swift
+//  ListofAllTasks.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 05/07/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConfigurationsListNoSearch: View {
+struct ListofAllTasks: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedconfig: Configuration?
     // Needed in OneConfigProgressView

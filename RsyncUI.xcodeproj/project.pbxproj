@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E801DC662637FD990060723F /* WriteConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801DC652637FD990060723F /* WriteConfigurationJSON.swift */; };
 		E81C244C267DEEAA00C50AE8 /* OutputEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */; };
-		E83FAFE62692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */; };
+		E83FAFE62692F8DA0006AFE9 /* ListofAllTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83FAFE52692F8DA0006AFE9 /* ListofAllTasks.swift */; };
 		E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8518C79263807F200128796 /* WriteScheduleJSON.swift */; };
 		E85FBDD726CD6B0A00186185 /* RsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85FBDD626CD6B0A00186185 /* RsyncParametersView.swift */; };
 		E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8902992260B0EF700F4F0DC /* ButtonStyles.swift */; };
@@ -209,7 +209,7 @@
 /* Begin PBXFileReference section */
 		E801DC652637FD990060723F /* WriteConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteConfigurationJSON.swift; sourceTree = "<group>"; };
 		E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputEstimatedView.swift; sourceTree = "<group>"; };
-		E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsListNoSearch.swift; sourceTree = "<group>"; };
+		E83FAFE52692F8DA0006AFE9 /* ListofAllTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofAllTasks.swift; sourceTree = "<group>"; };
 		E8518C79263807F200128796 /* WriteScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSON.swift; sourceTree = "<group>"; };
 		E85FBDD626CD6B0A00186185 /* RsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncParametersView.swift; sourceTree = "<group>"; };
 		E8902992260B0EF700F4F0DC /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
@@ -601,7 +601,7 @@
 			children = (
 				E985C61625F3AD8400CB895C /* ListofTasksProgress.swift */,
 				E9B052BB2753FFDC00896540 /* ListofOneTaskDetails.swift */,
-				E83FAFE52692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift */,
+				E83FAFE52692F8DA0006AFE9 /* ListofAllTasks.swift */,
 				E985C61725F3AD8400CB895C /* OneConfigProgressView.swift */,
 				E985C61925F3AD8400CB895C /* OneConfig.swift */,
 				E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */,
@@ -1342,7 +1342,7 @@
 				E999F9282769108A00B80DF6 /* ActivityIndicator.swift in Sources */,
 				E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */,
 				E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */,
-				E83FAFE62692F8DA0006AFE9 /* ConfigurationsListNoSearch.swift in Sources */,
+				E83FAFE62692F8DA0006AFE9 /* ListofAllTasks.swift in Sources */,
 				E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */,
 				E985C65F25F3AD8400CB895C /* OneConfigProgressView.swift in Sources */,
 				E95DD7F428EC738B007654BC /* RsyncProcessAsync.swift in Sources */,
