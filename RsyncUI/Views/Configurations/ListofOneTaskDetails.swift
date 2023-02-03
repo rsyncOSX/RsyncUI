@@ -1,5 +1,5 @@
 //
-//  ConfigurationSelected.swift
+//  ListofOneTaskDetails.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 28/11/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConfigurationSelected: View {
+struct ListofOneTaskDetails: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
 
     @Binding var selectedconfig: Configuration?

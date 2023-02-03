@@ -25,7 +25,7 @@ struct DetailsView: View {
         VStack {
             ZStack {
                 VStack {
-                    ConfigurationSelected(selectedconfig: $selectedconfig,
+                    ListofOneTaskDetails(selectedconfig: $selectedconfig,
                                           selecteduuids: $selecteduuids,
                                           inwork: $inwork,
                                           reload: $reload)
