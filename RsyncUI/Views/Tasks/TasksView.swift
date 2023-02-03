@@ -57,7 +57,7 @@ struct TasksView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsList(selectedconfig: $selectedconfig.onChange {
+            ListofTasksProgress(selectedconfig: $selectedconfig.onChange {
                 guard selectedconfig != nil else { return }
                 if alltasksestimated { dryrunview = true }
             },

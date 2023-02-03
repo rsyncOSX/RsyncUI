@@ -1,6 +1,6 @@
 //
-//  ConfigurationsList.swift
-//  RsyncSwiftUI
+//  ListofTasksProgress.swift
+//  RsynctUI
 //
 //  Created by Thomas Evensen on 22/01/2021.
 //
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ConfigurationsList: View {
+struct ListofTasksProgress: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
 
     @Binding var selectedconfig: Configuration?

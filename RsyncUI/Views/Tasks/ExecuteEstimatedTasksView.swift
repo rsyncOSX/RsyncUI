@@ -28,12 +28,12 @@ struct ExecuteEstimatedTasksView: View {
 
     var body: some View {
         ZStack {
-            ConfigurationsList(selectedconfig: $selectedconfig,
-                               selecteduuids: $selecteduuids,
-                               inwork: $inwork,
-                               searchText: $searchText,
-                               reload: $reload,
-                               confirmdelete: $confirmdelete)
+            ListofTasksProgress(selectedconfig: $selectedconfig,
+                                selecteduuids: $selecteduuids,
+                                inwork: $inwork,
+                                searchText: $searchText,
+                                reload: $reload,
+                                confirmdelete: $confirmdelete)
 
             // When completed
             if multipletaskstate.executionstate == .completed { labelcompleted }
