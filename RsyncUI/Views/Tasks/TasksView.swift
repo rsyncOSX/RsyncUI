@@ -90,9 +90,11 @@ struct TasksView: View {
                 HStack {
                     Button("Estimate") { estimate() }
                         .buttonStyle(PrimaryButtonStyle())
+                        .tooltip("Shortcut ⌘E")
 
                     Button("Execute") { execute() }
                         .buttonStyle(PrimaryButtonStyle())
+                        .tooltip("Shortcut ⌘R")
 
                     Button("DryRun") {
                         guard selectedconfig != nil else { return }

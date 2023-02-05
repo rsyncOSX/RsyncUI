@@ -26,9 +26,9 @@ struct DetailsView: View {
             ZStack {
                 VStack {
                     ListofOneTaskDetails(selectedconfig: $selectedconfig,
-                                          selecteduuids: $selecteduuids,
-                                          inwork: $inwork,
-                                          reload: $reload)
+                                         selecteduuids: $selecteduuids,
+                                         inwork: $inwork,
+                                         reload: $reload)
                         .frame(height: 57)
 
                     List(remotedata, id: \.self) { line in
