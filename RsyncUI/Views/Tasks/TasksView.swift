@@ -27,7 +27,6 @@ struct TasksView: View {
     @Binding var showexecutenoestimateview: Bool
     @Binding var showexecutenoestiamteonetask: Bool
 
-    @State private var presentoutputsheetview = false
     @State private var inwork: Int = -1
 
     // Focus buttons from the menu
@@ -144,15 +143,6 @@ struct TasksView: View {
 
             Spacer()
 
-            Button("Output") { presentoutputsheetview = true }
-                .buttonStyle(PrimaryButtonStyle())
-                .sheet(isPresented: $presentoutputsheetview) {
-                    OutputRsyncView(isPresented: $presentoutputsheetview,
-                                    valueselectedrow: $valueselectedrow,
-                                    numberoffiles: $numberoffiles,
-                                    output: remotedata)
-                }
-
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
                 .tooltip("Shortcut ⌘A")
@@ -229,7 +219,12 @@ struct TasksView: View {
                 }
             }
             .onDisappear {
-                presentoutputsheetview = true
+                if selectedconfig == nil {
+                    if let configuration = rsyncUIdata.configurations?[0] {
+                        selectedconfig = configuration
+                    }
+                }
+                dryrunview = true
                 focusstartestimation = false
             }
     }
