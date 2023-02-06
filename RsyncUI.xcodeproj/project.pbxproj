@@ -16,7 +16,6 @@
 		E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8944891267B2CB0009F9C4A /* RsyncUIView.swift */; };
 		E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902C10E27B836CC00A75D7A /* WriteUserConfigurationJSON.swift */; };
 		E904E02E275CED770070DF92 /* FirsttimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904E02D275CED770070DF92 /* FirsttimeView.swift */; };
-		E90B4AA2261DA7580043EFF6 /* RotatingDotsIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */; };
 		E90F7CA526344D5B001D9CA2 /* TextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */; };
 		E90F7CA726344D5E001D9CA2 /* TextBuilderSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA626344D5E001D9CA2 /* TextBuilderSeparator.swift */; };
 		E90F7CA926344D60001D9CA2 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90F7CA826344D60001D9CA2 /* TextExtensions.swift */; };
@@ -216,7 +215,6 @@
 		E8944891267B2CB0009F9C4A /* RsyncUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIView.swift; sourceTree = "<group>"; };
 		E902C10E27B836CC00A75D7A /* WriteUserConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteUserConfigurationJSON.swift; sourceTree = "<group>"; };
 		E904E02D275CED770070DF92 /* FirsttimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirsttimeView.swift; sourceTree = "<group>"; };
-		E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatingDotsIndicatorView.swift; sourceTree = "<group>"; };
 		E90F7CA426344D5B001D9CA2 /* TextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuilder.swift; sourceTree = "<group>"; };
 		E90F7CA626344D5E001D9CA2 /* TextBuilderSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuilderSeparator.swift; sourceTree = "<group>"; };
 		E90F7CA826344D60001D9CA2 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
@@ -425,7 +423,6 @@
 		E8AC45CB26E5ED2500E0AE43 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				E90B4A91261DA7580043EFF6 /* Indicator */,
 				E9E9CD2326779E0A00EB377B /* Commands */,
 			);
 			path = Tools;
@@ -447,14 +444,6 @@
 				E9F5354B290185AA007EFAE7 /* EstimateAlltasksAsync.swift */,
 			);
 			path = Async;
-			sourceTree = "<group>";
-		};
-		E90B4A91261DA7580043EFF6 /* Indicator */ = {
-			isa = PBXGroup;
-			children = (
-				E90B4A98261DA7580043EFF6 /* RotatingDotsIndicatorView.swift */,
-			);
-			path = Indicator;
 			sourceTree = "<group>";
 		};
 		E90F7CAA26344FC6001D9CA2 /* TextBuilder */ = {
@@ -1282,7 +1271,6 @@
 				E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */,
 				E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */,
 				E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */,
-				E90B4AA2261DA7580043EFF6 /* RotatingDotsIndicatorView.swift in Sources */,
 				E985C68E25F3AD8400CB895C /* TasksView.swift in Sources */,
 				E93D7B7F26CE117300E290A1 /* SidebarParametersView.swift in Sources */,
 				E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */,

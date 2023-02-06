@@ -54,15 +54,9 @@ struct TasksView: View {
     // Dryrun view
     @State private var dryrunview = false
 
-    // Selected row in output
-    @State private var valueselectedrow: String = ""
-    @State private var numberoffiles: Int = 0
-    @State private var remotedata: [String] = []
-
     var body: some View {
         ZStack {
             ListofTasksProgress(selectedconfig: $selectedconfig.onChange {
-                remotedata = []
                 guard selectedconfig != nil else { return }
                 if alltasksestimated { dryrunview = true }
             },
@@ -115,8 +109,7 @@ struct TasksView: View {
                         } else {
                             DetailsView(selectedconfig: $selectedconfig,
                                         reload: $reload,
-                                        isPresented: $dryrunview,
-                                        remotedata: $remotedata)
+                                        isPresented: $dryrunview)
                         }
                     }
 
