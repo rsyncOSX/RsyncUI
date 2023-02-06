@@ -147,6 +147,7 @@ struct TasksView: View {
 
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
+                .tooltip("Shortcut ⌘A")
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)

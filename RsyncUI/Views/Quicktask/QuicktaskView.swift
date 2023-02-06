@@ -121,6 +121,7 @@ struct QuicktaskView: View {
 
                 Button("Abort") { abort() }
                     .buttonStyle(AbortButtonStyle())
+                    .tooltip("Shortcut ⌘A")
             }
         }
     }
