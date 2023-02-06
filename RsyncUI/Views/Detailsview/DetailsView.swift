@@ -12,8 +12,8 @@ struct DetailsView: View {
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var isPresented: Bool
+    @Binding var remotedata: [String]
 
-    @State private var remotedata: [String] = []
     @State private var gettingremotedata = true
 
     // For selecting tasks, the selected index is transformed to the uuid of the task
