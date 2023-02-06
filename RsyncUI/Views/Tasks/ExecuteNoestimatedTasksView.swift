@@ -57,9 +57,8 @@ struct ExecuteNoestimatedTasksView: View {
     }
 
     var progressviewexecuteasync: some View {
-        RotatingDotsIndicatorView()
+        ProgressView()
             .frame(width: 50.0, height: 50.0)
-            .foregroundColor(.blue)
     }
 
     // When status execution is .completed, present label and execute completed.

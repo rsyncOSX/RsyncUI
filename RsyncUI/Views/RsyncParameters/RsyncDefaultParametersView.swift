@@ -95,9 +95,8 @@ struct RsyncDefaultParametersView: View {
             .sheet(isPresented: $presentsheetview) { viewoutput }
 
             if showprogressview {
-                RotatingDotsIndicatorView()
+                ProgressView()
                     .frame(width: 50.0, height: 50.0)
-                    .foregroundColor(.blue)
             }
         }
     }

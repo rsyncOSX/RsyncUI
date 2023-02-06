@@ -83,9 +83,8 @@ struct TasksView: View {
                 if focusaborttask { labelaborttask }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
                 if progressviewshowinfo {
-                    RotatingDotsIndicatorView()
+                    ProgressView()
                         .frame(width: 50.0, height: 50.0)
-                        .foregroundColor(.blue)
                 }
             }
         }
@@ -193,9 +192,8 @@ struct TasksView: View {
     }
 
     var progressviewestimateasync: some View {
-        RotatingDotsIndicatorView()
+        ProgressView()
             .frame(width: 50.0, height: 50.0)
-            .foregroundColor(.blue)
             .onAppear {
                 Task {
                     if selectedconfig != nil && selecteduuids.count == 0 {
