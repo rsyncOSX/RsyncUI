@@ -112,9 +112,6 @@ struct TasksView: View {
                                                         reload: $reload,
                                                         isPresented: $dryrunview,
                                                         estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
-                                .onDisappear(perform: {
-                                    selectedconfig = nil
-                                })
 
                         } else {
                             DetailsView(selectedconfig: $selectedconfig,
