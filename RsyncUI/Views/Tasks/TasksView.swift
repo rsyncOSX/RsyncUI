@@ -95,11 +95,16 @@ struct TasksView: View {
                     .buttonStyle(PrimaryButtonStyle())
                     .sheet(isPresented: $dryrunview) {
                         if inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0 {
-                            DetailsViewAlreadyEstimated(selectedconfig: $selectedconfig,
-                                                        reload: $reload,
-                                                        isPresented: $dryrunview,
-                                                        estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
-
+                            if selectedconfig != nil {
+                                DetailsViewAlreadyEstimated(selectedconfig: $selectedconfig,
+                                                            reload: $reload,
+                                                            isPresented: $dryrunview,
+                                                            estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
+                            } else {
+                                OutputEstimatedView(isPresented: $dryrunview,
+                                                    selecteduuids: $selecteduuids,
+                                                    estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
+                            }
                         } else {
                             DetailsView(selectedconfig: $selectedconfig,
                                         reload: $reload,
@@ -201,11 +206,6 @@ struct TasksView: View {
                 }
             }
             .onDisappear {
-                if selectedconfig == nil {
-                    if let configuration = rsyncUIdata.configurations?[0] {
-                        selectedconfig = configuration
-                    }
-                }
                 dryrunview = true
                 focusstartestimation = false
             }
