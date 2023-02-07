@@ -47,8 +47,6 @@ struct TasksView: View {
     @State private var confirmdeletemenu: Bool = false
     // Local data for present local and remote info about task
     @State private var localdata: [String] = []
-    // For get local and remote info one task
-    @State private var progressviewshowinfo = false
     // Modale view
     @State private var modaleview = false
     // Dryrun view
@@ -73,13 +71,9 @@ struct TasksView: View {
                 if focusselecttask { labelselecttask }
                 if focusfirsttaskinfo { labelfirsttime }
                 if focusdeletetask { labeldeletetask }
-                if focusshowinfotask { labelshowinfotask }
+                if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
-                if progressviewshowinfo {
-                    ProgressView()
-                        .frame(width: 50.0, height: 50.0)
-                }
             }
         }
 
@@ -242,15 +236,14 @@ struct TasksView: View {
             })
     }
 
-    var labelshowinfotask: some View {
-        Label("", systemImage: "play.fill")
+    var showinfotask: some View {
+        ProgressView()
+            .frame(width: 50.0, height: 50.0)
             .onAppear(perform: {
-                progressviewshowinfo = true
                 let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig)
                     .argumentslocalcataloginfo(dryRun: true, forDisplay: false)
                 guard argumentslocalinfo != nil else {
                     focusshowinfotask = false
-                    progressviewshowinfo = false
                     return
                 }
                 let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo,
@@ -258,7 +251,6 @@ struct TasksView: View {
                 Task {
                     await tasklocalinfo.executeProcess()
                 }
-                focusshowinfotask = false
             })
     }
 
@@ -309,7 +301,6 @@ extension TasksView {
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
         selectedconfig = nil
-        progressviewshowinfo = false
         inprogresscountmultipletask.estimateasync = false
     }
 
@@ -320,7 +311,6 @@ extension TasksView {
         _ = InterruptProcess()
         inwork = -1
         reload = true
-        progressviewshowinfo = false
         focusstartestimation = false
         focusstartexecution = false
     }
@@ -338,7 +328,7 @@ extension TasksView {
     // For info about one task
     func processtermination(data: [String]?) {
         localdata = data ?? []
+        focusshowinfotask = false
         modaleview = true
-        progressviewshowinfo = false
     }
 }
