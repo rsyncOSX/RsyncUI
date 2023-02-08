@@ -159,30 +159,6 @@ struct TasksView: View {
         }
     }
 
-    var alltasksestimated: Bool {
-        return inprogresscountmultipletask.getestimatedlist()?.count == rsyncUIdata.configurations?.count
-    }
-
-    var alltasksestimatedtext: some View {
-        Text("All tasks are estimated - select task to view details or Reset for reset")
-    }
-
-    var labelstartestimation: some View {
-        Label("", systemImage: "play.fill")
-            .foregroundColor(.black)
-            .onAppear(perform: {
-                estimate()
-            })
-    }
-
-    var labelstartexecution: some View {
-        Label("", systemImage: "play.fill")
-            .foregroundColor(.black)
-            .onAppear(perform: {
-                execute()
-            })
-    }
-
     var progressviewestimateasync: some View {
         ProgressView()
             .frame(width: 50.0, height: 50.0)
@@ -211,6 +187,48 @@ struct TasksView: View {
             }
     }
 
+    var showinfotask: some View {
+        ProgressView()
+            .frame(width: 50.0, height: 50.0)
+            .onAppear(perform: {
+                let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig)
+                    .argumentslocalcataloginfo(dryRun: true, forDisplay: false)
+                guard argumentslocalinfo != nil else {
+                    focusshowinfotask = false
+                    return
+                }
+                let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo,
+                                               processtermination: processtermination)
+                Task {
+                    await tasklocalinfo.executeProcess()
+                }
+            })
+    }
+
+    var alltasksestimated: Bool {
+        return inprogresscountmultipletask.getestimatedlist()?.count == rsyncUIdata.configurations?.count
+    }
+
+    var alltasksestimatedtext: some View {
+        Text("All tasks are estimated - select task to view details or Reset for reset")
+    }
+
+    var labelstartestimation: some View {
+        Label("", systemImage: "play.fill")
+            .foregroundColor(.black)
+            .onAppear(perform: {
+                estimate()
+            })
+    }
+
+    var labelstartexecution: some View {
+        Label("", systemImage: "play.fill")
+            .foregroundColor(.black)
+            .onAppear(perform: {
+                execute()
+            })
+    }
+
     var labelselecttask: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -233,24 +251,6 @@ struct TasksView: View {
             .onAppear(perform: {
                 focusdeletetask = false
                 confirmdeletemenu = true
-            })
-    }
-
-    var showinfotask: some View {
-        ProgressView()
-            .frame(width: 50.0, height: 50.0)
-            .onAppear(perform: {
-                let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig)
-                    .argumentslocalcataloginfo(dryRun: true, forDisplay: false)
-                guard argumentslocalinfo != nil else {
-                    focusshowinfotask = false
-                    return
-                }
-                let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo,
-                                               processtermination: processtermination)
-                Task {
-                    await tasklocalinfo.executeProcess()
-                }
             })
     }
 
