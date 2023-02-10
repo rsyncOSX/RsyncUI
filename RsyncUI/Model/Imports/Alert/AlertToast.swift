@@ -1,5 +1,4 @@
 // MIT License
-// swiftlint:disable line_length function_body_length file_length
 //
 // Copyright (c) 2021 Elai Zuberman
 //
@@ -238,6 +237,7 @@ public struct AlertToast: View {
                             .foregroundColor(color)
                     case let .image(name, color):
                         Image(name)
+                            .renderingMode(.template)
                             .foregroundColor(color)
                     case .loading:
                         ActivityIndicator()
@@ -412,8 +412,8 @@ public struct AlertToastModifier: ViewModifier {
     var alert: () -> AlertToast
 
     /// Completion block returns `true` after dismiss
-    var onTap: (() -> Void)?
-    var completion: (() -> Void)?
+    var onTap: (() -> Void)? = nil
+    var completion: (() -> Void)? = nil
 
     @State private var workItem: DispatchWorkItem?
 
