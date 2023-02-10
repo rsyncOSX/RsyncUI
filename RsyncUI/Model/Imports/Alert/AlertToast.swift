@@ -1,4 +1,5 @@
 // MIT License
+// swiftlint:disable line_length function_body_length file_length
 //
 // Copyright (c) 2021 Elai Zuberman
 //

@@ -11,7 +11,7 @@ import UserNotifications
 @main
 struct RsyncUIApp: App {
     @State private var viewlogfile: Bool = false
-    @State private var selectedprofile: String?
+    @State private var selectedprofile: String? = "Default profile"
 
     var body: some Scene {
         WindowGroup {
@@ -22,9 +22,6 @@ struct RsyncUIApp: App {
                 }
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
                 .frame(minWidth: 1350, minHeight: 500)
-                .onAppear {
-                    selectedprofile = "Default profile"
-                }
         }
         .commands {
             SidebarCommands()
