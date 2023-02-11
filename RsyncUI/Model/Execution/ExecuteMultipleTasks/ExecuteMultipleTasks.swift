@@ -77,6 +77,7 @@ final class ExecuteMultipleTasks {
         return nil
     }
 
+    @discardableResult
     init(uuids: Set<UUID>,
          profile: String?,
          configurationsSwiftUI: ConfigurationsSwiftUI?,
@@ -99,7 +100,6 @@ final class ExecuteMultipleTasks {
 
     deinit {
         self.stackoftasktobeexecuted = nil
-        // print("deinit ExecuteMultipleTasks")
     }
 
     func abort() {

@@ -109,11 +109,11 @@ extension ExecuteEstimatedTasksView {
     func executemultipleestimatedtasks() {
         guard selecteduuids.count > 0 else { return }
         multipletaskstate.updatestate(state: .execute)
-        _ = ExecuteMultipleTasks(uuids: selecteduuids,
-                                 profile: rsyncUIdata.configurationsfromstore?.profile,
-                                 configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                 executionstateDelegate: multipletaskstate,
-                                 updateinprogresscount: inprogresscountmultipletask,
-                                 singletaskupdate: executedetails)
+        ExecuteMultipleTasks(uuids: selecteduuids,
+                             profile: rsyncUIdata.configurationsfromstore?.profile,
+                             configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                             executionstateDelegate: multipletaskstate,
+                             updateinprogresscount: inprogresscountmultipletask,
+                             singletaskupdate: executedetails)
     }
 }
