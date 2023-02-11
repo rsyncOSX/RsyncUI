@@ -18,7 +18,6 @@ struct ExecuteEstimatedTasksView: View {
     @Binding var reload: Bool
     @Binding var showeexecutestimatedview: Bool
 
-    @State private var executemultipletasks: ExecuteMultipleTasks?
     @State private var selectedconfig: Configuration?
     @State private var inwork: Int = -1
     @State private var searchText: String = ""
@@ -92,7 +91,6 @@ extension ExecuteEstimatedTasksView {
         inwork = -1
         multipletaskstate.updatestate(state: .start)
         inprogresscountmultipletask.resetcounts()
-        executemultipletasks = nil
         selecteduuids.removeAll()
         showeexecutestimatedview = false
         reload = true
@@ -102,8 +100,6 @@ extension ExecuteEstimatedTasksView {
         inwork = -1
         multipletaskstate.updatestate(state: .start)
         inprogresscountmultipletask.resetcounts()
-        executemultipletasks?.abort()
-        executemultipletasks = nil
         selecteduuids.removeAll()
         _ = InterruptProcess()
         showeexecutestimatedview = false
@@ -113,8 +109,7 @@ extension ExecuteEstimatedTasksView {
     func executemultipleestimatedtasks() {
         guard selecteduuids.count > 0 else { return }
         multipletaskstate.updatestate(state: .execute)
-        executemultipletasks =
-            ExecuteMultipleTasks(uuids: selecteduuids,
+        _ = ExecuteMultipleTasks(uuids: selecteduuids,
                                  profile: rsyncUIdata.configurationsfromstore?.profile,
                                  configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                  executionstateDelegate: multipletaskstate,
