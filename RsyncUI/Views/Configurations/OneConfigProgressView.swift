@@ -26,11 +26,17 @@ struct OneConfigProgressView: View {
     var progress: some View {
         ZStack {
             if config.hiddenID == inwork && executedetails.isestimating() == false {
-                ProgressView("",
-                             value: executedetails.getcurrentprogress(),
-                             total: maxcount)
-                    .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
-                    .frame(width: 40, alignment: .center)
+                ZStack {
+                    ProgressView("",
+                                 value: executedetails.getcurrentprogress(),
+                                 total: maxcount)
+                        .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
+                        .frame(width: 40, alignment: .center)
+
+                    Text(String(Int(maxcount - executedetails.getcurrentprogress())))
+                        .modifier(FixedTag(20, .leading))
+                }
+
             } else {
                 Text("")
                     .modifier(FixedTag(20, .leading))
