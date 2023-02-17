@@ -15,25 +15,31 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.deletetask) private var deletetask
     @FocusedBinding(\.showinfotask) private var showinfotask
     @FocusedBinding(\.aborttask) private var aborttask
+    @FocusedBinding(\.profiletask) private var profiletask
 
     var body: some Commands {
         CommandMenu("Tasks") {
-            StarteestimateButton(startestimation: $startestimation)
-            StartexecuteButton(startexecution: $startexecution)
+            Group {
+                StarteestimateButton(startestimation: $startestimation)
+                StartexecuteButton(startexecution: $startexecution)
 
-            Divider()
+                Divider()
 
-            SelectTask(selecttask: $selectttask)
-            FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
-            Showinfotask(showinfotask: $showinfotask)
+                SelectTask(selecttask: $selectttask)
+                FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
+                Showinfotask(showinfotask: $showinfotask)
 
-            Divider()
+                Divider()
+            }
 
-            Deletetask(deletetask: $deletetask)
+            Group {
+                Deletetask(deletetask: $deletetask)
+                Profiletask(profiletask: $profiletask)
 
-            Divider()
+                Divider()
 
-            Abborttask(aborttask: $aborttask)
+                Abborttask(aborttask: $aborttask)
+            }
         }
     }
 }
@@ -129,6 +135,19 @@ struct Abborttask: View {
     }
 }
 
+struct Profiletask: View {
+    @Binding var profiletask: Bool?
+
+    var body: some View {
+        Button {
+            profiletask = true
+        } label: {
+            Label("Profiles", systemImage: "play.fill")
+        }
+        .keyboardShortcut("p", modifiers: [.command])
+    }
+}
+
 struct FocusedEstimateBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -154,6 +173,10 @@ struct FocusedShowinfoTask: FocusedValueKey {
 }
 
 struct FocusedAborttask: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+struct FocusedProfiletask: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
@@ -191,5 +214,10 @@ extension FocusedValues {
     var aborttask: FocusedAborttask.Value? {
         get { self[FocusedAborttask.self] }
         set { self[FocusedAborttask.self] = newValue }
+    }
+
+    var profiletask: FocusedAborttask.Value? {
+        get { self[FocusedProfiletask.self] }
+        set { self[FocusedProfiletask.self] = newValue }
     }
 }
