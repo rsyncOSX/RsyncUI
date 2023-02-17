@@ -12,6 +12,7 @@ struct AddProfileView: View {
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+    @Binding var modalview: Bool
 
     @StateObject var newdata = ObserveableAddConfigurations()
 
@@ -46,6 +47,9 @@ struct AddProfileView: View {
             Spacer()
 
             HStack {
+                Button("Dismiss") { modalview = false }
+                    .buttonStyle(PrimaryButtonStyle())
+
                 Spacer()
 
                 Button("Create") { createprofile() }
