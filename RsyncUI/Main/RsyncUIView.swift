@@ -23,7 +23,7 @@ struct RsyncUIView: View {
 
     var body: some View {
         VStack {
-            if profilenames.profiles?.count == 1 {
+            if profilenames.profiles?.count == 0 {
                 defaultprofilepicker
             } else {
                 profilepicker
