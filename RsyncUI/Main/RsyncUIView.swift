@@ -16,13 +16,18 @@ struct RsyncUIView: View {
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
     @State private var searchText = ""
+    @State private var defaultprofile = "Default profile"
 
     // Initial view in tasks
     @State private var selection: NavigationItem? = Optional.none
 
     var body: some View {
         VStack {
-            profilepicker
+            if profilenames.profiles?.count == 1 {
+                defaultprofilepicker
+            } else {
+                profilepicker
+            }
 
             ZStack {
                 Sidebar(reload: $reload, selectedprofile: $selectedprofile, selection: $selection)
@@ -66,12 +71,24 @@ struct RsyncUIView: View {
         HStack {
             Picker("", selection: $selectedprofile) {
                 if let profiles = profilenames.profiles {
-                    Text("").tag("")
                     ForEach(profiles, id: \.self) { profile in
                         Text(profile.profile ?? "")
                             .tag(profile.profile)
                     }
                 }
+            }
+            .frame(width: 180)
+            .accentColor(.blue)
+
+            Spacer()
+        }
+    }
+
+    var defaultprofilepicker: some View {
+        HStack {
+            Picker("", selection: $defaultprofile) {
+                Text("Default profile")
+                    .tag("Default profile")
             }
             .frame(width: 180)
             .accentColor(.blue)
