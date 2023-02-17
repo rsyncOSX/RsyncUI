@@ -33,7 +33,7 @@ struct TasksView: View {
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
     @State private var focusselecttask: Bool = false
-    @State private var focusfirsttaskinfo: Bool = false
+    @State private var focusfirsttaskinfo: Bool = SharedReference.shared.firsttime
     @State private var focusdeletetask: Bool = false
     @State private var focusshowinfotask: Bool = false
     @State private var focusaborttask: Bool = false
