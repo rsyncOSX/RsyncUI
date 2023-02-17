@@ -35,6 +35,7 @@ struct OneConfigProgressView: View {
 
                     Text(String(Int(maxcount - executedetails.getcurrentprogress())))
                         .modifier(FixedTag(20, .leading))
+                        .opacity(0.5)
                 }
 
             } else {
