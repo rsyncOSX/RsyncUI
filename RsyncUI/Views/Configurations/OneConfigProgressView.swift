@@ -26,6 +26,30 @@ struct OneConfigProgressView: View {
     var progress: some View {
         ZStack {
             if config.hiddenID == inwork && executedetails.isestimating() == false {
+                ProgressView("",
+                             value: executedetails.getcurrentprogress(),
+                             total: maxcount)
+                    .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
+                    .frame(width: 40, alignment: .center)
+            } else {
+                Text("")
+                    .modifier(FixedTag(20, .leading))
+            }
+            if selecteduuids.contains(config.id) && config.hiddenID != inwork {
+                Text(Image(systemName: "arrowtriangle.right"))
+                    .modifier(FixedTag(20, .leading))
+            } else {
+                Text("")
+                    .modifier(FixedTag(20, .leading))
+            }
+        }
+        .frame(width: 40, alignment: .center)
+    }
+
+    // Not used
+    var progress_num: some View {
+        ZStack {
+            if config.hiddenID == inwork && executedetails.isestimating() == false {
                 ZStack {
                     ProgressView("",
                                  value: executedetails.getcurrentprogress(),

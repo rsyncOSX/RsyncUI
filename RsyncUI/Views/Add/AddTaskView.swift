@@ -93,7 +93,7 @@ struct AddTaskView: View {
                     VStack(alignment: .trailing) {
                         Spacer()
 
-                        HStack {
+                        VStack {
                             profilebutton
                             updatebutton
                         }
@@ -144,6 +144,7 @@ struct AddTaskView: View {
             AddProfileView(selectedprofile: $selectedprofile,
                            reload: $reload,
                            modalview: $modalview)
+                .frame(width: 400, height: 200)
         }
     }
 

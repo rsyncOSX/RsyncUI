@@ -47,10 +47,10 @@ struct AddProfileView: View {
             Spacer()
 
             HStack {
+                Spacer()
+
                 Button("Dismiss") { modalview = false }
                     .buttonStyle(PrimaryButtonStyle())
-
-                Spacer()
 
                 Button("Create") { createprofile() }
                     .buttonStyle(PrimaryButtonStyle())
