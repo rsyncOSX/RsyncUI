@@ -103,6 +103,7 @@ extension AddProfileView {
         if newdata.created == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 newdata.created = false
+                modalview = false
             }
         }
     }
@@ -116,11 +117,13 @@ extension AddProfileView {
             profilenames.update()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 newdata.deleted = false
+                modalview = false
             }
         }
         if newdata.deletedefaultprofile == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 newdata.deletedefaultprofile = false
+                modalview = false
             }
         }
     }

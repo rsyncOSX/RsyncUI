@@ -413,8 +413,8 @@ public struct AlertToastModifier: ViewModifier {
     var alert: () -> AlertToast
 
     /// Completion block returns `true` after dismiss
-    var onTap: (() -> Void)? = nil
-    var completion: (() -> Void)? = nil
+    var onTap: (() -> Void)?
+    var completion: (() -> Void)?
 
     @State private var workItem: DispatchWorkItem?
 

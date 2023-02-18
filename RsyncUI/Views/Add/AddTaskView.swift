@@ -36,6 +36,8 @@ struct AddTaskView: View {
 
     @StateObject var newdata = ObserveableAddConfigurations()
     @FocusState private var focusField: AddConfigurationField?
+    // Modale view
+    @State private var modalview = false
 
     var body: some View {
         Form {
@@ -91,7 +93,10 @@ struct AddTaskView: View {
                     VStack(alignment: .trailing) {
                         Spacer()
 
-                        updatebutton
+                        HStack {
+                            profilebutton
+                            updatebutton
+                        }
                     }
                 }
 
@@ -135,6 +140,18 @@ struct AddTaskView: View {
                 return
             }
         }
+        .sheet(isPresented: $modalview) {
+            AddProfileView(selectedprofile: $selectedprofile,
+                           reload: $reload,
+                           modalview: $modalview)
+        }
+    }
+
+    var profilebutton: some View {
+        Button("Profile") {
+            modalview = true
+        }
+        .buttonStyle(PrimaryButtonStyle())
     }
 
     var updatebutton: some View {
@@ -443,6 +460,14 @@ struct AddTaskView: View {
             .frame(width: 93)
             .accentColor(.blue)
         }
+    }
+
+    var labelprofiletask: some View {
+        Label("", systemImage: "play.fill")
+            .foregroundColor(.black)
+            .onAppear(perform: {
+                modalview = true
+            })
     }
 }
 
