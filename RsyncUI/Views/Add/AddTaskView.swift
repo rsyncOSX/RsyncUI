@@ -94,8 +94,8 @@ struct AddTaskView: View {
                         Spacer()
 
                         VStack {
-                            profilebutton
                             updatebutton
+                            profilebutton
                         }
                     }
                 }

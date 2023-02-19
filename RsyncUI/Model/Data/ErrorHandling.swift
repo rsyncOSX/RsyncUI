@@ -12,7 +12,9 @@ final class ErrorHandling: ObservableObject {
     @Published private(set) var activeError: Error?
 
     func propogateerror(error: Error) {
-        activeError = error
+        DispatchQueue.main.async {
+            self.activeError = error
+        }
     }
 
     var isPresentingAlert: Binding<Bool> {
