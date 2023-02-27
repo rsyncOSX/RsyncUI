@@ -14,27 +14,29 @@ struct RestoreView: View {
 
     @State private var presentsheetview = false
     @State private var filterstring = ""
-
-    // Focus buttons from the menu
-    @State private var focusaborttask: Bool = false
+    @State private var config: Configuration?
+    @State private var filestorestorefromview: String = ""
+    @State private var dryrun: Bool = true
 
     let selectable = false
 
     var body: some View {
         ZStack {
             VStack {
-                ListofAllTasks(selectedconfig: $restore.selectedconfig.onChange {
-                    restore.filestorestore = ""
-                })
+                ListofAllTasks(selectedconfig: $config)
             }
         }
 
         Spacer()
 
         HStack {
-            Button("Files") { presentoutput() }
-                .buttonStyle(PrimaryButtonStyle())
-                .sheet(isPresented: $presentsheetview) { viewoutput }
+            Button("Files") {
+                guard SharedReference.shared.process == nil else { return }
+                guard config != nil else { return }
+                presentsheetview = true
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            .sheet(isPresented: $presentsheetview) { viewoutput }
 
             Spacer()
 
@@ -46,26 +48,15 @@ struct RestoreView: View {
 
                     setpathforrestore
                 }
-
-                if restore.gettingfilelist == true {
-                    ZStack {
-                        ProgressView()
-                            .frame(width: 50.0, height: 50.0)
-
-                        Text("\(restore.numberoffilesrestored)")
-                    }
-                }
-
-                if focusaborttask { labelaborttask }
             }
 
             Spacer()
 
-            ToggleViewDefault("--dry-run", $restore.dryrun)
+            ToggleViewDefault("--dry-run", $dryrun)
 
             Button("Restore") {
                 Task {
-                    if let config = restore.selectedconfig {
+                    if let config = config {
                         await restore.restore(config)
                     }
                 }
@@ -75,18 +66,6 @@ struct RestoreView: View {
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .searchable(text: $restore.filterstring.onChange {
-            restore.inputchangedbyuser = true
-        })
-        .focusedSceneValue(\.aborttask, $focusaborttask)
-    }
-
-    var labelaborttask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusaborttask = false
-                abort()
-            })
     }
 
     var setpathforrestore: some View {
@@ -119,10 +98,9 @@ struct RestoreView: View {
 
     // Output
     var viewoutput: some View {
-        OutputRsyncView(isPresented: $presentsheetview,
-                        valueselectedrow: $restore.filestorestorefromview,
-                        // numberoffiles: $restore.numberoffiles,
-                        output: restore.getoutput() ?? [])
+        RestoreFilesView(isPresented: $presentsheetview,
+                         valueselectedrow: $filestorestorefromview,
+                         config: $config)
     }
 }
 
@@ -134,10 +112,7 @@ extension RestoreView {
     func presentoutput() {
         // Check that files are not been collected
         guard SharedReference.shared.process == nil else { return }
-        guard restore.selectedconfig != nil else {
-            restore.numberoffiles = 0
-            return
-        }
+        guard config != nil else { return }
         presentsheetview = true
     }
 }

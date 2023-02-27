@@ -21,7 +21,6 @@ struct RsyncDefaultParametersView: View {
     @State private var showprogressview = false
     @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
-    // @State private var numberoffiles: Int = 0
 
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false

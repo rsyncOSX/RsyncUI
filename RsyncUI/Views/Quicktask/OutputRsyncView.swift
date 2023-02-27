@@ -46,10 +46,8 @@ struct OutputRsyncView: View {
 
     var listitems: [String] {
         if valueselectedrow == "" || valueselectedrow == " " {
-            // numberoffiles = output.count
             return output
         } else {
-            // numberoffiles = output.filter { $0.contains(valueselectedrow) }.count
             return output.filter { $0.contains(valueselectedrow) }
         }
     }
