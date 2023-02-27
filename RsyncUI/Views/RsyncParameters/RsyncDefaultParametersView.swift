@@ -21,7 +21,7 @@ struct RsyncDefaultParametersView: View {
     @State private var showprogressview = false
     @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
-    @State private var numberoffiles: Int = 0
+    // @State private var numberoffiles: Int = 0
 
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
@@ -143,7 +143,7 @@ struct RsyncDefaultParametersView: View {
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
                         valueselectedrow: $valueselectedrow,
-                        numberoffiles: $numberoffiles,
+                        // numberoffiles: $numberoffiles,
                         output: rsyncoutput?.getoutput() ?? [])
     }
 

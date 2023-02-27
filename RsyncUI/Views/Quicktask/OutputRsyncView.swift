@@ -10,7 +10,7 @@ import SwiftUI
 struct OutputRsyncView: View {
     @Binding var isPresented: Bool
     @Binding var valueselectedrow: String
-    @Binding var numberoffiles: Int
+    // @Binding var numberoffiles: Int
 
     var output: [String]
 
@@ -42,27 +42,14 @@ struct OutputRsyncView: View {
         }
         .padding()
         .frame(minWidth: 800, minHeight: 600)
-        .onDisappear {
-            if (selection ?? "").count > 0 {
-                numberoffiles = output.filter { $0.contains(selection ?? "") }.count
-            } else {
-                numberoffiles = output.count
-                valueselectedrow = ""
-            }
-        }
-        .onAppear(perform: {
-            if valueselectedrow.count > 0 {
-                numberoffiles = output.filter { $0.contains(valueselectedrow) }.count
-            }
-        })
     }
 
     var listitems: [String] {
         if valueselectedrow == "" || valueselectedrow == " " {
-            numberoffiles = output.count
+            // numberoffiles = output.count
             return output
         } else {
-            numberoffiles = output.filter { $0.contains(valueselectedrow) }.count
+            // numberoffiles = output.filter { $0.contains(valueselectedrow) }.count
             return output.filter { $0.contains(valueselectedrow) }
         }
     }
