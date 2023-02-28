@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RestoreFilesView: View {
-    @StateObject var restore = ObserveableRestore()
+    @StateObject var restorefilelist = ObserveableRestoreFilelist()
     @Binding var isPresented: Bool
     @Binding var valueselectedrow: String
     @Binding var config: Configuration?
@@ -32,7 +32,7 @@ struct RestoreFilesView: View {
 
             Spacer()
 
-            if restore.gettingfilelist == true {
+            if restorefilelist.gettingfilelist == true {
                 ZStack {
                     ProgressView()
                         .frame(width: 50.0, height: 50.0)
@@ -53,13 +53,13 @@ struct RestoreFilesView: View {
         .padding()
         .frame(minWidth: 800, minHeight: 600)
         .focusedSceneValue(\.aborttask, $focusaborttask)
-        .searchable(text: $restore.filterstring.onChange {
-            restore.inputchangedbyuser = true
+        .searchable(text: $restorefilelist.filterstring.onChange {
+            restorefilelist.inputchangedbyuser = true
         })
         .onAppear {
             Task {
                 if let config = config {
-                    await restore.validatetaskandgetfilelist(config)
+                    await restorefilelist.validatetaskandgetfilelist(config)
                 }
             }
         }
@@ -75,9 +75,9 @@ struct RestoreFilesView: View {
 
     var listitems: [String] {
         if valueselectedrow == "" || valueselectedrow == " " {
-            return restore.getoutput() ?? []
+            return restorefilelist.getoutput() ?? []
         } else {
-            return (restore.getoutput() ?? []).filter { $0.contains(valueselectedrow) }
+            return (restorefilelist.getoutput() ?? []).filter { $0.contains(valueselectedrow) }
         }
     }
 

@@ -1,5 +1,5 @@
 //
-//  ObserveableRestore.swift
+//  ObserveableRestoreFilelist.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 06/04/2021.
@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-final class ObserveableRestore: ObservableObject {
+final class ObserveableRestoreFilelist: ObservableObject {
     @Published var pathforrestore: String = ""
     @Published var filestorestore: String = ""
     // Copy files from selecting row from view output
@@ -74,7 +74,7 @@ final class ObserveableRestore: ObservableObject {
     }
 }
 
-extension ObserveableRestore {
+extension ObserveableRestoreFilelist {
     func processtermination(data: [String]?) {
         numberoffiles = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         gettingfilelist = false
@@ -205,29 +205,8 @@ extension ObserveableRestore {
     }
 }
 
-extension ObserveableRestore {
+extension ObserveableRestoreFilelist {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
-
-enum RestoreError: LocalizedError {
-    case notvalidtaskforrestore
-    case notvalidrestore
-
-    var errorDescription: String? {
-        switch self {
-        case .notvalidtaskforrestore:
-            return "Restore not allowed for syncremote task"
-        case .notvalidrestore:
-            return "Either is path for restore or file to restore empty"
-        }
-    }
-}
-
-/* Logging runtime
- let start = CFAbsoluteTimeGetCurrent()
- let diff = CFAbsoluteTimeGetCurrent() - start
- print("filter filenames: \(diff) seconds")
- print("number of lines: \(remotefilelist?.count ?? 0)")
- */
