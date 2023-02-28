@@ -10,14 +10,9 @@ import Combine
 import Foundation
 
 final class ObserveableRestoreFilelist: ObservableObject {
-    // Copy files from selecting row from view output
-    // If in "files" mode copy value to filestorestore
-    @Published var filestorestorefromview: String = ""
     @Published var filterstring: String = ""
     @Published var gettingfilelist: Bool = false
-    // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
-
     // Combine
     var subscriptions = Set<AnyCancellable>()
     var files: Bool = false
@@ -28,13 +23,6 @@ final class ObserveableRestoreFilelist: ObservableObject {
     init() {
         $inputchangedbyuser
             .sink { _ in
-            }.store(in: &subscriptions)
-        $filestorestorefromview
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] file in
-                if self.files == true {
-                    filestorestore = file
-                }
             }.store(in: &subscriptions)
         $filterstring
             .debounce(for: .seconds(1), scheduler: globalMainQueue)

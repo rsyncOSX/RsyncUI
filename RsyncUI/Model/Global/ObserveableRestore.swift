@@ -21,7 +21,6 @@ final class ObserveableRestore: ObservableObject {
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
-    var files: Bool = false
     var rsyncdata: [String]?
     var filestorestore: String = ""
 
@@ -39,9 +38,8 @@ final class ObserveableRestore: ObservableObject {
             }.store(in: &subscriptions)
         $filestorestorefromrestorefilesview
             .sink { [unowned self] file in
-                if self.files == true {
-                    filestorestore = file
-                }
+                print(file)
+                filestorestore = file
             }.store(in: &subscriptions)
         $selectedconfig
             .sink { _ in
@@ -87,7 +85,6 @@ extension ObserveableRestore {
 
     @MainActor
     func restore(_ config: Configuration) async {
-        files = false
         var arguments: [String]?
         do {
             let ok = try validateforrestore()
@@ -153,10 +150,3 @@ enum RestoreError: LocalizedError {
         }
     }
 }
-
-/* Logging runtime
- let start = CFAbsoluteTimeGetCurrent()
- let diff = CFAbsoluteTimeGetCurrent() - start
- print("filter filenames: \(diff) seconds")
- print("number of lines: \(remotefilelist?.count ?? 0)")
- */
