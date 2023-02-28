@@ -11,19 +11,12 @@ import SwiftUI
 struct RestoreView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @StateObject var restore = ObserveableRestore()
-
     @State private var presentsheetview = false
-    @State private var filterstring = ""
-    @State private var config: Configuration?
-    @State private var filestorestorefromview: String = ""
-    @State private var dryrun: Bool = true
-
-    let selectable = false
 
     var body: some View {
         ZStack {
             VStack {
-                ListofAllTasks(selectedconfig: $config)
+                ListofAllTasks(selectedconfig: $restore.selectedconfig)
             }
         }
 
@@ -32,7 +25,7 @@ struct RestoreView: View {
         HStack {
             Button("Files") {
                 guard SharedReference.shared.process == nil else { return }
-                guard config != nil else { return }
+                guard restore.selectedconfig != nil else { return }
                 presentsheetview = true
             }
             .buttonStyle(PrimaryButtonStyle())
@@ -50,13 +43,20 @@ struct RestoreView: View {
                 }
             }
 
+            if restore.restorefilesinprogress == true {
+                ZStack {
+                    ProgressView()
+                        .frame(width: 50.0, height: 50.0)
+                }
+            }
+
             Spacer()
 
-            ToggleViewDefault("--dry-run", $dryrun)
+            ToggleViewDefault("--dry-run", $restore.dryrun)
 
             Button("Restore") {
                 Task {
-                    if let config = config {
+                    if let config = restore.selectedconfig {
                         await restore.restore(config)
                     }
                 }
@@ -99,8 +99,8 @@ struct RestoreView: View {
     // Output
     var viewoutput: some View {
         RestoreFilesView(isPresented: $presentsheetview,
-                         valueselectedrow: $filestorestorefromview,
-                         config: $config)
+                         valueselectedrow: $restore.filestorestorefromrestorefilesview,
+                         config: $restore.selectedconfig)
     }
 }
 
@@ -112,7 +112,7 @@ extension RestoreView {
     func presentoutput() {
         // Check that files are not been collected
         guard SharedReference.shared.process == nil else { return }
-        guard config != nil else { return }
+        guard restore.selectedconfig != nil else { return }
         presentsheetview = true
     }
 }

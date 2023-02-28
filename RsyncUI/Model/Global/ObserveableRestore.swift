@@ -11,24 +11,19 @@ import Foundation
 
 final class ObserveableRestore: ObservableObject {
     @Published var pathforrestore: String = ""
-    @Published var filestorestore: String = ""
-    // Copy files from selecting row from view output
-    // If in "files" mode copy value to filestorestore
-    @Published var filestorestorefromview: String = ""
-    @Published var filterstring: String = ""
+    @Published var filestorestorefromrestorefilesview: String = ""
     @Published var selectedconfig: Configuration?
-    @Published var gettingfilelist: Bool = false
+    @Published var restorefilesinprogress: Bool = false
     @Published var numberoffiles: Int = 0
     @Published var dryrun: Bool = true
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
-    // Number of files restored
-    @Published var numberoffilesrestored: Int = 0
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
     var files: Bool = false
     var rsyncdata: [String]?
+    var filestorestore: String = ""
 
     init() {
         $inputchangedbyuser
@@ -42,55 +37,22 @@ final class ObserveableRestore: ObservableObject {
             .sink { [unowned self] path in
                 validatepathforrestore(path)
             }.store(in: &subscriptions)
-        $filestorestorefromview
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+        $filestorestorefromrestorefilesview
             .sink { [unowned self] file in
                 if self.files == true {
                     filestorestore = file
                 }
             }.store(in: &subscriptions)
-        $filestorestore
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $filterstring
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                reloadfiles()
-            }.store(in: &subscriptions)
         $selectedconfig
-            .sink { [unowned self] config in
-                Task {
-                    // Only one process at time
-                    // If change selection abort process
-                    guard SharedReference.shared.process == nil else {
-                        _ = InterruptProcess()
-                        return
-                    }
-                    if let config = config { await validatetaskandgetfilelist(config) }
-                }
-
+            .sink { _ in
             }.store(in: &subscriptions)
     }
 }
 
 extension ObserveableRestore {
     func processtermination(data: [String]?) {
-        numberoffiles = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
-        gettingfilelist = false
-        numberoffilesrestored = 0
+        restorefilesinprogress = false
         rsyncdata = data
-    }
-
-    // Validate task for remote restore and remote filelist
-    func validatetaskandgetfilelist(_ config: Configuration) async {
-        do {
-            let ok = try validatetask(config)
-            if ok { await getfilelist(config) }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-        }
     }
 
     private func validatetask(_ config: Configuration) throws -> Bool {
@@ -123,29 +85,6 @@ extension ObserveableRestore {
         return true
     }
 
-    func reloadfiles() {
-        guard inputchangedbyuser == true else { return }
-        if files {
-            numberoffiles = TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
-        } else {
-            numberoffiles = TrimTwo(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
-        }
-    }
-
-    @MainActor
-    func getfilelist(_ config: Configuration) async {
-        gettingfilelist = true
-        files = true
-        let arguments = RestorefilesArguments(task: .rsyncfilelistings,
-                                              config: config,
-                                              remoteFile: nil,
-                                              localCatalog: nil,
-                                              drynrun: nil).getArguments()
-        let command = RsyncAsync(arguments: arguments,
-                                 processtermination: processtermination)
-        await command.executeProcess()
-    }
-
     @MainActor
     func restore(_ config: Configuration) async {
         files = false
@@ -163,7 +102,7 @@ extension ObserveableRestore {
                     arguments = ArgumentsRestore(config: localconf).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
                 }
                 if let arguments = arguments {
-                    gettingfilelist = true
+                    restorefilesinprogress = true
                     let command = RsyncAsync(arguments: arguments,
                                              processtermination: processtermination)
                     await command.executeProcess()
@@ -191,16 +130,6 @@ extension ObserveableRestore {
             return config.offsiteCatalog + filestorestore.dropFirst(2) // drop first "./"
         } else {
             return config.offsiteCatalog + "/" + filestorestore.dropFirst(2) // drop first "./"
-        }
-    }
-
-    func getoutput() -> [String]? {
-        if files {
-            // trim one
-            return TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        } else {
-            // trim two
-            return TrimTwo(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         }
     }
 }
