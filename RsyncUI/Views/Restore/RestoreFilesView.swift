@@ -44,7 +44,7 @@ struct RestoreFilesView: View {
             HStack {
                 Spacer()
 
-                TextField("Search", text: $selectrowforrestore)
+                TextField("Search", text: $restorefilelist.filterstring)
 
                 Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
@@ -77,7 +77,7 @@ struct RestoreFilesView: View {
         if selectrowforrestore == "" || selectrowforrestore == " " {
             return restorefilelist.getoutput() ?? []
         } else {
-            return (restorefilelist.getoutput() ?? []).filter { $0.contains(selectrowforrestore) }
+            return (restorefilelist.getoutput() ?? []).filter { $0.contains(restorefilelist.filterstring) }
         }
     }
 

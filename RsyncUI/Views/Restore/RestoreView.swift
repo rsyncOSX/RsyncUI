@@ -16,7 +16,9 @@ struct RestoreView: View {
     var body: some View {
         ZStack {
             VStack {
-                ListofAllTasks(selectedconfig: $restore.selectedconfig)
+                ListofAllTasks(selectedconfig: $restore.selectedconfig.onChange {
+                    restore.filestorestore = ""
+                })
             }
         }
 
@@ -35,8 +37,6 @@ struct RestoreView: View {
 
             ZStack {
                 VStack(alignment: .leading) {
-                    // numberoffiles
-
                     setfilestorestore
 
                     setpathforrestore
