@@ -15,7 +15,6 @@ struct RsyncUIView: View {
 
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
-    @State private var searchText = ""
     @State private var defaultprofile = "Default profile"
 
     // Initial view in tasks
@@ -50,7 +49,6 @@ struct RsyncUIView: View {
             .padding()
         }
         .padding()
-        .searchable(text: $searchText)
         .task {
             selection = .multipletasks
             await rsyncversion.getrsyncversion()

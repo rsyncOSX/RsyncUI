@@ -32,7 +32,7 @@ struct SnapshotsView: View {
     @State private var confirmdeletesnapshots = false
     // Alert for delete
     @State private var showAlertfordelete = false
-    @State private var searchText: String = ""
+    @State private var filterstring: String = ""
 
     // Focus buttons from the menu
     @State private var focusselectsnapshot: Bool = false

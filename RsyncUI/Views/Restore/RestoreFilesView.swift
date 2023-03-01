@@ -44,7 +44,7 @@ struct RestoreFilesView: View {
             HStack {
                 Spacer()
 
-                TextField("Search", text: $restorefilelist.filterstring)
+                // TextField("Search", text: $restorefilelist.filterstring)
 
                 Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())

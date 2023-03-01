@@ -38,7 +38,7 @@ struct TasksView: View {
     @State private var focusshowinfotask: Bool = false
     @State private var focusaborttask: Bool = false
 
-    @State private var searchText: String = ""
+    @State private var filterstring: String = ""
     // Firsttime use of RsyncUI
     @State private var firsttime: Bool = false
     // Which sidebar function
@@ -60,7 +60,7 @@ struct TasksView: View {
             },
             selecteduuids: $selecteduuids,
             inwork: $inwork,
-            searchText: $searchText,
+            filterstring: $filterstring,
             reload: $reload,
             confirmdelete: $confirmdeletemenu)
 
@@ -176,7 +176,7 @@ struct TasksView: View {
                                                   configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                   updateinprogresscount: inprogresscountmultipletask,
                                                   uuids: selecteduuids,
-                                                  filter: searchText)
+                                                  filter: filterstring)
                         await estimatealltasksasync.startexecution()
                     }
                 }

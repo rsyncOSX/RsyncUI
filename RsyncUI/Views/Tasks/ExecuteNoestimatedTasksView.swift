@@ -20,7 +20,7 @@ struct ExecuteNoestimatedTasksView: View {
     @Binding var showexecutenoestimateview: Bool
 
     @State private var inwork: Int = -1
-    @State private var searchText: String = ""
+    @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
 
     @State private var executealltasksasync: ExecuteAlltasksAsync?
@@ -33,7 +33,7 @@ struct ExecuteNoestimatedTasksView: View {
             ListofTasksProgress(selectedconfig: $selectedconfig,
                                 selecteduuids: $selecteduuids,
                                 inwork: $inwork,
-                                searchText: $searchText,
+                                filterstring: $filterstring,
                                 reload: $reload,
                                 confirmdelete: $confirmdelete)
 
@@ -107,7 +107,7 @@ extension ExecuteNoestimatedTasksView {
                                  configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                  updateinprogresscount: inprogresscountmultipletask,
                                  uuids: selecteduuids,
-                                 filter: searchText)
+                                 filter: filterstring)
         await executealltasksasync?.startexecution()
     }
 }

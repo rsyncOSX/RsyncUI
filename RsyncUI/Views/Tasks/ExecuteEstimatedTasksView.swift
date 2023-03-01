@@ -20,7 +20,7 @@ struct ExecuteEstimatedTasksView: View {
 
     @State private var selectedconfig: Configuration?
     @State private var inwork: Int = -1
-    @State private var searchText: String = ""
+    @State private var filterstring: String = ""
 
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
@@ -30,7 +30,7 @@ struct ExecuteEstimatedTasksView: View {
             ListofTasksProgress(selectedconfig: $selectedconfig,
                                 selecteduuids: $selecteduuids,
                                 inwork: $inwork,
-                                searchText: $searchText,
+                                filterstring: $filterstring,
                                 reload: $reload,
                                 confirmdelete: $confirmdelete)
 

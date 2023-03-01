@@ -20,7 +20,7 @@ struct ExecuteNoestimateOneTaskView: View {
     @Binding var showexecutenoestiamteonetask: Bool
 
     @State private var inwork: Int = -1
-    @State private var searchText: String = ""
+    @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
 
     @State private var executeonetaskasync: ExecuteOnetaskAsync?
@@ -33,7 +33,7 @@ struct ExecuteNoestimateOneTaskView: View {
             ListofTasksProgress(selectedconfig: $selectedconfig,
                                 selecteduuids: $selecteduuids,
                                 inwork: $inwork,
-                                searchText: $searchText,
+                                filterstring: $filterstring,
                                 reload: $reload,
                                 confirmdelete: $confirmdelete)
 

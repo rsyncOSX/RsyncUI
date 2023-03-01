@@ -15,7 +15,7 @@ struct ListofTasksProgress: View {
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
-    @Binding var searchText: String
+    @Binding var filterstring: String
     @Binding var reload: Bool
     @Binding var confirmdelete: Bool
 
@@ -23,7 +23,7 @@ struct ListofTasksProgress: View {
         VStack {
             configlist
         }
-        .searchable(text: $searchText)
+        .searchable(text: $filterstring)
     }
 
     var configlist: some View {
@@ -52,10 +52,10 @@ struct ListofTasksProgress: View {
     }
 
     var configurationssorted: [Configuration] {
-        if searchText.isEmpty {
+        if filterstring.isEmpty {
             return rsyncUIdata.configurations ?? []
         } else {
-            return rsyncUIdata.filterconfigurations(searchText) ?? []
+            return rsyncUIdata.filterconfigurations(filterstring) ?? []
         }
     }
 
