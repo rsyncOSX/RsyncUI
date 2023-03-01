@@ -44,7 +44,7 @@ struct RestoreFilesView: View {
             HStack {
                 Spacer()
 
-                // TextField("Search", text: $restorefilelist.filterstring)
+                TextField("Search", text: $restorefilelist.filterstring)
 
                 Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
@@ -53,9 +53,6 @@ struct RestoreFilesView: View {
         .padding()
         .frame(minWidth: 800, minHeight: 600)
         .focusedSceneValue(\.aborttask, $focusaborttask)
-        .searchable(text: $restorefilelist.filterstring.onChange {
-            restorefilelist.inputchangedbyuser = true
-        })
         .onAppear {
             Task {
                 if let config = config {
