@@ -11,7 +11,7 @@ import Foundation
 
 final class ObserveableRestore: ObservableObject {
     @Published var pathforrestore: String = ""
-    @Published var filestorestorefromrestorefilesview: String = ""
+    @Published var selectedrowforrestore: String = ""
     @Published var selectedconfig: Configuration?
     @Published var restorefilesinprogress: Bool = false
     @Published var numberoffiles: Int = 0
@@ -36,7 +36,7 @@ final class ObserveableRestore: ObservableObject {
             .sink { [unowned self] path in
                 validatepathforrestore(path)
             }.store(in: &subscriptions)
-        $filestorestorefromrestorefilesview
+        $selectedrowforrestore
             .sink { [unowned self] file in
                 print(file)
                 filestorestore = file

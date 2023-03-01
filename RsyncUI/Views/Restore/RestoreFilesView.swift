@@ -10,7 +10,7 @@ import SwiftUI
 struct RestoreFilesView: View {
     @StateObject var restorefilelist = ObserveableRestoreFilelist()
     @Binding var isPresented: Bool
-    @Binding var valueselectedrow: String
+    @Binding var selectrowforrestore: String
     @Binding var config: Configuration?
 
     @State private var selection: String?
@@ -24,7 +24,7 @@ struct RestoreFilesView: View {
                 .padding()
 
             List(listitems, id: \.self, selection: $selection.onChange {
-                valueselectedrow = selection ?? ""
+                selectrowforrestore = selection ?? ""
             }) { line in
                 Text(line)
                     .modifier(FixedTag(750, .leading))
@@ -44,7 +44,7 @@ struct RestoreFilesView: View {
             HStack {
                 Spacer()
 
-                TextField("Search", text: $valueselectedrow)
+                TextField("Search", text: $selectrowforrestore)
 
                 Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
@@ -74,10 +74,10 @@ struct RestoreFilesView: View {
     }
 
     var listitems: [String] {
-        if valueselectedrow == "" || valueselectedrow == " " {
+        if selectrowforrestore == "" || selectrowforrestore == " " {
             return restorefilelist.getoutput() ?? []
         } else {
-            return (restorefilelist.getoutput() ?? []).filter { $0.contains(valueselectedrow) }
+            return (restorefilelist.getoutput() ?? []).filter { $0.contains(selectrowforrestore) }
         }
     }
 

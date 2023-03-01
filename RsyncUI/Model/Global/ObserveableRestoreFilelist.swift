@@ -15,7 +15,6 @@ final class ObserveableRestoreFilelist: ObservableObject {
     @Published var inputchangedbyuser: Bool = false
     // Combine
     var subscriptions = Set<AnyCancellable>()
-    var files: Bool = false
     var rsyncdata: [String]?
     var numberoffiles: Int = 0
     var filestorestore: String = ""
@@ -26,8 +25,7 @@ final class ObserveableRestoreFilelist: ObservableObject {
             }.store(in: &subscriptions)
         $filterstring
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] _ in
-                reloadfiles()
+            .sink { _ in
             }.store(in: &subscriptions)
     }
 }
@@ -58,41 +56,9 @@ extension ObserveableRestoreFilelist {
         }
     }
 
-    // Validate path for restore
-    func validatepathforrestore(_ atpath: String) {
-        guard inputchangedbyuser == true else { return }
-        guard atpath.isEmpty == false else { return }
-        do {
-            let ok = try validatepath(atpath)
-            if ok {
-                SharedReference.shared.pathforrestore = atpath
-            }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-        }
-    }
-
-    private func validatepath(_ path: String) throws -> Bool {
-        if FileManager.default.fileExists(atPath: path, isDirectory: nil) == false {
-            throw Validatedpath.nopath
-        }
-        return true
-    }
-
-    func reloadfiles() {
-        guard inputchangedbyuser == true else { return }
-        if files {
-            numberoffiles = TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
-        } else {
-            numberoffiles = TrimTwo(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
-        }
-    }
-
     @MainActor
     func getfilelist(_ config: Configuration) async {
         gettingfilelist = true
-        files = true
         let arguments = RestorefilesArguments(task: .rsyncfilelistings,
                                               config: config,
                                               remoteFile: nil,
@@ -104,13 +70,7 @@ extension ObserveableRestoreFilelist {
     }
 
     func getoutput() -> [String]? {
-        if files {
-            // trim one
-            return TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        } else {
-            // trim two
-            return TrimTwo(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        }
+        return TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
     }
 }
 

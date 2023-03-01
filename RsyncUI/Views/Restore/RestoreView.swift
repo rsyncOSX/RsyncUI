@@ -35,7 +35,7 @@ struct RestoreView: View {
 
             ZStack {
                 VStack(alignment: .leading) {
-                    numberoffiles
+                    // numberoffiles
 
                     setfilestorestore
 
@@ -99,7 +99,7 @@ struct RestoreView: View {
     // Output
     var viewoutput: some View {
         RestoreFilesView(isPresented: $presentsheetview,
-                         valueselectedrow: $restore.filestorestorefromrestorefilesview,
+                         selectrowforrestore: $restore.selectedrowforrestore,
                          config: $restore.selectedconfig)
     }
 }
