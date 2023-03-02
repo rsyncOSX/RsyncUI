@@ -364,7 +364,8 @@ struct AddTaskView: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("Task", comment: "") + ":",
-               selection: $newdata.selectedrsynccommand) {
+               selection: $newdata.selectedrsynccommand)
+        {
             ForEach(TypeofTask.allCases) { Text($0.description)
                 .tag($0)
             }

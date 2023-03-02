@@ -71,11 +71,7 @@ struct RestoreFilesView: View {
     }
 
     var listitems: [String] {
-        if selectrowforrestore == "" || selectrowforrestore == " " {
-            return restorefilelist.getoutput() ?? []
-        } else {
-            return (restorefilelist.getoutput() ?? []).filter { $0.contains(restorefilelist.filterstring) }
-        }
+        return restorefilelist.getoutput() ?? []
     }
 
     func dismissview() {

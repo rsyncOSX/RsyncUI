@@ -34,7 +34,8 @@ struct Sidebar: View {
                 NavigationLink(destination: SidebarTasksView(reload: $reload,
                                                              selection: $selection),
                                tag: NavigationItem.multipletasks,
-                               selection: $selection) {
+                               selection: $selection)
+                {
                     Label("Synchronize",
                           systemImage: "arrowshape.turn.up.left.2.fill")
                 }
@@ -42,7 +43,8 @@ struct Sidebar: View {
 
                 NavigationLink(destination: SidebarQuicktaskView(),
                                tag: NavigationItem.quicktask,
-                               selection: $selection) {
+                               selection: $selection)
+                {
                     Label("Quick synchronize",
                           systemImage: "arrowshape.turn.up.backward.fill")
                 }
@@ -55,7 +57,8 @@ struct Sidebar: View {
                 NavigationLink(destination: SidebarAddTaskView(selectedprofile: $selectedprofile,
                                                                reload: $reload),
                                tag: NavigationItem.configurations,
-                               selection: $selection) {
+                               selection: $selection)
+                {
                     Label("Tasks", systemImage: "text.badge.plus")
                 }
                 .tag(NavigationItem.configurations)
@@ -63,7 +66,8 @@ struct Sidebar: View {
                 NavigationLink(destination: SidebarParametersView(selectedprofile: $selectedprofile,
                                                                   reload: $reload),
                                tag: NavigationItem.rsync,
-                               selection: $selection) {
+                               selection: $selection)
+                {
                     Label("Rsync parameters", systemImage: "command.circle.fill")
                 }
                 .tag(NavigationItem.rsync)
@@ -74,7 +78,8 @@ struct Sidebar: View {
             NavigationLink(destination: SidebarSnapshotsView(selectedprofile: $selectedprofile,
                                                              reload: $reload),
                            tag: NavigationItem.snapshots,
-                           selection: $selection) {
+                           selection: $selection)
+            {
                 Label("Snapshots", systemImage: "text.badge.plus")
             }
             .tag(NavigationItem.snapshots)
@@ -84,14 +89,16 @@ struct Sidebar: View {
             Group {
                 NavigationLink(destination: SidebarLogsView(selectedprofile: $selectedprofile),
                                tag: NavigationItem.logs,
-                               selection: $selection) {
+                               selection: $selection)
+                {
                     Label("Log listings", systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.logs)
 
                 NavigationLink(destination: SidebareRestoreView(selectedprofile: $selectedprofile),
                                tag: NavigationItem.restore,
-                               selection: $selection) {
+                               selection: $selection)
+                {
                     Label("Restore", systemImage: "text.alignleft")
                 }
                 .tag(NavigationItem.restore)

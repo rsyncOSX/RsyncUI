@@ -32,6 +32,7 @@ final class ObserveableRestoreFilelist: ObservableObject {
 
 extension ObserveableRestoreFilelist {
     func processtermination(data: [String]?) {
+        guard data?.count ?? 0 > 0 else { return }
         numberoffiles = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         gettingfilelist = false
         rsyncdata = data
@@ -70,7 +71,9 @@ extension ObserveableRestoreFilelist {
     }
 
     func getoutput() -> [String]? {
-        return TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        guard rsyncdata?.count ?? 0 > 0 else { return [] }
+        let data = TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        return data
     }
 }
 

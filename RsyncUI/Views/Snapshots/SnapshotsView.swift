@@ -147,7 +147,8 @@ struct SnapshotsView: View {
 
     var pickersnapdayoffweek: some View {
         Picker("",
-               selection: $snapdayofweek) {
+               selection: $snapdayofweek)
+        {
             ForEach(StringDayofweek.allCases) { Text($0.description)
                 .tag($0)
             }
@@ -158,7 +159,8 @@ struct SnapshotsView: View {
 
     var pickersnaplast: some View {
         Picker("",
-               selection: $snaplast) {
+               selection: $snaplast)
+        {
             ForEach(PlanSnapshots.allCases) { Text($0.description)
                 .tag($0)
             }
