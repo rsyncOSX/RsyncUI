@@ -11,7 +11,8 @@ import SwiftUI
 struct RestoreView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @StateObject var restore = ObserveableRestore()
-    @State private var presentsheetview = false
+    @State private var presentsheetviewfiles = false
+    @State private var presentsheetrsync = false
 
     var body: some View {
         ZStack {
@@ -28,10 +29,10 @@ struct RestoreView: View {
             Button("Files") {
                 guard SharedReference.shared.process == nil else { return }
                 guard restore.selectedconfig != nil else { return }
-                presentsheetview = true
+                presentsheetviewfiles = true
             }
             .buttonStyle(PrimaryButtonStyle())
-            .sheet(isPresented: $presentsheetview) { viewoutput }
+            .sheet(isPresented: $presentsheetviewfiles) { viewoutputfiles }
 
             Spacer()
 
@@ -62,10 +63,19 @@ struct RestoreView: View {
                 }
             }
             .buttonStyle(PrimaryButtonStyle())
+            
+            Button("Log") {
+                guard SharedReference.shared.process == nil else { return }
+                guard restore.selectedconfig != nil else { return }
+                presentsheetrsync = true
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            .sheet(isPresented: $presentsheetrsync) { viewoutput }
 
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
+        .sheet(isPresented: $presentsheetrsync) { viewoutput }
     }
 
     var setpathforrestore: some View {
@@ -96,23 +106,23 @@ struct RestoreView: View {
         .frame(width: 300)
     }
 
-    // Output
-    var viewoutput: some View {
-        RestoreFilesView(isPresented: $presentsheetview,
+    // Output select files tpo restore
+    var viewoutputfiles: some View {
+        RestoreFilesView(isPresented: $presentsheetviewfiles,
                          selectrowforrestore: $restore.selectedrowforrestore,
                          config: $restore.selectedconfig)
+    }
+
+    // Output from rsync
+    var viewoutput: some View {
+        OutputRsyncView(isPresented: $presentsheetrsync,
+                        valueselectedrow: $restore.selectedrowforrestore,
+                        output: restore.rsyncdata ?? [])
     }
 }
 
 extension RestoreView {
     func abort() {
         _ = InterruptProcess()
-    }
-
-    func presentoutput() {
-        // Check that files are not been collected
-        guard SharedReference.shared.process == nil else { return }
-        guard restore.selectedconfig != nil else { return }
-        presentsheetview = true
     }
 }

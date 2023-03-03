@@ -49,8 +49,8 @@ final class ObserveableRestore: ObservableObject {
 
 extension ObserveableRestore {
     func processtermination(data: [String]?) {
-        restorefilesinprogress = false
         rsyncdata = data
+        restorefilesinprogress = false
     }
 
     private func validatetask(_ config: Configuration) throws -> Bool {

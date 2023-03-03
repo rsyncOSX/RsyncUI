@@ -10,7 +10,6 @@ import SwiftUI
 struct OutputRsyncView: View {
     @Binding var isPresented: Bool
     @Binding var valueselectedrow: String
-    // @Binding var numberoffiles: Int
 
     var output: [String]
 
