@@ -34,8 +34,6 @@ struct SidebarQuicktaskView: View {
 
     var headingtitle: some View {
         HStack {
-            imagerssync
-
             VStack(alignment: .leading) {
                 Text("Quick synchronize")
                     .modifier(Tagheading(.title2, .leading))
@@ -44,13 +42,6 @@ struct SidebarQuicktaskView: View {
 
             Spacer()
         }
-    }
-
-    var imagerssync: some View {
-        Image("rsync")
-            .resizable()
-            .aspectRatio(1.0, contentMode: .fit)
-            .frame(maxWidth: 48)
-            .padding(.bottom, 10)
+        .padding()
     }
 }
