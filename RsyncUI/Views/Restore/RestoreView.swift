@@ -63,7 +63,7 @@ struct RestoreView: View {
                 }
             }
             .buttonStyle(PrimaryButtonStyle())
-            
+
             Button("Log") {
                 guard SharedReference.shared.process == nil else { return }
                 guard restore.selectedconfig != nil else { return }
@@ -116,7 +116,6 @@ struct RestoreView: View {
     // Output from rsync
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetrsync,
-                        valueselectedrow: $restore.selectedrowforrestore,
                         output: restore.rsyncdata ?? [])
     }
 }

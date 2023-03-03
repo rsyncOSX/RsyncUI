@@ -107,7 +107,6 @@ struct RsyncParametersView: View {
     // Output
     var viewoutput: some View {
         OutputRsyncView(isPresented: $presentsheetview,
-                        valueselectedrow: $valueselectedrow,
                         output: rsyncoutput?.getoutput() ?? [])
     }
 

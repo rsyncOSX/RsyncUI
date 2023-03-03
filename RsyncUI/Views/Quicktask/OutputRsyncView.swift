@@ -9,7 +9,6 @@ import SwiftUI
 
 struct OutputRsyncView: View {
     @Binding var isPresented: Bool
-    @Binding var valueselectedrow: String
 
     var output: [String]
 
@@ -21,19 +20,14 @@ struct OutputRsyncView: View {
                 .font(.title2)
                 .padding()
 
-            List(listitems, id: \.self, selection: $selection.onChange {
-                valueselectedrow = selection ?? ""
-            }) { line in
-                Text(line)
-                    .modifier(FixedTag(750, .leading))
+            List(listitems, id: \.self, selection: $selection) { line in Text(line)
+                .modifier(FixedTag(750, .leading))
             }
 
             Spacer()
 
             HStack {
                 Spacer()
-
-                TextField("Search", text: $valueselectedrow)
 
                 Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())
@@ -43,13 +37,7 @@ struct OutputRsyncView: View {
         .frame(minWidth: 800, minHeight: 600)
     }
 
-    var listitems: [String] {
-        if valueselectedrow == "" || valueselectedrow == " " {
-            return output
-        } else {
-            return output.filter { $0.contains(valueselectedrow) }
-        }
-    }
+    var listitems: [String] { return output }
 
     func dismissview() {
         isPresented = false
