@@ -106,7 +106,6 @@ struct Sidebar: View {
         }
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)
-        .frame(width: 200)
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
             Alert(localizedError: errorhandling.activeError!)
         })

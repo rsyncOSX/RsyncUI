@@ -28,16 +28,14 @@ struct RsyncUIView: View {
                 profilepicker
             }
 
-            ZStack {
-                Sidebar(reload: $reload, selectedprofile: $selectedprofile, selection: $selection)
-                    .environmentObject(rsyncUIdata)
-                    .environmentObject(errorhandling)
-                    .environmentObject(inprogresscountexecuteonetaskdetails)
-                    .environmentObject(profilenames)
-                    .onChange(of: reload, perform: { _ in
-                        reload = false
-                    })
-            }
+            Sidebar(reload: $reload, selectedprofile: $selectedprofile, selection: $selection)
+                .environmentObject(rsyncUIdata)
+                .environmentObject(errorhandling)
+                .environmentObject(inprogresscountexecuteonetaskdetails)
+                .environmentObject(profilenames)
+                .onChange(of: reload, perform: { _ in
+                    reload = false
+                })
 
             HStack {
                 Spacer()

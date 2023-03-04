@@ -101,7 +101,7 @@ extension ExecuteNoestimateOneTaskView {
     }
 
     func executeonenotestimatedtask() async {
-        if selectedconfig != nil && selecteduuids.count == 0 {
+        if selectedconfig != nil, selecteduuids.count == 0 {
             executeonetaskasync =
                 ExecuteOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                     updateinprogresscount: inprogresscountmultipletask,
