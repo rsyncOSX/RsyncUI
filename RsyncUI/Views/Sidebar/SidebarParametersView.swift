@@ -10,6 +10,7 @@ import SwiftUI
 struct SidebarParametersView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+    @State private var filterstring: String = ""
 
     var body: some View {
         TabView {
@@ -23,5 +24,6 @@ struct SidebarParametersView: View {
                 }
         }
         .padding()
+        .searchable(text: $filterstring)
     }
 }

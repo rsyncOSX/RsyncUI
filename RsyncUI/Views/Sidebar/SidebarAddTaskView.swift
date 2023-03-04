@@ -10,6 +10,7 @@ import SwiftUI
 struct SidebarAddTaskView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+    @State private var filterstring: String = ""
 
     var body: some View {
         TabView {
@@ -19,5 +20,6 @@ struct SidebarAddTaskView: View {
                 .tabItem { Text("Shell scripts") }
         }
         .padding()
+        .searchable(text: $filterstring)
     }
 }

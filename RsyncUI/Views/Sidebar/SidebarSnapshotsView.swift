@@ -14,6 +14,7 @@ struct SidebarSnapshotsView: View {
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
+    @State private var filterstring: String = ""
 
     var body: some View {
         VStack {
@@ -22,6 +23,7 @@ struct SidebarSnapshotsView: View {
             SnapshotsView(selectedconfig: $selectedconfig, reload: $reload)
         }
         .padding()
+        .searchable(text: $filterstring)
     }
 
     var headingtitle: some View {
