@@ -20,13 +20,13 @@ struct OutputEstimatedView: View {
             HStack {
                 Table(estimatedlist) {
                     TableColumn("Synchronize ID", value: \.backupID)
-                        .width(max: 80)
+                        .width(min: 80, max: 200)
                     TableColumn("Task", value: \.task)
-                        .width(max: 70)
+                        .width(max: 80)
                     TableColumn("Local catalog", value: \.localCatalog)
-                        .width(min: 50, max: 150)
+                        .width(min: 100, max: 300)
                     TableColumn("Remote catalog", value: \.offsiteCatalog)
-                        .width(min: 50, max: 150)
+                        .width(min: 100, max: 300)
                     TableColumn("Server", value: \.offsiteServer)
                         .width(max: 70)
                     TableColumn("User", value: \.offsiteUsername)
@@ -61,7 +61,7 @@ struct OutputEstimatedView: View {
             }
         }
         .padding()
-        .frame(minWidth: 1200, minHeight: 400)
+        .frame(minWidth: 1250, minHeight: 400)
     }
 
     var headingtitle: some View {
