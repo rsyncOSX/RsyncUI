@@ -20,21 +20,34 @@ struct OutputEstimatedView: View {
             HStack {
                 Table(estimatedlist) {
                     TableColumn("Synchronize ID", value: \.backupID)
+                        .width(max: 80)
                     TableColumn("Task", value: \.task)
+                        .width(max: 70)
                     TableColumn("Local catalog", value: \.localCatalog)
+                        .width(min: 50, max: 150)
                     TableColumn("Remote catalog", value: \.offsiteCatalog)
+                        .width(min: 50, max: 150)
                     TableColumn("Server", value: \.offsiteServer)
+                        .width(min: 50, max: 100)
                     TableColumn("User", value: \.offsiteUsername)
+                        .width(max: 70)
                 }
 
                 Table(estimatedlist) {
                     TableColumn("New", value: \.newfiles)
+                        .width(max: 40)
                     TableColumn("Delete", value: \.deletefiles)
+                        .width(max: 40)
                     TableColumn("Files", value: \.transferredNumber)
+                        .width(max: 40)
                     TableColumn("Bytes", value: \.transferredNumberSizebytes)
+                        .width(max: 60)
                     TableColumn("Tot num", value: \.totalNumber)
+                        .width(max: 80)
                     TableColumn("Tot bytes", value: \.totalNumberSizebytes)
+                        .width(max: 80)
                     TableColumn("Tot dir", value: \.totalDirs)
+                        .width(max: 70)
                 }
             }
 
@@ -48,7 +61,7 @@ struct OutputEstimatedView: View {
             }
         }
         .padding()
-        .frame(minWidth: 1100, minHeight: 400)
+        .frame(minWidth: 1200, minHeight: 400)
     }
 
     var headingtitle: some View {
