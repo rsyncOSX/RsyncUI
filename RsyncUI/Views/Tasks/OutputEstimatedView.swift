@@ -17,46 +17,27 @@ struct OutputEstimatedView: View {
         VStack {
             headingtitle
 
-            Section(header: header) {
-                List {
-                    ForEach(estimatedlist) { estimatedconfiguration in
-                        HStack {
-                            if selecteduuids.contains(estimatedconfiguration.config?.id ?? UUID()) {
-                                Text(Image(systemName: "arrowtriangle.right"))
-                                    .modifier(FixedTag(25, .leading))
-                            } else {
-                                Text("")
-                                    .modifier(FixedTag(25, .leading))
-                            }
-                            if let configuration = estimatedconfiguration.config {
-                                OneConfig(forestimated: true,
-                                          config: configuration)
-                            }
-                            HStack {
-                                Text(estimatedconfiguration.newfiles)
-                                    .modifier(FixedTag(40, .trailing))
-                                    .foregroundColor(Color.red)
-                                Text(estimatedconfiguration.deletefiles)
-                                    .modifier(FixedTag(40, .trailing))
-                                    .foregroundColor(Color.red)
-                                Text(estimatedconfiguration.transferredNumber)
-                                    .modifier(FixedTag(40, .trailing))
-                                    .foregroundColor(Color.red)
-                                Text(estimatedconfiguration.transferredNumberSizebytes)
-                                    .modifier(FixedTag(80, .trailing))
-                                    .foregroundColor(Color.red)
-                                Text(estimatedconfiguration.totalNumber)
-                                    .modifier(FixedTag(80, .trailing))
-                                Text(estimatedconfiguration.totalNumberSizebytes)
-                                    .modifier(FixedTag(80, .trailing))
-                                Text(estimatedconfiguration.totalDirs)
-                                    .modifier(FixedTag(80, .trailing))
-                            }
-                        }
-                    }
-                    .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+            HStack {
+                Table(estimatedlist) {
+                    TableColumn("Synchronize ID", value: \.backupID)
+                    TableColumn("Task", value: \.task)
+                    TableColumn("Local catalog", value: \.localCatalog)
+                    TableColumn("Remote catalog", value: \.offsiteCatalog)
+                    TableColumn("Server", value: \.offsiteServer)
+                    TableColumn("User", value: \.offsiteUsername)
+                }
+
+                Table(estimatedlist) {
+                    TableColumn("New", value: \.newfiles)
+                    TableColumn("Delete", value: \.deletefiles)
+                    TableColumn("Files", value: \.transferredNumber)
+                    TableColumn("Bytes", value: \.transferredNumberSizebytes)
+                    TableColumn("Tot num", value: \.totalNumber)
+                    TableColumn("Tot bytes", value: \.totalNumberSizebytes)
+                    TableColumn("Tot dir", value: \.totalDirs)
                 }
             }
+
             Spacer()
 
             HStack {
@@ -74,47 +55,6 @@ struct OutputEstimatedView: View {
         Text("Estimated tasks")
             .font(.title2)
             .padding()
-    }
-
-    var header: some View {
-        HStack {
-            Group {
-                Text("")
-                    .modifier(FixedTag(95, .center))
-                Text("Synchronize ID")
-                    .modifier(FixedTag(120, .center))
-                Text("Task")
-                    .modifier(FixedTag(80, .center))
-                Text("Local catalog")
-                    .modifier(FlexTag(200, .center))
-                Text("Remote catalog")
-                    .modifier(FlexTag(180, .center))
-                Text("Server")
-                    .modifier(FixedTag(80, .trailing))
-                Text("User")
-                    .modifier(FixedTag(80, .trailing))
-            }
-            Group {
-                Text("New")
-                    .modifier(FixedTag(40, .trailing))
-                    .foregroundColor(Color.red)
-                Text("Delete")
-                    .modifier(FixedTag(40, .trailing))
-                    .foregroundColor(Color.red)
-                Text("Files")
-                    .modifier(FixedTag(40, .trailing))
-                    .foregroundColor(Color.red)
-                Text("Bytes")
-                    .modifier(FixedTag(80, .trailing))
-                    .foregroundColor(Color.red)
-                Text("Tot num")
-                    .modifier(FixedTag(80, .trailing))
-                Text("Tot bytes")
-                    .modifier(FixedTag(80, .trailing))
-                Text("Tot dir")
-                    .modifier(FixedTag(80, .trailing))
-            }
-        }
     }
 
     func dismissview() {
