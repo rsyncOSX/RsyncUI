@@ -34,20 +34,41 @@ struct OutputEstimatedView: View {
                 }
 
                 Table(estimatedlist) {
-                    TableColumn("New", value: \.newfiles)
-                        .width(max: 40)
-                    TableColumn("Delete", value: \.deletefiles)
-                        .width(max: 40)
-                    TableColumn("Files", value: \.transferredNumber)
-                        .width(max: 40)
-                    TableColumn("Bytes", value: \.transferredNumberSizebytes)
-                        .width(max: 60)
-                    TableColumn("Tot num", value: \.totalNumber)
-                        .width(max: 80)
-                    TableColumn("Tot bytes", value: \.totalNumberSizebytes)
-                        .width(max: 80)
-                    TableColumn("Tot dir", value: \.totalDirs)
-                        .width(max: 70)
+                    TableColumn("New") { files in
+                        Text(files.newfiles)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .width(max: 40)
+                    TableColumn("Files") { files in
+                        Text(files.deletefiles)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .width(max: 40)
+                    TableColumn("Files") { files in
+                        Text(files.transferredNumber)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .width(max: 40)
+                    TableColumn("Bytes") { files in
+                        Text(files.transferredNumberSizebytes)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .width(max: 60)
+                    TableColumn("Tot num") { files in
+                        Text(files.totalNumber)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .width(max: 80)
+                    TableColumn("Tot bytes") { files in
+                        Text(files.totalNumberSizebytes)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .width(max: 80)
+                    TableColumn("Tot dir") { files in
+                        Text(files.totalDirs)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .width(max: 70)
                 }
             }
 
