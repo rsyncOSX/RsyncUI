@@ -1,12 +1,11 @@
 RsyncUI is released for macOS Monterey and later.
 
 - the [documentation of RsyncUI](https://rsyncui.netlify.app/)
-- the [development of RsyncUI](https://rsyncui.netlify.app/post/development/)
 - the [changelog](https://rsyncui.netlify.app/post/changelog/)
 
 ## Dependencies
 
-RsyncUI is implemented by utilizing the SwiftUI, Swift 5 and Combine declarative frameworks. There are a few source code dependencies:
+RsyncUI is implemented by utilizing the SwiftUI, Swift and Combine declarative frameworks. There are a few source code dependencies:
 
 - execute pre and post shell scripts by utilizing John Sundell´s [ShellOut](https://github.com/JohnSundell/ShellOut)
 - utilizing John Sundell´s [Files](https://github.com/JohnSundell/Files) for reading files and catalogs
