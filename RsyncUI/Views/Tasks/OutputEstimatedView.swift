@@ -39,7 +39,7 @@ struct OutputEstimatedView: View {
                             .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                     .width(max: 40)
-                    TableColumn("Files") { files in
+                    TableColumn("Delete") { files in
                         Text(files.deletefiles)
                             .frame(maxWidth: .infinity, alignment: .trailing)
                     }
