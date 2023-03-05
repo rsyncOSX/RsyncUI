@@ -42,10 +42,8 @@ struct RestoreView: View {
 
                     setpathforrestore
                 }
-            }
 
-            if restore.restorefilesinprogress == true {
-                ZStack {
+                if restore.restorefilesinprogress == true {
                     ProgressView()
                         .frame(width: 50.0, height: 50.0)
                 }

@@ -28,7 +28,7 @@ struct OutputEstimatedView: View {
                     TableColumn("Remote catalog", value: \.offsiteCatalog)
                         .width(min: 50, max: 150)
                     TableColumn("Server", value: \.offsiteServer)
-                        .width(min: 50, max: 100)
+                        .width(max: 70)
                     TableColumn("User", value: \.offsiteUsername)
                         .width(max: 70)
                 }
