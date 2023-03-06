@@ -13,6 +13,8 @@ struct RestoreFilesView: View {
     @Binding var selectrowforrestore: String
     @Binding var config: Configuration?
 
+    @Binding var filterstring: String
+
     @State private var selection: String?
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
@@ -56,6 +58,9 @@ struct RestoreFilesView: View {
         .onAppear {
             Task {
                 if let config = config {
+                    if filterstring.isEmpty == false {
+                        restorefilelist.filterstring = filterstring
+                    }
                     await restorefilelist.validatetaskandgetfilelist(config)
                 }
             }

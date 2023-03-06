@@ -15,7 +15,7 @@ struct SidebareRestoreView: View {
         VStack {
             headingtitle
 
-            RestoreView()
+            RestoreView(filterstring: $filterstring)
         }
         .padding()
         .searchable(text: $filterstring)
