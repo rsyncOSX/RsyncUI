@@ -28,7 +28,7 @@ final class Snapshotlogsandcatalogs {
 
     @MainActor
     private func getremotecataloginfo() async {
-        let arguments = RestorefilesArguments(task: .snapshotcatalogs,
+        let arguments = RestorefilesArguments(task: .snapshotcatalogsonly,
                                               config: localeconfig,
                                               remoteFile: nil,
                                               localCatalog: nil,

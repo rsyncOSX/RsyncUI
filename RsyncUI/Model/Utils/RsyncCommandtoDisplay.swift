@@ -43,7 +43,7 @@ struct RsyncCommandtoDisplay {
                 }
             }
         case .restore:
-            if let arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: true, forDisplay: true, tmprestore: false) {
+            if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true, tmprestore: false) {
                 for i in 0 ..< arguments.count {
                     str += arguments[i]
                 }

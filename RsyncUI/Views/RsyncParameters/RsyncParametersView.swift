@@ -138,7 +138,7 @@ extension RsyncParametersView {
         case .synchronize:
             arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
         case .restore:
-            arguments = ArgumentsRestore(config: config).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
+            arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
         case .verify:
             arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
         }

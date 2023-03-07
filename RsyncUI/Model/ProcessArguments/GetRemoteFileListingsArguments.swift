@@ -30,9 +30,18 @@ final class GetRemoteFileListingsArguments {
             }
             args?.append("--list-only")
             if config.offsiteServer.isEmpty == false {
-                args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog)
+                if let snapshotnum = config.snapshotnum {
+                    args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog
+                        + String(snapshotnum - 1) + "/")
+                } else {
+                    args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog)
+                }
             } else {
-                args?.append(":" + config.offsiteCatalog)
+                if let snapshotnum = config.snapshotnum {
+                    args?.append(":" + config.offsiteCatalog + String(snapshotnum - 1) + "/")
+                } else {
+                    args?.append(":" + config.offsiteCatalog)
+                }
             }
         }
     }

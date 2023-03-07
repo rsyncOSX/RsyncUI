@@ -12,7 +12,7 @@ import Foundation
 enum Enumrestorefiles {
     case rsync
     case rsyncfilelistings
-    case snapshotcatalogs
+    case snapshotcatalogsonly
 }
 
 final class RestorefilesArguments {
@@ -32,7 +32,7 @@ final class RestorefilesArguments {
             case .rsyncfilelistings:
                 let arguments = GetRemoteFileListingsArguments(config: config, recursive: true)
                 self.arguments = arguments.getArguments()
-            case .snapshotcatalogs:
+            case .snapshotcatalogsonly:
                 let arguments = GetRemoteFileListingsArguments(config: config, recursive: false)
                 self.arguments = arguments.getArguments()
             }

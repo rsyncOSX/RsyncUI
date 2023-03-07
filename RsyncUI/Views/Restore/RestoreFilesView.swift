@@ -65,6 +65,11 @@ struct RestoreFilesView: View {
                 }
             }
         }
+        .onDisappear {
+            if SharedReference.shared.process != nil {
+                _ = InterruptProcess()
+            }
+        }
     }
 
     var labelaborttask: some View {
