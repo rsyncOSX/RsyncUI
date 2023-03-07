@@ -14,7 +14,7 @@ struct RestoreView: View {
     @Binding var filterstring: String
     @StateObject var restore = ObserveableRestore()
     @State private var presentsheetviewfiles = false
-    @State private var presentsheetrsync = false
+    // @State private var presentsheetrsync = false
 
     var body: some View {
         ZStack {
@@ -67,15 +67,15 @@ struct RestoreView: View {
             Button("Log") {
                 guard SharedReference.shared.process == nil else { return }
                 guard restore.selectedconfig != nil else { return }
-                presentsheetrsync = true
+                restore.presentsheetrsync = true
             }
             .buttonStyle(PrimaryButtonStyle())
-            .sheet(isPresented: $presentsheetrsync) { viewoutput }
+            .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
 
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .sheet(isPresented: $presentsheetrsync) { viewoutput }
+        .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
     }
 
     var setpathforrestore: some View {
@@ -116,7 +116,7 @@ struct RestoreView: View {
 
     // Output from rsync
     var viewoutput: some View {
-        OutputRsyncView(isPresented: $presentsheetrsync,
+        OutputRsyncView(isPresented: $restore.presentsheetrsync,
                         output: restore.rsyncdata ?? [])
     }
 }

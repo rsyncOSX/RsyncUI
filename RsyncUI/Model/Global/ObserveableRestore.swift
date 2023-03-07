@@ -16,6 +16,7 @@ final class ObserveableRestore: ObservableObject {
     @Published var restorefilesinprogress: Bool = false
     @Published var numberoffiles: Int = 0
     @Published var dryrun: Bool = true
+    @Published var presentsheetrsync = false
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
 
@@ -38,10 +39,12 @@ final class ObserveableRestore: ObservableObject {
             }.store(in: &subscriptions)
         $selectedrowforrestore
             .sink { [unowned self] file in
-                print(file)
                 filestorestore = file
             }.store(in: &subscriptions)
         $selectedconfig
+            .sink { _ in
+            }.store(in: &subscriptions)
+        $presentsheetrsync
             .sink { _ in
             }.store(in: &subscriptions)
     }
@@ -51,6 +54,7 @@ extension ObserveableRestore {
     func processtermination(data: [String]?) {
         rsyncdata = data
         restorefilesinprogress = false
+        presentsheetrsync = true
     }
 
     private func validatetask(_ config: Configuration) throws -> Bool {
