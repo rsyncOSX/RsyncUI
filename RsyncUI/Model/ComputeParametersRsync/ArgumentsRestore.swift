@@ -17,6 +17,10 @@ final class ArgumentsRestore: ComputeRsyncParameters {
             localCatalog = config.localCatalog
             if config.snapshotnum != nil {
                 if restoresnapshotbyfiles == true {
+                    // This is a hack for fixing correct restore for files
+                    // from a snapshot. The last snapshot is base for restore
+                    // of files. The correct snapshot is added within the
+                    // ObserveableRestore which is used within the RestoreView
                     remoteargs(config: config)
                 } else {
                     remoteargssnapshot(config: config)

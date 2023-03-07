@@ -98,12 +98,14 @@ extension ObserveableRestore {
                     // full restore
                     arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
                 } else {
-                    // Restore file or catalog
+                    // Restore file
                     var localconf = config
                     localconf.offsiteCatalog = verifyrestorefile(config, filestorestore)
                     if localconf.snapshotnum != nil {
+                        // Arguments for restore file from last snapshot
                         arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
                     } else {
+                        // Arguments for full restore av last snapshot
                         arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
                     }
                 }
@@ -132,7 +134,8 @@ extension ObserveableRestore {
         // drop "./" in filetorestore
         // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)
         // normal is to append a "/" to config.offsiteCatalog but must verify
-        // This is a hack for restore of files from last snapshot
+        // This is a hack for restore of files from last snapshot. Only files from the
+        // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
         if config.offsiteCatalog.hasSuffix("/") {
             if let snapshotnum = selectedconfig?.snapshotnum {
                 return config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2)
