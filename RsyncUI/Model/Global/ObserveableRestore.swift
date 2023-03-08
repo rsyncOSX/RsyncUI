@@ -134,6 +134,7 @@ extension ObserveableRestore {
         // normal is to append a "/" to config.offsiteCatalog but must verify
         // This is a hack for restore of files from last snapshot. Only files from the
         // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
+        // Restore arguments
         if config.offsiteCatalog.hasSuffix("/") {
             if let snapshotnum = selectedconfig?.snapshotnum {
                 return config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2)
@@ -150,6 +151,7 @@ extension ObserveableRestore {
     }
 
     private func computerestorearguments() -> [String]? {
+        // Restore arguments
         if filestorestore == "./." {
             if let config = selectedconfig {
                 // full restore
