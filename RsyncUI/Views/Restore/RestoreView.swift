@@ -17,12 +17,10 @@ struct RestoreView: View {
     // @State private var presentsheetrsync = false
 
     var body: some View {
-        ZStack {
-            VStack {
-                ListofAllTasks(selectedconfig: $restore.selectedconfig.onChange {
-                    restore.filestorestore = ""
-                })
-            }
+        VStack {
+            ListofAllTasks(selectedconfig: $restore.selectedconfig.onChange {
+                restore.filestorestore = ""
+            })
         }
 
         Spacer()
@@ -76,6 +74,14 @@ struct RestoreView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
+    }
+
+    var showcommand: some View {
+        Text(restore.commandstring)
+            .textSelection(.enabled)
+            .lineLimit(nil)
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth: .infinity)
     }
 
     var setpathforrestore: some View {

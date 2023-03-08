@@ -17,6 +17,9 @@ final class ObserveableRestore: ObservableObject {
     @Published var numberoffiles: Int = 0
     @Published var dryrun: Bool = true
     @Published var presentsheetrsync = false
+    // Customized restore command string
+    // Displayed in restore view
+    @Published var commandstring: String = ""
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
 
@@ -24,6 +27,7 @@ final class ObserveableRestore: ObservableObject {
     var subscriptions = Set<AnyCancellable>()
     var rsyncdata: [String]?
     var filestorestore: String = ""
+    var arguments: [String]?
 
     init() {
         $inputchangedbyuser
@@ -39,13 +43,15 @@ final class ObserveableRestore: ObservableObject {
             }.store(in: &subscriptions)
         $selectedrowforrestore
             .sink { [unowned self] file in
-                print(file)
                 filestorestore = file
             }.store(in: &subscriptions)
         $selectedconfig
             .sink { _ in
             }.store(in: &subscriptions)
         $presentsheetrsync
+            .sink { _ in
+            }.store(in: &subscriptions)
+        $commandstring
             .sink { _ in
             }.store(in: &subscriptions)
     }
@@ -105,7 +111,7 @@ extension ObserveableRestore {
                         // Arguments for restore file from last snapshot
                         arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
                     } else {
-                        // Arguments for full restore av last snapshot
+                        // Arguments for full restore from last snapshot
                         arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
                     }
                 }
@@ -148,6 +154,50 @@ extension ObserveableRestore {
             } else {
                 return config.offsiteCatalog + "/" + filestorestore.dropFirst(2) // drop first "./"
             }
+        }
+    }
+
+    /*
+     private func computecommandstring() {
+         if let config = selectedconfig {
+             computearguments()
+             commandstring = RsyncCommandtoDisplay(display: .restoreview,
+                                                   config: config,
+                                                   customizedarguments: arguments).getrsyncommand() ?? ""
+             print(commandstring)
+         } else {
+             commandstring = NSLocalizedString("Select a configuration", comment: "")
+         }
+     }
+     */
+
+    private func computearguments() {
+        commandstring = ""
+        do {
+            let ok = try validateforrestore()
+            if ok {
+                if filestorestore == "./." {
+                    if let config = selectedconfig {
+                        // full restore
+                        arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+                    }
+                } else {
+                    // Restore file
+                    if var localconf = selectedconfig {
+                        localconf.offsiteCatalog = verifyrestorefile(localconf, filestorestore)
+                        if localconf.snapshotnum != nil {
+                            // Arguments for restore file from last snapshot
+                            arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+                        } else {
+                            // Arguments for full restore from last snapshot
+                            arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+                        }
+                    }
+                }
+            }
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
         }
     }
 }
