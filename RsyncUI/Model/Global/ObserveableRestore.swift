@@ -95,26 +95,12 @@ extension ObserveableRestore {
     }
 
     @MainActor
-    func restore(_ config: Configuration) async {
+    func restore(_: Configuration) async {
         var arguments: [String]?
         do {
             let ok = try validateforrestore()
             if ok {
-                if filestorestore == "./." {
-                    // full restore
-                    arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
-                } else {
-                    // Restore file
-                    var localconf = config
-                    localconf.offsiteCatalog = verifyrestorefile(config, filestorestore)
-                    if localconf.snapshotnum != nil {
-                        // Arguments for restore file from last snapshot
-                        arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
-                    } else {
-                        // Arguments for full restore from last snapshot
-                        arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
-                    }
-                }
+                arguments = computerestorearguments()
                 if let arguments = arguments {
                     restorefilesinprogress = true
                     let command = RsyncAsync(arguments: arguments,
@@ -157,48 +143,26 @@ extension ObserveableRestore {
         }
     }
 
-    /*
-     private func computecommandstring() {
-         if let config = selectedconfig {
-             computearguments()
-             commandstring = RsyncCommandtoDisplay(display: .restoreview,
-                                                   config: config,
-                                                   customizedarguments: arguments).getrsyncommand() ?? ""
-             print(commandstring)
-         } else {
-             commandstring = NSLocalizedString("Select a configuration", comment: "")
-         }
-     }
-     */
-
-    private func computearguments() {
-        commandstring = ""
-        do {
-            let ok = try validateforrestore()
-            if ok {
-                if filestorestore == "./." {
-                    if let config = selectedconfig {
-                        // full restore
-                        arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
-                    }
+    private func computerestorearguments() -> [String]? {
+        if filestorestore == "./." {
+            if let config = selectedconfig {
+                // full restore
+                return ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+            }
+        } else {
+            // Restore by file
+            if var localconf = selectedconfig {
+                localconf.offsiteCatalog = verifyrestorefile(localconf, filestorestore)
+                if localconf.snapshotnum != nil {
+                    // Arguments for restore file from last snapshot
+                    return ArgumentsRestore(config: localconf, restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
                 } else {
-                    // Restore file
-                    if var localconf = selectedconfig {
-                        localconf.offsiteCatalog = verifyrestorefile(localconf, filestorestore)
-                        if localconf.snapshotnum != nil {
-                            // Arguments for restore file from last snapshot
-                            arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
-                        } else {
-                            // Arguments for full restore from last snapshot
-                            arguments = ArgumentsRestore(config: localconf, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
-                        }
-                    }
+                    // Arguments for full restore from last snapshot
+                    return ArgumentsRestore(config: localconf, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
                 }
             }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
         }
+        return nil
     }
 }
 

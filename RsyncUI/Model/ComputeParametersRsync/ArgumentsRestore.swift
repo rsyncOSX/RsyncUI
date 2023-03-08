@@ -25,6 +25,8 @@ final class ArgumentsRestore: ComputeRsyncParameters {
                 } else {
                     remoteargssnapshot(config: config)
                 }
+            } else {
+                remoteargs(config: config)
             }
             setParameters1To6(config: config, dryRun: dryRun, forDisplay: forDisplay, verify: false)
             setParameters8To14(config: config, dryRun: dryRun, forDisplay: forDisplay)
