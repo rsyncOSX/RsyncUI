@@ -42,8 +42,14 @@ final class ObserveableRestore: ObservableObject {
                 validatepathforrestore(path)
             }.store(in: &subscriptions)
         $selectedrowforrestore
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] file in
                 filestorestore = file
+                commandstring = ""
+                let arguments = computerestorearguments()
+                for i in 0 ..< (arguments?.count ?? 0) {
+                    commandstring += (arguments?[i] ?? "") + " "
+                }
             }.store(in: &subscriptions)
         $selectedconfig
             .sink { _ in

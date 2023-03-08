@@ -20,6 +20,7 @@ struct RestoreView: View {
         VStack {
             ListofAllTasks(selectedconfig: $restore.selectedconfig.onChange {
                 restore.filestorestore = ""
+                restore.commandstring = ""
             })
         }
 
@@ -38,6 +39,8 @@ struct RestoreView: View {
 
             ZStack {
                 VStack(alignment: .leading) {
+                    showcommand
+
                     setfilestorestore
 
                     setpathforrestore
