@@ -31,8 +31,14 @@ final class GetRemoteFileListingsArguments {
             args?.append("--list-only")
             if config.offsiteServer.isEmpty == false {
                 if let snapshotnum = config.snapshotnum {
-                    args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog
-                        + String(snapshotnum - 1) + "/")
+                    if recursive == false {
+                        // collect snapshot catalogs
+                        args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog
+                            + "/")
+                    } else {
+                        args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog
+                            + String(snapshotnum - 1) + "/")
+                    }
                 } else {
                     args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog)
                 }
