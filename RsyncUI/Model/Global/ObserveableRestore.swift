@@ -109,7 +109,7 @@ extension ObserveableRestore {
         do {
             let ok = try validateforrestore()
             if ok {
-                arguments = computerestorearguments()
+                arguments = computerestorearguments(forDisplay: false)
                 if let arguments = arguments {
                     restorefilesinprogress = true
                     let command = RsyncAsync(arguments: arguments,
@@ -153,12 +153,12 @@ extension ObserveableRestore {
         }
     }
 
-    private func computerestorearguments() -> [String]? {
+    private func computerestorearguments(forDisplay: Bool) -> [String]? {
         // Restore arguments
         if filestorestore == "./." {
             if let config = selectedconfig {
                 // full restore
-                return ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+                return ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: forDisplay, tmprestore: true)
             }
         } else {
             // Restore by file
@@ -166,10 +166,10 @@ extension ObserveableRestore {
                 localconf.offsiteCatalog = verifyrestorefile(localconf, filestorestore)
                 if localconf.snapshotnum != nil {
                     // Arguments for restore file from last snapshot
-                    return ArgumentsRestore(config: localconf, restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+                    return ArgumentsRestore(config: localconf, restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: forDisplay, tmprestore: true)
                 } else {
                     // Arguments for full restore from last snapshot
-                    return ArgumentsRestore(config: localconf, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: false, tmprestore: true)
+                    return ArgumentsRestore(config: localconf, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: forDisplay, tmprestore: true)
                 }
             }
         }
@@ -179,9 +179,9 @@ extension ObserveableRestore {
     private func updatecommandstring() {
         commandstring = ""
         commandstring = rsync + " "
-        let arguments = computerestorearguments()
+        let arguments = computerestorearguments(forDisplay: true)
         for i in 0 ..< (arguments?.count ?? 0) {
-            commandstring += (arguments?[i] ?? "") + " "
+            commandstring += (arguments?[i] ?? "")
         }
     }
 }
