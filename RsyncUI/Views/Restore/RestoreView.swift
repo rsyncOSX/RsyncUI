@@ -22,6 +22,10 @@ struct RestoreView: View {
                 restore.filestorestore = ""
                 restore.commandstring = ""
             })
+
+            Spacer()
+
+            showcommand
         }
 
         Spacer()
@@ -39,8 +43,6 @@ struct RestoreView: View {
 
             ZStack {
                 VStack(alignment: .leading) {
-                    showcommand
-
                     setfilestorestore
 
                     setpathforrestore

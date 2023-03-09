@@ -29,27 +29,30 @@ final class ObserveableRestore: ObservableObject {
     var filestorestore: String = ""
     var arguments: [String]?
 
+    var rsync: String {
+        return GetfullpathforRsync().rsyncpath ?? ""
+    }
+
     init() {
         $inputchangedbyuser
             .sink { _ in
             }.store(in: &subscriptions)
         $dryrun
-            .sink { _ in
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .sink { [unowned self] _ in
+                updatecommandstring()
             }.store(in: &subscriptions)
         $pathforrestore
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] path in
                 validatepathforrestore(path)
+                updatecommandstring()
             }.store(in: &subscriptions)
         $selectedrowforrestore
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] file in
                 filestorestore = file
-                commandstring = ""
-                let arguments = computerestorearguments()
-                for i in 0 ..< (arguments?.count ?? 0) {
-                    commandstring += (arguments?[i] ?? "") + " "
-                }
+                updatecommandstring()
             }.store(in: &subscriptions)
         $selectedconfig
             .sink { _ in
@@ -171,6 +174,15 @@ extension ObserveableRestore {
             }
         }
         return nil
+    }
+
+    private func updatecommandstring() {
+        commandstring = ""
+        commandstring = rsync + " "
+        let arguments = computerestorearguments()
+        for i in 0 ..< (arguments?.count ?? 0) {
+            commandstring += (arguments?[i] ?? "") + " "
+        }
     }
 }
 
