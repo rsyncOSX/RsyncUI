@@ -25,7 +25,7 @@ struct RestoreView: View {
 
             Spacer()
 
-            showcommand
+            if restore.selectedconfig != nil { showcommand }
         }
 
         Spacer()
