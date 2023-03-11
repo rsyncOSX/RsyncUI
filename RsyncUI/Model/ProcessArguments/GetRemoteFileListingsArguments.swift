@@ -31,6 +31,32 @@ final class GetRemoteFileListingsArguments {
             args?.append("--list-only")
             // Restore arguments
             if config.offsiteServer.isEmpty == false {
+                args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog)
+            } else {
+                args?.append(":" + config.offsiteCatalog)
+            }
+        }
+    }
+
+    private func remoteargumentssnapshot(recursive: Bool) {
+        if let config = config {
+            if config.sshport != nil {
+                let eparam: String = "-e"
+                let sshp: String = "ssh -p"
+                args?.append(eparam)
+                args?.append(sshp + String(config.sshport!))
+            } else {
+                let eparam: String = "-e"
+                let ssh: String = "ssh"
+                args?.append(eparam)
+                args?.append(ssh)
+            }
+            if recursive {
+                args?.append("-r")
+            }
+            args?.append("--list-only")
+            // Restore arguments
+            if config.offsiteServer.isEmpty == false {
                 if let snapshotnum = config.snapshotnum {
                     if recursive == false {
                         // remote arguments for collect snapshot catalogs only
@@ -41,14 +67,10 @@ final class GetRemoteFileListingsArguments {
                         args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog
                             + String(snapshotnum - 1) + "/")
                     }
-                } else {
-                    args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog)
                 }
             } else {
                 if let snapshotnum = config.snapshotnum {
                     args?.append(":" + config.offsiteCatalog + String(snapshotnum - 1) + "/")
-                } else {
-                    args?.append(":" + config.offsiteCatalog)
                 }
             }
         }
@@ -66,12 +88,19 @@ final class GetRemoteFileListingsArguments {
         return args
     }
 
-    init(config: Configuration?, recursive: Bool) {
+    init(config: Configuration?,
+         recursive: Bool,
+         snapshot: Bool)
+    {
         guard config != nil else { return }
         self.config = config
         args = [String]()
         if config?.offsiteServer.isEmpty == false {
-            remotearguments(recursive: recursive)
+            if snapshot == true {
+                remoteargumentssnapshot(recursive: recursive)
+            } else {
+                remotearguments(recursive: recursive)
+            }
         } else {
             localarguments(recursive: recursive)
         }

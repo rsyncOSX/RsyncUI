@@ -32,7 +32,8 @@ final class Snapshotlogsandcatalogs {
                                               config: localeconfig,
                                               remoteFile: nil,
                                               localCatalog: nil,
-                                              drynrun: nil)
+                                              drynrun: nil,
+                                              snapshot: true)
         let command = RsyncAsync(arguments: arguments.getArguments(),
                                  processtermination: processtermination)
         await command.executeProcess()

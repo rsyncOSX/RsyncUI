@@ -22,18 +22,19 @@ final class RestorefilesArguments {
         return arguments
     }
 
-    init(task: Enumrestorefiles, config: Configuration?, remoteFile: String?, localCatalog: String?, drynrun: Bool?) {
+    init(task: Enumrestorefiles, config: Configuration?, remoteFile: String?, localCatalog: String?, drynrun: Bool?, snapshot _: Bool) {
         if let config = config {
             arguments = [String]()
+            let snapshot: Bool = (config.snapshotnum != nil) ? true : false
             switch task {
             case .rsync:
                 let arguments = RsyncParametersSingleFilesArguments(config: config, remoteFile: remoteFile, localCatalog: localCatalog, drynrun: drynrun)
                 self.arguments = arguments.getArguments()
             case .rsyncfilelistings:
-                let arguments = GetRemoteFileListingsArguments(config: config, recursive: true)
+                let arguments = GetRemoteFileListingsArguments(config: config, recursive: true, snapshot: snapshot)
                 self.arguments = arguments.getArguments()
             case .snapshotcatalogsonly:
-                let arguments = GetRemoteFileListingsArguments(config: config, recursive: false)
+                let arguments = GetRemoteFileListingsArguments(config: config, recursive: false, snapshot: snapshot)
                 self.arguments = arguments.getArguments()
             }
         }
