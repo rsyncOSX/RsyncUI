@@ -16,7 +16,8 @@ final class ArgumentsRestore: ComputeRsyncParameters {
         if let config = config {
             // Restore arguments
             localCatalog = config.localCatalog
-            if config.snapshotnum != nil {
+            let snapshot: Bool = (config.snapshotnum != nil) ? true : false
+            if snapshot {
                 if restoresnapshotbyfiles == true {
                     // This is a hack for fixing correct restore for files
                     // from a snapshot. The last snapshot is base for restore

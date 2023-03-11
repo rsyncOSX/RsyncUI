@@ -139,16 +139,31 @@ extension ObserveableRestore {
         // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
         // Restore arguments
         if config.offsiteCatalog.hasSuffix("/") {
+            return config.offsiteCatalog + filestorestore.dropFirst(2) // drop first "./"
+        } else {
+            return config.offsiteCatalog + "/" + filestorestore.dropFirst(2) // drop first "./"
+        }
+    }
+
+    private func verifyrestorefilesnapshot(_ config: Configuration, _: String) -> String {
+        // Restore file or catalog
+        // drop "./" in filetorestore
+        // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)
+        // normal is to append a "/" to config.offsiteCatalog but must verify
+        // This is a hack for restore of files from last snapshot. Only files from the
+        // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
+        // Restore arguments
+        if config.offsiteCatalog.hasSuffix("/") {
             if let snapshotnum = selectedconfig?.snapshotnum {
                 return config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2)
             } else {
-                return config.offsiteCatalog + filestorestore.dropFirst(2) // drop first "./"
+                return ""
             }
         } else {
             if let snapshotnum = selectedconfig?.snapshotnum {
                 return config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2) // drop first "./"
             } else {
-                return config.offsiteCatalog + "/" + filestorestore.dropFirst(2) // drop first "./"
+                return ""
             }
         }
     }
@@ -163,8 +178,13 @@ extension ObserveableRestore {
         } else {
             // Restore by file
             if var localconf = selectedconfig {
-                localconf.offsiteCatalog = verifyrestorefile(localconf, filestorestore)
-                if localconf.snapshotnum != nil {
+                let snapshot: Bool = (localconf.snapshotnum != nil) ? true : false
+                if snapshot {
+                    localconf.offsiteCatalog = verifyrestorefilesnapshot(localconf, filestorestore)
+                } else {
+                    localconf.offsiteCatalog = verifyrestorefile(localconf, filestorestore)
+                }
+                if snapshot {
                     // Arguments for restore file from last snapshot
                     return ArgumentsRestore(config: localconf, restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: forDisplay, tmprestore: true)
                 } else {

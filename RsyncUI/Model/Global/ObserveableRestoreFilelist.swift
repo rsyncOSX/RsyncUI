@@ -61,7 +61,6 @@ extension ObserveableRestoreFilelist {
     func getfilelist(_ config: Configuration) async {
         gettingfilelist = true
         let snapshot: Bool = (config.snapshotnum != nil) ? true : false
-        print(snapshot)
         let arguments = RestorefilesArguments(task: .rsyncfilelistings,
                                               config: config,
                                               remoteFile: nil,
