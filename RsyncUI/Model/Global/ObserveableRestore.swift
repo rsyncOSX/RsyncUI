@@ -145,7 +145,7 @@ extension ObserveableRestore {
         }
     }
 
-    private func verifyrestorefilesnapshot(_ config: Configuration, _: String) -> String {
+    private func verifyrestorefilesnapshot(_ config: Configuration, _: String) -> String? {
         // Restore file or catalog
         // drop "./" in filetorestore
         // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)
@@ -170,9 +170,9 @@ extension ObserveableRestore {
 
     private func computerestorearguments(forDisplay: Bool) -> [String]? {
         // Restore arguments
+        // Full restore
         if filestorestore == "./." {
             if let config = selectedconfig {
-                // full restore
                 return ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: forDisplay, tmprestore: true)
             }
         } else {
@@ -180,7 +180,8 @@ extension ObserveableRestore {
             if var localconf = selectedconfig {
                 let snapshot: Bool = (localconf.snapshotnum != nil) ? true : false
                 if snapshot {
-                    localconf.offsiteCatalog = verifyrestorefilesnapshot(localconf, filestorestore)
+                    localconf.offsiteCatalog = verifyrestorefilesnapshot(localconf, filestorestore) ?? ""
+                    guard localconf.offsiteCatalog.isEmpty == false else { return nil }
                 } else {
                     localconf.offsiteCatalog = verifyrestorefile(localconf, filestorestore)
                 }
