@@ -1,8 +1,8 @@
-/* No comment provided by engineer. */
-"%lld" = "%lld";
-
 /* (No Comment) */
 "Abort" = "Avbryt";
+
+/* No comment provided by engineer. */
+"Abort task" = "Avbryt oppgave";
 
 /* No comment provided by engineer. */
 "Add" = "Legg til";
@@ -83,6 +83,9 @@
 "Default" = "Standard";
 
 /* No comment provided by engineer. */
+"Default profile" = "Standard profile";
+
+/* No comment provided by engineer. */
 "Delete" = "Slett";
 
 /* No comment provided by engineer. */
@@ -131,9 +134,6 @@
 "Execute" = "Utfør";
 
 /* No comment provided by engineer. */
-"Execute tasks" = "Utfør oppgaver";
-
-/* No comment provided by engineer. */
 "Files" = "Filer";
 
 /* No comment provided by engineer. */
@@ -180,6 +180,9 @@
 
 /* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
+
+/* No comment provided by engineer. */
+"Local catalogs" = "Lokale kataloger";
 
 /* No comment provided by engineer. */
 "Local data" = "Lokale data";
@@ -257,6 +260,9 @@
 "Other settings" = "Andre settinger";
 
 /* No comment provided by engineer. */
+"Output" = "Utdata";
+
+/* No comment provided by engineer. */
 "Output from rsync" = "Resultat av rsync";
 
 /* No comment provided by engineer. */
@@ -269,7 +275,7 @@
 "Please read and understand the information below. There is more info" = "Les og forstå informasjonen under. Det er mer info";
 
 /* No comment provided by engineer. */
-"Profiles" = "Profiler";
+"Profile" = "Profil";
 
 /* No comment provided by engineer. */
 "Quick synchronize" = "Rask synkronisering";
@@ -284,6 +290,12 @@
 "Remote parameters" = "Eksterne parametere";
 
 /* No comment provided by engineer. */
+"Remote server" = "Ekstern tjener";
+
+/* No comment provided by engineer. */
+"Remote user" = "Ekstern bruker";
+
+/* No comment provided by engineer. */
 "Remove default rsync parameters" = "Slett standard rsync parametre";
 
 /* No comment provided by engineer. */
@@ -291,6 +303,9 @@
 
 /* No comment provided by engineer. */
 "Restore" = "Gjenopprett";
+
+/* No comment provided by engineer. */
+"Restore file list" = "Filliste gjenopprett";
 
 /* No comment provided by engineer. */
 "Rsync parameters" = "Rsync parametre";

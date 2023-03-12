@@ -1,8 +1,8 @@
-/* No comment provided by engineer. */
-"%lld" = "%lld";
-
 /* (No Comment) */
 "Abort" = "Abbrechen";
+
+/* No comment provided by engineer. */
+"Abort task" = "Aufgabe abbrechen";
 
 /* No comment provided by engineer. */
 "Add" = "Neu";
@@ -83,6 +83,9 @@
 "Default" = "Standard";
 
 /* No comment provided by engineer. */
+"Default profile" = "Standard profil";
+
+/* No comment provided by engineer. */
 "Delete" = "Löschen";
 
 /* No comment provided by engineer. */
@@ -131,9 +134,6 @@
 "Execute" = "Ausführen";
 
 /* No comment provided by engineer. */
-"Execute tasks" = "Aufgaben ausführen";
-
-/* No comment provided by engineer. */
 "Files" = "Dateien";
 
 /* No comment provided by engineer. */
@@ -180,6 +180,9 @@
 
 /* No comment provided by engineer. */
 "Local catalog" = "Lokaler Katalog";
+
+/* No comment provided by engineer. */
+"Local catalogs" = "Lokaler Katalogs";
 
 /* No comment provided by engineer. */
 "Local data" = "Lokaler Data";
@@ -257,6 +260,9 @@
 "Other settings" = "Andere Einstellungen";
 
 /* No comment provided by engineer. */
+"Output" = "Ausgabe";
+
+/* No comment provided by engineer. */
 "Output from rsync" = "Ausgabe von rsync";
 
 /* No comment provided by engineer. */
@@ -269,7 +275,7 @@
 "Please read and understand the information below. There is more info" = "Bitte lesen und verstehen Sie die nachstehenden Informationen. Es gibt mehr Informationen";
 
 /* No comment provided by engineer. */
-"Profiles" = "Profile";
+"Profile" = "Profil";
 
 /* No comment provided by engineer. */
 "Quick synchronize" = "Schnell synchronisieren";
@@ -284,6 +290,12 @@
 "Remote parameters" = "Remote Parameter";
 
 /* No comment provided by engineer. */
+"Remote server" = "Entfernter Server ";
+
+/* No comment provided by engineer. */
+"Remote user" = "Entfernter Benutzer";
+
+/* No comment provided by engineer. */
 "Remove default rsync parameters" = "Entfernen Sie die Standard-rsync-Parameter";
 
 /* No comment provided by engineer. */
@@ -291,6 +303,9 @@
 
 /* No comment provided by engineer. */
 "Restore" = "Wiederherstellen";
+
+/* No comment provided by engineer. */
+"Restore file list" = "Dateiliste wiederherstellen";
 
 /* No comment provided by engineer. */
 "Rsync parameters" = "Rsync Parameter";
