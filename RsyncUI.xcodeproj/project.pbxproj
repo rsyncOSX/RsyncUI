@@ -108,7 +108,6 @@
 		E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B725F3AD9600CB895C /* Macserialnumber.swift */; };
 		E985C74325F3AD9700CB895C /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B825F3AD9600CB895C /* Resources.swift */; };
 		E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B925F3AD9600CB895C /* GetConfigurationData.swift */; };
-		E985C74525F3AD9700CB895C /* RemoteNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BA25F3AD9600CB895C /* RemoteNumbers.swift */; };
 		E985C74625F3AD9700CB895C /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BB25F3AD9600CB895C /* Numbers.swift */; };
 		E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BD25F3AD9600CB895C /* NetworkMonitor.swift */; };
 		E985C74925F3AD9700CB895C /* Validatenewconfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6BE25F3AD9600CB895C /* Validatenewconfigs.swift */; };
@@ -317,7 +316,6 @@
 		E985C6B725F3AD9600CB895C /* Macserialnumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macserialnumber.swift; sourceTree = "<group>"; };
 		E985C6B825F3AD9600CB895C /* Resources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		E985C6B925F3AD9600CB895C /* GetConfigurationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetConfigurationData.swift; sourceTree = "<group>"; };
-		E985C6BA25F3AD9600CB895C /* RemoteNumbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteNumbers.swift; sourceTree = "<group>"; };
 		E985C6BB25F3AD9600CB895C /* Numbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
 		E985C6BD25F3AD9600CB895C /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		E985C6BE25F3AD9600CB895C /* Validatenewconfigs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validatenewconfigs.swift; sourceTree = "<group>"; };
@@ -769,7 +767,6 @@
 				E985C6B725F3AD9600CB895C /* Macserialnumber.swift */,
 				E985C6B825F3AD9600CB895C /* Resources.swift */,
 				E985C6B925F3AD9600CB895C /* GetConfigurationData.swift */,
-				E985C6BA25F3AD9600CB895C /* RemoteNumbers.swift */,
 				E985C6BB25F3AD9600CB895C /* Numbers.swift */,
 				E985C6BD25F3AD9600CB895C /* NetworkMonitor.swift */,
 				E985C6BE25F3AD9600CB895C /* Validatenewconfigs.swift */,
@@ -1251,7 +1248,6 @@
 				E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */,
 				E96ED543292FDC3B0021FF06 /* DetailsViewAlreadyEstimated.swift in Sources */,
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
-				E985C74525F3AD9700CB895C /* RemoteNumbers.swift in Sources */,
 				E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */,
 				E950C92A290BBDC200B8B49F /* CommandProcessAsync.swift in Sources */,
 				E985C73725F3AD9700CB895C /* extensionDate.swift in Sources */,

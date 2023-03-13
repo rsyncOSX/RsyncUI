@@ -9,7 +9,7 @@ import Foundation
 
 final class Assist {
     var catalogs = Set<String>()
-    var localhome = Set<String>()
+    // var localhome = Set<String>()
     var remoteservers = Set<String>()
     var remoteusers = Set<String>()
     var nameandpaths: NamesandPaths?
@@ -53,7 +53,7 @@ final class Assist {
 
     init(configurations: [Configuration]?) {
         nameandpaths = NamesandPaths(.configurations)
-        localhome = setlocalhome()
+        // localhome = setlocalhome()
         if let catalogs = setcatalogs() {
             self.catalogs = catalogs
         }
