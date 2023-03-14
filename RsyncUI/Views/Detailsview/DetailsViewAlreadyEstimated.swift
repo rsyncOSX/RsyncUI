@@ -23,11 +23,22 @@ struct DetailsViewAlreadyEstimated: View {
         VStack {
             ZStack {
                 VStack {
-                    ListofOneTaskDetails(selectedconfig: $selectedconfig,
-                                         selecteduuids: $selecteduuids,
-                                         inwork: $inwork,
-                                         reload: $reload)
-                        .frame(height: 57)
+                    Table(data) {
+                        TableColumn("Synchronize ID", value: \.backupID)
+                            .width(min: 50, max: 200)
+                        TableColumn("Task", value: \.task)
+                            .width(max: 80)
+                        TableColumn("Local catalog", value: \.localCatalog)
+                            .width(min: 80, max: 300)
+                        TableColumn("Remote catalog", value: \.offsiteCatalog)
+                            .width(min: 80, max: 300)
+                        TableColumn("Server", value: \.offsiteServer)
+                            .width(max: 70)
+                        TableColumn("User", value: \.offsiteUsername)
+                            .width(max: 70)
+                    }
+                    .frame(maxHeight: 50)
+                    .foregroundColor(.blue)
 
                     List(remotedata, id: \.self) { line in
                         Text(line)
@@ -46,9 +57,17 @@ struct DetailsViewAlreadyEstimated: View {
             }
         }
         .padding()
-        .frame(minWidth: 1100, minHeight: 500)
+        .frame(minWidth: 900, minHeight: 500)
         .onAppear {
             selecteduuids.insert(selectedconfig?.id ?? UUID())
+        }
+    }
+
+    var data: [Configuration] {
+        if let test = selectedconfig {
+            return [test]
+        } else {
+            return []
         }
     }
 
