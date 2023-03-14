@@ -14,7 +14,7 @@ struct DetailsView: View {
     @Binding var isPresented: Bool
 
     @State private var gettingremotedata = true
-    @State private var remotedata: [String] = []
+    @State private var outputfromrsync: [String] = []
 
     // For selecting tasks, the selected index is transformed to the uuid of the task
     @State private var selecteduuids = Set<UUID>()
@@ -22,14 +22,15 @@ struct DetailsView: View {
     @State private var inwork = -1
 
     // var data: [Configuration]
+    @StateObject var estimateddataonetask = Estimateddataonetask()
 
     var body: some View {
         VStack {
             ZStack {
                 VStack {
-                    Table(data) {
+                    Table(estimateddataonetask.estimatedlistonetask) {
                         TableColumn("Synchronize ID", value: \.backupID)
-                            .width(min: 50, max: 200)
+                            .width(min: 100, max: 200)
                         TableColumn("Task", value: \.task)
                             .width(max: 80)
                         TableColumn("Local catalog", value: \.localCatalog)
@@ -39,12 +40,12 @@ struct DetailsView: View {
                         TableColumn("Server", value: \.offsiteServer)
                             .width(max: 70)
                         TableColumn("User", value: \.offsiteUsername)
-                            .width(max: 70)
+                            .width(max: 50)
                     }
-                    .frame(maxHeight: 50)
+                    .frame(width: 650, height: 50, alignment: .center)
                     .foregroundColor(.blue)
 
-                    List(remotedata, id: \.self) { line in
+                    List(outputfromrsync, id: \.self) { line in
                         Text(line)
                             .modifier(FixedTag(750, .leading))
                     }
@@ -78,23 +79,28 @@ struct DetailsView: View {
         .padding()
         .frame(minWidth: 900, minHeight: 500)
     }
-
-    var data: [Configuration] {
-        if let test = selectedconfig {
-            return [test]
-        } else {
-            return []
-        }
-    }
 }
 
 extension DetailsView {
     func processtermination(data: [String]?) {
-        remotedata = data ?? []
+        outputfromrsync = data ?? []
         gettingremotedata = false
+        estimateddataonetask.update(data: data, hiddenID: selectedconfig?.hiddenID, config: selectedconfig)
     }
 
     func dismissview() {
         isPresented = false
+    }
+}
+
+final class Estimateddataonetask: ObservableObject {
+    @Published var estimatedlistonetask = [RemoteinfonumbersOnetask]()
+
+    func update(data: [String]?, hiddenID: Int?, config: Configuration?) {
+        let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
+                                              outputfromrsync: data,
+                                              config: config)
+        estimatedlistonetask = [RemoteinfonumbersOnetask]()
+        estimatedlistonetask.append(record)
     }
 }
