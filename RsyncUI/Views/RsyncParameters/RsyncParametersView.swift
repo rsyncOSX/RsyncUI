@@ -80,6 +80,10 @@ struct RsyncParametersView: View {
 
                     Spacer()
 
+                    if showprogressview { ProgressView() }
+
+                    Spacer()
+
                     Button("Verify") {
                         if let configuration = parameters.updatersyncparameters() {
                             Task {
@@ -95,11 +99,6 @@ struct RsyncParametersView: View {
                 .focusedSceneValue(\.aborttask, $focusaborttask)
                 .sheet(isPresented: $presentsheetview) { viewoutput }
                 .padding()
-            }
-
-            if showprogressview {
-                ProgressView()
-                    .frame(width: 50.0, height: 50.0)
             }
         }
     }

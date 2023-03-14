@@ -45,21 +45,61 @@ struct DetailsView: View {
                     .frame(width: 650, height: 50, alignment: .center)
                     .foregroundColor(.blue)
 
+                    Table(estimateddataonetask.estimatedlistonetask) {
+                        TableColumn("New") { files in
+                            Text(files.newfiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        .width(max: 40)
+                        TableColumn("Delete") { files in
+                            Text(files.deletefiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        .width(max: 40)
+                        TableColumn("Files") { files in
+                            Text(files.transferredNumber)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        .width(max: 40)
+                        TableColumn("Bytes") { files in
+                            Text(files.transferredNumberSizebytes)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        .width(max: 60)
+                        TableColumn("Tot num") { files in
+                            Text(files.totalNumber)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        .width(max: 80)
+                        TableColumn("Tot bytes") { files in
+                            Text(files.totalNumberSizebytes)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        .width(max: 80)
+                        TableColumn("Tot dir") { files in
+                            Text(files.totalDirs)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        .width(max: 70)
+                    }
+                    // .frame(maxHeight: 50, maxWidth: 300)
+                    .foregroundColor(.blue)
+                    .frame(width: 450, height: 50, alignment: .center)
+
                     List(outputfromrsync, id: \.self) { line in
                         Text(line)
                             .modifier(FixedTag(750, .leading))
                     }
-                }
-
-                if gettingremotedata {
-                    ProgressView()
-                        .frame(width: 50.0, height: 50.0)
                 }
             }
 
             Spacer()
 
             HStack {
+                Spacer()
+
+                if gettingremotedata { ProgressView() }
+
                 Spacer()
 
                 Button("Dismiss") { dismissview() }

@@ -71,6 +71,10 @@ struct RsyncDefaultParametersView: View {
                 HStack {
                     Spacer()
 
+                    if showprogressview { ProgressView() }
+
+                    Spacer()
+
                     Button("Verify") {
                         if let configuration = parameters.updatersyncparameters() {
                             Task {
@@ -92,11 +96,6 @@ struct RsyncDefaultParametersView: View {
                 }
             })
             .sheet(isPresented: $presentsheetview) { viewoutput }
-
-            if showprogressview {
-                ProgressView()
-                    .frame(width: 50.0, height: 50.0)
-            }
         }
     }
 
