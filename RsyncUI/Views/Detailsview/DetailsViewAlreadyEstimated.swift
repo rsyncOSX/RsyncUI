@@ -14,11 +14,6 @@ struct DetailsViewAlreadyEstimated: View {
     @Binding var isPresented: Bool
     var estimatedlist: [RemoteinfonumbersOnetask]
 
-    // For selecting tasks, the selected index is transformed to the uuid of the task
-    @State private var selecteduuids = Set<UUID>()
-    // Not used but requiered in parameter
-    @State private var inwork = -1
-
     var body: some View {
         VStack {
             VStack {
@@ -97,9 +92,6 @@ struct DetailsViewAlreadyEstimated: View {
         }
         .padding()
         .frame(minWidth: 900, minHeight: 500)
-        .onAppear {
-            selecteduuids.insert(selectedconfig?.id ?? UUID())
-        }
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {

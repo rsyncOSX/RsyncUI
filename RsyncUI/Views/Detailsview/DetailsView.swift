@@ -15,13 +15,6 @@ struct DetailsView: View {
 
     @State private var gettingremotedata = true
     @State private var outputfromrsync: [String] = []
-
-    // For selecting tasks, the selected index is transformed to the uuid of the task
-    @State private var selecteduuids = Set<UUID>()
-    // Not used but requiered in parameter
-    @State private var inwork = -1
-
-    // var data: [Configuration]
     @StateObject var estimateddataonetask = Estimateddataonetask()
 
     var body: some View {
@@ -82,7 +75,6 @@ struct DetailsView: View {
                         }
                         .width(max: 70)
                     }
-                    // .frame(maxHeight: 50, maxWidth: 300)
                     .foregroundColor(.blue)
                     .frame(width: 450, height: 50, alignment: .center)
 
@@ -107,7 +99,6 @@ struct DetailsView: View {
             }
         }
         .onAppear(perform: {
-            selecteduuids.insert(selectedconfig?.id ?? UUID())
             let arguments = ArgumentsSynchronize(config: selectedconfig)
                 .argumentssynchronize(dryRun: true, forDisplay: false)
             let task = RsyncAsync(arguments: arguments,
