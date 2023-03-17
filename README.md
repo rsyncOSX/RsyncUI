@@ -3,6 +3,10 @@ RsyncUI is released for macOS Monterey and later.
 - the [documentation of RsyncUI](https://rsyncui.netlify.app/)
 - the [changelog](https://rsyncui.netlify.app/post/changelog/)
 
+## Install by Homebrew
+
+RsyncUI can also be installed by Homebrew: brew install --cask rsyncui
+
 ## Dependencies
 
 RsyncUI is implemented by utilizing the SwiftUI, Swift and Combine declarative frameworks. There are a few source code dependencies:
