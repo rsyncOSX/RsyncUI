@@ -5,7 +5,7 @@ RsyncUI is released for macOS Monterey and later.
 
 ## Install by Homebrew
 
-RsyncUI can also be installed by Homebrew: brew install --cask rsyncui
+RsyncUI can also be installed by Homebrew: `brew install --cask rsyncui`
 
 ## Dependencies
 
