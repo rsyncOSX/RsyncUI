@@ -11,6 +11,7 @@ struct OutputEstimatedView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var isPresented: Bool
     @Binding var selecteduuids: Set<UUID>
+    @Binding var execute: Bool
     var estimatedlist: [RemoteinfonumbersOnetask]
 
     var body: some View {
@@ -76,6 +77,12 @@ struct OutputEstimatedView: View {
 
             HStack {
                 Spacer()
+
+                Button("Execute") {
+                    execute = true
+                    dismissview()
+                }
+                .buttonStyle(PrimaryButtonStyle())
 
                 Button("Dismiss") { dismissview() }
                     .buttonStyle(PrimaryButtonStyle())

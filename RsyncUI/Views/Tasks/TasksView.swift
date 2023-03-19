@@ -103,6 +103,7 @@ struct TasksView: View {
                             } else {
                                 OutputEstimatedView(isPresented: $dryrunview,
                                                     selecteduuids: $selecteduuids,
+                                                    execute: $focusstartexecution,
                                                     estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
                             }
                         } else {
