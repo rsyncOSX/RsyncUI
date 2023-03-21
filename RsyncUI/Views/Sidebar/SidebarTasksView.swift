@@ -29,14 +29,14 @@ struct SidebarTasksView: View {
                 if showeexecutestimatedview == false && showexecutenoestimateview == false &&
                     showexecutenoestiamteonetask == false
                 {
-                    TasksView(selectedconfig: $selectedconfig,
-                              reload: $reload,
-                              selecteduuids: $selecteduuids,
-                              showeexecutestimatedview: $showeexecutestimatedview,
-                              showcompleted: $showcompleted,
-                              showexecutenoestimateview: $showexecutenoestimateview,
-                              showexecutenoestiamteonetask: $showexecutenoestiamteonetask,
-                              selection: $selection)
+                    TasksSheetstateView(selectedconfig: $selectedconfig,
+                                        reload: $reload,
+                                        selecteduuids: $selecteduuids,
+                                        showeexecutestimatedview: $showeexecutestimatedview,
+                                        showcompleted: $showcompleted,
+                                        showexecutenoestimateview: $showexecutenoestimateview,
+                                        showexecutenoestiamteonetask: $showexecutenoestiamteonetask,
+                                        selection: $selection)
                 }
 
                 if showeexecutestimatedview == true && showexecutenoestimateview == false &&
