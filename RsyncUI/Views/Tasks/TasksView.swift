@@ -51,6 +51,8 @@ struct TasksView: View {
     @State private var modaleview = false
     // Dryrun view
     @State private var dryrunview = false
+    // All profiles
+    @State private var alltasksview = false
 
     var body: some View {
         ZStack {
@@ -110,6 +112,7 @@ struct TasksView: View {
                             DetailsView(selectedconfig: $selectedconfig,
                                         reload: $reload,
                                         isPresented: $dryrunview)
+                            // AlltasksView(isPresented: $dryrunview)
                         }
                     }
 
