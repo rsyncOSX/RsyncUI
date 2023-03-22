@@ -9,7 +9,7 @@
 import Network
 import SwiftUI
 
-struct TasksSheetstateView: View {
+struct TasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
@@ -285,7 +285,7 @@ struct TasksSheetstateView: View {
     }
 }
 
-extension TasksSheetstateView {
+extension TasksView {
     func estimate() {
         inprogresscountmultipletask.resetcounts()
         executedetails.resetcounter()
