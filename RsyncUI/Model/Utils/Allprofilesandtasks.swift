@@ -9,7 +9,6 @@ class Allprofilesandtasks {
     // Configurations object
     var alltasks: [Configuration]?
     var allprofiles: [String]?
-    var alloffsiteservers: [String]?
 
     private func getprofilenames() {
         allprofiles = Catalogsandfiles(.configurations).getcatalogsasstringnames()
@@ -36,7 +35,6 @@ class Allprofilesandtasks {
 
     init() {
         getprofilenames()
-        alloffsiteservers = [String]()
         readalltasks()
     }
 }

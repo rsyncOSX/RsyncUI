@@ -16,6 +16,10 @@ struct AlltasksView: View {
             Table(data) {
                 TableColumn("Synchronize ID", value: \.backupID)
                     .width(min: 100, max: 200)
+                TableColumn("Last") { data in
+                    Text(data.dateRun ?? "")
+                }
+                .width(max: 120)
                 TableColumn("Task", value: \.task)
                     .width(max: 80)
                 TableColumn("Local catalog", value: \.localCatalog)
@@ -24,8 +28,6 @@ struct AlltasksView: View {
                     .width(min: 100, max: 300)
                 TableColumn("Server", value: \.offsiteServer)
                     .width(max: 70)
-                TableColumn("User", value: \.offsiteUsername)
-                    .width(max: 50)
             }
             .frame(width: 650, height: 500, alignment: .center)
             .foregroundColor(.blue)
