@@ -47,20 +47,14 @@ struct TasksSheetstateView: View {
     @State private var localdata: [String] = []
     // Modale view
     @State private var modaleview = false
-    // Which sheet to present
-    @State private var sheet: Sheet = .dryrun
-
-    enum Sheet: String, Identifiable {
-        case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo
-        var id: String { rawValue }
-    }
+    @StateObject var sheetchooser = SheetChooser()
 
     var body: some View {
         ZStack {
             ListofTasksProgress(selectedconfig: $selectedconfig.onChange {
                 guard selectedconfig != nil else { return }
                 if alltasksestimated {
-                    sheet = .dryrun
+                    sheetchooser.sheet = .dryrun
                     modaleview = true
                 }
             },
@@ -96,9 +90,9 @@ struct TasksSheetstateView: View {
 
                     Button("DryRun") {
                         if selectedconfig != nil {
-                            sheet = .estimateddetailsview
+                            sheetchooser.sheet = .estimateddetailsview
                         } else {
-                            sheet = .dryrun
+                            sheetchooser.sheet = .dryrun
                         }
                         modaleview = true
                     }
@@ -111,7 +105,7 @@ struct TasksSheetstateView: View {
                     .buttonStyle(PrimaryButtonStyle())
 
                     Button("List") {
-                        sheet = .alltasksview
+                        sheetchooser.sheet = .alltasksview
                         modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
@@ -143,7 +137,7 @@ struct TasksSheetstateView: View {
         .task {
             // Discover if firsttime use, if true present view for firsttime
             if SharedReference.shared.firsttime {
-                sheet = .firsttime
+                sheetchooser.sheet = .firsttime
                 modaleview = true
             }
         }
@@ -152,7 +146,7 @@ struct TasksSheetstateView: View {
 
     @ViewBuilder
     func makeSheet() -> some View {
-        switch sheet {
+        switch sheetchooser.sheet {
         case .dryrun:
             if inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0 && selectedconfig != nil {
                 DetailsViewAlreadyEstimated(selectedconfig: $selectedconfig,
@@ -204,7 +198,7 @@ struct TasksSheetstateView: View {
                 }
             }
             .onDisappear {
-                sheet = .dryrun
+                sheetchooser.sheet = .dryrun
                 modaleview = true
                 focusstartestimation = false
             }
@@ -264,7 +258,7 @@ struct TasksSheetstateView: View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 focusfirsttaskinfo = false
-                sheet = .firsttime
+                sheetchooser.sheet = .firsttime
                 modaleview = true
             })
     }
@@ -325,7 +319,7 @@ extension TasksSheetstateView {
         estimationstate.updatestate(state: .start)
         selectedconfig = nil
         inprogresscountmultipletask.estimateasync = false
-        sheet = .dryrun
+        sheetchooser.sheet = .dryrun
     }
 
     func abort() {
@@ -353,7 +347,19 @@ extension TasksSheetstateView {
     func processtermination(data: [String]?) {
         localdata = data ?? []
         focusshowinfotask = false
-        sheet = .localremoteinfo
+        sheetchooser.sheet = .localremoteinfo
         modaleview = true
     }
+}
+
+enum Sheet: String, Identifiable {
+    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo
+    var id: String { rawValue }
+}
+
+final class SheetChooser: ObservableObject {
+    // Which sheet to present
+    // Do not redraw view when changing
+    // no @Publised
+    var sheet: Sheet = .dryrun
 }
