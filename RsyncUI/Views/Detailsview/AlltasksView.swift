@@ -34,7 +34,6 @@ struct AlltasksView: View {
                     .width(max: 70)
             }
             .frame(minWidth: 850, minHeight: 500, alignment: .center)
-            .foregroundColor(.blue)
 
             Spacer()
 

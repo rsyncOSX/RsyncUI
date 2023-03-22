@@ -14,8 +14,8 @@ struct DetailsView: View {
     @Binding var isPresented: Bool
 
     @State private var gettingremotedata = true
-    @State private var outputfromrsync: [String] = []
     @StateObject var estimateddataonetask = Estimateddataonetask()
+    @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
         VStack {
@@ -78,8 +78,8 @@ struct DetailsView: View {
                     .foregroundColor(.blue)
                     .frame(width: 450, height: 50, alignment: .center)
 
-                    List(outputfromrsync, id: \.self) { line in
-                        Text(line)
+                    List(outputfromrsync.output) { output in
+                        Text(output.line)
                             .modifier(FixedTag(750, .leading))
                     }
                 }
@@ -114,7 +114,7 @@ struct DetailsView: View {
 
 extension DetailsView {
     func processtermination(data: [String]?) {
-        outputfromrsync = data ?? []
+        outputfromrsync.generatedata(data)
         gettingremotedata = false
         estimateddataonetask.update(data: data, hiddenID: selectedconfig?.hiddenID, config: selectedconfig)
     }
@@ -133,5 +133,22 @@ final class Estimateddataonetask: ObservableObject {
                                               config: config)
         estimatedlistonetask = [RemoteinfonumbersOnetask]()
         estimatedlistonetask.append(record)
+    }
+}
+
+final class Outputfromrsync: ObservableObject {
+    @Published var output = [Data]()
+
+    struct Data: Identifiable {
+        let id = UUID()
+        var line: String
+    }
+
+    func generatedata(_ data: [String]?) {
+        for i in 0 ..< (data?.count ?? 0) {
+            if let line = data?[i] {
+                output.append(Data(line: line))
+            }
+        }
     }
 }
