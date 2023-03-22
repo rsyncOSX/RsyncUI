@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/03/2023.
 //
+// swiftlint:disable line_length
 
 import Network
 import SwiftUI
@@ -46,8 +47,8 @@ struct TasksSheetstateView: View {
     @State private var localdata: [String] = []
     // Modale view
     @State private var modaleview = false
-
-    @State private var sheet: Sheet = .dryrun
+    // Which sheet to present
+    @State private var sheet: Sheet = .alltasksview
 
     enum Sheet: String, Identifiable {
         case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo
@@ -106,6 +107,12 @@ struct TasksSheetstateView: View {
                     Button("Reset") {
                         selecteduuids.removeAll()
                         reset()
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                    Button("List") {
+                        sheet = .alltasksview
+                        modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
                 }
