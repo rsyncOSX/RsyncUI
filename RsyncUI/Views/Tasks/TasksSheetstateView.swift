@@ -48,7 +48,7 @@ struct TasksSheetstateView: View {
     // Modale view
     @State private var modaleview = false
     // Which sheet to present
-    @State private var sheet: Sheet = .alltasksview
+    @State private var sheet: Sheet = .dryrun
 
     enum Sheet: String, Identifiable {
         case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo
