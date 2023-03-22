@@ -9,10 +9,9 @@ import SwiftUI
 
 struct OutputRsyncView: View {
     @Binding var isPresented: Bool
+    @StateObject var outputfromrsync = Outputfromrsync()
 
     var output: [String]
-
-    @State private var selection: String?
 
     var body: some View {
         VStack {
@@ -20,8 +19,9 @@ struct OutputRsyncView: View {
                 .font(.title2)
                 .padding()
 
-            List(listitems, id: \.self, selection: $selection) { line in Text(line)
-                .modifier(FixedTag(750, .leading))
+            List(outputfromrsync.output) { output in
+                Text(output.line)
+                    .modifier(FixedTag(750, .leading))
             }
 
             Spacer()
@@ -35,9 +35,10 @@ struct OutputRsyncView: View {
         }
         .padding()
         .frame(minWidth: 800, minHeight: 600)
+        .onAppear {
+            outputfromrsync.generatedata(output)
+        }
     }
-
-    var listitems: [String] { return output }
 
     func dismissview() {
         isPresented = false
