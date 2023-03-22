@@ -141,6 +141,7 @@ struct TasksSheetstateView: View {
         .focusedSceneValue(\.showinfotask, $focusshowinfotask)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .task {
+            reset()
             // Discover if firsttime use, if true present view for firsttime
             if SharedReference.shared.firsttime {
                 sheet = .firsttime
