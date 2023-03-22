@@ -14,6 +14,10 @@ struct AlltasksView: View {
     var body: some View {
         VStack {
             Table(data) {
+                TableColumn("Profile") { data in
+                    Text(data.profile ?? "")
+                }
+                .width(min: 100, max: 200)
                 TableColumn("Synchronize ID", value: \.backupID)
                     .width(min: 100, max: 200)
                 TableColumn("Last") { data in
@@ -29,7 +33,7 @@ struct AlltasksView: View {
                 TableColumn("Server", value: \.offsiteServer)
                     .width(max: 70)
             }
-            .frame(width: 650, height: 500, alignment: .center)
+            .frame(minWidth: 850, minHeight: 500, alignment: .center)
             .foregroundColor(.blue)
 
             Spacer()
@@ -46,7 +50,16 @@ struct AlltasksView: View {
     }
 
     var data: [Configuration] {
-        return Allprofilesandtasks().alltasks ?? []
+        return Allprofilesandtasks().alltasks?.sorted(by: { conf1, conf2 in
+            if let date1 = conf1.dateRun, let date2 = conf2.dateRun {
+                if date1.en_us_date_from_string() > date2.en_us_date_from_string() {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            return false
+        }) ?? []
     }
 }
 
