@@ -21,55 +21,33 @@ struct SidebarTasksView: View {
     @State private var selecteduuids = Set<UUID>()
     @State private var showcompleted: Bool = false
 
+    enum Task: String, Identifiable {
+        case taskview, executestimatedview, executenoestimatetasksview, executenoestimateonetaskview
+        var id: String { rawValue }
+    }
+
     var body: some View {
         ZStack {
             VStack {
                 headingtitle
 
-                if showeexecutestimatedview == false && showexecutenoestimateview == false &&
+                if showeexecutestimatedview == false &&
+                    showexecutenoestimateview == false &&
                     showexecutenoestiamteonetask == false
                 {
-                    TasksView(selectedconfig: $selectedconfig,
-                              reload: $reload,
-                              selecteduuids: $selecteduuids,
-                              showeexecutestimatedview: $showeexecutestimatedview,
-                              showcompleted: $showcompleted,
-                              showexecutenoestimateview: $showexecutenoestimateview,
-                              showexecutenoestiamteonetask: $showexecutenoestiamteonetask,
-                              selection: $selection)
+                    makeView(task: .taskview)
                 }
-
-                if showeexecutestimatedview == true && showexecutenoestimateview == false &&
+                if showeexecutestimatedview == true &&
+                    showexecutenoestimateview == false &&
                     showexecutenoestiamteonetask == false
                 {
-                    ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
-                                              reload: $reload,
-                                              showeexecutestimatedview: $showeexecutestimatedview)
-                        .onDisappear(perform: {
-                            showcompleted = true
-                        })
+                    makeView(task: .executestimatedview)
                 }
-
                 if showexecutenoestimateview == true {
-                    ExecuteNoestimatedTasksView(selectedconfig: $selectedconfig,
-                                                reload: $reload,
-                                                selecteduuids: $selecteduuids,
-                                                showcompleted: $showcompleted,
-                                                showexecutenoestimateview: $showexecutenoestimateview)
-                        .onDisappear(perform: {
-                            showcompleted = true
-                        })
+                    makeView(task: .executenoestimatetasksview)
                 }
-
                 if showexecutenoestiamteonetask == true {
-                    ExecuteNoestimateOneTaskView(selectedconfig: $selectedconfig,
-                                                 reload: $reload,
-                                                 selecteduuids: $selecteduuids,
-                                                 showcompleted: $showcompleted,
-                                                 showexecutenoestiamteonetask: $showexecutenoestiamteonetask)
-                        .onDisappear(perform: {
-                            showcompleted = true
-                        })
+                    makeView(task: .executenoestimateonetaskview)
                 }
             }
             .padding()
@@ -83,6 +61,46 @@ struct SidebarTasksView: View {
                         }
                     })
             }
+        }
+    }
+
+    @ViewBuilder
+    func makeView(task: Task) -> some View {
+        switch task {
+        case .taskview:
+            TasksView(selectedconfig: $selectedconfig,
+                      reload: $reload,
+                      selecteduuids: $selecteduuids,
+                      showeexecutestimatedview: $showeexecutestimatedview,
+                      showcompleted: $showcompleted,
+                      showexecutenoestimateview: $showexecutenoestimateview,
+                      showexecutenoestiamteonetask: $showexecutenoestiamteonetask,
+                      selection: $selection)
+        case .executestimatedview:
+            ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
+                                      reload: $reload,
+                                      showeexecutestimatedview: $showeexecutestimatedview)
+                .onDisappear(perform: {
+                    showcompleted = true
+                })
+        case .executenoestimatetasksview:
+            ExecuteNoestimatedTasksView(selectedconfig: $selectedconfig,
+                                        reload: $reload,
+                                        selecteduuids: $selecteduuids,
+                                        showcompleted: $showcompleted,
+                                        showexecutenoestimateview: $showexecutenoestimateview)
+                .onDisappear(perform: {
+                    showcompleted = true
+                })
+        case .executenoestimateonetaskview:
+            ExecuteNoestimateOneTaskView(selectedconfig: $selectedconfig,
+                                         reload: $reload,
+                                         selecteduuids: $selecteduuids,
+                                         showcompleted: $showcompleted,
+                                         showexecutenoestiamteonetask: $showexecutenoestiamteonetask)
+                .onDisappear(perform: {
+                    showcompleted = true
+                })
         }
     }
 
