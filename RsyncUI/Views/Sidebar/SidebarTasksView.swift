@@ -14,9 +14,9 @@ struct SidebarTasksView: View {
     // Which sidebar function
     @Binding var selection: NavigationItem?
 
-    @State var showeexecutestimatedview: Bool = false
-    @State var showexecutenoestimateview: Bool = false
-    @State var showexecutenoestiamteonetask: Bool = false
+    @State var showeexecutEstimatedview: Bool = false
+    @State var showexecuteNOEstimateview: Bool = false
+    @State var showexecuteNOEstiamteONEtask: Bool = false
 
     @State private var selecteduuids = Set<UUID>()
     @State private var showcompleted: Bool = false
@@ -31,17 +31,21 @@ struct SidebarTasksView: View {
             VStack {
                 headingtitle
 
-                if showeexecutestimatedview == false &&
-                    showexecutenoestimateview == false &&
-                    showexecutenoestiamteonetask == false { makeView(task: .taskview) }
+                if showeexecutEstimatedview == false &&
+                    showexecuteNOEstimateview == false &&
+                    showexecuteNOEstiamteONEtask == false { makeView(task: .taskview) }
 
-                if showeexecutestimatedview == true &&
-                    showexecutenoestimateview == false &&
-                    showexecutenoestiamteonetask == false { makeView(task: .executestimatedview) }
+                if showeexecutEstimatedview == true &&
+                    showexecuteNOEstimateview == false &&
+                    showexecuteNOEstiamteONEtask == false { makeView(task: .executestimatedview) }
 
-                if showexecutenoestimateview == true { makeView(task: .executenoestimatetasksview) }
+                if showeexecutEstimatedview == false &&
+                    showexecuteNOEstiamteONEtask == false &&
+                    showexecuteNOEstimateview == true { makeView(task: .executenoestimatetasksview) }
 
-                if showexecutenoestiamteonetask == true { makeView(task: .executenoestimateonetaskview) }
+                if showeexecutEstimatedview == false &&
+                    showexecuteNOEstimateview == false &&
+                    showexecuteNOEstiamteONEtask == true { makeView(task: .executenoestimateonetaskview) }
             }
             .padding()
 
@@ -64,14 +68,14 @@ struct SidebarTasksView: View {
             TasksView(selectedconfig: $selectedconfig,
                       reload: $reload,
                       selecteduuids: $selecteduuids,
-                      showeexecutestimatedview: $showeexecutestimatedview,
-                      showexecutenoestimateview: $showexecutenoestimateview,
-                      showexecutenoestiamteonetask: $showexecutenoestiamteonetask,
+                      showeexecutestimatedview: $showeexecutEstimatedview,
+                      showexecutenoestimateview: $showexecuteNOEstimateview,
+                      showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
                       selection: $selection)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
-                                      showeexecutestimatedview: $showeexecutestimatedview)
+                                      showeexecutestimatedview: $showeexecutEstimatedview)
                 .onDisappear(perform: {
                     showcompleted = true
                 })
@@ -80,7 +84,7 @@ struct SidebarTasksView: View {
                                         reload: $reload,
                                         selecteduuids: $selecteduuids,
                                         showcompleted: $showcompleted,
-                                        showexecutenoestimateview: $showexecutenoestimateview)
+                                        showexecutenoestimateview: $showexecuteNOEstimateview)
                 .onDisappear(perform: {
                     showcompleted = true
                 })
@@ -89,7 +93,7 @@ struct SidebarTasksView: View {
                                          reload: $reload,
                                          selecteduuids: $selecteduuids,
                                          showcompleted: $showcompleted,
-                                         showexecutenoestiamteonetask: $showexecutenoestiamteonetask)
+                                         showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask)
                 .onDisappear(perform: {
                     showcompleted = true
                 })

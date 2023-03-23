@@ -22,7 +22,7 @@ struct TasksView: View {
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
-    
+
     @Binding var showeexecutestimatedview: Bool
     @Binding var showexecutenoestimateview: Bool
     @Binding var showexecutenoestiamteonetask: Bool
