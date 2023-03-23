@@ -33,22 +33,15 @@ struct SidebarTasksView: View {
 
                 if showeexecutestimatedview == false &&
                     showexecutenoestimateview == false &&
-                    showexecutenoestiamteonetask == false
-                {
-                    makeView(task: .taskview)
-                }
+                    showexecutenoestiamteonetask == false { makeView(task: .taskview) }
+
                 if showeexecutestimatedview == true &&
                     showexecutenoestimateview == false &&
-                    showexecutenoestiamteonetask == false
-                {
-                    makeView(task: .executestimatedview)
-                }
-                if showexecutenoestimateview == true {
-                    makeView(task: .executenoestimatetasksview)
-                }
-                if showexecutenoestiamteonetask == true {
-                    makeView(task: .executenoestimateonetaskview)
-                }
+                    showexecutenoestiamteonetask == false { makeView(task: .executestimatedview) }
+
+                if showexecutenoestimateview == true { makeView(task: .executenoestimatetasksview) }
+
+                if showexecutenoestiamteonetask == true { makeView(task: .executenoestimateonetaskview) }
             }
             .padding()
 
@@ -72,7 +65,6 @@ struct SidebarTasksView: View {
                       reload: $reload,
                       selecteduuids: $selecteduuids,
                       showeexecutestimatedview: $showeexecutestimatedview,
-                      showcompleted: $showcompleted,
                       showexecutenoestimateview: $showexecutenoestimateview,
                       showexecutenoestiamteonetask: $showexecutenoestiamteonetask,
                       selection: $selection)
