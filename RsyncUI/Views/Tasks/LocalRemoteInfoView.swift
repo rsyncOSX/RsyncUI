@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 24/09/2022.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -64,15 +65,15 @@ struct LocalRemoteInfoView: View {
             }
             HStack {
                 Text("Number of files" + ": ")
-                Text(remoteinfonumberslocalcatalog.totalNumber ?? "")
+                Text(remoteinfonumberslocalcatalog.totalNumber)
             }
             HStack {
                 Text("Number of catalogs" + ": ")
-                Text(remoteinfonumberslocalcatalog.totalDirs ?? "")
+                Text(remoteinfonumberslocalcatalog.totalDirs)
             }
             HStack {
                 Text("Total size (kB)" + ": ")
-                Text(remoteinfonumberslocalcatalog.totalNumberSizebytes ?? "")
+                Text(remoteinfonumberslocalcatalog.totalNumberSizebytes)
             }
         }
     }
@@ -86,37 +87,38 @@ struct LocalRemoteInfoView: View {
             }
             HStack {
                 Text("New files" + ": ")
-                Text(remoteinfonumbersremotecatalog.newfiles ?? "")
+                Text(remoteinfonumbersremotecatalog.newfiles)
             }
             HStack {
                 Text("Delete files" + ": ")
-                Text(remoteinfonumbersremotecatalog.deletefiles ?? "")
+                Text(remoteinfonumbersremotecatalog.deletefiles)
             }
             HStack {
                 Text("KB to be transferred" + ": ")
-                Text(remoteinfonumbersremotecatalog.transferredNumberSizebytes ?? "")
+                Text(remoteinfonumbersremotecatalog.transferredNumberSizebytes)
             }
             HStack {
                 Text("Number of files" + ": ")
-                Text(remoteinfonumbersremotecatalog.totalNumber ?? "")
+                Text(remoteinfonumbersremotecatalog.totalNumber)
             }
             HStack {
                 Text("Number of catalogs" + ": ")
-                Text(remoteinfonumbersremotecatalog.totalDirs ?? "")
+                Text(remoteinfonumbersremotecatalog.totalDirs)
             }
             HStack {
                 Text("Total size (kB)" + ": ")
-                Text(remoteinfonumbersremotecatalog.totalNumberSizebytes ?? "")
+                Text(remoteinfonumbersremotecatalog.totalNumberSizebytes)
             }
         }
     }
 
-    var remoteinfonumberslocalcatalog: RemoteinfoNumbers {
-        return RemoteinfoNumbers(data: localdata)
+    var remoteinfonumberslocalcatalog: RemoteinfonumbersOnetask {
+        // return RemoteinfoNumbers(data: localdata)
+        return RemoteinfonumbersOnetask(hiddenID: selectedconfig?.hiddenID, outputfromrsync: localdata, config: selectedconfig)
     }
 
-    var remoteinfonumbersremotecatalog: RemoteinfoNumbers {
-        return RemoteinfoNumbers(data: remotedata)
+    var remoteinfonumbersremotecatalog: RemoteinfonumbersOnetask {
+        return RemoteinfonumbersOnetask(hiddenID: selectedconfig?.hiddenID, outputfromrsync: remotedata, config: selectedconfig)
     }
 }
 
