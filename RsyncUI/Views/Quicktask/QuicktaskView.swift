@@ -76,10 +76,7 @@ struct QuicktaskView: View {
                 }
             }
 
-            if showprogressview {
-                ProgressView()
-                    .frame(width: 50.0, height: 50.0)
-            }
+            if showprogressview { ProgressView() }
 
             if focusaborttask { labelaborttask }
         }

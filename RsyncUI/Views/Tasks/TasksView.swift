@@ -177,7 +177,6 @@ struct TasksView: View {
 
     var progressviewestimateasync: some View {
         ProgressView()
-            .frame(width: 50.0, height: 50.0)
             .onAppear {
                 Task {
                     if selectedconfig != nil && selecteduuids.count == 0 {
@@ -206,7 +205,6 @@ struct TasksView: View {
 
     var showinfotask: some View {
         ProgressView()
-            .frame(width: 50.0, height: 50.0)
             .onAppear(perform: {
                 let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig)
                     .argumentslocalcataloginfo(dryRun: true, forDisplay: false)

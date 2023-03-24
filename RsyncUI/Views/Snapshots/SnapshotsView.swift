@@ -95,10 +95,7 @@ struct SnapshotsView: View {
                 if selectatask == true { notifyselecttask }
                 if snapshotdata.inprogressofdelete == true { progressdelete }
                 if notsnapshot == true { notasnapshottask }
-                if snapshotdata.state == .getdata {
-                    ProgressView()
-                        .frame(width: 50.0, height: 50.0)
-                }
+                if snapshotdata.state == .getdata { ProgressView() }
             }
 
             Spacer()

@@ -40,7 +40,7 @@ struct ExecuteNoestimateOneTaskView: View {
             // When completed
             if inprogresscountmultipletask.executeasyncnoestimationcompleted == true { labelcompleted }
 
-            if progressviewshowinfo { progressviewexecuteasync }
+            if progressviewshowinfo { ProgressView() }
         }
         HStack {
             Spacer()
@@ -54,11 +54,6 @@ struct ExecuteNoestimateOneTaskView: View {
             }
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
-    }
-
-    var progressviewexecuteasync: some View {
-        ProgressView()
-            .frame(width: 50.0, height: 50.0)
     }
 
     // When status execution is .completed, present label and execute completed.

@@ -48,10 +48,7 @@ struct RestoreView: View {
                     setpathforrestore
                 }
 
-                if restore.restorefilesinprogress == true {
-                    ProgressView()
-                        .frame(width: 50.0, height: 50.0)
-                }
+                if restore.restorefilesinprogress == true { ProgressView() }
             }
 
             Spacer()

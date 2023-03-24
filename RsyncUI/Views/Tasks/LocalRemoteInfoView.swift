@@ -38,10 +38,7 @@ struct LocalRemoteInfoView: View {
         HStack {
             Spacer()
 
-            if gettingremotedata {
-                ProgressView()
-                    .frame(width: 50.0, height: 50.0)
-            }
+            if gettingremotedata { ProgressView() }
 
             Spacer()
 

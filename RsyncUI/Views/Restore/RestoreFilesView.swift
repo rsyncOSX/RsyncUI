@@ -34,12 +34,7 @@ struct RestoreFilesView: View {
 
             Spacer()
 
-            if restorefilelist.gettingfilelist == true {
-                ZStack {
-                    ProgressView()
-                        .frame(width: 50.0, height: 50.0)
-                }
-            }
+            if restorefilelist.gettingfilelist == true { ProgressView() }
 
             if focusaborttask { labelaborttask }
 
