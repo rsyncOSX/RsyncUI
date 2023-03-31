@@ -48,6 +48,8 @@ struct TasksView: View {
     // Modale view
     @State private var modaleview = false
     @StateObject var sheetchooser = SheetChooser()
+    // Repeat
+    @State private var repeatisneabled: Bool = false
 
     var body: some View {
         ZStack {
