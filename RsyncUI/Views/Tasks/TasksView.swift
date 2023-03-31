@@ -142,6 +142,9 @@ struct TasksView: View {
             }
         }
         .sheet(isPresented: $modaleview) { makeSheet() }
+        .onAppear {
+            // repeattasks()
+        }
     }
 
     @ViewBuilder
@@ -348,6 +351,13 @@ extension TasksView {
         sheetchooser.sheet = .localremoteinfo
         modaleview = true
     }
+
+    func repeattasks() {
+        let time = DispatchTime.now() + 10.0
+        DispatchQueue.main.asyncAfter(deadline: time) {
+            focusstartestimation = true
+        }
+    }
 }
 
 enum Sheet: String, Identifiable {
@@ -362,8 +372,4 @@ final class SheetChooser: ObservableObject {
     var sheet: Sheet = .dryrun
 }
 
-/*
- DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-     selectatask = false
- }
- */
+// swiftlint:enable line_length
