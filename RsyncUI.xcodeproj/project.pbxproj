@@ -680,13 +680,13 @@
 		E985C64E25F3AD8400CB895C /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				E9A6A42329CA076200C59183 /* TasksView.swift */,
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedTasksView.swift */,
 				E9134B4829893BF900FDD55D /* ExecuteNoestimatedTasksView.swift */,
 				E9549A84298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift */,
 				E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */,
 				E904E02D275CED770070DF92 /* FirsttimeView.swift */,
 				E9FAE97828DF4F8F000C0F93 /* LocalRemoteInfoView.swift */,
-				E9A6A42329CA076200C59183 /* TasksView.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";

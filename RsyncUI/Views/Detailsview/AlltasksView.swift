@@ -15,13 +15,23 @@ struct AlltasksView: View {
         VStack {
             Table(data) {
                 TableColumn("Profile") { data in
-                    Text(data.profile ?? "")
+                    if markconfig(data) {
+                        Text(data.profile ?? "")
+                            .foregroundColor(.red)
+                    } else {
+                        Text(data.profile ?? "")
+                    }
                 }
                 .width(min: 100, max: 200)
                 TableColumn("Synchronize ID", value: \.backupID)
                     .width(min: 100, max: 200)
                 TableColumn("Last") { data in
-                    Text(data.dateRun ?? "")
+                    if markconfig(data) {
+                        Text(data.dateRun ?? "")
+                            .foregroundColor(.red)
+                    } else {
+                        Text(data.dateRun ?? "")
+                    }
                 }
                 .width(max: 120)
                 TableColumn("Task", value: \.task)
@@ -65,5 +75,17 @@ struct AlltasksView: View {
 extension AlltasksView {
     func dismissview() {
         isPresented = false
+    }
+
+    func markconfig(_ config: Configuration?) -> Bool {
+        if let dateRun = config?.dateRun {
+            if let secondssince = config?.lastruninseconds {
+                let dayssincelastbackup = String(format: "%.2f", secondssince / (60 * 60 * 24))
+                if secondssince / (60 * 60 * 24) > SharedReference.shared.marknumberofdayssince {
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
