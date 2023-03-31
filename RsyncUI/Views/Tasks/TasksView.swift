@@ -125,6 +125,10 @@ struct TasksView: View {
 
             Spacer()
 
+            ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $repeatisneabled.onChange {
+                repeattasks()
+            })
+
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
                 .tooltip("Shortcut ⌘A")
@@ -144,9 +148,6 @@ struct TasksView: View {
             }
         }
         .sheet(isPresented: $modaleview) { makeSheet() }
-        .onAppear {
-            // repeattasks()
-        }
     }
 
     @ViewBuilder
@@ -355,9 +356,15 @@ extension TasksView {
     }
 
     func repeattasks() {
-        let time = DispatchTime.now() + 10.0
-        DispatchQueue.main.asyncAfter(deadline: time) {
-            focusstartestimation = true
+        SharedReference.shared.workitem = DispatchWorkItem { focusstartestimation = true }
+        guard repeatisneabled == true else {
+            repeatisneabled = false
+            SharedReference.shared.workitem?.cancel()
+            return
+        }
+        let time = DispatchTime.now() + 5.0
+        if let workitem = SharedReference.shared.workitem {
+            DispatchQueue.main.asyncAfter(deadline: time, execute: workitem)
         }
     }
 }
