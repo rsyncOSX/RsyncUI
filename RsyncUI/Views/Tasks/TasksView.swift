@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/03/2023.
 //
-// swiftlint:disable line_length
+// swiftlint:disable line_length file_length
 
 import Network
 import SwiftUI
@@ -295,9 +295,15 @@ struct TasksView: View {
     }
 
     var repeattitle: some View {
-        Text("Repeat is ON")
-            .modifier(Tagheading(.title2, .leading))
-            .foregroundColor(Color.blue)
+        HStack {
+            Text("Repeat is ON: ")
+                .modifier(Tagheading(.title, .leading))
+                .foregroundColor(Color.blue)
+
+            Counter()
+                // .frame(width: 25, height: 25, alignment: .center)
+                .foregroundColor(Color.blue)
+        }
     }
 }
 
@@ -373,7 +379,7 @@ extension TasksView {
             sheetchooser.sheet = .estimateddetailsview
             modaleview = true
         }
-        let time = DispatchTime.now() + 5.0
+        let time = DispatchTime.now() + 30.0
         if let workitem = SharedReference.shared.workitem {
             DispatchQueue.main.asyncAfter(deadline: time, execute: workitem)
         }
@@ -392,4 +398,20 @@ final class SheetChooser: ObservableObject {
     var sheet: Sheet = .dryrun
 }
 
-// swiftlint:enable line_length
+struct Counter: View {
+    @State private var count = 30
+    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+
+    var body: some View {
+        Text("\(count)")
+            .font(.largeTitle)
+            .onReceive(timer) { _ in
+                count -= 5
+                if count <= 0 {
+                    timer.upstream.connect().cancel()
+                }
+            }
+    }
+}
+
+// swiftlint:enable line_length file_length
