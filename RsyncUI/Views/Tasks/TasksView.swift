@@ -50,7 +50,7 @@ struct TasksView: View {
     @StateObject var sheetchooser = SheetChooser()
     // Repeat
     @State private var repeatisneabled: Bool = false
-    @State private var timer: Int = 30
+    @State private var timer: Double = 30
 
     var body: some View {
         ZStack {
@@ -127,14 +127,18 @@ struct TasksView: View {
 
             Spacer()
 
-            ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $repeatisneabled.onChange {
-                if repeatisneabled == false {
-                    SharedReference.shared.workitem?.cancel()
-                    SharedReference.shared.workitem = nil
-                } else {
-                    repeattasks()
-                }
-            })
+            HStack {
+                ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $repeatisneabled.onChange {
+                    if repeatisneabled == false {
+                        SharedReference.shared.workitem?.cancel()
+                        SharedReference.shared.workitem = nil
+                    } else {
+                        repeattasks()
+                    }
+                })
+
+                timerpicker
+            }
 
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
@@ -305,6 +309,21 @@ struct TasksView: View {
                 .foregroundColor(Color.blue)
         }
     }
+
+    var timerpicker: some View {
+        HStack {
+            Picker("", selection: $timer) {
+                ForEach(Timervalues().values, id: \.self) { value in
+                    Text(String(value))
+                        .tag(value)
+                }
+            }
+            .frame(width: 180)
+            .accentColor(.blue)
+
+            Spacer()
+        }
+    }
 }
 
 extension TasksView {
@@ -379,7 +398,7 @@ extension TasksView {
             sheetchooser.sheet = .estimateddetailsview
             modaleview = true
         }
-        let time = DispatchTime.now() + 30.0
+        let time = DispatchTime.now() + timer
         if let workitem = SharedReference.shared.workitem {
             DispatchQueue.main.asyncAfter(deadline: time, execute: workitem)
         }
@@ -399,7 +418,7 @@ final class SheetChooser: ObservableObject {
 }
 
 struct Counter: View {
-    @Binding var count: Int
+    @Binding var count: Double
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 
     var body: some View {
@@ -412,6 +431,10 @@ struct Counter: View {
                 }
             }
     }
+}
+
+struct Timervalues: Hashable {
+    let values: [Double] = [10, 20, 30, 40, 50]
 }
 
 // swiftlint:enable line_length file_length
