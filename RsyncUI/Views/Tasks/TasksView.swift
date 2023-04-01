@@ -50,6 +50,7 @@ struct TasksView: View {
     @StateObject var sheetchooser = SheetChooser()
     // Repeat
     @State private var repeatisneabled: Bool = false
+    @State private var timer: Int = 30
 
     var body: some View {
         ZStack {
@@ -300,8 +301,7 @@ struct TasksView: View {
                 .modifier(Tagheading(.title, .leading))
                 .foregroundColor(Color.blue)
 
-            Counter()
-                // .frame(width: 25, height: 25, alignment: .center)
+            Counter(count: $timer)
                 .foregroundColor(Color.blue)
         }
     }
@@ -399,7 +399,7 @@ final class SheetChooser: ObservableObject {
 }
 
 struct Counter: View {
-    @State private var count = 30
+    @Binding var count: Int
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 
     var body: some View {
