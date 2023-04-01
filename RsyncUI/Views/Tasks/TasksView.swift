@@ -76,6 +76,7 @@ struct TasksView: View {
                 if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
+                if repeatisneabled { repeattitle }
             }
         }
 
@@ -126,7 +127,12 @@ struct TasksView: View {
             Spacer()
 
             ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $repeatisneabled.onChange {
-                repeattasks()
+                if repeatisneabled == false {
+                    SharedReference.shared.workitem?.cancel()
+                    SharedReference.shared.workitem = nil
+                } else {
+                    repeattasks()
+                }
             })
 
             Button("Abort") { abort() }
@@ -287,6 +293,12 @@ struct TasksView: View {
         Text("Most recent updated tasks on top of list")
             .foregroundColor(Color.blue)
     }
+
+    var repeattitle: some View {
+        Text("Repeat is ON")
+            .modifier(Tagheading(.title2, .leading))
+            .foregroundColor(Color.blue)
+    }
 }
 
 extension TasksView {
@@ -356,11 +368,10 @@ extension TasksView {
     }
 
     func repeattasks() {
-        SharedReference.shared.workitem = DispatchWorkItem { focusstartestimation = true }
-        guard repeatisneabled == true else {
-            repeatisneabled = false
-            SharedReference.shared.workitem?.cancel()
-            return
+        SharedReference.shared.workitem = DispatchWorkItem {
+            // focusstartestimation = true
+            sheetchooser.sheet = .estimateddetailsview
+            modaleview = true
         }
         let time = DispatchTime.now() + 5.0
         if let workitem = SharedReference.shared.workitem {
