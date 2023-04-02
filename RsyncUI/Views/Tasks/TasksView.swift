@@ -444,7 +444,7 @@ struct Counter: View {
     let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        Text("\(count / 60) " + "minutes")
+        Text("\(Int(count / 60)) " + "minutes")
             .font(.largeTitle)
             .onReceive(timer) { _ in
                 count -= 5
