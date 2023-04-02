@@ -416,9 +416,7 @@ extension TasksView {
 
     func repeattasks() {
         SharedReference.shared.workitem = DispatchWorkItem {
-            // focusstartestimation = true
-            sheetchooser.sheet = .estimateddetailsview
-            modaleview = true
+            focusstartexecution = true
         }
         let time = DispatchTime.now() + timer
         if let workitem = SharedReference.shared.workitem {
