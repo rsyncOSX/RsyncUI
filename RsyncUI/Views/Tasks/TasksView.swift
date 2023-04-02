@@ -319,21 +319,24 @@ struct TasksView: View {
                     repeattasks()
                 }
             }) {
-                ForEach(Timervalues().values, id: \.self) { value in
+                ForEach(Timervalues().values.sorted(by: <), id: \.self) { value in
                     switch value {
-                    case 600:
+                    case 300.0:
+                        Text("5 min")
+                            .tag(value)
+                    case 600.0:
                         Text("10 min")
                             .tag(value)
-                    case 1800:
+                    case 1800.0:
                         Text("30 min")
                             .tag(value)
-                    case 2700:
+                    case 2700.0:
                         Text("45 min")
                             .tag(value)
-                    case 3600:
+                    case 3600.0:
                         Text("1 hour")
                             .tag(value)
-                    case 7200:
+                    case 7200.0:
                         Text("2 hours")
                             .tag(value)
                     default:
@@ -445,7 +448,7 @@ struct Counter: View {
         Text("\(Int(count / 60)) " + "minutes")
             .font(.largeTitle)
             .onReceive(timer) { _ in
-                count -= 5
+                count -= 60
                 if count <= 0 {
                     timer.upstream.connect().cancel()
                 }
@@ -454,6 +457,8 @@ struct Counter: View {
 
     var timervalue: Double {
         switch count {
+        case 300:
+            return 30
         case 600:
             return 60
         case 1800:
@@ -470,8 +475,8 @@ struct Counter: View {
     }
 }
 
-struct Timervalues: Hashable {
-    let values: [Double] = [600, 1800, 2700, 3600, 7200]
+struct Timervalues {
+    let values: Set = [300.0, 600.0, 1800.0, 2700.0, 3600.0, 7200.0]
 }
 
 // swiftlint:enable line_length file_length
