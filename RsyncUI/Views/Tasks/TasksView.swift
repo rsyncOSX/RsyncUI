@@ -50,7 +50,7 @@ struct TasksView: View {
     @StateObject var sheetchooser = SheetChooser()
     // Repeat
     @State private var repeatisneabled: Bool = false
-    @State private var timer: Double = 30
+    @State private var timer: Double = 600
 
     var body: some View {
         ZStack {
@@ -314,14 +314,30 @@ struct TasksView: View {
         HStack {
             Picker("", selection: $timer) {
                 ForEach(Timervalues().values, id: \.self) { value in
-                    Text(String(value))
-                        .tag(value)
+                    switch value {
+                    case 600:
+                        Text("10 min")
+                            .tag(value)
+                    case 1800:
+                        Text("30 min")
+                            .tag(value)
+                    case 2700:
+                        Text("45 min")
+                            .tag(value)
+                    case 3600:
+                        Text("1 hour")
+                            .tag(value)
+                    case 7200:
+                        Text("2 hours")
+                            .tag(value)
+                    default:
+                        Text(String(value))
+                            .tag(value)
+                    }
                 }
             }
-            .frame(width: 180)
+            .frame(width: 80)
             .accentColor(.blue)
-
-            Spacer()
         }
     }
 }
@@ -419,10 +435,10 @@ final class SheetChooser: ObservableObject {
 
 struct Counter: View {
     @Binding var count: Double
-    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        Text("\(count)")
+        Text("\(count / 60) " + "minutes")
             .font(.largeTitle)
             .onReceive(timer) { _ in
                 count -= 5
@@ -431,10 +447,27 @@ struct Counter: View {
                 }
             }
     }
+
+    var timervalue: Double {
+        switch count {
+        case 600:
+            return 60
+        case 1800:
+            return 180
+        case 2700:
+            return 270
+        case 3600:
+            return 360
+        case 7200:
+            return 720
+        default:
+            return 60
+        }
+    }
 }
 
 struct Timervalues: Hashable {
-    let values: [Double] = [10, 20, 30, 40, 50]
+    let values: [Double] = [600, 1800, 2700, 3600, 7200]
 }
 
 // swiftlint:enable line_length file_length
