@@ -312,7 +312,13 @@ struct TasksView: View {
 
     var timerpicker: some View {
         HStack {
-            Picker("", selection: $timer) {
+            Picker("", selection: $timer.onChange {
+                SharedReference.shared.workitem?.cancel()
+                SharedReference.shared.workitem = nil
+                if repeatisneabled == true {
+                    repeattasks()
+                }
+            }) {
                 ForEach(Timervalues().values, id: \.self) { value in
                     switch value {
                     case 600:
