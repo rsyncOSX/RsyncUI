@@ -77,7 +77,6 @@ struct TasksView: View {
                 if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
-                if repeatisneabled { repeattitle }
             }
         }
 
@@ -120,8 +119,9 @@ struct TasksView: View {
 
             ZStack {
                 VStack {
-                    if alltasksestimated { alltasksestimatedtext }
-                    if estimationstate.estimationstate != .estimate { footer }
+                    if alltasksestimated && repeatisneabled == false { alltasksestimatedtext }
+                    if estimationstate.estimationstate != .estimate && repeatisneabled == false { footer }
+                    if repeatisneabled { repeattitle }
                 }
             }
 

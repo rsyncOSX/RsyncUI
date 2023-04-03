@@ -13,6 +13,7 @@ struct DetailsViewAlreadyEstimated: View {
     @Binding var reload: Bool
     @Binding var isPresented: Bool
     var estimatedlist: [RemoteinfonumbersOnetask]
+    @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
         VStack {
@@ -76,8 +77,8 @@ struct DetailsViewAlreadyEstimated: View {
                 .frame(width: 450, height: 50, alignment: .center)
             }
 
-            List(outputfromrsync, id: \.self) { line in
-                Text(line)
+            List(outputfromrsync.output) { output in
+                Text(output.line)
                     .modifier(FixedTag(750, .leading))
             }
 
@@ -92,16 +93,16 @@ struct DetailsViewAlreadyEstimated: View {
         }
         .padding()
         .frame(minWidth: 900, minHeight: 500)
+        .onAppear {
+            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selectedconfig?.id }
+            if output.count > 0 {
+                outputfromrsync.generatedata(output[0].outputfromrsync)
+            }
+        }
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {
         return estimatedlist.filter { $0.id == selectedconfig?.id }
-    }
-
-    var outputfromrsync: [String] {
-        let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selectedconfig?.id }
-        guard output.count > 0 else { return [] }
-        return output[0].outputfromrsync ?? []
     }
 }
 
