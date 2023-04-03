@@ -9,3 +9,4 @@ clean:
 	rm -Rf info.plist
 	rm -Rf Logs
 	rm -rf SourcePackages
+	rm -rf SDKStatCaches.noindex
