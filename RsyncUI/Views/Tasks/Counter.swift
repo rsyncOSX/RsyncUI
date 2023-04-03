@@ -23,6 +23,9 @@ struct Counter: View {
                     execute = true
                 }
             }
+            .onDisappear {
+                timer.upstream.connect().cancel()
+            }
     }
 
     var timervalue: Double {
