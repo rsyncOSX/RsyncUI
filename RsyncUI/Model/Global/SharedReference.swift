@@ -86,8 +86,6 @@ class SharedReference {
     let defaultprofile = "Default profile"
     // If firstime use
     var firsttime = false
-    // Workitem
-    var workitem: DispatchWorkItem?
 
     private init() {
         synctasks = Set<String>()

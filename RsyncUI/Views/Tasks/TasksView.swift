@@ -130,7 +130,7 @@ struct TasksView: View {
             HStack {
                 ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $repeatisneabled)
 
-                timerpicker
+                if repeatisneabled == false { timerpicker }
             }
 
             Button("Abort") { abort() }
