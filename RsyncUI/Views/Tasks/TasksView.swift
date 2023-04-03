@@ -128,14 +128,7 @@ struct TasksView: View {
             Spacer()
 
             HStack {
-                ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $repeatisneabled.onChange {
-                    if repeatisneabled == false {
-                        SharedReference.shared.workitem?.cancel()
-                        SharedReference.shared.workitem = nil
-                    } else {
-                        repeattasks()
-                    }
-                })
+                ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $repeatisneabled)
 
                 timerpicker
             }
@@ -305,20 +298,14 @@ struct TasksView: View {
                 .modifier(Tagheading(.title, .leading))
                 .foregroundColor(Color.blue)
 
-            Counter(count: $timer)
+            Counter(count: $timer, execute: $focusstartexecution)
                 .foregroundColor(Color.blue)
         }
     }
 
     var timerpicker: some View {
         HStack {
-            Picker("", selection: $timer.onChange {
-                SharedReference.shared.workitem?.cancel()
-                SharedReference.shared.workitem = nil
-                if repeatisneabled == true {
-                    repeattasks()
-                }
-            }) {
+            Picker("", selection: $timer) {
                 ForEach(Timervalues().values.sorted(by: <), id: \.self) { value in
                     switch value {
                     case 300.0:
@@ -414,15 +401,17 @@ extension TasksView {
         modaleview = true
     }
 
-    func repeattasks() {
-        SharedReference.shared.workitem = DispatchWorkItem {
-            focusstartexecution = true
+    /*
+        func repeattasks() {
+            SharedReference.shared.workitem = DispatchWorkItem {
+                focusstartexecution = true
+            }
+            let time = DispatchTime.now() + timer
+            if let workitem = SharedReference.shared.workitem {
+                DispatchQueue.main.asyncAfter(deadline: time, execute: workitem)
+            }
         }
-        let time = DispatchTime.now() + timer
-        if let workitem = SharedReference.shared.workitem {
-            DispatchQueue.main.asyncAfter(deadline: time, execute: workitem)
-        }
-    }
+     */
 }
 
 enum Sheet: String, Identifiable {
