@@ -400,18 +400,6 @@ extension TasksView {
         sheetchooser.sheet = .localremoteinfo
         modaleview = true
     }
-
-    /*
-        func repeattasks() {
-            SharedReference.shared.workitem = DispatchWorkItem {
-                focusstartexecution = true
-            }
-            let time = DispatchTime.now() + timer
-            if let workitem = SharedReference.shared.workitem {
-                DispatchQueue.main.asyncAfter(deadline: time, execute: workitem)
-            }
-        }
-     */
 }
 
 enum Sheet: String, Identifiable {

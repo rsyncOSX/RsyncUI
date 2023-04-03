@@ -14,10 +14,9 @@ struct Counter: View {
     let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        Text("\(Int(count / 60)) " + "minutes")
+        Text("\(Int(count / 60)) " + "minute(s)")
             .font(.largeTitle)
             .onReceive(timer) { _ in
-                print("counting")
                 count -= 60
                 if count <= 0 {
                     timer.upstream.connect().cancel()
