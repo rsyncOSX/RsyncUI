@@ -336,9 +336,6 @@ struct TasksView: View {
                     case 3600.0:
                         Text("1 hour")
                             .tag(value)
-                    case 7200.0:
-                        Text("2 hours")
-                            .tag(value)
                     default:
                         Text(String(value))
                             .tag(value)
@@ -438,45 +435,6 @@ final class SheetChooser: ObservableObject {
     // Do not redraw view when changing
     // no @Publised
     var sheet: Sheet = .dryrun
-}
-
-struct Counter: View {
-    @Binding var count: Double
-    let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
-
-    var body: some View {
-        Text("\(Int(count / 60)) " + "minutes")
-            .font(.largeTitle)
-            .onReceive(timer) { _ in
-                count -= 60
-                if count <= 0 {
-                    timer.upstream.connect().cancel()
-                }
-            }
-    }
-
-    var timervalue: Double {
-        switch count {
-        case 300:
-            return 30
-        case 600:
-            return 60
-        case 1800:
-            return 180
-        case 2700:
-            return 270
-        case 3600:
-            return 360
-        case 7200:
-            return 720
-        default:
-            return 60
-        }
-    }
-}
-
-struct Timervalues {
-    let values: Set = [300.0, 600.0, 1800.0, 2700.0, 3600.0, 7200.0]
 }
 
 // swiftlint:enable line_length file_length
