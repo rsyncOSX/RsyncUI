@@ -294,7 +294,7 @@ struct TasksView: View {
 
     var repeattitle: some View {
         HStack {
-            Text("Counter is ON: ")
+            Text("Timer is ON: ")
                 .modifier(Tagheading(.title, .leading))
                 .foregroundColor(Color.blue)
 
