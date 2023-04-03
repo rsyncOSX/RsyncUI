@@ -49,8 +49,8 @@ struct TasksView: View {
     @State private var modaleview = false
     @StateObject var sheetchooser = SheetChooser()
     // Repeat
-    @State private var repeatisneabled: Bool = false
-    @State private var timer: Double = 600
+    @State private var timerisneabled: Bool = false
+    @State private var timervalue: Double = 600
 
     var body: some View {
         ZStack {
@@ -119,18 +119,18 @@ struct TasksView: View {
 
             ZStack {
                 VStack {
-                    if alltasksestimated && repeatisneabled == false { alltasksestimatedtext }
-                    if estimationstate.estimationstate != .estimate && repeatisneabled == false { footer }
-                    if repeatisneabled { repeattitle }
+                    if alltasksestimated && timerisneabled == false { alltasksestimatedtext }
+                    if estimationstate.estimationstate != .estimate && timerisneabled == false { footer }
+                    if timerisneabled { timertitle }
                 }
             }
 
             Spacer()
 
             HStack {
-                ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $repeatisneabled)
+                ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $timerisneabled)
 
-                if repeatisneabled == false { timerpicker }
+                if timerisneabled == false { timerpicker }
             }
 
             Button("Abort") { abort() }
@@ -292,20 +292,20 @@ struct TasksView: View {
             .foregroundColor(Color.blue)
     }
 
-    var repeattitle: some View {
+    var timertitle: some View {
         HStack {
             Text("Timer is ON: ")
                 .modifier(Tagheading(.title, .leading))
                 .foregroundColor(Color.blue)
 
-            Counter(count: $timer, execute: $focusstartexecution)
+            Counter(timervalue: $timervalue, execute: $focusstartexecution)
                 .foregroundColor(Color.blue)
         }
     }
 
     var timerpicker: some View {
         HStack {
-            Picker("", selection: $timer) {
+            Picker("", selection: $timervalue) {
                 ForEach(Timervalues().values.sorted(by: <), id: \.self) { value in
                     switch value {
                     case 300.0:

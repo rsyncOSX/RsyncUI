@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct Counter: View {
-    @Binding var count: Double
+    @Binding var timervalue: Double
     @Binding var execute: Bool
 
     let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        Text("\(Int(count / 60)) " + "minute(s)")
+        Text("\(Int(timervalue / 60)) " + "minute(s)")
             .font(.largeTitle)
             .onReceive(timer) { _ in
-                count -= 60
-                if count <= 0 {
+                timervalue -= 60
+                if timervalue <= 0 {
                     timer.upstream.connect().cancel()
                     execute = true
                 }
@@ -26,23 +26,6 @@ struct Counter: View {
             .onDisappear {
                 timer.upstream.connect().cancel()
             }
-    }
-
-    var timervalue: Double {
-        switch count {
-        case 300:
-            return 30
-        case 600:
-            return 60
-        case 1800:
-            return 180
-        case 2700:
-            return 270
-        case 3600:
-            return 360
-        default:
-            return 60
-        }
     }
 }
 
