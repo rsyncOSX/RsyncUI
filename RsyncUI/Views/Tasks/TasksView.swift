@@ -333,6 +333,9 @@ struct TasksView: View {
             Picker("", selection: $timervalue) {
                 ForEach(Timervalues().values.sorted(by: <), id: \.self) { value in
                     switch value {
+                    case 60.0:
+                        Text("1 min")
+                            .tag(value)
                     case 300.0:
                         Text("5 min")
                             .tag(value)
