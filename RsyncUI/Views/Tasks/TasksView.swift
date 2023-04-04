@@ -203,7 +203,7 @@ struct TasksView: View {
             AlertToast(type: .regular,
                        title: Optional("Timer was inactive"), subTitle: Optional("Activated again"))
                 .onAppear(perform: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         modaleview = false
                     }
                 })
