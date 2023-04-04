@@ -54,7 +54,7 @@ struct TasksView: View {
     // Timer
     // @State private var timerisenabled: Bool = false
     @Binding var timerisenabled: Bool
-    @State private var timervalue: Double = 600
+    @Binding var timervalue: Double
 
     var body: some View {
         ZStack {
