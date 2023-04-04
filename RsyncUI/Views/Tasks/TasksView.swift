@@ -4,12 +4,14 @@
 //
 //  Created by Thomas Evensen on 21/03/2023.
 //
-// swiftlint:disable line_length file_length
+// swiftlint:disable line_length file_length type_body_length
 
 import Network
 import SwiftUI
 
 struct TasksView: View {
+    @SwiftUI.Environment(\.scenePhase) var scenePhase
+
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
@@ -48,8 +50,10 @@ struct TasksView: View {
     // Modale view
     @State private var modaleview = false
     @StateObject var sheetchooser = SheetChooser()
-    // Repeat
-    @State private var timerisneabled: Bool = false
+
+    // Timer
+    // @State private var timerisenabled: Bool = false
+    @Binding var timerisenabled: Bool
     @State private var timervalue: Double = 600
 
     var body: some View {
@@ -119,18 +123,18 @@ struct TasksView: View {
 
             ZStack {
                 VStack {
-                    if alltasksestimated && timerisneabled == false { alltasksestimatedtext }
-                    if estimationstate.estimationstate != .estimate && timerisneabled == false { footer }
-                    if timerisneabled { timertitle }
+                    if alltasksestimated && timerisenabled == false { alltasksestimatedtext }
+                    if estimationstate.estimationstate != .estimate && timerisenabled == false { footer }
+                    if timerisenabled { timertitle }
                 }
             }
 
             Spacer()
 
             HStack {
-                ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $timerisneabled)
+                ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $timerisenabled)
 
-                if timerisneabled == false { timerpicker }
+                if timerisenabled == false { timerpicker }
             }
 
             Button("Abort") { abort() }
@@ -152,6 +156,19 @@ struct TasksView: View {
             }
         }
         .sheet(isPresented: $modaleview) { makeSheet() }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .inactive {
+                // print("Inactive")
+                if timerisenabled == true {
+                    sheetchooser.sheet = .isinactive
+                    modaleview = true
+                }
+            } else if newPhase == .active {
+                // print("Active")
+            } else if newPhase == .background {
+                // print("Background")
+            }
+        }
     }
 
     @ViewBuilder
@@ -182,6 +199,14 @@ struct TasksView: View {
             LocalRemoteInfoView(dismiss: $modaleview,
                                 localdata: $localdata,
                                 selectedconfig: $selectedconfig)
+        case .isinactive:
+            AlertToast(type: .regular,
+                       title: Optional("Timer was inactive"), subTitle: Optional("Activated again"))
+                .onAppear(perform: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                        modaleview = false
+                    }
+                })
         }
     }
 
@@ -403,7 +428,7 @@ extension TasksView {
 }
 
 enum Sheet: String, Identifiable {
-    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo
+    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, isinactive
     var id: String { rawValue }
 }
 
@@ -414,4 +439,4 @@ final class SheetChooser: ObservableObject {
     var sheet: Sheet = .dryrun
 }
 
-// swiftlint:enable line_length file_length
+// swiftlint:enable line_length file_length type_body_length
