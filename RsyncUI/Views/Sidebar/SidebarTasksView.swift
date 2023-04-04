@@ -77,10 +77,12 @@ struct SidebarTasksView: View {
                       showexecutenoestimateview: $showexecuteNOEstimateview,
                       showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
                       selection: $selection,
-                      timerisenabled: $timerisenabled,
-                      timervalue: $timervalue.onChange {
-                          timervaluesetbyuser.timervalue = timervalue
-                      })
+                      timerisenabled: $timerisenabled.onChange {
+                          if Timervalues().values.contains(timervalue) {
+                              timervaluesetbyuser.timervalue = timervalue
+                          }
+                      },
+                      timervalue: $timervalue)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
