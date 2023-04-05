@@ -132,7 +132,7 @@ struct TasksView: View {
             Spacer()
 
             HStack {
-                ToggleViewDefault(NSLocalizedString("Repeat", comment: ""), $timerisenabled)
+                ToggleViewDefault(NSLocalizedString("Timer", comment: ""), $timerisenabled)
 
                 if timerisenabled == false { timerpicker }
             }
