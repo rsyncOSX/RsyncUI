@@ -201,7 +201,7 @@ struct TasksView: View {
                                 selectedconfig: $selectedconfig)
         case .isinactive:
             AlertToast(type: .regular,
-                       title: Optional("Timer was inactive"), subTitle: Optional("Activated again"))
+                       title: Optional("Timer was active"), subTitle: Optional("Activated again"))
                 .onAppear(perform: {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         modaleview = false
@@ -319,13 +319,14 @@ struct TasksView: View {
 
     var timertitle: some View {
         HStack {
-            Text("Timer is ON: ")
-                .modifier(Tagheading(.title, .leading))
-                .foregroundColor(Color.blue)
-
+            VStack {
+                Text("Timer is counting down: ")
+                Text("Do not minimize RsyncUI while timer is active")
+            }
             Counter(timervalue: $timervalue, execute: $focusstartexecution)
-                .foregroundColor(Color.blue)
         }
+        .modifier(Tagheading(.title2, .leading))
+        .foregroundColor(Color.blue)
     }
 
     var timerpicker: some View {
