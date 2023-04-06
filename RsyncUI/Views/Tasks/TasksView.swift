@@ -158,16 +158,12 @@ struct TasksView: View {
         .sheet(isPresented: $modaleview) { makeSheet() }
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .inactive {
-                // print("Inactive")
                 if timerisenabled == true {
                     sheetchooser.sheet = .isinactive
                     modaleview = true
                 }
             } else if newPhase == .active {
-                // print("Active")
-            } else if newPhase == .background {
-                // print("Background")
-            }
+            } else if newPhase == .background {}
         }
     }
 
@@ -320,7 +316,7 @@ struct TasksView: View {
     var timertitle: some View {
         HStack {
             VStack {
-                Text("Timer is counting down: ")
+                Text("Timer is counting down")
                 Text("Do not minimize RsyncUI while timer is active")
             }
             Counter(timervalue: $timervalue, execute: $focusstartexecution)
