@@ -54,8 +54,9 @@ struct TasksView: View {
     // Timer
     @Binding var timerisenabled: Bool
     @Binding var timervalue: Double
-    @StateObject var deltatimeinseconds = Deltatimeinseconds()
     @StateObject private var timervaluesetbyuser = TimervalueSetbyuser()
+    // May be deleted
+    @StateObject var deltatimeinseconds = Deltatimeinseconds()
 
     var body: some View {
         ZStack {
@@ -337,7 +338,6 @@ struct TasksView: View {
             VStack {
                 Text("Timer: ")
             }
-            // Counter(timervalue: $timervalue, execute: $focusstartexecution)
             Counter(timervalue: $timervalue)
         }
         .modifier(Tagheading(.title, .leading))
@@ -478,18 +478,18 @@ enum Sheet: String, Identifiable {
     var id: String { rawValue }
 }
 
-/*
- enum Sheet: String, Identifiable {
-     case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo
-     var id: String { rawValue }
- }
-
-  */
 final class SheetChooser: ObservableObject {
     // Which sheet to present
     // Do not redraw view when changing
     // no @Publised
     var sheet: Sheet = .dryrun
+}
+
+final class TimervalueSetbyuser: ObservableObject {
+    // Which sheet to present
+    // Do not redraw view when changing
+    // no @Publised
+    var timervalue: Double = 600.0
 }
 
 final class Deltatimeinseconds: ObservableObject {
@@ -502,13 +502,6 @@ final class Deltatimeinseconds: ObservableObject {
         }
         return 0
     }
-}
-
-final class TimervalueSetbyuser: ObservableObject {
-    // Which sheet to present
-    // Do not redraw view when changing
-    // no @Publised
-    var timervalue: Double = 600.0
 }
 
 // swiftlint:enable line_length file_length type_body_length
