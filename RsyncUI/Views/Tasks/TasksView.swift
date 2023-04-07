@@ -52,9 +52,9 @@ struct TasksView: View {
     @StateObject var sheetchooser = SheetChooser()
 
     // Timer
-    // @State private var timerisenabled: Bool = false
     @Binding var timerisenabled: Bool
     @Binding var timervalue: Double
+    @StateObject var deltatimeinseconds = Deltatimeinseconds()
 
     var body: some View {
         ZStack {
@@ -158,12 +158,20 @@ struct TasksView: View {
         .sheet(isPresented: $modaleview) { makeSheet() }
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .inactive {
-                if timerisenabled == true {
-                    sheetchooser.sheet = .isinactive
-                    modaleview = true
-                }
+                /*
+                 if timerisenabled == true {
+                     sheetchooser.sheet = .isinactive
+                     modaleview = true
+                 }
+                  */
+                deltatimeinseconds.timerminimized = Date()
             } else if newPhase == .active {
-            } else if newPhase == .background {}
+                print("active")
+                print(deltatimeinseconds.computeminimizedtime())
+            } else if newPhase == .background {
+                print("background")
+                print(deltatimeinseconds.computeminimizedtime())
+            }
         }
     }
 
@@ -195,6 +203,7 @@ struct TasksView: View {
             LocalRemoteInfoView(dismiss: $modaleview,
                                 localdata: $localdata,
                                 selectedconfig: $selectedconfig)
+        /*
         case .isinactive:
             AlertToast(type: .regular,
                        title: Optional("Timer was active"), subTitle: Optional("Activated again"))
@@ -203,6 +212,7 @@ struct TasksView: View {
                         modaleview = false
                     }
                 })
+         */
         }
     }
 
@@ -319,7 +329,8 @@ struct TasksView: View {
                 Text("Timer is counting")
                 Text("Do not minimize RsyncUI while timer is active")
             }
-            Counter(timervalue: $timervalue, execute: $focusstartexecution)
+            // Counter(timervalue: $timervalue, execute: $focusstartexecution)
+            Counter(timervalue: $timervalue)
         }
         .modifier(Tagheading(.title2, .leading))
         .foregroundColor(Color.blue)
@@ -437,15 +448,22 @@ extension TasksView {
             DispatchQueue.main.asyncAfter(deadline: time, execute: workitem)
         }
     }
-    
+
     func stoptimer() {
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
     }
 }
 
+/*
 enum Sheet: String, Identifiable {
     case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, isinactive
+    var id: String { rawValue }
+}
+*/
+ 
+enum Sheet: String, Identifiable {
+    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo
     var id: String { rawValue }
 }
 
@@ -454,6 +472,18 @@ final class SheetChooser: ObservableObject {
     // Do not redraw view when changing
     // no @Publised
     var sheet: Sheet = .dryrun
+}
+
+final class Deltatimeinseconds: ObservableObject {
+    var timerminimized: Date?
+
+    func computeminimizedtime() -> Double {
+        if let timerminimized = timerminimized {
+            let now = Date()
+            return now.timeIntervalSinceReferenceDate - timerminimized.timeIntervalSinceReferenceDate
+        }
+        return 0
+    }
 }
 
 // swiftlint:enable line_length file_length type_body_length

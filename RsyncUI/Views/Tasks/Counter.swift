@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Counter: View {
     @Binding var timervalue: Double
-    @Binding var execute: Bool
+    // @Binding var execute: Bool
 
     let timer1 = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     let timer2 = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -29,7 +29,7 @@ struct Counter: View {
                 timervalue -= 60
                 if timervalue <= 0 {
                     timer1.upstream.connect().cancel()
-                    execute = true
+                    // execute = true
                 }
             }
             .onDisappear {
@@ -44,7 +44,7 @@ struct Counter: View {
                 timervalue -= 1
                 if timervalue <= 0 {
                     timer2.upstream.connect().cancel()
-                    execute = true
+                    // execute = true
                 }
             }
             .onDisappear {
