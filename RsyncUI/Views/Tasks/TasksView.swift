@@ -125,7 +125,8 @@ struct TasksView: View {
                 VStack {
                     if alltasksestimated && timerisenabled == false { alltasksestimatedtext }
                     if estimationstate.estimationstate != .estimate && timerisenabled == false { footer }
-                    if timerisenabled { timertitle }
+                    // Timer
+                    if timerisenabled && timervalue >= 0 { timerisactive }
                 }
             }
 
@@ -203,16 +204,14 @@ struct TasksView: View {
             LocalRemoteInfoView(dismiss: $modaleview,
                                 localdata: $localdata,
                                 selectedconfig: $selectedconfig)
-        /*
-        case .isinactive:
+        case .timerisworking:
             AlertToast(type: .regular,
-                       title: Optional("Timer was active"), subTitle: Optional("Activated again"))
+                       title: Optional("Timer is active"), subTitle: Optional(""))
                 .onAppear(perform: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                         modaleview = false
                     }
                 })
-         */
         }
     }
 
@@ -323,14 +322,15 @@ struct TasksView: View {
             .foregroundColor(Color.blue)
     }
 
-    var timertitle: some View {
+    var timerisactive: some View {
         HStack {
             VStack {
                 Text("Timer is counting")
-                Text("Do not minimize RsyncUI while timer is active")
             }
             // Counter(timervalue: $timervalue, execute: $focusstartexecution)
-            Counter(timervalue: $timervalue)
+            Counter(timervalue: $timervalue.onChange {
+                starttimer()
+            })
         }
         .modifier(Tagheading(.title2, .leading))
         .foregroundColor(Color.blue)
@@ -439,9 +439,12 @@ extension TasksView {
 
     // Async start and stop timer
     func starttimer() {
+        print("Async start timer is activated")
         SharedReference.shared.workitem = DispatchWorkItem {
             // focusstartexecution = true
-            focusstartestimation = true
+            // focusstartestimation = true
+            sheetchooser.sheet = .timerisworking
+            modaleview = true
         }
         let time = DispatchTime.now() + timervalue
         if let workitem = SharedReference.shared.workitem {
@@ -450,23 +453,24 @@ extension TasksView {
     }
 
     func stoptimer() {
+        print("Async timer is deactivated")
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
     }
 }
 
-/*
 enum Sheet: String, Identifiable {
-    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, isinactive
-    var id: String { rawValue }
-}
-*/
- 
-enum Sheet: String, Identifiable {
-    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo
+    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, timerisworking
     var id: String { rawValue }
 }
 
+/*
+ enum Sheet: String, Identifiable {
+     case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo
+     var id: String { rawValue }
+ }
+
+  */
 final class SheetChooser: ObservableObject {
     // Which sheet to present
     // Do not redraw view when changing
