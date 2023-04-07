@@ -316,7 +316,7 @@ struct TasksView: View {
     var timertitle: some View {
         HStack {
             VStack {
-                Text("Timer is counting down")
+                Text("Timer is counting")
                 Text("Do not minimize RsyncUI while timer is active")
             }
             Counter(timervalue: $timervalue, execute: $focusstartexecution)
@@ -424,6 +424,23 @@ extension TasksView {
         focusshowinfotask = false
         sheetchooser.sheet = .localremoteinfo
         modaleview = true
+    }
+
+    // Async start and stop timer
+    func starttimer() {
+        SharedReference.shared.workitem = DispatchWorkItem {
+            // focusstartexecution = true
+            focusstartestimation = true
+        }
+        let time = DispatchTime.now() + timervalue
+        if let workitem = SharedReference.shared.workitem {
+            DispatchQueue.main.asyncAfter(deadline: time, execute: workitem)
+        }
+    }
+    
+    func stoptimer() {
+        SharedReference.shared.workitem?.cancel()
+        SharedReference.shared.workitem = nil
     }
 }
 
