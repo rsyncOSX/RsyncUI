@@ -55,6 +55,7 @@ struct TasksView: View {
     @Binding var timerisenabled: Bool
     @Binding var timervalue: Double
     @StateObject var deltatimeinseconds = Deltatimeinseconds()
+    @StateObject private var timervaluesetbyuser = TimervalueSetbyuser()
 
     var body: some View {
         ZStack {
@@ -133,7 +134,16 @@ struct TasksView: View {
             Spacer()
 
             HStack {
-                ToggleViewDefault(NSLocalizedString("Timer", comment: ""), $timerisenabled)
+                ToggleViewDefault(NSLocalizedString("Timer", comment: ""), $timerisenabled.onChange {
+                    if timerisenabled == true {
+                        if Timervalues().values.contains(timervalue) {
+                            timervaluesetbyuser.timervalue = timervalue
+                        }
+                        starttimer()
+                    } else {
+                        stoptimer()
+                    }
+                })
 
                 if timerisenabled == false { timerpicker }
             }
@@ -208,7 +218,7 @@ struct TasksView: View {
             AlertToast(type: .regular,
                        title: Optional("Timer is active"), subTitle: Optional(""))
                 .onAppear(perform: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         modaleview = false
                     }
                 })
@@ -325,15 +335,19 @@ struct TasksView: View {
     var timerisactive: some View {
         HStack {
             VStack {
-                Text("Timer is counting")
+                Text("Timer: ")
             }
             // Counter(timervalue: $timervalue, execute: $focusstartexecution)
-            Counter(timervalue: $timervalue.onChange {
-                starttimer()
-            })
+            Counter(timervalue: $timervalue)
         }
-        .modifier(Tagheading(.title2, .leading))
+        .modifier(Tagheading(.title, .leading))
         .foregroundColor(Color.blue)
+        .onDisappear(perform: {
+            timervalue = timervaluesetbyuser.timervalue
+            if timerisenabled == true {
+                starttimer()
+            }
+        })
     }
 
     var timerpicker: some View {
@@ -488,6 +502,13 @@ final class Deltatimeinseconds: ObservableObject {
         }
         return 0
     }
+}
+
+final class TimervalueSetbyuser: ObservableObject {
+    // Which sheet to present
+    // Do not redraw view when changing
+    // no @Publised
+    var timervalue: Double = 600.0
 }
 
 // swiftlint:enable line_length file_length type_body_length

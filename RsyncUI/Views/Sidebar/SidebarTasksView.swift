@@ -24,7 +24,6 @@ struct SidebarTasksView: View {
     // Timer values
     @State private var timerisenabled: Bool = false
     @State private var timervalue: Double = 600
-    @StateObject private var timervaluesetbyuser = TimervalueSetbyuser()
 
     enum Task: String, Identifiable {
         case taskview, executestimatedview, executenoestimatetasksview, executenoestimateonetaskview
@@ -77,18 +76,13 @@ struct SidebarTasksView: View {
                       showexecutenoestimateview: $showexecuteNOEstimateview,
                       showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
                       selection: $selection,
-                      timerisenabled: $timerisenabled.onChange {
-                          if Timervalues().values.contains(timervalue) {
-                              timervaluesetbyuser.timervalue = timervalue
-                          }
-                      },
+                      timerisenabled: $timerisenabled,
                       timervalue: $timervalue)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
                                       showeexecutestimatedview: $showeexecutEstimatedview)
                 .onDisappear(perform: {
-                    timervalue = timervaluesetbyuser.timervalue
                     showcompleted = true
                 })
         case .executenoestimatetasksview:
@@ -98,7 +92,6 @@ struct SidebarTasksView: View {
                                         showcompleted: $showcompleted,
                                         showexecutenoestimateview: $showexecuteNOEstimateview)
                 .onDisappear(perform: {
-                    timervalue = timervaluesetbyuser.timervalue
                     showcompleted = true
                 })
         case .executenoestimateonetaskview:
@@ -125,11 +118,4 @@ struct SidebarTasksView: View {
         }
         .padding()
     }
-}
-
-final class TimervalueSetbyuser: ObservableObject {
-    // Which sheet to present
-    // Do not redraw view when changing
-    // no @Publised
-    var timervalue: Double = 600.0
 }
