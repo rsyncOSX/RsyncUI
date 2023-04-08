@@ -457,10 +457,10 @@ extension TasksView {
     func starttimer() {
         print("Async timer: ACTIVATED")
         SharedReference.shared.workitem = DispatchWorkItem {
-            // focusstartexecution = true
+            focusstartexecution = true
             // focusstartestimation = true
-            sheetchooser.sheet = .timerisworking
-            modaleview = true
+            // sheetchooser.sheet = .timerisworking
+            //modaleview = true
         }
         let time = DispatchTime.now() + timervalue
         if let workitem = SharedReference.shared.workitem {
@@ -494,16 +494,17 @@ final class TimervalueSetbyuser: ObservableObject {
     var timervalue: Double = 600.0
 }
 
-final class Deltatimeinseconds: ObservableObject {
-    var timerminimized: Date?
+/*
+ final class Deltatimeinseconds: ObservableObject {
+     var timerminimized: Date?
 
-    func computeminimizedtime() -> Double {
-        if let timerminimized = timerminimized {
-            let now = Date()
-            return now.timeIntervalSinceReferenceDate - timerminimized.timeIntervalSinceReferenceDate
-        }
-        return 0
-    }
-}
-
+     func computeminimizedtime() -> Double {
+         if let timerminimized = timerminimized {
+             let now = Date()
+             return now.timeIntervalSinceReferenceDate - timerminimized.timeIntervalSinceReferenceDate
+         }
+         return 0
+     }
+ }
+ */
 // swiftlint:enable line_length file_length type_body_length
