@@ -75,7 +75,9 @@ struct SidebarTasksView: View {
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
                       showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
-                      selection: $selection,
+                      selection: $selection.onChange {
+                          timerisenabled = false
+                      },
                       timerisenabled: $timerisenabled,
                       timervalue: $timervalue)
         case .executestimatedview:

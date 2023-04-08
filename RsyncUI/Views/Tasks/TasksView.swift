@@ -49,7 +49,6 @@ struct TasksView: View {
     // Modale view
     @State private var modaleview = false
     @StateObject var sheetchooser = SheetChooser()
-
     // Timer
     @Binding var timerisenabled: Bool
     @Binding var timervalue: Double
@@ -166,7 +165,6 @@ struct TasksView: View {
             }
         }
         .sheet(isPresented: $modaleview) { makeSheet() }
-        .onDisappear { stoptimer() }
         /*
          .onChange(of: scenePhase) { newPhase in
              var loggdata = [String]()
@@ -343,7 +341,7 @@ struct TasksView: View {
         .foregroundColor(Color.blue)
         .onDisappear(perform: {
             timervalue = timervaluesetbyuser.timervalue
-            if timerisenabled == true { starttimer() }
+            if timerisenabled == true, selection == .multipletasks { starttimer() } else { stoptimer() }
         })
     }
 
