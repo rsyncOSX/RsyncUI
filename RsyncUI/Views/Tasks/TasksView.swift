@@ -169,21 +169,19 @@ struct TasksView: View {
         }
         .sheet(isPresented: $modaleview) { makeSheet() }
         .onChange(of: scenePhase) { newPhase in
+            var loggdata = [String]()
+            deltatimeinseconds.timerminimized = Date()
             if newPhase == .inactive {
-                /*
-                 if timerisenabled == true {
-                     sheetchooser.sheet = .isinactive
-                     modaleview = true
-                 }
-                  */
-                deltatimeinseconds.timerminimized = Date()
+                loggdata.append("inactive")
+                loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
             } else if newPhase == .active {
-                print("active")
-                print(deltatimeinseconds.computeminimizedtime())
+                loggdata.append("active")
+                loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
             } else if newPhase == .background {
-                print("background")
-                print(deltatimeinseconds.computeminimizedtime())
+                loggdata.append("background")
+                loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
             }
+            // _ = Logfile(loggdata, error: true)
         }
     }
 
@@ -453,7 +451,7 @@ extension TasksView {
 
     // Async start and stop timer
     func starttimer() {
-        print("Async start timer is activated")
+        print("Async timer: ACTIVATED")
         SharedReference.shared.workitem = DispatchWorkItem {
             // focusstartexecution = true
             // focusstartestimation = true
@@ -467,7 +465,7 @@ extension TasksView {
     }
 
     func stoptimer() {
-        print("Async timer is deactivated")
+        print("Async timer: DEACTIVATED")
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
     }

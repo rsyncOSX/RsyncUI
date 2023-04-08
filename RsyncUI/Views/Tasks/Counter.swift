@@ -28,11 +28,12 @@ struct Counter: View {
                 timervalue -= 60
                 if timervalue <= 0 {
                     timer1.upstream.connect().cancel()
-                    print("Cancel counter")
+                    print("Counter: CANCEL")
                 }
             }
             .onDisappear {
                 timer1.upstream.connect().cancel()
+                print("Counter: CANCEL onDisappaer")
             }
     }
 
@@ -43,11 +44,12 @@ struct Counter: View {
                 timervalue -= 1
                 if timervalue <= 0 {
                     timer2.upstream.connect().cancel()
-                    print("Cancel counter")
+                    print("Counter: CANCEL")
                 }
             }
             .onDisappear {
                 timer2.upstream.connect().cancel()
+                print("Counter: CANCEL onDisappaer")
             }
     }
 }
