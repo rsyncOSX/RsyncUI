@@ -10,8 +10,7 @@ import Network
 import SwiftUI
 
 struct TasksView: View {
-    @SwiftUI.Environment(\.scenePhase) var scenePhase
-
+    // @SwiftUI.Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
@@ -56,7 +55,7 @@ struct TasksView: View {
     @Binding var timervalue: Double
     @StateObject private var timervaluesetbyuser = TimervalueSetbyuser()
     // May be deleted
-    @StateObject var deltatimeinseconds = Deltatimeinseconds()
+    // @StateObject var deltatimeinseconds = Deltatimeinseconds()
 
     var body: some View {
         ZStack {
@@ -145,7 +144,6 @@ struct TasksView: View {
                         stoptimer()
                     }
                 })
-
                 if timerisenabled == false { timerpicker }
             }
 
@@ -168,21 +166,23 @@ struct TasksView: View {
             }
         }
         .sheet(isPresented: $modaleview) { makeSheet() }
-        .onChange(of: scenePhase) { newPhase in
-            var loggdata = [String]()
-            deltatimeinseconds.timerminimized = Date()
-            if newPhase == .inactive {
-                loggdata.append("inactive")
-                loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
-            } else if newPhase == .active {
-                loggdata.append("active")
-                loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
-            } else if newPhase == .background {
-                loggdata.append("background")
-                loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
-            }
-            // _ = Logfile(loggdata, error: true)
-        }
+        /*
+         .onChange(of: scenePhase) { newPhase in
+             var loggdata = [String]()
+             deltatimeinseconds.timerminimized = Date()
+             if newPhase == .inactive {
+                 loggdata.append("inactive")
+                 loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
+             } else if newPhase == .active {
+                 loggdata.append("active")
+                 loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
+             } else if newPhase == .background {
+                 loggdata.append("background")
+                 loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
+             }
+             // _ = Logfile(loggdata, error: true)
+         }
+         */
     }
 
     @ViewBuilder
@@ -418,6 +418,8 @@ extension TasksView {
         selectedconfig = nil
         inprogresscountmultipletask.estimateasync = false
         sheetchooser.sheet = .dryrun
+        timerisenabled = false
+        stoptimer()
     }
 
     func abort() {
@@ -429,6 +431,8 @@ extension TasksView {
         reload = true
         focusstartestimation = false
         focusstartexecution = false
+        timerisenabled = false
+        stoptimer()
     }
 
     func select() {
