@@ -166,6 +166,7 @@ struct TasksView: View {
             }
         }
         .sheet(isPresented: $modaleview) { makeSheet() }
+        .onDisappear { stoptimer() }
         /*
          .onChange(of: scenePhase) { newPhase in
              var loggdata = [String]()
@@ -342,9 +343,7 @@ struct TasksView: View {
         .foregroundColor(Color.blue)
         .onDisappear(perform: {
             timervalue = timervaluesetbyuser.timervalue
-            if timerisenabled == true {
-                starttimer()
-            }
+            if timerisenabled == true { starttimer() }
         })
     }
 
@@ -457,10 +456,10 @@ extension TasksView {
     func starttimer() {
         print("Async timer: ACTIVATED")
         SharedReference.shared.workitem = DispatchWorkItem {
-            focusstartexecution = true
+            // focusstartexecution = true
             // focusstartestimation = true
-            // sheetchooser.sheet = .timerisworking
-            //modaleview = true
+            sheetchooser.sheet = .timerisworking
+            modaleview = true
         }
         let time = DispatchTime.now() + timervalue
         if let workitem = SharedReference.shared.workitem {
