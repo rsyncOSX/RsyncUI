@@ -133,6 +133,8 @@ struct TasksView: View {
             Spacer()
 
             HStack {
+                if timerisenabled == false { timerpicker }
+
                 ToggleViewDefault(NSLocalizedString("Timer", comment: ""), $timerisenabled.onChange {
                     if timerisenabled == true {
                         if Timervalues().values.contains(timervalue) {
@@ -143,7 +145,6 @@ struct TasksView: View {
                         stoptimer()
                     }
                 })
-                if timerisenabled == false { timerpicker }
             }
 
             Button("Abort") { abort() }
