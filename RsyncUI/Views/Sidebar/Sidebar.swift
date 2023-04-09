@@ -9,10 +9,9 @@
 import SwiftUI
 
 enum NavigationItem {
-    case rsync
-    case logs
-    case multipletasks
-    case none
+    case parameterrsync
+    case logsview
+    case tasksview
     case snapshots
     case configurations
     case restore
@@ -33,13 +32,13 @@ struct Sidebar: View {
             Group {
                 NavigationLink(destination: SidebarTasksView(reload: $reload,
                                                              selection: $selection),
-                               tag: NavigationItem.multipletasks,
+                               tag: NavigationItem.tasksview,
                                selection: $selection)
                 {
                     Label("Synchronize",
                           systemImage: "arrowshape.turn.up.left.2.fill")
                 }
-                .tag(NavigationItem.multipletasks)
+                .tag(NavigationItem.tasksview)
 
                 NavigationLink(destination: SidebarQuicktaskView(),
                                tag: NavigationItem.quicktask,
@@ -65,12 +64,12 @@ struct Sidebar: View {
 
                 NavigationLink(destination: SidebarParametersView(selectedprofile: $selectedprofile,
                                                                   reload: $reload),
-                               tag: NavigationItem.rsync,
+                               tag: NavigationItem.parameterrsync,
                                selection: $selection)
                 {
                     Label("Rsync parameters", systemImage: "command.circle.fill")
                 }
-                .tag(NavigationItem.rsync)
+                .tag(NavigationItem.parameterrsync)
             }
 
             Divider()
@@ -88,12 +87,12 @@ struct Sidebar: View {
 
             Group {
                 NavigationLink(destination: SidebarLogsView(selectedprofile: $selectedprofile),
-                               tag: NavigationItem.logs,
+                               tag: NavigationItem.logsview,
                                selection: $selection)
                 {
                     Label("Log listings", systemImage: "text.alignleft")
                 }
-                .tag(NavigationItem.logs)
+                .tag(NavigationItem.logsview)
 
                 NavigationLink(destination: SidebareRestoreView(selectedprofile: $selectedprofile),
                                tag: NavigationItem.restore,

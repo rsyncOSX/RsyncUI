@@ -49,7 +49,7 @@ struct RsyncUIView: View {
         .padding()
         .task {
             // DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            selection = .multipletasks
+            selection = .tasksview
             // }
             await rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()

@@ -341,7 +341,7 @@ struct TasksView: View {
         .foregroundColor(Color.blue)
         .onDisappear(perform: {
             timervalue = timervaluesetbyuser.timervalue
-            if timerisenabled == true, selection == .multipletasks { starttimer() } else { stoptimer() }
+            if timerisenabled == true, selection == .tasksview { starttimer() } else { stoptimer() }
         })
     }
 
