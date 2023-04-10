@@ -31,7 +31,7 @@ class NamesandPaths {
     // Documentscatalog
     var documentscatalog: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-        return (paths.firstObject as? String)
+        return paths.firstObject as? String
     }
 
     // Path to ssh keypath

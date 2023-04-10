@@ -43,7 +43,7 @@ extension Date {
     }
 
     func isSaturday() -> Bool {
-        return (getWeekday() == 7)
+        return getWeekday() == 7
     }
 
     func isSunday() -> Bool {
