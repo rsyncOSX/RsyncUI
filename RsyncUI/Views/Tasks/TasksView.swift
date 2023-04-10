@@ -10,7 +10,6 @@ import Network
 import SwiftUI
 
 struct TasksView: View {
-    @SwiftUI.Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
@@ -53,8 +52,6 @@ struct TasksView: View {
     @Binding var timerisenabled: Bool
     @Binding var timervalue: Double
     @StateObject private var timervaluesetbyuser = TimervalueSetbyuser()
-    // May be deleted
-    @StateObject var deltatimeinseconds = Deltatimeinseconds()
 
     var body: some View {
         ZStack {
@@ -166,16 +163,6 @@ struct TasksView: View {
             }
         }
         .sheet(isPresented: $modaleview) { makeSheet() }
-        .onChange(of: scenePhase) { newPhase in
-            var loggdata = [String]()
-            if newPhase == .inactive {
-                deltatimeinseconds.timerminimized = Date()
-            } else if newPhase == .active {
-                loggdata.append("active again")
-                loggdata.append(String(deltatimeinseconds.computeminimizedtime()))
-                // if timerisenabled { _ = Logfile(loggdata, error: true) }
-            } else if newPhase == .background {}
-        }
     }
 
     @ViewBuilder
@@ -471,6 +458,10 @@ enum Sheet: String, Identifiable {
     var id: String { rawValue }
 }
 
+struct Timervalues {
+    let values: Set = [60.0, 300.0, 600.0, 1800.0, 2700.0, 3600.0]
+}
+
 final class SheetChooser: ObservableObject {
     // Which sheet to present
     // Do not redraw view when changing
@@ -483,18 +474,6 @@ final class TimervalueSetbyuser: ObservableObject {
     // Do not redraw view when changing
     // no @Publised
     var timervalue: Double = 600.0
-}
-
-final class Deltatimeinseconds: ObservableObject {
-    var timerminimized: Date?
-
-    func computeminimizedtime() -> Double {
-        if let timerminimized = timerminimized {
-            let now = Date()
-            return now.timeIntervalSinceReferenceDate - timerminimized.timeIntervalSinceReferenceDate
-        }
-        return 0
-    }
 }
 
 // swiftlint:enable line_length file_length type_body_length

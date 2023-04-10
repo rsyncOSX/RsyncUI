@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct Counter: View {
+    @SwiftUI.Environment(\.scenePhase) var scenePhase
+    // May be deleted
+    @StateObject var deltatimeinseconds = Deltatimeinseconds()
+
     @Binding var timervalue: Double
 
     let timer1 = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
@@ -35,6 +39,13 @@ struct Counter: View {
                 timer1.upstream.connect().cancel()
                 print("Counter: CANCEL onDisappaer")
             }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .inactive {
+                    deltatimeinseconds.timerminimized = Date()
+                } else if newPhase == .active {
+                    deltatimeinseconds.computeminimizedtime()
+                } else if newPhase == .background {}
+            }
     }
 
     var timerBelow60active: some View {
@@ -51,9 +62,29 @@ struct Counter: View {
                 timer2.upstream.connect().cancel()
                 print("Counter: CANCEL onDisappaer")
             }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .inactive {
+                    deltatimeinseconds.timerminimized = Date()
+                } else if newPhase == .active {
+                    deltatimeinseconds.computeminimizedtime()
+                } else if newPhase == .background {}
+            }
     }
 }
 
-struct Timervalues {
-    let values: Set = [60.0, 300.0, 600.0, 1800.0, 2700.0, 3600.0]
+final class Deltatimeinseconds: ObservableObject {
+    var timerminimized: Date?
+    var sleeptime: Double = 0
+
+    func computeminimizedtime() {
+        if let timerminimized = timerminimized {
+            let now = Date()
+            if sleeptime == 0 {
+                sleeptime = now.timeIntervalSinceReferenceDate - timerminimized.timeIntervalSinceReferenceDate
+            } else {
+                sleeptime += (now.timeIntervalSinceReferenceDate - timerminimized.timeIntervalSinceReferenceDate)
+            }
+            print(sleeptime)
+        }
+    }
 }
