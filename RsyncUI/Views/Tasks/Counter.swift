@@ -9,9 +9,7 @@ import SwiftUI
 
 struct Counter: View {
     @SwiftUI.Environment(\.scenePhase) var scenePhase
-    // May be deleted
     @StateObject var deltatimeinseconds = Deltatimeinseconds()
-
     @Binding var timervalue: Double
 
     let timer1 = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
