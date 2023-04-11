@@ -11,12 +11,13 @@ import SwiftUI
 struct LogfileView: View {
     @Binding var viewlogfile: Bool
     @State private var resetloggfile = false
+    @StateObject private var logfileview = Logfileview()
 
     var body: some View {
         VStack {
             Section(header: header) {
-                List(textfile) { line in
-                    Text(line)
+                List(logfileview.output) { output in
+                    Text(output.line)
                         .modifier(FixedTag(750, .leading))
                 }
                 .onChange(of: resetloggfile, perform: { _ in
@@ -37,6 +38,9 @@ struct LogfileView: View {
         }
         .padding()
         .frame(minWidth: 600, minHeight: 400)
+        .onAppear {
+            logfileview.generatedata()
+        }
     }
 
     var header: some View {
@@ -44,13 +48,10 @@ struct LogfileView: View {
             .modifier(FixedTag(200, .center))
     }
 
-    var textfile: [String] {
-        return Logfile(false).getlogfile()
-    }
-
     func reset() {
         resetloggfile = true
         _ = Logfile(true)
+        logfileview.generatedata()
     }
 
     func afterareload() {
@@ -59,5 +60,22 @@ struct LogfileView: View {
 
     func dismiss() {
         viewlogfile = false
+    }
+}
+
+final class Logfileview: ObservableObject {
+    @Published var output = [Data]()
+
+    struct Data: Identifiable {
+        let id = UUID()
+        var line: String
+    }
+
+    func generatedata() {
+        output = [Data]()
+        let data = Logfile(false).getlogfile()
+        for i in 0 ..< data.count {
+            output.append(Data(line: data[i]))
+        }
     }
 }
