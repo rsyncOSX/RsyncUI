@@ -434,11 +434,10 @@ extension TasksView {
     // Async start and stop timer
     func starttimer() {
         print("Async timer: ACTIVATED")
+        SharedReference.shared.workitem?.cancel()
+        SharedReference.shared.workitem = nil
         SharedReference.shared.workitem = DispatchWorkItem {
             focusstartexecution = true
-            // focusstartestimation = true
-            // sheetchooser.sheet = .timerisworking
-            // modaleview = true
         }
         let time = DispatchTime.now() + timervalue
         if let workitem = SharedReference.shared.workitem {
