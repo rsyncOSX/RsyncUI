@@ -433,7 +433,7 @@ extension TasksView {
 
     // Async start and stop timer
     func starttimer() {
-        print("Async timer: ACTIVATED")
+        _ = Logfile(["Starttimer() - Activated"], error: true)
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
         SharedReference.shared.workitem = DispatchWorkItem {
@@ -446,7 +446,7 @@ extension TasksView {
     }
 
     func stoptimer() {
-        print("Async timer: DEACTIVATED")
+        _ = Logfile(["Stoptimer() - DeActivated"], error: true)
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
     }

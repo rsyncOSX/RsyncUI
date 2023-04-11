@@ -30,12 +30,12 @@ struct Counter: View {
                 timervalue -= 60
                 if timervalue <= 0 {
                     timer1.upstream.connect().cancel()
-                    print("Counter: CANCEL")
+                    _ = Logfile(["Counter (minutes): CANCEL timer <= 0"], error: true)
                 }
             }
             .onDisappear {
                 timer1.upstream.connect().cancel()
-                print("Counter: CANCEL onDisappaer")
+                _ = Logfile(["Counter (minutes): CANCEL onDisappear"], error: true)
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .inactive {
@@ -53,18 +53,20 @@ struct Counter: View {
                 timervalue -= 1
                 if timervalue <= 0 {
                     timer2.upstream.connect().cancel()
-                    print("Counter: CANCEL")
+                    _ = Logfile(["Counter (seconds): CANCEL timer <= 0"], error: true)
                 }
             }
             .onDisappear {
                 timer2.upstream.connect().cancel()
-                print("Counter: CANCEL onDisappaer")
+                _ = Logfile(["Counter (seconds): CANCEL onDisappear"], error: true)
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .inactive {
                     deltatimeinseconds.timerminimized = Date()
+                    _ = Logfile(["Minimized RsyncUI"], error: true)
                 } else if newPhase == .active {
                     deltatimeinseconds.computeminimizedtime()
+                    _ = Logfile(["Mazimized RsyncUI - \(deltatimeinseconds.computeminimizedtime()) seconds minimized"], error: true)
                 } else if newPhase == .background {}
             }
     }
