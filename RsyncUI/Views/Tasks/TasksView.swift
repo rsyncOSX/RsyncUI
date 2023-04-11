@@ -322,7 +322,9 @@ struct TasksView: View {
         .foregroundColor(Color.blue)
         .onDisappear(perform: {
             timervalue = SharedReference.shared.timervalue ?? 600
+            // DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             if timerisenabled == true, selection == .tasksview { starttimer() } else { stoptimer() }
+            // }
         })
     }
 
