@@ -51,7 +51,7 @@ struct TasksView: View {
     // Timer
     @Binding var timerisenabled: Bool
     @Binding var timervalue: Double
-    @StateObject private var timervaluesetbyuser = TimervalueSetbyuser()
+    // @StateObject private var timervaluesetbyuser = TimervalueSetbyuser()
 
     var body: some View {
         ZStack {
@@ -135,7 +135,7 @@ struct TasksView: View {
                 ToggleViewDefault(NSLocalizedString("Timer", comment: ""), $timerisenabled.onChange {
                     if timerisenabled == true {
                         if Timervalues().values.contains(timervalue) {
-                            timervaluesetbyuser.timervalue = timervalue
+                            SharedReference.shared.timervalue = timervalue
                         }
                         starttimer()
                     } else {
@@ -321,7 +321,7 @@ struct TasksView: View {
         .modifier(Tagheading(.title, .leading))
         .foregroundColor(Color.blue)
         .onDisappear(perform: {
-            timervalue = timervaluesetbyuser.timervalue
+            timervalue = SharedReference.shared.timervalue ?? 600
             if timerisenabled == true, selection == .tasksview { starttimer() } else { stoptimer() }
         })
     }
@@ -469,11 +469,12 @@ final class SheetChooser: ObservableObject {
     var sheet: Sheet = .dryrun
 }
 
-final class TimervalueSetbyuser: ObservableObject {
-    // Which sheet to present
-    // Do not redraw view when changing
-    // no @Publised
-    var timervalue: Double = 600.0
-}
-
+/*
+ final class TimervalueSetbyuser: ObservableObject {
+     // Which sheet to present
+     // Do not redraw view when changing
+     // no @Publised
+     var timervalue: Double = 600.0
+ }
+ */
 // swiftlint:enable line_length file_length type_body_length

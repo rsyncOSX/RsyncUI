@@ -88,6 +88,7 @@ class SharedReference {
     var firsttime = false
     // Used within Tasks for periodic sync of data
     var workitem: DispatchWorkItem?
+    var timervalue: Double?
 
     private init() {
         synctasks = Set<String>()
