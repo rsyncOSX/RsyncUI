@@ -321,10 +321,10 @@ struct TasksView: View {
         .modifier(Tagheading(.title, .leading))
         .foregroundColor(Color.blue)
         .onDisappear(perform: {
-            timervalue = SharedReference.shared.timervalue ?? 600
-            // DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            if timerisenabled == true, selection == .tasksview { starttimer() } else { stoptimer() }
-            // }
+            Task {
+                timervalue = SharedReference.shared.timervalue ?? 600
+                if timerisenabled == true, selection == .tasksview { starttimer() } else { stoptimer() }
+            }
         })
     }
 
@@ -437,7 +437,9 @@ extension TasksView {
     func starttimer() {
         _ = Logfile(["Starttimer() - Activated DispatchTime"], error: true)
         SharedReference.shared.workitem = DispatchWorkItem {
-            focusstartexecution = true
+            // sheetchooser.sheet = .timerisworking
+            // modaleview = true
+            execute()
         }
         let time = DispatchTime.now() + timervalue
         if let workitem = SharedReference.shared.workitem {
