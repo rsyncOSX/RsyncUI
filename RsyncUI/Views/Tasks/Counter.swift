@@ -40,7 +40,7 @@ struct Counter: View {
                     deltatimeinseconds.timerminimized = Date()
                 } else if newPhase == .active {
                     deltatimeinseconds.computeminimizedtime()
-                    _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
+                    // _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
                 } else if newPhase == .background {}
             }
     }
@@ -64,7 +64,7 @@ struct Counter: View {
                     }
                 } else if newPhase == .active {
                     deltatimeinseconds.computeminimizedtime()
-                    _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
+                    // _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
                 } else if newPhase == .background {}
             }
     }
