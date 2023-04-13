@@ -438,7 +438,7 @@ extension TasksView {
         SharedReference.shared.workitem = DispatchWorkItem {
             // sheetchooser.sheet = .timerisworking
             // modaleview = true
-            _ = Logfile(["Timer activated on profile " + (rsyncUIdata.profile ?? "")], error: true)
+            _ = Logfile(["Timer activated execute on profile: " + (rsyncUIdata.profile ?? "")], error: true)
             execute()
         }
         let time = DispatchTime.now() + timervalue
