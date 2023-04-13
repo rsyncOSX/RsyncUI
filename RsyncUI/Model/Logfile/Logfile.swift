@@ -137,7 +137,7 @@ final class Logfile: NamesandPaths {
     private func fulllogging(_ data: [String]) {
         let date = Date().localized_string_from_date()
         readloggfile()
-        let tmplogg = "\n" + date + "\n"
+        let tmplogg = "\n" + date + ": "
         if logfile == nil {
             logfile = tmplogg + data.joined(separator: "\n")
         } else {
@@ -159,7 +159,7 @@ final class Logfile: NamesandPaths {
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
-            logfile = date + ": " + "new logfile is created...\n"
+            logfile = date + ": " + "logfile is reset..."
             writeloggfile()
         } else {
             // Read the logfile

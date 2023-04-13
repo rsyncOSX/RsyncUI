@@ -59,7 +59,9 @@ struct Counter: View {
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .inactive {
-                    deltatimeinseconds.timerminimized = Date()
+                    if deltatimeinseconds.timerminimized == nil {
+                        deltatimeinseconds.timerminimized = Date()
+                    }
                 } else if newPhase == .active {
                     deltatimeinseconds.computeminimizedtime()
                     _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
@@ -69,6 +71,7 @@ struct Counter: View {
 }
 
 final class Deltatimeinseconds: ObservableObject {
+    var timerstart: Date = .init()
     var timerminimized: Date?
     var sleeptime: Double = 0
 
@@ -82,4 +85,6 @@ final class Deltatimeinseconds: ObservableObject {
             }
         }
     }
+
+    func resetdates() {}
 }
