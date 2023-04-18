@@ -21,7 +21,7 @@ struct SidebarTasksView: View {
     @State private var selecteduuids = Set<UUID>()
     @State private var showcompleted: Bool = false
     // Timer values
-    @State private var timerisenabled: Bool = false
+    @Binding var timerisenabled: Bool
     @State private var timervalue: Double = 600
 
     enum Task: String, Identifiable {

@@ -24,6 +24,7 @@ struct Sidebar: View {
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var selection: NavigationItem?
+    @Binding var timerisenabled: Bool
 
     var sidebar: some View {
         List(selection: $selection) {
@@ -31,7 +32,8 @@ struct Sidebar: View {
 
             Group {
                 NavigationLink(destination: SidebarTasksView(reload: $reload,
-                                                             selection: $selection),
+                                                             selection: $selection,
+                                                             timerisenabled: $timerisenabled),
                                tag: NavigationItem.tasksview,
                                selection: $selection)
                 {
