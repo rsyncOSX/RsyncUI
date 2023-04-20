@@ -11,6 +11,7 @@ struct Counter: View {
     @SwiftUI.Environment(\.scenePhase) var scenePhase
     @StateObject var deltatimeinseconds = Deltatimeinseconds()
     @Binding var timervalue: Double
+    @Binding var isPresented: Bool
 
     let timer1 = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     let timer2 = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -18,9 +19,20 @@ struct Counter: View {
     var body: some View {
         if timervalue <= 60 {
             timerBelow60active
+                .padding()
         } else {
             timerOver60active
+                .padding()
         }
+        Spacer()
+
+        HStack {
+            Spacer()
+
+            Button("Dismiss") { dismissview() }
+                .buttonStyle(PrimaryButtonStyle())
+        }
+        .padding()
     }
 
     var timerOver60active: some View {
@@ -67,6 +79,12 @@ struct Counter: View {
                     // _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
                 } else if newPhase == .background {}
             }
+    }
+}
+
+extension Counter {
+    func dismissview() {
+        isPresented = false
     }
 }
 

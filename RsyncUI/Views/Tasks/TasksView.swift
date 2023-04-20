@@ -122,8 +122,6 @@ struct TasksView: View {
                 VStack {
                     if alltasksestimated && timerisenabled == false { alltasksestimatedtext }
                     if estimationstate.estimationstate != .estimate && timerisenabled == false { footer }
-                    // Timer
-                    if timerisenabled && timervalue >= 0 { timerisactive }
                 }
             }
 
@@ -138,6 +136,8 @@ struct TasksView: View {
                             SharedReference.shared.timervalue = timervalue
                         }
                         starttimer()
+                        sheetchooser.sheet = .timerison
+                        modaleview = true
                     } else {
                         stoptimer()
                     }
@@ -193,12 +193,18 @@ struct TasksView: View {
             LocalRemoteInfoView(dismiss: $modaleview,
                                 localdata: $localdata,
                                 selectedconfig: $selectedconfig)
-        case .timerisworking:
-            AlertToast(type: .regular,
-                       title: Optional("Timer is active"), subTitle: Optional(""))
+        case .timerison:
+            Counter(timervalue: $timervalue, isPresented: $modaleview)
                 .onAppear(perform: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        modaleview = false
+                    Task {
+                        starttimer()
+                    }
+                })
+                .onDisappear(perform: {
+                    Task {
+                        stoptimer()
+                        timervalue = SharedReference.shared.timervalue ?? 600
+                        timerisenabled = false
                     }
                 })
         }
@@ -309,23 +315,6 @@ struct TasksView: View {
     var footer: some View {
         Text("Most recent updated tasks on top of list")
             .foregroundColor(Color.blue)
-    }
-
-    var timerisactive: some View {
-        HStack {
-            VStack {
-                Text("Timer: ")
-            }
-            Counter(timervalue: $timervalue)
-        }
-        .modifier(Tagheading(.title, .leading))
-        .foregroundColor(Color.blue)
-        .onDisappear(perform: {
-            Task {
-                timervalue = SharedReference.shared.timervalue ?? 600
-                if timerisenabled == true, selection == .tasksview { starttimer() } else { stoptimer() }
-            }
-        })
     }
 
     var timerpicker: some View {
@@ -454,7 +443,7 @@ extension TasksView {
 }
 
 enum Sheet: String, Identifiable {
-    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, timerisworking
+    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, timerison
     var id: String { rawValue }
 }
 
