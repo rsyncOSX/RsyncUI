@@ -21,7 +21,6 @@ struct SidebarTasksView: View {
     @State private var selecteduuids = Set<UUID>()
     @State private var showcompleted: Bool = false
     // Timer values
-    @Binding var timerisenabled: Bool
     @State private var timervalue: Double = 600
 
     enum Task: String, Identifiable {
@@ -74,8 +73,7 @@ struct SidebarTasksView: View {
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
                       showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
-                      selection: $selection.onChange { timerisenabled = false },
-                      timerisenabled: $timerisenabled,
+                      selection: $selection,
                       timervalue: $timervalue)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,

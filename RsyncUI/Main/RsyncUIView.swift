@@ -16,7 +16,6 @@ struct RsyncUIView: View {
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
     @State private var defaultprofile = "Default profile"
-    @State private var timerisenabled: Bool = false
 
     // Initial view in tasks
     @State private var selection: NavigationItem? = Optional.none
@@ -31,8 +30,7 @@ struct RsyncUIView: View {
 
             Sidebar(reload: $reload,
                     selectedprofile: $selectedprofile,
-                    selection: $selection,
-                    timerisenabled: $timerisenabled)
+                    selection: $selection)
                 .environmentObject(rsyncUIdata)
                 .environmentObject(errorhandling)
                 .environmentObject(inprogresscountexecuteonetaskdetails)
@@ -71,9 +69,7 @@ struct RsyncUIView: View {
 
     var profilepicker: some View {
         HStack {
-            Picker("", selection: $selectedprofile.onChange {
-                timerisenabled = false
-            }) {
+            Picker("", selection: $selectedprofile) {
                 if let profiles = profilenames.profiles {
                     ForEach(profiles, id: \.self) { profile in
                         Text(profile.profile ?? "")

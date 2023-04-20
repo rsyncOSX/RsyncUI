@@ -49,7 +49,7 @@ struct TasksView: View {
     @State private var modaleview = false
     @StateObject var sheetchooser = SheetChooser()
     // Timer
-    @Binding var timerisenabled: Bool
+    @State private var timerisenabled: Bool = false
     @Binding var timervalue: Double
     // @StateObject private var timervaluesetbyuser = TimervalueSetbyuser()
 
