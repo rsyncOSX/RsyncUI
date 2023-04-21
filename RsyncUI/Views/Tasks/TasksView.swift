@@ -135,11 +135,8 @@ struct TasksView: View {
                         if Timervalues().values.contains(timervalue) {
                             SharedReference.shared.timervalue = timervalue
                         }
-                        starttimer()
-                        sheetchooser.sheet = .timerison
+                        sheetchooser.sheet = .asynctimerison
                         modaleview = true
-                    } else {
-                        stoptimer()
                     }
                 })
             }
@@ -193,16 +190,16 @@ struct TasksView: View {
             LocalRemoteInfoView(dismiss: $modaleview,
                                 localdata: $localdata,
                                 selectedconfig: $selectedconfig)
-        case .timerison:
+        case .asynctimerison:
             Counter(timervalue: $timervalue, isPresented: $modaleview)
                 .onAppear(perform: {
                     Task {
-                        starttimer()
+                        startasynctimer()
                     }
                 })
                 .onDisappear(perform: {
                     Task {
-                        stoptimer()
+                        stopasynctimer()
                         timervalue = SharedReference.shared.timervalue ?? 600
                         timerisenabled = false
                     }
@@ -388,7 +385,7 @@ extension TasksView {
         inprogresscountmultipletask.estimateasync = false
         sheetchooser.sheet = .dryrun
         timerisenabled = false
-        stoptimer()
+        stopasynctimer()
     }
 
     func abort() {
@@ -401,7 +398,7 @@ extension TasksView {
         focusstartestimation = false
         focusstartexecution = false
         timerisenabled = false
-        stoptimer()
+        stopasynctimer()
     }
 
     func select() {
@@ -423,7 +420,8 @@ extension TasksView {
     }
 
     // Async start and stop timer
-    func starttimer() {
+    func startasynctimer() {
+        print("startasynctimer()")
         SharedReference.shared.workitem = DispatchWorkItem {
             // sheetchooser.sheet = .timerisworking
             // modaleview = true
@@ -436,14 +434,15 @@ extension TasksView {
         }
     }
 
-    func stoptimer() {
+    func stopasynctimer() {
+        print("stopasynctimer()")
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
     }
 }
 
 enum Sheet: String, Identifiable {
-    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, timerison
+    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
     var id: String { rawValue }
 }
 
