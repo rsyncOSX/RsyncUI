@@ -51,7 +51,6 @@ struct TasksView: View {
     // Timer
     @State private var timerisenabled: Bool = false
     @Binding var timervalue: Double
-    // @StateObject private var timervaluesetbyuser = TimervalueSetbyuser()
 
     var body: some View {
         ZStack {
@@ -120,8 +119,8 @@ struct TasksView: View {
 
             ZStack {
                 VStack {
-                    if alltasksestimated && timerisenabled == false { alltasksestimatedtext }
-                    if estimationstate.estimationstate != .estimate && timerisenabled == false { footer }
+                    if alltasksestimated { alltasksestimatedtext }
+                    if estimationstate.estimationstate != .estimate { footer }
                 }
             }
 
@@ -193,15 +192,16 @@ struct TasksView: View {
         case .asynctimerison:
             Counter(timervalue: $timervalue, isPresented: $modaleview)
                 .onAppear(perform: {
-                    Task {
-                        startasynctimer()
-                    }
+                    startasynctimer()
                 })
                 .onDisappear(perform: {
-                    Task {
-                        stopasynctimer()
-                        timervalue = SharedReference.shared.timervalue ?? 600
-                        timerisenabled = false
+                    stopasynctimer()
+                    timervalue = SharedReference.shared.timervalue ?? 600
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        if timerisenabled == true {
+                            sheetchooser.sheet = .asynctimerison
+                            modaleview = true
+                        }
                     }
                 })
         }
