@@ -197,12 +197,6 @@ struct TasksView: View {
                 .onDisappear(perform: {
                     stopasynctimer()
                     timervalue = SharedReference.shared.timervalue ?? 600
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        if timerisenabled == true {
-                            sheetchooser.sheet = .asynctimerison
-                            modaleview = true
-                        }
-                    }
                 })
         }
     }
@@ -456,13 +450,3 @@ final class SheetChooser: ObservableObject {
     // no @Publised
     var sheet: Sheet = .dryrun
 }
-
-/*
- final class TimervalueSetbyuser: ObservableObject {
-     // Which sheet to present
-     // Do not redraw view when changing
-     // no @Publised
-     var timervalue: Double = 600.0
- }
- */
-// swiftlint:enable line_length file_length type_body_length
