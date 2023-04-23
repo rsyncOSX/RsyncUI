@@ -36,7 +36,7 @@ struct Counter: View {
     }
 
     var timerOver60active: some View {
-        Text("\(Int(timervalue / 60)) " + "minute(s)")
+        Text("\(Int(timervalue / 60)) " + "minutes")
             .font(.largeTitle)
             .onReceive(timer1) { _ in
                 timervalue -= 60
