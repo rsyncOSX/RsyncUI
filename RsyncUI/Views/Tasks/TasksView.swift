@@ -197,6 +197,7 @@ struct TasksView: View {
                 .onDisappear(perform: {
                     stopasynctimer()
                     timervalue = SharedReference.shared.timervalue ?? 600
+                    timerisenabled = false
                 })
         }
     }
