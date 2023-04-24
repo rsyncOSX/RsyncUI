@@ -1,3 +1,21 @@
+/* No comment provided by engineer. */
+"1 hour" = "1 Stunde";
+
+/* No comment provided by engineer. */
+"1 min" = "1 Minute";
+
+/* No comment provided by engineer. */
+"5 min" = "5 Minute";
+
+/* No comment provided by engineer. */
+"10 min" = "10 Minute";
+
+/* No comment provided by engineer. */
+"30 min" = "30 Minute";
+
+/* No comment provided by engineer. */
+"45 min" = "45 Minute";
+
 /* (No Comment) */
 "Abort" = "Abbrechen";
 
@@ -396,6 +414,9 @@
 
 /* No comment provided by engineer. */
 "Tasks" = "Aufgaben";
+
+/* No comment provided by engineer. */
+"Timer" = "Timer";
 
 /* No comment provided by engineer. */
 "Tot bytes" = "Bytes Gesamt";

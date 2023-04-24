@@ -13,8 +13,8 @@ struct Counter: View {
     @Binding var timervalue: Double
     @Binding var isPresented: Bool
 
-    let timer1 = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
-    let timer2 = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let timer60 = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         if timervalue <= 60 {
@@ -38,14 +38,14 @@ struct Counter: View {
     var timerOver60active: some View {
         Text("\(Int(timervalue / 60)) " + "minutes")
             .font(.largeTitle)
-            .onReceive(timer1) { _ in
+            .onReceive(timer60) { _ in
                 timervalue -= 60
                 if timervalue <= 0 {
-                    timer1.upstream.connect().cancel()
+                    timer60.upstream.connect().cancel()
                 }
             }
             .onDisappear {
-                timer1.upstream.connect().cancel()
+                timer60.upstream.connect().cancel()
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .inactive {
@@ -60,14 +60,14 @@ struct Counter: View {
     var timerBelow60active: some View {
         Text("\(Int(timervalue)) " + "seconds")
             .font(.largeTitle)
-            .onReceive(timer2) { _ in
+            .onReceive(timer) { _ in
                 timervalue -= 1
                 if timervalue <= 0 {
-                    timer2.upstream.connect().cancel()
+                    timer.upstream.connect().cancel()
                 }
             }
             .onDisappear {
-                timer2.upstream.connect().cancel()
+                timer.upstream.connect().cancel()
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .inactive {

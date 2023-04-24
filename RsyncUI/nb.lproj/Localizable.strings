@@ -1,3 +1,21 @@
+/* No comment provided by engineer. */
+"1 hour" = "1 time";
+
+/* No comment provided by engineer. */
+"1 min" = "1 min";
+
+/* No comment provided by engineer. */
+"5 min" = "5 min";
+
+/* No comment provided by engineer. */
+"10 min" = "10 min";
+
+/* No comment provided by engineer. */
+"30 min" = "30 min";
+
+/* No comment provided by engineer. */
+"45 min" = "45 min";
+
 /* (No Comment) */
 "Abort" = "Avbryt";
 
@@ -177,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "Linux" = "Linux";
+
+/* No comment provided by engineer. */
+"List" = "Liste";
 
 /* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
@@ -396,6 +417,9 @@
 
 /* No comment provided by engineer. */
 "Tasks" = "Oppgaver";
+
+/* No comment provided by engineer. */
+"Timer" = "Utsett";
 
 /* No comment provided by engineer. */
 "Tot bytes" = "Tot bytes";
