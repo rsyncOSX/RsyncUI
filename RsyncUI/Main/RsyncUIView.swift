@@ -28,16 +28,29 @@ struct RsyncUIView: View {
                 profilepicker
             }
 
-            Sidebar(reload: $reload,
-                    selectedprofile: $selectedprofile,
-                    selection: $selection)
-                .environmentObject(rsyncUIdata)
-                .environmentObject(errorhandling)
-                .environmentObject(inprogresscountexecuteonetaskdetails)
-                .environmentObject(profilenames)
-                .onChange(of: reload, perform: { _ in
-                    reload = false
-                })
+            if #available(macOS 13.0, *) {
+                SidebarVentura(reload: $reload,
+                               selectedprofile: $selectedprofile,
+                               selection: $selection)
+                    .environmentObject(rsyncUIdata)
+                    .environmentObject(errorhandling)
+                    .environmentObject(inprogresscountexecuteonetaskdetails)
+                    .environmentObject(profilenames)
+                    .onChange(of: reload, perform: { _ in
+                        reload = false
+                    })
+            } else {
+                Sidebar(reload: $reload,
+                        selectedprofile: $selectedprofile,
+                        selection: $selection)
+                    .environmentObject(rsyncUIdata)
+                    .environmentObject(errorhandling)
+                    .environmentObject(inprogresscountexecuteonetaskdetails)
+                    .environmentObject(profilenames)
+                    .onChange(of: reload, perform: { _ in
+                        reload = false
+                    })
+            }
 
             HStack {
                 Spacer()

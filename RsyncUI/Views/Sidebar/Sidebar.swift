@@ -113,22 +113,8 @@ struct Sidebar: View {
     var body: some View {
         NavigationView {
             sidebar
-
-            VStack {
-                imagersyncosx
-                Text("RsyncUI")
-                    .font(.title)
-            }
-            .padding()
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-    }
-
-    var imagersyncosx: some View {
-        Image("rsyncosx")
-            .resizable()
-            .aspectRatio(1.0, contentMode: .fit)
-            .frame(maxWidth: 64)
     }
 }
 

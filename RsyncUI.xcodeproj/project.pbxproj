@@ -175,6 +175,7 @@
 		E9BD14BD2642FDC200E29347 /* TrimOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BC2642FDC200E29347 /* TrimOne.swift */; };
 		E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BE2642FE6300E29347 /* TrimTwo.swift */; };
 		E9BD14C12643082100E29347 /* TrimThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14C02643082100E29347 /* TrimThree.swift */; };
+		E9C6023B29F8225B00170B61 /* SidebarVentura.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C6023A29F8225B00170B61 /* SidebarVentura.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */; };
 		E9C9306C25FEA4230049A76B /* ObserveablePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveablePath.swift */; };
 		E9CE04FF29C9DA92001ACEA7 /* AlltasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CE04FE29C9DA92001ACEA7 /* AlltasksView.swift */; };
@@ -384,6 +385,7 @@
 		E9BD14BC2642FDC200E29347 /* TrimOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimOne.swift; sourceTree = "<group>"; };
 		E9BD14BE2642FE6300E29347 /* TrimTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimTwo.swift; sourceTree = "<group>"; };
 		E9BD14C02643082100E29347 /* TrimThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimThree.swift; sourceTree = "<group>"; };
+		E9C6023A29F8225B00170B61 /* SidebarVentura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarVentura.swift; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableSSH.swift; sourceTree = "<group>"; };
 		E9C9306B25FEA4230049A76B /* ObserveablePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveablePath.swift; sourceTree = "<group>"; };
 		E9CE04FE29C9DA92001ACEA7 /* AlltasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlltasksView.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 				E985C60E25F3AD8400CB895C /* SidebarSnapshotsView.swift */,
 				E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */,
 				E985C61125F3AD8400CB895C /* Sidebar.swift */,
+				E9C6023A29F8225B00170B61 /* SidebarVentura.swift */,
 				E985C61425F3AD8400CB895C /* Profilenames.swift */,
 				E985C64B25F3AD8400CB895C /* SidebarAddTaskView.swift */,
 				E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */,
@@ -1248,6 +1251,7 @@
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,
 				E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
+				E9C6023B29F8225B00170B61 /* SidebarVentura.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
 				E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */,
 				E96ED543292FDC3B0021FF06 /* DetailsViewAlreadyEstimated.swift in Sources */,
