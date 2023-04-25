@@ -10,8 +10,8 @@ import SwiftUI
 
 struct DeleteLogsView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var selecteduuids: Set<UUID>
-    @Binding var isPresented: Bool
     @Binding var selectedprofile: String?
 
     var body: some View {
@@ -24,7 +24,7 @@ struct DeleteLogsView: View {
                 Button("Delete") { delete() }
                     .buttonStyle(AbortButtonStyle())
 
-                Button("Cancel") { dismissview() }
+                Button("Cancel") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
             .padding()
@@ -43,10 +43,6 @@ struct DeleteLogsView: View {
         .padding()
     }
 
-    func dismissview() {
-        isPresented = false
-    }
-
     func delete() {
         logrecords.removerecords(selecteduuids)
         let deleteschedule = UpdateLogs(profile: selectedprofile,
@@ -54,6 +50,6 @@ struct DeleteLogsView: View {
         deleteschedule.deletelogs(uuids: selecteduuids)
         selecteduuids.removeAll()
         // WriteScheduleJSON(selectedprofile, logrecords.logrecordsfromstore?.scheduleData.scheduleConfigurations)
-        isPresented = false
+        dismiss()
     }
 }

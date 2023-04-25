@@ -51,7 +51,6 @@ struct LogListAlllogsView: View {
                     .buttonStyle(AbortButtonStyle())
                     .sheet(isPresented: $showAlertfordelete) {
                         DeleteLogsView(selecteduuids: $selecteduuids,
-                                       isPresented: $showAlertfordelete,
                                        selectedprofile: $selectedprofile)
                     }
             }

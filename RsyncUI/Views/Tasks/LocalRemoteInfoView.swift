@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LocalRemoteInfoView: View {
-    @Binding var dismiss: Bool
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var localdata: [String]
     @Binding var selectedconfig: Configuration?
 
@@ -42,7 +42,7 @@ struct LocalRemoteInfoView: View {
 
             Spacer()
 
-            Button("Dismiss") { dismiss = false }
+            Button("Dismiss") { dismiss() }
                 .buttonStyle(PrimaryButtonStyle())
         }
         .padding()

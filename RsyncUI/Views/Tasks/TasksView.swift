@@ -184,8 +184,7 @@ struct TasksView: View {
             FirsttimeView(dismiss: $modaleview,
                           selection: $selection)
         case .localremoteinfo:
-            LocalRemoteInfoView(dismiss: $modaleview,
-                                localdata: $localdata,
+            LocalRemoteInfoView(localdata: $localdata,
                                 selectedconfig: $selectedconfig)
         case .asynctimerison:
             Counter(timervalue: $timervalue)
