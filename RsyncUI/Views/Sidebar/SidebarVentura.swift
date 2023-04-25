@@ -24,30 +24,12 @@ struct SidebarVentura: View {
 
     @available(macOS 13.0, *)
     var sidebarventura: some View {
-        NavigationSplitView(columnVisibility: .constant(.all)) {
+        NavigationSplitView {
             List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-                HStack {
-                    switch selectedview {
-                    case .tasks:
-                        Label("", systemImage: "text.badge.plus")
-                    case .log_listings:
-                        Label("", systemImage: "text.alignleft")
-                    case .rsync_parameters:
-                        Label("", systemImage: "command.circle.fill")
-                    case .restore:
-                        Label("", systemImage: "text.alignleft")
-                    case .snapshots:
-                        Label("", systemImage: "text.badge.plus")
-                    case .synchronize:
-                        Label("", systemImage: "arrowshape.turn.up.left.2.fill")
-                    case .quick_synchronize:
-                        Label("", systemImage: "arrowshape.turn.up.backward.fill")
-                    }
-                    NavigationLink(
-                        selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
-                        value: selectedview
-                    )
-                }
+                NavigationLink(
+                    selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
+                    value: selectedview
+                )
             }
         } detail: {
             makeSheet(selectedview)
