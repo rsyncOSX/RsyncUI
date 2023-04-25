@@ -65,8 +65,7 @@ struct SnapshotsView: View {
                         ProgressView()
                     }
                 }
-
-            }.padding()
+            }
 
             if gettingdata == true { gettingdatainprocess }
             if updated == true { notifyupdated }
@@ -74,8 +73,6 @@ struct SnapshotsView: View {
             if focusselectsnapshot == true { labelselectsnapshot }
             if focusaborttask { labelaborttask }
         }
-
-        Spacer()
 
         HStack {
             Button("Save") { updateplansnapshot() }
@@ -135,6 +132,9 @@ struct SnapshotsView: View {
         }
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .onAppear {
+            snapshotdata.state = .gotit
+        }
     }
 
     var gettingdatainprocess: some View {

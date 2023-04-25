@@ -31,8 +31,6 @@ struct SidebarTasksView: View {
     var body: some View {
         ZStack {
             VStack {
-                headingtitle
-
                 if showeexecutEstimatedview == false &&
                     showexecuteNOEstimateview == false &&
                     showexecuteNOEstiamteONEtask == false { makeView(task: .taskview) }
@@ -101,18 +99,5 @@ struct SidebarTasksView: View {
                     showcompleted = true
                 })
         }
-    }
-
-    var headingtitle: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("Synchronize")
-                    .modifier(Tagheading(.title2, .leading))
-                    .foregroundColor(Color.blue)
-            }
-
-            Spacer()
-        }
-        .padding()
     }
 }

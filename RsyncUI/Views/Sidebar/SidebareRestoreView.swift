@@ -12,25 +12,8 @@ struct SidebareRestoreView: View {
     @State private var filterstring: String = ""
 
     var body: some View {
-        VStack {
-            headingtitle
-
-            RestoreView(filterstring: $filterstring)
-        }
-        .padding()
-        .searchable(text: $filterstring)
-    }
-
-    var headingtitle: some View {
-        HStack {
-            VStack {
-                Text("Restore")
-                    .modifier(Tagheading(.title2, .leading))
-                    .foregroundColor(Color.blue)
-            }
-
-            Spacer()
-        }
-        .padding()
+        RestoreView(filterstring: $filterstring)
+            .padding()
+            .searchable(text: $filterstring)
     }
 }

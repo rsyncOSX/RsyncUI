@@ -14,12 +14,8 @@ struct SidebarQuicktaskView: View {
 
     var body: some View {
         ZStack {
-            VStack {
-                headingtitle
-
-                QuicktaskView(showcompleted: $showcompleted)
-            }
-            .padding()
+            QuicktaskView(showcompleted: $showcompleted)
+                .padding()
 
             if showcompleted {
                 AlertToast(type: .complete(Color.green),
@@ -32,18 +28,5 @@ struct SidebarQuicktaskView: View {
             }
         }
         .searchable(text: $filterstring)
-    }
-
-    var headingtitle: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("Quick synchronize")
-                    .modifier(Tagheading(.title2, .leading))
-                    .foregroundColor(Color.blue)
-            }
-
-            Spacer()
-        }
-        .padding()
     }
 }

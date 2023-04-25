@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case tasks, loglistings, parameters, restore, snapshots, synchronize, quicktask
+    case synchronize, quick_synchronize, rsync_parameters, tasks, snapshots, log_listings, restore
     var id: String { rawValue }
 }
 
@@ -29,22 +29,22 @@ struct SidebarVentura: View {
                 HStack {
                     switch selectedview {
                     case .tasks:
-                        Label("Tasks", systemImage: "text.badge.plus")
-                    case .loglistings:
-                        Label("Log listings", systemImage: "text.alignleft")
-                    case .parameters:
-                        Label("Rsync parameters", systemImage: "command.circle.fill")
+                        Label("", systemImage: "text.badge.plus")
+                    case .log_listings:
+                        Label("", systemImage: "text.alignleft")
+                    case .rsync_parameters:
+                        Label("", systemImage: "command.circle.fill")
                     case .restore:
-                        Label("Restore", systemImage: "text.alignleft")
+                        Label("", systemImage: "text.alignleft")
                     case .snapshots:
-                        Label("Snapshots", systemImage: "text.badge.plus")
+                        Label("", systemImage: "text.badge.plus")
                     case .synchronize:
-                        Label("Synchronize", systemImage: "arrowshape.turn.up.left.2.fill")
-                    case .quicktask:
-                        Label("Quick synchronize", systemImage: "arrowshape.turn.up.backward.fill")
+                        Label("", systemImage: "arrowshape.turn.up.left.2.fill")
+                    case .quick_synchronize:
+                        Label("", systemImage: "arrowshape.turn.up.backward.fill")
                     }
                     NavigationLink(
-                        selectedview.rawValue.localizedCapitalized,
+                        selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
                         value: selectedview
                     )
                 }
@@ -59,9 +59,9 @@ struct SidebarVentura: View {
         switch view {
         case .tasks:
             SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload)
-        case .loglistings:
+        case .log_listings:
             SidebarLogsView(selectedprofile: $selectedprofile)
-        case .parameters:
+        case .rsync_parameters:
             SidebarParametersView(selectedprofile: $selectedprofile, reload: $reload)
         case .restore:
             SidebareRestoreView(selectedprofile: $selectedprofile)
@@ -69,7 +69,7 @@ struct SidebarVentura: View {
             SidebarSnapshotsView(selectedprofile: $selectedprofile, reload: $reload)
         case .synchronize:
             SidebarTasksView(reload: $reload, selection: $selection)
-        case .quicktask:
+        case .quick_synchronize:
             SidebarQuicktaskView()
         }
     }

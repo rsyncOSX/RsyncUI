@@ -17,25 +17,8 @@ struct SidebarSnapshotsView: View {
     @State private var filterstring: String = ""
 
     var body: some View {
-        VStack {
-            headingtitle
-
-            SnapshotsView(selectedconfig: $selectedconfig, reload: $reload)
-        }
-        .padding()
-        .searchable(text: $filterstring)
-    }
-
-    var headingtitle: some View {
-        HStack {
-            VStack {
-                Text("Snapshots")
-                    .modifier(Tagheading(.title2, .leading))
-                    .foregroundColor(Color.blue)
-            }
-
-            Spacer()
-        }
-        .padding()
+        SnapshotsView(selectedconfig: $selectedconfig, reload: $reload)
+            .padding()
+            .searchable(text: $filterstring)
     }
 }

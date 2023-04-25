@@ -40,7 +40,7 @@ struct AboutView: View {
         VStack {
             Spacer()
 
-            headingtitle
+            // headingtitle
 
             Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
                 .resizable()

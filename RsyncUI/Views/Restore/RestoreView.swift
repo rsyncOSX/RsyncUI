@@ -26,8 +26,6 @@ struct RestoreView: View {
             if restore.selectedconfig != nil { showcommand }
         }
 
-        Spacer()
-
         HStack {
             Button("Files") {
                 guard SharedReference.shared.process == nil else { return }
