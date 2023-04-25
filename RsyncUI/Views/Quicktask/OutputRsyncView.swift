@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OutputRsyncView: View {
-    @Binding var isPresented: Bool
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @StateObject var outputfromrsync = Outputfromrsync()
 
     var output: [String]
@@ -29,7 +29,7 @@ struct OutputRsyncView: View {
             HStack {
                 Spacer()
 
-                Button("Dismiss") { dismissview() }
+                Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -38,9 +38,5 @@ struct OutputRsyncView: View {
         .onAppear {
             outputfromrsync.generatedata(output)
         }
-    }
-
-    func dismissview() {
-        isPresented = false
     }
 }

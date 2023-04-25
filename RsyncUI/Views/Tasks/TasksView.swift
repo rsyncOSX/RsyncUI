@@ -171,17 +171,15 @@ struct TasksView: View {
                                             isPresented: $modaleview,
                                             estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
             } else {
-                OutputEstimatedView(isPresented: $modaleview,
-                                    selecteduuids: $selecteduuids,
+                OutputEstimatedView(selecteduuids: $selecteduuids,
                                     execute: $focusstartexecution,
                                     estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
             }
         case .estimateddetailsview:
             DetailsView(selectedconfig: $selectedconfig,
-                        reload: $reload,
-                        isPresented: $modaleview)
+                        reload: $reload)
         case .alltasksview:
-            AlltasksView(isPresented: $modaleview)
+            AlltasksView()
         case .firsttime:
             FirsttimeView(dismiss: $modaleview,
                           selection: $selection)
@@ -190,7 +188,7 @@ struct TasksView: View {
                                 localdata: $localdata,
                                 selectedconfig: $selectedconfig)
         case .asynctimerison:
-            Counter(timervalue: $timervalue, isPresented: $modaleview)
+            Counter(timervalue: $timervalue)
                 .onAppear(perform: {
                     startasynctimer()
                 })

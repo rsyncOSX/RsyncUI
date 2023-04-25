@@ -139,8 +139,7 @@ struct RsyncDefaultParametersView: View {
 
     // Output
     var viewoutput: some View {
-        OutputRsyncView(isPresented: $presentsheetview,
-                        output: rsyncoutput?.getoutput() ?? [])
+        OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
     }
 
     var labelaborttask: some View {

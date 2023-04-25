@@ -10,11 +10,9 @@ import SwiftUI
 
 struct RestoreView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-
     @Binding var filterstring: String
     @StateObject var restore = ObserveableRestore()
     @State private var presentsheetviewfiles = false
-    // @State private var presentsheetrsync = false
 
     var body: some View {
         VStack {
@@ -124,8 +122,7 @@ struct RestoreView: View {
 
     // Output from rsync
     var viewoutput: some View {
-        OutputRsyncView(isPresented: $restore.presentsheetrsync,
-                        output: restore.rsyncdata ?? [])
+        OutputRsyncView(output: restore.rsyncdata ?? [])
     }
 }
 

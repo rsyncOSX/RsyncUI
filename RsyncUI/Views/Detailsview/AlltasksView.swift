@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct AlltasksView: View {
-    @Binding var isPresented: Bool
+    @SwiftUI.Environment(\.dismiss) var dismiss
 
     var body: some View {
         VStack {
@@ -50,7 +50,7 @@ struct AlltasksView: View {
             HStack {
                 Spacer()
 
-                Button("Dismiss") { dismissview() }
+                Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -73,14 +73,9 @@ struct AlltasksView: View {
 }
 
 extension AlltasksView {
-    func dismissview() {
-        isPresented = false
-    }
-
     func markconfig(_ config: Configuration?) -> Bool {
-        if let dateRun = config?.dateRun {
+        if config?.dateRun != nil {
             if let secondssince = config?.lastruninseconds {
-                let dayssincelastbackup = String(format: "%.2f", secondssince / (60 * 60 * 24))
                 if secondssince / (60 * 60 * 24) > SharedReference.shared.marknumberofdayssince {
                     return true
                 }

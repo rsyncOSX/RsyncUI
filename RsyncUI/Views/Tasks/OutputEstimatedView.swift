@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct OutputEstimatedView: View {
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var isPresented: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var execute: Bool
     var estimatedlist: [RemoteinfonumbersOnetask]
@@ -80,11 +80,11 @@ struct OutputEstimatedView: View {
 
                 Button("Execute") {
                     execute = true
-                    dismissview()
+                    dismiss()
                 }
                 .buttonStyle(PrimaryButtonStyle())
 
-                Button("Dismiss") { dismissview() }
+                Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -96,9 +96,5 @@ struct OutputEstimatedView: View {
         Text("Estimated tasks")
             .font(.title2)
             .padding()
-    }
-
-    func dismissview() {
-        isPresented = false
     }
 }

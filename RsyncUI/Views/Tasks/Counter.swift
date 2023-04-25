@@ -9,9 +9,10 @@ import SwiftUI
 
 struct Counter: View {
     @SwiftUI.Environment(\.scenePhase) var scenePhase
+    @SwiftUI.Environment(\.dismiss) var dismiss
+
     @StateObject var deltatimeinseconds = Deltatimeinseconds()
     @Binding var timervalue: Double
-    @Binding var isPresented: Bool
 
     let timer60 = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -29,7 +30,7 @@ struct Counter: View {
         HStack {
             Spacer()
 
-            Button("Dismiss") { dismissview() }
+            Button("Dismiss") { dismiss() }
                 .buttonStyle(PrimaryButtonStyle())
         }
         .padding()
@@ -79,12 +80,6 @@ struct Counter: View {
                     // _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
                 } else if newPhase == .background {}
             }
-    }
-}
-
-extension Counter {
-    func dismissview() {
-        isPresented = false
     }
 }
 

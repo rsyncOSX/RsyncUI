@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct DetailsView: View {
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
-    @Binding var isPresented: Bool
 
     @State private var gettingremotedata = true
     @StateObject var estimateddataonetask = Estimateddataonetask()
@@ -94,7 +94,7 @@ struct DetailsView: View {
 
                 Spacer()
 
-                Button("Dismiss") { dismissview() }
+                Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -117,10 +117,6 @@ extension DetailsView {
         outputfromrsync.generatedata(data)
         gettingremotedata = false
         estimateddataonetask.update(data: data, hiddenID: selectedconfig?.hiddenID, config: selectedconfig)
-    }
-
-    func dismissview() {
-        isPresented = false
     }
 }
 
