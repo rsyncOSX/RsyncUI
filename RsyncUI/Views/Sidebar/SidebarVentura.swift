@@ -36,6 +36,21 @@ struct SidebarVentura: View {
         }
     }
 
+    @available(macOS 13.0, *)
+    var sidebarventura2: some View {
+        NavigationSplitView {
+            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
+                NavigationLink {
+                    makeSheet(selectedview)
+                } label: {
+                    Label(selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "), systemImage: systemimage(selectedview))
+                }
+            }
+        } detail: {
+            makeSheet(.synchronize)
+        }
+    }
+
     @ViewBuilder
     func makeSheet(_ view: Sidebaritems) -> some View {
         switch view {
@@ -58,6 +73,25 @@ struct SidebarVentura: View {
 
     @available(macOS 13.0, *)
     var body: some View {
-        sidebarventura
+        sidebarventura2
+    }
+
+    func systemimage(_ view: Sidebaritems) -> String {
+        switch view {
+        case .tasks:
+            return "text.badge.plus"
+        case .log_listings:
+            return "text.alignleft"
+        case .rsync_parameters:
+            return "command.circle.fill"
+        case .restore:
+            return "text.alignleft"
+        case .snapshots:
+            return "text.badge.plus"
+        case .synchronize:
+            return "arrowshape.turn.up.left.2.fill"
+        case .quick_synchronize:
+            return "arrowshape.turn.up.backward.fill"
+        }
     }
 }
