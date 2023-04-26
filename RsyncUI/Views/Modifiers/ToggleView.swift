@@ -53,3 +53,19 @@ struct ToggleViewDefault: View {
         mybinding = binding
     }
 }
+
+struct ToggleViewNolabel: View {
+    private var mybinding: Binding<Bool>
+
+    var body: some View {
+        HStack {
+            Toggle("", isOn: mybinding)
+                .labelsHidden()
+                .toggleStyle(CheckboxToggleStyle())
+        }
+    }
+
+    init(_ binding: Binding<Bool>) {
+        mybinding = binding
+    }
+}

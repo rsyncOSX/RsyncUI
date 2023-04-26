@@ -126,10 +126,12 @@ struct TasksView: View {
 
             Spacer()
 
+            Label("", systemImage: "clock.arrow.2.circlepath")
+
             HStack {
                 if timerisenabled == false { timerpicker }
 
-                ToggleViewDefault(NSLocalizedString("Timer", comment: ""), $timerisenabled.onChange {
+                ToggleViewNolabel($timerisenabled.onChange {
                     if timerisenabled == true {
                         if Timervalues().values.contains(timervalue) {
                             SharedReference.shared.timervalue = timervalue

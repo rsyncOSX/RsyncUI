@@ -84,7 +84,7 @@ struct SidebarRow: View {
         case .snapshots:
             return "text.badge.plus"
         case .synchronize:
-            return "arrowshape.turn.up.left.2.fill"
+            return "arrow.triangle.2.circlepath.circle.fill"
         case .quick_synchronize:
             return "arrowshape.turn.up.backward.fill"
         }

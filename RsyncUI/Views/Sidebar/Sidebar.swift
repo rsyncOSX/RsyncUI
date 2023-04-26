@@ -36,7 +36,7 @@ struct Sidebar: View {
                                selection: $selection)
                 {
                     Label("Synchronize",
-                          systemImage: "arrowshape.turn.up.left.2.fill")
+                          systemImage: "arrow.triangle.2.circlepath.circle.fill")
                 }
                 .tag(NavigationItem.tasksview)
 
