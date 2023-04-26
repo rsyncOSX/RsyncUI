@@ -49,9 +49,23 @@ struct SidebarVentura: View {
         case .snapshots:
             SidebarSnapshotsView(selectedprofile: $selectedprofile, reload: $reload)
         case .synchronize:
-            SidebarTasksView(reload: $reload, selection: $selection)
+            SidebarTasksViewVentura(reload: $reload)
         case .quick_synchronize:
             SidebarQuicktaskView()
+        }
+    }
+
+    @available(macOS 13.0, *)
+    var sidebarventura4: some View {
+        NavigationStack {
+            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
+                NavigationLink(value: selectedview) {
+                    SidebarRow(sidebaritem: selectedview)
+                }
+            }
+        }
+        .navigationDestination(for: Sidebaritems.self) { item in
+            makeSheet(item)
         }
     }
 

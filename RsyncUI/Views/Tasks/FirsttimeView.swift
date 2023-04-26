@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct FirsttimeView: View {
-    @Binding var dismiss: Bool
-    // Which sidebar function
-    @Binding var selection: NavigationItem?
+    @SwiftUI.Environment(\.dismiss) var dismiss
 
     let info: String = "https://rsyncui.netlify.app/post/important/"
     let add: String = "https://rsyncui.netlify.app/post/addconfigurations/"
@@ -35,14 +33,13 @@ struct FirsttimeView: View {
                 Button("Add tasks") { openaboutadd() }
                     .buttonStyle(PrimaryButtonStyle())
 
-                Button("Dismiss") { dismiss = false }
+                Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
         .padding()
         .onDisappear {
             SharedReference.shared.firsttime = false
-            selection = .configurations
         }
         .frame(width: 800, height: 400)
     }

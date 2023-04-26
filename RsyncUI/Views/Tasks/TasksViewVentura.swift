@@ -1,15 +1,16 @@
 //
-//  TasksSheetstateView.swift
+//  TasksViewVentura.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 21/03/2023.
+//  Created by Thomas Evensen on 26/04/2023.
 //
+
 // swiftlint:disable line_length file_length type_body_length
 
 import Network
 import SwiftUI
 
-struct TasksView: View {
+struct TasksViewVentura: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
@@ -39,8 +40,6 @@ struct TasksView: View {
     @State private var focusaborttask: Bool = false
 
     @State private var filterstring: String = ""
-    // Which sidebar function
-    @Binding var selection: NavigationItem?
     // Delete
     @State private var confirmdeletemenu: Bool = false
     // Local data for present local and remote info about task
@@ -342,7 +341,7 @@ struct TasksView: View {
     }
 }
 
-extension TasksView {
+extension TasksViewVentura {
     func estimate() {
         inprogresscountmultipletask.resetcounts()
         executedetails.resetcounter()
@@ -432,4 +431,20 @@ extension TasksView {
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
     }
+}
+
+enum Sheet: String, Identifiable {
+    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
+    var id: String { rawValue }
+}
+
+struct Timervalues {
+    let values: Set = [60.0, 300.0, 600.0, 1800.0, 2700.0, 3600.0]
+}
+
+final class SheetChooser: ObservableObject {
+    // Which sheet to present
+    // Do not redraw view when changing
+    // no @Publised
+    var sheet: Sheet = .dryrun
 }

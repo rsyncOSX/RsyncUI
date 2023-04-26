@@ -153,6 +153,8 @@
 		E98A7E2929C9BB64000C8607 /* Allprofilesandtasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A7E2829C9BB64000C8607 /* Allprofilesandtasks.swift */; };
 		E98C7AB5262D662200555977 /* ReadScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */; };
 		E98C7ABA262D664900555977 /* ReadConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */; };
+		E98D385F29F971D700C6E327 /* SidebarTasksViewVentura.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D385E29F971D700C6E327 /* SidebarTasksViewVentura.swift */; };
+		E98D386129F9725100C6E327 /* TasksViewVentura.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D386029F9725100C6E327 /* TasksViewVentura.swift */; };
 		E98F608D290D034300952149 /* CommandProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F608C290D034300952149 /* CommandProcess.swift */; };
 		E99209B52632F0430018BFE8 /* PresentOneconfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */; };
 		E997613B271998BD007153DD /* RsyncUIlogrecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = E997613A271998BD007153DD /* RsyncUIlogrecords.swift */; };
@@ -363,6 +365,8 @@
 		E98A7E2829C9BB64000C8607 /* Allprofilesandtasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allprofilesandtasks.swift; sourceTree = "<group>"; };
 		E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadScheduleJSON.swift; sourceTree = "<group>"; };
 		E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadConfigurationJSON.swift; sourceTree = "<group>"; };
+		E98D385E29F971D700C6E327 /* SidebarTasksViewVentura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTasksViewVentura.swift; sourceTree = "<group>"; };
+		E98D386029F9725100C6E327 /* TasksViewVentura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewVentura.swift; sourceTree = "<group>"; };
 		E98F608C290D034300952149 /* CommandProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandProcess.swift; sourceTree = "<group>"; };
 		E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentOneconfigView.swift; sourceTree = "<group>"; };
 		E997613A271998BD007153DD /* RsyncUIlogrecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIlogrecords.swift; sourceTree = "<group>"; };
@@ -578,6 +582,7 @@
 			isa = PBXGroup;
 			children = (
 				E985C60C25F3AD8400CB895C /* SidebarTasksView.swift */,
+				E98D385E29F971D700C6E327 /* SidebarTasksViewVentura.swift */,
 				E985C60E25F3AD8400CB895C /* SidebarSnapshotsView.swift */,
 				E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */,
 				E985C61125F3AD8400CB895C /* Sidebar.swift */,
@@ -686,6 +691,7 @@
 			isa = PBXGroup;
 			children = (
 				E9A6A42329CA076200C59183 /* TasksView.swift */,
+				E98D386029F9725100C6E327 /* TasksViewVentura.swift */,
 				E9EA4EA229DAA0EF00456ADA /* Counter.swift */,
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedTasksView.swift */,
 				E9134B4829893BF900FDD55D /* ExecuteNoestimatedTasksView.swift */,
@@ -1291,6 +1297,7 @@
 				E999F9262769104200B80DF6 /* AlertToast.swift in Sources */,
 				E9D94DB6294B9409007C21D2 /* Assist.swift in Sources */,
 				E985C77025F3AD9700CB895C /* InprogressCountMultipleTasks.swift in Sources */,
+				E98D385F29F971D700C6E327 /* SidebarTasksViewVentura.swift in Sources */,
 				E9569EAB27B80BEB0038799C /* UserConfiguration.swift in Sources */,
 				E93D7B7D26CD920D00E290A1 /* ObserveableParametersDefault.swift in Sources */,
 				E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */,
@@ -1337,6 +1344,7 @@
 				E985C68825F3AD8400CB895C /* SidebarAddTaskView.swift in Sources */,
 				E943D4242906CE6F0042A560 /* DetailsView.swift in Sources */,
 				E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */,
+				E98D386129F9725100C6E327 /* TasksViewVentura.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
 				E90F7CA726344D5E001D9CA2 /* TextBuilderSeparator.swift in Sources */,
 				E999F9282769108A00B80DF6 /* ActivityIndicator.swift in Sources */,
