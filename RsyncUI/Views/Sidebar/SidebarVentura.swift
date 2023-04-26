@@ -80,13 +80,13 @@ struct SidebarRow: View {
         case .rsync_parameters:
             return "command.circle.fill"
         case .restore:
-            return "text.alignleft"
+            return "arrowshape.turn.up.forward"
         case .snapshots:
             return "text.badge.plus"
         case .synchronize:
-            return "arrow.triangle.2.circlepath.circle.fill"
+            return "arrowshape.turn.up.backward"
         case .quick_synchronize:
-            return "arrowshape.turn.up.backward.fill"
+            return "arrowshape.turn.up.left.2"
         }
     }
 }

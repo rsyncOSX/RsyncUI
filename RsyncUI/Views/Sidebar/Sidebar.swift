@@ -36,7 +36,7 @@ struct Sidebar: View {
                                selection: $selection)
                 {
                     Label("Synchronize",
-                          systemImage: "arrow.triangle.2.circlepath.circle.fill")
+                          systemImage: "arrowshape.turn.up.backward")
                 }
                 .tag(NavigationItem.tasksview)
 
@@ -45,7 +45,7 @@ struct Sidebar: View {
                                selection: $selection)
                 {
                     Label("Quick synchronize",
-                          systemImage: "arrowshape.turn.up.backward.fill")
+                          systemImage: "arrowshape.turn.up.left.2")
                 }
                 .tag(NavigationItem.quicktask)
             }
@@ -98,7 +98,7 @@ struct Sidebar: View {
                                tag: NavigationItem.restore,
                                selection: $selection)
                 {
-                    Label("Restore", systemImage: "text.alignleft")
+                    Label("Restore", systemImage: "arrowshape.turn.up.forward")
                 }
                 .tag(NavigationItem.restore)
             }
