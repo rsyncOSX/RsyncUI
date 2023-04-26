@@ -20,19 +20,6 @@ struct SidebarVentura: View {
     @Binding var selectedprofile: String?
     @State private var selectedview: Sidebaritems = .synchronize
 
-    @available(macOS 13.0, *)
-    var sidebarventura: some View {
-        NavigationSplitView {
-            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-                NavigationLink(value: selectedview) {
-                    SidebarRow(sidebaritem: selectedview)
-                }
-            }
-        } detail: {
-            makeSheet(selectedview)
-        }
-    }
-
     @ViewBuilder
     func makeSheet(_ view: Sidebaritems) -> some View {
         switch view {
@@ -54,33 +41,23 @@ struct SidebarVentura: View {
     }
 
     @available(macOS 13.0, *)
-    var sidebarventura4: some View {
-        NavigationView {
-            NavigationStack {
-                List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-                    NavigationLink(value: selectedview) {
-                        SidebarRow(sidebaritem: selectedview)
-                    }
+    var body: some View {
+        NavigationSplitView {
+            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
+                NavigationLink(value: selectedview) {
+                    SidebarRow(sidebaritem: selectedview)
                 }
             }
-            .navigationDestination(for: Sidebaritems.self) { item in
-                makeSheet(item)
-            }
+        } detail: {
+            makeSheet(selectedview)
         }
-    }
-
-    @available(macOS 13.0, *)
-    var body: some View {
-        sidebarventura
     }
 }
 
 struct SidebarRow: View {
     var sidebaritem: Sidebaritems
 
-    var body: some View { labelfortask }
-
-    var labelfortask: some View {
+    var body: some View {
         Label(sidebaritem.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
               systemImage: systemimage(sidebaritem))
     }
