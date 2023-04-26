@@ -55,15 +55,17 @@ struct SidebarVentura: View {
 
     @available(macOS 13.0, *)
     var sidebarventura4: some View {
-        NavigationStack {
-            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-                NavigationLink(value: selectedview) {
-                    SidebarRow(sidebaritem: selectedview)
+        NavigationView {
+            NavigationStack {
+                List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
+                    NavigationLink(value: selectedview) {
+                        SidebarRow(sidebaritem: selectedview)
+                    }
                 }
             }
-        }
-        .navigationDestination(for: Sidebaritems.self) { item in
-            makeSheet(item)
+            .navigationDestination(for: Sidebaritems.self) { item in
+                makeSheet(item)
+            }
         }
     }
 
@@ -102,48 +104,3 @@ struct SidebarRow: View {
         }
     }
 }
-
-/*
- @available(macOS 13.0, *)
- var sidebarventura2: some View {
-     NavigationSplitView {
-         List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-             NavigationLink {
-                 makeSheet(selectedview)
-             } label: {
-                 Label(selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "), systemImage: systemimage(selectedview))
-             }
-         }
-     } detail: {
-         makeSheet(.synchronize)
-     }
- }
-
- @available(macOS 13.0, *)
- var sidebarventura3: some View {
-     NavigationSplitView {
-         List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-             NavigationLink(
-                 selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
-                 value: selectedview
-             )
-         }
-     } detail: {
-         makeSheet(selectedview)
-     }
- }
-
- @available(macOS 13.0, *)
- var sidebarventura4: some View {
-     NavigationSplitView {
-         List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-             NavigationLink(value: selectedview) {
-                 MenuRow(sidebaritem: selectedview)
-             }
-         }
-     } detail: {}
-         .navigationDestination(for: Sidebaritems.self) { item in
-             makeSheet(item)
-         }
- }
- */
