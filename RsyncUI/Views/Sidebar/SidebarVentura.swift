@@ -26,43 +26,13 @@ struct SidebarVentura: View {
     var sidebarventura: some View {
         NavigationSplitView {
             List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-                NavigationLink(
-                    selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
-                    value: selectedview
-                )
+                NavigationLink(value: selectedview) {
+                    SidebarRow(sidebaritem: selectedview)
+                }
             }
         } detail: {
             makeSheet(selectedview)
         }
-    }
-
-    @available(macOS 13.0, *)
-    var sidebarventura2: some View {
-        NavigationSplitView {
-            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-                NavigationLink {
-                    makeSheet(selectedview)
-                } label: {
-                    Label(selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "), systemImage: systemimage(selectedview))
-                }
-            }
-        } detail: {
-            makeSheet(.synchronize)
-        }
-    }
-
-    @available(macOS 13.0, *)
-    var sidebarventura3: some View {
-        NavigationSplitView {
-            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-                NavigationLink(value: selectedview) {
-                    MenuRow(sidebaritem: selectedview)
-                }
-            }
-        } detail: {}
-            .navigationDestination(for: Sidebaritems.self) { item in
-                makeSheet(item)
-            }
     }
 
     @ViewBuilder
@@ -89,28 +59,9 @@ struct SidebarVentura: View {
     var body: some View {
         sidebarventura
     }
-
-    func systemimage(_ view: Sidebaritems) -> String {
-        switch view {
-        case .tasks:
-            return "text.badge.plus"
-        case .log_listings:
-            return "text.alignleft"
-        case .rsync_parameters:
-            return "command.circle.fill"
-        case .restore:
-            return "text.alignleft"
-        case .snapshots:
-            return "text.badge.plus"
-        case .synchronize:
-            return "arrowshape.turn.up.left.2.fill"
-        case .quick_synchronize:
-            return "arrowshape.turn.up.backward.fill"
-        }
-    }
 }
 
-struct MenuRow: View {
+struct SidebarRow: View {
     var sidebaritem: Sidebaritems
 
     var body: some View { labelfortask }
@@ -139,3 +90,48 @@ struct MenuRow: View {
         }
     }
 }
+
+/*
+ @available(macOS 13.0, *)
+ var sidebarventura2: some View {
+     NavigationSplitView {
+         List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
+             NavigationLink {
+                 makeSheet(selectedview)
+             } label: {
+                 Label(selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "), systemImage: systemimage(selectedview))
+             }
+         }
+     } detail: {
+         makeSheet(.synchronize)
+     }
+ }
+
+ @available(macOS 13.0, *)
+ var sidebarventura3: some View {
+     NavigationSplitView {
+         List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
+             NavigationLink(
+                 selectedview.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
+                 value: selectedview
+             )
+         }
+     } detail: {
+         makeSheet(selectedview)
+     }
+ }
+
+ @available(macOS 13.0, *)
+ var sidebarventura4: some View {
+     NavigationSplitView {
+         List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
+             NavigationLink(value: selectedview) {
+                 MenuRow(sidebaritem: selectedview)
+             }
+         }
+     } detail: {}
+         .navigationDestination(for: Sidebaritems.self) { item in
+             makeSheet(item)
+         }
+ }
+ */
