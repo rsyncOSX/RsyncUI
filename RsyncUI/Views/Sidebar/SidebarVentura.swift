@@ -18,8 +18,6 @@ struct SidebarVentura: View {
     @EnvironmentObject var errorhandling: ErrorHandling
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
-    @Binding var selection: NavigationItem?
-
     @State private var selectedview: Sidebaritems = .synchronize
 
     @available(macOS 13.0, *)
@@ -49,7 +47,7 @@ struct SidebarVentura: View {
         case .snapshots:
             SidebarSnapshotsView(selectedprofile: $selectedprofile, reload: $reload)
         case .synchronize:
-            SidebarTasksViewVentura(reload: $reload)
+            SidebarTasksView(reload: $reload)
         case .quick_synchronize:
             SidebarQuicktaskView()
         }

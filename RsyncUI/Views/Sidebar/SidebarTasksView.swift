@@ -11,8 +11,6 @@ struct SidebarTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
-    // Which sidebar function
-    @Binding var selection: NavigationItem?
 
     @State var showeexecutEstimatedview: Bool = false
     @State var showexecuteNOEstimateview: Bool = false
@@ -71,7 +69,6 @@ struct SidebarTasksView: View {
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
                       showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
-                      selection: $selection,
                       timervalue: $timervalue)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,

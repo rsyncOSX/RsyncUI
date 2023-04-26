@@ -39,8 +39,6 @@ struct TasksView: View {
     @State private var focusaborttask: Bool = false
 
     @State private var filterstring: String = ""
-    // Which sidebar function
-    @Binding var selection: NavigationItem?
     // Delete
     @State private var confirmdeletemenu: Bool = false
     // Local data for present local and remote info about task
@@ -432,4 +430,20 @@ extension TasksView {
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
     }
+}
+
+enum Sheet: String, Identifiable {
+    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
+    var id: String { rawValue }
+}
+
+struct Timervalues {
+    let values: Set = [60.0, 300.0, 600.0, 1800.0, 2700.0, 3600.0]
+}
+
+final class SheetChooser: ObservableObject {
+    // Which sheet to present
+    // Do not redraw view when changing
+    // no @Publised
+    var sheet: Sheet = .dryrun
 }

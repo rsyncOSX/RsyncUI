@@ -30,8 +30,7 @@ struct Sidebar: View {
             Spacer()
 
             Group {
-                NavigationLink(destination: SidebarTasksView(reload: $reload,
-                                                             selection: $selection),
+                NavigationLink(destination: SidebarTasksView(reload: $reload),
                                tag: NavigationItem.tasksview,
                                selection: $selection)
                 {
