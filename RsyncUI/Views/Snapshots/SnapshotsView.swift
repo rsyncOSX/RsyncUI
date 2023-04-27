@@ -43,28 +43,27 @@ struct SnapshotsView: View {
 
     var body: some View {
         ZStack {
-            HStack {
-                ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                    guard selectedconfig != nil else {
-                        snapshotdata.logrecordssnapshot = nil
-                        return
-                    }
-                    snapshotdata.snapshotlist = true
-                    getdata()
-                },
-                reload: $reload)
+            ZStack {
+                HStack {
+                    ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
+                        guard selectedconfig != nil else {
+                            snapshotdata.logrecordssnapshot = nil
+                            return
+                        }
+                        getdata()
 
-                ZStack {
+                    },
+                    reload: $reload)
+
                     SnapshotListView(selectedconfig: $selectedconfig,
                                      snapshotrecords: $snapshotrecords,
                                      selecteduuids: $selecteduuids)
                         .environmentObject(snapshotdata)
                         .onDeleteCommand(perform: { delete() })
-
-                    if snapshotdata.snapshotlist {
-                        ProgressView()
-                    }
                 }
+
+                if snapshotdata.snapshotlist { ProgressView() }
+                if notsnapshot == true { notasnapshottask }
             }
 
             if gettingdata == true { gettingdatainprocess }
@@ -91,7 +90,7 @@ struct SnapshotsView: View {
             Group {
                 if selectatask == true { notifyselecttask }
                 if snapshotdata.inprogressofdelete == true { progressdelete }
-                if notsnapshot == true { notasnapshottask }
+
                 if snapshotdata.state == .getdata { ProgressView() }
             }
 
@@ -270,6 +269,7 @@ extension SnapshotsView {
             if let snapdayofweek = config.snapdayoffweek {
                 self.snapdayofweek = snapdayofweek
             }
+            snapshotdata.snapshotlist = true
             _ = Snapshotlogsandcatalogs(profile: rsyncUIdata.profile,
                                         config: config,
                                         configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
