@@ -21,7 +21,7 @@ struct RsyncUIApp: App {
                     ReadUserConfigurationJSON()
                 }
                 .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
-                .frame(minWidth: 1350, minHeight: 505)
+                .frame(minWidth: 1250, minHeight: 490)
         }
         .commands {
             SidebarCommands()

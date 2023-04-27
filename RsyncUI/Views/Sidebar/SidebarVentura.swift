@@ -47,6 +47,9 @@ struct SidebarVentura: View {
                 NavigationLink(value: selectedview) {
                     SidebarRow(sidebaritem: selectedview)
                 }
+                if selectedview == .quick_synchronize ||
+                    selectedview == .tasks ||
+                    selectedview == .snapshots { Divider() }
             }
         } detail: {
             makeSheet(selectedview)
