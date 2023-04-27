@@ -21,7 +21,7 @@ struct SidebarVentura: View {
     @State private var selectedview: Sidebaritems = .synchronize
 
     @ViewBuilder
-    func makeSheet(_ view: Sidebaritems) -> some View {
+    func makeView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
             SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload)
@@ -52,7 +52,7 @@ struct SidebarVentura: View {
                     selectedview == .snapshots { Divider() }
             }
         } detail: {
-            makeSheet(selectedview)
+            makeView(selectedview)
         }
     }
 }
