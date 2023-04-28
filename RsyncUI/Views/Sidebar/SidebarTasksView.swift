@@ -68,8 +68,7 @@ struct SidebarTasksView: View {
                       selecteduuids: $selecteduuids,
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
-                      showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
-                      timervalue: $timervalue)
+                      showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,

@@ -47,8 +47,7 @@ struct TasksView: View {
     @State private var modaleview = false
     @StateObject var sheetchooser = SheetChooser()
     // Timer
-    @State private var timerisenabled: Bool = false
-    @Binding var timervalue: Double
+    @State private var timervalue: Double = 600
 
     var body: some View {
         ZStack {
@@ -124,22 +123,6 @@ struct TasksView: View {
 
             Spacer()
 
-            Label("", systemImage: "clock.arrow.2.circlepath")
-
-            HStack {
-                if timerisenabled == false { timerpicker }
-
-                ToggleViewNolabel($timerisenabled.onChange {
-                    if timerisenabled == true {
-                        if Timervalues().values.contains(timervalue) {
-                            SharedReference.shared.timervalue = timervalue
-                        }
-                        sheetchooser.sheet = .asynctimerison
-                        modaleview = true
-                    }
-                })
-            }
-
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
                 .tooltip("Shortcut ⌘A")
@@ -188,12 +171,11 @@ struct TasksView: View {
         case .asynctimerison:
             Counter(timervalue: $timervalue)
                 .onAppear(perform: {
-                    startasynctimer()
+                    // startasynctimer()
                 })
                 .onDisappear(perform: {
-                    stopasynctimer()
+                    // stopasynctimer()
                     timervalue = SharedReference.shared.timervalue ?? 600
-                    timerisenabled = false
                 })
         }
     }
@@ -375,7 +357,6 @@ extension TasksView {
         selectedconfig = nil
         inprogresscountmultipletask.estimateasync = false
         sheetchooser.sheet = .dryrun
-        timerisenabled = false
         stopasynctimer()
     }
 
@@ -388,7 +369,6 @@ extension TasksView {
         reload = true
         focusstartestimation = false
         focusstartexecution = false
-        timerisenabled = false
         stopasynctimer()
     }
 
@@ -435,10 +415,6 @@ extension TasksView {
 enum Sheet: String, Identifiable {
     case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
     var id: String { rawValue }
-}
-
-struct Timervalues {
-    let values: Set = [60.0, 300.0, 600.0, 1800.0, 2700.0, 3600.0]
 }
 
 final class SheetChooser: ObservableObject {

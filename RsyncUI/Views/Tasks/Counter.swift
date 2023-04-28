@@ -12,6 +12,8 @@ struct Counter: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
 
     @StateObject var deltatimeinseconds = Deltatimeinseconds()
+    // Timer
+    @State private var timerisenabled: Bool = false
     @Binding var timervalue: Double
 
     let timer60 = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
@@ -29,6 +31,20 @@ struct Counter: View {
 
         HStack {
             Spacer()
+
+            Label("", systemImage: "clock.arrow.2.circlepath")
+
+            HStack {
+                if timerisenabled == false { timerpicker }
+
+                ToggleViewNolabel($timerisenabled.onChange {
+                    if timerisenabled == true {
+                        if Timervalues().values.contains(timervalue) {
+                            SharedReference.shared.timervalue = timervalue
+                        }
+                    }
+                })
+            }
 
             Button("Dismiss") { dismiss() }
                 .buttonStyle(PrimaryButtonStyle())
@@ -81,6 +97,40 @@ struct Counter: View {
                 } else if newPhase == .background {}
             }
     }
+
+    var timerpicker: some View {
+        HStack {
+            Picker("", selection: $timervalue) {
+                ForEach(Timervalues().values.sorted(by: <), id: \.self) { value in
+                    switch value {
+                    case 60.0:
+                        Text("1 min")
+                            .tag(value)
+                    case 300.0:
+                        Text("5 min")
+                            .tag(value)
+                    case 600.0:
+                        Text("10 min")
+                            .tag(value)
+                    case 1800.0:
+                        Text("30 min")
+                            .tag(value)
+                    case 2700.0:
+                        Text("45 min")
+                            .tag(value)
+                    case 3600.0:
+                        Text("1 hour")
+                            .tag(value)
+                    default:
+                        Text(String(value))
+                            .tag(value)
+                    }
+                }
+            }
+            .frame(width: 80)
+            .accentColor(.blue)
+        }
+    }
 }
 
 final class Deltatimeinseconds: ObservableObject {
@@ -101,3 +151,21 @@ final class Deltatimeinseconds: ObservableObject {
 
     func resetdates() {}
 }
+
+struct Timervalues {
+    let values: Set = [60.0, 300.0, 600.0, 1800.0, 2700.0, 3600.0]
+}
+
+/*
+ case .asynctimerison:
+     Counter(timervalue: $timervalue)
+         .onAppear(perform: {
+             startasynctimer()
+         })
+         .onDisappear(perform: {
+             stopasynctimer()
+             timervalue = SharedReference.shared.timervalue ?? 600
+             timerisenabled = false
+         })
+ }
+ */
