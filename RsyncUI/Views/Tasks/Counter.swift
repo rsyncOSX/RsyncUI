@@ -20,19 +20,22 @@ struct Counter: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        if timervalue <= 60 {
-            timerBelow60active
-                .padding()
+        if timerisenabled {
+            if timervalue <= 60 {
+                timerBelow60active
+                    .padding()
+            } else {
+                timerOver60active
+                    .padding()
+            }
         } else {
-            timerOver60active
-                .padding()
+            timerdefault
         }
+
         Spacer()
 
         HStack {
             Spacer()
-
-            Label("", systemImage: "clock.arrow.2.circlepath")
 
             HStack {
                 if timerisenabled == false { timerpicker }
@@ -96,6 +99,12 @@ struct Counter: View {
                     // _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
                 } else if newPhase == .background {}
             }
+    }
+
+    var timerdefault: some View {
+        Text("\(Int(timervalue / 60))")
+            .font(.largeTitle)
+            .padding()
     }
 
     var timerpicker: some View {

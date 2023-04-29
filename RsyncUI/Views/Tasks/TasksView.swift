@@ -109,6 +109,12 @@ struct TasksView: View {
                         modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
+
+                    Button("Timer") {
+                        sheetchooser.sheet = .asynctimerison
+                        modaleview = true
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
                 }
             }
 
@@ -174,7 +180,7 @@ struct TasksView: View {
                     // startasynctimer()
                 })
                 .onDisappear(perform: {
-                    // stopasynctimer()
+                    stopasynctimer()
                     timervalue = SharedReference.shared.timervalue ?? 600
                 })
         }
@@ -285,40 +291,6 @@ struct TasksView: View {
     var footer: some View {
         Text("Most recent updated tasks on top of list")
             .foregroundColor(Color.blue)
-    }
-
-    var timerpicker: some View {
-        HStack {
-            Picker("", selection: $timervalue) {
-                ForEach(Timervalues().values.sorted(by: <), id: \.self) { value in
-                    switch value {
-                    case 60.0:
-                        Text("1 min")
-                            .tag(value)
-                    case 300.0:
-                        Text("5 min")
-                            .tag(value)
-                    case 600.0:
-                        Text("10 min")
-                            .tag(value)
-                    case 1800.0:
-                        Text("30 min")
-                            .tag(value)
-                    case 2700.0:
-                        Text("45 min")
-                            .tag(value)
-                    case 3600.0:
-                        Text("1 hour")
-                            .tag(value)
-                    default:
-                        Text(String(value))
-                            .tag(value)
-                    }
-                }
-            }
-            .frame(width: 80)
-            .accentColor(.blue)
-        }
     }
 }
 
