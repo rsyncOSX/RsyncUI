@@ -48,6 +48,7 @@ struct TasksView: View {
     @StateObject var sheetchooser = SheetChooser()
     // Timer
     @State private var timervalue: Double = 600
+    @State private var timerisenabled: Bool = false
 
     var body: some View {
         ZStack {
@@ -175,7 +176,7 @@ struct TasksView: View {
             LocalRemoteInfoView(localdata: $localdata,
                                 selectedconfig: $selectedconfig)
         case .asynctimerison:
-            Counter(timervalue: $timervalue)
+            Counter(timervalue: $timervalue, timerisenabled: $timerisenabled)
                 .onAppear(perform: {
                     // startasynctimer()
                 })

@@ -13,8 +13,8 @@ struct Counter: View {
 
     @StateObject var deltatimeinseconds = Deltatimeinseconds()
     // Timer
-    @State private var timerisenabled: Bool = false
     @Binding var timervalue: Double
+    @Binding var timerisenabled: Bool
 
     let timer60 = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
