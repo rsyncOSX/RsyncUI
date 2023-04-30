@@ -176,14 +176,17 @@ struct TasksView: View {
             LocalRemoteInfoView(localdata: $localdata,
                                 selectedconfig: $selectedconfig)
         case .asynctimerison:
-            Counter(timervalue: $timervalue, timerisenabled: $timerisenabled)
-                .onAppear(perform: {
-                    // startasynctimer()
-                })
-                .onDisappear(perform: {
+            Counter(timervalue: $timervalue, timerisenabled: $timerisenabled.onChange {
+                if timerisenabled == true {
+                    startasynctimer()
+                } else {
                     stopasynctimer()
-                    timervalue = SharedReference.shared.timervalue ?? 600
-                })
+                }
+            })
+            .onDisappear(perform: {
+                stopasynctimer()
+                timervalue = SharedReference.shared.timervalue ?? 600
+            })
         }
     }
 
