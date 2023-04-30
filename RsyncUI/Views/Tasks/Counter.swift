@@ -20,22 +20,20 @@ struct Counter: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        if timerisenabled {
-            if timervalue <= 60 {
-                timerBelow60active
-                    .padding()
-            } else {
-                timerOver60active
-                    .padding()
+        VStack {
+            Text("Timer")
+                .font(.largeTitle)
+                .padding()
+
+            if timerisenabled {
+                if timervalue <= 60 {
+                    timerBelow60active
+                        .padding()
+                } else {
+                    timerOver60active
+                        .padding()
+                }
             }
-        } else {
-            timerdefault
-        }
-
-        Spacer()
-
-        HStack {
-            Spacer()
 
             HStack {
                 if timerisenabled == false { timerpicker }
@@ -45,9 +43,14 @@ struct Counter: View {
                         if Timervalues().values.contains(timervalue) {
                             SharedReference.shared.timervalue = timervalue
                         }
+                    } else {
+                        timervalue = SharedReference.shared.timervalue ?? 600
                     }
                 })
             }
+        }
+        HStack {
+            Spacer()
 
             Button("Dismiss") { dismiss() }
                 .buttonStyle(PrimaryButtonStyle())
