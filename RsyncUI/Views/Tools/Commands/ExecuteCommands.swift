@@ -147,7 +147,7 @@ struct Enabletimer: View {
         } label: {
             Label("Timer", systemImage: "play.fill")
         }
-        .keyboardShortcut("t", modifiers: [.command])
+        // .keyboardShortcut("", modifiers: [.command])
     }
 }
 
