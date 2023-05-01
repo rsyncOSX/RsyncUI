@@ -47,6 +47,9 @@ struct Counter: View {
                     })
                 }
             }
+
+            Spacer()
+
             Button("Dismiss") { dismiss() }
                 .buttonStyle(PrimaryButtonStyle())
         }
@@ -54,6 +57,7 @@ struct Counter: View {
         .onDisappear {
             timerisenabled = false
         }
+        .frame(width: 200, height: 150)
     }
 
     var timerOver60active: some View {
