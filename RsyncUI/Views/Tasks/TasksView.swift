@@ -374,11 +374,11 @@ extension TasksView {
 
     // Async start and stop timer
     func startasynctimer() {
-        print("startasynctimer()")
+        _ = Logfile(["Timer ACTIVATED on profile: " + (rsyncUIdata.profile ?? "")], error: true)
         SharedReference.shared.workitem = DispatchWorkItem {
             // sheetchooser.sheet = .timerisworking
             // modaleview = true
-            _ = Logfile(["Timer activated execute on profile: " + (rsyncUIdata.profile ?? "")], error: true)
+            _ = Logfile(["Timer EXECUTED task on profile: " + (rsyncUIdata.profile ?? "")], error: true)
             execute()
         }
         let time = DispatchTime.now() + timervalue
@@ -388,7 +388,7 @@ extension TasksView {
     }
 
     func stopasynctimer() {
-        print("stopasynctimer()")
+        _ = Logfile(["Timer DEACTIVATED on profile: " + (rsyncUIdata.profile ?? "")], error: true)
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
     }

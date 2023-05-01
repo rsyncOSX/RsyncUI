@@ -21,41 +21,39 @@ struct Counter: View {
 
     var body: some View {
         VStack {
-            Text("Timer")
-                .font(.largeTitle)
-                .padding()
-
-            if timerisenabled {
+            if timerisenabled == false {
+                Text("Timer")
+                    .font(.largeTitle)
+            } else {
                 if timervalue <= 60 {
                     timerBelow60active
-                        .padding()
                 } else {
                     timerOver60active
-                        .padding()
                 }
             }
 
             HStack {
-                if timerisenabled == false { timerpicker }
+                if timerisenabled == false {
+                    timerpicker
 
-                ToggleViewNolabel($timerisenabled.onChange {
-                    if timerisenabled == true {
-                        if Timervalues().values.contains(timervalue) {
-                            SharedReference.shared.timervalue = timervalue
+                    ToggleViewNolabel($timerisenabled.onChange {
+                        if timerisenabled == true {
+                            if Timervalues().values.contains(timervalue) {
+                                SharedReference.shared.timervalue = timervalue
+                            }
+                        } else {
+                            timervalue = SharedReference.shared.timervalue ?? 600
                         }
-                    } else {
-                        timervalue = SharedReference.shared.timervalue ?? 600
-                    }
-                })
+                    })
+                }
             }
-        }
-        HStack {
-            Spacer()
-
             Button("Dismiss") { dismiss() }
                 .buttonStyle(PrimaryButtonStyle())
         }
         .padding()
+        .onDisappear {
+            timerisenabled = false
+        }
     }
 
     var timerOver60active: some View {
