@@ -37,6 +37,7 @@ struct TasksView: View {
     @State private var focusdeletetask: Bool = false
     @State private var focusshowinfotask: Bool = false
     @State private var focusaborttask: Bool = false
+    @State private var focusenabletimer: Bool = false
 
     @State private var filterstring: String = ""
     // Delete
@@ -74,6 +75,7 @@ struct TasksView: View {
                 if focusdeletetask { labeldeletetask }
                 if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
+                if focusenabletimer { labelenabletimer }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
             }
         }
@@ -110,12 +112,6 @@ struct TasksView: View {
                         modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
-
-                    Button("Timer") {
-                        sheetchooser.sheet = .asynctimerison
-                        modaleview = true
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
                 }
             }
 
@@ -141,6 +137,7 @@ struct TasksView: View {
         .focusedSceneValue(\.deletetask, $focusdeletetask)
         .focusedSceneValue(\.showinfotask, $focusshowinfotask)
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .focusedSceneValue(\.enabletimer, $focusenabletimer)
         .task {
             // Discover if firsttime use, if true present view for firsttime
             if SharedReference.shared.firsttime {
@@ -289,6 +286,15 @@ struct TasksView: View {
             .onAppear(perform: {
                 focusaborttask = false
                 abort()
+            })
+    }
+
+    var labelenabletimer: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusenabletimer = false
+                sheetchooser.sheet = .asynctimerison
+                modaleview = true
             })
     }
 

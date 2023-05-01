@@ -15,6 +15,7 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.deletetask) private var deletetask
     @FocusedBinding(\.showinfotask) private var showinfotask
     @FocusedBinding(\.aborttask) private var aborttask
+    @FocusedBinding(\.enabletimer) private var enabletimer
 
     var body: some Commands {
         CommandMenu("Tasks") {
@@ -33,6 +34,10 @@ struct ExecuteCommands: Commands {
 
             Group {
                 Deletetask(deletetask: $deletetask)
+
+                Divider()
+
+                Enabletimer(enabletimer: $enabletimer)
 
                 Divider()
 
@@ -129,7 +134,20 @@ struct Abborttask: View {
         } label: {
             Label("Abort task", systemImage: "play.fill")
         }
-        .keyboardShortcut("a", modifiers: [.command])
+        .keyboardShortcut("k", modifiers: [.command])
+    }
+}
+
+struct Enabletimer: View {
+    @Binding var enabletimer: Bool?
+
+    var body: some View {
+        Button {
+            enabletimer = true
+        } label: {
+            Label("Timer", systemImage: "play.fill")
+        }
+        .keyboardShortcut("t", modifiers: [.command])
     }
 }
 
@@ -158,6 +176,10 @@ struct FocusedShowinfoTask: FocusedValueKey {
 }
 
 struct FocusedAborttask: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+struct FocusedEnabletimer: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
@@ -195,5 +217,10 @@ extension FocusedValues {
     var aborttask: FocusedAborttask.Value? {
         get { self[FocusedAborttask.self] }
         set { self[FocusedAborttask.self] = newValue }
+    }
+
+    var enabletimer: FocusedAborttask.Value? {
+        get { self[FocusedEnabletimer.self] }
+        set { self[FocusedEnabletimer.self] = newValue }
     }
 }
