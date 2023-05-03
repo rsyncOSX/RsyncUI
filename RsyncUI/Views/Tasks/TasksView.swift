@@ -80,6 +80,8 @@ struct TasksView: View {
             }
         }
 
+        Spacer()
+
         HStack {
             VStack(alignment: .center) {
                 HStack {
