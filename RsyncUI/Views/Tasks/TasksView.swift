@@ -118,10 +118,7 @@ struct TasksView: View {
             Spacer()
 
             ZStack {
-                VStack {
-                    if alltasksestimated { alltasksestimatedtext }
-                    if estimationstate.estimationstate != .estimate { footer }
-                }
+                if alltasksestimated { alltasksestimatedtext }
             }
 
             Spacer()
@@ -296,11 +293,6 @@ struct TasksView: View {
                 sheetchooser.sheet = .asynctimerison
                 modaleview = true
             })
-    }
-
-    var footer: some View {
-        Text("Most recent updated tasks on top of list")
-            .foregroundColor(Color.blue)
     }
 }
 
