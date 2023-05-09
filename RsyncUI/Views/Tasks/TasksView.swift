@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/03/2023.
 //
-// swiftlint:disable line_length file_length type_body_length
+// swiftlint:disable line_length
 
 import Network
 import SwiftUI
@@ -156,6 +156,9 @@ struct TasksView: View {
                                             reload: $reload,
                                             isPresented: $modaleview,
                                             estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
+                    .onDisappear {
+                        selectedconfig = nil
+                    }
             } else {
                 OutputEstimatedView(selecteduuids: $selecteduuids,
                                     execute: $focusstartexecution,
@@ -395,3 +398,5 @@ final class SheetChooser: ObservableObject {
     // no @Publised
     var sheet: Sheet = .dryrun
 }
+
+// swiftlint:enable line_length
