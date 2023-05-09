@@ -156,9 +156,6 @@ struct TasksView: View {
                                             reload: $reload,
                                             isPresented: $modaleview,
                                             estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
-                    .onDisappear {
-                        selectedconfig = nil
-                    }
             } else {
                 OutputEstimatedView(selecteduuids: $selecteduuids,
                                     execute: $focusstartexecution,
