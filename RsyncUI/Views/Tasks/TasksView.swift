@@ -300,6 +300,13 @@ struct TasksView: View {
 
 extension TasksView {
     func estimate() {
+        if selectedconfig != nil {
+            let profile = selectedconfig?.profile ?? "Default profile"
+            if profile != rsyncUIdata.profile {
+                selecteduuids.removeAll()
+                selectedconfig = nil
+            }
+        }
         inprogresscountmultipletask.resetcounts()
         executedetails.resetcounter()
         inprogresscountmultipletask.startestimateasync()
