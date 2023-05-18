@@ -53,7 +53,7 @@ struct TasksView: View {
 
     var body: some View {
         ZStack {
-            ListofTasksProgress(selectedconfig: $selectedconfig.onChange {
+            TableListofTasksProgress(selectedconfig: $selectedconfig.onChange {
                 guard selectedconfig != nil else { return }
                 if alltasksestimated {
                     sheetchooser.sheet = .dryrun
