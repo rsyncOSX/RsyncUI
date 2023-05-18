@@ -11,15 +11,13 @@ struct TableListofTasksProgress: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
 
-    @Binding var selectedconfig: Configuration?
+    // @Binding var selectedconfig: Configuration?
     // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
     @Binding var filterstring: String
     @Binding var reload: Bool
     @Binding var confirmdelete: Bool
-
-    @State private var selected = Set<Configuration.ID>()
 
     var body: some View {
         VStack {
@@ -29,7 +27,7 @@ struct TableListofTasksProgress: View {
     }
 
     var tabledata: some View {
-        Table(configurationssorted, selection: $selected) {
+        Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("Progress") { data in
                 ZStack {
                     if data.hiddenID == inwork && executedetails.isestimating() == false {
@@ -87,7 +85,6 @@ struct TableListofTasksProgress: View {
             isPresented: $confirmdelete
         ) {
             Button("Delete") {
-                setuuidforselectedtask()
                 delete()
                 confirmdelete = false
             }
@@ -104,17 +101,6 @@ struct TableListofTasksProgress: View {
 
     var maxcount: Double {
         return executedetails.getmaxcountbytask(inwork)
-    }
-
-    func setuuidforselectedtask() {
-        selecteduuids.removeAll()
-        if let sel = selectedconfig,
-           let index = rsyncUIdata.configurations?.firstIndex(of: sel)
-        {
-            if let id = rsyncUIdata.configurations?[index].id {
-                selecteduuids.insert(id)
-            }
-        }
     }
 
     func delete() {

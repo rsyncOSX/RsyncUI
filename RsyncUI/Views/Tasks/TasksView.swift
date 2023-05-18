@@ -53,18 +53,19 @@ struct TasksView: View {
 
     var body: some View {
         ZStack {
-            TableListofTasksProgress(selectedconfig: $selectedconfig.onChange {
-                guard selectedconfig != nil else { return }
-                if alltasksestimated {
-                    sheetchooser.sheet = .dryrun
-                    modaleview = true
-                }
-            },
-            selecteduuids: $selecteduuids,
-            inwork: $inwork,
-            filterstring: $filterstring,
-            reload: $reload,
-            confirmdelete: $confirmdeletemenu)
+            TableListofTasksProgress(
+                selecteduuids: $selecteduuids.onChange {
+                    print(selecteduuids)
+                    if alltasksestimated {
+                        sheetchooser.sheet = .dryrun
+                        modaleview = true
+                    }
+                },
+                inwork: $inwork,
+                filterstring: $filterstring,
+                reload: $reload,
+                confirmdelete: $confirmdeletemenu
+            )
 
             // Remember max 10 in one Group
             Group {
