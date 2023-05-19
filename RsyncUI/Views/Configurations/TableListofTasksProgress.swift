@@ -25,9 +25,7 @@ struct TableListofTasksProgress: View {
     }
 
     var tabledata: some View {
-        Table(configurationssorted, selection: $selecteduuids.onChange {
-            print(selecteduuids)
-        }) {
+        Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("Progress") { data in
                 ZStack {
                     if data.hiddenID == inwork && executedetails.isestimating() == false {
