@@ -54,7 +54,12 @@ struct TasksView: View {
     var body: some View {
         ZStack {
             TableListofTasksProgress(
-                selecteduuids: $selecteduuids,
+                selecteduuids: $selecteduuids.onChange {
+                    let count = selecteduuids.count
+                    let configuuid = selecteduuids.first
+                    print(configuuid)
+                    print(selecteduuids)
+                },
                 inwork: $inwork,
                 filterstring: $filterstring,
                 reload: $reload,
