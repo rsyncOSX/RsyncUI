@@ -11,8 +11,6 @@ struct TableListofTasksProgress: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
 
-    // @Binding var selectedconfig: Configuration?
-    // Used when selectable and starting progressview
     @Binding var selecteduuids: Set<UUID>
     @Binding var inwork: Int
     @Binding var filterstring: String
@@ -27,7 +25,9 @@ struct TableListofTasksProgress: View {
     }
 
     var tabledata: some View {
-        Table(configurationssorted, selection: $selecteduuids) {
+        Table(configurationssorted, selection: $selecteduuids.onChange {
+            print(selecteduuids)
+        }) {
             TableColumn("Progress") { data in
                 ZStack {
                     if data.hiddenID == inwork && executedetails.isestimating() == false {
@@ -58,9 +58,26 @@ struct TableListofTasksProgress: View {
                     Text(data.profile ?? "Default profile")
                 }
             }
-            .width(min: 100, max: 200)
+            .width(min: 50, max: 200)
             TableColumn("Synchronize ID", value: \.backupID)
-                .width(min: 100, max: 200)
+                .width(min: 50, max: 200)
+            TableColumn("Task", value: \.task)
+                .width(max: 80)
+            TableColumn("Local catalog", value: \.localCatalog)
+                .width(min: 80, max: 300)
+            TableColumn("Remote catalog", value: \.offsiteCatalog)
+                .width(min: 80, max: 300)
+            TableColumn("Server", value: \.offsiteServer)
+                .width(min: 50, max: 80)
+            TableColumn("Days") { data in
+                if markconfig(data) {
+                    Text(data.dayssincelastbackup ?? "")
+                        .foregroundColor(.red)
+                } else {
+                    Text(data.dayssincelastbackup ?? "")
+                }
+            }
+            .width(max: 50)
             TableColumn("Last") { data in
                 if markconfig(data) {
                     Text(data.dateRun ?? "")
@@ -70,14 +87,6 @@ struct TableListofTasksProgress: View {
                 }
             }
             .width(max: 120)
-            TableColumn("Task", value: \.task)
-                .width(max: 80)
-            TableColumn("Local catalog", value: \.localCatalog)
-                .width(min: 100, max: 300)
-            TableColumn("Remote catalog", value: \.offsiteCatalog)
-                .width(min: 100, max: 300)
-            TableColumn("Server", value: \.offsiteServer)
-                .width(max: 70)
         }
         .confirmationDialog(
             NSLocalizedString("Delete configuration", comment: "")

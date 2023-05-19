@@ -54,13 +54,7 @@ struct TasksView: View {
     var body: some View {
         ZStack {
             TableListofTasksProgress(
-                selecteduuids: $selecteduuids.onChange {
-                    print(selecteduuids)
-                    if alltasksestimated {
-                        sheetchooser.sheet = .dryrun
-                        modaleview = true
-                    }
-                },
+                selecteduuids: $selecteduuids,
                 inwork: $inwork,
                 filterstring: $filterstring,
                 reload: $reload,
