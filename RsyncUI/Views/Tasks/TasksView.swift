@@ -41,7 +41,7 @@ struct TasksView: View {
 
     @State private var filterstring: String = ""
     // Delete
-    @State private var confirmdeletemenu: Bool = false
+    @State private var confirmdelete: Bool = false
     // Local data for present local and remote info about task
     @State private var localdata: [String] = []
     // Modale view
@@ -64,7 +64,7 @@ struct TasksView: View {
                 inwork: $inwork,
                 filterstring: $filterstring,
                 reload: $reload,
-                confirmdelete: $confirmdeletemenu
+                confirmdelete: $confirmdelete
             )
 
             // Remember max 10 in one Group
@@ -277,7 +277,7 @@ struct TasksView: View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 focusdeletetask = false
-                confirmdeletemenu = true
+                confirmdelete = true
             })
     }
 

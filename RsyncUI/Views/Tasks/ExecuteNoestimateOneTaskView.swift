@@ -30,12 +30,13 @@ struct ExecuteNoestimateOneTaskView: View {
 
     var body: some View {
         ZStack {
-            ListofTasksProgress(selectedconfig: $selectedconfig,
-                                selecteduuids: $selecteduuids,
-                                inwork: $inwork,
-                                filterstring: $filterstring,
-                                reload: $reload,
-                                confirmdelete: $confirmdelete)
+            TableListofTasksProgress(
+                selecteduuids: $selecteduuids,
+                inwork: $inwork,
+                filterstring: $filterstring,
+                reload: $reload,
+                confirmdelete: $confirmdelete
+            )
 
             // When completed
             if inprogresscountmultipletask.executeasyncnoestimationcompleted == true { labelcompleted }
