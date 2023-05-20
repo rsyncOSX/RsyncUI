@@ -55,10 +55,15 @@ struct TasksView: View {
         ZStack {
             TableListofTasksProgress(
                 selecteduuids: $selecteduuids.onChange {
-                    let count = selecteduuids.count
                     let configuuid = selecteduuids.first
-                    print(configuuid)
-                    print(selecteduuids)
+                    let selectedconfig = rsyncUIdata.configurations?.filter { config in
+                        config.id == configuuid
+                    }
+                    if (selectedconfig?.count ?? 0) == 1 {
+                        if let config = selectedconfig {
+                            self.selectedconfig = config[0]
+                        }
+                    }
                 },
                 inwork: $inwork,
                 filterstring: $filterstring,

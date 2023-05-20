@@ -47,7 +47,6 @@ struct TableListofTasksProgress: View {
                     }
                 }
             }
-
             TableColumn("Profile") { data in
                 if markconfig(data) {
                     Text(data.profile ?? "Default profile")
@@ -65,8 +64,14 @@ struct TableListofTasksProgress: View {
                 .width(min: 80, max: 300)
             TableColumn("Remote catalog", value: \.offsiteCatalog)
                 .width(min: 80, max: 300)
-            TableColumn("Server", value: \.offsiteServer)
-                .width(min: 50, max: 80)
+            TableColumn("Server") { data in
+                if data.offsiteServer.count > 0 {
+                    Text(data.offsiteServer)
+                } else {
+                    Text("localhost")
+                }
+            }
+            .width(min: 50, max: 80)
             TableColumn("Days") { data in
                 if markconfig(data) {
                     Text(data.dayssincelastbackup ?? "")
