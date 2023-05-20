@@ -124,12 +124,6 @@ struct TasksView: View {
 
             Spacer()
 
-            ZStack {
-                if alltasksestimated { alltasksestimatedtext }
-            }
-
-            Spacer()
-
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
                 .tooltip("Shortcut ⌘A")
@@ -234,14 +228,6 @@ struct TasksView: View {
                     await tasklocalinfo.executeProcess()
                 }
             })
-    }
-
-    var alltasksestimated: Bool {
-        return inprogresscountmultipletask.getestimatedlist()?.count == rsyncUIdata.configurations?.count
-    }
-
-    var alltasksestimatedtext: some View {
-        Text("All tasks are estimated - select task to view details or Reset for reset")
     }
 
     var labelstartestimation: some View {
