@@ -28,10 +28,14 @@ struct OutputEstimatedView: View {
                         .width(min: 100, max: 300)
                     TableColumn("Remote catalog", value: \.offsiteCatalog)
                         .width(min: 100, max: 300)
-                    TableColumn("Server", value: \.offsiteServer)
-                        .width(max: 70)
-                    TableColumn("User", value: \.offsiteUsername)
-                        .width(max: 70)
+                    TableColumn("Server") { data in
+                        if data.offsiteServer.count > 0 {
+                            Text(data.offsiteServer)
+                        } else {
+                            Text("localhost")
+                        }
+                    }
+                    .width(max: 80)
                 }
 
                 Table(estimatedlist) {
