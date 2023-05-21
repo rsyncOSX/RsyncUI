@@ -99,6 +99,15 @@ struct TasksView: View {
                         .tooltip("Shortcut ⌘R")
 
                     Button("DryRun") {
+                        let configuuid = selecteduuids.first
+                        let selectedconfig = rsyncUIdata.configurations?.filter { config in
+                            config.id == configuuid
+                        }
+                        if (selectedconfig?.count ?? 0) == 1 {
+                            if let config = selectedconfig {
+                                self.selectedconfig = config[0]
+                            }
+                        }
                         if selectedconfig != nil {
                             sheetchooser.sheet = .estimateddetailsview
                         } else {
