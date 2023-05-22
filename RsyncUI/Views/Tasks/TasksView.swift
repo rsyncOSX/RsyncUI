@@ -163,9 +163,7 @@ struct TasksView: View {
     func makeSheet() -> some View {
         switch sheetchooser.sheet {
         case .dryrunestimated:
-            DetailsViewAlreadyEstimated(selectedconfig: $selectedconfig,
-                                        reload: $reload,
-                                        isPresented: $modaleview,
+            DetailsViewAlreadyEstimated(selecteduuids: $selecteduuids,
                                         estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
         case .dryrun:
             OutputEstimatedView(selecteduuids: $selecteduuids,

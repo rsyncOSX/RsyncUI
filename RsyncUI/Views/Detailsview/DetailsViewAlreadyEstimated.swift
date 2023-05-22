@@ -9,10 +9,11 @@ import Foundation
 import SwiftUI
 
 struct DetailsViewAlreadyEstimated: View {
-    @Binding var selectedconfig: Configuration?
-    @Binding var reload: Bool
-    @Binding var isPresented: Bool
+    @SwiftUI.Environment(\.dismiss) var dismiss
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selecteduuids: Set<UUID>
     var estimatedlist: [RemoteinfonumbersOnetask]
+    @State private var selectedconfig: Configuration?
     @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
@@ -87,14 +88,25 @@ struct DetailsViewAlreadyEstimated: View {
             HStack {
                 Spacer()
 
-                Button("Dismiss") { dismissview() }
+                Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
         .padding()
         .frame(minWidth: 900, minHeight: 500)
         .onAppear {
-            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selectedconfig?.id }
+            let configuuid = selecteduuids.first
+            let selectedconfig = rsyncUIdata.configurations?.filter { config in
+                config.id == configuuid
+            }
+            if (selectedconfig?.count ?? 0) == 1 {
+                if let config = selectedconfig {
+                    self.selectedconfig = config[0]
+                }
+            } else {
+                self.selectedconfig = nil
+            }
+            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == self.selectedconfig?.id }
             if output.count > 0 {
                 outputfromrsync.generatedata(output[0].outputfromrsync)
             }
@@ -102,12 +114,6 @@ struct DetailsViewAlreadyEstimated: View {
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {
-        return estimatedlist.filter { $0.id == selectedconfig?.id }
-    }
-}
-
-extension DetailsViewAlreadyEstimated {
-    func dismissview() {
-        isPresented = false
+        return estimatedlist.filter { $0.id == self.selectedconfig?.id }
     }
 }
