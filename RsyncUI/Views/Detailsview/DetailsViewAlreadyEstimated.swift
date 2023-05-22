@@ -13,7 +13,7 @@ struct DetailsViewAlreadyEstimated: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<UUID>
     var estimatedlist: [RemoteinfonumbersOnetask]
-    @State private var selectedconfig: Configuration?
+    @StateObject var config = Selectedconfig()
     @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
@@ -95,18 +95,7 @@ struct DetailsViewAlreadyEstimated: View {
         .padding()
         .frame(minWidth: 900, minHeight: 500)
         .onAppear {
-            let configuuid = selecteduuids.first
-            let selectedconfig = rsyncUIdata.configurations?.filter { config in
-                config.id == configuuid
-            }
-            if (selectedconfig?.count ?? 0) == 1 {
-                if let config = selectedconfig {
-                    self.selectedconfig = config[0]
-                }
-            } else {
-                self.selectedconfig = nil
-            }
-            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == self.selectedconfig?.id }
+            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == self.config.selectedconfig?.id }
             if output.count > 0 {
                 outputfromrsync.generatedata(output[0].outputfromrsync)
             }
@@ -114,6 +103,21 @@ struct DetailsViewAlreadyEstimated: View {
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {
-        return estimatedlist.filter { $0.id == self.selectedconfig?.id }
+        let configuuid = selecteduuids.first
+        let selectedconfig = rsyncUIdata.configurations?.filter { config in
+            config.id == configuuid
+        }
+        if (selectedconfig?.count ?? 0) == 1 {
+            if let config = selectedconfig {
+                self.config.selectedconfig = config[0]
+            }
+        } else {
+            config.selectedconfig = nil
+        }
+        return estimatedlist.filter { $0.id == self.config.selectedconfig?.id }
     }
+}
+
+final class Selectedconfig: ObservableObject {
+    var selectedconfig: Configuration?
 }
