@@ -38,13 +38,6 @@ struct ListofTasksView: View {
                         Text("")
                             .modifier(FixedTag(20, .leading))
                     }
-                    if selecteduuids.contains(data.id) && data.hiddenID != inwork {
-                        Text(Image(systemName: "arrowtriangle.right"))
-                            .modifier(FixedTag(20, .leading))
-                    } else {
-                        Text("")
-                            .modifier(FixedTag(20, .leading))
-                    }
                 }
             }
             TableColumn("Profile") { data in
@@ -133,12 +126,5 @@ struct ListofTasksView: View {
             }
         }
         return false
-    }
-}
-
-extension Sequence where Iterator.Element: Hashable {
-    func unique() -> [Iterator.Element] {
-        var seen: Set<Iterator.Element> = []
-        return filter { seen.insert($0).inserted }
     }
 }
