@@ -10,7 +10,6 @@ import SwiftUI
 struct ExecuteCommands: Commands {
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
-    @FocusedBinding(\.selecttask) private var selectttask
     @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
     @FocusedBinding(\.deletetask) private var deletetask
     @FocusedBinding(\.showinfotask) private var showinfotask
@@ -25,7 +24,6 @@ struct ExecuteCommands: Commands {
 
                 Divider()
 
-                SelectTask(selecttask: $selectttask)
                 FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
                 Showinfotask(showinfotask: $showinfotask)
 
@@ -159,10 +157,6 @@ struct FocusedExecuteBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
-struct FocusedSelecttask: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
-
 struct FocusedFirsttaskInfo: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -192,11 +186,6 @@ extension FocusedValues {
     var startexecution: FocusedExecuteBinding.Value? {
         get { self[FocusedExecuteBinding.self] }
         set { self[FocusedExecuteBinding.self] = newValue }
-    }
-
-    var selecttask: FocusedSelecttask.Value? {
-        get { self[FocusedSelecttask.self] }
-        set { self[FocusedSelecttask.self] = newValue }
     }
 
     var firsttaskinfo: FocusedFirsttaskInfo.Value? {

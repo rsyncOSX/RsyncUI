@@ -32,7 +32,6 @@ struct TasksView: View {
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
-    @State private var focusselecttask: Bool = false
     @State private var focusfirsttaskinfo: Bool = false
     @State private var focusdeletetask: Bool = false
     @State private var focusshowinfotask: Bool = false
@@ -77,7 +76,6 @@ struct TasksView: View {
             Group {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
-                if focusselecttask { labelselecttask }
                 if focusfirsttaskinfo { labelfirsttime }
                 if focusdeletetask { labeldeletetask }
                 if focusshowinfotask { showinfotask }
@@ -141,7 +139,6 @@ struct TasksView: View {
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
-        .focusedSceneValue(\.selecttask, $focusselecttask)
         .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
         .focusedSceneValue(\.deletetask, $focusdeletetask)
         .focusedSceneValue(\.showinfotask, $focusshowinfotask)
@@ -257,14 +254,6 @@ struct TasksView: View {
             })
     }
 
-    var labelselecttask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusselecttask = false
-                select()
-            })
-    }
-
     var labelfirsttime: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -355,16 +344,6 @@ extension TasksView {
         focusstartestimation = false
         focusstartexecution = false
         stopasynctimer()
-    }
-
-    func select() {
-        if let selectedconfig = selectedconfig {
-            if selecteduuids.contains(selectedconfig.id) {
-                selecteduuids.remove(selectedconfig.id)
-            } else {
-                selecteduuids.insert(selectedconfig.id)
-            }
-        }
     }
 
     // For showinfo about one task
