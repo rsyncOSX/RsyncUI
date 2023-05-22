@@ -109,8 +109,13 @@ struct TasksView: View {
                             }
                         }
                         if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
+                            // execute a dry run task
                             sheetchooser.sheet = .estimateddetailsview
+                        } else if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0 {
+                            // already estimated, show details on task
+                            sheetchooser.sheet = .dryrunestimated
                         } else {
+                            // show summarized dry run
                             sheetchooser.sheet = .dryrun
                         }
                         modaleview = true
@@ -157,17 +162,15 @@ struct TasksView: View {
     @ViewBuilder
     func makeSheet() -> some View {
         switch sheetchooser.sheet {
+        case .dryrunestimated:
+            DetailsViewAlreadyEstimated(selectedconfig: $selectedconfig,
+                                        reload: $reload,
+                                        isPresented: $modaleview,
+                                        estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
         case .dryrun:
-            if inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0 && selectedconfig != nil {
-                DetailsViewAlreadyEstimated(selectedconfig: $selectedconfig,
-                                            reload: $reload,
-                                            isPresented: $modaleview,
-                                            estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
-            } else {
-                OutputEstimatedView(selecteduuids: $selecteduuids,
-                                    execute: $focusstartexecution,
-                                    estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
-            }
+            OutputEstimatedView(selecteduuids: $selecteduuids,
+                                execute: $focusstartexecution,
+                                estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
         case .estimateddetailsview:
             DetailsView(selectedconfig: $selectedconfig,
                         reload: $reload)
@@ -373,7 +376,7 @@ extension TasksView {
 }
 
 enum Sheet: String, Identifiable {
-    case dryrun, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
+    case dryrun, dryrunestimated, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
     var id: String { rawValue }
 }
 
