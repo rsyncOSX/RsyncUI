@@ -29,7 +29,7 @@ struct ExecuteNoestimatedTasksView: View {
 
     var body: some View {
         ZStack {
-            TableListofTasksProgress(
+            ListofTasksView(
                 selecteduuids: $selecteduuids,
                 inwork: $inwork,
                 filterstring: $filterstring,

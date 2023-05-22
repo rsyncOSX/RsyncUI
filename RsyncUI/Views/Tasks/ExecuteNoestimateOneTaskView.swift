@@ -26,12 +26,11 @@ struct ExecuteNoestimateOneTaskView: View {
 
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
-
     @StateObject var selectedconfig = Selectedconfig()
 
     var body: some View {
         ZStack {
-            TableListofTasksProgress(
+            ListofTasksView(
                 selecteduuids: $selecteduuids,
                 inwork: $inwork,
                 filterstring: $filterstring,

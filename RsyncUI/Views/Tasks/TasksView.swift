@@ -19,7 +19,6 @@ struct TasksView: View {
     @StateObject private var estimationstate = EstimationState()
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
 
-    // @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
 
@@ -53,12 +52,14 @@ struct TasksView: View {
 
     var body: some View {
         ZStack {
-            TableListofTasksProgress(
+            ListofTasksView(
                 selecteduuids: $selecteduuids.onChange {
                     let configuuid = selecteduuids.first
                     let selected = rsyncUIdata.configurations?.filter { config in
                         config.id == configuuid
                     }
+                    print(rsyncUIdata.configurations)
+                    print(configuuid)
                     if (selected?.count ?? 0) == 1 {
                         if let config = selected {
                             selectedconfig.config = config[0]
@@ -100,19 +101,14 @@ struct TasksView: View {
                         .tooltip("Shortcut ⌘R")
 
                     Button("DryRun") {
-                        let configuuid = selecteduuids.first
-                        let selectedconfig = rsyncUIdata.configurations?.filter { config in
-                            config.id == configuuid
-                        }
-                        if (selectedconfig?.count ?? 0) == 1 {
-                            if let config = selectedconfig {
-                                self.selectedconfig.config = config[0]
-                            }
-                        }
-                        if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
+                        if selectedconfig.config != nil &&
+                            inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0
+                        {
                             // execute a dry run task
                             sheetchooser.sheet = .estimateddetailsview
-                        } else if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0 {
+                        } else if selectedconfig.config != nil &&
+                            inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0
+                        {
                             // already estimated, show details on task
                             sheetchooser.sheet = .dryrunestimated
                         } else {

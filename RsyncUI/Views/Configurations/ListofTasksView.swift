@@ -1,5 +1,5 @@
 //
-//  TableListofTasksProgress.swift
+//  ListofTasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 18/05/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TableListofTasksProgress: View {
+struct ListofTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
 
