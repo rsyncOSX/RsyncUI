@@ -63,6 +63,8 @@ struct TasksView: View {
                         if let config = selectedconfig {
                             self.selectedconfig = config[0]
                         }
+                    } else {
+                        self.selectedconfig = nil
                     }
                 },
                 inwork: $inwork,
