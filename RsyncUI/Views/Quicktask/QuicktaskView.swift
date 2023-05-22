@@ -16,6 +16,7 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
 }
 
 struct QuicktaskView: View {
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var showcompleted: Bool
 
     @State private var localcatalog: String = ""
@@ -73,6 +74,12 @@ struct QuicktaskView: View {
                     }
 
                     remoteuserandserver
+
+                    HStack {
+                        remoteuserpicker
+
+                        remoteserverpicker
+                    }
                 }
             }
 
@@ -119,6 +126,46 @@ struct QuicktaskView: View {
                     .buttonStyle(AbortButtonStyle())
                     .tooltip("Shortcut ⌘A")
             }
+        }
+    }
+
+    var remoteuserpicker: some View {
+        VStack(alignment: .trailing) {
+            Text("Remote user")
+                .font(Font.footnote)
+            Picker("", selection: $remoteuser) {
+                Text("").tag("")
+                if let remoteusers = assist?.remoteusers {
+                    ForEach(remoteusers.sorted(by: <), id: \.self) { remoteuser in
+                        Text(remoteuser)
+                            .tag(remoteuser)
+                    }
+                }
+            }
+            .frame(width: 93)
+            .accentColor(.blue)
+        }
+    }
+
+    var assist: Assist? {
+        return Assist(configurations: rsyncUIdata.configurations)
+    }
+
+    var remoteserverpicker: some View {
+        VStack(alignment: .trailing) {
+            Text("Remote server")
+                .font(Font.footnote)
+            Picker("", selection: $remoteserver) {
+                Text("").tag("")
+                if let remoteservers = assist?.remoteservers {
+                    ForEach(remoteservers.sorted(by: <), id: \.self) { remoteserver in
+                        Text(remoteserver)
+                            .tag(remoteserver)
+                    }
+                }
+            }
+            .frame(width: 93)
+            .accentColor(.blue)
         }
     }
 
