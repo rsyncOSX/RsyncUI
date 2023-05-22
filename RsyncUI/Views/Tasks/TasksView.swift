@@ -19,7 +19,7 @@ struct TasksView: View {
     @StateObject private var estimationstate = EstimationState()
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
 
-    @Binding var selectedconfig: Configuration?
+    // @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
 
@@ -46,6 +46,7 @@ struct TasksView: View {
     // Modale view
     @State private var modaleview = false
     @StateObject var sheetchooser = SheetChooser()
+    @StateObject var selectedconfig = Selectedconfig()
     // Timer
     @State private var timervalue: Double = 600
     @State private var timerisenabled: Bool = false
@@ -55,15 +56,15 @@ struct TasksView: View {
             TableListofTasksProgress(
                 selecteduuids: $selecteduuids.onChange {
                     let configuuid = selecteduuids.first
-                    let selectedconfig = rsyncUIdata.configurations?.filter { config in
+                    let selected = rsyncUIdata.configurations?.filter { config in
                         config.id == configuuid
                     }
-                    if (selectedconfig?.count ?? 0) == 1 {
-                        if let config = selectedconfig {
-                            self.selectedconfig = config[0]
+                    if (selected?.count ?? 0) == 1 {
+                        if let config = selected {
+                            selectedconfig.config = config[0]
                         }
                     } else {
-                        self.selectedconfig = nil
+                        selectedconfig.config = nil
                     }
                 },
                 inwork: $inwork,
@@ -105,27 +106,19 @@ struct TasksView: View {
                         }
                         if (selectedconfig?.count ?? 0) == 1 {
                             if let config = selectedconfig {
-                                self.selectedconfig = config[0]
+                                self.selectedconfig.config = config[0]
                             }
                         }
-
-                        if selectedconfig != nil {
+                        if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
+                            // execute a dry run task
                             sheetchooser.sheet = .estimateddetailsview
+                        } else if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0 {
+                            // already estimated, show details on task
+                            sheetchooser.sheet = .dryrunestimated
                         } else {
+                            // show summarized dry run
                             sheetchooser.sheet = .dryrun
                         }
-                        /*
-                         if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
-                             // execute a dry run task
-                             sheetchooser.sheet = .estimateddetailsview
-                         } else if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0 {
-                             // already estimated, show details on task
-                             sheetchooser.sheet = .dryrunestimated
-                         } else {
-                             // show summarized dry run
-                             sheetchooser.sheet = .dryrun
-                         }
-                         */
                         modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
@@ -171,22 +164,21 @@ struct TasksView: View {
     func makeSheet() -> some View {
         switch sheetchooser.sheet {
         case .dryrunestimated:
-            DetailsViewAlreadyEstimated(selecteduuids: $selecteduuids,
-                                        estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
+            DetailsViewAlreadyEstimated(estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [],
+                                        selectedconfig: selectedconfig.config)
         case .dryrun:
             OutputEstimatedView(selecteduuids: $selecteduuids,
                                 execute: $focusstartexecution,
                                 estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
         case .estimateddetailsview:
-            DetailsView(selecteduuids: $selecteduuids,
-                        reload: $reload)
+            DetailsView(reload: $reload, selectedconfig: selectedconfig.config)
         case .alltasksview:
             AlltasksView()
         case .firsttime:
             FirsttimeView()
         case .localremoteinfo:
             LocalRemoteInfoView(localdata: $localdata,
-                                selectedconfig: $selectedconfig)
+                                selectedconfig: selectedconfig.config)
         case .asynctimerison:
             Counter(timervalue: $timervalue, timerisenabled: $timerisenabled.onChange {
                 if timerisenabled == true {
@@ -206,11 +198,11 @@ struct TasksView: View {
         ProgressView()
             .onAppear {
                 Task {
-                    if selectedconfig != nil && selecteduuids.count == 0 {
+                    if selectedconfig.config != nil && selecteduuids.count == 0 {
                         let estimateonetaskasync =
                             EstimateOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                  updateinprogresscount: inprogresscountmultipletask,
-                                                 hiddenID: selectedconfig?.hiddenID)
+                                                 hiddenID: selectedconfig.config?.hiddenID)
                         await estimateonetaskasync.execute()
                     } else {
                         let estimatealltasksasync =
@@ -233,7 +225,7 @@ struct TasksView: View {
     var showinfotask: some View {
         ProgressView()
             .onAppear(perform: {
-                let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig)
+                let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig.config)
                     .argumentslocalcataloginfo(dryRun: true, forDisplay: false)
                 guard argumentslocalinfo != nil else {
                     focusshowinfotask = false
@@ -300,11 +292,11 @@ struct TasksView: View {
 
 extension TasksView {
     func estimate() {
-        if selectedconfig != nil {
-            let profile = selectedconfig?.profile ?? "Default profile"
+        if selectedconfig.config != nil {
+            let profile = selectedconfig.config?.profile ?? "Default profile"
             if profile != rsyncUIdata.profile {
                 selecteduuids.removeAll()
-                selectedconfig = nil
+                selectedconfig.config = nil
             }
         }
         inprogresscountmultipletask.resetcounts()
@@ -315,7 +307,7 @@ extension TasksView {
     func execute() {
         selecteduuids = inprogresscountmultipletask.getuuids()
         guard selecteduuids.count > 0 else {
-            if selectedconfig == nil {
+            if selectedconfig.config == nil {
                 // Execute all tasks, no estimate
                 showexecutenoestimateview = true
                 showexecutenoestiamteonetask = false
@@ -337,7 +329,7 @@ extension TasksView {
         inwork = -1
         inprogresscountmultipletask.resetcounts()
         estimationstate.updatestate(state: .start)
-        selectedconfig = nil
+        selectedconfig.config = nil
         inprogresscountmultipletask.estimateasync = false
         sheetchooser.sheet = .dryrun
         stopasynctimer()
@@ -391,6 +383,10 @@ final class SheetChooser: ObservableObject {
     // Do not redraw view when changing
     // no @Publised
     var sheet: Sheet = .dryrun
+}
+
+final class Selectedconfig: ObservableObject {
+    var config: Configuration?
 }
 
 // swiftlint:enable line_length

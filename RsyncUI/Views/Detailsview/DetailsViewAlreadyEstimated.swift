@@ -10,10 +10,9 @@ import SwiftUI
 
 struct DetailsViewAlreadyEstimated: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<UUID>
     var estimatedlist: [RemoteinfonumbersOnetask]
-    @StateObject var config = Selectedconfig()
+    var selectedconfig: Configuration?
+
     @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
@@ -95,7 +94,7 @@ struct DetailsViewAlreadyEstimated: View {
         .padding()
         .frame(minWidth: 900, minHeight: 500)
         .onAppear {
-            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == self.config.selectedconfig?.id }
+            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selectedconfig?.id }
             if output.count > 0 {
                 outputfromrsync.generatedata(output[0].outputfromrsync)
             }
@@ -103,21 +102,6 @@ struct DetailsViewAlreadyEstimated: View {
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {
-        let configuuid = selecteduuids.first
-        let selectedconfig = rsyncUIdata.configurations?.filter { config in
-            config.id == configuuid
-        }
-        if (selectedconfig?.count ?? 0) == 1 {
-            if let config = selectedconfig {
-                self.config.selectedconfig = config[0]
-            }
-        } else {
-            config.selectedconfig = nil
-        }
-        return estimatedlist.filter { $0.id == self.config.selectedconfig?.id }
+        return estimatedlist.filter { $0.id == selectedconfig?.id }
     }
-}
-
-final class Selectedconfig: ObservableObject {
-    var selectedconfig: Configuration?
 }

@@ -63,8 +63,7 @@ struct SidebarTasksView: View {
     func makeView(task: Task) -> some View {
         switch task {
         case .taskview:
-            TasksView(selectedconfig: $selectedconfig,
-                      reload: $reload,
+            TasksView(reload: $reload,
                       selecteduuids: $selecteduuids,
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
@@ -77,8 +76,7 @@ struct SidebarTasksView: View {
                     showcompleted = true
                 })
         case .executenoestimatetasksview:
-            ExecuteNoestimatedTasksView(selectedconfig: $selectedconfig,
-                                        reload: $reload,
+            ExecuteNoestimatedTasksView(reload: $reload,
                                         selecteduuids: $selecteduuids,
                                         showcompleted: $showcompleted,
                                         showexecutenoestimateview: $showexecuteNOEstimateview)
@@ -86,8 +84,7 @@ struct SidebarTasksView: View {
                     showcompleted = true
                 })
         case .executenoestimateonetaskview:
-            ExecuteNoestimateOneTaskView(selectedconfig: $selectedconfig,
-                                         reload: $reload,
+            ExecuteNoestimateOneTaskView(reload: $reload,
                                          selecteduuids: $selecteduuids,
                                          showcompleted: $showcompleted,
                                          showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask)

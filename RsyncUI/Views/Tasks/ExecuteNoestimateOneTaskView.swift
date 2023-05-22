@@ -13,7 +13,6 @@ struct ExecuteNoestimateOneTaskView: View {
     // the estimated values.
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
 
-    @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var showcompleted: Bool
@@ -27,6 +26,8 @@ struct ExecuteNoestimateOneTaskView: View {
 
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
+
+    @StateObject var selectedconfig = Selectedconfig()
 
     var body: some View {
         ZStack {
@@ -80,7 +81,6 @@ extension ExecuteNoestimateOneTaskView {
         reload = true
         showcompleted = true
         inprogresscountmultipletask.resetcounts()
-        selectedconfig = nil
         progressviewshowinfo = false
         inprogresscountmultipletask.estimateasync = false
         showexecutenoestiamteonetask = false
@@ -97,11 +97,22 @@ extension ExecuteNoestimateOneTaskView {
     }
 
     func executeonenotestimatedtask() async {
-        if selectedconfig != nil, selecteduuids.count == 0 {
+        let configuuid = selecteduuids.first
+        let selected = rsyncUIdata.configurations?.filter { config in
+            config.id == configuuid
+        }
+        if (selected?.count ?? 0) == 1 {
+            if let config = selected {
+                selectedconfig.config = config[0]
+            }
+        } else {
+            selectedconfig.config = nil
+        }
+        if selectedconfig.config != nil, selecteduuids.count == 0 {
             executeonetaskasync =
                 ExecuteOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                     updateinprogresscount: inprogresscountmultipletask,
-                                    hiddenID: selectedconfig?.hiddenID)
+                                    hiddenID: selectedconfig.config?.hiddenID)
             await executeonetaskasync?.execute()
         }
     }

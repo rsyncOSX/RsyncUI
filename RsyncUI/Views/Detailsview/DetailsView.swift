@@ -10,14 +10,12 @@ import SwiftUI
 
 struct DetailsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
+    var selectedconfig: Configuration?
 
     @State private var gettingremotedata = true
     @StateObject var estimateddataonetask = Estimateddataonetask()
     @StateObject var outputfromrsync = Outputfromrsync()
-    @StateObject var config = Selectedconfig()
 
     var body: some View {
         VStack {
@@ -101,19 +99,9 @@ struct DetailsView: View {
             }
         }
         .onAppear(perform: {
-            let configuuid = selecteduuids.first
-            let selectedconfig = rsyncUIdata.configurations?.filter { config in
-                config.id == configuuid
-            }
-            if (selectedconfig?.count ?? 0) == 1 {
-                if let config = selectedconfig {
-                    self.config.selectedconfig = config[0]
-                }
-            } else {
-                config.selectedconfig = nil
-            }
-            let arguments = ArgumentsSynchronize(config: config.selectedconfig)
+            let arguments = ArgumentsSynchronize(config: selectedconfig)
                 .argumentssynchronize(dryRun: true, forDisplay: false)
+            guard arguments != nil else { return }
             let task = RsyncAsync(arguments: arguments,
                                   processtermination: processtermination)
             Task {
@@ -129,7 +117,7 @@ extension DetailsView {
     func processtermination(data: [String]?) {
         outputfromrsync.generatedata(data)
         gettingremotedata = false
-        estimateddataonetask.update(data: data, hiddenID: config.selectedconfig?.hiddenID, config: config.selectedconfig)
+        estimateddataonetask.update(data: data, hiddenID: selectedconfig?.hiddenID, config: selectedconfig)
     }
 }
 

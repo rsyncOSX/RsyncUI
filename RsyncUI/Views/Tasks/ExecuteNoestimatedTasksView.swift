@@ -13,7 +13,6 @@ struct ExecuteNoestimatedTasksView: View {
     // the estimated values.
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
 
-    @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var showcompleted: Bool
@@ -80,7 +79,6 @@ extension ExecuteNoestimatedTasksView {
         reload = true
         showcompleted = true
         inprogresscountmultipletask.resetcounts()
-        selectedconfig = nil
         progressviewshowinfo = false
         inprogresscountmultipletask.estimateasync = false
         showexecutenoestimateview = false

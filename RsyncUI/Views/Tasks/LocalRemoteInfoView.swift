@@ -11,7 +11,7 @@ import SwiftUI
 struct LocalRemoteInfoView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var localdata: [String]
-    @Binding var selectedconfig: Configuration?
+    var selectedconfig: Configuration?
 
     @State private var remotedata: [String] = []
     @State private var gettingremotedata: Bool = false
