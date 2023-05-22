@@ -108,16 +108,24 @@ struct TasksView: View {
                                 self.selectedconfig = config[0]
                             }
                         }
-                        if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
-                            // execute a dry run task
+
+                        if selectedconfig != nil {
                             sheetchooser.sheet = .estimateddetailsview
-                        } else if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0 {
-                            // already estimated, show details on task
-                            sheetchooser.sheet = .dryrunestimated
                         } else {
-                            // show summarized dry run
                             sheetchooser.sheet = .dryrun
                         }
+                        /*
+                         if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
+                             // execute a dry run task
+                             sheetchooser.sheet = .estimateddetailsview
+                         } else if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0 {
+                             // already estimated, show details on task
+                             sheetchooser.sheet = .dryrunestimated
+                         } else {
+                             // show summarized dry run
+                             sheetchooser.sheet = .dryrun
+                         }
+                         */
                         modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
@@ -170,7 +178,7 @@ struct TasksView: View {
                                 execute: $focusstartexecution,
                                 estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
         case .estimateddetailsview:
-            DetailsView(selectedconfig: $selectedconfig,
+            DetailsView(selecteduuids: $selecteduuids,
                         reload: $reload)
         case .alltasksview:
             AlltasksView()
