@@ -108,7 +108,7 @@ struct TasksView: View {
                                 self.selectedconfig = config[0]
                             }
                         }
-                        if selectedconfig != nil {
+                        if selectedconfig != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
                             sheetchooser.sheet = .estimateddetailsview
                         } else {
                             sheetchooser.sheet = .dryrun
