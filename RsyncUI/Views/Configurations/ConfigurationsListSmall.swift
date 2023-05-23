@@ -12,9 +12,6 @@ struct ConfigurationsListSmall: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
-    // Alert for delete
-    @State private var confirmationShown = false
-    @State private var selecteduuids = Set<UUID>()
 
     var body: some View {
         configlist
