@@ -54,17 +54,20 @@ struct TasksView: View {
         ZStack {
             ListofTasksView(
                 selecteduuids: $selecteduuids.onChange {
-                    let configuuid = selecteduuids.first
                     let selected = rsyncUIdata.configurations?.filter { config in
-                        config.id == configuuid
+                        selecteduuids.contains(config.id)
                     }
-                    print(rsyncUIdata.configurations)
-                    print(configuuid)
                     if (selected?.count ?? 0) == 1 {
                         if let config = selected {
+                            print("selected config FOUND")
                             selectedconfig.config = config[0]
                         }
                     } else {
+                        if selecteduuids.count > 1, rsyncUIdata.configurations?.count ?? 0 < selecteduuids.count {
+                            print("Multiple selected TASKS")
+                        } else {
+                            print("selected config NOT FOUND")
+                        }
                         selectedconfig.config = nil
                     }
                 },
@@ -107,10 +110,10 @@ struct TasksView: View {
                             // execute a dry run task
                             sheetchooser.sheet = .estimateddetailsview
                         } else if selectedconfig.config != nil &&
-                            inprogresscountmultipletask.getestimatedlist()?.count ?? 0 > 0
+                            inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
                         {
                             // already estimated, show details on task
-                            sheetchooser.sheet = .dryrunestimated
+                            sheetchooser.sheet = .dryrunalreadyestimated
                         } else {
                             // show summarized dry run
                             sheetchooser.sheet = .dryrun
@@ -159,7 +162,7 @@ struct TasksView: View {
     @ViewBuilder
     func makeSheet() -> some View {
         switch sheetchooser.sheet {
-        case .dryrunestimated:
+        case .dryrunalreadyestimated:
             DetailsViewAlreadyEstimated(estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [],
                                         selectedconfig: selectedconfig.config)
         case .dryrun:
@@ -194,13 +197,15 @@ struct TasksView: View {
         ProgressView()
             .onAppear {
                 Task {
-                    if selectedconfig.config != nil && selecteduuids.count == 0 {
+                    if selectedconfig.config != nil {
+                        print("EstimateOnetaskAsync")
                         let estimateonetaskasync =
                             EstimateOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                  updateinprogresscount: inprogresscountmultipletask,
                                                  hiddenID: selectedconfig.config?.hiddenID)
                         await estimateonetaskasync.execute()
                     } else {
+                        print("EstimateAlltasksAsync")
                         let estimatealltasksasync =
                             EstimateAlltasksAsync(profile: rsyncUIdata.configurationsfromstore?.profile,
                                                   configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
@@ -301,24 +306,27 @@ extension TasksView {
     }
 
     func execute() {
-        selecteduuids = inprogresscountmultipletask.getuuids()
-        guard selecteduuids.count > 0 else {
+        if inprogresscountmultipletask.getuuids().count == rsyncUIdata.configurations?.count ?? 0 {
+            print("Execute_All_Estimated tasks")
+            // Execute all estimated tasks
+            selecteduuids = inprogresscountmultipletask.getuuids()
+            estimationstate.updatestate(state: .start)
+            executedetails.resetcounter()
+            executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+            showeexecutestimatedview = true
+        } else {
             if selectedconfig.config == nil {
                 // Execute all tasks, no estimate
+                print("Execute_All_NO_Estimated tasks")
                 showexecutenoestimateview = true
                 showexecutenoestiamteonetask = false
             } else {
                 // Execute one task, no estimte
+                print("Execute_ONE_NO_Estimated tasks")
                 showexecutenoestiamteonetask = true
                 showexecutenoestimateview = false
             }
-            return
         }
-        // Execute all estimated tasks.
-        estimationstate.updatestate(state: .start)
-        executedetails.resetcounter()
-        executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
-        showeexecutestimatedview = true
     }
 
     func reset() {
@@ -370,7 +378,7 @@ extension TasksView {
 }
 
 enum Sheet: String, Identifiable {
-    case dryrun, dryrunestimated, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
+    case dryrun, dryrunalreadyestimated, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
     var id: String { rawValue }
 }
 

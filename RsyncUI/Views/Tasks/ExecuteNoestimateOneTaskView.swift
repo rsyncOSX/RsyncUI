@@ -96,18 +96,20 @@ extension ExecuteNoestimateOneTaskView {
     }
 
     func executeonenotestimatedtask() async {
-        let configuuid = selecteduuids.first
+        print("executeonenotestimatedtask")
         let selected = rsyncUIdata.configurations?.filter { config in
-            config.id == configuuid
+            selecteduuids.contains(config.id)
         }
         if (selected?.count ?? 0) == 1 {
             if let config = selected {
+                print("selected config FOUND")
                 selectedconfig.config = config[0]
             }
         } else {
+            print("selected config NOT FOUND")
             selectedconfig.config = nil
         }
-        if selectedconfig.config != nil, selecteduuids.count == 0 {
+        if selectedconfig.config != nil {
             executeonetaskasync =
                 ExecuteOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                     updateinprogresscount: inprogresscountmultipletask,
