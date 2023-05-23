@@ -62,7 +62,6 @@
 		E985C65A25F3AD8400CB895C /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61125F3AD8400CB895C /* Sidebar.swift */; };
 		E985C65B25F3AD8400CB895C /* LogsbyConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */; };
 		E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61425F3AD8400CB895C /* Profilenames.swift */; };
-		E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61925F3AD8400CB895C /* OneConfig.swift */; };
 		E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61B25F3AD8400CB895C /* Sshsettings.swift */; };
 		E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61C25F3AD8400CB895C /* Usersettings.swift */; };
 		E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61D25F3AD8400CB895C /* Othersettings.swift */; };
@@ -269,7 +268,6 @@
 		E985C61125F3AD8400CB895C /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		E985C61225F3AD8400CB895C /* LogsbyConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsbyConfigurationView.swift; sourceTree = "<group>"; };
 		E985C61425F3AD8400CB895C /* Profilenames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profilenames.swift; sourceTree = "<group>"; };
-		E985C61925F3AD8400CB895C /* OneConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneConfig.swift; sourceTree = "<group>"; };
 		E985C61B25F3AD8400CB895C /* Sshsettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sshsettings.swift; sourceTree = "<group>"; };
 		E985C61C25F3AD8400CB895C /* Usersettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Usersettings.swift; sourceTree = "<group>"; };
 		E985C61D25F3AD8400CB895C /* Othersettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Othersettings.swift; sourceTree = "<group>"; };
@@ -591,7 +589,6 @@
 		E985C61525F3AD8400CB895C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				E985C61925F3AD8400CB895C /* OneConfig.swift */,
 				E99209B42632F0430018BFE8 /* PresentOneconfigView.swift */,
 				E9FBEEAC264EBA7700E5F143 /* ConfigurationsListSmall.swift */,
 				E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */,
@@ -1195,7 +1192,6 @@
 				E99C23FB261C2D6C009D4DBF /* RestoreView.swift in Sources */,
 				E985C77D25F3AD9700CB895C /* ArgumentsSsh.swift in Sources */,
 				E985C68D25F3AD8400CB895C /* ExecuteEstimatedTasksView.swift in Sources */,
-				E985C66125F3AD8400CB895C /* OneConfig.swift in Sources */,
 				E9A6A42429CA076200C59183 /* TasksView.swift in Sources */,
 				E985C78D25F3AD9700CB895C /* ConfigurationsSwiftUI.swift in Sources */,
 				E985C78625F3AD9700CB895C /* SchedulesSwiftUI.swift in Sources */,
