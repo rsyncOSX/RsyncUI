@@ -306,7 +306,7 @@ extension TasksView {
     }
 
     func execute() {
-        if inprogresscountmultipletask.getuuids().count == rsyncUIdata.configurations?.count ?? 0 {
+        if inprogresscountmultipletask.getuuids().count > 0, selectedconfig.config == nil {
             print("Execute_All_Estimated tasks")
             // Execute all estimated tasks
             selecteduuids = inprogresscountmultipletask.getuuids()
