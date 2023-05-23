@@ -12,14 +12,36 @@ struct RestoreView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var filterstring: String
     @StateObject var restore = ObserveableRestore()
+    @State private var selecteduuids = Set<Configuration.ID>()
     @State private var presentsheetviewfiles = false
+
+    // Not used but requiered in parameter
+    @State private var inwork = -1
+    @State private var reload: Bool = false
+    @State private var confirmdelete: Bool = false
 
     var body: some View {
         VStack {
-            ListofAllTasks(selectedconfig: $restore.selectedconfig.onChange {
-                restore.filestorestore = ""
-                restore.commandstring = ""
-            })
+            ListofTasksView(
+                selecteduuids: $selecteduuids.onChange {
+                    restore.filestorestore = ""
+                    restore.commandstring = ""
+                    let selected = rsyncUIdata.configurations?.filter { config in
+                        selecteduuids.contains(config.id)
+                    }
+                    if (selected?.count ?? 0) == 1 {
+                        if let config = selected {
+                            restore.selectedconfig = config[0]
+                        }
+                    } else {
+                        restore.selectedconfig = nil
+                    }
+                },
+                inwork: $inwork,
+                filterstring: $filterstring,
+                reload: $reload,
+                confirmdelete: $confirmdelete
+            )
 
             Spacer()
 
@@ -129,3 +151,5 @@ extension RestoreView {
         _ = InterruptProcess()
     }
 }
+
+// swiftlint:enable line_length

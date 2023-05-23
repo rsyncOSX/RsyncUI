@@ -11,33 +11,53 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
     @Binding var filterstring: String
     @Binding var focusselectlog: Bool
 
-    @State private var selectedconfig: Configuration?
     @State private var selectedlog: Log?
-    @State private var selecteduuids = Set<UUID>()
+    @State private var selectedlogsuuids = Set<UUID>()
+    @State private var selecteduuids = Set<Configuration.ID>()
+    @StateObject var selectedconfig = Selectedconfig()
 
     // Not used but requiered in parameter
     @State private var inwork = -1
     // Alert for delete
     @State private var showAlertfordelete = false
 
+    @State private var reload: Bool = false
+    @State private var confirmdelete: Bool = false
+
     let selectable = false
 
     var body: some View {
         Form {
-            ListofAllTasks(selectedconfig: $selectedconfig.onChange {
-                selecteduuids.removeAll()
-            })
+            ListofTasksView(
+                selecteduuids: $selecteduuids.onChange {
+                    let selected = rsyncUIdata.configurations?.filter { config in
+                        selecteduuids.contains(config.id)
+                    }
+                    if (selected?.count ?? 0) == 1 {
+                        if let config = selected {
+                            selectedconfig.config = config[0]
+                        }
+                    } else {
+                        selectedconfig.config = nil
+                    }
+                },
+                inwork: $inwork,
+                filterstring: $filterstring,
+                reload: $reload,
+                confirmdelete: $confirmdelete
+            )
 
             Spacer()
 
             List(selection: $selectedlog) {
-                if let logs = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1) {
+                if let logs = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1) {
                     ForEach(logs) { record in
-                        LogRow(selecteduuids: $selecteduuids, logrecord: record)
+                        LogRow(selecteduuids: $selectedlogsuuids, logrecord: record)
                             .tag(record)
                     }
                     .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
@@ -54,8 +74,8 @@ struct LogsbyConfigurationView: View {
                 Spacer()
 
                 Button("Select") {
-                    if selecteduuids.count > 0 {
-                        selecteduuids.removeAll()
+                    if selectedlogsuuids.count > 0 {
+                        selectedlogsuuids.removeAll()
                     } else {
                         selectall()
                     }
@@ -65,7 +85,7 @@ struct LogsbyConfigurationView: View {
                 Button("Delete") { delete() }
                     .buttonStyle(AbortButtonStyle())
                     .sheet(isPresented: $showAlertfordelete) {
-                        DeleteLogsView(selecteduuids: $selecteduuids,
+                        DeleteLogsView(selecteduuids: $selectedlogsuuids,
                                        selectedprofile: $selectedprofile)
                     }
             }
@@ -83,36 +103,36 @@ struct LogsbyConfigurationView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.count ?? 0)"
+            "\(logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1)?.count ?? 0)"
     }
 }
 
 extension LogsbyConfigurationView {
     func delete() {
-        if selecteduuids.count == 0 {
+        if selectedlogsuuids.count == 0 {
             setuuidforselectedlog()
         }
-        guard selecteduuids.count > 0 else { return }
+        guard selectedlogsuuids.count > 0 else { return }
         showAlertfordelete = true
     }
 
     func select() {
         if let selectedlog = selectedlog {
-            if selecteduuids.contains(selectedlog.id) {
-                selecteduuids.remove(selectedlog.id)
+            if selectedlogsuuids.contains(selectedlog.id) {
+                selectedlogsuuids.remove(selectedlog.id)
             } else {
-                selecteduuids.insert(selectedlog.id)
+                selectedlogsuuids.insert(selectedlog.id)
             }
         }
     }
 
     func selectall() {
-        selecteduuids.removeAll()
-        let filteredlogscount = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.count ?? 0
-        let filteredlogs = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)
+        selectedlogsuuids.removeAll()
+        let filteredlogscount = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1)?.count ?? 0
+        let filteredlogs = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1)
         for i in 0 ..< filteredlogscount {
             if let id = filteredlogs?[i].id {
-                selecteduuids.insert(id)
+                selectedlogsuuids.insert(id)
             }
         }
     }
@@ -120,11 +140,13 @@ extension LogsbyConfigurationView {
     func setuuidforselectedlog() {
         if let sel = selectedlog,
            let index = logrecords.filterlogsbyhiddenID(filterstring,
-                                                       selectedconfig?.hiddenID ?? -1)?.firstIndex(of: sel)
+                                                       selectedconfig.config?.hiddenID ?? -1)?.firstIndex(of: sel)
         {
-            if let id = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?[index].id {
-                selecteduuids.insert(id)
+            if let id = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1)?[index].id {
+                selectedlogsuuids.insert(id)
             }
         }
     }
 }
+
+// swiftlint:enable line_length

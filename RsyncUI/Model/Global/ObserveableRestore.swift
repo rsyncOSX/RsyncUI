@@ -12,7 +12,7 @@ import Foundation
 final class ObserveableRestore: ObservableObject {
     @Published var pathforrestore: String = ""
     @Published var selectedrowforrestore: String = ""
-    @Published var selectedconfig: Configuration?
+
     @Published var restorefilesinprogress: Bool = false
     @Published var numberoffiles: Int = 0
     @Published var dryrun: Bool = true
@@ -28,6 +28,7 @@ final class ObserveableRestore: ObservableObject {
     var rsyncdata: [String]?
     var filestorestore: String = ""
     var arguments: [String]?
+    var selectedconfig: Configuration?
 
     var rsync: String {
         return GetfullpathforRsync().rsyncpath ?? ""
@@ -53,9 +54,6 @@ final class ObserveableRestore: ObservableObject {
             .sink { [unowned self] file in
                 filestorestore = file
                 updatecommandstring()
-            }.store(in: &subscriptions)
-        $selectedconfig
-            .sink { _ in
             }.store(in: &subscriptions)
         $presentsheetrsync
             .sink { _ in

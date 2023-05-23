@@ -53,3 +53,5 @@ final class RsyncUIlogrecords: ObservableObject {
         alllogssorted = logrecordsfromstore?.scheduleData.getalllogs()
     }
 }
+
+// swiftlint:enable line_length
