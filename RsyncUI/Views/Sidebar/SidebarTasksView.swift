@@ -16,7 +16,7 @@ struct SidebarTasksView: View {
     @State var showexecuteNOEstimateview: Bool = false
     @State var showexecuteNOEstiamteONEtask: Bool = false
 
-    @State private var selecteduuids = Set<UUID>()
+    @State private var selecteduuids = Set<Configuration.ID>()
     @State private var showcompleted: Bool = false
     // Timer values
     @State private var timervalue: Double = 600
