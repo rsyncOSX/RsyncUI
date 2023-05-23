@@ -16,39 +16,52 @@ struct RsyncUIView: View {
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
     @State private var defaultprofile = "Default profile"
+    @State private var start: Bool = true
 
-    // Initial view in tasks
+    // Initial view in tasks for sidebar macOS 12
     @State private var selection: NavigationItem? = Optional.none
 
     var body: some View {
         VStack {
-            if profilenames.profiles?.count == 0 {
-                defaultprofilepicker
-            } else {
-                profilepicker
-            }
+            if start {
+                Text("Welcome to RsyncUI")
+                    .font(.largeTitle)
+                    .onAppear(perform: {
+                        // Show message for 2 seconds
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            start = false
+                        }
+                    })
 
-            if #available(macOS 13.0, *) {
-                SidebarVentura(reload: $reload,
-                               selectedprofile: $selectedprofile)
-                    .environmentObject(rsyncUIdata)
-                    .environmentObject(errorhandling)
-                    .environmentObject(inprogresscountexecuteonetaskdetails)
-                    .environmentObject(profilenames)
-                    .onChange(of: reload, perform: { _ in
-                        reload = false
-                    })
             } else {
-                Sidebar(reload: $reload,
-                        selectedprofile: $selectedprofile,
-                        selection: $selection)
-                    .environmentObject(rsyncUIdata)
-                    .environmentObject(errorhandling)
-                    .environmentObject(inprogresscountexecuteonetaskdetails)
-                    .environmentObject(profilenames)
-                    .onChange(of: reload, perform: { _ in
-                        reload = false
-                    })
+                if profilenames.profiles?.count == 0 {
+                    defaultprofilepicker
+                } else {
+                    profilepicker
+                }
+
+                if #available(macOS 13.0, *) {
+                    SidebarVentura(reload: $reload,
+                                   selectedprofile: $selectedprofile)
+                        .environmentObject(rsyncUIdata)
+                        .environmentObject(errorhandling)
+                        .environmentObject(inprogresscountexecuteonetaskdetails)
+                        .environmentObject(profilenames)
+                        .onChange(of: reload, perform: { _ in
+                            reload = false
+                        })
+                } else {
+                    Sidebar(reload: $reload,
+                            selectedprofile: $selectedprofile,
+                            selection: $selection)
+                        .environmentObject(rsyncUIdata)
+                        .environmentObject(errorhandling)
+                        .environmentObject(inprogresscountexecuteonetaskdetails)
+                        .environmentObject(profilenames)
+                        .onChange(of: reload, perform: { _ in
+                            reload = false
+                        })
+                }
             }
 
             HStack {
