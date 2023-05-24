@@ -115,6 +115,12 @@ struct TasksView: View {
                         {
                             // already estimated, show details on task
                             sheetchooser.sheet = .dryrunalreadyestimated
+
+                        } else if selectedconfig.config != nil &&
+                            inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
+                        {
+                            return
+
                         } else {
                             // show summarized dry run
                             sheetchooser.sheet = .dryrun
