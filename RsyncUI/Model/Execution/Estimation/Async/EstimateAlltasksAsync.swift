@@ -62,6 +62,7 @@ class EstimateAlltasksAsync {
             }
         }
         updateestimationcountDelegate?.setmaxcount(num: stackoftasktobeestimated?.count ?? 0)
+        updateestimationcountDelegate?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", configurationsSwiftUI?.getallconfigurations()?.count ?? 0)
     }
 
     func getconfig(hiddenID: Int?) -> Configuration? {

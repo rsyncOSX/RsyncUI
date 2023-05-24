@@ -21,9 +21,21 @@ protocol UpdateEstimationCount: AnyObject {
     func asyncexecutealltasksnoestiamtioncomplete()
     func startasyncexecutealltasksnoestimation()
     func asyncexecutecomplete()
+
+    func setprofileandnumberofconfigurations(_ profile: String, _ num: Int)
+    func alltasksestimated(_ profilename: String) -> Bool
 }
 
 final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCount {
+    func setprofileandnumberofconfigurations(_ profilename: String, _ num: Int) {
+        profile = profilename
+        numberofconfigurations = num
+    }
+
+    func alltasksestimated(_ profilename: String) -> Bool {
+        return estimateasync == false && estimatedlist?.count == numberofconfigurations && profile == profilename
+    }
+
     private var estimatedlist: [RemoteinfonumbersOnetask]?
     private var inprogresscount: Double = 0
     private var max: Int = 0
@@ -34,6 +46,10 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
     // Estimate async
     var estimateasync: Bool = false
     var executeasyncnoestimationcompleted: Bool = false
+    // Profilename and timestamp start estimation
+    private var profile: String?
+    private var timestamp: Date?
+    private var numberofconfigurations: Int = -1
 
     func getuuids() -> Set<UUID> {
         return uuids
@@ -52,10 +68,12 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
 
     func resetcounts() {
         hiddenID = -1
+        numberofconfigurations = -1
         inprogresscount = 0
         max = 0
         uuids.removeAll()
         estimatedlist = nil
+        timestamp = Date()
     }
 
     func getinprogress() -> Double {

@@ -111,7 +111,7 @@ struct TasksView: View {
                             // execute a dry run task
                             sheetchooser.sheet = .estimateddetailsview
                         } else if selectedconfig.config != nil &&
-                            inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
+                            inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile")
                         {
                             // already estimated, show details on task
                             sheetchooser.sheet = .dryrunalreadyestimated
@@ -314,6 +314,7 @@ extension TasksView {
             estimationstate.updatestate(state: .start)
             executedetails.resetcounter()
             executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+            // Change view, see SidebarTasksView
             showeexecutestimatedview = true
         } else {
             if selectedconfig.config == nil {
