@@ -24,14 +24,18 @@ struct RsyncUIView: View {
     var body: some View {
         VStack {
             if start {
-                Text("Welcome to RsyncUI")
-                    .font(.largeTitle)
-                    .onAppear(perform: {
-                        // Show message for 2 seconds
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            start = false
-                        }
-                    })
+                VStack {
+                    Text("Welcome to RsyncUI")
+                        .font(.largeTitle)
+                    Text("https://rsyncui.netlify.app")
+                }
+
+                .onAppear(perform: {
+                    // Show message for 2 seconds
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        start = false
+                    }
+                })
 
             } else {
                 if profilenames.profiles?.count == 0 {
