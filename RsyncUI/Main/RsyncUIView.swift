@@ -28,10 +28,9 @@ struct RsyncUIView: View {
                     Text("Welcome to RsyncUI")
                         .font(.largeTitle)
                     Text("https://rsyncui.netlify.app")
+                        .font(.title2)
                 }
-
                 .onAppear(perform: {
-                    // Show message for 2 seconds
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         start = false
                     }
