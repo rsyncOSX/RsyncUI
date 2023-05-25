@@ -25,7 +25,7 @@ struct RsyncUIView: View {
         VStack {
             if start {
                 VStack {
-                    Text("Welcome to RsyncUI")
+                    Text("RsyncUI, a GUI for rsync ...")
                         .font(.largeTitle)
                     Text("https://rsyncui.netlify.app")
                         .font(.title2)
