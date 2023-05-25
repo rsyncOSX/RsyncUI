@@ -17,6 +17,10 @@ struct DetailsViewAlreadyEstimated: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+            Text("Details")
+                .font(.title2)
+                .padding()
+
             VStack(alignment: .leading) {
                 if #available(macOS 13.0, *) {
                     Form {
@@ -71,6 +75,9 @@ struct DetailsViewAlreadyEstimated: View {
                                     Text(estimatedlistonetask[0].transferredNumberSizebytes)
                                         .foregroundColor(.blue)
                                 }
+                            }
+
+                            VStack(alignment: .leading) {
                                 LabeledContent("Tot num: ") {
                                     Text(estimatedlistonetask[0].totalNumber)
                                         .foregroundColor(.blue)
@@ -157,9 +164,11 @@ struct DetailsViewAlreadyEstimated: View {
                 }
             }
 
-            List(outputfromrsync.output) { output in
-                Text(output.line)
-                    .modifier(FixedTag(750, .leading))
+            Table(outputfromrsync.output) {
+                TableColumn("Output") { data in
+                    Text(data.line)
+                }
+                .width(min: 800)
             }
 
             Spacer()

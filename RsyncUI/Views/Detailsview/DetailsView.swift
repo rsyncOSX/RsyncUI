@@ -19,6 +19,10 @@ struct DetailsView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+            Text("Details")
+                .font(.title2)
+                .padding()
+
             ZStack {
                 VStack(alignment: .leading) {
                     if #available(macOS 13.0, *) {
@@ -75,6 +79,9 @@ struct DetailsView: View {
                                             Text(estimateddataonetask.estimatedlistonetask[0].transferredNumberSizebytes)
                                                 .foregroundColor(.blue)
                                         }
+                                    }
+
+                                    VStack(alignment: .leading) {
                                         LabeledContent("Tot num: ") {
                                             Text(estimateddataonetask.estimatedlistonetask[0].totalNumber)
                                                 .foregroundColor(.blue)
@@ -160,9 +167,11 @@ struct DetailsView: View {
                         .frame(width: 450, height: 50, alignment: .center)
                     }
 
-                    List(outputfromrsync.output) { output in
-                        Text(output.line)
-                            .modifier(FixedTag(750, .leading))
+                    Table(outputfromrsync.output) {
+                        TableColumn("Output") { data in
+                            Text(data.line)
+                        }
+                        .width(min: 800)
                     }
                 }
             }

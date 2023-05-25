@@ -19,9 +19,11 @@ struct OutputRsyncView: View {
                 .font(.title2)
                 .padding()
 
-            List(outputfromrsync.output) { output in
-                Text(output.line)
-                    .modifier(FixedTag(750, .leading))
+            Table(outputfromrsync.output) {
+                TableColumn("Output") { data in
+                    Text(data.line)
+                }
+                .width(min: 700)
             }
 
             Spacer()
