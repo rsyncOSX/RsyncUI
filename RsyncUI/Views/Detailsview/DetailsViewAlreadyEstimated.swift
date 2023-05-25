@@ -16,8 +16,8 @@ struct DetailsViewAlreadyEstimated: View {
     @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
-        VStack {
-            VStack {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 if #available(macOS 13.0, *) {
                     Form {
                         HStack {

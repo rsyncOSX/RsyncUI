@@ -18,9 +18,9 @@ struct DetailsView: View {
     @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             ZStack {
-                VStack {
+                VStack(alignment: .leading) {
                     if #available(macOS 13.0, *) {
                         Form {
                             if gettingremotedata == false {
