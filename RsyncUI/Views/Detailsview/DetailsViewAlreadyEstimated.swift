@@ -23,8 +23,13 @@ struct DetailsViewAlreadyEstimated: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 LabeledContent("Synchronize ID: ") {
-                                    Text(estimatedlistonetask[0].backupID)
-                                        .foregroundColor(.blue)
+                                    if estimatedlistonetask[0].backupID.count == 0 {
+                                        Text("Synchronize ID")
+                                            .foregroundColor(.blue)
+                                    } else {
+                                        Text(estimatedlistonetask[0].backupID)
+                                            .foregroundColor(.blue)
+                                    }
                                 }
                                 LabeledContent("Task: ") {
                                     Text(estimatedlistonetask[0].task)
@@ -39,8 +44,13 @@ struct DetailsViewAlreadyEstimated: View {
                                         .foregroundColor(.blue)
                                 }
                                 LabeledContent("Server: ") {
-                                    Text(estimatedlistonetask[0].offsiteServer)
-                                        .foregroundColor(.blue)
+                                    if estimatedlistonetask[0].offsiteServer.count == 0 {
+                                        Text("localhost")
+                                            .foregroundColor(.blue)
+                                    } else {
+                                        Text(estimatedlistonetask[0].offsiteServer)
+                                            .foregroundColor(.blue)
+                                    }
                                 }
                             }
 
@@ -76,20 +86,31 @@ struct DetailsViewAlreadyEstimated: View {
                             }
                         }
                     }
+
                 } else {
                     Table(estimatedlistonetask) {
-                        TableColumn("Synchronize ID", value: \.backupID)
-                            .width(min: 100, max: 200)
+                        TableColumn("Synchronize ID") { data in
+                            if data.backupID.count == 0 {
+                                Text("Synchronize ID")
+                            } else {
+                                Text(data.backupID)
+                            }
+                        }
+                        .width(min: 100, max: 200)
                         TableColumn("Task", value: \.task)
                             .width(max: 80)
                         TableColumn("Local catalog", value: \.localCatalog)
                             .width(min: 80, max: 300)
                         TableColumn("Remote catalog", value: \.offsiteCatalog)
                             .width(min: 80, max: 300)
-                        TableColumn("Server", value: \.offsiteServer)
-                            .width(max: 70)
-                        TableColumn("User", value: \.offsiteUsername)
-                            .width(max: 50)
+                        TableColumn("Server") { data in
+                            if data.offsiteServer.count == 0 {
+                                Text("localhost")
+                            } else {
+                                Text(data.offsiteServer)
+                            }
+                        }
+                        .width(max: 70)
                     }
                     .frame(width: 650, height: 50, alignment: .center)
                     .foregroundColor(.blue)
