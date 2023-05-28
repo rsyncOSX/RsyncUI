@@ -54,20 +54,17 @@ struct TasksView: View {
         ZStack {
             ListofTasksView(
                 selecteduuids: $selecteduuids.onChange {
-                    print(selecteduuids)
                     let selected = rsyncUIdata.configurations?.filter { config in
                         selecteduuids.contains(config.id)
                     }
                     if (selected?.count ?? 0) == 1 {
                         if let config = selected {
-                            print("selected config FOUND")
                             selectedconfig.config = config[0]
                         }
                     } else {
                         if selecteduuids.count > 1, rsyncUIdata.configurations?.count ?? 0 < selecteduuids.count {
-                            print("Multiple selected TASKS")
                         } else {
-                            print("selected config NOT FOUND")
+                            _ = Logfile(["selected config NOT FOUND"], error: true)
                         }
                         selectedconfig.config = nil
                     }
@@ -205,14 +202,12 @@ struct TasksView: View {
             .onAppear {
                 Task {
                     if selectedconfig.config != nil {
-                        print("EstimateOnetaskAsync")
                         let estimateonetaskasync =
                             EstimateOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                  updateinprogresscount: inprogresscountmultipletask,
                                                  hiddenID: selectedconfig.config?.hiddenID)
                         await estimateonetaskasync.execute()
                     } else {
-                        print("EstimateAlltasksAsync")
                         let estimatealltasksasync =
                             EstimateAlltasksAsync(profile: rsyncUIdata.configurationsfromstore?.profile,
                                                   configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
@@ -314,7 +309,6 @@ extension TasksView {
 
     func execute() {
         if inprogresscountmultipletask.getuuids().count > 0, selectedconfig.config == nil {
-            print("Execute_All_Estimated tasks")
             // Execute all estimated tasks
             selecteduuids = inprogresscountmultipletask.getuuids()
             estimationstate.updatestate(state: .start)
@@ -325,12 +319,10 @@ extension TasksView {
         } else {
             if selectedconfig.config == nil {
                 // Execute all tasks, no estimate
-                print("Execute_All_NO_Estimated tasks")
                 showexecutenoestimateview = true
                 showexecutenoestiamteonetask = false
             } else {
                 // Execute one task, no estimte
-                print("Execute_ONE_NO_Estimated tasks")
                 showexecutenoestiamteonetask = true
                 showexecutenoestimateview = false
             }
