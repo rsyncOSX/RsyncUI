@@ -31,7 +31,7 @@ struct RsyncUIView: View {
                         .font(.title2)
                 }
                 .onAppear(perform: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         start = false
                     }
                 })
