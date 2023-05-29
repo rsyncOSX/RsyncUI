@@ -102,25 +102,26 @@ struct TasksView: View {
                         .tooltip("Shortcut ⌘R")
 
                     Button("DryRun") {
-                        if selectedconfig.config != nil &&
-                            inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0
-                        {
-                            // execute a dry run task
+                        if selectedconfig.config != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
+                            // execute a dry run for one task only
                             sheetchooser.sheet = .estimateddetailsview
-                        } else if selectedconfig.config != nil &&
-                            inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile")
-                        {
+                        } else if selectedconfig.config != nil && inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
                             // already estimated, show details on task
                             sheetchooser.sheet = .dryrunalreadyestimated
-
-                        } else if selectedconfig.config != nil &&
-                            inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
-                        {
+                        } else if selectedconfig.config != nil && inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
+                            // Just reset all and return
+                            selecteduuids.removeAll()
+                            reset()
                             return
-
                         } else {
                             // show summarized dry run
-                            sheetchooser.sheet = .dryrun
+                            if inprogresscountmultipletask.getprofile() == rsyncUIdata.profile {
+                                sheetchooser.sheet = .dryrun
+                            } else {
+                                selecteduuids.removeAll()
+                                reset()
+                                return
+                            }
                         }
                         modaleview = true
                     }

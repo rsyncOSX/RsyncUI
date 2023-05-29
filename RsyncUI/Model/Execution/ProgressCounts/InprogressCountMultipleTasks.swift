@@ -24,9 +24,14 @@ protocol UpdateEstimationCount: AnyObject {
 
     func setprofileandnumberofconfigurations(_ profile: String, _ num: Int)
     func alltasksestimated(_ profilename: String) -> Bool
+    func getprofile() -> String
 }
 
 final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCount {
+    func getprofile() -> String {
+        return profile ?? "Default profile"
+    }
+
     func setprofileandnumberofconfigurations(_ profilename: String, _ num: Int) {
         profile = profilename
         numberofconfigurations = num
@@ -74,6 +79,7 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
         uuids.removeAll()
         estimatedlist = nil
         timestamp = Date()
+        profile = nil
     }
 
     func getinprogress() -> Double {
