@@ -105,19 +105,16 @@ struct TasksView: View {
                             // already estimated, show details on task
                             sheetchooser.sheet = .dryrunalreadyestimated
                         } else if selectedconfig.config != nil && inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
-                            // Just reset all and return
-                            selecteduuids.removeAll()
-                            reset()
-                            return
-                        } else {
+                            // Profile is changed, new task selected
+                            // Execute a dryrun
+                            sheetchooser.sheet = .estimateddetailsview
+                        } else if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
                             // show summarized dry run
-                            if inprogresscountmultipletask.getprofile() == rsyncUIdata.profile {
-                                sheetchooser.sheet = .dryrun
-                            } else {
-                                selecteduuids.removeAll()
-                                reset()
-                                return
-                            }
+                            sheetchooser.sheet = .dryrun
+                        } else {
+                            // New profile is selected
+                            // Just return
+                            return
                         }
                         modaleview = true
                     }
