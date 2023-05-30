@@ -62,7 +62,9 @@ struct DetailsView: View {
                                         }
                                     }
 
-                                    VStack(alignment: .leading) {
+                                    Spacer()
+
+                                    VStack(alignment: .trailing) {
                                         LabeledContent("New: ") {
                                             Text(estimateddataonetask.estimatedlistonetask[0].newfiles)
                                                 .foregroundColor(.blue)
@@ -81,7 +83,7 @@ struct DetailsView: View {
                                         }
                                     }
 
-                                    VStack(alignment: .leading) {
+                                    VStack(alignment: .trailing) {
                                         LabeledContent("Tot num: ") {
                                             Text(estimateddataonetask.estimatedlistonetask[0].totalNumber)
                                                 .foregroundColor(.blue)
