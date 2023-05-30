@@ -320,9 +320,13 @@ extension TasksView {
 
         } else if selectedconfig.config != nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
             // Execute estimated tasks only
+            // Execute all estimated tasks
+            selecteduuids = inprogresscountmultipletask.getuuids()
+            estimationstate.updatestate(state: .start)
+            executedetails.resetcounter()
+            executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+            // Change view, see SidebarTasksView
             showeexecutestimatedview = true
-            showexecutenoestimateview = false
-            showexecutenoestiamteonetask = false
         } else {
             // Execute one task, no estimte
             showexecutenoestiamteonetask = true
