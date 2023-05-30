@@ -49,6 +49,8 @@ struct TasksView: View {
     // Timer
     @State private var timervalue: Double = 600
     @State private var timerisenabled: Bool = false
+    // Actions
+    var actions: Actions
 
     var body: some View {
         ZStack {
@@ -89,26 +91,42 @@ struct TasksView: View {
         HStack {
             VStack(alignment: .center) {
                 HStack {
-                    Button("Estimate") { estimate() }
-                        .buttonStyle(PrimaryButtonStyle())
-                        .tooltip("Shortcut ⌘E")
+                    Button("Estimate") {
+                        var action = ActionHolder(action: "Estimate button")
+                        actions.addaction(action)
+                        estimate()
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .tooltip("Shortcut ⌘E")
 
-                    Button("Execute") { execute() }
-                        .buttonStyle(PrimaryButtonStyle())
-                        .tooltip("Shortcut ⌘R")
+                    Button("Execute") {
+                        var action = ActionHolder(action: "Execute button")
+                        actions.addaction(action)
+                        execute()
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .tooltip("Shortcut ⌘R")
 
                     Button("DryRun") {
                         if selectedconfig.config != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
-                            // execute a dry run for one task only
+                            // execute a dryrun for one task only
+                            var action = ActionHolder(action: "DryRun button: execute a dryrun for one task only")
+                            actions.addaction(action)
                             sheetchooser.sheet = .estimateddetailsview
                         } else if selectedconfig.config != nil && inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
                             // already estimated, show details on task
+                            var action = ActionHolder(action: "DryRun button: - all tasks already estimated, show details on task")
+                            actions.addaction(action)
                             sheetchooser.sheet = .dryrunalreadyestimated
                         } else if selectedconfig.config != nil && inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
                             // Profile is changed, new task selected
                             // Execute a dryrun
+                            var action = ActionHolder(action: "DryRun Button: - profile is changed, new task selected, execute a dryrun")
+                            actions.addaction(action)
                             sheetchooser.sheet = .estimateddetailsview
                         } else if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
+                            var action = ActionHolder(action: "DryRun button - show summarized dryrun for all tasks")
+                            actions.addaction(action)
                             // show summarized dry run
                             sheetchooser.sheet = .dryrun
                         } else {
@@ -121,6 +139,8 @@ struct TasksView: View {
                     .buttonStyle(PrimaryButtonStyle())
 
                     Button("Reset") {
+                        var action = ActionHolder(action: "Reset Button")
+                        actions.addaction(action)
                         selecteduuids.removeAll()
                         reset()
                     }

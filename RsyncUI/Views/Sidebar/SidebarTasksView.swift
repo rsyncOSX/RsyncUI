@@ -20,6 +20,8 @@ struct SidebarTasksView: View {
     @State private var showcompleted: Bool = false
     // Timer values
     @State private var timervalue: Double = 600
+    // Keep record of actions
+    @StateObject private var actions = Actions()
 
     enum Task: String, Identifiable {
         case taskview, executestimatedview, executenoestimatetasksview, executenoestimateonetaskview
@@ -67,7 +69,8 @@ struct SidebarTasksView: View {
                       selecteduuids: $selecteduuids,
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
-                      showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask)
+                      showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
+                      actions: actions)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
@@ -92,5 +95,28 @@ struct SidebarTasksView: View {
                     showcompleted = true
                 })
         }
+    }
+}
+
+struct ActionHolder: Hashable, Identifiable {
+    var id = UUID()
+    var timestamp: Date = .init()
+    var action: String
+}
+
+final class Actions: ObservableObject {
+    var actions = Set<ActionHolder>()
+
+    func addaction(_ action: ActionHolder) {
+        actions.insert(action)
+        print(action.timestamp.localized_string_from_date() + " " + action.action)
+    }
+
+    func getactions() -> Set<ActionHolder> {
+        return actions
+    }
+
+    func resetactions() {
+        actions.removeAll()
     }
 }
