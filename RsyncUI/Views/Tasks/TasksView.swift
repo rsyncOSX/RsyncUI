@@ -63,7 +63,6 @@ struct TasksView: View {
                         }
                     } else {
                         selectedconfig.config = nil
-                        selecteduuids.removeAll()
                     }
                 },
                 inwork: $inwork,
