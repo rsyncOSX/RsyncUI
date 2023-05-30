@@ -104,7 +104,7 @@ extension ExecuteNoestimateOneTaskView {
                 selectedconfig.config = config[0]
             }
         } else {
-            _ = Logfile(["selected config NOT FOUND"], error: true)
+            _ = Logfile(["selected config NOT FOUND (ExecuteNoestimateOneTaskView)"], error: true)
             selectedconfig.config = nil
         }
         if selectedconfig.config != nil {
