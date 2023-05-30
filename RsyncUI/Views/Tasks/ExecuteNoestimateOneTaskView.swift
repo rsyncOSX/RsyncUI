@@ -102,17 +102,14 @@ extension ExecuteNoestimateOneTaskView {
         if (selected?.count ?? 0) == 1 {
             if let config = selected {
                 selectedconfig.config = config[0]
+                executeonetaskasync =
+                    ExecuteOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                        updateinprogresscount: inprogresscountmultipletask,
+                                        hiddenID: selectedconfig.config?.hiddenID)
+                await executeonetaskasync?.execute()
             }
         } else {
-            _ = Logfile(["selected config NOT FOUND (ExecuteNoestimateOneTaskView)"], error: true)
             selectedconfig.config = nil
-        }
-        if selectedconfig.config != nil {
-            executeonetaskasync =
-                ExecuteOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
-                                    updateinprogresscount: inprogresscountmultipletask,
-                                    hiddenID: selectedconfig.config?.hiddenID)
-            await executeonetaskasync?.execute()
         }
     }
 }

@@ -62,11 +62,8 @@ struct TasksView: View {
                             selectedconfig.config = config[0]
                         }
                     } else {
-                        if selecteduuids.count > 1, rsyncUIdata.configurations?.count ?? 0 < selecteduuids.count {
-                        } else {
-                            _ = Logfile(["selected config NOT FOUND (ListofTasksView)"], error: true)
-                        }
                         selectedconfig.config = nil
+                        selecteduuids.removeAll()
                     }
                 },
                 inwork: $inwork,

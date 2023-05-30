@@ -46,9 +46,9 @@ open class TCPClient: Socket {
      * return success or fail with message
      */
     open func connect(timeout: Int) -> ResultYTP {
-        let rs: Int32 = c_ytcpsocket_connect(self.address, port: Int32(self.port), timeout: Int32(timeout))
+        let rs: Int32 = c_ytcpsocket_connect(address, port: Int32(self.port), timeout: Int32(timeout))
         if rs > 0 {
-            self.fd = rs
+            fd = rs
             return .success
         } else {
             switch rs {
@@ -69,7 +69,7 @@ open class TCPClient: Socket {
      * return success or fail with message
      */
     open func close() {
-        guard let fd = self.fd else { return }
+        guard let fd = fd else { return }
 
         _ = c_ytcpsocket_close(fd)
         self.fd = nil
@@ -80,7 +80,7 @@ open class TCPClient: Socket {
      * return success or fail with message
      */
     open func send(data: [Byte]) -> ResultYTP {
-        guard let fd = self.fd else { return .failure(SocketError.connectionClosed) }
+        guard let fd = fd else { return .failure(SocketError.connectionClosed) }
 
         let sendsize: Int32 = c_ytcpsocket_send(fd, buff: data, len: Int32(data.count))
         if Int(sendsize) == data.count {
@@ -95,7 +95,7 @@ open class TCPClient: Socket {
      * return success or fail with message
      */
     open func send(string: String) -> ResultYTP {
-        guard let fd = self.fd else { return .failure(SocketError.connectionClosed) }
+        guard let fd = fd else { return .failure(SocketError.connectionClosed) }
 
         let sendsize = c_ytcpsocket_send(fd, buff: string, len: Int32(strlen(string)))
         if sendsize == Int32(strlen(string)) {
@@ -110,7 +110,7 @@ open class TCPClient: Socket {
      * send nsdata
      */
     open func send(data: Data) -> ResultYTP {
-        guard let fd = self.fd else { return .failure(SocketError.connectionClosed) }
+        guard let fd = fd else { return .failure(SocketError.connectionClosed) }
 
         var buff = [Byte](repeating: 0x0, count: data.count)
         (data as NSData).getBytes(&buff, length: data.count)
@@ -127,7 +127,7 @@ open class TCPClient: Socket {
      * return success or fail with message
      */
     open func read(_ expectlen: Int, timeout: Int = -1) -> [Byte]? {
-        guard let fd: Int32 = self.fd else { return nil }
+        guard let fd: Int32 = fd else { return nil }
 
         var buff = [Byte](repeating: 0x0, count: expectlen)
         let readLen = c_ytcpsocket_pull(fd, buff: &buff, len: Int32(expectlen), timeout: Int32(timeout))
@@ -142,7 +142,7 @@ open class TCPClient: Socket {
      * gets byte available for reading
      */
     open func bytesAvailable() -> Int32? {
-        guard let fd: Int32 = self.fd else { return nil }
+        guard let fd: Int32 = fd else { return nil }
 
         let bytesAvailable = c_ytcpsocket_bytes_available(fd)
 
@@ -156,17 +156,17 @@ open class TCPClient: Socket {
 
 open class TCPServer: Socket {
     open func listen() -> ResultYTP {
-        let fd = c_ytcpsocket_listen(self.address, port: Int32(self.port))
+        let fd = c_ytcpsocket_listen(address, port: Int32(port))
         if fd > 0 {
             self.fd = fd
 
             // If port 0 is used, get the actual port number which the server is listening to
-            if self.port == 0 {
+            if port == 0 {
                 let p = c_ytcpsocket_port(fd)
                 if p == -1 {
                     return .failure(SocketError.unknownError)
                 } else {
-                    self.port = p
+                    port = p
                 }
             }
 
@@ -177,7 +177,7 @@ open class TCPServer: Socket {
     }
 
     open func accept(timeout: Int32 = 0) -> TCPClient? {
-        guard let serferfd = self.fd else { return nil }
+        guard let serferfd = fd else { return nil }
 
         var buff = [Int8](repeating: 0x0, count: 16)
         var port: Int32 = 0
@@ -193,7 +193,7 @@ open class TCPServer: Socket {
     }
 
     open func close() {
-        guard let fd: Int32 = self.fd else { return }
+        guard let fd: Int32 = fd else { return }
 
         _ = c_ytcpsocket_close(fd)
         self.fd = nil
