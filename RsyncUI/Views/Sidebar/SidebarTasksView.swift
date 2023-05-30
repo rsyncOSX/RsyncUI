@@ -109,7 +109,6 @@ final class Actions: ObservableObject {
 
     func addaction(_ action: ActionHolder) {
         actions.insert(action)
-        print(action.timestamp.localized_string_from_date() + " " + action.action)
     }
 
     func getactions() -> Set<ActionHolder> {
@@ -118,5 +117,11 @@ final class Actions: ObservableObject {
 
     func resetactions() {
         actions.removeAll()
+    }
+
+    func printall() {
+        for value in actions {
+            print(value.timestamp.localized_string_from_date() + " " + value.action)
+        }
     }
 }
