@@ -305,7 +305,7 @@ extension TasksView {
     }
 
     func execute() {
-        if inprogresscountmultipletask.getuuids().count > 0, selectedconfig.config == nil {
+        if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile"), selectedconfig.config == nil {
             // Execute all estimated tasks
             selecteduuids = inprogresscountmultipletask.getuuids()
             estimationstate.updatestate(state: .start)
@@ -313,16 +313,20 @@ extension TasksView {
             executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
+        } else if selectedconfig.config == nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
+            // Execute all tasks, no estimate
+            showexecutenoestimateview = true
+            showexecutenoestiamteonetask = false
+
+        } else if selectedconfig.config != nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
+            // Execute estimated tasks only
+            showeexecutestimatedview = true
+            showexecutenoestimateview = false
+            showexecutenoestiamteonetask = false
         } else {
-            if selectedconfig.config == nil {
-                // Execute all tasks, no estimate
-                showexecutenoestimateview = true
-                showexecutenoestiamteonetask = false
-            } else {
-                // Execute one task, no estimte
-                showexecutenoestiamteonetask = true
-                showexecutenoestimateview = false
-            }
+            // Execute one task, no estimte
+            showexecutenoestiamteonetask = true
+            showexecutenoestimateview = false
         }
     }
 
