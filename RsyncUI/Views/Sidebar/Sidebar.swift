@@ -25,12 +25,14 @@ struct Sidebar: View {
     @Binding var selectedprofile: String?
     @Binding var selection: NavigationItem?
 
+    var actions: Actions
+
     var sidebar: some View {
         List(selection: $selection) {
             Spacer()
 
             Group {
-                NavigationLink(destination: SidebarTasksView(reload: $reload),
+                NavigationLink(destination: SidebarTasksView(reload: $reload, actions: actions),
                                tag: NavigationItem.tasksview,
                                selection: $selection)
                 {

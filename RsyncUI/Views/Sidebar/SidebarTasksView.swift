@@ -20,8 +20,8 @@ struct SidebarTasksView: View {
     @State private var showcompleted: Bool = false
     // Timer values
     @State private var timervalue: Double = 600
-    // Keep record of actions
-    @StateObject private var actions = Actions()
+
+    var actions: Actions
 
     enum Task: String, Identifiable {
         case taskview, executestimatedview, executenoestimatetasksview, executenoestimateonetaskview

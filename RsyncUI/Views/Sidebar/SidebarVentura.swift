@@ -19,6 +19,8 @@ struct SidebarVentura: View {
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @State private var selectedview: Sidebaritems = .synchronize
+    // Keep record of actions
+    var actions: Actions
 
     @ViewBuilder
     func makeView(_ view: Sidebaritems) -> some View {
@@ -34,7 +36,7 @@ struct SidebarVentura: View {
         case .snapshots:
             SidebarSnapshotsView(selectedprofile: $selectedprofile, reload: $reload)
         case .synchronize:
-            SidebarTasksView(reload: $reload)
+            SidebarTasksView(reload: $reload, actions: actions)
         case .quick_synchronize:
             SidebarQuicktaskView()
         }
