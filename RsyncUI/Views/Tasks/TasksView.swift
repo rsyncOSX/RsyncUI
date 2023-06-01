@@ -51,7 +51,7 @@ struct TasksView: View {
     @State private var timerisenabled: Bool = false
     // Actions, only if debug is on
     var actions: Actions
-    let recordaction: Bool = true
+    var source: String = "TasksView"
 
     var body: some View {
         ZStack {
@@ -93,20 +93,17 @@ struct TasksView: View {
             VStack(alignment: .center) {
                 HStack {
                     Button("Estimate") {
-                        if recordaction {
-                            let action = ActionHolder(action: "Estimate button", profile: rsyncUIdata.profile ?? "Default profile")
-                            actions.addaction(action)
-                        }
+                        let action = ActionHolder(action: "Estimate button", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+                        actions.addaction(action)
+
                         estimate()
                     }
                     .buttonStyle(PrimaryButtonStyle())
                     .tooltip("Shortcut ⌘E")
 
                     Button("Execute") {
-                        if recordaction {
-                            let action = ActionHolder(action: "Execute button", profile: rsyncUIdata.profile ?? "Default profile")
-                            actions.addaction(action)
-                        }
+                        let action = ActionHolder(action: "Execute button", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+                        actions.addaction(action)
                         execute()
                     }
                     .buttonStyle(PrimaryButtonStyle())
@@ -115,31 +112,23 @@ struct TasksView: View {
                     Button("DryRun") {
                         if selectedconfig.config != nil && inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0 {
                             // execute a dryrun for one task only
-                            if recordaction {
-                                let action = ActionHolder(action: "DryRun button: execute a dryrun for one task only", profile: rsyncUIdata.profile ?? "Default profile")
-                                actions.addaction(action)
-                            }
+                            let action = ActionHolder(action: "DryRun button: execute a dryrun for one task only", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
+                            actions.addaction(action)
                             sheetchooser.sheet = .estimateddetailsview
                         } else if selectedconfig.config != nil && inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
                             // already estimated, show details on task
-                            if recordaction {
-                                let action = ActionHolder(action: "DryRun button: - all tasks already estimated, show details on task", profile: rsyncUIdata.profile ?? "Default profile")
-                                actions.addaction(action)
-                            }
+                            let action = ActionHolder(action: "DryRun button: - all tasks already estimated, show details on task", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsViewAlreadyEstimated")
+                            actions.addaction(action)
                             sheetchooser.sheet = .dryrunalreadyestimated
                         } else if selectedconfig.config != nil && inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
                             // Profile is changed, new task selected
                             // Execute a dryrun
-                            if recordaction {
-                                let action = ActionHolder(action: "DryRun Button: - profile is changed, new task selected, execute a dryrun", profile: rsyncUIdata.profile ?? "Default profile")
-                                actions.addaction(action)
-                            }
+                            let action = ActionHolder(action: "DryRun Button: - profile is changed, new task selected, execute a dryrun", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
+                            actions.addaction(action)
                             sheetchooser.sheet = .estimateddetailsview
                         } else if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
-                            if recordaction {
-                                let action = ActionHolder(action: "DryRun button - show summarized dryrun for all tasks", profile: rsyncUIdata.profile ?? "Default profile")
-                                actions.addaction(action)
-                            }
+                            let action = ActionHolder(action: "DryRun button - show summarized dryrun for all tasks", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+                            actions.addaction(action)
                             // show summarized dry run
                             sheetchooser.sheet = .dryrun
                         } else {
@@ -152,10 +141,8 @@ struct TasksView: View {
                     .buttonStyle(PrimaryButtonStyle())
 
                     Button("Reset") {
-                        if recordaction {
-                            let action = ActionHolder(action: "Reset Button", profile: rsyncUIdata.profile ?? "Default profile")
-                            actions.addaction(action)
-                        }
+                        let action = ActionHolder(action: "Reset Button", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+                        actions.addaction(action)
                         selecteduuids.removeAll()
                         reset()
                     }
@@ -338,10 +325,8 @@ extension TasksView {
 
     func execute() {
         if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile"), selectedconfig.config == nil {
-            if recordaction {
-                let action = ActionHolder(action: "func execute() - Execute all estimated tasks", profile: rsyncUIdata.profile ?? "Default profile")
-                actions.addaction(action)
-            }
+            let action = ActionHolder(action: "Execute() all estimated tasks", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+            actions.addaction(action)
             // Execute all estimated tasks
             selecteduuids = inprogresscountmultipletask.getuuids()
             estimationstate.updatestate(state: .start)
@@ -350,19 +335,15 @@ extension TasksView {
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
         } else if selectedconfig.config == nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
-            if recordaction {
-                let action = ActionHolder(action: "func execute() - Execute all tasks, no estimate", profile: rsyncUIdata.profile ?? "Default profile")
-                actions.addaction(action)
-            }
+            let action = ActionHolder(action: "Execute() all tasks NO estimate", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+            actions.addaction(action)
             // Execute all tasks, no estimate
             showexecutenoestimateview = true
             showexecutenoestiamteonetask = false
 
         } else if selectedconfig.config != nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
-            if recordaction {
-                let action = ActionHolder(action: "func execute() - Execute estimated tasks only", profile: rsyncUIdata.profile ?? "Default profile")
-                actions.addaction(action)
-            }
+            let action = ActionHolder(action: "Execute() estimated tasks only", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+            actions.addaction(action)
             // Execute estimated tasks only
             // Execute all estimated tasks
             selecteduuids = inprogresscountmultipletask.getuuids()
@@ -372,10 +353,8 @@ extension TasksView {
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
         } else {
-            if recordaction {
-                let action = ActionHolder(action: "func execute() - Execute one task, no estimte", profile: rsyncUIdata.profile ?? "Default profile")
-                actions.addaction(action)
-            }
+            let action = ActionHolder(action: "Execute() one task NO estimate", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+            actions.addaction(action)
             // Execute one task, no estimte
             showexecutenoestiamteonetask = true
             showexecutenoestimateview = false

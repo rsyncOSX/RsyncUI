@@ -62,6 +62,7 @@ struct ActionHolder: Hashable, Identifiable {
     var action: String
     var actionnumber: Int?
     var profile: String
+    var source: String
 }
 
 final class Actions: ObservableObject {

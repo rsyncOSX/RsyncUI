@@ -108,7 +108,10 @@ extension ExecuteEstimatedTasksView {
     }
 
     func executemultipleestimatedtasks() {
-        guard selecteduuids.count > 0 else { return }
+        guard selecteduuids.count > 0 else {
+            showeexecutestimatedview = false
+            return
+        }
         multipletaskstate.updatestate(state: .execute)
         ExecuteMultipleTasks(uuids: selecteduuids,
                              profile: rsyncUIdata.configurationsfromstore?.profile,

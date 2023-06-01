@@ -27,6 +27,9 @@ struct LogfileView: View {
                         }
                         .width(max: 25)
 
+                        TableColumn("Where", value: \.source)
+                            .width(min: 50)
+
                         TableColumn("Profile", value: \.profile)
                             .width(min: 50)
 
@@ -74,7 +77,7 @@ struct LogfileView: View {
             }
         }
         .padding()
-        .frame(minWidth: 600, minHeight: 400)
+        .frame(minWidth: 800, minHeight: 400)
         .onAppear {
             logfileview.generatedata()
         }
