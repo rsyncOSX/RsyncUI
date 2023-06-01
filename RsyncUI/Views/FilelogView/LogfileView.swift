@@ -11,26 +11,48 @@ import SwiftUI
 struct LogfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @State private var resetloggfile = false
+    @State private var showactions = false
+
     @StateObject private var logfileview = Logfileview()
     var action: Actions
 
     var body: some View {
         VStack {
-            Section(header: headerlogfile) {
-                Table(logfileview.output) {
-                    TableColumn("Lines") { data in
-                        Text(data.line)
+            if showactions {
+                Section(header: headeractions) {
+                    Table(action.output) {
+                        TableColumn("Lines") { data in
+                            Text(data.line)
+                        }
+                        .width(min: 700)
                     }
-                    .width(min: 700)
                 }
-                .onChange(of: resetloggfile, perform: { _ in
-                    afterareload()
-                })
+            } else {
+                Section(header: headerlogfile) {
+                    Table(logfileview.output) {
+                        TableColumn("Lines") { data in
+                            Text(data.line)
+                        }
+                        .width(min: 700)
+                    }
+                    .onChange(of: resetloggfile, perform: { _ in
+                        afterareload()
+                    })
+                }
             }
+
             Spacer()
 
             HStack {
                 Spacer()
+
+                Button("Actions") {
+                    if showactions == false {
+                        showactions = true
+                        action.generatedata()
+                    } else { showactions = false }
+                }
+                .buttonStyle(PrimaryButtonStyle())
 
                 Button("Reset") { reset() }
                     .buttonStyle(PrimaryButtonStyle())
@@ -48,6 +70,11 @@ struct LogfileView: View {
 
     var headerlogfile: some View {
         Text("Logfile")
+            .modifier(FixedTag(200, .center))
+    }
+
+    var headeractions: some View {
+        Text("Actions")
             .modifier(FixedTag(200, .center))
     }
 

@@ -192,37 +192,3 @@ struct Tooltip<Content: View>: NSViewRepresentable {
         nsView.toolTip = text
     }
 }
-
-struct ActionHolder: Hashable, Identifiable {
-    var id = UUID()
-    var timestamp: Date = .init()
-    var action: String
-    var actionnumber: Int?
-    var profile: String
-}
-
-final class Actions: ObservableObject {
-    var actions = Set<ActionHolder>()
-
-    func addaction(_ action: ActionHolder) {
-        var actioninsert: ActionHolder
-        actioninsert = action
-        actioninsert.actionnumber = actions.count
-        actions.insert(actioninsert)
-    }
-
-    func getactions() -> Set<ActionHolder> {
-        return actions
-    }
-
-    func resetactions() {
-        actions.removeAll()
-    }
-
-    func printall() {
-        for value in actions {
-            let number = String(value.actionnumber ?? 0)
-            print(value.profile + " " + number + ": " + value.timestamp.localized_string_from_date() + " " + value.action)
-        }
-    }
-}

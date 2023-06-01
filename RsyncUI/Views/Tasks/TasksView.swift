@@ -166,13 +166,6 @@ struct TasksView: View {
                         modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
-
-                    if recordaction {
-                        Button("Debug") {
-                            actions.printall()
-                        }
-                        .buttonStyle(PrimaryButtonStyle())
-                    }
                 }
             }
 

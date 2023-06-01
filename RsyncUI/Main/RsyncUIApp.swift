@@ -56,4 +56,43 @@ struct RsyncUIApp: App {
     }
 }
 
+struct ActionHolder: Hashable {
+    var timestamp: Date = .init()
+    var action: String
+    var actionnumber: Int?
+    var profile: String
+}
+
+final class Actions: ObservableObject {
+    @Published var output = [Data]()
+
+    struct Data: Identifiable {
+        let id = UUID()
+        var line: String
+    }
+
+    var actions = Set<ActionHolder>()
+
+    func addaction(_ action: ActionHolder) {
+        var actioninsert: ActionHolder
+        actioninsert = action
+        actioninsert.actionnumber = actions.count
+        actions.insert(actioninsert)
+    }
+
+    func resetactions() {
+        actions.removeAll()
+    }
+
+    func generatedata() {
+        output = [Data]()
+        for value in actions {
+            let number = String(value.actionnumber ?? 0)
+            let line = value.profile + " " + number + ": " + value.timestamp.localized_string_from_date() + " " + value.action
+            let data = Data(line: line)
+            output.append(data)
+        }
+    }
+}
+
 // swiftlint:enable multiple_closures_with_trailing_closure
