@@ -13,14 +13,16 @@ struct RsyncUIApp: App {
     @State private var viewlogfile: Bool = false
     @State private var selectedprofile: String? = "Default profile"
 
+    @StateObject private var actions = Actions()
+
     var body: some Scene {
         WindowGroup {
-            RsyncUIView(selectedprofile: $selectedprofile)
+            RsyncUIView(selectedprofile: $selectedprofile, actions: actions)
                 .task {
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationJSON()
                 }
-                .sheet(isPresented: $viewlogfile) { LogfileView(viewlogfile: $viewlogfile) }
+                .sheet(isPresented: $viewlogfile) { LogfileView(action: actions) }
                 .frame(minWidth: 1250, minHeight: 510)
         }
         .commands {

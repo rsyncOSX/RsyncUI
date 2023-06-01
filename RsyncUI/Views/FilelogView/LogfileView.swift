@@ -9,16 +9,19 @@ import Foundation
 import SwiftUI
 
 struct LogfileView: View {
-    @Binding var viewlogfile: Bool
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @State private var resetloggfile = false
     @StateObject private var logfileview = Logfileview()
+    var action: Actions
 
     var body: some View {
         VStack {
-            Section(header: header) {
-                List(logfileview.output) { output in
-                    Text(output.line)
-                        .modifier(FixedTag(750, .leading))
+            Section(header: headerlogfile) {
+                Table(logfileview.output) {
+                    TableColumn("Lines") { data in
+                        Text(data.line)
+                    }
+                    .width(min: 700)
                 }
                 .onChange(of: resetloggfile, perform: { _ in
                     afterareload()
@@ -43,7 +46,7 @@ struct LogfileView: View {
         }
     }
 
-    var header: some View {
+    var headerlogfile: some View {
         Text("Logfile")
             .modifier(FixedTag(200, .center))
     }
@@ -56,10 +59,6 @@ struct LogfileView: View {
 
     func afterareload() {
         resetloggfile = false
-    }
-
-    func dismiss() {
-        viewlogfile = false
     }
 }
 

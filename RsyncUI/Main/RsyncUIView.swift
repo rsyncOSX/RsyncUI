@@ -20,7 +20,7 @@ struct RsyncUIView: View {
 
     // Initial view in tasks for sidebar macOS 12
     @State private var selection: NavigationItem? = Optional.none
-    @StateObject private var actions = Actions()
+    var actions: Actions
 
     var body: some View {
         VStack {
