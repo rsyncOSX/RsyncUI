@@ -20,11 +20,24 @@ struct LogfileView: View {
         VStack {
             if showactions {
                 Section(header: headeractions) {
-                    Table(action.output) {
-                        TableColumn("Lines") { data in
-                            Text(data.line)
+                    Table(action.getactions()) {
+                        TableColumn("Num") { data in
+                            let num = String(data.actionnumber ?? -1)
+                            Text(num)
                         }
-                        .width(min: 700)
+                        .width(max: 25)
+
+                        TableColumn("Profile", value: \.profile)
+                            .width(min: 50)
+
+                        TableColumn("Date") { data in
+                            let date = data.timestamp.long_localized_string_from_date()
+                            Text(date)
+                        }
+                        .width(max: 400)
+
+                        TableColumn("Action", value: \.action)
+                            .width(min: 700)
                     }
                 }
             } else {
@@ -49,7 +62,6 @@ struct LogfileView: View {
                 Button("Actions") {
                     if showactions == false {
                         showactions = true
-                        action.generatedata()
                     } else { showactions = false }
                 }
                 .buttonStyle(PrimaryButtonStyle())

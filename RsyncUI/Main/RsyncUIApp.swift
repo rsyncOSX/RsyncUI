@@ -56,7 +56,8 @@ struct RsyncUIApp: App {
     }
 }
 
-struct ActionHolder: Hashable {
+struct ActionHolder: Hashable, Identifiable {
+    let id = UUID()
     var timestamp: Date = .init()
     var action: String
     var actionnumber: Int?
@@ -64,13 +65,6 @@ struct ActionHolder: Hashable {
 }
 
 final class Actions: ObservableObject {
-    @Published var output = [Data]()
-
-    struct Data: Identifiable {
-        let id = UUID()
-        var line: String
-    }
-
     var actions = Set<ActionHolder>()
 
     func addaction(_ action: ActionHolder) {
@@ -84,14 +78,12 @@ final class Actions: ObservableObject {
         actions.removeAll()
     }
 
-    func generatedata() {
-        output = [Data]()
-        for value in actions {
-            let number = String(value.actionnumber ?? 0)
-            let line = value.profile + " " + number + ": " + value.timestamp.localized_string_from_date() + " " + value.action
-            let data = Data(line: line)
-            output.append(data)
+    func getactions() -> [ActionHolder] {
+        var privateactions = [ActionHolder]()
+        for action in actions {
+            privateactions.append(action)
         }
+        return privateactions.sorted { $0.actionnumber ?? -1 < $1.actionnumber ?? -1 }
     }
 }
 
