@@ -25,6 +25,15 @@ struct AlltasksView: View {
                 .width(min: 100, max: 200)
                 TableColumn("Synchronize ID", value: \.backupID)
                     .width(min: 100, max: 200)
+                TableColumn("Days") { data in
+                    if markconfig(data) {
+                        Text(data.dayssincelastbackup ?? "")
+                            .foregroundColor(.red)
+                    } else {
+                        Text(data.dayssincelastbackup ?? "")
+                    }
+                }
+                .width(max: 50)
                 TableColumn("Last") { data in
                     if markconfig(data) {
                         Text(data.dateRun ?? "")

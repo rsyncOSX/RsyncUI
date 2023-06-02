@@ -62,12 +62,8 @@ struct LogfileView: View {
             HStack {
                 Spacer()
 
-                Button("Actions") {
-                    if showactions == false {
-                        showactions = true
-                    } else { showactions = false }
-                }
-                .buttonStyle(PrimaryButtonStyle())
+                Toggle("Actions", isOn: $showactions)
+                    .toggleStyle(.switch)
 
                 Button("Reset") { reset() }
                     .buttonStyle(PrimaryButtonStyle())
