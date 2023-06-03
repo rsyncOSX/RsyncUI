@@ -55,8 +55,7 @@ struct SnapshotsView: View {
                     },
                     reload: $reload)
 
-                    SnapshotListView(selectedconfig: $selectedconfig,
-                                     snapshotrecords: $snapshotrecords,
+                    SnapshotListView(snapshotrecords: $snapshotrecords,
                                      selecteduuids: $selecteduuids)
                         .environmentObject(snapshotdata)
                         .onDeleteCommand(perform: { delete() })
@@ -353,3 +352,5 @@ extension SnapshotsView {
         }
     }
 }
+
+// swiftlint:enable line_length
