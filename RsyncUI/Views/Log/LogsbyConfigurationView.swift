@@ -54,17 +54,19 @@ struct LogsbyConfigurationView: View {
 
             Spacer()
 
-            List(selection: $selectedlog) {
-                if let logs = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1) {
-                    ForEach(logs) { record in
-                        LogRow(selecteduuids: $selectedlogsuuids, logrecord: record)
-                            .tag(record)
+            Table(logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1) ?? [],
+                  selection: $selectedlogsuuids)
+            {
+                TableColumn("Date") { data in
+                    Text(data.date.localized_string_from_date())
+                }
+
+                TableColumn("Result") { data in
+                    if let result = data.resultExecuted {
+                        Text(result)
                     }
-                    .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
                 }
             }
-
-            if focusselectlog { labelselectlog }
 
             Spacer()
 
@@ -91,14 +93,6 @@ struct LogsbyConfigurationView: View {
             }
         }
         .padding()
-    }
-
-    var labelselectlog: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusselectlog = false
-                select()
-            })
     }
 
     var numberoflogs: String {

@@ -49,7 +49,8 @@ struct DeleteLogsView: View {
                                         scheduleConfigurations: logrecords.logrecordsfromstore?.scheduleData.scheduleConfigurations)
         deleteschedule.deletelogs(uuids: selecteduuids)
         selecteduuids.removeAll()
-        // WriteScheduleJSON(selectedprofile, logrecords.logrecordsfromstore?.scheduleData.scheduleConfigurations)
         dismiss()
     }
 }
+
+// swiftlint:enable line_length

@@ -21,15 +21,17 @@ struct LogListAlllogsView: View {
 
     var body: some View {
         Form {
-            List(selection: $selectedlog) {
-                ForEach(filteredlogrecords) { record in
-                    LogRow(selecteduuids: $selecteduuids, logrecord: record)
-                        .tag(record)
+            Table(filteredlogrecords, selection: $selecteduuids) {
+                TableColumn("Date") { data in
+                    Text(data.date.localized_string_from_date())
                 }
-                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
-            }
 
-            if focusselectlog { labelselectlog }
+                TableColumn("Result") { data in
+                    if let result = data.resultExecuted {
+                        Text(result)
+                    }
+                }
+            }
 
             Spacer()
 
@@ -38,15 +40,6 @@ struct LogListAlllogsView: View {
 
                 Spacer()
 
-                Button("Select") {
-                    if selecteduuids.count > 0 {
-                        selecteduuids.removeAll()
-                    } else {
-                        selectall()
-                    }
-                }
-                .buttonStyle(PrimaryButtonStyle())
-
                 Button("Delete") { delete() }
                     .buttonStyle(AbortButtonStyle())
                     .sheet(isPresented: $showAlertfordelete) {
@@ -54,16 +47,8 @@ struct LogListAlllogsView: View {
                                        selectedprofile: $selectedprofile)
                     }
             }
+            .padding()
         }
-        .padding()
-    }
-
-    var labelselectlog: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusselectlog = false
-                select()
-            })
     }
 
     var numberoflogs: String {
