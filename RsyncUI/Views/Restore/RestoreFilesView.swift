@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RestoreFilesView: View {
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @StateObject var restorefilelist = ObserveableRestoreFilelist()
-    @Binding var isPresented: Bool
     @Binding var selectrowforrestore: String
     @Binding var config: Configuration?
 
@@ -18,6 +18,8 @@ struct RestoreFilesView: View {
     @State private var selection: String?
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
+
+    @State private var selecteduuids = Set<Configuration.ID>()
 
     var body: some View {
         VStack {
@@ -43,7 +45,7 @@ struct RestoreFilesView: View {
 
                 TextField("Search", text: $restorefilelist.filterstring)
 
-                Button("Dismiss") { dismissview() }
+                Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -77,10 +79,6 @@ struct RestoreFilesView: View {
 
     var listitems: [String] {
         return restorefilelist.getoutput() ?? []
-    }
-
-    func dismissview() {
-        isPresented = false
     }
 
     func abort() {

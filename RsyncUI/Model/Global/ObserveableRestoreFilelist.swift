@@ -84,3 +84,5 @@ extension ObserveableRestoreFilelist {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
+
+// swiftlint:enable line_length

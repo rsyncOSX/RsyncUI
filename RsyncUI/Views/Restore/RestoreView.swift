@@ -134,8 +134,7 @@ struct RestoreView: View {
 
     // Output select files tpo restore
     var viewoutputfiles: some View {
-        RestoreFilesView(isPresented: $presentsheetviewfiles,
-                         selectrowforrestore: $restore.selectedrowforrestore,
+        RestoreFilesView(selectrowforrestore: $restore.selectedrowforrestore,
                          config: $restore.selectedconfig,
                          filterstring: $filterstring)
     }
