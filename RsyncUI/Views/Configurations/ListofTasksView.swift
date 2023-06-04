@@ -27,17 +27,12 @@ struct ListofTasksView: View {
     var tabledata: some View {
         Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("Progress") { data in
-                ZStack {
-                    if data.hiddenID == inwork && executedetails.isestimating() == false {
-                        ProgressView("",
-                                     value: executedetails.getcurrentprogress(),
-                                     total: maxcount)
-                            .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
-                            .frame(width: 40, alignment: .center)
-                    } else {
-                        Text("")
-                            .modifier(FixedTag(20, .leading))
-                    }
+                if data.hiddenID == inwork && executedetails.isestimating() == false {
+                    ProgressView("",
+                                 value: executedetails.getcurrentprogress(),
+                                 total: maxcount)
+                        .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
+                        .frame(width: 35, alignment: .center)
                 }
             }
             .width(max: 50)
