@@ -135,8 +135,8 @@ struct RestoreView: View {
     // Output select files tpo restore
     var viewoutputfiles: some View {
         RestoreFilesView(selectrowforrestore: $restore.selectedrowforrestore,
-                         config: $restore.selectedconfig,
-                         filterstring: $filterstring)
+                         filterstring: $filterstring,
+                         config: restore.selectedconfig)
     }
 
     // Output from rsync

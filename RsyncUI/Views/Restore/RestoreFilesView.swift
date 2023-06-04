@@ -11,15 +11,13 @@ struct RestoreFilesView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @StateObject var restorefilelist = ObserveableRestoreFilelist()
     @Binding var selectrowforrestore: String
-    @Binding var config: Configuration?
-
     @Binding var filterstring: String
 
     @State private var selection: String?
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
 
-    @State private var selecteduuids = Set<Configuration.ID>()
+    var config: Configuration?
 
     var body: some View {
         VStack {
