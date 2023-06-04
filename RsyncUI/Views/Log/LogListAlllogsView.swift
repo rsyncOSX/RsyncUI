@@ -40,7 +40,7 @@ struct LogListAlllogsView: View {
 
                 Spacer()
 
-                Button("Delete") { delete() }
+                Button("Delete") { showAlertfordelete = true }
                     .buttonStyle(AbortButtonStyle())
                     .sheet(isPresented: $showAlertfordelete) {
                         DeleteLogsView(selecteduuids: $selecteduuids,
@@ -58,46 +58,5 @@ struct LogListAlllogsView: View {
 
     var filteredlogrecords: [Log] {
         logrecords.filterlogs(filterstring) ?? []
-    }
-}
-
-extension LogListAlllogsView {
-    func delete() {
-        if selecteduuids.count == 0 {
-            setuuidforselectedlog()
-        }
-        guard selecteduuids.count > 0 else { return }
-        showAlertfordelete = true
-    }
-
-    func select() {
-        if let selectedlog = selectedlog {
-            if selecteduuids.contains(selectedlog.id) {
-                selecteduuids.remove(selectedlog.id)
-            } else {
-                selecteduuids.insert(selectedlog.id)
-            }
-        }
-    }
-
-    func selectall() {
-        selecteduuids.removeAll()
-        let filteredlogscount = logrecords.filterlogs(filterstring)?.count ?? 0
-        let filteredlogs = logrecords.filterlogs(filterstring)
-        for i in 0 ..< filteredlogscount {
-            if let id = filteredlogs?[i].id {
-                selecteduuids.insert(id)
-            }
-        }
-    }
-
-    func setuuidforselectedlog() {
-        if let sel = selectedlog,
-           let index = logrecords.filterlogs(filterstring)?.firstIndex(of: sel)
-        {
-            if let id = logrecords.filterlogs(filterstring)?[index].id {
-                selecteduuids.insert(id)
-            }
-        }
     }
 }

@@ -75,16 +75,7 @@ struct LogsbyConfigurationView: View {
 
                 Spacer()
 
-                Button("Select") {
-                    if selectedlogsuuids.count > 0 {
-                        selectedlogsuuids.removeAll()
-                    } else {
-                        selectall()
-                    }
-                }
-                .buttonStyle(PrimaryButtonStyle())
-
-                Button("Delete") { delete() }
+                Button("Delete") { showAlertfordelete = true }
                     .buttonStyle(AbortButtonStyle())
                     .sheet(isPresented: $showAlertfordelete) {
                         DeleteLogsView(selecteduuids: $selectedlogsuuids,
@@ -98,48 +89,6 @@ struct LogsbyConfigurationView: View {
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
             "\(logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1)?.count ?? 0)"
-    }
-}
-
-extension LogsbyConfigurationView {
-    func delete() {
-        if selectedlogsuuids.count == 0 {
-            setuuidforselectedlog()
-        }
-        guard selectedlogsuuids.count > 0 else { return }
-        showAlertfordelete = true
-    }
-
-    func select() {
-        if let selectedlog = selectedlog {
-            if selectedlogsuuids.contains(selectedlog.id) {
-                selectedlogsuuids.remove(selectedlog.id)
-            } else {
-                selectedlogsuuids.insert(selectedlog.id)
-            }
-        }
-    }
-
-    func selectall() {
-        selectedlogsuuids.removeAll()
-        let filteredlogscount = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1)?.count ?? 0
-        let filteredlogs = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1)
-        for i in 0 ..< filteredlogscount {
-            if let id = filteredlogs?[i].id {
-                selectedlogsuuids.insert(id)
-            }
-        }
-    }
-
-    func setuuidforselectedlog() {
-        if let sel = selectedlog,
-           let index = logrecords.filterlogsbyhiddenID(filterstring,
-                                                       selectedconfig.config?.hiddenID ?? -1)?.firstIndex(of: sel)
-        {
-            if let id = logrecords.filterlogsbyhiddenID(filterstring, selectedconfig.config?.hiddenID ?? -1)?[index].id {
-                selectedlogsuuids.insert(id)
-            }
-        }
     }
 }
 

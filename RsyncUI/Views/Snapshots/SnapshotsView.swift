@@ -18,7 +18,7 @@ struct SnapshotsView: View {
     @State private var snapshotrecords: Logrecordsschedules?
     @State private var selecteduuids = Set<UUID>()
     // Not used but requiered in parameter
-    @State private var inwork = -1
+    @State private var inwork = -100
     // If not a snapshot
     @State private var notsnapshot = false
     // Cannot collect remote cataloglist for more than one task a time
@@ -41,19 +41,32 @@ struct SnapshotsView: View {
 
     @State private var selectatask: Bool = false
 
+    // Delete
+    @State private var confirmdelete: Bool = false
+
     var body: some View {
         ZStack {
             ZStack {
                 HStack {
-                    ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                        guard selectedconfig != nil else {
-                            snapshotdata.logrecordssnapshot = nil
-                            return
-                        }
-                        getdata()
-
-                    },
-                    reload: $reload)
+                    ListofTasksView(
+                        selecteduuids: $selecteduuids.onChange {
+                            let selected = rsyncUIdata.configurations?.filter { config in
+                                selecteduuids.contains(config.id)
+                            }
+                            if (selected?.count ?? 0) == 1 {
+                                if let config = selected {
+                                    selectedconfig = config[0]
+                                    getdata()
+                                }
+                            } else {
+                                selectedconfig = nil
+                            }
+                        },
+                        inwork: $inwork,
+                        filterstring: $filterstring,
+                        reload: $reload,
+                        confirmdelete: $confirmdelete
+                    )
 
                     SnapshotListView(snapshotrecords: $snapshotrecords,
                                      selecteduuids: $selecteduuids)

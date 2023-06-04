@@ -40,6 +40,7 @@ struct ListofTasksView: View {
                     }
                 }
             }
+            .width(max: 80)
             TableColumn("Profile") { data in
                 if markconfig(data) {
                     Text(data.profile ?? "Default profile")
