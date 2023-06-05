@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RestoreTableView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var filterstring: String
+    @State private var filterstring: String = ""
     @StateObject var restore = ObserveableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var filestorestore: String = ""
@@ -47,7 +47,6 @@ struct RestoreTableView: View {
                 }
 
                 RestoreFilesTableView(filestorestore: $filestorestore,
-                                      filterstring: $filterstring,
                                       config: restore.selectedconfig)
                     .tabItem {
                         Text("List of files")
@@ -97,6 +96,7 @@ struct RestoreTableView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
+        .searchable(text: $filterstring)
     }
 
     var showcommand: some View {

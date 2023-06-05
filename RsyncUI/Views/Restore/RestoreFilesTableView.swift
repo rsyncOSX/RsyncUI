@@ -12,7 +12,7 @@ struct RestoreFilesTableView: View {
     @State private var selectedid: RestoreFileRecord.ID?
     @State private var gettingfilelist: Bool = false
     @Binding var filestorestore: String
-    @Binding var filterstring: String
+    @State private var filterstring: String = ""
 
     var config: Configuration?
 
@@ -39,9 +39,9 @@ struct RestoreFilesTableView: View {
                     _ = InterruptProcess()
                 }
             }
-
             if gettingfilelist == true { ProgressView() }
         }
+        .searchable(text: $filterstring)
     }
 
     var filelist: [RestoreFileRecord] {
