@@ -8,60 +8,59 @@
 import SwiftUI
 
 struct RestoreFilesTableView: View {
-    @StateObject var restorefilelist = ObserveableRestoreTableFilelist()
-    @State private var selectedfileid = Set<RestoreFileRecord.ID>()
-
-    // @State private var selection: String?
-    // Focus buttons from the menu
-    @State private var focusaborttask: Bool = false
+    @State private var filelist: [RestoreFileRecord] = []
+    @State private var selectedid: RestoreFileRecord.ID?
+    @State private var filterstring: String = ""
+    @State private var gettingfilelist: Bool = false
 
     var config: Configuration?
 
     var body: some View {
-        VStack {
-            Table(filelist, selection: $selectedfileid) {
-                TableColumn("Filenames") { data in
-                    Text(data.filename)
+        ZStack {
+            Table(filelist, selection: $selectedid) {
+                TableColumn("Filenames", value: \.filename)
+            }
+            .onAppear {
+                Task {
+                    if let config = config {
+                        guard config.task != SharedReference.shared.syncremote else { return }
+                        gettingfilelist = true
+                        await getfilelist(config)
+                    }
                 }
             }
-
-            Spacer()
-
-            if restorefilelist.gettingfilelist == true { ProgressView() }
-
-            if focusaborttask { labelaborttask }
-        }
-        .padding()
-        .focusedSceneValue(\.aborttask, $focusaborttask)
-        .onAppear {
-            Task {
-                if let config = config {
-                    await restorefilelist.validatetaskandgetfilelist(config)
+            .onDisappear {
+                if SharedReference.shared.process != nil {
+                    _ = InterruptProcess()
                 }
             }
+            .searchable(text: $filterstring)
+
+            if gettingfilelist == true { ProgressView() }
         }
-        .onDisappear {
-            if SharedReference.shared.process != nil {
-                _ = InterruptProcess()
-            }
+    }
+
+    func processtermination(data: [String]?) {
+        gettingfilelist = false
+        guard data?.count ?? 0 > 0 else { return }
+        let data = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        filelist = data.map { filename in
+            RestoreFileRecord(filename: filename)
         }
-        .searchable(text: $restorefilelist.filterstring)
     }
 
-    var filelist: [RestoreFileRecord] {
-        return restorefilelist.getoutputtable() ?? []
-    }
-
-    var labelaborttask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusaborttask = false
-                abort()
-            })
-    }
-
-    func abort() {
-        _ = InterruptProcess()
+    @MainActor
+    func getfilelist(_ config: Configuration) async {
+        let snapshot: Bool = (config.snapshotnum != nil) ? true : false
+        let arguments = RestorefilesArguments(task: .rsyncfilelistings,
+                                              config: config,
+                                              remoteFile: nil,
+                                              localCatalog: nil,
+                                              drynrun: nil,
+                                              snapshot: snapshot).getArguments()
+        let command = RsyncAsync(arguments: arguments,
+                                 processtermination: processtermination)
+        await command.executeProcess()
     }
 }
 

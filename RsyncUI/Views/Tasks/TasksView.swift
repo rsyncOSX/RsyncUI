@@ -324,7 +324,9 @@ extension TasksView {
     }
 
     func execute() {
-        if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile"), selectedconfig.config == nil {
+        if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile"),
+           selectedconfig.config == nil
+        {
             let action = ActionHolder(action: "Execute() all estimated tasks", profile: rsyncUIdata.profile ?? "Default profile", source: source)
             actions.addaction(action)
             // Execute all estimated tasks
@@ -334,7 +336,9 @@ extension TasksView {
             executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
-        } else if selectedconfig.config == nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
+        } else if selectedconfig.config == nil,
+                  inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
+        {
             let action = ActionHolder(action: "Execute() all tasks NO estimate", profile: rsyncUIdata.profile ?? "Default profile", source: source)
             actions.addaction(action)
             // Execute all tasks, no estimate

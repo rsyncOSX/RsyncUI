@@ -43,12 +43,12 @@ struct RestoreTableView: View {
                     confirmdelete: $confirmdelete
                 )
                 .tabItem {
-                    Label("Tasks", systemImage: "gear")
+                    Text("Restore from")
                 }
 
                 RestoreFilesTableView(config: restore.selectedconfig)
                     .tabItem {
-                        Label("Files", systemImage: "gear")
+                        Text("List of files")
                     }
             }
 
