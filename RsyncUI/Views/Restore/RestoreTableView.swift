@@ -12,7 +12,7 @@ struct RestoreTableView: View {
     @Binding var filterstring: String
     @StateObject var restore = ObserveableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var presentsheetviewfiles = false
+    @State private var filestorestore: String = ""
 
     // Not used but requiered in parameter
     @State private var inwork = -1
@@ -46,7 +46,9 @@ struct RestoreTableView: View {
                     Text("Restore from")
                 }
 
-                RestoreFilesTableView(config: restore.selectedconfig)
+                RestoreFilesTableView(filestorestore: $filestorestore,
+                                      filterstring: $filterstring,
+                                      config: restore.selectedconfig)
                     .tabItem {
                         Text("List of files")
                     }
@@ -117,7 +119,8 @@ struct RestoreTableView: View {
     }
 
     var setfilestorestore: some View {
-        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""), $restore.filestorestore.onChange {
+        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""), $filestorestore.onChange {
+            restore.filestorestore = filestorestore
             restore.inputchangedbyuser = true
         })
     }

@@ -10,14 +10,20 @@ import SwiftUI
 struct RestoreFilesTableView: View {
     @State private var filelist: [RestoreFileRecord] = []
     @State private var selectedid: RestoreFileRecord.ID?
-    @State private var filterstring: String = ""
+    // @State private var filterstring: String = ""
     @State private var gettingfilelist: Bool = false
+    @Binding var filestorestore: String
+    @Binding var filterstring: String
 
     var config: Configuration?
 
     var body: some View {
         ZStack {
-            Table(filelist, selection: $selectedid) {
+            Table(filelist, selection: $selectedid.onChange {
+                let record = filelist.filter { $0.id == selectedid }
+                guard record.count > 0 else { return }
+                filestorestore = record[0].filename
+            }) {
                 TableColumn("Filenames", value: \.filename)
             }
             .onAppear {
