@@ -94,7 +94,6 @@ struct RestoreView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
-        .searchable(text: $filterstring)
     }
 
     var showcommand: some View {

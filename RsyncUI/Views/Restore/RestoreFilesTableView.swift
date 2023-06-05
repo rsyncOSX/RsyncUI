@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct RestoreFilesTableView: View {
-    @State private var filelist: [RestoreFileRecord] = []
+    @State private var datalist: [String] = []
     @State private var selectedid: RestoreFileRecord.ID?
-    // @State private var filterstring: String = ""
     @State private var gettingfilelist: Bool = false
     @Binding var filestorestore: String
     @Binding var filterstring: String
@@ -40,19 +39,22 @@ struct RestoreFilesTableView: View {
                     _ = InterruptProcess()
                 }
             }
-            .searchable(text: $filterstring)
 
             if gettingfilelist == true { ProgressView() }
         }
     }
 
-    func processtermination(data: [String]?) {
-        gettingfilelist = false
-        guard data?.count ?? 0 > 0 else { return }
-        let data = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        filelist = data.map { filename in
+    var filelist: [RestoreFileRecord] {
+        guard datalist.count > 0 else { return [] }
+        let data = TrimOne(datalist).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        return data.map { filename in
             RestoreFileRecord(filename: filename)
         }
+    }
+
+    func processtermination(data: [String]?) {
+        gettingfilelist = false
+        datalist = data ?? []
     }
 
     @MainActor
