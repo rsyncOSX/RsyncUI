@@ -77,6 +77,14 @@ extension ObserveableRestoreFilelist {
         let data = TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         return data
     }
+
+    func getoutputtable() -> [RestoreFileRecord]? {
+        guard rsyncdata?.count ?? 0 > 0 else { return [] }
+        let data = TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        return data.map { filename in
+            RestoreFileRecord(filename: filename)
+        }
+    }
 }
 
 extension ObserveableRestoreFilelist {

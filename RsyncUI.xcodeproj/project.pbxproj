@@ -37,6 +37,8 @@
 		E943D4242906CE6F0042A560 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943D4232906CE6F0042A560 /* DetailsView.swift */; };
 		E944E6CA2A16B6A6009BA945 /* ListofTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E944E6C92A16B6A6009BA945 /* ListofTasksView.swift */; };
 		E94C2DEC264EC0BF00C0A7E1 /* OneConfigSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */; };
+		E94E1E1C2A2DAA3E00011FED /* RestoreFilesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */; };
+		E94E1E1E2A2DB14A00011FED /* RestoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E1E1D2A2DB14A00011FED /* RestoreTableView.swift */; };
 		E950C92A290BBDC200B8B49F /* CommandProcessAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */; };
 		E951C73325FAA3C100AD4A5A /* LogListAlllogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */; };
 		E9549A85298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549A84298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift */; };
@@ -234,6 +236,8 @@
 		E943D4232906CE6F0042A560 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		E944E6C92A16B6A6009BA945 /* ListofTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksView.swift; sourceTree = "<group>"; };
 		E94C2DEB264EC0BF00C0A7E1 /* OneConfigSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneConfigSmall.swift; sourceTree = "<group>"; };
+		E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFilesTableView.swift; sourceTree = "<group>"; };
+		E94E1E1D2A2DB14A00011FED /* RestoreTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreTableView.swift; sourceTree = "<group>"; };
 		E94F8337272E7ABA00D3924B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandProcessAsync.swift; sourceTree = "<group>"; };
 		E951C73225FAA3C100AD4A5A /* LogListAlllogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListAlllogsView.swift; sourceTree = "<group>"; };
@@ -980,6 +984,8 @@
 			children = (
 				E99C23FA261C2D6C009D4DBF /* RestoreView.swift */,
 				E9303B3729AD325F00F8EC50 /* RestoreFilesView.swift */,
+				E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */,
+				E94E1E1D2A2DB14A00011FED /* RestoreTableView.swift */,
 			);
 			path = Restore;
 			sourceTree = "<group>";
@@ -1202,6 +1208,7 @@
 				E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */,
 				E985C74925F3AD9700CB895C /* Validatenewconfigs.swift in Sources */,
 				E985C77C25F3AD9700CB895C /* RestorefilesArguments.swift in Sources */,
+				E94E1E1C2A2DAA3E00011FED /* RestoreFilesTableView.swift in Sources */,
 				E985C76625F3AD9700CB895C /* MultipleTaskState.swift in Sources */,
 				E985C78425F3AD9700CB895C /* UpdateConfigurations.swift in Sources */,
 				E91CC2622607260B00D69D0B /* RsyncDefaultParametersView.swift in Sources */,
@@ -1269,6 +1276,7 @@
 				E98F608D290D034300952149 /* CommandProcess.swift in Sources */,
 				E97F62F528DC845100DCF475 /* RsyncAsync.swift in Sources */,
 				E93E14B426E34B95004A293E /* AddProfileView.swift in Sources */,
+				E94E1E1E2A2DB14A00011FED /* RestoreTableView.swift in Sources */,
 				E9549A85298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift in Sources */,
 				E999F9262769104200B80DF6 /* AlertToast.swift in Sources */,
 				E9D94DB6294B9409007C21D2 /* Assist.swift in Sources */,

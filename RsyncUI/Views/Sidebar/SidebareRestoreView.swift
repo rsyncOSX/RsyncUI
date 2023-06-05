@@ -12,7 +12,7 @@ struct SidebareRestoreView: View {
     @State private var filterstring: String = ""
 
     var body: some View {
-        RestoreView(filterstring: $filterstring)
+        RestoreTableView(filterstring: $filterstring)
             .padding()
             .searchable(text: $filterstring)
     }

@@ -26,7 +26,7 @@ struct ListofTasksView: View {
 
     var tabledata: some View {
         Table(configurationssorted, selection: $selecteduuids) {
-            TableColumn("Progress") { data in
+            TableColumn("%") { data in
                 if data.hiddenID == inwork && executedetails.isestimating() == false {
                     ProgressView("",
                                  value: executedetails.getcurrentprogress(),
