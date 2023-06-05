@@ -10,7 +10,7 @@ import SwiftUI
 struct LogListAlllogsView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
-    @Binding var filterstring: String
+    @State private var filterstring: String = ""
     @Binding var focusselectlog: Bool
 
     @State private var selectedlog: Log?
@@ -48,6 +48,7 @@ struct LogListAlllogsView: View {
                     }
             }
             .padding()
+            .searchable(text: $filterstring)
         }
     }
 

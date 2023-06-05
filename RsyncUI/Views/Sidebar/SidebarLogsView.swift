@@ -12,7 +12,6 @@ struct SidebarLogsView: View {
     @Binding var selectedprofile: String?
 
     @StateObject private var logrecords = RsyncUIlogrecords()
-    @State private var filterstring: String = ""
     @State private var showloading = true
 
     @State private var focusselectlog: Bool = false
@@ -21,14 +20,13 @@ struct SidebarLogsView: View {
         ZStack {
             TabView {
                 LogListAlllogsView(selectedprofile: $selectedprofile,
-                                   filterstring: $filterstring,
                                    focusselectlog: $focusselectlog)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("All logs")
                     }
+
                 LogsbyConfigurationView(selectedprofile: $selectedprofile,
-                                        filterstring: $filterstring,
                                         focusselectlog: $focusselectlog)
                     .environmentObject(logrecords)
                     .tabItem {
@@ -37,7 +35,6 @@ struct SidebarLogsView: View {
             }
             if showloading { ProgressView() }
         }
-        .searchable(text: $filterstring)
         .padding()
         .task {
             if selectedprofile == nil {

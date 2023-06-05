@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RestoreTableView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @State private var filterstring: String = ""
     @StateObject var restore = ObserveableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var filestorestore: String = ""
@@ -22,7 +21,7 @@ struct RestoreTableView: View {
     var body: some View {
         VStack {
             TabView {
-                ListofTasksView(
+                ListofTasksLightView(
                     selecteduuids: $selecteduuids.onChange {
                         restore.filestorestore = ""
                         restore.commandstring = ""
@@ -37,10 +36,8 @@ struct RestoreTableView: View {
                             restore.selectedconfig = nil
                         }
                     },
-                    inwork: $inwork,
-                    filterstring: $filterstring,
-                    reload: $reload,
-                    confirmdelete: $confirmdelete
+
+                    reload: $reload
                 )
                 .tabItem {
                     Text("Restore from")
@@ -96,7 +93,6 @@ struct RestoreTableView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
-        .searchable(text: $filterstring)
     }
 
     var showcommand: some View {

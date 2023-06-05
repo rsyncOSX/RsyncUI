@@ -16,9 +16,7 @@ struct SnapshotsView: View {
     @Binding var reload: Bool
 
     @State private var snapshotrecords: Logrecordsschedules?
-    @State private var selecteduuids = Set<UUID>()
-    // Not used but requiered in parameter
-    @State private var inwork = -100
+    @State private var selecteduuids = Set<Configuration.ID>()
     // If not a snapshot
     @State private var notsnapshot = false
     // Cannot collect remote cataloglist for more than one task a time
@@ -48,7 +46,7 @@ struct SnapshotsView: View {
         ZStack {
             ZStack {
                 HStack {
-                    ListofTasksView(
+                    ListofTasksLightView(
                         selecteduuids: $selecteduuids.onChange {
                             let selected = rsyncUIdata.configurations?.filter { config in
                                 selecteduuids.contains(config.id)
@@ -62,10 +60,7 @@ struct SnapshotsView: View {
                                 selectedconfig = nil
                             }
                         },
-                        inwork: $inwork,
-                        filterstring: $filterstring,
-                        reload: $reload,
-                        confirmdelete: $confirmdelete
+                        reload: $reload
                     )
 
                     SnapshotListView(snapshotrecords: $snapshotrecords,

@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct RestoreFilesTableView: View {
-    @State private var datalist: [String] = []
+    @State private var datalist: [RestoreFileRecord] = []
     @State private var selectedid: RestoreFileRecord.ID?
     @State private var gettingfilelist: Bool = false
     @Binding var filestorestore: String
-    @State private var filterstring: String = ""
 
     var config: Configuration?
 
     var body: some View {
         ZStack {
-            Table(filelist, selection: $selectedid.onChange {
-                let record = filelist.filter { $0.id == selectedid }
+            Table(datalist, selection: $selectedid.onChange {
+                let record = datalist.filter { $0.id == selectedid }
                 guard record.count > 0 else { return }
                 filestorestore = record[0].filename
             }) {
@@ -38,23 +37,19 @@ struct RestoreFilesTableView: View {
                 if SharedReference.shared.process != nil {
                     _ = InterruptProcess()
                 }
+                datalist = []
             }
+
             if gettingfilelist == true { ProgressView() }
         }
-        .searchable(text: $filterstring)
     }
 
-    var filelist: [RestoreFileRecord] {
-        guard datalist.count > 0 else { return [] }
-        let data = TrimOne(datalist).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        return data.map { filename in
-            RestoreFileRecord(filename: filename)
-        }
-    }
-
+    // let data = TrimOne(datalist).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
     func processtermination(data: [String]?) {
         gettingfilelist = false
-        datalist = data ?? []
+        datalist = TrimOne(data ?? []).trimmeddata.map { filename in
+            RestoreFileRecord(filename: filename)
+        }
     }
 
     @MainActor
