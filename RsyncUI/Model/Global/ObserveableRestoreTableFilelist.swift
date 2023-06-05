@@ -1,28 +1,26 @@
 //
-//  ObserveableRestoreFilelist.swift
+//  ObserveableRestoreTableFilelist.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 06/04/2021.
+//  Created by Thomas Evensen on 05/06/2023.
 //
-// swiftlint:disable line_length
 
 import Combine
 import Foundation
 
-final class ObserveableRestoreFilelist: ObservableObject {
+final class ObserveableRestoreTableFilelist: ObservableObject {
     @Published var filterstring: String = ""
     @Published var gettingfilelist: Bool = false
-    @Published var inputchangedbyuser: Bool = false
+
     // Combine
     var subscriptions = Set<AnyCancellable>()
     var rsyncdata: [String]?
     var numberoffiles: Int = 0
     var filestorestore: String = ""
+    var dataiscollected: Bool = false
+    var profile: String = ""
 
     init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
         $filterstring
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { _ in
@@ -30,11 +28,12 @@ final class ObserveableRestoreFilelist: ObservableObject {
     }
 }
 
-extension ObserveableRestoreFilelist {
+extension ObserveableRestoreTableFilelist {
     func processtermination(data: [String]?) {
         guard data?.count ?? 0 > 0 else { return }
         numberoffiles = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         gettingfilelist = false
+        dataiscollected = true
         rsyncdata = data
     }
 
@@ -59,7 +58,9 @@ extension ObserveableRestoreFilelist {
 
     @MainActor
     func getfilelist(_ config: Configuration) async {
+        guard dataiscollected == false else { return }
         gettingfilelist = true
+        profile = config.profile ?? "Default profile"
         let snapshot: Bool = (config.snapshotnum != nil) ? true : false
         let arguments = RestorefilesArguments(task: .rsyncfilelistings,
                                               config: config,
@@ -72,14 +73,16 @@ extension ObserveableRestoreFilelist {
         await command.executeProcess()
     }
 
-    func getoutput() -> [String]? {
+    func getoutputtable() -> [RestoreFileRecord]? {
         guard rsyncdata?.count ?? 0 > 0 else { return [] }
         let data = TrimOne(rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        return data
+        return data.map { filename in
+            RestoreFileRecord(filename: filename)
+        }
     }
 }
 
-extension ObserveableRestoreFilelist {
+extension ObserveableRestoreTableFilelist {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.propogateerror(error: error)
     }

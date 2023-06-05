@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RestoreFilesTableView: View {
-    @StateObject var restorefilelist = ObserveableRestoreFilelist()
+    @StateObject var restorefilelist = ObserveableRestoreTableFilelist()
     @State private var selectedfileid: RestoreFileRecord.ID?
 
     // @State private var selection: String?
