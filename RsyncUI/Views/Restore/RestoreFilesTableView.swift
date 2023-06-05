@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RestoreFilesTableView: View {
     @StateObject var restorefilelist = ObserveableRestoreTableFilelist()
-    @State private var selectedfileid: RestoreFileRecord.ID?
+    @State private var selectedfileid = Set<RestoreFileRecord.ID>()
 
     // @State private var selection: String?
     // Focus buttons from the menu

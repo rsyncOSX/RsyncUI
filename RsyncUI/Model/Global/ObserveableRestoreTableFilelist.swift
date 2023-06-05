@@ -17,8 +17,6 @@ final class ObserveableRestoreTableFilelist: ObservableObject {
     var rsyncdata: [String]?
     var numberoffiles: Int = 0
     var filestorestore: String = ""
-    var dataiscollected: Bool = false
-    var profile: String = ""
 
     init() {
         $filterstring
@@ -33,7 +31,6 @@ extension ObserveableRestoreTableFilelist {
         guard data?.count ?? 0 > 0 else { return }
         numberoffiles = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }.count
         gettingfilelist = false
-        dataiscollected = true
         rsyncdata = data
     }
 
@@ -58,9 +55,7 @@ extension ObserveableRestoreTableFilelist {
 
     @MainActor
     func getfilelist(_ config: Configuration) async {
-        guard dataiscollected == false else { return }
         gettingfilelist = true
-        profile = config.profile ?? "Default profile"
         let snapshot: Bool = (config.snapshotnum != nil) ? true : false
         let arguments = RestorefilesArguments(task: .rsyncfilelistings,
                                               config: config,
