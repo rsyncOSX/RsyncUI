@@ -11,23 +11,13 @@ import SwiftUI
 struct LogsbyConfigurationView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedprofile: String?
-    @Binding var focusselectlog: Bool
 
-    @State private var selectedlog: Log?
-    @State private var selectedlogsuuids = Set<UUID>()
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedconfig: Configuration?
 
-    // Not used but requiered in parameter
-    @State private var inwork = -1
-    // Alert for delete
-    @State private var showAlertfordelete = false
-
     @State private var reload: Bool = false
-    @State private var confirmdelete: Bool = false
 
-    let selectable = false
+    var selectedprofile: String?
 
     var body: some View {
         Form {
@@ -43,15 +33,12 @@ struct LogsbyConfigurationView: View {
                     } else {
                         selectedconfig = nil
                     }
-                },
-                reload: $reload
+                }
             )
 
             Spacer()
 
-            Table(logrecords.filterlogsbyhiddenID(selectedconfig?.hiddenID ?? -1) ?? [],
-                  selection: $selectedlogsuuids)
-            {
+            Table(logdetails) {
                 TableColumn("Date") { data in
                     Text(data.date.localized_string_from_date())
                 }
@@ -75,5 +62,9 @@ struct LogsbyConfigurationView: View {
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
             "\(logrecords.filterlogsbyhiddenID(selectedconfig?.hiddenID ?? -1)?.count ?? 0)"
+    }
+
+    var logdetails: [Log] {
+        return logrecords.filterlogsbyhiddenID(selectedconfig?.hiddenID ?? -1) ?? []
     }
 }

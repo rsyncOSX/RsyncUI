@@ -59,8 +59,7 @@ struct SnapshotsView: View {
                             } else {
                                 selectedconfig = nil
                             }
-                        },
-                        reload: $reload
+                        }
                     )
 
                     SnapshotListView(snapshotrecords: $snapshotrecords,

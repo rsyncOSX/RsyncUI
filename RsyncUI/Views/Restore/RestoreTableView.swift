@@ -35,9 +35,7 @@ struct RestoreTableView: View {
                         } else {
                             restore.selectedconfig = nil
                         }
-                    },
-
-                    reload: $reload
+                    }
                 )
                 .tabItem {
                     Text("Restore from")

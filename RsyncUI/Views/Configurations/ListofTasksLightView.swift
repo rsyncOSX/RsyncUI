@@ -10,7 +10,6 @@ import SwiftUI
 struct ListofTasksLightView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<UUID>
-    @Binding var reload: Bool
 
     var body: some View {
         tabledata

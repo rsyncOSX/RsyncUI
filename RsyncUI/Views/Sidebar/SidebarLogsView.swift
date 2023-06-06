@@ -26,8 +26,7 @@ struct SidebarLogsView: View {
                         Text("All logs")
                     }
 
-                LogsbyConfigurationView(selectedprofile: $selectedprofile,
-                                        focusselectlog: $focusselectlog)
+                LogsbyConfigurationView(selectedprofile: selectedprofile)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("By task")
