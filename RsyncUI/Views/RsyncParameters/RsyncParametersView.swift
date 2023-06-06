@@ -21,6 +21,7 @@ struct RsyncParametersView: View {
     @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
     @State private var numberoffiles: Int = 0
+    @State private var selecteduuids = Set<UUID>()
 
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
@@ -43,12 +44,22 @@ struct RsyncParametersView: View {
                         Spacer()
                     }
 
-                    VStack {
-                        ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                            parameters.setvalues(selectedconfig)
-                        },
-                        reload: $reload)
-                    }
+                    ListofTasksLightView(
+                        selecteduuids: $selecteduuids.onChange {
+                            let selected = rsyncUIdata.configurations?.filter { config in
+                                selecteduuids.contains(config.id)
+                            }
+                            if (selected?.count ?? 0) == 1 {
+                                if let config = selected {
+                                    selectedconfig = config[0]
+                                    parameters.setvalues(selectedconfig)
+                                }
+                            } else {
+                                selectedconfig = nil
+                                parameters.setvalues(selectedconfig)
+                            }
+                        }
+                    )
 
                     if focusaborttask { labelaborttask }
                 }
