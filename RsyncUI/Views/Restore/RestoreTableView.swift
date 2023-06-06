@@ -22,7 +22,7 @@ struct RestoreTableView: View {
 
     var body: some View {
         VStack {
-            TabView {
+            HStack {
                 ListofTasksLightView(
                     selecteduuids: $selecteduuids.onChange {
                         restore.selectedrowforrestore = ""
@@ -41,17 +41,11 @@ struct RestoreTableView: View {
                         }
                     }
                 )
-                .tabItem {
-                    Text("Restore from")
-                }
 
                 RestoreFilesTableView(filestorestore: $filestorestore.onChange {
                     restore.selectedrowforrestore = filestorestore
-                },
-                config: restore.selectedconfig, datalist: restore.datalist)
-                    .tabItem {
-                        Text("List of files")
-                    }
+                })
+                .environmentObject(restore)
             }
 
             Spacer()
@@ -71,7 +65,7 @@ struct RestoreTableView: View {
 
                 setpathforrestore
             }
-            
+
             Spacer()
 
             VStack {

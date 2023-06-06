@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct RestoreFilesTableView: View {
+    @EnvironmentObject var restore: ObserveableRestore
     @State private var selectedid: RestoreFileRecord.ID?
     @Binding var filestorestore: String
 
-    var config: Configuration?
-    var datalist: [RestoreFileRecord]
-
     var body: some View {
         ZStack {
-            Table(datalist, selection: $selectedid.onChange {
-                let record = datalist.filter { $0.id == selectedid }
+            Table(restore.datalist, selection: $selectedid.onChange {
+                let record = restore.datalist.filter { $0.id == selectedid }
                 guard record.count > 0 else { return }
                 filestorestore = record[0].filename
             }) {
