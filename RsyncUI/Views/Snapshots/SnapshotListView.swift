@@ -16,30 +16,30 @@ struct SnapshotListView: View {
 
     var body: some View {
         Table(logrecords, selection: $selecteduuids) {
-            TableColumn("snapshotCatalog") { data in
+            TableColumn("Snap") { data in
                 if let snapshotCatalog = data.snapshotCatalog {
                     Text(snapshotCatalog)
                 }
             }
             .width(max: 40)
 
-            TableColumn("dateExecuted") { data in
+            TableColumn("Date") { data in
                 Text(data.dateExecuted)
             }
             .width(max: 150)
-            TableColumn("period") { data in
+            TableColumn("Period") { data in
                 if let period = data.period {
                     Text(period)
                 }
             }
             .width(max: 200)
-            TableColumn("days") { data in
+            TableColumn("Days") { data in
                 if let days = data.days {
                     Text(days)
                 }
             }
             .width(max: 60)
-            TableColumn("resultExecuted") { data in
+            TableColumn("Result") { data in
                 Text(data.resultExecuted)
             }
             .width(max: 250)
