@@ -41,8 +41,10 @@ struct RestoreTableView: View {
                     Text("Restore from")
                 }
 
-                RestoreFilesTableView(filestorestore: $filestorestore,
-                                      config: restore.selectedconfig)
+                RestoreFilesTableView(filestorestore: $filestorestore.onChange {
+                    restore.filestorestore = filestorestore
+                },
+                config: restore.selectedconfig)
                     .tabItem {
                         Text("List of files")
                     }
@@ -113,8 +115,7 @@ struct RestoreTableView: View {
     }
 
     var setfilestorestore: some View {
-        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""), $filestorestore.onChange {
-            restore.filestorestore = filestorestore
+        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""), $restore.filestorestore.onChange {
             restore.inputchangedbyuser = true
         })
     }
