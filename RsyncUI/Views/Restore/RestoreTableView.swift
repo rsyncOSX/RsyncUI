@@ -13,12 +13,9 @@ struct RestoreTableView: View {
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var filestorestore: String = ""
 
-    // Not used but requiered in parameter
-    @State private var inwork = -1
-    @State private var reload: Bool = false
-    @State private var confirmdelete: Bool = false
     @State private var showrestorecommand: Bool = false
     @State private var gettingfilelist: Bool = false
+    @State private var filterstring: String = ""
 
     var body: some View {
         VStack {
@@ -61,6 +58,8 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack(alignment: .leading) {
+                setfilter
+
                 setfilestorestore
 
                 setpathforrestore
@@ -78,6 +77,7 @@ struct RestoreTableView: View {
 
             Button("Files") {
                 Task {
+                    guard filterstring.count > 0 else { return }
                     if let config = restore.selectedconfig {
                         guard config.task != SharedReference.shared.syncremote else { return }
                         gettingfilelist = true
@@ -135,6 +135,10 @@ struct RestoreTableView: View {
         })
     }
 
+    var setfilter: some View {
+        EditValue(500, NSLocalizedString("Filter to search", comment: ""), $filterstring)
+    }
+
     var numberoffiles: some View {
         HStack {
             Text(NSLocalizedString("Number of files", comment: "") + ": ")
@@ -160,7 +164,8 @@ extension RestoreTableView {
     // let data = TrimOne(datalist).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
     func processtermination(data: [String]?) {
         gettingfilelist = false
-        restore.datalist = TrimOne(data ?? []).trimmeddata.map { filename in
+        let data = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        restore.datalist = data.map { filename in
             RestoreFileRecord(filename: filename)
         }
     }
