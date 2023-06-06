@@ -56,30 +56,30 @@ struct RestoreTableView: View {
 
             Spacer()
 
-            if showrestorecommand { showcommand }
-            if gettingfilelist { ProgressView() }
+            ZStack {
+                if showrestorecommand { showcommand }
+                if gettingfilelist { ProgressView() }
+                if restore.restorefilesinprogress { ProgressView() }
+            }
         }
 
         HStack {
             Spacer()
 
-            ZStack {
-                VStack(alignment: .leading) {
-                    setfilestorestore
+            VStack(alignment: .leading) {
+                setfilestorestore
 
-                    setpathforrestore
-                }
-
-                if restore.restorefilesinprogress == true { ProgressView() }
+                setpathforrestore
             }
-
+            
             Spacer()
 
             VStack {
                 Toggle("Command", isOn: $showrestorecommand)
                     .toggleStyle(.switch)
 
-                ToggleViewDefault("--dry-run", $restore.dryrun)
+                Toggle("--dry-run", isOn: $restore.dryrun)
+                    .toggleStyle(.switch)
             }
 
             Button("Files") {
