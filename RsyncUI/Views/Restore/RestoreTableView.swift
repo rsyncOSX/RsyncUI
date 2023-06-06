@@ -17,14 +17,18 @@ struct RestoreTableView: View {
     @State private var inwork = -1
     @State private var reload: Bool = false
     @State private var confirmdelete: Bool = false
+    @State private var showrestorecommand: Bool = false
+    @State private var gettingfilelist: Bool = false
 
     var body: some View {
         VStack {
             TabView {
                 ListofTasksLightView(
                     selecteduuids: $selecteduuids.onChange {
+                        restore.selectedrowforrestore = ""
                         restore.filestorestore = ""
                         restore.commandstring = ""
+                        restore.datalist = []
                         let selected = rsyncUIdata.configurations?.filter { config in
                             selecteduuids.contains(config.id)
                         }
@@ -42,9 +46,9 @@ struct RestoreTableView: View {
                 }
 
                 RestoreFilesTableView(filestorestore: $filestorestore.onChange {
-                    restore.filestorestore = filestorestore
+                    restore.selectedrowforrestore = filestorestore
                 },
-                config: restore.selectedconfig)
+                config: restore.selectedconfig, datalist: restore.datalist)
                     .tabItem {
                         Text("List of files")
                     }
@@ -52,7 +56,8 @@ struct RestoreTableView: View {
 
             Spacer()
 
-            if restore.selectedconfig != nil { showcommand }
+            if showrestorecommand { showcommand }
+            if gettingfilelist { ProgressView() }
         }
 
         HStack {
@@ -70,7 +75,23 @@ struct RestoreTableView: View {
 
             Spacer()
 
-            ToggleViewDefault("--dry-run", $restore.dryrun)
+            VStack {
+                Toggle("Command", isOn: $showrestorecommand)
+                    .toggleStyle(.switch)
+
+                ToggleViewDefault("--dry-run", $restore.dryrun)
+            }
+
+            Button("Files") {
+                Task {
+                    if let config = restore.selectedconfig {
+                        guard config.task != SharedReference.shared.syncremote else { return }
+                        gettingfilelist = true
+                        await getfilelist(config)
+                    }
+                }
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
             Button("Restore") {
                 Task {
@@ -141,6 +162,33 @@ extension RestoreTableView {
     func abort() {
         _ = InterruptProcess()
     }
+
+    // let data = TrimOne(datalist).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+    func processtermination(data: [String]?) {
+        gettingfilelist = false
+        restore.datalist = TrimOne(data ?? []).trimmeddata.map { filename in
+            RestoreFileRecord(filename: filename)
+        }
+    }
+
+    @MainActor
+    func getfilelist(_ config: Configuration) async {
+        let snapshot: Bool = (config.snapshotnum != nil) ? true : false
+        let arguments = RestorefilesArguments(task: .rsyncfilelistings,
+                                              config: config,
+                                              remoteFile: nil,
+                                              localCatalog: nil,
+                                              drynrun: nil,
+                                              snapshot: snapshot).getArguments()
+        let command = RsyncAsync(arguments: arguments,
+                                 processtermination: processtermination)
+        await command.executeProcess()
+    }
+}
+
+struct RestoreFileRecord: Identifiable {
+    let id = UUID()
+    var filename: String = ""
 }
 
 // swiftlint:enable line_length
