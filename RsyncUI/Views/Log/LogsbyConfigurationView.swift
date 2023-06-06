@@ -20,7 +20,7 @@ struct LogsbyConfigurationView: View {
     var selectedprofile: String?
 
     var body: some View {
-        Form {
+        VStack {
             ListofTasksLightView(
                 selecteduuids: $selecteduuids.onChange {
                     let selected = rsyncUIdata.configurations?.filter { config in

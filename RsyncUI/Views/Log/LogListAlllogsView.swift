@@ -11,16 +11,12 @@ struct LogListAlllogsView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var selectedprofile: String?
     @State private var filterstring: String = ""
-    @Binding var focusselectlog: Bool
-
-    @State private var selectedlog: Log?
     @State private var selecteduuids = Set<UUID>()
     // Alert for delete
     @State private var showAlertfordelete = false
-    @State private var showloading = true
 
     var body: some View {
-        Form {
+        VStack {
             Table(filteredlogrecords, selection: $selecteduuids) {
                 TableColumn("Date") { data in
                     Text(data.date.localized_string_from_date())

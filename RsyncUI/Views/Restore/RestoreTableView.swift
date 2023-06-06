@@ -136,7 +136,7 @@ struct RestoreTableView: View {
     }
 
     var setfilter: some View {
-        EditValue(500, NSLocalizedString("Filter to search", comment: ""), $filterstring)
+        EditValue(500, NSLocalizedString("Filter to search remote data", comment: ""), $filterstring)
     }
 
     var numberoffiles: some View {

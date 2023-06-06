@@ -14,13 +14,10 @@ struct SidebarLogsView: View {
     @StateObject private var logrecords = RsyncUIlogrecords()
     @State private var showloading = true
 
-    @State private var focusselectlog: Bool = false
-
     var body: some View {
         ZStack {
             TabView {
-                LogListAlllogsView(selectedprofile: $selectedprofile,
-                                   focusselectlog: $focusselectlog)
+                LogListAlllogsView(selectedprofile: $selectedprofile)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("All logs")
@@ -57,6 +54,5 @@ struct SidebarLogsView: View {
                 showloading = false
             }
         }
-        .focusedSceneValue(\.selectlog, $focusselectlog)
     }
 }
