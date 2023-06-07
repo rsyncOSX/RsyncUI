@@ -16,14 +16,9 @@ struct ListofTasksLightView: View {
     }
 
     var tabledata: some View {
-        Table(configurationssorted, selection: $selecteduuids) {
+        Table(rsyncUIdata.configurations ?? [], selection: $selecteduuids) {
             TableColumn("Profile") { data in
-                if markconfig(data) {
-                    Text(data.profile ?? "Default profile")
-                        .foregroundColor(.red)
-                } else {
-                    Text(data.profile ?? "Default profile")
-                }
+                Text(data.profile ?? "Default profile")
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID", value: \.backupID)
@@ -43,38 +38,13 @@ struct ListofTasksLightView: View {
             }
             .width(min: 50, max: 80)
             TableColumn("Days") { data in
-                if markconfig(data) {
-                    Text(data.dayssincelastbackup ?? "")
-                        .foregroundColor(.red)
-                } else {
-                    Text(data.dayssincelastbackup ?? "")
-                }
+                Text(data.dayssincelastbackup ?? "")
             }
             .width(max: 50)
             TableColumn("Last") { data in
-                if markconfig(data) {
-                    Text(data.dateRun ?? "")
-                        .foregroundColor(.red)
-                } else {
-                    Text(data.dateRun ?? "")
-                }
+                Text(data.dateRun ?? "")
             }
             .width(max: 120)
         }
-    }
-
-    var configurationssorted: [Configuration] {
-        return rsyncUIdata.configurations ?? []
-    }
-
-    func markconfig(_ config: Configuration?) -> Bool {
-        if config?.dateRun != nil {
-            if let secondssince = config?.lastruninseconds {
-                if secondssince / (60 * 60 * 24) > SharedReference.shared.marknumberofdayssince {
-                    return true
-                }
-            }
-        }
-        return false
     }
 }
