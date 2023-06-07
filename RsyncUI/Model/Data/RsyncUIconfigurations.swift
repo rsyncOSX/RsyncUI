@@ -22,7 +22,7 @@ struct Readconfigurationsfromstore: Equatable {
 
 final class RsyncUIconfigurations: ObservableObject {
     @Published var configurationsfromstore: Readconfigurationsfromstore?
-    @Published var configurations: [Configuration]?
+    var configurations: [Configuration]?
     var profile: String?
     var validhiddenIDs: Set<Int>?
 
