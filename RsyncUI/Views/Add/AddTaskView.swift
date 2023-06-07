@@ -110,9 +110,6 @@ struct AddTaskView: View {
         }
         .lineSpacing(2)
         .padding()
-        .onAppear(perform: {
-            focusField = .localcatalogField
-        })
         .onSubmit {
             switch focusField {
             case .localcatalogField:
