@@ -15,6 +15,8 @@ struct AddPreandPostView: View {
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
+    @State private var selecteduuids = Set<Configuration.ID>()
+
     var choosecatalog = false
 
     enum PreandPostTaskField: Hashable {
@@ -57,9 +59,22 @@ struct AddPreandPostView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                            newdata.updateview(selectedconfig)
-                        }, reload: $reload)
+                        ListofTasksLightView(
+                            selecteduuids: $selecteduuids.onChange {
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        selectedconfig = config[0]
+                                        newdata.updateview(selectedconfig)
+                                    }
+                                } else {
+                                    selectedconfig = nil
+                                    newdata.updateview(selectedconfig)
+                                }
+                            }
+                        )
                     }
 
                     // For center
