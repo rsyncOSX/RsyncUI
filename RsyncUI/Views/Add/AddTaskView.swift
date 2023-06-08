@@ -24,7 +24,7 @@ struct AddTaskView: View {
     @Binding var reload: Bool
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
-    
+
     var choosecatalog = true
 
     enum AddConfigurationField: Hashable {
@@ -501,7 +501,6 @@ extension AddTaskView {
     func validateandupdate() {
         newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
-        dataischanged = true
         if newdata.updated == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 newdata.updated = false
