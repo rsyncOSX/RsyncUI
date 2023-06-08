@@ -99,17 +99,11 @@ struct AddTaskView: View {
                                 }
                             }
                         )
-                    }
 
-                    // For center
-                    Spacer()
-
-                    VStack(alignment: .trailing) {
-                        Spacer()
-
-                        VStack {
-                            updatebutton
+                        HStack {
                             profilebutton
+
+                            updatebutton
                         }
                     }
                 }

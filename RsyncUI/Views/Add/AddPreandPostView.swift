@@ -75,13 +75,6 @@ struct AddPreandPostView: View {
                                 }
                             }
                         )
-                    }
-
-                    // For center
-                    Spacer()
-
-                    VStack(alignment: .leading) {
-                        Spacer()
 
                         updatebutton
                     }
