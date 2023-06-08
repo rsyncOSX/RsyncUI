@@ -16,33 +16,38 @@ struct RestoreTableView: View {
     @State private var showrestorecommand: Bool = false
     @State private var gettingfilelist: Bool = false
     @State private var filterstring: String = ""
+    @State private var nosearcstringalert: Bool = false
 
     var body: some View {
         VStack {
-            HStack {
-                ListofTasksLightView(
-                    selecteduuids: $selecteduuids.onChange {
-                        restore.selectedrowforrestore = ""
-                        restore.filestorestore = ""
-                        restore.commandstring = ""
-                        restore.datalist = []
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selecteduuids.contains(config.id)
-                        }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                restore.selectedconfig = config[0]
+            ZStack {
+                HStack {
+                    ListofTasksLightView(
+                        selecteduuids: $selecteduuids.onChange {
+                            restore.selectedrowforrestore = ""
+                            restore.filestorestore = ""
+                            restore.commandstring = ""
+                            restore.datalist = []
+                            let selected = rsyncUIdata.configurations?.filter { config in
+                                selecteduuids.contains(config.id)
                             }
-                        } else {
-                            restore.selectedconfig = nil
+                            if (selected?.count ?? 0) == 1 {
+                                if let config = selected {
+                                    restore.selectedconfig = config[0]
+                                }
+                            } else {
+                                restore.selectedconfig = nil
+                            }
                         }
-                    }
-                )
+                    )
 
-                RestoreFilesTableView(filestorestore: $filestorestore.onChange {
-                    restore.selectedrowforrestore = filestorestore
-                })
-                .environmentObject(restore)
+                    RestoreFilesTableView(filestorestore: $filestorestore.onChange {
+                        restore.selectedrowforrestore = filestorestore
+                    })
+                    .environmentObject(restore)
+                }
+
+                if nosearcstringalert { nosearchstring }
             }
 
             Spacer()
@@ -77,7 +82,10 @@ struct RestoreTableView: View {
 
             Button("Files") {
                 Task {
-                    guard filterstring.count > 0 else { return }
+                    guard filterstring.count > 0 else {
+                        nosearcstringalert = true
+                        return
+                    }
                     if let config = restore.selectedconfig {
                         guard config.task != SharedReference.shared.syncremote else { return }
                         gettingfilelist = true
@@ -108,6 +116,22 @@ struct RestoreTableView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
+    }
+
+    var nosearchstring: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text("Please add a sarch string")
+                .font(.title3)
+                .foregroundColor(Color.accentColor)
+        }
+        .frame(width: 220, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                nosearcstringalert = false
+            }
+        }
     }
 
     var showcommand: some View {
