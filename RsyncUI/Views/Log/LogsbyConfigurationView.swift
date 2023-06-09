@@ -21,39 +21,39 @@ struct LogsbyConfigurationView: View {
 
     var body: some View {
         VStack {
-            ListofTasksLightView(
-                selecteduuids: $selecteduuids.onChange {
-                    let selected = rsyncUIdata.configurations?.filter { config in
-                        selecteduuids.contains(config.id)
-                    }
-                    if (selected?.count ?? 0) == 1 {
-                        if let config = selected {
-                            selectedconfig = config[0]
+            HStack {
+                ListofTasksLightView(
+                    selecteduuids: $selecteduuids.onChange {
+                        let selected = rsyncUIdata.configurations?.filter { config in
+                            selecteduuids.contains(config.id)
                         }
-                    } else {
-                        selectedconfig = nil
+                        if (selected?.count ?? 0) == 1 {
+                            if let config = selected {
+                                selectedconfig = config[0]
+                            }
+                        } else {
+                            selectedconfig = nil
+                        }
                     }
-                }
-            )
+                )
 
-            Spacer()
+                Table(logdetails) {
+                    TableColumn("Date") { data in
+                        Text(data.date.localized_string_from_date())
+                    }
 
-            Table(logdetails) {
-                TableColumn("Date") { data in
-                    Text(data.date.localized_string_from_date())
-                }
-
-                TableColumn("Result") { data in
-                    if let result = data.resultExecuted {
-                        Text(result)
+                    TableColumn("Result") { data in
+                        if let result = data.resultExecuted {
+                            Text(result)
+                        }
                     }
                 }
             }
 
-            Spacer()
-
             HStack {
                 Text(numberoflogs)
+
+                Spacer()
             }
         }
         .padding()
