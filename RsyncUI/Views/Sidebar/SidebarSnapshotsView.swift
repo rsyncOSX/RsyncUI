@@ -14,11 +14,9 @@ struct SidebarSnapshotsView: View {
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
-    @State private var filterstring: String = ""
 
     var body: some View {
         SnapshotsView(selectedconfig: $selectedconfig, reload: $reload)
             .padding()
-            .searchable(text: $filterstring)
     }
 }

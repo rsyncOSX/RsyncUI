@@ -11,19 +11,42 @@ struct SnapshotListView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var snapshotdata: SnapshotData
 
-    @Binding var selectedconfig: Configuration?
     @Binding var snapshotrecords: Logrecordsschedules?
     @Binding var selecteduuids: Set<UUID>
 
     var body: some View {
-        List(selection: $snapshotrecords) {
-            if let logs = snapshotdata.getsnapshotdata() {
-                ForEach(logs) { record in
-                    SnapshotRow(selecteduuids: $selecteduuids, logrecord: record)
-                        .tag(record)
+        Table(logrecords, selection: $selecteduuids) {
+            TableColumn("Snap") { data in
+                if let snapshotCatalog = data.snapshotCatalog {
+                    Text(snapshotCatalog)
                 }
-                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
             }
+            .width(max: 40)
+
+            TableColumn("Date") { data in
+                Text(data.dateExecuted)
+            }
+            .width(max: 150)
+            TableColumn("Period") { data in
+                if let period = data.period {
+                    Text(period)
+                }
+            }
+            .width(max: 200)
+            TableColumn("Days") { data in
+                if let days = data.days {
+                    Text(days)
+                }
+            }
+            .width(max: 60)
+            TableColumn("Result") { data in
+                Text(data.resultExecuted)
+            }
+            .width(max: 250)
         }
+    }
+
+    var logrecords: [Logrecordsschedules] {
+        return snapshotdata.getsnapshotdata() ?? []
     }
 }

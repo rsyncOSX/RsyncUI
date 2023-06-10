@@ -29,6 +29,7 @@ final class ObserveableRestore: ObservableObject {
     var filestorestore: String = ""
     var arguments: [String]?
     var selectedconfig: Configuration?
+    var datalist: [RestoreFileRecord] = []
 
     var rsync: String {
         return GetfullpathforRsync().rsyncpath ?? ""
@@ -39,18 +40,15 @@ final class ObserveableRestore: ObservableObject {
             .sink { _ in
             }.store(in: &subscriptions)
         $dryrun
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] _ in
                 updatecommandstring()
             }.store(in: &subscriptions)
         $pathforrestore
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] path in
                 validatepathforrestore(path)
                 updatecommandstring()
             }.store(in: &subscriptions)
         $selectedrowforrestore
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] file in
                 filestorestore = file
                 updatecommandstring()
@@ -224,3 +222,5 @@ enum RestoreError: LocalizedError {
         }
     }
 }
+
+// swiftlint:enable line_length

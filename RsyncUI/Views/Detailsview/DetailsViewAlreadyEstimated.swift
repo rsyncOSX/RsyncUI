@@ -17,10 +17,6 @@ struct DetailsViewAlreadyEstimated: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Details")
-                .font(.title2)
-                .padding()
-
             VStack(alignment: .leading) {
                 if #available(macOS 13.0, *) {
                     Form {

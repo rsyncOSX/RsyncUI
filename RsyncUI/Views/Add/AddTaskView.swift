@@ -23,6 +23,7 @@ struct AddTaskView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @State private var selectedconfig: Configuration?
+    @State private var selecteduuids = Set<Configuration.ID>()
 
     var choosecatalog = true
 
@@ -82,20 +83,27 @@ struct AddTaskView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                            newdata.updateview(selectedconfig)
-                        }, reload: $reload)
-                    }
+                        ListofTasksLightView(
+                            selecteduuids: $selecteduuids.onChange {
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        selectedconfig = config[0]
+                                        newdata.updateview(selectedconfig)
+                                    }
+                                } else {
+                                    selectedconfig = nil
+                                    newdata.updateview(selectedconfig)
+                                }
+                            }
+                        )
 
-                    // For center
-                    Spacer()
-
-                    VStack(alignment: .trailing) {
-                        Spacer()
-
-                        VStack {
-                            updatebutton
+                        HStack {
                             profilebutton
+
+                            updatebutton
                         }
                     }
                 }

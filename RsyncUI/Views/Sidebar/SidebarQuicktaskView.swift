@@ -10,7 +10,6 @@ import SwiftUI
 struct SidebarQuicktaskView: View {
     // Show completed
     @State private var showcompleted: Bool = false
-    @State private var filterstring: String = ""
 
     var body: some View {
         ZStack {
@@ -27,6 +26,5 @@ struct SidebarQuicktaskView: View {
                     })
             }
         }
-        .searchable(text: $filterstring)
     }
 }

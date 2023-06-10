@@ -9,11 +9,9 @@ import SwiftUI
 
 struct SidebareRestoreView: View {
     @Binding var selectedprofile: String?
-    @State private var filterstring: String = ""
 
     var body: some View {
-        RestoreView(filterstring: $filterstring)
+        RestoreTableView()
             .padding()
-            .searchable(text: $filterstring)
     }
 }

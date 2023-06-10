@@ -21,6 +21,7 @@ struct RsyncDefaultParametersView: View {
     @State private var showprogressview = false
     @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
+    @State private var selecteduuids = Set<UUID>()
 
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
@@ -52,11 +53,23 @@ struct RsyncDefaultParametersView: View {
                     }
 
                     VStack(alignment: .leading) {
-                        ConfigurationsListSmall(selectedconfig: $selectedconfig.onChange {
-                            parameters.reset()
-                            parameters.setvalues(selectedconfig)
-                        }, reload: $reload)
-                            .frame(maxWidth: .infinity)
+                        ListofTasksLightView(
+                            selecteduuids: $selecteduuids.onChange {
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        selectedconfig = config[0]
+                                        parameters.setvalues(selectedconfig)
+                                    }
+                                } else {
+                                    selectedconfig = nil
+                                    parameters.setvalues(selectedconfig)
+                                }
+                            }
+                        )
+                        .frame(maxWidth: .infinity)
 
                         HStack(alignment: .center) {
                             RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)

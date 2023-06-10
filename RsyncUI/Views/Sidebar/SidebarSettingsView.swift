@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SidebarSettingsView: View {
     @Binding var selectedprofile: String?
-    @State private var filterstring: String = ""
 
     var body: some View {
         TabView {
@@ -37,7 +36,6 @@ struct SidebarSettingsView: View {
                 await Rsyncversion().getrsyncversion()
             }
         }
-        .searchable(text: $filterstring)
     }
 
     var profile: String? {
