@@ -21,7 +21,7 @@ struct RsyncDefaultParametersView: View {
     @State private var showprogressview = false
     @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
-    @State private var selecteduuids = Set<UUID>()
+    @State private var selecteduuids = Set<Configuration.ID>()
 
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false

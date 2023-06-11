@@ -21,7 +21,7 @@ struct RsyncParametersView: View {
     @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
     @State private var numberoffiles: Int = 0
-    @State private var selecteduuids = Set<UUID>()
+    @State private var selecteduuids = Set<Configuration.ID>()
 
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
