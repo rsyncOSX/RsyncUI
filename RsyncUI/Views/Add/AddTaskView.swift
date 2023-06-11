@@ -40,6 +40,9 @@ struct AddTaskView: View {
     // Modale view
     @State private var modalview = false
 
+    // Reload and show table data
+    @State private var showtableview: Bool = true
+
     var body: some View {
         Form {
             ZStack {
@@ -83,37 +86,36 @@ struct AddTaskView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        ListofTasksLightView(
-                            selecteduuids: $selecteduuids.onChange {
-                                let selected = rsyncUIdata.configurations?.filter { config in
-                                    selecteduuids.contains(config.id)
-                                }
-                                if (selected?.count ?? 0) == 1 {
-                                    if let config = selected {
-                                        selectedconfig = config[0]
+                        if showtableview {
+                            ListofTasksLightView(
+                                selecteduuids: $selecteduuids.onChange {
+                                    let selected = rsyncUIdata.configurations?.filter { config in
+                                        selecteduuids.contains(config.id)
+                                    }
+                                    if (selected?.count ?? 0) == 1 {
+                                        if let config = selected {
+                                            selectedconfig = config[0]
+                                            newdata.updateview(selectedconfig)
+                                        }
+                                    } else {
+                                        selectedconfig = nil
                                         newdata.updateview(selectedconfig)
                                     }
-                                } else {
-                                    selectedconfig = nil
-                                    newdata.updateview(selectedconfig)
                                 }
-                            }
-                        )
+                            )
+                        } else {
+                            notifyupdated
+                        }
 
                         HStack {
-                            profilebutton
+                            if showtableview {
+                                profilebutton
 
-                            updatebutton
+                                updatebutton
+                            }
                         }
                     }
                 }
-
-                // Present when either added, updated or profile created, deleted
-                if newdata.added == true { notifyadded }
-                if newdata.updated == true { notifyupdated }
-                if newdata.created == true { notifycreated }
-                if newdata.deleted == true { notifydeleted }
-                if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
             }
         }
         .lineSpacing(2)
@@ -385,21 +387,25 @@ struct AddTaskView: View {
     var notifyadded: some View {
         AlertToast(type: .complete(Color.green),
                    title: Optional("Added"), subTitle: Optional(""))
+            .onAppear(perform: {
+                // Show updated for 3 seconds
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    showtableview = true
+                }
+            })
+            .frame(maxWidth: .infinity)
     }
 
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
                    title: Optional("Updated"), subTitle: Optional(""))
-    }
-
-    var notifycreated: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Created"), subTitle: Optional(""))
-    }
-
-    var notifydeleted: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Deleted"), subTitle: Optional(""))
+            .onAppear(perform: {
+                // Show updated for 3 seconds
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    showtableview = true
+                }
+            })
+            .frame(maxWidth: .infinity)
     }
 
     var cannotdeletedefaultprofile: some View {
@@ -482,20 +488,12 @@ extension AddTaskView {
     func addconfig() {
         newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload
-        if newdata.added == true {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.added = false
-            }
-        }
+        showtableview = false
     }
 
     func validateandupdate() {
         newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
-        if newdata.updated == true {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.updated = false
-            }
-        }
+        showtableview = false
     }
 }
