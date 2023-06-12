@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct SidebareRestoreView: View {
-    @Binding var selectedprofile: String?
-
     var body: some View {
         RestoreTableView()
             .padding()
