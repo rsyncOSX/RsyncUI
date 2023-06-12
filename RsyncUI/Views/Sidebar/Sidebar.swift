@@ -63,8 +63,7 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.configurations)
 
-                NavigationLink(destination: SidebarParametersView(selectedprofile: $selectedprofile,
-                                                                  reload: $reload),
+                NavigationLink(destination: SidebarParametersView(reload: $reload),
                                tag: NavigationItem.parameterrsync,
                                selection: $selection)
                 {
@@ -95,7 +94,7 @@ struct Sidebar: View {
                 }
                 .tag(NavigationItem.logsview)
 
-                NavigationLink(destination: SidebareRestoreView(selectedprofile: $selectedprofile),
+                NavigationLink(destination: SidebareRestoreView(),
                                tag: NavigationItem.restore,
                                selection: $selection)
                 {

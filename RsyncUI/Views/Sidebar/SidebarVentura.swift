@@ -30,9 +30,9 @@ struct SidebarVentura: View {
         case .log_listings:
             SidebarLogsView(selectedprofile: $selectedprofile)
         case .rsync_parameters:
-            SidebarParametersView(selectedprofile: $selectedprofile, reload: $reload)
+            SidebarParametersView(reload: $reload)
         case .restore:
-            SidebareRestoreView(selectedprofile: $selectedprofile)
+            SidebareRestoreView()
         case .snapshots:
             SidebarSnapshotsView(selectedprofile: $selectedprofile, reload: $reload)
         case .synchronize:

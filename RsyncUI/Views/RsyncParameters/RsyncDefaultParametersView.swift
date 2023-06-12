@@ -11,7 +11,6 @@ import SwiftUI
 struct RsyncDefaultParametersView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @StateObject var parameters = ObserveableParametersDefault()
-    @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
@@ -111,11 +110,6 @@ struct RsyncDefaultParametersView: View {
             }
             .focusedSceneValue(\.aborttask, $focusaborttask)
             .padding()
-            .onAppear(perform: {
-                if selectedprofile == nil {
-                    selectedprofile = SharedReference.shared.defaultprofile
-                }
-            })
             .sheet(isPresented: $presentsheetview) { viewoutput }
         }
     }
