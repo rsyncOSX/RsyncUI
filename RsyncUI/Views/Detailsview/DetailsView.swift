@@ -19,10 +19,6 @@ struct DetailsView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Details")
-                .font(.title2)
-                .padding()
-
             ZStack {
                 VStack(alignment: .leading) {
                     if #available(macOS 13.0, *) {
