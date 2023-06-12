@@ -14,10 +14,7 @@ struct LogsbyConfigurationView: View {
 
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedconfig: Configuration?
-
     @State private var reload: Bool = false
-
-    var selectedprofile: String?
 
     var body: some View {
         VStack {

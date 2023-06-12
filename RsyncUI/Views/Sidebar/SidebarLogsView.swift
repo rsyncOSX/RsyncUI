@@ -23,7 +23,7 @@ struct SidebarLogsView: View {
                         Text("All logs")
                     }
 
-                LogsbyConfigurationView(selectedprofile: selectedprofile)
+                LogsbyConfigurationView()
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("By task")
