@@ -10,6 +10,7 @@ import SwiftUI
 
 struct RsyncDefaultParametersView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @EnvironmentObject var dataischanged: Dataischanged
     @StateObject var parameters = ObserveableParametersDefault()
     @Binding var reload: Bool
 
@@ -111,6 +112,12 @@ struct RsyncDefaultParametersView: View {
             .focusedSceneValue(\.aborttask, $focusaborttask)
             .padding()
             .sheet(isPresented: $presentsheetview) { viewoutput }
+            .onAppear {
+                if dataischanged.dataischanged {
+                    showtableview = false
+                    dataischanged.dataischanged = false
+                }
+            }
         }
     }
 
@@ -190,6 +197,7 @@ extension RsyncDefaultParametersView {
         selectedconfig = nil
         reload = true
         showtableview = false
+        dataischanged.dataischanged = true
     }
 
     func verify(config: Configuration) async {
