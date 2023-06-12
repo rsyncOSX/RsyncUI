@@ -20,6 +20,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 struct AddTaskView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var profilenames: Profilenames
+    @EnvironmentObject var dataischanged: Dataischanged
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @State private var selectedconfig: Configuration?
@@ -119,6 +120,12 @@ struct AddTaskView: View {
         }
         .lineSpacing(2)
         .padding()
+        .onAppear {
+            if dataischanged.dataischanged {
+                showtableview = false
+                dataischanged.dataischanged = false
+            }
+        }
         .onSubmit {
             switch focusField {
             case .localcatalogField:
@@ -476,12 +483,14 @@ extension AddTaskView {
         newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload
         showtableview = false
+        dataischanged.dataischanged = true
     }
 
     func validateandupdate() {
         newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
         showtableview = false
+        dataischanged.dataischanged = true
     }
 }
 

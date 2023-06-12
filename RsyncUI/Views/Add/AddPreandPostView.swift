@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AddPreandPostView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @EnvironmentObject var dataischanged: Dataischanged
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -103,6 +104,12 @@ struct AddPreandPostView: View {
                 focusField = nil
             default:
                 return
+            }
+        }
+        .onAppear {
+            if dataischanged.dataischanged {
+                showtableview = false
+                dataischanged.dataischanged = false
             }
         }
     }
@@ -241,5 +248,6 @@ extension AddPreandPostView {
         newdata.validateandupdate(profile, configurations)
         reload = newdata.reload
         showtableview = false
+        dataischanged.dataischanged = true
     }
 }
