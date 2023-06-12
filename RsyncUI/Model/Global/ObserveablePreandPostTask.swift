@@ -16,7 +16,7 @@ final class ObserveablePreandPostTask: ObservableObject {
     @Published var posttask: String = ""
     @Published var haltshelltasksonerror: Bool = false
     // Added and updated labels
-    @Published var updated = false
+    // @Published var updated = false
     @Published var reload: Bool = false
 
     // Combine
@@ -65,7 +65,7 @@ final class ObserveablePreandPostTask: ObservableObject {
                                      configurations: configurations)
             updateconfiguration.updateconfiguration(updatedconfig, false)
             reload = true
-            updated = true
+            // updated = true
             resetform()
         }
     }

@@ -17,6 +17,9 @@ struct AddPreandPostView: View {
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
 
+    // Reload and show table data
+    @State private var showtableview: Bool = true
+
     var choosecatalog = false
 
     enum PreandPostTaskField: Hashable {
@@ -59,28 +62,29 @@ struct AddPreandPostView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        ListofTasksLightView(
-                            selecteduuids: $selecteduuids.onChange {
-                                let selected = rsyncUIdata.configurations?.filter { config in
-                                    selecteduuids.contains(config.id)
-                                }
-                                if (selected?.count ?? 0) == 1 {
-                                    if let config = selected {
-                                        selectedconfig = config[0]
+                        if showtableview {
+                            ListofTasksLightView(
+                                selecteduuids: $selecteduuids.onChange {
+                                    let selected = rsyncUIdata.configurations?.filter { config in
+                                        selecteduuids.contains(config.id)
+                                    }
+                                    if (selected?.count ?? 0) == 1 {
+                                        if let config = selected {
+                                            selectedconfig = config[0]
+                                            newdata.updateview(selectedconfig)
+                                        }
+                                    } else {
+                                        selectedconfig = nil
                                         newdata.updateview(selectedconfig)
                                     }
-                                } else {
-                                    selectedconfig = nil
-                                    newdata.updateview(selectedconfig)
                                 }
-                            }
-                        )
-
-                        updatebutton
+                            )
+                            updatebutton
+                        } else {
+                            notifyupdated
+                        }
                     }
                 }
-
-                if newdata.updated == true { notifyupdated }
             }
         }
         .lineSpacing(2)
@@ -101,6 +105,18 @@ struct AddPreandPostView: View {
                 return
             }
         }
+    }
+
+    var notifyupdated: some View {
+        AlertToast(type: .complete(Color.green),
+                   title: Optional("Updated"), subTitle: Optional(""))
+            .onAppear(perform: {
+                // Show updated for 3 seconds
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    showtableview = true
+                }
+            })
+            .frame(maxWidth: .infinity)
     }
 
     var updatebutton: some View {
@@ -211,11 +227,6 @@ struct AddPreandPostView: View {
                           $newdata.haltshelltasksonerror.onChange {})
     }
 
-    var notifyupdated: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Updated", comment: "")), subTitle: Optional(""))
-    }
-
     var profile: String? {
         return rsyncUIdata.profile
     }
@@ -229,10 +240,6 @@ extension AddPreandPostView {
     func validateandupdate() {
         newdata.validateandupdate(profile, configurations)
         reload = newdata.reload
-        if newdata.updated == true {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.updated = false
-            }
-        }
+        showtableview = false
     }
 }
