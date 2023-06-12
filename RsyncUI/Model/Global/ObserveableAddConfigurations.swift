@@ -21,6 +21,7 @@ enum CannotUpdateSnaphotsError: LocalizedError {
     }
 }
 
+@MainActor
 final class ObserveableAddConfigurations: ObservableObject {
     @Published var localcatalog: String = ""
     @Published var remotecatalog: String = ""
@@ -36,7 +37,6 @@ final class ObserveableAddConfigurations: ObservableObject {
 
     @Published var deleted: Bool = false
     @Published var added: Bool = false
-    @Published var updated: Bool = false
     @Published var created: Bool = false
     @Published var reload: Bool = false
     @Published var confirmdeleteselectedprofile: Bool = false
@@ -176,7 +176,7 @@ final class ObserveableAddConfigurations: ObservableObject {
                                      configurations: configurations)
             updateconfiguration.updateconfiguration(updatedconfig, false)
             reload = true
-            updated = true
+            // updated = true
             resetform()
         }
     }
@@ -330,3 +330,5 @@ final class ObserveableAddConfigurations: ObservableObject {
         self.remoteserver = remoteserver
     }
 }
+
+// swiftlint: enable type_body_length function_body_length

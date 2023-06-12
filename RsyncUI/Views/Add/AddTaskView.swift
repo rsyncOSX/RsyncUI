@@ -103,16 +103,15 @@ struct AddTaskView: View {
                                     }
                                 }
                             )
-                        } else {
-                            notifyupdated
-                        }
 
-                        HStack {
-                            if showtableview {
+                            HStack {
                                 profilebutton
 
                                 updatebutton
                             }
+
+                        } else {
+                            notifyupdated
                         }
                     }
                 }
@@ -384,18 +383,6 @@ struct AddTaskView: View {
         .frame(width: 140)
     }
 
-    var notifyadded: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Added"), subTitle: Optional(""))
-            .onAppear(perform: {
-                // Show updated for 3 seconds
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showtableview = true
-                }
-            })
-            .frame(maxWidth: .infinity)
-    }
-
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
                    title: Optional("Updated"), subTitle: Optional(""))
@@ -497,3 +484,5 @@ extension AddTaskView {
         showtableview = false
     }
 }
+
+// swiftlint:enable file_length type_body_length
