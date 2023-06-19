@@ -344,18 +344,27 @@ extension TasksView {
             // Execute all tasks, no estimate
             showexecutenoestimateview = true
             showexecutenoestiamteonetask = false
-
         } else if selectedconfig.config != nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
-            let action = ActionHolder(action: "Execute() estimated tasks only", profile: rsyncUIdata.profile ?? "Default profile", source: source)
-            actions.addaction(action)
-            // Execute estimated tasks only
-            // Execute all estimated tasks
-            selecteduuids = inprogresscountmultipletask.getuuids()
-            estimationstate.updatestate(state: .start)
-            executedetails.resetcounter()
-            executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
-            // Change view, see SidebarTasksView
-            showeexecutestimatedview = true
+            // Hack: if DryRun one task and Execute just after DryRun.
+            // Execute as one task NO estimate. selecteduuids == 1 but inprogresscountmultipletask.getuuids() = 0
+            if inprogresscountmultipletask.getuuids().count == 0 {
+                let action = ActionHolder(action: "Execute() one task NO estimate", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+                actions.addaction(action)
+                // Execute one task, no estimte
+                showexecutenoestiamteonetask = true
+                showexecutenoestimateview = false
+            } else {
+                let action = ActionHolder(action: "Execute() estimated tasks only", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+                actions.addaction(action)
+                // Execute estimated tasks only
+                // Execute all estimated tasks
+                selecteduuids = inprogresscountmultipletask.getuuids()
+                estimationstate.updatestate(state: .start)
+                executedetails.resetcounter()
+                executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+                // Change view, see SidebarTasksView
+                showeexecutestimatedview = true
+            }
         } else {
             let action = ActionHolder(action: "Execute() one task NO estimate", profile: rsyncUIdata.profile ?? "Default profile", source: source)
             actions.addaction(action)
