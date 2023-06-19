@@ -53,26 +53,35 @@ struct TasksView: View {
     var actions: Actions
     var source: String = "TasksView"
 
+    // Reload and show table data
+    @State private var showtableview: Bool = true
+
     var body: some View {
         ZStack {
-            ListofTasksView(
-                selecteduuids: $selecteduuids.onChange {
-                    let selected = rsyncUIdata.configurations?.filter { config in
-                        selecteduuids.contains(config.id)
-                    }
-                    if (selected?.count ?? 0) == 1 {
-                        if let config = selected {
-                            selectedconfig.config = config[0]
+            if showtableview {
+                ListofTasksView(
+                    selecteduuids: $selecteduuids.onChange {
+                        let selected = rsyncUIdata.configurations?.filter { config in
+                            selecteduuids.contains(config.id)
                         }
-                    } else {
-                        selectedconfig.config = nil
-                    }
-                },
-                inwork: $inwork,
-                filterstring: $filterstring,
-                reload: $reload,
-                confirmdelete: $confirmdelete
-            )
+                        if (selected?.count ?? 0) == 1 {
+                            if let config = selected {
+                                selectedconfig.config = config[0]
+                            }
+                        } else {
+                            selectedconfig.config = nil
+                        }
+                    },
+                    inwork: $inwork,
+                    filterstring: $filterstring,
+                    reload: $reload,
+                    confirmdelete: $confirmdelete
+                )
+                .frame(maxWidth: .infinity)
+
+            } else {
+                notifyupdated
+            }
 
             // Remember max 10 in one Group
             Group {
@@ -145,6 +154,7 @@ struct TasksView: View {
                         actions.addaction(action)
                         selecteduuids.removeAll()
                         reset()
+                        showtableview = false
                     }
                     .buttonStyle(PrimaryButtonStyle())
 
@@ -306,6 +316,18 @@ struct TasksView: View {
                 sheetchooser.sheet = .asynctimerison
                 modaleview = true
             })
+    }
+
+    var notifyupdated: some View {
+        AlertToast(type: .complete(Color.green),
+                   title: Optional("Reset"), subTitle: Optional(""))
+            .onAppear(perform: {
+                // Show updated for 3 seconds
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    showtableview = true
+                }
+            })
+            .frame(maxWidth: .infinity)
     }
 }
 
