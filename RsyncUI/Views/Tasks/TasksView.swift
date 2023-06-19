@@ -49,10 +49,8 @@ struct TasksView: View {
     // Timer
     @State private var timervalue: Double = 600
     @State private var timerisenabled: Bool = false
-    // Actions, only if debug is on
-    var actions: Actions
-    var source: String = "TasksView"
 
+    var actions: Actions
     // Reload and show table data
     @Binding var reloadtasksviewlist: Bool
 
@@ -82,7 +80,7 @@ struct TasksView: View {
             } else {
                 Spacer()
 
-                notifyupdated
+                notifycompleted
 
                 Spacer()
             }
@@ -106,7 +104,7 @@ struct TasksView: View {
             VStack(alignment: .center) {
                 HStack {
                     Button("Estimate") {
-                        let action = ActionHolder(action: "Estimate", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+                        let action = ActionHolder(action: "Estimate", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
                         actions.addaction(action)
 
                         estimate()
@@ -139,7 +137,7 @@ struct TasksView: View {
                             sheetchooser.sheet = .estimateddetailsview
                         } else if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
                             // DryRun: show summarized dryrun for all tasks
-                            let action = ActionHolder(action: "DryRun: show summarized dryrun for all tasks", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+                            let action = ActionHolder(action: "DryRun: show summarized dryrun for all tasks", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
                             actions.addaction(action)
                             // show summarized dry run
                             sheetchooser.sheet = .dryrun
@@ -152,7 +150,7 @@ struct TasksView: View {
                     .buttonStyle(PrimaryButtonStyle())
 
                     Button("Reset") {
-                        let action = ActionHolder(action: "Reset", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+                        let action = ActionHolder(action: "Reset", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
                         actions.addaction(action)
                         selecteduuids.removeAll()
                         reset()
@@ -213,8 +211,6 @@ struct TasksView: View {
             Counter(timervalue: $timervalue, timerisenabled: $timerisenabled.onChange {
                 if timerisenabled == true {
                     startasynctimer()
-                } else {
-                    stopasynctimer()
                 }
             })
             .onDisappear(perform: {
@@ -319,9 +315,9 @@ struct TasksView: View {
             })
     }
 
-    var notifyupdated: some View {
+    var notifycompleted: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional("Updated"), subTitle: Optional(""))
+                   title: Optional("Completed"), subTitle: Optional(""))
             .onAppear(perform: {
                 // Show updated for 2 seconds
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -404,11 +400,10 @@ extension TasksView {
         selectedconfig.config = nil
         inprogresscountmultipletask.estimateasync = false
         sheetchooser.sheet = .dryrun
-        stopasynctimer()
     }
 
     func abort() {
-        let action = ActionHolder(action: "Abort", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+        let action = ActionHolder(action: "Abort", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
         actions.addaction(action)
         selecteduuids.removeAll()
         estimationstate.updatestate(state: .start)
@@ -418,7 +413,6 @@ extension TasksView {
         reload = true
         focusstartestimation = false
         focusstartexecution = false
-        stopasynctimer()
     }
 
     // For showinfo about one task
@@ -431,7 +425,7 @@ extension TasksView {
 
     // Async start and stop timer
     func startasynctimer() {
-        let action = ActionHolder(action: "Start Async Timer", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+        let action = ActionHolder(action: "Start Async Timer", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
         actions.addaction(action)
         SharedReference.shared.workitem = DispatchWorkItem {
             _ = Logfile(["Timer EXECUTED task on profile: " + (rsyncUIdata.profile ?? "")], error: true)
@@ -444,7 +438,7 @@ extension TasksView {
     }
 
     func stopasynctimer() {
-        let action = ActionHolder(action: "Stop Async Timer", profile: rsyncUIdata.profile ?? "Default profile", source: source)
+        let action = ActionHolder(action: "Stop Async Timer", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
         actions.addaction(action)
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
