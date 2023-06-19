@@ -17,7 +17,7 @@ struct SidebarTasksView: View {
     @State var showexecuteNOEstiamteONEtask: Bool = false
 
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var showcompleted: Bool = false
+    @State private var reloadtasksviewlist: Bool = false
     // Timer values
     @State private var timervalue: Double = 600
 
@@ -48,16 +48,6 @@ struct SidebarTasksView: View {
                     showexecuteNOEstiamteONEtask == true { makeView(task: .executenoestimateonetaskview) }
             }
             .padding()
-
-            if showcompleted {
-                AlertToast(type: .complete(Color.green),
-                           title: Optional("Completed"), subTitle: Optional(""))
-                    .onAppear(perform: {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            showcompleted = false
-                        }
-                    })
-            }
         }
     }
 
@@ -70,29 +60,30 @@ struct SidebarTasksView: View {
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
                       showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
-                      actions: actions)
+                      actions: actions,
+                      reloadtasksviewlist: $reloadtasksviewlist)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
                                       showeexecutestimatedview: $showeexecutEstimatedview)
                 .onDisappear(perform: {
-                    showcompleted = true
+                    reloadtasksviewlist = true
                 })
         case .executenoestimatetasksview:
             ExecuteNoestimatedTasksView(reload: $reload,
                                         selecteduuids: $selecteduuids,
-                                        showcompleted: $showcompleted,
+                                        showcompleted: $reloadtasksviewlist,
                                         showexecutenoestimateview: $showexecuteNOEstimateview)
                 .onDisappear(perform: {
-                    showcompleted = true
+                    reloadtasksviewlist = true
                 })
         case .executenoestimateonetaskview:
             ExecuteNoestimateOneTaskView(reload: $reload,
                                          selecteduuids: $selecteduuids,
-                                         showcompleted: $showcompleted,
+                                         showcompleted: $reloadtasksviewlist,
                                          showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask)
                 .onDisappear(perform: {
-                    showcompleted = true
+                    reloadtasksviewlist = true
                 })
         }
     }

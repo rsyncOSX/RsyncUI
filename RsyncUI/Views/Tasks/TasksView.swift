@@ -54,11 +54,11 @@ struct TasksView: View {
     var source: String = "TasksView"
 
     // Reload and show table data
-    @State private var showtableview: Bool = true
+    @Binding var reloadtasksviewlist: Bool
 
     var body: some View {
         ZStack {
-            if showtableview {
+            if reloadtasksviewlist == false {
                 ListofTasksView(
                     selecteduuids: $selecteduuids.onChange {
                         let selected = rsyncUIdata.configurations?.filter { config in
@@ -80,7 +80,11 @@ struct TasksView: View {
                 .frame(maxWidth: .infinity)
 
             } else {
+                Spacer()
+
                 notifyupdated
+
+                Spacer()
             }
 
             // Remember max 10 in one Group
@@ -154,7 +158,6 @@ struct TasksView: View {
                         actions.addaction(action)
                         selecteduuids.removeAll()
                         reset()
-                        showtableview = false
                     }
                     .buttonStyle(PrimaryButtonStyle())
 
@@ -320,11 +323,11 @@ struct TasksView: View {
 
     var notifyupdated: some View {
         AlertToast(type: .complete(Color.green),
-                   title: Optional("Reset"), subTitle: Optional(""))
+                   title: Optional("Updated"), subTitle: Optional(""))
             .onAppear(perform: {
                 // Show updated for 3 seconds
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showtableview = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    reloadtasksviewlist = false
                 }
             })
             .frame(maxWidth: .infinity)
