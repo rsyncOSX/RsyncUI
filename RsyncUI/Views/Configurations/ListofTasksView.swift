@@ -16,6 +16,7 @@ struct ListofTasksView: View {
     @Binding var filterstring: String
     @Binding var reload: Bool
     @Binding var confirmdelete: Bool
+    @Binding var reloadtasksviewlist: Bool
 
     var body: some View {
         VStack {
@@ -111,6 +112,7 @@ struct ListofTasksView: View {
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
         reload = true
+        reloadtasksviewlist = true
     }
 
     func markconfig(_ config: Configuration?) -> Bool {

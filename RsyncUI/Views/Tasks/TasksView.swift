@@ -73,7 +73,8 @@ struct TasksView: View {
                     inwork: $inwork,
                     filterstring: $filterstring,
                     reload: $reload,
-                    confirmdelete: $confirmdelete
+                    confirmdelete: $confirmdelete,
+                    reloadtasksviewlist: $reloadtasksviewlist
                 )
                 .frame(maxWidth: .infinity)
 

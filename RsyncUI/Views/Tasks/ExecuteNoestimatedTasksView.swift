@@ -27,6 +27,8 @@ struct ExecuteNoestimatedTasksView: View {
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
 
+    @State private var reloadtasksviewlist = false
+
     var body: some View {
         ZStack {
             ListofTasksView(
@@ -34,7 +36,8 @@ struct ExecuteNoestimatedTasksView: View {
                 inwork: $inwork,
                 filterstring: $filterstring,
                 reload: $reload,
-                confirmdelete: $confirmdelete
+                confirmdelete: $confirmdelete,
+                reloadtasksviewlist: $reloadtasksviewlist
             )
 
             // When completed
