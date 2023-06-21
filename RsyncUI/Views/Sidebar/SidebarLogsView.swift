@@ -29,7 +29,7 @@ struct SidebarLogsView: View {
                         Text("By task")
                     }
             }
-            if showloading { ProgressView() }
+            if showloading { AlertToast(displayMode: .alert, type: .loading) }
         }
         .padding()
         .task {

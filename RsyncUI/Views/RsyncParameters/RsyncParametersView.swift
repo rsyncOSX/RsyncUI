@@ -100,7 +100,7 @@ struct RsyncParametersView: View {
 
                     Spacer()
 
-                    if showprogressview { ProgressView() }
+                    if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
 
                     Spacer()
 

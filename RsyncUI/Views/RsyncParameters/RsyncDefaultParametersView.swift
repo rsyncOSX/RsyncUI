@@ -92,7 +92,7 @@ struct RsyncDefaultParametersView: View {
                 HStack {
                     Spacer()
 
-                    if showprogressview { ProgressView() }
+                    if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
 
                     Spacer()
 

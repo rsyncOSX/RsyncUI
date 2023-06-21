@@ -44,7 +44,7 @@ struct ExecuteNoestimateOneTaskView: View {
             // When completed
             if inprogresscountmultipletask.executeasyncnoestimationcompleted == true { labelcompleted }
 
-            if progressviewshowinfo { ProgressView() }
+            if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
         }
         HStack {
             Spacer()

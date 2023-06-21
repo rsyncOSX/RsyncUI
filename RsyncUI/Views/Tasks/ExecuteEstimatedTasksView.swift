@@ -60,7 +60,7 @@ struct ExecuteEstimatedTasksView: View {
 
     // Present progressview during executing multiple tasks
     var progressviewexecuting: some View {
-        ProgressView()
+        AlertToast(displayMode: .alert, type: .loading)
             .frame(width: 25, height: 25)
             .onAppear(perform: {
                 // To set ProgressView spinnig wheel on correct task when estimating

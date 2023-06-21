@@ -38,7 +38,7 @@ struct LocalRemoteInfoView: View {
         HStack {
             Spacer()
 
-            if gettingremotedata { ProgressView() }
+            if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
 
             Spacer()
 

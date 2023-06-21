@@ -68,7 +68,7 @@ struct SnapshotsView: View {
                         .onDeleteCommand(perform: { delete() })
                 }
 
-                if snapshotdata.snapshotlist { ProgressView() }
+                if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
                 if notsnapshot == true { notasnapshottask }
             }
 
@@ -97,7 +97,7 @@ struct SnapshotsView: View {
                 if selectatask == true { notifyselecttask }
                 if snapshotdata.inprogressofdelete == true { progressdelete }
 
-                if snapshotdata.state == .getdata { ProgressView() }
+                if snapshotdata.state == .getdata { AlertToast(displayMode: .alert, type: .loading) }
             }
 
             Spacer()

@@ -54,8 +54,8 @@ struct RestoreTableView: View {
 
             ZStack {
                 if showrestorecommand { showcommand }
-                if gettingfilelist { ProgressView() }
-                if restore.restorefilesinprogress { ProgressView() }
+                if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
+                if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
             }
         }
 
