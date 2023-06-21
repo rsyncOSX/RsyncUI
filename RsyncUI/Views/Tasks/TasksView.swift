@@ -222,7 +222,7 @@ struct TasksView: View {
     }
 
     var progressviewestimateasync: some View {
-        ProgressView()
+        AlertToast(displayMode: .alert, type: .loading)
             .onAppear {
                 Task {
                     if selectedconfig.config != nil {
@@ -250,7 +250,7 @@ struct TasksView: View {
     }
 
     var showinfotask: some View {
-        ProgressView()
+        AlertToast(displayMode: .alert, type: .loading)
             .onAppear(perform: {
                 let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig.config)
                     .argumentslocalcataloginfo(dryRun: true, forDisplay: false)

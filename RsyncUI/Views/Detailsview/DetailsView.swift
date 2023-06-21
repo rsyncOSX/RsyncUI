@@ -172,15 +172,13 @@ struct DetailsView: View {
                         .width(min: 800)
                     }
                 }
+
+                if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
             }
 
             Spacer()
 
             HStack {
-                Spacer()
-
-                if gettingremotedata { ProgressView() }
-
                 Spacer()
 
                 Button("Dismiss") { dismiss() }
