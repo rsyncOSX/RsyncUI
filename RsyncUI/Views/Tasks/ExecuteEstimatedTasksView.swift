@@ -40,13 +40,10 @@ struct ExecuteEstimatedTasksView: View {
 
             // When completed
             if multipletaskstate.executionstate == .completed { labelcompleted }
-        }
-        HStack {
-            Spacer()
-
             // Execute multiple tasks progress
             if multipletaskstate.executionstate == .execute { progressviewexecuting }
-
+        }
+        HStack {
             Spacer()
 
             Button("Abort") { abort() }
