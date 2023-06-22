@@ -26,6 +26,8 @@ struct ExecuteEstimatedTasksView: View {
     @State private var focusaborttask: Bool = false
 
     @State private var reloadtasksviewlist = false
+    // Double click, only for macOS13 and later
+    @State private var doubleclick: Bool = false
 
     var body: some View {
         ZStack {
@@ -35,7 +37,8 @@ struct ExecuteEstimatedTasksView: View {
                 filterstring: $filterstring,
                 reload: $reload,
                 confirmdelete: $confirmdelete,
-                reloadtasksviewlist: $reloadtasksviewlist
+                reloadtasksviewlist: $reloadtasksviewlist,
+                doubleclick: $doubleclick
             )
 
             // When completed

@@ -17,6 +17,7 @@ struct ListofTasksView: View {
     @Binding var reload: Bool
     @Binding var confirmdelete: Bool
     @Binding var reloadtasksviewlist: Bool
+    @Binding var doubleclick: Bool
 
     var body: some View {
         VStack {
@@ -167,7 +168,7 @@ struct ListofTasksView: View {
         .contextMenu(forSelectionType: Configuration.ID.self) { _ in
             // ...
         } primaryAction: { _ in
-            print("double click")
+            doubleclick = true
         }
     }
 

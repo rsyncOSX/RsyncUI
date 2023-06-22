@@ -29,6 +29,8 @@ struct ExecuteNoestimateOneTaskView: View {
     @StateObject var selectedconfig = Selectedconfig()
 
     @State private var reloadtasksviewlist: Bool = false
+    // Double click, only for macOS13 and later
+    @State private var doubleclick: Bool = false
 
     var body: some View {
         ZStack {
@@ -38,7 +40,8 @@ struct ExecuteNoestimateOneTaskView: View {
                 filterstring: $filterstring,
                 reload: $reload,
                 confirmdelete: $confirmdelete,
-                reloadtasksviewlist: $reloadtasksviewlist
+                reloadtasksviewlist: $reloadtasksviewlist,
+                doubleclick: $doubleclick
             )
 
             // When completed
