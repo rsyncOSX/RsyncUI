@@ -10,6 +10,8 @@ import SwiftUI
 
 struct DetailsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
+    @EnvironmentObject var inprogresscountmultipletask: InprogressCountMultipleTasks
+
     @Binding var reload: Bool
     var selectedconfig: Configuration?
 
@@ -205,6 +207,12 @@ extension DetailsView {
         outputfromrsync.generatedata(data)
         estimateddataonetask.update(data: data, hiddenID: selectedconfig?.hiddenID, config: selectedconfig)
         gettingremotedata = false
+        // Adding computed estimate if later execute and view of progress
+        if estimateddataonetask.estimatedlistonetask.count == 1 {
+            inprogresscountmultipletask.resetcounts()
+            inprogresscountmultipletask.appenduuid(id: selectedconfig?.id ?? UUID())
+            inprogresscountmultipletask.appendrecord(record: estimateddataonetask.estimatedlistonetask[0])
+        }
     }
 }
 

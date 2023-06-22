@@ -202,6 +202,7 @@ struct TasksView: View {
         case .estimateddetailsview:
             DetailsView(reload: $reload,
                         selectedconfig: selectedconfig.config)
+                .environmentObject(inprogresscountmultipletask)
         case .alltasksview:
             AlltasksView()
         case .firsttime:
@@ -212,14 +213,14 @@ struct TasksView: View {
         case .asynctimerison:
             Counter(timervalue: $timervalue,
                     timerisenabled: $timerisenabled.onChange {
-                if timerisenabled == true {
-                    startasynctimer()
-                }
-            })
-            .onDisappear(perform: {
-                stopasynctimer()
-                timervalue = SharedReference.shared.timervalue ?? 600
-            })
+                        if timerisenabled == true {
+                            startasynctimer()
+                        }
+                    })
+                    .onDisappear(perform: {
+                        stopasynctimer()
+                        timervalue = SharedReference.shared.timervalue ?? 600
+                    })
         }
     }
 
