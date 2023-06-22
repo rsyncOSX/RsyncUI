@@ -200,7 +200,8 @@ struct TasksView: View {
                                 execute: $focusstartexecution,
                                 estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
         case .estimateddetailsview:
-            DetailsView(reload: $reload, selectedconfig: selectedconfig.config)
+            DetailsView(reload: $reload,
+                        selectedconfig: selectedconfig.config)
         case .alltasksview:
             AlltasksView()
         case .firsttime:
@@ -209,7 +210,8 @@ struct TasksView: View {
             LocalRemoteInfoView(localdata: $localdata,
                                 selectedconfig: selectedconfig.config)
         case .asynctimerison:
-            Counter(timervalue: $timervalue, timerisenabled: $timerisenabled.onChange {
+            Counter(timervalue: $timervalue,
+                    timerisenabled: $timerisenabled.onChange {
                 if timerisenabled == true {
                     startasynctimer()
                 }
