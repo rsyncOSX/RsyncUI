@@ -73,11 +73,15 @@ struct RsyncParametersView: View {
                     if focusaborttask { labelaborttask }
                 }
 
-                HStack {
-                    RsyncCommandView(config: $parameters.configuration,
-                                     selectedrsynccommand: $selectedrsynccommand)
+                ZStack {
+                    HStack {
+                        RsyncCommandView(config: $parameters.configuration,
+                                         selectedrsynccommand: $selectedrsynccommand)
 
-                    Spacer()
+                        Spacer()
+                    }
+
+                    if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
                 }
 
                 Spacer()
@@ -97,10 +101,6 @@ struct RsyncParametersView: View {
                         parameters.backup = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
-
-                    Spacer()
-
-                    if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
 
                     Spacer()
 

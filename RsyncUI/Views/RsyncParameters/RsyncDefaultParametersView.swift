@@ -79,8 +79,12 @@ struct RsyncDefaultParametersView: View {
                             notifyupdated
                         }
 
-                        HStack(alignment: .center) {
-                            RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
+                        ZStack {
+                            HStack(alignment: .center) {
+                                RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
+                            }
+
+                            if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
                         }
                     }
 
@@ -90,10 +94,6 @@ struct RsyncDefaultParametersView: View {
                 Spacer()
 
                 HStack {
-                    Spacer()
-
-                    if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
-
                     Spacer()
 
                     Button("Verify") {
