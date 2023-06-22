@@ -17,9 +17,13 @@ struct LocalRemoteInfoView: View {
     @State private var gettingremotedata: Bool = false
 
     var body: some View {
-        HStack(alignment: .bottom) {
-            local
-            remote
+        ZStack {
+            HStack(alignment: .bottom) {
+                local
+                remote
+            }
+
+            if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
         }
         .padding()
         .onAppear(perform: {
@@ -36,10 +40,6 @@ struct LocalRemoteInfoView: View {
         Spacer()
 
         HStack {
-            Spacer()
-
-            if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
-
             Spacer()
 
             Button("Dismiss") { dismiss() }
