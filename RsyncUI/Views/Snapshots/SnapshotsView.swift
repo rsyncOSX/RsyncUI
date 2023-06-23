@@ -16,8 +16,7 @@ struct SnapshotsView: View {
     @Binding var reload: Bool
 
     @State private var snapshotrecords: Logrecordsschedules?
-    @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var selectedsnapshots = Set<Logrecordsschedules.ID>()
+    @State private var selecteduuid = Set<Configuration.ID>()
     // If not a snapshot
     @State private var notsnapshot = false
     // Cannot collect remote cataloglist for more than one task a time
@@ -49,9 +48,9 @@ struct SnapshotsView: View {
             ZStack {
                 HStack {
                     ListofTasksLightView(
-                        selecteduuids: $selecteduuids.onChange {
+                        selecteduuids: $selecteduuid.onChange {
                             let selected = rsyncUIdata.configurations?.filter { config in
-                                selecteduuids.contains(config.id)
+                                selecteduuid.contains(config.id)
                             }
                             if (selected?.count ?? 0) == 1 {
                                 if let config = selected {
@@ -65,7 +64,6 @@ struct SnapshotsView: View {
                     )
 
                     SnapshotListView(snapshotrecords: $snapshotrecords,
-                                     selectedsnapshots: $selectedsnapshots,
                                      tagisselected: $tagisselected)
                         .environmentObject(snapshotdata)
                         .onDeleteCommand(perform: { delete() })
@@ -108,7 +106,7 @@ struct SnapshotsView: View {
                 .sheet(isPresented: $showAlertfordelete) {
                     ConfirmDeleteSnapshots(isPresented: $showAlertfordelete,
                                            delete: $confirmdeletesnapshots,
-                                           uuidstodelete: $snapshotdata.uuidsfordelete)
+                                           uuidstodelete: snapshotdata.uuidsfordelete)
                         .onDisappear { delete() }
                 }
                 .buttonStyle(AbortButtonStyle())
@@ -125,7 +123,7 @@ struct SnapshotsView: View {
             Text(NSLocalizedString("Number of logrecords", comment: "") +
                 ": " + "\(snapshotdata.logrecordssnapshot?.count ?? 0)")
             Text(NSLocalizedString("Number to delete", comment: "") +
-                ": " + "\(snapshotdata.uuidsfordelete?.count ?? 0)")
+                ": " + "\(snapshotdata.uuidsfordelete.count)")
         }
     }
 
@@ -239,8 +237,8 @@ extension SnapshotsView {
     }
 
     func getdata() {
-        snapshotdata.uuidsfordelete?.removeAll()
-        snapshotdata.uuidsfromlogrecords?.removeAll()
+        snapshotdata.uuidsfordelete.removeAll()
+        snapshotdata.uuidsfromlogrecords.removeAll()
         guard SharedReference.shared.process == nil else {
             gettingdata = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -296,7 +294,6 @@ extension SnapshotsView {
             let tagged = TagSnapshots(plan: localsnaplast,
                                       snapdayoffweek: snapdayofweek,
                                       data: snapshotdata.getsnapshotdata())
-            selectedsnapshots = tagged.selectedsnapshots
             snapshotdata.setsnapshotdata(tagged.logrecordssnapshot)
             snapshotdata.uuidsfordelete = tagged.selectedsnapshots
             tagisselected = true

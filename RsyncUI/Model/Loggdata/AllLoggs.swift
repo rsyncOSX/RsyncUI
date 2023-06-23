@@ -34,7 +34,7 @@ final class AllLoggs {
     private var structschedules: SchedulesSwiftUI?
     var loggrecords: [Logrecordsschedules]?
     private var localehiddenID: Int?
-    var uuidsfromlogrecords = Set<UUID>()
+    var uuidsfromlogrecords = Set<Log.ID>()
 
     private func readandsortallloggdata(hiddenID: Int?) {
         var data = [Logrecordsschedules]()

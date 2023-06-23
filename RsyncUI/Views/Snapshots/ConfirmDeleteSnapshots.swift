@@ -10,7 +10,7 @@ import SwiftUI
 struct ConfirmDeleteSnapshots: View {
     @Binding var isPresented: Bool
     @Binding var delete: Bool
-    @Binding var uuidstodelete: Set<UUID>?
+    var uuidstodelete: Set<UUID>
 
     var body: some View {
         VStack {
@@ -39,7 +39,7 @@ struct ConfirmDeleteSnapshots: View {
     var header: some View {
         HStack {
             let message = "Delete"
-                + " \(uuidstodelete?.count ?? 0)" + " "
+                + " \(uuidstodelete.count)" + " "
                 + "snapshot(s)"
                 + "?"
             Text(message)

@@ -24,7 +24,7 @@ final class Snapshotlogsandcatalogs {
     // If there are uuids in this Set after merge the members in the set
     // is log records with missing remote snapshot catalog
     // can be used to delete logs
-    var uuidsfromlogrecords: Set<UUID>?
+    var uuidsfromlogrecords: Set<Log.ID>?
 
     @MainActor
     private func getremotecataloginfo() async {
@@ -172,7 +172,8 @@ final class Snapshotlogsandcatalogs {
         localeconfig = config
         mysnapshotdata = snapshotdata
         // Getting log records from schedules, sorted after date
-        var alllogs: AllLoggs? = AllLoggs(hiddenID: config.hiddenID, profile: profile,
+        var alllogs: AllLoggs? = AllLoggs(hiddenID: config.hiddenID,
+                                          profile: profile,
                                           configurationsSwiftUI: configurationsSwiftUI)
         logrecordssnapshot = alllogs?.loggrecords
         uuidsfromlogrecords = alllogs?.uuidsfromlogrecords
@@ -195,7 +196,10 @@ extension Snapshotlogsandcatalogs {
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         mysnapshotdata?.state = .gotit
-        mysnapshotdata?.uuidsfromlogrecords = uuidsfromlogrecords
+        mysnapshotdata?.uuidsfromlogrecords.removeAll()
+        if let uuidsfromlogrecords = uuidsfromlogrecords {
+            mysnapshotdata?.uuidsfromlogrecords = uuidsfromlogrecords
+        }
         // Getting data is completed
         mysnapshotdata?.snapshotlist = false
     }

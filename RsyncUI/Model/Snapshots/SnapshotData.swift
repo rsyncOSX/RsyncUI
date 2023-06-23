@@ -25,14 +25,14 @@ final class SnapshotData: ObservableObject {
     var logrecordssnapshot: [Logrecordsschedules]?
     var state: Snapshotdatastat = .start
     // uuids from ALL the logrecords
-    var uuidsfromlogrecords: Set<UUID>?
+    var uuidsfromlogrecords = Set<Logrecordsschedules.ID>()
     // uuids for DELETE snapshots
-    var uuidsfordelete: Set<UUID>?
+    var uuidsfordelete = Set<Logrecordsschedules.ID>()
 
     func setsnapshotdata(_ data: [Logrecordsschedules]?) {
         logrecordssnapshot = data
-        uuidsfordelete = nil
-        uuidsfromlogrecords = nil
+        uuidsfordelete.removeAll()
+        uuidsfromlogrecords.removeAll()
         inprogressofdelete = false
         maxnumbertodelete = 0
         progressindelete = 0
