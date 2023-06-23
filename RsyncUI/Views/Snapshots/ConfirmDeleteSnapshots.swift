@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ConfirmDeleteSnapshots: View {
-    @Binding var isPresented: Bool
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var delete: Bool
-    var uuidstodelete: Set<UUID>
+    var snapshotuuidsfordelete: Set<Logrecordsschedules.ID>
 
     var body: some View {
         VStack {
@@ -21,13 +21,13 @@ struct ConfirmDeleteSnapshots: View {
             HStack {
                 Button("Delete") {
                     delete = true
-                    dismissview()
+                    dismiss()
                 }
                 .buttonStyle(AbortButtonStyle())
 
                 Button("Cancel") {
                     delete = false
-                    dismissview()
+                    dismiss()
                 }
                 .buttonStyle(PrimaryButtonStyle())
             }
@@ -39,16 +39,12 @@ struct ConfirmDeleteSnapshots: View {
     var header: some View {
         HStack {
             let message = "Delete"
-                + " \(uuidstodelete.count)" + " "
+                + " \(snapshotuuidsfordelete.count)" + " "
                 + "snapshot(s)"
                 + "?"
             Text(message)
                 .modifier(Tagheading(.title2, .center))
         }
         .padding()
-    }
-
-    func dismissview() {
-        isPresented = false
     }
 }

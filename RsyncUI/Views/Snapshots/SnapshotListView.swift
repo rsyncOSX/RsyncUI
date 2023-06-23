@@ -10,16 +10,10 @@ import SwiftUI
 struct SnapshotListView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var snapshotdata: SnapshotData
-
     @Binding var snapshotrecords: Logrecordsschedules?
-    @Binding var tagisselected: Bool
 
     var body: some View {
         Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete.onChange {
-            if tagisselected {
-                snapshotdata.snapshotuuidsfordelete.removeAll()
-                tagisselected = false
-            }
             print(snapshotdata.snapshotuuidsfordelete.count)
         }) {
             TableColumn("Snap") { data in

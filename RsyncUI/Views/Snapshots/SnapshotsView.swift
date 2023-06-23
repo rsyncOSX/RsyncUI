@@ -16,7 +16,7 @@ struct SnapshotsView: View {
     @Binding var reload: Bool
 
     @State private var snapshotrecords: Logrecordsschedules?
-    @State private var selecteduuid = Set<Configuration.ID>()
+    @State private var selectedconfiguuid = Set<Configuration.ID>()
     // If not a snapshot
     @State private var notsnapshot = false
     // Cannot collect remote cataloglist for more than one task a time
@@ -30,27 +30,20 @@ struct SnapshotsView: View {
     @State private var confirmdeletesnapshots = false
     // Alert for delete
     @State private var showAlertfordelete = false
-    @State private var filterstring: String = ""
-
     // Focus buttons from the menu
     @State private var focustagsnapshot: Bool = false
     @State private var focusaborttask: Bool = false
-
-    @State private var selectatask: Bool = false
-
     // Delete
     @State private var confirmdelete: Bool = false
-    // Tag is selected
-    @State private var tagisselected: Bool = false
 
     var body: some View {
         ZStack {
             ZStack {
                 HStack {
                     ListofTasksLightView(
-                        selecteduuids: $selecteduuid.onChange {
+                        selecteduuids: $selectedconfiguuid.onChange {
                             let selected = rsyncUIdata.configurations?.filter { config in
-                                selecteduuid.contains(config.id)
+                                selectedconfiguuid.contains(config.id)
                             }
                             if (selected?.count ?? 0) == 1 {
                                 if let config = selected {
@@ -63,10 +56,8 @@ struct SnapshotsView: View {
                         }
                     )
 
-                    SnapshotListView(snapshotrecords: $snapshotrecords,
-                                     tagisselected: $tagisselected)
+                    SnapshotListView(snapshotrecords: $snapshotrecords)
                         .environmentObject(snapshotdata)
-                        .onDeleteCommand(perform: { delete() })
                 }
 
                 if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
@@ -94,9 +85,7 @@ struct SnapshotsView: View {
             Spacer()
 
             Group {
-                if selectatask == true { notifyselecttask }
                 if snapshotdata.inprogressofdelete == true { progressdelete }
-
                 if snapshotdata.state == .getdata { AlertToast(displayMode: .alert, type: .loading) }
             }
 
@@ -104,9 +93,8 @@ struct SnapshotsView: View {
 
             Button("Delete") { showAlertfordelete = true }
                 .sheet(isPresented: $showAlertfordelete) {
-                    ConfirmDeleteSnapshots(isPresented: $showAlertfordelete,
-                                           delete: $confirmdeletesnapshots,
-                                           uuidstodelete: snapshotdata.snapshotuuidsfordelete)
+                    ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
+                                           snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
                         .onDisappear { delete() }
                 }
                 .buttonStyle(AbortButtonStyle())
@@ -208,23 +196,6 @@ struct SnapshotsView: View {
                 abort()
             })
     }
-
-    var notifyselecttask: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Select a task")
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 200, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-        .onAppear(perform: {
-            // Show updated for 3 seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                selectatask = false
-            }
-        })
-    }
 }
 
 extension SnapshotsView {
@@ -293,10 +264,8 @@ extension SnapshotsView {
             let tagged = TagSnapshots(plan: localsnaplast,
                                       snapdayoffweek: snapdayofweek,
                                       data: snapshotdata.getsnapshotdata())
+            // Market data for delete
             snapshotdata.setsnapshotdata(tagged.logrecordssnapshot)
-            snapshotdata.snapshotuuidsfordelete.removeAll()
-            snapshotdata.snapshotuuidsfordelete = tagged.selectedsnapshots
-            tagisselected = true
         }
     }
 
@@ -329,8 +298,6 @@ extension SnapshotsView {
             updateconfiguration.updateconfiguration(selectedconfig, false)
             reload = true
             updated = true
-        } else {
-            selectatask = true
         }
     }
 }

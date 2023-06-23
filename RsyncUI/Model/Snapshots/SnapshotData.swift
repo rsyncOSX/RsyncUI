@@ -21,17 +21,16 @@ final class SnapshotData: ObservableObject {
     @Published var inprogressofdelete: Bool = false
     // Show progress view when getting data
     @Published var snapshotlist: Bool = false
+    // uuids for DELETE snapshots
+    @Published var snapshotuuidsfordelete = Set<Logrecordsschedules.ID>()
 
     var logrecordssnapshot: [Logrecordsschedules]?
     var state: Snapshotdatastat = .start
-    // uuids for DELETE snapshots
-    var snapshotuuidsfordelete = Set<Logrecordsschedules.ID>()
 
     func setsnapshotdata(_ data: [Logrecordsschedules]?) {
         logrecordssnapshot = data
-        snapshotuuidsfordelete.removeAll()
         inprogressofdelete = false
-        maxnumbertodelete = 0
+        maxnumbertodelete = snapshotuuidsfordelete.count
         progressindelete = 0
         objectWillChange.send()
     }
