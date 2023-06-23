@@ -19,8 +19,6 @@ struct SnapshotsView: View {
     @State private var selectedconfiguuid = Set<Configuration.ID>()
     // If not a snapshot
     @State private var notsnapshot = false
-    // Cannot collect remote cataloglist for more than one task a time
-    @State private var gettingdata = false
     // Plan for tagging and administrating snapshots
     @State private var snaplast: String = PlanSnapshots.Last.rawValue
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
@@ -65,7 +63,6 @@ struct SnapshotsView: View {
                 if notsnapshot == true { notasnapshottask }
             }
 
-            if gettingdata == true { gettingdatainprocess }
             if updated == true { notifyupdated }
             if focustagsnapshot == true { labeltagsnapshot }
             if focusaborttask { labelaborttask }
@@ -128,11 +125,6 @@ struct SnapshotsView: View {
         .onAppear {
             snapshotdata.state = .gotit
         }
-    }
-
-    var gettingdatainprocess: some View {
-        AlertToast(type: .error(Color.red),
-                   title: Optional(NSLocalizedString("In process in getting data", comment: "")), subTitle: Optional(""))
     }
 
     var pickersnapdayoffweek: some View {
@@ -210,13 +202,7 @@ extension SnapshotsView {
 
     func getdata() {
         snapshotdata.snapshotuuidsfordelete.removeAll()
-        guard SharedReference.shared.process == nil else {
-            gettingdata = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                gettingdata = false
-            }
-            return
-        }
+        guard SharedReference.shared.process == nil else { return }
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else {
                 notsnapshot = true

@@ -95,7 +95,7 @@ final class Snapshotlogsandcatalogs {
                     let catalogelementlog = record.resultExecuted.split(separator: " ")[0]
                     let snapshotcatalogfromschedulelog = "./" + catalogelementlog.dropFirst().dropLast()
                     let uuid = record.id
-                    record.period = "... not yet tagged ..."
+                    record.period = "... no tag ..."
                     record.snapshotCatalog = snapshotcatalogfromschedulelog
                     adjustedlogrecords.append(record)
                     // Remove that record

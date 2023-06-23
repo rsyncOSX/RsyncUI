@@ -106,3 +106,5 @@ extension Logrecordsschedules: Hashable, Equatable {
         hasher.combine(period)
     }
 }
+
+// swiftlint:enable line_length

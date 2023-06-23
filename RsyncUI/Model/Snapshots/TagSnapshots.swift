@@ -45,11 +45,8 @@ final class TagSnapshots {
         for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
             let index = (logrecordssnapshot?.count ?? 0) - 1 - i
             if currentweek(index: index) {
-                // logrecordssnapshot?[index].selectsnap = 0
             } else if currentdaymonth(index: index) {
-            } else {
-                if keepallorlastdayinperiod(index: index) {}
-            }
+            } else { if keepallorlastdayinperiod(index: index) {} }
         }
     }
 

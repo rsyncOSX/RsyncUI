@@ -25,7 +25,7 @@ struct SnapshotListView: View {
                 Text(data.dateExecuted)
             }
             .width(max: 150)
-            TableColumn("Period") { data in
+            TableColumn("Tag") { data in
                 if let period = data.period {
                     if period.contains("Delete") {
                         Text(period)
