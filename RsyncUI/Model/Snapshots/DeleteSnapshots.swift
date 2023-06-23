@@ -48,7 +48,7 @@ final class DeleteSnapshots {
                 let command = CommandProcess(command: arguments.getCommand(),
                                              arguments: arguments.getArguments(),
                                              processtermination: processtermination)
-                // command.executeProcess()
+                command.executeProcess()
             }
         }
     }
