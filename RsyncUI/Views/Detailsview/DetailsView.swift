@@ -11,8 +11,9 @@ import SwiftUI
 struct DetailsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @EnvironmentObject var inprogresscountmultipletask: InprogressCountMultipleTasks
-
     @Binding var reload: Bool
+    @Binding var execute: Bool
+
     var selectedconfig: Configuration?
 
     @State private var gettingremotedata = true
@@ -182,6 +183,12 @@ struct DetailsView: View {
 
             HStack {
                 Spacer()
+
+                Button("Execute") {
+                    execute = true
+                    dismiss()
+                }
+                .buttonStyle(PrimaryButtonStyle())
 
                 Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())

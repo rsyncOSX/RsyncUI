@@ -180,6 +180,7 @@ struct TasksView: View {
                                 estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
         case .estimateddetailsview:
             DetailsView(reload: $reload,
+                        execute: $focusstartexecution,
                         selectedconfig: selectedconfig.config)
                 .environmentObject(inprogresscountmultipletask)
                 .onAppear {
