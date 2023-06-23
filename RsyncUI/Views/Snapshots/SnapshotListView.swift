@@ -12,10 +12,17 @@ struct SnapshotListView: View {
     @EnvironmentObject var snapshotdata: SnapshotData
 
     @Binding var snapshotrecords: Logrecordsschedules?
-    @Binding var selecteduuids: Set<UUID>
+    @Binding var selectedsnapshots: Set<UUID>
+    @Binding var tagisselected: Bool
 
     var body: some View {
-        Table(logrecords, selection: $selecteduuids) {
+        Table(logrecords, selection: $selectedsnapshots.onChange {
+            if tagisselected {
+                selectedsnapshots.removeAll()
+                tagisselected = false
+            }
+            print(selectedsnapshots.count)
+        }) {
             TableColumn("Snap") { data in
                 if let snapshotCatalog = data.snapshotCatalog {
                     Text(snapshotCatalog)

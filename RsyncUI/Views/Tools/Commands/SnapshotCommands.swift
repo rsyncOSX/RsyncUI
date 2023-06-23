@@ -9,27 +9,12 @@ import Foundation
 import SwiftUI
 
 struct SnapshotCommands: Commands {
-    @FocusedBinding(\.selectsnapshot) private var selectsnapshot
     @FocusedBinding(\.tagsnapshot) private var tagsnapshot
 
     var body: some Commands {
         CommandMenu("Snapshots") {
-            Selectsnapshot(selectsnapshot: $selectsnapshot)
             Tagsnapshot(tagsnapshot: $tagsnapshot)
         }
-    }
-}
-
-struct Selectsnapshot: View {
-    @Binding var selectsnapshot: Bool?
-
-    var body: some View {
-        Button {
-            selectsnapshot = true
-        } label: {
-            Text("Select snapshot")
-        }
-        .keyboardShortcut("n", modifiers: [.command])
     }
 }
 
@@ -43,17 +28,6 @@ struct Tagsnapshot: View {
             Text("Tag snapshot")
         }
         .keyboardShortcut("t", modifiers: [.command])
-    }
-}
-
-struct FocusedSelectsnapshot: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
-
-extension FocusedValues {
-    var selectsnapshot: FocusedSelectsnapshot.Value? {
-        get { self[FocusedSelectsnapshot.self] }
-        set { self[FocusedSelectsnapshot.self] = newValue }
     }
 }
 

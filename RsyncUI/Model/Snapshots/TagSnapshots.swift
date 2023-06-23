@@ -23,7 +23,7 @@ final class TagSnapshots {
     private var numberoflogs: Int?
     private var keepallselcteddayofweek: Bool = true
     var now: String?
-    var selecteduuids = Set<UUID>()
+    var selectedsnapshots = Set<Logrecordsschedules.ID>()
 
     private func datefromstring(datestringlocalized: String) -> Date {
         guard datestringlocalized != "no log" else { return Date() }
@@ -50,13 +50,13 @@ final class TagSnapshots {
             } else if currentdaymonth(index: index) {
                 // Select the record
                 if let id = logrecordssnapshot?[index].id {
-                    selecteduuids.insert(id)
+                    selectedsnapshots.insert(id)
                 }
             } else {
                 if keepallorlastdayinperiod(index: index) {
                     // Select the record
                     if let id = logrecordssnapshot?[index].id {
-                        selecteduuids.insert(id)
+                        selectedsnapshots.insert(id)
                     }
                 }
             }

@@ -17,6 +17,7 @@ struct SnapshotsView: View {
 
     @State private var snapshotrecords: Logrecordsschedules?
     @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var selectedsnapshots = Set<Logrecordsschedules.ID>()
     // If not a snapshot
     @State private var notsnapshot = false
     // Cannot collect remote cataloglist for more than one task a time
@@ -33,7 +34,6 @@ struct SnapshotsView: View {
     @State private var filterstring: String = ""
 
     // Focus buttons from the menu
-    @State private var focusselectsnapshot: Bool = false
     @State private var focustagsnapshot: Bool = false
     @State private var focusaborttask: Bool = false
 
@@ -41,6 +41,8 @@ struct SnapshotsView: View {
 
     // Delete
     @State private var confirmdelete: Bool = false
+    // Tag is selected
+    @State private var tagisselected: Bool = false
 
     var body: some View {
         ZStack {
@@ -63,7 +65,8 @@ struct SnapshotsView: View {
                     )
 
                     SnapshotListView(snapshotrecords: $snapshotrecords,
-                                     selecteduuids: $selecteduuids)
+                                     selectedsnapshots: $selectedsnapshots,
+                                     tagisselected: $tagisselected)
                         .environmentObject(snapshotdata)
                         .onDeleteCommand(perform: { delete() })
                 }
@@ -75,7 +78,6 @@ struct SnapshotsView: View {
             if gettingdata == true { gettingdatainprocess }
             if updated == true { notifyupdated }
             if focustagsnapshot == true { labeltagsnapshot }
-            if focusselectsnapshot == true { labelselectsnapshot }
             if focusaborttask { labelaborttask }
         }
 
@@ -114,7 +116,6 @@ struct SnapshotsView: View {
             Button("Abort") { abort() }
                 .buttonStyle(AbortButtonStyle())
         }
-        .focusedSceneValue(\.selectsnapshot, $focusselectsnapshot)
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
     }
@@ -191,14 +192,6 @@ struct SnapshotsView: View {
             .contentShape(Rectangle())
             .onDisappear(perform: {
                 getdata()
-            })
-    }
-
-    var labelselectsnapshot: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusselectsnapshot = false
-                select()
             })
     }
 
@@ -303,25 +296,10 @@ extension SnapshotsView {
             let tagged = TagSnapshots(plan: localsnaplast,
                                       snapdayoffweek: snapdayofweek,
                                       data: snapshotdata.getsnapshotdata())
-            selecteduuids = tagged.selecteduuids
+            selectedsnapshots = tagged.selectedsnapshots
             snapshotdata.setsnapshotdata(tagged.logrecordssnapshot)
-            snapshotdata.uuidsfordelete = tagged.selecteduuids
-        }
-    }
-
-    func select() {
-        // Also prepare logs for delete if not tagged
-        if snapshotdata.uuidsfordelete == nil {
-            snapshotdata.uuidsfordelete = Set<UUID>()
-        }
-        if let log = snapshotrecords {
-            if selecteduuids.contains(log.id) {
-                snapshotdata.uuidsfordelete?.remove(log.id)
-                selecteduuids.remove(log.id)
-            } else {
-                snapshotdata.uuidsfordelete?.insert(log.id)
-                selecteduuids.insert(log.id)
-            }
+            snapshotdata.uuidsfordelete = tagged.selectedsnapshots
+            tagisselected = true
         }
     }
 
