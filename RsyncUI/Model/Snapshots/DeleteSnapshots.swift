@@ -27,7 +27,7 @@ final class DeleteSnapshots {
         }
         // Set maxnumber and remaining to delete
         mysnapshotdata?.maxnumbertodelete = snapshotcatalogstodelete?.count ?? 0
-        mysnapshotdata?.progressindelete = snapshotcatalogstodelete?.count ?? 0
+        mysnapshotdata?.remainingsnapshotstodelete = snapshotcatalogstodelete?.count ?? 0
     }
 
     func deletesnapshots() {
@@ -42,7 +42,7 @@ final class DeleteSnapshots {
             }
             // Remaining number to delete
             let remaining = snapshotcatalogstodelete?.count ?? 0
-            mysnapshotdata?.progressindelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
+            mysnapshotdata?.remainingsnapshotstodelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
             if let config = localeconfig {
                 let arguments = SnapshotDeleteCatalogsArguments(config: config, remotecatalog: remotecatalog)
                 let command = CommandProcess(command: arguments.getCommand(),

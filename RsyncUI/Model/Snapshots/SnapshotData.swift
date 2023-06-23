@@ -15,7 +15,7 @@ enum Snapshotdatastat {
 
 final class SnapshotData: ObservableObject {
     @Published var maxnumbertodelete: Int = 0
-    @Published var progressindelete: Int = 0
+    @Published var remainingsnapshotstodelete: Int = 0
     // Deleteobject
     @Published var delete: DeleteSnapshots?
     @Published var inprogressofdelete: Bool = false
@@ -30,8 +30,9 @@ final class SnapshotData: ObservableObject {
     func setsnapshotdata(_ data: [Logrecordsschedules]?) {
         logrecordssnapshot = data
         inprogressofdelete = false
-        maxnumbertodelete = snapshotuuidsfordelete.count
-        progressindelete = 0
+        snapshotuuidsfordelete.removeAll()
+        maxnumbertodelete = 0
+        remainingsnapshotstodelete = 0
         objectWillChange.send()
     }
 

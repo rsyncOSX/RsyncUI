@@ -52,6 +52,7 @@ struct SnapshotsView: View {
                                 }
                             } else {
                                 selectedconfig = nil
+                                snapshotdata.setsnapshotdata(nil)
                             }
                         }
                     )
@@ -171,7 +172,7 @@ struct SnapshotsView: View {
 
     var progressdelete: some View {
         ProgressView("",
-                     value: Double(snapshotdata.progressindelete),
+                     value: Double(snapshotdata.remainingsnapshotstodelete),
                      total: Double(snapshotdata.maxnumbertodelete))
             .progressViewStyle(GaugeProgressStyle())
             .frame(width: 25.0, height: 25.0)

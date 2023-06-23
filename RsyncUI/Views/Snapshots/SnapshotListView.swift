@@ -13,9 +13,7 @@ struct SnapshotListView: View {
     @Binding var snapshotrecords: Logrecordsschedules?
 
     var body: some View {
-        Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete.onChange {
-            print(snapshotdata.snapshotuuidsfordelete.count)
-        }) {
+        Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete) {
             TableColumn("Snap") { data in
                 if let snapshotCatalog = data.snapshotCatalog {
                     Text(snapshotCatalog)
@@ -29,7 +27,12 @@ struct SnapshotListView: View {
             .width(max: 150)
             TableColumn("Period") { data in
                 if let period = data.period {
-                    Text(period)
+                    if period.contains("Delete") {
+                        Text(period)
+                            .foregroundColor(.red)
+                    } else {
+                        Text(period)
+                    }
                 }
             }
             .width(max: 200)
