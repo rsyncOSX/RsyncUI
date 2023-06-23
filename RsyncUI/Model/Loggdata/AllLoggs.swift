@@ -12,7 +12,7 @@ struct Logrecordsschedules: Identifiable {
     var id = UUID()
     // To save id from the Log records.
     // Used when resolving issues in administrating snapshots.
-    var idfromlogrecord: UUID?
+    // var idfromlogrecord: UUID?
     var hiddenID: Int
     var localCatalog: String
     var remoteCatalog: String
@@ -52,16 +52,17 @@ final class AllLoggs {
                         }
                         let configdata = GetConfigurationData(configurations: structconfigurations?.getallconfigurations())
                         let record =
-                            Logrecordsschedules(idfromlogrecord: input[i].logrecords?[j].id,
-                                                hiddenID: hiddenID,
-                                                localCatalog: configdata.getconfigurationdata(hiddenID, resource: .localCatalog) ?? "",
-                                                remoteCatalog: configdata.getconfigurationdata(hiddenID, resource: .remoteCatalog) ?? "",
-                                                offsiteServer: configdata.getconfigurationdata(hiddenID, resource: .offsiteServer) ?? "",
-                                                task: configdata.getconfigurationdata(hiddenID, resource: .task) ?? "",
-                                                backupID: configdata.getconfigurationdata(hiddenID, resource: .backupid) ?? "",
-                                                dateExecuted: datestring ?? "",
-                                                date: date ?? Date(),
-                                                resultExecuted: input[i].logrecords?[j].resultExecuted ?? "")
+                            Logrecordsschedules(
+                                hiddenID: hiddenID,
+                                localCatalog: configdata.getconfigurationdata(hiddenID, resource: .localCatalog) ?? "",
+                                remoteCatalog: configdata.getconfigurationdata(hiddenID, resource: .remoteCatalog) ?? "",
+                                offsiteServer: configdata.getconfigurationdata(hiddenID, resource: .offsiteServer) ?? "",
+                                task: configdata.getconfigurationdata(hiddenID, resource: .task) ?? "",
+                                backupID: configdata.getconfigurationdata(hiddenID, resource: .backupid) ?? "",
+                                dateExecuted: datestring ?? "",
+                                date: date ?? Date(),
+                                resultExecuted: input[i].logrecords?[j].resultExecuted ?? ""
+                            )
                         data.append(record)
                     }
                 }
@@ -69,12 +70,6 @@ final class AllLoggs {
         }
         if hiddenID != nil { data = data.filter { $0.hiddenID == hiddenID } }
         loggrecords = data.sorted(by: \.date, using: >)
-        loggrecords?.forEach { record in
-            // Save the id´s from the Log record.
-            if let idLog = record.idfromlogrecord {
-                uuidsfromlogrecords.insert(idLog)
-            }
-        }
     }
 
     init(hiddenID: Int?,

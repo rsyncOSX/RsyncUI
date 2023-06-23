@@ -98,11 +98,6 @@ final class Snapshotlogsandcatalogs {
                     record.period = "... not yet tagged ..."
                     record.snapshotCatalog = snapshotcatalogfromschedulelog
                     adjustedlogrecords.append(record)
-                    // Remove uudid which are matcing and insert in
-                    // set to be deleted
-                    if let idLog = record.idfromlogrecord {
-                        uuidsfromlogrecords?.remove(idLog)
-                    }
                     // Remove that record
                     if let index = mylogrecords?.firstIndex(where: { $0.id == uuid }) {
                         mylogrecords?.remove(at: index)
