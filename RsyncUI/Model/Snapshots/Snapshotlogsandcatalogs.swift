@@ -142,7 +142,7 @@ final class Snapshotlogsandcatalogs {
 
     private func preparesnapshotcatalogsfordelete() {
         if snapshotcatalogstodelete == nil { snapshotcatalogstodelete = [] }
-        if let uuidsfordelete = mysnapshotdata?.uuidsfordelete {
+        if let uuidsfordelete = mysnapshotdata?.snapshotuuidsfordelete {
             for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
                 if let id = logrecordssnapshot?[i].id {
                     if uuidsfordelete.contains(id) {
@@ -191,10 +191,6 @@ extension Snapshotlogsandcatalogs {
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         mysnapshotdata?.state = .gotit
-        mysnapshotdata?.uuidsfromlogrecords.removeAll()
-        if let uuidsfromlogrecords = uuidsfromlogrecords {
-            mysnapshotdata?.uuidsfromlogrecords = uuidsfromlogrecords
-        }
         // Getting data is completed
         mysnapshotdata?.snapshotlist = false
     }

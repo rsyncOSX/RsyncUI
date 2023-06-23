@@ -15,12 +15,12 @@ struct SnapshotListView: View {
     @Binding var tagisselected: Bool
 
     var body: some View {
-        Table(logrecords, selection: $snapshotdata.uuidsfordelete.onChange {
+        Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete.onChange {
             if tagisselected {
-                snapshotdata.uuidsfordelete.removeAll()
+                snapshotdata.snapshotuuidsfordelete.removeAll()
                 tagisselected = false
             }
-            print(snapshotdata.uuidsfordelete.count)
+            print(snapshotdata.snapshotuuidsfordelete.count)
         }) {
             TableColumn("Snap") { data in
                 if let snapshotCatalog = data.snapshotCatalog {

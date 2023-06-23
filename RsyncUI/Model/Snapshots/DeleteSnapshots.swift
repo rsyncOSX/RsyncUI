@@ -14,7 +14,7 @@ final class DeleteSnapshots {
 
     private func preparesnapshotcatalogsfordelete(logrecordssnapshot: [Logrecordsschedules]?) {
         if snapshotcatalogstodelete == nil { snapshotcatalogstodelete = [] }
-        if let uuidsfordelete = mysnapshotdata?.uuidsfordelete {
+        if let uuidsfordelete = mysnapshotdata?.snapshotuuidsfordelete {
             for i in 0 ..< ((logrecordssnapshot?.count ?? 0) - 1) {
                 if let id = logrecordssnapshot?[i].id {
                     if uuidsfordelete.contains(id) {

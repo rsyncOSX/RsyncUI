@@ -106,7 +106,7 @@ struct SnapshotsView: View {
                 .sheet(isPresented: $showAlertfordelete) {
                     ConfirmDeleteSnapshots(isPresented: $showAlertfordelete,
                                            delete: $confirmdeletesnapshots,
-                                           uuidstodelete: snapshotdata.uuidsfordelete)
+                                           uuidstodelete: snapshotdata.snapshotuuidsfordelete)
                         .onDisappear { delete() }
                 }
                 .buttonStyle(AbortButtonStyle())
@@ -123,7 +123,7 @@ struct SnapshotsView: View {
             Text(NSLocalizedString("Number of logrecords", comment: "") +
                 ": " + "\(snapshotdata.logrecordssnapshot?.count ?? 0)")
             Text(NSLocalizedString("Number to delete", comment: "") +
-                ": " + "\(snapshotdata.uuidsfordelete.count)")
+                ": " + "\(snapshotdata.snapshotuuidsfordelete.count)")
         }
     }
 
@@ -237,8 +237,7 @@ extension SnapshotsView {
     }
 
     func getdata() {
-        snapshotdata.uuidsfordelete.removeAll()
-        snapshotdata.uuidsfromlogrecords.removeAll()
+        snapshotdata.snapshotuuidsfordelete.removeAll()
         guard SharedReference.shared.process == nil else {
             gettingdata = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -295,7 +294,8 @@ extension SnapshotsView {
                                       snapdayoffweek: snapdayofweek,
                                       data: snapshotdata.getsnapshotdata())
             snapshotdata.setsnapshotdata(tagged.logrecordssnapshot)
-            snapshotdata.uuidsfordelete = tagged.selectedsnapshots
+            snapshotdata.snapshotuuidsfordelete.removeAll()
+            snapshotdata.snapshotuuidsfordelete = tagged.selectedsnapshots
             tagisselected = true
         }
     }
