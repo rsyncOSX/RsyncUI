@@ -16,15 +16,9 @@ final class Snapshotlogsandcatalogs {
     var mysnapshotdata: SnapshotData?
     var firstsnapshotctalognodelete: String?
     var lastsnapshotctalognodelete: String?
-
     // Remote snapshot catalags
     typealias Catalogsanddates = (String, Date)
     var catalogsanddates: [Catalogsanddates]?
-    // uuids and administrating snapshots, save the UUID from the Log records.
-    // If there are uuids in this Set after merge the members in the set
-    // is log records with missing remote snapshot catalog
-    // can be used to delete logs
-    var uuidsfromlogrecords: Set<Log.ID>?
 
     @MainActor
     private func getremotecataloginfo() async {
@@ -171,7 +165,6 @@ final class Snapshotlogsandcatalogs {
                                           profile: profile,
                                           configurationsSwiftUI: configurationsSwiftUI)
         logrecordssnapshot = alllogs?.loggrecords
-        uuidsfromlogrecords = alllogs?.uuidsfromlogrecords
         // release the object - dont need it more
         alllogs = nil
         // Getting remote catalogdata about all snapshots
