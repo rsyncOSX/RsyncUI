@@ -326,16 +326,16 @@ struct TasksView: View {
 
 extension TasksView {
     func doubleclickactionfunction() {
-        dryrun()
-        /*
-         if selecteduuids.contains(selectedconfig.config?.id ?? UUID()), inprogresscountmultipletask.getestimatedlist()?.count == 1,
-            inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "") == false
-         {
-             // execute???
-         } else {
-             dryrun()
-         }
-          */
+        if inprogresscountmultipletask.getestimatedlist() == nil {
+            dryrun()
+        } else if inprogresscountmultipletask.getestimatedlist()?.count ?? -1 > 0 {
+            let uuidforestimatedtask = inprogresscountmultipletask.getestimatedlist()?[0].id ?? UUID()
+            if uuidforestimatedtask == selectedconfig.config?.id {
+                execute()
+            } else {
+                dryrun()
+            }
+        }
     }
 
     func dryrun() {
