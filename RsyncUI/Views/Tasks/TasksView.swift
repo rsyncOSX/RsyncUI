@@ -99,7 +99,7 @@ struct TasksView: View {
                 if focusaborttask { labelaborttask }
                 if focusenabletimer { labelenabletimer }
                 if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
-                if doubleclick { labeldryrun }
+                if doubleclick { doubleclickaction }
             }
         }
 
@@ -252,11 +252,12 @@ struct TasksView: View {
             })
     }
 
-    var labeldryrun: some View {
+    var doubleclickaction: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                dryrun()
+                doubleclickactionfunction()
+                doubleclick = false
             })
     }
 
@@ -324,6 +325,19 @@ struct TasksView: View {
 }
 
 extension TasksView {
+    func doubleclickactionfunction() {
+        dryrun()
+        /*
+         if selecteduuids.contains(selectedconfig.config?.id ?? UUID()), inprogresscountmultipletask.getestimatedlist()?.count == 1,
+            inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "") == false
+         {
+             // execute???
+         } else {
+             dryrun()
+         }
+          */
+    }
+
     func dryrun() {
         if selectedconfig.config != nil,
            inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0
