@@ -38,7 +38,7 @@ struct ListofTasksView: View {
                                  value: executedetails.getcurrentprogress(),
                                  total: maxcount)
                         .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
-                        .frame(width: 35, alignment: .center)
+                        .frame(alignment: .center)
                 }
             }
             .width(max: 50)
