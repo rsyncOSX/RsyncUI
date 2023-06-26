@@ -11,7 +11,7 @@ struct ListofTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
 
-    @Binding var selecteduuids: Set<UUID>
+    @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var inwork: Int
     @Binding var filterstring: String
     @Binding var reload: Bool
