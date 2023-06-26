@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/03/2023.
 //
-// swiftlint:disable line_length type_body_length
+// swiftlint:disable line_length type_body_length file_length
 
 import SwiftUI
 
@@ -81,11 +81,8 @@ struct TasksView: View {
                 .frame(maxWidth: .infinity)
 
             } else {
-                Spacer()
 
                 notifycompleted
-
-                Spacer()
             }
 
             // Remember max 10 in one Group
@@ -501,4 +498,4 @@ final class Selectedconfig: ObservableObject {
     var config: Configuration?
 }
 
-// swiftlint:enable line_length type_body_length
+// swiftlint:enable line_length type_body_length file_length
