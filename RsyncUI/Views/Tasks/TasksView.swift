@@ -81,7 +81,6 @@ struct TasksView: View {
                 .frame(maxWidth: .infinity)
 
             } else {
-
                 notifycompleted
             }
 
