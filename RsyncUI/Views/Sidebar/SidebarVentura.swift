@@ -38,7 +38,7 @@ struct SidebarVentura: View {
         case .synchronize:
             SidebarTasksView(reload: $reload, actions: actions)
         case .quick_synchronize:
-            SidebarQuicktaskView()
+            QuicktaskView()
         }
     }
 

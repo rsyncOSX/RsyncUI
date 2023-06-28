@@ -17,7 +17,6 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
 
 struct QuicktaskView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var showcompleted: Bool
 
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
@@ -35,6 +34,8 @@ struct QuicktaskView: View {
     @State private var valueselectedrow: String = ""
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
+    // Completed task
+    @State private var completed: Bool = false
 
     var choosecatalog = true
 
@@ -83,8 +84,7 @@ struct QuicktaskView: View {
                 }
             }
 
-            if showprogressview { ProgressView() }
-
+            if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
         }
         .onSubmit {
@@ -106,6 +106,7 @@ struct QuicktaskView: View {
             focusField = .localcatalogField
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .sheet(isPresented: $completed) { viewoutput }
 
         VStack {
             Spacer()
@@ -118,15 +119,12 @@ struct QuicktaskView: View {
 
                 Spacer()
 
-                Button("Output") { presentsheetview = true }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .sheet(isPresented: $presentsheetview) { viewoutput }
-
                 Button("Abort") { abort() }
                     .buttonStyle(AbortButtonStyle())
                     .tooltip("Shortcut ⌘A")
             }
         }
+        .padding()
     }
 
     var remoteuserpicker: some View {
@@ -267,6 +265,9 @@ struct QuicktaskView: View {
     // Output
     var viewoutput: some View {
         OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
+            .onDisappear {
+                completed = false
+            }
     }
 }
 
@@ -320,7 +321,7 @@ extension QuicktaskView {
         // Stop progressview
         showprogressview = false
         rsyncoutput?.setoutput()
-        showcompleted = true
         rsyncoutput?.setoutput(data: outputfromrsync)
+        completed = true
     }
 }
