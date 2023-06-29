@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Profiles: Hashable {
+struct Profiles: Hashable, Identifiable {
     var profile: String?
+    let id = UUID()
 
     init(_ name: String) {
         profile = name

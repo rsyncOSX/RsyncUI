@@ -8,89 +8,76 @@
 import SwiftUI
 
 struct AddProfileView: View {
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
-    @Binding var modalview: Bool
 
     @StateObject var newdata = ObserveableAddConfigurations()
+    @State private var uuidprofile = Set<Profiles.ID>()
 
     var body: some View {
-        Form {
-            Spacer()
-
-            ZStack {
-                HStack {
-                    // For center
-                    Spacer()
-
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text("Selected profile:")
-                            Text(rsyncUIdata.profile ?? SharedReference.shared.defaultprofile)
-                                .foregroundColor(Color.blue)
+        ZStack {
+            VStack {
+                Table(profilenames.profiles ?? [], selection: $uuidprofile.onChange {
+                    let profile = profilenames.profiles?.filter { profiles in
+                        uuidprofile.contains(profiles.id)
+                    }
+                    if (profile?.count ?? 0) == 1 {
+                        if let profile = profile {
+                            selectedprofile = profile[0].profile
                         }
+                    }
+                }) {
+                    TableColumn("Profiles") { name in
+                        Text(name.profile ?? "Default profile")
+                    }
+                }
+
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Selected profile:")
+                        Text(rsyncUIdata.profile ?? SharedReference.shared.defaultprofile)
+                            .foregroundColor(Color.blue)
+                    }
+
+                    HStack {
+                        Button("Create") { createprofile() }
+                            .buttonStyle(PrimaryButtonStyle())
 
                         EditValue(150, NSLocalizedString("Create profile", comment: ""),
                                   $newdata.newprofile)
                     }
-
-                    Spacer()
                 }
 
-                if newdata.deletedefaultprofile == true { cannotdeletedefaultprofile }
-                if newdata.created == true { notifycreated }
-                if newdata.deleted == true { notifydeleted }
-            }
-
-            Spacer()
-
-            HStack {
                 Spacer()
-
-                Button("Dismiss") { modalview = false }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button("Create") { createprofile() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button("Delete") { newdata.showAlertfordelete = true }
-                    .buttonStyle(AbortButtonStyle())
-                    .sheet(isPresented: $newdata.showAlertfordelete) {
-                        ConfirmDeleteProfileView(isPresented: $newdata.showAlertfordelete,
-                                                 delete: $newdata.confirmdeleteselectedprofile,
-                                                 profile: $rsyncUIdata.profile)
-                            .onDisappear(perform: {
-                                deleteprofile()
-                            })
-                    }
-            }
-            .padding()
-            .onSubmit {
-                createprofile()
             }
         }
-    }
 
-    var notifyadded: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Added"), subTitle: Optional(""))
-    }
+        Spacer()
 
-    var notifycreated: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Created"), subTitle: Optional(""))
-    }
+        HStack {
+            Spacer()
 
-    var notifydeleted: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Deleted"), subTitle: Optional(""))
-    }
+            Button("Dismiss") { dismiss() }
+                .buttonStyle(PrimaryButtonStyle())
 
-    var cannotdeletedefaultprofile: some View {
-        AlertToast(type: .error(Color.red),
-                   title: Optional("Cannot delete default profile"), subTitle: Optional(""))
+            Button("Delete") { newdata.showAlertfordelete = true }
+                .buttonStyle(AbortButtonStyle())
+                .sheet(isPresented: $newdata.showAlertfordelete) {
+                    ConfirmDeleteProfileView(isPresented: $newdata.showAlertfordelete,
+                                             delete: $newdata.confirmdeleteselectedprofile,
+                                             profile: $rsyncUIdata.profile)
+                        .onDisappear(perform: {
+                            deleteprofile()
+                        })
+                }
+        }
+        .padding()
+        .onSubmit {
+            createprofile()
+        }
     }
 }
 
@@ -100,12 +87,7 @@ extension AddProfileView {
         profilenames.update()
         selectedprofile = newdata.selectedprofile
         reload = true
-        if newdata.created == true {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.created = false
-                modalview = false
-            }
-        }
+        dismiss()
     }
 
     func deleteprofile() {
@@ -113,18 +95,6 @@ extension AddProfileView {
         profilenames.update()
         reload = true
         selectedprofile = nil
-        if newdata.deleted == true {
-            profilenames.update()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.deleted = false
-                modalview = false
-            }
-        }
-        if newdata.deletedefaultprofile == true {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                newdata.deletedefaultprofile = false
-                modalview = false
-            }
-        }
+        dismiss()
     }
 }

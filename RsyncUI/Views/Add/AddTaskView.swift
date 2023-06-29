@@ -155,9 +155,8 @@ struct AddTaskView: View {
         }
         .sheet(isPresented: $modalview) {
             AddProfileView(selectedprofile: $selectedprofile,
-                           reload: $reload,
-                           modalview: $modalview)
-                .frame(width: 400, height: 200)
+                           reload: $reload)
+                .frame(width: 500, height: 500)
         }
     }
 
