@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Readconfigurationsfromstore: Equatable {
+struct Readconfigurationsfromstore {
     var configurationData: AllConfigurations
     var validhiddenIDs: Set<Int>
 
@@ -19,9 +19,10 @@ struct Readconfigurationsfromstore: Equatable {
 }
 
 final class RsyncUIconfigurations: ObservableObject {
-    var configurationsfromstore: Readconfigurationsfromstore?
     @Published var configurations: [Configuration]?
     @Published var profile: String?
+
+    var configurationsfromstore: Readconfigurationsfromstore?
     var validhiddenIDs: Set<Int>?
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {

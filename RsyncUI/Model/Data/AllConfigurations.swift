@@ -61,9 +61,3 @@ struct AllConfigurations {
         SharedReference.shared.process = nil
     }
 }
-
-extension AllConfigurations: Hashable {
-    static func == (lhs: AllConfigurations, rhs: AllConfigurations) -> Bool {
-        return lhs.configurations == rhs.configurations
-    }
-}
