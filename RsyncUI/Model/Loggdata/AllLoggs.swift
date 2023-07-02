@@ -30,7 +30,7 @@ struct Logrecordsschedules: Identifiable {
 }
 
 final class AllLoggs {
-    private var structconfigurations: ConfigurationsSwiftUI?
+    private var structconfigurations: AllConfigurations?
     private var structschedules: SchedulesSwiftUI?
     var loggrecords: [Logrecordsschedules]?
     private var localehiddenID: Int?
@@ -74,7 +74,7 @@ final class AllLoggs {
 
     init(hiddenID: Int?,
          profile: String?,
-         configurationsSwiftUI: ConfigurationsSwiftUI?)
+         configurationsSwiftUI: AllConfigurations?)
     {
         localehiddenID = hiddenID
         structconfigurations = configurationsSwiftUI

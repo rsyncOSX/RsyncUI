@@ -21,7 +21,7 @@ enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertibl
 }
 
 final class ExecuteMultipleTasks {
-    private var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
+    private var localconfigurationsSwiftUI: AllConfigurations?
     private var structprofile: String?
     private var privatehiddenID: Int?
     private var stackoftasktobeexecuted: [Int]?
@@ -80,7 +80,7 @@ final class ExecuteMultipleTasks {
     @discardableResult
     init(uuids: Set<UUID>,
          profile: String?,
-         configurationsSwiftUI: ConfigurationsSwiftUI?,
+         configurationsSwiftUI: AllConfigurations?,
          executionstateDelegate: MultipleTaskState?,
          updateinprogresscount: UpdateEstimationCount?,
          singletaskupdate: ExecuteDetailsProtocol?)

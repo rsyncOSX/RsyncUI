@@ -154,7 +154,7 @@ final class Snapshotlogsandcatalogs {
 
     init(profile: String?,
          config: Configuration,
-         configurationsSwiftUI: ConfigurationsSwiftUI?,
+         configurationsSwiftUI: AllConfigurations?,
          snapshotdata: SnapshotData)
     {
         guard config.task == SharedReference.shared.snapshot else { return }

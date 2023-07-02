@@ -9,7 +9,7 @@
 import Foundation
 
 class EstimateOnetaskAsync {
-    var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
+    var localconfigurationsSwiftUI: AllConfigurations?
     var localhiddenID: Int?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
@@ -25,7 +25,7 @@ class EstimateOnetaskAsync {
         }
     }
 
-    init(configurationsSwiftUI: ConfigurationsSwiftUI?,
+    init(configurationsSwiftUI: AllConfigurations?,
          updateinprogresscount: UpdateEstimationCount?,
          hiddenID: Int?)
     {

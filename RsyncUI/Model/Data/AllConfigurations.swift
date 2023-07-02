@@ -27,7 +27,7 @@ struct UniqueserversandLogins: Hashable, Identifiable {
     }
 }
 
-struct ConfigurationsSwiftUI {
+struct AllConfigurations {
     private var configurations: [Configuration]?
     // Initialized during startup
     // private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
@@ -70,8 +70,8 @@ struct ConfigurationsSwiftUI {
     }
 }
 
-extension ConfigurationsSwiftUI: Hashable {
-    static func == (lhs: ConfigurationsSwiftUI, rhs: ConfigurationsSwiftUI) -> Bool {
+extension AllConfigurations: Hashable {
+    static func == (lhs: AllConfigurations, rhs: AllConfigurations) -> Bool {
         return lhs.configurations == rhs.configurations
     }
 }

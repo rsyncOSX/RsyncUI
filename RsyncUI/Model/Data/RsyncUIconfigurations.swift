@@ -10,12 +10,12 @@ import SwiftUI
 
 struct Readconfigurationsfromstore: Equatable {
     var profile: String?
-    var configurationData: ConfigurationsSwiftUI
+    var configurationData: AllConfigurations
     var validhiddenIDs: Set<Int>
 
     init(profile: String?) {
         self.profile = profile
-        configurationData = ConfigurationsSwiftUI(profile: self.profile)
+        configurationData = AllConfigurations(profile: self.profile)
         validhiddenIDs = configurationData.getvalidhiddenIDs() ?? Set()
     }
 }

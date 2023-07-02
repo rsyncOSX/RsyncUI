@@ -10,7 +10,7 @@ import Foundation
 
 class EstimateAlltasksAsync {
     var structprofile: String?
-    var localconfigurationsSwiftUI: ConfigurationsSwiftUI?
+    var localconfigurationsSwiftUI: AllConfigurations?
     var stackoftasktobeestimated: [Int]?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
@@ -33,7 +33,7 @@ class EstimateAlltasksAsync {
     }
 
     init(profile: String?,
-         configurationsSwiftUI: ConfigurationsSwiftUI?,
+         configurationsSwiftUI: AllConfigurations?,
          updateinprogresscount: UpdateEstimationCount?,
          uuids: Set<UUID>,
          filter: String)

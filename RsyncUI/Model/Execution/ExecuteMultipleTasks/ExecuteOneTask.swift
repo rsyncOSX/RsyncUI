@@ -24,7 +24,7 @@ final class ExecuteOneTask {
     }
 
     init(hiddenID: Int,
-         configurationsSwiftUI: ConfigurationsSwiftUI?,
+         configurationsSwiftUI: AllConfigurations?,
          termination: @escaping ([String]?, Int?) -> Void,
          filehandler: @escaping (Int) -> Void)
     {
