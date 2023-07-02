@@ -128,7 +128,6 @@ class SingletaskPrimaryLogging {
         localeprofile = profile
         localehiddenID = hiddenID
         structconfigurations = configurations
-
         structschedules = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs).scheduleConfigurations
         if structschedules == nil {
             structschedules = [ConfigurationSchedule]()
