@@ -214,7 +214,7 @@ struct TasksView: View {
                         await estimateonetaskasync.execute()
                     } else {
                         let estimatealltasksasync =
-                            EstimateAlltasksAsync(profile: rsyncUIdata.configurationsfromstore?.profile,
+                            EstimateAlltasksAsync(profile: rsyncUIdata.profile,
                                                   configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                                   updateinprogresscount: inprogresscountmultipletask,
                                                   uuids: selecteduuids,

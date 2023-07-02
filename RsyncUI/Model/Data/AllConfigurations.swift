@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 26/12/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
 
 import Foundation
 
@@ -75,5 +74,3 @@ extension AllConfigurations: Hashable {
         return lhs.configurations == rhs.configurations
     }
 }
-
-// swiftlint:enable line_length

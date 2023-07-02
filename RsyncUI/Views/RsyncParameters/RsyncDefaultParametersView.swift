@@ -189,7 +189,7 @@ extension RsyncDefaultParametersView {
     func saversyncparameters() {
         if let configuration = parameters.updatersyncparameters() {
             let updateconfiguration =
-                UpdateConfigurations(profile: rsyncUIdata.configurationsfromstore?.profile,
+                UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations())
             updateconfiguration.updateconfiguration(configuration, true)
         }

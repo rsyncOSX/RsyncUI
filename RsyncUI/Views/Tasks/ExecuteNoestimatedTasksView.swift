@@ -103,7 +103,7 @@ extension ExecuteNoestimatedTasksView {
     func executeallnotestimatedtasks() async {
         inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
         executealltasksasync =
-            ExecuteAlltasksAsync(profile: rsyncUIdata.configurationsfromstore?.profile,
+            ExecuteAlltasksAsync(profile: rsyncUIdata.profile,
                                  configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
                                  updateinprogresscount: inprogresscountmultipletask,
                                  uuids: selecteduuids,
