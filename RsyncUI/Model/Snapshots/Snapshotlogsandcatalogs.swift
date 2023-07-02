@@ -154,7 +154,7 @@ final class Snapshotlogsandcatalogs {
 
     init(profile: String?,
          config: Configuration,
-         configurationsSwiftUI: AllConfigurations?,
+         configurations: RsyncUIconfigurations?,
          snapshotdata: SnapshotData)
     {
         guard config.task == SharedReference.shared.snapshot else { return }
@@ -163,7 +163,7 @@ final class Snapshotlogsandcatalogs {
         // Getting log records from schedules, sorted after date
         var alllogs: AllLoggs? = AllLoggs(hiddenID: config.hiddenID,
                                           profile: profile,
-                                          configurationsSwiftUI: configurationsSwiftUI)
+                                          configurations: configurations)
         logrecordssnapshot = alllogs?.loggrecords
         // release the object - dont need it more
         alllogs = nil

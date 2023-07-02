@@ -226,7 +226,7 @@ extension SnapshotsView {
             snapshotdata.snapshotlist = true
             _ = Snapshotlogsandcatalogs(profile: rsyncUIdata.profile,
                                         config: config,
-                                        configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                        configurations: rsyncUIdata,
                                         snapshotdata: snapshotdata)
         }
     }
