@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct Readconfigurationsfromstore {
-    var configurationData: AllConfigurations
+    var configurations: [Configuration]?
     var validhiddenIDs: Set<Int>
 
     init(profile: String?) {
-        configurationData = AllConfigurations(profile: profile)
-        validhiddenIDs = configurationData.getvalidhiddenIDs() ?? Set()
+        let configurationsfromstore = AllConfigurations(profile: profile)
+        configurations = configurationsfromstore.configurations
+        validhiddenIDs = configurationsfromstore.validhiddenIDs ?? Set()
     }
 }
 
@@ -61,7 +62,7 @@ final class RsyncUIconfigurations: ObservableObject {
         } else {
             configurationsfromstore = Readconfigurationsfromstore(profile: profile)
         }
-        configurations = configurationsfromstore?.configurationData.getconfigurations()
+        configurations = configurationsfromstore?.configurations
         validhiddenIDs = configurationsfromstore?.validhiddenIDs
         // Release struct
         configurationsfromstore = nil

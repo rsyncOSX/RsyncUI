@@ -27,31 +27,11 @@ struct UniqueserversandLogins: Hashable, Identifiable {
 }
 
 struct AllConfigurations {
-    private var configurations: [Configuration]?
+    var configurations: [Configuration]?
     // Initialized during startup
     // private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
     // valid hiddenIDs
     var validhiddenIDs: Set<Int>?
-
-    // Function for getting Configurations read into memory, sorted by runddate
-    func getconfigurations() -> [Configuration]? {
-        if let configurations = configurations {
-            let sorted = configurations.sorted { conf1, conf2 in
-                if let days1 = conf1.dateRun?.en_us_date_from_string(),
-                   let days2 = conf2.dateRun?.en_us_date_from_string()
-                {
-                    return days1 > days2
-                }
-                return false
-            }
-            return sorted
-        }
-        return nil
-    }
-
-    func getvalidhiddenIDs() -> Set<Int>? {
-        return validhiddenIDs
-    }
 
     init(profile: String?) {
         configurations = nil
