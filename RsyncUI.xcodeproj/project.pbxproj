@@ -711,6 +711,7 @@
 		E985C69A25F3AD9600CB895C /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
+				E9FBE7902A51C5CA0038B82D /* LogRecords.swift */,
 				E985C69B25F3AD9600CB895C /* TagSnapshots.swift */,
 				E985C69C25F3AD9600CB895C /* SnapshotData.swift */,
 				E985C69D25F3AD9600CB895C /* Snapshotlogsandcatalogs.swift */,
@@ -882,7 +883,6 @@
 		E985C70325F3AD9700CB895C /* Loggdata */ = {
 			isa = PBXGroup;
 			children = (
-				E9FBE7902A51C5CA0038B82D /* LogRecords.swift */,
 				E985C70425F3AD9700CB895C /* MultipletasksPrimaryLogging.swift */,
 				E985C70625F3AD9700CB895C /* SingletaskPrimaryLogging.swift */,
 			);

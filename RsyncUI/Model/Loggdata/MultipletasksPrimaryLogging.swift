@@ -51,7 +51,6 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
                     if inserted == false {
                         inserted = addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
                     }
-                    // _ = Logfile(outputprocess: outputprocess)
                 }
             }
             WriteScheduleJSON(localeprofile, structschedules)

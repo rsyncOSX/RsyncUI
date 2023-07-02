@@ -8,24 +8,6 @@
 
 import Foundation
 
-struct UniqueserversandLogins: Hashable, Identifiable {
-    var id = UUID()
-    var offsiteUsername: String?
-    var offsiteServer: String?
-
-    init(_ username: String,
-         _ servername: String)
-    {
-        offsiteServer = servername
-        offsiteUsername = username
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(offsiteUsername)
-        hasher.combine(offsiteServer)
-    }
-}
-
 struct AllConfigurations {
     var configurations: [Configuration]?
     var validhiddenIDs: Set<Int>?

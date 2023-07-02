@@ -91,9 +91,8 @@ final class ExecuteMultipleTasks {
         updateestimationcountDelegate = updateinprogresscount
         updateprogessDelegate = singletaskupdate
         guard uuids.count > 0 else { return }
-        let configurations = localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) }
-        guard configurations?.count ?? 0 > 0 else { return }
-        prepareandstartexecutetasks(configurations: configurations)
+        guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else { return }
+        prepareandstartexecutetasks(configurations: localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) })
         records = [RemoteinfonumbersOnetask]()
         startexecution()
     }
@@ -148,3 +147,5 @@ final class ExecuteMultipleTasks {
         updateprogessDelegate?.setcurrentprogress(Double(count))
     }
 }
+
+// swiftlint:enable line_length

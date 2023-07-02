@@ -42,9 +42,3 @@ struct AllLogs {
         }
     }
 }
-
-extension AllLogs: Hashable {
-    static func == (lhs: AllLogs, rhs: AllLogs) -> Bool {
-        return lhs.scheduleConfigurations == rhs.scheduleConfigurations
-    }
-}
