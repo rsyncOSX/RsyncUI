@@ -49,13 +49,6 @@ struct AllConfigurations {
         return nil
     }
 
-    // Function for getting Configurations read into memory
-    func getconfiguration(hiddenID: Int) -> Configuration? {
-        let configuration = configurations?.filter { $0.hiddenID == hiddenID }
-        guard configuration?.count == 1 else { return nil }
-        return configuration?[0]
-    }
-
     func getvalidhiddenIDs() -> Set<Int>? {
         return validhiddenIDs
     }

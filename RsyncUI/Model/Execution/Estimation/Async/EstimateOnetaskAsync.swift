@@ -9,13 +9,13 @@
 import Foundation
 
 class EstimateOnetaskAsync {
-    var localconfigurationsSwiftUI: AllConfigurations?
+    var localconfigurations: RsyncUIconfigurations?
     var localhiddenID: Int?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
     @MainActor
     func execute() async {
-        if let config = localconfigurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID ?? 0) {
+        if let config = localconfigurations?.getconfiguration(hiddenID: localhiddenID ?? 0) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .argdryRun)
             guard arguments.count > 0 else { return }
             let process = RsyncProcessAsync(arguments: arguments,
@@ -25,18 +25,18 @@ class EstimateOnetaskAsync {
         }
     }
 
-    init(configurationsSwiftUI: AllConfigurations?,
+    init(configurations: RsyncUIconfigurations?,
          updateinprogresscount: UpdateEstimationCount?,
          hiddenID: Int?)
     {
-        localconfigurationsSwiftUI = configurationsSwiftUI
+        localconfigurations = configurations
         updateestimationcountDelegate = updateinprogresscount
         localhiddenID = hiddenID
     }
 
     func getconfig(hiddenID: Int?) -> Configuration? {
         if let hiddenID = hiddenID {
-            if let configurations = localconfigurationsSwiftUI?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
+            if let configurations = localconfigurations?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
                 guard configurations.count == 1 else { return nil }
                 return configurations[0]
             }

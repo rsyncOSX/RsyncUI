@@ -109,7 +109,7 @@ extension ExecuteNoestimateOneTaskView {
             if let config = selected {
                 selectedconfig.config = config[0]
                 executeonetaskasync =
-                    ExecuteOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                    ExecuteOnetaskAsync(configurations: rsyncUIdata,
                                         updateinprogresscount: inprogresscountmultipletask,
                                         hiddenID: selectedconfig.config?.hiddenID)
                 await executeonetaskasync?.execute()

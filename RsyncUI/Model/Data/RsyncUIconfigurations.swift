@@ -62,5 +62,7 @@ final class RsyncUIconfigurations: ObservableObject {
         }
         configurations = configurationsfromstore?.configurationData.getallconfigurations()
         validhiddenIDs = configurationsfromstore?.validhiddenIDs
+        // Release struct
+        configurationsfromstore = nil
     }
 }

@@ -190,7 +190,7 @@ extension RsyncDefaultParametersView {
         if let configuration = parameters.updatersyncparameters() {
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations())
+                                     configurations: rsyncUIdata.getallconfigurations())
             updateconfiguration.updateconfiguration(configuration, true)
         }
         parameters.reset()

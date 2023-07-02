@@ -10,7 +10,7 @@ import Foundation
 final class ExecuteOnetaskAsync: EstimateOnetaskAsync {
     @MainActor
     override func execute() async {
-        if let config = localconfigurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID ?? 0) {
+        if let config = localconfigurations?.getconfiguration(hiddenID: localhiddenID ?? 0) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
             guard arguments.count > 0 else { return }
             let process = RsyncProcessAsync(arguments: arguments,
@@ -31,8 +31,8 @@ extension ExecuteOnetaskAsync {
             updateestimationcountDelegate?.appenduuid(id: config.id)
             let update = SingletaskPrimaryLogging(profile: config.profile,
                                                   hiddenID: hiddenID,
-                                                  configurations: localconfigurationsSwiftUI?.getallconfigurations(),
-                                                  validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
+                                                  configurations: localconfigurations?.getallconfigurations(),
+                                                  validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration()
             update.addlogpermanentstore(outputrsync: outputfromrsync)
         }

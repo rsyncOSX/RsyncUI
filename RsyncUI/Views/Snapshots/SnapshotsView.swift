@@ -281,7 +281,7 @@ extension SnapshotsView {
             selectedconfig.snapdayoffweek = snapdayofweek
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations())
+                                     configurations: rsyncUIdata.getallconfigurations())
             updateconfiguration.updateconfiguration(selectedconfig, false)
             reload = true
             updated = true

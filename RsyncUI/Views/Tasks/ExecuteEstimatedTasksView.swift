@@ -117,7 +117,7 @@ extension ExecuteEstimatedTasksView {
         multipletaskstate.updatestate(state: .execute)
         ExecuteMultipleTasks(uuids: selecteduuids,
                              profile: rsyncUIdata.profile,
-                             configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                             configurations: rsyncUIdata,
                              executionstateDelegate: multipletaskstate,
                              updateinprogresscount: inprogresscountmultipletask,
                              singletaskupdate: executedetails)

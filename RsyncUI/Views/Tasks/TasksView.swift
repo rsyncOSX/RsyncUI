@@ -208,14 +208,14 @@ struct TasksView: View {
                 Task {
                     if selectedconfig.config != nil {
                         let estimateonetaskasync =
-                            EstimateOnetaskAsync(configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                            EstimateOnetaskAsync(configurations: rsyncUIdata,
                                                  updateinprogresscount: inprogresscountmultipletask,
                                                  hiddenID: selectedconfig.config?.hiddenID)
                         await estimateonetaskasync.execute()
                     } else {
                         let estimatealltasksasync =
                             EstimateAlltasksAsync(profile: rsyncUIdata.profile,
-                                                  configurationsSwiftUI: rsyncUIdata.configurationsfromstore?.configurationData,
+                                                  configurations: rsyncUIdata,
                                                   updateinprogresscount: inprogresscountmultipletask,
                                                   uuids: selecteduuids,
                                                   filter: filterstring)

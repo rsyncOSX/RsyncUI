@@ -10,7 +10,7 @@ import Foundation
 
 class EstimateAlltasksAsync {
     var structprofile: String?
-    var localconfigurationsSwiftUI: AllConfigurations?
+    var localconfigurations: RsyncUIconfigurations?
     var stackoftasktobeestimated: [Int]?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
 
@@ -22,7 +22,7 @@ class EstimateAlltasksAsync {
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
         guard localhiddenID != nil else { return }
-        if let config = localconfigurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID ?? 0) {
+        if let config = localconfigurations?.getconfiguration(hiddenID: localhiddenID ?? 0) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .argdryRun)
             guard arguments.count > 0 else { return }
             let process = RsyncProcessAsync(arguments: arguments,
@@ -33,15 +33,15 @@ class EstimateAlltasksAsync {
     }
 
     init(profile: String?,
-         configurationsSwiftUI: AllConfigurations?,
+         configurations: RsyncUIconfigurations?,
          updateinprogresscount: UpdateEstimationCount?,
          uuids: Set<UUID>,
          filter: String)
     {
         structprofile = profile
-        localconfigurationsSwiftUI = configurationsSwiftUI
+        localconfigurations = configurations
         updateestimationcountDelegate = updateinprogresscount
-        let filteredconfigurations = configurationsSwiftUI?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
+        let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()
         // Estimate selected configurations
         if uuids.count > 0 {
@@ -63,12 +63,12 @@ class EstimateAlltasksAsync {
             }
         }
         updateestimationcountDelegate?.setmaxcount(num: stackoftasktobeestimated?.count ?? 0)
-        updateestimationcountDelegate?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", configurationsSwiftUI?.getallconfigurations()?.count ?? 0)
+        updateestimationcountDelegate?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }
 
     func getconfig(hiddenID: Int?) -> Configuration? {
         if let hiddenID = hiddenID {
-            if let configurations = localconfigurationsSwiftUI?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
+            if let configurations = localconfigurations?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
                 guard configurations.count == 1 else { return nil }
                 return configurations[0]
             }

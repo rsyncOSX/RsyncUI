@@ -24,13 +24,13 @@ final class ExecuteOneTask {
     }
 
     init(hiddenID: Int,
-         configurationsSwiftUI: AllConfigurations?,
+         configurations: RsyncUIconfigurations?,
          termination: @escaping ([String]?, Int?) -> Void,
          filehandler: @escaping (Int) -> Void)
     {
         self.termination = termination
         self.filehandler = filehandler
-        config = configurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)
+        config = configurations?.getconfiguration(hiddenID: hiddenID)
         if let config = config {
             arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
         }

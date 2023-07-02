@@ -19,8 +19,8 @@ final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: -1,
-                                                     configurations: localconfigurationsSwiftUI?.getallconfigurations(),
-                                                     validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
+                                                     configurations: localconfigurations?.getallconfigurations(),
+                                                     validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration(configrecords: configrecords)
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             updateestimationcountDelegate?.asyncexecutealltasksnoestiamtioncomplete()
@@ -28,7 +28,7 @@ final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
         guard localhiddenID != nil else { return }
-        if let config = localconfigurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID ?? 0) {
+        if let config = localconfigurations?.getconfiguration(hiddenID: localhiddenID ?? 0) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
             guard arguments.count > 0 else { return }
             let process = RsyncProcessAsync(arguments: arguments,

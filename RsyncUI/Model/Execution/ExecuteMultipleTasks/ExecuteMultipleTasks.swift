@@ -21,7 +21,7 @@ enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertibl
 }
 
 final class ExecuteMultipleTasks {
-    private var localconfigurationsSwiftUI: AllConfigurations?
+    private var localconfigurations: RsyncUIconfigurations?
     private var structprofile: String?
     private var privatehiddenID: Int?
     private var stackoftasktobeexecuted: [Int]?
@@ -60,7 +60,7 @@ final class ExecuteMultipleTasks {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)
             let estimation = ExecuteOneTask(hiddenID: hiddenID,
-                                            configurationsSwiftUI: localconfigurationsSwiftUI,
+                                            configurations: localconfigurations,
                                             termination: processtermination,
                                             filehandler: filehandler)
             estimation.startexecution()
@@ -69,7 +69,7 @@ final class ExecuteMultipleTasks {
 
     private func getconfig(hiddenID: Int?) -> Configuration? {
         if let hiddenID = hiddenID {
-            if let configurations = localconfigurationsSwiftUI?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
+            if let configurations = localconfigurations?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
                 guard configurations.count == 1 else { return nil }
                 return configurations[0]
             }
@@ -80,18 +80,18 @@ final class ExecuteMultipleTasks {
     @discardableResult
     init(uuids: Set<UUID>,
          profile: String?,
-         configurationsSwiftUI: AllConfigurations?,
+         configurations: RsyncUIconfigurations?,
          executionstateDelegate: MultipleTaskState?,
          updateinprogresscount: UpdateEstimationCount?,
          singletaskupdate: ExecuteDetailsProtocol?)
     {
         structprofile = profile
-        localconfigurationsSwiftUI = configurationsSwiftUI
+        localconfigurations = configurations
         multipletasksateDelegate = executionstateDelegate
         updateestimationcountDelegate = updateinprogresscount
         updateprogessDelegate = singletaskupdate
         guard uuids.count > 0 else { return }
-        let configurations = configurationsSwiftUI?.getallconfigurations()?.filter { uuids.contains($0.id) }
+        let configurations = localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) }
         guard configurations?.count ?? 0 > 0 else { return }
         prepareandstartexecutetasks(configurations: configurations)
         records = [RemoteinfonumbersOnetask]()
@@ -127,8 +127,8 @@ final class ExecuteMultipleTasks {
             updateestimationcountDelegate?.setestimatedlist(records)
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: privatehiddenID,
-                                                     configurations: localconfigurationsSwiftUI?.getallconfigurations(),
-                                                     validhiddenIDs: localconfigurationsSwiftUI?.validhiddenIDs ?? Set())
+                                                     configurations: localconfigurations?.getallconfigurations(),
+                                                     validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration(configrecords: configrecords)
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             return
@@ -137,7 +137,7 @@ final class ExecuteMultipleTasks {
             privatehiddenID = hiddenID
             updateestimationcountDelegate?.sethiddenID(hiddenID)
             let execution = ExecuteOneTask(hiddenID: hiddenID,
-                                           configurationsSwiftUI: localconfigurationsSwiftUI,
+                                           configurations: localconfigurations,
                                            termination: processtermination,
                                            filehandler: filehandler)
             execution.startexecution()
