@@ -239,7 +239,7 @@ struct AddPreandPostView: View {
     }
 
     var configurations: [Configuration]? {
-        return rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations()
+        return rsyncUIdata.getallconfigurations()
     }
 }
 

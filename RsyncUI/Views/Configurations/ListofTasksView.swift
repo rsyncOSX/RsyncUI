@@ -187,7 +187,7 @@ struct ListofTasksView: View {
     func delete() {
         let deleteconfigurations =
             UpdateConfigurations(profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata.configurationsfromstore?.configurationData.getallconfigurations())
+                                 configurations: rsyncUIdata.getallconfigurations())
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
         reload = true

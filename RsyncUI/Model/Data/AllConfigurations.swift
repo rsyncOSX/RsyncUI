@@ -34,7 +34,7 @@ struct AllConfigurations {
     var validhiddenIDs: Set<Int>?
 
     // Function for getting Configurations read into memory, sorted by runddate
-    func getallconfigurations() -> [Configuration]? {
+    func getconfigurations() -> [Configuration]? {
         if let configurations = configurations {
             let sorted = configurations.sorted { conf1, conf2 in
                 if let days1 = conf1.dateRun?.en_us_date_from_string(),
