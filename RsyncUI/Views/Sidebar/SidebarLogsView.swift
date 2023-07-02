@@ -37,7 +37,7 @@ struct SidebarLogsView: View {
                 selectedprofile = SharedReference.shared.defaultprofile
             }
             // Initialize the Stateobject
-            logrecords.readlogrecords(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
+            logrecords.readlogsfromstore(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
             showloading = false
         }
         .onChange(of: selectedprofile) { _ in
@@ -46,10 +46,10 @@ struct SidebarLogsView: View {
                 // Update the Stateobject
                 if selectedprofile == SharedReference.shared.defaultprofile {
                     let validhiddenIDs = ReadConfigurationJSON(nil).validhiddenIDs
-                    logrecords.readlogrecords(profile: nil, validhiddenIDs: validhiddenIDs)
+                    logrecords.readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
                 } else {
                     let validhiddenIDs = ReadConfigurationJSON(selectedprofile).validhiddenIDs
-                    logrecords.readlogrecords(profile: selectedprofile, validhiddenIDs: validhiddenIDs)
+                    logrecords.readlogsfromstore(profile: selectedprofile, validhiddenIDs: validhiddenIDs)
                 }
                 showloading = false
             }

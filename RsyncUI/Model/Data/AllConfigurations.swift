@@ -28,9 +28,6 @@ struct UniqueserversandLogins: Hashable, Identifiable {
 
 struct AllConfigurations {
     var configurations: [Configuration]?
-    // Initialized during startup
-    // private var argumentAllConfigurations: [ArgumentsOneConfiguration]?
-    // valid hiddenIDs
     var validhiddenIDs: Set<Int>?
 
     init(profile: String?) {

@@ -29,19 +29,19 @@ struct Logrecordsschedules: Identifiable {
     var seconds: Int = 0
 }
 
-final class AllLoggs {
+final class LogRecords {
     private var localconfigurations: RsyncUIconfigurations?
-    private var structschedules: SchedulesSwiftUI?
+    private var structschedules: AllLogs?
     var loggrecords: [Logrecordsschedules]?
     private var localehiddenID: Int?
     var uuidsfromlogrecords = Set<Log.ID>()
 
     private func readandsortallloggdata(hiddenID: Int?) {
         var data = [Logrecordsschedules]()
-        if let input: [ConfigurationSchedule] = structschedules?.getschedules() {
+        if let input: [ConfigurationSchedule] = structschedules?.scheduleConfigurations {
             for i in 0 ..< input.count {
                 for j in 0 ..< (input[i].logrecords?.count ?? 0) {
-                    if let hiddenID = structschedules?.getschedules()[i].hiddenID {
+                    if let hiddenID = structschedules?.scheduleConfigurations?[i].hiddenID {
                         var datestring: String?
                         var date: Date?
                         if let stringdate = input[i].logrecords?[j].dateExecuted {
@@ -78,7 +78,7 @@ final class AllLoggs {
     {
         localehiddenID = hiddenID
         localconfigurations = configurations
-        structschedules = SchedulesSwiftUI(profile: profile, validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
+        structschedules = AllLogs(profile: profile, validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
         if loggrecords == nil {
             readandsortallloggdata(hiddenID: hiddenID)
         }

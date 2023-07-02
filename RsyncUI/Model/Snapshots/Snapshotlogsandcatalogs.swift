@@ -161,9 +161,9 @@ final class Snapshotlogsandcatalogs {
         localeconfig = config
         mysnapshotdata = snapshotdata
         // Getting log records from schedules, sorted after date
-        var alllogs: AllLoggs? = AllLoggs(hiddenID: config.hiddenID,
-                                          profile: profile,
-                                          configurations: configurations)
+        var alllogs: LogRecords? = LogRecords(hiddenID: config.hiddenID,
+                                              profile: profile,
+                                              configurations: configurations)
         logrecordssnapshot = alllogs?.loggrecords
         // release the object - dont need it more
         alllogs = nil

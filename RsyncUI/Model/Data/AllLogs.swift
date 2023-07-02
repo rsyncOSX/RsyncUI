@@ -8,13 +8,8 @@
 
 import Foundation
 
-struct SchedulesSwiftUI {
+struct AllLogs {
     var scheduleConfigurations: [ConfigurationSchedule]?
-
-    // Return reference to Schedule data
-    func getschedules() -> [ConfigurationSchedule] {
-        return scheduleConfigurations ?? []
-    }
 
     func getalllogs() -> [Log]? {
         var joined: [Log]?
@@ -34,15 +29,22 @@ struct SchedulesSwiftUI {
     }
 
     init(profile: String?, validhiddenIDs: Set<Int>) {
-        let schedulesdata = ReadScheduleJSON(profile, validhiddenIDs)
-        scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
-            log1.dateStart > log2.dateStart
+        if profile == SharedReference.shared.defaultprofile || profile == nil {
+            let schedulesdata = ReadScheduleJSON(nil, validhiddenIDs)
+            scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
+                log1.dateStart > log2.dateStart
+            }
+        } else {
+            let schedulesdata = ReadScheduleJSON(profile, validhiddenIDs)
+            scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
+                log1.dateStart > log2.dateStart
+            }
         }
     }
 }
 
-extension SchedulesSwiftUI: Hashable {
-    static func == (lhs: SchedulesSwiftUI, rhs: SchedulesSwiftUI) -> Bool {
+extension AllLogs: Hashable {
+    static func == (lhs: AllLogs, rhs: AllLogs) -> Bool {
         return lhs.scheduleConfigurations == rhs.scheduleConfigurations
     }
 }

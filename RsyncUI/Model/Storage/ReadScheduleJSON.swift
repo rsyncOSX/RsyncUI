@@ -45,8 +45,6 @@ class ReadScheduleJSON: NamesandPaths {
                 for i in 0 ..< data.count {
                     var schedule = ConfigurationSchedule(data[i])
                     schedule.profilename = profile
-                    // Validate that the hidden ID is OK,
-                    // schedule != Scheduletype.stopped.rawValue, logs count > 0
                     if validhiddenID.contains(schedule.hiddenID) {
                         schedules.append(schedule)
                     }

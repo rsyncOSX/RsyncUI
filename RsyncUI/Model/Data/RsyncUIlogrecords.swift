@@ -9,19 +9,22 @@
 import SwiftUI
 
 struct Readlogsfromstore {
-    var profile: String?
-    var scheduleData: SchedulesSwiftUI
+    var logrecords: [Log]?
+    var scheduleConfigurations: [ConfigurationSchedule]?
 
-    init(profile: String? = nil, validhiddenIDs: Set<Int>? = nil) {
-        self.profile = profile
-        scheduleData = SchedulesSwiftUI(profile: self.profile, validhiddenIDs: validhiddenIDs ?? Set<Int>())
+    init(profile: String?, validhiddenIDs: Set<Int>? = nil) {
+        let alllogs = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs ?? Set<Int>())
+        logrecords = alllogs.getalllogs()
+        scheduleConfigurations = alllogs.scheduleConfigurations
     }
 }
 
 @MainActor
 final class RsyncUIlogrecords: ObservableObject {
-    @Published var logrecordsfromstore: Readlogsfromstore?
     @Published var alllogssorted: [Log]?
+    @Published var scheduleConfigurations: [ConfigurationSchedule]?
+
+    var logrecordsfromstore: Readlogsfromstore?
 
     func filterlogs(_ filter: String) -> [Log]? {
         // Important - must localize search in dates
@@ -48,14 +51,16 @@ final class RsyncUIlogrecords: ObservableObject {
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
     }
 
-    func readlogrecords(profile: String?, validhiddenIDs: Set<Int>?) {
+    func readlogsfromstore(profile: String?, validhiddenIDs: Set<Int>?) {
         guard validhiddenIDs != nil else { return }
         if profile == SharedReference.shared.defaultprofile || profile == nil {
             logrecordsfromstore = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
         } else {
             logrecordsfromstore = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
         }
-        alllogssorted = logrecordsfromstore?.scheduleData.getalllogs()
+        alllogssorted = logrecordsfromstore?.logrecords
+        scheduleConfigurations = logrecordsfromstore?.scheduleConfigurations
+        logrecordsfromstore = nil
     }
 }
 
