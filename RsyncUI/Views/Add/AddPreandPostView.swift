@@ -251,3 +251,5 @@ extension AddPreandPostView {
         dataischanged.dataischanged = true
     }
 }
+
+// swiftlint:enable line_length

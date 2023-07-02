@@ -691,3 +691,5 @@ public extension View {
         }
     }
 }
+
+// swiftlint:enable line_length function_body_length file_length

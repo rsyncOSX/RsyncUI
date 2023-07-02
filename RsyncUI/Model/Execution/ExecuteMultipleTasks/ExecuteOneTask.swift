@@ -30,8 +30,10 @@ final class ExecuteOneTask {
     {
         self.termination = termination
         self.filehandler = filehandler
-        arguments = configurationsSwiftUI?.arguments4rsync(hiddenID: hiddenID, argtype: .arg)
         config = configurationsSwiftUI?.getconfiguration(hiddenID: hiddenID)
+        if let config = config {
+            arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
+        }
     }
 
     deinit {

@@ -22,13 +22,14 @@ class EstimateAlltasksAsync {
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
         guard localhiddenID != nil else { return }
-        let arguments = localconfigurationsSwiftUI?.arguments4rsync(hiddenID: localhiddenID ?? 0, argtype: .argdryRun)
-        let config = localconfigurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID ?? 0)
-        guard arguments?.count ?? 0 > 0 else { return }
-        let process = RsyncProcessAsync(arguments: arguments,
-                                        config: config,
-                                        processtermination: processtermination)
-        await process.executeProcess()
+        if let config = localconfigurationsSwiftUI?.getconfiguration(hiddenID: localhiddenID ?? 0) {
+            let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .argdryRun)
+            guard arguments.count > 0 else { return }
+            let process = RsyncProcessAsync(arguments: arguments,
+                                            config: config,
+                                            processtermination: processtermination)
+            await process.executeProcess()
+        }
     }
 
     init(profile: String?,

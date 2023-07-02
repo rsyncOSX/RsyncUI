@@ -23,6 +23,7 @@
 		E9168C0E2615ABFA00B139CE /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C0D2615ABFA00B139CE /* AddTaskView.swift */; };
 		E91CC2622607260B00D69D0B /* RsyncDefaultParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2612607260B00D69D0B /* RsyncDefaultParametersView.swift */; };
 		E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */; };
+		E91FDCA12A5173860087B4CE /* Argumentsforrsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */; };
 		E927447529407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */; };
 		E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927AAD22616E27300DC27A3 /* QuicktaskView.swift */; };
 		E92B19092755F7F600B16B03 /* LogCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B19082755F7F600B16B03 /* LogCommands.swift */; };
@@ -216,6 +217,7 @@
 		E9168C0D2615ABFA00B139CE /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		E91CC2612607260B00D69D0B /* RsyncDefaultParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncDefaultParametersView.swift; sourceTree = "<group>"; };
 		E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebareRestoreView.swift; sourceTree = "<group>"; };
+		E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Argumentsforrsync.swift; sourceTree = "<group>"; };
 		E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckfornewversionofRsyncUI.swift; sourceTree = "<group>"; };
 		E927AAD22616E27300DC27A3 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
 		E92B19082755F7F600B16B03 /* LogCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCommands.swift; sourceTree = "<group>"; };
@@ -858,6 +860,7 @@
 				E985C6F825F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift */,
 				E985C6F925F3AD9700CB895C /* ArgumentsSynchronize.swift */,
 				E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */,
+				E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */,
 			);
 			path = ComputeParametersRsync;
 			sourceTree = "<group>";
@@ -1238,6 +1241,7 @@
 				E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */,
 				E9FAE97928DF4F8F000C0F93 /* LocalRemoteInfoView.swift in Sources */,
 				E9BD14C12643082100E29347 /* TrimThree.swift in Sources */,
+				E91FDCA12A5173860087B4CE /* Argumentsforrsync.swift in Sources */,
 				E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */,
 				E90F7CA926344D60001D9CA2 /* TextExtensions.swift in Sources */,
 				E985C73F25F3AD9700CB895C /* Socket.swift in Sources */,

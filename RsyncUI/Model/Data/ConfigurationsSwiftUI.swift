@@ -61,24 +61,6 @@ struct ConfigurationsSwiftUI {
         return validhiddenIDs
     }
 
-    // Function return arguments for rsync, either arguments for
-    // real runn or arguments for --dry-run for Configuration at selected index
-    func arguments4rsync(hiddenID: Int, argtype: ArgumentsRsync) -> [String] {
-        if let config = configurations?.filter({ $0.hiddenID == hiddenID }) {
-            guard config.count == 1 else { return [] }
-            switch argtype {
-            case .arg:
-                return ArgumentsSynchronize(config: config[0]).argumentssynchronize(dryRun: false, forDisplay: false) ?? []
-            case .argdryRun:
-                return ArgumentsSynchronize(config: config[0]).argumentssynchronize(dryRun: true, forDisplay: false) ?? []
-            case .argdryRunlocalcataloginfo:
-                guard config[0].task != SharedReference.shared.syncremote else { return [] }
-                return ArgumentsLocalcatalogInfo(config: config[0]).argumentslocalcataloginfo(dryRun: true, forDisplay: false) ?? []
-            }
-        }
-        return []
-    }
-
     init(profile: String?) {
         configurations = nil
         let configurationsdata = ReadConfigurationJSON(profile)
@@ -93,3 +75,5 @@ extension ConfigurationsSwiftUI: Hashable {
         return lhs.configurations == rhs.configurations
     }
 }
+
+// swiftlint:enable line_length
