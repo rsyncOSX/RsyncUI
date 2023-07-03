@@ -12,7 +12,7 @@ struct Readlogsfromstore {
     var logrecords: [Log]?
     var scheduleConfigurations: [ConfigurationSchedule]?
 
-    init(profile: String?, validhiddenIDs: Set<Int>? = nil) {
+    init(profile: String?, validhiddenIDs: Set<Int>?) {
         let alllogs = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs ?? Set<Int>())
         logrecords = alllogs.getalllogs()
         scheduleConfigurations = alllogs.scheduleConfigurations
