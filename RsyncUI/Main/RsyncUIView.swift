@@ -44,7 +44,17 @@ struct RsyncUIView: View {
                     profilepicker
                 }
 
-                if #available(macOS 13.0, *) {
+                if #available(macOS 14.0, *) {
+                    SidebarSonoma(reload: $reload,
+                                  selectedprofile: $selectedprofile, actions: actions)
+                        .environment(rsyncUIdataSonoma)
+                        .environmentObject(errorhandling)
+                        .environmentObject(inprogresscountexecuteonetaskdetails)
+                        .environmentObject(profilenames)
+                        .onChange(of: reload, perform: { _ in
+                            reload = false
+                        })
+                } else if #available(macOS 13.0, *) {
                     SidebarVentura(reload: $reload,
                                    selectedprofile: $selectedprofile, actions: actions)
                         .environmentObject(rsyncUIdata)
@@ -84,6 +94,12 @@ struct RsyncUIView: View {
             await newversion.getversionsofrsyncui()
         }
     }
+    
+
+    @available(macOS 14.0, *)
+    var rsyncUIdataSonoma: RsyncUIconfigurationsSonoma {
+            return RsyncUIconfigurationsSonoma(profile: selectedprofile)
+        }
 
     var rsyncUIdata: RsyncUIconfigurations {
         return RsyncUIconfigurations(profile: selectedprofile)

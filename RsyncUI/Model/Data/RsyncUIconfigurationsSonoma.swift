@@ -1,31 +1,20 @@
 //
-//  rsyncUIdata.swift
-//  RsyncOSX
+//  RsyncUIconfigurationsSonoma.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 28/12/2020.
-//  Copyright © 2020 Thomas Evensen. All rights reserved.
+//  Created by Thomas Evensen on 03/07/2023.
 //
 
 import Observation
 import SwiftUI
 
-struct Readconfigurationsfromstore {
-    var configurations: [Configuration]?
-    var validhiddenIDs: Set<Int>
+@available(macOS 14, *)
+@Observable final class RsyncUIconfigurationsSonoma {
+    var configurations: [Configuration]? = [Configuration]()
+    var profile: String? = ""
 
-    init(profile: String?) {
-        let configurationsfromstore = AllConfigurations(profile: profile)
-        configurations = configurationsfromstore.configurations
-        validhiddenIDs = configurationsfromstore.validhiddenIDs ?? Set()
-    }
-}
-
-final class RsyncUIconfigurations: ObservableObject {
-    @Published var configurations: [Configuration]?
-    @Published var profile: String?
-
-    var configurationsfromstore: Readconfigurationsfromstore?
-    var validhiddenIDs: Set<Int>?
+    var configurationsfromstore: Readconfigurationsfromstore? = Readconfigurationsfromstore(profile: nil)
+    var validhiddenIDs: Set<Int>? = Set<Int>()
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {
         return configurations?.filter {

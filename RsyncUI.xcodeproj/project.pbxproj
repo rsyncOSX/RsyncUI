@@ -155,6 +155,9 @@
 		E999F92A276910BD00B80DF6 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999F929276910BD00B80DF6 /* BlurView.swift */; };
 		E99C2400261C322E009D4DBF /* ObserveableRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObserveableRestore.swift */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
+		E99DE5222A52B0E600422E85 /* RsyncUIconfigurationsSonoma.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DE5212A52B0E600422E85 /* RsyncUIconfigurationsSonoma.swift */; };
+		E99DE5242A52B16100422E85 /* SidebarSonoma.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DE5232A52B16100422E85 /* SidebarSonoma.swift */; };
+		E99DE5272A52B52800422E85 /* TasksViewSonoma.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DE5262A52B52800422E85 /* TasksViewSonoma.swift */; };
 		E9A6A42429CA076200C59183 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6A42329CA076200C59183 /* TasksView.swift */; };
 		E9B34967273AE658000B053E /* OpencatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B34966273AE658000B053E /* OpencatalogView.swift */; };
 		E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */; };
@@ -357,6 +360,9 @@
 		E999F929276910BD00B80DF6 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		E99C23FF261C322E009D4DBF /* ObserveableRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveableRestore.swift; sourceTree = "<group>"; };
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		E99DE5212A52B0E600422E85 /* RsyncUIconfigurationsSonoma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIconfigurationsSonoma.swift; sourceTree = "<group>"; };
+		E99DE5232A52B16100422E85 /* SidebarSonoma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSonoma.swift; sourceTree = "<group>"; };
+		E99DE5262A52B52800422E85 /* TasksViewSonoma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewSonoma.swift; sourceTree = "<group>"; };
 		E9A6A42329CA076200C59183 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		E9B34966273AE658000B053E /* OpencatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpencatalogView.swift; sourceTree = "<group>"; };
 		E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareOutput.swift; sourceTree = "<group>"; };
@@ -561,6 +567,7 @@
 		E985C60A25F3AD8400CB895C /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
+				E99DE5232A52B16100422E85 /* SidebarSonoma.swift */,
 				E985C60C25F3AD8400CB895C /* SidebarTasksView.swift */,
 				E985C60E25F3AD8400CB895C /* SidebarSnapshotsView.swift */,
 				E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */,
@@ -662,6 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				E9A6A42329CA076200C59183 /* TasksView.swift */,
+				E99DE5262A52B52800422E85 /* TasksViewSonoma.swift */,
 				E9EA4EA229DAA0EF00456ADA /* Counter.swift */,
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedTasksView.swift */,
 				E9134B4829893BF900FDD55D /* ExecuteNoestimatedTasksView.swift */,
@@ -893,6 +901,7 @@
 			isa = PBXGroup;
 			children = (
 				E985C70825F3AD9700CB895C /* Configurations */,
+				E99DE5212A52B0E600422E85 /* RsyncUIconfigurationsSonoma.swift */,
 				E985C71425F3AD9700CB895C /* ErrorHandling.swift */,
 				E985C70D25F3AD9700CB895C /* AllLogs.swift */,
 				E985C71625F3AD9700CB895C /* AllConfigurations.swift */,
@@ -1262,6 +1271,7 @@
 				E98F608D290D034300952149 /* CommandProcess.swift in Sources */,
 				E97F62F528DC845100DCF475 /* RsyncAsync.swift in Sources */,
 				E93E14B426E34B95004A293E /* AddProfileView.swift in Sources */,
+				E99DE5222A52B0E600422E85 /* RsyncUIconfigurationsSonoma.swift in Sources */,
 				E94E1E1E2A2DB14A00011FED /* RestoreTableView.swift in Sources */,
 				E9549A85298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift in Sources */,
 				E999F9262769104200B80DF6 /* AlertToast.swift in Sources */,
@@ -1291,6 +1301,7 @@
 				E9CE04FF29C9DA92001ACEA7 /* AlltasksView.swift in Sources */,
 				E985C73E25F3AD9700CB895C /* ytcpsocket.swift in Sources */,
 				E985C77A25F3AD9700CB895C /* RsyncParametersSingleFilesArguments.swift in Sources */,
+				E99DE5242A52B16100422E85 /* SidebarSonoma.swift in Sources */,
 				E985C72C25F3AD9700CB895C /* SnapshotData.swift in Sources */,
 				E985C67A25F3AD8400CB895C /* RsyncCommandView.swift in Sources */,
 				E985C66C25F3AD8400CB895C /* SnapshotsView.swift in Sources */,
@@ -1340,6 +1351,7 @@
 				E985C79125F3AD9700CB895C /* ObserveableUsersetting.swift in Sources */,
 				E999F92A276910BD00B80DF6 /* BlurView.swift in Sources */,
 				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,
+				E99DE5272A52B52800422E85 /* TasksViewSonoma.swift in Sources */,
 				E985C75025F3AD9700CB895C /* DecodeConfigurationSchedule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
