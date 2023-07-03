@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ListofTasksLightView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+
     @Binding var selecteduuids: Set<Configuration.ID>
 
     var body: some View {

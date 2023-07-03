@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SidebarTasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
 

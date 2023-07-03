@@ -19,7 +19,6 @@ struct RsyncUIView: View {
     @State private var start: Bool = true
 
     // Initial view in tasks for sidebar macOS 12
-    @State private var selection: NavigationItem? = Optional.none
     var actions: Actions
 
     var body: some View {
@@ -44,38 +43,15 @@ struct RsyncUIView: View {
                     profilepicker
                 }
 
-                if #available(macOS 14.0, *) {
-                    SidebarSonoma(reload: $reload,
-                                  selectedprofile: $selectedprofile, actions: actions)
-                        .environment(rsyncUIdataSonoma)
-                        .environmentObject(errorhandling)
-                        .environmentObject(inprogresscountexecuteonetaskdetails)
-                        .environmentObject(profilenames)
-                        .onChange(of: reload, perform: { _ in
-                            reload = false
-                        })
-                } else if #available(macOS 13.0, *) {
-                    SidebarVentura(reload: $reload,
-                                   selectedprofile: $selectedprofile, actions: actions)
-                        .environmentObject(rsyncUIdata)
-                        .environmentObject(errorhandling)
-                        .environmentObject(inprogresscountexecuteonetaskdetails)
-                        .environmentObject(profilenames)
-                        .onChange(of: reload, perform: { _ in
-                            reload = false
-                        })
-                } else {
-                    Sidebar(reload: $reload,
-                            selectedprofile: $selectedprofile,
-                            selection: $selection, actions: actions)
-                        .environmentObject(rsyncUIdata)
-                        .environmentObject(errorhandling)
-                        .environmentObject(inprogresscountexecuteonetaskdetails)
-                        .environmentObject(profilenames)
-                        .onChange(of: reload, perform: { _ in
-                            reload = false
-                        })
-                }
+                SidebarSonoma(reload: $reload,
+                              selectedprofile: $selectedprofile, actions: actions)
+                    .environment(rsyncUIdata)
+                    .environmentObject(errorhandling)
+                    .environmentObject(inprogresscountexecuteonetaskdetails)
+                    .environmentObject(profilenames)
+                    .onChange(of: reload, perform: { _ in
+                        reload = false
+                    })
             }
 
             HStack {
@@ -89,17 +65,10 @@ struct RsyncUIView: View {
         }
         .padding()
         .task {
-            selection = .tasksview
             await rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }
     }
-    
-
-    @available(macOS 14.0, *)
-    var rsyncUIdataSonoma: RsyncUIconfigurationsSonoma {
-            return RsyncUIconfigurationsSonoma(profile: selectedprofile)
-        }
 
     var rsyncUIdata: RsyncUIconfigurations {
         return RsyncUIconfigurations(profile: selectedprofile)

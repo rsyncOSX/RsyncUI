@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
 
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedconfig: Configuration?

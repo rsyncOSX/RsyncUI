@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AddProfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -68,7 +69,7 @@ struct AddProfileView: View {
                 .sheet(isPresented: $newdata.showAlertfordelete) {
                     ConfirmDeleteProfileView(isPresented: $newdata.showAlertfordelete,
                                              delete: $newdata.confirmdeleteselectedprofile,
-                                             profile: $rsyncUIdata.profile)
+                                             profile: rsyncUIdata.profile)
                         .onDisappear(perform: {
                             deleteprofile()
                         })

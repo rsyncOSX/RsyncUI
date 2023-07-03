@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExecuteNoestimateOneTaskView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
     // These two objects keeps track of the state and collects
     // the estimated values.
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()

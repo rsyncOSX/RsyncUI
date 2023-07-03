@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SidebarLogsView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedprofile: String?
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
 
+    @Binding var selectedprofile: String?
     @StateObject private var logrecords = RsyncUIlogrecords()
     @State private var showloading = true
 

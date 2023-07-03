@@ -16,7 +16,7 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
 }
 
 struct QuicktaskView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
 
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
