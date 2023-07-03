@@ -14,7 +14,7 @@ struct Readlogsfromstore {
 
     init(profile: String?, validhiddenIDs: Set<Int>?) {
         let alllogs = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs ?? Set<Int>())
-        logrecords = alllogs.getalllogs()
+        logrecords = alllogs.logrecords
         scheduleConfigurations = alllogs.scheduleConfigurations
     }
 }

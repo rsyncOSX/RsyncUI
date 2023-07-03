@@ -10,6 +10,7 @@ import Foundation
 
 class ReadScheduleJSON: NamesandPaths {
     var schedules: [ConfigurationSchedule]?
+    var logrecords: [Log]?
     var filenamedatastore = [SharedReference.shared.fileschedulesjson]
     var subscriptons = Set<AnyCancellable>()
 
@@ -41,15 +42,23 @@ class ReadScheduleJSON: NamesandPaths {
                     self.propogateerror(error: error)
                 }
             } receiveValue: { [unowned self] data in
-                var schedules = [ConfigurationSchedule]()
+                schedules = [ConfigurationSchedule]()
                 for i in 0 ..< data.count {
-                    var schedule = ConfigurationSchedule(data[i])
-                    schedule.profilename = profile
-                    if validhiddenID.contains(schedule.hiddenID) {
-                        schedules.append(schedule)
+                    var oneschedule = ConfigurationSchedule(data[i])
+                    oneschedule.profilename = profile
+                    if validhiddenID.contains(oneschedule.hiddenID) {
+                        schedules?.append(oneschedule)
                     }
                 }
-                self.schedules = schedules
+                if schedules?.count ?? 0 > 0 {
+                    logrecords = [Log]()
+                    for i in 0 ..< (schedules?.count ?? 0) {
+                        if let records = schedules?[i].logrecords {
+                            logrecords?.append(contentsOf: records)
+                        }
+                    }
+                    logrecords = logrecords?.sorted(by: \.date, using: >)
+                }
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
     }

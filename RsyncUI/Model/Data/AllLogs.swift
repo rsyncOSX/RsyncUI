@@ -10,23 +10,7 @@ import Foundation
 
 struct AllLogs {
     var scheduleConfigurations: [ConfigurationSchedule]?
-
-    func getalllogs() -> [Log]? {
-        var joined: [Log]?
-        let schedulerecords = scheduleConfigurations
-        if (schedulerecords?.count ?? 0) > 0 {
-            joined = [Log]()
-            for i in 0 ..< (schedulerecords?.count ?? 0) {
-                if let logrecords = schedulerecords?[i].logrecords {
-                    joined?.append(contentsOf: logrecords)
-                }
-            }
-            if let joined = joined {
-                return joined.sorted(by: \.date, using: >)
-            }
-        }
-        return nil
-    }
+    var logrecords: [Log]?
 
     init(profile: String?, validhiddenIDs: Set<Int>) {
         if profile == SharedReference.shared.defaultprofile || profile == nil {
@@ -34,11 +18,13 @@ struct AllLogs {
             scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
                 log1.dateStart > log2.dateStart
             }
+            logrecords = schedulesdata.logrecords
         } else {
             let schedulesdata = ReadScheduleJSON(profile, validhiddenIDs)
             scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
                 log1.dateStart > log2.dateStart
             }
+            logrecords = schedulesdata.logrecords
         }
     }
 }
