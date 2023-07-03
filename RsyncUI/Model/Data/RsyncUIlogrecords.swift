@@ -6,6 +6,7 @@
 //
 // swiftlint:disable line_length
 
+import Observation
 import SwiftUI
 
 struct Readlogsfromstore {
@@ -19,11 +20,12 @@ struct Readlogsfromstore {
     }
 }
 
-final class RsyncUIlogrecords: ObservableObject {
-    @Published var alllogssorted: [Log]?
-    @Published var scheduleConfigurations: [ConfigurationSchedule]?
+@Observable
+final class RsyncUIlogrecords {
+    var alllogssorted: [Log]? = [Log]()
+    var scheduleConfigurations: [ConfigurationSchedule]? = [ConfigurationSchedule]()
 
-    var logrecordsfromstore: Readlogsfromstore?
+    var logrecordsfromstore: Readlogsfromstore? = Readlogsfromstore(profile: nil, validhiddenIDs: nil)
 
     func filterlogs(_ filter: String) -> [Log]? {
         // Important - must localize search in dates
@@ -51,6 +53,18 @@ final class RsyncUIlogrecords: ObservableObject {
     }
 
     func readlogsfromstore(profile: String?, validhiddenIDs: Set<Int>?) {
+        guard validhiddenIDs != nil else { return }
+        if profile == SharedReference.shared.defaultprofile || profile == nil {
+            logrecordsfromstore = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
+        } else {
+            logrecordsfromstore = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
+        }
+        alllogssorted = logrecordsfromstore?.logrecords
+        scheduleConfigurations = logrecordsfromstore?.scheduleConfigurations
+        logrecordsfromstore = nil
+    }
+
+    init(profile: String?, validhiddenIDs: Set<Int>?) {
         guard validhiddenIDs != nil else { return }
         if profile == SharedReference.shared.defaultprofile || profile == nil {
             logrecordsfromstore = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct LogListAlllogsView: View {
-    @EnvironmentObject var logrecords: RsyncUIlogrecords
+    @SwiftUI.Environment(RsyncUIlogrecords.self) private var logrecords
+
     @Binding var selectedprofile: String?
     @State private var filterstring: String = ""
     @State private var selecteduuids = Set<UUID>()

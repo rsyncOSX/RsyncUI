@@ -11,20 +11,19 @@ struct SidebarLogsView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
 
     @Binding var selectedprofile: String?
-    @StateObject private var logrecords = RsyncUIlogrecords()
     @State private var showloading = true
 
     var body: some View {
         ZStack {
             TabView {
                 LogListAlllogsView(selectedprofile: $selectedprofile)
-                    .environmentObject(logrecords)
+                    .environment(logrecords)
                     .tabItem {
                         Text("All logs")
                     }
 
                 LogsbyConfigurationView()
-                    .environmentObject(logrecords)
+                    .environment(logrecords)
                     .tabItem {
                         Text("By task")
                     }
@@ -40,7 +39,7 @@ struct SidebarLogsView: View {
             logrecords.readlogsfromstore(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
             showloading = false
         }
-        .onChange(of: selectedprofile) { _ in
+        .onChange(of: selectedprofile) {
             Task {
                 showloading = true
                 // Update the Stateobject
@@ -54,5 +53,9 @@ struct SidebarLogsView: View {
                 showloading = false
             }
         }
+    }
+
+    var logrecords: RsyncUIlogrecords {
+        return RsyncUIlogrecords(profile: rsyncUIdata.profile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
     }
 }
