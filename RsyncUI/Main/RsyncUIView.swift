@@ -49,9 +49,9 @@ struct RsyncUIView: View {
                     .environmentObject(errorhandling)
                     .environmentObject(inprogresscountexecuteonetaskdetails)
                     .environmentObject(profilenames)
-                    .onChange(of: reload, perform: { _ in
+                    .onChange(of: reload) {
                         reload = false
-                    })
+                    }
             }
 
             HStack {
