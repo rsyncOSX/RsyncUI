@@ -14,6 +14,7 @@ struct Readlogsfromstore {
     var scheduleConfigurations: [ConfigurationSchedule]?
 
     init(profile: String?, validhiddenIDs: Set<Int>?) {
+        guard validhiddenIDs != nil else { return }
         let alllogs = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs ?? Set<Int>())
         logrecords = alllogs.logrecords
         scheduleConfigurations = alllogs.scheduleConfigurations
@@ -24,7 +25,6 @@ struct Readlogsfromstore {
 final class RsyncUIlogrecords {
     var alllogssorted: [Log]? = [Log]()
     var scheduleConfigurations: [ConfigurationSchedule]? = [ConfigurationSchedule]()
-
     var logrecordsfromstore: Readlogsfromstore? = Readlogsfromstore(profile: nil, validhiddenIDs: nil)
 
     func filterlogs(_ filter: String) -> [Log]? {
