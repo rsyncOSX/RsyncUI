@@ -11,7 +11,7 @@ import SwiftUI
 final class ErrorHandling: ObservableObject {
     @Published private(set) var activeError: Error?
 
-    func propogateerror(error: Error) {
+    func alerterror(error: Error) {
         DispatchQueue.main.async {
             self.activeError = error
         }
