@@ -10,8 +10,8 @@ import SwiftUI
 struct AddProfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(Profilenames.self) private var profilenames
 
-    @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
@@ -21,14 +21,12 @@ struct AddProfileView: View {
     var body: some View {
         ZStack {
             VStack {
-                Table(profilenames.profiles ?? [], selection: $uuidprofile.onChange {
-                    let profile = profilenames.profiles?.filter { profiles in
+                Table(profilenames.profiles, selection: $uuidprofile.onChange {
+                    let profile = profilenames.profiles.filter { profiles in
                         uuidprofile.contains(profiles.id)
                     }
-                    if (profile?.count ?? 0) == 1 {
-                        if let profile = profile {
-                            selectedprofile = profile[0].profile
-                        }
+                    if profile.count == 1 {
+                        selectedprofile = profile[0].profile
                     }
                 }) {
                     TableColumn("Profiles") { name in

@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Observation
 
-final class Rsyncversion: ObservableObject {
-    @MainActor
+@Observable
+final class Rsyncversion {
     func getrsyncversion() async {
         if SharedReference.shared.norsync == false {
-            let command = RsyncAsync(arguments: ["--version"],
-                                     processtermination: processtermination)
+            let command = await RsyncAsync(arguments: ["--version"],
+                                           processtermination: processtermination)
 
             await command.executeProcess()
         }
@@ -31,11 +32,11 @@ final class Rsyncversion: ObservableObject {
 extension Rsyncversion {
     func processtermination(data: [String]?) {
         guard data?.count ?? 0 > 0 else { return }
-        if let rsyncversionshort = data?[0],
-           let rsyncversionstring = data?.joined(separator: "\n")
+        if let localrsyncversionshort = data?[0],
+           let localrsyncversionstring = data?.joined(separator: "\n")
         {
-            SharedReference.shared.rsyncversionshort = rsyncversionshort
-            SharedReference.shared.rsyncversionstring = rsyncversionstring
+            SharedReference.shared.rsyncversionshort = localrsyncversionshort
+            SharedReference.shared.rsyncversionstring = localrsyncversionstring
         }
     }
 }

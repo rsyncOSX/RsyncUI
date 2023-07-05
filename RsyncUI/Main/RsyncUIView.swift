@@ -9,9 +9,8 @@ import SwiftUI
 
 struct RsyncUIView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
-
-    @StateObject var rsyncversion = Rsyncversion()
-    @StateObject var profilenames = Profilenames()
+    @State private var rsyncversion = Rsyncversion()
+    @State private var profilenames = Profilenames()
 
     @StateObject var inprogresscountexecuteonetaskdetails = InprogressCountExecuteOneTaskDetails()
 
@@ -39,7 +38,7 @@ struct RsyncUIView: View {
                 })
 
             } else {
-                if profilenames.profiles?.count == 0 {
+                if profilenames.profiles.count == 0 {
                     defaultprofilepicker
                 } else {
                     profilepicker
@@ -48,9 +47,10 @@ struct RsyncUIView: View {
                 SidebarSonoma(reload: $reload,
                               selectedprofile: $selectedprofile, actions: actions)
                     .environment(rsyncUIdata)
+                    .environment(profilenames)
                     .environmentObject(errorhandling)
                     .environmentObject(inprogresscountexecuteonetaskdetails)
-                    .environmentObject(profilenames)
+
                     .onChange(of: reload) {
                         reload = false
                     }
@@ -84,11 +84,9 @@ struct RsyncUIView: View {
     var profilepicker: some View {
         HStack {
             Picker("", selection: $selectedprofile) {
-                if let profiles = profilenames.profiles {
-                    ForEach(profiles, id: \.self) { profile in
-                        Text(profile.profile ?? "")
-                            .tag(profile.profile)
-                    }
+                ForEach(profilenames.profiles, id: \.self) { profile in
+                    Text(profile.profile ?? "")
+                        .tag(profile.profile)
                 }
             }
             .frame(width: 180)
