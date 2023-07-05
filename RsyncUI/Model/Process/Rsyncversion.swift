@@ -8,11 +8,10 @@
 import Foundation
 
 final class Rsyncversion: ObservableObject {
-    @MainActor
     func getrsyncversion() async {
         if SharedReference.shared.norsync == false {
-            let command = RsyncAsync(arguments: ["--version"],
-                                     processtermination: processtermination)
+            let command = await RsyncAsync(arguments: ["--version"],
+                                           processtermination: processtermination)
 
             await command.executeProcess()
         }
