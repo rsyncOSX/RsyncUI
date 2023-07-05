@@ -33,10 +33,11 @@ final class ObserveableUsersetting {
     // @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     // Check for network changes
     var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
-    // Set if path for rsync and restore is not valid
-    var novalidpathmessage: Bool = false
     // True if on ARM based Mac
     var macosarm: Bool = SharedReference.shared.macosarm
+    // alert about error
+    var error: Error = Validatedpath.noerror
+    var alerterror: Bool = false
 
     // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) {
@@ -50,11 +51,9 @@ final class ObserveableUsersetting {
         validate.setlocalrsyncpath(path)
         do {
             _ = try validate.validateandrsyncpath()
-        } catch _ {
-            // let error = e
-            // propogateerror(error: error)
-            // localrsyncpath = "NOT valid path"
-            novalidpathmessage = true
+        } catch let e {
+            error = e
+            alerterror = true
         }
     }
 
@@ -77,11 +76,9 @@ final class ObserveableUsersetting {
             if ok {
                 SharedReference.shared.pathforrestore = atpath
             }
-        } catch _ {
-            // let error = e
-            // propogateerror(error: error)
-            // temporarypathforrestore = "NOT valid pah"
-            novalidpathmessage = true
+        } catch let e {
+            error = e
+            alerterror = true
         }
     }
 
@@ -109,23 +106,22 @@ final class ObserveableUsersetting {
                 SharedReference.shared.marknumberofdayssince = Double(days) ?? 5
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
 
 enum Validatedpath: LocalizedError {
     case nopath
+    case noerror
 
     var errorDescription: String? {
         switch self {
         case .nopath:
             return "No such path"
+        case .noerror:
+            return ""
         }
     }
 }

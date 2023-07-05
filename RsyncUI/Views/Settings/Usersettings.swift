@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct Usersettings: View {
+    @SwiftUI.Environment(AlertError.self) private var alerterror
     @StateObject var rsyncversion = Rsyncversion()
     @State private var usersettings = ObserveableUsersetting()
     @State private var backup = false
@@ -124,17 +125,6 @@ struct Usersettings: View {
                             }
                         })
                 }
-
-                if usersettings.novalidpathmessage {
-                    AlertToast(type: .error(Color.red),
-                               title: Optional(NSLocalizedString("Not valid path", comment: "")), subTitle: Optional(""))
-                        .onAppear(perform: {
-                            // Show updated for 1 second
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                usersettings.novalidpathmessage = false
-                            }
-                        })
-                }
             }
 
             // Save button right down corner
@@ -153,6 +143,9 @@ struct Usersettings: View {
         }
         .lineSpacing(2)
         .padding()
+        .alert(isPresented: $usersettings.alerterror,
+               content: { Alert(localizedError: usersettings.error)
+               })
     }
 
     // Rsync
