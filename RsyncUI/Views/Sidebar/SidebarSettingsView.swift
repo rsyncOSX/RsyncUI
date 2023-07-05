@@ -21,6 +21,7 @@ struct SidebarSettingsView: View {
                     Label("Settings", systemImage: "gear")
                 }
             Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(profile).getuniqueserversandlogins() ?? [])
+                .environment(alerterror)
                 .tabItem {
                     Label("Ssh", systemImage: "terminal")
                 }

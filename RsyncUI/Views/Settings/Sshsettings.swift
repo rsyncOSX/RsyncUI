@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct Sshsettings: View {
-    @StateObject var usersettings = ObservableSSH()
+    @SwiftUI.Environment(AlertError.self) private var alerterror
+    @State private var usersettings = ObservableSSH()
 
     @State private var selectedlogin: UniqueserversandLogins?
     @State private var backup = false
@@ -75,6 +76,9 @@ struct Sshsettings: View {
         .onAppear(perform: {
             localsshkeys = SshKeys().validatepublickeypresent()
         })
+        .alert(isPresented: $usersettings.alerterror,
+               content: { Alert(localizedError: usersettings.error)
+               })
     }
 
     // Copy strings
@@ -88,21 +92,26 @@ struct Sshsettings: View {
     }
 
     var setsshpath: some View {
-        EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile)
-            .onAppear(perform: {
-                if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
-                    usersettings.sshkeypathandidentityfile = sshkeypath
-                }
-            })
+        EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile.onChange {
+            usersettings.sshkeypath(usersettings.sshkeypathandidentityfile)
+        })
+        .onAppear(perform: {
+            if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
+                usersettings.sshkeypathandidentityfile = sshkeypath
+            }
+        })
     }
 
     var setsshport: some View {
-        EditValue(250, NSLocalizedString("Global ssh port", comment: ""), $usersettings.sshport)
-            .onAppear(perform: {
-                if let sshport = SharedReference.shared.sshport {
-                    usersettings.sshport = String(sshport)
-                }
-            })
+        EditValue(250, NSLocalizedString("Global ssh port", comment: ""),
+                  $usersettings.sshportnumber.onChange {
+                      usersettings.sshport(usersettings.sshportnumber)
+                  })
+                  .onAppear(perform: {
+                      if let sshport = SharedReference.shared.sshport {
+                          usersettings.sshportnumber = String(sshport)
+                      }
+                  })
     }
 
     var uniqueuserversandloginslist: some View {

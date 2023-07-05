@@ -919,9 +919,9 @@
 		E985C71A25F3AD9700CB895C /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				E985C71D25F3AD9700CB895C /* Extensions.swift */,
 				E985C71B25F3AD9700CB895C /* SharedReference.swift */,
 				E985C71C25F3AD9700CB895C /* ObserveableUsersetting.swift */,
-				E985C71D25F3AD9700CB895C /* Extensions.swift */,
 				E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */,
 				E9C9306B25FEA4230049A76B /* ObserveablePath.swift */,
 				E99C23FF261C322E009D4DBF /* ObserveableRestore.swift */,

@@ -10,9 +10,10 @@ import SwiftUI
 
 struct Usersettings: View {
     @SwiftUI.Environment(AlertError.self) private var alerterror
-    @StateObject var rsyncversion = Rsyncversion()
     @State private var usersettings = ObserveableUsersetting()
+
     @State private var backup = false
+    @StateObject var rsyncversion = Rsyncversion()
 
     var body: some View {
         Form {
