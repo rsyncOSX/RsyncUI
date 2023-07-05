@@ -99,7 +99,6 @@ extension ObserveableRestore {
         return true
     }
 
-    @MainActor
     func restore(_: Configuration) async {
         var arguments: [String]?
         do {
@@ -108,8 +107,8 @@ extension ObserveableRestore {
                 arguments = computerestorearguments(forDisplay: false)
                 if let arguments = arguments {
                     restorefilesinprogress = true
-                    let command = RsyncAsync(arguments: arguments,
-                                             processtermination: processtermination)
+                    let command = await RsyncAsync(arguments: arguments,
+                                                   processtermination: processtermination)
                     await command.executeProcess()
                 }
             }
