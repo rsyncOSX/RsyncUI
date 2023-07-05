@@ -45,6 +45,9 @@ final class ObserveableAddConfigurations: ObservableObject {
     @Published var assistlocalcatalog: String = ""
     @Published var assistremoteuser: String = ""
     @Published var assistremoteserver: String = ""
+    // Alerts
+    @Published var alerterror: Bool = false
+    @Published var error: Error = Validatedpath.noerror
 
     // For update post and pretasks
     var enablepre: Bool = false
@@ -229,8 +232,8 @@ final class ObserveableAddConfigurations: ObservableObject {
                 updateconfig(profile, configurations)
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
     }
 
@@ -261,10 +264,6 @@ final class ObserveableAddConfigurations: ObservableObject {
             }
         }
         return false
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 
     func verifyremotestorageislocal() -> Bool {

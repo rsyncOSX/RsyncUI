@@ -33,10 +33,11 @@ final class ObserveableUsersetting: ObservableObject {
     // @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     // Check for network changes
     @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
-    // Set if path for rsync and restore is not valid
-    @Published var novalidpathmessage: Bool = false
     // True if on ARM based Mac
     @Published var macosarm: Bool = SharedReference.shared.macosarm
+    // Alerts
+    @Published var alerterror: Bool = false
+    @Published var error: Error = Validatedpath.noerror
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -101,11 +102,9 @@ extension ObserveableUsersetting {
         validate.setlocalrsyncpath(path)
         do {
             _ = try validate.validateandrsyncpath()
-        } catch _ {
-            // let error = e
-            // propogateerror(error: error)
-            // localrsyncpath = "NOT valid path"
-            novalidpathmessage = true
+        } catch let e {
+            error = e
+            alerterror = true
         }
     }
 
@@ -128,11 +127,9 @@ extension ObserveableUsersetting {
             if ok {
                 SharedReference.shared.pathforrestore = atpath
             }
-        } catch _ {
-            // let error = e
-            // propogateerror(error: error)
-            // temporarypathforrestore = "NOT valid pah"
-            novalidpathmessage = true
+        } catch let e {
+            error = e
+            alerterror = true
         }
     }
 
@@ -160,25 +157,22 @@ extension ObserveableUsersetting {
                 SharedReference.shared.marknumberofdayssince = Double(days) ?? 5
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
-    }
-}
-
-extension ObserveableUsersetting {
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
 
 enum Validatedpath: LocalizedError {
     case nopath
+    case noerror
 
     var errorDescription: String? {
         switch self {
         case .nopath:
             return "No such path"
+        case .noerror:
+            return ""
         }
     }
 }

@@ -23,6 +23,10 @@ final class ObserveableRestore: ObservableObject {
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
 
+    // Alerts
+    @Published var alerterror: Bool = false
+    @Published var error: Error = Validatedpath.noerror
+
     // Combine
     var subscriptions = Set<AnyCancellable>()
     var rsyncdata: [String]?
@@ -87,8 +91,8 @@ extension ObserveableRestore {
                 SharedReference.shared.pathforrestore = atpath
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
     }
 
@@ -114,8 +118,8 @@ extension ObserveableRestore {
                 }
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
     }
 
@@ -200,12 +204,6 @@ extension ObserveableRestore {
         for i in 0 ..< (arguments?.count ?? 0) {
             commandstring += (arguments?[i] ?? "")
         }
-    }
-}
-
-extension ObserveableRestore {
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
 

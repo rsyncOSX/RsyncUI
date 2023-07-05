@@ -24,6 +24,10 @@ final class ObserveableParametersDefault: ObservableObject {
     @Published var removecompress: Bool = false
     @Published var removedelete: Bool = false
     @Published var daemon: Bool = false
+    // Alerts
+    @Published var alerterror: Bool = false
+    @Published var error: Error = Validatedpath.noerror
+
     // Combine
     var subscriptions = Set<AnyCancellable>()
 
@@ -144,8 +148,8 @@ extension ObserveableParametersDefault {
                 configuration?.sshkeypathandidentityfile = keypath
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
     }
 
@@ -172,8 +176,8 @@ extension ObserveableParametersDefault {
                 configuration?.sshport = Int(port)
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
     }
 
@@ -214,11 +218,5 @@ extension ObserveableParametersDefault {
         removecompress = false
         removedelete = false
         daemon = false
-    }
-}
-
-extension ObserveableParametersDefault {
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }

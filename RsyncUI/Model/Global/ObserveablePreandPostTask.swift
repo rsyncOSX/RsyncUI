@@ -18,6 +18,9 @@ final class ObserveablePreandPostTask: ObservableObject {
     // Added and updated labels
     // @Published var updated = false
     @Published var reload: Bool = false
+    // Alerts
+    @Published var alerterror: Bool = false
+    @Published var error: Error = Validatedpath.noerror
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -87,8 +90,8 @@ final class ObserveablePreandPostTask: ObservableObject {
                 updateconfig(profile, configurations)
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
     }
 
@@ -142,9 +145,5 @@ final class ObserveablePreandPostTask: ObservableObject {
             }
         }
         return false
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }

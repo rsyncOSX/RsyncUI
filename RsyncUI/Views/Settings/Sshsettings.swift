@@ -75,6 +75,9 @@ struct Sshsettings: View {
         .onAppear(perform: {
             localsshkeys = SshKeys().validatepublickeypresent()
         })
+        .alert(isPresented: $usersettings.alerterror,
+               content: { Alert(localizedError: usersettings.error)
+               })
     }
 
     // Copy strings

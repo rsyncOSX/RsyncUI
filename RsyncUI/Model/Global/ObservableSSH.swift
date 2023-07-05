@@ -17,6 +17,9 @@ final class ObservableSSH: ObservableObject {
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
     @Published var sshkeypathandidentityfile: String = ""
+    // Alerts
+    @Published var alerterror: Bool = false
+    @Published var error: Error = Validatedpath.noerror
 
     // Combine
     var subscriptions = Set<AnyCancellable>()
@@ -63,8 +66,8 @@ extension ObservableSSH {
                 }
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
     }
 
@@ -92,15 +95,9 @@ extension ObservableSSH {
                 SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
             }
         } catch let e {
-            let error = e
-            propogateerror(error: error)
+            error = e
+            alerterror = true
         }
-    }
-}
-
-extension ObservableSSH {
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
 

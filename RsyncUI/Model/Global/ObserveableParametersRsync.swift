@@ -28,6 +28,10 @@ final class ObserveableParametersRsync: ObservableObject {
     // Selected configuration
     @Published var configuration: Configuration?
 
+    // Alerts
+    @Published var alerterror: Bool = false
+    @Published var error: Error = Validatedpath.noerror
+
     init() {
         $parameter8
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
@@ -176,12 +180,6 @@ extension ObserveableParametersRsync {
         parameter12 = ""
         parameter13 = ""
         parameter14 = ""
-    }
-}
-
-extension ObserveableParametersRsync {
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
     }
 }
 

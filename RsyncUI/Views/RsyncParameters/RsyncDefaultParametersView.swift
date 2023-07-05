@@ -118,6 +118,9 @@ struct RsyncDefaultParametersView: View {
                     dataischanged.dataischanged = false
                 }
             }
+            .alert(isPresented: $parameters.alerterror,
+                   content: { Alert(localizedError: parameters.error)
+                   })
         }
     }
 

@@ -158,6 +158,9 @@ struct AddTaskView: View {
                            reload: $reload)
                 .frame(width: 500, height: 500)
         }
+        .alert(isPresented: $newdata.alerterror,
+               content: { Alert(localizedError: newdata.error)
+               })
     }
 
     var profilebutton: some View {
