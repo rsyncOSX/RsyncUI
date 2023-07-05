@@ -83,8 +83,6 @@ final class ObservableSSH {
     }
 }
 
-extension ObservableSSH {}
-
 enum InputError: LocalizedError {
     case notvalidDouble
     case notvalidInt

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct Othersettings: View {
-    @StateObject var usersettings = ObserveablePath()
     @State private var backup: Bool = false
+    @State private var environmentvalue: String = ""
+    @State private var environment: String = ""
 
     var body: some View {
         Form {
@@ -57,22 +58,26 @@ struct Othersettings: View {
 
     var setenvironment: some View {
         EditValue(350, NSLocalizedString("Environment", comment: ""),
-                  $usersettings.environment)
-            .onAppear(perform: {
-                if let environment = SharedReference.shared.environment {
-                    usersettings.environment = environment
-                }
-            })
+                  $environment.onChange {
+                      SharedReference.shared.environment = environment
+                  })
+                  .onAppear(perform: {
+                      if let environmentstring = SharedReference.shared.environment {
+                          environment = environmentstring
+                      }
+                  })
     }
 
     var setenvironmenvariable: some View {
         EditValue(350, NSLocalizedString("Environment variable", comment: ""),
-                  $usersettings.environmentvalue)
-            .onAppear(perform: {
-                if let environmentvalue = SharedReference.shared.environmentvalue {
-                    usersettings.environmentvalue = environmentvalue
-                }
-            })
+                  $environmentvalue.onChange {
+                      SharedReference.shared.environmentvalue = environmentvalue
+                  })
+                  .onAppear(perform: {
+                      if let environmentvaluestring = SharedReference.shared.environmentvalue {
+                          environmentvalue = environmentvaluestring
+                      }
+                  })
     }
 }
 

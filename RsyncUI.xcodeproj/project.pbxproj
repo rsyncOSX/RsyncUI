@@ -167,7 +167,6 @@
 		E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BE2642FE6300E29347 /* TrimTwo.swift */; };
 		E9BD14C12643082100E29347 /* TrimThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14C02643082100E29347 /* TrimThree.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */; };
-		E9C9306C25FEA4230049A76B /* ObserveablePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObserveablePath.swift */; };
 		E9CE04FF29C9DA92001ACEA7 /* AlltasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CE04FE29C9DA92001ACEA7 /* AlltasksView.swift */; };
 		E9D1AFE62A2E49B600AD8125 /* ListofTasksLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */; };
 		E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */; };
@@ -368,7 +367,6 @@
 		E9BD14BE2642FE6300E29347 /* TrimTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimTwo.swift; sourceTree = "<group>"; };
 		E9BD14C02643082100E29347 /* TrimThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimThree.swift; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableSSH.swift; sourceTree = "<group>"; };
-		E9C9306B25FEA4230049A76B /* ObserveablePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveablePath.swift; sourceTree = "<group>"; };
 		E9CE04FE29C9DA92001ACEA7 /* AlltasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlltasksView.swift; sourceTree = "<group>"; };
 		E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksLightView.swift; sourceTree = "<group>"; };
 		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
@@ -923,7 +921,6 @@
 				E985C71B25F3AD9700CB895C /* SharedReference.swift */,
 				E985C71C25F3AD9700CB895C /* ObserveableUsersetting.swift */,
 				E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */,
-				E9C9306B25FEA4230049A76B /* ObserveablePath.swift */,
 				E99C23FF261C322E009D4DBF /* ObserveableRestore.swift */,
 				E9359B9926691EFD00D40C43 /* ObserveableAddConfigurations.swift */,
 				E9E811F82669E2EA0049E672 /* ObserveablePreandPostTask.swift */,
@@ -1200,7 +1197,6 @@
 				E9D1AFE62A2E49B600AD8125 /* ListofTasksLightView.swift in Sources */,
 				E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */,
 				E9569EA927B809EE0038799C /* ReadUserConfigurationJSON.swift in Sources */,
-				E9C9306C25FEA4230049A76B /* ObserveablePath.swift in Sources */,
 				E9569EAD27B80C220038799C /* DecodeUserConfiguration.swift in Sources */,
 				E801DC662637FD990060723F /* WriteConfigurationJSON.swift in Sources */,
 				E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */,

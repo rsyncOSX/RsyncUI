@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct RsyncUIView: View {
+    @State private var newversion = CheckfornewversionofRsyncUI()
+
     @StateObject var rsyncversion = Rsyncversion()
     @StateObject var profilenames = Profilenames()
-    @StateObject var newversion = CheckfornewversionofRsyncUI()
+
     @StateObject var inprogresscountexecuteonetaskdetails = InprogressCountExecuteOneTaskDetails()
 
     @Binding var selectedprofile: String?
