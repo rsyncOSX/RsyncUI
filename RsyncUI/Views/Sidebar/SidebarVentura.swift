@@ -56,6 +56,9 @@ struct SidebarVentura: View {
         } detail: {
             makeView(selectedview)
         }
+        .alert(isPresented: errorhandling.isPresentingAlert, content: {
+            Alert(localizedError: errorhandling.activeError!)
+        })
     }
 }
 
