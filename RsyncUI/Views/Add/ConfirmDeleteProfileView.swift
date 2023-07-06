@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConfirmDeleteProfileView: View {
-    @Binding var isPresented: Bool
+    @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var delete: Bool
     @Binding var profile: String?
 
@@ -21,13 +21,13 @@ struct ConfirmDeleteProfileView: View {
             HStack {
                 Button("Delete") {
                     delete = true
-                    dismissview()
+                    dismiss()
                 }
                 .buttonStyle(AbortButtonStyle())
 
                 Button("Cancel") {
                     delete = false
-                    dismissview()
+                    dismiss()
                 }
                 .buttonStyle(PrimaryButtonStyle())
             }
@@ -44,9 +44,5 @@ struct ConfirmDeleteProfileView: View {
                 .modifier(Tagheading(.title2, .center))
         }
         .padding()
-    }
-
-    func dismissview() {
-        isPresented = false
     }
 }

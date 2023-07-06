@@ -66,8 +66,7 @@ struct AddProfileView: View {
             Button("Delete") { newdata.showAlertfordelete = true }
                 .buttonStyle(AbortButtonStyle())
                 .sheet(isPresented: $newdata.showAlertfordelete) {
-                    ConfirmDeleteProfileView(isPresented: $newdata.showAlertfordelete,
-                                             delete: $newdata.confirmdeleteselectedprofile,
+                    ConfirmDeleteProfileView(delete: $newdata.confirmdeleteselectedprofile,
                                              profile: $rsyncUIdata.profile)
                         .onDisappear(perform: {
                             deleteprofile()
@@ -78,6 +77,9 @@ struct AddProfileView: View {
         .onSubmit {
             createprofile()
         }
+        .alert(isPresented: $newdata.alerterror,
+               content: { Alert(localizedError: newdata.error)
+               })
     }
 }
 

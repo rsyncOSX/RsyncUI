@@ -112,6 +112,9 @@ struct AddPreandPostView: View {
                 dataischanged.dataischanged = false
             }
         }
+        .alert(isPresented: $newdata.alerterror,
+               content: { Alert(localizedError: newdata.error)
+               })
     }
 
     var notifyupdated: some View {
