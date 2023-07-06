@@ -11,11 +11,11 @@ struct AddProfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
     @SwiftUI.Environment(Profilenames.self) private var profilenames
+    @State private var newdata = ObserveableAddConfigurations()
 
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
-    @StateObject var newdata = ObserveableAddConfigurations()
     @State private var uuidprofile = Set<Profiles.ID>()
 
     var body: some View {
@@ -77,6 +77,9 @@ struct AddProfileView: View {
         .onSubmit {
             createprofile()
         }
+        .alert(isPresented: $newdata.alerterror,
+               content: { Alert(localizedError: newdata.error)
+               })
     }
 }
 
