@@ -25,7 +25,6 @@ struct RestoreTableView: View {
                 HStack {
                     ListofTasksLightView(
                         selecteduuids: $selecteduuids.onChange {
-                            restore.selectedrowforrestore = ""
                             restore.filestorestore = ""
                             restore.commandstring = ""
                             restore.datalist = []
@@ -43,12 +42,10 @@ struct RestoreTableView: View {
                     )
 
                     RestoreFilesTableView(filestorestore: $filestorestore.onChange {
-                        restore.selectedrowforrestore = filestorestore
+                        restore.filestorestore = filestorestore
+                        restore.updatecommandstring()
                     })
                     .environment(restore)
-                    .onChange(of: restore.selectedrowforrestore) {
-                        restore.updatecommandstring()
-                    }
                 }
 
                 if nosearcstringalert { nosearchstring }

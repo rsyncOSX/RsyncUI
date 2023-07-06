@@ -12,8 +12,6 @@ import Observation
 @Observable
 final class ObserveableRestore {
     var pathforrestore: String = ""
-    var selectedrowforrestore: String = ""
-
     var restorefilesinprogress: Bool = false
     var numberoffiles: Int = 0
     var dryrun: Bool = true
