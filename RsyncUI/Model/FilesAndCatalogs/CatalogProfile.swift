@@ -35,7 +35,7 @@ final class CatalogProfile: Catalogsandfiles {
                         try rootpath?.createSubfolder(at: profile)
                     } catch let e {
                         let error = e
-                        propogateerror(error: error)
+                        alerterror(error: error)
                     }
                 }
             } catch {}
@@ -52,7 +52,7 @@ final class CatalogProfile: Catalogsandfiles {
                     try fileManager.removeItem(atPath: profileDirectory)
                 } catch let e {
                     let error = e as NSError
-                    propogateerror(error: error)
+                    alerterror(error: error)
                 }
             }
         }

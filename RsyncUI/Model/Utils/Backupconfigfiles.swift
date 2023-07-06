@@ -26,7 +26,7 @@ final class Backupconfigfiles {
                 try originFolder?.copy(to: targetFolder)
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                alerterror(error: error)
             }
         }
     }
@@ -40,7 +40,7 @@ final class Backupconfigfiles {
 }
 
 extension Backupconfigfiles {
-    func propogateerror(error: Error) {
+    func alerterror(error: Error) {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }

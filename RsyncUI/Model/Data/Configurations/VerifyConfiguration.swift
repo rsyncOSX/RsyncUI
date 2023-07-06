@@ -156,7 +156,7 @@ final class VerifyConfiguration: Connected {
             guard validated == true else { return nil }
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            alerterror(error: error)
             return nil
         }
         // If validated and snapshottask create remote snapshotcatalog
@@ -253,7 +253,7 @@ extension VerifyConfiguration {
 }
 
 extension VerifyConfiguration {
-    func propogateerror(error: Error) {
+    func alerterror(error: Error) {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }

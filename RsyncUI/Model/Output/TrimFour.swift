@@ -20,7 +20,7 @@ final class TrimFour {
                     // print("The publisher finished normally.")
                     return
                 case let .failure(error):
-                    self.propogateerror(error: error)
+                    self.alerterror(error: error)
                 }
             }, receiveValue: { [unowned self] line in
                 let substr = line.dropFirst(10).trimmingCharacters(in: .whitespacesAndNewlines)
@@ -37,7 +37,7 @@ final class TrimFour {
 }
 
 extension TrimFour {
-    func propogateerror(error: Error) {
+    func alerterror(error: Error) {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }
