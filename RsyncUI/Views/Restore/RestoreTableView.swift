@@ -9,8 +9,8 @@ import SwiftUI
 
 struct RestoreTableView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @State private var restore = ObserveableRestore()
 
-    @StateObject var restore = ObserveableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var filestorestore: String = ""
 
@@ -45,7 +45,10 @@ struct RestoreTableView: View {
                     RestoreFilesTableView(filestorestore: $filestorestore.onChange {
                         restore.selectedrowforrestore = filestorestore
                     })
-                    .environmentObject(restore)
+                    .environment(restore)
+                    .onChange(of: restore.selectedrowforrestore) {
+                        restore.updatecommandstring()
+                    }
                 }
 
                 if nosearcstringalert { nosearchstring }
@@ -79,6 +82,9 @@ struct RestoreTableView: View {
 
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
+                    .onChange(of: restore.dryrun) {
+                        restore.updatecommandstring()
+                    }
             }
 
             Button("Files") {
@@ -117,12 +123,15 @@ struct RestoreTableView: View {
                 .buttonStyle(AbortButtonStyle())
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
+        .alert(isPresented: $restore.alerterror,
+               content: { Alert(localizedError: restore.error)
+               })
     }
 
     var nosearchstring: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Please add a sarch string")
+            Text("Please add a search string")
                 .font(.title3)
                 .foregroundColor(Color.accentColor)
         }
@@ -145,7 +154,8 @@ struct RestoreTableView: View {
 
     var setpathforrestore: some View {
         EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore.onChange {
-            restore.inputchangedbyuser = true
+            restore.validatepathforrestore(restore.pathforrestore)
+            restore.updatecommandstring()
         })
         .onAppear(perform: {
             if let pathforrestore = SharedReference.shared.pathforrestore {
@@ -155,9 +165,8 @@ struct RestoreTableView: View {
     }
 
     var setfilestorestore: some View {
-        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""), $restore.filestorestore.onChange {
-            restore.inputchangedbyuser = true
-        })
+        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
+                  $restore.filestorestore)
     }
 
     var setfilter: some View {
@@ -167,7 +176,8 @@ struct RestoreTableView: View {
     var numberoffiles: some View {
         HStack {
             Text(NSLocalizedString("Number of files", comment: "") + ": ")
-            Text(NumberFormatter.localizedString(from: NSNumber(value: restore.numberoffiles), number: NumberFormatter.Style.decimal))
+            Text(NumberFormatter.localizedString(from: NSNumber(value: restore.numberoffiles),
+                                                 number: NumberFormatter.Style.decimal))
                 .foregroundColor(Color.blue)
 
             Spacer()
@@ -214,5 +224,3 @@ struct RestoreFileRecord: Identifiable {
     let id = UUID()
     var filename: String = ""
 }
-
-// swiftlint:enable line_length
