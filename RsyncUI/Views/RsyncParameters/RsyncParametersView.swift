@@ -10,9 +10,10 @@ import SwiftUI
 
 struct RsyncParametersView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @State private var parameters = ObserveableParametersRsync()
 
     @EnvironmentObject var dataischanged: Dataischanged
-    @StateObject var parameters = ObserveableParametersRsync()
+
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
@@ -37,13 +38,27 @@ struct RsyncParametersView: View {
             VStack {
                 HStack {
                     VStack(alignment: .leading) {
-                        EditRsyncParameter(450, $parameters.parameter8)
-                        EditRsyncParameter(450, $parameters.parameter9)
-                        EditRsyncParameter(450, $parameters.parameter10)
-                        EditRsyncParameter(450, $parameters.parameter11)
-                        EditRsyncParameter(450, $parameters.parameter12)
-                        EditRsyncParameter(450, $parameters.parameter13)
-                        EditRsyncParameter(450, $parameters.parameter14)
+                        EditRsyncParameter(450, $parameters.parameter8.onChange {
+                            parameters.configuration?.parameter8 = parameters.parameter8
+                        })
+                        EditRsyncParameter(450, $parameters.parameter9.onChange {
+                            parameters.configuration?.parameter9 = parameters.parameter9
+                        })
+                        EditRsyncParameter(450, $parameters.parameter10.onChange {
+                            parameters.configuration?.parameter10 = parameters.parameter10
+                        })
+                        EditRsyncParameter(450, $parameters.parameter11.onChange {
+                            parameters.configuration?.parameter11 = parameters.parameter11
+                        })
+                        EditRsyncParameter(450, $parameters.parameter12.onChange {
+                            parameters.configuration?.parameter12 = parameters.parameter12
+                        })
+                        EditRsyncParameter(450, $parameters.parameter13.onChange {
+                            parameters.configuration?.parameter13 = parameters.parameter13
+                        })
+                        EditRsyncParameter(450, $parameters.parameter14.onChange {
+                            parameters.configuration?.parameter14 = parameters.parameter14
+                        })
 
                         Spacer()
                     }
@@ -92,16 +107,25 @@ struct RsyncParametersView: View {
                         parameters.suffixlinux = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .onChange(of: parameters.suffixlinux) {
+                        parameters.setsuffixlinux()
+                    }
 
                     Button("FreeBSD") {
                         parameters.suffixfreebsd = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .onChange(of: parameters.suffixfreebsd) {
+                        parameters.setsuffixfreebsd()
+                    }
 
                     Button("Backup") {
                         parameters.backup = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .onChange(of: parameters.backup) {
+                        parameters.setbackup()
+                    }
 
                     Spacer()
 
@@ -200,3 +224,5 @@ extension RsyncParametersView {
         _ = InterruptProcess()
     }
 }
+
+// swiftlint:enable line_length

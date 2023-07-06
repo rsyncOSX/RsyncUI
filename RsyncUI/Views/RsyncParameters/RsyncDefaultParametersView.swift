@@ -10,9 +10,10 @@ import SwiftUI
 
 struct RsyncDefaultParametersView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @State private var parameters = ObserveableParametersDefault()
 
     @EnvironmentObject var dataischanged: Dataischanged
-    @StateObject var parameters = ObserveableParametersDefault()
+
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
@@ -43,9 +44,15 @@ struct RsyncDefaultParametersView: View {
 
                         Section(header: headerremove) {
                             VStack(alignment: .leading) {
-                                ToggleViewDefault("-e ssh", $parameters.removessh)
-                                ToggleViewDefault("--compress", $parameters.removecompress)
-                                ToggleViewDefault("--delete", $parameters.removedelete)
+                                ToggleViewDefault("-e ssh", $parameters.removessh.onChange {
+                                    parameters.deletessh(parameters.removessh)
+                                })
+                                ToggleViewDefault("--compress", $parameters.removecompress.onChange {
+                                    parameters.deletecompress(parameters.removecompress)
+                                })
+                                ToggleViewDefault("--delete", $parameters.removedelete.onChange {
+                                    parameters.deletedelete(parameters.removedelete)
+                                })
                             }
                         }
 
@@ -119,6 +126,9 @@ struct RsyncDefaultParametersView: View {
                     dataischanged.dataischanged = false
                 }
             }
+            .alert(isPresented: $parameters.alerterror,
+                   content: { Alert(localizedError: parameters.error)
+                   })
         }
     }
 
@@ -140,6 +150,7 @@ struct RsyncDefaultParametersView: View {
     var setsshpath: some View {
         EditValue(250, "Local ssh keypath and identityfile",
                   $parameters.sshkeypathandidentityfile.onChange {
+                      parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
                       parameters.setvalues(selectedconfig)
                   })
                   .onAppear(perform: {
@@ -151,6 +162,7 @@ struct RsyncDefaultParametersView: View {
 
     var setsshport: some View {
         EditValue(250, "Local ssh port", $parameters.sshport.onChange {
+            parameters.setsshport(parameters.sshport)
             parameters.setvalues(selectedconfig)
         })
         .onAppear(perform: {
@@ -230,3 +242,5 @@ extension RsyncDefaultParametersView {
         _ = InterruptProcess()
     }
 }
+
+// swiftlint:enable line_length

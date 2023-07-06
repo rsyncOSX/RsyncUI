@@ -919,13 +919,13 @@
 			children = (
 				E985C71D25F3AD9700CB895C /* Extensions.swift */,
 				E985C71B25F3AD9700CB895C /* SharedReference.swift */,
-				E985C71C25F3AD9700CB895C /* ObserveableUsersetting.swift */,
-				E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */,
-				E99C23FF261C322E009D4DBF /* ObserveableRestore.swift */,
-				E9359B9926691EFD00D40C43 /* ObserveableAddConfigurations.swift */,
-				E9E811F82669E2EA0049E672 /* ObserveablePreandPostTask.swift */,
 				E95EDC8926063EAA000018DE /* ObserveableParametersRsync.swift */,
 				E93D7B7C26CD920D00E290A1 /* ObserveableParametersDefault.swift */,
+				E985C71C25F3AD9700CB895C /* ObserveableUsersetting.swift */,
+				E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */,
+				E9359B9926691EFD00D40C43 /* ObserveableAddConfigurations.swift */,
+				E99C23FF261C322E009D4DBF /* ObserveableRestore.swift */,
+				E9E811F82669E2EA0049E672 /* ObserveablePreandPostTask.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
