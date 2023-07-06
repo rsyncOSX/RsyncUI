@@ -20,9 +20,9 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 struct AddTaskView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
     @SwiftUI.Environment(Profilenames.self) private var profilenames
-    @State private var newdata = ObserveableAddConfigurations()
+    @SwiftUI.Environment(Dataischanged.self) private var dataischanged
 
-    @EnvironmentObject var dataischanged: Dataischanged
+    @State private var newdata = ObserveableAddConfigurations()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @State private var selectedconfig: Configuration?

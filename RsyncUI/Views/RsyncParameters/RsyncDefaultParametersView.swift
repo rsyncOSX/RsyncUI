@@ -10,9 +10,8 @@ import SwiftUI
 
 struct RsyncDefaultParametersView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(Dataischanged.self) private var dataischanged
     @State private var parameters = ObserveableParametersDefault()
-
-    @EnvironmentObject var dataischanged: Dataischanged
 
     @Binding var reload: Bool
 
@@ -225,9 +224,9 @@ extension RsyncDefaultParametersView {
         }
         rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
         showprogressview = true
-        let process = RsyncProcessAsync(arguments: arguments,
-                                        config: config,
-                                        processtermination: processtermination)
+        let process = await RsyncProcessAsync(arguments: arguments,
+                                              config: config,
+                                              processtermination: processtermination)
         await process.executeProcess()
     }
 
