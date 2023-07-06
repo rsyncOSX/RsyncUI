@@ -28,40 +28,6 @@ final class ObserveableParametersDefault {
     var error: Error = Validatedpath.noerror
     var alerterror: Bool = false
 
-    /*
-     init() {
-     $sshkeypathandidentityfile
-     .debounce(for: .seconds(1), scheduler: globalMainQueue)
-
-     .sink { [unowned self] identityfile in
-     sshkeypathandidentiyfile(identityfile)
-     }.store(in: &subscriptions)
-
-     $sshport
-     .debounce(for: .seconds(1), scheduler: globalMainQueue)
-     .sink { [unowned self] port in
-     sshport(port)
-     }.store(in: &subscriptions)
-
-     $removessh
-     .sink { [unowned self] removessh in
-     deletessh(removessh)
-     }.store(in: &subscriptions)
-     $removedelete
-     .sink { [unowned self] removedelete in
-     deletedelete(removedelete)
-     }.store(in: &subscriptions)
-     $removecompress
-     .sink { [unowned self] removecompress in
-     deletecompress(removecompress)
-     }.store(in: &subscriptions)
-     $daemon
-     .sink { [unowned self] setdaemon in
-     setrsyncdaemon(setdaemon)
-     }.store(in: &subscriptions)
-     }
-     */
-
     func setvalues(_ config: Configuration?) {
         if let config = config {
             configuration = config
