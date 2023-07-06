@@ -12,6 +12,7 @@ struct AddPreandPostView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
     @SwiftUI.Environment(Profilenames.self) private var profilenames
     @SwiftUI.Environment(Dataischanged.self) private var dataischanged
+    @State private var newdata = ObserveablePreandPostTask()
 
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -28,7 +29,6 @@ struct AddPreandPostView: View {
         case posttaskField
     }
 
-    @StateObject var newdata = ObserveablePreandPostTask()
     @FocusState private var focusField: PreandPostTaskField?
 
     var body: some View {
@@ -112,6 +112,9 @@ struct AddPreandPostView: View {
                 dataischanged.dataischanged = false
             }
         }
+        .alert(isPresented: $newdata.alerterror,
+               content: { Alert(localizedError: newdata.error)
+               })
     }
 
     var notifyupdated: some View {
