@@ -26,7 +26,7 @@ struct ExecuteNoestimateOneTaskView: View {
 
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
-    @StateObject var selectedconfig = Selectedconfig()
+    @State private var selectedconfig = Selectedconfig()
 
     @State private var reloadtasksviewlist: Bool = false
     // Double click, only for macOS13 and later
