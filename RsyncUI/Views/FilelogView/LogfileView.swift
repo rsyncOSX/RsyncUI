@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observation
 import SwiftUI
 
 struct LogfileView: View {
@@ -13,7 +14,7 @@ struct LogfileView: View {
     @State private var resetloggfile = false
     @State private var showactions = false
 
-    @StateObject private var logfileview = Logfileview()
+    @State private var logfileview = Logfileview()
     var action: Actions
 
     var body: some View {
@@ -100,8 +101,9 @@ struct LogfileView: View {
     }
 }
 
-final class Logfileview: ObservableObject {
-    @Published var output = [Data]()
+@Observable
+final class Logfileview {
+    var output = [Data]()
 
     struct Data: Identifiable {
         let id = UUID()
