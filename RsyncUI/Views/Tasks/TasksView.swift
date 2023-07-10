@@ -16,7 +16,7 @@ struct TasksView: View {
     @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
     // These two objects keeps track of the state and collects
     // the estimated values.
-    @StateObject private var estimationstate = EstimationState()
+    @State private var estimationstate = EstimationState()
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
 
     @Binding var reload: Bool
