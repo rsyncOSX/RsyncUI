@@ -11,7 +11,8 @@ import SwiftUI
 
 struct DetailsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var inprogresscountmultipletask: InprogressCountMultipleTasks
+    @SwiftUI.Environment(InprogressCountMultipleTasks.self) var inprogresscountmultipletask
+
     @Binding var reload: Bool
     @Binding var execute: Bool
 

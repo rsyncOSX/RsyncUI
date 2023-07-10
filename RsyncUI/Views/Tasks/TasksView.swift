@@ -17,7 +17,7 @@ struct TasksView: View {
     // These two objects keeps track of the state and collects
     // the estimated values.
     @State private var estimationstate = EstimationState()
-    @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
+    @State private var inprogresscountmultipletask = InprogressCountMultipleTasks()
 
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
@@ -178,7 +178,7 @@ struct TasksView: View {
             DetailsView(reload: $reload,
                         execute: $focusstartexecution,
                         selectedconfig: selectedconfig.config)
-                .environmentObject(inprogresscountmultipletask)
+                .environment(inprogresscountmultipletask)
                 .onAppear {
                     doubleclick = false
                 }

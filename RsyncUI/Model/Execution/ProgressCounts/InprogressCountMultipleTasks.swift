@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observation
 
 protocol UpdateEstimationCount: AnyObject {
     func resetcounts()
@@ -27,7 +28,8 @@ protocol UpdateEstimationCount: AnyObject {
     func getprofile() -> String
 }
 
-final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCount {
+@Observable
+final class InprogressCountMultipleTasks: UpdateEstimationCount {
     func getprofile() -> String {
         return profile ?? "Default profile"
     }
@@ -68,7 +70,6 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
     // Set and notify when new hiddenID is set
     func sethiddenID(_ arghiddenID: Int) {
         hiddenID = arghiddenID
-        objectWillChange.send()
     }
 
     func resetcounts() {
@@ -92,7 +93,6 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
 
     func updateinprogresscount(num: Double) {
         inprogresscount = num
-        objectWillChange.send()
     }
 
     func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {
@@ -108,27 +108,22 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
 
     func asyncestimationcomplete() {
         estimateasync = false
-        objectWillChange.send()
     }
 
     func asyncexecutecomplete() {
         executeasyncnoestimationcompleted = true
-        objectWillChange.send()
     }
 
     func startestimateasync() {
         estimateasync = true
-        objectWillChange.send()
     }
 
     func asyncexecutealltasksnoestiamtioncomplete() {
         executeasyncnoestimationcompleted = true
-        objectWillChange.send()
     }
 
     func startasyncexecutealltasksnoestimation() {
         executeasyncnoestimationcompleted = false
-        objectWillChange.send()
     }
 
     func getestimatedlist() -> [RemoteinfonumbersOnetask]? {
