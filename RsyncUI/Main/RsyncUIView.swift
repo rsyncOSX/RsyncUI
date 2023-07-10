@@ -12,7 +12,7 @@ struct RsyncUIView: View {
     @State private var rsyncversion = Rsyncversion()
     @State private var profilenames = Profilenames()
 
-    @StateObject var inprogresscountexecuteonetaskdetails = InprogressCountExecuteOneTaskDetails()
+    @StateObject var progressdetails = ProgressDetails()
 
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
@@ -49,7 +49,7 @@ struct RsyncUIView: View {
                     .environment(rsyncUIdata)
                     .environment(profilenames)
                     .environmentObject(errorhandling)
-                    .environmentObject(inprogresscountexecuteonetaskdetails)
+                    .environmentObject(progressdetails)
 
                     .onChange(of: reload) {
                         reload = false

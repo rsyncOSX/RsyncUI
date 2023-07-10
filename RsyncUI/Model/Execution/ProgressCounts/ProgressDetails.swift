@@ -13,7 +13,7 @@ protocol ExecuteDetailsProtocol: AnyObject {
     func getcurrentprogress() -> Double
 }
 
-final class InprogressCountExecuteOneTaskDetails: ObservableObject, ExecuteDetailsProtocol {
+final class ProgressDetails: ObservableObject, ExecuteDetailsProtocol {
     // Value for storing progress for current task in work
     private var currenttaskprogress: Double?
     private var estimatedlist: [RemoteinfonumbersOnetask]?
