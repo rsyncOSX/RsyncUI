@@ -22,10 +22,10 @@ struct Readconfigurationsfromstore {
 
 @Observable
 final class RsyncUIconfigurations {
-    var configurations: [Configuration]? = [Configuration]()
+    var configurations: [Configuration]?
     var profile: String? = ""
 
-    var configurationsfromstore: Readconfigurationsfromstore? = Readconfigurationsfromstore(profile: nil)
+    var configurationsfromstore: Readconfigurationsfromstore?
     var validhiddenIDs: Set<Int>? = Set<Int>()
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {

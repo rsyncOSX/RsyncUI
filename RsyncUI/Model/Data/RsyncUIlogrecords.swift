@@ -24,8 +24,8 @@ struct Readlogsfromstore {
 @Observable
 final class RsyncUIlogrecords {
     var alllogssorted: [Log]? = [Log]()
-    var scheduleConfigurations: [ConfigurationSchedule]? = [ConfigurationSchedule]()
-    var logrecordsfromstore: Readlogsfromstore? = Readlogsfromstore(profile: nil, validhiddenIDs: nil)
+    var scheduleConfigurations: [ConfigurationSchedule]?
+    var logrecordsfromstore: Readlogsfromstore?
 
     func filterlogs(_ filter: String) -> [Log]? {
         // Important - must localize search in dates
