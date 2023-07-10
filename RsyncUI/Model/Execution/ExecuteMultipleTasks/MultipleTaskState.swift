@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Observation
 
-final class MultipleTaskState: ObservableObject {
+@Observable
+final class MultipleTaskState {
     var executionstate: ExecutetaskWork = .start
 
     func updatestate(state: ExecutetaskWork) {
         executionstate = state
-        objectWillChange.send()
     }
 
     deinit {
