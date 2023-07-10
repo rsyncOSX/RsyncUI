@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observation
 
 protocol UpdateOutputprocessCountProtcol: AnyObject {
     func updateinprogresscount(num: Double)
@@ -15,7 +16,8 @@ protocol UpdateOutputprocessCountProtcol: AnyObject {
     func getoutput() -> [String]?
 }
 
-final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCountProtcol {
+@Observable
+final class InprogressCountRsyncOutput: UpdateOutputprocessCountProtcol {
     private var inprogresscount: Double = 0
     private var max: Int = 0
     private var output: [String]?
@@ -43,7 +45,6 @@ final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCou
 
     func updateinprogresscount(num: Double) {
         inprogresscount = num
-        objectWillChange.send()
     }
 
     func setoutput(data: [String]?) {
@@ -57,8 +58,6 @@ final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCou
     func setoutput() {
         output = myoutputprocess?.getOutput()
     }
-
-    init() {}
 
     init(outputprocess: OutputfromProcess?) {
         myoutputprocess = outputprocess
