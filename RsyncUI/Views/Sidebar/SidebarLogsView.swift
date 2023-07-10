@@ -28,29 +28,8 @@ struct SidebarLogsView: View {
                         Text("By task")
                     }
             }
-            if showloading { AlertToast(displayMode: .alert, type: .loading) }
         }
         .padding()
-        .task {
-            if selectedprofile == nil {
-                selectedprofile = SharedReference.shared.defaultprofile
-            }
-            logrecords.readlogsfromstore(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
-            showloading = false
-        }
-        .onChange(of: selectedprofile) {
-            Task {
-                showloading = true
-                if selectedprofile == SharedReference.shared.defaultprofile {
-                    let validhiddenIDs = ReadConfigurationJSON(nil).validhiddenIDs
-                    logrecords.readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
-                } else {
-                    let validhiddenIDs = ReadConfigurationJSON(selectedprofile).validhiddenIDs
-                    logrecords.readlogsfromstore(profile: selectedprofile, validhiddenIDs: validhiddenIDs)
-                }
-                showloading = false
-            }
-        }
     }
 
     var logrecords: RsyncUIlogrecords {
