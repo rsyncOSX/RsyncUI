@@ -35,7 +35,7 @@ final class ExecuteMultipleTasks {
     weak var multipletasksateDelegate: MultipleTaskState?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
     // In progress count each task
-    weak var updateprogessDelegate: ExecuteDetailsProtocol?
+    weak var updateprogessDelegate: ProgressDetailsProtocol?
 
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
@@ -83,7 +83,7 @@ final class ExecuteMultipleTasks {
          configurations: RsyncUIconfigurations?,
          executionstateDelegate: MultipleTaskState?,
          updateinprogresscount: UpdateEstimationCount?,
-         singletaskupdate: ExecuteDetailsProtocol?)
+         singletaskupdate: ProgressDetailsProtocol?)
     {
         structprofile = profile
         localconfigurations = configurations

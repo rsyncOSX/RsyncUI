@@ -12,7 +12,7 @@ struct TasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
-    @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
+    @EnvironmentObject var executedetails: ProgressDetails
     // These two objects keeps track of the state and collects
     // the estimated values.
     @StateObject private var estimationstate = EstimationState()

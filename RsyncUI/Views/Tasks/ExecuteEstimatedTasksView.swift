@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var executedetails: InprogressCountExecuteOneTaskDetails
+    @EnvironmentObject var executedetails: ProgressDetails
 
     @StateObject private var multipletaskstate = MultipleTaskState()
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()

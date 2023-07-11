@@ -115,7 +115,7 @@
 		E985C76E25F3AD9700CB895C /* EstimationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EE25F3AD9600CB895C /* EstimationState.swift */; };
 		E985C76F25F3AD9700CB895C /* InprogressCountRsyncOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F025F3AD9600CB895C /* InprogressCountRsyncOutput.swift */; };
 		E985C77025F3AD9700CB895C /* InprogressCountMultipleTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F125F3AD9600CB895C /* InprogressCountMultipleTasks.swift */; };
-		E985C77125F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F225F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift */; };
+		E985C77125F3AD9700CB895C /* ProgressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F225F3AD9700CB895C /* ProgressDetails.swift */; };
 		E985C77225F3AD9700CB895C /* Logfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F425F3AD9700CB895C /* Logfile.swift */; };
 		E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */; };
 		E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */; };
@@ -317,7 +317,7 @@
 		E985C6EE25F3AD9600CB895C /* EstimationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimationState.swift; sourceTree = "<group>"; };
 		E985C6F025F3AD9600CB895C /* InprogressCountRsyncOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InprogressCountRsyncOutput.swift; sourceTree = "<group>"; };
 		E985C6F125F3AD9600CB895C /* InprogressCountMultipleTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InprogressCountMultipleTasks.swift; sourceTree = "<group>"; };
-		E985C6F225F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InprogressCountExecuteOneTaskDetails.swift; sourceTree = "<group>"; };
+		E985C6F225F3AD9700CB895C /* ProgressDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressDetails.swift; sourceTree = "<group>"; };
 		E985C6F425F3AD9700CB895C /* Logfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logfile.swift; sourceTree = "<group>"; };
 		E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsVerify.swift; sourceTree = "<group>"; };
 		E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputeRsyncParameters.swift; sourceTree = "<group>"; };
@@ -840,7 +840,7 @@
 			children = (
 				E985C6F025F3AD9600CB895C /* InprogressCountRsyncOutput.swift */,
 				E985C6F125F3AD9600CB895C /* InprogressCountMultipleTasks.swift */,
-				E985C6F225F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift */,
+				E985C6F225F3AD9700CB895C /* ProgressDetails.swift */,
 			);
 			path = ProgressCounts;
 			sourceTree = "<group>";
@@ -1330,7 +1330,7 @@
 				E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */,
 				E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */,
 				E999F92227690F3400B80DF6 /* Files.swift in Sources */,
-				E985C77125F3AD9700CB895C /* InprogressCountExecuteOneTaskDetails.swift in Sources */,
+				E985C77125F3AD9700CB895C /* ProgressDetails.swift in Sources */,
 				E985C79325F3AD9700CB895C /* Rsyncversion.swift in Sources */,
 				E90F7CA526344D5B001D9CA2 /* TextBuilder.swift in Sources */,
 				E985C73625F3AD9700CB895C /* SetandValidatepathforrsync.swift in Sources */,
