@@ -50,7 +50,7 @@ final class RsyncUIlogrecords: ObservableObject {
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
     }
 
-    func readlogsfromstore(profile: String?, validhiddenIDs: Set<Int>?) {
+    init(profile: String?, validhiddenIDs: Set<Int>?) {
         guard validhiddenIDs != nil else { return }
         if profile == SharedReference.shared.defaultprofile || profile == nil {
             logrecordsfromstore = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)

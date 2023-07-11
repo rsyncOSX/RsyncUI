@@ -12,8 +12,6 @@ struct SidebarLogsView: View {
     @Binding var selectedprofile: String?
     @State private var filterstring: String = ""
 
-    @StateObject private var logrecords = RsyncUIlogrecords()
-
     var body: some View {
         ZStack {
             TabView {
@@ -31,24 +29,9 @@ struct SidebarLogsView: View {
             }
         }
         .padding()
-        .task {
-            if selectedprofile == nil {
-                selectedprofile = SharedReference.shared.defaultprofile
-            }
-            // Initialize the Stateobject
-            logrecords.readlogsfromstore(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
-        }
-        .onChange(of: selectedprofile) { _ in
-            Task {
-                // Update the Stateobject
-                if selectedprofile == SharedReference.shared.defaultprofile {
-                    let validhiddenIDs = ReadConfigurationJSON(nil).validhiddenIDs
-                    logrecords.readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
-                } else {
-                    let validhiddenIDs = ReadConfigurationJSON(selectedprofile).validhiddenIDs
-                    logrecords.readlogsfromstore(profile: selectedprofile, validhiddenIDs: validhiddenIDs)
-                }
-            }
-        }
+    }
+
+    var logrecords: RsyncUIlogrecords {
+        return RsyncUIlogrecords(profile: rsyncUIdata.profile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
     }
 }
