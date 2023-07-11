@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var executedetails: ProgressDetails
+    @EnvironmentObject var progressdetails: ProgressDetails
 
     @StateObject private var multipletaskstate = MultipleTaskState()
     @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
@@ -68,7 +68,7 @@ struct ExecuteEstimatedTasksView: View {
             .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
                 // To set ProgressView spinnig wheel on correct task when estimating
                 inwork = inprogresscountmultipletask.hiddenID
-                executedetails.setcurrentprogress(0)
+                progressdetails.setcurrentprogress(0)
             })
     }
 
@@ -120,6 +120,6 @@ extension ExecuteEstimatedTasksView {
                              configurations: rsyncUIdata,
                              executionstateDelegate: multipletaskstate,
                              updateinprogresscount: inprogresscountmultipletask,
-                             singletaskupdate: executedetails)
+                             progressdetails: progressdetails)
     }
 }

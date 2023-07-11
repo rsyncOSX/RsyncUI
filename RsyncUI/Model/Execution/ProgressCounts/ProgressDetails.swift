@@ -1,5 +1,5 @@
 //
-//  InprogressCountExecuteOneTaskDetails.swift
+//  ProgressDetails.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 18/02/2021.

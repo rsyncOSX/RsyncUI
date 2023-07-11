@@ -12,7 +12,7 @@ struct TasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
-    @EnvironmentObject var executedetails: ProgressDetails
+    @EnvironmentObject var progressdetails: ProgressDetails
     // These two objects keeps track of the state and collects
     // the estimated values.
     @StateObject private var estimationstate = EstimationState()
@@ -374,7 +374,7 @@ extension TasksView {
             }
         }
         inprogresscountmultipletask.resetcounts()
-        executedetails.resetcounter()
+        progressdetails.resetcounter()
         inprogresscountmultipletask.startestimateasync()
     }
 
@@ -387,8 +387,8 @@ extension TasksView {
             // Execute all estimated tasks
             selecteduuids = inprogresscountmultipletask.getuuids()
             estimationstate.updatestate(state: .start)
-            executedetails.resetcounter()
-            executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+            progressdetails.resetcounter()
+            progressdetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
         } else if selectedconfig.config == nil,
@@ -415,8 +415,8 @@ extension TasksView {
                 // Execute all estimated tasks
                 selecteduuids = inprogresscountmultipletask.getuuids()
                 estimationstate.updatestate(state: .start)
-                executedetails.resetcounter()
-                executedetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+                progressdetails.resetcounter()
+                progressdetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
                 // Change view, see SidebarTasksView
                 showeexecutestimatedview = true
             }

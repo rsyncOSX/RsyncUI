@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListofTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var executedetails: ProgressDetails
+    @EnvironmentObject var progressdetails: ProgressDetails
 
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var inwork: Int
@@ -33,11 +33,11 @@ struct ListofTasksView: View {
     var tabledata_macos12: some View {
         Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("%") { data in
-                if data.hiddenID == inwork && executedetails.isestimating() == false {
+                if data.hiddenID == inwork && progressdetails.isestimating() == false {
                     ProgressView("",
-                                 value: executedetails.getcurrentprogress(),
+                                 value: progressdetails.getcurrentprogress(),
                                  total: maxcount)
-                        .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
+                        .onChange(of: progressdetails.getcurrentprogress(), perform: { _ in })
                         .frame(alignment: .center)
                 }
             }
@@ -102,11 +102,11 @@ struct ListofTasksView: View {
     var tabledata: some View {
         Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("%") { data in
-                if data.hiddenID == inwork && executedetails.isestimating() == false {
+                if data.hiddenID == inwork && progressdetails.isestimating() == false {
                     ProgressView("",
-                                 value: executedetails.getcurrentprogress(),
+                                 value: progressdetails.getcurrentprogress(),
                                  total: maxcount)
-                        .onChange(of: executedetails.getcurrentprogress(), perform: { _ in })
+                        .onChange(of: progressdetails.getcurrentprogress(), perform: { _ in })
                         .frame(width: 35, alignment: .center)
                 }
             }
@@ -181,7 +181,7 @@ struct ListofTasksView: View {
     }
 
     var maxcount: Double {
-        return executedetails.getmaxcountbytask(inwork)
+        return progressdetails.getmaxcountbytask(inwork)
     }
 
     func delete() {
