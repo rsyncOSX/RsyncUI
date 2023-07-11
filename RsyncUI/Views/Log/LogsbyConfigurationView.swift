@@ -11,6 +11,7 @@ import SwiftUI
 struct LogsbyConfigurationView: View {
     @EnvironmentObject var logrecords: RsyncUIlogrecords
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @Binding var filterstring: String
 
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedconfig: Configuration?
@@ -58,10 +59,10 @@ struct LogsbyConfigurationView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(logrecords.filterlogsbyhiddenID(selectedconfig?.hiddenID ?? -1)?.count ?? 0)"
+            "\(logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.count ?? 0)"
     }
 
     var logdetails: [Log] {
-        return logrecords.filterlogsbyhiddenID(selectedconfig?.hiddenID ?? -1) ?? []
+        return logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1) ?? []
     }
 }

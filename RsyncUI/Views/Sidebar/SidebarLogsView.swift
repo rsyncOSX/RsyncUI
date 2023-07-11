@@ -10,26 +10,25 @@ import SwiftUI
 struct SidebarLogsView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
+    @State private var filterstring: String = ""
 
     @StateObject private var logrecords = RsyncUIlogrecords()
-    @State private var showloading = true
 
     var body: some View {
         ZStack {
             TabView {
-                LogListAlllogsView(selectedprofile: $selectedprofile)
+                LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("All logs")
                     }
 
-                LogsbyConfigurationView()
+                LogsbyConfigurationView(filterstring: $filterstring)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("By task")
                     }
             }
-            if showloading { AlertToast(displayMode: .alert, type: .loading) }
         }
         .padding()
         .task {
@@ -38,11 +37,9 @@ struct SidebarLogsView: View {
             }
             // Initialize the Stateobject
             logrecords.readlogsfromstore(profile: selectedprofile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
-            showloading = false
         }
         .onChange(of: selectedprofile) { _ in
             Task {
-                showloading = true
                 // Update the Stateobject
                 if selectedprofile == SharedReference.shared.defaultprofile {
                     let validhiddenIDs = ReadConfigurationJSON(nil).validhiddenIDs
@@ -51,7 +48,6 @@ struct SidebarLogsView: View {
                     let validhiddenIDs = ReadConfigurationJSON(selectedprofile).validhiddenIDs
                     logrecords.readlogsfromstore(profile: selectedprofile, validhiddenIDs: validhiddenIDs)
                 }
-                showloading = false
             }
         }
     }
