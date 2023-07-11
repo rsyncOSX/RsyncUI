@@ -10,9 +10,9 @@ import SwiftUI
 struct LogListAlllogsView: View {
     @SwiftUI.Environment(RsyncUIlogrecords.self) private var logrecords
     @Binding var selectedprofile: String?
-    @State private var filterstring: String = ""
+    @Binding var filterstring: String
+
     @State private var selecteduuids = Set<UUID>()
-    // Alert for delete
     @State private var showAlertfordelete = false
 
     var body: some View {
