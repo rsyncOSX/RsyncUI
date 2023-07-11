@@ -120,6 +120,6 @@ extension ExecuteEstimatedTasksView {
                              configurations: rsyncUIdata,
                              executionstateDelegate: multipletaskstate,
                              updateinprogresscount: inprogresscountmultipletask,
-                             singletaskupdate: progressdetails)
+                             progressdetails: progressdetails)
     }
 }
