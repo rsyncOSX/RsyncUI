@@ -194,9 +194,10 @@ struct AddTaskView: View {
 
     var setremotecatalogsyncremote: some View {
         EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""),
-                  $newdata.remotecatalog.onChange {
-                      newdata.remotestorageislocal = newdata.verifyremotestorageislocal()
-                  })
+                  $newdata.remotecatalog)
+            .onChange(of: newdata.remotecatalog) {
+                newdata.remotestorageislocal = newdata.verifyremotestorageislocal()
+            }
     }
 
     var setlocalcatalog: some View {

@@ -36,15 +36,16 @@ struct Counter: View {
                 if timerisenabled == false {
                     timerpicker
 
-                    ToggleViewNolabel($timerisenabled.onChange {
-                        if timerisenabled == true {
-                            if Timervalues().values.contains(timervalue) {
-                                SharedReference.shared.timervalue = timervalue
+                    ToggleViewNolabel($timerisenabled)
+                        .onChange(of: timerisenabled) {
+                            if timerisenabled == true {
+                                if Timervalues().values.contains(timervalue) {
+                                    SharedReference.shared.timervalue = timervalue
+                                }
+                            } else {
+                                timervalue = SharedReference.shared.timervalue ?? 600
                             }
-                        } else {
-                            timervalue = SharedReference.shared.timervalue ?? 600
                         }
-                    })
                 }
             }
 
@@ -72,13 +73,13 @@ struct Counter: View {
             .onDisappear {
                 timer60.upstream.connect().cancel()
             }
-            .onChange(of: scenePhase) { newPhase in
-                if newPhase == .inactive {
+            .onChange(of: scenePhase) {
+                if scenePhase == .inactive {
                     deltatimeinseconds.timerminimized = Date()
-                } else if newPhase == .active {
+                } else if scenePhase == .active {
                     deltatimeinseconds.computeminimizedtime()
                     // _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
-                } else if newPhase == .background {}
+                } else if scenePhase == .background {}
             }
     }
 
@@ -94,15 +95,15 @@ struct Counter: View {
             .onDisappear {
                 timer.upstream.connect().cancel()
             }
-            .onChange(of: scenePhase) { newPhase in
-                if newPhase == .inactive {
+            .onChange(of: scenePhase) {
+                if scenePhase == .inactive {
                     if deltatimeinseconds.timerminimized == nil {
                         deltatimeinseconds.timerminimized = Date()
                     }
-                } else if newPhase == .active {
+                } else if scenePhase == .active {
                     deltatimeinseconds.computeminimizedtime()
                     // _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
-                } else if newPhase == .background {}
+                } else if scenePhase == .background {}
             }
     }
 

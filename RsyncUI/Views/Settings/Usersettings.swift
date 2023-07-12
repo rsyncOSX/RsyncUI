@@ -61,40 +61,43 @@ struct Usersettings: View {
                             VStack(alignment: .leading) {
                                 Section(header: headerloggingtofile) {
                                     ToggleViewDefault(NSLocalizedString("None", comment: ""),
-                                                      $usersettings.nologging.onChange {
-                                                          if usersettings.nologging == true {
-                                                              usersettings.minimumlogging = false
-                                                              usersettings.fulllogging = false
-                                                          } else {
-                                                              usersettings.minimumlogging = true
-                                                              usersettings.fulllogging = false
-                                                          }
-                                                          SharedReference.shared.fulllogging = usersettings.fulllogging
-                                                          SharedReference.shared.minimumlogging = usersettings.minimumlogging
-                                                          SharedReference.shared.nologging = usersettings.nologging
-                                                      })
+                                                      $usersettings.nologging)
+                                        .onChange(of: usersettings.nologging) {
+                                            if usersettings.nologging == true {
+                                                usersettings.minimumlogging = false
+                                                usersettings.fulllogging = false
+                                            } else {
+                                                usersettings.minimumlogging = true
+                                                usersettings.fulllogging = false
+                                            }
+                                            SharedReference.shared.fulllogging = usersettings.fulllogging
+                                            SharedReference.shared.minimumlogging = usersettings.minimumlogging
+                                            SharedReference.shared.nologging = usersettings.nologging
+                                        }
 
                                     ToggleViewDefault(NSLocalizedString("Min", comment: ""),
-                                                      $usersettings.minimumlogging.onChange {
-                                                          if usersettings.minimumlogging == true {
-                                                              usersettings.nologging = false
-                                                              usersettings.fulllogging = false
-                                                          }
-                                                          SharedReference.shared.fulllogging = usersettings.fulllogging
-                                                          SharedReference.shared.minimumlogging = usersettings.minimumlogging
-                                                          SharedReference.shared.nologging = usersettings.nologging
-                                                      })
+                                                      $usersettings.minimumlogging)
+                                        .onChange(of: usersettings.minimumlogging) {
+                                            if usersettings.minimumlogging == true {
+                                                usersettings.nologging = false
+                                                usersettings.fulllogging = false
+                                            }
+                                            SharedReference.shared.fulllogging = usersettings.fulllogging
+                                            SharedReference.shared.minimumlogging = usersettings.minimumlogging
+                                            SharedReference.shared.nologging = usersettings.nologging
+                                        }
 
                                     ToggleViewDefault(NSLocalizedString("Full", comment: ""),
-                                                      $usersettings.fulllogging.onChange {
-                                                          if usersettings.fulllogging == true {
-                                                              usersettings.nologging = false
-                                                              usersettings.minimumlogging = false
-                                                          }
-                                                          SharedReference.shared.fulllogging = usersettings.fulllogging
-                                                          SharedReference.shared.minimumlogging = usersettings.minimumlogging
-                                                          SharedReference.shared.nologging = usersettings.nologging
-                                                      })
+                                                      $usersettings.fulllogging)
+                                        .onChange(of: usersettings.fulllogging) {
+                                            if usersettings.fulllogging == true {
+                                                usersettings.nologging = false
+                                                usersettings.minimumlogging = false
+                                            }
+                                            SharedReference.shared.fulllogging = usersettings.fulllogging
+                                            SharedReference.shared.minimumlogging = usersettings.minimumlogging
+                                            SharedReference.shared.nologging = usersettings.nologging
+                                        }
                                 }
                             }
 

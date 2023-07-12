@@ -21,16 +21,17 @@ struct AddProfileView: View {
     var body: some View {
         ZStack {
             VStack {
-                Table(profilenames.profiles, selection: $uuidprofile.onChange {
+                Table(profilenames.profiles, selection: $uuidprofile) {
+                    TableColumn("Profiles") { name in
+                        Text(name.profile ?? "Default profile")
+                    }
+                }
+                .onChange(of: uuidprofile) {
                     let profile = profilenames.profiles.filter { profiles in
                         uuidprofile.contains(profiles.id)
                     }
                     if profile.count == 1 {
                         selectedprofile = profile[0].profile
-                    }
-                }) {
-                    TableColumn("Profiles") { name in
-                        Text(name.profile ?? "Default profile")
                     }
                 }
 
