@@ -38,7 +38,7 @@ struct ListofTasksView: View {
                     ProgressView("",
                                  value: progressdetails.getcurrentprogress(),
                                  total: maxcount)
-                        .onChange(of: progressdetails.getcurrentprogress(), perform: { _ in })
+                        .onChange(of: progressdetails.getcurrentprogress()) {}
                         .frame(alignment: .center)
                 }
             }
@@ -107,7 +107,7 @@ struct ListofTasksView: View {
                     ProgressView("",
                                  value: progressdetails.getcurrentprogress(),
                                  total: maxcount)
-                        .onChange(of: progressdetails.getcurrentprogress(), perform: { _ in })
+                        .onChange(of: progressdetails.getcurrentprogress()) {}
                         .frame(width: 35, alignment: .center)
                 }
             }

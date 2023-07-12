@@ -64,8 +64,8 @@ struct AddPreandPostView: View {
 
                     VStack(alignment: .leading) {
                         if showtableview {
-                            ListofTasksLightView(
-                                selecteduuids: $selecteduuids.onChange {
+                            ListofTasksLightView(selecteduuids: $selecteduuids)
+                                .onChange(of: selecteduuids) {
                                     let selected = rsyncUIdata.configurations?.filter { config in
                                         selecteduuids.contains(config.id)
                                     }
@@ -79,7 +79,6 @@ struct AddPreandPostView: View {
                                         newdata.updateview(selectedconfig)
                                     }
                                 }
-                            )
                             updatebutton
                         } else {
                             notifyupdated

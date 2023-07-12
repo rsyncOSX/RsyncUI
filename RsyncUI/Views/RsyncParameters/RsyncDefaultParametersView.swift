@@ -64,8 +64,8 @@ struct RsyncDefaultParametersView: View {
 
                     VStack(alignment: .leading) {
                         if showtableview {
-                            ListofTasksLightView(
-                                selecteduuids: $selecteduuids.onChange {
+                            ListofTasksLightView(selecteduuids: $selecteduuids)
+                                .onChange(of: selecteduuids) {
                                     let selected = rsyncUIdata.configurations?.filter { config in
                                         selecteduuids.contains(config.id)
                                     }
@@ -79,8 +79,7 @@ struct RsyncDefaultParametersView: View {
                                         parameters.setvalues(selectedconfig)
                                     }
                                 }
-                            )
-                            .frame(maxWidth: .infinity)
+                                .frame(maxWidth: .infinity)
 
                         } else {
                             notifyupdated

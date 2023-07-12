@@ -65,11 +65,11 @@ struct ExecuteEstimatedTasksView: View {
                 // To set ProgressView spinnig wheel on correct task when estimating
                 inwork = inprogresscountmultipletask.hiddenID
             })
-            .onChange(of: inprogresscountmultipletask.getinprogress(), perform: { _ in
+            .onChange(of: inprogresscountmultipletask.getinprogress()) {
                 // To set ProgressView spinnig wheel on correct task when estimating
                 inwork = inprogresscountmultipletask.hiddenID
                 progressdetails.setcurrentprogress(0)
-            })
+            }
     }
 
     // When status execution is .completed, present label and execute completed.

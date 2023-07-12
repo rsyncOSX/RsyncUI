@@ -60,18 +60,7 @@ struct TasksView: View {
         ZStack {
             if reloadtasksviewlist == false {
                 ListofTasksView(
-                    selecteduuids: $selecteduuids.onChange {
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selecteduuids.contains(config.id)
-                        }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                selectedconfig.config = config[0]
-                            }
-                        } else {
-                            selectedconfig.config = nil
-                        }
-                    },
+                    selecteduuids: $selecteduuids,
                     inwork: $inwork,
                     filterstring: $filterstring,
                     reload: $reload,
@@ -80,7 +69,18 @@ struct TasksView: View {
                     doubleclick: $doubleclick
                 )
                 .frame(maxWidth: .infinity)
-
+                .onChange(of: selecteduuids) {
+                    let selected = rsyncUIdata.configurations?.filter { config in
+                        selecteduuids.contains(config.id)
+                    }
+                    if (selected?.count ?? 0) == 1 {
+                        if let config = selected {
+                            selectedconfig.config = config[0]
+                        }
+                    } else {
+                        selectedconfig.config = nil
+                    }
+                }
             } else {
                 notifycompleted
             }

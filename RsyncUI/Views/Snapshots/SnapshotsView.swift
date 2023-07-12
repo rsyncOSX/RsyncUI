@@ -37,8 +37,8 @@ struct SnapshotsView: View {
         ZStack {
             ZStack {
                 HStack {
-                    ListofTasksLightView(
-                        selecteduuids: $selectedconfiguuid.onChange {
+                    ListofTasksLightView(selecteduuids: $selectedconfiguuid)
+                        .onChange(of: selectedconfiguuid) {
                             let selected = rsyncUIdata.configurations?.filter { config in
                                 selectedconfiguuid.contains(config.id)
                             }
@@ -52,7 +52,6 @@ struct SnapshotsView: View {
                                 snapshotdata.setsnapshotdata(nil)
                             }
                         }
-                    )
 
                     SnapshotListView(snapshotdata: $snapshotdata,
                                      snapshotrecords: $snapshotrecords)

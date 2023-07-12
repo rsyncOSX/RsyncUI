@@ -21,8 +21,8 @@ struct LogsbyConfigurationView: View {
     var body: some View {
         VStack {
             HStack {
-                ListofTasksLightView(
-                    selecteduuids: $selecteduuids.onChange {
+                ListofTasksLightView(selecteduuids: $selecteduuids)
+                    .onChange(of: selecteduuids) {
                         let selected = rsyncUIdata.configurations?.filter { config in
                             selecteduuids.contains(config.id)
                         }
@@ -34,7 +34,6 @@ struct LogsbyConfigurationView: View {
                             selectedconfig = nil
                         }
                     }
-                )
 
                 Table(logdetails) {
                     TableColumn("Date") { data in

@@ -23,8 +23,8 @@ struct RestoreTableView: View {
         VStack {
             ZStack {
                 HStack {
-                    ListofTasksLightView(
-                        selecteduuids: $selecteduuids.onChange {
+                    ListofTasksLightView(selecteduuids: $selecteduuids)
+                        .onChange(of: selecteduuids) {
                             restore.filestorestore = ""
                             restore.commandstring = ""
                             restore.datalist = []
@@ -39,13 +39,15 @@ struct RestoreTableView: View {
                                 restore.selectedconfig = nil
                             }
                         }
-                    )
+                        .frame(maxWidth: .infinity)
 
-                    RestoreFilesTableView(filestorestore: $filestorestore.onChange {
-                        restore.filestorestore = filestorestore
-                        restore.updatecommandstring()
-                    })
-                    .environment(restore)
+                    RestoreFilesTableView(filestorestore: $filestorestore)
+                        .environment(restore)
+                        .onChange(of: filestorestore) {
+                            restore.filestorestore = filestorestore
+                            restore.updatecommandstring()
+                        }
+                        .frame(maxWidth: .infinity)
                 }
 
                 if nosearcstringalert { nosearchstring }
