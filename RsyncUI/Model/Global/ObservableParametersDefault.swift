@@ -1,6 +1,5 @@
 //
-//  ObserveableParametersDefault.swift
-//  ObserveableParametersDefault
+//  ObservableParametersDefault.swift
 //
 //  Created by Thomas Evensen on 18/08/2021.
 //
@@ -9,7 +8,7 @@ import Foundation
 import Observation
 
 @Observable
-final class ObserveableParametersDefault {
+final class ObservableParametersDefault {
     // Selected configuration
     var configuration: Configuration?
     // Local SSH parameters

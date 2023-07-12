@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class ObserveablePreandPostTask {
+final class ObservablePreandPostTask {
     var enablepre: Bool = false
     var enablepost: Bool = false
     var pretask: String = ""

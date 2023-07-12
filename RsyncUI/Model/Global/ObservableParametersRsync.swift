@@ -1,5 +1,5 @@
 //
-//  ObserveableParametersRsync.swift
+//  ObservableParametersRsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 20/03/2021.
@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class ObserveableParametersRsync {
+final class ObservableParametersRsync {
     // Rsync parameters
     var parameter8: String = ""
     var parameter9: String = ""

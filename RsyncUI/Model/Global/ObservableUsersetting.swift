@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class ObserveableUsersetting {
+final class ObservableUsersetting {
     // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
     var rsyncversion3: Bool = SharedReference.shared.rsyncversion3
     // Optional path to rsync, the settings View is picking up the current value

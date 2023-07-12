@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Usersettings: View {
     @SwiftUI.Environment(AlertError.self) private var alerterror
-    @State private var usersettings = ObserveableUsersetting()
+    @State private var usersettings = ObservableUsersetting()
     @State private var backup = false
     @State private var rsyncversion = Rsyncversion()
 

@@ -22,7 +22,7 @@ struct AddTaskView: View {
     @SwiftUI.Environment(Profilenames.self) private var profilenames
     @SwiftUI.Environment(Dataischanged.self) private var dataischanged
 
-    @State private var newdata = ObserveableAddConfigurations()
+    @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @State private var selectedconfig: Configuration?

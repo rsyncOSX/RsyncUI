@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RestoreFilesTableView: View {
-    @SwiftUI.Environment(ObserveableRestore.self) private var restore
+    @SwiftUI.Environment(ObservableRestore.self) private var restore
 
     @State private var selectedid: RestoreFileRecord.ID?
     @Binding var filestorestore: String
