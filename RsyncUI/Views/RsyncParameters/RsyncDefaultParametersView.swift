@@ -43,15 +43,18 @@ struct RsyncDefaultParametersView: View {
 
                         Section(header: headerremove) {
                             VStack(alignment: .leading) {
-                                ToggleViewDefault("-e ssh", $parameters.removessh.onChange {
-                                    parameters.deletessh(parameters.removessh)
-                                })
-                                ToggleViewDefault("--compress", $parameters.removecompress.onChange {
-                                    parameters.deletecompress(parameters.removecompress)
-                                })
-                                ToggleViewDefault("--delete", $parameters.removedelete.onChange {
-                                    parameters.deletedelete(parameters.removedelete)
-                                })
+                                ToggleViewDefault("-e ssh", $parameters.removessh)
+                                    .onChange(of: parameters.removessh) {
+                                        parameters.deletessh(parameters.removessh)
+                                    }
+                                ToggleViewDefault("--compress", $parameters.removecompress)
+                                    .onChange(of: parameters.removecompress) {
+                                        parameters.deletecompress(parameters.removecompress)
+                                    }
+                                ToggleViewDefault("--delete", $parameters.removedelete)
+                                    .onChange(of: parameters.removedelete) {
+                                        parameters.deletedelete(parameters.removedelete)
+                                    }
                             }
                         }
 
@@ -147,27 +150,29 @@ struct RsyncDefaultParametersView: View {
 
     var setsshpath: some View {
         EditValue(250, "Local ssh keypath and identityfile",
-                  $parameters.sshkeypathandidentityfile.onChange {
-                      parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
-                      parameters.setvalues(selectedconfig)
-                  })
-                  .onAppear(perform: {
-                      if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
-                          parameters.sshkeypathandidentityfile = sshkeypath
-                      }
-                  })
+                  $parameters.sshkeypathandidentityfile)
+            .onAppear(perform: {
+                if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
+                    parameters.sshkeypathandidentityfile = sshkeypath
+                }
+            })
+            .onChange(of: parameters.sshkeypathandidentityfile) {
+                parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
+                parameters.setvalues(selectedconfig)
+            }
     }
 
     var setsshport: some View {
-        EditValue(250, "Local ssh port", $parameters.sshport.onChange {
-            parameters.setsshport(parameters.sshport)
-            parameters.setvalues(selectedconfig)
-        })
-        .onAppear(perform: {
-            if let sshport = parameters.configuration?.sshport {
-                parameters.sshport = String(sshport)
+        EditValue(250, "Local ssh port", $parameters.sshport)
+            .onAppear(perform: {
+                if let sshport = parameters.configuration?.sshport {
+                    parameters.sshport = String(sshport)
+                }
+            })
+            .onChange(of: parameters.sshport) {
+                parameters.setsshport(parameters.sshport)
+                parameters.setvalues(selectedconfig)
             }
-        })
     }
 
     var notifyupdated: some View {

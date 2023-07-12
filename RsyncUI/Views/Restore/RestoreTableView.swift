@@ -152,15 +152,16 @@ struct RestoreTableView: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore.onChange {
-            restore.validatepathforrestore(restore.pathforrestore)
-            restore.updatecommandstring()
-        })
-        .onAppear(perform: {
-            if let pathforrestore = SharedReference.shared.pathforrestore {
-                restore.pathforrestore = pathforrestore
+        EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore)
+            .onAppear(perform: {
+                if let pathforrestore = SharedReference.shared.pathforrestore {
+                    restore.pathforrestore = pathforrestore
+                }
+            })
+            .onChange(of: restore.pathforrestore) {
+                restore.validatepathforrestore(restore.pathforrestore)
+                restore.updatecommandstring()
             }
-        })
     }
 
     var setfilestorestore: some View {
