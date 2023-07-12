@@ -10,7 +10,7 @@ import SwiftUI
 struct SnapshotListView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var snapshotdata: SnapshotData
-    @Binding var snapshotrecords: Logrecordsschedules?
+    @Binding var snapshotrecords: LogrecordSnapshot?
 
     var body: some View {
         Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete) {
@@ -49,7 +49,7 @@ struct SnapshotListView: View {
         }
     }
 
-    var logrecords: [Logrecordsschedules] {
+    var logrecords: [LogrecordSnapshot] {
         return snapshotdata.getsnapshotdata() ?? []
     }
 }

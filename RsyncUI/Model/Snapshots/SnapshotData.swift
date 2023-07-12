@@ -22,12 +22,12 @@ final class SnapshotData: ObservableObject {
     // Show progress view when getting data
     @Published var snapshotlist: Bool = false
     // uuids for DELETE snapshots
-    @Published var snapshotuuidsfordelete = Set<Logrecordsschedules.ID>()
+    @Published var snapshotuuidsfordelete = Set<LogrecordSnapshot.ID>()
 
-    var logrecordssnapshot: [Logrecordsschedules]?
+    var logrecordssnapshot: [LogrecordSnapshot]?
     var state: Snapshotdatastat = .start
 
-    func setsnapshotdata(_ data: [Logrecordsschedules]?) {
+    func setsnapshotdata(_ data: [LogrecordSnapshot]?) {
         logrecordssnapshot = data
         inprogressofdelete = false
         snapshotuuidsfordelete.removeAll()
@@ -36,7 +36,7 @@ final class SnapshotData: ObservableObject {
         objectWillChange.send()
     }
 
-    func getsnapshotdata() -> [Logrecordsschedules]? {
+    func getsnapshotdata() -> [LogrecordSnapshot]? {
         return logrecordssnapshot?.sorted(by: \.date, using: >)
     }
 }
