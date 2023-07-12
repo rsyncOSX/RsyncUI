@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Logrecordsschedules: Identifiable {
+struct LogrecordSnapshot: Identifiable {
     var id = UUID()
     // To save id from the Log records.
     // Used when resolving issues in administrating snapshots.
@@ -32,12 +32,12 @@ struct Logrecordsschedules: Identifiable {
 final class LogRecords {
     private var localconfigurations: RsyncUIconfigurations?
     private var structschedules: AllLogs?
-    var loggrecords: [Logrecordsschedules]?
+    var loggrecordssnapshots: [LogrecordSnapshot]?
     private var localehiddenID: Int?
     var uuidsfromlogrecords = Set<Log.ID>()
 
     private func readandsortallloggdata(hiddenID: Int?) {
-        var data = [Logrecordsschedules]()
+        var data = [LogrecordSnapshot]()
         if let input: [ConfigurationSchedule] = structschedules?.scheduleConfigurations {
             for i in 0 ..< input.count {
                 for j in 0 ..< (input[i].logrecords?.count ?? 0) {
@@ -52,7 +52,7 @@ final class LogRecords {
                         }
                         let configdata = GetConfigurationData(configurations: localconfigurations?.getallconfigurations())
                         let record =
-                            Logrecordsschedules(
+                            LogrecordSnapshot(
                                 hiddenID: hiddenID,
                                 localCatalog: configdata.getconfigurationdata(hiddenID, resource: .localCatalog) ?? "",
                                 remoteCatalog: configdata.getconfigurationdata(hiddenID, resource: .remoteCatalog) ?? "",
@@ -69,7 +69,7 @@ final class LogRecords {
             }
         }
         if hiddenID != nil { data = data.filter { $0.hiddenID == hiddenID } }
-        loggrecords = data.sorted(by: \.date, using: >)
+        loggrecordssnapshots = data.sorted(by: \.date, using: >)
     }
 
     init(hiddenID: Int?,
@@ -79,7 +79,7 @@ final class LogRecords {
         localehiddenID = hiddenID
         localconfigurations = configurations
         structschedules = AllLogs(profile: profile, validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
-        if loggrecords == nil {
+        if loggrecordssnapshots == nil {
             readandsortallloggdata(hiddenID: hiddenID)
         }
     }
@@ -89,8 +89,8 @@ final class LogRecords {
     }
 }
 
-extension Logrecordsschedules: Hashable, Equatable {
-    static func == (lhs: Logrecordsschedules, rhs: Logrecordsschedules) -> Bool {
+extension LogrecordSnapshot: Hashable, Equatable {
+    static func == (lhs: LogrecordSnapshot, rhs: LogrecordSnapshot) -> Bool {
         return lhs.dateExecuted == rhs.dateExecuted &&
             lhs.resultExecuted == rhs.resultExecuted &&
             lhs.snapshotCatalog == rhs.snapshotCatalog &&

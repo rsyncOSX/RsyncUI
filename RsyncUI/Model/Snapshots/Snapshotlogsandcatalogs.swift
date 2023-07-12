@@ -10,7 +10,7 @@ import Foundation
 
 final class Snapshotlogsandcatalogs {
     // Number of local logrecords
-    var logrecordssnapshot: [Logrecordsschedules]?
+    var logrecordssnapshot: [LogrecordSnapshot]?
     var localeconfig: Configuration?
     var snapshotcatalogstodelete: [String]?
     var mysnapshotdata: SnapshotData?
@@ -73,7 +73,7 @@ final class Snapshotlogsandcatalogs {
 
     // Merging remote snaphotcatalogs and existing logs
     private func mergeremotecatalogsandlogs() {
-        var adjustedlogrecords = [Logrecordsschedules]()
+        var adjustedlogrecords = [LogrecordSnapshot]()
         let mycatalogs = catalogsanddates
         var mylogrecords = logrecordssnapshot
         // Loop through all real catalogs, find the corresponding logrecord if any
@@ -164,7 +164,7 @@ final class Snapshotlogsandcatalogs {
         var alllogs: LogRecords? = LogRecords(hiddenID: config.hiddenID,
                                               profile: profile,
                                               configurations: configurations)
-        logrecordssnapshot = alllogs?.loggrecords
+        logrecordssnapshot = alllogs?.loggrecordssnapshots
         // release the object - dont need it more
         alllogs = nil
         // Getting remote catalogdata about all snapshots

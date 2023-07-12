@@ -19,7 +19,7 @@ final class TagSnapshots {
                         "Thursday",
                         "Friday",
                         "Saturday"]
-    var logrecordssnapshot: [Logrecordsschedules]?
+    var logrecordssnapshot: [LogrecordSnapshot]?
     private var numberoflogs: Int?
     private var keepallselcteddayofweek: Bool = true
     var now: String?
@@ -175,7 +175,7 @@ final class TagSnapshots {
 
     init(plan: Int,
          snapdayoffweek: String,
-         data: [Logrecordsschedules]?)
+         data: [LogrecordSnapshot]?)
     {
         // which plan to apply
         if plan == 1 {

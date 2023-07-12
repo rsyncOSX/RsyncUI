@@ -24,12 +24,12 @@ final class SnapshotData {
     // Show progress view when getting data
     var snapshotlist: Bool = false
     // uuids for DELETE snapshots
-    var snapshotuuidsfordelete = Set<Logrecordsschedules.ID>()
+    var snapshotuuidsfordelete = Set<LogrecordSnapshot.ID>()
 
-    var logrecordssnapshot: [Logrecordsschedules]?
+    var logrecordssnapshot: [LogrecordSnapshot]?
     var state: Snapshotdatastat = .start
 
-    func setsnapshotdata(_ data: [Logrecordsschedules]?) {
+    func setsnapshotdata(_ data: [LogrecordSnapshot]?) {
         logrecordssnapshot = data
         inprogressofdelete = false
         snapshotuuidsfordelete.removeAll()
@@ -37,7 +37,7 @@ final class SnapshotData {
         remainingsnapshotstodelete = 0
     }
 
-    func getsnapshotdata() -> [Logrecordsschedules]? {
+    func getsnapshotdata() -> [LogrecordSnapshot]? {
         return logrecordssnapshot?.sorted(by: \.date, using: >)
     }
 }

@@ -14,7 +14,7 @@ struct SnapshotsView: View {
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
 
-    @State private var snapshotrecords: Logrecordsschedules?
+    @State private var snapshotrecords: LogrecordSnapshot?
     @State private var selectedconfiguuid = Set<Configuration.ID>()
     // If not a snapshot
     @State private var notsnapshot = false
