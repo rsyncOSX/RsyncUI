@@ -92,26 +92,26 @@ struct Sshsettings: View {
     }
 
     var setsshpath: some View {
-        EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile.onChange {
-            usersettings.sshkeypath(usersettings.sshkeypathandidentityfile)
-        })
-        .onAppear(perform: {
-            if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
-                usersettings.sshkeypathandidentityfile = sshkeypath
+        EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile)
+            .onAppear(perform: {
+                if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
+                    usersettings.sshkeypathandidentityfile = sshkeypath
+                }
+            })
+            .onChange(of: usersettings.sshkeypathandidentityfile) {
+                usersettings.sshkeypath(usersettings.sshkeypathandidentityfile)
             }
-        })
     }
 
     var setsshport: some View {
         EditValue(250, NSLocalizedString("Global ssh port", comment: ""),
-                  $usersettings.sshportnumber.onChange {
-                      usersettings.sshport(usersettings.sshportnumber)
-                  })
-                  .onAppear(perform: {
-                      if let sshport = SharedReference.shared.sshport {
-                          usersettings.sshportnumber = String(sshport)
-                      }
-                  })
+                  $usersettings.sshportnumber)
+            .onAppear(perform: {
+                if let sshport = SharedReference.shared.sshport {}
+            })
+            .onChange(of: usersettings.sshportnumber) {
+                usersettings.sshport(usersettings.sshportnumber)
+            }
     }
 
     var uniqueuserversandloginslist: some View {

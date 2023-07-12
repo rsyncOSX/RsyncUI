@@ -28,17 +28,20 @@ struct Usersettings: View {
                         Section(header: headerrsync) {
                             HStack {
                                 ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""),
-                                                  $usersettings.rsyncversion3.onChange {
-                                                      SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
+                                                  $usersettings.rsyncversion3)
+                                    .onChange(of: usersettings.rsyncversion3) {
+                                        SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
+                                    }
 
-                                                  })
                                 ToggleViewDefault(NSLocalizedString("Apple Silicon", comment: ""),
-                                                  $usersettings.macosarm.onChange {
-                                                      SharedReference.shared.macosarm = usersettings.macosarm
-                                                  })
+                                                  $usersettings.macosarm)
+                                    .onChange(of: usersettings.macosarm) {
+                                        SharedReference.shared.macosarm = usersettings.macosarm
+                                    }
                             }
                         }
 
+                        // Not working
                         if usersettings.localrsyncpath.isEmpty == true {
                             setrsyncpathdefault
                         } else {
@@ -52,8 +55,8 @@ struct Usersettings: View {
                         Section(header: headermarkdays) {
                             setmarkdays
                         }
-
-                    }.padding()
+                    }
+                    .padding()
 
                     // Column 2
                     VStack(alignment: .leading) {
@@ -103,16 +106,20 @@ struct Usersettings: View {
 
                             VStack(alignment: .leading) {
                                 Section(header: othersettings) {
-                                    ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging.onChange {
-                                        SharedReference.shared.detailedlogging = usersettings.detailedlogging
-                                    })
-                                    ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection.onChange {
-                                        SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
-                                    })
+                                    ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
+                                        .onChange(of: usersettings.detailedlogging) {
+                                            SharedReference.shared.detailedlogging = usersettings.detailedlogging
+                                        }
+
+                                    ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
+                                        .onChange(of: usersettings.monitornetworkconnection) {
+                                            SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
+                                        }
                                 }
                             }
                         }
-                    }.padding()
+                    }
+                    .padding()
 
                     // For center
                     Spacer()
@@ -165,9 +172,10 @@ struct Usersettings: View {
 
     var setrsyncpathdefault: some View {
         EditValue(250, SetandValidatepathforrsync().getpathforrsync(),
-                  $usersettings.localrsyncpath.onChange {
-                      usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
-                  })
+                  $usersettings.localrsyncpath)
+            .onChange(of: usersettings.localrsyncpath) {
+                usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
+            }
     }
 
     // Restore path
@@ -177,14 +185,15 @@ struct Usersettings: View {
 
     var setpathforrestore: some View {
         EditValue(250, NSLocalizedString("Path for restore", comment: ""),
-                  $usersettings.temporarypathforrestore.onChange {
-                      usersettings.setandvalidapathforrestore(usersettings.temporarypathforrestore)
-                  })
-                  .onAppear(perform: {
-                      if let pathforrestore = SharedReference.shared.pathforrestore {
-                          usersettings.temporarypathforrestore = pathforrestore
-                      }
-                  })
+                  $usersettings.temporarypathforrestore)
+            .onAppear(perform: {
+                if let pathforrestore = SharedReference.shared.pathforrestore {
+                    usersettings.temporarypathforrestore = pathforrestore
+                }
+            })
+            .onChange(of: usersettings.temporarypathforrestore) {
+                usersettings.setandvalidapathforrestore(usersettings.temporarypathforrestore)
+            }
     }
 
     // Logging
@@ -209,12 +218,13 @@ struct Usersettings: View {
 
     var setmarkdays: some View {
         TextField("",
-                  text: $usersettings.marknumberofdayssince.onChange {
-                      usersettings.markdays(days: usersettings.marknumberofdayssince)
-                  })
-                  .textFieldStyle(RoundedBorderTextFieldStyle())
-                  .frame(width: 70)
-                  .lineLimit(1)
+                  text: $usersettings.marknumberofdayssince)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 70)
+            .lineLimit(1)
+            .onChange(of: usersettings.marknumberofdayssince) {
+                usersettings.markdays(days: usersettings.marknumberofdayssince)
+            }
     }
 }
 

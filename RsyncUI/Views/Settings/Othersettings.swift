@@ -57,27 +57,27 @@ struct Othersettings: View {
     }
 
     var setenvironment: some View {
-        EditValue(350, NSLocalizedString("Environment", comment: ""),
-                  $environment.onChange {
-                      SharedReference.shared.environment = environment
-                  })
-                  .onAppear(perform: {
-                      if let environmentstring = SharedReference.shared.environment {
-                          environment = environmentstring
-                      }
-                  })
+        EditValue(350, NSLocalizedString("Environment", comment: ""), $environment)
+            .onAppear(perform: {
+                if let environmentstring = SharedReference.shared.environment {
+                    environment = environmentstring
+                }
+            })
+            .onChange(of: environment) {
+                SharedReference.shared.environment = environment
+            }
     }
 
     var setenvironmenvariable: some View {
-        EditValue(350, NSLocalizedString("Environment variable", comment: ""),
-                  $environmentvalue.onChange {
-                      SharedReference.shared.environmentvalue = environmentvalue
-                  })
-                  .onAppear(perform: {
-                      if let environmentvaluestring = SharedReference.shared.environmentvalue {
-                          environmentvalue = environmentvaluestring
-                      }
-                  })
+        EditValue(350, NSLocalizedString("Environment variable", comment: ""), $environmentvalue)
+            .onAppear(perform: {
+                if let environmentvaluestring = SharedReference.shared.environmentvalue {
+                    environmentvalue = environmentvaluestring
+                }
+            })
+            .onChange(of: environmentvalue) {
+                SharedReference.shared.environmentvalue = environmentvalue
+            }
     }
 }
 

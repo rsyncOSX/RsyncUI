@@ -15,12 +15,13 @@ struct RestoreFilesTableView: View {
 
     var body: some View {
         ZStack {
-            Table(restore.datalist, selection: $selectedid.onChange {
+            Table(restore.datalist, selection: $selectedid) {
+                TableColumn("Filenames", value: \.filename)
+            }
+            .onChange(of: selectedid) {
                 let record = restore.datalist.filter { $0.id == selectedid }
                 guard record.count > 0 else { return }
                 filestorestore = record[0].filename
-            }) {
-                TableColumn("Filenames", value: \.filename)
             }
         }
     }

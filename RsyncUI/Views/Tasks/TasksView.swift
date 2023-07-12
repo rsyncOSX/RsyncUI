@@ -191,15 +191,16 @@ struct TasksView: View {
                                 selectedconfig: selectedconfig.config)
         case .asynctimerison:
             Counter(timervalue: $timervalue,
-                    timerisenabled: $timerisenabled.onChange {
-                        if timerisenabled == true {
-                            startasynctimer()
-                        }
-                    })
-                    .onDisappear(perform: {
-                        stopasynctimer()
-                        timervalue = SharedReference.shared.timervalue ?? 600
-                    })
+                    timerisenabled: $timerisenabled)
+                .onDisappear(perform: {
+                    stopasynctimer()
+                    timervalue = SharedReference.shared.timervalue ?? 600
+                })
+                .onChange(of: timerisenabled) {
+                    if timerisenabled == true {
+                        startasynctimer()
+                    }
+                }
         }
     }
 
