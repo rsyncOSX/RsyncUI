@@ -99,7 +99,7 @@ struct Sshsettings: View {
                 }
             })
             .onChange(of: usersettings.sshkeypathandidentityfile) {
-                usersettings.sshkeypath(usersettings.sshkeypathandidentityfile)
+                usersettings.sshkeypath(usersettings.sshkeypathandidentityfile, usersettings.sshportnumber)
             }
     }
 
@@ -107,7 +107,9 @@ struct Sshsettings: View {
         EditValue(250, NSLocalizedString("Global ssh port", comment: ""),
                   $usersettings.sshportnumber)
             .onAppear(perform: {
-                if let sshport = SharedReference.shared.sshport {}
+                if let sshport = SharedReference.shared.sshport {
+                    usersettings.sshportnumber = String(sshport)
+                }
             })
             .onChange(of: usersettings.sshportnumber) {
                 usersettings.sshport(usersettings.sshportnumber)
