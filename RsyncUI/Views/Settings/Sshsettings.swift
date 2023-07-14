@@ -99,7 +99,7 @@ struct Sshsettings: View {
                 }
             })
             .onChange(of: usersettings.sshkeypathandidentityfile) {
-                usersettings.sshkeypath(usersettings.sshkeypathandidentityfile, usersettings.sshportnumber)
+                usersettings.sshkeypath(usersettings.sshkeypathandidentityfile)
             }
     }
 
