@@ -23,6 +23,12 @@
 "Abort task" = "Aufgabe abbrechen";
 
 /* No comment provided by engineer. */
+"Action" = "Aufgabe";
+
+/* No comment provided by engineer. */
+"Actions" = "Aufgabe";
+
+/* No comment provided by engineer. */
 "Add" = "Neu";
 
 /* No comment provided by engineer. */
@@ -62,9 +68,6 @@
 "All logs" = "Alle Protokolle";
 
 /* No comment provided by engineer. */
-"All tasks are estimated - select task to view details or Reset for reset" = "Alle Aufgaben werden geschätzt – Wählen Sie eine Aufgabe aus, um Details anzuzeigen, oder Zurücksetzen, um sie zurückzusetzen";
-
-/* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
@@ -86,6 +89,9 @@
 "Changelog" = "Änderungsprotokoll";
 
 /* No comment provided by engineer. */
+"Command" = "Befehl";
+
+/* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Copyright ©2023 Thomas Evensen";
 
 /* No comment provided by engineer. */
@@ -93,6 +99,9 @@
 
 /* No comment provided by engineer. */
 "Create profile" = "Profil erstellen";
+
+/* No comment provided by engineer. */
+"Date" = "Datum";
 
 /* No comment provided by engineer. */
 "Days" = "Tage";
@@ -111,6 +120,9 @@
 
 /* No comment provided by engineer. */
 "Delete task" = "Aufgabe löschen";
+
+/* No comment provided by engineer. */
+"Delete: " = "Löschen:";
 
 /* No comment provided by engineer. */
 "deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "gelöschte Daten. RsyncUI wird Sie NICHT davon abhalten. Deshalb ist es sehr";
@@ -155,6 +167,12 @@
 "Files" = "Dateien";
 
 /* No comment provided by engineer. */
+"Files: " = "Dateien:";
+
+/* No comment provided by engineer. */
+"Filter to search remote data" = "Filtern Sie, um Remote-Daten zu durchsuchen";
+
+/* No comment provided by engineer. */
 "First task" = "Erste Aufgabe";
 
 /* No comment provided by engineer. */
@@ -185,19 +203,25 @@
 "important to execute a simulated run and inspect what happens before a real run." = "wichtig, einen simulierten Lauf durchzuführen und zu überprüfen, was vor einem echten Lauf passiert.";
 
 /* No comment provided by engineer. */
-"In process in getting data" = "Daten werden gerade abgerufen";
-
-/* No comment provided by engineer. */
 "Info" = "Info";
 
 /* No comment provided by engineer. */
 "Last" = "Letzte";
 
 /* No comment provided by engineer. */
+"Lines" = "Lines";
+
+/* No comment provided by engineer. */
 "Linux" = "Linux";
 
 /* No comment provided by engineer. */
+"List" = "List";
+
+/* No comment provided by engineer. */
 "Local catalog" = "Lokaler Katalog";
+
+/* No comment provided by engineer. */
+"Local catalog: " = "Lokaler Katalog:";
 
 /* No comment provided by engineer. */
 "Local catalogs" = "Lokaler Katalogs";
@@ -239,7 +263,7 @@
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
-"no username" = "kein Benutzername";
+"New: " = "Neu:";
 
 /* No comment provided by engineer. */
 "None" = "Keine";
@@ -251,10 +275,7 @@
 "Not a snapshot task" = "Keine Snapshot-Aufgabe";
 
 /* No comment provided by engineer. */
-"not set" = "nicht gesetzt";
-
-/* No comment provided by engineer. */
-"Not valid path" = "Ungültiger Pfad";
+"Num" = "Num";
 
 /* No comment provided by engineer. */
 "Number of files" = "Anzahl der Dateien";
@@ -284,16 +305,25 @@
 "Path for restore" = "Pfad zum Wiederherstellen";
 
 /* No comment provided by engineer. */
+"Please add a search string" = "Bitte fügen Sie eine Suchzeichenfolge hinzu";
+
+/* No comment provided by engineer. */
 "Please read and understand the information below. There is more info" = "Bitte lesen und verstehen Sie die nachstehenden Informationen. Es gibt mehr Informationen";
 
 /* No comment provided by engineer. */
 "Profile" = "Profil";
 
 /* No comment provided by engineer. */
+"Profiles" = "Profil";
+
+/* No comment provided by engineer. */
 "Quick synchronize" = "Schnell synchronisieren";
 
 /* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
+
+/* No comment provided by engineer. */
+"Remote catalog: " = "Remote Katalog:";
 
 /* No comment provided by engineer. */
 "Remote data" = "Remote Data";
@@ -317,7 +347,7 @@
 "Restore" = "Wiederherstellen";
 
 /* No comment provided by engineer. */
-"Restore file list" = "Dateiliste wiederherstellen";
+"Result" = "Result";
 
 /* No comment provided by engineer. */
 "Rsync parameters" = "Rsync Parameter";
@@ -344,25 +374,10 @@
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
-"Search" = "Suche";
-
-/* No comment provided by engineer. */
-"Select" = "Auswählen";
-
-/* No comment provided by engineer. */
 "Select a configuration" = "Konfiguration auswählen";
 
 /* No comment provided by engineer. */
-"Select a task" = "Aufgabe auswählen";
-
-/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
-
-/* No comment provided by engineer. */
-"Select log" = "Protokoll auswählen";
-
-/* No comment provided by engineer. */
-"Select snapshot" = "Snapshot auswählen";
 
 /* No comment provided by engineer. */
 "Select task" = "Aufgabe auswählen";
@@ -377,6 +392,9 @@
 "Server" = "Server";
 
 /* No comment provided by engineer. */
+"Server: " = "Server:";
+
+/* No comment provided by engineer. */
 "Set ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
 
 /* No comment provided by engineer. */
@@ -387,6 +405,9 @@
 
 /* No comment provided by engineer. */
 "Show info" = "Zeige Info";
+
+/* No comment provided by engineer. */
+"Snap" = "Snap";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
@@ -401,10 +422,19 @@
 "Synchronize ID" = "Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
+"Synchronize ID: " = "Synchronisierungs-ID:";
+
+/* No comment provided by engineer. */
+"Tag" = "Tag";
+
+/* No comment provided by engineer. */
 "Tag snapshot" = "Tag snapshot";
 
 /* No comment provided by engineer. */
 "Task" = "Aufgabe";
+
+/* No comment provided by engineer. */
+"Task: " = "Aufgabe:";
 
 /* No comment provided by engineer. */
 "Tasks" = "Aufgaben";
@@ -422,16 +452,7 @@
 "Tot num" = "Anzahl Gesamt";
 
 /* No comment provided by engineer. */
-"Trash" = "Müll";
-
-/* No comment provided by engineer. */
 "Update" = "Aktualisieren";
-
-/* No comment provided by engineer. */
-"Updated" = "Aktualisiert";
-
-/* No comment provided by engineer. */
-"User" = "Benutzer";
 
 /* No comment provided by engineer. */
 "Verify" = "Verifizieren";
@@ -444,4 +465,3 @@
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Willkommen bei RsyncUI";
-
