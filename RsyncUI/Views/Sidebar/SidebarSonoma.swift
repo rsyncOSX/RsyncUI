@@ -18,7 +18,7 @@ struct SidebarSonoma: View {
     @Binding var selectedprofile: String?
     @State private var selectedview: Sidebaritems = .synchronize
 
-    @StateObject var progressdetails = ProgressDetails()
+    @State var progressdetails = ProgressDetails()
 
     // Keep record of actions
     var actions: Actions
@@ -38,7 +38,7 @@ struct SidebarSonoma: View {
             SidebarSnapshotsView(selectedprofile: $selectedprofile, reload: $reload)
         case .synchronize:
             SidebarTasksView(reload: $reload, actions: actions)
-                .environmentObject(progressdetails)
+                .environment(progressdetails)
         case .quick_synchronize:
             QuicktaskView()
         }
