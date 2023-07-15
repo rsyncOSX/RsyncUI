@@ -12,8 +12,6 @@ struct RsyncUIView: View {
     @State private var rsyncversion = Rsyncversion()
     @State private var profilenames = Profilenames()
 
-    @StateObject var progressdetails = ProgressDetails()
-
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
     @State private var defaultprofile = "Default profile"
@@ -49,7 +47,6 @@ struct RsyncUIView: View {
                     .environment(rsyncUIdata)
                     .environment(profilenames)
                     .environmentObject(errorhandling)
-                    .environmentObject(progressdetails)
                     .onChange(of: reload) {
                         reload = false
                     }
