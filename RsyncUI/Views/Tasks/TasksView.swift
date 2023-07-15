@@ -13,7 +13,7 @@ struct TasksView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
-    @SwiftUI.Environment(ProgressDetails.self) var progressdetails
+    @EnvironmentObject var progressdetails: ProgressDetails
     // These two objects keeps track of the state and collects
     // the estimated values.
     @State private var estimationstate = EstimationState()

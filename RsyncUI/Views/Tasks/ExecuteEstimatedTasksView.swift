@@ -12,7 +12,7 @@ struct ExecuteEstimatedTasksView: View {
     @State private var inprogresscountmultipletask = InprogressCountMultipleTasks()
     @State private var multipletaskstate = MultipleTaskState()
 
-    @SwiftUI.Environment(ProgressDetails.self) var progressdetails
+    @EnvironmentObject var progressdetails: ProgressDetails
 
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
