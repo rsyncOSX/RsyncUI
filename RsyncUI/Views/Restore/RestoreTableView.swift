@@ -121,7 +121,7 @@ struct RestoreTableView: View {
     var nosearchstring: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Please add a sarch string")
+            Text("Please add a search string")
                 .font(.title3)
                 .foregroundColor(Color.accentColor)
         }
