@@ -50,7 +50,6 @@ struct RsyncUIView: View {
                     .environment(profilenames)
                     .environmentObject(errorhandling)
                     .environmentObject(progressdetails)
-
                     .onChange(of: reload) {
                         reload = false
                     }
