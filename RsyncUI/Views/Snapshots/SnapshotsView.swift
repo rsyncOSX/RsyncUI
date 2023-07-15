@@ -150,14 +150,13 @@ struct SnapshotsView: View {
     }
 
     var notifyupdated: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional(NSLocalizedString("Updated", comment: "")),
-                   subTitle: Optional(""))
+        notifymessage("Updated")
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     updated = false
                 }
             })
+            .frame(maxWidth: .infinity)
     }
 
     var progressdelete: some View {

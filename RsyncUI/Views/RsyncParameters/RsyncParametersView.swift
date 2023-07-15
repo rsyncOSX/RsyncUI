@@ -173,10 +173,8 @@ struct RsyncParametersView: View {
     }
 
     var notifyupdated: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Updated"), subTitle: Optional(""))
+        notifymessage("Updated")
             .onAppear(perform: {
-                // Show updated for 3 seconds
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     showtableview = true
                 }

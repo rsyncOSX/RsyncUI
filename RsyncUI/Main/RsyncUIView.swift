@@ -138,6 +138,17 @@ extension View {
             self
         }
     }
+
+    func notifymessage(_ text: String) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text(text)
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 200, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+    }
 }
 
 struct TooltipView<Content>: View where Content: View {
