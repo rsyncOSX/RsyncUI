@@ -208,7 +208,7 @@ struct TasksView: View {
         AlertToast(displayMode: .alert, type: .loading)
             .onAppear {
                 Task {
-                    if selectedconfig.config != nil {
+                    if selecteduuids.isEmpty == false {
                         let estimateonetaskasync =
                             EstimateOnetaskAsync(configurations: rsyncUIdata,
                                                  updateinprogresscount: inprogresscountmultipletask,
@@ -309,11 +309,9 @@ struct TasksView: View {
     }
 
     var notifycompleted: some View {
-        AlertToast(type: .complete(Color.green),
-                   title: Optional("Completed"), subTitle: Optional(""))
+        notifymessage("Completed")
             .onAppear(perform: {
-                // Show updated for 2 seconds
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     reloadtasksviewlist = false
                 }
             })
