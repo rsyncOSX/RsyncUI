@@ -35,7 +35,7 @@ final class ExecuteMultipleTasks {
     weak var multipletasksateDelegate: MultipleTaskState?
     weak var updateestimationcountDelegate: UpdateEstimationCount?
     // In progress count each task
-    weak var progessdetailsDelegate: ProgressDetailsProtocol?
+    weak var progessdetailsDelegate: ProgressDetails?
 
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
@@ -83,7 +83,7 @@ final class ExecuteMultipleTasks {
          configurations: RsyncUIconfigurations?,
          executionstateDelegate: MultipleTaskState?,
          updateinprogresscount: UpdateEstimationCount?,
-         progressdetails: ProgressDetailsProtocol?)
+         progressdetails: ProgressDetails?)
     {
         structprofile = profile
         localconfigurations = configurations
@@ -144,7 +144,7 @@ final class ExecuteMultipleTasks {
     }
 
     func filehandler(count: Int) {
-        progessdetailsDelegate?.setcurrentprogress(Double(count))
+        progessdetailsDelegate?.currenttaskprogress = Double(count)
     }
 }
 
