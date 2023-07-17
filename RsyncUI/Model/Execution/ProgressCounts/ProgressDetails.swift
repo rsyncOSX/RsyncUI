@@ -37,4 +37,8 @@ final class ProgressDetails: ObservableObject {
         currenttaskprogress = 0
         estimatedlist = nil
     }
+
+    deinit {
+        print("deinit ProgressDetails")
+    }
 }

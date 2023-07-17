@@ -11,7 +11,7 @@ import Foundation
 class EstimateOnetaskAsync {
     var localconfigurations: RsyncUIconfigurations?
     var localhiddenID: Int?
-    weak var updateestimationcountDelegate: UpdateEstimationCount?
+    weak var updateestimationcountDelegate: InprogressCountMultipleTasks?
 
     @MainActor
     func execute() async {
@@ -26,7 +26,7 @@ class EstimateOnetaskAsync {
     }
 
     init(configurations: RsyncUIconfigurations?,
-         updateinprogresscount: UpdateEstimationCount?,
+         updateinprogresscount: InprogressCountMultipleTasks?,
          hiddenID: Int?)
     {
         localconfigurations = configurations
@@ -54,10 +54,10 @@ extension EstimateOnetaskAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        updateestimationcountDelegate?.appendrecord(record: record)
+        updateestimationcountDelegate?.appendrecord(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
-                updateestimationcountDelegate?.appenduuid(id: config.id)
+                updateestimationcountDelegate?.appenduuid(config.id)
             }
         }
         updateestimationcountDelegate?.asyncestimationcomplete()

@@ -8,20 +8,11 @@
 import Foundation
 import Observation
 
-protocol UpdateOutputprocessCountProtcol: AnyObject {
-    func updateinprogresscount(num: Double)
-    func getmaxcount() -> Int
-    func setmaxcount(num: Int)
-    func setoutput(data: [String]?)
-    func getoutput() -> [String]?
-}
-
 @Observable
-final class InprogressCountRsyncOutput: UpdateOutputprocessCountProtcol {
-    private var inprogresscount: Double = 0
-    private var max: Int = 0
-    private var output: [String]?
-
+final class InprogressCountRsyncOutput {
+    var inprogresscount: Double = 0
+    var max: Int = 0
+    var output: [String]?
     // For Quicktasks
     var myoutputprocess: OutputfromProcess?
 
@@ -64,6 +55,6 @@ final class InprogressCountRsyncOutput: UpdateOutputprocessCountProtcol {
     }
 
     deinit {
-        // print("deinit InprogressCountRsyncOutput")
+        print("deinit InprogressCountRsyncOutput")
     }
 }

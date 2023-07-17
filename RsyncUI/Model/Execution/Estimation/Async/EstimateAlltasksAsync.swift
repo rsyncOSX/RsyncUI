@@ -12,7 +12,7 @@ class EstimateAlltasksAsync {
     var structprofile: String?
     var localconfigurations: RsyncUIconfigurations?
     var stackoftasktobeestimated: [Int]?
-    weak var updateestimationcountDelegate: UpdateEstimationCount?
+    weak var updateestimationcountDelegate: InprogressCountMultipleTasks?
 
     @MainActor
     func startexecution() async {
@@ -34,7 +34,7 @@ class EstimateAlltasksAsync {
 
     init(profile: String?,
          configurations: RsyncUIconfigurations?,
-         updateinprogresscount: UpdateEstimationCount?,
+         updateinprogresscount: InprogressCountMultipleTasks?,
          uuids: Set<UUID>,
          filter: String)
     {
@@ -62,7 +62,7 @@ class EstimateAlltasksAsync {
                 }
             }
         }
-        updateestimationcountDelegate?.setmaxcount(num: stackoftasktobeestimated?.count ?? 0)
+        updateestimationcountDelegate?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
         updateestimationcountDelegate?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }
 
@@ -86,10 +86,10 @@ extension EstimateAlltasksAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        updateestimationcountDelegate?.appendrecord(record: record)
+        updateestimationcountDelegate?.appendrecord(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
-                updateestimationcountDelegate?.appenduuid(id: config.id)
+                updateestimationcountDelegate?.appenduuid(config.id)
             }
         }
         _ = Task.detached {

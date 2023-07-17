@@ -219,8 +219,8 @@ extension DetailsView {
         // Adding computed estimate if later execute and view of progress
         if estimateddataonetask.estimatedlistonetask.count == 1 {
             inprogresscountmultipletask.resetcounts()
-            inprogresscountmultipletask.appenduuid(id: selectedconfig?.id ?? UUID())
-            inprogresscountmultipletask.appendrecord(record: estimateddataonetask.estimatedlistonetask[0])
+            inprogresscountmultipletask.appenduuid(selectedconfig?.id ?? UUID())
+            inprogresscountmultipletask.appendrecord(estimateddataonetask.estimatedlistonetask[0])
         }
     }
 }
