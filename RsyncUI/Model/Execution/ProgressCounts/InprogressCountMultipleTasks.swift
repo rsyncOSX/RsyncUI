@@ -7,27 +7,22 @@
 
 import Foundation
 
-protocol UpdateEstimationCount: AnyObject {
-    func resetcounts()
-    func updateinprogresscount(num: Double)
-    func setmaxcount(num: Int)
-    func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?)
-    func getestimatedlist() -> [RemoteinfonumbersOnetask]?
-    func sethiddenID(_ arghiddenID: Int)
-    func appenduuid(id: UUID)
-    func getuuids() -> Set<UUID>
-    func appendrecord(record: RemoteinfonumbersOnetask)
-    func asyncestimationcomplete()
-    func asyncexecutealltasksnoestiamtioncomplete()
-    func startasyncexecutealltasksnoestimation()
-    func asyncexecutecomplete()
+final class InprogressCountMultipleTasks: ObservableObject {
+    var estimatedlist: [RemoteinfonumbersOnetask]?
+    var inprogresscount: Double = 0
+    var max: Int = 0
+    // Which hiddenID is in estimation
+    var hiddenID: Int = -1
+    // set uuid if data to be transferred
+    var uuids = Set<UUID>()
+    // Estimate async
+    var estimateasync: Bool = false
+    var executeasyncnoestimationcompleted: Bool = false
+    // Profilename and timestamp start estimation
+    var profile: String?
+    var timestamp: Date?
+    var numberofconfigurations: Int = -1
 
-    func setprofileandnumberofconfigurations(_ profile: String, _ num: Int)
-    func alltasksestimated(_ profilename: String) -> Bool
-    func getprofile() -> String
-}
-
-final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCount {
     func getprofile() -> String {
         return profile ?? "Default profile"
     }
@@ -41,26 +36,11 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
         return estimateasync == false && estimatedlist?.count == numberofconfigurations && profile == profilename
     }
 
-    private var estimatedlist: [RemoteinfonumbersOnetask]?
-    private var inprogresscount: Double = 0
-    private var max: Int = 0
-    // Which hiddenID is in estimation
-    var hiddenID: Int = -1
-    // set uuid if data to be transferred
-    private var uuids = Set<UUID>()
-    // Estimate async
-    var estimateasync: Bool = false
-    var executeasyncnoestimationcompleted: Bool = false
-    // Profilename and timestamp start estimation
-    private var profile: String?
-    private var timestamp: Date?
-    private var numberofconfigurations: Int = -1
-
     func getuuids() -> Set<UUID> {
         return uuids
     }
 
-    func appenduuid(id: UUID) {
+    func appenduuid(_ id: UUID) {
         uuids.insert(id)
         // objectWillChange.send()
     }
@@ -86,11 +66,11 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
         return inprogresscount
     }
 
-    func setmaxcount(num: Int) {
+    func setmaxcount(_ num: Int) {
         max = num
     }
 
-    func updateinprogresscount(num: Double) {
+    func updateinprogresscount(_ num: Double) {
         inprogresscount = num
         objectWillChange.send()
     }
@@ -99,7 +79,7 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
         estimatedlist = argestimatedlist
     }
 
-    func appendrecord(record: RemoteinfonumbersOnetask) {
+    func appendrecord(_ record: RemoteinfonumbersOnetask) {
         if estimatedlist == nil {
             estimatedlist = [RemoteinfonumbersOnetask]()
         }
@@ -136,6 +116,6 @@ final class InprogressCountMultipleTasks: ObservableObject, UpdateEstimationCoun
     }
 
     deinit {
-        // print("deinit InprogressCountMultipleTasks")
+        print("deinit InprogressCountMultipleTasks")
     }
 }

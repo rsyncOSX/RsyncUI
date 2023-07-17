@@ -33,7 +33,7 @@ final class ExecuteMultipleTasks {
     private var outputfromrsync: [String]?
 
     weak var multipletasksateDelegate: MultipleTaskState?
-    weak var updateestimationcountDelegate: UpdateEstimationCount?
+    weak var updateestimationcountDelegate: InprogressCountMultipleTasks?
     // In progress count each task
     weak var progressdetailsDelegate: ProgressDetailsProtocol?
 
@@ -50,7 +50,7 @@ final class ExecuteMultipleTasks {
                 stackoftasktobeexecuted?.append(configurations[i].hiddenID)
             }
             max = stackoftasktobeexecuted?.count
-            updateestimationcountDelegate?.setmaxcount(num: stackoftasktobeexecuted?.count ?? 0)
+            updateestimationcountDelegate?.setmaxcount(stackoftasktobeexecuted?.count ?? 0)
         }
     }
 
@@ -82,7 +82,7 @@ final class ExecuteMultipleTasks {
          profile: String?,
          configurations: RsyncUIconfigurations?,
          executionstateDelegate: MultipleTaskState?,
-         updateinprogresscount: UpdateEstimationCount?,
+         updateinprogresscount: InprogressCountMultipleTasks?,
          progressdetails: ProgressDetailsProtocol?)
     {
         structprofile = profile
@@ -115,14 +115,14 @@ final class ExecuteMultipleTasks {
         configrecords.append((privatehiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((privatehiddenID ?? -1, Numbers(data ?? []).stats()))
         // Log records
-        updateestimationcountDelegate?.updateinprogresscount(num: Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
+        updateestimationcountDelegate?.updateinprogresscount(Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: privatehiddenID))
         records?.append(record)
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
             multipletasksateDelegate?.updatestate(state: .completed)
-            updateestimationcountDelegate?.setmaxcount(num: 0)
+            updateestimationcountDelegate?.setmaxcount(0)
             updateestimationcountDelegate?.setestimatedlist(records)
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: privatehiddenID,

@@ -7,15 +7,7 @@
 
 import Foundation
 
-protocol UpdateOutputprocessCountProtcol: AnyObject {
-    func updateinprogresscount(num: Double)
-    func getmaxcount() -> Int
-    func setmaxcount(num: Int)
-    func setoutput(data: [String]?)
-    func getoutput() -> [String]?
-}
-
-final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCountProtcol {
+final class InprogressCountRsyncOutput: ObservableObject {
     private var inprogresscount: Double = 0
     private var max: Int = 0
     private var output: [String]?
@@ -65,6 +57,6 @@ final class InprogressCountRsyncOutput: ObservableObject, UpdateOutputprocessCou
     }
 
     deinit {
-        // print("deinit InprogressCountRsyncOutput")
+        print("deinit InprogressCountRsyncOutput")
     }
 }
