@@ -20,11 +20,6 @@ final class ProgressDetails: ObservableObject {
         }
     }
 
-    func getcurrentprogress() -> Double {
-        // print(" getcurrentprogress -> \(currenttaskprogress)")
-        return currenttaskprogress ?? 0
-    }
-
     func getmaxcountbytask(_ hiddenID: Int) -> Double {
         let max = estimatedlist?.filter { $0.hiddenID == hiddenID }
         if (max?.count ?? 0) == 1 {

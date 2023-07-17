@@ -31,9 +31,9 @@ struct ListofTasksView: View {
             TableColumn("%") { data in
                 if data.hiddenID == inwork && progressdetails.isestimating() == false {
                     ProgressView("",
-                                 value: progressdetails.getcurrentprogress(),
+                                 value: progressdetails.currenttaskprogress,
                                  total: maxcount)
-                        .onChange(of: progressdetails.getcurrentprogress()) {}
+                        .onChange(of: progressdetails.currenttaskprogress) {}
                         .frame(width: 35, alignment: .center)
                 }
             }
