@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
-    @State private var inprogresscountmultipletask = InprogressCountMultipleTasks()
+    @State private var estimatingprogresscount = EstimatingProgressCount()
     @State private var multipletaskstate = MultipleTaskState()
 
     @EnvironmentObject var progressdetails: ProgressDetails
@@ -63,11 +63,11 @@ struct ExecuteEstimatedTasksView: View {
         AlertToast(displayMode: .alert, type: .loading)
             .onAppear(perform: {
                 // To set ProgressView spinnig wheel on correct task when estimating
-                inwork = inprogresscountmultipletask.hiddenID
+                inwork = estimatingprogresscount.hiddenID
             })
-            .onChange(of: inprogresscountmultipletask.getinprogress()) {
+            .onChange(of: estimatingprogresscount.inprogresscount) {
                 // To set ProgressView spinnig wheel on correct task when estimating
-                inwork = inprogresscountmultipletask.hiddenID
+                inwork = estimatingprogresscount.hiddenID
                 progressdetails.currenttaskprogress = 0
             }
     }
@@ -93,7 +93,7 @@ extension ExecuteEstimatedTasksView {
     func completed() {
         inwork = -1
         multipletaskstate.updatestate(state: .start)
-        inprogresscountmultipletask.resetcounts()
+        estimatingprogresscount.resetcounts()
         selecteduuids.removeAll()
         showeexecutestimatedview = false
         reload = true
@@ -102,7 +102,7 @@ extension ExecuteEstimatedTasksView {
     func abort() {
         inwork = -1
         multipletaskstate.updatestate(state: .start)
-        inprogresscountmultipletask.resetcounts()
+        estimatingprogresscount.resetcounts()
         selecteduuids.removeAll()
         _ = InterruptProcess()
         showeexecutestimatedview = false
@@ -119,7 +119,7 @@ extension ExecuteEstimatedTasksView {
                              profile: rsyncUIdata.profile,
                              configurations: rsyncUIdata,
                              executionstateDelegate: multipletaskstate,
-                             updateinprogresscount: inprogresscountmultipletask,
+                             updateinprogresscount: estimatingprogresscount,
                              progressdetails: progressdetails)
     }
 }

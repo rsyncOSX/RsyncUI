@@ -17,7 +17,7 @@ struct TasksView: View {
     // These two objects keeps track of the state and collects
     // the estimated values.
     @State private var estimationstate = EstimationState()
-    @State private var inprogresscountmultipletask = InprogressCountMultipleTasks()
+    @State private var estimatingprogresscount = EstimatingProgressCount()
 
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
@@ -94,7 +94,7 @@ struct TasksView: View {
                 if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
                 if focusenabletimer { labelenabletimer }
-                if inprogresscountmultipletask.estimateasync { progressviewestimateasync }
+                if estimatingprogresscount.estimateasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
         }
@@ -168,17 +168,17 @@ struct TasksView: View {
     func makeSheet() -> some View {
         switch sheetchooser.sheet {
         case .dryrunalreadyestimated:
-            DetailsViewAlreadyEstimated(estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [],
+            DetailsViewAlreadyEstimated(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [],
                                         selectedconfig: selectedconfig.config)
         case .dryrun:
             OutputEstimatedView(selecteduuids: $selecteduuids,
                                 execute: $focusstartexecution,
-                                estimatedlist: inprogresscountmultipletask.getestimatedlist() ?? [])
+                                estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
         case .estimateddetailsview:
             DetailsView(reload: $reload,
                         execute: $focusstartexecution,
                         selectedconfig: selectedconfig.config)
-                .environment(inprogresscountmultipletask)
+                .environment(estimatingprogresscount)
                 .onAppear {
                     doubleclick = false
                 }
@@ -211,14 +211,14 @@ struct TasksView: View {
                     if selecteduuids.isEmpty == false {
                         let estimateonetaskasync =
                             EstimateOnetaskAsync(configurations: rsyncUIdata,
-                                                 updateinprogresscount: inprogresscountmultipletask,
+                                                 updateinprogresscount: estimatingprogresscount,
                                                  hiddenID: selectedconfig.config?.hiddenID)
                         await estimateonetaskasync.execute()
                     } else {
                         let estimatealltasksasync =
                             EstimateAlltasksAsync(profile: rsyncUIdata.profile,
                                                   configurations: rsyncUIdata,
-                                                  updateinprogresscount: inprogresscountmultipletask,
+                                                  updateinprogresscount: estimatingprogresscount,
                                                   uuids: selecteduuids,
                                                   filter: filterstring)
                         await estimatealltasksasync.startexecution()
@@ -321,10 +321,10 @@ struct TasksView: View {
 
 extension TasksView {
     func doubleclickactionfunction() {
-        if inprogresscountmultipletask.getestimatedlist() == nil {
+        if estimatingprogresscount.getestimatedlist() == nil {
             dryrun()
-        } else if inprogresscountmultipletask.getestimatedlist()?.count ?? -1 > 0 {
-            let uuidforestimatedtask = inprogresscountmultipletask.getestimatedlist()?[0].id ?? UUID()
+        } else if estimatingprogresscount.getestimatedlist()?.count ?? -1 > 0 {
+            let uuidforestimatedtask = estimatingprogresscount.getestimatedlist()?[0].id ?? UUID()
             if uuidforestimatedtask == selectedconfig.config?.id {
                 execute()
             } else {
@@ -335,24 +335,24 @@ extension TasksView {
 
     func dryrun() {
         if selectedconfig.config != nil,
-           inprogresscountmultipletask.getestimatedlist()?.count ?? 0 == 0
+           estimatingprogresscount.getestimatedlist()?.count ?? 0 == 0
         {
             // DryRun: execute a dryrun for one task only
             let action = ActionHolder(action: "DryRun: execute a dryrun for one task only", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
             actions.addaction(action)
             sheetchooser.sheet = .estimateddetailsview
-        } else if selectedconfig.config != nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
+        } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
             // DryRun: all tasks already estimated, show details on task
             let action = ActionHolder(action: "DryRun: all tasks already estimated, show details on task", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsViewAlreadyEstimated")
             actions.addaction(action)
             sheetchooser.sheet = .dryrunalreadyestimated
-        } else if selectedconfig.config != nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
+        } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
             // Profile is changed, new task selected
             // DryRun: profile is changed, new task selected, execute a dryrun
             let action = ActionHolder(action: "DryRun: profile is changed, new task selected, execute a dryrun", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
             actions.addaction(action)
             sheetchooser.sheet = .estimateddetailsview
-        } else if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
+        } else if estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
             // DryRun: show summarized dryrun for all tasks
             let action = ActionHolder(action: "DryRun: show summarized dryrun for all tasks", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
             actions.addaction(action)
@@ -373,36 +373,36 @@ extension TasksView {
                 selectedconfig.config = nil
             }
         }
-        inprogresscountmultipletask.resetcounts()
+        estimatingprogresscount.resetcounts()
         progressdetails.resetcounter()
-        inprogresscountmultipletask.startestimateasync()
+        estimatingprogresscount.startestimateasync()
     }
 
     func execute() {
-        if inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile"),
+        if estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile"),
            selectedconfig.config == nil
         {
             let action = ActionHolder(action: "Execute() all estimated tasks", profile: rsyncUIdata.profile ?? "Default profile", source: "ExecuteEstimatedTasksView")
             actions.addaction(action)
             // Execute all estimated tasks
-            selecteduuids = inprogresscountmultipletask.getuuids()
+            selecteduuids = estimatingprogresscount.getuuids()
             estimationstate.updatestate(state: .start)
             progressdetails.resetcounter()
-            progressdetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+            progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
         } else if selectedconfig.config == nil,
-                  inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
+                  estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
         {
             let action = ActionHolder(action: "Execute() all tasks NO estimate", profile: rsyncUIdata.profile ?? "Default profile", source: "ExecuteNoestimatedTasksView")
             actions.addaction(action)
             // Execute all tasks, no estimate
             showexecutenoestimateview = true
             showexecutenoestiamteonetask = false
-        } else if selectedconfig.config != nil, inprogresscountmultipletask.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
+        } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
             // Hack: if DryRun one task and Execute just after DryRun.
             // Execute as one task NO estimate. selecteduuids == 1 but inprogresscountmultipletask.getuuids() = 0
-            if inprogresscountmultipletask.getuuids().count == 0 {
+            if estimatingprogresscount.getuuids().count == 0 {
                 let action = ActionHolder(action: "Execute() one task NO estimate", profile: rsyncUIdata.profile ?? "Default profile", source: "ExecuteNoestimateOneTaskView")
                 actions.addaction(action)
                 // Execute one task, no estimte
@@ -413,10 +413,10 @@ extension TasksView {
                 actions.addaction(action)
                 // Execute estimated tasks only
                 // Execute all estimated tasks
-                selecteduuids = inprogresscountmultipletask.getuuids()
+                selecteduuids = estimatingprogresscount.getuuids()
                 estimationstate.updatestate(state: .start)
                 progressdetails.resetcounter()
-                progressdetails.setestimatedlist(inprogresscountmultipletask.getestimatedlist())
+                progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
                 // Change view, see SidebarTasksView
                 showeexecutestimatedview = true
             }
@@ -431,10 +431,10 @@ extension TasksView {
 
     func reset() {
         inwork = -1
-        inprogresscountmultipletask.resetcounts()
+        estimatingprogresscount.resetcounts()
         estimationstate.updatestate(state: .start)
         selectedconfig.config = nil
-        inprogresscountmultipletask.estimateasync = false
+        estimatingprogresscount.estimateasync = false
         sheetchooser.sheet = .dryrun
     }
 
@@ -443,7 +443,7 @@ extension TasksView {
         actions.addaction(action)
         selecteduuids.removeAll()
         estimationstate.updatestate(state: .start)
-        inprogresscountmultipletask.resetcounts()
+        estimatingprogresscount.resetcounts()
         _ = InterruptProcess()
         inwork = -1
         reload = true

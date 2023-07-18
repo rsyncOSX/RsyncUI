@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class InprogressCountMultipleTasks {
+final class EstimatingProgressCount {
     var estimatedlist: [RemoteinfonumbersOnetask]?
     var inprogresscount: Double = 0
     var max: Int = 0
@@ -61,10 +61,6 @@ final class InprogressCountMultipleTasks {
         profile = nil
     }
 
-    func getinprogress() -> Double {
-        return inprogresscount
-    }
-
     func setmaxcount(_ num: Int) {
         max = num
     }
@@ -109,6 +105,6 @@ final class InprogressCountMultipleTasks {
     }
 
     deinit {
-        print("deinit InprogressCountMultipleTasks")
+        print("deinit EstimatingProgressCount")
     }
 }

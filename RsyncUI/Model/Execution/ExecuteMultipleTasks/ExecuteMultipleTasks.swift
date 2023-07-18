@@ -33,7 +33,7 @@ final class ExecuteMultipleTasks {
     private var outputfromrsync: [String]?
 
     weak var multipletasksateDelegate: MultipleTaskState?
-    weak var updateestimationcountDelegate: InprogressCountMultipleTasks?
+    weak var updateestimationcountDelegate: EstimatingProgressCount?
     // In progress count each task
     weak var progessdetailsDelegate: ProgressDetails?
 
@@ -82,7 +82,7 @@ final class ExecuteMultipleTasks {
          profile: String?,
          configurations: RsyncUIconfigurations?,
          executionstateDelegate: MultipleTaskState?,
-         updateinprogresscount: InprogressCountMultipleTasks?,
+         updateinprogresscount: EstimatingProgressCount?,
          progressdetails: ProgressDetails?)
     {
         structprofile = profile
