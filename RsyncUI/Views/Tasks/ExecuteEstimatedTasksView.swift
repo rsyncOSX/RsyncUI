@@ -65,7 +65,7 @@ struct ExecuteEstimatedTasksView: View {
                 // To set ProgressView spinnig wheel on correct task when estimating
                 inwork = estimatingprogresscount.hiddenID
             })
-            .onChange(of: estimatingprogresscount.inprogresscount) {
+            .onChange(of: estimatingprogresscount.tasknumbercount) {
                 // To set ProgressView spinnig wheel on correct task when estimating
                 inwork = estimatingprogresscount.hiddenID
                 progressdetails.currenttaskprogress = 0

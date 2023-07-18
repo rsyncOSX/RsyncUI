@@ -11,7 +11,7 @@ import Observation
 @Observable
 final class EstimatingProgressCount {
     var estimatedlist: [RemoteinfonumbersOnetask]?
-    var inprogresscount: Double = 0
+    var tasknumbercount: Double = 0
     var max: Int = 0
     // Which hiddenID is in estimation
     var hiddenID: Int = -1
@@ -53,7 +53,7 @@ final class EstimatingProgressCount {
     func resetcounts() {
         hiddenID = -1
         numberofconfigurations = -1
-        inprogresscount = 0
+        tasknumbercount = 0
         max = 0
         uuids.removeAll()
         estimatedlist = nil
@@ -65,8 +65,8 @@ final class EstimatingProgressCount {
         max = num
     }
 
-    func updateinprogresscount(_ num: Double) {
-        inprogresscount = num
+    func updatetasknumbercount(_ num: Double) {
+        tasknumbercount = num
     }
 
     func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {
