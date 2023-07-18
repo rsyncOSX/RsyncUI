@@ -16,7 +16,7 @@ struct RsyncDefaultParametersView: View {
 
     @State private var selectedconfig: Configuration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
-    @State private var rsyncoutput: InprogressCountRsyncOutput?
+    @State private var rsyncoutput: ObservableRsyncOutput?
 
     @State private var showprogressview = false
     @State private var presentsheetview = false
@@ -211,7 +211,7 @@ extension RsyncDefaultParametersView {
         case .verify:
             arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
         }
-        rsyncoutput = InprogressCountRsyncOutput()
+        rsyncoutput = ObservableRsyncOutput()
         showprogressview = true
         let process = RsyncProcessAsync(arguments: arguments,
                                         config: config,

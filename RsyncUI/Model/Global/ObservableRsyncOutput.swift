@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class InprogressCountRsyncOutput: ObservableObject {
+final class ObservableRsyncOutput: ObservableObject {
     private var max: Int = 0
     private var output: [String]?
 
