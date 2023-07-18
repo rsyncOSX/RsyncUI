@@ -8,20 +8,18 @@
 import Foundation
 
 final class InprogressCountRsyncOutput: ObservableObject {
-    private var inprogresscount: Double = 0
     private var max: Int = 0
     private var output: [String]?
 
     // For Quicktasks
-    var myoutputprocess: OutputfromProcess?
+    // var myoutputprocess: OutputfromProcess?
 
     func resetcounts() {
         max = 0
-        inprogresscount = 0
         output = nil
     }
 
-    func setmaxcount(num: Int) {
+    func setmaxcount(_ num: Int) {
         max = num
     }
 
@@ -29,16 +27,7 @@ final class InprogressCountRsyncOutput: ObservableObject {
         return max
     }
 
-    func getinprogress() -> Double {
-        return inprogresscount
-    }
-
-    func updateinprogresscount(num: Double) {
-        inprogresscount = num
-        objectWillChange.send()
-    }
-
-    func setoutput(data: [String]?) {
+    func setoutput(_ data: [String]?) {
         output = data
     }
 
@@ -46,16 +35,15 @@ final class InprogressCountRsyncOutput: ObservableObject {
         return output
     }
 
-    func setoutput() {
-        output = myoutputprocess?.getOutput()
-    }
+    /*
+     func setoutput() {
+         output = myoutputprocess?.getOutput()
+     }
 
-    init() {}
-
-    init(outputprocess: OutputfromProcess?) {
-        myoutputprocess = outputprocess
-    }
-
+     init(_ outputprocess: OutputfromProcess?) {
+         myoutputprocess = outputprocess
+     }
+     */
     deinit {
         print("deinit InprogressCountRsyncOutput")
     }

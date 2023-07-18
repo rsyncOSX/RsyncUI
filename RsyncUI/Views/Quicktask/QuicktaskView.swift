@@ -301,16 +301,17 @@ extension QuicktaskView {
         }
     }
 
-    @MainActor
     func execute(config: Configuration, dryrun: Bool) async {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
-        rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
+        rsyncoutput = InprogressCountRsyncOutput()
         // Start progressview
         showprogressview = true
         let process = RsyncProcessAsync(arguments: arguments,
                                         config: config,
                                         processtermination: processtermination)
-        await process.executeProcess()
+        Task {
+            await process.executeProcess()
+        }
     }
 
     func abort() {
@@ -318,10 +319,8 @@ extension QuicktaskView {
     }
 
     func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
-        // Stop progressview
         showprogressview = false
-        rsyncoutput?.setoutput()
-        rsyncoutput?.setoutput(data: outputfromrsync)
+        rsyncoutput?.setoutput(outputfromrsync)
         completed = true
     }
 }

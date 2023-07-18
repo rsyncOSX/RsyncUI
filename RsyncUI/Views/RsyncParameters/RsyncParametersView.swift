@@ -181,7 +181,7 @@ extension RsyncParametersView {
         case .verify:
             arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
         }
-        rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
+        rsyncoutput = InprogressCountRsyncOutput()
         showprogressview = true
         let process = RsyncProcessAsync(arguments: arguments,
                                         config: config,
@@ -191,7 +191,7 @@ extension RsyncParametersView {
 
     func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
-        rsyncoutput?.setoutput(data: outputfromrsync)
+        rsyncoutput?.setoutput(outputfromrsync)
         presentsheetview = true
     }
 
