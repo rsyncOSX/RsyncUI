@@ -12,7 +12,7 @@ class EstimateAlltasksAsync {
     var structprofile: String?
     var localconfigurations: RsyncUIconfigurations?
     var stackoftasktobeestimated: [Int]?
-    weak var updateestimationcountDelegate: InprogressCountMultipleTasks?
+    weak var updateestimationcountDelegate: EstimatingProgressCount?
 
     @MainActor
     func startexecution() async {
@@ -34,7 +34,7 @@ class EstimateAlltasksAsync {
 
     init(profile: String?,
          configurations: RsyncUIconfigurations?,
-         updateinprogresscount: InprogressCountMultipleTasks?,
+         updateinprogresscount: EstimatingProgressCount?,
          uuids: Set<UUID>,
          filter: String)
     {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class InprogressCountMultipleTasks: ObservableObject {
+final class EstimatingProgressCount: ObservableObject {
     var estimatedlist: [RemoteinfonumbersOnetask]?
     var inprogresscount: Double = 0
     var max: Int = 0

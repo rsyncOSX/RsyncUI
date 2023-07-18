@@ -10,7 +10,7 @@ import Foundation
 final class ObservableRsyncOutput: ObservableObject {
     private var max: Int = 0
     private var output: [String]?
-    
+
     func resetcounts() {
         max = 0
         output = nil

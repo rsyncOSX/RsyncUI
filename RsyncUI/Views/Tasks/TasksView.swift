@@ -16,7 +16,7 @@ struct TasksView: View {
     // These two objects keeps track of the state and collects
     // the estimated values.
     @StateObject private var estimationstate = EstimationState()
-    @StateObject private var inprogresscountmultipletask = InprogressCountMultipleTasks()
+    @StateObject private var inprogresscountmultipletask = EstimatingProgressCount()
 
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
