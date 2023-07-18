@@ -23,7 +23,7 @@ final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
                                                      validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration(configrecords: configrecords)
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            updateestimationcountDelegate?.asyncexecutealltasksnoestiamtioncomplete()
+            estimatingprogresscountDelegate?.asyncexecutealltasksnoestiamtioncomplete()
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
@@ -50,9 +50,9 @@ extension ExecuteAlltasksAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        updateestimationcountDelegate?.appendrecord(record)
+        estimatingprogresscountDelegate?.appendrecord(record)
         if let config = getconfig(hiddenID: hiddenID) {
-            updateestimationcountDelegate?.appenduuid(config.id)
+            estimatingprogresscountDelegate?.appenduuid(config.id)
         }
         _ = Task.detached {
             await self.startexecution()

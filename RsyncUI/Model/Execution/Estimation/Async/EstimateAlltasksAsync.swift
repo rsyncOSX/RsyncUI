@@ -12,12 +12,12 @@ class EstimateAlltasksAsync {
     var structprofile: String?
     var localconfigurations: RsyncUIconfigurations?
     var stackoftasktobeestimated: [Int]?
-    weak var updateestimationcountDelegate: EstimatingProgressCount?
+    weak var estimatingprogresscountDelegate: EstimatingProgressCount?
 
     @MainActor
     func startexecution() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
-            updateestimationcountDelegate?.asyncestimationcomplete()
+            estimatingprogresscountDelegate?.asyncestimationcomplete()
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
@@ -40,7 +40,7 @@ class EstimateAlltasksAsync {
     {
         structprofile = profile
         localconfigurations = configurations
-        updateestimationcountDelegate = updateinprogresscount
+        estimatingprogresscountDelegate = updateinprogresscount
         let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()
         // Estimate selected configurations
@@ -62,8 +62,8 @@ class EstimateAlltasksAsync {
                 }
             }
         }
-        updateestimationcountDelegate?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
-        updateestimationcountDelegate?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
+        estimatingprogresscountDelegate?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
+        estimatingprogresscountDelegate?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }
 
     func getconfig(hiddenID: Int?) -> Configuration? {
@@ -86,10 +86,10 @@ extension EstimateAlltasksAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        updateestimationcountDelegate?.appendrecord(record)
+        estimatingprogresscountDelegate?.appendrecord(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
-                updateestimationcountDelegate?.appenduuid(config.id)
+                estimatingprogresscountDelegate?.appenduuid(config.id)
             }
         }
         _ = Task.detached {
