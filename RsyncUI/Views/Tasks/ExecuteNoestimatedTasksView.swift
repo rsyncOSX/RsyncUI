@@ -11,7 +11,7 @@ struct ExecuteNoestimatedTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // These two objects keeps track of the state and collects
     // the estimated values.
-    @StateObject private var inprogresscountmultipletask = EstimatingProgressCount()
+    @StateObject private var estimatingprogresscount = EstimatingProgressCount()
 
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
@@ -44,7 +44,7 @@ struct ExecuteNoestimatedTasksView: View {
             )
 
             // When completed
-            if inprogresscountmultipletask.executeasyncnoestimationcompleted == true { labelcompleted }
+            if estimatingprogresscount.executeasyncnoestimationcompleted == true { labelcompleted }
 
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
         }
@@ -84,15 +84,15 @@ extension ExecuteNoestimatedTasksView {
         inwork = -1
         reload = true
         showcompleted = true
-        inprogresscountmultipletask.resetcounts()
+        estimatingprogresscount.resetcounts()
         progressviewshowinfo = false
-        inprogresscountmultipletask.estimateasync = false
+        estimatingprogresscount.estimateasync = false
         showexecutenoestimateview = false
     }
 
     func abort() {
         selecteduuids.removeAll()
-        inprogresscountmultipletask.resetcounts()
+        estimatingprogresscount.resetcounts()
         _ = InterruptProcess()
         inwork = -1
         reload = true
@@ -101,11 +101,11 @@ extension ExecuteNoestimatedTasksView {
     }
 
     func executeallnotestimatedtasks() async {
-        inprogresscountmultipletask.startasyncexecutealltasksnoestimation()
+        estimatingprogresscount.startasyncexecutealltasksnoestimation()
         executealltasksasync =
             ExecuteAlltasksAsync(profile: rsyncUIdata.profile,
                                  configurations: rsyncUIdata,
-                                 updateinprogresscount: inprogresscountmultipletask,
+                                 updateinprogresscount: estimatingprogresscount,
                                  uuids: selecteduuids,
                                  filter: filterstring)
         await executealltasksasync?.startexecution()

@@ -11,7 +11,7 @@ struct ExecuteNoestimateOneTaskView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // These two objects keeps track of the state and collects
     // the estimated values.
-    @StateObject private var inprogresscountmultipletask = EstimatingProgressCount()
+    @StateObject private var estimatingprogresscount = EstimatingProgressCount()
 
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
@@ -45,7 +45,7 @@ struct ExecuteNoestimateOneTaskView: View {
             )
 
             // When completed
-            if inprogresscountmultipletask.executeasyncnoestimationcompleted == true { labelcompleted }
+            if estimatingprogresscount.executeasyncnoestimationcompleted == true { labelcompleted }
 
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
         }
@@ -85,15 +85,15 @@ extension ExecuteNoestimateOneTaskView {
         inwork = -1
         reload = true
         showcompleted = true
-        inprogresscountmultipletask.resetcounts()
+        estimatingprogresscount.resetcounts()
         progressviewshowinfo = false
-        inprogresscountmultipletask.estimateasync = false
+        estimatingprogresscount.estimateasync = false
         showexecutenoestiamteonetask = false
     }
 
     func abort() {
         selecteduuids.removeAll()
-        inprogresscountmultipletask.resetcounts()
+        estimatingprogresscount.resetcounts()
         _ = InterruptProcess()
         inwork = -1
         reload = true
@@ -110,7 +110,7 @@ extension ExecuteNoestimateOneTaskView {
                 selectedconfig.config = config[0]
                 executeonetaskasync =
                     ExecuteOnetaskAsync(configurations: rsyncUIdata,
-                                        updateinprogresscount: inprogresscountmultipletask,
+                                        updateinprogresscount: estimatingprogresscount,
                                         hiddenID: selectedconfig.config?.hiddenID)
                 await executeonetaskasync?.execute()
             }

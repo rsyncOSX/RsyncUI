@@ -33,7 +33,7 @@ final class ExecuteMultipleTasks {
     private var outputfromrsync: [String]?
 
     weak var multipletasksateDelegate: MultipleTaskState?
-    weak var updateestimationcountDelegate: EstimatingProgressCount?
+    weak var estimatingprogresscountDelegate: EstimatingProgressCount?
     // In progress count each task
     weak var progressdetailsDelegate: ProgressDetails?
 
@@ -50,7 +50,7 @@ final class ExecuteMultipleTasks {
                 stackoftasktobeexecuted?.append(configurations[i].hiddenID)
             }
             max = stackoftasktobeexecuted?.count
-            updateestimationcountDelegate?.setmaxcount(stackoftasktobeexecuted?.count ?? 0)
+            estimatingprogresscountDelegate?.setmaxcount(stackoftasktobeexecuted?.count ?? 0)
         }
     }
 
@@ -58,7 +58,7 @@ final class ExecuteMultipleTasks {
         guard (stackoftasktobeexecuted?.count ?? 0) > 0 else { return }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
-            updateestimationcountDelegate?.sethiddenID(hiddenID)
+            estimatingprogresscountDelegate?.sethiddenID(hiddenID)
             let estimation = ExecuteOneTask(hiddenID: hiddenID,
                                             configurations: localconfigurations,
                                             termination: processtermination,
@@ -88,7 +88,7 @@ final class ExecuteMultipleTasks {
         structprofile = profile
         localconfigurations = configurations
         multipletasksateDelegate = executionstateDelegate
-        updateestimationcountDelegate = updateinprogresscount
+        estimatingprogresscountDelegate = updateinprogresscount
         progressdetailsDelegate = progressdetails
         guard uuids.count > 0 else { return }
         guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else { return }
@@ -103,7 +103,7 @@ final class ExecuteMultipleTasks {
 
     func abort() {
         stackoftasktobeexecuted = nil
-        updateestimationcountDelegate?.resetcounts()
+        estimatingprogresscountDelegate?.resetcounts()
         setabort = true
     }
 
@@ -115,15 +115,15 @@ final class ExecuteMultipleTasks {
         configrecords.append((privatehiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((privatehiddenID ?? -1, Numbers(data ?? []).stats()))
         // Log records
-        updateestimationcountDelegate?.updateinprogresscount(Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
+        estimatingprogresscountDelegate?.updateinprogresscount(Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: privatehiddenID))
         records?.append(record)
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
             multipletasksateDelegate?.updatestate(state: .completed)
-            updateestimationcountDelegate?.setmaxcount(0)
-            updateestimationcountDelegate?.setestimatedlist(records)
+            estimatingprogresscountDelegate?.setmaxcount(0)
+            estimatingprogresscountDelegate?.setestimatedlist(records)
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: privatehiddenID,
                                                      configurations: localconfigurations?.getallconfigurations(),
@@ -134,7 +134,7 @@ final class ExecuteMultipleTasks {
         }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
-            updateestimationcountDelegate?.sethiddenID(hiddenID)
+            estimatingprogresscountDelegate?.sethiddenID(hiddenID)
             let execution = ExecuteOneTask(hiddenID: hiddenID,
                                            configurations: localconfigurations,
                                            termination: processtermination,

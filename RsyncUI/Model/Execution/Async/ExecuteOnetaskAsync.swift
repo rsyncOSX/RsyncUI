@@ -26,9 +26,9 @@ extension ExecuteOnetaskAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        updateestimationcountDelegate?.appendrecord(record)
+        estimatingprogresscountDelegate?.appendrecord(record)
         if let config = getconfig(hiddenID: hiddenID) {
-            updateestimationcountDelegate?.appenduuid(config.id)
+            estimatingprogresscountDelegate?.appenduuid(config.id)
             let update = SingletaskPrimaryLogging(profile: config.profile,
                                                   hiddenID: hiddenID,
                                                   configurations: localconfigurations?.getallconfigurations(),
@@ -36,6 +36,6 @@ extension ExecuteOnetaskAsync {
             update.setCurrentDateonConfiguration()
             update.addlogpermanentstore(outputrsync: outputfromrsync)
         }
-        updateestimationcountDelegate?.asyncexecutecomplete()
+        estimatingprogresscountDelegate?.asyncexecutecomplete()
     }
 }
