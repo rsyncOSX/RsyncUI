@@ -10,10 +10,7 @@ import Foundation
 final class ObservableRsyncOutput: ObservableObject {
     private var max: Int = 0
     private var output: [String]?
-
-    // For Quicktasks
-    // var myoutputprocess: OutputfromProcess?
-
+    
     func resetcounts() {
         max = 0
         output = nil
@@ -35,15 +32,6 @@ final class ObservableRsyncOutput: ObservableObject {
         return output
     }
 
-    /*
-     func setoutput() {
-         output = myoutputprocess?.getOutput()
-     }
-
-     init(_ outputprocess: OutputfromProcess?) {
-         myoutputprocess = outputprocess
-     }
-     */
     deinit {
         print("deinit InprogressCountRsyncOutput")
     }
