@@ -35,7 +35,7 @@ struct ListofTasksView: View {
             TableColumn("%") { data in
                 if data.hiddenID == inwork && progressdetails.isestimating() == false {
                     ProgressView("",
-                                 value: progressdetails.getcurrentprogress(),
+                                 value: progressdetails.currenttaskprogress,
                                  total: maxcount)
                         .frame(alignment: .center)
                 }
@@ -103,7 +103,7 @@ struct ListofTasksView: View {
             TableColumn("%") { data in
                 if data.hiddenID == inwork && progressdetails.isestimating() == false {
                     ProgressView("",
-                                 value: progressdetails.getcurrentprogress(),
+                                 value: progressdetails.currenttaskprogress,
                                  total: maxcount)
                         .frame(width: 35, alignment: .center)
                 }

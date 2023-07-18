@@ -9,7 +9,7 @@ import Foundation
 
 final class ProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
-    private var currenttaskprogress: Double?
+    var currenttaskprogress: Double = 0
     private var estimatedlist: [RemoteinfonumbersOnetask]?
 
     func isestimating() -> Bool {
@@ -23,11 +23,6 @@ final class ProgressDetails: ObservableObject {
     func setcurrentprogress(_ num: Double) {
         currenttaskprogress = num
         objectWillChange.send()
-    }
-
-    func getcurrentprogress() -> Double {
-        // print(" getcurrentprogress -> \(currenttaskprogress)")
-        return currenttaskprogress ?? 0
     }
 
     func getmaxcountbytask(_ hiddenID: Int) -> Double {
