@@ -7,13 +7,7 @@
 
 import Foundation
 
-protocol ProgressDetailsProtocol: AnyObject {
-    // Update progress of count for current task in progress
-    func setcurrentprogress(_ num: Double)
-    func getcurrentprogress() -> Double
-}
-
-final class ProgressDetails: ObservableObject, ProgressDetailsProtocol {
+final class ProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
     private var currenttaskprogress: Double?
     private var estimatedlist: [RemoteinfonumbersOnetask]?
