@@ -22,7 +22,7 @@ enum CannotUpdateSnaphotsError: LocalizedError {
 }
 
 @MainActor
-final class ObserveableAddConfigurations: ObservableObject {
+final class ObservableAddConfigurations: ObservableObject {
     @Published var localcatalog: String = ""
     @Published var remotecatalog: String = ""
     @Published var donotaddtrailingslash: Bool = false

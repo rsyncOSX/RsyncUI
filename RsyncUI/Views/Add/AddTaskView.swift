@@ -36,7 +36,7 @@ struct AddTaskView: View {
         case backupIDField
     }
 
-    @StateObject var newdata = ObserveableAddConfigurations()
+    @StateObject var newdata = ObservableAddConfigurations()
     @FocusState private var focusField: AddConfigurationField?
     // Modale view
     @State private var modalview = false

@@ -28,7 +28,7 @@ struct AddPreandPostView: View {
         case posttaskField
     }
 
-    @StateObject var newdata = ObserveablePreandPostTask()
+    @StateObject var newdata = ObservablePreandPostTask()
     @FocusState private var focusField: PreandPostTaskField?
 
     var body: some View {

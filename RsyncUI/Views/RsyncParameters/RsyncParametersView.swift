@@ -11,7 +11,7 @@ import SwiftUI
 struct RsyncParametersView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var dataischanged: Dataischanged
-    @StateObject var parameters = ObserveableParametersRsync()
+    @StateObject var parameters = ObservableParametersRsync()
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?

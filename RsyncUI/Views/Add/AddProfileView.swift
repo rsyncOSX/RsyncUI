@@ -14,7 +14,7 @@ struct AddProfileView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
-    @StateObject var newdata = ObserveableAddConfigurations()
+    @StateObject var newdata = ObservableAddConfigurations()
     @State private var uuidprofile = Set<Profiles.ID>()
 
     var body: some View {

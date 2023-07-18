@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 @MainActor
-final class ObserveableParametersDefault: ObservableObject {
+final class ObservableParametersDefault: ObservableObject {
     // Selected configuration
     @Published var configuration: Configuration?
     // Local SSH parameters
@@ -61,7 +61,7 @@ final class ObserveableParametersDefault: ObservableObject {
     }
 }
 
-extension ObserveableParametersDefault {
+extension ObservableParametersDefault {
     func setvalues(_ config: Configuration?) {
         if let config = config {
             configuration = config

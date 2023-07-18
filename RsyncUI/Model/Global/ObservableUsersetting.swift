@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 @MainActor
-final class ObserveableUsersetting: ObservableObject {
+final class ObservableUsersetting: ObservableObject {
     // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
     @Published var rsyncversion3: Bool = SharedReference.shared.rsyncversion3
     // Optional path to rsync, the settings View is picking up the current value
@@ -89,7 +89,7 @@ final class ObserveableUsersetting: ObservableObject {
     }
 }
 
-extension ObserveableUsersetting {
+extension ObservableUsersetting {
     // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) {
         guard path.isEmpty == false, rsyncversion3 == true else {

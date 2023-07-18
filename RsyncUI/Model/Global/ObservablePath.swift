@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 @MainActor
-final class ObserveablePath: ObservableObject {
+final class ObservablePath: ObservableObject {
     // Environment
     @Published var environment: String = SharedReference.shared.environment ?? ""
     @Published var environmentvalue: String = SharedReference.shared.environmentvalue ?? ""
@@ -31,7 +31,7 @@ final class ObserveablePath: ObservableObject {
     }
 }
 
-extension ObserveablePath {
+extension ObservablePath {
     private func validatepath(_ path: String) throws -> Bool {
         if FileManager.default.fileExists(atPath: path, isDirectory: nil) == false {
             throw Validatedpath.nopath

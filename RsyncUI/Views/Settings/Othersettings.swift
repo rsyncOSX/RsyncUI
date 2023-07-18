@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Othersettings: View {
-    @StateObject var usersettings = ObserveablePath()
+    @StateObject var usersettings = ObservablePath()
     @State private var backup: Bool = false
 
     var body: some View {

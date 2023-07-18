@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-final class ObserveableRestore: ObservableObject {
+final class ObservableRestore: ObservableObject {
     @Published var pathforrestore: String = ""
     @Published var selectedrowforrestore: String = ""
 
@@ -66,7 +66,7 @@ final class ObserveableRestore: ObservableObject {
     }
 }
 
-extension ObserveableRestore {
+extension ObservableRestore {
     func processtermination(data: [String]?) {
         rsyncdata = data
         restorefilesinprogress = false

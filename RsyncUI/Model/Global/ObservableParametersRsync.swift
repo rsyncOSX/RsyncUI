@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 @MainActor
-final class ObserveableParametersRsync: ObservableObject {
+final class ObservableParametersRsync: ObservableObject {
     // Rsync parameters
     @Published var parameter8: String = ""
     @Published var parameter9: String = ""
@@ -82,7 +82,7 @@ final class ObserveableParametersRsync: ObservableObject {
     }
 }
 
-extension ObserveableParametersRsync {
+extension ObservableParametersRsync {
     func setvalues(_ config: Configuration?) {
         if let config = config {
             configuration = config

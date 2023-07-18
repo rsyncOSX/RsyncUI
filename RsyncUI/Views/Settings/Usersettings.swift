@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Usersettings: View {
     @StateObject var rsyncversion = Rsyncversion()
-    @StateObject var usersettings = ObserveableUsersetting()
+    @StateObject var usersettings = ObservableUsersetting()
     @State private var backup = false
 
     var body: some View {
