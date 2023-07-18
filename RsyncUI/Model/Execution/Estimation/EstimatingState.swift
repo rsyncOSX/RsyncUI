@@ -19,7 +19,7 @@ enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertib
 }
 
 @Observable
-final class EstimationState {
+final class EstimatingState {
     var estimationstate: EstimatetaskWork = .start
 
     func updatestate(state: EstimatetaskWork) {

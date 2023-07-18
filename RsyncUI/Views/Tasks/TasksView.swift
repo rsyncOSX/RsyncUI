@@ -16,7 +16,7 @@ struct TasksView: View {
     @EnvironmentObject var progressdetails: ProgressDetails
     // These two objects keeps track of the state and collects
     // the estimated values.
-    @State private var estimationstate = EstimationState()
+    @State private var estimatingstate = EstimatingState()
     @State private var estimatingprogresscount = EstimatingProgressCount()
 
     @Binding var reload: Bool
@@ -386,7 +386,7 @@ extension TasksView {
             actions.addaction(action)
             // Execute all estimated tasks
             selecteduuids = estimatingprogresscount.getuuids()
-            estimationstate.updatestate(state: .start)
+            estimatingstate.updatestate(state: .start)
             progressdetails.resetcounter()
             progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
             // Change view, see SidebarTasksView
@@ -414,7 +414,7 @@ extension TasksView {
                 // Execute estimated tasks only
                 // Execute all estimated tasks
                 selecteduuids = estimatingprogresscount.getuuids()
-                estimationstate.updatestate(state: .start)
+                estimatingstate.updatestate(state: .start)
                 progressdetails.resetcounter()
                 progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
                 // Change view, see SidebarTasksView
@@ -432,7 +432,7 @@ extension TasksView {
     func reset() {
         inwork = -1
         estimatingprogresscount.resetcounts()
-        estimationstate.updatestate(state: .start)
+        estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
         estimatingprogresscount.estimateasync = false
         sheetchooser.sheet = .dryrun
@@ -442,7 +442,7 @@ extension TasksView {
         let action = ActionHolder(action: "Abort", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
         actions.addaction(action)
         selecteduuids.removeAll()
-        estimationstate.updatestate(state: .start)
+        estimatingstate.updatestate(state: .start)
         estimatingprogresscount.resetcounts()
         _ = InterruptProcess()
         inwork = -1
