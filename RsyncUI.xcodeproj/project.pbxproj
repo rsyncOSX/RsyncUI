@@ -838,7 +838,6 @@
 		E985C6EF25F3AD9600CB895C /* ProgressCounts */ = {
 			isa = PBXGroup;
 			children = (
-				E985C6F025F3AD9600CB895C /* InprogressCountRsyncOutput.swift */,
 				E985C6F125F3AD9600CB895C /* InprogressCountMultipleTasks.swift */,
 				E985C6F225F3AD9700CB895C /* ProgressDetails.swift */,
 			);
@@ -932,6 +931,7 @@
 				E9E811F82669E2EA0049E672 /* ObserveablePreandPostTask.swift */,
 				E95EDC8926063EAA000018DE /* ObserveableParametersRsync.swift */,
 				E93D7B7C26CD920D00E290A1 /* ObserveableParametersDefault.swift */,
+				E985C6F025F3AD9600CB895C /* InprogressCountRsyncOutput.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
