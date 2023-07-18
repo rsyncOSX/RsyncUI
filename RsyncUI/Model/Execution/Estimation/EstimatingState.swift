@@ -17,7 +17,7 @@ enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertib
     var description: String { rawValue.localizedCapitalized }
 }
 
-final class EstimationState: ObservableObject {
+final class EstimatingState: ObservableObject {
     @Published var estimationstate: EstimatetaskWork = .start
 
     func updatestate(state: EstimatetaskWork) {

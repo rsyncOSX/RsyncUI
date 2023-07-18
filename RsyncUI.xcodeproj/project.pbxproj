@@ -112,7 +112,7 @@
 		E985C76625F3AD9700CB895C /* MultipleTaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E425F3AD9600CB895C /* MultipleTaskState.swift */; };
 		E985C76725F3AD9700CB895C /* ExecuteOneTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */; };
 		E985C76C25F3AD9700CB895C /* RemoteinfonumbersOnetask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EC25F3AD9600CB895C /* RemoteinfonumbersOnetask.swift */; };
-		E985C76E25F3AD9700CB895C /* EstimationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EE25F3AD9600CB895C /* EstimationState.swift */; };
+		E985C76E25F3AD9700CB895C /* EstimatingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EE25F3AD9600CB895C /* EstimatingState.swift */; };
 		E985C76F25F3AD9700CB895C /* ObservableRsyncOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F025F3AD9600CB895C /* ObservableRsyncOutput.swift */; };
 		E985C77025F3AD9700CB895C /* EstimatingProgressCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F125F3AD9600CB895C /* EstimatingProgressCount.swift */; };
 		E985C77125F3AD9700CB895C /* ProgressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F225F3AD9700CB895C /* ProgressDetails.swift */; };
@@ -314,7 +314,7 @@
 		E985C6E425F3AD9600CB895C /* MultipleTaskState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleTaskState.swift; sourceTree = "<group>"; };
 		E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteOneTask.swift; sourceTree = "<group>"; };
 		E985C6EC25F3AD9600CB895C /* RemoteinfonumbersOnetask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteinfonumbersOnetask.swift; sourceTree = "<group>"; };
-		E985C6EE25F3AD9600CB895C /* EstimationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimationState.swift; sourceTree = "<group>"; };
+		E985C6EE25F3AD9600CB895C /* EstimatingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatingState.swift; sourceTree = "<group>"; };
 		E985C6F025F3AD9600CB895C /* ObservableRsyncOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableRsyncOutput.swift; sourceTree = "<group>"; };
 		E985C6F125F3AD9600CB895C /* EstimatingProgressCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatingProgressCount.swift; sourceTree = "<group>"; };
 		E985C6F225F3AD9700CB895C /* ProgressDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressDetails.swift; sourceTree = "<group>"; };
@@ -830,7 +830,7 @@
 			children = (
 				E906B1A328ECB2E200FBD287 /* Async */,
 				E985C6EC25F3AD9600CB895C /* RemoteinfonumbersOnetask.swift */,
-				E985C6EE25F3AD9600CB895C /* EstimationState.swift */,
+				E985C6EE25F3AD9600CB895C /* EstimatingState.swift */,
 			);
 			path = Estimation;
 			sourceTree = "<group>";
@@ -1182,7 +1182,7 @@
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,
 				E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */,
 				E9BB4F562903C00A00FEEA0A /* ExecuteAlltasksAsync.swift in Sources */,
-				E985C76E25F3AD9700CB895C /* EstimationState.swift in Sources */,
+				E985C76E25F3AD9700CB895C /* EstimatingState.swift in Sources */,
 				E985C66B25F3AD8400CB895C /* SnapshotListView.swift in Sources */,
 				E985C73225F3AD9700CB895C /* GetfullpathforRsync.swift in Sources */,
 				E985C76C25F3AD9700CB895C /* RemoteinfonumbersOnetask.swift in Sources */,
