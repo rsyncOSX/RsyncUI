@@ -16,7 +16,7 @@ struct RsyncParametersView: View {
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
-    @State private var rsyncoutput: InprogressCountRsyncOutput?
+    @State private var rsyncoutput: ObservableRsyncOutput?
 
     @State private var showprogressview = false
     @State private var presentsheetview = false
@@ -208,7 +208,7 @@ extension RsyncParametersView {
         case .verify:
             arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
         }
-        rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
+        rsyncoutput = ObservableRsyncOutput()
         showprogressview = true
         let process = await RsyncProcessAsync(arguments: arguments,
                                               config: config,
@@ -218,7 +218,7 @@ extension RsyncParametersView {
 
     func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
-        rsyncoutput?.setoutput(data: outputfromrsync)
+        rsyncoutput?.setoutput(outputfromrsync)
         presentsheetview = true
     }
 

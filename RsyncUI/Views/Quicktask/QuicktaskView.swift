@@ -29,7 +29,7 @@ struct QuicktaskView: View {
     // Executed labels
     @State private var presentsheetview = false
     @State private var showprogressview = false
-    @State private var rsyncoutput: InprogressCountRsyncOutput?
+    @State private var rsyncoutput: ObservableRsyncOutput?
     // Selected row in output
     @State private var valueselectedrow: String = ""
     // Focus buttons from the menu
@@ -306,7 +306,7 @@ extension QuicktaskView {
     @MainActor
     func execute(config: Configuration, dryrun: Bool) async {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
-        rsyncoutput = InprogressCountRsyncOutput(outputprocess: OutputfromProcess())
+        rsyncoutput = ObservableRsyncOutput()
         // Start progressview
         showprogressview = true
         let process = RsyncProcessAsync(arguments: arguments,
@@ -322,8 +322,7 @@ extension QuicktaskView {
     func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
         // Stop progressview
         showprogressview = false
-        rsyncoutput?.setoutput()
-        rsyncoutput?.setoutput(data: outputfromrsync)
+        rsyncoutput?.setoutput(outputfromrsync)
         completed = true
     }
 }
