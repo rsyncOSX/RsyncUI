@@ -25,8 +25,6 @@ struct TasksView: View {
     @Binding var showexecutenoestimateview: Bool
     @Binding var showexecutenoestiamteonetask: Bool
 
-    @State private var inwork: Int = -1
-
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
@@ -71,7 +69,6 @@ struct TasksView: View {
                             selectedconfig.config = nil
                         }
                     },
-                    inwork: $inwork,
                     filterstring: $filterstring,
                     reload: $reload,
                     confirmdelete: $confirmdelete,
@@ -428,7 +425,6 @@ extension TasksView {
     }
 
     func reset() {
-        inwork = -1
         estimatingprogresscount.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
@@ -443,7 +439,6 @@ extension TasksView {
         estimatingstate.updatestate(state: .start)
         estimatingprogresscount.resetcounts()
         _ = InterruptProcess()
-        inwork = -1
         reload = true
         focusstartestimation = false
         focusstartexecution = false

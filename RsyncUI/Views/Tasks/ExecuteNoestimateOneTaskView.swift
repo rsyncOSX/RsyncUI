@@ -18,7 +18,6 @@ struct ExecuteNoestimateOneTaskView: View {
     @Binding var showcompleted: Bool
     @Binding var showexecutenoestiamteonetask: Bool
 
-    @State private var inwork: Int = -1
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
 
@@ -36,7 +35,6 @@ struct ExecuteNoestimateOneTaskView: View {
         ZStack {
             ListofTasksView(
                 selecteduuids: $selecteduuids,
-                inwork: $inwork,
                 filterstring: $filterstring,
                 reload: $reload,
                 confirmdelete: $confirmdelete,
@@ -82,7 +80,6 @@ struct ExecuteNoestimateOneTaskView: View {
 
 extension ExecuteNoestimateOneTaskView {
     func completed() {
-        inwork = -1
         reload = true
         showcompleted = true
         estimatingprogresscount.resetcounts()
@@ -95,7 +92,6 @@ extension ExecuteNoestimateOneTaskView {
         selecteduuids.removeAll()
         estimatingprogresscount.resetcounts()
         _ = InterruptProcess()
-        inwork = -1
         reload = true
         progressviewshowinfo = false
         showexecutenoestiamteonetask = false

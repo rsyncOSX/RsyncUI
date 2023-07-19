@@ -10,7 +10,8 @@ import Foundation
 final class ProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
     var currenttaskprogress: Double = 0
-    private var estimatedlist: [RemoteinfonumbersOnetask]?
+    var hiddenIDatwork: Int = -1
+    var estimatedlist: [RemoteinfonumbersOnetask]?
 
     func isestimating() -> Bool {
         if (estimatedlist?.count ?? 0) == 0 {
@@ -25,8 +26,8 @@ final class ProgressDetails: ObservableObject {
         objectWillChange.send()
     }
 
-    func getmaxcountbytask(_ hiddenID: Int) -> Double {
-        let max = estimatedlist?.filter { $0.hiddenID == hiddenID }
+    func getmaxcountbytask() -> Double {
+        let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
         if (max?.count ?? 0) == 1 {
             return Double(max?[0].outputfromrsync?.count ?? 0)
         } else {

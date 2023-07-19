@@ -11,8 +11,6 @@ final class EstimatingProgressCount: ObservableObject {
     var estimatedlist: [RemoteinfonumbersOnetask]?
     var inprogresscount: Double = 0
     var max: Int = 0
-    // Which hiddenID is in estimation
-    var hiddenID: Int = -1
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
     // Estimate async
@@ -45,14 +43,7 @@ final class EstimatingProgressCount: ObservableObject {
         // objectWillChange.send()
     }
 
-    // Set and notify when new hiddenID is set
-    func sethiddenID(_ arghiddenID: Int) {
-        hiddenID = arghiddenID
-        objectWillChange.send()
-    }
-
     func resetcounts() {
-        hiddenID = -1
         numberofconfigurations = -1
         inprogresscount = 0
         max = 0

@@ -19,7 +19,6 @@ struct ExecuteEstimatedTasksView: View {
     @Binding var showeexecutestimatedview: Bool
 
     @State private var selectedconfig: Configuration?
-    @State private var inwork: Int = -1
     @State private var filterstring: String = ""
 
     @State private var confirmdelete = false
@@ -33,7 +32,6 @@ struct ExecuteEstimatedTasksView: View {
         ZStack {
             ListofTasksView(
                 selecteduuids: $selecteduuids,
-                inwork: $inwork,
                 filterstring: $filterstring,
                 reload: $reload,
                 confirmdelete: $confirmdelete,
@@ -61,13 +59,7 @@ struct ExecuteEstimatedTasksView: View {
     // Present progressview during executing multiple tasks
     var progressviewexecuting: some View {
         AlertToast(displayMode: .alert, type: .loading)
-            .onAppear(perform: {
-                // To set ProgressView spinnig wheel on correct task when estimating
-                inwork = estimatingprogresscount.hiddenID
-            })
             .onChange(of: estimatingprogresscount.getinprogress(), perform: { _ in
-                // To set ProgressView spinnig wheel on correct task when estimating
-                inwork = estimatingprogresscount.hiddenID
                 progressdetails.setcurrentprogress(0)
             })
     }
@@ -91,7 +83,7 @@ struct ExecuteEstimatedTasksView: View {
 
 extension ExecuteEstimatedTasksView {
     func completed() {
-        inwork = -1
+        progressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
         estimatingprogresscount.resetcounts()
         selecteduuids.removeAll()
@@ -100,7 +92,7 @@ extension ExecuteEstimatedTasksView {
     }
 
     func abort() {
-        inwork = -1
+        progressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
         estimatingprogresscount.resetcounts()
         selecteduuids.removeAll()
