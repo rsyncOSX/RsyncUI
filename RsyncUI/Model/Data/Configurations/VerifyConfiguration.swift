@@ -134,13 +134,21 @@ final class VerifyConfiguration: Connected {
 
         if data.newlocalCatalog.hasSuffix("/") == false, data.newdontaddtrailingbackslash == false {
             var catalog = data.newlocalCatalog
-            guard catalog.isEmpty == false else { return nil }
+            guard catalog.isEmpty == false else {
+                let error = ValidateInputError.localcatalog
+                alerterror(error: error)
+                return nil
+            }
             catalog += "/"
             newconfig.localCatalog = catalog
         }
         if data.newoffsiteCatalog.hasSuffix("/") == false, data.newdontaddtrailingbackslash == false {
             var catalog = data.newoffsiteCatalog
-            guard catalog.isEmpty == false else { return nil }
+            guard catalog.isEmpty == false else {
+                let error = ValidateInputError.localcatalog
+                alerterror(error: error)
+                return nil
+            }
             catalog += "/"
             newconfig.offsiteCatalog = catalog
         }
