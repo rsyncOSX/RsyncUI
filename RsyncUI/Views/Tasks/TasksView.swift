@@ -56,7 +56,7 @@ struct TasksView: View {
     var body: some View {
         ZStack {
             if reloadtasksviewlist == false {
-                ListofTasksView(
+                ListofTasksMainView(
                     selecteduuids: $selecteduuids.onChange {
                         let selected = rsyncUIdata.configurations?.filter { config in
                             selecteduuids.contains(config.id)

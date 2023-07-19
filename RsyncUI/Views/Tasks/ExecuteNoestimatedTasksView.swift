@@ -26,24 +26,14 @@ struct ExecuteNoestimatedTasksView: View {
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
 
-    @State private var reloadtasksviewlist = false
-    // Double click, only for macOS13 and later
-    @State private var doubleclick: Bool = false
-
     var body: some View {
         ZStack {
             ListofTasksView(
                 selecteduuids: $selecteduuids,
-                filterstring: $filterstring,
-                reload: $reload,
-                confirmdelete: $confirmdelete,
-                reloadtasksviewlist: $reloadtasksviewlist,
-                doubleclick: $doubleclick
+                filterstring: $filterstring
             )
 
-            // When completed
             if estimatingprogresscount.executeasyncnoestimationcompleted == true { labelcompleted }
-
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
         }
         HStack {

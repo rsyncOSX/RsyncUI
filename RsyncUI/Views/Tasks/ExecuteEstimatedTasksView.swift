@@ -30,7 +30,7 @@ struct ExecuteEstimatedTasksView: View {
 
     var body: some View {
         ZStack {
-            ListofTasksView(
+            ListofTasksMainView(
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,
@@ -39,9 +39,7 @@ struct ExecuteEstimatedTasksView: View {
                 doubleclick: $doubleclick
             )
 
-            // When completed
             if multipletaskstate.executionstate == .completed { labelcompleted }
-            // Execute multiple tasks progress
             if multipletaskstate.executionstate == .execute { AlertToast(displayMode: .alert, type: .loading) }
         }
         HStack {

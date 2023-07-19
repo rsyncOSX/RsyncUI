@@ -27,24 +27,14 @@ struct ExecuteNoestimateOneTaskView: View {
     @State private var focusaborttask: Bool = false
     @StateObject var selectedconfig = Selectedconfig()
 
-    @State private var reloadtasksviewlist: Bool = false
-    // Double click, only for macOS13 and later
-    @State private var doubleclick: Bool = false
-
     var body: some View {
         ZStack {
             ListofTasksView(
                 selecteduuids: $selecteduuids,
-                filterstring: $filterstring,
-                reload: $reload,
-                confirmdelete: $confirmdelete,
-                reloadtasksviewlist: $reloadtasksviewlist,
-                doubleclick: $doubleclick
+                filterstring: $filterstring
             )
 
-            // When completed
             if estimatingprogresscount.executeasyncnoestimationcompleted == true { labelcompleted }
-
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
         }
         HStack {
