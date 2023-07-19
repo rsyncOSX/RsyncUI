@@ -115,7 +115,7 @@ final class ExecuteMultipleTasks {
         configrecords.append((privatehiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((privatehiddenID ?? -1, Numbers(data ?? []).stats()))
         // Log records
-        estimatingprogresscountDelegate?.updateinprogresscount(Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
+        estimatingprogresscountDelegate?.updatetasksinprogresscount(Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: privatehiddenID))

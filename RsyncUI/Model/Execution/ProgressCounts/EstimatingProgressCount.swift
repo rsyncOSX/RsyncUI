@@ -9,7 +9,7 @@ import Foundation
 
 final class EstimatingProgressCount: ObservableObject {
     var estimatedlist: [RemoteinfonumbersOnetask]?
-    var inprogresscount: Double = 0
+    var tasksinprogresscount: Double = 0
     var max: Int = 0
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
@@ -40,12 +40,11 @@ final class EstimatingProgressCount: ObservableObject {
 
     func appenduuid(_ id: UUID) {
         uuids.insert(id)
-        // objectWillChange.send()
     }
 
     func resetcounts() {
         numberofconfigurations = -1
-        inprogresscount = 0
+        tasksinprogresscount = 0
         max = 0
         uuids.removeAll()
         estimatedlist = nil
@@ -53,16 +52,12 @@ final class EstimatingProgressCount: ObservableObject {
         profile = nil
     }
 
-    func getinprogress() -> Double {
-        return inprogresscount
-    }
-
     func setmaxcount(_ num: Int) {
         max = num
     }
 
-    func updateinprogresscount(_ num: Double) {
-        inprogresscount = num
+    func updatetasksinprogresscount(_ num: Double) {
+        tasksinprogresscount = num
         objectWillChange.send()
     }
 
@@ -70,7 +65,7 @@ final class EstimatingProgressCount: ObservableObject {
         estimatedlist = argestimatedlist
     }
 
-    func appendrecord(_ record: RemoteinfonumbersOnetask) {
+    func appendrecordestimatedlist(_ record: RemoteinfonumbersOnetask) {
         if estimatedlist == nil {
             estimatedlist = [RemoteinfonumbersOnetask]()
         }
