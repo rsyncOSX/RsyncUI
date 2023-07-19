@@ -26,8 +26,6 @@ struct TasksView: View {
     @Binding var showexecutenoestimateview: Bool
     @Binding var showexecutenoestiamteonetask: Bool
 
-    @State private var inwork: Int = -1
-
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
@@ -61,7 +59,6 @@ struct TasksView: View {
             if reloadtasksviewlist == false {
                 ListofTasksView(
                     selecteduuids: $selecteduuids,
-                    inwork: $inwork,
                     filterstring: $filterstring,
                     reload: $reload,
                     confirmdelete: $confirmdelete,
@@ -241,9 +238,9 @@ struct TasksView: View {
                     focusshowinfotask = false
                     return
                 }
+                let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo,
+                                               processtermination: processtermination)
                 Task {
-                    let tasklocalinfo = await RsyncAsync(arguments: argumentslocalinfo,
-                                                         processtermination: processtermination)
                     await tasklocalinfo.executeProcess()
                 }
             })
@@ -430,7 +427,7 @@ extension TasksView {
     }
 
     func reset() {
-        inwork = -1
+        progressdetails.hiddenIDatwork = -1
         estimatingprogresscount.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
@@ -444,8 +441,8 @@ extension TasksView {
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)
         estimatingprogresscount.resetcounts()
+        progressdetails.hiddenIDatwork = -1
         _ = InterruptProcess()
-        inwork = -1
         reload = true
         focusstartestimation = false
         focusstartexecution = false

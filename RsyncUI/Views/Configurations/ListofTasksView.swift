@@ -12,7 +12,6 @@ struct ListofTasksView: View {
     // @SwiftUI.Environment(ProgressDetails.self) var progressdetails
     @EnvironmentObject var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>
-    @Binding var inwork: Int
     @Binding var filterstring: String
     @Binding var reload: Bool
     @Binding var confirmdelete: Bool
@@ -29,10 +28,12 @@ struct ListofTasksView: View {
     var tabledata: some View {
         Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("%") { data in
-                if data.hiddenID == inwork && progressdetails.isestimating() == false {
+                if data.hiddenID == progressdetails.hiddenIDatwork &&
+                    progressdetails.isestimating() == false
+                {
                     ProgressView("",
                                  value: progressdetails.currenttaskprogress,
-                                 total: maxcount + 2)
+                                 total: progressdetails.getmaxcountbytask() + 2)
                         .frame(width: 35, alignment: .center)
                 }
             }
@@ -107,7 +108,7 @@ struct ListofTasksView: View {
     }
 
     var maxcount: Double {
-        return progressdetails.getmaxcountbytask(inwork)
+        return progressdetails.getmaxcountbytask()
     }
 
     func delete() {
