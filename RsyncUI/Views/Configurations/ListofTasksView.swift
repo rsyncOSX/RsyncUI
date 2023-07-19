@@ -33,7 +33,7 @@ struct ListofTasksView: View {
                 {
                     ProgressView("",
                                  value: progressdetails.currenttaskprogress,
-                                 total: progressdetails.getmaxcountbytask() + 2)
+                                 total: progressdetails.getmaxcountbytask() + 3)
                         .frame(width: 35, alignment: .center)
                 }
             }

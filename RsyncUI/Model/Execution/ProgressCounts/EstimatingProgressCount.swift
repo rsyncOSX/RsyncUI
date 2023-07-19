@@ -14,7 +14,6 @@ final class EstimatingProgressCount {
     var tasknumbercount: Double = 0
     var max: Int = 0
     // Which hiddenID is in estimation
-    var hiddenID: Int = -1
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
     // Estimate async
@@ -46,12 +45,7 @@ final class EstimatingProgressCount {
         uuids.insert(id)
     }
 
-    func sethiddenID(_ arghiddenID: Int) {
-        hiddenID = arghiddenID
-    }
-
     func resetcounts() {
-        hiddenID = -1
         numberofconfigurations = -1
         tasknumbercount = 0
         max = 0

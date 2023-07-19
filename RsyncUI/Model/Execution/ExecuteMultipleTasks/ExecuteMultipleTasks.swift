@@ -58,7 +58,6 @@ final class ExecuteMultipleTasks {
         guard (stackoftasktobeexecuted?.count ?? 0) > 0 else { return }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
-            estimatingprogresscountDelegate?.sethiddenID(hiddenID)
             progessdetailsDelegate?.hiddenIDatwork = hiddenID
             let estimation = ExecuteOneTask(hiddenID: hiddenID,
                                             configurations: localconfigurations,
@@ -135,7 +134,6 @@ final class ExecuteMultipleTasks {
         }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
-            estimatingprogresscountDelegate?.sethiddenID(hiddenID)
             progessdetailsDelegate?.hiddenIDatwork = hiddenID
             let execution = ExecuteOneTask(hiddenID: hiddenID,
                                            configurations: localconfigurations,
