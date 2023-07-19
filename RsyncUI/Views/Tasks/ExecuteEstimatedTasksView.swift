@@ -30,7 +30,7 @@ struct ExecuteEstimatedTasksView: View {
 
     var body: some View {
         ZStack {
-            ListofTasksView(
+            ListofTasksMainView(
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,

@@ -7,10 +7,16 @@
 
 import SwiftUI
 
-struct ListofTasksView: View {
+struct ListofTasksMainView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    // @SwiftUI.Environment(ProgressDetails.self) var progressdetails
+    @EnvironmentObject var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
+    @Binding var reload: Bool
+    @Binding var confirmdelete: Bool
+    @Binding var reloadtasksviewlist: Bool
+    @Binding var doubleclick: Bool
 
     var body: some View {
         VStack {
@@ -21,8 +27,15 @@ struct ListofTasksView: View {
 
     var tabledata: some View {
         Table(configurationssorted, selection: $selecteduuids) {
-            TableColumn("%") { _ in
-                Text("")
+            TableColumn("%") { data in
+                if data.hiddenID == progressdetails.hiddenIDatwork &&
+                    progressdetails.isestimating() == false
+                {
+                    ProgressView("",
+                                 value: progressdetails.currenttaskprogress,
+                                 total: maxcount + 3)
+                        .frame(width: 35, alignment: .center)
+                }
             }
             .width(max: 50)
             TableColumn("Profile") { data in
@@ -69,6 +82,21 @@ struct ListofTasksView: View {
             }
             .width(max: 120)
         }
+        .confirmationDialog(
+            NSLocalizedString("Delete configuration", comment: "")
+                + "?",
+            isPresented: $confirmdelete
+        ) {
+            Button("Delete") {
+                delete()
+                confirmdelete = false
+            }
+        }
+        .contextMenu(forSelectionType: Configuration.ID.self) { _ in
+            // ...
+        } primaryAction: { _ in
+            doubleclick = true
+        }
     }
 
     var configurationssorted: [Configuration] {
@@ -77,6 +105,20 @@ struct ListofTasksView: View {
         } else {
             return rsyncUIdata.filterconfigurations(filterstring) ?? []
         }
+    }
+
+    var maxcount: Double {
+        return progressdetails.getmaxcountbytask()
+    }
+
+    func delete() {
+        let deleteconfigurations =
+            UpdateConfigurations(profile: rsyncUIdata.profile,
+                                 configurations: rsyncUIdata.getallconfigurations())
+        deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
+        selecteduuids.removeAll()
+        reload = true
+        reloadtasksviewlist = true
     }
 
     func markconfig(_ config: Configuration?) -> Bool {

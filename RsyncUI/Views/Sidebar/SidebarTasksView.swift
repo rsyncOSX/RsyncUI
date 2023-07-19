@@ -10,6 +10,8 @@ import SwiftUI
 struct SidebarTasksView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
 
+    @StateObject var progressdetails = ProgressDetails()
+
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
 
@@ -63,6 +65,7 @@ struct SidebarTasksView: View {
                       showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
                       actions: actions,
                       reloadtasksviewlist: $reloadtasksviewlist)
+                .environmentObject(progressdetails)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
@@ -70,6 +73,7 @@ struct SidebarTasksView: View {
                 .onDisappear(perform: {
                     reloadtasksviewlist = true
                 })
+                .environmentObject(progressdetails)
         case .executenoestimatetasksview:
             ExecuteNoestimatedTasksView(reload: $reload,
                                         selecteduuids: $selecteduuids,

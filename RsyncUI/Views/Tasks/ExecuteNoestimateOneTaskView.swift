@@ -33,16 +33,11 @@ struct ExecuteNoestimateOneTaskView: View {
         ZStack {
             ListofTasksView(
                 selecteduuids: $selecteduuids,
-                filterstring: $filterstring,
-                reload: $reload,
-                confirmdelete: $confirmdelete,
-                reloadtasksviewlist: $reloadtasksviewlist,
-                doubleclick: $doubleclick
+                filterstring: $filterstring
             )
 
             // When completed
             if estimatingprogresscount.executeasyncnoestimationcompleted == true { labelcompleted }
-
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
         }
         HStack {

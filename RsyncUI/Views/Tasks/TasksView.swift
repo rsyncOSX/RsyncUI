@@ -57,7 +57,7 @@ struct TasksView: View {
     var body: some View {
         ZStack {
             if reloadtasksviewlist == false {
-                ListofTasksView(
+                ListofTasksMainView(
                     selecteduuids: $selecteduuids,
                     filterstring: $filterstring,
                     reload: $reload,
