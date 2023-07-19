@@ -13,7 +13,6 @@ final class EstimatingProgressCount {
     var estimatedlist: [RemoteinfonumbersOnetask]?
     var tasknumbercount: Double = 0
     var max: Int = 0
-    // Which hiddenID is in estimation
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
     // Estimate async

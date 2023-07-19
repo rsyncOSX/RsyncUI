@@ -42,7 +42,7 @@ struct ExecuteEstimatedTasksView: View {
             // When completed
             if multipletaskstate.executionstate == .completed { labelcompleted }
             // Execute multiple tasks progress
-            if multipletaskstate.executionstate == .execute { progressviewexecuting }
+            if multipletaskstate.executionstate == .execute { AlertToast(displayMode: .alert, type: .loading) }
         }
         HStack {
             Spacer()
@@ -54,15 +54,6 @@ struct ExecuteEstimatedTasksView: View {
             executemultipleestimatedtasks()
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
-    }
-
-    // Present progressview during executing multiple tasks
-    var progressviewexecuting: some View {
-        AlertToast(displayMode: .alert, type: .loading)
-            .onChange(of: estimatingprogresscount.tasknumbercount) {
-                // To set ProgressView spinnig wheel on correct task when estimating
-                progressdetails.currenttaskprogress = 0
-            }
     }
 
     // When status execution is .completed, present label and execute completed.
