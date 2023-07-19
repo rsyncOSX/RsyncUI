@@ -70,6 +70,6 @@ final class TrimTwo {
 
 extension TrimTwo {
     func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
+        SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }

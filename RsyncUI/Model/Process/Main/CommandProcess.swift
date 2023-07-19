@@ -89,6 +89,6 @@ final class CommandProcess {
 
 extension CommandProcess {
     func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.propogateerror(error: error)
+        SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }
