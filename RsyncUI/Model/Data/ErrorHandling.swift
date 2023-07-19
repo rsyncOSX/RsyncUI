@@ -10,7 +10,7 @@ import Observation
 import SwiftUI
 
 @Observable
-final class ErrorHandling: ObservableObject {
+final class ErrorHandling {
     private(set) var activeError: Error?
 
     func propogateerror(error: Error) {

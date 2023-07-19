@@ -46,7 +46,7 @@ struct RsyncUIView: View {
                               selectedprofile: $selectedprofile, actions: actions)
                     .environment(rsyncUIdata)
                     .environment(profilenames)
-                    .environmentObject(errorhandling)
+                    .environment(errorhandling)
                     .onChange(of: reload) {
                         reload = false
                     }

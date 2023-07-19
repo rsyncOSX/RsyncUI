@@ -13,7 +13,7 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
 }
 
 struct SidebarSonoma: View {
-    @EnvironmentObject var errorhandling: ErrorHandling
+    @SwiftUI.Environment(ErrorHandling.self) var errorhandling
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @State private var selectedview: Sidebaritems = .synchronize
