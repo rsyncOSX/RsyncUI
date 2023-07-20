@@ -6,6 +6,7 @@
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
 
+import Observation
 import SwiftUI
 
 struct Readconfigurationsfromstore {
@@ -19,12 +20,13 @@ struct Readconfigurationsfromstore {
     }
 }
 
-final class RsyncUIconfigurations: ObservableObject {
-    @Published var configurations: [Configuration]?
-    @Published var profile: String?
+@Observable
+final class RsyncUIconfigurations {
+    var configurations: [Configuration]?
+    var profile: String? = ""
 
     var configurationsfromstore: Readconfigurationsfromstore?
-    var validhiddenIDs: Set<Int>?
+    var validhiddenIDs: Set<Int>? = Set<Int>()
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {
         return configurations?.filter {

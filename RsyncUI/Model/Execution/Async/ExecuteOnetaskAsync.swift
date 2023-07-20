@@ -26,7 +26,7 @@ extension ExecuteOnetaskAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        estimatingprogresscountDelegate?.appendrecordestimatedlist(record)
+        estimatingprogresscountDelegate?.appendrecord(record)
         if let config = getconfig(hiddenID: hiddenID) {
             estimatingprogresscountDelegate?.appenduuid(config.id)
             let update = SingletaskPrimaryLogging(profile: config.profile,

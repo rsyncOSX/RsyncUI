@@ -5,91 +5,40 @@
 //  Created by Thomas Evensen on 16/02/2021.
 //
 
-import Combine
 import Foundation
+import Observation
 
-@MainActor
-final class ObservableUsersetting: ObservableObject {
+@Observable
+final class ObservableUsersetting {
     // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
-    @Published var rsyncversion3: Bool = SharedReference.shared.rsyncversion3
+    var rsyncversion3: Bool = SharedReference.shared.rsyncversion3
     // Optional path to rsync, the settings View is picking up the current value
     // Set the current value as placeholder text
-    @Published var localrsyncpath: String = ""
+    var localrsyncpath: String = ""
     // No valid rsyncPath - true if no valid rsync is found
-    @Published var norsync: Bool = false
+    var norsync: Bool = false
     // Temporary path for restore, the settings View is picking up the current value
     // Set the current value as placeholder text
-    @Published var temporarypathforrestore: String = ""
+    var temporarypathforrestore: String = ""
     // Detailed logging
-    @Published var detailedlogging: Bool = SharedReference.shared.detailedlogging
+    var detailedlogging: Bool = SharedReference.shared.detailedlogging
     // Logging to logfile
-    @Published var minimumlogging: Bool = SharedReference.shared.minimumlogging
-    @Published var fulllogging: Bool = SharedReference.shared.fulllogging
-    @Published var nologging: Bool = SharedReference.shared.nologging
+    var minimumlogging: Bool = SharedReference.shared.minimumlogging
+    var fulllogging: Bool = SharedReference.shared.fulllogging
+    var nologging: Bool = SharedReference.shared.nologging
     // Mark number of days since last backup
-    @Published var marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
+    var marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
     // Paths for apps
     // @Published var pathrsyncui: String = SharedReference.shared.pathrsyncui ?? ""
     // @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     // Check for network changes
-    @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
+    var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // True if on ARM based Mac
-    @Published var macosarm: Bool = SharedReference.shared.macosarm
-    // Alerts
-    @Published var alerterror: Bool = false
-    @Published var error: Error = Validatedpath.noerror
+    var macosarm: Bool = SharedReference.shared.macosarm
+    // alert about error
+    var error: Error = Validatedpath.noerror
+    var alerterror: Bool = false
 
-    // Combine
-    var subscriptions = Set<AnyCancellable>()
-
-    init() {
-        $rsyncversion3
-            .sink { rsyncver3 in
-                SharedReference.shared.rsyncversion3 = rsyncver3
-            }.store(in: &subscriptions)
-        $macosarm
-            .sink { arm in
-                SharedReference.shared.macosarm = arm
-            }.store(in: &subscriptions)
-        $localrsyncpath
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] rsyncpath in
-                setandvalidatepathforrsync(rsyncpath)
-            }.store(in: &subscriptions)
-        $temporarypathforrestore
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] restorepath in
-                setandvalidapathforrestore(restorepath)
-            }.store(in: &subscriptions)
-        $nologging
-            .sink { value in
-                SharedReference.shared.nologging = value
-            }.store(in: &subscriptions)
-        $minimumlogging
-            .sink { min in
-                SharedReference.shared.minimumlogging = min
-            }.store(in: &subscriptions)
-        $fulllogging
-            .sink { full in
-                SharedReference.shared.fulllogging = full
-            }.store(in: &subscriptions)
-        $detailedlogging
-            .sink { detailed in
-                SharedReference.shared.detailedlogging = detailed
-            }.store(in: &subscriptions)
-        $monitornetworkconnection
-            .sink { monitor in
-                SharedReference.shared.monitornetworkconnection = monitor
-            }.store(in: &subscriptions)
-        $marknumberofdayssince
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] value in
-                markdays(days: value)
-            }.store(in: &subscriptions)
-    }
-}
-
-extension ObservableUsersetting {
     // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) {
         guard path.isEmpty == false, rsyncversion3 == true else {

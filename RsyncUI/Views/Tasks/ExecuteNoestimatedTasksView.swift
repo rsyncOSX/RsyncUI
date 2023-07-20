@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct ExecuteNoestimatedTasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    // These two objects keeps track of the state and collects
-    // the estimated values.
-    @StateObject private var estimatingprogresscount = EstimatingProgressCount()
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @State private var estimatingprogresscount = EstimatingProgressCount()
 
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
@@ -26,6 +24,10 @@ struct ExecuteNoestimatedTasksView: View {
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
 
+    @State private var reloadtasksviewlist = false
+    // Double click, only for macOS13 and later
+    @State private var doubleclick: Bool = false
+
     var body: some View {
         ZStack {
             ListofTasksView(
@@ -33,6 +35,7 @@ struct ExecuteNoestimatedTasksView: View {
                 filterstring: $filterstring
             )
 
+            // When completed
             if estimatingprogresscount.executeasyncnoestimationcompleted == true { labelcompleted }
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
         }

@@ -10,7 +10,7 @@ import SwiftUI
 struct ConfirmDeleteProfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var delete: Bool
-    @Binding var profile: String?
+    var profile: String?
 
     var body: some View {
         VStack {

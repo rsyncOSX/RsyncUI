@@ -6,19 +6,21 @@
 //
 
 import Foundation
+import Observation
 import SwiftUI
 
 struct DetailsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var inprogresscountmultipletask: EstimatingProgressCount
+    @SwiftUI.Environment(EstimatingProgressCount.self) var inprogresscountmultipletask
+
     @Binding var reload: Bool
     @Binding var execute: Bool
 
     var selectedconfig: Configuration?
 
     @State private var gettingremotedata = true
-    @StateObject var estimateddataonetask = Estimateddataonetask()
-    @StateObject var outputfromrsync = Outputfromrsync()
+    @State private var estimateddataonetask = Estimateddataonetask()
+    @State private var outputfromrsync = Outputfromrsync()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -218,13 +220,14 @@ extension DetailsView {
         if estimateddataonetask.estimatedlistonetask.count == 1 {
             inprogresscountmultipletask.resetcounts()
             inprogresscountmultipletask.appenduuid(selectedconfig?.id ?? UUID())
-            inprogresscountmultipletask.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
+            inprogresscountmultipletask.appendrecord(estimateddataonetask.estimatedlistonetask[0])
         }
     }
 }
 
-final class Estimateddataonetask: ObservableObject {
-    @Published var estimatedlistonetask = [RemoteinfonumbersOnetask]()
+@Observable
+final class Estimateddataonetask {
+    var estimatedlistonetask = [RemoteinfonumbersOnetask]()
 
     func update(data: [String]?, hiddenID: Int?, config: Configuration?) {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
@@ -235,8 +238,9 @@ final class Estimateddataonetask: ObservableObject {
     }
 }
 
-final class Outputfromrsync: ObservableObject {
-    @Published var output = [Data]()
+@Observable
+final class Outputfromrsync {
+    var output = [Data]()
 
     struct Data: Identifiable {
         let id = UUID()

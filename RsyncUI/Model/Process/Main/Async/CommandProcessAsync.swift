@@ -64,7 +64,7 @@ final class CommandProcessAsync {
             try task.run()
         } catch let e {
             let error = e
-            alerterror(error: error)
+            propogateerror(error: error)
         }
     }
 
@@ -90,7 +90,7 @@ final class CommandProcessAsync {
 }
 
 extension CommandProcessAsync {
-    func alerterror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }

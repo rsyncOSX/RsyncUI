@@ -9,29 +9,29 @@ import SwiftUI
 
 struct AddProfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var profilenames: Profilenames
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(Profilenames.self) private var profilenames
+    @State private var newdata = ObservableAddConfigurations()
+
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
-    @StateObject var newdata = ObservableAddConfigurations()
     @State private var uuidprofile = Set<Profiles.ID>()
 
     var body: some View {
         ZStack {
             VStack {
-                Table(profilenames.profiles ?? [], selection: $uuidprofile.onChange {
-                    let profile = profilenames.profiles?.filter { profiles in
-                        uuidprofile.contains(profiles.id)
-                    }
-                    if (profile?.count ?? 0) == 1 {
-                        if let profile = profile {
-                            selectedprofile = profile[0].profile
-                        }
-                    }
-                }) {
+                Table(profilenames.profiles, selection: $uuidprofile) {
                     TableColumn("Profiles") { name in
                         Text(name.profile ?? "Default profile")
+                    }
+                }
+                .onChange(of: uuidprofile) {
+                    let profile = profilenames.profiles.filter { profiles in
+                        uuidprofile.contains(profiles.id)
+                    }
+                    if profile.count == 1 {
+                        selectedprofile = profile[0].profile
                     }
                 }
 
@@ -67,7 +67,7 @@ struct AddProfileView: View {
                 .buttonStyle(AbortButtonStyle())
                 .sheet(isPresented: $newdata.showAlertfordelete) {
                     ConfirmDeleteProfileView(delete: $newdata.confirmdeleteselectedprofile,
-                                             profile: $rsyncUIdata.profile)
+                                             profile: rsyncUIdata.profile)
                         .onDisappear(perform: {
                             deleteprofile()
                         })

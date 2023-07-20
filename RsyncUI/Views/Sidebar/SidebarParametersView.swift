@@ -5,11 +5,12 @@
 //  Created by Thomas Evensen on 19/08/2021.
 //
 
+import Observation
 import SwiftUI
 
 struct SidebarParametersView: View {
     @Binding var reload: Bool
-    @StateObject var dataischanged = Dataischanged()
+    @State private var dataischanged = Dataischanged()
 
     var body: some View {
         TabView {
@@ -17,17 +18,18 @@ struct SidebarParametersView: View {
                 .tabItem {
                     Text("Parameters")
                 }
-                .environmentObject(dataischanged)
+                .environment(dataischanged)
             RsyncDefaultParametersView(reload: $reload)
                 .tabItem {
                     Text("Default")
                 }
-                .environmentObject(dataischanged)
+                .environment(dataischanged)
         }
         .padding()
     }
 }
 
-final class Dataischanged: ObservableObject {
+@Observable
+final class Dataischanged {
     var dataischanged: Bool = false
 }

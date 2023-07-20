@@ -4,13 +4,12 @@
 //
 //  Created by Thomas Evensen on 23/02/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
 struct SnapshotsView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @StateObject var snapshotdata = SnapshotData()
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @State private var snapshotdata = SnapshotData()
 
     @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
@@ -38,8 +37,8 @@ struct SnapshotsView: View {
         ZStack {
             ZStack {
                 HStack {
-                    ListofTasksLightView(
-                        selecteduuids: $selectedconfiguuid.onChange {
+                    ListofTasksLightView(selecteduuids: $selectedconfiguuid)
+                        .onChange(of: selectedconfiguuid) {
                             let selected = rsyncUIdata.configurations?.filter { config in
                                 selectedconfiguuid.contains(config.id)
                             }
@@ -53,10 +52,9 @@ struct SnapshotsView: View {
                                 snapshotdata.setsnapshotdata(nil)
                             }
                         }
-                    )
 
-                    SnapshotListView(snapshotrecords: $snapshotrecords)
-                        .environmentObject(snapshotdata)
+                    SnapshotListView(snapshotdata: $snapshotdata,
+                                     snapshotrecords: $snapshotrecords)
                 }
 
                 if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
@@ -287,5 +285,3 @@ extension SnapshotsView {
         }
     }
 }
-
-// swiftlint:enable line_length

@@ -53,7 +53,7 @@ final class SshKeys: Catalogsandfiles {
             }
         } catch let e {
             let error = e
-            alerterror(error: error)
+            propogateerror(error: error)
             return false
         }
         return false

@@ -1,88 +1,30 @@
 //
-//  ObserveableParametersRsync.swift
+//  ObservableParametersRsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 20/03/2021.
 //
 
-import Combine
 import Foundation
+import Observation
 
-@MainActor
-final class ObservableParametersRsync: ObservableObject {
+@Observable
+final class ObservableParametersRsync {
     // Rsync parameters
-    @Published var parameter8: String = ""
-    @Published var parameter9: String = ""
-    @Published var parameter10: String = ""
-    @Published var parameter11: String = ""
-    @Published var parameter12: String = ""
-    @Published var parameter13: String = ""
-    @Published var parameter14: String = ""
-
+    var parameter8: String = ""
+    var parameter9: String = ""
+    var parameter10: String = ""
+    var parameter11: String = ""
+    var parameter12: String = ""
+    var parameter13: String = ""
+    var parameter14: String = ""
     // Buttons
-    @Published var suffixlinux: Bool = false
-    @Published var suffixfreebsd: Bool = false
-    @Published var backup: Bool = false
-    // Combine
-    var subscriptions = Set<AnyCancellable>()
+    var suffixlinux: Bool = false
+    var suffixfreebsd: Bool = false
+    var backup: Bool = false
     // Selected configuration
-    @Published var configuration: Configuration?
+    var configuration: Configuration?
 
-    // Alerts
-    @Published var alerterror: Bool = false
-    @Published var error: Error = Validatedpath.noerror
-
-    init() {
-        $parameter8
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter in
-                configuration?.parameter8 = parameter
-            }.store(in: &subscriptions)
-        $parameter9
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter in
-                configuration?.parameter9 = parameter
-            }.store(in: &subscriptions)
-        $parameter10
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter in
-                configuration?.parameter10 = parameter
-            }.store(in: &subscriptions)
-        $parameter11
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter in
-                configuration?.parameter11 = parameter
-            }.store(in: &subscriptions)
-        $parameter12
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter in
-                configuration?.parameter12 = parameter
-            }.store(in: &subscriptions)
-        $parameter13
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] parameter in
-                configuration?.parameter13 = parameter
-            }.store(in: &subscriptions)
-        $parameter14
-            .sink { [unowned self] parameter in
-                configuration?.parameter14 = parameter
-            }.store(in: &subscriptions)
-        $suffixlinux
-            .sink { [unowned self] _ in
-                setsuffixlinux()
-            }.store(in: &subscriptions)
-        $suffixfreebsd
-            .sink { [unowned self] _ in
-                setsuffixfreebsd()
-            }.store(in: &subscriptions)
-        $backup
-            .sink { [unowned self] _ in
-                setbackup()
-            }.store(in: &subscriptions)
-    }
-}
-
-extension ObservableParametersRsync {
     func setvalues(_ config: Configuration?) {
         if let config = config {
             configuration = config

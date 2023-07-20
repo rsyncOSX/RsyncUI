@@ -66,13 +66,13 @@ final class Logfile: NamesandPaths {
                             }
                             return
                         case let .failure(error):
-                            self?.alerterror(error: error)
+                            self?.propogateerror(error: error)
                         }
                     }
                 }
             } catch let e {
                 let error = e
-                alerterror(error: error)
+                propogateerror(error: error)
             }
         }
     }
@@ -111,7 +111,7 @@ final class Logfile: NamesandPaths {
                 logfile = try file.readAsString()
             } catch let e {
                 let error = e
-                alerterror(error: error)
+                propogateerror(error: error)
             }
         }
     }

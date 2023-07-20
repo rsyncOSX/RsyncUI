@@ -9,9 +9,10 @@
 import SwiftUI
 
 struct RsyncDefaultParametersView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var dataischanged: Dataischanged
-    @StateObject var parameters = ObservableParametersDefault()
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(Dataischanged.self) private var dataischanged
+    @State private var parameters = ObservableParametersDefault()
+
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
@@ -43,8 +44,17 @@ struct RsyncDefaultParametersView: View {
                         Section(header: headerremove) {
                             VStack(alignment: .leading) {
                                 ToggleViewDefault("-e ssh", $parameters.removessh)
+                                    .onChange(of: parameters.removessh) {
+                                        parameters.deletessh(parameters.removessh)
+                                    }
                                 ToggleViewDefault("--compress", $parameters.removecompress)
+                                    .onChange(of: parameters.removecompress) {
+                                        parameters.deletecompress(parameters.removecompress)
+                                    }
                                 ToggleViewDefault("--delete", $parameters.removedelete)
+                                    .onChange(of: parameters.removedelete) {
+                                        parameters.deletedelete(parameters.removedelete)
+                                    }
                             }
                         }
 
@@ -57,8 +67,8 @@ struct RsyncDefaultParametersView: View {
 
                     VStack(alignment: .leading) {
                         if showtableview {
-                            ListofTasksLightView(
-                                selecteduuids: $selecteduuids.onChange {
+                            ListofTasksLightView(selecteduuids: $selecteduuids)
+                                .onChange(of: selecteduuids) {
                                     let selected = rsyncUIdata.configurations?.filter { config in
                                         selecteduuids.contains(config.id)
                                     }
@@ -72,8 +82,7 @@ struct RsyncDefaultParametersView: View {
                                         parameters.setvalues(selectedconfig)
                                     }
                                 }
-                            )
-                            .frame(maxWidth: .infinity)
+                                .frame(maxWidth: .infinity)
 
                         } else {
                             notifyupdated
@@ -141,25 +150,29 @@ struct RsyncDefaultParametersView: View {
 
     var setsshpath: some View {
         EditValue(250, "Local ssh keypath and identityfile",
-                  $parameters.sshkeypathandidentityfile.onChange {
-                      parameters.setvalues(selectedconfig)
-                  })
-                  .onAppear(perform: {
-                      if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
-                          parameters.sshkeypathandidentityfile = sshkeypath
-                      }
-                  })
+                  $parameters.sshkeypathandidentityfile)
+            .onAppear(perform: {
+                if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
+                    parameters.sshkeypathandidentityfile = sshkeypath
+                }
+            })
+            .onChange(of: parameters.sshkeypathandidentityfile) {
+                parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
+                parameters.setvalues(selectedconfig)
+            }
     }
 
     var setsshport: some View {
-        EditValue(250, "Local ssh port", $parameters.sshport.onChange {
-            parameters.setvalues(selectedconfig)
-        })
-        .onAppear(perform: {
-            if let sshport = parameters.configuration?.sshport {
-                parameters.sshport = String(sshport)
+        EditValue(250, "Local ssh port", $parameters.sshport)
+            .onAppear(perform: {
+                if let sshport = parameters.configuration?.sshport {
+                    parameters.sshport = String(sshport)
+                }
+            })
+            .onChange(of: parameters.sshport) {
+                parameters.setsshport(parameters.sshport)
+                parameters.setvalues(selectedconfig)
             }
-        })
     }
 
     var notifyupdated: some View {
@@ -213,9 +226,9 @@ extension RsyncDefaultParametersView {
         }
         rsyncoutput = ObservableRsyncOutput()
         showprogressview = true
-        let process = RsyncProcessAsync(arguments: arguments,
-                                        config: config,
-                                        processtermination: processtermination)
+        let process = await RsyncProcessAsync(arguments: arguments,
+                                              config: config,
+                                              processtermination: processtermination)
         await process.executeProcess()
     }
 
@@ -230,3 +243,5 @@ extension RsyncDefaultParametersView {
         _ = InterruptProcess()
     }
 }
+
+// swiftlint:enable line_length

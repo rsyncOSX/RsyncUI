@@ -6,67 +6,33 @@
 //
 // swiftlint:disable line_length
 
-import Combine
 import Foundation
+import Observation
 
-final class ObservableRestore: ObservableObject {
-    @Published var pathforrestore: String = ""
-    @Published var selectedrowforrestore: String = ""
-
-    @Published var restorefilesinprogress: Bool = false
-    @Published var numberoffiles: Int = 0
-    @Published var dryrun: Bool = true
-    @Published var presentsheetrsync = false
+@Observable
+final class ObservableRestore {
+    var pathforrestore: String = ""
+    var restorefilesinprogress: Bool = false
+    var numberoffiles: Int = 0
+    var dryrun: Bool = true
+    var presentsheetrsync = false
     // Customized restore command string
     // Displayed in restore view
-    @Published var commandstring: String = ""
-    // Value to check if input field is changed by user
-    @Published var inputchangedbyuser: Bool = false
-
-    // Alerts
-    @Published var alerterror: Bool = false
-    @Published var error: Error = Validatedpath.noerror
-
-    // Combine
-    var subscriptions = Set<AnyCancellable>()
+    var commandstring: String = ""
     var rsyncdata: [String]?
     var filestorestore: String = ""
     var arguments: [String]?
     var selectedconfig: Configuration?
     var datalist: [RestoreFileRecord] = []
 
+    // alert about error
+    var error: Error = InputError.noerror
+    var alerterror: Bool = false
+
     var rsync: String {
         return GetfullpathforRsync().rsyncpath ?? ""
     }
 
-    init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $dryrun
-            .sink { [unowned self] _ in
-                updatecommandstring()
-            }.store(in: &subscriptions)
-        $pathforrestore
-            .sink { [unowned self] path in
-                validatepathforrestore(path)
-                updatecommandstring()
-            }.store(in: &subscriptions)
-        $selectedrowforrestore
-            .sink { [unowned self] file in
-                filestorestore = file
-                updatecommandstring()
-            }.store(in: &subscriptions)
-        $presentsheetrsync
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $commandstring
-            .sink { _ in
-            }.store(in: &subscriptions)
-    }
-}
-
-extension ObservableRestore {
     func processtermination(data: [String]?) {
         rsyncdata = data
         restorefilesinprogress = false
@@ -83,7 +49,6 @@ extension ObservableRestore {
 
     // Validate path for restore
     func validatepathforrestore(_ atpath: String) {
-        guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else { return }
         do {
             let ok = try validatepath(atpath)
@@ -103,7 +68,6 @@ extension ObservableRestore {
         return true
     }
 
-    @MainActor
     func restore(_: Configuration) async {
         var arguments: [String]?
         do {
@@ -112,8 +76,8 @@ extension ObservableRestore {
                 arguments = computerestorearguments(forDisplay: false)
                 if let arguments = arguments {
                     restorefilesinprogress = true
-                    let command = RsyncAsync(arguments: arguments,
-                                             processtermination: processtermination)
+                    let command = await RsyncAsync(arguments: arguments,
+                                                   processtermination: processtermination)
                     await command.executeProcess()
                 }
             }
@@ -197,7 +161,7 @@ extension ObservableRestore {
         return nil
     }
 
-    private func updatecommandstring() {
+    func updatecommandstring() {
         commandstring = ""
         commandstring = rsync + " "
         let arguments = computerestorearguments(forDisplay: true)

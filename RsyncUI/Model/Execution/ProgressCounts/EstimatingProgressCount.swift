@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Observation
 
-final class EstimatingProgressCount: ObservableObject {
+@Observable
+final class EstimatingProgressCount {
     var estimatedlist: [RemoteinfonumbersOnetask]?
-    var tasksinprogresscount: Double = 0
+    var tasknumbercount: Double = 0
     var max: Int = 0
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
@@ -44,7 +46,7 @@ final class EstimatingProgressCount: ObservableObject {
 
     func resetcounts() {
         numberofconfigurations = -1
-        tasksinprogresscount = 0
+        tasknumbercount = 0
         max = 0
         uuids.removeAll()
         estimatedlist = nil
@@ -56,16 +58,15 @@ final class EstimatingProgressCount: ObservableObject {
         max = num
     }
 
-    func updatetasksinprogresscount(_ num: Double) {
-        tasksinprogresscount = num
-        objectWillChange.send()
+    func updatetasknumbercount(_ num: Double) {
+        tasknumbercount = num
     }
 
     func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {
         estimatedlist = argestimatedlist
     }
 
-    func appendrecordestimatedlist(_ record: RemoteinfonumbersOnetask) {
+    func appendrecord(_ record: RemoteinfonumbersOnetask) {
         if estimatedlist == nil {
             estimatedlist = [RemoteinfonumbersOnetask]()
         }
@@ -74,27 +75,22 @@ final class EstimatingProgressCount: ObservableObject {
 
     func asyncestimationcomplete() {
         estimateasync = false
-        objectWillChange.send()
     }
 
     func asyncexecutecomplete() {
         executeasyncnoestimationcompleted = true
-        objectWillChange.send()
     }
 
     func startestimateasync() {
         estimateasync = true
-        objectWillChange.send()
     }
 
     func asyncexecutealltasksnoestiamtioncomplete() {
         executeasyncnoestimationcompleted = true
-        objectWillChange.send()
     }
 
     func startasyncexecutealltasksnoestimation() {
         executeasyncnoestimationcompleted = false
-        objectWillChange.send()
     }
 
     func getestimatedlist() -> [RemoteinfonumbersOnetask]? {
@@ -102,6 +98,6 @@ final class EstimatingProgressCount: ObservableObject {
     }
 
     deinit {
-        print("deinit InprogressCountMultipleTasks")
+        print("deinit EstimatingProgressCount")
     }
 }

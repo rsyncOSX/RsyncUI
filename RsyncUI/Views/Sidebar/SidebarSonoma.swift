@@ -1,8 +1,8 @@
 //
-//  SidebarVentura.swift
+//  SidebarSonoma.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 25/04/2023.
+//  Created by Thomas Evensen on 03/07/2023.
 //
 
 import SwiftUI
@@ -12,13 +12,12 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
-@available(macOS 13.0, *)
-struct SidebarVentura: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var errorhandling: ErrorHandling
+struct SidebarSonoma: View {
+    @SwiftUI.Environment(ErrorHandling.self) var errorhandling
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @State private var selectedview: Sidebaritems = .synchronize
+
     // Keep record of actions
     var actions: Actions
 
@@ -42,7 +41,6 @@ struct SidebarVentura: View {
         }
     }
 
-    @available(macOS 13.0, *)
     var body: some View {
         NavigationSplitView {
             List(Sidebaritems.allCases, selection: $selectedview) { selectedview in

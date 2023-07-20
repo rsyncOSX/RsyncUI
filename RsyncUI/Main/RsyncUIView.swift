@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct RsyncUIView: View {
-    @StateObject var rsyncversion = Rsyncversion()
-    @StateObject var profilenames = Profilenames()
-    @StateObject var newversion = CheckfornewversionofRsyncUI()
-    @StateObject var progressdetails = ProgressDetails()
+    @State private var newversion = CheckfornewversionofRsyncUI()
+    @State private var rsyncversion = Rsyncversion()
+    @State private var profilenames = Profilenames()
 
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
@@ -19,7 +18,6 @@ struct RsyncUIView: View {
     @State private var start: Bool = true
 
     // Initial view in tasks for sidebar macOS 12
-    @State private var selection: NavigationItem? = Optional.none
     var actions: Actions
 
     var body: some View {
@@ -38,34 +36,20 @@ struct RsyncUIView: View {
                 })
 
             } else {
-                if profilenames.profiles?.count == 0 {
+                if profilenames.profiles.count == 0 {
                     defaultprofilepicker
                 } else {
                     profilepicker
                 }
 
-                if #available(macOS 13.0, *) {
-                    SidebarVentura(reload: $reload,
-                                   selectedprofile: $selectedprofile, actions: actions)
-                        .environmentObject(rsyncUIdata)
-                        .environmentObject(errorhandling)
-                        .environmentObject(progressdetails)
-                        .environmentObject(profilenames)
-                        .onChange(of: reload, perform: { _ in
-                            reload = false
-                        })
-                } else {
-                    Sidebar(reload: $reload,
-                            selectedprofile: $selectedprofile,
-                            selection: $selection, actions: actions)
-                        .environmentObject(rsyncUIdata)
-                        .environmentObject(errorhandling)
-                        .environmentObject(progressdetails)
-                        .environmentObject(profilenames)
-                        .onChange(of: reload, perform: { _ in
-                            reload = false
-                        })
-                }
+                SidebarSonoma(reload: $reload,
+                              selectedprofile: $selectedprofile, actions: actions)
+                    .environment(rsyncUIdata)
+                    .environment(profilenames)
+                    .environment(errorhandling)
+                    .onChange(of: reload) {
+                        reload = false
+                    }
             }
 
             HStack {
@@ -79,7 +63,6 @@ struct RsyncUIView: View {
         }
         .padding()
         .task {
-            selection = .tasksview
             await rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }
@@ -97,11 +80,9 @@ struct RsyncUIView: View {
     var profilepicker: some View {
         HStack {
             Picker("", selection: $selectedprofile) {
-                if let profiles = profilenames.profiles {
-                    ForEach(profiles, id: \.self) { profile in
-                        Text(profile.profile ?? "")
-                            .tag(profile.profile)
-                    }
+                ForEach(profilenames.profiles, id: \.self) { profile in
+                    Text(profile.profile ?? "")
+                        .tag(profile.profile)
                 }
             }
             .frame(width: 180)

@@ -9,19 +9,20 @@
 import SwiftUI
 
 struct LogsbyConfigurationView: View {
-    @EnvironmentObject var logrecords: RsyncUIlogrecords
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var filterstring: String
+    @SwiftUI.Environment(RsyncUIlogrecords.self) private var logrecords
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
 
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedconfig: Configuration?
     @State private var reload: Bool = false
 
+    @Binding var filterstring: String
+
     var body: some View {
         VStack {
             HStack {
-                ListofTasksLightView(
-                    selecteduuids: $selecteduuids.onChange {
+                ListofTasksLightView(selecteduuids: $selecteduuids)
+                    .onChange(of: selecteduuids) {
                         let selected = rsyncUIdata.configurations?.filter { config in
                             selecteduuids.contains(config.id)
                         }
@@ -33,7 +34,6 @@ struct LogsbyConfigurationView: View {
                             selectedconfig = nil
                         }
                     }
-                )
 
                 Table(logdetails) {
                     TableColumn("Date") { data in

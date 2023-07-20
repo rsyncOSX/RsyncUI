@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct AddPreandPostView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var dataischanged: Dataischanged
-    @EnvironmentObject var profilenames: Profilenames
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(Profilenames.self) private var profilenames
+    @SwiftUI.Environment(Dataischanged.self) private var dataischanged
+    @State private var newdata = ObservablePreandPostTask()
+
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
-
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
 
@@ -28,7 +29,6 @@ struct AddPreandPostView: View {
         case posttaskField
     }
 
-    @StateObject var newdata = ObservablePreandPostTask()
     @FocusState private var focusField: PreandPostTaskField?
 
     var body: some View {
@@ -64,8 +64,8 @@ struct AddPreandPostView: View {
 
                     VStack(alignment: .leading) {
                         if showtableview {
-                            ListofTasksLightView(
-                                selecteduuids: $selecteduuids.onChange {
+                            ListofTasksLightView(selecteduuids: $selecteduuids)
+                                .onChange(of: selecteduuids) {
                                     let selected = rsyncUIdata.configurations?.filter { config in
                                         selecteduuids.contains(config.id)
                                     }
@@ -79,7 +79,6 @@ struct AddPreandPostView: View {
                                         newdata.updateview(selectedconfig)
                                     }
                                 }
-                            )
                             updatebutton
                         } else {
                             notifyupdated
@@ -164,7 +163,7 @@ struct AddPreandPostView: View {
             VStack(alignment: .leading) {
                 // Enable pretask
                 if newdata.selectedconfig == nil { disablepretask } else {
-                    ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepre.onChange {})
+                    ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepre)
                         .onAppear(perform: {
                             if newdata.selectedconfig?.executepretask == 1 {
                                 newdata.enablepre = true
@@ -178,7 +177,7 @@ struct AddPreandPostView: View {
 
                 HStack {
                     if newdata.selectedconfig == nil { setpretask } else {
-                        EditValue(250, nil, $newdata.pretask.onChange {})
+                        EditValue(250, nil, $newdata.pretask)
                             .focused($focusField, equals: .pretaskField)
                             .textContentType(.none)
                             .submitLabel(.continue)
@@ -200,7 +199,7 @@ struct AddPreandPostView: View {
             VStack(alignment: .leading) {
                 // Enable posttask
                 if newdata.selectedconfig == nil { disableposttask } else {
-                    ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepost.onChange {})
+                    ToggleViewDefault(NSLocalizedString("Enable", comment: ""), $newdata.enablepost)
                         .onAppear(perform: {
                             if newdata.selectedconfig?.executeposttask == 1 {
                                 newdata.enablepost = true
@@ -214,7 +213,7 @@ struct AddPreandPostView: View {
 
                 HStack {
                     if newdata.selectedconfig == nil { setposttask } else {
-                        EditValue(250, nil, $newdata.posttask.onChange {})
+                        EditValue(250, nil, $newdata.posttask)
                             .focused($focusField, equals: .posttaskField)
                             .textContentType(.none)
                             .submitLabel(.continue)
@@ -232,7 +231,7 @@ struct AddPreandPostView: View {
 
     var disablehaltshelltasksonerror: some View {
         ToggleViewDefault(NSLocalizedString("Halt on error", comment: ""),
-                          $newdata.haltshelltasksonerror.onChange {})
+                          $newdata.haltshelltasksonerror)
     }
 
     var profile: String? {

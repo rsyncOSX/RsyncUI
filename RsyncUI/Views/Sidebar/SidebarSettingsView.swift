@@ -5,18 +5,23 @@
 //  Created by Thomas Evensen on 01/02/2021.
 //
 
+import Observation
 import SwiftUI
 
 struct SidebarSettingsView: View {
+    @State private var alerterror = AlertError()
+
     @Binding var selectedprofile: String?
 
     var body: some View {
         TabView {
             Usersettings()
+                .environment(alerterror)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
             Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(profile).getuniqueserversandlogins() ?? [])
+                .environment(alerterror)
                 .tabItem {
                     Label("Ssh", systemImage: "terminal")
                 }
@@ -44,5 +49,30 @@ struct SidebarSettingsView: View {
         } else {
             return selectedprofile
         }
+    }
+}
+
+@Observable
+final class AlertError {
+    private(set) var activeError: Error? = Validatedpath.noerror
+
+    func alert(error: Error) {
+        DispatchQueue.main.async {
+            self.activeError = error
+        }
+    }
+
+    var presentalert: Binding<Bool> {
+        return Binding<Bool>(
+            get: { self.activeError != nil },
+            set: { value in
+                guard !value else { return }
+                self.activeError = nil
+            }
+        )
+    }
+
+    init() {
+        activeError = nil
     }
 }

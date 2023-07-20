@@ -9,7 +9,8 @@ import SwiftUI
 
 struct OutputEstimatedView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+
     @Binding var selecteduuids: Set<UUID>
     @Binding var execute: Bool
     var estimatedlist: [RemoteinfonumbersOnetask]

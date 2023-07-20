@@ -80,7 +80,7 @@ class Catalogsandfiles: NamesandPaths {
                     try root?.createSubfolder(at: catalog ?? "")
                 } catch let e {
                     let error = e
-                    alerterror(error: error)
+                    propogateerror(error: error)
                     return
                 }
                 // */
@@ -91,7 +91,7 @@ class Catalogsandfiles: NamesandPaths {
                         try Folder(path: fullrootnomacserial).createSubfolder(at: macserialnumber)
                     } catch let e {
                         let error = e
-                        alerterror(error: error)
+                        propogateerror(error: error)
                         return
                     }
                 }
@@ -109,7 +109,7 @@ class Catalogsandfiles: NamesandPaths {
                 try root.createSubfolder(at: path)
             } catch let e {
                 let error = e
-                alerterror(error: error)
+                propogateerror(error: error)
                 return
             }
         }

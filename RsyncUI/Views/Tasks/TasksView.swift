@@ -6,17 +6,18 @@
 //
 // swiftlint:disable line_length type_body_length file_length
 
+import Observation
 import SwiftUI
 
 struct TasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var progressdetails: ProgressDetails
     // These two objects keeps track of the state and collects
     // the estimated values.
-    @StateObject private var estimatingstate = EstimatingState()
-    @StateObject private var estimatingprogresscount = EstimatingProgressCount()
+    @State private var estimatingstate = EstimatingState()
+    @State private var estimatingprogresscount = EstimatingProgressCount()
 
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
@@ -41,8 +42,8 @@ struct TasksView: View {
     @State private var localdata: [String] = []
     // Modale view
     @State private var modaleview = false
-    @StateObject var sheetchooser = SheetChooser()
-    @StateObject var selectedconfig = Selectedconfig()
+    @State private var sheetchooser = SheetChooser()
+    @State private var selectedconfig = Selectedconfig()
     // Timer
     @State private var timervalue: Double = 600
     @State private var timerisenabled: Bool = false
@@ -57,18 +58,7 @@ struct TasksView: View {
         ZStack {
             if reloadtasksviewlist == false {
                 ListofTasksMainView(
-                    selecteduuids: $selecteduuids.onChange {
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selecteduuids.contains(config.id)
-                        }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                selectedconfig.config = config[0]
-                            }
-                        } else {
-                            selectedconfig.config = nil
-                        }
-                    },
+                    selecteduuids: $selecteduuids,
                     filterstring: $filterstring,
                     reload: $reload,
                     confirmdelete: $confirmdelete,
@@ -76,7 +66,18 @@ struct TasksView: View {
                     doubleclick: $doubleclick
                 )
                 .frame(maxWidth: .infinity)
-
+                .onChange(of: selecteduuids) {
+                    let selected = rsyncUIdata.configurations?.filter { config in
+                        selecteduuids.contains(config.id)
+                    }
+                    if (selected?.count ?? 0) == 1 {
+                        if let config = selected {
+                            selectedconfig.config = config[0]
+                        }
+                    } else {
+                        selectedconfig.config = nil
+                    }
+                }
             } else {
                 notifycompleted
             }
@@ -174,7 +175,7 @@ struct TasksView: View {
             DetailsView(reload: $reload,
                         execute: $focusstartexecution,
                         selectedconfig: selectedconfig.config)
-                .environmentObject(estimatingprogresscount)
+                .environment(estimatingprogresscount)
                 .onAppear {
                     doubleclick = false
                 }
@@ -187,15 +188,16 @@ struct TasksView: View {
                                 selectedconfig: selectedconfig.config)
         case .asynctimerison:
             Counter(timervalue: $timervalue,
-                    timerisenabled: $timerisenabled.onChange {
-                        if timerisenabled == true {
-                            startasynctimer()
-                        }
-                    })
-                    .onDisappear(perform: {
-                        stopasynctimer()
-                        timervalue = SharedReference.shared.timervalue ?? 600
-                    })
+                    timerisenabled: $timerisenabled)
+                .onDisappear(perform: {
+                    stopasynctimer()
+                    timervalue = SharedReference.shared.timervalue ?? 600
+                })
+                .onChange(of: timerisenabled) {
+                    if timerisenabled == true {
+                        startasynctimer()
+                    }
+                }
         }
     }
 
@@ -304,7 +306,7 @@ struct TasksView: View {
     }
 
     var notifycompleted: some View {
-        notifymessage("Updated")
+        notifymessage("Completed")
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     reloadtasksviewlist = false
@@ -425,6 +427,7 @@ extension TasksView {
     }
 
     func reset() {
+        progressdetails.hiddenIDatwork = -1
         estimatingprogresscount.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
@@ -438,6 +441,7 @@ extension TasksView {
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)
         estimatingprogresscount.resetcounts()
+        progressdetails.hiddenIDatwork = -1
         _ = InterruptProcess()
         reload = true
         focusstartestimation = false
@@ -479,14 +483,13 @@ enum Sheet: String, Identifiable {
     var id: String { rawValue }
 }
 
-final class SheetChooser: ObservableObject {
-    // Which sheet to present
-    // Do not redraw view when changing
-    // no @Publised
+@Observable
+final class SheetChooser {
     var sheet: Sheet = .dryrun
 }
 
-final class Selectedconfig: ObservableObject {
+@Observable
+final class Selectedconfig {
     var config: Configuration?
 }
 
