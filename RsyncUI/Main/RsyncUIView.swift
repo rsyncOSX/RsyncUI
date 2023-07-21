@@ -46,7 +46,8 @@ struct RsyncUIView: View {
 
                 if #available(macOS 13.0, *) {
                     SidebarVentura(reload: $reload,
-                                   selectedprofile: $selectedprofile, actions: actions)
+                                   selectedprofile: $selectedprofile,
+                                   actions: actions)
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
                         .environmentObject(progressdetails)
@@ -57,7 +58,8 @@ struct RsyncUIView: View {
                 } else {
                     Sidebar(reload: $reload,
                             selectedprofile: $selectedprofile,
-                            selection: $selection, actions: actions)
+                            selection: $selection,
+                            actions: actions)
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
                         .environmentObject(progressdetails)
