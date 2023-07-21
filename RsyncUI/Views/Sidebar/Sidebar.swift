@@ -12,7 +12,7 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
-struct SidebarSonoma: View {
+struct Sidebar: View {
     @SwiftUI.Environment(ErrorHandling.self) var errorhandling
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
