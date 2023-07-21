@@ -42,8 +42,8 @@ struct RsyncUIView: View {
                     profilepicker
                 }
 
-                SidebarSonoma(reload: $reload,
-                              selectedprofile: $selectedprofile, actions: actions)
+                Sidebar(reload: $reload,
+                        selectedprofile: $selectedprofile, actions: actions)
                     .environment(rsyncUIdata)
                     .environment(profilenames)
                     .environment(errorhandling)
