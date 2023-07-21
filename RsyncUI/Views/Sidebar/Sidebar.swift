@@ -74,8 +74,7 @@ struct Sidebar: View {
 
             Divider()
 
-            NavigationLink(destination: SidebarSnapshotsView(selectedprofile: $selectedprofile,
-                                                             reload: $reload),
+            NavigationLink(destination: SidebarSnapshotsView(reload: $reload),
                            tag: NavigationItem.snapshots,
                            selection: $selection)
             {
@@ -86,7 +85,7 @@ struct Sidebar: View {
             Divider()
 
             Group {
-                NavigationLink(destination: SidebarLogsView(selectedprofile: $selectedprofile),
+                NavigationLink(destination: SidebarLogsView(),
                                tag: NavigationItem.logsview,
                                selection: $selection)
                 {

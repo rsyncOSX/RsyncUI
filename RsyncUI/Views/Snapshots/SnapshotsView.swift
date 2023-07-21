@@ -12,9 +12,9 @@ struct SnapshotsView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @StateObject var snapshotdata = SnapshotData()
 
-    @Binding var selectedconfig: Configuration?
     @Binding var reload: Bool
 
+    @State private var selectedconfig: Configuration?
     @State private var snapshotrecords: LogrecordSnapshot?
     @State private var selectedconfiguuid = Set<Configuration.ID>()
     // If not a snapshot

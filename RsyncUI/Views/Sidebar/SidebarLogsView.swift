@@ -9,13 +9,12 @@ import SwiftUI
 
 struct SidebarLogsView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedprofile: String?
     @State private var filterstring: String = ""
 
     var body: some View {
         ZStack {
             TabView {
-                LogListAlllogsView(selectedprofile: $selectedprofile, filterstring: $filterstring)
+                LogListAlllogsView(filterstring: $filterstring)
                     .environmentObject(logrecords)
                     .tabItem {
                         Text("All logs")

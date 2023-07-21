@@ -14,8 +14,8 @@ struct LogsbyConfigurationView: View {
     @Binding var filterstring: String
 
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var selectedconfig: Configuration?
     @State private var reload: Bool = false
+    @State private var hiddenID = -1
 
     var body: some View {
         VStack {
@@ -27,10 +27,10 @@ struct LogsbyConfigurationView: View {
                         }
                         if (selected?.count ?? 0) == 1 {
                             if let config = selected {
-                                selectedconfig = config[0]
+                                hiddenID = config[0].hiddenID
                             }
                         } else {
-                            selectedconfig = nil
+                            hiddenID = -1
                         }
                     }
                 )
@@ -59,10 +59,10 @@ struct LogsbyConfigurationView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1)?.count ?? 0)"
+            "\(logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count ?? 0)"
     }
 
     var logdetails: [Log] {
-        return logrecords.filterlogsbyhiddenID(filterstring, selectedconfig?.hiddenID ?? -1) ?? []
+        return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
     }
 }
