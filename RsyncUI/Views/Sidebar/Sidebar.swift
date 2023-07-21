@@ -27,13 +27,13 @@ struct Sidebar: View {
         case .tasks:
             SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload)
         case .log_listings:
-            SidebarLogsView(selectedprofile: $selectedprofile)
+            SidebarLogsView()
         case .rsync_parameters:
             SidebarParametersView(reload: $reload)
         case .restore:
             SidebareRestoreView()
         case .snapshots:
-            SidebarSnapshotsView(selectedprofile: $selectedprofile, reload: $reload)
+            SidebarSnapshotsView(reload: $reload)
         case .synchronize:
             SidebarTasksView(reload: $reload, actions: actions)
         case .quick_synchronize:

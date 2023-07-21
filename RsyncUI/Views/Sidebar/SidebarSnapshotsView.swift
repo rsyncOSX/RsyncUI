@@ -8,15 +8,10 @@
 import SwiftUI
 
 struct SidebarSnapshotsView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
-
-    @Binding var selectedprofile: String?
     @Binding var reload: Bool
 
-    @State private var selectedconfig: Configuration?
-
     var body: some View {
-        SnapshotsView(selectedconfig: $selectedconfig, reload: $reload)
+        SnapshotsView(reload: $reload)
             .padding()
     }
 }
