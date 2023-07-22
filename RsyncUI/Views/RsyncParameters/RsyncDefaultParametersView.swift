@@ -10,7 +10,6 @@ import SwiftUI
 
 struct RsyncDefaultParametersView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
-    @SwiftUI.Environment(Dataischanged.self) private var dataischanged
     @State private var parameters = ObservableParametersDefault()
 
     @Binding var reload: Bool
@@ -23,6 +22,7 @@ struct RsyncDefaultParametersView: View {
     @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
     @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var dataischanged = Dataischanged()
 
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false

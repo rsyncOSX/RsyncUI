@@ -10,7 +10,6 @@ import SwiftUI
 
 struct RsyncParametersView: View {
     @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
-    @SwiftUI.Environment(Dataischanged.self) private var dataischanged
     @State private var parameters = ObservableParametersRsync()
 
     @Binding var reload: Bool
@@ -23,6 +22,7 @@ struct RsyncParametersView: View {
     @State private var valueselectedrow: String = ""
     @State private var numberoffiles: Int = 0
     @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var dataischanged = Dataischanged()
 
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 

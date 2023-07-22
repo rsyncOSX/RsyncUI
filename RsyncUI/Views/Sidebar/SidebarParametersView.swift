@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SidebarParametersView: View {
     @Binding var reload: Bool
-    @State private var dataischanged = Dataischanged()
 
     var body: some View {
         TabView {
@@ -18,12 +17,11 @@ struct SidebarParametersView: View {
                 .tabItem {
                     Text("Parameters")
                 }
-                .environment(dataischanged)
+
             RsyncDefaultParametersView(reload: $reload)
                 .tabItem {
                     Text("Default")
                 }
-                .environment(dataischanged)
         }
         .padding()
     }
