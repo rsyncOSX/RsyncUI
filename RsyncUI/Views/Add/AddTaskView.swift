@@ -20,11 +20,11 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 struct AddTaskView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var profilenames: Profilenames
-    @EnvironmentObject var dataischanged: Dataischanged
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var dataischanged = Dataischanged()
 
     var choosecatalog = true
 

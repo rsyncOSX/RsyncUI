@@ -10,7 +10,6 @@ import SwiftUI
 
 struct RsyncParametersView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var dataischanged: Dataischanged
     @StateObject var parameters = ObservableParametersRsync()
     @Binding var reload: Bool
 
@@ -30,6 +29,7 @@ struct RsyncParametersView: View {
 
     // Reload and show table data
     @State private var showtableview: Bool = true
+    @State private var dataischanged = Dataischanged()
 
     var body: some View {
         ZStack {

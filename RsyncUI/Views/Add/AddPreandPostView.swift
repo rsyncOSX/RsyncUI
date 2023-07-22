@@ -10,7 +10,6 @@ import SwiftUI
 
 struct AddPreandPostView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var dataischanged: Dataischanged
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -20,6 +19,7 @@ struct AddPreandPostView: View {
 
     // Reload and show table data
     @State private var showtableview: Bool = true
+    @State private var dataischanged = Dataischanged()
 
     var choosecatalog = false
 
