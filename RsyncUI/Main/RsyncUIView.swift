@@ -17,7 +17,6 @@ struct RsyncUIView: View {
     @State private var defaultprofile = "Default profile"
     @State private var start: Bool = true
 
-    // Initial view in tasks for sidebar macOS 12
     var actions: Actions
 
     var body: some View {
@@ -49,6 +48,8 @@ struct RsyncUIView: View {
                     .environment(errorhandling)
                     .onChange(of: reload) {
                         reload = false
+                        // Check this...
+                        profilenames = Profilenames()
                     }
             }
 
@@ -115,8 +116,8 @@ struct RsyncUIView: View {
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear(perform: {
-            // Show updated for 3 seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            // Show updated for 2 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 newversion.notifynewversion = false
             }
         })
