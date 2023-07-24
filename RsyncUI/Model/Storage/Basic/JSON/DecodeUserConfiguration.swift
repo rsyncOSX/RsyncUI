@@ -29,6 +29,8 @@ struct DecodeUserConfiguration: Codable {
     // Environment variable
     let environment: String?
     let environmentvalue: String?
+    // Check for error in output from rsync
+    let checkforerrorinrsyncoutput: Int?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -44,6 +46,7 @@ struct DecodeUserConfiguration: Codable {
         case sshport
         case environment
         case environmentvalue
+        case checkforerrorinrsyncoutput
     }
 
     init(from decoder: Decoder) throws {
@@ -61,6 +64,7 @@ struct DecodeUserConfiguration: Codable {
         sshport = try values.decodeIfPresent(Int.self, forKey: .sshport)
         environment = try values.decodeIfPresent(String.self, forKey: .environment)
         environmentvalue = try values.decodeIfPresent(String.self, forKey: .environmentvalue)
+        checkforerrorinrsyncoutput = try values.decodeIfPresent(Int.self, forKey: .checkforerrorinrsyncoutput)
     }
 
     init(_ userconfiguration: UserConfiguration) {
@@ -77,5 +81,6 @@ struct DecodeUserConfiguration: Codable {
         sshport = userconfiguration.sshport
         environment = userconfiguration.environment
         environmentvalue = userconfiguration.environmentvalue
+        checkforerrorinrsyncoutput = userconfiguration.checkforerrorinrsyncoutput
     }
 }

@@ -49,7 +49,7 @@ struct RsyncUIView: View {
                     .onChange(of: reload) {
                         reload = false
                         // Check this...
-                        profilenames = Profilenames()
+                        // profilenames = Profilenames()
                     }
             }
 

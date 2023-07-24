@@ -35,6 +35,8 @@ final class ObservableUsersetting {
     var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // True if on ARM based Mac
     var macosarm: Bool = SharedReference.shared.macosarm
+    // Check for "error" in output from rsync
+    var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // alert about error
     var error: Error = Validatedpath.noerror
     var alerterror: Bool = false

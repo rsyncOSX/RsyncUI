@@ -115,6 +115,10 @@ struct Usersettings: View {
                                         .onChange(of: usersettings.monitornetworkconnection) {
                                             SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
                                         }
+                                    ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
+                                        .onChange(of: usersettings.checkforerrorinrsyncoutput) {
+                                            SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
+                                        }
                                 }
                             }
                         }
