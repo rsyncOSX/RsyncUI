@@ -98,6 +98,6 @@ final class EstimatingProgressCount {
     }
 
     deinit {
-        print("deinit EstimatingProgressCount")
+        // print("deinit EstimatingProgressCount")
     }
 }

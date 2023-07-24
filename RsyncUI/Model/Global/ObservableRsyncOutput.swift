@@ -35,6 +35,6 @@ final class ObservableRsyncOutput {
     }
 
     deinit {
-        print("deinit InprogressCountRsyncOutput")
+        // print("deinit InprogressCountRsyncOutput")
     }
 }
