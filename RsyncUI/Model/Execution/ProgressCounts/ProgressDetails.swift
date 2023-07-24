@@ -45,6 +45,6 @@ final class ProgressDetails: ObservableObject {
     }
 
     deinit {
-        print("deinit ProgressDetails")
+        // print("deinit ProgressDetails")
     }
 }

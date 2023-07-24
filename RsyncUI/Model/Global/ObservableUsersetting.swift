@@ -35,6 +35,8 @@ final class ObservableUsersetting: ObservableObject {
     @Published var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // True if on ARM based Mac
     @Published var macosarm: Bool = SharedReference.shared.macosarm
+    // Check for "error" in output from rsync
+    @Published var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Alerts
     @Published var alerterror: Bool = false
     @Published var error: Error = Validatedpath.noerror
@@ -85,6 +87,10 @@ final class ObservableUsersetting: ObservableObject {
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] value in
                 markdays(days: value)
+            }.store(in: &subscriptions)
+        $checkforerrorinrsyncoutput
+            .sink { check in
+                SharedReference.shared.checkforerrorinrsyncoutput = check
             }.store(in: &subscriptions)
     }
 }

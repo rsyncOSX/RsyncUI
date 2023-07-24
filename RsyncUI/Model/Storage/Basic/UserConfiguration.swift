@@ -30,6 +30,8 @@ struct UserConfiguration: Codable {
     // Environment variable
     var environment: String?
     var environmentvalue: String?
+    // Check for error in output from rsync
+    var checkforerrorinrsyncoutput: Int = -1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -87,6 +89,11 @@ struct UserConfiguration: Codable {
         if environmentvalue != nil {
             SharedReference.shared.environmentvalue = environmentvalue
         }
+        if checkforerrorinrsyncoutput == 1 {
+            SharedReference.shared.checkforerrorinrsyncoutput = true
+        } else {
+            SharedReference.shared.checkforerrorinrsyncoutput = false
+        }
     }
 
     // Used when reading JSON data from store
@@ -105,6 +112,7 @@ struct UserConfiguration: Codable {
         sshport = data.sshport
         environment = data.environment
         environmentvalue = data.environmentvalue
+        checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -164,6 +172,11 @@ struct UserConfiguration: Codable {
         }
         if SharedReference.shared.environmentvalue != nil {
             environmentvalue = SharedReference.shared.environmentvalue
+        }
+        if SharedReference.shared.checkforerrorinrsyncoutput == true {
+            checkforerrorinrsyncoutput = 1
+        } else {
+            checkforerrorinrsyncoutput = -1
         }
     }
 }

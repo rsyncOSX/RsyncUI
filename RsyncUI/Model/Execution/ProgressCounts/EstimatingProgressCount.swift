@@ -102,6 +102,6 @@ final class EstimatingProgressCount: ObservableObject {
     }
 
     deinit {
-        print("deinit InprogressCountMultipleTasks")
+        // print("deinit InprogressCountMultipleTasks")
     }
 }
