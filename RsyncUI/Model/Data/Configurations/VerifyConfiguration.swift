@@ -14,6 +14,7 @@ enum ValidateInputError: LocalizedError {
     case notconnected
     case offsiteserver
     case snapshotnum
+    case rsyncversion2
 
     var errorDescription: String? {
         switch self {
@@ -27,6 +28,8 @@ enum ValidateInputError: LocalizedError {
             return "Remote servername cannot be empty"
         case .snapshotnum:
             return "Snapshotnum must be 1"
+        case .rsyncversion2:
+            return "Snapshot require rsync ver3.x"
         }
     }
 }
@@ -234,6 +237,12 @@ final class VerifyConfiguration: Connected {
             }
         }
         if config.task == SharedReference.shared.snapshot {
+            // Verify rsync version 3.x
+            if let rsyncversionshort = SharedReference.shared.rsyncversionshort {
+                guard rsyncversionshort.contains("version 3") else {
+                    throw ValidateInputError.rsyncversion2
+                }
+            }
             guard config.snapshotnum == 1 else {
                 throw ValidateInputError.snapshotnum
             }
