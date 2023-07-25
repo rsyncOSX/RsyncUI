@@ -371,7 +371,7 @@
 "Saved" = "Lagret";
 
 /* No comment provided by engineer. */
-"Select a configuration" = "Velg en konfigurasjon";
+"Select a task" = "Velg en oppgave";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";

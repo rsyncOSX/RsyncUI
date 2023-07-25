@@ -371,7 +371,7 @@
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
-"Select a configuration" = "Konfiguration auswählen";
+"Select a task" = "Aufgabe auswählen";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
