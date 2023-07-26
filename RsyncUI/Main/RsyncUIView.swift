@@ -10,7 +10,6 @@ import SwiftUI
 struct RsyncUIView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
     @State private var rsyncversion = Rsyncversion()
-    @State private var profilenames = Profilenames()
 
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
@@ -48,8 +47,6 @@ struct RsyncUIView: View {
                     .environment(errorhandling)
                     .onChange(of: reload) {
                         reload = false
-                        // Check this...
-                        // profilenames = Profilenames()
                     }
             }
 
@@ -67,6 +64,10 @@ struct RsyncUIView: View {
             await rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }
+    }
+
+    var profilenames: Profilenames {
+        return Profilenames()
     }
 
     var rsyncUIdata: RsyncUIconfigurations {
