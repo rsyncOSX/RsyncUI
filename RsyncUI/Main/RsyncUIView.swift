@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RsyncUIView: View {
     @StateObject var rsyncversion = Rsyncversion()
-    @StateObject var profilenames = Profilenames()
     @StateObject var newversion = CheckfornewversionofRsyncUI()
     @StateObject var progressdetails = ProgressDetails()
 
@@ -85,6 +84,10 @@ struct RsyncUIView: View {
             await rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }
+    }
+
+    var profilenames: Profilenames {
+        return Profilenames()
     }
 
     var rsyncUIdata: RsyncUIconfigurations {
