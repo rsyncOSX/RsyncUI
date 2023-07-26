@@ -12,6 +12,8 @@ struct SidebarTasksView: View {
     @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
 
+    @StateObject var progressdetails = ProgressDetails()
+
     @State var showeexecutEstimatedview: Bool = false
     @State var showexecuteNOEstimateview: Bool = false
     @State var showexecuteNOEstiamteONEtask: Bool = false
@@ -62,6 +64,7 @@ struct SidebarTasksView: View {
                       showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
                       actions: actions,
                       reloadtasksviewlist: $reloadtasksviewlist)
+                .environmentObject(progressdetails)
         case .executestimatedview:
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
@@ -69,6 +72,7 @@ struct SidebarTasksView: View {
                 .onDisappear(perform: {
                     reloadtasksviewlist = true
                 })
+                .environmentObject(progressdetails)
         case .executenoestimatetasksview:
             ExecuteNoestimatedTasksView(reload: $reload,
                                         selecteduuids: $selecteduuids,

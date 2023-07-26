@@ -10,7 +10,6 @@ import SwiftUI
 struct RsyncUIView: View {
     @StateObject var rsyncversion = Rsyncversion()
     @StateObject var newversion = CheckfornewversionofRsyncUI()
-    @StateObject var progressdetails = ProgressDetails()
 
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
@@ -49,7 +48,6 @@ struct RsyncUIView: View {
                                    actions: actions)
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
-                        .environmentObject(progressdetails)
                         .environmentObject(profilenames)
                         .onChange(of: reload, perform: { _ in
                             reload = false
@@ -61,7 +59,6 @@ struct RsyncUIView: View {
                             actions: actions)
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
-                        .environmentObject(progressdetails)
                         .environmentObject(profilenames)
                         .onChange(of: reload, perform: { _ in
                             reload = false
