@@ -53,7 +53,7 @@ struct RsyncUIView: View {
                             reload = false
                         })
                 } else {
-                    Sidebar(reload: $reload,
+                    SidebarMonterey(reload: $reload,
                             selectedprofile: $selectedprofile,
                             selection: $selection,
                             actions: actions)

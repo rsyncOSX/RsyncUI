@@ -18,7 +18,7 @@ enum NavigationItem {
     case quicktask
 }
 
-struct Sidebar: View {
+struct SidebarMonterey: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var errorhandling: ErrorHandling
     @Binding var reload: Bool
