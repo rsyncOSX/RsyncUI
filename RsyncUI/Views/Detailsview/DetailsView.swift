@@ -244,7 +244,11 @@ final class Outputfromrsync: ObservableObject {
     }
 
     func generatedata(_ data: [String]?) {
-        for i in 0 ..< (data?.count ?? 0) {
+        var count = data?.count
+        if count ?? 0 > 10000 {
+            count = 10000
+        }
+        for i in 0 ..< (count ?? 0) {
             if let line = data?[i] {
                 output.append(Data(line: line))
             }
