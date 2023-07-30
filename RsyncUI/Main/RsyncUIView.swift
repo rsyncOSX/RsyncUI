@@ -54,9 +54,9 @@ struct RsyncUIView: View {
                         })
                 } else {
                     SidebarMonterey(reload: $reload,
-                            selectedprofile: $selectedprofile,
-                            selection: $selection,
-                            actions: actions)
+                                    selectedprofile: $selectedprofile,
+                                    selection: $selection,
+                                    actions: actions)
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
                         .environmentObject(profilenames)
