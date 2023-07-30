@@ -1,4 +1,4 @@
-**Information** The `main` branch for RsyncUI repository is for *macOS Sonoma, Swift 5.9* and *Xcode 15*. The main branch will only compile and run on macOS Sonoma. The branch `version-1.6.5` will compile and run on Xcode 14 on macOS Ventura. The compiled branch will execute on macOS Montery and later included macOS Sonoma. See info about how [the apps are built](https://rsyncui.netlify.app/post/built/).
+**MacOS Sonoma** The `main` branch for RsyncUI repository is for *macOS Sonoma, Swift 5.9* and *Xcode 15*. The main branch will only compile and run on macOS Sonoma. The branch `version-1.6.6` will compile and run by Xcode 14 on macOS Ventura. The compiled branch will execute on macOS Montery and later included macOS Sonoma. See info about how [the apps are built](https://rsyncui.netlify.app/post/built/).
 
 RsyncUI is released for macOS Monterey and later.
 
