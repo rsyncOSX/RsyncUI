@@ -113,12 +113,8 @@ struct TasksView: View {
                         .tooltip("Shortcut ⌘R")
 
                     if #unavailable(macOS 13) {
-                        Button("DryRun") {
-                            let action = ActionHolder(action: "DryRun", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
-                            actions.addaction(action)
-                            dryrun()
-                        }
-                        .buttonStyle(PrimaryButtonStyle())
+                        Button("DryRun") { dryrun() }
+                            .buttonStyle(PrimaryButtonStyle())
                     }
 
                     Button("Reset") {
