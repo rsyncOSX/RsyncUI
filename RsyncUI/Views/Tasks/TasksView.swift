@@ -424,7 +424,6 @@ extension TasksView {
 
     func reset() {
         progressdetails.resetcounter()
-        progressdetails.hiddenIDatwork = -1
         estimatingprogresscount.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
