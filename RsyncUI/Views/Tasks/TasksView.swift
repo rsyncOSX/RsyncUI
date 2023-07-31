@@ -176,6 +176,9 @@ struct TasksView: View {
                 .onAppear {
                     doubleclick = false
                 }
+                .onDisappear {
+                    progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
+                }
         case .alltasksview:
             AlltasksView()
         case .firsttime:
