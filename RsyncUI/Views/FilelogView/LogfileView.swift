@@ -111,7 +111,7 @@ final class Logfileview: ObservableObject {
     func generatedata() {
         output = [Data]()
         let data = Logfile(false).getlogfile()
-        guard data.count < 10000 else {
+        guard data.count < 20000 else {
             output.append(Data(line: "Logfile is to big"))
             output.append(Data(line: "Please reset logfile"))
             return
