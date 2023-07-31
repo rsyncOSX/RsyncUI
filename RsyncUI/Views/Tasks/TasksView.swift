@@ -321,13 +321,10 @@ extension TasksView {
     func doubleclickactionfunction() {
         if estimatingprogresscount.getestimatedlist() == nil {
             dryrun()
-        } else if estimatingprogresscount.getestimatedlist()?.count ?? -1 > 0 {
-            let uuidforestimatedtask = estimatingprogresscount.getestimatedlist()?[0].id ?? UUID()
-            if uuidforestimatedtask == selectedconfig.config?.id {
-                execute()
-            } else {
-                dryrun()
-            }
+        } else if estimatingprogresscount.taskisestimated(selectedconfig.config?.hiddenID ?? -1) {
+            execute()
+        } else {
+            dryrun()
         }
     }
 
