@@ -177,6 +177,9 @@ struct TasksView: View {
                 .onAppear {
                     doubleclick = false
                 }
+                .onDisappear {
+                    progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
+                }
         case .alltasksview:
             AlltasksView()
         case .firsttime:
@@ -224,6 +227,8 @@ struct TasksView: View {
                 sheetchooser.sheet = .dryrun
                 modaleview = true
                 focusstartestimation = false
+                progressdetails.resetcounter()
+                progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
             }
     }
 
@@ -318,13 +323,10 @@ extension TasksView {
     func doubleclickactionfunction() {
         if estimatingprogresscount.getestimatedlist() == nil {
             dryrun()
-        } else if estimatingprogresscount.getestimatedlist()?.count ?? -1 > 0 {
-            let uuidforestimatedtask = estimatingprogresscount.getestimatedlist()?[0].id ?? UUID()
-            if uuidforestimatedtask == selectedconfig.config?.id {
-                execute()
-            } else {
-                dryrun()
-            }
+        } else if estimatingprogresscount.taskisestimated(selectedconfig.config?.hiddenID ?? -1) {
+            execute()
+        } else {
+            dryrun()
         }
     }
 
@@ -382,8 +384,6 @@ extension TasksView {
             // Execute all estimated tasks
             selecteduuids = estimatingprogresscount.getuuids()
             estimatingstate.updatestate(state: .start)
-            progressdetails.resetcounter()
-            progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
         } else if selectedconfig.config == nil,
@@ -410,8 +410,6 @@ extension TasksView {
                 // Execute all estimated tasks
                 selecteduuids = estimatingprogresscount.getuuids()
                 estimatingstate.updatestate(state: .start)
-                progressdetails.resetcounter()
-                progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
                 // Change view, see SidebarTasksView
                 showeexecutestimatedview = true
             }
@@ -425,6 +423,7 @@ extension TasksView {
     }
 
     func reset() {
+        progressdetails.resetcounter()
         progressdetails.hiddenIDatwork = -1
         estimatingprogresscount.resetcounts()
         estimatingstate.updatestate(state: .start)
@@ -435,6 +434,7 @@ extension TasksView {
 
     func abort() {
         let action = ActionHolder(action: "Abort", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
+        progressdetails.resetcounter()
         actions.addaction(action)
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)

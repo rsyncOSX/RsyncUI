@@ -11,15 +11,17 @@ final class ProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
     @Published var currenttaskprogress: Double?
     @Published var hiddenIDatwork: Int = -1
-
     private var estimatedlist: [RemoteinfonumbersOnetask]?
 
+    func taskisestimated(_ hiddenID: Int) -> Bool {
+        let answer = estimatedlist?.contains(where: { task in
+            task.hiddenID == hiddenID
+        }) ?? false ? true : false
+        return answer
+    }
+
     func isestimating() -> Bool {
-        if (estimatedlist?.count ?? 0) == 0 {
-            return true
-        } else {
-            return false
-        }
+        return (estimatedlist?.count ?? 0) == 0
     }
 
     func getmaxcountbytask() -> Double {
