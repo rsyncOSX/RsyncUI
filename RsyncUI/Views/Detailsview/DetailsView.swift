@@ -13,9 +13,6 @@ struct DetailsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @SwiftUI.Environment(EstimatingProgressCount.self) var inprogresscountmultipletask
 
-    @Binding var reload: Bool
-    @Binding var execute: Bool
-
     var selectedconfig: Configuration?
 
     @State private var gettingremotedata = true
@@ -186,12 +183,6 @@ struct DetailsView: View {
             HStack {
                 Spacer()
 
-                Button("Execute") {
-                    execute = true
-                    dismiss()
-                }
-                .buttonStyle(PrimaryButtonStyle())
-
                 Button("Dismiss") { dismiss() }
                     .buttonStyle(PrimaryButtonStyle())
             }
@@ -247,11 +238,52 @@ final class Outputfromrsync {
         var line: String
     }
 
+    func outputistruncated(_ number: Int) -> Bool {
+        do {
+            if number > 10000 { throw OutputIsTruncated.istruncated }
+        } catch let e {
+            let error = e
+            alerterror(error: error)
+            return true
+        }
+        return false
+    }
+
     func generatedata(_ data: [String]?) {
-        for i in 0 ..< (data?.count ?? 0) {
+        var count = data?.count
+        let summarycount = data?.count
+        if count ?? 0 > 10000 { count = 10000 }
+        // Show the 10,000 first lines
+        for i in 0 ..< (count ?? 0) {
             if let line = data?[i] {
                 output.append(Data(line: line))
             }
+        }
+        if outputistruncated(summarycount ?? 0) {
+            output.append(Data(line: ""))
+            output.append(Data(line: "**** Summary *****"))
+            for i in ((summarycount ?? 0) - 20) ..< (summarycount ?? 0) - 1 {
+                if let line = data?[i] {
+                    output.append(Data(line: line))
+                }
+            }
+        }
+    }
+}
+
+extension Outputfromrsync {
+    func alerterror(error: Error) {
+        SharedReference.shared.errorobject?.alerterror(error: error)
+    }
+}
+
+enum OutputIsTruncated: LocalizedError {
+    case istruncated
+
+    var errorDescription: String? {
+        switch self {
+        case .istruncated:
+            return "Output from rsync was truncated"
         }
     }
 }

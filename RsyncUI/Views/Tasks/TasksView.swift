@@ -172,9 +172,7 @@ struct TasksView: View {
                                 execute: $focusstartexecution,
                                 estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
         case .estimateddetailsview:
-            DetailsView(reload: $reload,
-                        execute: $focusstartexecution,
-                        selectedconfig: selectedconfig.config)
+            DetailsView(selectedconfig: selectedconfig.config)
                 .environment(estimatingprogresscount)
                 .onAppear {
                     doubleclick = false
