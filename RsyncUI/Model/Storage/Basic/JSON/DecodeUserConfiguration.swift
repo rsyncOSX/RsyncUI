@@ -29,7 +29,6 @@ struct DecodeUserConfiguration: Codable {
     // Environment variable
     let environment: String?
     let environmentvalue: String?
-    // Check for error in output from rsync
     let checkforerrorinrsyncoutput: Int?
 
     enum CodingKeys: String, CodingKey {

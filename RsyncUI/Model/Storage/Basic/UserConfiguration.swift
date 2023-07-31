@@ -112,8 +112,8 @@ struct UserConfiguration: Codable {
         sshport = data.sshport
         environment = data.environment
         environmentvalue = data.environmentvalue
-        // Set user configdata read from permanent store
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
+        // Set user configdata read from permanent store
         setuserconfigdata()
     }
 
@@ -180,5 +180,3 @@ struct UserConfiguration: Codable {
         }
     }
 }
-
-// swiftlint:enable cyclomatic_complexity function_body_length

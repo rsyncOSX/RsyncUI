@@ -5,22 +5,40 @@
 //  Created by Thomas Evensen on 14/03/2021.
 //
 
+import Combine
 import Foundation
-import Observation
 
-@Observable
-final class ObservableSSH {
+@MainActor
+final class ObservableSSH: ObservableObject {
     // Global SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
-    var sshportnumber: String = ""
+    @Published var sshport: String = ""
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
-    var sshkeypathandidentityfile: String = ""
-    // alert about error
-    var error: Error = InputError.noerror
-    var alerterror: Bool = false
+    @Published var sshkeypathandidentityfile: String = ""
+    // Alerts
+    @Published var alerterror: Bool = false
+    @Published var error: Error = Validatedpath.noerror
 
+    // Combine
+    var subscriptions = Set<AnyCancellable>()
+
+    init() {
+        $sshkeypathandidentityfile
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .sink { [unowned self] identityfile in
+                sshkeypathandidentiyfile(identityfile)
+            }.store(in: &subscriptions)
+        $sshport
+            .debounce(for: .seconds(1), scheduler: globalMainQueue)
+            .sink { [unowned self] port in
+                sshport(port)
+            }.store(in: &subscriptions)
+    }
+}
+
+extension ObservableSSH {
     // SSH identityfile
     private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
         if keypath.first != "~" { throw SshError.noslash }
@@ -32,7 +50,7 @@ final class ObservableSSH {
         return true
     }
 
-    func sshkeypath(_ keypath: String) {
+    func sshkeypathandidentiyfile(_ keypath: String) {
         // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             SharedReference.shared.sshkeypathandidentityfile = nil
@@ -43,7 +61,7 @@ final class ObservableSSH {
             if verified {
                 SharedReference.shared.sshkeypathandidentityfile = keypath
                 // Save port number also
-                if let port = Int(sshportnumber) {
+                if let port = Int(sshport) {
                     SharedReference.shared.sshport = port
                 }
             }
@@ -73,6 +91,8 @@ final class ObservableSSH {
             let verified = try checksshport(port)
             if verified {
                 SharedReference.shared.sshport = Int(port)
+                // Save identityfile also
+                SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
             }
         } catch let e {
             error = e
@@ -84,7 +104,6 @@ final class ObservableSSH {
 enum InputError: LocalizedError {
     case notvalidDouble
     case notvalidInt
-    case noerror
 
     var errorDescription: String? {
         switch self {
@@ -92,8 +111,6 @@ enum InputError: LocalizedError {
             return "Not a valid number (Double)"
         case .notvalidInt:
             return "Not a valid number (Int)"
-        case .noerror:
-            return ""
         }
     }
 }

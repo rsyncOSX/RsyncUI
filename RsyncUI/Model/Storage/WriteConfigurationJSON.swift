@@ -35,7 +35,7 @@ class WriteConfigurationJSON: NamesandPaths {
                 }
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                alerterror(error: error)
             }
         }
     }
@@ -68,7 +68,7 @@ class WriteConfigurationJSON: NamesandPaths {
                     // print("The publisher finished normally.")
                     return
                 case let .failure(error):
-                    self.propogateerror(error: error)
+                    self.alerterror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
                 let jsonfile = String(data: result, encoding: .utf8)

@@ -8,11 +8,11 @@
 import Foundation
 
 enum Scheduletype: String {
-    case once
-    case daily
-    case weekly
+    // case once
+    // case daily
+    // case weekly
     case manuel
-    case stopped
+    // case stopped
 }
 
 class SingletaskPrimaryLogging {

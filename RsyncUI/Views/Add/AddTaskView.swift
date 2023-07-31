@@ -18,10 +18,8 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 }
 
 struct AddTaskView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
-    @SwiftUI.Environment(Profilenames.self) private var profilenames
-
-    @State private var newdata = ObservableAddConfigurations()
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @State private var selectedconfig: Configuration?
@@ -38,6 +36,7 @@ struct AddTaskView: View {
         case backupIDField
     }
 
+    @StateObject var newdata = ObservableAddConfigurations()
     @FocusState private var focusField: AddConfigurationField?
     // Modale view
     @State private var modalview = false
@@ -89,8 +88,8 @@ struct AddTaskView: View {
 
                     VStack(alignment: .leading) {
                         if showtableview {
-                            ListofTasksLightView(selecteduuids: $selecteduuids)
-                                .onChange(of: selecteduuids) {
+                            ListofTasksLightView(
+                                selecteduuids: $selecteduuids.onChange {
                                     let selected = rsyncUIdata.configurations?.filter { config in
                                         selecteduuids.contains(config.id)
                                     }
@@ -104,6 +103,8 @@ struct AddTaskView: View {
                                         newdata.updateview(selectedconfig)
                                     }
                                 }
+                            )
+
                             HStack {
                                 profilebutton
 
@@ -195,9 +196,6 @@ struct AddTaskView: View {
     var setremotecatalogsyncremote: some View {
         EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""),
                   $newdata.remotecatalog)
-            .onChange(of: newdata.remotecatalog) {
-                newdata.remotestorageislocal = newdata.verifyremotestorageislocal()
-            }
     }
 
     var setlocalcatalog: some View {
@@ -386,9 +384,9 @@ struct AddTaskView: View {
             ForEach(TypeofTask.allCases) { Text($0.description)
                 .tag($0)
             }
-            .onChange(of: newdata.selectedconfig) {
+            .onChange(of: newdata.selectedconfig, perform: { _ in
                 newdata.selectedrsynccommand = selectpickervalue
-            }
+            })
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 140)
@@ -402,6 +400,11 @@ struct AddTaskView: View {
                 }
             })
             .frame(maxWidth: .infinity)
+    }
+
+    var cannotdeletedefaultprofile: some View {
+        AlertToast(type: .error(Color.red),
+                   title: Optional("Cannot delete default profile"), subTitle: Optional(""))
     }
 
     var configurations: [Configuration]? {
@@ -427,9 +430,6 @@ struct AddTaskView: View {
             }
             .frame(width: 93)
             .accentColor(.blue)
-            .onChange(of: newdata.assistlocalcatalog) {
-                newdata.assistfunclocalcatalog(newdata.assistlocalcatalog)
-            }
         }
     }
 
@@ -448,9 +448,6 @@ struct AddTaskView: View {
             }
             .frame(width: 93)
             .accentColor(.blue)
-            .onChange(of: newdata.assistremoteuser) {
-                newdata.assistfuncremoteuser(newdata.assistremoteuser)
-            }
         }
     }
 
@@ -469,9 +466,6 @@ struct AddTaskView: View {
             }
             .frame(width: 93)
             .accentColor(.blue)
-            .onChange(of: newdata.assistremoteserver) {
-                newdata.assistfuncremoteserver(newdata.assistremoteserver)
-            }
         }
     }
 

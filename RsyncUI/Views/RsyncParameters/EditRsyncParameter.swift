@@ -29,16 +29,15 @@ struct EditRsyncParameter: View {
     }
 
     var dropdownrsyncparameter: some View {
-        Picker("", selection: $selectedparameter) {
+        Picker("", selection: $selectedparameter.onChange {
+            myvalue.wrappedValue = parameter()
+        }) {
             ForEach(EnumRsyncArguments.allCases) { Text($0.description)
                 .tag($0)
             }
         }
         .pickerStyle(MenuPickerStyle())
         .frame(width: 120)
-        .onChange(of: selectedparameter) {
-            myvalue.wrappedValue = parameter()
-        }
     }
 
     var text: String {

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Observation
 
 struct Profiles: Hashable, Identifiable {
     var profile: String?
@@ -17,9 +16,8 @@ struct Profiles: Hashable, Identifiable {
     }
 }
 
-@Observable
-final class Profilenames {
-    var profiles: [Profiles] = .init()
+final class Profilenames: ObservableObject {
+    var profiles: [Profiles]?
 
     func update() {
         setprofilenames()
@@ -27,9 +25,9 @@ final class Profilenames {
 
     func setprofilenames() {
         let names = Catalogsandfiles(.configurations).getcatalogsasstringnames()
-        // profiles = []
+        profiles = []
         for i in 0 ..< (names?.count ?? 0) {
-            profiles.append(Profiles(names?[i] ?? ""))
+            profiles?.append(Profiles(names?[i] ?? ""))
         }
     }
 

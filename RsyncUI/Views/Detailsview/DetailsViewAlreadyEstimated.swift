@@ -13,7 +13,7 @@ struct DetailsViewAlreadyEstimated: View {
     var estimatedlist: [RemoteinfonumbersOnetask]
     var selectedconfig: Configuration?
 
-    @State private var outputfromrsync = Outputfromrsync()
+    @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
         VStack(alignment: .leading) {

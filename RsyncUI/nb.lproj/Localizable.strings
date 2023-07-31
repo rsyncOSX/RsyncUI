@@ -161,9 +161,6 @@
 "Execute" = "Utfør";
 
 /* No comment provided by engineer. */
-"Filenames" = "Filnavn";
-
-/* No comment provided by engineer. */
 "Files" = "Filer";
 
 /* No comment provided by engineer. */
@@ -194,9 +191,6 @@
 "Halt on error" = "Stopp ved feil";
 
 /* No comment provided by engineer. */
-"https://rsyncui.netlify.app" = "https://rsyncui.netlify.app";
-
-/* No comment provided by engineer. */
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
 
 /* No comment provided by engineer. */
@@ -210,9 +204,6 @@
 
 /* No comment provided by engineer. */
 "Last" = "Siste";
-
-/* No comment provided by engineer. */
-"Lines" = "Linjer";
 
 /* No comment provided by engineer. */
 "Linux" = "Linux";
@@ -242,6 +233,9 @@
 "Log" = "Logg";
 
 /* No comment provided by engineer. */
+"Log listings" = "Liste logger";
+
+/* No comment provided by engineer. */
 "Log to file" = "Logg til fil";
 
 /* No comment provided by engineer. */
@@ -261,9 +255,6 @@
 
 /* No comment provided by engineer. */
 "New version" = "Ny versjon";
-
-/* No comment provided by engineer. */
-"New: " = "Ny:";
 
 /* No comment provided by engineer. */
 "None" = "Ingen";
@@ -317,6 +308,9 @@
 "Profiles" = "Profiler";
 
 /* No comment provided by engineer. */
+"Quick synchronize" = "Rask synkronisering";
+
+/* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
 
 /* No comment provided by engineer. */
@@ -347,6 +341,9 @@
 "Result" = "Resultat";
 
 /* No comment provided by engineer. */
+"Rsync parameters" = "Rsync parametre";
+
+/* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
@@ -371,7 +368,7 @@
 "Saved" = "Lagret";
 
 /* No comment provided by engineer. */
-"Select a task" = "Velg en oppgave";
+"Select a configuration" = "Velg en konfigurasjon";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
@@ -410,6 +407,9 @@
 "Ssh" = "Ssh";
 
 /* No comment provided by engineer. */
+"Synchronize" = "Synkronisere";
+
+/* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";
 
 /* No comment provided by engineer. */
@@ -423,9 +423,6 @@
 
 /* No comment provided by engineer. */
 "Task" = "Oppgave";
-
-/* No comment provided by engineer. */
-"Task: " = "Oppgave:";
 
 /* No comment provided by engineer. */
 "Tasks" = "Oppgaver";

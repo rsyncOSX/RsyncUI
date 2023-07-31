@@ -5,14 +5,13 @@
 //  Created by Thomas Evensen on 03/04/2023.
 //
 
-import Observation
 import SwiftUI
 
 struct Counter: View {
     @SwiftUI.Environment(\.scenePhase) var scenePhase
     @SwiftUI.Environment(\.dismiss) var dismiss
 
-    @State private var deltatimeinseconds = Deltatimeinseconds()
+    @StateObject var deltatimeinseconds = Deltatimeinseconds()
     // Timer
     @Binding var timervalue: Double
     @Binding var timerisenabled: Bool
@@ -37,16 +36,15 @@ struct Counter: View {
                 if timerisenabled == false {
                     timerpicker
 
-                    ToggleViewNolabel($timerisenabled)
-                        .onChange(of: timerisenabled) {
-                            if timerisenabled == true {
-                                if Timervalues().values.contains(timervalue) {
-                                    SharedReference.shared.timervalue = timervalue
-                                }
-                            } else {
-                                timervalue = SharedReference.shared.timervalue ?? 600
+                    ToggleViewNolabel($timerisenabled.onChange {
+                        if timerisenabled == true {
+                            if Timervalues().values.contains(timervalue) {
+                                SharedReference.shared.timervalue = timervalue
                             }
+                        } else {
+                            timervalue = SharedReference.shared.timervalue ?? 600
                         }
+                    })
                 }
             }
 
@@ -74,13 +72,13 @@ struct Counter: View {
             .onDisappear {
                 timer60.upstream.connect().cancel()
             }
-            .onChange(of: scenePhase) {
-                if scenePhase == .inactive {
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .inactive {
                     deltatimeinseconds.timerminimized = Date()
-                } else if scenePhase == .active {
+                } else if newPhase == .active {
                     deltatimeinseconds.computeminimizedtime()
                     // _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
-                } else if scenePhase == .background {}
+                } else if newPhase == .background {}
             }
     }
 
@@ -96,15 +94,15 @@ struct Counter: View {
             .onDisappear {
                 timer.upstream.connect().cancel()
             }
-            .onChange(of: scenePhase) {
-                if scenePhase == .inactive {
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .inactive {
                     if deltatimeinseconds.timerminimized == nil {
                         deltatimeinseconds.timerminimized = Date()
                     }
-                } else if scenePhase == .active {
+                } else if newPhase == .active {
                     deltatimeinseconds.computeminimizedtime()
                     // _ = Logfile(["Active again - \(deltatimeinseconds.sleeptime) seconds minimized"], error: true)
-                } else if scenePhase == .background {}
+                } else if newPhase == .background {}
             }
     }
 
@@ -149,8 +147,7 @@ struct Counter: View {
     }
 }
 
-@Observable
-final class Deltatimeinseconds {
+final class Deltatimeinseconds: ObservableObject {
     var timerstart: Date = .init()
     var timerminimized: Date?
     var sleeptime: Double = 0
@@ -172,3 +169,17 @@ final class Deltatimeinseconds {
 struct Timervalues {
     let values: Set = [60.0, 300.0, 600.0, 1800.0, 2700.0, 3600.0]
 }
+
+/*
+ case .asynctimerison:
+     Counter(timervalue: $timervalue)
+         .onAppear(perform: {
+             startasynctimer()
+         })
+         .onDisappear(perform: {
+             stopasynctimer()
+             timervalue = SharedReference.shared.timervalue ?? 600
+             timerisenabled = false
+         })
+ }
+ */

@@ -6,8 +6,9 @@
 //
 // swiftlint: disable type_body_length function_body_length
 
+import Combine
+
 import Foundation
-import Observation
 
 enum CannotUpdateSnaphotsError: LocalizedError {
     case cannotupdate
@@ -20,34 +21,33 @@ enum CannotUpdateSnaphotsError: LocalizedError {
     }
 }
 
-@Observable
-final class ObservableAddConfigurations {
-    var localcatalog: String = ""
-    var remotecatalog: String = ""
-    var donotaddtrailingslash: Bool = false
-    var remoteuser: String = ""
-    var remoteserver: String = ""
-    var backupID: String = ""
-    var selectedrsynccommand = TypeofTask.synchronize
+@MainActor
+final class ObservableAddConfigurations: ObservableObject {
+    @Published var localcatalog: String = ""
+    @Published var remotecatalog: String = ""
+    @Published var donotaddtrailingslash: Bool = false
+    @Published var remoteuser: String = ""
+    @Published var remoteserver: String = ""
+    @Published var backupID: String = ""
+    @Published var selectedrsynccommand = TypeofTask.synchronize
 
-    var newprofile: String = ""
-    var selectedprofile: String?
-    var deletedefaultprofile: Bool = false
+    @Published var newprofile: String = ""
+    @Published var selectedprofile: String?
+    @Published var deletedefaultprofile: Bool = false
 
-    var deleted: Bool = false
-    var added: Bool = false
-    var created: Bool = false
-    var reload: Bool = false
-    var confirmdeleteselectedprofile: Bool = false
-    var showAlertfordelete: Bool = false
+    @Published var deleted: Bool = false
+    @Published var added: Bool = false
+    @Published var created: Bool = false
+    @Published var reload: Bool = false
+    @Published var confirmdeleteselectedprofile: Bool = false
+    @Published var showAlertfordelete: Bool = false
 
-    var assistlocalcatalog: String = ""
-    var assistremoteuser: String = ""
-    var assistremoteserver: String = ""
-
-    // alert about error
-    var error: Error = InputError.noerror
-    var alerterror: Bool = false
+    @Published var assistlocalcatalog: String = ""
+    @Published var assistremoteuser: String = ""
+    @Published var assistremoteserver: String = ""
+    // Alerts
+    @Published var alerterror: Bool = false
+    @Published var error: Error = Validatedpath.noerror
 
     // For update post and pretasks
     var enablepre: Bool = false
@@ -56,11 +56,77 @@ final class ObservableAddConfigurations {
     var posttask: String = ""
     var haltshelltasksonerror: Bool = false
 
+    // Combine
+    var subscriptions = Set<AnyCancellable>()
     // Set true if remote storage is a local attached Volume
     var remotestorageislocal: Bool = false
     var selectedconfig: Configuration?
     var localhome: String {
         return NamesandPaths(.configurations).userHomeDirectoryPath ?? ""
+    }
+
+    init() {
+        $donotaddtrailingslash
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $localcatalog
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $remotecatalog
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { [unowned self] _ in
+                remotestorageislocal = verifyremotestorageislocal()
+            }.store(in: &subscriptions)
+        $remoteuser
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $remoteserver
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $backupID
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $selectedrsynccommand
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $newprofile
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $selectedprofile
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $deletedefaultprofile
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $confirmdeleteselectedprofile
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $showAlertfordelete
+            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .receive(on: DispatchQueue.main).sink { _ in
+            }.store(in: &subscriptions)
+        $assistlocalcatalog
+            .sink { [unowned self] assistlocalcatalog in
+                assistfunclocalcatalog(assistlocalcatalog)
+            }.store(in: &subscriptions)
+        $assistremoteuser
+            .sink { [unowned self] assistremoteuser in
+                assistfuncremoteuser(assistremoteuser)
+            }.store(in: &subscriptions)
+        $assistremoteserver
+            .sink { [unowned self] assistremoteserver in
+                assistfuncremoteserver(assistremoteserver)
+            }.store(in: &subscriptions)
     }
 
     func addconfig(_ profile: String?, _ configurations: [Configuration]?) {

@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct RsyncCommandView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
-
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var config: Configuration?
     @Binding var selectedrsynccommand: RsyncCommand
 
@@ -47,9 +46,9 @@ struct RsyncCommandView: View {
     var commandstring: String? {
         if let config = config {
             return RsyncCommandtoDisplay(display: selectedrsynccommand,
-                                         config: config).rsynccommand
+                                         config: config).getrsyncommand()
         } else {
-            return NSLocalizedString("Select a task", comment: "")
+            return NSLocalizedString("Select a configuration", comment: "")
         }
     }
 }

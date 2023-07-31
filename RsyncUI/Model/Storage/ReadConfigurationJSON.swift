@@ -64,7 +64,7 @@ class ReadConfigurationJSON: NamesandPaths {
                     if profile == nil {
                         SharedReference.shared.firsttime = true
                     }
-                    self.propogateerror(error: error)
+                    self.alerterror(error: error)
                 }
             } receiveValue: { [unowned self] data in
                 var configurations = [Configuration]()

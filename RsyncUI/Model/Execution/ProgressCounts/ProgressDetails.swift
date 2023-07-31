@@ -1,5 +1,5 @@
 //
-//  InprogressCountExecuteOneTaskDetails.swift
+//  ProgressDetails.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 18/02/2021.
@@ -9,9 +9,9 @@ import Foundation
 
 final class ProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
-    @Published var currenttaskprogress: Double?
-    @Published var hiddenIDatwork: Int = -1
-    private var estimatedlist: [RemoteinfonumbersOnetask]?
+    var currenttaskprogress: Double = 0
+    var hiddenIDatwork: Int = -1
+    var estimatedlist: [RemoteinfonumbersOnetask]?
 
     func taskisestimated(_ hiddenID: Int) -> Bool {
         let answer = estimatedlist?.contains(where: { task in
@@ -22,6 +22,11 @@ final class ProgressDetails: ObservableObject {
 
     func isestimating() -> Bool {
         return (estimatedlist?.count ?? 0) == 0
+    }
+
+    func setcurrentprogress(_ num: Double) {
+        currenttaskprogress = num
+        objectWillChange.send()
     }
 
     func getmaxcountbytask() -> Double {

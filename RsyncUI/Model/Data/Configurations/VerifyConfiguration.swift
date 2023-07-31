@@ -15,6 +15,7 @@ enum ValidateInputError: LocalizedError {
     case offsiteserver
     case snapshotnum
     case rsyncversion2
+    case emptyerror
 
     var errorDescription: String? {
         switch self {
@@ -30,6 +31,8 @@ enum ValidateInputError: LocalizedError {
             return "Snapshotnum must be 1"
         case .rsyncversion2:
             return "Snapshot require rsync ver3.x"
+        case .emptyerror:
+            return ""
         }
     }
 }
@@ -274,3 +277,5 @@ extension VerifyConfiguration {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }
+
+// swiftlint:enable cyclomatic_complexity function_body_length

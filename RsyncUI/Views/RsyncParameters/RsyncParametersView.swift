@@ -9,9 +9,8 @@
 import SwiftUI
 
 struct RsyncParametersView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
-    @State private var parameters = ObservableParametersRsync()
-
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @StateObject var parameters = ObservableParametersRsync()
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
@@ -22,7 +21,6 @@ struct RsyncParametersView: View {
     @State private var valueselectedrow: String = ""
     @State private var numberoffiles: Int = 0
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var dataischanged = Dataischanged()
 
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
@@ -31,6 +29,7 @@ struct RsyncParametersView: View {
 
     // Reload and show table data
     @State private var showtableview: Bool = true
+    @State private var dataischanged = Dataischanged()
 
     var body: some View {
         ZStack {
@@ -38,41 +37,19 @@ struct RsyncParametersView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         EditRsyncParameter(450, $parameters.parameter8)
-                            .onChange(of: parameters.parameter8) {
-                                parameters.configuration?.parameter8 = parameters.parameter8
-                            }
                         EditRsyncParameter(450, $parameters.parameter9)
-                            .onChange(of: parameters.parameter9) {
-                                parameters.configuration?.parameter9 = parameters.parameter9
-                            }
                         EditRsyncParameter(450, $parameters.parameter10)
-                            .onChange(of: parameters.parameter10) {
-                                parameters.configuration?.parameter10 = parameters.parameter10
-                            }
                         EditRsyncParameter(450, $parameters.parameter11)
-                            .onChange(of: parameters.parameter11) {
-                                parameters.configuration?.parameter11 = parameters.parameter11
-                            }
                         EditRsyncParameter(450, $parameters.parameter12)
-                            .onChange(of: parameters.parameter12) {
-                                parameters.configuration?.parameter12 = parameters.parameter12
-                            }
                         EditRsyncParameter(450, $parameters.parameter13)
-                            .onChange(of: parameters.parameter13) {
-                                parameters.configuration?.parameter13 = parameters.parameter13
-                            }
                         EditRsyncParameter(450, $parameters.parameter14)
-                            .onChange(of: parameters.parameter14) {
-                                parameters.configuration?.parameter14 = parameters.parameter14
-                            }
 
                         Spacer()
                     }
 
                     if showtableview {
-                        ListofTasksLightView(selecteduuids: $selecteduuids)
-                            .frame(maxWidth: .infinity)
-                            .onChange(of: selecteduuids) {
+                        ListofTasksLightView(
+                            selecteduuids: $selecteduuids.onChange {
                                 let selected = rsyncUIdata.configurations?.filter { config in
                                     selecteduuids.contains(config.id)
                                 }
@@ -86,6 +63,8 @@ struct RsyncParametersView: View {
                                     parameters.setvalues(selectedconfig)
                                 }
                             }
+                        )
+                        .frame(maxWidth: .infinity)
 
                     } else {
                         notifyupdated
@@ -112,25 +91,16 @@ struct RsyncParametersView: View {
                         parameters.suffixlinux = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
-                    .onChange(of: parameters.suffixlinux) {
-                        parameters.setsuffixlinux()
-                    }
 
                     Button("FreeBSD") {
                         parameters.suffixfreebsd = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
-                    .onChange(of: parameters.suffixfreebsd) {
-                        parameters.setsuffixfreebsd()
-                    }
 
                     Button("Backup") {
                         parameters.backup = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
-                    .onChange(of: parameters.backup) {
-                        parameters.setbackup()
-                    }
 
                     Spacer()
 
@@ -155,6 +125,9 @@ struct RsyncParametersView: View {
                         dataischanged.dataischanged = false
                     }
                 }
+                .alert(isPresented: $parameters.alerterror,
+                       content: { Alert(localizedError: parameters.error)
+                       })
             }
         }
     }
@@ -210,9 +183,9 @@ extension RsyncParametersView {
         }
         rsyncoutput = ObservableRsyncOutput()
         showprogressview = true
-        let process = await RsyncProcessAsync(arguments: arguments,
-                                              config: config,
-                                              processtermination: processtermination)
+        let process = RsyncProcessAsync(arguments: arguments,
+                                        config: config,
+                                        processtermination: processtermination)
         await process.executeProcess()
     }
 
@@ -227,5 +200,3 @@ extension RsyncParametersView {
         _ = InterruptProcess()
     }
 }
-
-// swiftlint:enable line_length

@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 19/08/2021.
 //
 
-import Observation
 import SwiftUI
 
 struct SidebarParametersView: View {
@@ -17,7 +16,6 @@ struct SidebarParametersView: View {
                 .tabItem {
                     Text("Parameters")
                 }
-
             RsyncDefaultParametersView(reload: $reload)
                 .tabItem {
                     Text("Default")
@@ -27,7 +25,6 @@ struct SidebarParametersView: View {
     }
 }
 
-@Observable
-final class Dataischanged {
+final class Dataischanged: ObservableObject {
     var dataischanged: Bool = false
 }

@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct Sshsettings: View {
-    @SwiftUI.Environment(AlertError.self) private var alerterror
-    @State private var usersettings = ObservableSSH()
+    @StateObject var usersettings = ObservableSSH()
 
     @State private var selectedlogin: UniqueserversandLogins?
     @State private var backup = false
@@ -98,22 +97,15 @@ struct Sshsettings: View {
                     usersettings.sshkeypathandidentityfile = sshkeypath
                 }
             })
-            .onChange(of: usersettings.sshkeypathandidentityfile) {
-                usersettings.sshkeypath(usersettings.sshkeypathandidentityfile)
-            }
     }
 
     var setsshport: some View {
-        EditValue(250, NSLocalizedString("Global ssh port", comment: ""),
-                  $usersettings.sshportnumber)
+        EditValue(250, NSLocalizedString("Global ssh port", comment: ""), $usersettings.sshport)
             .onAppear(perform: {
                 if let sshport = SharedReference.shared.sshport {
-                    usersettings.sshportnumber = String(sshport)
+                    usersettings.sshport = String(sshport)
                 }
             })
-            .onChange(of: usersettings.sshportnumber) {
-                usersettings.sshport(usersettings.sshportnumber)
-            }
     }
 
     var uniqueuserversandloginslist: some View {

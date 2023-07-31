@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Observation
 import SwiftUI
 
 struct LogfileView: View {
@@ -14,7 +13,7 @@ struct LogfileView: View {
     @State private var resetloggfile = false
     @State private var showactions = false
 
-    @State private var logfileview = Logfileview()
+    @StateObject private var logfileview = Logfileview()
     var action: Actions
 
     var body: some View {
@@ -52,7 +51,9 @@ struct LogfileView: View {
                         }
                         .width(min: 700)
                     }
-                    .onChange(of: resetloggfile) { afterareload() }
+                    .onChange(of: resetloggfile, perform: { _ in
+                        afterareload()
+                    })
                 }
             }
 
@@ -99,9 +100,8 @@ struct LogfileView: View {
     }
 }
 
-@Observable
-final class Logfileview {
-    var output = [Data]()
+final class Logfileview: ObservableObject {
+    @Published var output = [Data]()
 
     struct Data: Identifiable {
         let id = UUID()
@@ -119,5 +119,11 @@ final class Logfileview {
         for i in 0 ..< data.count {
             output.append(Data(line: data[i]))
         }
+    }
+}
+
+extension Logfileview {
+    func alerterror(error: Error) {
+        SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }

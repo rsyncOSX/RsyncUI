@@ -5,7 +5,6 @@
 //
 // swiftlint:disable multiple_closures_with_trailing_closure
 
-import Observation
 import SwiftUI
 import UserNotifications
 
@@ -13,7 +12,8 @@ import UserNotifications
 struct RsyncUIApp: App {
     @State private var viewlogfile: Bool = false
     @State private var selectedprofile: String? = "Default profile"
-    @State private var actions = Actions()
+
+    @StateObject private var actions = Actions()
 
     var body: some Scene {
         WindowGroup {
@@ -65,8 +65,7 @@ struct ActionHolder: Hashable, Identifiable {
     var source: String
 }
 
-@Observable
-final class Actions {
+final class Actions: ObservableObject {
     var actions = Set<ActionHolder>()
 
     func addaction(_ action: ActionHolder) {

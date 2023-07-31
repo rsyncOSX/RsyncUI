@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OutputRsyncView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @State private var outputfromrsync = Outputfromrsync()
+    @StateObject var outputfromrsync = Outputfromrsync()
 
     var output: [String]
 

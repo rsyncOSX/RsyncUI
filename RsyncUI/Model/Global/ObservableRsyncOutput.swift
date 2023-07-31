@@ -6,10 +6,8 @@
 //
 
 import Foundation
-import Observation
 
-@Observable
-final class ObservableRsyncOutput {
+final class ObservableRsyncOutput: ObservableObject {
     private var max: Int = 0
     private var output: [String]?
 

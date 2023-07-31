@@ -4,11 +4,12 @@
 //
 //  Created by Thomas Evensen on 17/03/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
 struct DeleteLogsView: View {
-    @SwiftUI.Environment(RsyncUIlogrecords.self) private var logrecords
+    @EnvironmentObject var logrecords: RsyncUIlogrecords
     @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var selecteduuids: Set<UUID>
     var selectedprofile: String?
@@ -51,3 +52,5 @@ struct DeleteLogsView: View {
         dismiss()
     }
 }
+
+// swiftlint:enable line_length

@@ -23,7 +23,11 @@ enum RsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
 }
 
 struct RsyncCommandtoDisplay {
-    var rsynccommand: String?
+    private var rsynccommand: String?
+
+    func getrsyncommand() -> String? {
+        return rsynccommand
+    }
 
     init(display: RsyncCommand,
          config: Configuration)
@@ -54,5 +58,3 @@ struct RsyncCommandtoDisplay {
         rsynccommand = str
     }
 }
-
-// swiftlint:enable line_length opening_brace

@@ -6,7 +6,6 @@
 //
 // swiftlint:disable line_length
 
-import Observation
 import SwiftUI
 
 struct Readlogsfromstore {
@@ -14,17 +13,16 @@ struct Readlogsfromstore {
     var scheduleConfigurations: [ConfigurationSchedule]?
 
     init(profile: String?, validhiddenIDs: Set<Int>?) {
-        guard validhiddenIDs != nil else { return }
         let alllogs = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs ?? Set<Int>())
         logrecords = alllogs.logrecords
         scheduleConfigurations = alllogs.scheduleConfigurations
     }
 }
 
-@Observable
-final class RsyncUIlogrecords {
-    var alllogssorted: [Log]? = [Log]()
-    var scheduleConfigurations: [ConfigurationSchedule]?
+final class RsyncUIlogrecords: ObservableObject {
+    @Published var alllogssorted: [Log]?
+    @Published var scheduleConfigurations: [ConfigurationSchedule]?
+
     var logrecordsfromstore: Readlogsfromstore?
 
     func filterlogs(_ filter: String) -> [Log]? {
@@ -50,18 +48,6 @@ final class RsyncUIlogrecords {
 
     func removerecords(_ uuids: Set<UUID>) {
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
-    }
-
-    func readlogsfromstore(profile: String?, validhiddenIDs: Set<Int>?) {
-        guard validhiddenIDs != nil else { return }
-        if profile == SharedReference.shared.defaultprofile || profile == nil {
-            logrecordsfromstore = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
-        } else {
-            logrecordsfromstore = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
-        }
-        alllogssorted = logrecordsfromstore?.logrecords
-        scheduleConfigurations = logrecordsfromstore?.scheduleConfigurations
-        logrecordsfromstore = nil
     }
 
     init(profile: String?, validhiddenIDs: Set<Int>?) {

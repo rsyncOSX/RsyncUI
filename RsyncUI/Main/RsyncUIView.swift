@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct RsyncUIView: View {
-    @State private var newversion = CheckfornewversionofRsyncUI()
-    @State private var rsyncversion = Rsyncversion()
+    @StateObject var rsyncversion = Rsyncversion()
+    @StateObject var newversion = CheckfornewversionofRsyncUI()
 
     @Binding var selectedprofile: String?
     @State private var reload: Bool = false
     @State private var defaultprofile = "Default profile"
     @State private var start: Bool = true
 
+    // Initial view in tasks for sidebar macOS 12
+    @State private var selection: NavigationItem? = Optional.none
     var actions: Actions
 
     var body: some View {
@@ -34,20 +36,34 @@ struct RsyncUIView: View {
                 })
 
             } else {
-                if profilenames.profiles.count == 0 {
+                if profilenames.profiles?.count == 0 {
                     defaultprofilepicker
                 } else {
                     profilepicker
                 }
 
-                Sidebar(reload: $reload,
-                        selectedprofile: $selectedprofile, actions: actions)
-                    .environment(rsyncUIdata)
-                    .environment(profilenames)
-                    .environment(errorhandling)
-                    .onChange(of: reload) {
-                        reload = false
-                    }
+                if #available(macOS 13.0, *) {
+                    SidebarVentura(reload: $reload,
+                                   selectedprofile: $selectedprofile,
+                                   actions: actions)
+                        .environmentObject(rsyncUIdata)
+                        .environmentObject(errorhandling)
+                        .environmentObject(profilenames)
+                        .onChange(of: reload, perform: { _ in
+                            reload = false
+                        })
+                } else {
+                    SidebarMonterey(reload: $reload,
+                                    selectedprofile: $selectedprofile,
+                                    selection: $selection,
+                                    actions: actions)
+                        .environmentObject(rsyncUIdata)
+                        .environmentObject(errorhandling)
+                        .environmentObject(profilenames)
+                        .onChange(of: reload, perform: { _ in
+                            reload = false
+                        })
+                }
             }
 
             HStack {
@@ -61,6 +77,7 @@ struct RsyncUIView: View {
         }
         .padding()
         .task {
+            selection = .tasksview
             await rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }
@@ -82,9 +99,11 @@ struct RsyncUIView: View {
     var profilepicker: some View {
         HStack {
             Picker("", selection: $selectedprofile) {
-                ForEach(profilenames.profiles, id: \.self) { profile in
-                    Text(profile.profile ?? "")
-                        .tag(profile.profile)
+                if let profiles = profilenames.profiles {
+                    ForEach(profiles, id: \.self) { profile in
+                        Text(profile.profile ?? "")
+                            .tag(profile.profile)
+                    }
                 }
             }
             .frame(width: 180)
@@ -117,8 +136,8 @@ struct RsyncUIView: View {
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear(perform: {
-            // Show updated for 2 seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            // Show updated for 3 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 newversion.notifynewversion = false
             }
         })
@@ -139,10 +158,13 @@ extension View {
 
     func notifymessage(_ text: String) -> some View {
         ZStack {
+            // RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
             Text(text)
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }
+        // .frame(width: 200, height: 20, alignment: .center)
+        // .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 }
 

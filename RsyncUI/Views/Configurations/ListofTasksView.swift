@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListofTasksView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
 

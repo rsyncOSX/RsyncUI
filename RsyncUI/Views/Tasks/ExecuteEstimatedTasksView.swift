@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
-    @State private var estimatingprogresscount = EstimatingProgressCount()
-    @State private var multipletaskstate = MultipleTaskState()
-
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var progressdetails: ProgressDetails
+
+    @StateObject private var multipletaskstate = MultipleTaskState()
+    @StateObject private var estimatingprogresscount = EstimatingProgressCount()
 
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
@@ -39,9 +39,7 @@ struct ExecuteEstimatedTasksView: View {
                 doubleclick: $doubleclick
             )
 
-            // When completed
             if multipletaskstate.executionstate == .completed { labelcompleted }
-            // Execute multiple tasks progress
             if multipletaskstate.executionstate == .execute { AlertToast(displayMode: .alert, type: .loading) }
         }
         HStack {

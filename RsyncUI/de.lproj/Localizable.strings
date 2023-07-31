@@ -164,9 +164,6 @@
 "Execute" = "Ausführen";
 
 /* No comment provided by engineer. */
-"Filenames" = "Filnamen";
-
-/* No comment provided by engineer. */
 "Files" = "Dateien";
 
 /* No comment provided by engineer. */
@@ -195,9 +192,6 @@
 
 /* No comment provided by engineer. */
 "Halt on error" = "Bei Fehler stoppen";
-
-/* No comment provided by engineer. */
-"https://rsyncui.netlify.app" = "rsyncui.netlify.app";
 
 /* No comment provided by engineer. */
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
@@ -243,6 +237,9 @@
 
 /* No comment provided by engineer. */
 "Log" = "Protkoll";
+
+/* No comment provided by engineer. */
+"Log listings" = "Protokolle";
 
 /* No comment provided by engineer. */
 "Log to file" = "Log in Datei";
@@ -320,6 +317,9 @@
 "Profiles" = "Profil";
 
 /* No comment provided by engineer. */
+"Quick synchronize" = "Schnell synchronisieren";
+
+/* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
 
 /* No comment provided by engineer. */
@@ -350,6 +350,9 @@
 "Result" = "Result";
 
 /* No comment provided by engineer. */
+"Rsync parameters" = "Rsync Parameter";
+
+/* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
@@ -371,7 +374,7 @@
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
-"Select a task" = "Aufgabe auswählen";
+"Select a configuration" = "Konfiguration auswählen";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
@@ -411,6 +414,9 @@
 
 /* No comment provided by engineer. */
 "Ssh" = "Ssh";
+
+/* No comment provided by engineer. */
+"Synchronize" = "Synchronisieren";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";

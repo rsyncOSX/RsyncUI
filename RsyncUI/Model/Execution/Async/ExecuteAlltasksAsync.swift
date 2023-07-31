@@ -50,7 +50,7 @@ extension ExecuteAlltasksAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        estimatingprogresscountDelegate?.appendrecord(record)
+        estimatingprogresscountDelegate?.appendrecordestimatedlist(record)
         if let config = getconfig(hiddenID: hiddenID) {
             estimatingprogresscountDelegate?.appenduuid(config.id)
         }

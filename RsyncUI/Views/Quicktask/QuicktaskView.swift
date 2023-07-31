@@ -16,7 +16,7 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
 }
 
 struct QuicktaskView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
 
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
@@ -177,17 +177,15 @@ struct QuicktaskView: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("Task", comment: "") + ":",
-               selection: $selectedrsynccommand)
-        {
+               selection: $selectedrsynccommand.onChange {
+                   resetform()
+               }) {
             ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
                 .tag($0)
             }
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
-        .onChange(of: selectedrsynccommand) {
-            resetform()
-        }
     }
 
     // Headers (in sections)
@@ -303,7 +301,6 @@ extension QuicktaskView {
         }
     }
 
-    @MainActor
     func execute(config: Configuration, dryrun: Bool) async {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
         rsyncoutput = ObservableRsyncOutput()
@@ -312,7 +309,9 @@ extension QuicktaskView {
         let process = RsyncProcessAsync(arguments: arguments,
                                         config: config,
                                         processtermination: processtermination)
-        await process.executeProcess()
+        Task {
+            await process.executeProcess()
+        }
     }
 
     func abort() {
@@ -320,7 +319,6 @@ extension QuicktaskView {
     }
 
     func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
-        // Stop progressview
         showprogressview = false
         rsyncoutput?.setoutput(outputfromrsync)
         completed = true

@@ -6,12 +6,10 @@
 //
 
 import Foundation
-import Observation
 import SwiftUI
 
-@Observable
-final class ErrorHandling {
-    private(set) var activeError: Error?
+final class ErrorHandling: ObservableObject {
+    @Published private(set) var activeError: Error?
 
     func alerterror(error: Error) {
         DispatchQueue.main.async {
