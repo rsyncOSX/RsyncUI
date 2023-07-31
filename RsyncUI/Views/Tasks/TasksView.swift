@@ -382,8 +382,6 @@ extension TasksView {
             // Execute all estimated tasks
             selecteduuids = estimatingprogresscount.getuuids()
             estimatingstate.updatestate(state: .start)
-            // progressdetails.resetcounter()
-            // progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
         } else if selectedconfig.config == nil,
@@ -410,8 +408,6 @@ extension TasksView {
                 // Execute all estimated tasks
                 selecteduuids = estimatingprogresscount.getuuids()
                 estimatingstate.updatestate(state: .start)
-                // progressdetails.resetcounter()
-                // progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
                 // Change view, see SidebarTasksView
                 showeexecutestimatedview = true
             }
