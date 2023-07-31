@@ -222,6 +222,8 @@ struct TasksView: View {
                 sheetchooser.sheet = .dryrun
                 modaleview = true
                 focusstartestimation = false
+                progressdetails.resetcounter()
+                progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
             }
     }
 
@@ -380,8 +382,8 @@ extension TasksView {
             // Execute all estimated tasks
             selecteduuids = estimatingprogresscount.getuuids()
             estimatingstate.updatestate(state: .start)
-            progressdetails.resetcounter()
-            progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
+            // progressdetails.resetcounter()
+            // progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
         } else if selectedconfig.config == nil,
@@ -408,8 +410,8 @@ extension TasksView {
                 // Execute all estimated tasks
                 selecteduuids = estimatingprogresscount.getuuids()
                 estimatingstate.updatestate(state: .start)
-                progressdetails.resetcounter()
-                progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
+                // progressdetails.resetcounter()
+                // progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
                 // Change view, see SidebarTasksView
                 showeexecutestimatedview = true
             }
@@ -423,6 +425,7 @@ extension TasksView {
     }
 
     func reset() {
+        progressdetails.resetcounter()
         estimatingprogresscount.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
@@ -432,6 +435,7 @@ extension TasksView {
 
     func abort() {
         let action = ActionHolder(action: "Abort", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
+        progressdetails.resetcounter()
         actions.addaction(action)
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)

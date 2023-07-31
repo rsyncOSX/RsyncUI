@@ -39,9 +39,12 @@ struct ListofTasksMainView: View {
                                  value: progressdetails.currenttaskprogress,
                                  total: maxcount)
                         .frame(alignment: .center)
+                } else if progressdetails.taskisestimated(data.hiddenID) {
+                    Text("Estimated")
+                        .foregroundColor(.green)
                 }
             }
-            .width(max: 50)
+            .width(min: 50, max: 70)
             TableColumn("Profile") { data in
                 if markconfig(data) {
                     Text(data.profile ?? "Default profile")
@@ -108,10 +111,13 @@ struct ListofTasksMainView: View {
                     ProgressView("",
                                  value: progressdetails.currenttaskprogress,
                                  total: maxcount)
-                        .frame(width: 35, alignment: .center)
+                        .frame(alignment: .center)
+                } else if progressdetails.taskisestimated(data.hiddenID) {
+                    Text("Estimated")
+                        .foregroundColor(.green)
                 }
             }
-            .width(max: 50)
+            .width(min: 50, max: 70)
             TableColumn("Profile") { data in
                 if markconfig(data) {
                     Text(data.profile ?? "Default profile")
