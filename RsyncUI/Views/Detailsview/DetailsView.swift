@@ -243,24 +243,28 @@ final class Outputfromrsync: ObservableObject {
         var line: String
     }
 
+    func outputistruncated(_ number: Int) -> Bool {
+        do {
+            if number > 10000 { throw OutputIsTruncated.istruncated }
+        } catch let e {
+            let error = e
+            alerterror(error: error)
+            return true
+        }
+        return false
+    }
+
     func generatedata(_ data: [String]?) {
         var count = data?.count
         let summarycount = data?.count
-        var truncated = false
-        if count ?? 0 > 10000 {
-            count = 10000
-            output.append(Data(line: "**** Showing the 10,000 first lines of output *****"))
-            output.append(Data(line: ""))
-            truncated = true
-        }
+        if count ?? 0 > 10000 { count = 10000 }
         // Show the 10,000 first lines
         for i in 0 ..< (count ?? 0) {
             if let line = data?[i] {
                 output.append(Data(line: line))
             }
         }
-        // Append the summary of rsync
-        if truncated {
+        if outputistruncated(summarycount ?? 0) {
             output.append(Data(line: ""))
             output.append(Data(line: "**** Summary *****"))
             for i in ((summarycount ?? 0) - 20) ..< (summarycount ?? 0) - 1 {
@@ -268,6 +272,23 @@ final class Outputfromrsync: ObservableObject {
                     output.append(Data(line: line))
                 }
             }
+        }
+    }
+}
+
+extension Outputfromrsync {
+    func alerterror(error: Error) {
+        SharedReference.shared.errorobject?.alerterror(error: error)
+    }
+}
+
+enum OutputIsTruncated: LocalizedError {
+    case istruncated
+
+    var errorDescription: String? {
+        switch self {
+        case .istruncated:
+            return "Output from rsync was truncated"
         }
     }
 }
