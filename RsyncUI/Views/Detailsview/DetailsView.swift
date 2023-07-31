@@ -245,13 +245,28 @@ final class Outputfromrsync: ObservableObject {
 
     func generatedata(_ data: [String]?) {
         var count = data?.count
-        if count ?? 0 > 20000 {
-            count = 20000
-            output.append(Data(line: "**** Only showing the 20,000 first lines of output *****"))
+        let summarycount = data?.count
+        var truncated = false
+        if count ?? 0 > 10000 {
+            count = 10000
+            output.append(Data(line: "**** Showing the 10,000 first lines of output *****"))
+            output.append(Data(line: ""))
+            truncated = true
         }
+        // Show the 10,000 first lines
         for i in 0 ..< (count ?? 0) {
             if let line = data?[i] {
                 output.append(Data(line: line))
+            }
+        }
+        // Append the summary of rsync
+        if truncated {
+            output.append(Data(line: ""))
+            output.append(Data(line: "**** Summary *****"))
+            for i in ((summarycount ?? 0) - 20) ..< (summarycount ?? 0) - 1 {
+                if let line = data?[i] {
+                    output.append(Data(line: line))
+                }
             }
         }
     }
