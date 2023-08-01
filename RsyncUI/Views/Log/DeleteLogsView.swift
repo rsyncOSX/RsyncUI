@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct DeleteLogsView: View {
-    @EnvironmentObject var logrecords: RsyncUIlogrecords
     @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var selecteduuids: Set<UUID>
     var selectedprofile: String?
+    var logrecords: RsyncUIlogrecords
 
     var body: some View {
         VStack {

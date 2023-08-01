@@ -9,13 +9,14 @@
 import SwiftUI
 
 struct LogsbyConfigurationView: View {
-    @EnvironmentObject var logrecords: RsyncUIlogrecords
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var filterstring: String
 
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var reload: Bool = false
     @State private var hiddenID = -1
+
+    var logrecords: RsyncUIlogrecords
 
     var body: some View {
         VStack {
