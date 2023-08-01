@@ -130,6 +130,11 @@ struct TasksView: View {
                         modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
+
+                    Button("Details") {
+                        detailsestimatedtask()
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
                 }
             }
 
@@ -332,11 +337,6 @@ extension TasksView {
             let action = ActionHolder(action: "DryRun: execute a dryrun for one task only", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
             actions.addaction(action)
             sheetchooser.sheet = .dryrunonetask
-        } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
-            // DryRun: all tasks already estimated, show details on task
-            let action = ActionHolder(action: "DryRun: all tasks already estimated, show details on task", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsViewAlreadyEstimated")
-            actions.addaction(action)
-            sheetchooser.sheet = .dryrunalreadyestimated
         } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
             // Profile is changed, new task selected
             // DryRun: profile is changed, new task selected, execute a dryrun
@@ -353,6 +353,15 @@ extension TasksView {
             // New profile is selected, just return no action
             return
         }
+        modaleview = true
+    }
+
+    func detailsestimatedtask() {
+        // DryRun: all tasks already estimated, show details on task
+        guard progressdetails.taskisestimated(selectedconfig.config?.hiddenID ?? -1) == true else { return }
+        let action = ActionHolder(action: "DryRun: task is already estimated, show details on task", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsViewAlreadyEstimated")
+        actions.addaction(action)
+        sheetchooser.sheet = .dryrunalreadyestimated
         modaleview = true
     }
 
