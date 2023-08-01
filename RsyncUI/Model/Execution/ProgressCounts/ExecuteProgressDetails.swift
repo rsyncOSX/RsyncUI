@@ -1,5 +1,5 @@
 //
-//  ProgressDetails.swift
+//  ExecuteProgressDetails.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 18/02/2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ProgressDetails: ObservableObject {
+final class ExecuteProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
     var currenttaskprogress: Double = 0
     var hiddenIDatwork: Int = -1

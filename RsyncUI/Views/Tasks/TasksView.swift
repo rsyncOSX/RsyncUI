@@ -12,11 +12,11 @@ struct TasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
-    @EnvironmentObject var progressdetails: ProgressDetails
+    @EnvironmentObject var progressdetails: ExecuteProgressDetails
     // These two objects keeps track of the state and collects
     // the estimated values.
     @StateObject private var estimatingstate = EstimatingState()
-    @StateObject private var estimatingprogresscount = EstimatingProgressCount()
+    @StateObject private var estimatingprogresscount = EstimateProgressDetails()
 
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
@@ -130,6 +130,11 @@ struct TasksView: View {
                         modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
+
+                    Button("Details") {
+                        detailsestimatedtask()
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
                 }
             }
 
@@ -162,11 +167,11 @@ struct TasksView: View {
         case .dryrunalreadyestimated:
             DetailsViewAlreadyEstimated(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [],
                                         selectedconfig: selectedconfig.config)
-        case .dryrun:
+        case .dryrunalltasks:
             OutputEstimatedView(selecteduuids: $selecteduuids,
                                 execute: $focusstartexecution,
                                 estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
-        case .estimateddetailsview:
+        case .dryrunonetask:
             DetailsView(selectedconfig: selectedconfig.config)
                 .environmentObject(estimatingprogresscount)
                 .onAppear {
@@ -218,7 +223,7 @@ struct TasksView: View {
                 }
             }
             .onDisappear {
-                sheetchooser.sheet = .dryrun
+                sheetchooser.sheet = .dryrunalltasks
                 modaleview = true
                 focusstartestimation = false
                 progressdetails.resetcounter()
@@ -331,28 +336,32 @@ extension TasksView {
             // DryRun: execute a dryrun for one task only
             let action = ActionHolder(action: "DryRun: execute a dryrun for one task only", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
             actions.addaction(action)
-            sheetchooser.sheet = .estimateddetailsview
-        } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
-            // DryRun: all tasks already estimated, show details on task
-            let action = ActionHolder(action: "DryRun: all tasks already estimated, show details on task", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsViewAlreadyEstimated")
-            actions.addaction(action)
-            sheetchooser.sheet = .dryrunalreadyestimated
+            sheetchooser.sheet = .dryrunonetask
         } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
             // Profile is changed, new task selected
             // DryRun: profile is changed, new task selected, execute a dryrun
             let action = ActionHolder(action: "DryRun: profile is changed, new task selected, execute a dryrun", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
             actions.addaction(action)
-            sheetchooser.sheet = .estimateddetailsview
+            sheetchooser.sheet = .dryrunonetask
         } else if estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
             // DryRun: show summarized dryrun for all tasks
             let action = ActionHolder(action: "DryRun: show summarized dryrun for all tasks", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
             actions.addaction(action)
             // show summarized dry run
-            sheetchooser.sheet = .dryrun
+            sheetchooser.sheet = .dryrunalltasks
         } else {
             // New profile is selected, just return no action
             return
         }
+        modaleview = true
+    }
+
+    func detailsestimatedtask() {
+        // DryRun: all tasks already estimated, show details on task
+        guard progressdetails.taskisestimated(selectedconfig.config?.hiddenID ?? -1) == true else { return }
+        let action = ActionHolder(action: "DryRun: task is already estimated, show details on task", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsViewAlreadyEstimated")
+        actions.addaction(action)
+        sheetchooser.sheet = .dryrunalreadyestimated
         modaleview = true
     }
 
@@ -422,7 +431,7 @@ extension TasksView {
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
         estimatingprogresscount.estimateasync = false
-        sheetchooser.sheet = .dryrun
+        sheetchooser.sheet = .dryrunalltasks
     }
 
     func abort() {
@@ -469,7 +478,7 @@ extension TasksView {
 }
 
 enum Sheet: String, Identifiable {
-    case dryrun, dryrunalreadyestimated, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
+    case dryrunalltasks, dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, localremoteinfo, asynctimerison
     var id: String { rawValue }
 }
 
@@ -477,7 +486,7 @@ final class SheetChooser: ObservableObject {
     // Which sheet to present
     // Do not redraw view when changing
     // no @Publised
-    var sheet: Sheet = .dryrun
+    var sheet: Sheet = .dryrunalltasks
 }
 
 final class Selectedconfig: ObservableObject {
