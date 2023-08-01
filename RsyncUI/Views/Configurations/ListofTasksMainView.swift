@@ -34,7 +34,7 @@ struct ListofTasksMainView: View {
                     ProgressView("",
                                  value: progressdetails.currenttaskprogress,
                                  total: maxcount + 3)
-                        .frame(width: 35, alignment: .center)
+                        .frame(alignment: .center)
                 } else if progressdetails.taskisestimated(data.hiddenID) {
                     Text("Estimated")
                         .foregroundColor(.green)
