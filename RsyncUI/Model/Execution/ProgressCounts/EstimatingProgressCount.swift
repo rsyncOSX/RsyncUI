@@ -38,7 +38,9 @@ final class EstimatingProgressCount: ObservableObject {
     }
 
     func alltasksestimated(_ profilename: String) -> Bool {
-        return estimateasync == false && estimatedlist?.count == numberofconfigurations && profile == profilename
+        return estimateasync == false &&
+        estimatedlist?.count == numberofconfigurations &&
+        profile == profilename
     }
 
     func getuuids() -> Set<UUID> {
