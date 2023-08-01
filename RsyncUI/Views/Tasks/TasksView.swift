@@ -124,17 +124,20 @@ struct TasksView: View {
                         reset()
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .tooltip("Reset estimates")
 
                     Button("List") {
                         sheetchooser.sheet = .alltasksview
                         modaleview = true
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .tooltip("List tasks all profiles")
 
                     Button("Details") {
                         detailsestimatedtask()
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .tooltip("Show output estimated task")
                 }
             }
 
