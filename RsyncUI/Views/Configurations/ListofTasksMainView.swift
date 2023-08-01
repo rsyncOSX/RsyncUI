@@ -28,12 +28,12 @@ struct ListofTasksMainView: View {
     var tabledata: some View {
         Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("%") { data in
-                if data.hiddenID == progressdetails.hiddenIDatwork &&
-                    progressdetails.isestimating() == false
+                if data.hiddenID == progressdetails.hiddenIDatwork
+                    && progressdetails.isestimating() == false
                 {
                     ProgressView("",
                                  value: progressdetails.currenttaskprogress,
-                                 total: maxcount + 3)
+                                 total: maxcount)
                         .frame(alignment: .center)
                 } else if progressdetails.taskisestimated(data.hiddenID) {
                     Text("Estimated")
@@ -80,19 +80,15 @@ struct ListofTasksMainView: View {
                     Text(data.dateRun ?? "")
                         .foregroundColor(.red)
                 } else {
-                    if let daterun = data.dateRun {
-                        Text(daterun)
+                    if data.dateRun?.isEmpty == false {
+                        Text(data.dateRun ?? "")
                     } else {
-                        if data.dateRun?.isEmpty == false {
-                            Text(data.dateRun ?? "")
+                        if progressdetails.taskisestimated(data.hiddenID) {
+                            Text("Verified")
+                                .foregroundColor(.green)
                         } else {
-                            if progressdetails.taskisestimated(data.hiddenID) {
-                                Text("Verified")
-                                    .foregroundColor(.green)
-                            } else {
-                                Text("Not verified")
-                                    .foregroundColor(.red)
-                            }
+                            Text("Not verified")
+                                .foregroundColor(.red)
                         }
                     }
                 }
