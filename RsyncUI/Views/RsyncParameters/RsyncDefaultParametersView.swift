@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RsyncDefaultParametersView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var parameters = ObservableParametersDefault()
 
     @Binding var reload: Bool

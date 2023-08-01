@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListofTasksMainView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     // @SwiftUI.Environment(ProgressDetails.self) var progressdetails
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>

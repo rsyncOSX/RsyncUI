@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RestoreTableView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var restore = ObservableRestore()
 
     @State private var selecteduuids = Set<Configuration.ID>()

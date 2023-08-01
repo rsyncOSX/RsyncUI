@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddProfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @SwiftUI.Environment(Profilenames.self) private var profilenames
     @State private var newdata = ObservableAddConfigurations()
 

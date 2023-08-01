@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OutputEstimatedView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @Binding var selecteduuids: Set<UUID>
     @Binding var execute: Bool

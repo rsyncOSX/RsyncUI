@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExecuteNoestimateOneTaskView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var estimatingprogresscount = EstimateProgressDetails()
 
     @Binding var reload: Bool

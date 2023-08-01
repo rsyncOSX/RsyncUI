@@ -42,7 +42,8 @@ struct RsyncUIView: View {
 
                 Sidebar(reload: $reload,
                         selectedprofile: $selectedprofile, actions: actions)
-                    .environment(rsyncUIdata)
+                    .environment(\.rsyncUIData, rsyncUIdata)
+                    // .environment(rsyncUIdata)
                     .environment(profilenames)
                     .environment(errorhandling)
                     .onChange(of: reload) {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SnapshotsView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var snapshotdata = SnapshotData()
 
     // @Binding var selectedconfig: Configuration?

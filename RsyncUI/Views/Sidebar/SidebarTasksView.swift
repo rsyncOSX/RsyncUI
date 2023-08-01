@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SidebarTasksView: View {
-    @SwiftUI.Environment(RsyncUIconfigurations.self) private var rsyncUIdata
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @StateObject var progressdetails = ExecuteProgressDetails()
     @Binding var reload: Bool
