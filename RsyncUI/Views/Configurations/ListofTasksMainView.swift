@@ -84,7 +84,21 @@ struct ListofTasksMainView: View {
                     Text(data.dateRun ?? "")
                         .foregroundColor(.red)
                 } else {
-                    Text(data.dateRun ?? "")
+                    if let daterun = data.dateRun {
+                        Text(daterun)
+                    } else {
+                        if data.dateRun?.isEmpty == false {
+                            Text(data.dateRun ?? "")
+                        } else {
+                            if progressdetails.taskisestimated(data.hiddenID) {
+                                Text("Verified")
+                                    .foregroundColor(.green)
+                            } else {
+                                Text("Not verified")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
                 }
             }
             .width(max: 120)
@@ -157,7 +171,17 @@ struct ListofTasksMainView: View {
                     Text(data.dateRun ?? "")
                         .foregroundColor(.red)
                 } else {
-                    Text(data.dateRun ?? "")
+                    if data.dateRun?.isEmpty == false {
+                        Text(data.dateRun ?? "")
+                    } else {
+                        if progressdetails.taskisestimated(data.hiddenID) {
+                            Text("Verified")
+                                .foregroundColor(.green)
+                        } else {
+                            Text("Not verified")
+                                .foregroundColor(.red)
+                        }
+                    }
                 }
             }
             .width(max: 120)
