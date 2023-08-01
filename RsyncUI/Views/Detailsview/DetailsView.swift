@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DetailsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var inprogresscountmultipletask: EstimatingProgressCount
+    @EnvironmentObject var inprogresscountmultipletask: EstimateProgressDetails
 
     var selectedconfig: Configuration?
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class EstimatingProgressCount: ObservableObject {
+final class EstimateProgressDetails: ObservableObject {
     var estimatedlist: [RemoteinfonumbersOnetask]?
     var tasksinprogresscount: Double = 0
     var max: Int = 0
@@ -39,8 +39,8 @@ final class EstimatingProgressCount: ObservableObject {
 
     func alltasksestimated(_ profilename: String) -> Bool {
         return estimateasync == false &&
-        estimatedlist?.count == numberofconfigurations &&
-        profile == profilename
+            estimatedlist?.count == numberofconfigurations &&
+            profile == profilename
     }
 
     func getuuids() -> Set<UUID> {

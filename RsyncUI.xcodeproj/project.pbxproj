@@ -115,8 +115,8 @@
 		E985C76C25F3AD9700CB895C /* RemoteinfonumbersOnetask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EC25F3AD9600CB895C /* RemoteinfonumbersOnetask.swift */; };
 		E985C76E25F3AD9700CB895C /* EstimatingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EE25F3AD9600CB895C /* EstimatingState.swift */; };
 		E985C76F25F3AD9700CB895C /* ObservableRsyncOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F025F3AD9600CB895C /* ObservableRsyncOutput.swift */; };
-		E985C77025F3AD9700CB895C /* EstimatingProgressCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F125F3AD9600CB895C /* EstimatingProgressCount.swift */; };
-		E985C77125F3AD9700CB895C /* ProgressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F225F3AD9700CB895C /* ProgressDetails.swift */; };
+		E985C77025F3AD9700CB895C /* EstimateProgressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F125F3AD9600CB895C /* EstimateProgressDetails.swift */; };
+		E985C77125F3AD9700CB895C /* ExecuteProgressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F225F3AD9700CB895C /* ExecuteProgressDetails.swift */; };
 		E985C77225F3AD9700CB895C /* Logfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F425F3AD9700CB895C /* Logfile.swift */; };
 		E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */; };
 		E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */; };
@@ -318,8 +318,8 @@
 		E985C6EC25F3AD9600CB895C /* RemoteinfonumbersOnetask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteinfonumbersOnetask.swift; sourceTree = "<group>"; };
 		E985C6EE25F3AD9600CB895C /* EstimatingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatingState.swift; sourceTree = "<group>"; };
 		E985C6F025F3AD9600CB895C /* ObservableRsyncOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableRsyncOutput.swift; sourceTree = "<group>"; };
-		E985C6F125F3AD9600CB895C /* EstimatingProgressCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatingProgressCount.swift; sourceTree = "<group>"; };
-		E985C6F225F3AD9700CB895C /* ProgressDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressDetails.swift; sourceTree = "<group>"; };
+		E985C6F125F3AD9600CB895C /* EstimateProgressDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateProgressDetails.swift; sourceTree = "<group>"; };
+		E985C6F225F3AD9700CB895C /* ExecuteProgressDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteProgressDetails.swift; sourceTree = "<group>"; };
 		E985C6F425F3AD9700CB895C /* Logfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logfile.swift; sourceTree = "<group>"; };
 		E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsVerify.swift; sourceTree = "<group>"; };
 		E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputeRsyncParameters.swift; sourceTree = "<group>"; };
@@ -841,8 +841,8 @@
 		E985C6EF25F3AD9600CB895C /* ProgressCounts */ = {
 			isa = PBXGroup;
 			children = (
-				E985C6F125F3AD9600CB895C /* EstimatingProgressCount.swift */,
-				E985C6F225F3AD9700CB895C /* ProgressDetails.swift */,
+				E985C6F125F3AD9600CB895C /* EstimateProgressDetails.swift */,
+				E985C6F225F3AD9700CB895C /* ExecuteProgressDetails.swift */,
 			);
 			path = ProgressCounts;
 			sourceTree = "<group>";
@@ -1269,7 +1269,7 @@
 				E9549A85298AB1A8002FF436 /* ExecuteNoestimateOneTaskView.swift in Sources */,
 				E999F9262769104200B80DF6 /* AlertToast.swift in Sources */,
 				E9D94DB6294B9409007C21D2 /* Assist.swift in Sources */,
-				E985C77025F3AD9700CB895C /* EstimatingProgressCount.swift in Sources */,
+				E985C77025F3AD9700CB895C /* EstimateProgressDetails.swift in Sources */,
 				E9569EAB27B80BEB0038799C /* UserConfiguration.swift in Sources */,
 				E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */,
 				E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */,
@@ -1334,7 +1334,7 @@
 				E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */,
 				E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */,
 				E999F92227690F3400B80DF6 /* Files.swift in Sources */,
-				E985C77125F3AD9700CB895C /* ProgressDetails.swift in Sources */,
+				E985C77125F3AD9700CB895C /* ExecuteProgressDetails.swift in Sources */,
 				E985C79325F3AD9700CB895C /* Rsyncversion.swift in Sources */,
 				E90F7CA526344D5B001D9CA2 /* TextBuilder.swift in Sources */,
 				E985C73625F3AD9700CB895C /* SetandValidatepathforrsync.swift in Sources */,
