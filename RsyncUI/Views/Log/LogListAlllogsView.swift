@@ -9,11 +9,12 @@ import SwiftUI
 
 struct LogListAlllogsView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var logrecords: RsyncUIlogrecords
     @Binding var filterstring: String
     @State private var selecteduuids = Set<UUID>()
     // Alert for delete
     @State private var showAlertfordelete = false
+
+    var logrecords: RsyncUIlogrecords
 
     var body: some View {
         VStack {
@@ -40,7 +41,8 @@ struct LogListAlllogsView: View {
                     .buttonStyle(AbortButtonStyle())
                     .sheet(isPresented: $showAlertfordelete) {
                         DeleteLogsView(selecteduuids: $selecteduuids,
-                                       selectedprofile: rsyncUIdata.profile)
+                                       selectedprofile: rsyncUIdata.profile,
+                                       logrecords: logrecords)
                     }
             }
             .padding()
