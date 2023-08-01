@@ -1,5 +1,5 @@
 //
-//  InprogressCountEstimation.swift
+//  EstimateProgressDetails.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 20/01/2021.
@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class EstimatingProgressCount {
+final class EstimateProgressDetails {
     var estimatedlist: [RemoteinfonumbersOnetask]?
     var tasknumbercount: Double = 0
     var max: Int = 0
@@ -40,7 +40,9 @@ final class EstimatingProgressCount {
     }
 
     func alltasksestimated(_ profilename: String) -> Bool {
-        return estimateasync == false && estimatedlist?.count == numberofconfigurations && profile == profilename
+        return estimateasync == false &&
+            estimatedlist?.count == numberofconfigurations &&
+            profile == profilename
     }
 
     func getuuids() -> Set<UUID> {
