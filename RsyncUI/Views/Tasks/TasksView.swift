@@ -158,11 +158,11 @@ struct TasksView: View {
         case .dryrunalreadyestimated:
             DetailsViewAlreadyEstimated(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [],
                                         selectedconfig: selectedconfig.config)
-        case .dryrun:
+        case .dryrunalltasks:
             OutputEstimatedView(selecteduuids: $selecteduuids,
                                 execute: $focusstartexecution,
                                 estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
-        case .estimateddetailsview:
+        case .dryrunonetask:
             DetailsView(selectedconfig: selectedconfig.config)
                 .environment(estimatingprogresscount)
                 .onAppear {
@@ -215,7 +215,7 @@ struct TasksView: View {
                 }
             }
             .onDisappear {
-                sheetchooser.sheet = .dryrun
+                sheetchooser.sheet = .dryrunalltasks
                 modaleview = true
                 focusstartestimation = false
                 progressdetails.resetcounter()
@@ -328,7 +328,7 @@ extension TasksView {
             // DryRun: execute a dryrun for one task only
             let action = ActionHolder(action: "DryRun: execute a dryrun for one task only", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
             actions.addaction(action)
-            sheetchooser.sheet = .estimateddetailsview
+            sheetchooser.sheet = .dryrunonetask
         } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
             // DryRun: all tasks already estimated, show details on task
             let action = ActionHolder(action: "DryRun: all tasks already estimated, show details on task", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsViewAlreadyEstimated")
@@ -339,13 +339,13 @@ extension TasksView {
             // DryRun: profile is changed, new task selected, execute a dryrun
             let action = ActionHolder(action: "DryRun: profile is changed, new task selected, execute a dryrun", profile: rsyncUIdata.profile ?? "Default profile", source: "DetailsView")
             actions.addaction(action)
-            sheetchooser.sheet = .estimateddetailsview
+            sheetchooser.sheet = .dryrunonetask
         } else if estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
             // DryRun: show summarized dryrun for all tasks
             let action = ActionHolder(action: "DryRun: show summarized dryrun for all tasks", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
             actions.addaction(action)
             // show summarized dry run
-            sheetchooser.sheet = .dryrun
+            sheetchooser.sheet = .dryrunalltasks
         } else {
             // New profile is selected, just return no action
             return
@@ -419,7 +419,7 @@ extension TasksView {
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
         estimatingprogresscount.estimateasync = false
-        sheetchooser.sheet = .dryrun
+        sheetchooser.sheet = .dryrunalltasks
     }
 
     func abort() {
@@ -467,13 +467,13 @@ extension TasksView {
 }
 
 enum Sheet: String, Identifiable {
-    case dryrun, dryrunalreadyestimated, estimateddetailsview, alltasksview, firsttime, localremoteinfo, asynctimerison
+    case dryrunalltasks, dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, localremoteinfo, asynctimerison
     var id: String { rawValue }
 }
 
 @Observable
 final class SheetChooser {
-    var sheet: Sheet = .dryrun
+    var sheet: Sheet = .dryrunalltasks
 }
 
 @Observable
