@@ -77,4 +77,16 @@ final class RsyncUIlogrecords {
     }
 }
 
+/*
+ extension EnvironmentValues {
+     var logrecords: RsyncUIlogrecords {
+         get { self[RsyncUIlogrecordsKey.self] }
+         set { self[RsyncUIlogrecordsKey.self] = newValue }
+     }
+ }
+
+ private struct RsyncUIlogrecordsKey: EnvironmentKey {
+     static var defaultValue: RsyncUIlogrecords = .init(profile: nil, validhiddenIDs: nil)
+ }
+ */
 // swiftlint:enable line_length
