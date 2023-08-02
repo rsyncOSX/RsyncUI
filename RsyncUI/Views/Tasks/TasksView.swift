@@ -58,16 +58,16 @@ struct TasksView: View {
             if reloadtasksviewlist == false {
                 ListofTasksMainView(
                     selecteduuids: $selecteduuids.onChange {
-                        // print(selecteduuids.count)
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selecteduuids.contains(config.id)
-                        }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                selectedconfig.config = config[0]
-                            }
-                        } else {
+                        guard selecteduuids.count == 1 else {
                             selectedconfig.config = nil
+                            return
+                        }
+                        if let selected = rsyncUIdata.configurations?.filter({ $0.id == selecteduuids.first }) {
+                            guard selected.count == 1 else {
+                                selectedconfig.config = nil
+                                return
+                            }
+                            selectedconfig.config = selected[0]
                         }
                     },
                     filterstring: $filterstring,

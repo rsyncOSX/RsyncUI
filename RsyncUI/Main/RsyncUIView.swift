@@ -16,6 +16,8 @@ struct RsyncUIView: View {
     @State private var defaultprofile = "Default profile"
     @State private var start: Bool = true
 
+    @State var selecteduuids = Set<Configuration.ID>()
+
     // Initial view in tasks for sidebar macOS 12
     @State private var selection: NavigationItem? = Optional.none
     var actions: Actions
@@ -45,6 +47,7 @@ struct RsyncUIView: View {
                 if #available(macOS 13.0, *) {
                     SidebarVentura(reload: $reload,
                                    selectedprofile: $selectedprofile,
+                                   selecteduuids: $selecteduuids,
                                    actions: actions)
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
@@ -55,6 +58,7 @@ struct RsyncUIView: View {
                 } else {
                     SidebarMonterey(reload: $reload,
                                     selectedprofile: $selectedprofile,
+                                    selecteduuids: $selecteduuids,
                                     selection: $selection,
                                     actions: actions)
                         .environmentObject(rsyncUIdata)
@@ -108,6 +112,9 @@ struct RsyncUIView: View {
             }
             .frame(width: 180)
             .accentColor(.blue)
+            .onChange(of: selectedprofile) { _ in
+                selecteduuids.removeAll()
+            }
 
             Spacer()
         }
