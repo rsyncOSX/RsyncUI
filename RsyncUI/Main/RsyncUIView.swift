@@ -43,7 +43,6 @@ struct RsyncUIView: View {
                 Sidebar(reload: $reload,
                         selectedprofile: $selectedprofile, actions: actions)
                     .environment(\.rsyncUIData, rsyncUIdata)
-                    // .environment(rsyncUIdata)
                     .environment(profilenames)
                     .environment(errorhandling)
                     .onChange(of: reload) {
@@ -139,11 +138,9 @@ extension View {
     }
 
     func notifymessage(_ text: String) -> some View {
-        ZStack {
-            Text(text)
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
+        Text(text)
+            .font(.title3)
+            .foregroundColor(Color.blue)
     }
 }
 

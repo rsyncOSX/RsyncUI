@@ -27,7 +27,6 @@ final class Profilenames {
 
     func setprofilenames() {
         let names = Catalogsandfiles(.configurations).getcatalogsasstringnames()
-        // profiles = []
         for i in 0 ..< (names?.count ?? 0) {
             profiles.append(Profiles(names?[i] ?? ""))
         }
