@@ -16,6 +16,8 @@ struct Sidebar: View {
     @SwiftUI.Environment(ErrorHandling.self) var errorhandling
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    @Binding var selecteduuids: Set<Configuration.ID>
+
     @State private var selectedview: Sidebaritems = .synchronize
 
     // Keep record of actions
@@ -35,7 +37,7 @@ struct Sidebar: View {
         case .snapshots:
             SidebarSnapshotsView(reload: $reload)
         case .synchronize:
-            SidebarTasksView(reload: $reload, actions: actions)
+            SidebarTasksView(reload: $reload, selecteduuids: $selecteduuids, actions: actions)
         case .quick_synchronize:
             QuicktaskView()
         }

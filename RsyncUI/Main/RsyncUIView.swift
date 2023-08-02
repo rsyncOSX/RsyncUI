@@ -16,6 +16,8 @@ struct RsyncUIView: View {
     @State private var defaultprofile = "Default profile"
     @State private var start: Bool = true
 
+    @State var selecteduuids = Set<Configuration.ID>()
+
     var actions: Actions
 
     var body: some View {
@@ -41,7 +43,9 @@ struct RsyncUIView: View {
                 }
 
                 Sidebar(reload: $reload,
-                        selectedprofile: $selectedprofile, actions: actions)
+                        selectedprofile: $selectedprofile,
+                        selecteduuids: $selecteduuids,
+                        actions: actions)
                     .environment(\.rsyncUIData, rsyncUIdata)
                     .environment(profilenames)
                     .environment(errorhandling)
@@ -89,7 +93,9 @@ struct RsyncUIView: View {
             }
             .frame(width: 180)
             .accentColor(.blue)
-
+            .onChange(of: selectedprofile) {
+                selecteduuids.removeAll()
+            }
             Spacer()
         }
     }
