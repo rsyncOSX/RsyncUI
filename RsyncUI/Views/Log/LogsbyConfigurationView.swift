@@ -10,30 +10,35 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Binding var filterstring: String
 
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var hiddenID: Int = -1
     @State private var reload: Bool = false
-    @Binding var filterstring: String
+    @State private var hiddenID = -1
+
+    var logrecords: RsyncUIlogrecords
 
     var body: some View {
         VStack {
             HStack {
-                ListofTasksLightView(selecteduuids: $selecteduuids)
-                    .onChange(of: selecteduuids) {
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selecteduuids.contains(config.id)
-                        }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                hiddenID = config[0].hiddenID
-                            }
-                        } else {
-                            hiddenID = -1
-                        }
+                ListofTasksLightView(
+                    selecteduuids: $selecteduuids
+                )
+                .onChange(of: selecteduuids) {
+                    guard selecteduuids.count == 1 else {
+                        hiddenID = -1
+                        return
                     }
+                    if let selected = rsyncUIdata.configurations?.filter({ $0.id == selecteduuids.first }) {
+                        guard selected.count == 1 else {
+                            hiddenID = -1
+                            return
+                        }
+                        hiddenID = selected[0].hiddenID
+                    }
+                }
 
-                Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []) {
+                Table(logdetails) {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
@@ -57,10 +62,10 @@ struct LogsbyConfigurationView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\((logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []).count)"
+            "\(logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count ?? 0)"
     }
 
-    var logrecords: RsyncUIlogrecords {
-        return RsyncUIlogrecords(profile: rsyncUIdata.profile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
+    var logdetails: [Log] {
+        return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
     }
 }

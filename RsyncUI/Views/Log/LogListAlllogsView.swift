@@ -5,17 +5,21 @@
 //  Created by Thomas Evensen on 11/03/2021.
 //
 
+import Observation
 import SwiftUI
 
 struct LogListAlllogsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var filterstring: String
     @State private var selecteduuids = Set<UUID>()
+    // Alert for delete
     @State private var showAlertfordelete = false
+
+    var logrecords: RsyncUIlogrecords
 
     var body: some View {
         VStack {
-            Table(logrecords.filterlogs(filterstring) ?? [], selection: $selecteduuids) {
+            Table(filteredlogrecords, selection: $selecteduuids) {
                 TableColumn("Date") { data in
                     Text(data.date.localized_string_from_date())
                 }
@@ -49,10 +53,10 @@ struct LogListAlllogsView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\((logrecords.filterlogs(filterstring) ?? []).count)"
+            "\(filteredlogrecords.count)"
     }
 
-    var logrecords: RsyncUIlogrecords {
-        return RsyncUIlogrecords(profile: rsyncUIdata.profile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
+    var filteredlogrecords: [Log] {
+        logrecords.filterlogs(filterstring) ?? []
     }
 }
