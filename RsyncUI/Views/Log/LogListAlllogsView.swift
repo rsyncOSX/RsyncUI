@@ -13,11 +13,9 @@ struct LogListAlllogsView: View {
     @State private var selecteduuids = Set<UUID>()
     @State private var showAlertfordelete = false
 
-    var logrecords: RsyncUIlogrecords
-
     var body: some View {
         VStack {
-            Table(filteredlogrecords, selection: $selecteduuids) {
+            Table(logrecords.filterlogs(filterstring) ?? [], selection: $selecteduuids) {
                 TableColumn("Date") { data in
                     Text(data.date.localized_string_from_date())
                 }
@@ -51,10 +49,10 @@ struct LogListAlllogsView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(filteredlogrecords.count)"
+            "\((logrecords.filterlogs(filterstring) ?? []).count)"
     }
 
-    var filteredlogrecords: [Log] {
-        logrecords.filterlogs(filterstring) ?? []
+    var logrecords: RsyncUIlogrecords {
+        return RsyncUIlogrecords(profile: rsyncUIdata.profile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
     }
 }

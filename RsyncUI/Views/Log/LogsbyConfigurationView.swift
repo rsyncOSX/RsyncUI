@@ -16,8 +16,6 @@ struct LogsbyConfigurationView: View {
     @State private var reload: Bool = false
     @Binding var filterstring: String
 
-    var logrecords: RsyncUIlogrecords
-
     var body: some View {
         VStack {
             HStack {
@@ -35,7 +33,7 @@ struct LogsbyConfigurationView: View {
                         }
                     }
 
-                Table(logdetails) {
+                Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []) {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
@@ -59,10 +57,10 @@ struct LogsbyConfigurationView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count ?? 0)"
+            "\((logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []).count)"
     }
 
-    var logdetails: [Log] {
-        return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
+    var logrecords: RsyncUIlogrecords {
+        return RsyncUIlogrecords(profile: rsyncUIdata.profile, validhiddenIDs: rsyncUIdata.validhiddenIDs)
     }
 }
