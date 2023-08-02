@@ -23,6 +23,7 @@ struct SidebarMonterey: View {
     @EnvironmentObject var errorhandling: ErrorHandling
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var selection: NavigationItem?
 
     var actions: Actions
@@ -32,7 +33,9 @@ struct SidebarMonterey: View {
             Spacer()
 
             Group {
-                NavigationLink(destination: SidebarTasksView(reload: $reload, actions: actions),
+                NavigationLink(destination: SidebarTasksView(selecteduuids: $selecteduuids,
+                                                             reload: $reload,
+                                                             actions: actions),
                                tag: NavigationItem.tasksview,
                                selection: $selection)
                 {

@@ -10,6 +10,7 @@ import SwiftUI
 struct SidebarTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedconfig: Configuration?
+    @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
 
     @StateObject var progressdetails = ExecuteProgressDetails()
@@ -18,7 +19,6 @@ struct SidebarTasksView: View {
     @State var showexecuteNOEstimateview: Bool = false
     @State var showexecuteNOEstiamteONEtask: Bool = false
 
-    @State private var selecteduuids = Set<Configuration.ID>()
     @State private var reloadtasksviewlist: Bool = false
     // Timer values
     @State private var timervalue: Double = 600

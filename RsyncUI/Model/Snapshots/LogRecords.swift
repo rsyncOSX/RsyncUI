@@ -31,7 +31,6 @@ final class LogRecords {
     private var structschedules: AllLogs?
     var loggrecordssnapshots: [LogrecordSnapshot]?
     private var localehiddenID: Int?
-    var uuidsfromlogrecords = Set<Log.ID>()
 
     private func readandsortallloggdata(hiddenID: Int?) {
         var data = [LogrecordSnapshot]()

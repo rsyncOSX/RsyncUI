@@ -18,6 +18,8 @@ struct SidebarVentura: View {
     @EnvironmentObject var errorhandling: ErrorHandling
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
+    @Binding var selecteduuids: Set<Configuration.ID>
+
     @State private var selectedview: Sidebaritems = .synchronize
     // Keep record of actions
     var actions: Actions
@@ -36,7 +38,9 @@ struct SidebarVentura: View {
         case .snapshots:
             SidebarSnapshotsView(reload: $reload)
         case .synchronize:
-            SidebarTasksView(reload: $reload, actions: actions)
+            SidebarTasksView(selecteduuids: $selecteduuids,
+                             reload: $reload,
+                             actions: actions)
         case .quick_synchronize:
             QuicktaskView()
         }
