@@ -10,7 +10,7 @@ import SwiftUI
 struct LogListAlllogsView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var filterstring: String
-    @State private var selecteduuids = Set<UUID>()
+    @State private var selecteduuids = Set<Log.ID>()
     // Alert for delete
     @State private var showAlertfordelete = false
 
@@ -46,7 +46,6 @@ struct LogListAlllogsView: View {
                     }
             }
             .padding()
-            .searchable(text: $filterstring)
         }
     }
 
