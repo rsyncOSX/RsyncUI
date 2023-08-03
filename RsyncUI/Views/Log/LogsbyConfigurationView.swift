@@ -13,8 +13,12 @@ struct LogsbyConfigurationView: View {
     @Binding var filterstring: String
 
     @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var selectedloguuids = Set<Log.ID>()
     @State private var reload: Bool = false
     @State private var hiddenID = -1
+
+    // Alert for delete
+    @State private var showAlertfordelete = false
 
     var logrecords: RsyncUIlogrecords
 
@@ -23,6 +27,7 @@ struct LogsbyConfigurationView: View {
             HStack {
                 ListofTasksLightView(
                     selecteduuids: $selecteduuids.onChange {
+                        // selectedloguuids.removeAll()
                         guard selecteduuids.count == 1 else {
                             hiddenID = -1
                             return
@@ -37,7 +42,7 @@ struct LogsbyConfigurationView: View {
                     }
                 )
 
-                Table(filteredlogrecords) {
+                Table(filteredlogrecords, selection: $selectedloguuids) {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
@@ -54,9 +59,18 @@ struct LogsbyConfigurationView: View {
                 Text(numberoflogs)
 
                 Spacer()
+
+                Button("Delete") { showAlertfordelete = true }
+                    .buttonStyle(AbortButtonStyle())
+                    .sheet(isPresented: $showAlertfordelete) {
+                        DeleteLogsView(selecteduuids: $selecteduuids,
+                                       selectedprofile: rsyncUIdata.profile,
+                                       logrecords: logrecords)
+                    }
             }
         }
         .padding()
+        .searchable(text: $filterstring)
     }
 
     var numberoflogs: String {
