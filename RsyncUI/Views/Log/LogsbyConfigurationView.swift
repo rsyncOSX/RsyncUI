@@ -37,7 +37,7 @@ struct LogsbyConfigurationView: View {
                     }
                 )
 
-                Table(logdetails) {
+                Table(filteredlogrecords) {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
@@ -60,11 +60,20 @@ struct LogsbyConfigurationView: View {
     }
 
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count ?? 0)"
+        if hiddenID == -1 {
+            return NSLocalizedString("Number of logs", comment: "") + ": " +
+                "\(logrecords.filterlogs(filterstring)?.count ?? 0)"
+        } else {
+            return NSLocalizedString("Number of logs", comment: "") + ": " +
+                "\(logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count ?? 0)"
+        }
     }
 
-    var logdetails: [Log] {
-        return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
+    var filteredlogrecords: [Log] {
+        if hiddenID == -1 {
+            return logrecords.filterlogs(filterstring) ?? []
+        } else {
+            return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
+        }
     }
 }
