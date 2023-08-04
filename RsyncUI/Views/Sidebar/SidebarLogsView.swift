@@ -14,16 +14,16 @@ struct SidebarLogsView: View {
     var body: some View {
         ZStack {
             TabView {
-                LogsbyConfigurationView(filterstring: $filterstring,
-                                        logrecords: logrecords)
-                    .tabItem {
-                        Text("By task")
-                    }
-
                 LogListAlllogsView(filterstring: $filterstring,
                                    logrecords: logrecords)
                     .tabItem {
                         Text("All logs")
+                    }
+
+                LogsbyConfigurationView(filterstring: $filterstring,
+                                        logrecords: logrecords)
+                    .tabItem {
+                        Text("By task")
                     }
             }
         }
