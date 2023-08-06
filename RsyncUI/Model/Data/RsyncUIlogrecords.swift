@@ -48,6 +48,7 @@ final class RsyncUIlogrecords: ObservableObject {
 
     func removerecords(_ uuids: Set<UUID>) {
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
+        objectWillChange.send()
     }
 
     init(profile: String?, validhiddenIDs: Set<Int>?) {

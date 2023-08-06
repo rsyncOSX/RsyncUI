@@ -26,7 +26,7 @@ final class UpdateLogs {
                 structschedules?[i].logrecords?.remove(atOffsets: indexset)
                 indexset.removeAll()
             }
-            WriteScheduleJSON(localeprofile, structschedules)
+            // WriteScheduleJSON(localeprofile, structschedules)
         }
     }
 

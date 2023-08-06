@@ -46,7 +46,6 @@ struct LogListAlllogsView: View {
                     }
             }
             .padding()
-            .searchable(text: $filterstring)
         }
     }
 
