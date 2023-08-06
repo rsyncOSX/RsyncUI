@@ -60,10 +60,14 @@ struct LogsbyConfigurationView: View {
 
     var numberoflogs: String {
         NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count ?? 0)"
+            "\(logdetails.count)"
     }
 
     var logdetails: [Log] {
-        return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
+        if hiddenID == -1 {
+            return logrecords.filterlogs(filterstring) ?? []
+        } else {
+            return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
+        }
     }
 }
