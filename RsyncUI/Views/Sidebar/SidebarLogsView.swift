@@ -12,22 +12,9 @@ struct SidebarLogsView: View {
     @State private var filterstring: String = ""
 
     var body: some View {
-        ZStack {
-            TabView {
-                LogsbyConfigurationView(filterstring: $filterstring,
-                                        logrecords: logrecords)
-                    .tabItem {
-                        Text("By task")
-                    }
-
-                LogListAlllogsView(filterstring: $filterstring,
-                                   logrecords: logrecords)
-                    .tabItem {
-                        Text("All logs")
-                    }
-            }
-        }
-        .padding()
+        LogsbyConfigurationView(filterstring: $filterstring,
+                                logrecords: logrecords)
+            .padding()
     }
 
     var logrecords: RsyncUIlogrecords {
