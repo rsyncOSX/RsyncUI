@@ -57,6 +57,9 @@ struct LogsbyConfigurationView: View {
 
                 Spacer()
 
+                Button("Reset") { selectedloguuids.removeAll() }
+                    .buttonStyle(PrimaryButtonStyle())
+
                 Button("Delete") { showAlertfordelete = true }
                     .buttonStyle(AbortButtonStyle())
                     .sheet(isPresented: $showAlertfordelete) {
@@ -66,7 +69,6 @@ struct LogsbyConfigurationView: View {
                     }
             }
         }
-        .padding()
         .searchable(text: $filterstring)
     }
 
