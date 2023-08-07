@@ -9,11 +9,9 @@ import SwiftUI
 
 struct SidebarLogsView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @State private var filterstring: String = ""
 
     var body: some View {
-        LogsbyConfigurationView(filterstring: $filterstring,
-                                logrecords: logrecords)
+        LogsbyConfigurationView(logrecords: logrecords)
             .padding()
     }
 
