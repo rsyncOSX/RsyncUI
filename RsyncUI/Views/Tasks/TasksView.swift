@@ -68,9 +68,6 @@ struct TasksView: View {
                                 return
                             }
                             selectedconfig.config = selected[0]
-                            if progressdetails.taskisestimated(selectedconfig.config?.hiddenID ?? -1) {
-                                detailsestimatedtask()
-                            }
                         }
                     },
                     filterstring: $filterstring,
