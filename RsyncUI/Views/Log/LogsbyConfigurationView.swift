@@ -10,8 +10,8 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Binding var filterstring: String
 
+    @State private var filterstring: String = ""
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedloguuids = Set<Log.ID>()
     @State private var reload: Bool = false
