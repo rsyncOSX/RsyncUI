@@ -39,14 +39,28 @@ struct LogsbyConfigurationView: View {
                     }
                 )
 
-                Table(logdetails, selection: $selectedloguuids) {
-                    TableColumn("Date") { data in
-                        Text(data.date.localized_string_from_date())
-                    }
+                if hiddenID == -1 {
+                    Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
+                        TableColumn("Date") { data in
+                            Text(data.date.localized_string_from_date())
+                        }
 
-                    TableColumn("Result") { data in
-                        if let result = data.resultExecuted {
-                            Text(result)
+                        TableColumn("Result") { data in
+                            if let result = data.resultExecuted {
+                                Text(result)
+                            }
+                        }
+                    }
+                } else {
+                    Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [], selection: $selectedloguuids) {
+                        TableColumn("Date") { data in
+                            Text(data.date.localized_string_from_date())
+                        }
+
+                        TableColumn("Result") { data in
+                            if let result = data.resultExecuted {
+                                Text(result)
+                            }
                         }
                     }
                 }
@@ -73,15 +87,12 @@ struct LogsbyConfigurationView: View {
     }
 
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(logdetails.count)"
-    }
-
-    var logdetails: [Log] {
         if hiddenID == -1 {
-            return logrecords.filterlogs(filterstring) ?? []
+            return NSLocalizedString("Number of logs", comment: "") + ": " +
+                "\((logrecords.filterlogs(filterstring) ?? []).count)"
         } else {
-            return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
+            return NSLocalizedString("Number of logs", comment: "") + ": " +
+                "\((logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []).count)"
         }
     }
 }
