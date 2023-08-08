@@ -34,6 +34,8 @@ struct LogsbyConfigurationView: View {
                         if let config = selected {
                             hiddenID = config[0].hiddenID
                         }
+                    } else {
+                        hiddenID = -1
                     }
                 }
 
