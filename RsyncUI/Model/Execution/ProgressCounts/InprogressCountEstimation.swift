@@ -75,7 +75,7 @@ final class InprogressCountEstimation {
         estimatedlist = argestimatedlist
     }
 
-    func appendrecord(_ record: RemoteinfonumbersOnetask) {
+    func appendrecordestimatedlist(_ record: RemoteinfonumbersOnetask) {
         if estimatedlist == nil {
             estimatedlist = [RemoteinfonumbersOnetask]()
         }

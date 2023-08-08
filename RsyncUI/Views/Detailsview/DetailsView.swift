@@ -211,7 +211,7 @@ extension DetailsView {
         if estimateddataonetask.estimatedlistonetask.count == 1 {
             inprogresscountmultipletask.resetcounts()
             inprogresscountmultipletask.appenduuid(selectedconfig?.id ?? UUID())
-            inprogresscountmultipletask.appendrecord(estimateddataonetask.estimatedlistonetask[0])
+            inprogresscountmultipletask.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
         }
     }
 }

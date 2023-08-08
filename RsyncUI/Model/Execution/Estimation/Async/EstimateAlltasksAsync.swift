@@ -86,7 +86,7 @@ extension EstimateAlltasksAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        estimatingprogresscountDelegate?.appendrecord(record)
+        estimatingprogresscountDelegate?.appendrecordestimatedlist(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
                 estimatingprogresscountDelegate?.appenduuid(config.id)
