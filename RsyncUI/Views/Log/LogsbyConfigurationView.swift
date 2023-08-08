@@ -10,11 +10,13 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @Binding var filterstring: String
-
+    @State private var filterstring: String = ""
     @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var selectedloguuids = Set<Log.ID>()
     @State private var reload: Bool = false
     @State private var hiddenID = -1
+    // Alert for delete
+    @State private var showAlertfordelete = false
 
     var logrecords: RsyncUIlogrecords
 
@@ -38,14 +40,28 @@ struct LogsbyConfigurationView: View {
                     }
                 }
 
-                Table(logdetails) {
-                    TableColumn("Date") { data in
-                        Text(data.date.localized_string_from_date())
-                    }
+                if hiddenID == -1 {
+                    Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
+                        TableColumn("Date") { data in
+                            Text(data.date.localized_string_from_date())
+                        }
 
-                    TableColumn("Result") { data in
-                        if let result = data.resultExecuted {
-                            Text(result)
+                        TableColumn("Result") { data in
+                            if let result = data.resultExecuted {
+                                Text(result)
+                            }
+                        }
+                    }
+                } else {
+                    Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [], selection: $selectedloguuids) {
+                        TableColumn("Date") { data in
+                            Text(data.date.localized_string_from_date())
+                        }
+
+                        TableColumn("Result") { data in
+                            if let result = data.resultExecuted {
+                                Text(result)
+                            }
                         }
                     }
                 }
@@ -55,17 +71,29 @@ struct LogsbyConfigurationView: View {
                 Text(numberoflogs)
 
                 Spacer()
+
+                Button("Reset") { selectedloguuids.removeAll() }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                Button("Delete") { showAlertfordelete = true }
+                    .buttonStyle(AbortButtonStyle())
+                    .sheet(isPresented: $showAlertfordelete) {
+                        DeleteLogsView(selecteduuids: $selectedloguuids,
+                                       selectedprofile: rsyncUIdata.profile,
+                                       logrecords: logrecords)
+                    }
             }
         }
-        .padding()
+        .searchable(text: $filterstring)
     }
 
     var numberoflogs: String {
-        NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\(logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count ?? 0)"
-    }
-
-    var logdetails: [Log] {
-        return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
+        if hiddenID == -1 {
+            return NSLocalizedString("Number of logs", comment: "") + ": " +
+                "\((logrecords.filterlogs(filterstring) ?? []).count)"
+        } else {
+            return NSLocalizedString("Number of logs", comment: "") + ": " +
+                "\((logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []).count)"
+        }
     }
 }
