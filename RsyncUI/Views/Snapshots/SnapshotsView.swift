@@ -36,37 +36,35 @@ struct SnapshotsView: View {
 
     var body: some View {
         ZStack {
-            ZStack {
-                HStack {
-                    ListofTasksLightView(
-                        selecteduuids: $selectedconfiguuid.onChange {
-                            let selected = rsyncUIdata.configurations?.filter { config in
-                                selectedconfiguuid.contains(config.id)
-                            }
-                            if (selected?.count ?? 0) == 1 {
-                                if let config = selected {
-                                    selectedconfig = config[0]
-                                    getdata()
-                                }
-                            } else {
-                                selectedconfig = nil
-                                snapshotdata.setsnapshotdata(nil)
-                            }
+            HStack {
+                ListofTasksLightView(
+                    selecteduuids: $selectedconfiguuid.onChange {
+                        let selected = rsyncUIdata.configurations?.filter { config in
+                            selectedconfiguuid.contains(config.id)
                         }
-                    )
+                        if (selected?.count ?? 0) == 1 {
+                            if let config = selected {
+                                selectedconfig = config[0]
+                                getdata()
+                            }
+                        } else {
+                            selectedconfig = nil
+                            snapshotdata.setsnapshotdata(nil)
+                        }
+                    }
+                )
 
-                    SnapshotListView(snapshotrecords: $snapshotrecords)
-                        .environmentObject(snapshotdata)
-                }
-
-                if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
-                if notsnapshot == true { notasnapshottask }
+                SnapshotListView(snapshotrecords: $snapshotrecords)
+                    .environmentObject(snapshotdata)
             }
 
-            if updated == true { notifyupdated }
-            if focustagsnapshot == true { labeltagsnapshot }
-            if focusaborttask { labelaborttask }
+            if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
+            if notsnapshot == true { notasnapshottask }
         }
+
+        if updated == true { notifyupdated }
+        if focustagsnapshot == true { labeltagsnapshot }
+        if focusaborttask { labelaborttask }
 
         HStack {
             Button("Save") { updateplansnapshot() }
