@@ -11,7 +11,7 @@ import Foundation
 class EstimateOnetaskAsync {
     var localconfigurations: RsyncUIconfigurations?
     var localhiddenID: Int?
-    weak var estimatingprogresscountDelegate: EstimateProgressDetails?
+    weak var estimatingprogresscountDelegate: InprogressCountEstimation?
 
     @MainActor
     func execute() async {
@@ -26,7 +26,7 @@ class EstimateOnetaskAsync {
     }
 
     init(configurations: RsyncUIconfigurations?,
-         updateinprogresscount: EstimateProgressDetails?,
+         updateinprogresscount: InprogressCountEstimation?,
          hiddenID: Int?)
     {
         localconfigurations = configurations

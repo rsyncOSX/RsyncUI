@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class EstimateProgressDetails {
+final class InprogressCountEstimation {
     var estimatedlist: [RemoteinfonumbersOnetask]?
     var tasksinprogresscount: Double = 0
     var max: Int = 0
