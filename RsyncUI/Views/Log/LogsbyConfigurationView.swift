@@ -27,16 +27,13 @@ struct LogsbyConfigurationView: View {
                     selecteduuids: $selecteduuids
                 )
                 .onChange(of: selecteduuids) {
-                    guard selecteduuids.count == 1 else {
-                        hiddenID = -1
-                        return
+                    let selected = rsyncUIdata.configurations?.filter { config in
+                        selecteduuids.contains(config.id)
                     }
-                    if let selected = rsyncUIdata.configurations?.filter({ $0.id == selecteduuids.first }) {
-                        guard selected.count == 1 else {
-                            hiddenID = -1
-                            return
+                    if (selected?.count ?? 0) == 1 {
+                        if let config = selected {
+                            hiddenID = config[0].hiddenID
                         }
-                        hiddenID = selected[0].hiddenID
                     }
                 }
 
