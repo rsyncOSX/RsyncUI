@@ -35,7 +35,7 @@ final class ExecuteMultipleTasks {
     weak var multipletasksateDelegate: MultipleTaskState?
     weak var estimatingprogresscountDelegate: EstimateProgressDetails?
     // In progress count each task
-    weak var progessdetailsDelegate: ExecuteProgressDetails?
+    weak var progressdetailsDelegate: ExecuteProgressDetails?
 
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
@@ -58,7 +58,7 @@ final class ExecuteMultipleTasks {
         guard (stackoftasktobeexecuted?.count ?? 0) > 0 else { return }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
-            progessdetailsDelegate?.hiddenIDatwork = hiddenID
+            progressdetailsDelegate?.hiddenIDatwork = hiddenID
             let estimation = ExecuteOneTask(hiddenID: hiddenID,
                                             configurations: localconfigurations,
                                             termination: processtermination,
@@ -89,7 +89,7 @@ final class ExecuteMultipleTasks {
         localconfigurations = configurations
         multipletasksateDelegate = executionstateDelegate
         estimatingprogresscountDelegate = updateinprogresscount
-        progessdetailsDelegate = progressdetails
+        progressdetailsDelegate = progressdetails
         guard uuids.count > 0 else { return }
         guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else { return }
         prepareandstartexecutetasks(configurations: localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) })
@@ -134,7 +134,7 @@ final class ExecuteMultipleTasks {
         }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
-            progessdetailsDelegate?.hiddenIDatwork = hiddenID
+            progressdetailsDelegate?.hiddenIDatwork = hiddenID
             let execution = ExecuteOneTask(hiddenID: hiddenID,
                                            configurations: localconfigurations,
                                            termination: processtermination,
@@ -144,7 +144,7 @@ final class ExecuteMultipleTasks {
     }
 
     func filehandler(count: Int) {
-        progessdetailsDelegate?.currenttaskprogress = Double(count)
+        progressdetailsDelegate?.currenttaskprogress = Double(count)
     }
 }
 

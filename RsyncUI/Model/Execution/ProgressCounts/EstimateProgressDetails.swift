@@ -11,7 +11,7 @@ import Observation
 @Observable
 final class EstimateProgressDetails {
     var estimatedlist: [RemoteinfonumbersOnetask]?
-    var tasknumbercount: Double = 0
+    var tasksinprogresscount: Double = 0
     var max: Int = 0
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
@@ -55,7 +55,7 @@ final class EstimateProgressDetails {
 
     func resetcounts() {
         numberofconfigurations = -1
-        tasknumbercount = 0
+        tasksinprogresscount = 0
         max = 0
         uuids.removeAll()
         estimatedlist = nil
@@ -68,7 +68,7 @@ final class EstimateProgressDetails {
     }
 
     func updatetasknumbercount(_ num: Double) {
-        tasknumbercount = num
+        tasksinprogresscount = num
     }
 
     func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {
