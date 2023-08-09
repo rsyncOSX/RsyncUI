@@ -112,51 +112,71 @@ struct TasksView: View {
         .sheet(isPresented: $modaleview) { makeSheet() }
         .toolbar(content: {
             ToolbarItem {
-                Button("Estimate") {
+                Button {
                     let action = ActionHolder(action: "Estimate",
                                               profile: rsyncUIdata.profile ?? "Default profile",
                                               source: "TasksView")
                     actions.addaction(action)
                     estimate()
+                } label: {
+                    Image(systemName: "wand.and.stars")
                 }
-                .tooltip("Shortcut ⌘E")
+                .tooltip("Estimate (⌘E)")
             }
 
             ToolbarItem {
-                Button("Execute") { execute() }
-                    .tooltip("Shortcut ⌘R")
+                Button {
+                    execute()
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.left.2")
+                }
+                .tooltip("Execute (⌘R)")
             }
 
             ToolbarItem {
-                Button("Reset") {
+                Button {
                     let action = ActionHolder(action: "Reset",
                                               profile: rsyncUIdata.profile ?? "Default profile",
                                               source: "TasksView")
                     actions.addaction(action)
                     selecteduuids.removeAll()
                     reset()
+                } label: {
+                    Image(systemName: "eraser")
                 }
                 .tooltip("Reset estimates")
             }
 
             ToolbarItem {
-                Button("List") {
+                Button {
                     sheetchooser.sheet = .alltasksview
                     modaleview = true
+                } label: {
+                    Image(systemName: "list.bullet")
                 }
                 .tooltip("List tasks all profiles")
             }
 
             ToolbarItem {
-                Button("Details") {
+                Button {
                     detailsestimatedtask()
+                } label: {
+                    Image(systemName: "info")
                 }
                 .tooltip("Rsync output estimated task")
             }
 
             ToolbarItem {
-                Button("Abort") { abort() }
-                    .tooltip("Shortcut ⌘A")
+                Spacer()
+            }
+
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘A)")
             }
         })
     }
