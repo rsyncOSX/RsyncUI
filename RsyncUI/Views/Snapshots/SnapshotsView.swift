@@ -59,11 +59,11 @@ struct SnapshotsView: View {
 
             if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
             if notsnapshot == true { notasnapshottask }
-
-            if updated == true { notifyupdated }
-            if focustagsnapshot == true { labeltagsnapshot }
-            if focusaborttask { labelaborttask }
         }
+
+        if updated == true { notifyupdated }
+        if focustagsnapshot == true { labeltagsnapshot }
+        if focusaborttask { labelaborttask }
 
         HStack {
             Button("Save") { updateplansnapshot() }
