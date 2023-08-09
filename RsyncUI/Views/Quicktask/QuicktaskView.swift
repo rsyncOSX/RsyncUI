@@ -107,24 +107,30 @@ struct QuicktaskView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .sheet(isPresented: $completed) { viewoutput }
-
-        VStack {
-            Spacer()
-
-            HStack {
-                Button("Execute") {
-                    getconfig()
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    getconfigandexecute()
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.left.2")
                 }
-                .buttonStyle(PrimaryButtonStyle())
-
-                Spacer()
-
-                Button("Abort") { abort() }
-                    .buttonStyle(AbortButtonStyle())
-                    .tooltip("Shortcut ⌘A")
+                .tooltip("Execute")
             }
-        }
-        .padding()
+
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘A)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+
+        })
     }
 
     var remoteuserpicker: some View {
@@ -281,7 +287,7 @@ extension QuicktaskView {
         remoteserver = ""
     }
 
-    func getconfig() {
+    func getconfigandexecute() {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
