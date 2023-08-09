@@ -56,16 +56,16 @@ struct QuicktaskView: View {
 
             // Column 1
             VStack(alignment: .leading) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .trailing) {
                     pickerselecttypeoftask
 
-                    HStack {
-                        ToggleViewDefault("--dry-run", $dryrun)
+                    Toggle("--dry-run", isOn: $dryrun)
+                        .toggleStyle(.switch)
 
-                        ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
-                    }
-                    .padding()
+                    Toggle("Don´t add /", isOn: $donotaddtrailingslash)
+                        .toggleStyle(.switch)
                 }
+                .padding()
 
                 VStack(alignment: .leading) {
                     if selectedrsynccommand == .synchronize {
