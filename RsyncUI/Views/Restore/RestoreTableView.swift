@@ -88,7 +88,7 @@ struct RestoreTableView: View {
 
             Button("Files") {
                 Task {
-                    guard filterstring.count > 0 else {
+                    guard filterstring.count > 0 || restore.filestorestore == "./." else {
                         nosearcstringalert = true
                         return
                     }
@@ -130,14 +130,14 @@ struct RestoreTableView: View {
     var nosearchstring: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Please add a search string")
+            Text("Either select a task\n or add a search string")
                 .font(.title3)
                 .foregroundColor(Color.accentColor)
         }
-        .frame(width: 220, height: 20, alignment: .center)
+        .frame(width: 220, height: 40, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 nosearcstringalert = false
             }
         }
