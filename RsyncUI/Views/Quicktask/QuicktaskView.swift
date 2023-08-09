@@ -56,16 +56,16 @@ struct QuicktaskView: View {
 
             // Column 1
             VStack(alignment: .leading) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .trailing) {
                     pickerselecttypeoftask
 
-                    HStack {
-                        ToggleViewDefault("--dry-run", $dryrun)
+                    Toggle("--dry-run", isOn: $dryrun)
+                        .toggleStyle(.switch)
 
-                        ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
-                    }
-                    .padding()
+                    Toggle("Don´t add /", isOn: $donotaddtrailingslash)
+                        .toggleStyle(.switch)
                 }
+                .padding()
 
                 VStack(alignment: .leading) {
                     if selectedrsynccommand == .synchronize {
@@ -107,23 +107,25 @@ struct QuicktaskView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .sheet(isPresented: $completed) { viewoutput }
-
-        VStack {
-            Spacer()
-
-            HStack {
-                Button("Execute") {
-                    getconfig()
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    getconfigandexecute()
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.left.2")
                 }
-                .buttonStyle(PrimaryButtonStyle())
-
-                Spacer()
-
-                Button("Abort") { abort() }
-                    .buttonStyle(AbortButtonStyle())
-                    .tooltip("Shortcut ⌘A")
+                .tooltip("Execute")
             }
-        }
+
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+            }
+        })
+
         .padding()
     }
 
@@ -279,7 +281,7 @@ extension QuicktaskView {
         remoteserver = ""
     }
 
-    func getconfig() {
+    func getconfigandexecute() {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
