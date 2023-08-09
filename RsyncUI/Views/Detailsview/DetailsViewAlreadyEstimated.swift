@@ -182,7 +182,7 @@ struct DetailsViewAlreadyEstimated: View {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "return")
+                    Image(systemName: "xmark.circle")
                 }
                 .tooltip("Dismiss")
             }
