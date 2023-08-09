@@ -125,7 +125,6 @@ struct QuicktaskView: View {
                 }
             }
         })
-
         .padding()
     }
 

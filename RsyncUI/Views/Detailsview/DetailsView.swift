@@ -176,15 +176,6 @@ struct DetailsView: View {
 
                 if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
             }
-
-            Spacer()
-
-            HStack {
-                Spacer()
-
-                Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
-            }
         }
         .onAppear(perform: {
             let arguments = ArgumentsSynchronize(config: selectedconfig)
@@ -198,6 +189,20 @@ struct DetailsView: View {
         })
         .padding()
         .frame(minWidth: 900, minHeight: 500)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "return")
+                }
+                .tooltip("Dismiss")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
     }
 }
 

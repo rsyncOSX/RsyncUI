@@ -36,5 +36,19 @@ struct OutputRsyncView: View {
         .onAppear {
             outputfromrsync.generatedata(output)
         }
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "return")
+                }
+                .tooltip("Dismiss")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
     }
 }
