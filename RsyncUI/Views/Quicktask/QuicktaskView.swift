@@ -114,7 +114,7 @@ struct QuicktaskView: View {
                 } label: {
                     Image(systemName: "arrowshape.turn.up.left.2")
                 }
-                .tooltip("Execute")
+                .tooltip("Execute Quicktask")
             }
 
             ToolbarItem {
@@ -123,6 +123,11 @@ struct QuicktaskView: View {
                 } label: {
                     Image(systemName: "stop.fill")
                 }
+                .tooltip("Abort (⌘A)")
+            }
+
+            ToolbarItem {
+                Spacer()
             }
         })
         .padding()

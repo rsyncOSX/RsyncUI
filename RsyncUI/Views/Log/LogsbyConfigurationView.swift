@@ -83,7 +83,7 @@ struct LogsbyConfigurationView: View {
                 } label: {
                     Image(systemName: "eraser")
                 }
-                .tooltip("Execute")
+                .tooltip("Reset selections")
             }
 
             ToolbarItem {
@@ -92,7 +92,7 @@ struct LogsbyConfigurationView: View {
                 } label: {
                     Image(systemName: "trash")
                 }
-                .tooltip("Delete (⌘D)")
+                .tooltip("Delete selected logs (⌘D)")
             }
         })
         .sheet(isPresented: $showAlertfordelete) {

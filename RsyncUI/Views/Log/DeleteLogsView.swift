@@ -17,19 +17,26 @@ struct DeleteLogsView: View {
     var body: some View {
         VStack {
             header
-
-            Spacer()
-
-            HStack {
-                Button("Delete") { delete() }
-                    .buttonStyle(AbortButtonStyle())
-
-                Button("Cancel") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
-            }
-            .padding()
         }
-        .padding()
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    delete()
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .tooltip("Delete selected logs")
+            }
+
+            ToolbarItem {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle")
+                }
+                .tooltip("Dismiss")
+            }
+        })
     }
 
     var header: some View {
