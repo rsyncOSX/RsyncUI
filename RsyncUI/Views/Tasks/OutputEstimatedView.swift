@@ -77,24 +77,34 @@ struct OutputEstimatedView: View {
                     .width(max: 70)
                 }
             }
-
-            Spacer()
-
-            HStack {
-                Spacer()
-
-                Button("Execute") {
-                    execute = true
-                    dismiss()
-                }
-                .buttonStyle(PrimaryButtonStyle())
-
-                Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
-            }
         }
         .padding()
         .frame(minWidth: 1250, minHeight: 400)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    execute = true
+                    dismiss()
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.left.2")
+                }
+                .tooltip("Execute")
+            }
+
+            ToolbarItem {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "return")
+                }
+                .tooltip("Dismiss")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+
+        })
     }
 
     var headingtitle: some View {
