@@ -95,58 +95,6 @@ struct TasksView: View {
                 if doubleclick { doubleclickaction }
             }
         }
-
-        Spacer()
-
-        HStack {
-            VStack(alignment: .center) {
-                HStack {
-                    Button("Estimate") {
-                        let action = ActionHolder(action: "Estimate",
-                                                  profile: rsyncUIdata.profile ?? "Default profile",
-                                                  source: "TasksView")
-                        actions.addaction(action)
-                        estimate()
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .tooltip("Shortcut ⌘E")
-
-                    Button("Execute") { execute() }
-                        .buttonStyle(PrimaryButtonStyle())
-                        .tooltip("Shortcut ⌘R")
-
-                    Button("Reset") {
-                        let action = ActionHolder(action: "Reset",
-                                                  profile: rsyncUIdata.profile ?? "Default profile",
-                                                  source: "TasksView")
-                        actions.addaction(action)
-                        selecteduuids.removeAll()
-                        reset()
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .tooltip("Reset estimates")
-
-                    Button("List") {
-                        sheetchooser.sheet = .alltasksview
-                        modaleview = true
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .tooltip("List tasks all profiles")
-
-                    Button("Details") {
-                        detailsestimatedtask()
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
-                    .tooltip("Rsync output estimated task")
-                }
-            }
-
-            Spacer()
-
-            Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
-                .tooltip("Shortcut ⌘A")
-        }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
@@ -162,6 +110,55 @@ struct TasksView: View {
             }
         }
         .sheet(isPresented: $modaleview) { makeSheet() }
+        .toolbar(content: {
+            ToolbarItem {
+                Button("Estimate") {
+                    let action = ActionHolder(action: "Estimate",
+                                              profile: rsyncUIdata.profile ?? "Default profile",
+                                              source: "TasksView")
+                    actions.addaction(action)
+                    estimate()
+                }
+                .tooltip("Shortcut ⌘E")
+            }
+
+            ToolbarItem {
+                Button("Execute") { execute() }
+                    .tooltip("Shortcut ⌘R")
+            }
+
+            ToolbarItem {
+                Button("Reset") {
+                    let action = ActionHolder(action: "Reset",
+                                              profile: rsyncUIdata.profile ?? "Default profile",
+                                              source: "TasksView")
+                    actions.addaction(action)
+                    selecteduuids.removeAll()
+                    reset()
+                }
+                .tooltip("Reset estimates")
+            }
+
+            ToolbarItem {
+                Button("List") {
+                    sheetchooser.sheet = .alltasksview
+                    modaleview = true
+                }
+                .tooltip("List tasks all profiles")
+            }
+
+            ToolbarItem {
+                Button("Details") {
+                    detailsestimatedtask()
+                }
+                .tooltip("Rsync output estimated task")
+            }
+
+            ToolbarItem {
+                Button("Abort") { abort() }
+                    .tooltip("Shortcut ⌘A")
+            }
+        })
     }
 
     @ViewBuilder
