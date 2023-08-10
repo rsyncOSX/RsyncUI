@@ -358,7 +358,9 @@ extension TasksView {
                                       source: "DetailsView")
             actions.addaction(action)
             sheetchooser.sheet = .dryrunonetask
-        } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
+        } else if selectedconfig.config != nil,
+                  estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
+        {
             // Profile is changed, new task selected
             // DryRun: profile is changed, new task selected, execute a dryrun
             let action = ActionHolder(action: "DryRun: profile is changed, new task selected, execute a dryrun",
