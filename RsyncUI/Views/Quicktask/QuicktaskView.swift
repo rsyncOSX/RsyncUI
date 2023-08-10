@@ -34,6 +34,7 @@ struct QuicktaskView: View {
     @State private var valueselectedrow: String = ""
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
+    @State private var focusstartexecution: Bool = false
     // Completed task
     @State private var completed: Bool = false
 
@@ -86,6 +87,7 @@ struct QuicktaskView: View {
 
             if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
+            if focusstartexecution { labelstartexecution }
         }
         .onSubmit {
             switch focusField {
@@ -106,15 +108,16 @@ struct QuicktaskView: View {
             focusField = .localcatalogField
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .focusedSceneValue(\.startexecution, $focusstartexecution)
         .sheet(isPresented: $completed) { viewoutput }
         .toolbar(content: {
             ToolbarItem {
                 Button {
                     getconfigandexecute()
                 } label: {
-                    Image(systemName: "arrowshape.turn.up.left.2")
+                    Image(systemName: "arrowshape.turn.up.backward")
                 }
-                .tooltip("Execute Quicktask")
+                .tooltip("Execute (⌘R)")
             }
 
             ToolbarItem {
@@ -178,6 +181,14 @@ struct QuicktaskView: View {
             .onAppear(perform: {
                 focusaborttask = false
                 abort()
+            })
+    }
+
+    var labelstartexecution: some View {
+        Label("", systemImage: "play.fill")
+            .foregroundColor(.black)
+            .onAppear(perform: {
+                getconfigandexecute()
             })
     }
 

@@ -93,6 +93,13 @@ struct TasksView: View {
                 if estimatingprogresscount.estimateasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
+
+            if #unavailable(macOS 13) {
+                Spacer()
+
+                Button("DryRun") { dryrun() }
+                    .buttonStyle(PrimaryButtonStyle())
+            }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
@@ -127,7 +134,7 @@ struct TasksView: View {
                 Button {
                     execute()
                 } label: {
-                    Image(systemName: "arrowshape.turn.up.left.2")
+                    Image(systemName: "arrowshape.turn.up.backward")
                 }
                 .tooltip("Execute (⌘R)")
             }
