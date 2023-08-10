@@ -80,7 +80,17 @@ struct OutputEstimatedView: View {
         .padding()
         .frame(minWidth: 1250, minHeight: 400)
         .toolbar(content: {
+
             ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle")
+                }
+                .tooltip("Dismiss")
+            }
+            
+            ToolbarItem(placement: .primaryAction) {
                 Button {
                     execute = true
                     dismiss()
@@ -88,15 +98,6 @@ struct OutputEstimatedView: View {
                     Image(systemName: "arrowshape.turn.up.backward")
                 }
                 .tooltip("Execute")
-            }
-
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle")
-                }
-                .tooltip("Dismiss")
             }
         })
     }
