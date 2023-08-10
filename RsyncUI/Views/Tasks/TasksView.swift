@@ -119,10 +119,6 @@ struct TasksView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    let action = ActionHolder(action: "Estimate",
-                                              profile: rsyncUIdata.profile ?? "Default profile",
-                                              source: "TasksView")
-                    actions.addaction(action)
                     estimate()
                 } label: {
                     Image(systemName: "wand.and.stars")
@@ -402,6 +398,10 @@ extension TasksView {
     }
 
     func estimate() {
+        let action = ActionHolder(action: "Estimate",
+                                  profile: rsyncUIdata.profile ?? "Default profile",
+                                  source: "TasksView")
+        actions.addaction(action)
         if selectedconfig.config != nil {
             let profile = selectedconfig.config?.profile ?? "Default profile"
             if profile != rsyncUIdata.profile {
