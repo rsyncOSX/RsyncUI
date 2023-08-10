@@ -85,7 +85,7 @@ struct OutputEstimatedView: View {
                     execute = true
                     dismiss()
                 } label: {
-                    Image(systemName: "arrowshape.turn.up.left.2")
+                    Image(systemName: "arrowshape.turn.up.backward")
                 }
                 .tooltip("Execute")
             }
