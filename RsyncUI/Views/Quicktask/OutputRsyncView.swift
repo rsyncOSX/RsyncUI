@@ -28,7 +28,7 @@ struct OutputRsyncView: View {
             outputfromrsync.generatedata(output)
         }
         .toolbar(content: {
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItem(placement: .cancellationAction) {
                 Button {
                     dismiss()
                 } label: {
