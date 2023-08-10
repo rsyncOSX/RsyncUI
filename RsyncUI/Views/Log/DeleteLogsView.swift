@@ -21,20 +21,20 @@ struct DeleteLogsView: View {
         .toolbar(content: {
             ToolbarItem(placement: .cancellationAction) {
                 Button {
-                    delete()
-                } label: {
-                    Image(systemName: "trash")
-                }
-                .tooltip("Delete selected logs")
-            }
-
-            ToolbarItem(placement: .primaryAction) {
-                Button {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark.circle")
                 }
                 .tooltip("Dismiss")
+            }
+
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    delete()
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .tooltip("Delete selected logs")
             }
         })
     }
