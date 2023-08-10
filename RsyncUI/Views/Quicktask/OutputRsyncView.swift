@@ -21,15 +21,6 @@ struct OutputRsyncView: View {
                 }
                 .width(min: 700)
             }
-
-            Spacer()
-
-            HStack {
-                Spacer()
-
-                Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
-            }
         }
         .padding()
         .frame(minWidth: 800, minHeight: 600)
@@ -37,7 +28,7 @@ struct OutputRsyncView: View {
             outputfromrsync.generatedata(output)
         }
         .toolbar(content: {
-            ToolbarItem(placement: .cancellationAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Button {
                     dismiss()
                 } label: {
