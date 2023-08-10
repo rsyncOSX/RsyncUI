@@ -72,6 +72,8 @@ struct LogsbyConfigurationView: View {
 
             HStack {
                 Text(numberoflogs)
+
+                Spacer()
             }
         }
         .searchable(text: $filterstring)

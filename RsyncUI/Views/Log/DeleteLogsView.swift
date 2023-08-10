@@ -19,7 +19,7 @@ struct DeleteLogsView: View {
             header
         }
         .toolbar(content: {
-            ToolbarItem {
+            ToolbarItem(placement: .cancellationAction) {
                 Button {
                     delete()
                 } label: {
@@ -28,7 +28,7 @@ struct DeleteLogsView: View {
                 .tooltip("Delete selected logs")
             }
 
-            ToolbarItem {
+            ToolbarItem(placement: .primaryAction) {
                 Button {
                     dismiss()
                 } label: {

@@ -178,17 +178,13 @@ struct DetailsViewAlreadyEstimated: View {
             }
         }
         .toolbar(content: {
-            ToolbarItem {
+            ToolbarItem(placement: .cancellationAction) {
                 Button {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark.circle")
                 }
                 .tooltip("Dismiss")
-            }
-
-            ToolbarItem {
-                Spacer()
             }
         })
     }

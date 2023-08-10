@@ -37,17 +37,13 @@ struct OutputRsyncView: View {
             outputfromrsync.generatedata(output)
         }
         .toolbar(content: {
-            ToolbarItem {
+            ToolbarItem(placement: .cancellationAction) {
                 Button {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark.circle")
                 }
                 .tooltip("Dismiss")
-            }
-
-            ToolbarItem {
-                Spacer()
             }
         })
     }

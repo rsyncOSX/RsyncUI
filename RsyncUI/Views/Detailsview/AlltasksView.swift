@@ -52,19 +52,19 @@ struct AlltasksView: View {
                 TableColumn("Server", value: \.offsiteServer)
                     .width(max: 70)
             }
-            .frame(minWidth: 850, minHeight: 500, alignment: .center)
-
-            Spacer()
-
-            HStack {
-                Spacer()
-
-                Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
-            }
         }
         .padding()
         .frame(minWidth: 900, minHeight: 500)
+        .toolbar(content: {
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle")
+                }
+                .tooltip("Dismiss")
+            }
+        })
     }
 
     var data: [Configuration] {

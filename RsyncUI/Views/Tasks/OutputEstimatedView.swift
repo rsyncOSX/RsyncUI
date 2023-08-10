@@ -80,7 +80,7 @@ struct OutputEstimatedView: View {
         .padding()
         .frame(minWidth: 1250, minHeight: 400)
         .toolbar(content: {
-            ToolbarItem {
+            ToolbarItem(placement: .cancellationAction) {
                 Button {
                     execute = true
                     dismiss()
@@ -90,7 +90,7 @@ struct OutputEstimatedView: View {
                 .tooltip("Execute")
             }
 
-            ToolbarItem {
+            ToolbarItem(placement: .primaryAction) {
                 Button {
                     dismiss()
                 } label: {
@@ -98,11 +98,6 @@ struct OutputEstimatedView: View {
                 }
                 .tooltip("Dismiss")
             }
-
-            ToolbarItem {
-                Spacer()
-            }
-
         })
     }
 
