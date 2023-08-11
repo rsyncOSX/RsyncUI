@@ -38,6 +38,9 @@ struct AbortButtonStyle: ButtonStyle {
 extension Color {
     static let offWhite = Color(red: 225 / 255, green: 225 / 255, blue: 235 / 255)
 
+    static let redStart = Color(red: 50 / 255, green: 60 / 255, blue: 65 / 255)
+    static let redEnd = Color(red: 25 / 255, green: 25 / 255, blue: 30 / 255)
+
     static let darkStart = Color(red: 50 / 255, green: 60 / 255, blue: 65 / 255)
     static let darkEnd = Color(red: 25 / 255, green: 25 / 255, blue: 30 / 255)
 
@@ -97,6 +100,29 @@ struct ColorfulBackground<S: Shape>: View {
     }
 }
 
+struct RedBackground<S: Shape>: View {
+    var isHighlighted: Bool
+    var shape: S
+
+    var body: some View {
+        ZStack {
+            if isHighlighted {
+                shape
+                    .fill(LinearGradient(Color.lightEnd, Color.lightStart))
+                    .overlay(shape.stroke(LinearGradient(Color.lightStart, Color.lightEnd), lineWidth: 2))
+                    .shadow(color: Color.darkStart, radius: 2, x: 1, y: 1)
+                    .shadow(color: Color.darkEnd, radius: 2, x: -1, y: -1)
+            } else {
+                shape
+                    .fill(LinearGradient(Color.darkStart, Color.darkEnd))
+                    .overlay(shape.stroke(LinearGradient(Color.lightStart, Color.lightEnd), lineWidth: 2))
+                    .shadow(color: Color.darkStart, radius: 2, x: -1, y: -1)
+                    .shadow(color: Color.darkEnd, radius: 2, x: 1, y: 1)
+            }
+        }
+    }
+}
+
 struct DarkButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
@@ -114,9 +140,21 @@ struct ColorfulButtonStyle: ButtonStyle {
         configuration.label
             .foregroundColor(.white)
             .padding(8)
-            .contentShape(Circle())
+            .contentShape(Capsule())
             .background(
                 ColorfulBackground(isHighlighted: configuration.isPressed, shape: Capsule())
+            )
+    }
+}
+
+struct RedButtonStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.white)
+            .padding(8)
+            .contentShape(Capsule())
+            .background(
+                RedBackground(isHighlighted: configuration.isPressed, shape: Capsule())
             )
     }
 }

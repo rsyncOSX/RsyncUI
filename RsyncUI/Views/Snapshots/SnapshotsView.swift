@@ -93,10 +93,10 @@ struct SnapshotsView: View {
                                            snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
                         .onDisappear { delete() }
                 }
-                .buttonStyle(AbortButtonStyle())
+                .buttonStyle(RedButtonStyle())
 
             Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
+                .buttonStyle(RedButtonStyle())
         }
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
