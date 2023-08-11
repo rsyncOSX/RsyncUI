@@ -21,21 +21,31 @@ struct OutputRsyncView: View {
                 }
                 .width(min: 700)
             }
+            Spacer()
+
+            HStack {
+                Spacer()
+
+                Button("Dismiss") { dismiss() }
+                    .buttonStyle(ColorfulButtonStyle())
+            }
         }
         .padding()
         .frame(minWidth: 800, minHeight: 600)
         .onAppear {
             outputfromrsync.generatedata(output)
         }
-        .toolbar(content: {
-            ToolbarItem(placement: .cancellationAction) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle")
-                }
-                .tooltip("Dismiss")
-            }
-        })
+        /*
+         .toolbar(content: {
+             ToolbarItem(placement: .cancellationAction) {
+                 Button {
+                     dismiss()
+                 } label: {
+                     Image(systemName: "xmark.circle")
+                 }
+                 .tooltip("Dismiss")
+             }
+         })
+          */
     }
 }

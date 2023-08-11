@@ -168,6 +168,15 @@ struct DetailsViewAlreadyEstimated: View {
                 }
                 .width(min: 800)
             }
+
+            Spacer()
+
+            HStack {
+                Spacer()
+
+                Button("Dismiss") { dismiss() }
+                    .buttonStyle(ColorfulButtonStyle())
+            }
         }
         .padding()
         .frame(minWidth: 900, minHeight: 500)
@@ -177,16 +186,18 @@ struct DetailsViewAlreadyEstimated: View {
                 outputfromrsync.generatedata(output[0].outputfromrsync)
             }
         }
-        .toolbar(content: {
-            ToolbarItem(placement: .cancellationAction) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle")
-                }
-                .tooltip("Dismiss")
-            }
-        })
+        /*
+         .toolbar(content: {
+             ToolbarItem(placement: .cancellationAction) {
+                 Button {
+                     dismiss()
+                 } label: {
+                     Image(systemName: "xmark.circle")
+                 }
+                 .tooltip("Dismiss")
+             }
+         })
+          */
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {
