@@ -59,7 +59,7 @@ struct DeleteLogsView: View {
                 + " \(selecteduuids.count) "
                 + "log(s)?"
             Text(message)
-                .modifier(Tagheading(.title2, .center))
+                .font(.title2)
         }
         .padding()
     }

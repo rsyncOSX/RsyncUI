@@ -43,7 +43,7 @@ struct ConfirmDeleteSnapshots: View {
                 + "snapshot(s)"
                 + "?"
             Text(message)
-                .modifier(Tagheading(.title2, .center))
+                .font(.title2)
         }
         .padding()
     }

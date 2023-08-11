@@ -163,7 +163,6 @@ struct SnapshotsView: View {
         ProgressView("",
                      value: Double(snapshotdata.remainingsnapshotstodelete),
                      total: Double(snapshotdata.maxnumbertodelete))
-            .progressViewStyle(GaugeProgressStyle())
             .frame(width: 25.0, height: 25.0)
             .contentShape(Rectangle())
             .onDisappear(perform: {
