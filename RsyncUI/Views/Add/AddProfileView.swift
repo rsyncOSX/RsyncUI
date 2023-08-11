@@ -64,7 +64,7 @@ struct AddProfileView: View {
                 .buttonStyle(ColorfulButtonStyle())
 
             Button("Delete") { newdata.showAlertfordelete = true }
-                .buttonStyle(AbortButtonStyle())
+                .buttonStyle(ColorfulRedButtonStyle())
                 .sheet(isPresented: $newdata.showAlertfordelete) {
                     ConfirmDeleteProfileView(delete: $newdata.confirmdeleteselectedprofile,
                                              profile: $rsyncUIdata.profile)

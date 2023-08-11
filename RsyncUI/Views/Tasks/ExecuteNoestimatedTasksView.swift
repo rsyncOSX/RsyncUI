@@ -40,7 +40,7 @@ struct ExecuteNoestimatedTasksView: View {
             Spacer()
 
             Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
+                .buttonStyle(ColorfulRedButtonStyle())
         }
         .onAppear(perform: {
             Task {

@@ -113,7 +113,7 @@ struct RestoreTableView: View {
             .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
 
             Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
+                .buttonStyle(ColorfulRedButtonStyle())
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
     }

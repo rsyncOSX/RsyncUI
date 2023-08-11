@@ -23,7 +23,7 @@ struct ConfirmDeleteSnapshots: View {
                     delete = true
                     dismiss()
                 }
-                .buttonStyle(AbortButtonStyle())
+                .buttonStyle(ColorfulRedButtonStyle())
 
                 Button("Cancel") {
                     delete = false
