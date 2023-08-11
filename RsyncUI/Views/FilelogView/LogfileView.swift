@@ -65,8 +65,10 @@ struct LogfileView: View {
                 Toggle("Actions", isOn: $showactions)
                     .toggleStyle(.switch)
 
-                Button("Reset") { reset() }
-                    .buttonStyle(ColorfulButtonStyle())
+                if showactions == false {
+                    Button("Reset") { reset() }
+                        .buttonStyle(ColorfulButtonStyle())
+                }
 
                 Button("Dismiss") { dismiss() }
                     .buttonStyle(ColorfulButtonStyle())
