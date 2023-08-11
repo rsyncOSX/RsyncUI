@@ -112,10 +112,10 @@ struct Usersettings: View {
 
                 // Backup configuration files
                 Button("Backup") { backupuserconfigs() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                 Button("Save") { saveusersettings() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .lineSpacing(2)

@@ -66,10 +66,10 @@ struct LogfileView: View {
                     .toggleStyle(.switch)
 
                 Button("Reset") { reset() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                 Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()

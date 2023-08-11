@@ -76,7 +76,26 @@ struct OutputEstimatedView: View {
                     .width(max: 70)
                 }
             }
+            Spacer()
+
+            HStack {
+                Spacer()
+
+                Button("Execute") {
+                    execute = true
+                    dismiss()
+                }
+                .buttonStyle(ColorfulButtonStyle())
+
+                Button("Dismiss") { dismiss() }
+                    .buttonStyle(ColorfulButtonStyle())
+            }
         }
+        .padding()
+        .frame(minWidth: 1250, minHeight: 400)
+    }
+
+    /*
         .padding()
         .frame(minWidth: 1250, minHeight: 400)
         .toolbar(content: {
@@ -99,7 +118,7 @@ struct OutputEstimatedView: View {
                 .tooltip("Execute")
             }
         })
-    }
+     */
 
     var headingtitle: some View {
         Text("Estimated tasks")

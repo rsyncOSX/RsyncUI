@@ -44,7 +44,7 @@ struct AddProfileView: View {
 
                     HStack {
                         Button("Create") { createprofile() }
-                            .buttonStyle(PrimaryButtonStyle())
+                            .buttonStyle(ColorfulButtonStyle())
 
                         EditValue(150, NSLocalizedString("Create profile", comment: ""),
                                   $newdata.newprofile)
@@ -61,7 +61,7 @@ struct AddProfileView: View {
             Spacer()
 
             Button("Dismiss") { dismiss() }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
 
             Button("Delete") { newdata.showAlertfordelete = true }
                 .buttonStyle(AbortButtonStyle())

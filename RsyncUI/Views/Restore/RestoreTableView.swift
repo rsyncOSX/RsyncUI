@@ -93,7 +93,7 @@ struct RestoreTableView: View {
                     }
                 }
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(ColorfulButtonStyle())
 
             Button("Restore") {
                 Task {
@@ -102,14 +102,14 @@ struct RestoreTableView: View {
                     }
                 }
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(ColorfulButtonStyle())
 
             Button("Log") {
                 guard SharedReference.shared.process == nil else { return }
                 guard restore.selectedconfig != nil else { return }
                 restore.presentsheetrsync = true
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(ColorfulButtonStyle())
             .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
 
             Button("Abort") { abort() }

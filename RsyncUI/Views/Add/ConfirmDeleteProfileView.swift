@@ -29,7 +29,7 @@ struct ConfirmDeleteProfileView: View {
                     delete = false
                     dismiss()
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
             }
             .padding()
         }

@@ -98,7 +98,7 @@ struct TasksView: View {
                 Spacer()
 
                 Button("DryRun") { dryrun() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)

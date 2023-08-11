@@ -68,7 +68,7 @@ struct SnapshotsView: View {
 
         HStack {
             Button("Save") { updateplansnapshot() }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
 
             VStack(alignment: .leading) {
                 pickersnaplast
