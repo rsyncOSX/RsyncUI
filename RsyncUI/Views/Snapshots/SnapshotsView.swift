@@ -60,6 +60,7 @@ struct SnapshotsView: View {
 
             if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
             if notsnapshot == true { notasnapshottask }
+            if snapshotdata.inprogressofdelete == true { progressdelete }
         }
 
         if updated == true { notifyupdated }
@@ -80,10 +81,6 @@ struct SnapshotsView: View {
 
             Spacer()
 
-            Group {
-                if snapshotdata.inprogressofdelete == true { progressdelete }
-                if snapshotdata.state == .getdata { AlertToast(displayMode: .alert, type: .loading) }
-            }
             /*
                         Spacer()
 
@@ -192,8 +189,7 @@ struct SnapshotsView: View {
         ProgressView("",
                      value: Double(snapshotdata.remainingsnapshotstodelete),
                      total: Double(snapshotdata.maxnumbertodelete))
-            .frame(width: 25.0, height: 25.0)
-            .contentShape(Rectangle())
+            .frame(width: 100, alignment: .center)
             .onDisappear(perform: {
                 getdata()
             })
