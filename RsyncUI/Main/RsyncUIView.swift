@@ -165,7 +165,7 @@ extension View {
 
     func notifymessage(_ text: String) -> some View {
         Text(text)
-            .font(.title3)
+            .font(.title2)
             .foregroundColor(Color.blue)
     }
 }

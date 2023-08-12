@@ -84,22 +84,46 @@ struct SnapshotsView: View {
                 if snapshotdata.inprogressofdelete == true { progressdelete }
                 if snapshotdata.state == .getdata { AlertToast(displayMode: .alert, type: .loading) }
             }
+            /*
+                        Spacer()
 
-            Spacer()
+                        Button("Delete") { showAlertfordelete = true }
+                            .sheet(isPresented: $showAlertfordelete) {
+                                ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
+                                                       snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
+                                    .onDisappear { delete() }
+                            }
+                            .buttonStyle(ColorfulRedButtonStyle())
 
-            Button("Delete") { showAlertfordelete = true }
-                .sheet(isPresented: $showAlertfordelete) {
-                    ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
-                                           snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
-                        .onDisappear { delete() }
-                }
-                .buttonStyle(ColorfulRedButtonStyle())
-
-            Button("Abort") { abort() }
-                .buttonStyle(ColorfulRedButtonStyle())
+                        Button("Abort") { abort() }
+                            .buttonStyle(ColorfulRedButtonStyle())
+             */
         }
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    delete()
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .tooltip("Delete snapshots")
+            }
+
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘A)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
     }
 
     var labelnumberoflogs: some View {
