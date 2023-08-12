@@ -36,18 +36,34 @@ struct ExecuteNoestimatedTasksView: View {
             if estimatingprogresscount.executeasyncnoestimationcompleted == true { labelcompleted }
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
         }
-        HStack {
-            Spacer()
+        /*
+         HStack {
+             Spacer()
 
-            Button("Abort") { abort() }
-                .buttonStyle(ColorfulRedButtonStyle())
-        }
+             Button("Abort") { abort() }
+                 .buttonStyle(ColorfulRedButtonStyle())
+         }
+          */
         .onAppear(perform: {
             Task {
                 await executeallnotestimatedtasks()
             }
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
     }
 
     // When status execution is .completed, present label and execute completed.
