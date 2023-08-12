@@ -18,6 +18,8 @@ struct RestoreTableView: View {
     @State private var filterstring: String = ""
     @State private var nosearcstringalert: Bool = false
 
+    @State private var focusaborttask: Bool = false
+
     var body: some View {
         VStack {
             ZStack {
@@ -56,6 +58,7 @@ struct RestoreTableView: View {
                 if showrestorecommand { showcommand }
                 if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
                 if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
+                if focusaborttask { labelaborttask }
             }
         }
 
@@ -111,11 +114,35 @@ struct RestoreTableView: View {
             }
             .buttonStyle(ColorfulButtonStyle())
             .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
-
-            Button("Abort") { abort() }
-                .buttonStyle(ColorfulRedButtonStyle())
+            /*
+             Button("Abort") { abort() }
+                 .buttonStyle(ColorfulRedButtonStyle())
+              */
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
+        .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
+            })
     }
 
     var nosearchstring: some View {
