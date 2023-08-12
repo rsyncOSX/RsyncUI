@@ -65,16 +65,10 @@
 "Add tasks" = "Aufgaben hinzufügen";
 
 /* No comment provided by engineer. */
-"All logs" = "Alle Protokolle";
-
-/* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
 "Backup" = "Sichern";
-
-/* No comment provided by engineer. */
-"By task" = "Nach Aufgabe";
 
 /* No comment provided by engineer. */
 "Bytes" = "Bytes";
@@ -87,6 +81,9 @@
 
 /* No comment provided by engineer. */
 "Changelog" = "Änderungsprotokoll";
+
+/* No comment provided by engineer. */
+"Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
 
 /* No comment provided by engineer. */
 "Command" = "Befehl";
@@ -143,6 +140,9 @@
 "DryRun" = "DryRun";
 
 /* No comment provided by engineer. */
+"Either select a task\n or add a search string" = "Wählen Sie entweder eine Aufgabe aus oder fügen Sie eine Suchzeichenfolge hinzu";
+
+/* No comment provided by engineer. */
 "Enable" = "Aktivieren";
 
 /* No comment provided by engineer. */
@@ -158,10 +158,16 @@
 "Estimate" = "Schätzung";
 
 /* No comment provided by engineer. */
+"Estimated" = "Geschätzt";
+
+/* No comment provided by engineer. */
 "Estimated tasks" = "Geschätzte Aufgaben";
 
 /* No comment provided by engineer. */
 "Execute" = "Ausführen";
+
+/* No comment provided by engineer. */
+"Filenames" = "Filnamen";
 
 /* No comment provided by engineer. */
 "Files" = "Dateien";
@@ -213,9 +219,6 @@
 
 /* No comment provided by engineer. */
 "Linux" = "Linux";
-
-/* No comment provided by engineer. */
-"List" = "List";
 
 /* No comment provided by engineer. */
 "Local catalog" = "Lokaler Katalog";
@@ -275,6 +278,9 @@
 "Not a snapshot task" = "Keine Snapshot-Aufgabe";
 
 /* No comment provided by engineer. */
+"Not verified" = "Nicht verifiziert";
+
+/* No comment provided by engineer. */
 "Num" = "Num";
 
 /* No comment provided by engineer. */
@@ -303,9 +309,6 @@
 
 /* No comment provided by engineer. */
 "Path for restore" = "Pfad zum Wiederherstellen";
-
-/* No comment provided by engineer. */
-"Please add a search string" = "Bitte fügen Sie eine Suchzeichenfolge hinzu";
 
 /* No comment provided by engineer. */
 "Please read and understand the information below. There is more info" = "Bitte lesen und verstehen Sie die nachstehenden Informationen. Es gibt mehr Informationen";
@@ -465,4 +468,7 @@
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Willkommen bei RsyncUI";
+
+/* No comment provided by engineer. */
+"Where" = "Wo";
 

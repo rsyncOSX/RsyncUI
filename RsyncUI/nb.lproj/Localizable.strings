@@ -65,16 +65,10 @@
 "Add tasks" = "Legg til oppgaver";
 
 /* No comment provided by engineer. */
-"All logs" = "Alle logger";
-
-/* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
 "Backup" = "Backup";
-
-/* No comment provided by engineer. */
-"By task" = "Etter oppgave";
 
 /* No comment provided by engineer. */
 "Bytes" = "bytes";
@@ -87,6 +81,9 @@
 
 /* No comment provided by engineer. */
 "Changelog" = "Endringslogg";
+
+/* No comment provided by engineer. */
+"Check for error in output" = "Sjekk for feil i utdata";
 
 /* No comment provided by engineer. */
 "Command" = "Kommando";
@@ -122,6 +119,9 @@
 "Delete task" = "Slett oppgave";
 
 /* No comment provided by engineer. */
+"Delete: " = "Slett:";
+
+/* No comment provided by engineer. */
 "deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "i sletting av data. Og RsyncUI vil ikke hindre deg i det. Derfor er det";
 
 /* No comment provided by engineer. */
@@ -140,6 +140,9 @@
 "DryRun" = "DryRun";
 
 /* No comment provided by engineer. */
+"Either select a task\n or add a search string" = "Enten velg en oppgave eller legg til en søke streng";
+
+/* No comment provided by engineer. */
 "Enable" = "Aktiver";
 
 /* No comment provided by engineer. */
@@ -155,10 +158,16 @@
 "Estimate" = "Estimer";
 
 /* No comment provided by engineer. */
+"Estimated" = "Estimert";
+
+/* No comment provided by engineer. */
 "Estimated tasks" = "Estimerte oppgaver";
 
 /* No comment provided by engineer. */
 "Execute" = "Utfør";
+
+/* No comment provided by engineer. */
+"Filenames" = "Filnavn";
 
 /* No comment provided by engineer. */
 "Files" = "Filer";
@@ -206,10 +215,10 @@
 "Last" = "Siste";
 
 /* No comment provided by engineer. */
-"Linux" = "Linux";
+"Lines" = "Linjer";
 
 /* No comment provided by engineer. */
-"List" = "Liste";
+"Linux" = "Linux";
 
 /* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
@@ -257,6 +266,9 @@
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
+"New: " = "Ny:";
+
+/* No comment provided by engineer. */
 "None" = "Ingen";
 
 /* No comment provided by engineer. */
@@ -264,6 +276,9 @@
 
 /* No comment provided by engineer. */
 "Not a snapshot task" = "Ikke en snapshot oppgave";
+
+/* No comment provided by engineer. */
+"Not verified" = "Ikke verifisert";
 
 /* No comment provided by engineer. */
 "Num" = "Num";
@@ -294,9 +309,6 @@
 
 /* No comment provided by engineer. */
 "Path for restore" = "Sti for gjenoppretting";
-
-/* No comment provided by engineer. */
-"Please add a search string" = "Vennligst oppgi en søkestring";
 
 /* No comment provided by engineer. */
 "Please read and understand the information below. There is more info" = "Les og forstå informasjonen under. Det er mer info";
@@ -401,6 +413,9 @@
 "Show info" = "Vis info";
 
 /* No comment provided by engineer. */
+"Snap" = "Snap";
+
+/* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
 
 /* No comment provided by engineer. */
@@ -423,6 +438,9 @@
 
 /* No comment provided by engineer. */
 "Task" = "Oppgave";
+
+/* No comment provided by engineer. */
+"Task: " = "Oppgave:";
 
 /* No comment provided by engineer. */
 "Tasks" = "Oppgaver";
