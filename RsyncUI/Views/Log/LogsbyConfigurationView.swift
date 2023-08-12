@@ -18,27 +18,31 @@ struct LogsbyConfigurationView: View {
     @State private var hiddenID = -1
     // Alert for delete
     @State private var showAlertfordelete = false
+    // Delete logs
+    @State private var focusdeletelog: Bool = false
 
     var logrecords: RsyncUIlogrecords
 
     var body: some View {
         VStack {
             HStack {
-                ListofTasksLightView(
-                    selecteduuids: $selecteduuids.onChange {
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selecteduuids.contains(config.id)
-                        }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                hiddenID = config[0].hiddenID
+                ZStack {
+                    ListofTasksLightView(
+                        selecteduuids: $selecteduuids.onChange {
+                            let selected = rsyncUIdata.configurations?.filter { config in
+                                selecteduuids.contains(config.id)
                             }
-                        } else {
-                            hiddenID = -1
+                            if (selected?.count ?? 0) == 1 {
+                                if let config = selected {
+                                    hiddenID = config[0].hiddenID
+                                }
+                            } else {
+                                hiddenID = -1
+                            }
                         }
-                    }
-                )
-
+                    )
+                    if focusdeletelog { labeldeletetask }
+                }
                 if hiddenID == -1 {
                     Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
                         TableColumn("Date") { data in
@@ -70,20 +74,44 @@ struct LogsbyConfigurationView: View {
                 Text(numberoflogs)
 
                 Spacer()
-
-                Button("Reset") { selectedloguuids.removeAll() }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                Button("Delete") { showAlertfordelete = true }
-                    .buttonStyle(AbortButtonStyle())
-                    .sheet(isPresented: $showAlertfordelete) {
-                        DeleteLogsView(selecteduuids: $selectedloguuids,
-                                       selectedprofile: rsyncUIdata.profile,
-                                       logrecords: logrecords)
-                    }
             }
         }
         .searchable(text: $filterstring)
+        .focusedSceneValue(\.deletetask, $focusdeletelog)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    selectedloguuids.removeAll()
+                } label: {
+                    Image(systemName: "eraser")
+                }
+                .tooltip("Reset selections")
+            }
+
+            ToolbarItem {
+                Button {
+                    showAlertfordelete = true
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .tooltip("Delete selected logs (⌘D)")
+            }
+        })
+        .sheet(isPresented: $showAlertfordelete) {
+            DeleteLogsView(selecteduuids: $selectedloguuids,
+                           selectedprofile: rsyncUIdata.profile,
+                           logrecords: logrecords)
+                .onDisappear {
+                    focusdeletelog = false
+                }
+        }
+    }
+
+    var labeldeletetask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                showAlertfordelete = true
+            })
     }
 
     var numberoflogs: String {

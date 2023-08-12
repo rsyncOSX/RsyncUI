@@ -34,6 +34,7 @@ struct QuicktaskView: View {
     @State private var valueselectedrow: String = ""
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
+    @State private var focusstartexecution: Bool = false
     // Completed task
     @State private var completed: Bool = false
 
@@ -56,16 +57,16 @@ struct QuicktaskView: View {
 
             // Column 1
             VStack(alignment: .leading) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .trailing) {
                     pickerselecttypeoftask
 
-                    HStack {
-                        ToggleViewDefault("--dry-run", $dryrun)
+                    Toggle("--dry-run", isOn: $dryrun)
+                        .toggleStyle(.switch)
 
-                        ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""), $donotaddtrailingslash)
-                    }
-                    .padding()
+                    Toggle("Don´t add /", isOn: $donotaddtrailingslash)
+                        .toggleStyle(.switch)
                 }
+                .padding()
 
                 VStack(alignment: .leading) {
                     if selectedrsynccommand == .synchronize {
@@ -86,6 +87,7 @@ struct QuicktaskView: View {
 
             if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
+            if focusstartexecution { labelstartexecution }
         }
         .onSubmit {
             switch focusField {
@@ -106,24 +108,31 @@ struct QuicktaskView: View {
             focusField = .localcatalogField
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .focusedSceneValue(\.startexecution, $focusstartexecution)
         .sheet(isPresented: $completed) { viewoutput }
-
-        VStack {
-            Spacer()
-
-            HStack {
-                Button("Execute") {
-                    getconfig()
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    getconfigandexecute()
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.backward")
                 }
-                .buttonStyle(PrimaryButtonStyle())
-
-                Spacer()
-
-                Button("Abort") { abort() }
-                    .buttonStyle(AbortButtonStyle())
-                    .tooltip("Shortcut ⌘A")
+                .tooltip("Execute (⌘R)")
             }
-        }
+
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
         .padding()
     }
 
@@ -172,6 +181,14 @@ struct QuicktaskView: View {
             .onAppear(perform: {
                 focusaborttask = false
                 abort()
+            })
+    }
+
+    var labelstartexecution: some View {
+        Label("", systemImage: "play.fill")
+            .foregroundColor(.black)
+            .onAppear(perform: {
+                getconfigandexecute()
             })
     }
 
@@ -279,7 +296,7 @@ extension QuicktaskView {
         remoteserver = ""
     }
 
-    func getconfig() {
+    func getconfigandexecute() {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,

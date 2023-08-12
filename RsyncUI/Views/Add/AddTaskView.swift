@@ -167,7 +167,7 @@ struct AddTaskView: View {
         Button("Profile") {
             modalview = true
         }
-        .buttonStyle(PrimaryButtonStyle())
+        .buttonStyle(ColorfulButtonStyle())
     }
 
     var updatebutton: some View {
@@ -177,12 +177,12 @@ struct AddTaskView: View {
                 Button("Add") {
                     addconfig()
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
             } else {
                 Button("Update") {
                     validateandupdate()
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
             }
         }
     }

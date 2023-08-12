@@ -41,13 +41,16 @@ struct ExecuteEstimatedTasksView: View {
 
             if multipletaskstate.executionstate == .completed { labelcompleted }
             if multipletaskstate.executionstate == .execute { AlertToast(displayMode: .alert, type: .loading) }
+            if focusaborttask { labelaborttask }
         }
-        HStack {
-            Spacer()
+        /*
+         HStack {
+             Spacer()
 
-            Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
-        }
+             Button("Abort") { abort() }
+                 .buttonStyle(ColorfulRedButtonStyle())
+         }
+          */
         .onAppear(perform: {
             executemultipleestimatedtasks()
         })
@@ -55,6 +58,20 @@ struct ExecuteEstimatedTasksView: View {
             progressdetails.resetcounter()
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
     }
 
     // When status execution is .completed, present label and execute completed.

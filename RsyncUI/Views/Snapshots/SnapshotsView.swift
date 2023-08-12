@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 23/02/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -60,6 +59,7 @@ struct SnapshotsView: View {
 
             if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
             if notsnapshot == true { notasnapshottask }
+            if snapshotdata.inprogressofdelete == true { progressdelete }
         }
 
         if updated == true { notifyupdated }
@@ -68,7 +68,7 @@ struct SnapshotsView: View {
 
         HStack {
             Button("Save") { updateplansnapshot() }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
 
             VStack(alignment: .leading) {
                 pickersnaplast
@@ -80,26 +80,51 @@ struct SnapshotsView: View {
 
             Spacer()
 
-            Group {
-                if snapshotdata.inprogressofdelete == true { progressdelete }
-                if snapshotdata.state == .getdata { AlertToast(displayMode: .alert, type: .loading) }
-            }
+            /*
+                        Spacer()
 
-            Spacer()
+                        Button("Delete") { showAlertfordelete = true }
+                            .sheet(isPresented: $showAlertfordelete) {
+                                ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
+                                                       snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
+                                    .onDisappear { delete() }
+                            }
+                            .buttonStyle(ColorfulRedButtonStyle())
 
-            Button("Delete") { showAlertfordelete = true }
+                        Button("Abort") { focusaborttask = true }
+                            .buttonStyle(ColorfulRedButtonStyle())
+             */
+        }
+        .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
+        .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    showAlertfordelete = true
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .tooltip("Delete snapshots")
                 .sheet(isPresented: $showAlertfordelete) {
                     ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
                                            snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
                         .onDisappear { delete() }
                 }
-                .buttonStyle(AbortButtonStyle())
+            }
 
-            Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
-        }
-        .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
-        .focusedSceneValue(\.aborttask, $focusaborttask)
+            ToolbarItem {
+                Button {
+                    focusaborttask = true
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
     }
 
     var labelnumberoflogs: some View {
@@ -163,9 +188,7 @@ struct SnapshotsView: View {
         ProgressView("",
                      value: Double(snapshotdata.remainingsnapshotstodelete),
                      total: Double(snapshotdata.maxnumbertodelete))
-            .progressViewStyle(GaugeProgressStyle())
-            .frame(width: 25.0, height: 25.0)
-            .contentShape(Rectangle())
+            .frame(width: 100, alignment: .center)
             .onDisappear(perform: {
                 getdata()
             })
@@ -285,5 +308,3 @@ extension SnapshotsView {
         }
     }
 }
-
-// swiftlint:enable line_length

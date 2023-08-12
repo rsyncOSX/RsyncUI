@@ -18,6 +18,8 @@ struct RestoreTableView: View {
     @State private var filterstring: String = ""
     @State private var nosearcstringalert: Bool = false
 
+    @State private var focusaborttask: Bool = false
+
     var body: some View {
         VStack {
             ZStack {
@@ -56,6 +58,7 @@ struct RestoreTableView: View {
                 if showrestorecommand { showcommand }
                 if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
                 if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
+                if focusaborttask { labelaborttask }
             }
         }
 
@@ -82,7 +85,7 @@ struct RestoreTableView: View {
 
             Button("Files") {
                 Task {
-                    guard filterstring.count > 0 else {
+                    guard filterstring.count > 0 || restore.filestorestore == "./." else {
                         nosearcstringalert = true
                         return
                     }
@@ -93,7 +96,7 @@ struct RestoreTableView: View {
                     }
                 }
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(ColorfulButtonStyle())
 
             Button("Restore") {
                 Task {
@@ -102,33 +105,57 @@ struct RestoreTableView: View {
                     }
                 }
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(ColorfulButtonStyle())
 
             Button("Log") {
                 guard SharedReference.shared.process == nil else { return }
                 guard restore.selectedconfig != nil else { return }
                 restore.presentsheetrsync = true
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(ColorfulButtonStyle())
             .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
-
-            Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
+            /*
+             Button("Abort") { abort() }
+                 .buttonStyle(ColorfulRedButtonStyle())
+              */
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
+        .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
+            })
     }
 
     var nosearchstring: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Please add a search string")
+            Text("Either select a task\n or add a search string")
                 .font(.title3)
                 .foregroundColor(Color.accentColor)
         }
-        .frame(width: 220, height: 20, alignment: .center)
+        .frame(width: 220, height: 40, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 nosearcstringalert = false
             }
         }
@@ -213,5 +240,3 @@ struct RestoreFileRecord: Identifiable {
     let id = UUID()
     var filename: String = ""
 }
-
-// swiftlint:enable line_length

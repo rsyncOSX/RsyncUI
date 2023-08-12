@@ -90,17 +90,17 @@ struct RsyncParametersView: View {
                     Button("Linux") {
                         parameters.suffixlinux = true
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                     Button("FreeBSD") {
                         parameters.suffixfreebsd = true
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                     Button("Backup") {
                         parameters.backup = true
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                     Spacer()
 
@@ -111,10 +111,10 @@ struct RsyncParametersView: View {
                             }
                         }
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                     Button("Save") { saversyncparameters() }
-                        .buttonStyle(PrimaryButtonStyle())
+                        .buttonStyle(ColorfulButtonStyle())
                 }
                 .focusedSceneValue(\.aborttask, $focusaborttask)
                 .sheet(isPresented: $presentsheetview) { viewoutput }

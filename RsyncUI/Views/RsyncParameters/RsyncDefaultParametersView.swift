@@ -103,10 +103,10 @@ struct RsyncDefaultParametersView: View {
                             }
                         }
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                     Button("Save") { saversyncparameters() }
-                        .buttonStyle(PrimaryButtonStyle())
+                        .buttonStyle(ColorfulButtonStyle())
                 }
             }
             .focusedSceneValue(\.aborttask, $focusaborttask)

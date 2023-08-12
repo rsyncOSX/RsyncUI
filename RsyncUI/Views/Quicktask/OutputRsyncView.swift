@@ -21,14 +21,13 @@ struct OutputRsyncView: View {
                 }
                 .width(min: 700)
             }
-
             Spacer()
 
             HStack {
                 Spacer()
 
                 Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()
@@ -36,5 +35,17 @@ struct OutputRsyncView: View {
         .onAppear {
             outputfromrsync.generatedata(output)
         }
+        /*
+         .toolbar(content: {
+             ToolbarItem(placement: .cancellationAction) {
+                 Button {
+                     dismiss()
+                 } label: {
+                     Image(systemName: "xmark.circle")
+                 }
+                 .tooltip("Dismiss")
+             }
+         })
+          */
     }
 }
