@@ -126,7 +126,7 @@ struct QuicktaskView: View {
                 } label: {
                     Image(systemName: "stop.fill")
                 }
-                .tooltip("Abort (⌘A)")
+                .tooltip("Abort (⌘K)")
             }
 
             ToolbarItem {

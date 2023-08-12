@@ -178,7 +178,7 @@ struct TasksView: View {
                 } label: {
                     Image(systemName: "stop.fill")
                 }
-                .tooltip("Abort (⌘A)")
+                .tooltip("Abort (⌘K)")
             }
         })
     }

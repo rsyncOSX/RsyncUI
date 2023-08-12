@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 23/02/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -92,7 +91,7 @@ struct SnapshotsView: View {
                             }
                             .buttonStyle(ColorfulRedButtonStyle())
 
-                        Button("Abort") { abort() }
+                        Button("Abort") { focusaborttask = true }
                             .buttonStyle(ColorfulRedButtonStyle())
              */
         }
@@ -115,11 +114,11 @@ struct SnapshotsView: View {
 
             ToolbarItem {
                 Button {
-                    abort()
+                    focusaborttask = true
                 } label: {
                     Image(systemName: "stop.fill")
                 }
-                .tooltip("Abort (⌘A)")
+                .tooltip("Abort (⌘K)")
             }
 
             ToolbarItem {
@@ -309,5 +308,3 @@ extension SnapshotsView {
         }
     }
 }
-
-// swiftlint:enable line_length
