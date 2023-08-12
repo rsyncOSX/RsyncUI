@@ -104,11 +104,16 @@ struct SnapshotsView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    delete()
+                    showAlertfordelete = true
                 } label: {
                     Image(systemName: "trash")
                 }
                 .tooltip("Delete snapshots")
+                .sheet(isPresented: $showAlertfordelete) {
+                    ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
+                                           snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
+                        .onDisappear { delete() }
+                }
             }
 
             ToolbarItem {
