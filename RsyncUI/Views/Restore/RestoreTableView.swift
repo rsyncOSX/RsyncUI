@@ -85,7 +85,10 @@ struct RestoreTableView: View {
 
             Button("Files") {
                 Task {
-                    guard filterstring.count > 0 || restore.filestorestore == "./." else {
+                    guard filterstring.count > 0 ||
+                        restore.filestorestore == "./." ||
+                        restore.selectedconfig != nil
+                    else {
                         nosearcstringalert = true
                         return
                     }
