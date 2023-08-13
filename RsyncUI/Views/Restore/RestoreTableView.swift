@@ -9,8 +9,7 @@ import SwiftUI
 
 struct RestoreTableView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @State private var restore = ObservableRestore()
-
+    @State var restore = ObservableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var filestorestore: String = ""
 
@@ -19,13 +18,16 @@ struct RestoreTableView: View {
     @State private var filterstring: String = ""
     @State private var nosearcstringalert: Bool = false
 
+    @State private var focusaborttask: Bool = false
+
     var body: some View {
         VStack {
             ZStack {
                 HStack {
-                    ListofTasksLightView(selecteduuids: $selecteduuids)
+                    ListofTasksLightView(
+                        selecteduuids: $selecteduuids)
                         .onChange(of: selecteduuids) {
-                            restore.filestorestore = ""
+                            restore.selectedrowforrestore = ""
                             restore.commandstring = ""
                             restore.datalist = []
                             let selected = rsyncUIdata.configurations?.filter { config in
@@ -37,14 +39,16 @@ struct RestoreTableView: View {
                                 }
                             } else {
                                 restore.selectedconfig = nil
+                                restore.selectedrowforrestore = ""
+                                restore.commandstring = ""
+                                restore.datalist = []
                             }
                         }
-                        .frame(maxWidth: .infinity)
 
                     RestoreFilesTableView(filestorestore: $filestorestore)
                         .environment(restore)
                         .onChange(of: filestorestore) {
-                            restore.filestorestore = filestorestore
+                            restore.selectedrowforrestore = filestorestore
                             restore.updatecommandstring()
                         }
                         .frame(maxWidth: .infinity)
@@ -59,6 +63,7 @@ struct RestoreTableView: View {
                 if showrestorecommand { showcommand }
                 if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
                 if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
+                if focusaborttask { labelaborttask }
             }
         }
 
@@ -81,25 +86,29 @@ struct RestoreTableView: View {
 
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
-                    .onChange(of: restore.dryrun) {
-                        restore.updatecommandstring()
-                    }
             }
 
             Button("Files") {
                 Task {
-                    guard filterstring.count > 0 || restore.filestorestore == "./." else {
+                    guard filterstring.count > 0 ||
+                        restore.selectedrowforrestore == "./." ||
+                        restore.selectedconfig != nil
+                    else {
                         nosearcstringalert = true
                         return
                     }
                     if let config = restore.selectedconfig {
                         guard config.task != SharedReference.shared.syncremote else { return }
+                        if filterstring == "./." {
+                            filterstring = ""
+                            restore.selectedrowforrestore = "./."
+                        }
                         gettingfilelist = true
                         await getfilelist(config)
                     }
                 }
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(ColorfulButtonStyle())
 
             Button("Restore") {
                 Task {
@@ -108,23 +117,44 @@ struct RestoreTableView: View {
                     }
                 }
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(ColorfulButtonStyle())
 
             Button("Log") {
                 guard SharedReference.shared.process == nil else { return }
                 guard restore.selectedconfig != nil else { return }
                 restore.presentsheetrsync = true
             }
-            .buttonStyle(PrimaryButtonStyle())
+            .buttonStyle(ColorfulButtonStyle())
             .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
-
-            Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
+            /*
+             Button("Abort") { abort() }
+                 .buttonStyle(ColorfulRedButtonStyle())
+              */
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
-        .alert(isPresented: $restore.alerterror,
-               content: { Alert(localizedError: restore.error)
-               })
+        .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
+    }
+
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
+            })
     }
 
     var nosearchstring: some View {
@@ -166,7 +196,7 @@ struct RestoreTableView: View {
 
     var setfilestorestore: some View {
         EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
-                  $restore.filestorestore)
+                  $restore.selectedrowforrestore)
     }
 
     var setfilter: some View {
@@ -196,7 +226,6 @@ extension RestoreTableView {
         _ = InterruptProcess()
     }
 
-    // let data = TrimOne(datalist).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
     func processtermination(data: [String]?) {
         gettingfilelist = false
         let data = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }

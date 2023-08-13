@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+
     @State private var filterstring: String = ""
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedloguuids = Set<Log.ID>()
@@ -44,7 +45,6 @@ struct LogsbyConfigurationView: View {
 
                     if focusdeletelog { labeldeletetask }
                 }
-
                 if hiddenID == -1 {
                     Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
                         TableColumn("Date") { data in
@@ -78,8 +78,8 @@ struct LogsbyConfigurationView: View {
                 Spacer()
             }
         }
-        .focusedSceneValue(\.deletetask, $focusdeletelog)
         .searchable(text: $filterstring)
+        .focusedSceneValue(\.deletetask, $focusdeletelog)
         .toolbar(content: {
             ToolbarItem {
                 Button {
@@ -87,7 +87,7 @@ struct LogsbyConfigurationView: View {
                 } label: {
                     Image(systemName: "eraser")
                 }
-                .tooltip("Execute")
+                .tooltip("Reset selections")
             }
 
             ToolbarItem {
@@ -96,7 +96,7 @@ struct LogsbyConfigurationView: View {
                 } label: {
                     Image(systemName: "trash")
                 }
-                .tooltip("Delete (⌘D)")
+                .tooltip("Delete selected logs (⌘D)")
             }
         })
         .sheet(isPresented: $showAlertfordelete) {
@@ -109,6 +109,13 @@ struct LogsbyConfigurationView: View {
         }
     }
 
+    var labeldeletetask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                showAlertfordelete = true
+            })
+    }
+
     var numberoflogs: String {
         if hiddenID == -1 {
             return NSLocalizedString("Number of logs", comment: "") + ": " +
@@ -117,12 +124,5 @@ struct LogsbyConfigurationView: View {
             return NSLocalizedString("Number of logs", comment: "") + ": " +
                 "\((logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []).count)"
         }
-    }
-
-    var labeldeletetask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                showAlertfordelete = true
-            })
     }
 }

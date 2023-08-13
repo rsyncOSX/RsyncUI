@@ -64,11 +64,13 @@ struct LogfileView: View {
                 Toggle("Actions", isOn: $showactions)
                     .toggleStyle(.switch)
 
-                Button("Reset") { reset() }
-                    .buttonStyle(PrimaryButtonStyle())
+                if showactions == false {
+                    Button("Reset") { reset() }
+                        .buttonStyle(ColorfulButtonStyle())
+                }
 
                 Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()

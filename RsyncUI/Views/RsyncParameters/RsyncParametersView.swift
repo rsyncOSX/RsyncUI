@@ -111,7 +111,7 @@ struct RsyncParametersView: View {
                     Button("Linux") {
                         parameters.suffixlinux = true
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
                     .onChange(of: parameters.suffixlinux) {
                         parameters.setsuffixlinux()
                     }
@@ -119,7 +119,7 @@ struct RsyncParametersView: View {
                     Button("FreeBSD") {
                         parameters.suffixfreebsd = true
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
                     .onChange(of: parameters.suffixfreebsd) {
                         parameters.setsuffixfreebsd()
                     }
@@ -127,7 +127,7 @@ struct RsyncParametersView: View {
                     Button("Backup") {
                         parameters.backup = true
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
                     .onChange(of: parameters.backup) {
                         parameters.setbackup()
                     }
@@ -141,10 +141,10 @@ struct RsyncParametersView: View {
                             }
                         }
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                     Button("Save") { saversyncparameters() }
-                        .buttonStyle(PrimaryButtonStyle())
+                        .buttonStyle(ColorfulButtonStyle())
                 }
                 .focusedSceneValue(\.aborttask, $focusaborttask)
                 .sheet(isPresented: $presentsheetview) { viewoutput }

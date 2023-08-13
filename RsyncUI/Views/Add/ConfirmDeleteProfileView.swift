@@ -23,13 +23,13 @@ struct ConfirmDeleteProfileView: View {
                     delete = true
                     dismiss()
                 }
-                .buttonStyle(AbortButtonStyle())
+                .buttonStyle(ColorfulRedButtonStyle())
 
                 Button("Cancel") {
                     delete = false
                     dismiss()
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
             }
             .padding()
         }
@@ -41,7 +41,7 @@ struct ConfirmDeleteProfileView: View {
             let message = "Delete profile"
                 + ": " + (profile ?? "") + "?"
             Text(message)
-                .modifier(Tagheading(.title2, .center))
+                .font(.title2)
         }
         .padding()
     }

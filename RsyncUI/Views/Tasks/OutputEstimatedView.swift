@@ -77,35 +77,49 @@ struct OutputEstimatedView: View {
                     .width(max: 70)
                 }
             }
+            Spacer()
+
+            HStack {
+                Spacer()
+
+                Button("Execute") {
+                    execute = true
+                    dismiss()
+                }
+                .buttonStyle(ColorfulButtonStyle())
+
+                Button("Dismiss") { dismiss() }
+                    .buttonStyle(ColorfulButtonStyle())
+            }
         }
         .padding()
         .frame(minWidth: 1250, minHeight: 400)
-        .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    execute = true
-                    dismiss()
-                } label: {
-                    Image(systemName: "arrowshape.turn.up.left.2")
-                }
-                .tooltip("Execute")
-            }
+    }
 
-            ToolbarItem {
+    /*
+        .padding()
+        .frame(minWidth: 1250, minHeight: 400)
+        .toolbar(content: {
+            ToolbarItem(placement: .cancellationAction) {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "return")
+                    Image(systemName: "xmark.circle")
                 }
                 .tooltip("Dismiss")
             }
 
-            ToolbarItem {
-                Spacer()
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    execute = true
+                    dismiss()
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.backward")
+                }
+                .tooltip("Execute")
             }
-
         })
-    }
+     */
 
     var headingtitle: some View {
         Text("Estimated tasks")

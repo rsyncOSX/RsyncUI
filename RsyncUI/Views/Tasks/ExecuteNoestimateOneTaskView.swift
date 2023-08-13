@@ -23,11 +23,7 @@ struct ExecuteNoestimateOneTaskView: View {
 
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
-    @State private var selectedconfig = Selectedconfig()
-
-    @State private var reloadtasksviewlist: Bool = false
-    // Double click, only for macOS13 and later
-    @State private var doubleclick: Bool = false
+    @StateObject var selectedconfig = Selectedconfig()
 
     var body: some View {
         ZStack {
@@ -36,22 +32,38 @@ struct ExecuteNoestimateOneTaskView: View {
                 filterstring: $filterstring
             )
 
-            // When completed
             if estimatingprogresscount.executeasyncnoestimationcompleted == true { labelcompleted }
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
+            if focusaborttask { labelaborttask }
         }
-        HStack {
-            Spacer()
+        /*
+         HStack {
+             Spacer()
 
-            Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
-        }
+             Button("Abort") { abort() }
+                 .buttonStyle(ColorfulRedButtonStyle())
+         }
+          */
         .onAppear(perform: {
             Task {
                 await executeonenotestimatedtask()
             }
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
     }
 
     // When status execution is .completed, present label and execute completed.

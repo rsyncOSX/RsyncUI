@@ -65,16 +65,10 @@
 "Add tasks" = "Legg til oppgaver";
 
 /* No comment provided by engineer. */
-"All logs" = "Alle logger";
-
-/* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
 "Backup" = "Backup";
-
-/* No comment provided by engineer. */
-"By task" = "Etter oppgave";
 
 /* No comment provided by engineer. */
 "Bytes" = "bytes";
@@ -87,6 +81,9 @@
 
 /* No comment provided by engineer. */
 "Changelog" = "Endringslogg";
+
+/* No comment provided by engineer. */
+"Check for error in output" = "Sjekk for feil i utdata";
 
 /* No comment provided by engineer. */
 "Command" = "Kommando";
@@ -122,6 +119,9 @@
 "Delete task" = "Slett oppgave";
 
 /* No comment provided by engineer. */
+"Delete: " = "Slett:";
+
+/* No comment provided by engineer. */
 "deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "i sletting av data. Og RsyncUI vil ikke hindre deg i det. Derfor er det";
 
 /* No comment provided by engineer. */
@@ -140,6 +140,9 @@
 "DryRun" = "DryRun";
 
 /* No comment provided by engineer. */
+"Either select a task\n or add a search string" = "Enten velg en oppgave eller legg til en søke streng";
+
+/* No comment provided by engineer. */
 "Enable" = "Aktiver";
 
 /* No comment provided by engineer. */
@@ -153,6 +156,9 @@
 
 /* No comment provided by engineer. */
 "Estimate" = "Estimer";
+
+/* No comment provided by engineer. */
+"Estimated" = "Estimert";
 
 /* No comment provided by engineer. */
 "Estimated tasks" = "Estimerte oppgaver";
@@ -194,9 +200,6 @@
 "Halt on error" = "Stopp ved feil";
 
 /* No comment provided by engineer. */
-"https://rsyncui.netlify.app" = "https://rsyncui.netlify.app";
-
-/* No comment provided by engineer. */
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
 
 /* No comment provided by engineer. */
@@ -218,9 +221,6 @@
 "Linux" = "Linux";
 
 /* No comment provided by engineer. */
-"List" = "Liste";
-
-/* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
 
 /* No comment provided by engineer. */
@@ -240,6 +240,9 @@
 
 /* No comment provided by engineer. */
 "Log" = "Logg";
+
+/* No comment provided by engineer. */
+"Log listings" = "Liste logger";
 
 /* No comment provided by engineer. */
 "Log to file" = "Logg til fil";
@@ -275,6 +278,9 @@
 "Not a snapshot task" = "Ikke en snapshot oppgave";
 
 /* No comment provided by engineer. */
+"Not verified" = "Ikke verifisert";
+
+/* No comment provided by engineer. */
 "Num" = "Num";
 
 /* No comment provided by engineer. */
@@ -305,9 +311,6 @@
 "Path for restore" = "Sti for gjenoppretting";
 
 /* No comment provided by engineer. */
-"Please add a search string" = "Vennligst oppgi en søkestring";
-
-/* No comment provided by engineer. */
 "Please read and understand the information below. There is more info" = "Les og forstå informasjonen under. Det er mer info";
 
 /* No comment provided by engineer. */
@@ -315,6 +318,9 @@
 
 /* No comment provided by engineer. */
 "Profiles" = "Profiler";
+
+/* No comment provided by engineer. */
+"Quick synchronize" = "Rask synkronisering";
 
 /* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
@@ -347,6 +353,9 @@
 "Result" = "Resultat";
 
 /* No comment provided by engineer. */
+"Rsync parameters" = "Rsync parametre";
+
+/* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
@@ -371,7 +380,7 @@
 "Saved" = "Lagret";
 
 /* No comment provided by engineer. */
-"Select a task" = "Velg en oppgave";
+"Select a configuration" = "Velg en konfigurasjon";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
@@ -404,10 +413,16 @@
 "Show info" = "Vis info";
 
 /* No comment provided by engineer. */
+"Snap" = "Snap";
+
+/* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
 
 /* No comment provided by engineer. */
 "Ssh" = "Ssh";
+
+/* No comment provided by engineer. */
+"Synchronize" = "Synkronisere";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";

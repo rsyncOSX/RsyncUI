@@ -13,7 +13,7 @@ struct DetailsViewAlreadyEstimated: View {
     var estimatedlist: [RemoteinfonumbersOnetask]
     var selectedconfig: Configuration?
 
-    @State private var outputfromrsync = Outputfromrsync()
+    @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -175,7 +175,7 @@ struct DetailsViewAlreadyEstimated: View {
                 Spacer()
 
                 Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()
@@ -186,6 +186,18 @@ struct DetailsViewAlreadyEstimated: View {
                 outputfromrsync.generatedata(output[0].outputfromrsync)
             }
         }
+        /*
+         .toolbar(content: {
+             ToolbarItem(placement: .cancellationAction) {
+                 Button {
+                     dismiss()
+                 } label: {
+                     Image(systemName: "xmark.circle")
+                 }
+                 .tooltip("Dismiss")
+             }
+         })
+          */
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {

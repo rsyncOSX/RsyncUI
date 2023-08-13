@@ -34,6 +34,7 @@ struct QuicktaskView: View {
     @State private var valueselectedrow: String = ""
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
+    @State private var focusstartexecution: Bool = false
     // Completed task
     @State private var completed: Bool = false
 
@@ -86,6 +87,7 @@ struct QuicktaskView: View {
 
             if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
+            if focusstartexecution { labelstartexecution }
         }
         .onSubmit {
             switch focusField {
@@ -106,15 +108,16 @@ struct QuicktaskView: View {
             focusField = .localcatalogField
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .focusedSceneValue(\.startexecution, $focusstartexecution)
         .sheet(isPresented: $completed) { viewoutput }
         .toolbar(content: {
             ToolbarItem {
                 Button {
                     getconfigandexecute()
                 } label: {
-                    Image(systemName: "arrowshape.turn.up.left.2")
+                    Image(systemName: "arrowshape.turn.up.backward")
                 }
-                .tooltip("Execute")
+                .tooltip("Execute (⌘R)")
             }
 
             ToolbarItem {
@@ -123,14 +126,14 @@ struct QuicktaskView: View {
                 } label: {
                     Image(systemName: "stop.fill")
                 }
-                .tooltip("Abort (⌘A)")
+                .tooltip("Abort (⌘K)")
             }
 
             ToolbarItem {
                 Spacer()
             }
-
         })
+        .padding()
     }
 
     var remoteuserpicker: some View {
@@ -178,6 +181,14 @@ struct QuicktaskView: View {
             .onAppear(perform: {
                 focusaborttask = false
                 abort()
+            })
+    }
+
+    var labelstartexecution: some View {
+        Label("", systemImage: "play.fill")
+            .foregroundColor(.black)
+            .onAppear(perform: {
+                getconfigandexecute()
             })
     }
 
@@ -309,16 +320,17 @@ extension QuicktaskView {
         }
     }
 
-    @MainActor
     func execute(config: Configuration, dryrun: Bool) async {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
         rsyncoutput = ObservableRsyncOutput()
         // Start progressview
         showprogressview = true
-        let process = RsyncProcessAsync(arguments: arguments,
-                                        config: config,
-                                        processtermination: processtermination)
-        await process.executeProcess()
+        let process = await RsyncProcessAsync(arguments: arguments,
+                                              config: config,
+                                              processtermination: processtermination)
+        Task {
+            await process.executeProcess()
+        }
     }
 
     func abort() {
@@ -326,7 +338,6 @@ extension QuicktaskView {
     }
 
     func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
-        // Stop progressview
         showprogressview = false
         rsyncoutput?.setoutput(outputfromrsync)
         completed = true

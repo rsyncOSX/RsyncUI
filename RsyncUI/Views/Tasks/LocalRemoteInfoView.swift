@@ -43,7 +43,7 @@ struct LocalRemoteInfoView: View {
             Spacer()
 
             Button("Dismiss") { dismiss() }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
         }
         .padding()
         .frame(minWidth: 440, minHeight: 75)

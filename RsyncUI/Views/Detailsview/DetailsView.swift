@@ -16,8 +16,8 @@ struct DetailsView: View {
     var selectedconfig: Configuration?
 
     @State private var gettingremotedata = true
-    @State private var estimateddataonetask = Estimateddataonetask()
-    @State private var outputfromrsync = Outputfromrsync()
+    @StateObject var estimateddataonetask = Estimateddataonetask()
+    @StateObject var outputfromrsync = Outputfromrsync()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -184,7 +184,7 @@ struct DetailsView: View {
                 Spacer()
 
                 Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .onAppear(perform: {
@@ -199,6 +199,18 @@ struct DetailsView: View {
         })
         .padding()
         .frame(minWidth: 900, minHeight: 500)
+        /*
+         .toolbar(content: {
+             ToolbarItem(placement: .cancellationAction) {
+                 Button {
+                     dismiss()
+                 } label: {
+                     Image(systemName: "xmark.circle")
+                 }
+                 .tooltip("Dismiss")
+             }
+         })
+          */
     }
 }
 
@@ -216,9 +228,8 @@ extension DetailsView {
     }
 }
 
-@Observable
-final class Estimateddataonetask {
-    var estimatedlistonetask = [RemoteinfonumbersOnetask]()
+final class Estimateddataonetask: ObservableObject {
+    @Published var estimatedlistonetask = [RemoteinfonumbersOnetask]()
 
     func update(data: [String]?, hiddenID: Int?, config: Configuration?) {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
@@ -229,9 +240,8 @@ final class Estimateddataonetask {
     }
 }
 
-@Observable
-final class Outputfromrsync {
-    var output = [Data]()
+final class Outputfromrsync: ObservableObject {
+    @Published var output = [Data]()
 
     struct Data: Identifiable {
         let id = UUID()
@@ -240,7 +250,7 @@ final class Outputfromrsync {
 
     func outputistruncated(_ number: Int) -> Bool {
         do {
-            if number > 10000 { throw OutputIsTruncated.istruncated }
+            if number > 20000 { throw OutputIsTruncated.istruncated }
         } catch let e {
             let error = e
             alerterror(error: error)
@@ -252,7 +262,7 @@ final class Outputfromrsync {
     func generatedata(_ data: [String]?) {
         var count = data?.count
         let summarycount = data?.count
-        if count ?? 0 > 10000 { count = 10000 }
+        if count ?? 0 > 20000 { count = 20000 }
         // Show the 10,000 first lines
         for i in 0 ..< (count ?? 0) {
             if let line = data?[i] {

@@ -53,6 +53,7 @@ struct AlltasksView: View {
                     .width(max: 70)
             }
             .frame(minWidth: 850, minHeight: 500, alignment: .center)
+            .padding()
 
             Spacer()
 
@@ -60,11 +61,26 @@ struct AlltasksView: View {
                 Spacer()
 
                 Button("Dismiss") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()
         .frame(minWidth: 900, minHeight: 500)
+
+        /*
+         .padding()
+         .frame(minWidth: 900, minHeight: 500)
+         .toolbar(content: {
+             ToolbarItem(placement: .cancellationAction) {
+                 Button {
+                     dismiss()
+                 } label: {
+                     Image(systemName: "xmark.circle")
+                 }
+                 .tooltip("Dismiss")
+             }
+         })
+          */
     }
 
     var data: [Configuration] {

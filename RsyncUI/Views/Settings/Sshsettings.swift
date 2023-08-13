@@ -66,10 +66,10 @@ struct Sshsettings: View {
                 Spacer()
 
                 Button("Create") { createkeys() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                 Button("Save") { saveusersettings() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()

@@ -4,13 +4,13 @@
 //
 //  Created by Thomas Evensen on 17/03/2021.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
 struct DeleteLogsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @Binding var selecteduuids: Set<UUID>
-
     var selectedprofile: String?
     var logrecords: RsyncUIlogrecords
 
@@ -22,14 +22,35 @@ struct DeleteLogsView: View {
 
             HStack {
                 Button("Delete") { delete() }
-                    .buttonStyle(AbortButtonStyle())
+                    .buttonStyle(ColorfulRedButtonStyle())
 
                 Button("Cancel") { dismiss() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
             .padding()
         }
         .padding()
+        /*
+         .toolbar(content: {
+             ToolbarItem(placement: .cancellationAction) {
+                 Button {
+                     dismiss()
+                 } label: {
+                     Image(systemName: "xmark.circle")
+                 }
+                 .tooltip("Dismiss")
+             }
+
+             ToolbarItem(placement: .primaryAction) {
+                 Button {
+                     delete()
+                 } label: {
+                     Image(systemName: "trash")
+                 }
+                 .tooltip("Delete selected logs")
+             }
+         })
+          */
     }
 
     var header: some View {
@@ -38,7 +59,7 @@ struct DeleteLogsView: View {
                 + " \(selecteduuids.count) "
                 + "log(s)?"
             Text(message)
-                .modifier(Tagheading(.title2, .center))
+                .font(.title2)
         }
         .padding()
     }
@@ -52,3 +73,5 @@ struct DeleteLogsView: View {
         dismiss()
     }
 }
+
+// swiftlint:enable line_length

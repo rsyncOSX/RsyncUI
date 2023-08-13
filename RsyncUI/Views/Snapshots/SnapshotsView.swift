@@ -11,10 +11,9 @@ struct SnapshotsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var snapshotdata = SnapshotData()
 
-    // @Binding var selectedconfig: Configuration?
-    @State private var selectedconfig: Configuration?
     @Binding var reload: Bool
 
+    @State private var selectedconfig: Configuration?
     @State private var snapshotrecords: LogrecordSnapshot?
     @State private var selectedconfiguuid = Set<Configuration.ID>()
     // If not a snapshot
@@ -59,6 +58,7 @@ struct SnapshotsView: View {
 
             if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
             if notsnapshot == true { notasnapshottask }
+            if snapshotdata.inprogressofdelete == true { progressdelete }
         }
 
         if updated == true { notifyupdated }
@@ -67,7 +67,7 @@ struct SnapshotsView: View {
 
         HStack {
             Button("Save") { updateplansnapshot() }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
 
             VStack(alignment: .leading) {
                 pickersnaplast
@@ -79,26 +79,51 @@ struct SnapshotsView: View {
 
             Spacer()
 
-            Group {
-                if snapshotdata.inprogressofdelete == true { progressdelete }
-                if snapshotdata.state == .getdata { AlertToast(displayMode: .alert, type: .loading) }
-            }
+            /*
+                        Spacer()
 
-            Spacer()
+                        Button("Delete") { showAlertfordelete = true }
+                            .sheet(isPresented: $showAlertfordelete) {
+                                ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
+                                                       snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
+                                    .onDisappear { delete() }
+                            }
+                            .buttonStyle(ColorfulRedButtonStyle())
 
-            Button("Delete") { showAlertfordelete = true }
+                        Button("Abort") { focusaborttask = true }
+                            .buttonStyle(ColorfulRedButtonStyle())
+             */
+        }
+        .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
+        .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    showAlertfordelete = true
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .tooltip("Delete snapshots")
                 .sheet(isPresented: $showAlertfordelete) {
                     ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
                                            snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
                         .onDisappear { delete() }
                 }
-                .buttonStyle(AbortButtonStyle())
+            }
 
-            Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
-        }
-        .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
-        .focusedSceneValue(\.aborttask, $focusaborttask)
+            ToolbarItem {
+                Button {
+                    focusaborttask = true
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
     }
 
     var labelnumberoflogs: some View {
@@ -162,9 +187,7 @@ struct SnapshotsView: View {
         ProgressView("",
                      value: Double(snapshotdata.remainingsnapshotstodelete),
                      total: Double(snapshotdata.maxnumbertodelete))
-            .progressViewStyle(GaugeProgressStyle())
-            .frame(width: 25.0, height: 25.0)
-            .contentShape(Rectangle())
+            .frame(width: 100, alignment: .center)
             .onDisappear(perform: {
                 getdata()
             })

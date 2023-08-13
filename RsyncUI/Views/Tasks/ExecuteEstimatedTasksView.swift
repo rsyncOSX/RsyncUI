@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @EnvironmentObject var progressdetails: ExecuteProgressDetails
+
     @State private var estimatingprogresscount = EstimateProgressDetails()
     @State private var multipletaskstate = MultipleTaskState()
-
-    @EnvironmentObject var progressdetails: ExecuteProgressDetails
 
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
@@ -39,17 +39,18 @@ struct ExecuteEstimatedTasksView: View {
                 doubleclick: $doubleclick
             )
 
-            // When completed
             if multipletaskstate.executionstate == .completed { labelcompleted }
-            // Execute multiple tasks progress
             if multipletaskstate.executionstate == .execute { AlertToast(displayMode: .alert, type: .loading) }
+            if focusaborttask { labelaborttask }
         }
-        HStack {
-            Spacer()
+        /*
+         HStack {
+             Spacer()
 
-            Button("Abort") { abort() }
-                .buttonStyle(AbortButtonStyle())
-        }
+             Button("Abort") { abort() }
+                 .buttonStyle(ColorfulRedButtonStyle())
+         }
+          */
         .onAppear(perform: {
             executemultipleestimatedtasks()
         })
@@ -57,6 +58,20 @@ struct ExecuteEstimatedTasksView: View {
             progressdetails.resetcounter()
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .tooltip("Abort (⌘K)")
+            }
+
+            ToolbarItem {
+                Spacer()
+            }
+        })
     }
 
     // When status execution is .completed, present label and execute completed.

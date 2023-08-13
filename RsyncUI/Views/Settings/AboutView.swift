@@ -59,10 +59,10 @@ struct AboutView: View {
                 Spacer()
 
                 Button("Changelog") { openchangelog() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
 
                 Button("Download") { opendownload() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()

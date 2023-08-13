@@ -42,8 +42,8 @@ struct TasksView: View {
     @State private var localdata: [String] = []
     // Modale view
     @State private var modaleview = false
-    @State private var sheetchooser = SheetChooser()
-    @State private var selectedconfig = Selectedconfig()
+    @StateObject var sheetchooser = SheetChooser()
+    @StateObject var selectedconfig = Selectedconfig()
     // Timer
     @State private var timervalue: Double = 600
     @State private var timerisenabled: Bool = false
@@ -94,6 +94,13 @@ struct TasksView: View {
                 if estimatingprogresscount.estimateasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
+
+            if #unavailable(macOS 13) {
+                Spacer()
+
+                Button("DryRun") { dryrun() }
+                    .buttonStyle(ColorfulButtonStyle())
+            }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
@@ -113,10 +120,6 @@ struct TasksView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    let action = ActionHolder(action: "Estimate",
-                                              profile: rsyncUIdata.profile ?? "Default profile",
-                                              source: "TasksView")
-                    actions.addaction(action)
                     estimate()
                 } label: {
                     Image(systemName: "wand.and.stars")
@@ -128,7 +131,7 @@ struct TasksView: View {
                 Button {
                     execute()
                 } label: {
-                    Image(systemName: "arrowshape.turn.up.left.2")
+                    Image(systemName: "arrowshape.turn.up.backward")
                 }
                 .tooltip("Execute (⌘R)")
             }
@@ -176,7 +179,7 @@ struct TasksView: View {
                 } label: {
                     Image(systemName: "stop.fill")
                 }
-                .tooltip("Abort (⌘A)")
+                .tooltip("Abort (⌘K)")
             }
         })
     }
@@ -329,7 +332,7 @@ struct TasksView: View {
     }
 
     var notifycompleted: some View {
-        notifymessage("Completed")
+        notifymessage("Updated")
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     reloadtasksviewlist = false
@@ -340,17 +343,6 @@ struct TasksView: View {
 }
 
 extension TasksView {
-    func detailsestimatedtask() {
-        // DryRun: all tasks already estimated, show details on task
-        guard progressdetails.taskisestimated(selectedconfig.config?.hiddenID ?? -1) == true else { return }
-        let action = ActionHolder(action: "DryRun: task is already estimated, show details on task",
-                                  profile: rsyncUIdata.profile ?? "Default profile",
-                                  source: "DetailsViewAlreadyEstimated")
-        actions.addaction(action)
-        sheetchooser.sheet = .dryrunalreadyestimated
-        modaleview = true
-    }
-
     func doubleclickactionfunction() {
         if estimatingprogresscount.getestimatedlist() == nil {
             dryrun()
@@ -371,7 +363,9 @@ extension TasksView {
                                       source: "DetailsView")
             actions.addaction(action)
             sheetchooser.sheet = .dryrunonetask
-        } else if selectedconfig.config != nil, estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false {
+        } else if selectedconfig.config != nil,
+                  estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
+        {
             // Profile is changed, new task selected
             // DryRun: profile is changed, new task selected, execute a dryrun
             let action = ActionHolder(action: "DryRun: profile is changed, new task selected, execute a dryrun",
@@ -394,7 +388,22 @@ extension TasksView {
         modaleview = true
     }
 
+    func detailsestimatedtask() {
+        // DryRun: all tasks already estimated, show details on task
+        guard progressdetails.taskisestimated(selectedconfig.config?.hiddenID ?? -1) == true else { return }
+        let action = ActionHolder(action: "DryRun: task is already estimated, show details on task",
+                                  profile: rsyncUIdata.profile ?? "Default profile",
+                                  source: "DetailsViewAlreadyEstimated")
+        actions.addaction(action)
+        sheetchooser.sheet = .dryrunalreadyestimated
+        modaleview = true
+    }
+
     func estimate() {
+        let action = ActionHolder(action: "Estimate",
+                                  profile: rsyncUIdata.profile ?? "Default profile",
+                                  source: "TasksView")
+        actions.addaction(action)
         if selectedconfig.config != nil {
             let profile = selectedconfig.config?.profile ?? "Default profile"
             if profile != rsyncUIdata.profile {
@@ -467,15 +476,12 @@ extension TasksView {
     }
 
     func abort() {
-        let action = ActionHolder(action: "Abort",
-                                  profile: rsyncUIdata.profile ?? "Default profile",
-                                  source: "TasksView")
+        let action = ActionHolder(action: "Abort", profile: rsyncUIdata.profile ?? "Default profile", source: "TasksView")
         progressdetails.resetcounter()
         actions.addaction(action)
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)
         estimatingprogresscount.resetcounts()
-        progressdetails.hiddenIDatwork = -1
         _ = InterruptProcess()
         reload = true
         focusstartestimation = false
@@ -521,13 +527,14 @@ enum Sheet: String, Identifiable {
     var id: String { rawValue }
 }
 
-@Observable
-final class SheetChooser {
+final class SheetChooser: ObservableObject {
+    // Which sheet to present
+    // Do not redraw view when changing
+    // no @Publised
     var sheet: Sheet = .dryrunalltasks
 }
 
-@Observable
-final class Selectedconfig {
+final class Selectedconfig: ObservableObject {
     var config: Configuration?
 }
 

@@ -53,7 +53,7 @@ struct Counter: View {
             Spacer()
 
             Button("Dismiss") { dismiss() }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
         }
         .padding()
         .onDisappear {

@@ -49,7 +49,7 @@ struct Othersettings: View {
                 Spacer()
 
                 Button("Save") { saveusersettings() }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .lineSpacing(2)

@@ -132,12 +132,12 @@ struct AddPreandPostView: View {
                 Button("Update") {
                     // No update
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
             } else {
                 Button("Update") {
                     validateandupdate()
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .buttonStyle(ColorfulButtonStyle())
             }
         }
     }
