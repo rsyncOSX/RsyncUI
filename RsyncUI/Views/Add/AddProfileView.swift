@@ -42,13 +42,7 @@ struct AddProfileView: View {
                             .foregroundColor(Color.blue)
                     }
 
-                    HStack {
-                        Button("Create") { createprofile() }
-                            .buttonStyle(ColorfulButtonStyle())
-
-                        EditValue(150, NSLocalizedString("Create profile", comment: ""),
-                                  $newdata.newprofile)
-                    }
+                    HStack {}
                 }
 
                 Spacer()
@@ -58,6 +52,11 @@ struct AddProfileView: View {
         Spacer()
 
         HStack {
+            Button("Create") { createprofile() }
+                .buttonStyle(ColorfulButtonStyle())
+
+            EditValue(150, NSLocalizedString("Create profile", comment: ""),
+                      $newdata.newprofile)
             Spacer()
 
             Button("Dismiss") { dismiss() }
