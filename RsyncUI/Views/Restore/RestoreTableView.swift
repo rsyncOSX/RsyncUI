@@ -98,6 +98,10 @@ struct RestoreTableView: View {
                     }
                     if let config = restore.selectedconfig {
                         guard config.task != SharedReference.shared.syncremote else { return }
+                        if filterstring == "./." {
+                            filterstring = ""
+                            restore.filestorestore = "./."
+                        }
                         gettingfilelist = true
                         await getfilelist(config)
                     }
@@ -188,9 +192,10 @@ struct RestoreTableView: View {
     }
 
     var setfilestorestore: some View {
-        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""), $restore.filestorestore.onChange {
-            restore.inputchangedbyuser = true
-        })
+        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
+                  $restore.filestorestore.onChange {
+                      restore.inputchangedbyuser = true
+                  })
     }
 
     var setfilter: some View {
@@ -200,7 +205,8 @@ struct RestoreTableView: View {
     var numberoffiles: some View {
         HStack {
             Text(NSLocalizedString("Number of files", comment: "") + ": ")
-            Text(NumberFormatter.localizedString(from: NSNumber(value: restore.numberoffiles), number: NumberFormatter.Style.decimal))
+            Text(NumberFormatter.localizedString(from: NSNumber(value: restore.numberoffiles),
+                                                 number: NumberFormatter.Style.decimal))
                 .foregroundColor(Color.blue)
 
             Spacer()
@@ -219,7 +225,6 @@ extension RestoreTableView {
         _ = InterruptProcess()
     }
 
-    // let data = TrimOne(datalist).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
     func processtermination(data: [String]?) {
         gettingfilelist = false
         let data = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }

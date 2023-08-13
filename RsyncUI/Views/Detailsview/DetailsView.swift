@@ -249,7 +249,7 @@ final class Outputfromrsync: ObservableObject {
 
     func outputistruncated(_ number: Int) -> Bool {
         do {
-            if number > 10000 { throw OutputIsTruncated.istruncated }
+            if number > 20000 { throw OutputIsTruncated.istruncated }
         } catch let e {
             let error = e
             alerterror(error: error)
@@ -261,7 +261,7 @@ final class Outputfromrsync: ObservableObject {
     func generatedata(_ data: [String]?) {
         var count = data?.count
         let summarycount = data?.count
-        if count ?? 0 > 10000 { count = 10000 }
+        if count ?? 0 > 20000 { count = 20000 }
         // Show the 10,000 first lines
         for i in 0 ..< (count ?? 0) {
             if let line = data?[i] {
