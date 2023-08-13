@@ -39,6 +39,10 @@ struct RestoreTableView: View {
                                 }
                             } else {
                                 restore.selectedconfig = nil
+                                restore.selectedrowforrestore = ""
+                                restore.filestorestore = ""
+                                restore.commandstring = ""
+                                restore.datalist = []
                             }
                         }
                     )
