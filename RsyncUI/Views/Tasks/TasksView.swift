@@ -42,8 +42,8 @@ struct TasksView: View {
     @State private var localdata: [String] = []
     // Modale view
     @State private var modaleview = false
-    @StateObject var sheetchooser = SheetChooser()
-    @StateObject var selectedconfig = Selectedconfig()
+    @State var sheetchooser = SheetChooser()
+    @State var selectedconfig = Selectedconfig()
     // Timer
     @State private var timervalue: Double = 600
     @State private var timerisenabled: Bool = false
@@ -527,14 +527,16 @@ enum Sheet: String, Identifiable {
     var id: String { rawValue }
 }
 
-final class SheetChooser: ObservableObject {
+@Observable
+final class SheetChooser {
     // Which sheet to present
     // Do not redraw view when changing
     // no @Publised
     var sheet: Sheet = .dryrunalltasks
 }
 
-final class Selectedconfig: ObservableObject {
+@Observable
+final class Selectedconfig {
     var config: Configuration?
 }
 

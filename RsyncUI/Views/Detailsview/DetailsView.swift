@@ -16,8 +16,8 @@ struct DetailsView: View {
     var selectedconfig: Configuration?
 
     @State private var gettingremotedata = true
-    @StateObject var estimateddataonetask = Estimateddataonetask()
-    @StateObject var outputfromrsync = Outputfromrsync()
+    @State private var estimateddataonetask = Estimateddataonetask()
+    @State private var outputfromrsync = Outputfromrsync()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -228,8 +228,9 @@ extension DetailsView {
     }
 }
 
-final class Estimateddataonetask: ObservableObject {
-    @Published var estimatedlistonetask = [RemoteinfonumbersOnetask]()
+@Observable
+final class Estimateddataonetask {
+    var estimatedlistonetask = [RemoteinfonumbersOnetask]()
 
     func update(data: [String]?, hiddenID: Int?, config: Configuration?) {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
@@ -240,8 +241,9 @@ final class Estimateddataonetask: ObservableObject {
     }
 }
 
-final class Outputfromrsync: ObservableObject {
-    @Published var output = [Data]()
+@Observable
+final class Outputfromrsync {
+    var output = [Data]()
 
     struct Data: Identifiable {
         let id = UUID()

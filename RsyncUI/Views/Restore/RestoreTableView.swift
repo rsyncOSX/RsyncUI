@@ -27,7 +27,7 @@ struct RestoreTableView: View {
                     ListofTasksLightView(
                         selecteduuids: $selecteduuids)
                         .onChange(of: selecteduuids) {
-                            restore.selectedrowforrestore = ""
+                            restore.filestorestore = ""
                             restore.commandstring = ""
                             restore.datalist = []
                             let selected = rsyncUIdata.configurations?.filter { config in
@@ -39,7 +39,7 @@ struct RestoreTableView: View {
                                 }
                             } else {
                                 restore.selectedconfig = nil
-                                restore.selectedrowforrestore = ""
+                                restore.filestorestore = ""
                                 restore.commandstring = ""
                                 restore.datalist = []
                             }
@@ -48,7 +48,7 @@ struct RestoreTableView: View {
                     RestoreFilesTableView(filestorestore: $filestorestore)
                         .environment(restore)
                         .onChange(of: filestorestore) {
-                            restore.selectedrowforrestore = filestorestore
+                            restore.filestorestore = filestorestore
                             restore.updatecommandstring()
                         }
                         .frame(maxWidth: .infinity)
@@ -91,7 +91,7 @@ struct RestoreTableView: View {
             Button("Files") {
                 Task {
                     guard filterstring.count > 0 ||
-                        restore.selectedrowforrestore == "./." ||
+                        restore.filestorestore == "./." ||
                         restore.selectedconfig != nil
                     else {
                         nosearcstringalert = true
@@ -101,7 +101,7 @@ struct RestoreTableView: View {
                         guard config.task != SharedReference.shared.syncremote else { return }
                         if filterstring == "./." {
                             filterstring = ""
-                            restore.selectedrowforrestore = "./."
+                            restore.filestorestore = "./."
                         }
                         gettingfilelist = true
                         await getfilelist(config)
@@ -196,7 +196,7 @@ struct RestoreTableView: View {
 
     var setfilestorestore: some View {
         EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
-                  $restore.selectedrowforrestore)
+                  $restore.filestorestore)
     }
 
     var setfilter: some View {

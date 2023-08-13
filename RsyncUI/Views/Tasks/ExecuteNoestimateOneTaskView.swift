@@ -23,7 +23,7 @@ struct ExecuteNoestimateOneTaskView: View {
 
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
-    @StateObject var selectedconfig = Selectedconfig()
+    @State var selectedconfig = Selectedconfig()
 
     var body: some View {
         ZStack {

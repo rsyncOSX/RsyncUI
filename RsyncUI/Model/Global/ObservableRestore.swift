@@ -20,7 +20,7 @@ final class ObservableRestore {
     // Displayed in restore view
     var commandstring: String = ""
     var rsyncdata: [String]?
-    var selectedrowforrestore: String = ""
+    var filestorestore: String = ""
     var arguments: [String]?
     var selectedconfig: Configuration?
     var datalist: [RestoreFileRecord] = []
@@ -88,7 +88,7 @@ final class ObservableRestore {
     }
 
     private func validateforrestore() throws -> Bool {
-        if selectedrowforrestore.isEmpty == true || (SharedReference.shared.pathforrestore?.isEmpty ?? true) == true {
+        if filestorestore.isEmpty == true || (SharedReference.shared.pathforrestore?.isEmpty ?? true) == true {
             throw RestoreError.notvalidrestore
         }
         return true
@@ -103,9 +103,9 @@ final class ObservableRestore {
         // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
         // Restore arguments
         if config.offsiteCatalog.hasSuffix("/") {
-            return config.offsiteCatalog + selectedrowforrestore.dropFirst(2) // drop first "./"
+            return config.offsiteCatalog + filestorestore.dropFirst(2) // drop first "./"
         } else {
-            return config.offsiteCatalog + "/" + selectedrowforrestore.dropFirst(2) // drop first "./"
+            return config.offsiteCatalog + "/" + filestorestore.dropFirst(2) // drop first "./"
         }
     }
 
@@ -119,13 +119,13 @@ final class ObservableRestore {
         // Restore arguments
         if config.offsiteCatalog.hasSuffix("/") {
             if let snapshotnum = selectedconfig?.snapshotnum {
-                return config.offsiteCatalog + String(snapshotnum - 1) + "/" + selectedrowforrestore.dropFirst(2)
+                return config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2)
             } else {
                 return ""
             }
         } else {
             if let snapshotnum = selectedconfig?.snapshotnum {
-                return config.offsiteCatalog + String(snapshotnum - 1) + "/" + selectedrowforrestore.dropFirst(2) // drop first "./"
+                return config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2) // drop first "./"
             } else {
                 return ""
             }
@@ -135,7 +135,7 @@ final class ObservableRestore {
     private func computerestorearguments(forDisplay: Bool) -> [String]? {
         // Restore arguments
         // Full restore
-        if selectedrowforrestore == "./." {
+        if filestorestore == "./." {
             if let config = selectedconfig {
                 return ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: forDisplay, tmprestore: true)
             }
@@ -144,10 +144,10 @@ final class ObservableRestore {
             if var localconf = selectedconfig {
                 let snapshot: Bool = (localconf.snapshotnum != nil) ? true : false
                 if snapshot {
-                    localconf.offsiteCatalog = verifyrestorefilesnapshot(localconf, selectedrowforrestore) ?? ""
+                    localconf.offsiteCatalog = verifyrestorefilesnapshot(localconf, filestorestore) ?? ""
                     guard localconf.offsiteCatalog.isEmpty == false else { return nil }
                 } else {
-                    localconf.offsiteCatalog = verifyrestorefile(localconf, selectedrowforrestore)
+                    localconf.offsiteCatalog = verifyrestorefile(localconf, filestorestore)
                 }
                 if snapshot {
                     // Arguments for restore file from last snapshot
