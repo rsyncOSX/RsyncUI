@@ -67,7 +67,7 @@ final class EstimateProgressDetails {
         max = num
     }
 
-    func updatetasknumbercount(_ num: Double) {
+    func updatetasksinprogresscount(_ num: Double) {
         tasksinprogresscount = num
     }
 

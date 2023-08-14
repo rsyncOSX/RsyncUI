@@ -9,9 +9,9 @@ import Foundation
 
 final class ExecuteProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
-    @Published var setcurrentprogress: Double?
-    @Published var hiddenIDatwork: Int = -1
-    private var estimatedlist: [RemoteinfonumbersOnetask]?
+    var currenttaskprogress: Double = 0
+    var hiddenIDatwork: Int = -1
+    var estimatedlist: [RemoteinfonumbersOnetask]?
 
     func taskisestimated(_ hiddenID: Int) -> Bool {
         let answer = estimatedlist?.contains(where: { task in
@@ -22,6 +22,11 @@ final class ExecuteProgressDetails: ObservableObject {
 
     func isestimating() -> Bool {
         return (estimatedlist?.count ?? 0) == 0
+    }
+
+    func setcurrentprogress(_ num: Double) {
+        currenttaskprogress = num
+        objectWillChange.send()
     }
 
     func getmaxcountbytask() -> Double {
@@ -38,7 +43,7 @@ final class ExecuteProgressDetails: ObservableObject {
     }
 
     func resetcounter() {
-        setcurrentprogress = 0
+        currenttaskprogress = 0
         estimatedlist = nil
     }
 
