@@ -32,7 +32,7 @@ struct ListofTasksMainView: View {
                     && progressdetails.isestimating() == false
                 {
                     ProgressView("",
-                                 value: progressdetails.currenttaskprogress,
+                                 value: progressdetails.setcurrentprogress,
                                  total: maxcount)
                         .frame(alignment: .center)
                 } else if progressdetails.taskisestimated(data.hiddenID) {

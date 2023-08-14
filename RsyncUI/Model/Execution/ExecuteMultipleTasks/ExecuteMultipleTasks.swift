@@ -144,7 +144,7 @@ final class ExecuteMultipleTasks {
     }
 
     func filehandler(count: Int) {
-        progressdetailsDelegate?.currenttaskprogress = Double(count)
+        progressdetailsDelegate?.setcurrentprogress = Double(count)
     }
 }
 

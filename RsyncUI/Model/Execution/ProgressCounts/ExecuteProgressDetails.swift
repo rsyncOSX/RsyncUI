@@ -9,7 +9,7 @@ import Foundation
 
 final class ExecuteProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
-    @Published var currenttaskprogress: Double?
+    @Published var setcurrentprogress: Double?
     @Published var hiddenIDatwork: Int = -1
     private var estimatedlist: [RemoteinfonumbersOnetask]?
 
@@ -38,7 +38,7 @@ final class ExecuteProgressDetails: ObservableObject {
     }
 
     func resetcounter() {
-        currenttaskprogress = 0
+        setcurrentprogress = 0
         estimatedlist = nil
     }
 
