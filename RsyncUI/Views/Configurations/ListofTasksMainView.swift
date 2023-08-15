@@ -126,6 +126,7 @@ struct ListofTasksMainView: View {
                                  value: progressdetails.currenttaskprogress,
                                  total: maxcount)
                         .frame(alignment: .center)
+                        .padding()
                 } else if progressdetails.taskisestimated(data.hiddenID) {
                     Text("Estimated")
                         .foregroundColor(.green)
