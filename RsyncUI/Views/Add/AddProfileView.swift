@@ -1,5 +1,5 @@
 //
-//  AddProfile.swift
+//  AddProfileView.swift
 //  AddProfile
 //
 //  Created by Thomas Evensen on 04/09/2021.

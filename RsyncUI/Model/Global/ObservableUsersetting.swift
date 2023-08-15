@@ -1,5 +1,5 @@
 //
-//  ObserveableReference.swift
+//  ObservableUsersetting.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 16/02/2021.

@@ -1,5 +1,5 @@
 //
-//  SnapshotsLoggData.swift
+//  Snapshotlogsandcatalogs.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 22.01.2018.

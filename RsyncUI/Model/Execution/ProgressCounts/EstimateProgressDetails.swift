@@ -1,5 +1,5 @@
 //
-//  InprogressCountEstimation.swift
+//  EstimateProgressDetails.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 20/01/2021.

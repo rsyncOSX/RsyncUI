@@ -1,5 +1,5 @@
 //
-//  getRemoteFilelist.swift
+//  GetRemoteFileListingsArguments.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 21.05.2017.

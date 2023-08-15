@@ -1,5 +1,5 @@
 //
-//  ssh.swift
+//  SshKeys.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 23.04.2017.

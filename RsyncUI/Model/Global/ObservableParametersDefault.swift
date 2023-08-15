@@ -1,5 +1,5 @@
 //
-//  ObserveableParametersDefault.swift
+//  ObservableParametersDefault.swift
 //  ObserveableParametersDefault
 //
 //  Created by Thomas Evensen on 18/08/2021.

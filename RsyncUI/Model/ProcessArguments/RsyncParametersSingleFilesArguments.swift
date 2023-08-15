@@ -1,5 +1,5 @@
 //
-//  rsyncArguments.swift
+//  RsyncParametersSingleFilesArguments.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 06.03.2017.
