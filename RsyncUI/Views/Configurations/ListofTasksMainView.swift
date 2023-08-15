@@ -128,8 +128,9 @@ struct ListofTasksMainView: View {
                         .frame(alignment: .center)
                         .padding()
                 } else if progressdetails.taskisestimated(data.hiddenID) {
-                    Text("Estimated")
-                        .foregroundColor(.green)
+                    Image("green")
+                        .resizable()
+                        .frame(width: 15, height: 15, alignment: .trailing)
                 }
             }
             .width(min: 50, max: 70)
