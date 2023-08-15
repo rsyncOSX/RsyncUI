@@ -36,7 +36,7 @@ struct ExecuteEstimatedTasksView: View {
                 reload: $reload,
                 confirmdelete: $confirmdelete,
                 reloadtasksviewlist: $reloadtasksviewlist,
-                doubleclick: $doubleclick
+                doubleclick: $doubleclick, showestimateicon: false
             )
 
             if multipletaskstate.executionstate == .completed { labelcompleted }
