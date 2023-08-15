@@ -1,5 +1,5 @@
 //
-//  OutputProcessRsync.swift
+//  OutputfromProcessRsync.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 10/05/2020.

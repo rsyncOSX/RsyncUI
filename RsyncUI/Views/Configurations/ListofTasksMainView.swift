@@ -1,5 +1,5 @@
 //
-//  ListofTasksView.swift
+//  ListofTasksMainView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 18/05/2023.

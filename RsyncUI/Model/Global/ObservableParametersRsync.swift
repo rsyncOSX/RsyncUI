@@ -1,5 +1,5 @@
 //
-//  ObserveableParametersRsync.swift
+//  ObservableParametersRsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 20/03/2021.

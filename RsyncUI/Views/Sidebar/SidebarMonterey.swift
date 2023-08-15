@@ -1,5 +1,5 @@
 //
-//  Sidebar.swift
+//  SidebarMonterey.swift
 //  RsyncOSXSwiftUI
 //
 //  Created by Thomas Evensen on 11/01/2021.

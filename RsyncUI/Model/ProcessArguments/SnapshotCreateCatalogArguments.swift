@@ -1,5 +1,5 @@
 //
-//  SnapShotCreateInitialCatalog.swift
+//  SnapshotCreateCatalogArguments.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 17.01.2018.

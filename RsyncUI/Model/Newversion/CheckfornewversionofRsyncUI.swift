@@ -1,5 +1,5 @@
 //
-//  GetversionsofRsyncUI.swift
+//  CheckfornewversionofRsyncUI.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 07/12/2022.

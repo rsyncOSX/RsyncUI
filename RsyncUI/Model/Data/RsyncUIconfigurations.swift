@@ -1,5 +1,5 @@
 //
-//  rsyncUIdata.swift
+//  RsyncUIconfigurations.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 28/12/2020.

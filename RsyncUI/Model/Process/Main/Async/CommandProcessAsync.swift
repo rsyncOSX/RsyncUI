@@ -1,5 +1,5 @@
 //
-//  OtherProcessAsync.swift
+//  CommandProcessAsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 28/10/2022.

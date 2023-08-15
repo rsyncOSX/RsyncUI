@@ -1,5 +1,5 @@
 //
-//  outputProcess.swift
+//  OutputfromProcess.swift
 //
 //  Created by Thomas Evensen on 11/01/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
