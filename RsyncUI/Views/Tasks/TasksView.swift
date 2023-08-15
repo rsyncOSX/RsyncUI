@@ -93,13 +93,6 @@ struct TasksView: View {
                 if estimatingprogresscount.estimateasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
-
-            if #unavailable(macOS 13) {
-                Spacer()
-
-                Button("DryRun") { dryrun() }
-                    .buttonStyle(ColorfulButtonStyle())
-            }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
