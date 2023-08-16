@@ -39,7 +39,7 @@ struct ListofTasksMainView: View {
                 {
                     ProgressView("",
                                  value: progressdetails.currenttaskprogress,
-                                 total: maxcount)
+                                 total: maxcount + 3)
                         .frame(alignment: .center)
                 } else if progressdetails.taskisestimated(data.hiddenID),
                           showestimateicon
@@ -129,9 +129,8 @@ struct ListofTasksMainView: View {
                 {
                     ProgressView("",
                                  value: progressdetails.currenttaskprogress,
-                                 total: maxcount)
+                                 total: maxcount + 3)
                         .frame(alignment: .center)
-                        .padding()
                 } else if progressdetails.taskisestimated(data.hiddenID),
                           showestimateicon
                 {
