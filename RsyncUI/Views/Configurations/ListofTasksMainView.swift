@@ -18,6 +18,8 @@ struct ListofTasksMainView: View {
     @Binding var reloadtasksviewlist: Bool
     @Binding var doubleclick: Bool
 
+    var showestimateicon: Bool
+
     var body: some View {
         VStack {
             if #available(macOS 13.0, *) {
@@ -39,12 +41,15 @@ struct ListofTasksMainView: View {
                                  value: progressdetails.currenttaskprogress,
                                  total: maxcount)
                         .frame(alignment: .center)
-                } else if progressdetails.taskisestimated(data.hiddenID) {
-                    Text("Estimated")
-                        .foregroundColor(.green)
+                } else if progressdetails.taskisestimated(data.hiddenID),
+                          showestimateicon
+                {
+                    Image("green")
+                        .resizable()
+                        .frame(width: 15, height: 15, alignment: .trailing)
                 }
             }
-            .width(min: 50, max: 70)
+            .width(min: 50, ideal: 50)
             TableColumn("Profile") { data in
                 if markconfig(data) {
                     Text(data.profile ?? "Default profile")
@@ -127,13 +132,15 @@ struct ListofTasksMainView: View {
                                  total: maxcount)
                         .frame(alignment: .center)
                         .padding()
-                } else if progressdetails.taskisestimated(data.hiddenID) {
+                } else if progressdetails.taskisestimated(data.hiddenID),
+                          showestimateicon
+                {
                     Image("green")
                         .resizable()
                         .frame(width: 15, height: 15, alignment: .trailing)
                 }
             }
-            .width(min: 50, max: 70)
+            .width(min: 50, ideal: 50)
             TableColumn("Profile") { data in
                 if markconfig(data) {
                     Text(data.profile ?? "Default profile")
