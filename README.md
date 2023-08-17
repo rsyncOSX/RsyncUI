@@ -1,4 +1,4 @@
-**MacOS Sonoma** The branch `version-1.7.0-macos-sonoma` is for *macOS Sonoma, Swift 5.9* and *Xcode 15*. This branch will only compile and run on macOS Sonoma. The `main` branch will compile and run by Xcode 14 on macOS Ventura. The compiled `main` branch will execute on macOS Monterey and later including macOS Sonoma. See info about how [the apps are built](https://rsyncui.netlify.app/post/built/).
+**MacOS Sonoma** The branch `version-1.7.5-macos-sonoma` is for *macOS Sonoma, Swift 5.9* and *Xcode 15*. This branch will only compile and run on macOS Sonoma. The `main` branch will compile and run by Xcode 14 on macOS Ventura. The compiled `main` branch will execute on macOS Monterey and later including macOS Sonoma. See info about how [the apps are built](https://rsyncui.netlify.app/post/built/).
 
 RsyncUI is released for macOS Monterey and later.
 
