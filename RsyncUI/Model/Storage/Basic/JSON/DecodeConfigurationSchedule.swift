@@ -1,5 +1,5 @@
 //
-//  CodableSchedule.swift
+//  DecodeConfigurationSchedule.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 18/10/2020.

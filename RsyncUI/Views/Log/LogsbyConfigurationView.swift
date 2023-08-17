@@ -1,5 +1,5 @@
 //
-//  LogsGroup.swift
+//  LogsbyConfigurationView.swift
 //  RsyncOSXSwiftUI
 //
 //  Created by Thomas Evensen on 04/01/2021.

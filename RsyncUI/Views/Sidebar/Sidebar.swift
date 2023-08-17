@@ -1,5 +1,5 @@
 //
-//  SidebarSonoma.swift
+//  Sidebar.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 03/07/2023.

@@ -1,5 +1,5 @@
 //
-//  ObservableReferenceSSH.swift
+//  ObservableSSH.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 14/03/2021.

@@ -1,5 +1,5 @@
 //
-//  scpArgumentsSsh.swift
+//  ArgumentsSsh.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 27.04.2017.

@@ -1,5 +1,5 @@
 //
-//  DetailsViewAlreadyEstimted.swift
+//  DetailsViewAlreadyEstimated.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 24/11/2022.

@@ -1,5 +1,5 @@
 //
-//  ConfigurationsSwiftUI.swift
+//  AllConfigurations.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 26/12/2020.

@@ -1,5 +1,5 @@
 //
-//  InprogressCount.swift
+//  ObservableRsyncOutput.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 18/01/2021.

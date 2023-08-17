@@ -1,5 +1,5 @@
 //
-//  SchedulesSwiftUI.swift
+//  AllLogs.swift
 //  RsyncOSXSwiftUI
 //
 //  Created by Thomas Evensen on 29/12/2020.

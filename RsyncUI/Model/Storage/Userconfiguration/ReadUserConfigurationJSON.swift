@@ -1,5 +1,5 @@
 //
-//  ReadUserConfigurationsJSON.swift
+//  ReadUserConfigurationJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 12/02/2022.

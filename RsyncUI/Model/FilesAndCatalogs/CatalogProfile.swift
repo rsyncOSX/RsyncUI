@@ -1,5 +1,5 @@
 //
-//  profiles.swift
+//  CatalogProfile.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 17/10/2016.

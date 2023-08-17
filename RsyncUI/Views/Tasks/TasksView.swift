@@ -63,7 +63,8 @@ struct TasksView: View {
                     reload: $reload,
                     confirmdelete: $confirmdelete,
                     reloadtasksviewlist: $reloadtasksviewlist,
-                    doubleclick: $doubleclick
+                    doubleclick: $doubleclick,
+                    showestimateicon: true
                 )
                 .frame(maxWidth: .infinity)
                 .onChange(of: selecteduuids) {

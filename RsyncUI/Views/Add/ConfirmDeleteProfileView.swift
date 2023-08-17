@@ -1,5 +1,5 @@
 //
-//  DeleteProfileConfirmView.swift
+//  ConfirmDeleteProfileView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 09/05/2021.
