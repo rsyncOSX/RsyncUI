@@ -38,13 +38,6 @@ struct RsyncUIView: View {
                 })
 
             } else {
-                /*
-                 if profilenames.profiles?.count == 0 {
-                     defaultprofilepicker
-                 } else {
-                     profilepicker
-                 }
-                  */
                 if #available(macOS 13.0, *) {
                     SidebarVentura(reload: $reload,
                                    selectedprofile: $selectedprofile,
@@ -126,20 +119,6 @@ struct RsyncUIView: View {
         }
     }
 
-    /*
-     var defaultprofilepicker: some View {
-         HStack {
-             Picker("", selection: $defaultprofile) {
-                 Text("Default profile")
-                     .tag("Default profile")
-             }
-             .frame(width: 180)
-             .accentColor(.blue)
-
-             Spacer()
-         }
-     }
-     */
     var notifynewversion: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
