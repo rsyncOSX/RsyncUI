@@ -36,6 +36,8 @@ struct AddTaskView: View {
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var dataischanged = Dataischanged()
 
+    @State private var confirmcopyandpaste: Bool = false
+
     var choosecatalog = true
 
     enum AddConfigurationField: Hashable {
@@ -116,8 +118,18 @@ struct AddTaskView: View {
                                     }
                                 )
                                 .copyable(copyitems.filter { selecteduuids.contains($0.id) })
-                                .pasteDestination(for: CopyItem.self) { item in
-                                    print(item)
+                                .pasteDestination(for: CopyItem.self) { items in
+                                    print(items)
+                                    confirmcopyandpaste = true
+                                }
+                                .confirmationDialog(
+                                    NSLocalizedString("Copy configuration(s)", comment: "")
+                                        + "?",
+                                    isPresented: $confirmcopyandpaste
+                                ) {
+                                    Button("Copy") {
+                                        confirmcopyandpaste = false
+                                    }
                                 }
                             } else {
                                 ListofTasksLightView(
