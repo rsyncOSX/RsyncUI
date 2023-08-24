@@ -37,8 +37,6 @@ struct AddTaskView: View {
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var dataischanged = Dataischanged()
 
-    @State private var confirmcopyandpaste: Bool = false
-
     var choosecatalog = true
 
     enum AddConfigurationField: Hashable {
@@ -53,9 +51,10 @@ struct AddTaskView: View {
     @FocusState private var focusField: AddConfigurationField?
     // Modale view
     @State private var modalview = false
-
     // Reload and show table data
     @State private var showtableview: Bool = true
+    // Only used for macOS13 and later
+    @State private var confirmcopyandpaste: Bool = false
 
     var body: some View {
         Form {
@@ -120,10 +119,11 @@ struct AddTaskView: View {
                                 )
                                 .copyable(copyitems.filter { selecteduuids.contains($0.id) })
                                 .pasteDestination(for: CopyItem.self) { items in
-                                    print(items)
+                                    newdata.preparecopyandpastetasks(items,
+                                                                     rsyncUIdata.configurations ?? [])
                                     confirmcopyandpaste = true
                                 } validator: { items in
-                                    items.filter { $0.task == SharedReference.shared.synchronize }
+                                    items.filter { $0.task != SharedReference.shared.snapshot }
                                 }
                                 .confirmationDialog(
                                     NSLocalizedString("Copy configuration(s)", comment: "")

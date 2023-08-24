@@ -65,6 +65,8 @@ final class ObservableAddConfigurations: ObservableObject {
         return NamesandPaths(.configurations).userHomeDirectoryPath ?? ""
     }
 
+    var copyandpasteconfigurations: [Configuration]?
+
     init() {
         $donotaddtrailingslash
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
@@ -327,6 +329,21 @@ final class ObservableAddConfigurations: ObservableObject {
     func assistfuncremoteserver(_ remoteserver: String) {
         guard remoteserver.isEmpty == false else { return }
         self.remoteserver = remoteserver
+    }
+
+    // Prepare for copyandpaste tasks
+    @available(macOS 13.0, *)
+    func preparecopyandpastetasks(_ items: [CopyItem], _ configurations: [Configuration]) {
+        copyandpasteconfigurations = nil
+        copyandpasteconfigurations = [Configuration]()
+
+        let copyitems = configurations.filter { config in
+            items.contains { item in
+                item.id == config.id
+            }
+        }
+
+        print(copyitems)
     }
 }
 
