@@ -8,6 +8,16 @@
 
 import SwiftUI
 
+@available(macOS 13.0, *)
+struct CopyItem: Identifiable, Codable, Transferable {
+    let id: UUID
+    let hiddenID: Int
+
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .data)
+    }
+}
+
 enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
     case snapshot
@@ -88,22 +98,45 @@ struct AddTaskView: View {
 
                     VStack(alignment: .leading) {
                         if showtableview {
-                            ListofTasksLightView(
-                                selecteduuids: $selecteduuids.onChange {
-                                    let selected = rsyncUIdata.configurations?.filter { config in
-                                        selecteduuids.contains(config.id)
-                                    }
-                                    if (selected?.count ?? 0) == 1 {
-                                        if let config = selected {
-                                            selectedconfig = config[0]
+                            if #available(macOS 13.0, *) {
+                                ListofTasksLightView(
+                                    selecteduuids: $selecteduuids.onChange {
+                                        let selected = rsyncUIdata.configurations?.filter { config in
+                                            selecteduuids.contains(config.id)
+                                        }
+                                        if (selected?.count ?? 0) == 1 {
+                                            if let config = selected {
+                                                selectedconfig = config[0]
+                                                newdata.updateview(selectedconfig)
+                                            }
+                                        } else {
+                                            selectedconfig = nil
                                             newdata.updateview(selectedconfig)
                                         }
-                                    } else {
-                                        selectedconfig = nil
-                                        newdata.updateview(selectedconfig)
                                     }
+                                )
+                                .copyable(copyitems.filter { selecteduuids.contains($0.id) })
+                                .pasteDestination(for: CopyItem.self) { item in
+                                    print(item)
                                 }
-                            )
+                            } else {
+                                ListofTasksLightView(
+                                    selecteduuids: $selecteduuids.onChange {
+                                        let selected = rsyncUIdata.configurations?.filter { config in
+                                            selecteduuids.contains(config.id)
+                                        }
+                                        if (selected?.count ?? 0) == 1 {
+                                            if let config = selected {
+                                                selectedconfig = config[0]
+                                                newdata.updateview(selectedconfig)
+                                            }
+                                        } else {
+                                            selectedconfig = nil
+                                            newdata.updateview(selectedconfig)
+                                        }
+                                    }
+                                )
+                            }
 
                             HStack {
                                 profilebutton
@@ -475,6 +508,17 @@ struct AddTaskView: View {
             .onAppear(perform: {
                 modalview = true
             })
+    }
+
+    @available(macOS 13.0, *)
+    var copyitems: [CopyItem] {
+        var items = [CopyItem]()
+        for i in 0 ..< (rsyncUIdata.configurations?.count ?? 0) {
+            let item = CopyItem(id: rsyncUIdata.configurations?[i].id ?? UUID(),
+                                hiddenID: rsyncUIdata.configurations?[i].hiddenID ?? -1)
+            items.append(item)
+        }
+        return items
     }
 }
 
