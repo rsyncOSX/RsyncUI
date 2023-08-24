@@ -12,6 +12,7 @@ import SwiftUI
 struct CopyItem: Identifiable, Codable, Transferable {
     let id: UUID
     let hiddenID: Int
+    let task: String
 
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(contentType: .data)
@@ -121,6 +122,8 @@ struct AddTaskView: View {
                                 .pasteDestination(for: CopyItem.self) { items in
                                     print(items)
                                     confirmcopyandpaste = true
+                                } validator: { items in
+                                    items.filter { $0.task == SharedReference.shared.synchronize }
                                 }
                                 .confirmationDialog(
                                     NSLocalizedString("Copy configuration(s)", comment: "")
@@ -527,7 +530,8 @@ struct AddTaskView: View {
         var items = [CopyItem]()
         for i in 0 ..< (rsyncUIdata.configurations?.count ?? 0) {
             let item = CopyItem(id: rsyncUIdata.configurations?[i].id ?? UUID(),
-                                hiddenID: rsyncUIdata.configurations?[i].hiddenID ?? -1)
+                                hiddenID: rsyncUIdata.configurations?[i].hiddenID ?? -1,
+                                task: rsyncUIdata.configurations?[i].task ?? "")
             items.append(item)
         }
         return items
