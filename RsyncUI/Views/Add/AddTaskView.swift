@@ -51,9 +51,8 @@ struct AddTaskView: View {
     @FocusState private var focusField: AddConfigurationField?
     // Modale view
     @State private var modalview = false
-
     // Reload and show table data
-    @State private var showtableview: Bool = true
+    @State private var reloadtasksviewlist: Bool = true
     @State private var confirmcopyandpaste: Bool = false
 
     var body: some View {
@@ -99,8 +98,10 @@ struct AddTaskView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        if showtableview {
-                            ListofTasksLightView(selecteduuids: $selecteduuids)
+                        if reloadtasksviewlist {
+                            ListofTasksAddView(selecteduuids: $selecteduuids,
+                                               reload: $reload,
+                                               reloadtasksviewlist: $reloadtasksviewlist)
                                 .onChange(of: selecteduuids) {
                                     let selected = rsyncUIdata.configurations?.filter { config in
                                         selecteduuids.contains(config.id)
@@ -134,7 +135,7 @@ struct AddTaskView: View {
                                         newdata.writecopyandpastetasks(rsyncUIdata.profile,
                                                                        rsyncUIdata.configurations ?? [])
                                         reload = true
-                                        showtableview = false
+                                        reloadtasksviewlist = false
                                         dataischanged.dataischanged = true
                                     }
                                 }
@@ -155,7 +156,7 @@ struct AddTaskView: View {
         .padding()
         .onAppear {
             if dataischanged.dataischanged {
-                showtableview = false
+                reloadtasksviewlist = false
                 dataischanged.dataischanged = false
             }
         }
@@ -432,7 +433,7 @@ struct AddTaskView: View {
         notifymessage("Updated")
             .onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showtableview = true
+                    reloadtasksviewlist = true
                 }
             })
             .frame(maxWidth: .infinity)
@@ -533,14 +534,14 @@ extension AddTaskView {
     func addconfig() {
         newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload
-        showtableview = false
+        reloadtasksviewlist = false
         dataischanged.dataischanged = true
     }
 
     func validateandupdate() {
         newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
-        showtableview = false
+        reloadtasksviewlist = false
         dataischanged.dataischanged = true
     }
 }

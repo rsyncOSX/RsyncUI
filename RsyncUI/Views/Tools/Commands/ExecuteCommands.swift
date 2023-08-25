@@ -11,36 +11,27 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
     @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
-    @FocusedBinding(\.deletetask) private var deletetask
     @FocusedBinding(\.showinfotask) private var showinfotask
     @FocusedBinding(\.aborttask) private var aborttask
     @FocusedBinding(\.enabletimer) private var enabletimer
 
     var body: some Commands {
         CommandMenu("Tasks") {
-            Group {
-                StarteestimateButton(startestimation: $startestimation)
-                StartexecuteButton(startexecution: $startexecution)
+            StarteestimateButton(startestimation: $startestimation)
+            StartexecuteButton(startexecution: $startexecution)
 
-                Divider()
+            Divider()
 
-                FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
-                Showinfotask(showinfotask: $showinfotask)
+            FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
+            Showinfotask(showinfotask: $showinfotask)
 
-                Divider()
-            }
+            Divider()
 
-            Group {
-                Deletetask(deletetask: $deletetask)
+            Enabletimer(enabletimer: $enabletimer)
 
-                Divider()
+            Divider()
 
-                Enabletimer(enabletimer: $enabletimer)
-
-                Divider()
-
-                Abborttask(aborttask: $aborttask)
-            }
+            Abborttask(aborttask: $aborttask)
         }
     }
 }
@@ -97,19 +88,6 @@ struct FirsttaskInfo: View {
     }
 }
 
-struct Deletetask: View {
-    @Binding var deletetask: Bool?
-
-    var body: some View {
-        Button {
-            deletetask = true
-        } label: {
-            Label("Delete task", systemImage: "trash.fill")
-        }
-        .keyboardShortcut("d", modifiers: [.command])
-    }
-}
-
 struct Showinfotask: View {
     @Binding var showinfotask: Bool?
 
@@ -161,10 +139,6 @@ struct FocusedFirsttaskInfo: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
-struct FocusedDeletetask: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
-
 struct FocusedShowinfoTask: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -191,11 +165,6 @@ extension FocusedValues {
     var firsttaskinfo: FocusedFirsttaskInfo.Value? {
         get { self[FocusedFirsttaskInfo.self] }
         set { self[FocusedFirsttaskInfo.self] = newValue }
-    }
-
-    var deletetask: FocusedDeletetask.Value? {
-        get { self[FocusedDeletetask.self] }
-        set { self[FocusedDeletetask.self] = newValue }
     }
 
     var showinfotask: FocusedShowinfoTask.Value? {

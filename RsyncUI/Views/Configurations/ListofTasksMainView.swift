@@ -14,9 +14,9 @@ struct ListofTasksMainView: View {
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
     @Binding var reload: Bool
-    @Binding var confirmdelete: Bool
     @Binding var reloadtasksviewlist: Bool
     @Binding var doubleclick: Bool
+    @State private var confirmdelete: Bool = false
 
     var showestimateicon: Bool
 
@@ -100,8 +100,11 @@ struct ListofTasksMainView: View {
             }
             .width(max: 120)
         }
+        .onDeleteCommand {
+            confirmdelete = true
+        }
         .confirmationDialog(
-            NSLocalizedString("Delete configuration", comment: "")
+            NSLocalizedString("Delete configuration(s)", comment: "")
                 + "?",
             isPresented: $confirmdelete
         ) {

@@ -20,10 +20,7 @@ struct ExecuteEstimatedTasksView: View {
 
     @State private var selectedconfig: Configuration?
     @State private var filterstring: String = ""
-
-    @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
-
     @State private var reloadtasksviewlist = false
     @State private var doubleclick: Bool = false
 
@@ -33,7 +30,6 @@ struct ExecuteEstimatedTasksView: View {
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,
-                confirmdelete: $confirmdelete,
                 reloadtasksviewlist: $reloadtasksviewlist,
                 doubleclick: $doubleclick,
                 showestimateicon: false
@@ -43,14 +39,6 @@ struct ExecuteEstimatedTasksView: View {
             if multipletaskstate.executionstate == .execute { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
         }
-        /*
-         HStack {
-             Spacer()
-
-             Button("Abort") { abort() }
-                 .buttonStyle(ColorfulRedButtonStyle())
-         }
-          */
         .onAppear(perform: {
             executemultipleestimatedtasks()
         })
