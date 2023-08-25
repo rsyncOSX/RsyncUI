@@ -135,6 +135,8 @@ struct AddTaskView: View {
                                         confirmcopyandpaste = false
                                         newdata.writecopyandpastetasks(rsyncUIdata.profile,
                                                                        rsyncUIdata.configurations ?? [])
+                                        showtableview = false
+                                        dataischanged.dataischanged = true
                                     }
                                 }
                             } else {
