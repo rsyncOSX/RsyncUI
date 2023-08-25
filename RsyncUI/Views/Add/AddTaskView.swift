@@ -8,6 +8,17 @@
 
 import SwiftUI
 
+@available(macOS 13.0, *)
+struct CopyItem: Identifiable, Codable, Transferable {
+    let id: UUID
+    let hiddenID: Int
+    let task: String
+
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .data)
+    }
+}
+
 enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
     case snapshot
@@ -40,9 +51,10 @@ struct AddTaskView: View {
     @FocusState private var focusField: AddConfigurationField?
     // Modale view
     @State private var modalview = false
-
     // Reload and show table data
     @State private var showtableview: Bool = true
+    // Only used for macOS13 and later
+    @State private var confirmcopyandpaste: Bool = false
 
     var body: some View {
         Form {
@@ -88,22 +100,64 @@ struct AddTaskView: View {
 
                     VStack(alignment: .leading) {
                         if showtableview {
-                            ListofTasksLightView(
-                                selecteduuids: $selecteduuids.onChange {
-                                    let selected = rsyncUIdata.configurations?.filter { config in
-                                        selecteduuids.contains(config.id)
-                                    }
-                                    if (selected?.count ?? 0) == 1 {
-                                        if let config = selected {
-                                            selectedconfig = config[0]
+                            if #available(macOS 13.0, *) {
+                                ListofTasksLightView(
+                                    selecteduuids: $selecteduuids.onChange {
+                                        let selected = rsyncUIdata.configurations?.filter { config in
+                                            selecteduuids.contains(config.id)
+                                        }
+                                        if (selected?.count ?? 0) == 1 {
+                                            if let config = selected {
+                                                selectedconfig = config[0]
+                                                newdata.updateview(selectedconfig)
+                                            }
+                                        } else {
+                                            selectedconfig = nil
                                             newdata.updateview(selectedconfig)
                                         }
-                                    } else {
-                                        selectedconfig = nil
-                                        newdata.updateview(selectedconfig)
+                                    }
+                                )
+                                .copyable(copyitems.filter { selecteduuids.contains($0.id) })
+                                .pasteDestination(for: CopyItem.self) { items in
+                                    newdata.preparecopyandpastetasks(items,
+                                                                     rsyncUIdata.configurations ?? [])
+                                    guard items.count > 0 else { return }
+                                    confirmcopyandpaste = true
+                                } validator: { items in
+                                    items.filter { $0.task != SharedReference.shared.snapshot }
+                                }
+                                .confirmationDialog(
+                                    NSLocalizedString("Copy configuration(s)", comment: "")
+                                        + "?",
+                                    isPresented: $confirmcopyandpaste
+                                ) {
+                                    Button("Copy") {
+                                        confirmcopyandpaste = false
+                                        newdata.writecopyandpastetasks(rsyncUIdata.profile,
+                                                                       rsyncUIdata.configurations ?? [])
+                                        reload = true
+                                        showtableview = false
+                                        dataischanged.dataischanged = true
                                     }
                                 }
-                            )
+                            } else {
+                                ListofTasksLightView(
+                                    selecteduuids: $selecteduuids.onChange {
+                                        let selected = rsyncUIdata.configurations?.filter { config in
+                                            selecteduuids.contains(config.id)
+                                        }
+                                        if (selected?.count ?? 0) == 1 {
+                                            if let config = selected {
+                                                selectedconfig = config[0]
+                                                newdata.updateview(selectedconfig)
+                                            }
+                                        } else {
+                                            selectedconfig = nil
+                                            newdata.updateview(selectedconfig)
+                                        }
+                                    }
+                                )
+                            }
 
                             HStack {
                                 profilebutton
@@ -475,6 +529,18 @@ struct AddTaskView: View {
             .onAppear(perform: {
                 modalview = true
             })
+    }
+
+    @available(macOS 13.0, *)
+    var copyitems: [CopyItem] {
+        var items = [CopyItem]()
+        for i in 0 ..< (rsyncUIdata.configurations?.count ?? 0) {
+            let item = CopyItem(id: rsyncUIdata.configurations?[i].id ?? UUID(),
+                                hiddenID: rsyncUIdata.configurations?[i].hiddenID ?? -1,
+                                task: rsyncUIdata.configurations?[i].task ?? "")
+            items.append(item)
+        }
+        return items
     }
 }
 

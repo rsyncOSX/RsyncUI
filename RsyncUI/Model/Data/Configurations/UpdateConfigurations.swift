@@ -13,9 +13,8 @@
 // swiftlint:disable opening_brace
 
 import Foundation
-import SwiftUI
 
-class UpdateConfigurations {
+final class UpdateConfigurations {
     private var configurations: [Configuration]?
     private var localeprofile: String?
 
@@ -110,6 +109,16 @@ class UpdateConfigurations {
         }
     }
 
+    // Write Copy and Paste tasks
+    func writecopyandpastetask(_ copyandpastetasks: [Configuration]?) {
+        if let copyandpastetasks = copyandpastetasks {
+            for i in 0 ..< copyandpastetasks.count {
+                configurations?.append(copyandpastetasks[i])
+            }
+        }
+        WriteConfigurationJSON(localeprofile, configurations)
+    }
+
     init(profile: String?, configurations: [Configuration]?) {
         localeprofile = profile
         // Create new set of configurations
@@ -124,3 +133,5 @@ class UpdateConfigurations {
         // print("deinit UpdateConfigurations")
     }
 }
+
+// swiftlint:enable opening_brace
