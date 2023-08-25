@@ -355,11 +355,14 @@ final class ObservableAddConfigurations: ObservableObject {
             }
         }
     }
-    
+
     // After accept of Copy and Paste a write operation is performed
-    func writecopyandpastetasks(_ configurations: [Configuration]) {
-        print("writecopyandpastetasks")
-        print(copyandpasteconfigurations)
+    func writecopyandpastetasks(_ profile: String?, _ configurations: [Configuration]) {
+        let updateconfigurations =
+            UpdateConfigurations(profile: profile,
+                                 configurations: configurations)
+        updateconfigurations.writecopyandpastetask(copyandpasteconfigurations)
+        reload = true
     }
 }
 

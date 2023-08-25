@@ -121,6 +121,7 @@ struct AddTaskView: View {
                                 .pasteDestination(for: CopyItem.self) { items in
                                     newdata.preparecopyandpastetasks(items,
                                                                      rsyncUIdata.configurations ?? [])
+                                    guard items.count > 0 else { return }
                                     confirmcopyandpaste = true
                                 } validator: { items in
                                     items.filter { $0.task != SharedReference.shared.snapshot }
@@ -132,7 +133,8 @@ struct AddTaskView: View {
                                 ) {
                                     Button("Copy") {
                                         confirmcopyandpaste = false
-                                        newdata.writecopyandpastetasks(rsyncUIdata.configurations ?? [])
+                                        newdata.writecopyandpastetasks(rsyncUIdata.profile,
+                                                                       rsyncUIdata.configurations ?? [])
                                     }
                                 }
                             } else {
