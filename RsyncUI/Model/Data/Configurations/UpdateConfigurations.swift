@@ -13,9 +13,8 @@
 // swiftlint:disable opening_brace
 
 import Foundation
-import SwiftUI
 
-class UpdateConfigurations {
+final class UpdateConfigurations {
     private var configurations: [Configuration]?
     private var localeprofile: String?
 

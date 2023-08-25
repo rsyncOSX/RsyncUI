@@ -132,6 +132,7 @@ struct AddTaskView: View {
                                 ) {
                                     Button("Copy") {
                                         confirmcopyandpaste = false
+                                        newdata.writecopyandpastetasks(rsyncUIdata.configurations ?? [])
                                     }
                                 }
                             } else {
