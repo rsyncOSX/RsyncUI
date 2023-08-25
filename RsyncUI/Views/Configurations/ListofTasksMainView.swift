@@ -109,7 +109,7 @@ struct ListofTasksMainView: View {
             .width(max: 120)
         }
         .confirmationDialog(
-            NSLocalizedString("Delete configuration", comment: "")
+            NSLocalizedString("Delete configuration(s)", comment: "")
                 + "?",
             isPresented: $confirmdelete
         ) {
@@ -198,7 +198,7 @@ struct ListofTasksMainView: View {
             .width(max: 120)
         }
         .confirmationDialog(
-            NSLocalizedString("Delete configuration", comment: "")
+            NSLocalizedString("Delete configuration(s)", comment: "")
                 + "?",
             isPresented: $confirmdelete
         ) {
