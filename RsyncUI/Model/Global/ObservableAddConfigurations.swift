@@ -63,6 +63,8 @@ final class ObservableAddConfigurations {
         return NamesandPaths(.configurations).userHomeDirectoryPath ?? ""
     }
 
+    var copyandpasteconfigurations: [Configuration]?
+
     func addconfig(_ profile: String?, _ configurations: [Configuration]?) {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
@@ -261,6 +263,55 @@ final class ObservableAddConfigurations {
     func assistfuncremoteserver(_ remoteserver: String) {
         guard remoteserver.isEmpty == false else { return }
         self.remoteserver = remoteserver
+    }
+
+    // Prepare for Copy and Paste tasks
+    func preparecopyandpastetasks(_ items: [CopyItem], _ configurations: [Configuration]) {
+        copyandpasteconfigurations = nil
+        copyandpasteconfigurations = [Configuration]()
+        let copyitems = configurations.filter { config in
+            items.contains { item in
+                item.id == config.id
+            }
+        }
+        let existingmaxhiddenID = MaxhiddenID().computemaxhiddenID(configurations)
+        for i in 0 ..< copyitems.count {
+            var copy: Configuration?
+            copy = copyitems[i]
+            copy?.backupID = "COPY " + copyitems[i].backupID
+            copy?.dateRun = nil
+            copy?.hiddenID = existingmaxhiddenID + 1 + i
+            copy?.id = UUID()
+            copy?.dayssincelastbackup = nil
+            if let copy = copy {
+                copyandpasteconfigurations?.append(copy)
+            }
+        }
+    }
+
+    // After accept of Copy and Paste a write operation is performed
+    func writecopyandpastetasks(_ profile: String?, _ configurations: [Configuration]) {
+        let updateconfigurations =
+            UpdateConfigurations(profile: profile,
+                                 configurations: configurations)
+        updateconfigurations.writecopyandpastetask(copyandpasteconfigurations)
+        reload = true
+    }
+}
+
+// Compute max hiddenID as part of copy and paste function..
+struct MaxhiddenID {
+    func computemaxhiddenID(_ configurations: [Configuration]?) -> Int {
+        // Reading Configurations from memory
+        if let configs = configurations {
+            var setofhiddenIDs = Set<Int>()
+            // Fill set with existing hiddenIDS
+            for i in 0 ..< configs.count {
+                setofhiddenIDs.insert(configs[i].hiddenID)
+            }
+            return setofhiddenIDs.max() ?? 0
+        }
+        return 0
     }
 }
 
