@@ -45,6 +45,8 @@ struct ListofTasksLightView: View {
                 Text(data.dateRun ?? "")
             }
             .width(max: 120)
+        }.onDeleteCommand {
+            print("Delete ListofTasksLightView")
         }
     }
 }

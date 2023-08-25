@@ -118,6 +118,9 @@ struct ListofTasksMainView: View {
                 confirmdelete = false
             }
         }
+        .onDeleteCommand {
+            print("Delete ListofTasksMainView")
+        }
     }
 
     @available(macOS 13.0, *)
@@ -208,6 +211,9 @@ struct ListofTasksMainView: View {
             // ...
         } primaryAction: { _ in
             doubleclick = true
+        }
+        .onDeleteCommand {
+            print("Delete ListofTasksMainView")
         }
     }
 
