@@ -163,6 +163,7 @@
 		E9BD14BD2642FDC200E29347 /* TrimOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BC2642FDC200E29347 /* TrimOne.swift */; };
 		E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BE2642FE6300E29347 /* TrimTwo.swift */; };
 		E9BD14C12643082100E29347 /* TrimThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14C02643082100E29347 /* TrimThree.swift */; };
+		E9C2BB982A991D1000BC50F5 /* ListofTasksAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2BB972A991D1000BC50F5 /* ListofTasksAddView.swift */; };
 		E9C6023B29F8225B00170B61 /* SidebarVentura.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C6023A29F8225B00170B61 /* SidebarVentura.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */; };
 		E9C9306C25FEA4230049A76B /* ObservablePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306B25FEA4230049A76B /* ObservablePath.swift */; };
@@ -362,6 +363,7 @@
 		E9BD14BC2642FDC200E29347 /* TrimOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimOne.swift; sourceTree = "<group>"; };
 		E9BD14BE2642FE6300E29347 /* TrimTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimTwo.swift; sourceTree = "<group>"; };
 		E9BD14C02643082100E29347 /* TrimThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimThree.swift; sourceTree = "<group>"; };
+		E9C2BB972A991D1000BC50F5 /* ListofTasksAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksAddView.swift; sourceTree = "<group>"; };
 		E9C6023A29F8225B00170B61 /* SidebarVentura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarVentura.swift; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableSSH.swift; sourceTree = "<group>"; };
 		E9C9306B25FEA4230049A76B /* ObservablePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePath.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 				E944E6C92A16B6A6009BA945 /* ListofTasksMainView.swift */,
 				E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */,
 				E94762CA2A685ECE00E5DFA9 /* ListofTasksView.swift */,
+				E9C2BB972A991D1000BC50F5 /* ListofTasksAddView.swift */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -1192,6 +1195,7 @@
 				E801DC662637FD990060723F /* WriteConfigurationJSON.swift in Sources */,
 				E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */,
 				E985C72D25F3AD9700CB895C /* Snapshotlogsandcatalogs.swift in Sources */,
+				E9C2BB982A991D1000BC50F5 /* ListofTasksAddView.swift in Sources */,
 				E985C78B25F3AD9700CB895C /* ErrorHandling.swift in Sources */,
 				E985C66625F3AD8400CB895C /* ToggleView.swift in Sources */,
 				E985C72925F3AD9700CB895C /* Keypathidentityfile.swift in Sources */,
@@ -1496,7 +1500,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 83;
 				DEVELOPMENT_ASSET_PATHS = "\"RsyncUI/Preview Content\"";
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1508,7 +1512,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1525,7 +1529,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 83;
 				DEVELOPMENT_ASSET_PATHS = "\"RsyncUI/Preview Content\"";
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1537,7 +1541,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
