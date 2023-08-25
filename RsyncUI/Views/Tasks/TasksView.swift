@@ -29,14 +29,11 @@ struct TasksView: View {
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
     @State private var focusfirsttaskinfo: Bool = false
-    @State private var focusdeletetask: Bool = false
     @State private var focusshowinfotask: Bool = false
     @State private var focusaborttask: Bool = false
     @State private var focusenabletimer: Bool = false
 
     @State private var filterstring: String = ""
-    // Delete
-    @State private var confirmdelete: Bool = false
     // Local data for present local and remote info about task
     @State private var localdata: [String] = []
     // Modale view
@@ -71,7 +68,6 @@ struct TasksView: View {
                     },
                     filterstring: $filterstring,
                     reload: $reload,
-                    confirmdelete: $confirmdelete,
                     reloadtasksviewlist: $reloadtasksviewlist,
                     doubleclick: $doubleclick,
                     showestimateicon: true
@@ -87,7 +83,6 @@ struct TasksView: View {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
                 if focusfirsttaskinfo { labelfirsttime }
-                if focusdeletetask { labeldeletetask }
                 if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
                 if focusenabletimer { labelenabletimer }
@@ -98,7 +93,6 @@ struct TasksView: View {
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
-        .focusedSceneValue(\.deletetask, $focusdeletetask)
         .focusedSceneValue(\.showinfotask, $focusshowinfotask)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .focusedSceneValue(\.enabletimer, $focusenabletimer)
@@ -295,14 +289,6 @@ struct TasksView: View {
                 focusfirsttaskinfo = false
                 sheetchooser.sheet = .firsttime
                 modaleview = true
-            })
-    }
-
-    var labeldeletetask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusdeletetask = false
-                confirmdelete = true
             })
     }
 

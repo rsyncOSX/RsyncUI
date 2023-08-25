@@ -14,9 +14,9 @@ struct ListofTasksMainView: View {
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
     @Binding var reload: Bool
-    @Binding var confirmdelete: Bool
     @Binding var reloadtasksviewlist: Bool
     @Binding var doubleclick: Bool
+    @State private var confirmdelete: Bool = false
 
     var showestimateicon: Bool
 
@@ -119,7 +119,7 @@ struct ListofTasksMainView: View {
             }
         }
         .onDeleteCommand {
-            print("Delete ListofTasksMainView")
+            confirmdelete = true
         }
     }
 
@@ -213,7 +213,7 @@ struct ListofTasksMainView: View {
             doubleclick = true
         }
         .onDeleteCommand {
-            print("Delete ListofTasksMainView")
+            confirmdelete = true
         }
     }
 

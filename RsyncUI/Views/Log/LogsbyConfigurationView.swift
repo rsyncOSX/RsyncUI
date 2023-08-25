@@ -18,8 +18,6 @@ struct LogsbyConfigurationView: View {
     @State private var hiddenID = -1
     // Alert for delete
     @State private var showAlertfordelete = false
-    // Delete logs
-    @State private var focusdeletelog: Bool = false
 
     var logrecords: RsyncUIlogrecords
 
@@ -41,7 +39,6 @@ struct LogsbyConfigurationView: View {
                             }
                         }
                     )
-                    if focusdeletelog { labeldeletetask }
                 }
                 if hiddenID == -1 {
                     Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
@@ -55,6 +52,9 @@ struct LogsbyConfigurationView: View {
                             }
                         }
                     }
+                    .onDeleteCommand {
+                        showAlertfordelete = true
+                    }
                 } else {
                     Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [], selection: $selectedloguuids) {
                         TableColumn("Date") { data in
@@ -67,6 +67,9 @@ struct LogsbyConfigurationView: View {
                             }
                         }
                     }
+                    .onDeleteCommand {
+                        showAlertfordelete = true
+                    }
                 }
             }
 
@@ -77,7 +80,6 @@ struct LogsbyConfigurationView: View {
             }
         }
         .searchable(text: $filterstring)
-        .focusedSceneValue(\.deletetask, $focusdeletelog)
         .toolbar(content: {
             ToolbarItem {
                 Button {
@@ -101,17 +103,7 @@ struct LogsbyConfigurationView: View {
             DeleteLogsView(selecteduuids: $selectedloguuids,
                            selectedprofile: rsyncUIdata.profile,
                            logrecords: logrecords)
-                .onDisappear {
-                    focusdeletelog = false
-                }
         }
-    }
-
-    var labeldeletetask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                showAlertfordelete = true
-            })
     }
 
     var numberoflogs: String {

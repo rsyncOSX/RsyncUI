@@ -74,9 +74,6 @@ struct RsyncDefaultParametersView: View {
                                 }
                             )
                             .frame(maxWidth: .infinity)
-                            .onDeleteCommand {
-                                print("Delete")
-                            }
 
                         } else {
                             notifyupdated
