@@ -17,25 +17,21 @@ struct ExecuteCommands: Commands {
 
     var body: some Commands {
         CommandMenu("Tasks") {
-            Group {
-                StarteestimateButton(startestimation: $startestimation)
-                StartexecuteButton(startexecution: $startexecution)
+            StarteestimateButton(startestimation: $startestimation)
+            StartexecuteButton(startexecution: $startexecution)
 
-                Divider()
+            Divider()
 
-                FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
-                Showinfotask(showinfotask: $showinfotask)
+            FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
+            Showinfotask(showinfotask: $showinfotask)
 
-                Divider()
-            }
+            Divider()
 
-            Group {
-                Enabletimer(enabletimer: $enabletimer)
+            Enabletimer(enabletimer: $enabletimer)
 
-                Divider()
+            Divider()
 
-                Abborttask(aborttask: $aborttask)
-            }
+            Abborttask(aborttask: $aborttask)
         }
     }
 }
