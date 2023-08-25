@@ -45,6 +45,8 @@ struct Sidebar: View {
 
     var body: some View {
         NavigationSplitView {
+            Divider()
+
             List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
                 NavigationLink(value: selectedview) {
                     SidebarRow(sidebaritem: selectedview)

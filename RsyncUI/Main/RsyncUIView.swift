@@ -36,12 +36,6 @@ struct RsyncUIView: View {
                 })
 
             } else {
-                if profilenames.profiles.count == 0 {
-                    defaultprofilepicker
-                } else {
-                    profilepicker
-                }
-
                 Sidebar(reload: $reload,
                         selectedprofile: $selectedprofile,
                         selecteduuids: $selecteduuids,
@@ -68,6 +62,11 @@ struct RsyncUIView: View {
             await rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }
+        .toolbar(content: {
+            ToolbarItem {
+                profilepicker
+            }
+        })
     }
 
     var profilenames: Profilenames {
@@ -96,19 +95,6 @@ struct RsyncUIView: View {
             .onChange(of: selectedprofile) {
                 selecteduuids.removeAll()
             }
-            Spacer()
-        }
-    }
-
-    var defaultprofilepicker: some View {
-        HStack {
-            Picker("", selection: $defaultprofile) {
-                Text("Default profile")
-                    .tag("Default profile")
-            }
-            .frame(width: 180)
-            .accentColor(.blue)
-
             Spacer()
         }
     }
