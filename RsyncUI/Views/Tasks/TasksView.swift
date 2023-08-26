@@ -376,7 +376,7 @@ extension TasksView {
 
     func detailsestimatedtask() {
         // DryRun: all tasks already estimated, show details on task
-        guard progressdetails.taskisestimated(selectedconfig.config?.hiddenID ?? -1) == true else { return }
+        guard progressdetails.taskisestimatedbyuuid(selectedconfig.config?.id ?? UUID()) == true else { return }
         let action = ActionHolder(action: "DryRun: task is already estimated, show details on task",
                                   profile: rsyncUIdata.profile ?? "Default profile",
                                   source: "DetailsViewAlreadyEstimated")

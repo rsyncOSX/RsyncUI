@@ -37,7 +37,7 @@ struct ListofTasksMainView: View {
                                  value: progressdetails.currenttaskprogress,
                                  total: maxcount + 3)
                         .frame(alignment: .center)
-                } else if progressdetails.taskisestimated(data.hiddenID),
+                } else if progressdetails.taskisestimatedbyuuid(data.id),
                           showestimateicon
                 {
                     Image("green")
@@ -88,7 +88,7 @@ struct ListofTasksMainView: View {
                     if data.dateRun?.isEmpty == false {
                         Text(data.dateRun ?? "")
                     } else {
-                        if progressdetails.taskisestimated(data.hiddenID) {
+                        if progressdetails.taskisestimatedbyuuid(data.id) {
                             Text("Verified")
                                 .foregroundColor(.green)
                         } else {
