@@ -32,7 +32,7 @@ final class UpdateConfigurations {
         }
         return 0
     }
-
+     
     // Function is updating Configurations in memory (by record) and
     // then saves updated Configurations from memory to persistent store
     func updateconfiguration(_ config: Configuration, _ parameters: Bool) {
