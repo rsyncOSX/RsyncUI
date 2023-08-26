@@ -31,6 +31,100 @@ struct ListofTasksMainView: View {
         .searchable(text: $filterstring)
     }
 
+    @available(macOS 13.0, *)
+    var tabledata: some View {
+        Table(configurationssorted, selection: $selecteduuids) {
+            TableColumn("%") { data in
+                if data.hiddenID == progressdetails.hiddenIDatwork
+                    && progressdetails.isestimating() == false
+                {
+                    ProgressView("",
+                                 value: progressdetails.currenttaskprogress,
+                                 total: maxcount + 3)
+                        .frame(alignment: .center)
+                } else if progressdetails.taskisestimatedbyUUID(data.id),
+                          showestimateicon
+                {
+                    Image("green")
+                        .resizable()
+                        .frame(width: 15, height: 15, alignment: .trailing)
+                }
+            }
+            .width(min: 50, ideal: 50)
+            TableColumn("Profile") { data in
+                if markconfig(data) {
+                    Text(data.profile ?? "Default profile")
+                        .foregroundColor(.red)
+                } else {
+                    Text(data.profile ?? "Default profile")
+                }
+            }
+            .width(min: 50, max: 200)
+            TableColumn("Synchronize ID", value: \.backupID)
+                .width(min: 50, max: 200)
+            TableColumn("Task", value: \.task)
+                .width(max: 80)
+            TableColumn("Local catalog", value: \.localCatalog)
+                .width(min: 80, max: 300)
+            TableColumn("Remote catalog", value: \.offsiteCatalog)
+                .width(min: 80, max: 300)
+            TableColumn("Server") { data in
+                if data.offsiteServer.count > 0 {
+                    Text(data.offsiteServer)
+                } else {
+                    Text("localhost")
+                }
+            }
+            .width(min: 50, max: 80)
+            TableColumn("Days") { data in
+                if markconfig(data) {
+                    Text(data.dayssincelastbackup ?? "")
+                        .foregroundColor(.red)
+                } else {
+                    Text(data.dayssincelastbackup ?? "")
+                }
+            }
+            .width(max: 50)
+            TableColumn("Last") { data in
+                if markconfig(data) {
+                    Text(data.dateRun ?? "")
+                        .foregroundColor(.red)
+                } else {
+                    if data.dateRun?.isEmpty == false {
+                        Text(data.dateRun ?? "")
+                    } else {
+                        if progressdetails.taskisestimatedbyUUID(data.id) {
+                            Text("Verified")
+                                .foregroundColor(.green)
+                        } else {
+                            Text("Not verified")
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
+            }
+            .width(max: 120)
+        }
+        .confirmationDialog(
+            NSLocalizedString("Delete configuration(s)", comment: "")
+                + "?",
+            isPresented: $confirmdelete
+        ) {
+            Button("Delete") {
+                delete()
+                confirmdelete = false
+            }
+        }
+        .contextMenu(forSelectionType: Configuration.ID.self) { _ in
+            // ...
+        } primaryAction: { _ in
+            doubleclick = true
+        }
+        .onDeleteCommand {
+            confirmdelete = true
+        }
+    }
+
     var tabledata_macos12: some View {
         Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("%") { data in
@@ -41,7 +135,7 @@ struct ListofTasksMainView: View {
                                  value: progressdetails.currenttaskprogress,
                                  total: maxcount + 3)
                         .frame(alignment: .center)
-                } else if progressdetails.taskisestimated(data.hiddenID),
+                } else if progressdetails.taskisestimatedbyUUID(data.id),
                           showestimateicon
                 {
                     Image("green")
@@ -95,7 +189,7 @@ struct ListofTasksMainView: View {
                         if data.dateRun?.isEmpty == false {
                             Text(data.dateRun ?? "")
                         } else {
-                            if progressdetails.taskisestimated(data.hiddenID) {
+                            if progressdetails.taskisestimatedbyUUID(data.id) {
                                 Text("Verified")
                                     .foregroundColor(.green)
                             } else {
@@ -117,100 +211,6 @@ struct ListofTasksMainView: View {
                 delete()
                 confirmdelete = false
             }
-        }
-        .onDeleteCommand {
-            confirmdelete = true
-        }
-    }
-
-    @available(macOS 13.0, *)
-    var tabledata: some View {
-        Table(configurationssorted, selection: $selecteduuids) {
-            TableColumn("%") { data in
-                if data.hiddenID == progressdetails.hiddenIDatwork
-                    && progressdetails.isestimating() == false
-                {
-                    ProgressView("",
-                                 value: progressdetails.currenttaskprogress,
-                                 total: maxcount + 3)
-                        .frame(alignment: .center)
-                } else if progressdetails.taskisestimated(data.hiddenID),
-                          showestimateicon
-                {
-                    Image("green")
-                        .resizable()
-                        .frame(width: 15, height: 15, alignment: .trailing)
-                }
-            }
-            .width(min: 50, ideal: 50)
-            TableColumn("Profile") { data in
-                if markconfig(data) {
-                    Text(data.profile ?? "Default profile")
-                        .foregroundColor(.red)
-                } else {
-                    Text(data.profile ?? "Default profile")
-                }
-            }
-            .width(min: 50, max: 200)
-            TableColumn("Synchronize ID", value: \.backupID)
-                .width(min: 50, max: 200)
-            TableColumn("Task", value: \.task)
-                .width(max: 80)
-            TableColumn("Local catalog", value: \.localCatalog)
-                .width(min: 80, max: 300)
-            TableColumn("Remote catalog", value: \.offsiteCatalog)
-                .width(min: 80, max: 300)
-            TableColumn("Server") { data in
-                if data.offsiteServer.count > 0 {
-                    Text(data.offsiteServer)
-                } else {
-                    Text("localhost")
-                }
-            }
-            .width(min: 50, max: 80)
-            TableColumn("Days") { data in
-                if markconfig(data) {
-                    Text(data.dayssincelastbackup ?? "")
-                        .foregroundColor(.red)
-                } else {
-                    Text(data.dayssincelastbackup ?? "")
-                }
-            }
-            .width(max: 50)
-            TableColumn("Last") { data in
-                if markconfig(data) {
-                    Text(data.dateRun ?? "")
-                        .foregroundColor(.red)
-                } else {
-                    if data.dateRun?.isEmpty == false {
-                        Text(data.dateRun ?? "")
-                    } else {
-                        if progressdetails.taskisestimated(data.hiddenID) {
-                            Text("Verified")
-                                .foregroundColor(.green)
-                        } else {
-                            Text("Not verified")
-                                .foregroundColor(.red)
-                        }
-                    }
-                }
-            }
-            .width(max: 120)
-        }
-        .confirmationDialog(
-            NSLocalizedString("Delete configuration(s)", comment: "")
-                + "?",
-            isPresented: $confirmdelete
-        ) {
-            Button("Delete") {
-                delete()
-                confirmdelete = false
-            }
-        }
-        .contextMenu(forSelectionType: Configuration.ID.self) { _ in
-            // ...
-        } primaryAction: { _ in
-            doubleclick = true
         }
         .onDeleteCommand {
             confirmdelete = true
