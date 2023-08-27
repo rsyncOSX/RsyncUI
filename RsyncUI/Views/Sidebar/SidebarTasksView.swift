@@ -57,6 +57,7 @@ struct SidebarTasksView: View {
     func makeView(task: Task) -> some View {
         switch task {
         case .taskview:
+            // This is default main view
             TasksView(reload: $reload,
                       selecteduuids: $selecteduuids,
                       showeexecutestimatedview: $showeexecutEstimatedview,
@@ -66,6 +67,9 @@ struct SidebarTasksView: View {
                       reloadtasksviewlist: $reloadtasksviewlist)
                 .environmentObject(progressdetails)
         case .executestimatedview:
+            // This view is activated for execution of
+            // estimated tasks and view presents progress of
+            // synchronization of data.
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
                                       showeexecutestimatedview: $showeexecutEstimatedview)
@@ -74,6 +78,7 @@ struct SidebarTasksView: View {
                 })
                 .environmentObject(progressdetails)
         case .executenoestimatetasksview:
+            // Execute all tasks, no estimation ahead of synchronization
             ExecuteNoestimatedTasksView(reload: $reload,
                                         selecteduuids: $selecteduuids,
                                         showcompleted: $reloadtasksviewlist,
@@ -82,6 +87,7 @@ struct SidebarTasksView: View {
                     reloadtasksviewlist = true
                 })
         case .executenoestimateonetaskview:
+            // As above but for one task only
             ExecuteNoestimateOneTaskView(reload: $reload,
                                          selecteduuids: $selecteduuids,
                                          showcompleted: $reloadtasksviewlist,
