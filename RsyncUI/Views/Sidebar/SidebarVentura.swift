@@ -61,6 +61,8 @@ struct SidebarVentura: View {
             }
 
             Text(selectedprofile ?? "")
+                .padding()
+                .font(.footnote)
 
         } detail: {
             makeView(selectedview)
