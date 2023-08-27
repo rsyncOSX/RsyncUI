@@ -104,6 +104,8 @@ struct SidebarMonterey: View {
                 }
                 .tag(NavigationItem.restore)
             }
+
+            Text(selectedprofile ?? "")
         }
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)

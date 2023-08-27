@@ -68,13 +68,6 @@ struct RsyncUIView: View {
                 if newversion.notifynewversion { notifynewversion }
 
                 Spacer()
-
-                VStack(alignment: .trailing) {
-                    Text(selectedprofile ?? "")
-                    Text(SharedReference.shared.rsyncversionshort ?? "")
-                }
-                .font(.footnote)
-                .foregroundColor(Color.blue)
             }
             .padding()
         }
