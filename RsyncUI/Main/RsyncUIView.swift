@@ -10,12 +10,10 @@ import SwiftUI
 struct RsyncUIView: View {
     @StateObject var rsyncversion = Rsyncversion()
     @StateObject var newversion = CheckfornewversionofRsyncUI()
-
     @Binding var selectedprofile: String?
-    @State private var reload: Bool = false
-    @State private var defaultprofile = "Default profile"
-    @State private var start: Bool = true
 
+    @State private var reload: Bool = false
+    @State private var start: Bool = true
     @State var selecteduuids = Set<Configuration.ID>()
 
     // Initial view in tasks for sidebar macOS 12
@@ -70,6 +68,13 @@ struct RsyncUIView: View {
                 if newversion.notifynewversion { notifynewversion }
 
                 Spacer()
+
+                VStack(alignment: .trailing) {
+                    Text(selectedprofile ?? "")
+                    Text(SharedReference.shared.rsyncversionshort ?? "")
+                }
+                .font(.footnote)
+                .foregroundColor(Color.blue)
             }
             .padding()
         }
