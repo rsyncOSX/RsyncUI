@@ -1,14 +1,6 @@
 //
-//  Configurations.swift
+//  UpdateConfigurations.swift
 //
-//  The obect is the model for the Configurations but also acts as Controller when
-//  the ViewControllers reads or updates data.
-//
-//  The object also holds various configurations for RsyncOSX and references to
-//  some of the ViewControllers used in calls to delegate functions.
-//
-//  Created by Thomas Evensen on 08/02/16.
-//  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
 // swiftlint:disable opening_brace
 

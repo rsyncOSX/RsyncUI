@@ -59,9 +59,13 @@ struct SidebarVentura: View {
                     selectedview == .tasks ||
                     selectedview == .snapshots { Divider() }
             }
+
+            Text(selectedprofile ?? "")
+
         } detail: {
             makeView(selectedview)
         }
+
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
             Alert(localizedError: errorhandling.activeError ?? ValidateInputError.emptyerror)
         })
