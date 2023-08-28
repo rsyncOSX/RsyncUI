@@ -16,6 +16,7 @@ struct OutputEstimatedView: View {
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var timervalue: Double = 0
+    @State private var timerbuttonvalue: Double = 10
 
     var body: some View {
         VStack {
@@ -84,7 +85,7 @@ struct OutputEstimatedView: View {
             HStack {
                 Spacer()
 
-                Button(String(timervalue)) {}
+                Button(String(timerbuttonvalue - timervalue)) {}
                     .buttonStyle(ColorfulButtonStyle())
 
                 Button("Execute") {
@@ -102,8 +103,10 @@ struct OutputEstimatedView: View {
         .onAppear {}
         .onReceive(timer) { _ in
             timervalue += 1
-            if timervalue > 20 {
+            if timervalue > 9 {
                 timer.upstream.connect().cancel()
+                execute = true
+                dismiss()
             }
         }
     }
@@ -137,19 +140,5 @@ struct OutputEstimatedView: View {
         Text("Estimated tasks")
             .font(.title2)
             .padding()
-    }
-
-    var timerBelow60active: some View {
-        Text("\(Int(timervalue)) " + "seconds")
-            .font(.largeTitle)
-            .onReceive(timer) { _ in
-                timervalue -= 1
-                if timervalue <= 0 {
-                    timer.upstream.connect().cancel()
-                }
-            }
-            .onDisappear {
-                timer.upstream.connect().cancel()
-            }
     }
 }
