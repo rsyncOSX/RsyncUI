@@ -17,6 +17,7 @@ struct OutputEstimatedView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var timervalue: Double = 0
     @State private var timerbuttonvalue: Double = 10
+    @State private var canceltimer: Bool = false
 
     var body: some View {
         VStack {
@@ -85,8 +86,13 @@ struct OutputEstimatedView: View {
             HStack {
                 Spacer()
 
-                Button(String(timerbuttonvalue - timervalue)) {}
+                if canceltimer == false {
+                    Button(String(timerbuttonvalue - timervalue)) {
+                        timer.upstream.connect().cancel()
+                        canceltimer = true
+                    }
                     .buttonStyle(ColorfulButtonStyle())
+                }
 
                 Button("Execute") {
                     execute = true
@@ -100,7 +106,6 @@ struct OutputEstimatedView: View {
         }
         .padding()
         .frame(minWidth: 1250, minHeight: 400)
-        .onAppear {}
         .onReceive(timer) { _ in
             timervalue += 1
             if timervalue > 9 {
@@ -108,6 +113,9 @@ struct OutputEstimatedView: View {
                 execute = true
                 dismiss()
             }
+        }
+        .onDisappear {
+            timer.upstream.connect().cancel()
         }
     }
 
