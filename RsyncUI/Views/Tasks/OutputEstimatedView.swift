@@ -86,7 +86,7 @@ struct OutputEstimatedView: View {
             HStack {
                 Spacer()
 
-                if canceltimer == false {
+                if canceltimer == false && SharedReference.shared.automaticexecute {
                     Button(String(timerbuttonvalue - Int(timervalue))) {
                         timer.upstream.connect().cancel()
                         canceltimer = true

@@ -43,6 +43,8 @@ class SharedReference {
     var sshkeypathandidentityfile: String?
     // Check for error in output from rsync
     var checkforerrorinrsyncoutput: Bool = false
+    // Automatic execute
+    var automaticexecute: Bool = true
     // Check for network changes
     var monitornetworkconnection: Bool = false
     // Download URL if new version is avaliable

@@ -83,6 +83,7 @@ struct Usersettings: View {
                                     ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
                                     ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
                                     ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
+                                    ToggleViewDefault(NSLocalizedString("Execute after estimate", comment: ""), $usersettings.automaticexecute)
                                 }
                             }
                         }

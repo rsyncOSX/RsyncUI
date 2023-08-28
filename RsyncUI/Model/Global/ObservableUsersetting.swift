@@ -37,6 +37,8 @@ final class ObservableUsersetting: ObservableObject {
     @Published var macosarm: Bool = SharedReference.shared.macosarm
     // Check for "error" in output from rsync
     @Published var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
+    // Automatic execution of estimated tasks
+    @Published var automaticexecute: Bool = SharedReference.shared.automaticexecute
     // Alerts
     @Published var alerterror: Bool = false
     @Published var error: Error = Validatedpath.noerror
@@ -91,6 +93,10 @@ final class ObservableUsersetting: ObservableObject {
         $checkforerrorinrsyncoutput
             .sink { check in
                 SharedReference.shared.checkforerrorinrsyncoutput = check
+            }.store(in: &subscriptions)
+        $automaticexecute
+            .sink { check in
+                SharedReference.shared.automaticexecute = check
             }.store(in: &subscriptions)
     }
 }
