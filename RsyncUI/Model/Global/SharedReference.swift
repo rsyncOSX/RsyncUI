@@ -45,7 +45,7 @@ class SharedReference {
     var checkforerrorinrsyncoutput: Bool = false
     // Automatic execute
     var automaticexecute: Bool = true
-    var automaticexecutetime: Int = 5
+    var automaticexecutetime: Int = 10
     // Check for network changes
     var monitornetworkconnection: Bool = false
     // Download URL if new version is avaliable
