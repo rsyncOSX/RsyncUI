@@ -167,25 +167,25 @@ extension ObservableUsersetting {
         }
     }
 
-    // Mark days
+    func markdays(days: String) {
+        do {
+            let verified = try checkmarkdays(days)
+            if verified {
+                SharedReference.shared.marknumberofdayssince = Int(days) ?? 5
+            }
+        } catch let e {
+            error = e
+            alerterror = true
+        }
+    }
+
+    // Automatic execute time
     private func checkautomaticexecutetime(_ seconds: String) throws -> Bool {
         guard seconds.isEmpty == false else { return false }
         if Int(seconds) != nil {
             return true
         } else {
             throw InputError.notvalidInt
-        }
-    }
-
-    func markdays(days: String) {
-        do {
-            let verified = try checkmarkdays(days)
-            if verified {
-                SharedReference.shared.marknumberofdayssince = Double(days) ?? 5
-            }
-        } catch let e {
-            error = e
-            alerterror = true
         }
     }
 

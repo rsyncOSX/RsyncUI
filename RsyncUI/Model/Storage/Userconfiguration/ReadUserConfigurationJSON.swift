@@ -35,6 +35,7 @@ class ReadUserConfigurationJSON: NamesandPaths {
                     return
                 case .failure:
                     // No file, write new file with default values
+                    _ = Logfile(["Creating default file for user configurations"], error: true)
                     WriteUserConfigurationJSON(UserConfiguration())
                 }
             } receiveValue: { [unowned self] data in

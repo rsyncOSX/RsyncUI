@@ -184,7 +184,7 @@ struct Usersettings: View {
         TextField("",
                   text: $usersettings.marknumberofdayssince)
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(width: 50)
+            .frame(width: 45)
             .lineLimit(1)
     }
 
@@ -192,7 +192,7 @@ struct Usersettings: View {
         TextField("",
                   text: $usersettings.automaticexecutetime)
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(width: 50)
+            .frame(width: 45)
             .lineLimit(1)
     }
 }

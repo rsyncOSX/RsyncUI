@@ -33,7 +33,7 @@ class SharedReference {
     var nologging: Bool = true
     // Set to here
     // Mark number of days since last backup
-    var marknumberofdayssince: Double = 5
+    var marknumberofdayssince: Int = 5
     var environment: String?
     var environmentvalue: String?
     // Halt on error

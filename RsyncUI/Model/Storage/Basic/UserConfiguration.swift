@@ -23,7 +23,7 @@ struct UserConfiguration: Codable {
     // temporary path for restore
     var pathforrestore: String?
     // days for mark days since last synchronize
-    var marknumberofdayssince: String = "5.0"
+    var marknumberofdayssince: String = "5"
     // Global ssh keypath and port
     var sshkeypathandidentityfile: String?
     var sshport: Int?
@@ -74,8 +74,8 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.pathforrestore = nil
         }
-        if Double(marknumberofdayssince) ?? 0 > 0 {
-            SharedReference.shared.marknumberofdayssince = Double(marknumberofdayssince)!
+        if Int(marknumberofdayssince) ?? 0 > 0 {
+            SharedReference.shared.marknumberofdayssince = Int(marknumberofdayssince) ?? 0
         }
         if sshkeypathandidentityfile != nil {
             SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
