@@ -167,16 +167,6 @@ extension ObservableUsersetting {
         }
     }
 
-    // Mark days
-    private func checkautomaticexecutetime(_ seconds: String) throws -> Bool {
-        guard seconds.isEmpty == false else { return false }
-        if Int(seconds) != nil {
-            return true
-        } else {
-            throw InputError.notvalidInt
-        }
-    }
-
     func markdays(days: String) {
         do {
             let verified = try checkmarkdays(days)
@@ -186,6 +176,16 @@ extension ObservableUsersetting {
         } catch let e {
             error = e
             alerterror = true
+        }
+    }
+
+    // Automatic execute time
+    private func checkautomaticexecutetime(_ seconds: String) throws -> Bool {
+        guard seconds.isEmpty == false else { return false }
+        if Int(seconds) != nil {
+            return true
+        } else {
+            throw InputError.notvalidInt
         }
     }
 
