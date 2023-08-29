@@ -41,9 +41,7 @@ struct Usersettings: View {
                             setpathforrestore
                         }
 
-                        Section(header: headermarkdays) {
-                            setmarkdays
-                        }
+                        setmarkdays
 
                     }.padding()
 
@@ -84,7 +82,7 @@ struct Usersettings: View {
                                     ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
                                     ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
                                     HStack {
-                                        ToggleViewDefault(NSLocalizedString("Execute after estimate", comment: ""), $usersettings.automaticexecute)
+                                        ToggleViewDefault(NSLocalizedString("Automatic execute :", comment: ""), $usersettings.automaticexecute)
 
                                         setautomaticexecutetime
                                     }
@@ -175,17 +173,16 @@ struct Usersettings: View {
         Text("Save settings")
     }
 
-    // Header backup
-    var headermarkdays: some View {
-        Text("Mark days")
-    }
-
     var setmarkdays: some View {
-        TextField("",
-                  text: $usersettings.marknumberofdayssince)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(width: 45)
-            .lineLimit(1)
+        HStack {
+            Text("Mark days :")
+
+            TextField("",
+                      text: $usersettings.marknumberofdayssince)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(width: 45)
+                .lineLimit(1)
+        }
     }
 
     var setautomaticexecutetime: some View {

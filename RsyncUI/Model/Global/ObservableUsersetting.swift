@@ -157,8 +157,6 @@ extension ObservableUsersetting {
         return true
     }
 
-
-   
     // Automatic execute time
     private func verifystringtoint(_ seconds: String) throws -> Bool {
         guard seconds.isEmpty == false else { return false }
