@@ -171,7 +171,7 @@ extension ObservableUsersetting {
         do {
             let verified = try checkmarkdays(days)
             if verified {
-                SharedReference.shared.marknumberofdayssince = Double(days) ?? 5
+                SharedReference.shared.marknumberofdayssince = Int(days) ?? 5
             }
         } catch let e {
             error = e

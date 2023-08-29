@@ -74,8 +74,8 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.pathforrestore = nil
         }
-        if Double(marknumberofdayssince) ?? 0 > 0 {
-            SharedReference.shared.marknumberofdayssince = Double(marknumberofdayssince) ?? 0
+        if Int(marknumberofdayssince) ?? 0 > 0 {
+            SharedReference.shared.marknumberofdayssince = Int(marknumberofdayssince) ?? 0
         }
         if sshkeypathandidentityfile != nil {
             SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile

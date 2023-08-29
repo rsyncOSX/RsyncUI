@@ -132,7 +132,7 @@ struct Configuration: Identifiable, Codable {
             self.dateRun = dateRun
             if let secondssince = lastruninseconds {
                 dayssincelastbackup = String(format: "%.2f", secondssince / (60 * 60 * 24))
-                if secondssince / (60 * 60 * 24) > SharedReference.shared.marknumberofdayssince {
+                if secondssince / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince) {
                     markdays = true
                 }
             }

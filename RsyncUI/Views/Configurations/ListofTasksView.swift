@@ -82,7 +82,7 @@ struct ListofTasksView: View {
     func markconfig(_ config: Configuration?) -> Bool {
         if config?.dateRun != nil {
             if let secondssince = config?.lastruninseconds {
-                if secondssince / (60 * 60 * 24) > SharedReference.shared.marknumberofdayssince {
+                if secondssince / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince) {
                     return true
                 }
             }
