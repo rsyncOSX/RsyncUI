@@ -108,7 +108,7 @@ struct OutputEstimatedView: View {
         .frame(minWidth: 1250, minHeight: 400)
         .onReceive(timer) { _ in
             timervalue += 1
-            if timervalue > 9 {
+            if timervalue > Double ((SharedReference.shared.automaticexecutetime - 1)) {
                 timer.upstream.connect().cancel()
                 execute = true
                 dismiss()
