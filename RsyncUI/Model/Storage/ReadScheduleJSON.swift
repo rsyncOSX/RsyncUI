@@ -38,8 +38,9 @@ class ReadScheduleJSON: NamesandPaths {
                 case .finished:
                     // print("The publisher finished normally.")
                     return
-                case let .failure(error):
-                    self.alerterror(error: error)
+                case .failure:
+                    _ = Logfile(["Creating default file for log records"], error: true)
+                    WriteScheduleJSON(nil, nil)
                 }
             } receiveValue: { [unowned self] data in
                 schedules = [ConfigurationSchedule]()
