@@ -83,7 +83,11 @@ struct Usersettings: View {
                                     ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
                                     ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
                                     ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
-                                    ToggleViewDefault(NSLocalizedString("Execute after estimate", comment: ""), $usersettings.automaticexecute)
+                                    HStack {
+                                        ToggleViewDefault(NSLocalizedString("Execute after estimate", comment: ""), $usersettings.automaticexecute)
+
+                                        setautomaticexecutetime
+                                    }
                                 }
                             }
                         }
@@ -180,7 +184,15 @@ struct Usersettings: View {
         TextField("",
                   text: $usersettings.marknumberofdayssince)
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(width: 70)
+            .frame(width: 50)
+            .lineLimit(1)
+    }
+
+    var setautomaticexecutetime: some View {
+        TextField("",
+                  text: $usersettings.automaticexecutetime)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 50)
             .lineLimit(1)
     }
 }
@@ -200,3 +212,5 @@ extension Usersettings {
         backup = true
     }
 }
+
+// swiftlint:enable line_length

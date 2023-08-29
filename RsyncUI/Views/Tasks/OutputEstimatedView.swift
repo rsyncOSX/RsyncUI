@@ -16,7 +16,7 @@ struct OutputEstimatedView: View {
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var timervalue: Double = 0
-    @State private var timerbuttonvalue: Int = 10
+    @State private var timerbuttonvalue: Int = SharedReference.shared.automaticexecutetime
     @State private var canceltimer: Bool = false
 
     var body: some View {

@@ -39,6 +39,7 @@ final class ObservableUsersetting: ObservableObject {
     @Published var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Automatic execution of estimated tasks
     @Published var automaticexecute: Bool = SharedReference.shared.automaticexecute
+    @Published var automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
     // Alerts
     @Published var alerterror: Bool = false
     @Published var error: Error = Validatedpath.noerror
@@ -97,6 +98,10 @@ final class ObservableUsersetting: ObservableObject {
         $automaticexecute
             .sink { check in
                 SharedReference.shared.automaticexecute = check
+            }.store(in: &subscriptions)
+        $automaticexecutetime
+            .sink { [unowned self] value in
+                automaticexecute(seconds: value)
             }.store(in: &subscriptions)
     }
 }
@@ -162,11 +167,33 @@ extension ObservableUsersetting {
         }
     }
 
+    // Mark days
+    private func checkautomaticexecutetime(_ seconds: String) throws -> Bool {
+        guard seconds.isEmpty == false else { return false }
+        if Int(seconds) != nil {
+            return true
+        } else {
+            throw InputError.notvalidInt
+        }
+    }
+
     func markdays(days: String) {
         do {
             let verified = try checkmarkdays(days)
             if verified {
                 SharedReference.shared.marknumberofdayssince = Double(days) ?? 5
+            }
+        } catch let e {
+            error = e
+            alerterror = true
+        }
+    }
+
+    func automaticexecute(seconds: String) {
+        do {
+            let verified = try checkautomaticexecutetime(seconds)
+            if verified {
+                SharedReference.shared.automaticexecutetime = Int(seconds) ?? 5
             }
         } catch let e {
             error = e
