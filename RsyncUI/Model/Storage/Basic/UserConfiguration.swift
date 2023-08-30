@@ -23,7 +23,7 @@ struct UserConfiguration: Codable {
     // temporary path for restore
     var pathforrestore: String?
     // days for mark days since last synchronize
-    var marknumberofdayssince: String = "5.0"
+    var marknumberofdayssince: String = "5"
     // Global ssh keypath and port
     var sshkeypathandidentityfile: String?
     var sshport: Int?
@@ -32,6 +32,9 @@ struct UserConfiguration: Codable {
     var environmentvalue: String?
     // Check for error in output from rsync
     var checkforerrorinrsyncoutput: Int = -1
+    // Automatic execution
+    var automaticexecute: Int?
+    var automaticexecutetime: String = "10"
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -74,8 +77,8 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.pathforrestore = nil
         }
-        if Double(marknumberofdayssince) ?? 0 > 0 {
-            SharedReference.shared.marknumberofdayssince = Double(marknumberofdayssince)!
+        if Int(marknumberofdayssince) ?? 0 > 0 {
+            SharedReference.shared.marknumberofdayssince = Int(marknumberofdayssince) ?? 0
         }
         if sshkeypathandidentityfile != nil {
             SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
@@ -94,6 +97,14 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.checkforerrorinrsyncoutput = false
         }
+        if automaticexecute == 1 {
+            SharedReference.shared.automaticexecute = true
+        } else {
+            SharedReference.shared.automaticexecute = false
+        }
+        if Int(automaticexecutetime) ?? 0 > 0 {
+            SharedReference.shared.automaticexecutetime = Int(automaticexecutetime) ?? 0
+        }
     }
 
     // Used when reading JSON data from store
@@ -107,13 +118,15 @@ struct UserConfiguration: Codable {
         monitornetworkconnection = data.monitornetworkconnection ?? -1
         localrsyncpath = data.localrsyncpath
         pathforrestore = data.pathforrestore
-        marknumberofdayssince = data.marknumberofdayssince ?? "5.0"
+        marknumberofdayssince = data.marknumberofdayssince ?? "5"
         sshkeypathandidentityfile = data.sshkeypathandidentityfile
         sshport = data.sshport
         environment = data.environment
         environmentvalue = data.environmentvalue
-        // Set user configdata read from permanent store
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
+        automaticexecute = data.automaticexecute ?? -1
+        automaticexecutetime = data.automaticexecutetime ?? "10"
+        // Set user configdata read from permanent store
         setuserconfigdata()
     }
 
@@ -178,6 +191,12 @@ struct UserConfiguration: Codable {
         } else {
             checkforerrorinrsyncoutput = -1
         }
+        if SharedReference.shared.automaticexecute == true {
+            automaticexecute = 1
+        } else {
+            automaticexecute = -1
+        }
+        automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
     }
 }
 

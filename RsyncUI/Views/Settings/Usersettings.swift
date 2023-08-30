@@ -52,9 +52,7 @@ struct Usersettings: View {
                             setpathforrestore
                         }
 
-                        Section(header: headermarkdays) {
-                            setmarkdays
-                        }
+                        setmarkdays
                     }
                     .padding()
 
@@ -119,6 +117,15 @@ struct Usersettings: View {
                                         .onChange(of: usersettings.checkforerrorinrsyncoutput) {
                                             SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
                                         }
+
+                                    HStack {
+                                        ToggleViewDefault(NSLocalizedString("Automatic execute :", comment: ""), $usersettings.automaticexecute)
+                                            .onChange(of: usersettings.automaticexecute) {
+                                                SharedReference.shared.automaticexecute = usersettings.automaticexecute
+                                            }
+
+                                        setautomaticexecutetime
+                                    }
                                 }
                             }
                         }
@@ -215,19 +222,29 @@ struct Usersettings: View {
         Text("Save settings")
     }
 
-    // Header backup
-    var headermarkdays: some View {
-        Text("Mark days")
+    var setmarkdays: some View {
+        HStack {
+            Text("Mark days :")
+
+            TextField("",
+                      text: $usersettings.marknumberofdayssince)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(width: 45)
+                .lineLimit(1)
+                .onChange(of: usersettings.marknumberofdayssince) {
+                    usersettings.markdays(days: usersettings.marknumberofdayssince)
+                }
+        }
     }
 
-    var setmarkdays: some View {
+    var setautomaticexecutetime: some View {
         TextField("",
-                  text: $usersettings.marknumberofdayssince)
+                  text: $usersettings.automaticexecutetime)
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(width: 70)
+            .frame(width: 45)
             .lineLimit(1)
-            .onChange(of: usersettings.marknumberofdayssince) {
-                usersettings.markdays(days: usersettings.marknumberofdayssince)
+            .onChange(of: usersettings.automaticexecutetime) {
+                usersettings.automaticexecute(seconds: usersettings.automaticexecutetime)
             }
     }
 }

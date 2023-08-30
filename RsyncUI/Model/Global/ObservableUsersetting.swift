@@ -37,6 +37,9 @@ final class ObservableUsersetting {
     var macosarm: Bool = SharedReference.shared.macosarm
     // Check for "error" in output from rsync
     var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
+    // Automatic execution of estimated tasks
+    var automaticexecute: Bool = SharedReference.shared.automaticexecute
+    var automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
     // alert about error
     var error: Error = Validatedpath.noerror
     var alerterror: Bool = false
@@ -91,21 +94,33 @@ final class ObservableUsersetting {
         return true
     }
 
-    // Mark days
-    private func checkmarkdays(_ days: String) throws -> Bool {
-        guard days.isEmpty == false else { return false }
-        if Double(days) != nil {
+    // Automatic execute time
+    private func verifystringtoint(_ seconds: String) throws -> Bool {
+        guard seconds.isEmpty == false else { return false }
+        if Int(seconds) != nil {
             return true
         } else {
-            throw InputError.notvalidDouble
+            throw InputError.notvalidInt
         }
     }
 
     func markdays(days: String) {
         do {
-            let verified = try checkmarkdays(days)
+            let verified = try verifystringtoint(days)
             if verified {
-                SharedReference.shared.marknumberofdayssince = Double(days) ?? 5
+                SharedReference.shared.marknumberofdayssince = Int(days) ?? 5
+            }
+        } catch let e {
+            error = e
+            alerterror = true
+        }
+    }
+
+    func automaticexecute(seconds: String) {
+        do {
+            let verified = try verifystringtoint(seconds)
+            if verified {
+                SharedReference.shared.automaticexecutetime = Int(seconds) ?? 5
             }
         } catch let e {
             error = e

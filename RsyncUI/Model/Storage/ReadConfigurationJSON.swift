@@ -59,12 +59,18 @@ class ReadConfigurationJSON: NamesandPaths {
                 case .finished:
                     // print("The publisher finished normally.")
                     return
-                case let .failure(error):
+                /*
+                 case let .failure(error):
+                     self.alerterror(error: error)
+                 */
+                case .failure:
                     // Mark first time used, only for default profile
                     if profile == nil {
                         SharedReference.shared.firsttime = true
                     }
-                    self.alerterror(error: error)
+                    // No file, write new file with default values
+                    _ = Logfile(["Creating default file for Configurations"], error: true)
+                    WriteConfigurationJSON(nil, nil)
                 }
             } receiveValue: { [unowned self] data in
                 var configurations = [Configuration]()

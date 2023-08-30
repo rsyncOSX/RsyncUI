@@ -15,6 +15,11 @@ struct OutputEstimatedView: View {
     @Binding var execute: Bool
     var estimatedlist: [RemoteinfonumbersOnetask]
 
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var timervalue: Double = 0
+    @State private var timerbuttonvalue: Int = SharedReference.shared.automaticexecutetime
+    @State private var canceltimer: Bool = false
+
     var body: some View {
         VStack {
             headingtitle
@@ -82,6 +87,14 @@ struct OutputEstimatedView: View {
             HStack {
                 Spacer()
 
+                if canceltimer == false && SharedReference.shared.automaticexecute {
+                    Button(String(timerbuttonvalue - Int(timervalue))) {
+                        timer.upstream.connect().cancel()
+                        canceltimer = true
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
+                }
+
                 Button("Execute") {
                     execute = true
                     dismiss()
@@ -94,6 +107,17 @@ struct OutputEstimatedView: View {
         }
         .padding()
         .frame(minWidth: 1250, minHeight: 400)
+        .onReceive(timer) { _ in
+            timervalue += 1
+            if timervalue > Double(SharedReference.shared.automaticexecutetime - 1) {
+                timer.upstream.connect().cancel()
+                execute = true
+                dismiss()
+            }
+        }
+        .onDisappear {
+            timer.upstream.connect().cancel()
+        }
     }
 
     /*

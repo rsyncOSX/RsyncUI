@@ -33,7 +33,7 @@ class SharedReference {
     var nologging: Bool = true
     // Set to here
     // Mark number of days since last backup
-    var marknumberofdayssince: Double = 5
+    var marknumberofdayssince: Int = 5
     var environment: String?
     var environmentvalue: String?
     // Halt on error
@@ -43,6 +43,9 @@ class SharedReference {
     var sshkeypathandidentityfile: String?
     // Check for error in output from rsync
     var checkforerrorinrsyncoutput: Bool = false
+    // Automatic execute
+    var automaticexecute: Bool = true
+    var automaticexecutetime: Int = 10
     // Check for network changes
     var monitornetworkconnection: Bool = false
     // Download URL if new version is avaliable
