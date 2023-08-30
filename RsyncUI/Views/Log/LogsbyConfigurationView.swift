@@ -89,15 +89,6 @@ struct LogsbyConfigurationView: View {
                 }
                 .tooltip("Reset selections")
             }
-
-            ToolbarItem {
-                Button {
-                    showAlertfordelete = true
-                } label: {
-                    Image(systemName: "trash")
-                }
-                .tooltip("Delete selected logs (⌘D)")
-            }
         })
         .sheet(isPresented: $showAlertfordelete) {
             DeleteLogsView(selecteduuids: $selectedloguuids,
