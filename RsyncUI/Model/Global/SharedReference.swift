@@ -44,7 +44,7 @@ class SharedReference {
     // Check for error in output from rsync
     var checkforerrorinrsyncoutput: Bool = false
     // Automatic execute
-    var automaticexecute: Bool = true
+    var automaticexecute: Bool = false
     var automaticexecutetime: Int = 10
     // Check for network changes
     var monitornetworkconnection: Bool = false
