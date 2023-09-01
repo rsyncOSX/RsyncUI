@@ -55,6 +55,11 @@ struct Sidebar: View {
                     selectedview == .tasks ||
                     selectedview == .snapshots { Divider() }
             }
+
+            Text(selectedprofile ?? "")
+                .padding()
+                .font(.footnote)
+
         } detail: {
             makeView(selectedview)
         }
