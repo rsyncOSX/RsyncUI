@@ -86,7 +86,17 @@ struct OutputEstimatedView: View {
             HStack {
                 Spacer()
 
-                if canceltimer == false && SharedReference.shared.automaticexecute {
+                if datatosynchronize == false {
+                    Text("There seems to be no data to synchronize")
+                        .font(.title2)
+                }
+
+                Spacer()
+
+                if canceltimer == false,
+                   SharedReference.shared.automaticexecute,
+                   datatosynchronize == true
+                {
                     Button(String(timerbuttonvalue - Int(timervalue))) {
                         timer.upstream.connect().cancel()
                         canceltimer = true
@@ -94,11 +104,13 @@ struct OutputEstimatedView: View {
                     .buttonStyle(ColorfulButtonStyle())
                 }
 
-                Button("Execute") {
-                    execute = true
-                    dismiss()
+                if datatosynchronize == true {
+                    Button("Execute") {
+                        execute = true
+                        dismiss()
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
                 }
-                .buttonStyle(ColorfulButtonStyle())
 
                 Button("Dismiss") { dismiss() }
                     .buttonStyle(ColorfulButtonStyle())
@@ -107,6 +119,7 @@ struct OutputEstimatedView: View {
         .padding()
         .frame(minWidth: 1250, minHeight: 400)
         .onReceive(timer) { _ in
+            guard datatosynchronize == true else { return }
             timervalue += 1
             if timervalue > Double(SharedReference.shared.automaticexecutetime - 1) {
                 timer.upstream.connect().cancel()
@@ -148,5 +161,9 @@ struct OutputEstimatedView: View {
         Text("Estimated tasks")
             .font(.title2)
             .padding()
+    }
+
+    var datatosynchronize: Bool {
+        return !estimatedlist.filter { $0.datatosynchronize == true }.isEmpty
     }
 }
