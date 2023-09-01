@@ -64,13 +64,13 @@ class ReadConfigurationJSON: NamesandPaths {
                      self.alerterror(error: error)
                  */
                 case .failure:
+                    // No file, write new file with default values
+                    _ = Logfile(["Creating default file for Configurations"], error: true)
+                    WriteConfigurationJSON(nil, nil)
                     // Mark first time used, only for default profile
                     if profile == nil {
                         SharedReference.shared.firsttime = true
                     }
-                    // No file, write new file with default values
-                    _ = Logfile(["Creating default file for Configurations"], error: true)
-                    WriteConfigurationJSON(nil, nil)
                 }
             } receiveValue: { [unowned self] data in
                 var configurations = [Configuration]()

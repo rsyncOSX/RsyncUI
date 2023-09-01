@@ -68,6 +68,9 @@
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
+"Automatic execute :" = "Automatisk synkronisering:";
+
+/* No comment provided by engineer. */
 "Backup" = "Backup";
 
 /* No comment provided by engineer. */
@@ -89,6 +92,12 @@
 "Command" = "Kommando";
 
 /* No comment provided by engineer. */
+"Copy" = "Kopi";
+
+/* No comment provided by engineer. */
+"Copy configuration(s)" = "Kopi konfigurasjoner";
+
+/* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Opphavsrett ©2023 Thomas Evensen";
 
 /* No comment provided by engineer. */
@@ -107,16 +116,10 @@
 "Default" = "Standard";
 
 /* No comment provided by engineer. */
-"Default profile" = "Standard profile";
-
-/* No comment provided by engineer. */
 "Delete" = "Slett";
 
 /* No comment provided by engineer. */
-"Delete configuration" = "Slett konfigurasjon";
-
-/* No comment provided by engineer. */
-"Delete task" = "Slett oppgave";
+"Delete configuration(s)" = "Slette konfigurasjoner";
 
 /* No comment provided by engineer. */
 "Delete: " = "Slett:";
@@ -137,9 +140,6 @@
 "Download" = "Last ned";
 
 /* No comment provided by engineer. */
-"DryRun" = "DryRun";
-
-/* No comment provided by engineer. */
 "Either select a task\n or add a search string" = "Enten velg en oppgave eller legg til en søke streng";
 
 /* No comment provided by engineer. */
@@ -156,9 +156,6 @@
 
 /* No comment provided by engineer. */
 "Estimate" = "Estimer";
-
-/* No comment provided by engineer. */
-"Estimated" = "Estimert";
 
 /* No comment provided by engineer. */
 "Estimated tasks" = "Estimerte oppgaver";
@@ -251,7 +248,7 @@
 "Logfile" = "Loggfil";
 
 /* No comment provided by engineer. */
-"Mark days" = "Marker dager";
+"Mark days :" = "Marker dager:";
 
 /* No comment provided by engineer. */
 "Min" = "Minimum";
@@ -446,6 +443,9 @@
 "Tasks" = "Oppgaver";
 
 /* No comment provided by engineer. */
+"There seems to be no data to synchronize" = "Det synes ikke å være data for synkronisering";
+
+/* No comment provided by engineer. */
 "Timer" = "Utsett";
 
 /* No comment provided by engineer. */
@@ -461,6 +461,9 @@
 "Update" = "Oppdater";
 
 /* No comment provided by engineer. */
+"Verified" = "Verifisert";
+
+/* No comment provided by engineer. */
 "Verify" = "Verifiser";
 
 /* No comment provided by engineer. */
@@ -474,4 +477,3 @@
 
 /* No comment provided by engineer. */
 "Where" = "Hvor";
-

@@ -68,6 +68,9 @@
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
+"Automatic execute :" = "Automatische Synchronisierung:";
+
+/* No comment provided by engineer. */
 "Backup" = "Sichern";
 
 /* No comment provided by engineer. */
@@ -89,6 +92,12 @@
 "Command" = "Befehl";
 
 /* No comment provided by engineer. */
+"Copy" = "Kopi";
+
+/* No comment provided by engineer. */
+"Copy configuration(s)" = "Konfiguration(en) kopieren";
+
+/* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Copyright ©2023 Thomas Evensen";
 
 /* No comment provided by engineer. */
@@ -107,16 +116,10 @@
 "Default" = "Standard";
 
 /* No comment provided by engineer. */
-"Default profile" = "Standard profil";
-
-/* No comment provided by engineer. */
 "Delete" = "Löschen";
 
 /* No comment provided by engineer. */
-"Delete configuration" = "Konfiguration löschen";
-
-/* No comment provided by engineer. */
-"Delete task" = "Aufgabe löschen";
+"Delete configuration(s)" = "Konfiguration(en) löschen";
 
 /* No comment provided by engineer. */
 "Delete: " = "Löschen:";
@@ -137,9 +140,6 @@
 "Download" = "Download";
 
 /* No comment provided by engineer. */
-"DryRun" = "DryRun";
-
-/* No comment provided by engineer. */
 "Either select a task\n or add a search string" = "Wählen Sie entweder eine Aufgabe aus oder fügen Sie eine Suchzeichenfolge hinzu";
 
 /* No comment provided by engineer. */
@@ -156,9 +156,6 @@
 
 /* No comment provided by engineer. */
 "Estimate" = "Schätzung";
-
-/* No comment provided by engineer. */
-"Estimated" = "Geschätzt";
 
 /* No comment provided by engineer. */
 "Estimated tasks" = "Geschätzte Aufgaben";
@@ -251,7 +248,7 @@
 "Logfile" = "Protokolldatei";
 
 /* No comment provided by engineer. */
-"Mark days" = "Markiere Tage";
+"Mark days :" = "Tage markieren:";
 
 /* No comment provided by engineer. */
 "Min" = "Min";
@@ -443,6 +440,9 @@
 "Tasks" = "Aufgaben";
 
 /* No comment provided by engineer. */
+"There seems to be no data to synchronize" = "Es scheinen keine Daten zum Synchronisieren vorhanden zu sein";
+
+/* No comment provided by engineer. */
 "Timer" = "Timer";
 
 /* No comment provided by engineer. */
@@ -458,6 +458,9 @@
 "Update" = "Aktualisieren";
 
 /* No comment provided by engineer. */
+"Verified" = "Verifiziert";
+
+/* No comment provided by engineer. */
 "Verify" = "Verifizieren";
 
 /* No comment provided by engineer. */
@@ -471,4 +474,3 @@
 
 /* No comment provided by engineer. */
 "Where" = "Wo";
-

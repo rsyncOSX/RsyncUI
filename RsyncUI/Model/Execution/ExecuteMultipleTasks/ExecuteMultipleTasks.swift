@@ -90,7 +90,10 @@ final class ExecuteMultipleTasks {
         multipletasksateDelegate = executionstateDelegate
         estimatingprogresscountDelegate = updateinprogresscount
         progressdetailsDelegate = progressdetails
-        guard uuids.count > 0 else { return }
+        guard uuids.count > 0 else {
+            multipletasksateDelegate?.updatestate(state: .completed)
+            return
+        }
         guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else { return }
         prepareandstartexecutetasks(configurations: localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) })
         records = [RemoteinfonumbersOnetask]()

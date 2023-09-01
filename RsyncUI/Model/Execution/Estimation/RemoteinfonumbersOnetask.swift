@@ -31,6 +31,9 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
     // Detailed output
     var outputfromrsync: [String]?
 
+    // True if data to synchronize
+    var datatosynchronize: Bool
+
     init(hiddenID: Int?,
          outputfromrsync: [String]?,
          config: Configuration?)
@@ -53,5 +56,10 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
         newfiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .new)), number: NumberFormatter.Style.none)
         deletefiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .delete)), number: NumberFormatter.Style.none)
         id = config?.id ?? UUID()
+        if Int(transferredNumber) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
+            datatosynchronize = true
+        } else {
+            datatosynchronize = false
+        }
     }
 }
