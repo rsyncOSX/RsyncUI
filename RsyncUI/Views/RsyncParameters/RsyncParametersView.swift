@@ -109,28 +109,19 @@ struct RsyncParametersView: View {
 
                 HStack {
                     Button("Linux") {
-                        parameters.suffixlinux = true
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-                    .onChange(of: parameters.suffixlinux) {
                         parameters.setsuffixlinux()
                     }
+                    .buttonStyle(ColorfulButtonStyle())
 
                     Button("FreeBSD") {
-                        parameters.suffixfreebsd = true
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-                    .onChange(of: parameters.suffixfreebsd) {
                         parameters.setsuffixfreebsd()
                     }
+                    .buttonStyle(ColorfulButtonStyle())
 
                     Button("Backup") {
-                        parameters.backup = true
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-                    .onChange(of: parameters.backup) {
                         parameters.setbackup()
                     }
+                    .buttonStyle(ColorfulButtonStyle())
 
                     Spacer()
 

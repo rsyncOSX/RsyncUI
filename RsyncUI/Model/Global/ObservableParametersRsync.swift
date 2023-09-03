@@ -18,10 +18,6 @@ final class ObservableParametersRsync {
     var parameter12: String = ""
     var parameter13: String = ""
     var parameter14: String = ""
-    // Buttons
-    var suffixlinux: Bool = false
-    var suffixfreebsd: Bool = false
-    var backup: Bool = false
     // Selected configuration
     var configuration: Configuration?
 
