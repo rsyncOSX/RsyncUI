@@ -4,11 +4,12 @@
 //
 //  Created by Thomas Evensen on 24/10/2022.
 //
+// swiftlint: disable line_length
 
 import Foundation
 import SwiftUI
 
-struct DetailsView: View {
+struct DetailsOneTaskView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @EnvironmentObject var inprogresscountmultipletask: EstimateProgressDetails
 
@@ -213,7 +214,7 @@ struct DetailsView: View {
     }
 }
 
-extension DetailsView {
+extension DetailsOneTaskView {
     func processtermination(data: [String]?) {
         outputfromrsync.generatedata(data)
         estimateddataonetask.update(data: data, hiddenID: selectedconfig?.hiddenID, config: selectedconfig)
@@ -296,3 +297,5 @@ enum OutputIsTruncated: LocalizedError {
         }
     }
 }
+
+// swiftlint: enable line_length

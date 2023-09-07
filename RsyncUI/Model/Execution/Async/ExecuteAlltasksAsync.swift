@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
+final class ExecuteAlltasksAsync: EstimateTasksAsync {
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()

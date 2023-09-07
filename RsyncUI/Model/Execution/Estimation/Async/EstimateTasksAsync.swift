@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EstimateAlltasksAsync {
+class EstimateTasksAsync {
     var structprofile: String?
     var localconfigurations: RsyncUIconfigurations?
     var stackoftasktobeestimated: [Int]?
@@ -81,7 +81,7 @@ class EstimateAlltasksAsync {
     }
 }
 
-extension EstimateAlltasksAsync {
+extension EstimateTasksAsync {
     func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
@@ -97,3 +97,5 @@ extension EstimateAlltasksAsync {
         }
     }
 }
+
+// swiftlint: enable line_length

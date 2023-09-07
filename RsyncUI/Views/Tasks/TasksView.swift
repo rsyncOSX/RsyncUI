@@ -182,7 +182,7 @@ struct TasksView: View {
                                 execute: $focusstartexecution,
                                 estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
         case .dryrunonetask:
-            DetailsView(selectedconfig: selectedconfig.config)
+            DetailsOneTaskView(selectedconfig: selectedconfig.config)
                 .environmentObject(estimatingprogresscount)
                 .onAppear {
                     doubleclick = false
@@ -215,21 +215,12 @@ struct TasksView: View {
         AlertToast(displayMode: .alert, type: .loading)
             .onAppear {
                 Task {
-                    if selecteduuids.isEmpty == false {
-                        let estimateonetaskasync =
-                            EstimateOnetaskAsync(configurations: rsyncUIdata,
-                                                 updateinprogresscount: estimatingprogresscount,
-                                                 hiddenID: selectedconfig.config?.hiddenID)
-                        await estimateonetaskasync.execute()
-                    } else {
-                        let estimatealltasksasync =
-                            EstimateAlltasksAsync(profile: rsyncUIdata.profile,
-                                                  configurations: rsyncUIdata,
-                                                  updateinprogresscount: estimatingprogresscount,
-                                                  uuids: selecteduuids,
-                                                  filter: filterstring)
-                        await estimatealltasksasync.startexecution()
-                    }
+                    let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
+                                                      configurations: rsyncUIdata,
+                                                      updateinprogresscount: estimatingprogresscount,
+                                                      uuids: selecteduuids,
+                                                      filter: filterstring)
+                    await estimate.startexecution()
                 }
             }
             .onDisappear {
