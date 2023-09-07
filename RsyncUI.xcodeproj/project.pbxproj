@@ -417,14 +417,6 @@
 			path = Userconfiguration;
 			sourceTree = "<group>";
 		};
-		E906B1A328ECB2E200FBD287 /* Async */ = {
-			isa = PBXGroup;
-			children = (
-				E9F5354B290185AA007EFAE7 /* EstimateTasksAsync.swift */,
-			);
-			path = Async;
-			sourceTree = "<group>";
-		};
 		E927AAD12616E23100DC27A3 /* Quicktask */ = {
 			isa = PBXGroup;
 			children = (
@@ -806,7 +798,6 @@
 		E985C6EA25F3AD9600CB895C /* Estimation */ = {
 			isa = PBXGroup;
 			children = (
-				E906B1A328ECB2E200FBD287 /* Async */,
 				E985C6EC25F3AD9600CB895C /* RemoteinfonumbersOnetask.swift */,
 				E985C6EE25F3AD9600CB895C /* EstimatingState.swift */,
 			);
@@ -966,6 +957,7 @@
 		E9BB4F572903C07E00FEEA0A /* Async */ = {
 			isa = PBXGroup;
 			children = (
+				E9F5354B290185AA007EFAE7 /* EstimateTasksAsync.swift */,
 				E9BB4F552903C00A00FEEA0A /* ExecuteTasksAsync.swift */,
 			);
 			path = Async;
