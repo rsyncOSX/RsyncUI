@@ -32,7 +32,7 @@ final class ExecuteMultipleTasks {
     // output from rsync
     private var outputfromrsync: [String]?
 
-    weak var multipletasksate: MultipleTaskState?
+    weak var multipletaskstate: MultipleTaskState?
     weak var estimateprogressdetails: EstimateProgressDetails?
     // In progress count each task
     weak var executeprogressdetails: ExecuteProgressDetails?
@@ -81,17 +81,17 @@ final class ExecuteMultipleTasks {
     init(uuids: Set<UUID>,
          profile: String?,
          configurations: RsyncUIconfigurations?,
-         executionstateDelegate: MultipleTaskState?,
-         updateinprogresscount: EstimateProgressDetails?,
-         progressdetails: ExecuteProgressDetails?)
+         multipletaskstateDelegate: MultipleTaskState?,
+         estimateprogressdetailsDelegate: EstimateProgressDetails?,
+         executeprogressdetailsDelegate: ExecuteProgressDetails?)
     {
         structprofile = profile
         localconfigurations = configurations
-        multipletasksate = executionstateDelegate
-        estimateprogressdetails = updateinprogresscount
-        executeprogressdetails = progressdetails
+        multipletaskstate = multipletaskstateDelegate
+        estimateprogressdetails = estimateprogressdetailsDelegate
+        executeprogressdetails = executeprogressdetailsDelegate
         guard uuids.count > 0 else {
-            multipletasksate?.updatestate(state: .completed)
+            multipletaskstate?.updatestate(state: .completed)
             return
         }
         guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else { return }
@@ -124,7 +124,7 @@ final class ExecuteMultipleTasks {
                                               config: getconfig(hiddenID: privatehiddenID))
         records?.append(record)
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
-            multipletasksate?.updatestate(state: .completed)
+            multipletaskstate?.updatestate(state: .completed)
             estimateprogressdetails?.setmaxcount(0)
             estimateprogressdetails?.setestimatedlist(records)
             let update = MultipletasksPrimaryLogging(profile: structprofile,
