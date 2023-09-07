@@ -23,7 +23,6 @@ struct TasksView: View {
 
     @Binding var showeexecutestimatedview: Bool
     @Binding var showexecutenoestimateview: Bool
-    @Binding var showexecutenoestiamteonetask: Bool
 
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
@@ -424,7 +423,6 @@ extension TasksView {
             actions.addaction(action)
             // Execute tasks, no estimate
             showexecutenoestimateview = true
-            showexecutenoestiamteonetask = false
         }
     }
 
