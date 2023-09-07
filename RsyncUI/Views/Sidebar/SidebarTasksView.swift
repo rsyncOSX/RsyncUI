@@ -17,8 +17,6 @@ struct SidebarTasksView: View {
 
     @State var showeexecutEstimatedview: Bool = false
     @State var showexecuteNOEstimateview: Bool = false
-    @State var showexecuteNOEstiamteONEtask: Bool = false
-
     @State private var reloadtasksviewlist: Bool = false
     // Timer values
     @State private var timervalue: Double = 600
@@ -26,7 +24,7 @@ struct SidebarTasksView: View {
     var actions: Actions
 
     enum Task: String, Identifiable {
-        case taskview, executestimatedview, executenoestimatetasksview, executenoestimateonetaskview
+        case taskview, executestimatedview, executenoestimatetasksview
         var id: String { rawValue }
     }
 
@@ -34,20 +32,13 @@ struct SidebarTasksView: View {
         ZStack {
             VStack {
                 if showeexecutEstimatedview == false &&
-                    showexecuteNOEstimateview == false &&
-                    showexecuteNOEstiamteONEtask == false { makeView(task: .taskview) }
+                    showexecuteNOEstimateview == false { makeView(task: .taskview) }
 
                 if showeexecutEstimatedview == true &&
-                    showexecuteNOEstimateview == false &&
-                    showexecuteNOEstiamteONEtask == false { makeView(task: .executestimatedview) }
+                    showexecuteNOEstimateview == false { makeView(task: .executestimatedview) }
 
                 if showeexecutEstimatedview == false &&
-                    showexecuteNOEstiamteONEtask == false &&
                     showexecuteNOEstimateview == true { makeView(task: .executenoestimatetasksview) }
-
-                if showeexecutEstimatedview == false &&
-                    showexecuteNOEstimateview == false &&
-                    showexecuteNOEstiamteONEtask == true { makeView(task: .executenoestimateonetaskview) }
             }
             .padding()
         }
@@ -62,14 +53,12 @@ struct SidebarTasksView: View {
                       selecteduuids: $selecteduuids,
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
-                      showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask,
                       actions: actions,
                       reloadtasksviewlist: $reloadtasksviewlist)
                 .environmentObject(progressdetails)
         case .executestimatedview:
-            // This view is activated for execution of
-            // estimated tasks and view presents progress of
-            // synchronization of data.
+            // This view is activated for execution of estimated tasks and view
+            // presents progress of synchronization of data.
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
                                       showeexecutestimatedview: $showeexecutEstimatedview)
@@ -78,20 +67,11 @@ struct SidebarTasksView: View {
                 })
                 .environmentObject(progressdetails)
         case .executenoestimatetasksview:
-            // Execute all tasks, no estimation ahead of synchronization
+            // Execute tasks, no estimation ahead of synchronization
             ExecuteNoestimatedTasksView(reload: $reload,
                                         selecteduuids: $selecteduuids,
                                         showcompleted: $reloadtasksviewlist,
                                         showexecutenoestimateview: $showexecuteNOEstimateview)
-                .onDisappear(perform: {
-                    reloadtasksviewlist = true
-                })
-        case .executenoestimateonetaskview:
-            // As above but for one task only
-            ExecuteNoestimateOneTaskView(reload: $reload,
-                                         selecteduuids: $selecteduuids,
-                                         showcompleted: $reloadtasksviewlist,
-                                         showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask)
                 .onDisappear(perform: {
                     reloadtasksviewlist = true
                 })

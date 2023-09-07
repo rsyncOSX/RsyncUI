@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
+final class ExecuteTasksAsync: EstimateTasksAsync {
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
@@ -39,7 +39,7 @@ final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
     }
 }
 
-extension ExecuteAlltasksAsync {
+extension ExecuteTasksAsync {
     func processterminationexecute(outputfromrsync: [String]?, hiddenID: Int?) {
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
@@ -59,3 +59,5 @@ extension ExecuteAlltasksAsync {
         }
     }
 }
+
+// swiftlint:enable line_length
