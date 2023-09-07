@@ -314,7 +314,7 @@ extension TasksView {
     func doubleclickactionfunction() {
         if estimatingprogresscount.getestimatedlist() == nil {
             dryrun()
-        } else if estimatingprogresscount.tasksisestimated(selecteduuids) {
+        } else if estimatingprogresscount.tasksareestimated(selecteduuids) {
             execute()
         } else {
             dryrun()
@@ -401,7 +401,7 @@ extension TasksView {
             showeexecutestimatedview = true
 
         } else if selecteduuids.count >= 1,
-                  estimatingprogresscount.tasksisestimated(selecteduuids) == true
+                  estimatingprogresscount.tasksareestimated(selecteduuids) == true
 
         {
             // One or some tasks are selected and estimated

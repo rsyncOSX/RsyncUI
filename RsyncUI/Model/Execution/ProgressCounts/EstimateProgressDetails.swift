@@ -21,7 +21,7 @@ final class EstimateProgressDetails: ObservableObject {
     var timestamp: Date?
     var numberofconfigurations: Int = -1
 
-    func tasksisestimated(_ uuids: Set<UUID>) -> Bool {
+    func tasksareestimated(_ uuids: Set<UUID>) -> Bool {
         let answer = estimatedlist?.filter {
             uuids.contains($0.id)
         }
