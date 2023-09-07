@@ -108,8 +108,8 @@ extension ExecuteEstimatedTasksView {
         ExecuteMultipleTasks(uuids: selecteduuids,
                              profile: rsyncUIdata.profile,
                              configurations: rsyncUIdata,
-                             executionstateDelegate: multipletaskstate,
-                             updateinprogresscount: estimatingprogresscount,
-                             progressdetails: progressdetails)
+                             multipletaskstateDelegate: multipletaskstate,
+                             estimateprogressdetailsDelegate: estimatingprogresscount,
+                             executeprogressdetailsDelegate: progressdetails)
     }
 }

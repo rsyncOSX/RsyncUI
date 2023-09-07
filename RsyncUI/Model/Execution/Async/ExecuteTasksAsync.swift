@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
+final class ExecuteTasksAsync: EstimateTasksAsync {
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
@@ -23,7 +23,7 @@ final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
                                                      validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration(configrecords: configrecords)
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            estimatingprogresscountDelegate?.asyncexecutealltasksnoestiamtioncomplete()
+            estimateprogressdetails?.asyncexecutealltasksnoestiamtioncomplete()
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
@@ -39,7 +39,7 @@ final class ExecuteAlltasksAsync: EstimateAlltasksAsync {
     }
 }
 
-extension ExecuteAlltasksAsync {
+extension ExecuteTasksAsync {
     func processterminationexecute(outputfromrsync: [String]?, hiddenID: Int?) {
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
@@ -50,12 +50,14 @@ extension ExecuteAlltasksAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        estimatingprogresscountDelegate?.appendrecordestimatedlist(record)
+        estimateprogressdetails?.appendrecordestimatedlist(record)
         if let config = getconfig(hiddenID: hiddenID) {
-            estimatingprogresscountDelegate?.appenduuid(config.id)
+            estimateprogressdetails?.appenduuid(config.id)
         }
         _ = Task.detached {
             await self.startexecution()
         }
     }
 }
+
+// swiftlint:enable line_length

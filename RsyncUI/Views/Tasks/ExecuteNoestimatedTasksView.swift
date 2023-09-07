@@ -19,7 +19,7 @@ struct ExecuteNoestimatedTasksView: View {
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
 
-    @State private var executealltasksasync: ExecuteAlltasksAsync?
+    @State private var executealltasksasync: ExecuteTasksAsync?
 
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
@@ -104,11 +104,11 @@ extension ExecuteNoestimatedTasksView {
     func executeallnotestimatedtasks() async {
         estimatingprogresscount.startasyncexecutealltasksnoestimation()
         executealltasksasync =
-            ExecuteAlltasksAsync(profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata,
-                                 updateinprogresscount: estimatingprogresscount,
-                                 uuids: selecteduuids,
-                                 filter: filterstring)
+            ExecuteTasksAsync(profile: rsyncUIdata.profile,
+                              configurations: rsyncUIdata,
+                              updateinprogresscount: estimatingprogresscount,
+                              uuids: selecteduuids,
+                              filter: filterstring)
         await executealltasksasync?.startexecution()
     }
 }

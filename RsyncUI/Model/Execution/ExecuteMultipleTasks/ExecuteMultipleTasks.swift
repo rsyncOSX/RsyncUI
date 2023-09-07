@@ -32,10 +32,10 @@ final class ExecuteMultipleTasks {
     // output from rsync
     private var outputfromrsync: [String]?
 
-    weak var multipletasksateDelegate: MultipleTaskState?
-    weak var estimatingprogresscountDelegate: EstimateProgressDetails?
+    weak var multipletaskstate: MultipleTaskState?
+    weak var estimateprogressdetails: EstimateProgressDetails?
     // In progress count each task
-    weak var progressdetailsDelegate: ExecuteProgressDetails?
+    weak var executeprogressdetails: ExecuteProgressDetails?
 
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
@@ -50,7 +50,7 @@ final class ExecuteMultipleTasks {
                 stackoftasktobeexecuted?.append(configurations[i].hiddenID)
             }
             max = stackoftasktobeexecuted?.count
-            estimatingprogresscountDelegate?.setmaxcount(stackoftasktobeexecuted?.count ?? 0)
+            estimateprogressdetails?.setmaxcount(stackoftasktobeexecuted?.count ?? 0)
         }
     }
 
@@ -58,7 +58,7 @@ final class ExecuteMultipleTasks {
         guard (stackoftasktobeexecuted?.count ?? 0) > 0 else { return }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
-            progressdetailsDelegate?.hiddenIDatwork = hiddenID
+            executeprogressdetails?.hiddenIDatwork = hiddenID
             let estimation = ExecuteOneTask(hiddenID: hiddenID,
                                             configurations: localconfigurations,
                                             termination: processtermination,
@@ -81,17 +81,17 @@ final class ExecuteMultipleTasks {
     init(uuids: Set<UUID>,
          profile: String?,
          configurations: RsyncUIconfigurations?,
-         executionstateDelegate: MultipleTaskState?,
-         updateinprogresscount: EstimateProgressDetails?,
-         progressdetails: ExecuteProgressDetails?)
+         multipletaskstateDelegate: MultipleTaskState?,
+         estimateprogressdetailsDelegate: EstimateProgressDetails?,
+         executeprogressdetailsDelegate: ExecuteProgressDetails?)
     {
         structprofile = profile
         localconfigurations = configurations
-        multipletasksateDelegate = executionstateDelegate
-        estimatingprogresscountDelegate = updateinprogresscount
-        progressdetailsDelegate = progressdetails
+        multipletaskstate = multipletaskstateDelegate
+        estimateprogressdetails = estimateprogressdetailsDelegate
+        executeprogressdetails = executeprogressdetailsDelegate
         guard uuids.count > 0 else {
-            multipletasksateDelegate?.updatestate(state: .completed)
+            multipletaskstate?.updatestate(state: .completed)
             return
         }
         guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else { return }
@@ -106,7 +106,7 @@ final class ExecuteMultipleTasks {
 
     func abort() {
         stackoftasktobeexecuted = nil
-        estimatingprogresscountDelegate?.resetcounts()
+        estimateprogressdetails?.resetcounts()
         setabort = true
     }
 
@@ -118,15 +118,15 @@ final class ExecuteMultipleTasks {
         configrecords.append((privatehiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((privatehiddenID ?? -1, Numbers(data ?? []).stats()))
         // Log records
-        estimatingprogresscountDelegate?.updatetasksinprogresscount(Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
+        estimateprogressdetails?.updatetasksinprogresscount(Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: privatehiddenID))
         records?.append(record)
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
-            multipletasksateDelegate?.updatestate(state: .completed)
-            estimatingprogresscountDelegate?.setmaxcount(0)
-            estimatingprogresscountDelegate?.setestimatedlist(records)
+            multipletaskstate?.updatestate(state: .completed)
+            estimateprogressdetails?.setmaxcount(0)
+            estimateprogressdetails?.setestimatedlist(records)
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: privatehiddenID,
                                                      configurations: localconfigurations?.getallconfigurations(),
@@ -137,7 +137,7 @@ final class ExecuteMultipleTasks {
         }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
-            progressdetailsDelegate?.hiddenIDatwork = hiddenID
+            executeprogressdetails?.hiddenIDatwork = hiddenID
             let execution = ExecuteOneTask(hiddenID: hiddenID,
                                            configurations: localconfigurations,
                                            termination: processtermination,
@@ -147,7 +147,7 @@ final class ExecuteMultipleTasks {
     }
 
     func filehandler(count: Int) {
-        progressdetailsDelegate?.setcurrentprogress(Double(count))
+        executeprogressdetails?.setcurrentprogress(Double(count))
     }
 }
 

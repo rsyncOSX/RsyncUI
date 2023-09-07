@@ -8,16 +8,16 @@
 
 import Foundation
 
-class EstimateAlltasksAsync {
+class EstimateTasksAsync {
     var structprofile: String?
     var localconfigurations: RsyncUIconfigurations?
     var stackoftasktobeestimated: [Int]?
-    weak var estimatingprogresscountDelegate: EstimateProgressDetails?
+    weak var estimateprogressdetails: EstimateProgressDetails?
 
     @MainActor
     func startexecution() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
-            estimatingprogresscountDelegate?.asyncestimationcomplete()
+            estimateprogressdetails?.asyncestimationcomplete()
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
@@ -40,7 +40,7 @@ class EstimateAlltasksAsync {
     {
         structprofile = profile
         localconfigurations = configurations
-        estimatingprogresscountDelegate = updateinprogresscount
+        estimateprogressdetails = updateinprogresscount
         let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()
         // Estimate selected configurations
@@ -62,8 +62,8 @@ class EstimateAlltasksAsync {
                 }
             }
         }
-        estimatingprogresscountDelegate?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
-        estimatingprogresscountDelegate?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
+        estimateprogressdetails?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
+        estimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }
 
     func getconfig(hiddenID: Int?) -> Configuration? {
@@ -81,15 +81,15 @@ class EstimateAlltasksAsync {
     }
 }
 
-extension EstimateAlltasksAsync {
+extension EstimateTasksAsync {
     func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: getconfig(hiddenID: hiddenID))
-        estimatingprogresscountDelegate?.appendrecordestimatedlist(record)
+        estimateprogressdetails?.appendrecordestimatedlist(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = getconfig(hiddenID: hiddenID) {
-                estimatingprogresscountDelegate?.appenduuid(config.id)
+                estimateprogressdetails?.appenduuid(config.id)
             }
         }
         _ = Task.detached {
@@ -97,3 +97,5 @@ extension EstimateAlltasksAsync {
         }
     }
 }
+
+// swiftlint: enable line_length
