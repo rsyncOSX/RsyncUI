@@ -315,7 +315,7 @@ extension TasksView {
     func doubleclickactionfunction() {
         if estimatingprogresscount.getestimatedlist() == nil {
             dryrun()
-        } else if estimatingprogresscount.taskisestimated(selectedconfig.config?.hiddenID ?? -1) {
+        } else if estimatingprogresscount.tasksisestimated(selecteduuids) {
             execute()
         } else {
             dryrun()
@@ -386,8 +386,9 @@ extension TasksView {
     }
 
     func execute() {
-        if selectedconfig.config == nil,
-           estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile")
+        // All tasks are estimated and ready for execution.
+        if selecteduuids.count == 0,
+           estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == true
 
         {
             let action = ActionHolder(action: "Execute() all estimated tasks",
@@ -399,20 +400,12 @@ extension TasksView {
             estimatingstate.updatestate(state: .start)
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
-        } else if selectedconfig.config == nil,
-                  estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
+
+        } else if selecteduuids.count >= 1,
+                  estimatingprogresscount.tasksisestimated(selecteduuids) == true
+
         {
-            let action = ActionHolder(action: "Execute() all tasks NO estimate",
-                                      profile: rsyncUIdata.profile ?? "Default profile",
-                                      source: "ExecuteNoestimatedTasksView")
-            actions.addaction(action)
-            // Execute all tasks, no estimate
-            showexecutenoestimateview = true
-            showexecutenoestiamteonetask = false
-        } else if selectedconfig.config != nil,
-                  estimatingprogresscount.taskisestimated(selectedconfig.config?.hiddenID ?? -1),
-                  selecteduuids.count >= 1
-        {
+            // One or some tasks are selected and estimated
             let action = ActionHolder(action: "Execute() estimated tasks only",
                                       profile: rsyncUIdata.profile ?? "Default profile",
                                       source: "ExecuteEstimatedTasksView")
@@ -423,15 +416,15 @@ extension TasksView {
             estimatingstate.updatestate(state: .start)
             // Change view, see SidebarTasksView
             showeexecutestimatedview = true
-
         } else {
-            let action = ActionHolder(action: "Execute() one task NO estimate",
+            // Execute all tasks, no estimate
+            let action = ActionHolder(action: "Execute() selected or all tasks NO estimate",
                                       profile: rsyncUIdata.profile ?? "Default profile",
-                                      source: "ExecuteNoestimateOneTaskView")
+                                      source: "ExecuteNoestimatedTasksView")
             actions.addaction(action)
-            // Execute one task, no estimte
-            showexecutenoestiamteonetask = true
-            showexecutenoestimateview = false
+            // Execute tasks, no estimate
+            showexecutenoestimateview = true
+            showexecutenoestiamteonetask = false
         }
     }
 

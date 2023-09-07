@@ -26,7 +26,7 @@ struct SidebarTasksView: View {
     var actions: Actions
 
     enum Task: String, Identifiable {
-        case taskview, executestimatedview, executenoestimatetasksview, executenoestimateonetaskview
+        case taskview, executestimatedview, executenoestimatetasksview
         var id: String { rawValue }
     }
 
@@ -44,10 +44,6 @@ struct SidebarTasksView: View {
                 if showeexecutEstimatedview == false &&
                     showexecuteNOEstiamteONEtask == false &&
                     showexecuteNOEstimateview == true { makeView(task: .executenoestimatetasksview) }
-
-                if showeexecutEstimatedview == false &&
-                    showexecuteNOEstimateview == false &&
-                    showexecuteNOEstiamteONEtask == true { makeView(task: .executenoestimateonetaskview) }
             }
             .padding()
         }
@@ -83,15 +79,6 @@ struct SidebarTasksView: View {
                                         selecteduuids: $selecteduuids,
                                         showcompleted: $reloadtasksviewlist,
                                         showexecutenoestimateview: $showexecuteNOEstimateview)
-                .onDisappear(perform: {
-                    reloadtasksviewlist = true
-                })
-        case .executenoestimateonetaskview:
-            // As above but for one task only
-            ExecuteNoestimateOneTaskView(reload: $reload,
-                                         selecteduuids: $selecteduuids,
-                                         showcompleted: $reloadtasksviewlist,
-                                         showexecutenoestiamteonetask: $showexecuteNOEstiamteONEtask)
                 .onDisappear(perform: {
                     reloadtasksviewlist = true
                 })

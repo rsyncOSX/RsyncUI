@@ -21,11 +21,11 @@ final class EstimateProgressDetails: ObservableObject {
     var timestamp: Date?
     var numberofconfigurations: Int = -1
 
-    func taskisestimated(_ hiddenID: Int) -> Bool {
-        let answer = estimatedlist?.contains(where: { task in
-            task.hiddenID == hiddenID
-        }) ?? false ? true : false
-        return answer
+    func tasksisestimated(_ uuids: Set<UUID>) -> Bool {
+        let answer = estimatedlist?.filter {
+            uuids.contains($0.id)
+        }
+        return answer?.count == uuids.count
     }
 
     func getprofile() -> String {
