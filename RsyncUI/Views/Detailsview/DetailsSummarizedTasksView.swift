@@ -1,5 +1,5 @@
 //
-//  OutputEstimatedView.swift
+//  DetailsSummarizedTasksView.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 19/01/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OutputEstimatedView: View {
+struct DetailsSummarizedTasksView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<UUID>
