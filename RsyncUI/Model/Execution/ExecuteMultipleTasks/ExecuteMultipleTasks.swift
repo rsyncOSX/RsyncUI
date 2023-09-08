@@ -99,7 +99,9 @@ final class ExecuteMultipleTasks {
         estimateprogressdetails?.resetcounts()
         setabort = true
     }
+}
 
+extension ExecuteMultipleTasks {
     func processtermination(data: [String]?, hiddenID _: Int?) {
         guard setabort == false else { return }
         // Log records
