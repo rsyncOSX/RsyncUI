@@ -174,12 +174,12 @@ struct TasksView: View {
     func makeSheet() -> some View {
         switch sheetchooser.sheet {
         case .dryrunalreadyestimated:
-            DetailsViewAlreadyEstimated(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [],
-                                        selectedconfig: selectedconfig.config)
+            DetailsOneTaskAlreadyEstimatedView(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [],
+                                               selectedconfig: selectedconfig.config)
         case .dryrunalltasks:
-            OutputEstimatedView(selecteduuids: $selecteduuids,
-                                execute: $focusstartexecution,
-                                estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
+            DetailsSummarizedTasksView(selecteduuids: $selecteduuids,
+                                       execute: $focusstartexecution,
+                                       estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
         case .dryrunonetask:
             DetailsOneTaskView(selectedconfig: selectedconfig.config)
                 .environmentObject(estimatingprogresscount)

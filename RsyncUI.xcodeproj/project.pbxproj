@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E801DC662637FD990060723F /* WriteConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801DC652637FD990060723F /* WriteConfigurationJSON.swift */; };
-		E81C244C267DEEAA00C50AE8 /* OutputEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */; };
+		E81C244C267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81C244B267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift */; };
 		E8518C7A263807F200128796 /* WriteScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8518C79263807F200128796 /* WriteScheduleJSON.swift */; };
 		E85FBDD726CD6B0A00186185 /* RsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85FBDD626CD6B0A00186185 /* RsyncParametersView.swift */; };
 		E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8902992260B0EF700F4F0DC /* ButtonStyles.swift */; };
@@ -45,7 +45,7 @@
 		E964FFE72906A86000BFEC94 /* OutputRsyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E964FFE62906A86000BFEC94 /* OutputRsyncView.swift */; };
 		E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */; };
 		E96A165E272E735F00B95D3D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E96A165C272E735F00B95D3D /* Localizable.strings */; };
-		E96ED543292FDC3B0021FF06 /* DetailsViewAlreadyEstimated.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96ED542292FDC3B0021FF06 /* DetailsViewAlreadyEstimated.swift */; };
+		E96ED543292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96ED542292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
 		E97F62F528DC845100DCF475 /* RsyncAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F62F428DC845100DCF475 /* RsyncAsync.swift */; };
 		E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */; };
@@ -197,7 +197,7 @@
 
 /* Begin PBXFileReference section */
 		E801DC652637FD990060723F /* WriteConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteConfigurationJSON.swift; sourceTree = "<group>"; };
-		E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputEstimatedView.swift; sourceTree = "<group>"; };
+		E81C244B267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsSummarizedTasksView.swift; sourceTree = "<group>"; };
 		E8518C79263807F200128796 /* WriteScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteScheduleJSON.swift; sourceTree = "<group>"; };
 		E85FBDD626CD6B0A00186185 /* RsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncParametersView.swift; sourceTree = "<group>"; };
 		E8902992260B0EF700F4F0DC /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 		E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLogs.swift; sourceTree = "<group>"; };
 		E96A165D272E735F00B95D3D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E96A165F272E737000B95D3D /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E96ED542292FDC3B0021FF06 /* DetailsViewAlreadyEstimated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewAlreadyEstimated.swift; sourceTree = "<group>"; };
+		E96ED542292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOneTaskAlreadyEstimatedView.swift; sourceTree = "<group>"; };
 		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
 		E97F62F428DC845100DCF475 /* RsyncAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncAsync.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -590,7 +590,8 @@
 			isa = PBXGroup;
 			children = (
 				E943D4232906CE6F0042A560 /* DetailsOneTaskView.swift */,
-				E96ED542292FDC3B0021FF06 /* DetailsViewAlreadyEstimated.swift */,
+				E81C244B267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift */,
+				E96ED542292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift */,
 				E9CE04FE29C9DA92001ACEA7 /* AlltasksView.swift */,
 			);
 			path = Detailsview;
@@ -636,7 +637,6 @@
 				E9EA4EA229DAA0EF00456ADA /* Counter.swift */,
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedTasksView.swift */,
 				E9134B4829893BF900FDD55D /* ExecuteNoestimatedTasksView.swift */,
-				E81C244B267DEEAA00C50AE8 /* OutputEstimatedView.swift */,
 				E904E02D275CED770070DF92 /* FirsttimeView.swift */,
 				E9FAE97828DF4F8F000C0F93 /* LocalRemoteInfoView.swift */,
 			);
@@ -1200,7 +1200,7 @@
 				E9C6023B29F8225B00170B61 /* SidebarVentura.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
 				E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */,
-				E96ED543292FDC3B0021FF06 /* DetailsViewAlreadyEstimated.swift in Sources */,
+				E96ED543292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift in Sources */,
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
 				E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */,
 				E950C92A290BBDC200B8B49F /* CommandProcessAsync.swift in Sources */,
@@ -1240,7 +1240,7 @@
 				E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */,
 				E9EA4EA329DAA0EF00456ADA /* Counter.swift in Sources */,
 				E985C77225F3AD9700CB895C /* Logfile.swift in Sources */,
-				E81C244C267DEEAA00C50AE8 /* OutputEstimatedView.swift in Sources */,
+				E81C244C267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift in Sources */,
 				E985C73425F3AD9700CB895C /* RsyncCommandtoDisplay.swift in Sources */,
 				E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */,
 				E985C73525F3AD9700CB895C /* Backupconfigfiles.swift in Sources */,

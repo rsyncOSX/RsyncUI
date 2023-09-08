@@ -11,7 +11,6 @@ enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertib
     case start
     case estimate
     case completed
-    case error
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized }
