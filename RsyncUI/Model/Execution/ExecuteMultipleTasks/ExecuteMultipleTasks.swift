@@ -10,16 +10,6 @@ import Foundation
 
 typealias Typelogdata = (Int, String)
 
-enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case start
-    case execute
-    case completed
-    case error
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedCapitalized }
-}
-
 final class ExecuteMultipleTasks {
     private var localconfigurations: RsyncUIconfigurations?
     private var structprofile: String?

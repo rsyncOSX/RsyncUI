@@ -7,6 +7,15 @@
 
 import Foundation
 
+enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case start
+    case execute
+    case completed
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedCapitalized }
+}
+
 final class MultipleTaskState: ObservableObject {
     var executionstate: ExecutetaskWork = .start
 
