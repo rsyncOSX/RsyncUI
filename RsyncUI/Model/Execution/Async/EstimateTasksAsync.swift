@@ -47,8 +47,11 @@ class EstimateTasksAsync {
         if uuids.count > 0 {
             let configurations = filteredconfigurations?.filter { uuids.contains($0.id) }
             for i in 0 ..< (configurations?.count ?? 0) {
-                if let hiddenID = configurations?[i].hiddenID {
-                    stackoftasktobeestimated?.append(hiddenID)
+                let task = configurations?[i].task
+                if SharedReference.shared.synctasks.contains(task ?? "") {
+                    if let hiddenID = configurations?[i].hiddenID {
+                        stackoftasktobeestimated?.append(hiddenID)
+                    }
                 }
             }
         } else {
