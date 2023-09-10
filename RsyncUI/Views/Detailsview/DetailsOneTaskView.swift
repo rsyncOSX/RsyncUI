@@ -1,5 +1,5 @@
 //
-//  DetailsView.swift
+//  DetailsOneTaskView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 24/10/2022.
@@ -9,7 +9,7 @@ import Foundation
 import Observation
 import SwiftUI
 
-struct DetailsView: View {
+struct DetailsOneTaskView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @SwiftUI.Environment(EstimateProgressDetails.self) var inprogresscountmultipletask
 
@@ -214,7 +214,7 @@ struct DetailsView: View {
     }
 }
 
-extension DetailsView {
+extension DetailsOneTaskView {
     func processtermination(data: [String]?) {
         outputfromrsync.generatedata(data)
         estimateddataonetask.update(data: data, hiddenID: selectedconfig?.hiddenID, config: selectedconfig)

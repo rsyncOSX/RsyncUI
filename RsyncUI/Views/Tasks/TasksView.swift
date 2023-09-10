@@ -189,7 +189,7 @@ struct TasksView: View {
                                        execute: $focusstartexecution,
                                        estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
         case .dryrunonetask:
-            DetailsView(selectedconfig: selectedconfig.config)
+            DetailsOneTaskView(selectedconfig: selectedconfig.config)
                 .environment(estimatingprogresscount)
                 .onAppear {
                     doubleclick = false
@@ -367,7 +367,7 @@ extension TasksView {
 
     func detailsestimatedtask() {
         // DryRun: all tasks already estimated, show details on task
-        guard progressdetails.taskisestimatedbyuuid(selectedconfig.config?.id ?? UUID()) == true else { return }
+        guard progressdetails.taskisestimatedbyUUID(selectedconfig.config?.id ?? UUID()) == true else { return }
         let action = ActionHolder(action: "DryRun: task is already estimated, show details on task",
                                   profile: rsyncUIdata.profile ?? "Default profile",
                                   source: "DetailsViewAlreadyEstimated")

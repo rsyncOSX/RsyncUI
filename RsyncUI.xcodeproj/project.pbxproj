@@ -34,7 +34,7 @@
 		E93D7B7F26CE117300E290A1 /* SidebarParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D7B7E26CE117300E290A1 /* SidebarParametersView.swift */; };
 		E93E14B426E34B95004A293E /* AddProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93E14B326E34B95004A293E /* AddProfileView.swift */; };
 		E943B0A925FFC22200A4F30D /* RsyncProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcess.swift */; };
-		E943D4242906CE6F0042A560 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943D4232906CE6F0042A560 /* DetailsView.swift */; };
+		E943D4242906CE6F0042A560 /* DetailsOneTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943D4232906CE6F0042A560 /* DetailsOneTaskView.swift */; };
 		E944E6CA2A16B6A6009BA945 /* ListofTasksMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E944E6C92A16B6A6009BA945 /* ListofTasksMainView.swift */; };
 		E94E1E1C2A2DAA3E00011FED /* RestoreFilesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */; };
 		E94E1E1E2A2DB14A00011FED /* RestoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E1E1D2A2DB14A00011FED /* RestoreTableView.swift */; };
@@ -225,7 +225,7 @@
 		E93D7B7E26CE117300E290A1 /* SidebarParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarParametersView.swift; sourceTree = "<group>"; };
 		E93E14B326E34B95004A293E /* AddProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileView.swift; sourceTree = "<group>"; };
 		E943B0A825FFC22200A4F30D /* RsyncProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcess.swift; sourceTree = "<group>"; };
-		E943D4232906CE6F0042A560 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		E943D4232906CE6F0042A560 /* DetailsOneTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOneTaskView.swift; sourceTree = "<group>"; };
 		E944E6C92A16B6A6009BA945 /* ListofTasksMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksMainView.swift; sourceTree = "<group>"; };
 		E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFilesTableView.swift; sourceTree = "<group>"; };
 		E94E1E1D2A2DB14A00011FED /* RestoreTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreTableView.swift; sourceTree = "<group>"; };
@@ -612,7 +612,7 @@
 			isa = PBXGroup;
 			children = (
 				E81C244B267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift */,
-				E943D4232906CE6F0042A560 /* DetailsView.swift */,
+				E943D4232906CE6F0042A560 /* DetailsOneTaskView.swift */,
 				E96ED542292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift */,
 				E9CE04FE29C9DA92001ACEA7 /* AlltasksView.swift */,
 			);
@@ -1294,7 +1294,7 @@
 				E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */,
 				E985C75925F3AD9700CB895C /* Configuration.swift in Sources */,
 				E985C68825F3AD8400CB895C /* SidebarAddTaskView.swift in Sources */,
-				E943D4242906CE6F0042A560 /* DetailsView.swift in Sources */,
+				E943D4242906CE6F0042A560 /* DetailsOneTaskView.swift in Sources */,
 				E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
 				E90F7CA726344D5E001D9CA2 /* TextBuilderSeparator.swift in Sources */,

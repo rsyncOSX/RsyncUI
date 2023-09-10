@@ -13,7 +13,7 @@ final class ExecuteProgressDetails: ObservableObject {
     var hiddenIDatwork: Int = -1
     var estimatedlist: [RemoteinfonumbersOnetask]?
 
-    func taskisestimatedbyuuid(_ uuid: UUID) -> Bool {
+    func taskisestimatedbyUUID(_ uuid: UUID) -> Bool {
         let answer = estimatedlist?.contains(where: { task in
             task.id == uuid
         }) ?? false ? true : false
