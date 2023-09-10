@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Observation
 
 enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertible {
     case start
@@ -17,9 +16,8 @@ enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertib
     var description: String { rawValue.localizedCapitalized }
 }
 
-@Observable
-final class EstimatingState {
-    var estimationstate: EstimatetaskWork = .start
+final class EstimatingState: ObservableObject {
+    @Published var estimationstate: EstimatetaskWork = .start
 
     func updatestate(state: EstimatetaskWork) {
         estimationstate = state
