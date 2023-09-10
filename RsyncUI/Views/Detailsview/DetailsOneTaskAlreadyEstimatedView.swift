@@ -1,5 +1,5 @@
 //
-//  DetailsViewAlreadyEstimated.swift
+//  DetailsOneTaskAlreadyEstimatedView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 24/11/2022.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct DetailsViewAlreadyEstimated: View {
+struct DetailsOneTaskAlreadyEstimatedView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     var estimatedlist: [RemoteinfonumbersOnetask]
     var selectedconfig: Configuration?

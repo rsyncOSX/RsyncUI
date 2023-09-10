@@ -10,16 +10,6 @@ import Foundation
 
 typealias Typelogdata = (Int, String)
 
-enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case start
-    case execute
-    case completed
-    case error
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedCapitalized }
-}
-
 final class ExecuteMultipleTasks {
     private var localconfigurations: RsyncUIconfigurations?
     private var structprofile: String?
@@ -109,7 +99,9 @@ final class ExecuteMultipleTasks {
         estimateprogressdetails?.resetcounts()
         setabort = true
     }
+}
 
+extension ExecuteMultipleTasks {
     func processtermination(data: [String]?, hiddenID _: Int?) {
         guard setabort == false else { return }
         // Log records
