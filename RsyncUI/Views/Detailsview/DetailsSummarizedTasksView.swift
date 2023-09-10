@@ -26,8 +26,15 @@ struct DetailsSummarizedTasksView: View {
 
             HStack {
                 Table(estimatedlist) {
-                    TableColumn("Synchronize ID", value: \.backupID)
-                        .width(min: 80, max: 200)
+                    TableColumn("Synchronize ID") { data in
+                        if data.datatosynchronize {
+                            Text(data.backupID)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(data.backupID)
+                        }
+                    }
+                    .width(min: 80, max: 200)
                     TableColumn("Task", value: \.task)
                         .width(max: 80)
                     TableColumn("Local catalog", value: \.localCatalog)
@@ -46,23 +53,47 @@ struct DetailsSummarizedTasksView: View {
 
                 Table(estimatedlist) {
                     TableColumn("New") { files in
-                        Text(files.newfiles)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        if files.datatosynchronize {
+                            Text(files.newfiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(files.newfiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                     }
                     .width(max: 40)
                     TableColumn("Delete") { files in
-                        Text(files.deletefiles)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        if files.datatosynchronize {
+                            Text(files.deletefiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(files.deletefiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                     }
                     .width(max: 40)
                     TableColumn("Files") { files in
-                        Text(files.transferredNumber)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        if files.datatosynchronize {
+                            Text(files.transferredNumber)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(files.transferredNumber)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                     }
                     .width(max: 40)
                     TableColumn("Bytes") { files in
-                        Text(files.transferredNumberSizebytes)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        if files.datatosynchronize {
+                            Text(files.transferredNumberSizebytes)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(files.transferredNumberSizebytes)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                     }
                     .width(max: 60)
                     TableColumn("Tot num") { files in
