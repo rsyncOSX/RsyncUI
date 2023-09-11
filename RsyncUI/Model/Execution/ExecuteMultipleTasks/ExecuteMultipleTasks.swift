@@ -57,16 +57,6 @@ final class ExecuteMultipleTasks {
         }
     }
 
-    private func getconfig(hiddenID: Int?) -> Configuration? {
-        if let hiddenID = hiddenID {
-            if let configurations = localconfigurations?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
-                guard configurations.count == 1 else { return nil }
-                return configurations[0]
-            }
-        }
-        return nil
-    }
-
     @discardableResult
     init(uuids: Set<UUID>,
          profile: String?,
@@ -113,7 +103,7 @@ extension ExecuteMultipleTasks {
         estimateprogressdetails?.updatetasksinprogresscount(Double((max ?? 0) - (stackoftasktobeexecuted?.count ?? 0)))
         let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
                                               outputfromrsync: outputfromrsync,
-                                              config: getconfig(hiddenID: privatehiddenID))
+                                              config: localconfigurations?.getconfig(hiddenID: privatehiddenID ?? -1))
         records?.append(record)
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
             multipletaskstate?.updatestate(state: .completed)

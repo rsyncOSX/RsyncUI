@@ -33,7 +33,7 @@ final class RsyncUIconfigurations: ObservableObject {
     }
 
     // Function for getting Configurations read into memory
-    func getconfiguration(hiddenID: Int) -> Configuration? {
+    func getconfig(hiddenID: Int) -> Configuration? {
         let configuration = configurations?.filter { $0.hiddenID == hiddenID }
         guard configuration?.count == 1 else { return nil }
         return configuration?[0]
