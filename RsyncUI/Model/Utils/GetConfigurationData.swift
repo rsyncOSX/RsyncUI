@@ -22,7 +22,7 @@ struct GetConfigurationData {
                 return result[0].offsiteCatalog
             case .offsiteServer:
                 if result[0].offsiteServer.isEmpty {
-                    return DictionaryStrings.localhost.rawValue
+                    return "localhost"
                 } else {
                     return result[0].offsiteServer
                 }
