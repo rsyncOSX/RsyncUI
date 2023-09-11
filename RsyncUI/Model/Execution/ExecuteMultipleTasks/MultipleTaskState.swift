@@ -17,11 +17,10 @@ enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertibl
 }
 
 final class MultipleTaskState: ObservableObject {
-    var executionstate: ExecutetaskWork = .start
+    @Published var executionstate: ExecutetaskWork = .start
 
     func updatestate(state: ExecutetaskWork) {
         executionstate = state
-        objectWillChange.send()
     }
 
     deinit {
