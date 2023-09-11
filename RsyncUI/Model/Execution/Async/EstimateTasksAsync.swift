@@ -22,7 +22,7 @@ class EstimateTasksAsync {
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
         guard localhiddenID != nil else { return }
-        if let config = localconfigurations?.getconfiguration(hiddenID: localhiddenID ?? 0) {
+        if let config = localconfigurations?.getconfig(hiddenID: localhiddenID ?? 0) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .argdryRun)
             guard arguments.count > 0 else { return }
             let process = RsyncProcessAsync(arguments: arguments,
@@ -69,16 +69,6 @@ class EstimateTasksAsync {
         estimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }
 
-    func getconfig(hiddenID: Int?) -> Configuration? {
-        if let hiddenID = hiddenID {
-            if let configurations = localconfigurations?.getallconfigurations()?.filter({ $0.hiddenID == hiddenID }) {
-                guard configurations.count == 1 else { return nil }
-                return configurations[0]
-            }
-        }
-        return nil
-    }
-
     deinit {
         // print("deinit EstimationOnetask")
     }
@@ -88,10 +78,10 @@ extension EstimateTasksAsync {
     func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
-                                              config: getconfig(hiddenID: hiddenID))
+                                              config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
         estimateprogressdetails?.appendrecordestimatedlist(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
-            if let config = getconfig(hiddenID: hiddenID) {
+            if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {
                 estimateprogressdetails?.appenduuid(config.id)
             }
         }
