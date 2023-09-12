@@ -30,7 +30,7 @@ final class ExecuteOneTask {
     {
         self.termination = termination
         self.filehandler = filehandler
-        config = configurations?.getconfiguration(hiddenID: hiddenID)
+        config = configurations?.getconfig(hiddenID: hiddenID)
         if let config = config {
             arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
         }

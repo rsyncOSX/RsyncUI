@@ -1,10 +1,9 @@
 //
-//  ExecuteAlltasksAsync.swift
+//  ExecuteTasksAsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 22/10/2022.
 //
-// swiftlint:disable line_length
 
 import Foundation
 
@@ -28,7 +27,7 @@ final class ExecuteTasksAsync: EstimateTasksAsync {
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
         guard localhiddenID != nil else { return }
-        if let config = localconfigurations?.getconfiguration(hiddenID: localhiddenID ?? 0) {
+        if let config = localconfigurations?.getconfig(hiddenID: localhiddenID ?? 0) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
             guard arguments.count > 0 else { return }
             let process = RsyncProcessAsync(arguments: arguments,
@@ -49,9 +48,9 @@ extension ExecuteTasksAsync {
 
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
-                                              config: getconfig(hiddenID: hiddenID))
+                                              config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
         estimateprogressdetails?.appendrecordestimatedlist(record)
-        if let config = getconfig(hiddenID: hiddenID) {
+        if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {
             estimateprogressdetails?.appenduuid(config.id)
         }
         _ = Task.detached {
@@ -59,5 +58,3 @@ extension ExecuteTasksAsync {
         }
     }
 }
-
-// swiftlint:enable line_length
