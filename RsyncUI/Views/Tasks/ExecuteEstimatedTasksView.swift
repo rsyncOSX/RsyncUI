@@ -21,7 +21,6 @@ struct ExecuteEstimatedTasksView: View {
     @State private var selectedconfig: Configuration?
     @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false
-    @State private var reloadtasksviewlist = false
     @State private var doubleclick: Bool = false
 
     var body: some View {
@@ -30,7 +29,6 @@ struct ExecuteEstimatedTasksView: View {
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,
-                reloadtasksviewlist: $reloadtasksviewlist,
                 doubleclick: $doubleclick,
                 showestimateicon: false
             )
