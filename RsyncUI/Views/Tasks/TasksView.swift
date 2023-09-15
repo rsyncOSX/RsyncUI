@@ -45,13 +45,11 @@ struct TasksView: View {
 
     var actions: Actions
     // Reload and show table data
-    // @Binding var reloadtasksviewlist: Bool
     // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
 
     var body: some View {
         ZStack {
-            // if reloadtasksviewlist == false {
             ListofTasksMainView(
                 selecteduuids: $selecteduuids.onChange {
                     let selected = rsyncUIdata.configurations?.filter { config in
@@ -67,17 +65,11 @@ struct TasksView: View {
                 },
                 filterstring: $filterstring,
                 reload: $reload,
-                // reloadtasksviewlist: $reloadtasksviewlist,
                 doubleclick: $doubleclick,
                 showestimateicon: true
             )
             .frame(maxWidth: .infinity)
 
-            /*
-             } else {
-                 notifycompleted
-             }
-             */
             // Remember max 10 in one Group
             Group {
                 if focusstartestimation { labelstartestimation }
@@ -299,18 +291,6 @@ struct TasksView: View {
                 modaleview = true
             })
     }
-
-    /*
-        var notifycompleted: some View {
-            notifymessage("Updated")
-                .onAppear(perform: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        reloadtasksviewlist = false
-                    }
-                })
-                .frame(maxWidth: .infinity)
-        }
-     */
 }
 
 extension TasksView {
