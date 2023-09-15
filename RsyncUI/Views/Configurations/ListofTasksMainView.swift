@@ -21,7 +21,11 @@ struct ListofTasksMainView: View {
 
     var body: some View {
         VStack {
-            tabledata
+            if configurationssorted.isEmpty {
+                ContentUnavailableView("No match in Synchronize ID", systemImage: "magnifyingglass")
+            } else {
+                tabledata
+            }
         }
         .searchable(text: $filterstring)
     }

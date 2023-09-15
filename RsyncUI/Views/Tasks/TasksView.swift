@@ -110,6 +110,8 @@ struct TasksView: View {
                     estimate()
                 } label: {
                     Image(systemName: "wand.and.stars")
+                        .symbolRenderingMode(.multicolor)
+                        .symbolEffect(.variableColor)
                 }
                 .tooltip("Estimate (⌘E)")
             }
