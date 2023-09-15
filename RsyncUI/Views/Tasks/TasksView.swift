@@ -45,38 +45,39 @@ struct TasksView: View {
 
     var actions: Actions
     // Reload and show table data
-    @Binding var reloadtasksviewlist: Bool
+    // @Binding var reloadtasksviewlist: Bool
     // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
 
     var body: some View {
         ZStack {
-            if reloadtasksviewlist == false {
-                ListofTasksMainView(
-                    selecteduuids: $selecteduuids.onChange {
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selecteduuids.contains(config.id)
+            // if reloadtasksviewlist == false {
+            ListofTasksMainView(
+                selecteduuids: $selecteduuids.onChange {
+                    let selected = rsyncUIdata.configurations?.filter { config in
+                        selecteduuids.contains(config.id)
+                    }
+                    if (selected?.count ?? 0) == 1 {
+                        if let config = selected {
+                            selectedconfig.config = config[0]
                         }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                selectedconfig.config = config[0]
-                            }
-                        } else {
-                            selectedconfig.config = nil
-                        }
-                    },
-                    filterstring: $filterstring,
-                    reload: $reload,
-                    reloadtasksviewlist: $reloadtasksviewlist,
-                    doubleclick: $doubleclick,
-                    showestimateicon: true
-                )
-                .frame(maxWidth: .infinity)
+                    } else {
+                        selectedconfig.config = nil
+                    }
+                },
+                filterstring: $filterstring,
+                reload: $reload,
+                // reloadtasksviewlist: $reloadtasksviewlist,
+                doubleclick: $doubleclick,
+                showestimateicon: true
+            )
+            .frame(maxWidth: .infinity)
 
-            } else {
-                notifycompleted
-            }
-
+            /*
+             } else {
+                 notifycompleted
+             }
+             */
             // Remember max 10 in one Group
             Group {
                 if focusstartestimation { labelstartestimation }
@@ -299,15 +300,17 @@ struct TasksView: View {
             })
     }
 
-    var notifycompleted: some View {
-        notifymessage("Updated")
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    reloadtasksviewlist = false
-                }
-            })
-            .frame(maxWidth: .infinity)
-    }
+    /*
+        var notifycompleted: some View {
+            notifymessage("Updated")
+                .onAppear(perform: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        reloadtasksviewlist = false
+                    }
+                })
+                .frame(maxWidth: .infinity)
+        }
+     */
 }
 
 extension TasksView {

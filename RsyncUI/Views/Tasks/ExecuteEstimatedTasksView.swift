@@ -24,7 +24,7 @@ struct ExecuteEstimatedTasksView: View {
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
 
-    @State private var reloadtasksviewlist = false
+    // @State private var reloadtasksviewlist = false
     // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
 
@@ -34,7 +34,7 @@ struct ExecuteEstimatedTasksView: View {
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,
-                reloadtasksviewlist: $reloadtasksviewlist,
+                // reloadtasksviewlist: $reloadtasksviewlist,
                 doubleclick: $doubleclick,
                 showestimateicon: false
             )
