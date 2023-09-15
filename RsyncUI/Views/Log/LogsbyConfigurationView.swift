@@ -42,31 +42,39 @@ struct LogsbyConfigurationView: View {
                     }
                 }
                 if hiddenID == -1 {
-                    Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
-                        TableColumn("Date") { data in
-                            Text(data.date.localized_string_from_date())
-                        }
+                    if logrecords.filterlogs(filterstring)?.count == 0 {
+                        ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
+                    } else {
+                        Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
+                            TableColumn("Date") { data in
+                                Text(data.date.localized_string_from_date())
+                            }
 
-                        TableColumn("Result") { data in
-                            if let result = data.resultExecuted {
-                                Text(result)
+                            TableColumn("Result") { data in
+                                if let result = data.resultExecuted {
+                                    Text(result)
+                                }
                             }
                         }
                     }
                 } else {
-                    Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [], selection: $selectedloguuids) {
-                        TableColumn("Date") { data in
-                            Text(data.date.localized_string_from_date())
-                        }
+                    if logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count == 0 {
+                        ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
+                    } else {
+                        Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [], selection: $selectedloguuids) {
+                            TableColumn("Date") { data in
+                                Text(data.date.localized_string_from_date())
+                            }
 
-                        TableColumn("Result") { data in
-                            if let result = data.resultExecuted {
-                                Text(result)
+                            TableColumn("Result") { data in
+                                if let result = data.resultExecuted {
+                                    Text(result)
+                                }
                             }
                         }
-                    }
-                    .onDeleteCommand {
-                        showAlertfordelete = true
+                        .onDeleteCommand {
+                            showAlertfordelete = true
+                        }
                     }
                 }
             }
