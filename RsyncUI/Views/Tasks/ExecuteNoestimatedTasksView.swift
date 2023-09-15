@@ -15,7 +15,7 @@ struct ExecuteNoestimatedTasksView: View {
 
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
-    @Binding var showcompleted: Bool
+    // @Binding var showcompleted: Bool
     @Binding var showexecutenoestimateview: Bool
 
     @State private var filterstring: String = ""
@@ -87,7 +87,7 @@ struct ExecuteNoestimatedTasksView: View {
 extension ExecuteNoestimatedTasksView {
     func completed() {
         reload = true
-        showcompleted = true
+        // showcompleted = true
         estimatingprogresscount.resetcounts()
         progressviewshowinfo = false
         estimatingprogresscount.estimateasync = false

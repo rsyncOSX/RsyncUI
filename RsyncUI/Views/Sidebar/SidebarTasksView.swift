@@ -17,7 +17,6 @@ struct SidebarTasksView: View {
 
     @State var showeexecutEstimatedview: Bool = false
     @State var showexecuteNOEstimateview: Bool = false
-    @State private var reloadtasksviewlist: Bool = false
     // Timer values
     @State private var timervalue: Double = 600
 
@@ -53,28 +52,21 @@ struct SidebarTasksView: View {
                       selecteduuids: $selecteduuids,
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
-                      actions: actions,
-                      reloadtasksviewlist: $reloadtasksviewlist)
-                .environmentObject(progressdetails)
+                      actions: actions
+            )
+            .environmentObject(progressdetails)
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
             // presents progress of synchronization of data.
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
                                       showeexecutestimatedview: $showeexecutEstimatedview)
-                .onDisappear(perform: {
-                    reloadtasksviewlist = true
-                })
                 .environmentObject(progressdetails)
         case .executenoestimatetasksview:
             // Execute tasks, no estimation ahead of synchronization
             ExecuteNoestimatedTasksView(reload: $reload,
                                         selecteduuids: $selecteduuids,
-                                        showcompleted: $reloadtasksviewlist,
                                         showexecutenoestimateview: $showexecuteNOEstimateview)
-                .onDisappear(perform: {
-                    reloadtasksviewlist = true
-                })
         }
     }
 }

@@ -14,7 +14,6 @@ struct ListofTasksMainView: View {
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
     @Binding var reload: Bool
-    @Binding var reloadtasksviewlist: Bool
     @Binding var doubleclick: Bool
     @State private var confirmdelete: Bool = false
 
@@ -236,7 +235,6 @@ struct ListofTasksMainView: View {
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
         reload = true
-        reloadtasksviewlist = true
     }
 
     func markconfig(_ config: Configuration?) -> Bool {
