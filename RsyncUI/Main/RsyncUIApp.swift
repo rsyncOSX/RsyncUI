@@ -41,7 +41,7 @@ struct RsyncUIApp: App {
             }
         }
         Settings {
-            SidebarSettingsView(selectedprofile: $selectedprofile)
+            SettingsView(selectedprofile: $selectedprofile)
         }
     }
 

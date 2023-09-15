@@ -1,5 +1,5 @@
 //
-//  SidebarSettingsView.swift
+//  SettingsView.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 01/02/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SidebarSettingsView: View {
+struct SettingsView: View {
     @Binding var selectedprofile: String?
 
     var body: some View {

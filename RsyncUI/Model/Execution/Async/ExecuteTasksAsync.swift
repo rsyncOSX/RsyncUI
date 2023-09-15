@@ -1,5 +1,5 @@
 //
-//  ExecuteAlltasksAsync.swift
+//  ExecuteTasksAsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 22/10/2022.
@@ -58,4 +58,3 @@ extension ExecuteTasksAsync {
         }
     }
 }
-
