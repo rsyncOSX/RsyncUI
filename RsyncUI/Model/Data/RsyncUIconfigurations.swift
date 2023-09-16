@@ -55,16 +55,18 @@ final class RsyncUIconfigurations: ObservableObject {
         return nil
     }
 
-    init(profile: String?) {
-        self.profile = profile
-        if profile == SharedReference.shared.defaultprofile || profile == nil {
-            configurationsfromstore = Readconfigurationsfromstore(profile: nil)
-        } else {
-            configurationsfromstore = Readconfigurationsfromstore(profile: profile)
+    init(profile: String?, _ reload: Bool) {
+        if reload == false {
+            self.profile = profile
+            if profile == SharedReference.shared.defaultprofile || profile == nil {
+                configurationsfromstore = Readconfigurationsfromstore(profile: nil)
+            } else {
+                configurationsfromstore = Readconfigurationsfromstore(profile: profile)
+            }
+            configurations = configurationsfromstore?.configurations
+            validhiddenIDs = configurationsfromstore?.validhiddenIDs
+            // Release struct
+            configurationsfromstore = nil
         }
-        configurations = configurationsfromstore?.configurations
-        validhiddenIDs = configurationsfromstore?.validhiddenIDs
-        // Release struct
-        configurationsfromstore = nil
     }
 }
