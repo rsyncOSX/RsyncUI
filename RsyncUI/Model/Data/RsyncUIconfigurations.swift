@@ -57,17 +57,19 @@ final class RsyncUIconfigurations {
         return nil
     }
 
-    init(profile: String?) {
-        self.profile = profile
-        if profile == SharedReference.shared.defaultprofile || profile == nil {
-            configurationsfromstore = Readconfigurationsfromstore(profile: nil)
-        } else {
-            configurationsfromstore = Readconfigurationsfromstore(profile: profile)
+    init(profile: String?, _ reload: Bool) {
+        if reload == false {
+            self.profile = profile
+            if profile == SharedReference.shared.defaultprofile || profile == nil {
+                configurationsfromstore = Readconfigurationsfromstore(profile: nil)
+            } else {
+                configurationsfromstore = Readconfigurationsfromstore(profile: profile)
+            }
+            configurations = configurationsfromstore?.configurations
+            validhiddenIDs = configurationsfromstore?.validhiddenIDs
+            // Release struct
+            configurationsfromstore = nil
         }
-        configurations = configurationsfromstore?.configurations
-        validhiddenIDs = configurationsfromstore?.validhiddenIDs
-        // Release struct
-        configurationsfromstore = nil
     }
 }
 
@@ -79,5 +81,5 @@ extension EnvironmentValues {
 }
 
 private struct RsyncUIDataKey: EnvironmentKey {
-    static var defaultValue: RsyncUIconfigurations = .init(profile: nil)
+    static var defaultValue: RsyncUIconfigurations = .init(profile: nil, false)
 }

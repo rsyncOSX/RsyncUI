@@ -74,7 +74,7 @@ struct RsyncUIView: View {
     }
 
     var rsyncUIdata: RsyncUIconfigurations {
-        return RsyncUIconfigurations(profile: selectedprofile)
+        return RsyncUIconfigurations(profile: selectedprofile, reload)
     }
 
     var errorhandling: ErrorHandling {
