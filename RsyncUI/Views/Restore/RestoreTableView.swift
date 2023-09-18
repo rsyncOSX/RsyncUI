@@ -26,7 +26,6 @@ struct RestoreTableView: View {
                 HStack {
                     ListofTasksLightView(selecteduuids: $selecteduuids)
                         .onChange(of: selecteduuids) { _ in
-                            restore.selectedrowforrestore = ""
                             restore.filestorestore = ""
                             restore.commandstring = ""
                             restore.datalist = []
@@ -39,17 +38,17 @@ struct RestoreTableView: View {
                                 }
                             } else {
                                 restore.selectedconfig = nil
-                                restore.selectedrowforrestore = ""
                                 restore.filestorestore = ""
                                 restore.commandstring = ""
                                 restore.datalist = []
                             }
                         }
 
-                    RestoreFilesTableView(filestorestore: $filestorestore)
-                        .environmentObject(restore)
-                        .onChange(of: filestorestore) { _ in
-                            restore.selectedrowforrestore = filestorestore
+                    RestoreFilesTableView(filestorestore: $filestorestore,
+                                          datalist: restore.datalist)
+                        .onChange(of: filestorestore) { value in
+                            restore.filestorestore = value
+                            restore.updatecommandstring()
                         }
                 }
 
@@ -188,16 +187,14 @@ struct RestoreTableView: View {
                 }
             })
             .onChange(of: restore.pathforrestore) { _ in
-                restore.inputchangedbyuser = true
+                restore.validatepathforrestore(restore.pathforrestore)
+                restore.updatecommandstring()
             }
     }
 
     var setfilestorestore: some View {
         EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
                   $restore.filestorestore)
-            .onChange(of: restore.filestorestore) { _ in
-                restore.inputchangedbyuser = true
-            }
     }
 
     var setfilter: some View {
