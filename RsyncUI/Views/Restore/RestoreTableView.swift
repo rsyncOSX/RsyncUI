@@ -45,8 +45,7 @@ struct RestoreTableView: View {
                             }
                         }
 
-                    RestoreFilesTableView(filestorestore: $filestorestore)
-                        .environment(restore)
+                    RestoreFilesTableView(filestorestore: $filestorestore, datalist: restore.datalist)
                         .onChange(of: filestorestore) {
                             restore.filestorestore = filestorestore
                             restore.updatecommandstring()
