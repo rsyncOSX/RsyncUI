@@ -44,9 +44,9 @@ struct RsyncUIView: View {
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
                         .environmentObject(profilenames)
-                        .onChange(of: reload, perform: { _ in
+                        .onChange(of: reload) { _ in
                             reload = false
-                        })
+                        }
                 } else {
                     SidebarMonterey(reload: $reload,
                                     selectedprofile: $selectedprofile,
@@ -56,9 +56,9 @@ struct RsyncUIView: View {
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
                         .environmentObject(profilenames)
-                        .onChange(of: reload, perform: { _ in
+                        .onChange(of: reload) { _ in
                             reload = false
-                        })
+                        }
                 }
             }
 
