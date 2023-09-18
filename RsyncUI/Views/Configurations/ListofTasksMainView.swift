@@ -21,10 +21,18 @@ struct ListofTasksMainView: View {
 
     var body: some View {
         VStack {
-            if #available(macOS 13.0, *) {
-                tabledata
+            if #available(macOS 14.0, *) {
+                if configurationssorted.isEmpty {
+                    ContentUnavailableView("No match in Synchronize ID", systemImage: "magnifyingglass")
+                } else {
+                    tabledata
+                }
             } else {
-                tabledata_macos12
+                if #available(macOS 13.0, *) {
+                    tabledata
+                } else {
+                    tabledata_macos12
+                }
             }
         }
         .searchable(text: $filterstring)
