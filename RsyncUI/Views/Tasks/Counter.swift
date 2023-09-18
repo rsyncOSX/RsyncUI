@@ -36,15 +36,16 @@ struct Counter: View {
                 if timerisenabled == false {
                     timerpicker
 
-                    ToggleViewNolabel($timerisenabled.onChange {
-                        if timerisenabled == true {
-                            if Timervalues().values.contains(timervalue) {
-                                SharedReference.shared.timervalue = timervalue
+                    ToggleViewNolabel($timerisenabled)
+                        .onChange(of: timerisenabled) { _ in
+                            if timerisenabled == true {
+                                if Timervalues().values.contains(timervalue) {
+                                    SharedReference.shared.timervalue = timervalue
+                                }
+                            } else {
+                                timervalue = SharedReference.shared.timervalue ?? 600
                             }
-                        } else {
-                            timervalue = SharedReference.shared.timervalue ?? 600
                         }
-                    })
                 }
             }
 

@@ -41,7 +41,7 @@ struct ExecuteEstimatedTasksView: View {
             if multipletaskstate.executionstate == .execute { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
         }
-        
+
         .onAppear(perform: {
             executemultipleestimatedtasks()
         })

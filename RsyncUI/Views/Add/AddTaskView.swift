@@ -102,23 +102,24 @@ struct AddTaskView: View {
                         if reloadtasksviewlist {
                             if #available(macOS 13.0, *) {
                                 ListofTasksAddView(
-                                    selecteduuids: $selecteduuids.onChange {
-                                        let selected = rsyncUIdata.configurations?.filter { config in
-                                            selecteduuids.contains(config.id)
-                                        }
-                                        if (selected?.count ?? 0) == 1 {
-                                            if let config = selected {
-                                                selectedconfig = config[0]
-                                                newdata.updateview(selectedconfig)
-                                            }
-                                        } else {
-                                            selectedconfig = nil
-                                            newdata.updateview(selectedconfig)
-                                        }
-                                    },
+                                    selecteduuids: $selecteduuids,
                                     reload: $reload,
                                     reloadtasksviewlist: $reloadtasksviewlist
                                 )
+                                .onChange(of: selecteduuids, perform: { _ in
+                                    let selected = rsyncUIdata.configurations?.filter { config in
+                                        selecteduuids.contains(config.id)
+                                    }
+                                    if (selected?.count ?? 0) == 1 {
+                                        if let config = selected {
+                                            selectedconfig = config[0]
+                                            newdata.updateview(selectedconfig)
+                                        }
+                                    } else {
+                                        selectedconfig = nil
+                                        newdata.updateview(selectedconfig)
+                                    }
+                                })
                                 .copyable(copyitems.filter { selecteduuids.contains($0.id) })
                                 .pasteDestination(for: CopyItem.self) { items in
                                     newdata.preparecopyandpastetasks(items,
@@ -144,23 +145,24 @@ struct AddTaskView: View {
                                 }
                             } else {
                                 ListofTasksAddView(
-                                    selecteduuids: $selecteduuids.onChange {
-                                        let selected = rsyncUIdata.configurations?.filter { config in
-                                            selecteduuids.contains(config.id)
-                                        }
-                                        if (selected?.count ?? 0) == 1 {
-                                            if let config = selected {
-                                                selectedconfig = config[0]
-                                                newdata.updateview(selectedconfig)
-                                            }
-                                        } else {
-                                            selectedconfig = nil
-                                            newdata.updateview(selectedconfig)
-                                        }
-                                    },
+                                    selecteduuids: $selecteduuids,
                                     reload: $reload,
                                     reloadtasksviewlist: $reloadtasksviewlist
                                 )
+                                .onChange(of: selecteduuids, perform: { _ in
+                                    let selected = rsyncUIdata.configurations?.filter { config in
+                                        selecteduuids.contains(config.id)
+                                    }
+                                    if (selected?.count ?? 0) == 1 {
+                                        if let config = selected {
+                                            selectedconfig = config[0]
+                                            newdata.updateview(selectedconfig)
+                                        }
+                                    } else {
+                                        selectedconfig = nil
+                                        newdata.updateview(selectedconfig)
+                                    }
+                                })
                             }
 
                             HStack {

@@ -50,29 +50,32 @@ struct Usersettings: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Section(header: headerloggingtofile) {
-                                    ToggleViewDefault(NSLocalizedString("None", comment: ""), $usersettings.nologging.onChange {
-                                        if usersettings.nologging == true {
-                                            usersettings.minimumlogging = false
-                                            usersettings.fulllogging = false
-                                        } else {
-                                            usersettings.minimumlogging = true
-                                            usersettings.fulllogging = false
+                                    ToggleViewDefault(NSLocalizedString("None", comment: ""), $usersettings.nologging)
+                                        .onChange(of: usersettings.nologging) { _ in
+                                            if usersettings.nologging == true {
+                                                usersettings.minimumlogging = false
+                                                usersettings.fulllogging = false
+                                            } else {
+                                                usersettings.minimumlogging = true
+                                                usersettings.fulllogging = false
+                                            }
                                         }
-                                    })
 
-                                    ToggleViewDefault(NSLocalizedString("Min", comment: ""), $usersettings.minimumlogging.onChange {
-                                        if usersettings.minimumlogging == true {
-                                            usersettings.nologging = false
-                                            usersettings.fulllogging = false
+                                    ToggleViewDefault(NSLocalizedString("Min", comment: ""), $usersettings.minimumlogging)
+                                        .onChange(of: usersettings.minimumlogging) { _ in
+                                            if usersettings.minimumlogging == true {
+                                                usersettings.nologging = false
+                                                usersettings.fulllogging = false
+                                            }
                                         }
-                                    })
 
-                                    ToggleViewDefault(NSLocalizedString("Full", comment: ""), $usersettings.fulllogging.onChange {
-                                        if usersettings.fulllogging == true {
-                                            usersettings.nologging = false
-                                            usersettings.minimumlogging = false
+                                    ToggleViewDefault(NSLocalizedString("Full", comment: ""), $usersettings.fulllogging)
+                                        .onChange(of: usersettings.fulllogging) { _ in
+                                            if usersettings.fulllogging == true {
+                                                usersettings.nologging = false
+                                                usersettings.minimumlogging = false
+                                            }
                                         }
-                                    })
                                 }
                             }
 

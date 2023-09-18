@@ -27,13 +27,15 @@ final class ObservableRestore: ObservableObject {
     @Published var alerterror: Bool = false
     @Published var error: Error = Validatedpath.noerror
 
+    // Filenames in restore
+    @Published var datalist: [RestoreFileRecord] = []
+
     // Combine
     var subscriptions = Set<AnyCancellable>()
     var rsyncdata: [String]?
     var filestorestore: String = ""
     var arguments: [String]?
     var selectedconfig: Configuration?
-    var datalist: [RestoreFileRecord] = []
 
     var rsync: String {
         return GetfullpathforRsync().rsyncpath ?? ""
@@ -197,7 +199,7 @@ extension ObservableRestore {
         return nil
     }
 
-    private func updatecommandstring() {
+    func updatecommandstring() {
         commandstring = ""
         commandstring = rsync + " "
         let arguments = computerestorearguments(forDisplay: true)

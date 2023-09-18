@@ -52,9 +52,8 @@ struct SidebarTasksView: View {
                       selecteduuids: $selecteduuids,
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
-                      actions: actions
-            )
-            .environmentObject(progressdetails)
+                      actions: actions)
+                .environmentObject(progressdetails)
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
             // presents progress of synchronization of data.
