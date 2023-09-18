@@ -25,8 +25,8 @@ struct LogsbyConfigurationView: View {
         VStack {
             HStack {
                 ZStack {
-                    ListofTasksLightView(
-                        selecteduuids: $selecteduuids.onChange {
+                    ListofTasksLightView(selecteduuids: $selecteduuids)
+                        .onChange(of: selecteduuids) { _ in
                             let selected = rsyncUIdata.configurations?.filter { config in
                                 selecteduuids.contains(config.id)
                             }
@@ -38,7 +38,6 @@ struct LogsbyConfigurationView: View {
                                 hiddenID = -1
                             }
                         }
-                    )
                 }
                 if hiddenID == -1 {
                     if #available(macOS 14.0, *), logrecords.filterlogs(filterstring)?.count == 0 {

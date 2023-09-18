@@ -58,7 +58,9 @@ struct RsyncDefaultParametersView: View {
                     VStack(alignment: .leading) {
                         if showtableview {
                             ListofTasksLightView(
-                                selecteduuids: $selecteduuids.onChange {
+                                selecteduuids: $selecteduuids)
+                                .frame(maxWidth: .infinity)
+                                .onChange(of: selecteduuids) { _ in
                                     let selected = rsyncUIdata.configurations?.filter { config in
                                         selecteduuids.contains(config.id)
                                     }
@@ -72,8 +74,6 @@ struct RsyncDefaultParametersView: View {
                                         parameters.setvalues(selectedconfig)
                                     }
                                 }
-                            )
-                            .frame(maxWidth: .infinity)
 
                         } else {
                             notifyupdated
@@ -141,25 +141,27 @@ struct RsyncDefaultParametersView: View {
 
     var setsshpath: some View {
         EditValue(250, "Local ssh keypath and identityfile",
-                  $parameters.sshkeypathandidentityfile.onChange {
-                      parameters.setvalues(selectedconfig)
-                  })
-                  .onAppear(perform: {
-                      if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
-                          parameters.sshkeypathandidentityfile = sshkeypath
-                      }
-                  })
+                  $parameters.sshkeypathandidentityfile)
+            .onAppear(perform: {
+                if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
+                    parameters.sshkeypathandidentityfile = sshkeypath
+                }
+            })
+            .onChange(of: parameters.sshkeypathandidentityfile) { _ in
+                parameters.setvalues(selectedconfig)
+            }
     }
 
     var setsshport: some View {
-        EditValue(250, "Local ssh port", $parameters.sshport.onChange {
-            parameters.setvalues(selectedconfig)
-        })
-        .onAppear(perform: {
-            if let sshport = parameters.configuration?.sshport {
-                parameters.sshport = String(sshport)
+        EditValue(250, "Local ssh port", $parameters.sshport)
+            .onAppear(perform: {
+                if let sshport = parameters.configuration?.sshport {
+                    parameters.sshport = String(sshport)
+                }
+            })
+            .onChange(of: parameters.sshport) { _ in
+                parameters.setvalues(selectedconfig)
             }
-        })
     }
 
     var notifyupdated: some View {

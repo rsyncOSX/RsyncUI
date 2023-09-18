@@ -51,24 +51,25 @@ struct TasksView: View {
     var body: some View {
         ZStack {
             ListofTasksMainView(
-                selecteduuids: $selecteduuids.onChange {
-                    let selected = rsyncUIdata.configurations?.filter { config in
-                        selecteduuids.contains(config.id)
-                    }
-                    if (selected?.count ?? 0) == 1 {
-                        if let config = selected {
-                            selectedconfig.config = config[0]
-                        }
-                    } else {
-                        selectedconfig.config = nil
-                    }
-                },
+                selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,
                 doubleclick: $doubleclick,
                 showestimateicon: true
             )
             .frame(maxWidth: .infinity)
+            .onChange(of: selecteduuids) { _ in
+                let selected = rsyncUIdata.configurations?.filter { config in
+                    selecteduuids.contains(config.id)
+                }
+                if (selected?.count ?? 0) == 1 {
+                    if let config = selected {
+                        selectedconfig.config = config[0]
+                    }
+                } else {
+                    selectedconfig.config = nil
+                }
+            }
 
             // Remember max 10 in one Group
             Group {
@@ -191,15 +192,16 @@ struct TasksView: View {
                                 selectedconfig: selectedconfig.config)
         case .asynctimerison:
             Counter(timervalue: $timervalue,
-                    timerisenabled: $timerisenabled.onChange {
-                        if timerisenabled == true {
-                            startasynctimer()
-                        }
-                    })
-                    .onDisappear(perform: {
-                        stopasynctimer()
-                        timervalue = SharedReference.shared.timervalue ?? 600
-                    })
+                    timerisenabled: $timerisenabled)
+                .onDisappear(perform: {
+                    stopasynctimer()
+                    timervalue = SharedReference.shared.timervalue ?? 600
+                })
+                .onChange(of: timerisenabled) { _ in
+                    if timerisenabled == true {
+                        startasynctimer()
+                    }
+                }
         }
     }
 

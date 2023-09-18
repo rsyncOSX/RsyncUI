@@ -24,8 +24,8 @@ struct RestoreTableView: View {
         VStack {
             ZStack {
                 HStack {
-                    ListofTasksLightView(
-                        selecteduuids: $selecteduuids.onChange {
+                    ListofTasksLightView(selecteduuids: $selecteduuids)
+                        .onChange(of: selecteduuids) { _ in
                             restore.selectedrowforrestore = ""
                             restore.filestorestore = ""
                             restore.commandstring = ""
@@ -45,12 +45,12 @@ struct RestoreTableView: View {
                                 restore.datalist = []
                             }
                         }
-                    )
 
-                    RestoreFilesTableView(filestorestore: $filestorestore.onChange {
-                        restore.selectedrowforrestore = filestorestore
-                    })
-                    .environmentObject(restore)
+                    RestoreFilesTableView(filestorestore: $filestorestore)
+                        .environmentObject(restore)
+                        .onChange(of: filestorestore) { _ in
+                            restore.selectedrowforrestore = filestorestore
+                        }
                 }
 
                 if nosearcstringalert { nosearchstring }
@@ -181,21 +181,23 @@ struct RestoreTableView: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore.onChange {
-            restore.inputchangedbyuser = true
-        })
-        .onAppear(perform: {
-            if let pathforrestore = SharedReference.shared.pathforrestore {
-                restore.pathforrestore = pathforrestore
+        EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore)
+            .onAppear(perform: {
+                if let pathforrestore = SharedReference.shared.pathforrestore {
+                    restore.pathforrestore = pathforrestore
+                }
+            })
+            .onChange(of: restore.pathforrestore) { _ in
+                restore.inputchangedbyuser = true
             }
-        })
     }
 
     var setfilestorestore: some View {
         EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
-                  $restore.filestorestore.onChange {
-                      restore.inputchangedbyuser = true
-                  })
+                  $restore.filestorestore)
+            .onChange(of: restore.filestorestore) { _ in
+                restore.inputchangedbyuser = true
+            }
     }
 
     var setfilter: some View {

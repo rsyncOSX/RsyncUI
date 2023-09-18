@@ -194,15 +194,17 @@ struct QuicktaskView: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("Task", comment: "") + ":",
-               selection: $selectedrsynccommand.onChange {
-                   resetform()
-               }) {
+               selection: $selectedrsynccommand)
+        {
             ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
                 .tag($0)
             }
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
+        .onChange(of: selectedrsynccommand) { _ in
+            resetform()
+        }
     }
 
     // Headers (in sections)
