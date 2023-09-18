@@ -41,7 +41,7 @@ struct LogsbyConfigurationView: View {
                 }
                 if hiddenID == -1 {
                     if #available(macOS 14.0, *), logrecords.filterlogs(filterstring)?.count == 0 {
-                        // ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
+                        ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
                     } else {
                         Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
                             TableColumn("Date") { data in
@@ -60,7 +60,7 @@ struct LogsbyConfigurationView: View {
                     }
                 } else {
                     if #available(macOS 14.0, *), logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count == 0 {
-                        // ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
+                        ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
                     } else {
                         Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [],
                               selection: $selectedloguuids)
