@@ -52,13 +52,13 @@ struct SnapshotsView: View {
                         }
                     }
 
-                SnapshotListView(snapshotrecords: $snapshotrecords)
+                SnapshotListView(snapshotrecords: $snapshotrecords,
+                                 selectedconfig: $selectedconfig)
                     .environmentObject(snapshotdata)
             }
 
             if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
             if notsnapshot == true { notasnapshottask }
-            if snapshotdata.inprogressofdelete == true { progressdelete }
         }
 
         if updated == true { notifyupdated }
@@ -97,20 +97,6 @@ struct SnapshotsView: View {
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    showAlertfordelete = true
-                } label: {
-                    Image(systemName: "trash")
-                }
-                .tooltip("Delete snapshots")
-                .sheet(isPresented: $showAlertfordelete) {
-                    ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
-                                           snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
-                        .onDisappear { delete() }
-                }
-            }
-
             ToolbarItem {
                 Button {
                     focusaborttask = true
@@ -181,16 +167,6 @@ struct SnapshotsView: View {
                 }
             })
             .frame(maxWidth: .infinity)
-    }
-
-    var progressdelete: some View {
-        ProgressView("",
-                     value: Double(snapshotdata.remainingsnapshotstodelete),
-                     total: Double(snapshotdata.maxnumbertodelete))
-            .frame(width: 100, alignment: .center)
-            .onDisappear(perform: {
-                getdata()
-            })
     }
 
     var labeltagsnapshot: some View {
@@ -272,17 +248,6 @@ extension SnapshotsView {
                                       data: snapshotdata.getsnapshotdata())
             // Market data for delete
             snapshotdata.setsnapshotdata(tagged.logrecordssnapshot)
-        }
-    }
-
-    func delete() {
-        guard confirmdeletesnapshots == true else { return }
-        if let config = selectedconfig {
-            snapshotdata.delete = DeleteSnapshots(config: config,
-                                                  snapshotdata: snapshotdata,
-                                                  logrecordssnapshot: snapshotdata.getsnapshotdata())
-            snapshotdata.inprogressofdelete = true
-            snapshotdata.delete?.deletesnapshots()
         }
     }
 
