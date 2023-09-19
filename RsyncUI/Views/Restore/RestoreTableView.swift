@@ -19,6 +19,10 @@ struct RestoreTableView: View {
     @State private var nosearcstringalert: Bool = false
 
     @State private var focusaborttask: Bool = false
+    // Restore snapshot
+    @State private var restoresnapshot: Bool = false
+    @StateObject var snapshotdata = SnapshotData()
+    @State private var snapshotcatalog: String = ""
 
     var body: some View {
         VStack {
@@ -35,12 +39,19 @@ struct RestoreTableView: View {
                             if (selected?.count ?? 0) == 1 {
                                 if let config = selected {
                                     restore.selectedconfig = config[0]
+                                    if config[0].task == SharedReference.shared.snapshot {
+                                        restoresnapshot = true
+                                        getsnapshotlogsandcatalogs()
+                                    } else {
+                                        restoresnapshot = false
+                                    }
                                 }
                             } else {
                                 restore.selectedconfig = nil
                                 restore.filestorestore = ""
                                 restore.commandstring = ""
                                 restore.datalist = []
+                                restoresnapshot = false
                             }
                         }
 
@@ -69,6 +80,8 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack(alignment: .leading) {
+                if restoresnapshot { snapshotcatalogpicker }
+
                 setfilter
 
                 setfilestorestore
@@ -217,6 +230,21 @@ struct RestoreTableView: View {
     var viewoutput: some View {
         OutputRsyncView(output: restore.rsyncdata ?? [])
     }
+
+    var snapshotcatalogpicker: some View {
+        HStack {
+            Picker("", selection: $snapshotcatalog) {
+                if let catalogs = snapshotdata.catalogsanddates {
+                    ForEach(catalogs) { catalog in
+                        Text(catalog.catalog)
+                            .tag(catalog.catalog)
+                    }
+                }
+            }
+            .frame(width: 180)
+            .accentColor(.blue)
+        }
+    }
 }
 
 extension RestoreTableView {
@@ -244,6 +272,17 @@ extension RestoreTableView {
         let command = RsyncAsync(arguments: arguments,
                                  processtermination: processtermination)
         await command.executeProcess()
+    }
+
+    func getsnapshotlogsandcatalogs() {
+        guard SharedReference.shared.process == nil else { return }
+        if let config = restore.selectedconfig {
+            guard config.task == SharedReference.shared.snapshot else { return }
+            _ = Snapshotcatalogs(
+                config: config,
+                snapshotdata: snapshotdata
+            )
+        }
     }
 }
 

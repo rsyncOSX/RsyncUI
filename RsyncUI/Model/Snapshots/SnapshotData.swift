@@ -23,6 +23,8 @@ final class SnapshotData: ObservableObject {
     @Published var snapshotlist: Bool = false
     // uuids for DELETE snapshots
     @Published var snapshotuuidsfordelete = Set<LogrecordSnapshot.ID>()
+    // Remote snapshot catalags
+    @Published var catalogsanddates: [Catalogsanddates]?
 
     var logrecordssnapshot: [LogrecordSnapshot]?
     var state: Snapshotdatastat = .start
@@ -39,4 +41,10 @@ final class SnapshotData: ObservableObject {
     func getsnapshotdata() -> [LogrecordSnapshot]? {
         return logrecordssnapshot?.sorted(by: \.date, using: >)
     }
+}
+
+struct Catalogsanddates: Identifiable {
+    let id = UUID()
+    var catalog: String
+    var datesnapshot: Date
 }
