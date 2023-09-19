@@ -236,7 +236,7 @@ struct RestoreTableView: View {
             Picker("", selection: $snapshotcatalog) {
                 if let catalogs = snapshotdata.catalogsanddates {
                     ForEach(catalogs) { catalog in
-                        Text(catalog.catalog)
+                        Text(catalog.catalog + " " + catalog.datesnapshot.localized_string_from_date())
                             .tag(catalog.catalog)
                     }
                 }

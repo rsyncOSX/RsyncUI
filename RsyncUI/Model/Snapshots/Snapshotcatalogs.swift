@@ -9,7 +9,6 @@ import Foundation
 
 class Snapshotcatalogs {
     var mysnapshotdata: SnapshotData?
-    // typealias Catalogsanddates = (String, Date)
     var catalogsanddates: [Catalogsanddates]?
 
     @MainActor
