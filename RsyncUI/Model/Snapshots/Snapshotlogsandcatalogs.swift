@@ -96,12 +96,9 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
     {
         super.init(config: config, snapshotdata: snapshotdata)
         // Getting log records from schedules, sorted after date
-        var alllogs: LogRecords? = LogRecords(hiddenID: config.hiddenID,
-                                              profile: profile,
-                                              configurations: configurations)
-        logrecordssnapshot = alllogs?.loggrecordssnapshots
-        // release the object - dont need it more
-        alllogs = nil
+        logrecordssnapshot = LogRecords(hiddenID: config.hiddenID,
+                                        profile: profile,
+                                        configurations: configurations).loggrecordssnapshots
     }
 
     override func processtermination(data: [String]?) {

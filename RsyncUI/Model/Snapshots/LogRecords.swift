@@ -81,7 +81,7 @@ final class LogRecords {
     }
 
     deinit {
-        // print("deinit Alllog")
+        // print("deinit LogRecords")
     }
 }
 
