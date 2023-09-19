@@ -13,7 +13,7 @@ class Snapshotcatalogs {
     var catalogsanddates: [Catalogsanddates]?
 
     @MainActor
-    private func getremotecataloginfo(_ config: Configuration) async {
+    func getremotecataloginfo(_ config: Configuration) async {
         let arguments = RestorefilesArguments(task: .snapshotcatalogsonly,
                                               config: config,
                                               remoteFile: nil,
@@ -27,7 +27,7 @@ class Snapshotcatalogs {
 
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
-    private func prepareremotesnapshotcatalogs(data: [String]?) {
+    func prepareremotesnapshotcatalogs(data: [String]?) {
         // Check for split lines and merge lines if true
         let data = PrepareOutput(data ?? [])
         if data.splitlines { data.alignsplitlines() }
@@ -65,9 +65,7 @@ class Snapshotcatalogs {
     deinit {
         // print("deinit Snapshotcatalogs")
     }
-}
 
-extension Snapshotcatalogs {
     func processtermination(data: [String]?) {
         prepareremotesnapshotcatalogs(data: data)
         mysnapshotdata?.catalogsanddates = catalogsanddates

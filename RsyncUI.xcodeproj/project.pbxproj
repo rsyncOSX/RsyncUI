@@ -686,8 +686,8 @@
 				E9FBE7902A51C5CA0038B82D /* LogRecords.swift */,
 				E985C69B25F3AD9600CB895C /* TagSnapshots.swift */,
 				E985C69C25F3AD9600CB895C /* SnapshotData.swift */,
-				E985C69D25F3AD9600CB895C /* Snapshotlogsandcatalogs.swift */,
 				E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */,
+				E985C69D25F3AD9600CB895C /* Snapshotlogsandcatalogs.swift */,
 				E9D5FB092AB9BD3C00E562CC /* Snapshotcatalogs.swift */,
 			);
 			path = Snapshots;
