@@ -105,10 +105,6 @@ struct SnapshotsView: View {
                 }
                 .tooltip("Abort (⌘K)")
             }
-
-            ToolbarItem {
-                Spacer()
-            }
         })
     }
 
