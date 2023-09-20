@@ -85,7 +85,7 @@ struct RestoreTableView: View {
 
             Spacer()
 
-            VStack {
+            VStack(alignment: .leading) {
                 snapshotcatalogpicker
 
                 Toggle("Command", isOn: $showrestorecommand)
@@ -111,7 +111,7 @@ struct RestoreTableView: View {
                             restore.filestorestore = "./."
                         }
                         gettingfilelist = true
-                        await getfilelist(config)
+                        await getfilelist()
                     }
                 }
             }
@@ -233,7 +233,7 @@ struct RestoreTableView: View {
                     }
                 }
             }
-            .frame(width: 180)
+            .frame(width: 150)
             .accentColor(.blue)
         }
     }
@@ -253,33 +253,38 @@ extension RestoreTableView {
     }
 
     @MainActor
-    func getfilelist(_ config: Configuration) async {
-        var arguments: [String]?
-        let snapshot: Bool = (config.snapshotnum != nil) ? true : false
-        if snapshot, snapshotcatalog.isEmpty == false {
-            // Snapshot and other than last snapshot is selected
-            var tempconfig = config
-            if let snapshotnum = Int(snapshotcatalog.dropFirst(2)) {
-                tempconfig.snapshotnum = snapshotnum
+    func getfilelist() async {
+        if let config = restore.selectedconfig {
+            var arguments: [String]?
+            let snapshot: Bool = (config.snapshotnum != nil) ? true : false
+            if snapshot, snapshotcatalog.isEmpty == false {
+                // Snapshot and other than last snapshot is selected
+                var tempconfig = config
+                if let snapshotnum = Int(snapshotcatalog.dropFirst(2)) {
+                    // Must increase the snapshotnum by 1 because the
+                    // config stores next to use snapshotnum and the comnpute
+                    // arguments for restore reduce the snapshotnum by 1
+                    tempconfig.snapshotnum = snapshotnum + 1
+                    arguments = RestorefilesArguments(task: .rsyncfilelistings,
+                                                      config: tempconfig,
+                                                      remoteFile: nil,
+                                                      localCatalog: nil,
+                                                      drynrun: nil,
+                                                      snapshot: snapshot).getArguments()
+                }
+            } else {
                 arguments = RestorefilesArguments(task: .rsyncfilelistings,
-                                                  config: tempconfig,
+                                                  config: config,
                                                   remoteFile: nil,
                                                   localCatalog: nil,
                                                   drynrun: nil,
                                                   snapshot: snapshot).getArguments()
             }
-        } else {
-            arguments = RestorefilesArguments(task: .rsyncfilelistings,
-                                              config: config,
-                                              remoteFile: nil,
-                                              localCatalog: nil,
-                                              drynrun: nil,
-                                              snapshot: snapshot).getArguments()
+            guard arguments?.isEmpty == false else { return }
+            let command = RsyncAsync(arguments: arguments,
+                                     processtermination: processtermination)
+            await command.executeProcess()
         }
-        guard arguments?.isEmpty == false else { return }
-        let command = RsyncAsync(arguments: arguments,
-                                 processtermination: processtermination)
-        await command.executeProcess()
     }
 
     @MainActor

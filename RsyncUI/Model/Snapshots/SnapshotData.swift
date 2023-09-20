@@ -24,7 +24,7 @@ final class SnapshotData: ObservableObject {
     // uuids for DELETE snapshots
     @Published var snapshotuuidsfordelete = Set<LogrecordSnapshot.ID>()
     // Remote snapshot catalags
-    @Published var catalogsanddates: [Catalogsanddates] = [Catalogsanddates(catalog: "")]
+    @Published var catalogsanddates = [Catalogsanddates(catalog: "")]
 
     var logrecordssnapshot: [LogrecordSnapshot]?
     var state: Snapshotdatastat = .start
