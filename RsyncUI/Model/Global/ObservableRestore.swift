@@ -106,7 +106,7 @@ extension ObservableRestore {
     }
 
     @MainActor
-    func restore(_: Configuration) async {
+    func restore() async {
         var arguments: [String]?
         do {
             let ok = try validateforrestore()
