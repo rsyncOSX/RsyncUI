@@ -35,17 +35,5 @@ struct OutputRsyncView: View {
         .onAppear {
             outputfromrsync.generatedata(output)
         }
-        /*
-         .toolbar(content: {
-             ToolbarItem(placement: .cancellationAction) {
-                 Button {
-                     dismiss()
-                 } label: {
-                     Image(systemName: "xmark.circle")
-                 }
-                 .tooltip("Dismiss")
-             }
-         })
-          */
     }
 }

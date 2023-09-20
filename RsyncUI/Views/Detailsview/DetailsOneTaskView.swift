@@ -199,18 +199,6 @@ struct DetailsOneTaskView: View {
         })
         .padding()
         .frame(minWidth: 900, minHeight: 500)
-        /*
-         .toolbar(content: {
-             ToolbarItem(placement: .cancellationAction) {
-                 Button {
-                     dismiss()
-                 } label: {
-                     Image(systemName: "xmark.circle")
-                 }
-                 .tooltip("Dismiss")
-             }
-         })
-          */
     }
 }
 

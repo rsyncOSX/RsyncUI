@@ -26,6 +26,7 @@ final class SnapshotData {
     // uuids for DELETE snapshots
     var snapshotuuidsfordelete = Set<LogrecordSnapshot.ID>()
 
+    var catalogsanddates = [Catalogsanddates(catalog: "")]
     var logrecordssnapshot: [LogrecordSnapshot]?
     var state: Snapshotdatastat = .start
 
@@ -40,4 +41,9 @@ final class SnapshotData {
     func getsnapshotdata() -> [LogrecordSnapshot]? {
         return logrecordssnapshot?.sorted(by: \.date, using: >)
     }
+}
+
+struct Catalogsanddates: Identifiable {
+    let id = UUID()
+    var catalog: String
 }

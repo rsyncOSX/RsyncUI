@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 17/03/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -30,27 +29,6 @@ struct DeleteLogsView: View {
             .padding()
         }
         .padding()
-        /*
-         .toolbar(content: {
-             ToolbarItem(placement: .cancellationAction) {
-                 Button {
-                     dismiss()
-                 } label: {
-                     Image(systemName: "xmark.circle")
-                 }
-                 .tooltip("Dismiss")
-             }
-
-             ToolbarItem(placement: .primaryAction) {
-                 Button {
-                     delete()
-                 } label: {
-                     Image(systemName: "trash")
-                 }
-                 .tooltip("Delete selected logs")
-             }
-         })
-          */
     }
 
     var header: some View {

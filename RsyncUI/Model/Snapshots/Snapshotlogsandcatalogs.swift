@@ -8,56 +8,11 @@
 
 import Foundation
 
-final class Snapshotlogsandcatalogs {
+final class Snapshotlogsandcatalogs: Snapshotcatalogs {
     // Number of local logrecords
     var logrecordssnapshot: [LogrecordSnapshot]?
-    var localeconfig: Configuration?
-    var snapshotcatalogstodelete: [String]?
-    var mysnapshotdata: SnapshotData?
-    var firstsnapshotctalognodelete: String?
-    var lastsnapshotctalognodelete: String?
-    // Remote snapshot catalags
-    typealias Catalogsanddates = (String, Date)
-    var catalogsanddates: [Catalogsanddates]?
-
-    @MainActor
-    private func getremotecataloginfo() async {
-        let arguments = RestorefilesArguments(task: .snapshotcatalogsonly,
-                                              config: localeconfig,
-                                              remoteFile: nil,
-                                              localCatalog: nil,
-                                              drynrun: nil,
-                                              snapshot: true)
-        let command = RsyncAsync(arguments: arguments.getArguments(),
-                                 processtermination: processtermination)
-        await command.executeProcess()
-    }
-
-    // Getting, from process, remote snapshotcatalogs
-    // sort snapshotcatalogs
-    private func prepareremotesnapshotcatalogs(data: [String]?) {
-        // Check for split lines and merge lines if true
-        let data = PrepareOutput(data ?? [])
-        if data.splitlines { data.alignsplitlines() }
-        var catalogs = TrimOne(data.trimmeddata).trimmeddata
-        var datescatalogs = TrimFour(data.trimmeddata).trimmeddata
-        // drop index where row = "./."
-        if let index = catalogs.firstIndex(where: { $0 == "./." }) {
-            catalogs.remove(at: index)
-            datescatalogs.remove(at: index)
-        }
-        catalogsanddates = [Catalogsanddates]()
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "YYYY/mm/dd"
-        for i in 0 ..< catalogs.count {
-            if let date = dateformatter.date(from: datescatalogs[i]) {
-                catalogsanddates?.append((catalogs[i], date))
-            }
-        }
-        catalogsanddates = catalogsanddates?.sorted { cat1, cat2 in
-            (Int(cat1.0.dropFirst(2)) ?? 0) > (Int(cat2.0.dropFirst(2)) ?? 0)
-        }
-    }
+    var firstsnapshotctalogNOdelete: String?
+    var lastsnapshotctalogNOdelete: String?
 
     // Calculating days since snaphot was executed
     private func calculateddayssincesynchronize() {
@@ -81,7 +36,7 @@ final class Snapshotlogsandcatalogs {
         for i in 0 ..< (mycatalogs?.count ?? 0) {
             // Real snapshotcatalog collected from remote and
             // drop the "./" and add "(" and ")" before filter
-            let realsnapshotcatalog = "(" + (mycatalogs?[i].0 ?? "").dropFirst(2) + ")"
+            let realsnapshotcatalog = "(" + (mycatalogs?[i].catalog ?? "").dropFirst(2) + ")"
             let record = mylogrecords?.filter { $0.resultExecuted.contains(realsnapshotcatalog) }
             // Found one record
             if record?.count ?? 0 > 0 {
@@ -107,11 +62,11 @@ final class Snapshotlogsandcatalogs {
             }
             return false
         }
-        // Add records to for use in View
+        // Add records to the StateObject for use in View
         mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
         guard logrecordssnapshot?.count ?? 0 > 0 else { return }
-        firstsnapshotctalognodelete = logrecordssnapshot?[(logrecordssnapshot?.count ?? 0) - 1].snapshotCatalog
-        lastsnapshotctalognodelete = logrecordssnapshot?[0].snapshotCatalog
+        firstsnapshotctalogNOdelete = logrecordssnapshot?[(logrecordssnapshot?.count ?? 0) - 1].snapshotCatalog
+        lastsnapshotctalogNOdelete = logrecordssnapshot?[0].snapshotCatalog
     }
 
     func calculatedays(datestringlocalized: String) -> Double? {
@@ -134,52 +89,19 @@ final class Snapshotlogsandcatalogs {
         return j - 1
     }
 
-    private func preparesnapshotcatalogsfordelete() {
-        if snapshotcatalogstodelete == nil { snapshotcatalogstodelete = [] }
-        if let uuidsfordelete = mysnapshotdata?.snapshotuuidsfordelete {
-            for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
-                if let id = logrecordssnapshot?[i].id {
-                    if uuidsfordelete.contains(id) {
-                        let snaproot = localeconfig?.offsiteCatalog
-                        let snapcatalog = logrecordssnapshot?[i].snapshotCatalog
-                        if snapcatalog != firstsnapshotctalognodelete, snapcatalog != lastsnapshotctalognodelete {
-                            snapshotcatalogstodelete?.append((snaproot ?? "") + (snapcatalog ?? "").dropFirst(2))
-                        }
-                    }
-                }
-            }
-        }
-        if snapshotcatalogstodelete?.count ?? 0 == 0 { snapshotcatalogstodelete = nil }
-    }
-
     init(profile: String?,
          config: Configuration,
          configurations: RsyncUIconfigurations?,
          snapshotdata: SnapshotData)
     {
-        guard config.task == SharedReference.shared.snapshot else { return }
-        localeconfig = config
-        mysnapshotdata = snapshotdata
+        super.init(config: config, snapshotdata: snapshotdata)
         // Getting log records from schedules, sorted after date
-        var alllogs: LogRecords? = LogRecords(hiddenID: config.hiddenID,
-                                              profile: profile,
-                                              configurations: configurations)
-        logrecordssnapshot = alllogs?.loggrecordssnapshots
-        // release the object - dont need it more
-        alllogs = nil
-        // Getting remote catalogdata about all snapshots
-        Task {
-            await getremotecataloginfo()
-        }
+        logrecordssnapshot = LogRecords(hiddenID: config.hiddenID,
+                                        profile: profile,
+                                        configurations: configurations).loggrecordssnapshots
     }
 
-    deinit {
-        // print("deinit Snapshotlogsandcatalogs")
-    }
-}
-
-extension Snapshotlogsandcatalogs {
-    func processtermination(data: [String]?) {
+    override func processtermination(data: [String]?) {
         prepareremotesnapshotcatalogs(data: data)
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
@@ -187,6 +109,4 @@ extension Snapshotlogsandcatalogs {
         // Getting data is completed
         mysnapshotdata?.snapshotlist = false
     }
-
-    func filehandler() {}
 }

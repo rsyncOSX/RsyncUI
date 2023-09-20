@@ -155,6 +155,7 @@
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E99DE5242A52B16100422E85 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DE5232A52B16100422E85 /* Sidebar.swift */; };
 		E9A6A42429CA076200C59183 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6A42329CA076200C59183 /* TasksView.swift */; };
+		E9B008DD2ABB427A006E333D /* Snapshotcatalogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */; };
 		E9B34967273AE658000B053E /* OpencatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B34966273AE658000B053E /* OpencatalogView.swift */; };
 		E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */; };
 		E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */; };
@@ -353,6 +354,7 @@
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E99DE5232A52B16100422E85 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		E9A6A42329CA076200C59183 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
+		E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshotcatalogs.swift; sourceTree = "<group>"; };
 		E9B34966273AE658000B053E /* OpencatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpencatalogView.swift; sourceTree = "<group>"; };
 		E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareOutput.swift; sourceTree = "<group>"; };
 		E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteProfileView.swift; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 				E985C69C25F3AD9600CB895C /* SnapshotData.swift */,
 				E985C69D25F3AD9600CB895C /* Snapshotlogsandcatalogs.swift */,
 				E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */,
+				E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */,
 			);
 			path = Snapshots;
 			sourceTree = "<group>";
@@ -1152,6 +1155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9168C0E2615ABFA00B139CE /* AddTaskView.swift in Sources */,
+				E9B008DD2ABB427A006E333D /* Snapshotcatalogs.swift in Sources */,
 				E985C66725F3AD8400CB895C /* Viewmodifiers.swift in Sources */,
 				E985C65825F3AD8400CB895C /* UsersettingsView.swift in Sources */,
 				E985C77D25F3AD9700CB895C /* ArgumentsSsh.swift in Sources */,

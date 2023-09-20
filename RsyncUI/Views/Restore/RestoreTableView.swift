@@ -141,10 +141,6 @@ struct RestoreTableView: View {
                 }
                 .tooltip("Abort (⌘K)")
             }
-
-            ToolbarItem {
-                Spacer()
-            }
         })
     }
 
