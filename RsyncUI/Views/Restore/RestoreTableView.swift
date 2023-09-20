@@ -20,13 +20,16 @@ struct RestoreTableView: View {
 
     @State private var focusaborttask: Bool = false
 
+    // Restore snapshot
+    @State var snapshotdata = SnapshotData()
+    @State private var snapshotcatalog: String = ""
+
     var body: some View {
         VStack {
             ZStack {
                 HStack {
-                    ListofTasksLightView(
-                        selecteduuids: $selecteduuids)
-                        .onChange(of: selecteduuids) {
+                    ListofTasksLightView(selecteduuids: $selecteduuids)
+                        .onChange(of: selecteduuids) { _ in
                             restore.filestorestore = ""
                             restore.commandstring = ""
                             restore.datalist = []
@@ -36,32 +39,36 @@ struct RestoreTableView: View {
                             if (selected?.count ?? 0) == 1 {
                                 if let config = selected {
                                     restore.selectedconfig = config[0]
+                                    if config[0].task == SharedReference.shared.snapshot {
+                                        getsnapshotlogsandcatalogs()
+                                    }
                                 }
                             } else {
                                 restore.selectedconfig = nil
                                 restore.filestorestore = ""
                                 restore.commandstring = ""
                                 restore.datalist = []
+                                snapshotdata.catalogsanddates.removeAll()
                             }
                         }
 
-                    RestoreFilesTableView(filestorestore: $filestorestore, datalist: restore.datalist)
-                        .onChange(of: filestorestore) {
-                            restore.filestorestore = filestorestore
+                    RestoreFilesTableView(filestorestore: $filestorestore,
+                                          datalist: restore.datalist)
+                        .onChange(of: filestorestore) { value in
+                            restore.filestorestore = value
                             restore.updatecommandstring()
                         }
-                        .frame(maxWidth: .infinity)
                 }
 
                 if nosearcstringalert { nosearchstring }
+                if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
+                if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
             }
 
             Spacer()
 
             ZStack {
                 if showrestorecommand { showcommand }
-                if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
-                if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
                 if focusaborttask { labelaborttask }
             }
         }
@@ -79,7 +86,9 @@ struct RestoreTableView: View {
 
             Spacer()
 
-            VStack {
+            VStack(alignment: .leading) {
+                snapshotcatalogpicker
+
                 Toggle("Command", isOn: $showrestorecommand)
                     .toggleStyle(.switch)
 
@@ -103,7 +112,7 @@ struct RestoreTableView: View {
                             restore.filestorestore = "./."
                         }
                         gettingfilelist = true
-                        await getfilelist(config)
+                        await getfilelist()
                     }
                 }
             }
@@ -111,28 +120,25 @@ struct RestoreTableView: View {
 
             Button("Restore") {
                 Task {
-                    if let config = restore.selectedconfig {
-                        await restore.restore(config)
-                    }
+                    await restore()
                 }
             }
             .buttonStyle(ColorfulButtonStyle())
-
-            Button("Log") {
-                guard SharedReference.shared.process == nil else { return }
-                guard restore.selectedconfig != nil else { return }
-                restore.presentsheetrsync = true
-            }
-            .buttonStyle(ColorfulButtonStyle())
-            .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
-            /*
-             Button("Abort") { abort() }
-                 .buttonStyle(ColorfulRedButtonStyle())
-              */
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    guard SharedReference.shared.process == nil else { return }
+                    guard restore.selectedconfig != nil else { return }
+                    restore.presentsheetrsync = true
+                } label: {
+                    Image(systemName: "doc.plaintext")
+                }
+                .tooltip("View output")
+            }
+
             ToolbarItem {
                 Button {
                     abort()
@@ -183,7 +189,7 @@ struct RestoreTableView: View {
                     restore.pathforrestore = pathforrestore
                 }
             })
-            .onChange(of: restore.pathforrestore) {
+            .onChange(of: restore.pathforrestore) { _ in
                 restore.validatepathforrestore(restore.pathforrestore)
                 restore.updatecommandstring()
             }
@@ -214,6 +220,23 @@ struct RestoreTableView: View {
     var viewoutput: some View {
         OutputRsyncView(output: restore.rsyncdata ?? [])
     }
+
+    var snapshotcatalogpicker: some View {
+        HStack {
+            Picker("Snapshot", selection: $snapshotcatalog) {
+                if snapshotdata.catalogsanddates.count == 1 {
+                    Text("Not snapshot").tag("")
+                } else {
+                    ForEach(snapshotdata.catalogsanddates) { catalog in
+                        Text(catalog.catalog)
+                            .tag(catalog.catalog)
+                    }
+                }
+            }
+            .frame(width: 150)
+            .accentColor(.blue)
+        }
+    }
 }
 
 extension RestoreTableView {
@@ -230,17 +253,69 @@ extension RestoreTableView {
     }
 
     @MainActor
-    func getfilelist(_ config: Configuration) async {
-        let snapshot: Bool = (config.snapshotnum != nil) ? true : false
-        let arguments = RestorefilesArguments(task: .rsyncfilelistings,
-                                              config: config,
-                                              remoteFile: nil,
-                                              localCatalog: nil,
-                                              drynrun: nil,
-                                              snapshot: snapshot).getArguments()
-        let command = RsyncAsync(arguments: arguments,
-                                 processtermination: processtermination)
-        await command.executeProcess()
+    func getfilelist() async {
+        if let config = restore.selectedconfig {
+            var arguments: [String]?
+            let snapshot: Bool = (config.snapshotnum != nil) ? true : false
+            if snapshot, snapshotcatalog.isEmpty == false {
+                // Snapshot and other than last snapshot is selected
+                var tempconfig = config
+                if let snapshotnum = Int(snapshotcatalog.dropFirst(2)) {
+                    // Must increase the snapshotnum by 1 because the
+                    // config stores next to use snapshotnum and the comnpute
+                    // arguments for restore reduce the snapshotnum by 1
+                    tempconfig.snapshotnum = snapshotnum + 1
+                    arguments = RestorefilesArguments(task: .rsyncfilelistings,
+                                                      config: tempconfig,
+                                                      remoteFile: nil,
+                                                      localCatalog: nil,
+                                                      drynrun: nil,
+                                                      snapshot: snapshot).getArguments()
+                }
+            } else {
+                arguments = RestorefilesArguments(task: .rsyncfilelistings,
+                                                  config: config,
+                                                  remoteFile: nil,
+                                                  localCatalog: nil,
+                                                  drynrun: nil,
+                                                  snapshot: snapshot).getArguments()
+            }
+            guard arguments?.isEmpty == false else { return }
+            let command = RsyncAsync(arguments: arguments,
+                                     processtermination: processtermination)
+            await command.executeProcess()
+        }
+    }
+
+    @MainActor
+    func restore() async {
+        if let config = restore.selectedconfig {
+            let snapshot: Bool = (config.snapshotnum != nil) ? true : false
+            if snapshot, snapshotcatalog.isEmpty == false {
+                var tempconfig = config
+                if let snapshotnum = Int(snapshotcatalog.dropFirst(2)) {
+                    // Must increase the snapshotnum by 1 because the
+                    // config stores next to use snapshotnum and the comnpute
+                    // arguments for restore reduce the snapshotnum by 1
+                    tempconfig.snapshotnum = snapshotnum + 1
+                }
+                restore.selectedconfig = tempconfig
+                await restore.restore()
+            } else {
+                await restore.restore()
+            }
+        }
+    }
+
+    func getsnapshotlogsandcatalogs() {
+        guard SharedReference.shared.process == nil else { return }
+        if let config = restore.selectedconfig {
+            guard config.task == SharedReference.shared.snapshot else { return }
+            _ = Snapshotcatalogs(
+                config: config,
+                snapshotdata: snapshotdata
+            )
+        }
     }
 }
 

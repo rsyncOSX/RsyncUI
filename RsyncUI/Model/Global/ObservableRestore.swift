@@ -68,7 +68,8 @@ final class ObservableRestore {
         return true
     }
 
-    func restore(_: Configuration) async {
+    @MainActor
+    func restore() async {
         var arguments: [String]?
         do {
             let ok = try validateforrestore()
@@ -76,8 +77,8 @@ final class ObservableRestore {
                 arguments = computerestorearguments(forDisplay: false)
                 if let arguments = arguments {
                     restorefilesinprogress = true
-                    let command = await RsyncAsync(arguments: arguments,
-                                                   processtermination: processtermination)
+                    let command = RsyncAsync(arguments: arguments,
+                                             processtermination: processtermination)
                     await command.executeProcess()
                 }
             }
