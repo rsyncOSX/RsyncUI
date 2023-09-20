@@ -124,18 +124,21 @@ struct RestoreTableView: View {
                 }
             }
             .buttonStyle(ColorfulButtonStyle())
-
-            Button("Log") {
-                guard SharedReference.shared.process == nil else { return }
-                guard restore.selectedconfig != nil else { return }
-                restore.presentsheetrsync = true
-            }
-            .buttonStyle(ColorfulButtonStyle())
-            .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    guard SharedReference.shared.process == nil else { return }
+                    guard restore.selectedconfig != nil else { return }
+                    restore.presentsheetrsync = true
+                } label: {
+                    Image(systemName: "doc.plaintext")
+                }
+                .tooltip("View output")
+            }
+
             ToolbarItem {
                 Button {
                     abort()
@@ -143,10 +146,6 @@ struct RestoreTableView: View {
                     Image(systemName: "stop.fill")
                 }
                 .tooltip("Abort (⌘K)")
-            }
-
-            ToolbarItem {
-                Spacer()
             }
         })
     }

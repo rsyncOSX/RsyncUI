@@ -186,18 +186,6 @@ struct DetailsOneTaskAlreadyEstimatedView: View {
                 outputfromrsync.generatedata(output[0].outputfromrsync)
             }
         }
-        /*
-         .toolbar(content: {
-             ToolbarItem(placement: .cancellationAction) {
-                 Button {
-                     dismiss()
-                 } label: {
-                     Image(systemName: "xmark.circle")
-                 }
-                 .tooltip("Dismiss")
-             }
-         })
-          */
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {

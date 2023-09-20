@@ -60,10 +60,6 @@ struct ExecuteNoestimatedTasksView: View {
                 }
                 .tooltip("Abort (⌘K)")
             }
-
-            ToolbarItem {
-                Spacer()
-            }
         })
     }
 

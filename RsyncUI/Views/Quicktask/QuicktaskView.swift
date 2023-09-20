@@ -128,10 +128,6 @@ struct QuicktaskView: View {
                 }
                 .tooltip("Abort (⌘K)")
             }
-
-            ToolbarItem {
-                Spacer()
-            }
         })
         .padding()
     }
