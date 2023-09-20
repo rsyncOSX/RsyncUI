@@ -19,8 +19,8 @@ struct RestoreTableView: View {
     @State private var nosearcstringalert: Bool = false
 
     @State private var focusaborttask: Bool = false
+
     // Restore snapshot
-    @State private var restoresnapshot: Bool = false
     @StateObject var snapshotdata = SnapshotData()
     @State private var snapshotcatalog: String = ""
 
@@ -40,10 +40,7 @@ struct RestoreTableView: View {
                                 if let config = selected {
                                     restore.selectedconfig = config[0]
                                     if config[0].task == SharedReference.shared.snapshot {
-                                        restoresnapshot = true
                                         getsnapshotlogsandcatalogs()
-                                    } else {
-                                        restoresnapshot = false
                                     }
                                 }
                             } else {
@@ -51,7 +48,6 @@ struct RestoreTableView: View {
                                 restore.filestorestore = ""
                                 restore.commandstring = ""
                                 restore.datalist = []
-                                restoresnapshot = false
                             }
                         }
 
@@ -80,8 +76,6 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack(alignment: .leading) {
-                if restoresnapshot { snapshotcatalogpicker }
-
                 setfilter
 
                 setfilestorestore
@@ -92,6 +86,8 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack {
+                snapshotcatalogpicker
+
                 Toggle("Command", isOn: $showrestorecommand)
                     .toggleStyle(.switch)
 
@@ -137,10 +133,6 @@ struct RestoreTableView: View {
             }
             .buttonStyle(ColorfulButtonStyle())
             .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
-            /*
-             Button("Abort") { abort() }
-                 .buttonStyle(ColorfulRedButtonStyle())
-              */
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
         .focusedSceneValue(\.aborttask, $focusaborttask)
@@ -233,10 +225,12 @@ struct RestoreTableView: View {
 
     var snapshotcatalogpicker: some View {
         HStack {
-            Picker("", selection: $snapshotcatalog) {
-                if let catalogs = snapshotdata.catalogsanddates {
-                    ForEach(catalogs) { catalog in
-                        Text(catalog.catalog + " " + catalog.datesnapshot.localized_string_from_date())
+            Picker("Snapshot", selection: $snapshotcatalog) {
+                if snapshotdata.catalogsanddates.count == 1 {
+                    Text("Not snapshot").tag("")
+                } else {
+                    ForEach(snapshotdata.catalogsanddates) { catalog in
+                        Text(catalog.catalog)
                             .tag(catalog.catalog)
                     }
                 }
@@ -262,13 +256,29 @@ extension RestoreTableView {
 
     @MainActor
     func getfilelist(_ config: Configuration) async {
+        var arguments: [String]?
         let snapshot: Bool = (config.snapshotnum != nil) ? true : false
-        let arguments = RestorefilesArguments(task: .rsyncfilelistings,
+        if snapshot, snapshotcatalog.isEmpty == false {
+            // Snapshot and other than last snapshot is selected
+            var tempconfig = config
+            if let snapshotnum = Int(snapshotcatalog.dropFirst(2)) {
+                tempconfig.snapshotnum = snapshotnum
+                arguments = RestorefilesArguments(task: .rsyncfilelistings,
+                                                  config: tempconfig,
+                                                  remoteFile: nil,
+                                                  localCatalog: nil,
+                                                  drynrun: nil,
+                                                  snapshot: snapshot).getArguments()
+            }
+        } else {
+            arguments = RestorefilesArguments(task: .rsyncfilelistings,
                                               config: config,
                                               remoteFile: nil,
                                               localCatalog: nil,
                                               drynrun: nil,
                                               snapshot: snapshot).getArguments()
+        }
+        guard arguments?.isEmpty == false else { return }
         let command = RsyncAsync(arguments: arguments,
                                  processtermination: processtermination)
         await command.executeProcess()

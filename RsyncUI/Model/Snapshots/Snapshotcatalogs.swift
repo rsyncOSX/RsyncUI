@@ -31,20 +31,18 @@ class Snapshotcatalogs {
         let data = PrepareOutput(data ?? [])
         if data.splitlines { data.alignsplitlines() }
         var catalogs = TrimOne(data.trimmeddata).trimmeddata
-        var datescatalogs = TrimFour(data.trimmeddata).trimmeddata
+        // var datescatalogs = TrimFour(data.trimmeddata).trimmeddata
         // drop index where row = "./."
         if let index = catalogs.firstIndex(where: { $0 == "./." }) {
             catalogs.remove(at: index)
-            datescatalogs.remove(at: index)
+            // datescatalogs.remove(at: index)
         }
         catalogsanddates = [Catalogsanddates]()
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "YYYY/mm/dd"
+        // let dateformatter = DateFormatter()
+        // dateformatter.dateFormat = "YYYY/mm/dd"
         for i in 0 ..< catalogs.count {
-            if let date = dateformatter.date(from: datescatalogs[i]) {
-                let item = Catalogsanddates(catalog: catalogs[i], datesnapshot: date)
-                catalogsanddates?.append(item)
-            }
+            let item = Catalogsanddates(catalog: catalogs[i])
+            catalogsanddates?.append(item)
         }
         catalogsanddates = catalogsanddates?.sorted { cat1, cat2 in
             (Int(cat1.catalog.dropFirst(2)) ?? 0) > (Int(cat2.catalog.dropFirst(2)) ?? 0)
@@ -67,7 +65,7 @@ class Snapshotcatalogs {
 
     func processtermination(data: [String]?) {
         prepareremotesnapshotcatalogs(data: data)
-        mysnapshotdata?.catalogsanddates = catalogsanddates
+        mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
     }
 
     func filehandler() {}
