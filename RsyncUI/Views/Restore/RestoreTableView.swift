@@ -48,6 +48,7 @@ struct RestoreTableView: View {
                                 restore.filestorestore = ""
                                 restore.commandstring = ""
                                 restore.datalist = []
+                                snapshotdata.catalogsanddates.removeAll()
                             }
                         }
 
@@ -60,14 +61,14 @@ struct RestoreTableView: View {
                 }
 
                 if nosearcstringalert { nosearchstring }
+                if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
+                if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
             }
 
             Spacer()
 
             ZStack {
                 if showrestorecommand { showcommand }
-                if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
-                if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
                 if focusaborttask { labelaborttask }
             }
         }
