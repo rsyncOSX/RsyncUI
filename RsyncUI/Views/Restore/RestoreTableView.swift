@@ -119,9 +119,7 @@ struct RestoreTableView: View {
 
             Button("Restore") {
                 Task {
-                    if let config = restore.selectedconfig {
-                        await restore.restore(config)
-                    }
+                    await restore()
                 }
             }
             .buttonStyle(ColorfulButtonStyle())
@@ -282,6 +280,26 @@ extension RestoreTableView {
         let command = RsyncAsync(arguments: arguments,
                                  processtermination: processtermination)
         await command.executeProcess()
+    }
+
+    @MainActor
+    func restore() async {
+        if let config = restore.selectedconfig {
+            let snapshot: Bool = (config.snapshotnum != nil) ? true : false
+            if snapshot, snapshotcatalog.isEmpty == false {
+                var tempconfig = config
+                if let snapshotnum = Int(snapshotcatalog.dropFirst(2)) {
+                    // Must increase the snapshotnum by 1 because the
+                    // config stores next to use snapshotnum and the comnpute
+                    // arguments for restore reduce the snapshotnum by 1
+                    tempconfig.snapshotnum = snapshotnum + 1
+                }
+                restore.selectedconfig = tempconfig
+                await restore.restore()
+            } else {
+                await restore.restore()
+            }
+        }
     }
 
     func getsnapshotlogsandcatalogs() {
