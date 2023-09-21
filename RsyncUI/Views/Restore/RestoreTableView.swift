@@ -224,17 +224,24 @@ struct RestoreTableView: View {
     var snapshotcatalogpicker: some View {
         HStack {
             Picker("Snapshot", selection: $snapshotcatalog) {
-                if snapshotdata.catalogsanddates.count == 1 {
-                    Text("Not snapshot").tag("")
-                } else {
-                    ForEach(snapshotdata.catalogsanddates) { catalog in
-                        Text(catalog.catalog)
-                            .tag(catalog.catalog)
-                    }
+                ForEach(snapshotdata.catalogsanddates) { catalog in
+                    Text(catalog.catalog)
+                        .tag(catalog.catalog)
                 }
             }
             .frame(width: 150)
             .accentColor(.blue)
+            .onAppear {
+                snapshotcatalog = "No snapshot"
+            }
+            .onChange(of: snapshotdata.catalogsanddates) { _ in
+                guard snapshotdata.catalogsanddates.count > 0 else { return }
+                snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
+            }
+            .onChange(of: rsyncUIdata.profile) { _ in
+                snapshotdata.catalogsanddates.removeAll()
+                snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
+            }
         }
     }
 }
