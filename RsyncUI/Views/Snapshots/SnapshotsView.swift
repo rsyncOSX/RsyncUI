@@ -32,6 +32,8 @@ struct SnapshotsView: View {
     @State private var focusaborttask: Bool = false
     // Delete
     @State private var confirmdelete: Bool = false
+    // Delete is completed and reload of data
+    @State private var deleteiscompleted: Bool = false
 
     var body: some View {
         ZStack {
@@ -53,8 +55,15 @@ struct SnapshotsView: View {
                     }
 
                 SnapshotListView(snapshotrecords: $snapshotrecords,
-                                 selectedconfig: $selectedconfig)
+                                 selectedconfig: $selectedconfig,
+                                 deleteiscompleted: $deleteiscompleted)
                     .environmentObject(snapshotdata)
+                    .onChange(of: deleteiscompleted) { _ in
+                        if deleteiscompleted == true {
+                            getdata()
+                            deleteiscompleted = false
+                        }
+                    }
             }
 
             if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
@@ -78,21 +87,6 @@ struct SnapshotsView: View {
             labelnumberoflogs
 
             Spacer()
-
-            /*
-                        Spacer()
-
-                        Button("Delete") { showAlertfordelete = true }
-                            .sheet(isPresented: $showAlertfordelete) {
-                                ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
-                                                       snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
-                                    .onDisappear { delete() }
-                            }
-                            .buttonStyle(ColorfulRedButtonStyle())
-
-                        Button("Abort") { focusaborttask = true }
-                            .buttonStyle(ColorfulRedButtonStyle())
-             */
         }
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)

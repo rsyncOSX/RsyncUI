@@ -12,6 +12,7 @@ struct SnapshotListView: View {
     @EnvironmentObject var snapshotdata: SnapshotData
     @Binding var snapshotrecords: LogrecordSnapshot?
     @Binding var selectedconfig: Configuration?
+    @Binding var deleteiscompleted: Bool
 
     @State private var confirmdelete: Bool = false
 
@@ -79,7 +80,7 @@ struct SnapshotListView: View {
                      total: Double(snapshotdata.maxnumbertodelete))
             .frame(width: 100, alignment: .center)
             .onDisappear(perform: {
-                // getdata()
+                deleteiscompleted = true
             })
     }
 
