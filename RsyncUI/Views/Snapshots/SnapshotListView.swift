@@ -65,23 +65,11 @@ struct SnapshotListView: View {
             .onDeleteCommand {
                 confirmdelete = true
             }
-
-            if snapshotdata.inprogressofdelete == true { progressdelete }
         }
     }
 
     var logrecords: [LogrecordSnapshot] {
         return snapshotdata.getsnapshotdata() ?? []
-    }
-
-    var progressdelete: some View {
-        ProgressView("",
-                     value: Double(snapshotdata.remainingsnapshotstodelete),
-                     total: Double(snapshotdata.maxnumbertodelete))
-            .frame(width: 100, alignment: .center)
-            .onDisappear(perform: {
-                deleteiscompleted = true
-            })
     }
 
     func delete() {
