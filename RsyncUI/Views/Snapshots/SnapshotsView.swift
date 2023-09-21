@@ -68,6 +68,7 @@ struct SnapshotsView: View {
 
             if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
             if notsnapshot == true { notasnapshottask }
+            if snapshotdata.inprogressofdelete == true { progressdelete }
         }
 
         if updated == true { notifyupdated }
@@ -172,6 +173,16 @@ struct SnapshotsView: View {
             .onAppear(perform: {
                 focusaborttask = false
                 abort()
+            })
+    }
+
+    var progressdelete: some View {
+        ProgressView("",
+                     value: Double(snapshotdata.remainingsnapshotstodelete),
+                     total: Double(snapshotdata.maxnumbertodelete))
+            .frame(width: 100, alignment: .center)
+            .onDisappear(perform: {
+                deleteiscompleted = true
             })
     }
 }
