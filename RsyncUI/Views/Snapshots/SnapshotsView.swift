@@ -32,6 +32,8 @@ struct SnapshotsView: View {
     @State private var focusaborttask: Bool = false
     // Delete
     @State private var confirmdelete: Bool = false
+    // Delete is completed and reload of data
+    @State private var deleteiscompleted: Bool = false
 
     var body: some View {
         ZStack {
@@ -55,10 +57,17 @@ struct SnapshotsView: View {
                 SnapshotListView(snapshotdata: $snapshotdata,
                                  snapshotrecords: $snapshotrecords,
                                  selectedconfig: $selectedconfig)
+                    .onChange(of: deleteiscompleted) {
+                        if deleteiscompleted == true {
+                            getdata()
+                            deleteiscompleted = false
+                        }
+                    }
             }
 
             if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
             if notsnapshot == true { notasnapshottask }
+            if snapshotdata.inprogressofdelete == true { progressdelete }
         }
 
         if updated == true { notifyupdated }
@@ -78,21 +87,6 @@ struct SnapshotsView: View {
             labelnumberoflogs
 
             Spacer()
-
-            /*
-                        Spacer()
-
-                        Button("Delete") { showAlertfordelete = true }
-                            .sheet(isPresented: $showAlertfordelete) {
-                                ConfirmDeleteSnapshots(delete: $confirmdeletesnapshots,
-                                                       snapshotuuidsfordelete: snapshotdata.snapshotuuidsfordelete)
-                                    .onDisappear { delete() }
-                            }
-                            .buttonStyle(ColorfulRedButtonStyle())
-
-                        Button("Abort") { focusaborttask = true }
-                            .buttonStyle(ColorfulRedButtonStyle())
-             */
         }
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
@@ -178,6 +172,16 @@ struct SnapshotsView: View {
             .onAppear(perform: {
                 focusaborttask = false
                 abort()
+            })
+    }
+
+    var progressdelete: some View {
+        ProgressView("",
+                     value: Double(snapshotdata.remainingsnapshotstodelete),
+                     total: Double(snapshotdata.maxnumbertodelete))
+            .frame(width: 100, alignment: .center)
+            .onDisappear(perform: {
+                deleteiscompleted = true
             })
     }
 }
