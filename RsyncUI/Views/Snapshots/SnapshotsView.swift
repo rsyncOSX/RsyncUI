@@ -55,8 +55,7 @@ struct SnapshotsView: View {
                     }
 
                 SnapshotListView(snapshotrecords: $snapshotrecords,
-                                 selectedconfig: $selectedconfig,
-                                 deleteiscompleted: $deleteiscompleted)
+                                 selectedconfig: $selectedconfig)
                     .environmentObject(snapshotdata)
                     .onChange(of: deleteiscompleted) { _ in
                         if deleteiscompleted == true {
