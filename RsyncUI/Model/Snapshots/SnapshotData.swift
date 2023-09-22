@@ -26,7 +26,7 @@ final class SnapshotData {
     // uuids for DELETE snapshots
     var snapshotuuidsfordelete = Set<LogrecordSnapshot.ID>()
 
-    var catalogsanddates = [Catalogsanddates(catalog: "")]
+    var catalogsanddates = [Catalogsanddates(catalog: "No snapshot")]
     var logrecordssnapshot: [LogrecordSnapshot]?
     var state: Snapshotdatastat = .start
 
@@ -43,7 +43,7 @@ final class SnapshotData {
     }
 }
 
-struct Catalogsanddates: Identifiable {
+struct Catalogsanddates: Identifiable, Equatable {
     let id = UUID()
     var catalog: String
 }

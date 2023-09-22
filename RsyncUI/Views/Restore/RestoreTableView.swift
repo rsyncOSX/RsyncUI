@@ -29,7 +29,7 @@ struct RestoreTableView: View {
             ZStack {
                 HStack {
                     ListofTasksLightView(selecteduuids: $selecteduuids)
-                        .onChange(of: selecteduuids) { _ in
+                        .onChange(of: selecteduuids) {
                             restore.filestorestore = ""
                             restore.commandstring = ""
                             restore.datalist = []
@@ -54,8 +54,8 @@ struct RestoreTableView: View {
 
                     RestoreFilesTableView(filestorestore: $filestorestore,
                                           datalist: restore.datalist)
-                        .onChange(of: filestorestore) { value in
-                            restore.filestorestore = value
+                        .onChange(of: filestorestore) {
+                            restore.filestorestore = filestorestore
                             restore.updatecommandstring()
                         }
                 }
@@ -189,7 +189,7 @@ struct RestoreTableView: View {
                     restore.pathforrestore = pathforrestore
                 }
             })
-            .onChange(of: restore.pathforrestore) { _ in
+            .onChange(of: restore.pathforrestore) {
                 restore.validatepathforrestore(restore.pathforrestore)
                 restore.updatecommandstring()
             }
@@ -224,17 +224,24 @@ struct RestoreTableView: View {
     var snapshotcatalogpicker: some View {
         HStack {
             Picker("Snapshot", selection: $snapshotcatalog) {
-                if snapshotdata.catalogsanddates.count == 1 {
-                    Text("Not snapshot").tag("")
-                } else {
-                    ForEach(snapshotdata.catalogsanddates) { catalog in
-                        Text(catalog.catalog)
-                            .tag(catalog.catalog)
-                    }
+                ForEach(snapshotdata.catalogsanddates) { catalog in
+                    Text(catalog.catalog)
+                        .tag(catalog.catalog)
                 }
             }
             .frame(width: 150)
             .accentColor(.blue)
+            .onAppear {
+                snapshotcatalog = "No snapshot"
+            }
+            .onChange(of: snapshotdata.catalogsanddates) {
+                guard snapshotdata.catalogsanddates.count > 0 else { return }
+                snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
+            }
+            .onChange(of: rsyncUIdata.profile) {
+                snapshotdata.catalogsanddates.removeAll()
+                snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
+            }
         }
     }
 }
