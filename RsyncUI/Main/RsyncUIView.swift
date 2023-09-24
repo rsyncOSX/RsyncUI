@@ -11,7 +11,7 @@ struct RsyncUIView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
     @State private var rsyncversion = Rsyncversion()
     @Binding var selectedprofile: String?
-    
+
     @State private var reload: Bool = false
     @State private var start: Bool = true
     @State var selecteduuids = Set<Configuration.ID>()
