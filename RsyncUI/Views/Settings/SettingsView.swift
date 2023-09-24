@@ -1,5 +1,5 @@
 //
-//  UsersettingsView.swift
+//  SettingsView.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 01/02/2021.
@@ -8,7 +8,7 @@
 import Observation
 import SwiftUI
 
-struct UsersettingsView: View {
+struct SettingsView: View {
     @State private var alerterror = AlertError()
 
     @Binding var selectedprofile: String?
