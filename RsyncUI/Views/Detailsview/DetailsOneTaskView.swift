@@ -243,7 +243,7 @@ final class Outputfromrsync {
             if number > 20000 { throw OutputIsTruncated.istruncated }
         } catch let e {
             let error = e
-            alerterror(error: error)
+            propogateerror(error: error)
             return true
         }
         return false
@@ -272,7 +272,7 @@ final class Outputfromrsync {
 }
 
 extension Outputfromrsync {
-    func alerterror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }

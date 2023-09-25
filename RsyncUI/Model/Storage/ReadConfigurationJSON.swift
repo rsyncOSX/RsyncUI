@@ -61,7 +61,7 @@ class ReadConfigurationJSON: NamesandPaths {
                     return
                 /*
                  case let .failure(error):
-                     self.alerterror(error: error)
+                     self.propogateerror(error: error)
                  */
                 case .failure:
                     // No file, write new file with default values

@@ -41,7 +41,7 @@ final class TrimTwo {
                     // print("The publisher finished normally.")
                     return
                 case let .failure(error):
-                    self.alerterror(error: error)
+                    self.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] line in
                 if line.last != "/" {
@@ -56,7 +56,7 @@ final class TrimTwo {
                                 maxnumber = trimmeddata.count
                                 let error = e
                                 _ = Logfile(data, error: true)
-                                alerterror(error: error)
+                                propogateerror(error: error)
                                 errordiscovered = true
                             }
                         }
@@ -69,7 +69,7 @@ final class TrimTwo {
 }
 
 extension TrimTwo {
-    func alerterror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }

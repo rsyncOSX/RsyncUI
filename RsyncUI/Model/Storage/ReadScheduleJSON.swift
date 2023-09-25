@@ -40,7 +40,7 @@ class ReadScheduleJSON: NamesandPaths {
                     return
                 /*
                  case let .failure(error):
-                     self.alerterror(error: error)
+                     self.propogateerror(error: error)
                  */
                 case .failure:
                     _ = Logfile(["Creating default file for log records"], error: true)
