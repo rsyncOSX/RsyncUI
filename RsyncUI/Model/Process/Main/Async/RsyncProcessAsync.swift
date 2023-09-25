@@ -31,7 +31,7 @@ final class RsyncProcessAsync {
                 try statusDidChange()
             } catch let e {
                 let error = e
-                alerterror(error: error)
+                propogateerror(error: error)
             }
         }
     }
@@ -91,7 +91,7 @@ final class RsyncProcessAsync {
             try task.run()
         } catch let e {
             let error = e
-            alerterror(error: error)
+            propogateerror(error: error)
         }
     }
 
@@ -119,7 +119,7 @@ final class RsyncProcessAsync {
 }
 
 extension RsyncProcessAsync {
-    func alerterror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }

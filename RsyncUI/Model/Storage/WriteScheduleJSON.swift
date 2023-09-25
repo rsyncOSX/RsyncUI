@@ -27,7 +27,7 @@ class WriteScheduleJSON: NamesandPaths {
                 }
             } catch let e {
                 let error = e
-                alerterror(error: error)
+                propogateerror(error: error)
             }
         }
     }
@@ -59,7 +59,7 @@ class WriteScheduleJSON: NamesandPaths {
                     // print("The publisher finished normally.")
                     return
                 case let .failure(error):
-                    self.alerterror(error: error)
+                    self.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
                 let jsonfile = String(data: result, encoding: .utf8)

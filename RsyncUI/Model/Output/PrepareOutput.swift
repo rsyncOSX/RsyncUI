@@ -47,7 +47,7 @@ final class PrepareOutput {
                     // print("The publisher finished normally.")
                     return
                 case let .failure(error):
-                    self.alerterror(error: error)
+                    self.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] line in
                 if line.count < 40, splitlines == false {
@@ -60,7 +60,7 @@ final class PrepareOutput {
 }
 
 extension PrepareOutput {
-    func alerterror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }
