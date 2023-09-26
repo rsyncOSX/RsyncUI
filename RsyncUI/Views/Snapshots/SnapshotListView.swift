@@ -51,7 +51,7 @@ struct SnapshotListView: View {
             .width(max: 250)
         }
         .confirmationDialog(
-            NSLocalizedString("Delete configuration(s)", comment: "")
+            NSLocalizedString("Delete snapshots(s)", comment: "")
                 + "?",
             isPresented: $confirmdelete
         ) {
