@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ListofTasksMainView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    // @SwiftUI.Environment(ProgressDetails.self) var progressdetails
-    @EnvironmentObject var progressdetails: ExecuteProgressDetails
+    @SwiftUI.Environment(\.executeprogressdetails) private var progressdetails
+    
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
     @Binding var reload: Bool

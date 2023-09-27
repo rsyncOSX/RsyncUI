@@ -9,12 +9,12 @@ import SwiftUI
 
 struct SidebarTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    
     @State private var selectedconfig: Configuration?
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
 
-    @StateObject var progressdetails = ExecuteProgressDetails()
-
+    @State var progressdetails = ExecuteProgressDetails()
     @State var showeexecutEstimatedview: Bool = false
     @State var showexecuteNOEstimateview: Bool = false
     // Timer values
@@ -51,7 +51,7 @@ struct SidebarTasksView: View {
                       showeexecutestimatedview: $showeexecutEstimatedview,
                       showexecutenoestimateview: $showexecuteNOEstimateview,
                       actions: actions)
-                .environmentObject(progressdetails)
+                .environment(progressdetails)
                 .padding()
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
@@ -59,7 +59,7 @@ struct SidebarTasksView: View {
             ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                       reload: $reload,
                                       showeexecutestimatedview: $showeexecutEstimatedview)
-                .environmentObject(progressdetails)
+                .environment(progressdetails)
                 .padding()
         case .executenoestimatetasksview:
             // Execute tasks, no estimation ahead of synchronization
