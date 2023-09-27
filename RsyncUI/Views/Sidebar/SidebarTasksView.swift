@@ -28,19 +28,17 @@ struct SidebarTasksView: View {
     }
 
     var body: some View {
-        ZStack {
-            VStack {
-                if showeexecutEstimatedview == false &&
-                    showexecuteNOEstimateview == false { makeView(task: .taskview) }
+        if showeexecutEstimatedview == false &&
+            showexecuteNOEstimateview == false
+        { makeView(task: .taskview) }
 
-                if showeexecutEstimatedview == true &&
-                    showexecuteNOEstimateview == false { makeView(task: .executestimatedview) }
+        if showeexecutEstimatedview == true &&
+            showexecuteNOEstimateview == false
+        { makeView(task: .executestimatedview) }
 
-                if showeexecutEstimatedview == false &&
-                    showexecuteNOEstimateview == true { makeView(task: .executenoestimatetasksview) }
-            }
-            .padding()
-        }
+        if showeexecutEstimatedview == false &&
+            showexecuteNOEstimateview == true
+        { makeView(task: .executenoestimatetasksview) }
     }
 
     @ViewBuilder
@@ -54,6 +52,7 @@ struct SidebarTasksView: View {
                       showexecutenoestimateview: $showexecuteNOEstimateview,
                       actions: actions)
                 .environmentObject(progressdetails)
+                .padding()
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
             // presents progress of synchronization of data.
@@ -61,11 +60,13 @@ struct SidebarTasksView: View {
                                       reload: $reload,
                                       showeexecutestimatedview: $showeexecutEstimatedview)
                 .environmentObject(progressdetails)
+                .padding()
         case .executenoestimatetasksview:
             // Execute tasks, no estimation ahead of synchronization
             ExecuteNoestimatedTasksView(reload: $reload,
                                         selecteduuids: $selecteduuids,
                                         showexecutenoestimateview: $showexecuteNOEstimateview)
+                .padding()
         }
     }
 }
