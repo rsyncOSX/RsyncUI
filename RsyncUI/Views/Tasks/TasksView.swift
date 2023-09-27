@@ -20,7 +20,7 @@ struct TasksView: View {
     @State private var estimatingprogresscount = EstimateProgressDetails()
 
     @Binding var reload: Bool
-    @Binding var selecteduuids: Set<UUID>
+    @Binding var selecteduuids: Set<Configuration.ID>
 
     @Binding var showeexecutestimatedview: Bool
     @Binding var showexecutenoestimateview: Bool
