@@ -22,7 +22,8 @@ struct ListofTasksMainView: View {
     var body: some View {
         VStack {
             if configurationssorted.isEmpty {
-                ContentUnavailableView("No match in Synchronize ID", systemImage: "magnifyingglass")
+                ContentUnavailableView("Either no task is added\n or no match in Synchronize ID",
+                                       systemImage: "magnifyingglass")
             } else {
                 tabledata
             }
