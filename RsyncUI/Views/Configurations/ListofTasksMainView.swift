@@ -23,7 +23,7 @@ struct ListofTasksMainView: View {
         VStack {
             if #available(macOS 14.0, *) {
                 if configurationssorted.isEmpty {
-                    ContentUnavailableView("Either no task is added\n or no match in Synchronize ID", 
+                    ContentUnavailableView("Either no task is added\n or no match in Synchronize ID",
                                            systemImage: "magnifyingglass")
                 } else {
                     tabledata
