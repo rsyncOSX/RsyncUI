@@ -23,26 +23,6 @@ struct Sidebar: View {
     // Keep record of actions
     var actions: Actions
 
-    @ViewBuilder
-    func makeView(_ view: Sidebaritems) -> some View {
-        switch view {
-        case .tasks:
-            SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload)
-        case .log_listings:
-            SidebarLogsView()
-        case .rsync_parameters:
-            SidebarParametersView(reload: $reload)
-        case .restore:
-            SidebareRestoreView()
-        case .snapshots:
-            SidebarSnapshotsView(reload: $reload)
-        case .synchronize:
-            SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload, actions: actions)
-        case .quick_synchronize:
-            QuicktaskView()
-        }
-    }
-
     var body: some View {
         NavigationSplitView {
             Divider()
@@ -66,6 +46,26 @@ struct Sidebar: View {
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
             Alert(localizedError: errorhandling.activeError!)
         })
+    }
+
+    @ViewBuilder
+    func makeView(_ view: Sidebaritems) -> some View {
+        switch view {
+        case .tasks:
+            SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload)
+        case .log_listings:
+            SidebarLogsView()
+        case .rsync_parameters:
+            SidebarParametersView(reload: $reload)
+        case .restore:
+            SidebareRestoreView()
+        case .snapshots:
+            SidebarSnapshotsView(reload: $reload)
+        case .synchronize:
+            SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload, actions: actions)
+        case .quick_synchronize:
+            QuicktaskView()
+        }
     }
 }
 
