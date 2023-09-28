@@ -17,6 +17,7 @@ struct Sidebar: View {
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
+    @Bindable var profilenames: Profilenames
 
     @State private var selectedview: Sidebaritems = .synchronize
 
@@ -52,7 +53,7 @@ struct Sidebar: View {
     func makeView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload)
+            SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:

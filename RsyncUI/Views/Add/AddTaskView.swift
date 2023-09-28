@@ -29,11 +29,11 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 
 struct AddTaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @SwiftUI.Environment(Profilenames.self) private var profilenames
-
     @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+    @Bindable var profilenames: Profilenames
+
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var dataischanged = Dataischanged()
@@ -189,7 +189,8 @@ struct AddTaskView: View {
         }
         .sheet(isPresented: $modalview) {
             AddProfileView(selectedprofile: $selectedprofile,
-                           reload: $reload)
+                           reload: $reload,
+                           profilenames: profilenames)
                 .frame(width: 500, height: 500)
         }
         .alert(isPresented: $newdata.alerterror,

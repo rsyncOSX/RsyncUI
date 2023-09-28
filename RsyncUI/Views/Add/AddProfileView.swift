@@ -10,11 +10,11 @@ import SwiftUI
 struct AddProfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @SwiftUI.Environment(Profilenames.self) private var profilenames
     @State private var newdata = ObservableAddConfigurations()
 
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+    @Bindable var profilenames: Profilenames
 
     @State private var uuidprofile = Set<Profiles.ID>()
 
