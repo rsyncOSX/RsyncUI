@@ -122,6 +122,9 @@
 "Delete configuration(s)" = "Slette konfigurasjoner";
 
 /* No comment provided by engineer. */
+"Delete snapshots(s)" = "Slette snapshot(s)";
+
+/* No comment provided by engineer. */
 "Delete: " = "Slett:";
 
 /* No comment provided by engineer. */
@@ -138,6 +141,9 @@
 
 /* No comment provided by engineer. */
 "Download" = "Last ned";
+
+/* No comment provided by engineer. */
+"Either no task is added\n or no match in Synchronize ID" = "Enten er ingen oppgaver lagt til\n eller ingen søk i Synchronize ID";
 
 /* No comment provided by engineer. */
 "Either select a task\n or add a search string" = "Enten velg en oppgave eller legg til en søke streng";
@@ -236,12 +242,6 @@
 "localhost" = "localhost";
 
 /* No comment provided by engineer. */
-"Log" = "Logg";
-
-/* No comment provided by engineer. */
-"Log listings" = "Liste logger";
-
-/* No comment provided by engineer. */
 "Log to file" = "Logg til fil";
 
 /* No comment provided by engineer. */
@@ -263,7 +263,13 @@
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
+"New version is available" = "Ny versjon er tilgjengelig";
+
+/* No comment provided by engineer. */
 "New: " = "Ny:";
+
+/* No comment provided by engineer. */
+"No match in Date or Result" = "Ingen søk i dato eller resultat";
 
 /* No comment provided by engineer. */
 "None" = "Ingen";
@@ -317,9 +323,6 @@
 "Profiles" = "Profiler";
 
 /* No comment provided by engineer. */
-"Quick synchronize" = "Rask synkronisering";
-
-/* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
 
 /* No comment provided by engineer. */
@@ -350,9 +353,6 @@
 "Result" = "Resultat";
 
 /* No comment provided by engineer. */
-"Rsync parameters" = "Rsync parametre";
-
-/* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
@@ -377,7 +377,7 @@
 "Saved" = "Lagret";
 
 /* No comment provided by engineer. */
-"Select a configuration" = "Velg en konfigurasjon";
+"Select a task" = "Velg oppgave";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
@@ -417,9 +417,6 @@
 
 /* No comment provided by engineer. */
 "Ssh" = "Ssh";
-
-/* No comment provided by engineer. */
-"Synchronize" = "Synkronisere";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";
@@ -477,3 +474,4 @@
 
 /* No comment provided by engineer. */
 "Where" = "Hvor";
+

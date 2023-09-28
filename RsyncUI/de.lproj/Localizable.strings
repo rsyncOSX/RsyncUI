@@ -122,6 +122,9 @@
 "Delete configuration(s)" = "Konfiguration(en) löschen";
 
 /* No comment provided by engineer. */
+"Delete snapshots(s)" = "Schnappschüsse löschen";
+
+/* No comment provided by engineer. */
 "Delete: " = "Löschen:";
 
 /* No comment provided by engineer. */
@@ -138,6 +141,9 @@
 
 /* No comment provided by engineer. */
 "Download" = "Download";
+
+/* No comment provided by engineer. */
+"Either no task is added\n or no match in Synchronize ID" = "Entweder wird keine Aufgabe hinzugefügt\n oder keine Übereinstimmung in der Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
 "Either select a task\n or add a search string" = "Wählen Sie entweder eine Aufgabe aus oder fügen Sie eine Suchzeichenfolge hinzu";
@@ -236,12 +242,6 @@
 "localhost" = "localhost";
 
 /* No comment provided by engineer. */
-"Log" = "Protkoll";
-
-/* No comment provided by engineer. */
-"Log listings" = "Protokolle";
-
-/* No comment provided by engineer. */
 "Log to file" = "Log in Datei";
 
 /* No comment provided by engineer. */
@@ -263,7 +263,13 @@
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
+"New version is available" = "Neue Version ist verfügbar";
+
+/* No comment provided by engineer. */
 "New: " = "Neu:";
+
+/* No comment provided by engineer. */
+"No match in Date or Result" = "Keine Übereinstimmung im Datum oder Ergebnis";
 
 /* No comment provided by engineer. */
 "None" = "Keine";
@@ -317,9 +323,6 @@
 "Profiles" = "Profil";
 
 /* No comment provided by engineer. */
-"Quick synchronize" = "Schnell synchronisieren";
-
-/* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
 
 /* No comment provided by engineer. */
@@ -350,9 +353,6 @@
 "Result" = "Result";
 
 /* No comment provided by engineer. */
-"Rsync parameters" = "Rsync Parameter";
-
-/* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
@@ -374,7 +374,7 @@
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
-"Select a configuration" = "Konfiguration auswählen";
+"Select a task" = "Wählen Sie eine Aufgabe aus";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
@@ -414,9 +414,6 @@
 
 /* No comment provided by engineer. */
 "Ssh" = "Ssh";
-
-/* No comment provided by engineer. */
-"Synchronize" = "Synchronisieren";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";
@@ -474,3 +471,4 @@
 
 /* No comment provided by engineer. */
 "Where" = "Wo";
+
