@@ -113,8 +113,6 @@ struct TasksView: View {
                         .symbolRenderingMode(.palette)
                         .foregroundStyle(.blue, .blue)
                         .symbolEffect(.variableColor)
-                    // .accentColor(.blue)
-                    // .symbolRenderingMode(.multicolor)
                 }
                 .tooltip("Estimate (⌘E)")
             }
