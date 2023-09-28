@@ -31,106 +31,104 @@ struct RsyncDefaultParametersView: View {
     @State private var showtableview: Bool = true
 
     var body: some View {
-        ZStack {
-            VStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Section(header: headerssh) {
-                            setsshpath
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Section(header: headerssh) {
+                        setsshpath
 
-                            setsshport
-                        }
-
-                        Section(header: headerremove) {
-                            VStack(alignment: .leading) {
-                                ToggleViewDefault("-e ssh", $parameters.removessh)
-                                    .onChange(of: parameters.removessh) {
-                                        parameters.deletessh(parameters.removessh)
-                                    }
-                                ToggleViewDefault("--compress", $parameters.removecompress)
-                                    .onChange(of: parameters.removecompress) {
-                                        parameters.deletecompress(parameters.removecompress)
-                                    }
-                                ToggleViewDefault("--delete", $parameters.removedelete)
-                                    .onChange(of: parameters.removedelete) {
-                                        parameters.deletedelete(parameters.removedelete)
-                                    }
-                            }
-                        }
-
-                        Section(header: headerdaemon) {
-                            ToggleViewDefault("daemon", $parameters.daemon)
-                        }
-
-                        Spacer()
+                        setsshport
                     }
 
-                    VStack(alignment: .leading) {
-                        if showtableview {
-                            ListofTasksLightView(selecteduuids: $selecteduuids)
-                                .onChange(of: selecteduuids) {
-                                    let selected = rsyncUIdata.configurations?.filter { config in
-                                        selecteduuids.contains(config.id)
-                                    }
-                                    if (selected?.count ?? 0) == 1 {
-                                        if let config = selected {
-                                            selectedconfig = config[0]
-                                            parameters.setvalues(selectedconfig)
-                                        }
-                                    } else {
-                                        selectedconfig = nil
+                    Section(header: headerremove) {
+                        VStack(alignment: .leading) {
+                            ToggleViewDefault("-e ssh", $parameters.removessh)
+                                .onChange(of: parameters.removessh) {
+                                    parameters.deletessh(parameters.removessh)
+                                }
+                            ToggleViewDefault("--compress", $parameters.removecompress)
+                                .onChange(of: parameters.removecompress) {
+                                    parameters.deletecompress(parameters.removecompress)
+                                }
+                            ToggleViewDefault("--delete", $parameters.removedelete)
+                                .onChange(of: parameters.removedelete) {
+                                    parameters.deletedelete(parameters.removedelete)
+                                }
+                        }
+                    }
+
+                    Section(header: headerdaemon) {
+                        ToggleViewDefault("daemon", $parameters.daemon)
+                    }
+
+                    Spacer()
+                }
+
+                VStack(alignment: .leading) {
+                    if showtableview {
+                        ListofTasksLightView(selecteduuids: $selecteduuids)
+                            .onChange(of: selecteduuids) {
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        selectedconfig = config[0]
                                         parameters.setvalues(selectedconfig)
                                     }
+                                } else {
+                                    selectedconfig = nil
+                                    parameters.setvalues(selectedconfig)
                                 }
-                                .frame(maxWidth: .infinity)
-
-                        } else {
-                            notifyupdated
-                        }
-
-                        ZStack {
-                            HStack(alignment: .center) {
-                                RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
                             }
+                            .frame(maxWidth: .infinity)
 
-                            if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
-                        }
+                    } else {
+                        notifyupdated
                     }
 
-                    if focusaborttask { labelaborttask }
+                    ZStack {
+                        HStack(alignment: .center) {
+                            RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
+                        }
+
+                        if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
+                    }
                 }
 
+                if focusaborttask { labelaborttask }
+            }
+
+            Spacer()
+
+            HStack {
                 Spacer()
 
-                HStack {
-                    Spacer()
-
-                    Button("Verify") {
-                        if let configuration = parameters.updatersyncparameters() {
-                            Task {
-                                await verify(config: configuration)
-                            }
+                Button("Verify") {
+                    if let configuration = parameters.updatersyncparameters() {
+                        Task {
+                            await verify(config: configuration)
                         }
                     }
-                    .buttonStyle(ColorfulButtonStyle())
+                }
+                .buttonStyle(ColorfulButtonStyle())
 
-                    Button("Save") { saversyncparameters() }
-                        .buttonStyle(ColorfulButtonStyle())
-                }
+                Button("Save") { saversyncparameters() }
+                    .buttonStyle(ColorfulButtonStyle())
             }
-            .focusedSceneValue(\.aborttask, $focusaborttask)
-            .padding()
-            .sheet(isPresented: $presentsheetview) { viewoutput }
-            .onAppear {
-                if dataischanged.dataischanged {
-                    showtableview = false
-                    dataischanged.dataischanged = false
-                }
-            }
-            .alert(isPresented: $parameters.alerterror,
-                   content: { Alert(localizedError: parameters.error)
-                   })
         }
+        .focusedSceneValue(\.aborttask, $focusaborttask)
+        .padding()
+        .sheet(isPresented: $presentsheetview) { viewoutput }
+        .onAppear {
+            if dataischanged.dataischanged {
+                showtableview = false
+                dataischanged.dataischanged = false
+            }
+        }
+        .alert(isPresented: $parameters.alerterror,
+               content: { Alert(localizedError: parameters.error)
+               })
     }
 
     // Header remove
