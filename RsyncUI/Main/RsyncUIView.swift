@@ -38,9 +38,9 @@ struct RsyncUIView: View {
                         selectedprofile: $selectedprofile,
                         selecteduuids: $selecteduuids,
                         profilenames: profilenames,
+                        errorhandling: errorhandling,
                         actions: actions)
                     .environment(\.rsyncUIData, rsyncUIdata)
-                    .environment(errorhandling)
                     .onChange(of: reload) {
                         reload = false
                     }
@@ -89,7 +89,6 @@ struct RsyncUIView: View {
                 }
             }
             .frame(width: 180)
-            .accentColor(.blue)
             .onChange(of: selectedprofile) {
                 selecteduuids.removeAll()
             }

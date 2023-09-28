@@ -13,11 +13,11 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
 }
 
 struct Sidebar: View {
-    @SwiftUI.Environment(ErrorHandling.self) var errorhandling
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
     @Bindable var profilenames: Profilenames
+    @Bindable var errorhandling: ErrorHandling
 
     @State private var selectedview: Sidebaritems = .synchronize
 
