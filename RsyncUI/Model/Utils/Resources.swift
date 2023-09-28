@@ -33,3 +33,5 @@ struct Resources {
         }
     }
 }
+
+//  swiftlint:enable line_length
