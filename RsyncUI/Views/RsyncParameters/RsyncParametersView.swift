@@ -32,101 +32,99 @@ struct RsyncParametersView: View {
     @State private var dataischanged = Dataischanged()
 
     var body: some View {
-        ZStack {
-            VStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        EditRsyncParameter(450, $parameters.parameter8)
-                        EditRsyncParameter(450, $parameters.parameter9)
-                        EditRsyncParameter(450, $parameters.parameter10)
-                        EditRsyncParameter(450, $parameters.parameter11)
-                        EditRsyncParameter(450, $parameters.parameter12)
-                        EditRsyncParameter(450, $parameters.parameter13)
-                        EditRsyncParameter(450, $parameters.parameter14)
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    EditRsyncParameter(450, $parameters.parameter8)
+                    EditRsyncParameter(450, $parameters.parameter9)
+                    EditRsyncParameter(450, $parameters.parameter10)
+                    EditRsyncParameter(450, $parameters.parameter11)
+                    EditRsyncParameter(450, $parameters.parameter12)
+                    EditRsyncParameter(450, $parameters.parameter13)
+                    EditRsyncParameter(450, $parameters.parameter14)
 
-                        Spacer()
-                    }
+                    Spacer()
+                }
 
-                    if showtableview {
-                        ListofTasksLightView(selecteduuids: $selecteduuids)
-                            .frame(maxWidth: .infinity)
-                            .onChange(of: selecteduuids) { _ in
-                                let selected = rsyncUIdata.configurations?.filter { config in
-                                    selecteduuids.contains(config.id)
-                                }
-                                if (selected?.count ?? 0) == 1 {
-                                    if let config = selected {
-                                        selectedconfig = config[0]
-                                        parameters.setvalues(selectedconfig)
-                                    }
-                                } else {
-                                    selectedconfig = nil
+                if showtableview {
+                    ListofTasksLightView(selecteduuids: $selecteduuids)
+                        .frame(maxWidth: .infinity)
+                        .onChange(of: selecteduuids) { _ in
+                            let selected = rsyncUIdata.configurations?.filter { config in
+                                selecteduuids.contains(config.id)
+                            }
+                            if (selected?.count ?? 0) == 1 {
+                                if let config = selected {
+                                    selectedconfig = config[0]
                                     parameters.setvalues(selectedconfig)
                                 }
+                            } else {
+                                selectedconfig = nil
+                                parameters.setvalues(selectedconfig)
                             }
-                    } else {
-                        notifyupdated
-                    }
-
-                    if focusaborttask { labelaborttask }
+                        }
+                } else {
+                    notifyupdated
                 }
 
-                ZStack {
-                    HStack {
-                        RsyncCommandView(config: $parameters.configuration,
-                                         selectedrsynccommand: $selectedrsynccommand)
+                if focusaborttask { labelaborttask }
+            }
 
-                        Spacer()
-                    }
+            ZStack {
+                HStack {
+                    RsyncCommandView(config: $parameters.configuration,
+                                     selectedrsynccommand: $selectedrsynccommand)
 
-                    if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
+                    Spacer()
                 }
+
+                if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
+            }
+
+            Spacer()
+
+            HStack {
+                Button("Linux") {
+                    parameters.suffixlinux = true
+                }
+                .buttonStyle(ColorfulButtonStyle())
+
+                Button("FreeBSD") {
+                    parameters.suffixfreebsd = true
+                }
+                .buttonStyle(ColorfulButtonStyle())
+
+                Button("Backup") {
+                    parameters.backup = true
+                }
+                .buttonStyle(ColorfulButtonStyle())
 
                 Spacer()
 
-                HStack {
-                    Button("Linux") {
-                        parameters.suffixlinux = true
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-
-                    Button("FreeBSD") {
-                        parameters.suffixfreebsd = true
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-
-                    Button("Backup") {
-                        parameters.backup = true
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-
-                    Spacer()
-
-                    Button("Verify") {
-                        if let configuration = parameters.updatersyncparameters() {
-                            Task {
-                                await verify(config: configuration)
-                            }
+                Button("Verify") {
+                    if let configuration = parameters.updatersyncparameters() {
+                        Task {
+                            await verify(config: configuration)
                         }
                     }
-                    .buttonStyle(ColorfulButtonStyle())
+                }
+                .buttonStyle(ColorfulButtonStyle())
 
-                    Button("Save") { saversyncparameters() }
-                        .buttonStyle(ColorfulButtonStyle())
-                }
-                .focusedSceneValue(\.aborttask, $focusaborttask)
-                .sheet(isPresented: $presentsheetview) { viewoutput }
-                .padding()
-                .onAppear {
-                    if dataischanged.dataischanged {
-                        showtableview = false
-                        dataischanged.dataischanged = false
-                    }
-                }
-                .alert(isPresented: $parameters.alerterror,
-                       content: { Alert(localizedError: parameters.error)
-                       })
+                Button("Save") { saversyncparameters() }
+                    .buttonStyle(ColorfulButtonStyle())
             }
+            .focusedSceneValue(\.aborttask, $focusaborttask)
+            .sheet(isPresented: $presentsheetview) { viewoutput }
+            .padding()
+            .onAppear {
+                if dataischanged.dataischanged {
+                    showtableview = false
+                    dataischanged.dataischanged = false
+                }
+            }
+            .alert(isPresented: $parameters.alerterror,
+                   content: { Alert(localizedError: parameters.error)
+                   })
         }
     }
 
