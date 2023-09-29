@@ -1,13 +1,7 @@
 **MacOS Sonoma** This branch is for *macOS Sonoma, Swift 5.9* and *Xcode 15*. It will only compile and run on macOS Sonoma.
 
-RsyncUI is released for macOS Monterey and later.
-
 - the [documentation of RsyncUI](https://rsyncui.netlify.app/)
 - the [changelog](https://rsyncui.netlify.app/post/changelog/)
-
-## Install by Homebrew
-
-RsyncUI can also be installed by Homebrew: `brew install --cask rsyncui`
 
 ## Dependencies
 
