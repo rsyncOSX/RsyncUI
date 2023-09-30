@@ -24,21 +24,19 @@ struct LogsbyConfigurationView: View {
     var body: some View {
         VStack {
             HStack {
-                ZStack {
-                    ListofTasksLightView(
-                        selecteduuids: $selecteduuids
-                    )
-                    .onChange(of: selecteduuids) {
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selecteduuids.contains(config.id)
+                ListofTasksLightView(
+                    selecteduuids: $selecteduuids
+                )
+                .onChange(of: selecteduuids) {
+                    let selected = rsyncUIdata.configurations?.filter { config in
+                        selecteduuids.contains(config.id)
+                    }
+                    if (selected?.count ?? 0) == 1 {
+                        if let config = selected {
+                            hiddenID = config[0].hiddenID
                         }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                hiddenID = config[0].hiddenID
-                            }
-                        } else {
-                            hiddenID = -1
-                        }
+                    } else {
+                        hiddenID = -1
                     }
                 }
                 if hiddenID == -1 {
@@ -56,12 +54,17 @@ struct LogsbyConfigurationView: View {
                                 }
                             }
                         }
+                        .onDeleteCommand {
+                            showAlertfordelete = true
+                        }
                     }
                 } else {
                     if logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count == 0 {
                         ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
                     } else {
-                        Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [], selection: $selectedloguuids) {
+                        Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [],
+                              selection: $selectedloguuids)
+                        {
                             TableColumn("Date") { data in
                                 Text(data.date.localized_string_from_date())
                             }
