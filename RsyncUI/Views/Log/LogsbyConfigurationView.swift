@@ -24,21 +24,19 @@ struct LogsbyConfigurationView: View {
     var body: some View {
         VStack {
             HStack {
-                ZStack {
-                    ListofTasksLightView(selecteduuids: $selecteduuids)
-                        .onChange(of: selecteduuids) { _ in
-                            let selected = rsyncUIdata.configurations?.filter { config in
-                                selecteduuids.contains(config.id)
-                            }
-                            if (selected?.count ?? 0) == 1 {
-                                if let config = selected {
-                                    hiddenID = config[0].hiddenID
-                                }
-                            } else {
-                                hiddenID = -1
-                            }
+                ListofTasksLightView(selecteduuids: $selecteduuids)
+                    .onChange(of: selecteduuids) { _ in
+                        let selected = rsyncUIdata.configurations?.filter { config in
+                            selecteduuids.contains(config.id)
                         }
-                }
+                        if (selected?.count ?? 0) == 1 {
+                            if let config = selected {
+                                hiddenID = config[0].hiddenID
+                            }
+                        } else {
+                            hiddenID = -1
+                        }
+                    }
                 if hiddenID == -1 {
                     if #available(macOS 14.0, *), logrecords.filterlogs(filterstring)?.count == 0 {
                         ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
