@@ -88,7 +88,9 @@ final class RsyncProcessAsyncShellOut {
                 self.subscriptons.removeAll()
                 // Execute posttask
                 do {
-                    try self.executeposttask()
+                    if self.config?.executeposttask == 1 {
+                        try self.executeposttask()
+                    }
                 } catch {
                     return
                 }
@@ -97,7 +99,9 @@ final class RsyncProcessAsyncShellOut {
 
         // Execute pretask
         do {
-            try executepretask()
+            if self.config?.executepretask == 1 {
+                try executepretask()
+            }
         } catch {
             return
         }
