@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import ShellOut
 
 final class RsyncProcessShellOut {
     // Combine subscribers
@@ -96,7 +97,9 @@ final class RsyncProcessShellOut {
                     if self.config?.executeposttask == 1,
                        self.config?.posttask?.isEmpty == false
                     {
-                        try self.executeposttask()
+                        Task {
+                            try await self.executeposttask()
+                        }
                     }
                 } catch {
                     return
@@ -104,11 +107,14 @@ final class RsyncProcessShellOut {
             }.store(in: &subscriptons)
 
         // Execute pretask
+
         do {
             if config?.executepretask == 1,
                config?.pretask?.isEmpty == false
             {
-                try executepretask()
+                Task {
+                    try await executepretask()
+                }
             }
         } catch {
             return
@@ -154,10 +160,10 @@ extension RsyncProcessShellOut {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 
-    func executepretask() throws {
+    func executepretask() async throws {
         if let pretask = config?.pretask {
             do {
-                try shellOut(to: pretask)
+                try await shellOut(to: pretask)
             } catch let e {
                 let error = e as? ShellOutError
                 let outputprocess = OutputfromProcess()
@@ -168,10 +174,10 @@ extension RsyncProcessShellOut {
         }
     }
 
-    func executeposttask() throws {
+    func executeposttask() async throws {
         if let posttask = config?.posttask {
             do {
-                try shellOut(to: posttask)
+                try await shellOut(to: posttask)
             } catch let e {
                 let error = e as? ShellOutError
                 let outputprocess = OutputfromProcess()
