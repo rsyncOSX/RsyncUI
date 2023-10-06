@@ -144,6 +144,9 @@
 		E985C79225F3AD9700CB895C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71D25F3AD9700CB895C /* Extensions.swift */; };
 		E985C79325F3AD9700CB895C /* Rsyncversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71F25F3AD9700CB895C /* Rsyncversion.swift */; };
 		E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72425F3AD9700CB895C /* InterruptProcess.swift */; };
+		E9888A3E2AD021E900B35B41 /* ShellOut in Frameworks */ = {isa = PBXBuildFile; productRef = E9888A3D2AD021E900B35B41 /* ShellOut */; };
+		E9888A402AD0226800B35B41 /* RsyncProcessAsyncShellOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9888A3F2AD0226800B35B41 /* RsyncProcessAsyncShellOut.swift */; };
+		E9888A422AD022B200B35B41 /* RsyncProcessShellOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9888A412AD022B200B35B41 /* RsyncProcessShellOut.swift */; };
 		E98A7E2929C9BB64000C8607 /* Allprofilesandtasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A7E2829C9BB64000C8607 /* Allprofilesandtasks.swift */; };
 		E98C7AB5262D662200555977 /* ReadScheduleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */; };
 		E98C7ABA262D664900555977 /* ReadConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */; };
@@ -343,6 +346,8 @@
 		E985C71D25F3AD9700CB895C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E985C71F25F3AD9700CB895C /* Rsyncversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rsyncversion.swift; sourceTree = "<group>"; };
 		E985C72425F3AD9700CB895C /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
+		E9888A3F2AD0226800B35B41 /* RsyncProcessAsyncShellOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessAsyncShellOut.swift; sourceTree = "<group>"; };
+		E9888A412AD022B200B35B41 /* RsyncProcessShellOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessShellOut.swift; sourceTree = "<group>"; };
 		E98A7E2829C9BB64000C8607 /* Allprofilesandtasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allprofilesandtasks.swift; sourceTree = "<group>"; };
 		E98C7AB4262D662200555977 /* ReadScheduleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadScheduleJSON.swift; sourceTree = "<group>"; };
 		E98C7AB9262D664900555977 /* ReadConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadConfigurationJSON.swift; sourceTree = "<group>"; };
@@ -384,6 +389,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9888A3E2AD021E900B35B41 /* ShellOut in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +451,7 @@
 				E97F62F428DC845100DCF475 /* RsyncAsync.swift */,
 				E95DD7F328EC738B007654BC /* RsyncProcessAsync.swift */,
 				E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */,
+				E9888A3F2AD0226800B35B41 /* RsyncProcessAsyncShellOut.swift */,
 			);
 			path = Async;
 			sourceTree = "<group>";
@@ -928,6 +935,7 @@
 				E985C72425F3AD9700CB895C /* InterruptProcess.swift */,
 				E943B0A825FFC22200A4F30D /* RsyncProcess.swift */,
 				E98F608C290D034300952149 /* CommandProcess.swift */,
+				E9888A412AD022B200B35B41 /* RsyncProcessShellOut.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1005,6 +1013,7 @@
 			);
 			name = RsyncUI;
 			packageProductDependencies = (
+				E9888A3D2AD021E900B35B41 /* ShellOut */,
 			);
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
@@ -1080,6 +1089,7 @@
 			);
 			mainGroup = E985C5BA25F3AC0700CB895C;
 			packageReferences = (
+				E9888A3C2AD021E900B35B41 /* XCRemoteSwiftPackageReference "ShellOut" */,
 			);
 			productRefGroup = E985C5C425F3AC0700CB895C /* Products */;
 			projectDirPath = "";
@@ -1248,6 +1258,7 @@
 				E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */,
 				E9EA4EA329DAA0EF00456ADA /* Counter.swift in Sources */,
 				E985C77225F3AD9700CB895C /* Logfile.swift in Sources */,
+				E9888A402AD0226800B35B41 /* RsyncProcessAsyncShellOut.swift in Sources */,
 				E81C244C267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift in Sources */,
 				E985C73425F3AD9700CB895C /* RsyncCommandtoDisplay.swift in Sources */,
 				E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */,
@@ -1259,6 +1270,7 @@
 				E985C65525F3AD8400CB895C /* SidebarTasksView.swift in Sources */,
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
 				E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */,
+				E9888A422AD022B200B35B41 /* RsyncProcessShellOut.swift in Sources */,
 				E93F8EC92ABDAE50008FA302 /* BlurView.swift in Sources */,
 				E904E02E275CED770070DF92 /* FirsttimeView.swift in Sources */,
 				E9134B4929893BF900FDD55D /* ExecuteNoestimatedTasksView.swift in Sources */,
@@ -1660,6 +1672,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E9888A3C2AD021E900B35B41 /* XCRemoteSwiftPackageReference "ShellOut" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftPackageIndex/ShellOut";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E9888A3D2AD021E900B35B41 /* ShellOut */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9888A3C2AD021E900B35B41 /* XCRemoteSwiftPackageReference "ShellOut" */;
+			productName = ShellOut;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E985C5BB25F3AC0700CB895C /* Project object */;
 }
