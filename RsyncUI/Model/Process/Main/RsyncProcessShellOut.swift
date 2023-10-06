@@ -1,25 +1,24 @@
 //
-//  RsyncProcessAsyncShellOut.swift
+//  RsyncProcessShellOut.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 03/10/2023.
+//  Created by Thomas Evensen on 06/10/2023.
 //
 
 import Combine
 import Foundation
-import ShellOut
 
-@MainActor
-final class RsyncProcessAsyncShellOut {
+final class RsyncProcessShellOut {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
+    // Process termination and filehandler closures
+    var processtermination: ([String]?, Int?) -> Void
+    var filehandler: (Int) -> Void
     // Verify network connection
     var config: Configuration?
     var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
-    // Process termination
-    var processtermination: ([String]?, Int?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
 
@@ -45,7 +44,11 @@ final class RsyncProcessAsyncShellOut {
         }
     }
 
-    func executeProcess() async {
+    private func localfilehandler() -> Int {
+        return outputprocess?.getOutput()?.count ?? 0
+    }
+
+    func executeProcess() {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         // Process
@@ -67,11 +70,13 @@ final class RsyncProcessAsyncShellOut {
         // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
         NotificationCenter.default.publisher(
             for: NSNotification.Name.NSFileHandleDataAvailable)
-            .sink { _ in
+            .sink { [self] _ in
                 let data = outHandle.availableData
                 if data.count > 0 {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                         self.outputprocess?.addlinefromoutput(str: str as String)
+                        // Send message about files
+                        self.filehandler(self.outputprocess?.getOutput()?.count ?? 0)
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
@@ -80,12 +85,12 @@ final class RsyncProcessAsyncShellOut {
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
-            .sink { _ in
-                // Process termination and Log to file
+            .sink { [self] _ in
                 self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
-                _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+                // Logg to file
+                _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 // Release Combine subscribers
-                self.subscriptons.removeAll()
+                subscriptons.removeAll()
                 // Execute posttask
                 do {
                     if self.config?.executeposttask == 1,
@@ -97,6 +102,7 @@ final class RsyncProcessAsyncShellOut {
                     return
                 }
             }.store(in: &subscriptons)
+
         // Execute pretask
         do {
             if config?.executepretask == 1,
@@ -109,8 +115,6 @@ final class RsyncProcessAsyncShellOut {
         }
 
         SharedReference.shared.process = task
-
-        // Execute the real task
         do {
             try task.run()
         } catch let e {
@@ -126,11 +130,13 @@ final class RsyncProcessAsyncShellOut {
 
     init(arguments: [String]?,
          config: Configuration?,
-         processtermination: @escaping ([String]?, Int?) -> Void)
+         processtermination: @escaping ([String]?, Int?) -> Void,
+         filehandler: @escaping (Int) -> Void)
     {
         self.arguments = arguments
-        self.config = config
         self.processtermination = processtermination
+        self.filehandler = filehandler
+        self.config = config
         outputprocess = OutputfromProcess()
         executemonitornetworkconnection()
     }
@@ -139,10 +145,11 @@ final class RsyncProcessAsyncShellOut {
         self.monitor?.stopMonitoring()
         self.monitor = nil
         SharedReference.shared.process = nil
+        // print("deinit RsyncProcess")
     }
 }
 
-extension RsyncProcessAsyncShellOut {
+extension RsyncProcessShellOut {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
