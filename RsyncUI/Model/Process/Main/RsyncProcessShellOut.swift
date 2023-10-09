@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 import ShellOut
 
 final class RsyncProcessShellOut {
@@ -101,13 +102,10 @@ final class RsyncProcessShellOut {
                             try await self.executeposttask()
                         }
                     }
-                } catch {
-                    return
                 }
             }.store(in: &subscriptons)
 
         // Execute pretask
-
         do {
             if config?.executepretask == 1,
                config?.pretask?.isEmpty == false
@@ -116,11 +114,10 @@ final class RsyncProcessShellOut {
                     try await executepretask()
                 }
             }
-        } catch {
-            return
         }
 
         SharedReference.shared.process = task
+
         do {
             try task.run()
         } catch let e {
@@ -166,11 +163,9 @@ extension RsyncProcessShellOut {
                 try await shellOut(to: pretask)
             } catch let e {
                 let error = e as? ShellOutError
-                let outputprocess = OutputfromProcess()
-                outputprocess.addlinefromoutput(str: "ShellOut: pretask fault, aborting")
-                outputprocess.addlinefromoutput(str: error?.message ?? "")
-                _ = Logfile(TrimTwo(outputprocess.getOutput() ?? []).trimmeddata, error: true)
+                Logger.statistics.critical("Pretask failed: \(pretask) \(error)")
             }
+            Logger.statistics.info("Executed pretask: \(pretask)")
         }
     }
 
@@ -180,11 +175,9 @@ extension RsyncProcessShellOut {
                 try await shellOut(to: posttask)
             } catch let e {
                 let error = e as? ShellOutError
-                let outputprocess = OutputfromProcess()
-                outputprocess.addlinefromoutput(str: "ShellOut: posttask fault, aborting")
-                outputprocess.addlinefromoutput(str: error?.message ?? "")
-                _ = Logfile(TrimTwo(outputprocess.getOutput() ?? []).trimmeddata, error: true)
+                Logger.statistics.critical("Posttask failed: \(posttask) \(error)")
             }
+            Logger.statistics.info("Executed posttask: \(posttask)")
         }
     }
 }

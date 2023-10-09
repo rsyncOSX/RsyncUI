@@ -5,6 +5,7 @@
 //
 // swiftlint:disable multiple_closures_with_trailing_closure
 
+import OSLog
 import SwiftUI
 import UserNotifications
 
@@ -86,6 +87,17 @@ final class Actions: ObservableObject {
         }
         return privateactions.sorted { $0.actionnumber ?? -1 < $1.actionnumber ?? -1 }
     }
+}
+
+extension Logger {
+    /// Using your bundle identifier is a great way to ensure a unique identifier.
+    private static var subsystem = Bundle.main.bundleIdentifier!
+
+    /// Logs the view cycles like a view that appeared.
+    static let viewCycle = Logger(subsystem: subsystem, category: "viewcycle")
+
+    /// All logs related to tracking and analytics.
+    static let statistics = Logger(subsystem: subsystem, category: "statistics")
 }
 
 // swiftlint:enable multiple_closures_with_trailing_closure
