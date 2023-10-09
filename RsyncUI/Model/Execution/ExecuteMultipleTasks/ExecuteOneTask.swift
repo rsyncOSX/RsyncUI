@@ -15,11 +15,19 @@ final class ExecuteOneTask {
 
     func startexecution() {
         if let arguments = arguments {
-            let process = RsyncProcess(arguments: arguments,
-                                       config: config,
-                                       processtermination: termination,
-                                       filehandler: filehandler)
-            process.executeProcess()
+            if config?.pretask?.isEmpty == false, config?.executepretask == 1 {
+                let processshellout = RsyncProcessShellOut(arguments: arguments,
+                                                           config: config,
+                                                           processtermination: termination,
+                                                           filehandler: filehandler)
+                processshellout.executeProcess()
+            } else {
+                let process = RsyncProcess(arguments: arguments,
+                                           config: config,
+                                           processtermination: termination,
+                                           filehandler: filehandler)
+                process.executeProcess()
+            }
         }
     }
 

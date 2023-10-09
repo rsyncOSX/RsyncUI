@@ -1,4 +1,4 @@
-**MacOS Sonoma** The branch `version-1.7.5-macos-sonoma` is for *macOS Sonoma, Swift 5.9* and *Xcode 15*. This branch will only compile and run on macOS Sonoma. The `main` branch will compile and run by Xcode 15 on macOS Ventura. The compiled `main` branch will execute on macOS Monterey and later including macOS Sonoma.
+**MacOS Sonoma** The branch `version-1.7.6-macos-sonoma` is for *macOS Sonoma, Swift 5.9* and *Xcode 15*. This branch will only compile and run on macOS Sonoma. The `main` branch will compile and run by Xcode 15 on macOS Ventura. The compiled `main` branch will execute on macOS Monterey and later including macOS Sonoma.
 
 RsyncUI is released for macOS Monterey and later.
 
@@ -32,10 +32,6 @@ All the above, except Xcode are installed by using [Homebrew](https://brew.sh/).
 ## Signing and notarizing
 
 The app is signed with my Apple ID developer certificate and notarized by Apple.
-
-## Version of rsync
-
-It is recommended to install the latest version of [rsync](https://rsyncui.netlify.app/post/rsync/) by Homebrew.
 
 ## Application icon
 

@@ -25,10 +25,18 @@ class EstimateTasksAsync {
         if let config = localconfigurations?.getconfig(hiddenID: localhiddenID ?? 0) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .argdryRun)
             guard arguments.count > 0 else { return }
-            let process = RsyncProcessAsync(arguments: arguments,
-                                            config: config,
-                                            processtermination: processtermination)
-            await process.executeProcess()
+            // Check if ShellOut is active
+            if config.pretask?.isEmpty == false, config.executepretask == 1 {
+                let processshellout = RsyncProcessAsyncShellOut(arguments: arguments,
+                                                                config: config,
+                                                                processtermination: processtermination)
+                await processshellout.executeProcess()
+            } else {
+                let process = RsyncProcessAsync(arguments: arguments,
+                                                config: config,
+                                                processtermination: processtermination)
+                await process.executeProcess()
+            }
         }
     }
 
