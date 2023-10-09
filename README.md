@@ -27,10 +27,6 @@ All the above, except Xcode are installed by using [Homebrew](https://brew.sh/).
 
 The app is signed with my Apple ID developer certificate and notarized by Apple.
 
-## Version of rsync
-
-It is recommended to install the latest version of [rsync](https://rsyncui.netlify.app/post/rsync/) by Homebrew.
-
 ## Application icon
 
 The application icon is created by [Zsolt Sándor](https://github.com/graphis). All rights reserved to Zsolt Sándor.
