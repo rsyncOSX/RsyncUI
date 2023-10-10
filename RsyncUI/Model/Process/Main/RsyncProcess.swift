@@ -103,6 +103,7 @@ final class RsyncProcess {
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.statistics.info("RsyncProcess: \(launchPath)")
+            Logger.statistics.info("RsyncProcess: \(arguments)")
         }
     }
 
