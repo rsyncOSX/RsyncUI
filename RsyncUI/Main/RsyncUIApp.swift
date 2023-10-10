@@ -92,7 +92,7 @@ final class Actions {
 
 extension Logger {
     /// Using your bundle identifier is a great way to ensure a unique identifier.
-    private static var subsystem = Bundle.main.bundleIdentifier!
+    private static var subsystem = Bundle.main.bundleIdentifier ?? "RsyncUI"
 
     /// Logs the view cycles like a view that appeared.
     static let viewCycle = Logger(subsystem: subsystem, category: "viewcycle")

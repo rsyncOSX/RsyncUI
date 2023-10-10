@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 final class RsyncProcess {
     // Combine subscribers
@@ -100,6 +101,9 @@ final class RsyncProcess {
             let error = e
             propogateerror(error: error)
         }
+        if let launchPath = task.launchPath {
+            Logger.statistics.info("RsyncProcess: \(launchPath)")
+        }
     }
 
     // Terminate Process, used when user Aborts task.
@@ -124,7 +128,6 @@ final class RsyncProcess {
         self.monitor?.stopMonitoring()
         self.monitor = nil
         SharedReference.shared.process = nil
-        // print("deinit RsyncProcess")
     }
 }
 

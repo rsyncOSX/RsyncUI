@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 @MainActor
 final class RsyncProcessAsync {
@@ -92,6 +93,9 @@ final class RsyncProcessAsync {
         } catch let e {
             let error = e
             propogateerror(error: error)
+        }
+        if let launchPath = task.launchPath {
+            Logger.statistics.info("RsyncProcessAsync: \(launchPath)")
         }
     }
 

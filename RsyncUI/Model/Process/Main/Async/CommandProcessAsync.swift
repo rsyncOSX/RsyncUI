@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 @MainActor
 final class CommandProcessAsync {
@@ -65,6 +66,9 @@ final class CommandProcessAsync {
         } catch let e {
             let error = e
             propogateerror(error: error)
+        }
+        if let launchPath = task.launchPath {
+            Logger.statistics.info("CommandProcessAsync: \(launchPath)")
         }
     }
 

@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 final class CommandProcess {
     // Combine subscribers
@@ -68,6 +69,9 @@ final class CommandProcess {
         } catch let e {
             let error = e
             propogateerror(error: error)
+        }
+        if let launchPath = task.launchPath {
+            Logger.statistics.info("CommandProcess: \(launchPath)")
         }
     }
 
