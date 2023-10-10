@@ -67,7 +67,7 @@ final class CommandProcessAsync {
             let error = e
             propogateerror(error: error)
         }
-        if let launchPath = task.launchPath {
+        if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.statistics.info("CommandProcessAsync: \(launchPath)")
         }
     }

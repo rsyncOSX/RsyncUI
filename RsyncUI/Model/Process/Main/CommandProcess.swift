@@ -62,7 +62,6 @@ final class CommandProcess {
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
-
         SharedReference.shared.process = task
         do {
             try task.run()
@@ -70,8 +69,9 @@ final class CommandProcess {
             let error = e
             propogateerror(error: error)
         }
-        if let launchPath = task.launchPath {
+        if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.statistics.info("CommandProcess: \(launchPath)")
+            Logger.statistics.info("CommandProcess: \(arguments)")
         }
     }
 
