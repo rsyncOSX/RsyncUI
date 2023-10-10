@@ -28,9 +28,6 @@ final class ObservableUsersetting {
     var nologging: Bool = SharedReference.shared.nologging
     // Mark number of days since last backup
     var marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
-    // Paths for apps
-    // @Published var pathrsyncui: String = SharedReference.shared.pathrsyncui ?? ""
-    // @Published var pathrsyncschedule: String = SharedReference.shared.pathrsyncschedule ?? ""
     // Check for network changes
     var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // True if on ARM based Mac

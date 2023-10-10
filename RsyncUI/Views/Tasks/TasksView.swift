@@ -488,6 +488,7 @@ final class SheetChooser {
     // Which sheet to present
     // Do not redraw view when changing
     // no @Publised
+    @ObservationIgnored
     var sheet: Sheet = .dryrunalltasks
 }
 
