@@ -78,10 +78,7 @@ class SingletaskPrimaryLogging {
     func addlogexisting(hiddenID: Int, result: String, date: String) -> Bool {
         let configdata = GetConfigurationData(configurations: structconfigurations)
         if SharedReference.shared.synctasks.contains(configdata.getconfigurationdata(hiddenID, resource: .task) ?? "") {
-            if let index = structschedules?.firstIndex(where: { $0.hiddenID == hiddenID
-                    && $0.schedule == Scheduletype.manuel.rawValue
-                    && $0.dateStart == "01 Jan 1900 00:00"
-            }) {
+            if let index = structschedules?.firstIndex(where: { $0.hiddenID == hiddenID }) {
                 var log = Log()
                 log.dateExecuted = date
                 log.resultExecuted = result
@@ -100,7 +97,8 @@ class SingletaskPrimaryLogging {
         if SharedReference.shared.synctasks.contains(configdata.getconfigurationdata(hiddenID, resource: .task) ?? "") {
             var newrecord = ConfigurationSchedule()
             newrecord.hiddenID = hiddenID
-            newrecord.dateStart = "01 Jan 1900 00:00"
+            let currendate = Date()
+            newrecord.dateStart = currendate.en_us_string_from_date()
             newrecord.schedule = Scheduletype.manuel.rawValue
             var log = Log()
             log.dateExecuted = date

@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 final class CommandProcess {
     // Combine subscribers
@@ -61,13 +62,16 @@ final class CommandProcess {
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
-
         SharedReference.shared.process = task
         do {
             try task.run()
         } catch let e {
             let error = e
             propogateerror(error: error)
+        }
+        if let launchPath = task.launchPath, let arguments = task.arguments {
+            Logger.statistics.info("CommandProcess: \(launchPath)")
+            Logger.statistics.info("CommandProcess: \(arguments)")
         }
     }
 

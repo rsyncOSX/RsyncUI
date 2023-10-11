@@ -60,8 +60,7 @@ final class GetRemoteFileListingsArguments {
                 if let snapshotnum = config.snapshotnum {
                     if recursive == false {
                         // remote arguments for collect snapshot catalogs only
-                        args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog
-                            + "/")
+                        args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog)
                     } else {
                         // remote arguments for recursive collect all files within a snapshot catalog
                         args?.append(config.offsiteUsername + "@" + config.offsiteServer + ":" + config.offsiteCatalog

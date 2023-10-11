@@ -25,7 +25,6 @@ struct ConfigurationSchedule: Identifiable, Codable {
     var hiddenID: Int
     var offsiteserver: String?
     var dateStart: String
-    var dateStop: String?
     var schedule: String
     var logrecords: [Log]?
     var profilename: String?
@@ -34,7 +33,6 @@ struct ConfigurationSchedule: Identifiable, Codable {
     // see in ReadScheduleJSON
     init(_ data: DecodeConfigurationSchedule) {
         dateStart = data.dateStart ?? ""
-        dateStop = data.dateStop
         hiddenID = data.hiddenID ?? -1
         offsiteserver = data.offsiteserver
         schedule = data.schedule ?? ""
@@ -61,7 +59,6 @@ extension ConfigurationSchedule: Hashable, Equatable {
         return lhs.hiddenID == rhs.hiddenID &&
             lhs.dateStart == rhs.dateStart &&
             lhs.schedule == rhs.schedule &&
-            lhs.dateStop == rhs.dateStop &&
             lhs.offsiteserver == rhs.offsiteserver
     }
 
@@ -69,7 +66,6 @@ extension ConfigurationSchedule: Hashable, Equatable {
         hasher.combine(String(hiddenID))
         hasher.combine(dateStart)
         hasher.combine(schedule)
-        hasher.combine(dateStop)
         hasher.combine(offsiteserver)
     }
 }
