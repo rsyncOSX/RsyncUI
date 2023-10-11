@@ -33,7 +33,6 @@ struct Logrecord: Codable, Hashable {
 
 struct DecodeConfigurationSchedule: Codable {
     let dateStart: String?
-    let dateStop: String?
     let hiddenID: Int?
     var logrecords: [Logrecord]?
     let offsiteserver: String?
@@ -42,7 +41,6 @@ struct DecodeConfigurationSchedule: Codable {
 
     enum CodingKeys: String, CodingKey {
         case dateStart
-        case dateStop
         case hiddenID
         case logrecords
         case offsiteserver
@@ -53,7 +51,6 @@ struct DecodeConfigurationSchedule: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         dateStart = try values.decodeIfPresent(String.self, forKey: .dateStart)
-        dateStop = try values.decodeIfPresent(String.self, forKey: .dateStop)
         hiddenID = try values.decodeIfPresent(Int.self, forKey: .hiddenID)
         logrecords = try values.decodeIfPresent([Logrecord].self, forKey: .logrecords)
         offsiteserver = try values.decodeIfPresent(String.self, forKey: .offsiteserver)
@@ -64,7 +61,6 @@ struct DecodeConfigurationSchedule: Codable {
     // This init is used in WriteScheduleJSON
     init(_ data: ConfigurationSchedule) {
         dateStart = data.dateStart
-        dateStop = data.dateStop
         hiddenID = data.hiddenID
         offsiteserver = data.offsiteserver
         schedule = data.schedule

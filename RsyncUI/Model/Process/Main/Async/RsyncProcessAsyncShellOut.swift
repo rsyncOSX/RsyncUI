@@ -108,15 +108,17 @@ final class RsyncProcessAsyncShellOut {
                 }
             }
         }
-
         SharedReference.shared.process = task
-
         // Execute the real task
         do {
             try task.run()
         } catch let e {
             let error = e
             propogateerror(error: error)
+        }
+        if let launchPath = task.launchPath, let arguments = task.arguments {
+            Logger.statistics.info("RsyncProcessAsyncShellOut: \(launchPath)")
+            Logger.statistics.info("RsyncProcessAsyncShellOut: \(arguments)")
         }
     }
 
