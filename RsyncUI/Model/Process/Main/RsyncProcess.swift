@@ -102,8 +102,8 @@ final class RsyncProcess {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.statistics.info("RsyncProcess: \(launchPath)")
-            Logger.statistics.info("RsyncProcess: \(arguments)")
+            Logger.process.info("RsyncProcess: \(launchPath)")
+            Logger.process.info("RsyncProcess: \(arguments)")
         }
     }
 

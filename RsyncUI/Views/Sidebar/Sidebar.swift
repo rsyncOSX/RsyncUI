@@ -18,8 +18,7 @@ struct Sidebar: View {
     @Binding var selecteduuids: Set<Configuration.ID>
     @Bindable var profilenames: Profilenames
     @Bindable var errorhandling: ErrorHandling
-
-    @State private var selectedview: Sidebaritems = .synchronize
+    @State private var selectedview: Sidebaritems?
 
     // Keep record of actions
     var actions: Actions
@@ -32,6 +31,7 @@ struct Sidebar: View {
                 NavigationLink(value: selectedview) {
                     SidebarRow(sidebaritem: selectedview)
                 }
+
                 if selectedview == .quick_synchronize ||
                     selectedview == .tasks ||
                     selectedview == .snapshots { Divider() }
@@ -42,15 +42,18 @@ struct Sidebar: View {
                 .font(.footnote)
 
         } detail: {
-            makeView(selectedview)
+            selectView(selectedview ?? .synchronize)
         }
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
             Alert(localizedError: errorhandling.activeError!)
         })
+        .onAppear {
+            selectedview = .synchronize
+        }
     }
 
     @ViewBuilder
-    func makeView(_ view: Sidebaritems) -> some View {
+    func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
             SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)

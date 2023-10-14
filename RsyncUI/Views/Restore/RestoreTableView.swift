@@ -22,7 +22,7 @@ struct RestoreTableView: View {
 
     // Restore snapshot
     @State var snapshotdata = SnapshotData()
-    @State private var snapshotcatalog: String = ""
+    @State private var snapshotcatalog: String = "No snapshot"
 
     var body: some View {
         VStack {
@@ -222,26 +222,26 @@ struct RestoreTableView: View {
     }
 
     var snapshotcatalogpicker: some View {
-        HStack {
-            Picker("Snapshot", selection: $snapshotcatalog) {
-                ForEach(snapshotdata.catalogsanddates) { catalog in
-                    Text(catalog.catalog)
-                        .tag(catalog.catalog)
-                }
+        Picker("Snapshot", selection: $snapshotcatalog) {
+            ForEach(snapshotdata.catalogsanddates) { catalog in
+                Text(catalog.catalog)
+                    .tag(catalog.catalog)
             }
-            .frame(width: 150)
-            .accentColor(.blue)
-            .onAppear {
-                snapshotcatalog = "No snapshot"
-            }
-            .onChange(of: snapshotdata.catalogsanddates) {
-                guard snapshotdata.catalogsanddates.count > 0 else { return }
-                snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
-            }
-            .onChange(of: rsyncUIdata.profile) {
-                snapshotdata.catalogsanddates.removeAll()
-                snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
-            }
+        }
+        .frame(width: 150)
+        .accentColor(.blue)
+        .onAppear {
+            // snapshotcatalog = "No snapshot"
+            snapshotdata.catalogsanddates.removeAll()
+            snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
+        }
+        .onChange(of: snapshotdata.catalogsanddates) {
+            guard snapshotdata.catalogsanddates.count > 0 else { return }
+            snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
+        }
+        .onChange(of: rsyncUIdata.profile) {
+            snapshotdata.catalogsanddates.removeAll()
+            snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
         }
     }
 }
