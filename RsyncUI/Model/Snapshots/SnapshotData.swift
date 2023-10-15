@@ -26,7 +26,7 @@ final class SnapshotData {
     // uuids for DELETE snapshots
     var snapshotuuidsfordelete = Set<LogrecordSnapshot.ID>()
 
-    var catalogsanddates = [Catalogsanddates(catalog: "No snapshot")]
+    var catalogsanddates = [Catalogsanddates(catalog: "")]
     var logrecordssnapshot: [LogrecordSnapshot]?
     var state: Snapshotdatastat = .start
 

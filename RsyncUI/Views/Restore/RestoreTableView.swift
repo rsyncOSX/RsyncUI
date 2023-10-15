@@ -22,7 +22,7 @@ struct RestoreTableView: View {
 
     // Restore snapshot
     @State var snapshotdata = SnapshotData()
-    @State private var snapshotcatalog: String = "No snapshot"
+    @State private var snapshotcatalog: String = ""
 
     var body: some View {
         VStack {
@@ -230,18 +230,16 @@ struct RestoreTableView: View {
         }
         .frame(width: 150)
         .accentColor(.blue)
-        .onAppear {
-            // snapshotcatalog = "No snapshot"
-            snapshotdata.catalogsanddates.removeAll()
-            snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
-        }
         .onChange(of: snapshotdata.catalogsanddates) {
             guard snapshotdata.catalogsanddates.count > 0 else { return }
             snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
         }
         .onChange(of: rsyncUIdata.profile) {
             snapshotdata.catalogsanddates.removeAll()
-            snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
+            // snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
+        }
+        .onAppear {
+            snapshotdata.catalogsanddates.removeAll()
         }
     }
 }

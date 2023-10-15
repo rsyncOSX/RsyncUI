@@ -47,9 +47,6 @@ struct Sidebar: View {
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
             Alert(localizedError: errorhandling.activeError!)
         })
-        .onAppear {
-            selectedview = .synchronize
-        }
     }
 
     @ViewBuilder
