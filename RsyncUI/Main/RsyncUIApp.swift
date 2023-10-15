@@ -92,10 +92,7 @@ final class Actions: ObservableObject {
 extension Logger {
     /// Using your bundle identifier is a great way to ensure a unique identifier.
     private static var subsystem = Bundle.main.bundleIdentifier!
-    /// Logs the view cycles like a view that appeared.
-    // static let viewCycle = Logger(subsystem: subsystem, category: "viewcycle")
-    /// All logs related to tracking and analytics.
-    static let statistics = Logger(subsystem: subsystem, category: "statistics")
+    static let process = Logger(subsystem: subsystem, category: "process")
 }
 
 // swiftlint:enable multiple_closures_with_trailing_closure

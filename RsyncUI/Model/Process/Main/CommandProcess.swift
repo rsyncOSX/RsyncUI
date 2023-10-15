@@ -70,8 +70,8 @@ final class CommandProcess {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.statistics.info("CommandProcess: \(launchPath)")
-            Logger.statistics.info("CommandProcess: \(arguments)")
+            Logger.process.info("CommandProcess: \(launchPath)")
+            Logger.process.info("CommandProcess: \(arguments)")
         }
     }
 
