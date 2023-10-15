@@ -22,16 +22,15 @@ final class ObservableRestore: ObservableObject {
     // Alerts
     @Published var alerterror: Bool = false
     @Published var error: Error = Validatedpath.noerror
-
     // Filenames in restore
     @Published var datalist: [RestoreFileRecord] = []
+    @Published var filestorestore: String = ""
 
-    // Combine
-    var subscriptions = Set<AnyCancellable>()
     var rsyncdata: [String]?
-    var filestorestore: String = ""
     var arguments: [String]?
     var selectedconfig: Configuration?
+    // Combine
+    var subscriptions = Set<AnyCancellable>()
 
     var rsync: String {
         return GetfullpathforRsync().rsyncpath ?? ""
@@ -42,7 +41,7 @@ final class ObservableRestore: ObservableObject {
             .sink { _ in
             }.store(in: &subscriptions)
         $dryrun
-            .sink { [unowned self] _ in
+            .sink { _ in
             }.store(in: &subscriptions)
         $pathforrestore
             .sink { [unowned self] path in
