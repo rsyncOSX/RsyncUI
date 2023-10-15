@@ -13,7 +13,6 @@ struct RestoreTableView: View {
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var filestorestore: String = ""
 
-    @State private var showrestorecommand: Bool = false
     @State private var gettingfilelist: Bool = false
     @State private var filterstring: String = ""
     @State private var nosearcstringalert: Bool = false
@@ -29,7 +28,6 @@ struct RestoreTableView: View {
                     ListofTasksLightView(selecteduuids: $selecteduuids)
                         .onChange(of: selecteduuids) {
                             restore.filestorestore = ""
-                            restore.commandstring = ""
                             restore.datalist = []
                             let selected = rsyncUIdata.configurations?.filter { config in
                                 selecteduuids.contains(config.id)
@@ -44,7 +42,6 @@ struct RestoreTableView: View {
                             } else {
                                 restore.selectedconfig = nil
                                 restore.filestorestore = ""
-                                restore.commandstring = ""
                                 restore.datalist = []
                                 snapshotdata.catalogsanddates.removeAll()
                             }
@@ -54,7 +51,6 @@ struct RestoreTableView: View {
                                           datalist: restore.datalist)
                         .onChange(of: filestorestore) {
                             restore.filestorestore = filestorestore
-                            restore.updatecommandstring()
                         }
                         .onChange(of: rsyncUIdata.profile) {
                             restore.datalist.removeAll()
@@ -69,7 +65,6 @@ struct RestoreTableView: View {
             Spacer()
 
             ZStack {
-                if showrestorecommand { showcommand }
                 if focusaborttask { labelaborttask }
             }
         }
@@ -89,9 +84,6 @@ struct RestoreTableView: View {
 
             VStack(alignment: .leading) {
                 snapshotcatalogpicker
-
-                Toggle("Command", isOn: $showrestorecommand)
-                    .toggleStyle(.switch)
 
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
@@ -175,14 +167,6 @@ struct RestoreTableView: View {
         }
     }
 
-    var showcommand: some View {
-        Text(restore.commandstring)
-            .textSelection(.enabled)
-            .lineLimit(nil)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity)
-    }
-
     var setpathforrestore: some View {
         EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore)
             .onAppear(perform: {
@@ -192,7 +176,6 @@ struct RestoreTableView: View {
             })
             .onChange(of: restore.pathforrestore) {
                 restore.validatepathforrestore(restore.pathforrestore)
-                restore.updatecommandstring()
             }
     }
 
@@ -240,6 +223,10 @@ struct RestoreTableView: View {
         }
         .onAppear {
             snapshotdata.catalogsanddates.removeAll()
+        }
+        .onChange(of: snapshotcatalog) {
+            restore.datalist.removeAll()
+            restore.filestorestore = ""
         }
     }
 }

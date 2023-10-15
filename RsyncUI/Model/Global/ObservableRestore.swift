@@ -18,7 +18,6 @@ final class ObservableRestore {
     var presentsheetrsync = false
     // Customized restore command string
     // Displayed in restore view
-    var commandstring: String = ""
     var rsyncdata: [String]?
     var filestorestore: String = ""
     var arguments: [String]?
@@ -160,15 +159,6 @@ final class ObservableRestore {
             }
         }
         return nil
-    }
-
-    func updatecommandstring() {
-        commandstring = ""
-        commandstring = rsync + " "
-        let arguments = computerestorearguments(forDisplay: true)
-        for i in 0 ..< (arguments?.count ?? 0) {
-            commandstring += (arguments?[i] ?? "")
-        }
     }
 }
 
