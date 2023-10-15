@@ -17,9 +17,7 @@ struct RestoreTableView: View {
     @State private var gettingfilelist: Bool = false
     @State private var filterstring: String = ""
     @State private var nosearcstringalert: Bool = false
-
     @State private var focusaborttask: Bool = false
-
     // Restore snapshot
     @State var snapshotdata = SnapshotData()
     @State private var snapshotcatalog: String = ""
@@ -236,7 +234,6 @@ struct RestoreTableView: View {
         }
         .onChange(of: rsyncUIdata.profile) {
             snapshotdata.catalogsanddates.removeAll()
-            // snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
         }
         .onAppear {
             snapshotdata.catalogsanddates.removeAll()
