@@ -56,6 +56,9 @@ struct RestoreTableView: View {
                             restore.filestorestore = filestorestore
                             restore.updatecommandstring()
                         }
+                        .onChange(of: rsyncUIdata.profile) {
+                            restore.datalist.removeAll()
+                        }
                 }
 
                 if nosearcstringalert { nosearchstring }
