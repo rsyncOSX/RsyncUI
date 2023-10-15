@@ -117,8 +117,8 @@ final class RsyncProcessAsyncShellOut {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.statistics.info("RsyncProcessAsyncShellOut: \(launchPath)")
-            Logger.statistics.info("RsyncProcessAsyncShellOut: \(arguments)")
+            Logger.process.info("RsyncProcessAsyncShellOut: \(launchPath)")
+            Logger.process.info("RsyncProcessAsyncShellOut: \(arguments)")
         }
     }
 
@@ -156,9 +156,9 @@ extension RsyncProcessAsyncShellOut {
                 try await shellOut(to: pretask)
             } catch let e {
                 let error = e as? ShellOutError
-                Logger.statistics.critical("Pretask failed: \(pretask) \(error)")
+                Logger.process.critical("Pretask failed: \(pretask) \(error)")
             }
-            Logger.statistics.info("Executed pretask: \(pretask)")
+            Logger.process.info("Executed pretask: \(pretask)")
         }
     }
 
@@ -168,9 +168,9 @@ extension RsyncProcessAsyncShellOut {
                 try await shellOut(to: posttask)
             } catch let e {
                 let error = e as? ShellOutError
-                Logger.statistics.critical("Posttask failed: \(posttask) \(error)")
+                Logger.process.critical("Posttask failed: \(posttask) \(error)")
             }
-            Logger.statistics.info("Executed posttask: \(posttask)")
+            Logger.process.info("Executed posttask: \(posttask)")
         }
     }
 }

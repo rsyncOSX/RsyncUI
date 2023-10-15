@@ -19,13 +19,38 @@ struct SidebarVentura: View {
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
-
-    @State private var selectedview: Sidebaritems = .synchronize
+    @State private var selectedview: Sidebaritems?
     // Keep record of actions
     var actions: Actions
 
+    var body: some View {
+        NavigationSplitView {
+            Divider()
+
+            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
+                NavigationLink(value: selectedview) {
+                    SidebarRow(sidebaritem: selectedview)
+                }
+
+                if selectedview == .quick_synchronize ||
+                    selectedview == .tasks ||
+                    selectedview == .snapshots { Divider() }
+            }
+
+            Text(selectedprofile ?? "")
+                .padding()
+                .font(.footnote)
+
+        } detail: {
+            selectView(selectedview ?? .synchronize)
+        }
+        .alert(isPresented: errorhandling.isPresentingAlert, content: {
+            Alert(localizedError: errorhandling.activeError!)
+        })
+    }
+
     @ViewBuilder
-    func makeView(_ view: Sidebaritems) -> some View {
+    func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
             SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload)
@@ -44,33 +69,6 @@ struct SidebarVentura: View {
         case .quick_synchronize:
             QuicktaskView()
         }
-    }
-
-    @available(macOS 13.0, *)
-    var body: some View {
-        NavigationSplitView {
-            Divider()
-
-            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-                NavigationLink(value: selectedview) {
-                    SidebarRow(sidebaritem: selectedview)
-                }
-                if selectedview == .quick_synchronize ||
-                    selectedview == .tasks ||
-                    selectedview == .snapshots { Divider() }
-            }
-
-            Text(selectedprofile ?? "")
-                .padding()
-                .font(.footnote)
-
-        } detail: {
-            makeView(selectedview)
-        }
-
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
-            Alert(localizedError: errorhandling.activeError ?? ValidateInputError.emptyerror)
-        })
     }
 }
 
