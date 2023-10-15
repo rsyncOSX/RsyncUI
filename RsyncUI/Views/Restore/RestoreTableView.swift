@@ -83,7 +83,9 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack(alignment: .leading) {
-                snapshotcatalogpicker
+                if restore.selectedconfig?.task == SharedReference.shared.snapshot {
+                    snapshotcatalogpicker
+                }
 
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
