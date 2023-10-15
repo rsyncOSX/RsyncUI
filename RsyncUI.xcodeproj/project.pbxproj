@@ -168,6 +168,7 @@
 		E9C2BB982A991D1000BC50F5 /* ListofTasksAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2BB972A991D1000BC50F5 /* ListofTasksAddView.swift */; };
 		E9C6023B29F8225B00170B61 /* SidebarVentura.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C6023A29F8225B00170B61 /* SidebarVentura.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */; };
+		E9CDE6372ADC0869004B16B5 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9CDE6362ADC0869004B16B5 /* Metal.framework */; };
 		E9CE04FF29C9DA92001ACEA7 /* AlltasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CE04FE29C9DA92001ACEA7 /* AlltasksView.swift */; };
 		E9D1AFE62A2E49B600AD8125 /* ListofTasksLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */; };
 		E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */; };
@@ -369,6 +370,7 @@
 		E9C2BB972A991D1000BC50F5 /* ListofTasksAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksAddView.swift; sourceTree = "<group>"; };
 		E9C6023A29F8225B00170B61 /* SidebarVentura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarVentura.swift; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableSSH.swift; sourceTree = "<group>"; };
+		E9CDE6362ADC0869004B16B5 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		E9CE04FE29C9DA92001ACEA7 /* AlltasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlltasksView.swift; sourceTree = "<group>"; };
 		E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksLightView.swift; sourceTree = "<group>"; };
 		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9CDE6372ADC0869004B16B5 /* Metal.framework in Frameworks */,
 				E9888A3E2AD021E900B35B41 /* ShellOut in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,6 +489,7 @@
 				E99DE0F826A32F8B00A08A69 /* Credits.rtf */,
 				E985C5C525F3AC0700CB895C /* RsyncUI */,
 				E985C5C425F3AC0700CB895C /* Products */,
+				E9CDE6352ADC0869004B16B5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -983,6 +987,14 @@
 				E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */,
 			);
 			path = Newversion;
+			sourceTree = "<group>";
+		};
+		E9CDE6352ADC0869004B16B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E9CDE6362ADC0869004B16B5 /* Metal.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E9E9CD2326779E0A00EB377B /* Commands */ = {

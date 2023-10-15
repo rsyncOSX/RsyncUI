@@ -17,12 +17,8 @@ final class ObservableRestore: ObservableObject {
     @Published var numberoffiles: Int = 0
     @Published var dryrun: Bool = true
     @Published var presentsheetrsync = false
-    // Customized restore command string
-    // Displayed in restore view
-    @Published var commandstring: String = ""
     // Value to check if input field is changed by user
     @Published var inputchangedbyuser: Bool = false
-
     // Alerts
     @Published var alerterror: Bool = false
     @Published var error: Error = Validatedpath.noerror
@@ -47,22 +43,16 @@ final class ObservableRestore: ObservableObject {
             }.store(in: &subscriptions)
         $dryrun
             .sink { [unowned self] _ in
-                updatecommandstring()
             }.store(in: &subscriptions)
         $pathforrestore
             .sink { [unowned self] path in
                 validatepathforrestore(path)
-                updatecommandstring()
             }.store(in: &subscriptions)
         $selectedrowforrestore
             .sink { [unowned self] file in
                 filestorestore = file
-                updatecommandstring()
             }.store(in: &subscriptions)
         $presentsheetrsync
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $commandstring
             .sink { _ in
             }.store(in: &subscriptions)
     }
@@ -197,15 +187,6 @@ extension ObservableRestore {
             }
         }
         return nil
-    }
-
-    func updatecommandstring() {
-        commandstring = ""
-        commandstring = rsync + " "
-        let arguments = computerestorearguments(forDisplay: true)
-        for i in 0 ..< (arguments?.count ?? 0) {
-            commandstring += (arguments?[i] ?? "")
-        }
     }
 }
 

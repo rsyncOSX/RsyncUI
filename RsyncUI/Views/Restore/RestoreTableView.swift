@@ -13,13 +13,10 @@ struct RestoreTableView: View {
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var filestorestore: String = ""
 
-    @State private var showrestorecommand: Bool = false
     @State private var gettingfilelist: Bool = false
     @State private var filterstring: String = ""
     @State private var nosearcstringalert: Bool = false
-
     @State private var focusaborttask: Bool = false
-
     // Restore snapshot
     @StateObject var snapshotdata = SnapshotData()
     @State private var snapshotcatalog: String = ""
@@ -31,7 +28,6 @@ struct RestoreTableView: View {
                     ListofTasksLightView(selecteduuids: $selecteduuids)
                         .onChange(of: selecteduuids) { _ in
                             restore.filestorestore = ""
-                            restore.commandstring = ""
                             restore.datalist = []
                             let selected = rsyncUIdata.configurations?.filter { config in
                                 selecteduuids.contains(config.id)
@@ -46,7 +42,6 @@ struct RestoreTableView: View {
                             } else {
                                 restore.selectedconfig = nil
                                 restore.filestorestore = ""
-                                restore.commandstring = ""
                                 restore.datalist = []
                                 snapshotdata.catalogsanddates.removeAll()
                             }
@@ -56,7 +51,9 @@ struct RestoreTableView: View {
                                           datalist: restore.datalist)
                         .onChange(of: filestorestore) { value in
                             restore.filestorestore = value
-                            restore.updatecommandstring()
+                        }
+                        .onChange(of: rsyncUIdata.profile) { _ in
+                            restore.datalist.removeAll()
                         }
                 }
 
@@ -68,7 +65,6 @@ struct RestoreTableView: View {
             Spacer()
 
             ZStack {
-                if showrestorecommand { showcommand }
                 if focusaborttask { labelaborttask }
             }
         }
@@ -87,10 +83,9 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack(alignment: .leading) {
-                snapshotcatalogpicker
-
-                Toggle("Command", isOn: $showrestorecommand)
-                    .toggleStyle(.switch)
+                if restore.selectedconfig?.task == SharedReference.shared.snapshot {
+                    snapshotcatalogpicker
+                }
 
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
@@ -174,14 +169,6 @@ struct RestoreTableView: View {
         }
     }
 
-    var showcommand: some View {
-        Text(restore.commandstring)
-            .textSelection(.enabled)
-            .lineLimit(nil)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity)
-    }
-
     var setpathforrestore: some View {
         EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore)
             .onAppear(perform: {
@@ -191,7 +178,6 @@ struct RestoreTableView: View {
             })
             .onChange(of: restore.pathforrestore) { _ in
                 restore.validatepathforrestore(restore.pathforrestore)
-                restore.updatecommandstring()
             }
     }
 
@@ -222,26 +208,28 @@ struct RestoreTableView: View {
     }
 
     var snapshotcatalogpicker: some View {
-        HStack {
-            Picker("Snapshot", selection: $snapshotcatalog) {
-                ForEach(snapshotdata.catalogsanddates) { catalog in
-                    Text(catalog.catalog)
-                        .tag(catalog.catalog)
-                }
+        Picker("Snapshot", selection: $snapshotcatalog) {
+            ForEach(snapshotdata.catalogsanddates) { catalog in
+                Text(catalog.catalog)
+                    .tag(catalog.catalog)
             }
-            .frame(width: 150)
-            .accentColor(.blue)
-            .onAppear {
-                snapshotcatalog = "No snapshot"
-            }
-            .onChange(of: snapshotdata.catalogsanddates) { _ in
-                guard snapshotdata.catalogsanddates.count > 0 else { return }
-                snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
-            }
-            .onChange(of: rsyncUIdata.profile) { _ in
-                snapshotdata.catalogsanddates.removeAll()
-                snapshotdata.catalogsanddates.append(Catalogsanddates(catalog: "No snapshot"))
-            }
+        }
+        .frame(width: 150)
+        .accentColor(.blue)
+        .onChange(of: snapshotdata.catalogsanddates) { _ in
+            guard snapshotdata.catalogsanddates.count > 0 else { return }
+            snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
+        }
+        .onChange(of: rsyncUIdata.profile) { _ in
+            snapshotdata.catalogsanddates.removeAll()
+        }
+        .onAppear {
+            snapshotdata.catalogsanddates.removeAll()
+        }
+        .onChange(of: snapshotcatalog) { _ in
+            restore.datalist.removeAll()
+            restore.filestorestore = ""
+            filestorestore = ""
         }
     }
 }
