@@ -227,6 +227,7 @@ struct RestoreTableView: View {
         .onChange(of: snapshotcatalog) {
             restore.datalist.removeAll()
             restore.filestorestore = ""
+            filestorestore = ""
         }
     }
 }
