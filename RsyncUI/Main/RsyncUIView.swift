@@ -122,7 +122,7 @@ extension EnvironmentValues {
 }
 
 private struct RsyncUIDataKey: EnvironmentKey {
-    static var defaultValue: RsyncUIconfigurations = .init(profile: nil, false)
+    static var defaultValue: RsyncUIconfigurations = .init(profile: nil, true)
 }
 
 extension View {
