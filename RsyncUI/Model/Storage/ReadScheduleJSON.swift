@@ -59,7 +59,7 @@ class ReadScheduleJSON: NamesandPaths {
                         }
                     }
                     logrecords = logrecords?.sorted(by: \.date, using: >)
-                    Logger.process.info("ReadScheduleJSON: read logdata from permanent store")
+                    Logger.process.info("ReadScheduleJSON: read logdata from permanent storage")
                 }
                 subscriptons.removeAll()
             }.store(in: &subscriptons)

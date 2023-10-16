@@ -25,7 +25,7 @@ class WriteScheduleJSON: NamesandPaths {
                 let file = try folder.createFile(named: filename)
                 if let data = data {
                     try file.write(data)
-                    Logger.process.info("WriteScheduleJSON: write logdata to permanent store")
+                    Logger.process.info("WriteScheduleJSON: write logdata to permanent storage")
                 }
             } catch let e {
                 let error = e
