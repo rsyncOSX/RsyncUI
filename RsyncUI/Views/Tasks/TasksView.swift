@@ -112,7 +112,6 @@ struct TasksView: View {
                     Image(systemName: "wand.and.stars")
                         .symbolRenderingMode(.palette)
                         .foregroundStyle(.blue, .blue)
-                        .symbolEffect(.variableColor)
                 }
                 .tooltip("Estimate (⌘E)")
             }
