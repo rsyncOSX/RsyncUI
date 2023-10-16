@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 class WriteConfigurationJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
@@ -24,14 +25,7 @@ class WriteConfigurationJSON: NamesandPaths {
                 let file = try folder.createFile(named: filename)
                 if let data = data {
                     try file.write(data)
-                    /*
-                     if SharedReference.shared.menuappisrunning {
-                         Notifications().showNotification(SharedReference.shared.reloadstring)
-                         DistributedNotificationCenter.default()
-                             .postNotificationName(NSNotification.Name(SharedReference.shared.reloadstring),
-                                                   object: nil, deliverImmediately: true)
-                     }
-                      */
+                    Logger.process.info("WriteConfigurationJSON: write configurations to permanent store")
                 }
             } catch let e {
                 let error = e
@@ -46,8 +40,6 @@ class WriteConfigurationJSON: NamesandPaths {
     init(_ profile: String?, _ configurations: [Configuration]?) {
         super.init(.configurations)
         SharedReference.shared.firsttime = false
-        // print("WriteConfigurationJSON")
-        // Set profile and filename ahead of encoding an write
         if profile == SharedReference.shared.defaultprofile {
             self.profile = nil
         } else {

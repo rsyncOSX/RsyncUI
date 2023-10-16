@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 class ReadScheduleJSON: NamesandPaths {
     var schedules: [ConfigurationSchedule]?
@@ -36,14 +37,9 @@ class ReadScheduleJSON: NamesandPaths {
             .sink { completion in
                 switch completion {
                 case .finished:
-                    // print("The publisher finished normally.")
                     return
-                /*
-                 case let .failure(error):
-                     self.propogateerror(error: error)
-                 */
                 case .failure:
-                    _ = Logfile(["Creating default file for log records"], error: true)
+                    Logger.process.info("ReadScheduleJSON: Creating default file for log records")
                     WriteScheduleJSON(nil, nil)
                 }
             } receiveValue: { [unowned self] data in
@@ -63,6 +59,7 @@ class ReadScheduleJSON: NamesandPaths {
                         }
                     }
                     logrecords = logrecords?.sorted(by: \.date, using: >)
+                    Logger.process.info("ReadScheduleJSON: read logdata from permanent store")
                 }
                 subscriptons.removeAll()
             }.store(in: &subscriptons)

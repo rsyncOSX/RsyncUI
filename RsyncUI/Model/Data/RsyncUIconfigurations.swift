@@ -72,14 +72,3 @@ final class RsyncUIconfigurations {
         }
     }
 }
-
-extension EnvironmentValues {
-    var rsyncUIData: RsyncUIconfigurations {
-        get { self[RsyncUIDataKey.self] }
-        set { self[RsyncUIDataKey.self] = newValue }
-    }
-}
-
-private struct RsyncUIDataKey: EnvironmentKey {
-    static var defaultValue: RsyncUIconfigurations = .init(profile: nil, false)
-}

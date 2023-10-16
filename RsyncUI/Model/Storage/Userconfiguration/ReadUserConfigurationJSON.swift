@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 class ReadUserConfigurationJSON: NamesandPaths {
     var filenamedatastore = [SharedReference.shared.userconfigjson]
@@ -35,11 +36,12 @@ class ReadUserConfigurationJSON: NamesandPaths {
                     return
                 case .failure:
                     // No file, write new file with default values
-                    _ = Logfile(["Creating default file for user configurations"], error: true)
+                    Logger.process.info("ReadUserConfigurationJSON: Creating default file for user configurations")
                     WriteUserConfigurationJSON(UserConfiguration())
                 }
             } receiveValue: { [unowned self] data in
                 UserConfiguration(data)
+                Logger.process.info("ReadUserConfigurationJSON: Reading user configurations from permanent storage")
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
     }
