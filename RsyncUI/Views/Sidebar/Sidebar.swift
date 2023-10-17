@@ -13,6 +13,8 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
 }
 
 struct Sidebar: View {
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
@@ -42,18 +44,25 @@ struct Sidebar: View {
                 .font(.footnote)
 
         } detail: {
-            selectView(selectedview)
+            selectView(selectedview, assist)
         }
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
             Alert(localizedError: errorhandling.activeError!)
         })
+
+        var assist: Assist {
+            return Assist(configurations: rsyncUIdata.getallconfigurations())
+        }
     }
 
     @ViewBuilder
-    func selectView(_ view: Sidebaritems) -> some View {
+    func selectView(_ view: Sidebaritems, _ assist: Assist) -> some View {
         switch view {
         case .tasks:
-            SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
+            SidebarAddTaskView(selectedprofile: $selectedprofile,
+                               reload: $reload,
+                               profilenames: profilenames)
+                .environment(assist)
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:
@@ -66,6 +75,7 @@ struct Sidebar: View {
             SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload, actions: actions)
         case .quick_synchronize:
             QuicktaskView()
+                .environment(assist)
         }
     }
 }

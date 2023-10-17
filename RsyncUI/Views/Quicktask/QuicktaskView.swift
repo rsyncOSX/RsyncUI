@@ -17,6 +17,7 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
 
 struct QuicktaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @SwiftUI.Environment(Assist.self) private var assist
 
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
@@ -48,8 +49,6 @@ struct QuicktaskView: View {
     }
 
     @FocusState private var focusField: QuicktaskField?
-
-    // @State private var numberoffiles: Int = 0
 
     var body: some View {
         ZStack {
@@ -138,20 +137,14 @@ struct QuicktaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $remoteuser) {
                 Text("").tag("")
-                if let remoteusers = assist?.remoteusers {
-                    ForEach(remoteusers.sorted(by: <), id: \.self) { remoteuser in
-                        Text(remoteuser)
-                            .tag(remoteuser)
-                    }
+                ForEach(assist.remoteusers.sorted(by: <), id: \.self) { remoteuser in
+                    Text(remoteuser)
+                        .tag(remoteuser)
                 }
             }
             .frame(width: 93)
             .accentColor(.blue)
         }
-    }
-
-    var assist: Assist? {
-        return Assist(configurations: rsyncUIdata.configurations)
     }
 
     var remoteserverpicker: some View {
@@ -160,11 +153,9 @@ struct QuicktaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $remoteserver) {
                 Text("").tag("")
-                if let remoteservers = assist?.remoteservers {
-                    ForEach(remoteservers.sorted(by: <), id: \.self) { remoteserver in
-                        Text(remoteserver)
-                            .tag(remoteserver)
-                    }
+                ForEach(assist.remoteservers.sorted(by: <), id: \.self) { remoteserver in
+                    Text(remoteserver)
+                        .tag(remoteserver)
                 }
             }
             .frame(width: 93)

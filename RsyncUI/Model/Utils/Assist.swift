@@ -7,10 +7,13 @@
 
 import Foundation
 
+@Observable
 final class Assist {
+    @ObservationIgnored
     var catalogs = Set<String>()
-    // var localhome = Set<String>()
+    @ObservationIgnored
     var remoteservers = Set<String>()
+    @ObservationIgnored
     var remoteusers = Set<String>()
     var nameandpaths: NamesandPaths?
 
@@ -52,8 +55,8 @@ final class Assist {
     }
 
     init(configurations: [Configuration]?) {
+        print("Assist")
         nameandpaths = NamesandPaths(.configurations)
-        // localhome = setlocalhome()
         if let catalogs = setcatalogs() {
             self.catalogs = catalogs
         }

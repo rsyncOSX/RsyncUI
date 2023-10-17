@@ -29,6 +29,8 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 
 struct AddTaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @SwiftUI.Environment(Assist.self) private var assist
+
     @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -444,21 +446,15 @@ struct AddTaskView: View {
         return rsyncUIdata.getallconfigurations()
     }
 
-    var assist: Assist? {
-        return Assist(configurations: rsyncUIdata.configurations)
-    }
-
     var localcatalogspicker: some View {
         VStack(alignment: .trailing) {
             Text("Local catalogs")
                 .font(Font.footnote)
             Picker("", selection: $newdata.assistlocalcatalog) {
                 Text("").tag("")
-                if let catalogs = assist?.catalogs {
-                    ForEach(catalogs.sorted(by: <), id: \.self) { catalog in
-                        Text(catalog)
-                            .tag(catalog)
-                    }
+                ForEach(assist.catalogs.sorted(by: <), id: \.self) { catalog in
+                    Text(catalog)
+                        .tag(catalog)
                 }
             }
             .frame(width: 93)
@@ -475,11 +471,9 @@ struct AddTaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $newdata.assistremoteuser) {
                 Text("").tag("")
-                if let remoteusers = assist?.remoteusers {
-                    ForEach(remoteusers.sorted(by: <), id: \.self) { remoteuser in
-                        Text(remoteuser)
-                            .tag(remoteuser)
-                    }
+                ForEach(assist.remoteusers.sorted(by: <), id: \.self) { remoteuser in
+                    Text(remoteuser)
+                        .tag(remoteuser)
                 }
             }
             .frame(width: 93)
@@ -496,11 +490,9 @@ struct AddTaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $newdata.assistremoteserver) {
                 Text("").tag("")
-                if let remoteservers = assist?.remoteservers {
-                    ForEach(remoteservers.sorted(by: <), id: \.self) { remoteserver in
-                        Text(remoteserver)
-                            .tag(remoteserver)
-                    }
+                ForEach(assist.remoteservers.sorted(by: <), id: \.self) { remoteserver in
+                    Text(remoteserver)
+                        .tag(remoteserver)
                 }
             }
             .frame(width: 93)
