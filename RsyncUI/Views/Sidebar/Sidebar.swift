@@ -44,25 +44,20 @@ struct Sidebar: View {
                 .font(.footnote)
 
         } detail: {
-            selectView(selectedview, assist)
+            selectView(selectedview)
         }
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
             Alert(localizedError: errorhandling.activeError!)
         })
-
-        var assist: Assist {
-            return Assist(configurations: rsyncUIdata.getallconfigurations())
-        }
     }
 
     @ViewBuilder
-    func selectView(_ view: Sidebaritems, _ assist: Assist) -> some View {
+    func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
             SidebarAddTaskView(selectedprofile: $selectedprofile,
                                reload: $reload,
                                profilenames: profilenames)
-                .environment(assist)
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:
@@ -75,7 +70,6 @@ struct Sidebar: View {
             SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload, actions: actions)
         case .quick_synchronize:
             QuicktaskView()
-                .environment(assist)
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 @Observable
 final class Assist {
@@ -55,6 +56,7 @@ final class Assist {
     }
 
     init(configurations: [Configuration]?) {
+        Logger.process.info("Assist")
         nameandpaths = NamesandPaths(.configurations)
         if let catalogs = setcatalogs() {
             self.catalogs = catalogs

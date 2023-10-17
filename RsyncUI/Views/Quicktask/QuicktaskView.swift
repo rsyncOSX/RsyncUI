@@ -17,7 +17,6 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
 
 struct QuicktaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @SwiftUI.Environment(Assist.self) private var assist
 
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
@@ -274,6 +273,10 @@ struct QuicktaskView: View {
             .onDisappear {
                 completed = false
             }
+    }
+
+    var assist: Assist {
+        return Assist(configurations: rsyncUIdata.getallconfigurations())
     }
 }
 

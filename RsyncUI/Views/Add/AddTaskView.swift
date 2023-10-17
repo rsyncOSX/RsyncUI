@@ -29,7 +29,6 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 
 struct AddTaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @SwiftUI.Environment(Assist.self) private var assist
 
     @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
@@ -520,6 +519,10 @@ struct AddTaskView: View {
             items.append(item)
         }
         return items
+    }
+
+    var assist: Assist {
+        return Assist(configurations: rsyncUIdata.getallconfigurations())
     }
 }
 

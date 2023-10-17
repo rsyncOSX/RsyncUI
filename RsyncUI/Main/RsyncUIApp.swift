@@ -18,7 +18,8 @@ struct RsyncUIApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RsyncUIView(selectedprofile: $selectedprofile, actions: actions)
+            RsyncUIView(selectedprofile: $selectedprofile,
+                        actions: actions)
                 .task {
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationJSON()
