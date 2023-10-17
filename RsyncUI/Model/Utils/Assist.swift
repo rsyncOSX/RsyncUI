@@ -55,7 +55,6 @@ final class Assist {
     }
 
     init(configurations: [Configuration]?) {
-        print("Assist")
         nameandpaths = NamesandPaths(.configurations)
         if let catalogs = setcatalogs() {
             self.catalogs = catalogs
