@@ -83,10 +83,6 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack(alignment: .leading) {
-                if restore.selectedconfig?.task == SharedReference.shared.snapshot {
-                    snapshotcatalogpicker
-                }
-
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
             }
@@ -123,6 +119,12 @@ struct RestoreTableView: View {
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
+            ToolbarItem {
+                if restore.selectedconfig?.task == SharedReference.shared.snapshot {
+                    snapshotcatalogpicker
+                }
+            }
+
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.process == nil else { return }
@@ -209,6 +211,8 @@ struct RestoreTableView: View {
 
     var snapshotcatalogpicker: some View {
         Picker("Snapshot", selection: $snapshotcatalog) {
+            Text("")
+                .tag("")
             ForEach(snapshotdata.catalogsanddates) { catalog in
                 Text(catalog.catalog)
                     .tag(catalog.catalog)
