@@ -69,6 +69,7 @@ final class CommandProcessAsync {
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.process.info("CommandProcessAsync: \(launchPath)")
+            Logger.process.info("CommandProcessAsync: \(arguments)")
         }
     }
 

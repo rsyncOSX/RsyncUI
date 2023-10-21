@@ -1,4 +1,4 @@
-// swiftlint:disable line_length
+// swiftlint:disable line_length type_body_length
 // MIT License
 //
 // Copyright (c) 2021 Elai Zuberman
@@ -114,13 +114,13 @@ public struct AlertToast: View {
     public var type: AlertType
 
     /// The title of the alert (`Optional(String)`)
-    public var title: String? = nil
+    public var title: String?
 
     /// The subtitle of the alert (`Optional(String)`)
-    public var subTitle: String? = nil
+    public var subTitle: String?
 
     /// Customize your alert appearance
-    public var style: AlertStyle? = nil
+    public var style: AlertStyle?
 
     /// Full init
     public init(
@@ -350,3 +350,5 @@ private extension Image {
             .frame(maxWidth: 20, maxHeight: 20, alignment: .center)
     }
 }
+
+// swiftlint:enable line_length type_body_length

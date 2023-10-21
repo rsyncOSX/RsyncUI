@@ -1,3 +1,4 @@
+// swiftlint:disable function_body_length
 //
 //  AlertToastModifier.swift
 //
@@ -20,8 +21,8 @@ public struct AlertToastModifier: ViewModifier {
     var alert: () -> AlertToast
 
     /// Completion block returns `true` after dismiss
-    var onTap: (() -> Void)? = nil
-    var completion: (() -> Void)? = nil
+    var onTap: (() -> Void)?
+    var completion: (() -> Void)?
 
     @State private var workItem: DispatchWorkItem?
 
@@ -227,3 +228,5 @@ public extension View {
         )
     }
 }
+
+// swiftlint:enable function_body_length
