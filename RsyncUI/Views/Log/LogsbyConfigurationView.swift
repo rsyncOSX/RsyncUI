@@ -27,9 +27,6 @@ struct LogsbyConfigurationView: View {
                 ListofTasksLightView(
                     selecteduuids: $selecteduuids
                 )
-                .onDeleteCommand {
-                    showAlertfordelete = true
-                }
                 .onChange(of: selecteduuids) {
                     let selected = rsyncUIdata.configurations?.filter { config in
                         selecteduuids.contains(config.id)
@@ -55,6 +52,9 @@ struct LogsbyConfigurationView: View {
                             }
                         }
                     }
+                    .onDeleteCommand {
+                        showAlertfordelete = true
+                    }
 
                 } else {
                     Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [],
@@ -69,6 +69,9 @@ struct LogsbyConfigurationView: View {
                                 Text(result)
                             }
                         }
+                    }
+                    .onDeleteCommand {
+                        showAlertfordelete = true
                     }
                 }
             }.overlay {
