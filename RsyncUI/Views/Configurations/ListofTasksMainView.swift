@@ -20,20 +20,18 @@ struct ListofTasksMainView: View {
     var showestimateicon: Bool
 
     var body: some View {
-        VStack {
+        Group {
             if #available(macOS 14.0, *) {
-                if configurationssorted.isEmpty {
-                    ContentUnavailableView("Either no task is added\n or no match in Synchronize ID",
-                                           systemImage: "magnifyingglass")
-                } else {
-                    tabledata
-                }
+                tabledata
+                    .overlay {
+                        if configurationssorted.isEmpty {
+                            ContentUnavailableView.search
+                        }
+                    }
+            } else if #available(macOS 13.0, *) {
+                tabledata
             } else {
-                if #available(macOS 13.0, *) {
-                    tabledata
-                } else {
-                    tabledata_macos12
-                }
+                tabledata_macos12
             }
         }
         .searchable(text: $filterstring)
