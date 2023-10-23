@@ -20,15 +20,13 @@ struct ListofTasksMainView: View {
     var showestimateicon: Bool
 
     var body: some View {
-        VStack {
-            if configurationssorted.isEmpty {
-                ContentUnavailableView("Either no task is added\n or no match in Synchronize ID",
-                                       systemImage: "magnifyingglass")
-            } else {
-                tabledata
+        tabledata
+            .overlay {
+                if configurationssorted.isEmpty {
+                    ContentUnavailableView.search
+                }
             }
-        }
-        .searchable(text: $filterstring)
+            .searchable(text: $filterstring)
     }
 
     var tabledata: some View {
