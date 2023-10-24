@@ -57,6 +57,14 @@ struct RestoreTableView: View {
                                 }
                             }
                         }
+                        .overlay {
+                            if filterstring.count > 0,
+                               restore.rsyncdata?.count ?? 0 > 0,
+                               restore.datalist.count == 0
+                            {
+                                ContentUnavailableView.search
+                            }
+                        }
                 }
 
                 if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
