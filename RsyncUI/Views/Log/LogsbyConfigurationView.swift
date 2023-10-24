@@ -21,6 +21,8 @@ struct LogsbyConfigurationView: View {
 
     var logrecords: RsyncUIlogrecords
 
+    @State private var logs: [Log]?
+
     var body: some View {
         VStack {
             HStack {
@@ -41,7 +43,7 @@ struct LogsbyConfigurationView: View {
                 }
 
                 if hiddenID == -1 {
-                    Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
+                    Table(logs ?? [], selection: $selectedloguuids) {
                         TableColumn("Date") { data in
                             Text(data.date.localized_string_from_date())
                         }
@@ -55,9 +57,19 @@ struct LogsbyConfigurationView: View {
                     .onDeleteCommand {
                         showAlertfordelete = true
                     }
+                    .onChange(of: filterstring) {
+                        Task {
+                            logs = await test1()
+                        }
+                    }
+                    .onAppear {
+                        Task {
+                            logs = await test1()
+                        }
+                    }
 
                 } else {
-                    Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [],
+                    Table(logs ?? [],
                           selection: $selectedloguuids)
                     {
                         TableColumn("Date") { data in
@@ -72,6 +84,16 @@ struct LogsbyConfigurationView: View {
                     }
                     .onDeleteCommand {
                         showAlertfordelete = true
+                    }
+                    .onChange(of: filterstring) {
+                        Task {
+                            logs = await test2()
+                        }
+                    }
+                    .onAppear {
+                        Task {
+                            logs = await test2()
+                        }
                     }
                 }
             }.overlay {
@@ -118,5 +140,15 @@ struct LogsbyConfigurationView: View {
             return NSLocalizedString("Number of logs", comment: "") + ": " +
                 "\((logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []).count)"
         }
+    }
+
+    func test1() async -> [Log] {
+        try? await Task.sleep(nanoseconds: 1_500_000_000)
+        return logrecords.filterlogs(filterstring) ?? []
+    }
+
+    func test2() async -> [Log] {
+        try? await Task.sleep(nanoseconds: 1_500_000_000)
+        return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
     }
 }
