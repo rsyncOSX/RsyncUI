@@ -21,8 +21,6 @@ struct LogsbyConfigurationView: View {
 
     var logrecords: RsyncUIlogrecords
 
-    @State private var logs: [Log]?
-
     var body: some View {
         VStack {
             HStack {
@@ -40,70 +38,36 @@ struct LogsbyConfigurationView: View {
                     } else {
                         hiddenID = -1
                     }
-                }
-
-                if hiddenID == -1 {
-                    Table(logs ?? [], selection: $selectedloguuids) {
-                        TableColumn("Date") { data in
-                            Text(data.date.localized_string_from_date())
-                        }
-
-                        TableColumn("Result") { data in
-                            if let result = data.resultExecuted {
-                                Text(result)
-                            }
-                        }
-                    }
-                    .onDeleteCommand {
-                        showAlertfordelete = true
-                    }
-                    .onChange(of: filterstring) {
-                        Task {
-                            logs = await test1()
-                        }
-                    }
-                    .onAppear {
-                        Task {
-                            logs = await test1()
-                        }
-                    }
-
-                } else {
-                    Table(logs ?? [],
-                          selection: $selectedloguuids)
-                    {
-                        TableColumn("Date") { data in
-                            Text(data.date.localized_string_from_date())
-                        }
-
-                        TableColumn("Result") { data in
-                            if let result = data.resultExecuted {
-                                Text(result)
-                            }
-                        }
-                    }
-                    .onDeleteCommand {
-                        showAlertfordelete = true
-                    }
-                    .onChange(of: filterstring) {
-                        Task {
-                            logs = await test2()
-                        }
-                    }
-                    .onAppear {
-                        Task {
-                            logs = await test2()
+                    Task {
+                        if hiddenID == -1 {
+                            await test1()
+                        } else {
+                            await test2()
                         }
                     }
                 }
-            }.overlay {
-                if hiddenID == -1 {
-                    if logrecords.filterlogs(filterstring)?.count == 0 {
-                        ContentUnavailableView.search
+
+                Table(logrecords.activelogrecords ?? [], selection: $selectedloguuids) {
+                    TableColumn("Date") { data in
+                        Text(data.date.localized_string_from_date())
                     }
-                } else {
-                    if logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count == 0 {
-                        ContentUnavailableView.search
+
+                    TableColumn("Result") { data in
+                        if let result = data.resultExecuted {
+                            Text(result)
+                        }
+                    }
+                }
+                .onDeleteCommand {
+                    showAlertfordelete = true
+                }
+                .onChange(of: filterstring) {
+                    Task {
+                        if hiddenID == -1 {
+                            await test1()
+                        } else {
+                            await test2()
+                        }
                     }
                 }
             }
@@ -133,22 +97,17 @@ struct LogsbyConfigurationView: View {
     }
 
     var numberoflogs: String {
-        if hiddenID == -1 {
-            return NSLocalizedString("Number of logs", comment: "") + ": " +
-                "\((logrecords.filterlogs(filterstring) ?? []).count)"
-        } else {
-            return NSLocalizedString("Number of logs", comment: "") + ": " +
-                "\((logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []).count)"
-        }
+        return NSLocalizedString("Number of logs", comment: "") + ": " +
+            "\((logrecords.activelogrecords ?? []).count)"
     }
 
-    func test1() async -> [Log] {
+    func test1() async {
         try? await Task.sleep(nanoseconds: 1_500_000_000)
-        return logrecords.filterlogs(filterstring) ?? []
+        logrecords.filterlogs(filterstring)
     }
 
-    func test2() async -> [Log] {
+    func test2() async {
         try? await Task.sleep(nanoseconds: 1_500_000_000)
-        return logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []
+        logrecords.filterlogsbyhiddenID(filterstring, hiddenID)
     }
 }

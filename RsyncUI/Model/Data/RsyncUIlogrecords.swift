@@ -27,25 +27,30 @@ final class RsyncUIlogrecords {
     var scheduleConfigurations: [ConfigurationSchedule]?
     var logrecordsfromstore: Readlogsfromstore?
 
-    func filterlogs(_ filter: String) -> [Log]? {
+    var activelogrecords: [Log]?
+
+    func filterlogs(_ filter: String) {
+        activelogrecords = nil
         // Important - must localize search in dates
-        return alllogssorted?.filter {
+        activelogrecords = alllogssorted?.filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
                 filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
         }
     }
 
-    func filterlogsbyhiddenID(_ filter: String, _ hiddenID: Int) -> [Log]? {
-        guard hiddenID > -1 else { return nil }
-        return alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
+    func filterlogsbyhiddenID(_ filter: String, _ hiddenID: Int) {
+        activelogrecords = nil
+        guard hiddenID > -1 else { return }
+        activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
                 filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
         }
     }
 
-    func filterlogsbyhiddenID(_ hiddenID: Int) -> [Log]? {
-        guard hiddenID > -1 else { return nil }
-        return alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >)
+    func filterlogsbyhiddenID(_ hiddenID: Int) {
+        activelogrecords = nil
+        guard hiddenID > -1 else { return }
+        activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >)
     }
 
     func removerecords(_ uuids: Set<UUID>) {
@@ -62,6 +67,7 @@ final class RsyncUIlogrecords {
         alllogssorted = logrecordsfromstore?.logrecords
         scheduleConfigurations = logrecordsfromstore?.scheduleConfigurations
         logrecordsfromstore = nil
+        activelogrecords = alllogssorted
     }
 }
 
