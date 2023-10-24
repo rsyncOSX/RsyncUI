@@ -18,9 +18,12 @@ final class ObservableRestore {
     var presentsheetrsync = false
     // Customized restore command string
     // Displayed in restore view
+    @ObservationIgnored
     var rsyncdata: [String]?
-    var filestorestore: String = ""
+    @ObservationIgnored
     var arguments: [String]?
+
+    var filestorestore: String = ""
     var selectedconfig: Configuration?
     var datalist: [RestoreFileRecord] = []
 

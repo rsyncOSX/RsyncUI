@@ -11,7 +11,6 @@ struct RestoreTableView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State var restore = ObservableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var filestorestore: String = ""
     @State private var gettingfilelist: Bool = false
     @State private var focusaborttask: Bool = false
     // Restore snapshot
@@ -46,13 +45,15 @@ struct RestoreTableView: View {
                             }
                         }
 
-                    RestoreFilesTableView(filestorestore: $filestorestore,
+                    RestoreFilesTableView(filestorestore: $restore.filestorestore,
                                           datalist: restore.datalist)
-                        .onChange(of: filestorestore) {
-                            restore.filestorestore = filestorestore
-                        }
                         .onChange(of: rsyncUIdata.profile) {
                             restore.datalist.removeAll()
+                        }
+                        .onChange(of: filterstring) {
+                            Task {
+                                await filterrestorefilelist()
+                            }
                         }
                 }
 
@@ -199,7 +200,6 @@ struct RestoreTableView: View {
         .onChange(of: snapshotcatalog) {
             restore.datalist.removeAll()
             restore.filestorestore = ""
-            filestorestore = ""
         }
     }
 }
@@ -211,6 +211,7 @@ extension RestoreTableView {
 
     func processtermination(data: [String]?) {
         gettingfilelist = false
+        restore.rsyncdata = data
         let data = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         restore.datalist = data.map { filename in
             RestoreFileRecord(filename: filename)
@@ -280,6 +281,14 @@ extension RestoreTableView {
                 config: config,
                 snapshotdata: snapshotdata
             )
+        }
+    }
+
+    func filterrestorefilelist() async {
+        try? await Task.sleep(nanoseconds: 500_000_000)
+        let data = TrimOne(restore.rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        restore.datalist = data.map { filename in
+            RestoreFileRecord(filename: filename)
         }
     }
 }
