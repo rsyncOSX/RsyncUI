@@ -52,7 +52,9 @@ struct RestoreTableView: View {
                         }
                         .onChange(of: filterstring) {
                             Task {
-                                await filterrestorefilelist()
+                                if restore.rsyncdata?.count ?? 0 > 0 {
+                                    await filterrestorefilelist()
+                                }
                             }
                         }
                 }
