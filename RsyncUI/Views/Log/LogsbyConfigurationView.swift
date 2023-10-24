@@ -40,9 +40,9 @@ struct LogsbyConfigurationView: View {
                     }
                     Task {
                         if hiddenID == -1 {
-                            await test1()
+                            await logrecordsbyfilter()
                         } else {
-                            await test2()
+                            await logrecordsbyhiddenIDandfilter()
                         }
                     }
                 }
@@ -64,10 +64,15 @@ struct LogsbyConfigurationView: View {
                 .onChange(of: filterstring) {
                     Task {
                         if hiddenID == -1 {
-                            await test1()
+                            await logrecordsbyfilter()
                         } else {
-                            await test2()
+                            await logrecordsbyhiddenIDandfilter()
                         }
+                    }
+                }
+                .overlay {
+                    if logrecords.activelogrecords?.count == 0 {
+                        ContentUnavailableView.search
                     }
                 }
             }
@@ -101,13 +106,17 @@ struct LogsbyConfigurationView: View {
             "\((logrecords.activelogrecords ?? []).count)"
     }
 
-    func test1() async {
-        try? await Task.sleep(nanoseconds: 1_500_000_000)
+    func logrecordsbyfilter() async {
+        try? await Task.sleep(nanoseconds: 500_000_000)
         logrecords.filterlogs(filterstring)
     }
 
-    func test2() async {
-        try? await Task.sleep(nanoseconds: 1_500_000_000)
-        logrecords.filterlogsbyhiddenID(filterstring, hiddenID)
+    func logrecordsbyhiddenIDandfilter() async {
+        try? await Task.sleep(nanoseconds: 500_000_000)
+        if filterstring.count == 0 {
+            logrecords.filterlogsbyhiddenID(hiddenID)
+        } else {
+            logrecords.filterlogsbyhiddenIDandfilter(filterstring, hiddenID)
+        }
     }
 }
