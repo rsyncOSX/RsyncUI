@@ -50,13 +50,6 @@ struct RestoreTableView: View {
                         .onChange(of: rsyncUIdata.profile) {
                             restore.datalist.removeAll()
                         }
-                        .onChange(of: filterstring) {
-                            Task {
-                                if restore.rsyncdata?.count ?? 0 > 0 {
-                                    await filterrestorefilelist()
-                                }
-                            }
-                        }
                         .overlay {
                             if filterstring.count > 0,
                                restore.rsyncdata?.count ?? 0 > 0,
@@ -65,6 +58,15 @@ struct RestoreTableView: View {
                                 ContentUnavailableView.search
                             }
                         }
+                    /*
+                     .onChange(of: filterstring) {
+                         Task {
+                             if restore.rsyncdata?.count ?? 0 > 0 {
+                                 await filterrestorefilelist()
+                             }
+                         }
+                     }
+                     */
                 }
 
                 if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
@@ -82,6 +84,15 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack(alignment: .leading) {
+                DebounceTextField(label: "", value: $filterstring) { value in
+                    print("value after debounce", value)
+                    Task {
+                        if restore.rsyncdata?.count ?? 0 > 0 {
+                            await filterrestorefilelist()
+                        }
+                    }
+                }
+
                 setfilestorestore
 
                 setpathforrestore
@@ -221,11 +232,10 @@ extension RestoreTableView {
 
     func processtermination(data: [String]?) {
         gettingfilelist = false
-        restore.rsyncdata = data
-        let data = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        restore.datalist = data.map { filename in
+        restore.rsyncdata = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        restore.datalist = restore.rsyncdata?.map { filename in
             RestoreFileRecord(filename: filename)
-        }
+        } ?? []
     }
 
     @MainActor
@@ -296,9 +306,10 @@ extension RestoreTableView {
 
     func filterrestorefilelist() async {
         try? await Task.sleep(nanoseconds: 500_000_000)
-        let data = TrimOne(restore.rsyncdata ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        restore.datalist = data.map { filename in
-            RestoreFileRecord(filename: filename)
+        if let data = restore.rsyncdata?.filter({ $0.contains(filterstring) }) {
+            restore.datalist = data.map { filename in
+                RestoreFileRecord(filename: filename)
+            }
         }
     }
 }

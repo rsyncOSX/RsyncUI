@@ -32,6 +32,7 @@
 		E92FA4402ABEBEC3001E0A14 /* AlertToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA43A2ABEBEC3001E0A14 /* AlertToastModifier.swift */; };
 		E92FA4412ABEBEC3001E0A14 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA43B2ABEBEC3001E0A14 /* BlurView.swift */; };
 		E92FA4422ABEBEC3001E0A14 /* View++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA43C2ABEBEC3001E0A14 /* View++.swift */; };
+		E9341B642AE97B72009F2B94 /* DebounceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9341B632AE97B72009F2B94 /* DebounceTextField.swift */; };
 		E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */; };
 		E93CC3FF2A68218200DB02EB /* ListofTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */; };
 		E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */; };
@@ -225,6 +226,7 @@
 		E92FA43A2ABEBEC3001E0A14 /* AlertToastModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertToastModifier.swift; path = ../../../../../AlertToast/Sources/AlertToast/AlertToastModifier.swift; sourceTree = "<group>"; };
 		E92FA43B2ABEBEC3001E0A14 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		E92FA43C2ABEBEC3001E0A14 /* View++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "View++.swift"; path = "../../../../../AlertToast/Sources/AlertToast/View++.swift"; sourceTree = "<group>"; };
+		E9341B632AE97B72009F2B94 /* DebounceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebounceTextField.swift; sourceTree = "<group>"; };
 		E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableAddConfigurations.swift; sourceTree = "<group>"; };
 		E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksView.swift; sourceTree = "<group>"; };
 		E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersDefault.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 				E985C62125F3AD8400CB895C /* ToggleView.swift */,
 				E985C62225F3AD8400CB895C /* Viewmodifiers.swift */,
 				E8902992260B0EF700F4F0DC /* ButtonStyles.swift */,
+				E9341B632AE97B72009F2B94 /* DebounceTextField.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -1180,6 +1183,7 @@
 				E92FA4422ABEBEC3001E0A14 /* View++.swift in Sources */,
 				E985C76E25F3AD9700CB895C /* EstimatingState.swift in Sources */,
 				E985C66B25F3AD8400CB895C /* SnapshotListView.swift in Sources */,
+				E9341B642AE97B72009F2B94 /* DebounceTextField.swift in Sources */,
 				E985C73225F3AD9700CB895C /* GetfullpathforRsync.swift in Sources */,
 				E985C76C25F3AD9700CB895C /* RemoteinfonumbersOnetask.swift in Sources */,
 				E927447529407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift in Sources */,
