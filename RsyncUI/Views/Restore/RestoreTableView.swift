@@ -305,7 +305,6 @@ extension RestoreTableView {
     }
 
     func filterrestorefilelist() async {
-        try? await Task.sleep(nanoseconds: 500_000_000)
         if let data = restore.rsyncdata?.filter({ $0.contains(filterstring) }) {
             restore.datalist = data.map { filename in
                 RestoreFileRecord(filename: filename)
