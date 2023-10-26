@@ -29,7 +29,6 @@ final class DebounceFilter {
             } receiveValue: { [unowned self] data in
                 print("new text value: \(data)")
                 debouncedfilter = data.description
-                self.subscriptons.removeAll()
             }
             .store(in: &subscriptons)
     }
