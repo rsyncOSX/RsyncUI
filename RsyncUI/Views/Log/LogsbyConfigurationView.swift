@@ -37,6 +37,7 @@ struct LogsbyConfigurationView: View {
                         }
                     } else {
                         hiddenID = -1
+                        logrecords.activelogrecords = logrecords.alllogssorted
                     }
                     Task {
                         if hiddenID == -1 {
