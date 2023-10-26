@@ -83,14 +83,9 @@ struct LogsbyConfigurationView: View {
                             } else {
                                 await logrecordsbyhiddenIDandfilter()
                             }
+                        } else {
+                            logrecords.activelogrecords = logrecords.alllogssorted
                         }
-                        /*
-                         else {
-                             restore.datalist = restore.rsyncdata?.map { filename in
-                                 RestoreFileRecord(filename: filename)
-                             } ?? []
-                         }
-                          */
                     }
                 }
                 .frame(width: 300)
@@ -121,11 +116,13 @@ struct LogsbyConfigurationView: View {
     }
 
     func logrecordsbyfilter() async {
-        logrecords.filterlogs(filterstring)
+        if filterstring.isEmpty == false {
+            logrecords.filterlogs(filterstring)
+        }
     }
 
     func logrecordsbyhiddenIDandfilter() async {
-        if filterstring.count == 0 {
+        if filterstring.isEmpty == true {
             logrecords.filterlogsbyhiddenID(hiddenID)
         } else {
             logrecords.filterlogsbyhiddenIDandfilter(filterstring, hiddenID)
