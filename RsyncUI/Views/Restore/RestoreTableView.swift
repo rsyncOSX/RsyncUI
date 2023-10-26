@@ -18,6 +18,7 @@ struct RestoreTableView: View {
     @State private var snapshotcatalog: String = ""
     // Filterstring
     @State private var filterstring: String = ""
+    @State private var debouncefilter = DebounceFilter()
 
     var body: some View {
         VStack {

@@ -12,11 +12,15 @@ import SwiftUI
 @Observable
 final class DebounceFilter {
     var subscriptons = Set<AnyCancellable>()
-    var debouncedfilter: String = ""
+    var debouncefilter: String = ""
     // @ObservationIgnored
     var filter: String = ""
 
-    func debouncefilter() {
+    init() {
+        debounce()
+    }
+
+    func debounce() {
         filter.publisher
             .debounce(for: 2, scheduler: RunLoop.main)
             .sink { completion in
@@ -28,7 +32,7 @@ final class DebounceFilter {
                 }
             } receiveValue: { [unowned self] data in
                 print("new text value: \(data)")
-                debouncedfilter = data.description
+                debouncefilter = data.description
             }
             .store(in: &subscriptons)
     }
