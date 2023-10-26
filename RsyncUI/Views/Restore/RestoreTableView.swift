@@ -42,6 +42,8 @@ struct RestoreTableView: View {
                                 restore.filestorestore = ""
                                 restore.datalist = []
                                 snapshotdata.catalogsanddates.removeAll()
+                                filterstring = ""
+                                restore.rsyncdata = nil
                             }
                         }
 
