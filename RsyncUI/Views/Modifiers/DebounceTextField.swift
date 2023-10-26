@@ -10,12 +10,11 @@ import SwiftUI
 
 struct DebounceTextField: View {
     @State var publisher = PassthroughSubject<String, Never>()
-
     @State var label: String
     @Binding var value: String
     var valueChanged: ((_ value: String) -> Void)?
 
-    @State var debounceSeconds = 1.110
+    @State var debounceSeconds = 1.0
 
     var body: some View {
         TextField(label, text: $value, axis: .vertical)
@@ -33,15 +32,5 @@ struct DebounceTextField: View {
                     valueChanged(value)
                 }
             }
-    }
-}
-
-struct Myiew: View {
-    @State var value = ""
-
-    var body: some View {
-        DebounceTextField(label: "", value: $value) { value in
-            print("value after debounce", value)
-        }
     }
 }

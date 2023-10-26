@@ -18,7 +18,6 @@ struct RestoreTableView: View {
     @State private var snapshotcatalog: String = ""
     // Filterstring
     @State private var filterstring: String = ""
-    @State private var debouncefilter = DebounceFilter()
 
     var body: some View {
         VStack {
@@ -59,15 +58,6 @@ struct RestoreTableView: View {
                                 ContentUnavailableView.search
                             }
                         }
-                    /*
-                     .onChange(of: filterstring) {
-                         Task {
-                             if restore.rsyncdata?.count ?? 0 > 0 {
-                                 await filterrestorefilelist()
-                             }
-                         }
-                     }
-                     */
                 }
 
                 if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
@@ -93,6 +83,7 @@ struct RestoreTableView: View {
                         }
                     }
                 }
+                .frame(width: 300)
 
                 setfilestorestore
 
