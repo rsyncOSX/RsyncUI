@@ -75,19 +75,25 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack(alignment: .leading) {
+                setfilestorestore
+
+                setpathforrestore
+
+                // Debounce textfield is not shown, only used for debounce entering
+                // filtervalues
                 DebounceTextField(label: "", value: $filterstring) { value in
-                    print("value after debounce", value)
                     Task {
-                        if restore.rsyncdata?.count ?? 0 > 0 {
+                        if restore.rsyncdata?.count ?? 0 > 0, value.isEmpty == false {
                             await filterrestorefilelist()
+                        } else {
+                            restore.datalist = restore.rsyncdata?.map { filename in
+                                RestoreFileRecord(filename: filename)
+                            } ?? []
                         }
                     }
                 }
                 .frame(width: 300)
-
-                setfilestorestore
-
-                setpathforrestore
+                .opacity(0)
             }
 
             Spacer()
