@@ -61,15 +61,6 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     showAlertfordelete = true
                 }
-                .onChange(of: filterstring) {
-                    Task {
-                        if hiddenID == -1 {
-                            await logrecordsbyfilter()
-                        } else {
-                            await logrecordsbyhiddenIDandfilter()
-                        }
-                    }
-                }
                 .overlay {
                     if logrecords.activelogrecords?.count == 0 {
                         ContentUnavailableView.search
@@ -81,6 +72,29 @@ struct LogsbyConfigurationView: View {
                 Text(numberoflogs)
 
                 Spacer()
+
+                // Debounce textfield is not shown, only used for debounce entering
+                // filtervalues
+                DebounceTextField(label: "", value: $filterstring) { value in
+                    Task {
+                        if logrecords.activelogrecords?.count ?? 0 > 0, value.isEmpty == false {
+                            if hiddenID == -1 {
+                                await logrecordsbyfilter()
+                            } else {
+                                await logrecordsbyhiddenIDandfilter()
+                            }
+                        }
+                        /*
+                         else {
+                             restore.datalist = restore.rsyncdata?.map { filename in
+                                 RestoreFileRecord(filename: filename)
+                             } ?? []
+                         }
+                          */
+                    }
+                }
+                .frame(width: 300)
+                .opacity(0)
             }
         }
         .searchable(text: $filterstring)
@@ -107,12 +121,10 @@ struct LogsbyConfigurationView: View {
     }
 
     func logrecordsbyfilter() async {
-        try? await Task.sleep(nanoseconds: 500_000_000)
         logrecords.filterlogs(filterstring)
     }
 
     func logrecordsbyhiddenIDandfilter() async {
-        try? await Task.sleep(nanoseconds: 500_000_000)
         if filterstring.count == 0 {
             logrecords.filterlogsbyhiddenID(hiddenID)
         } else {
