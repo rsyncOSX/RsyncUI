@@ -30,6 +30,7 @@ final class RsyncUIlogrecords: ObservableObject {
 
     func filterlogs(_ filter: String) {
         // Important - must localize search in dates
+        activelogrecords = nil
         activelogrecords = alllogssorted?.filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
                 filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
@@ -39,6 +40,7 @@ final class RsyncUIlogrecords: ObservableObject {
     }
 
     func filterlogsbyhiddenIDandfilter(_ filter: String, _ hiddenID: Int) {
+        activelogrecords = nil
         guard hiddenID > -1 else { return }
         activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
@@ -49,6 +51,7 @@ final class RsyncUIlogrecords: ObservableObject {
     }
 
     func filterlogsbyhiddenID(_ hiddenID: Int) {
+        activelogrecords = nil
         guard hiddenID > -1 else { return }
         activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >)
         let number = activelogrecords?.count ?? 0

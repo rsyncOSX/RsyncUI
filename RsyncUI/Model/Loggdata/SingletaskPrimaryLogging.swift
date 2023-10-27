@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 enum Scheduletype: String {
     // case once
@@ -86,6 +87,7 @@ class SingletaskPrimaryLogging {
                     structschedules?[index].logrecords = [Log]()
                 }
                 structschedules?[index].logrecords?.append(log)
+                Logger.process.info("SingletaskPrimaryLogging: added log new task")
                 return true
             }
         }
