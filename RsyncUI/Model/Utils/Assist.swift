@@ -6,10 +6,10 @@
 //
 
 import Foundation
+import OSLog
 
 final class Assist {
     var catalogs = Set<String>()
-    // var localhome = Set<String>()
     var remoteservers = Set<String>()
     var remoteusers = Set<String>()
     var nameandpaths: NamesandPaths?
@@ -52,8 +52,8 @@ final class Assist {
     }
 
     init(configurations: [Configuration]?) {
+        Logger.process.info("Assist")
         nameandpaths = NamesandPaths(.configurations)
-        // localhome = setlocalhome()
         if let catalogs = setcatalogs() {
             self.catalogs = catalogs
         }

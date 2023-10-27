@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 class WriteUserConfigurationJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
@@ -49,6 +50,7 @@ class WriteUserConfigurationJSON: NamesandPaths {
             }, receiveValue: { [unowned self] result in
                 let jsonfile = String(data: result, encoding: .utf8)
                 writeJSONToPersistentStore(jsonfile)
+                Logger.process.info("WriteUserConfigurationJSON: Writing user configurations to permanent storage")
                 subscriptons.removeAll()
             })
             .store(in: &subscriptons)
