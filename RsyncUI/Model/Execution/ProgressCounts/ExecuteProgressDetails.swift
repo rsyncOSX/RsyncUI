@@ -6,11 +6,8 @@
 //
 
 import Foundation
-import Observation
-import SwiftUI
 
-@Observable
-final class ExecuteProgressDetails {
+final class ExecuteProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
     var currenttaskprogress: Double = 0
     var hiddenIDatwork: Int = -1
@@ -29,6 +26,7 @@ final class ExecuteProgressDetails {
 
     func setcurrentprogress(_ num: Double) {
         currenttaskprogress = num
+        objectWillChange.send()
     }
 
     func getmaxcountbytask() -> Double {
@@ -52,15 +50,4 @@ final class ExecuteProgressDetails {
     deinit {
         // print("deinit ProgressDetails")
     }
-}
-
-extension EnvironmentValues {
-    var executeprogressdetails: ExecuteProgressDetails {
-        get { self[ExecuteProgressDetailsKey.self] }
-        set { self[ExecuteProgressDetailsKey.self] = newValue }
-    }
-}
-
-private struct ExecuteProgressDetailsKey: EnvironmentKey {
-    static var defaultValue: ExecuteProgressDetails = .init()
 }
