@@ -23,11 +23,7 @@ enum RsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
 }
 
 struct RsyncCommandtoDisplay {
-    private var rsynccommand: String?
-
-    func getrsyncommand() -> String? {
-        return rsynccommand
-    }
+    var rsynccommand: String?
 
     init(display: RsyncCommand,
          config: Configuration)
