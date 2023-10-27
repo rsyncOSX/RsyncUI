@@ -11,15 +11,13 @@ struct RestoreTableView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @StateObject var restore = ObservableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var filestorestore: String = ""
-
     @State private var gettingfilelist: Bool = false
-    @State private var filterstring: String = ""
-    @State private var nosearcstringalert: Bool = false
     @State private var focusaborttask: Bool = false
     // Restore snapshot
     @StateObject var snapshotdata = SnapshotData()
     @State private var snapshotcatalog: String = ""
+    // Filterstring
+    @State private var filterstring: String = ""
 
     var body: some View {
         VStack {
@@ -44,20 +42,27 @@ struct RestoreTableView: View {
                                 restore.filestorestore = ""
                                 restore.datalist = []
                                 snapshotdata.catalogsanddates.removeAll()
+                                filterstring = ""
+                                restore.rsyncdata = nil
                             }
                         }
 
-                    RestoreFilesTableView(filestorestore: $filestorestore,
+                    RestoreFilesTableView(filestorestore: $restore.filestorestore,
                                           datalist: restore.datalist)
-                        .onChange(of: filestorestore) { value in
-                            restore.filestorestore = value
-                        }
                         .onChange(of: rsyncUIdata.profile) { _ in
                             restore.datalist.removeAll()
                         }
+
+                        .overlay { if #available(macOS 14.0, *),
+                                      filterstring.count > 0,
+                                      restore.rsyncdata?.count ?? 0 > 0,
+                                      restore.datalist.count == 0
+                            {
+                                ContentUnavailableView.search
+                            }
+                        }
                 }
 
-                if nosearcstringalert { nosearchstring }
                 if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
                 if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
             }
@@ -73,11 +78,25 @@ struct RestoreTableView: View {
             Spacer()
 
             VStack(alignment: .leading) {
-                setfilter
-
                 setfilestorestore
 
                 setpathforrestore
+
+                // Debounce textfield is not shown, only used for debounce entering
+                // filtervalues
+                DebounceTextField(label: "", value: $filterstring) { value in
+                    Task {
+                        if restore.rsyncdata?.count ?? 0 > 0, value.isEmpty == false {
+                            await filterrestorefilelist()
+                        } else {
+                            restore.datalist = restore.rsyncdata?.map { filename in
+                                RestoreFileRecord(filename: filename)
+                            } ?? []
+                        }
+                    }
+                }
+                .frame(width: 300)
+                .opacity(0)
             }
 
             Spacer()
@@ -89,19 +108,8 @@ struct RestoreTableView: View {
 
             Button("Files") {
                 Task {
-                    guard filterstring.count > 0 ||
-                        restore.filestorestore == "./." ||
-                        restore.selectedconfig != nil
-                    else {
-                        nosearcstringalert = true
-                        return
-                    }
                     if let config = restore.selectedconfig {
                         guard config.task != SharedReference.shared.syncremote else { return }
-                        if filterstring == "./." {
-                            filterstring = ""
-                            restore.filestorestore = "./."
-                        }
                         gettingfilelist = true
                         await getfilelist()
                     }
@@ -111,6 +119,7 @@ struct RestoreTableView: View {
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
         .focusedSceneValue(\.aborttask, $focusaborttask)
+        .searchable(text: $filterstring)
         .toolbar(content: {
             ToolbarItem {
                 if restore.selectedconfig?.task == SharedReference.shared.snapshot {
@@ -159,22 +168,6 @@ struct RestoreTableView: View {
             })
     }
 
-    var nosearchstring: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Either select a task\n or add a search string")
-                .font(.title3)
-                .foregroundColor(Color.accentColor)
-        }
-        .frame(width: 220, height: 40, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                nosearcstringalert = false
-            }
-        }
-    }
-
     var setpathforrestore: some View {
         EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore)
             .onAppear(perform: {
@@ -190,10 +183,6 @@ struct RestoreTableView: View {
     var setfilestorestore: some View {
         EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
                   $restore.filestorestore)
-    }
-
-    var setfilter: some View {
-        EditValue(500, NSLocalizedString("Filter to search remote data", comment: ""), $filterstring)
     }
 
     var numberoffiles: some View {
@@ -214,7 +203,7 @@ struct RestoreTableView: View {
     }
 
     var snapshotcatalogpicker: some View {
-        Picker("Snapshot", selection: $snapshotcatalog) {
+        Picker("", selection: $snapshotcatalog) {
             Text("")
                 .tag("")
             ForEach(snapshotdata.catalogsanddates) { catalog in
@@ -237,7 +226,6 @@ struct RestoreTableView: View {
         .onChange(of: snapshotcatalog) { _ in
             restore.datalist.removeAll()
             restore.filestorestore = ""
-            filestorestore = ""
         }
     }
 }
@@ -249,10 +237,10 @@ extension RestoreTableView {
 
     func processtermination(data: [String]?) {
         gettingfilelist = false
-        let data = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        restore.datalist = data.map { filename in
+        restore.rsyncdata = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        restore.datalist = restore.rsyncdata?.map { filename in
             RestoreFileRecord(filename: filename)
-        }
+        } ?? []
     }
 
     @MainActor
@@ -320,9 +308,17 @@ extension RestoreTableView {
             )
         }
     }
+
+    func filterrestorefilelist() async {
+        if let data = restore.rsyncdata?.filter({ $0.contains(filterstring) }) {
+            restore.datalist = data.map { filename in
+                RestoreFileRecord(filename: filename)
+            }
+        }
+    }
 }
 
 struct RestoreFileRecord: Identifiable {
     let id = UUID()
-    var filename: String = ""
+    var filename: String
 }
