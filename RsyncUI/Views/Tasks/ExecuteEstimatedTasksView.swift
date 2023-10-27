@@ -21,10 +21,7 @@ struct ExecuteEstimatedTasksView: View {
     @State private var selectedconfig: Configuration?
     @State private var filterstring: String = ""
 
-    @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
-
-    // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
 
     var body: some View {
