@@ -101,7 +101,7 @@ struct LogsbyConfigurationView: View {
                 } label: {
                     Image(systemName: "eraser")
                 }
-                .tooltip("Reset selections")
+                .help("Reset selections")
             }
         })
         .sheet(isPresented: $showAlertfordelete) {
