@@ -1,13 +1,10 @@
 //
 //  UpdateConfigurations.swift
 //
-//  Created by Thomas Evensen on 08/02/16.
-//  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
 // swiftlint:disable opening_brace
 
 import Foundation
-import SwiftUI
 
 class UpdateConfigurations {
     private var configurations: [Configuration]?
