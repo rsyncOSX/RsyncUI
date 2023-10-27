@@ -35,46 +35,36 @@ struct LogsbyConfigurationView: View {
                             }
                         } else {
                             hiddenID = -1
+                            logrecords.activelogrecords = logrecords.alllogssorted
+                        }
+                        Task {
+                            if hiddenID == -1 {
+                                await logrecordsbyfilter()
+                            } else {
+                                await logrecordsbyhiddenIDandfilter()
+                            }
                         }
                     }
-                if hiddenID == -1 {
-                    if #available(macOS 14.0, *), logrecords.filterlogs(filterstring)?.count == 0 {
-                        ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
-                    } else {
-                        Table(logrecords.filterlogs(filterstring) ?? [], selection: $selectedloguuids) {
-                            TableColumn("Date") { data in
-                                Text(data.date.localized_string_from_date())
-                            }
 
-                            TableColumn("Result") { data in
-                                if let result = data.resultExecuted {
-                                    Text(result)
-                                }
-                            }
-                        }
-                        .onDeleteCommand {
-                            showAlertfordelete = true
+                Table(logrecords.activelogrecords ?? [], selection: $selectedloguuids) {
+                    TableColumn("Date") { data in
+                        Text(data.date.localized_string_from_date())
+                    }
+
+                    TableColumn("Result") { data in
+                        if let result = data.resultExecuted {
+                            Text(result)
                         }
                     }
-                } else {
-                    if #available(macOS 14.0, *), logrecords.filterlogsbyhiddenID(filterstring, hiddenID)?.count == 0 {
-                        ContentUnavailableView("No match in Date or Result", systemImage: "magnifyingglass")
-                    } else {
-                        Table(logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? [],
-                              selection: $selectedloguuids)
-                        {
-                            TableColumn("Date") { data in
-                                Text(data.date.localized_string_from_date())
-                            }
-                            TableColumn("Result") { data in
-                                if let result = data.resultExecuted {
-                                    Text(result)
-                                }
-                            }
-                        }
-                        .onDeleteCommand {
-                            showAlertfordelete = true
-                        }
+                }
+                .onDeleteCommand {
+                    showAlertfordelete = true
+                }
+                .overlay {
+                    if #available(macOS 14.0, *),
+                       logrecords.activelogrecords?.count == 0
+                    {
+                        ContentUnavailableView.search
                     }
                 }
             }
@@ -82,7 +72,23 @@ struct LogsbyConfigurationView: View {
             HStack {
                 Text(numberoflogs)
 
-                Spacer()
+                // Debounce textfield is not shown, only used for debounce entering
+                // filtervalues
+                DebounceTextField(label: "", value: $filterstring) { value in
+                    Task {
+                        if logrecords.activelogrecords?.count ?? 0 > 0, value.isEmpty == false {
+                            if hiddenID == -1 {
+                                await logrecordsbyfilter()
+                            } else {
+                                await logrecordsbyhiddenIDandfilter()
+                            }
+                        } else {
+                            logrecords.activelogrecords = logrecords.alllogssorted
+                        }
+                    }
+                }
+                .frame(width: 300)
+                .opacity(0)
             }
         }
         .searchable(text: $filterstring)
@@ -93,7 +99,7 @@ struct LogsbyConfigurationView: View {
                 } label: {
                     Image(systemName: "eraser")
                 }
-                .tooltip("Reset selections")
+                .help("Reset selections")
             }
         })
         .sheet(isPresented: $showAlertfordelete) {
@@ -104,12 +110,21 @@ struct LogsbyConfigurationView: View {
     }
 
     var numberoflogs: String {
-        if hiddenID == -1 {
-            return NSLocalizedString("Number of logs", comment: "") + ": " +
-                "\((logrecords.filterlogs(filterstring) ?? []).count)"
+        return NSLocalizedString("Number of logs", comment: "") + ": " +
+            "\((logrecords.activelogrecords ?? []).count)"
+    }
+
+    func logrecordsbyfilter() async {
+        if filterstring.isEmpty == false {
+            logrecords.filterlogs(filterstring)
+        }
+    }
+
+    func logrecordsbyhiddenIDandfilter() async {
+        if filterstring.isEmpty == true {
+            logrecords.filterlogsbyhiddenID(hiddenID)
         } else {
-            return NSLocalizedString("Number of logs", comment: "") + ": " +
-                "\((logrecords.filterlogsbyhiddenID(filterstring, hiddenID) ?? []).count)"
+            logrecords.filterlogsbyhiddenIDandfilter(filterstring, hiddenID)
         }
     }
 }

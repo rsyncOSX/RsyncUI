@@ -6,6 +6,7 @@
 //
 // swiftlint:disable line_length
 
+import OSLog
 import SwiftUI
 
 struct Readlogsfromstore {
@@ -13,6 +14,7 @@ struct Readlogsfromstore {
     var scheduleConfigurations: [ConfigurationSchedule]?
 
     init(profile: String?, validhiddenIDs: Set<Int>?) {
+        guard validhiddenIDs != nil else { return }
         let alllogs = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs ?? Set<Int>())
         logrecords = alllogs.logrecords
         scheduleConfigurations = alllogs.scheduleConfigurations
@@ -20,35 +22,41 @@ struct Readlogsfromstore {
 }
 
 final class RsyncUIlogrecords: ObservableObject {
-    @Published var alllogssorted: [Log]?
-    @Published var scheduleConfigurations: [ConfigurationSchedule]?
-
+    var alllogssorted: [Log]? = [Log]()
+    var scheduleConfigurations: [ConfigurationSchedule]?
     var logrecordsfromstore: Readlogsfromstore?
 
-    func filterlogs(_ filter: String) -> [Log]? {
+    @Published var activelogrecords: [Log]?
+
+    func filterlogs(_ filter: String) {
         // Important - must localize search in dates
-        return alllogssorted?.filter {
+        activelogrecords = alllogssorted?.filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
                 filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
         }
+        let number = activelogrecords?.count ?? 0
+        Logger.process.info("filterlogs - count: \(String(number))")
     }
 
-    func filterlogsbyhiddenID(_ filter: String, _ hiddenID: Int) -> [Log]? {
-        guard hiddenID > -1 else { return nil }
-        return alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
+    func filterlogsbyhiddenIDandfilter(_ filter: String, _ hiddenID: Int) {
+        guard hiddenID > -1 else { return }
+        activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
             filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
                 filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
         }
+        let number = activelogrecords?.count ?? 0
+        Logger.process.info("filterlogsbyhiddenIDandfilter - count: \(String(number))")
     }
 
-    func filterlogsbyhiddenID(_ hiddenID: Int) -> [Log]? {
-        guard hiddenID > -1 else { return nil }
-        return alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >)
+    func filterlogsbyhiddenID(_ hiddenID: Int) {
+        guard hiddenID > -1 else { return }
+        activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >)
+        let number = activelogrecords?.count ?? 0
+        Logger.process.info("filterlogsbyhiddenID - count: \(String(number))")
     }
 
     func removerecords(_ uuids: Set<UUID>) {
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
-        objectWillChange.send()
     }
 
     init(profile: String?, validhiddenIDs: Set<Int>?) {
@@ -61,6 +69,7 @@ final class RsyncUIlogrecords: ObservableObject {
         alllogssorted = logrecordsfromstore?.logrecords
         scheduleConfigurations = logrecordsfromstore?.scheduleConfigurations
         logrecordsfromstore = nil
+        activelogrecords = alllogssorted
     }
 }
 
