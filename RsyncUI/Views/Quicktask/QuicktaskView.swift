@@ -138,20 +138,14 @@ struct QuicktaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $remoteuser) {
                 Text("").tag("")
-                if let remoteusers = assist?.remoteusers {
-                    ForEach(remoteusers.sorted(by: <), id: \.self) { remoteuser in
-                        Text(remoteuser)
-                            .tag(remoteuser)
-                    }
+                ForEach(assist.remoteusers.sorted(by: <), id: \.self) { remoteuser in
+                    Text(remoteuser)
+                        .tag(remoteuser)
                 }
             }
             .frame(width: 93)
             .accentColor(.blue)
         }
-    }
-
-    var assist: Assist? {
-        return Assist(configurations: rsyncUIdata.configurations)
     }
 
     var remoteserverpicker: some View {
@@ -160,11 +154,9 @@ struct QuicktaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $remoteserver) {
                 Text("").tag("")
-                if let remoteservers = assist?.remoteservers {
-                    ForEach(remoteservers.sorted(by: <), id: \.self) { remoteserver in
-                        Text(remoteserver)
-                            .tag(remoteserver)
-                    }
+                ForEach(assist.remoteservers.sorted(by: <), id: \.self) { remoteserver in
+                    Text(remoteserver)
+                        .tag(remoteserver)
                 }
             }
             .frame(width: 93)
@@ -283,6 +275,10 @@ struct QuicktaskView: View {
             .onDisappear {
                 completed = false
             }
+    }
+
+    var assist: Assist {
+        return Assist(configurations: rsyncUIdata.configurations)
     }
 }
 
