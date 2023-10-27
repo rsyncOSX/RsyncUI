@@ -115,7 +115,7 @@ struct QuicktaskView: View {
                 } label: {
                     Image(systemName: "arrowshape.turn.up.backward")
                 }
-                .tooltip("Execute (⌘R)")
+                .help("Execute (⌘R)")
             }
 
             ToolbarItem {
@@ -124,7 +124,7 @@ struct QuicktaskView: View {
                 } label: {
                     Image(systemName: "stop.fill")
                 }
-                .tooltip("Abort (⌘K)")
+                .help("Abort (⌘K)")
             }
         })
         .padding()

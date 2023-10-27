@@ -113,7 +113,7 @@ struct TasksView: View {
                         .symbolRenderingMode(.palette)
                         .foregroundStyle(.blue, .blue)
                 }
-                .tooltip("Estimate (⌘E)")
+                .help("Estimate (⌘E)")
             }
 
             ToolbarItem {
@@ -122,7 +122,7 @@ struct TasksView: View {
                 } label: {
                     Image(systemName: "arrowshape.turn.up.backward")
                 }
-                .tooltip("Execute (⌘R)")
+                .help("Execute (⌘R)")
             }
 
             ToolbarItem {
@@ -136,7 +136,7 @@ struct TasksView: View {
                 } label: {
                     Image(systemName: "eraser")
                 }
-                .tooltip("Reset estimates")
+                .help("Reset estimates")
             }
 
             ToolbarItem {
@@ -146,7 +146,7 @@ struct TasksView: View {
                 } label: {
                     Image(systemName: "list.bullet")
                 }
-                .tooltip("List tasks all profiles")
+                .help("List tasks all profiles")
             }
 
             ToolbarItem {
@@ -155,7 +155,7 @@ struct TasksView: View {
                 } label: {
                     Image(systemName: "info")
                 }
-                .tooltip("Rsync output estimated task")
+                .help("Rsync output estimated task")
             }
 
             ToolbarItem {
@@ -168,7 +168,7 @@ struct TasksView: View {
                 } label: {
                     Image(systemName: "stop.fill")
                 }
-                .tooltip("Abort (⌘K)")
+                .help("Abort (⌘K)")
             }
         })
     }

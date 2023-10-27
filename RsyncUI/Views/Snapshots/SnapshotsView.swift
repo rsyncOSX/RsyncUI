@@ -97,7 +97,7 @@ struct SnapshotsView: View {
                 } label: {
                     Image(systemName: "stop.fill")
                 }
-                .tooltip("Abort (⌘K)")
+                .help("Abort (⌘K)")
             }
         })
     }

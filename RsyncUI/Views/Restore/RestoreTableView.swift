@@ -115,13 +115,6 @@ struct RestoreTableView: View {
                 }
             }
             .buttonStyle(ColorfulButtonStyle())
-
-            Button("Restore") {
-                Task {
-                    await restore()
-                }
-            }
-            .buttonStyle(ColorfulButtonStyle())
         }
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
         .focusedSceneValue(\.aborttask, $focusaborttask)
@@ -135,13 +128,24 @@ struct RestoreTableView: View {
 
             ToolbarItem {
                 Button {
+                    Task {
+                        await restore()
+                    }
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.backward")
+                }
+                .help("Restore")
+            }
+
+            ToolbarItem {
+                Button {
                     guard SharedReference.shared.process == nil else { return }
                     guard restore.selectedconfig != nil else { return }
                     restore.presentsheetrsync = true
                 } label: {
                     Image(systemName: "doc.plaintext")
                 }
-                .tooltip("View output")
+                .help("View output")
             }
 
             ToolbarItem {
@@ -150,7 +154,7 @@ struct RestoreTableView: View {
                 } label: {
                     Image(systemName: "stop.fill")
                 }
-                .tooltip("Abort (⌘K)")
+                .help("Abort (⌘K)")
             }
         })
     }
