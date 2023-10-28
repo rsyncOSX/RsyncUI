@@ -123,8 +123,8 @@ public struct AlertToastModifier: ViewModifier {
                     }
                     .animation(Animation.spring(), value: isPresenting)
                 )
-                .onChange(of: isPresenting) { presented in
-                    if presented {
+                .onChange(of: isPresenting) {
+                    if isPresenting {
                         onAppearAction()
                     }
                 }
@@ -151,8 +151,8 @@ public struct AlertToastModifier: ViewModifier {
                         .offset(y: offset)
                         .animation(Animation.spring(), value: isPresenting))
                 )
-                .onChange(of: isPresenting) { presented in
-                    if presented {
+                .onChange(of: isPresenting) {
+                    if isPresenting {
                         onAppearAction()
                     }
                 }
@@ -167,8 +167,8 @@ public struct AlertToastModifier: ViewModifier {
                     .edgesIgnoringSafeArea(.all)
                     .animation(Animation.spring(), value: isPresenting)
                 )
-                .onChange(of: isPresenting) { presented in
-                    if presented {
+                .onChange(of: isPresenting) {
+                    if isPresenting {
                         onAppearAction()
                     }
                 }
