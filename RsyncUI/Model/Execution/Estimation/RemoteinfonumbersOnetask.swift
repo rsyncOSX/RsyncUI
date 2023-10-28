@@ -63,3 +63,5 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
         }
     }
 }
+
+// swiftlint:enable line_length

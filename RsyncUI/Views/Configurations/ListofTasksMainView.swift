@@ -102,9 +102,6 @@ struct ListofTasksMainView: View {
             }
             .width(max: 120)
         }
-        .onDeleteCommand {
-            confirmdelete = true
-        }
         .confirmationDialog(
             NSLocalizedString("Delete configuration(s)", comment: "")
                 + "?",
@@ -119,6 +116,9 @@ struct ListofTasksMainView: View {
             // ...
         } primaryAction: { _ in
             doubleclick = true
+        }
+        .onDeleteCommand {
+            confirmdelete = true
         }
     }
 

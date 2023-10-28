@@ -6,7 +6,7 @@
 
 import Foundation
 
-class UpdateConfigurations {
+final class UpdateConfigurations {
     private var configurations: [Configuration]?
     private var localeprofile: String?
 
@@ -125,3 +125,5 @@ class UpdateConfigurations {
         // print("deinit UpdateConfigurations")
     }
 }
+
+// swiftlint:enable opening_brace
