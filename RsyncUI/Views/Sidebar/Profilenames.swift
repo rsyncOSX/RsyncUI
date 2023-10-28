@@ -17,7 +17,7 @@ struct Profiles: Hashable, Identifiable {
 }
 
 final class Profilenames: ObservableObject {
-    var profiles: [Profiles]?
+    var profiles: [Profiles] = .init()
 
     func update() {
         setprofilenames()
@@ -25,9 +25,8 @@ final class Profilenames: ObservableObject {
 
     func setprofilenames() {
         let names = Catalogsandfiles(.configurations).getcatalogsasstringnames()
-        profiles = []
         for i in 0 ..< (names?.count ?? 0) {
-            profiles?.append(Profiles(names?[i] ?? ""))
+            profiles.append(Profiles(names?[i] ?? ""))
         }
     }
 

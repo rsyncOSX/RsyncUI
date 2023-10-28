@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 17/03/2021.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -52,5 +51,3 @@ struct DeleteLogsView: View {
         dismiss()
     }
 }
-
-// swiftlint:enable line_length

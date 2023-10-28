@@ -122,6 +122,9 @@
 "Delete configuration(s)" = "Konfiguration(en) löschen";
 
 /* No comment provided by engineer. */
+"Delete snapshots(s)" = "Schnappschüsse löschen";
+
+/* No comment provided by engineer. */
 "Delete: " = "Löschen:";
 
 /* No comment provided by engineer. */
@@ -138,6 +141,9 @@
 
 /* No comment provided by engineer. */
 "Download" = "Download";
+
+/* No comment provided by engineer. */
+"Either no task is added\n or no match in Synchronize ID" = "Entweder wird keine Aufgabe hinzugefügt\n oder keine Übereinstimmung in der Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
 "Either select a task\n or add a search string" = "Wählen Sie entweder eine Aufgabe aus oder fügen Sie eine Suchzeichenfolge hinzu";
@@ -263,7 +269,13 @@
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
+"New version is available" = "Neue Version ist verfügbar";
+
+/* No comment provided by engineer. */
 "New: " = "Neu:";
+
+/* No comment provided by engineer. */
+"No match in Date or Result" = "Keine Übereinstimmung im Datum oder Ergebnis";
 
 /* No comment provided by engineer. */
 "None" = "Keine";

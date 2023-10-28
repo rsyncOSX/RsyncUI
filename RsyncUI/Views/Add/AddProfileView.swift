@@ -20,19 +20,17 @@ struct AddProfileView: View {
     var body: some View {
         ZStack {
             VStack {
-                Table(profilenames.profiles ?? [], selection: $uuidprofile) {
+                Table(profilenames.profiles, selection: $uuidprofile) {
                     TableColumn("Profiles") { name in
                         Text(name.profile ?? "Default profile")
                     }
                 }
                 .onChange(of: uuidprofile) { _ in
-                    let profile = profilenames.profiles?.filter { profiles in
+                    let profile = profilenames.profiles.filter { profiles in
                         uuidprofile.contains(profiles.id)
                     }
-                    if (profile?.count ?? 0) == 1 {
-                        if let profile = profile {
-                            selectedprofile = profile[0].profile
-                        }
+                    if profile.count == 1 {
+                        selectedprofile = profile[0].profile
                     }
                 }
 
@@ -43,7 +41,13 @@ struct AddProfileView: View {
                             .foregroundColor(Color.blue)
                     }
 
-                    HStack {}
+                    HStack {
+                        Button("Create") { createprofile() }
+                            .buttonStyle(ColorfulButtonStyle())
+
+                        EditValue(150, NSLocalizedString("Create profile", comment: ""),
+                                  $newdata.newprofile)
+                    }
                 }
 
                 Spacer()
@@ -53,11 +57,6 @@ struct AddProfileView: View {
         Spacer()
 
         HStack {
-            Button("Create") { createprofile() }
-                .buttonStyle(ColorfulButtonStyle())
-
-            EditValue(150, NSLocalizedString("Create profile", comment: ""),
-                      $newdata.newprofile)
             Spacer()
 
             Button("Dismiss") { dismiss() }
@@ -67,7 +66,7 @@ struct AddProfileView: View {
                 .buttonStyle(ColorfulRedButtonStyle())
                 .sheet(isPresented: $newdata.showAlertfordelete) {
                     ConfirmDeleteProfileView(delete: $newdata.confirmdeleteselectedprofile,
-                                             profile: $rsyncUIdata.profile)
+                                             profile: rsyncUIdata.profile)
                         .onDisappear(perform: {
                             deleteprofile()
                         })

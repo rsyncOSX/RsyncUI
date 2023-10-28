@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 class ReadConfigurationJSON: NamesandPaths {
     var configurations: [Configuration]?
@@ -57,11 +58,10 @@ class ReadConfigurationJSON: NamesandPaths {
             .sink { completion in
                 switch completion {
                 case .finished:
-                    // print("The publisher finished normally.")
                     return
                 case .failure:
                     // No file, write new file with default values
-                    _ = Logfile(["Creating default file for Configurations"], error: true)
+                    Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile"): Creating default file for Configurations")
                     WriteConfigurationJSON(nil, nil)
                     // Mark first time used, only for default profile
                     if profile == nil {
@@ -93,6 +93,7 @@ class ReadConfigurationJSON: NamesandPaths {
                 }
                 self.configurations = sorted
                 subscriptons.removeAll()
+                Logger.process.info("ReadConfigurationJSON: read configurations from permanent storage")
             }.store(in: &subscriptons)
     }
 }

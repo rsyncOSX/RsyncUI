@@ -123,9 +123,3 @@ final class Logfileview: ObservableObject {
         }
     }
 }
-
-extension Logfileview {
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alerterror(error: error)
-    }
-}

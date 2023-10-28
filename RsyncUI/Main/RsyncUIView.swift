@@ -100,19 +100,15 @@ struct RsyncUIView: View {
     var profilepicker: some View {
         HStack {
             Picker("", selection: $selectedprofile) {
-                if let profiles = profilenames.profiles {
-                    ForEach(profiles, id: \.self) { profile in
-                        Text(profile.profile ?? "")
-                            .tag(profile.profile)
-                    }
+                ForEach(profilenames.profiles, id: \.self) { profile in
+                    Text(profile.profile ?? "")
+                        .tag(profile.profile)
                 }
             }
             .frame(width: 180)
-            .accentColor(.blue)
             .onChange(of: selectedprofile) { _ in
                 selecteduuids.removeAll()
             }
-
             Spacer()
         }
     }

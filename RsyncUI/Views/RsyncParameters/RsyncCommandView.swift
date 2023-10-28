@@ -46,7 +46,7 @@ struct RsyncCommandView: View {
     var commandstring: String? {
         if let config = config {
             return RsyncCommandtoDisplay(display: selectedrsynccommand,
-                                         config: config).getrsyncommand()
+                                         config: config).rsynccommand
         } else {
             return NSLocalizedString("Select a configuration", comment: "")
         }

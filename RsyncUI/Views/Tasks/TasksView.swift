@@ -44,7 +44,6 @@ struct TasksView: View {
     @State private var timerisenabled: Bool = false
 
     var actions: Actions
-    // Reload and show table data
     // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
 
