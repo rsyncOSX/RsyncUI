@@ -20,7 +20,7 @@ final class ObservableSSH {
     // Alerts
     var alerterror: Bool = false
     var error: Error = Validatedpath.noerror
-    
+
     // SSH identityfile
     private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
         if keypath.first != "~" { throw SshError.noslash }
