@@ -40,7 +40,7 @@ final class ObservableParametersDefault: ObservableObject {
         $sshport
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] port in
-                sshport(port)
+                setsshport(port)
             }.store(in: &subscriptions)
         $removessh
             .sink { [unowned self] removessh in
@@ -95,7 +95,7 @@ extension ObservableParametersDefault {
     }
 
     // parameter5 -e ssh
-    private func deletessh(_ delete: Bool) {
+    func deletessh(_ delete: Bool) {
         guard configuration != nil else { return }
         if delete {
             configuration?.parameter5 = ""
@@ -105,7 +105,7 @@ extension ObservableParametersDefault {
     }
 
     // parameter4 --delete
-    private func deletedelete(_ delete: Bool) {
+    func deletedelete(_ delete: Bool) {
         guard configuration != nil else { return }
         if delete {
             configuration?.parameter4 = ""
@@ -115,7 +115,7 @@ extension ObservableParametersDefault {
     }
 
     // parameter3 --compress
-    private func deletecompress(_ delete: Bool) {
+    func deletecompress(_ delete: Bool) {
         guard configuration != nil else { return }
         if delete {
             configuration?.parameter3 = ""
@@ -163,7 +163,7 @@ extension ObservableParametersDefault {
         }
     }
 
-    func sshport(_ port: String) {
+    func setsshport(_ port: String) {
         guard configuration != nil else { return }
         // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {

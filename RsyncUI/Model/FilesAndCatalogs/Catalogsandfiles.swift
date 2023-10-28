@@ -119,3 +119,5 @@ class Catalogsandfiles: NamesandPaths {
         super.init(whichroot)
     }
 }
+
+// swiftlint:enable opening_brace

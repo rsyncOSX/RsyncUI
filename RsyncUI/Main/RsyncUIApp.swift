@@ -90,7 +90,6 @@ final class Actions: ObservableObject {
 }
 
 extension Logger {
-    /// Using your bundle identifier is a great way to ensure a unique identifier.
     private static var subsystem = Bundle.main.bundleIdentifier!
     static let process = Logger(subsystem: subsystem, category: "process")
 }

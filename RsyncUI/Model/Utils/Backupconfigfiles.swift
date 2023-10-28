@@ -44,3 +44,5 @@ extension Backupconfigfiles {
         SharedReference.shared.errorobject?.alerterror(error: error)
     }
 }
+
+// swiftlint:enable opening_brace

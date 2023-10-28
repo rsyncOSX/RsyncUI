@@ -1,3 +1,4 @@
+// swiftlint:disable function_body_length
 //
 //  AlertToastModifier.swift
 //
@@ -227,3 +228,5 @@ public extension View {
         )
     }
 }
+
+// swiftlint:enable function_body_length

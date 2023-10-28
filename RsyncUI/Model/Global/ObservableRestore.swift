@@ -11,8 +11,6 @@ import Foundation
 
 final class ObservableRestore: ObservableObject {
     @Published var pathforrestore: String = ""
-    @Published var selectedrowforrestore: String = ""
-
     @Published var restorefilesinprogress: Bool = false
     @Published var numberoffiles: Int = 0
     @Published var dryrun: Bool = true
@@ -25,7 +23,6 @@ final class ObservableRestore: ObservableObject {
     // Filenames in restore
     @Published var datalist: [RestoreFileRecord] = []
     @Published var filestorestore: String = ""
-
     var rsyncdata: [String]?
     var arguments: [String]?
     var selectedconfig: Configuration?
@@ -46,10 +43,6 @@ final class ObservableRestore: ObservableObject {
         $pathforrestore
             .sink { [unowned self] path in
                 validatepathforrestore(path)
-            }.store(in: &subscriptions)
-        $selectedrowforrestore
-            .sink { [unowned self] file in
-                filestorestore = file
             }.store(in: &subscriptions)
         $presentsheetrsync
             .sink { _ in
@@ -74,7 +67,6 @@ extension ObservableRestore {
 
     // Validate path for restore
     func validatepathforrestore(_ atpath: String) {
-        guard inputchangedbyuser == true else { return }
         guard atpath.isEmpty == false else { return }
         do {
             let ok = try validatepath(atpath)

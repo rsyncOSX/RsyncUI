@@ -54,3 +54,5 @@ struct RsyncCommandtoDisplay {
         rsynccommand = str
     }
 }
+
+// swiftlint:enable line_length opening_brace

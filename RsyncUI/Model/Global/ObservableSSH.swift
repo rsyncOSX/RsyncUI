@@ -13,7 +13,7 @@ final class ObservableSSH: ObservableObject {
     // Global SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
-    @Published var sshport: String = ""
+    @Published var sshportnumber: String = ""
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
     @Published var sshkeypathandidentityfile: String = ""
@@ -28,9 +28,9 @@ final class ObservableSSH: ObservableObject {
         $sshkeypathandidentityfile
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] identityfile in
-                sshkeypathandidentiyfile(identityfile)
+                sshkeypath(identityfile)
             }.store(in: &subscriptions)
-        $sshport
+        $sshportnumber
             .debounce(for: .seconds(1), scheduler: globalMainQueue)
             .sink { [unowned self] port in
                 sshport(port)
@@ -50,7 +50,7 @@ extension ObservableSSH {
         return true
     }
 
-    func sshkeypathandidentiyfile(_ keypath: String) {
+    func sshkeypath(_ keypath: String) {
         // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             SharedReference.shared.sshkeypathandidentityfile = nil
@@ -61,7 +61,7 @@ extension ObservableSSH {
             if verified {
                 SharedReference.shared.sshkeypathandidentityfile = keypath
                 // Save port number also
-                if let port = Int(sshport) {
+                if let port = Int(sshportnumber) {
                     SharedReference.shared.sshport = port
                 }
             }

@@ -199,3 +199,5 @@ struct UserConfiguration: Codable {
         automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
     }
 }
+
+// swiftlint:enable cyclomatic_complexity function_body_length

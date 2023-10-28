@@ -93,6 +93,7 @@ class ReadConfigurationJSON: NamesandPaths {
                 }
                 self.configurations = sorted
                 subscriptons.removeAll()
+                Logger.process.info("ReadConfigurationJSON: read configurations from permanent storage")
             }.store(in: &subscriptons)
     }
 }

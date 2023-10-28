@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 class WriteConfigurationJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
@@ -24,6 +25,7 @@ class WriteConfigurationJSON: NamesandPaths {
                 let file = try folder.createFile(named: filename)
                 if let data = data {
                     try file.write(data)
+                    Logger.process.info("WriteConfigurationJSON: write configurations to permanent storage")
                 }
             } catch let e {
                 let error = e

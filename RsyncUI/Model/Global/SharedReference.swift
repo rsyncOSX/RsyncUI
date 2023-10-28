@@ -17,7 +17,6 @@ class SharedReference {
         return Singleton.instance
     }
 
-    // True if version 3.x
     var rsyncversion3: Bool = false
     // Optional path to rsync
     var localrsyncpath: String?
