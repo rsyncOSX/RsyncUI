@@ -17,7 +17,6 @@ class SharedReference {
         return Singleton.instance
     }
 
-    // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
     var rsyncversion3: Bool = false
     // Optional path to rsync
     var localrsyncpath: String?

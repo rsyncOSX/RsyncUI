@@ -10,9 +10,6 @@ import Foundation
 
 struct LogrecordSnapshot: Identifiable {
     var id = UUID()
-    // To save id from the Log records.
-    // Used when resolving issues in administrating snapshots.
-    // var idfromlogrecord: UUID?
     var hiddenID: Int
     var localCatalog: String
     var remoteCatalog: String
@@ -84,7 +81,7 @@ final class LogRecords {
     }
 
     deinit {
-        // print("deinit Alllog")
+        // print("deinit LogRecords")
     }
 }
 

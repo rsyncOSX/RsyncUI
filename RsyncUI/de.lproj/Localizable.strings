@@ -242,6 +242,12 @@
 "localhost" = "localhost";
 
 /* No comment provided by engineer. */
+"Log" = "Protkoll";
+
+/* No comment provided by engineer. */
+"Log listings" = "Protokolle";
+
+/* No comment provided by engineer. */
 "Log to file" = "Log in Datei";
 
 /* No comment provided by engineer. */
@@ -323,6 +329,9 @@
 "Profiles" = "Profil";
 
 /* No comment provided by engineer. */
+"Quick synchronize" = "Schnell synchronisieren";
+
+/* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
 
 /* No comment provided by engineer. */
@@ -353,6 +362,9 @@
 "Result" = "Result";
 
 /* No comment provided by engineer. */
+"Rsync parameters" = "Rsync Parameter";
+
+/* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
@@ -374,7 +386,7 @@
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
-"Select a task" = "Wählen Sie eine Aufgabe aus";
+"Select a configuration" = "Konfiguration auswählen";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
@@ -414,6 +426,9 @@
 
 /* No comment provided by engineer. */
 "Ssh" = "Ssh";
+
+/* No comment provided by engineer. */
+"Synchronize" = "Synchronisieren";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";

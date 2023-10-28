@@ -30,7 +30,6 @@ struct RemoteinfonumbersOnetask: Identifiable, Hashable {
 
     // Detailed output
     var outputfromrsync: [String]?
-
     // True if data to synchronize
     var datatosynchronize: Bool
 

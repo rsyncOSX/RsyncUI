@@ -16,20 +16,17 @@ final class ObservableRestore {
     var numberoffiles: Int = 0
     var dryrun: Bool = true
     var presentsheetrsync = false
-    // Customized restore command string
-    // Displayed in restore view
-    @ObservationIgnored
-    var rsyncdata: [String]?
-    @ObservationIgnored
-    var arguments: [String]?
-
-    var filestorestore: String = ""
-    var selectedconfig: Configuration?
-    var datalist: [RestoreFileRecord] = []
-
-    // alert about error
-    var error: Error = InputError.noerror
+    // Value to check if input field is changed by user
+    var inputchangedbyuser: Bool = false
+    // Alerts
     var alerterror: Bool = false
+    var error: Error = Validatedpath.noerror
+    // Filenames in restore
+    var datalist: [RestoreFileRecord] = []
+    var filestorestore: String = ""
+    @ObservationIgnored var rsyncdata: [String]?
+    @ObservationIgnored var arguments: [String]?
+    var selectedconfig: Configuration?
 
     var rsync: String {
         return GetfullpathforRsync().rsyncpath ?? ""

@@ -2,7 +2,7 @@
 //  Snapshotcatalogs.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 20/09/2023.
+//  Created by Thomas Evensen on 19/09/2023.
 //
 
 import Foundation

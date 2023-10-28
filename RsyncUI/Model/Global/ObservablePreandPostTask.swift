@@ -17,9 +17,9 @@ final class ObservablePreandPostTask {
     var haltshelltasksonerror: Bool = false
     var reload: Bool = false
     var selectedconfig: Configuration?
-    // alert about error
-    var error: Error = InputError.noerror
+    // Alerts
     var alerterror: Bool = false
+    var error: Error = Validatedpath.noerror
 
     func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
         // Append default config data to the update,

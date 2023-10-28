@@ -46,7 +46,7 @@ final class ObservableAddConfigurations {
     var assistremoteserver: String = ""
 
     // alert about error
-    var error: Error = InputError.noerror
+    var error: Error = Validatedpath.noerror
     var alerterror: Bool = false
 
     // For update post and pretasks
