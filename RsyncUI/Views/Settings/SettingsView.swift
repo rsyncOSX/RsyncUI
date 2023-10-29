@@ -48,7 +48,7 @@ struct SettingsView: View {
 }
 
 final class AlertError: ObservableObject {
-    @Published private(set) var activeError: Error? = nil
+    @Published private(set) var activeError: Error?
 
     func alert(error: Error) {
         DispatchQueue.main.async {
