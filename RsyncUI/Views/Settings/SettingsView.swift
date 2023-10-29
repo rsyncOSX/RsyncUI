@@ -54,7 +54,7 @@ struct SettingsView: View {
 
 @Observable
 final class AlertError {
-    private(set) var activeError: Error? = Validatedpath.noerror
+    private(set) var activeError: Error?
 
     func alert(error: Error) {
         DispatchQueue.main.async {
