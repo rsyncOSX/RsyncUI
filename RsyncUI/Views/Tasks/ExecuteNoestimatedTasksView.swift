@@ -9,19 +9,13 @@ import SwiftUI
 
 struct ExecuteNoestimatedTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    // These two objects keeps track of the state and collects
-    // the estimated values.
     @StateObject private var estimatingprogresscount = EstimateProgressDetails()
-
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var showexecutenoestimateview: Bool
-
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
-
     @State private var executealltasksasync: ExecuteTasksAsync?
-
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
 

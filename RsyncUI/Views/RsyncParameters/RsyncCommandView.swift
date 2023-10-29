@@ -48,7 +48,7 @@ struct RsyncCommandView: View {
             return RsyncCommandtoDisplay(display: selectedrsynccommand,
                                          config: config).rsynccommand
         } else {
-            return NSLocalizedString("Select a configuration", comment: "")
+            return NSLocalizedString("Select a task", comment: "")
         }
     }
 }

@@ -38,6 +38,6 @@ final class TrimFour {
 
 extension TrimFour {
     func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alerterror(error: error)
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

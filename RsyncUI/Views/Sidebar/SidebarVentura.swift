@@ -15,7 +15,7 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
 @available(macOS 13.0, *)
 struct SidebarVentura: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var errorhandling: ErrorHandling
+    @EnvironmentObject var errorhandling: AlertError
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
@@ -44,7 +44,7 @@ struct SidebarVentura: View {
         } detail: {
             selectView(selectedview ?? .synchronize)
         }
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
+        .alert(isPresented: errorhandling.presentalert, content: {
             Alert(localizedError: errorhandling.activeError!)
         })
     }

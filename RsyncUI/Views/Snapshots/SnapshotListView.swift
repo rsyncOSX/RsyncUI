@@ -12,7 +12,6 @@ struct SnapshotListView: View {
     @EnvironmentObject var snapshotdata: SnapshotData
     @Binding var snapshotrecords: LogrecordSnapshot?
     @Binding var selectedconfig: Configuration?
-
     @State private var confirmdelete: Bool = false
 
     var body: some View {

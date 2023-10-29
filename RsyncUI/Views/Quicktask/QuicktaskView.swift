@@ -49,8 +49,6 @@ struct QuicktaskView: View {
 
     @FocusState private var focusField: QuicktaskField?
 
-    // @State private var numberoffiles: Int = 0
-
     var body: some View {
         ZStack {
             Spacer()

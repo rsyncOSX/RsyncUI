@@ -21,13 +21,13 @@ struct RsyncDefaultParametersView: View {
     @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
     @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var dataischanged = Dataischanged()
 
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
 
     // Reload and show table data
     @State private var showtableview: Bool = true
-    @State private var dataischanged = Dataischanged()
 
     var body: some View {
         VStack {
@@ -56,8 +56,7 @@ struct RsyncDefaultParametersView: View {
 
                 VStack(alignment: .leading) {
                     if showtableview {
-                        ListofTasksLightView(
-                            selecteduuids: $selecteduuids)
+                        ListofTasksLightView(selecteduuids: $selecteduuids)
                             .frame(maxWidth: .infinity)
                             .onChange(of: selecteduuids) { _ in
                                 let selected = rsyncUIdata.configurations?.filter { config in
@@ -230,3 +229,5 @@ extension RsyncDefaultParametersView {
         _ = InterruptProcess()
     }
 }
+
+// swiftlint:enable line_length
