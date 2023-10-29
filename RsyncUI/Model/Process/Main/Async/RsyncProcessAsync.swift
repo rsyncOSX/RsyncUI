@@ -125,6 +125,6 @@ final class RsyncProcessAsync {
 
 extension RsyncProcessAsync {
     func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alerterror(error: error)
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

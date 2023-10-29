@@ -12,9 +12,7 @@ struct SidebarTasksView: View {
     @State private var selectedconfig: Configuration?
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
-
     @StateObject var progressdetails = ExecuteProgressDetails()
-
     @State var showeexecutEstimatedview: Bool = false
     @State var showexecuteNOEstimateview: Bool = false
     // Timer values

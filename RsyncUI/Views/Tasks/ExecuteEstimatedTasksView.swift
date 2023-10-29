@@ -10,17 +10,13 @@ import SwiftUI
 struct ExecuteEstimatedTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
-
     @StateObject private var multipletaskstate = MultipleTaskState()
     @StateObject private var estimatingprogresscount = EstimateProgressDetails()
-
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
     @Binding var showeexecutestimatedview: Bool
-
     @State private var selectedconfig: Configuration?
     @State private var filterstring: String = ""
-
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false
 
@@ -38,7 +34,6 @@ struct ExecuteEstimatedTasksView: View {
             if multipletaskstate.executionstate == .execute { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
         }
-
         .onAppear(perform: {
             executemultipleestimatedtasks()
         })

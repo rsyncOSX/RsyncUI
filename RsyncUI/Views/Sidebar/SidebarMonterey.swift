@@ -20,7 +20,7 @@ enum NavigationItem {
 
 struct SidebarMonterey: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var errorhandling: ErrorHandling
+    @EnvironmentObject var errorhandling: AlertError
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
@@ -107,7 +107,7 @@ struct SidebarMonterey: View {
         }
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
+        .alert(isPresented: errorhandling.presentalert, content: {
             Alert(localizedError: errorhandling.activeError ?? ValidateInputError.emptyerror)
         })
     }

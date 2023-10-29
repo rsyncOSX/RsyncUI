@@ -97,6 +97,6 @@ class NamesandPaths {
 
 extension NamesandPaths {
     func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alerterror(error: error)
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

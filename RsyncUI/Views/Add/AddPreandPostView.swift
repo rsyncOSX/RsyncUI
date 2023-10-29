@@ -10,14 +10,12 @@ import SwiftUI
 
 struct AddPreandPostView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @StateObject var newdata = ObservablePreandPostTask()
     @EnvironmentObject var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
-
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
-
-    // Reload and show table data
     @State private var showtableview: Bool = true
     @State private var dataischanged = Dataischanged()
 
@@ -28,7 +26,6 @@ struct AddPreandPostView: View {
         case posttaskField
     }
 
-    @StateObject var newdata = ObservablePreandPostTask()
     @FocusState private var focusField: PreandPostTaskField?
 
     var body: some View {
@@ -79,9 +76,7 @@ struct AddPreandPostView: View {
                                         newdata.updateview(selectedconfig)
                                     }
                                 }
-
                             updatebutton
-
                         } else {
                             notifyupdated
                         }

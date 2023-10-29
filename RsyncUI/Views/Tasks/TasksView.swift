@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/03/2023.
 //
-// swiftlint:disable line_length type_body_length file_length
+// swiftlint:disable line_length file_length
 
 import SwiftUI
 
@@ -482,4 +482,4 @@ final class Selectedconfig: ObservableObject {
     var config: Configuration?
 }
 
-// swiftlint:enable line_length type_body_length file_length
+// swiftlint:enable line_length file_length

@@ -10,7 +10,6 @@ import SwiftUI
 struct Counter: View {
     @SwiftUI.Environment(\.scenePhase) var scenePhase
     @SwiftUI.Environment(\.dismiss) var dismiss
-
     @StateObject var deltatimeinseconds = Deltatimeinseconds()
     // Timer
     @Binding var timervalue: Double
@@ -170,17 +169,3 @@ final class Deltatimeinseconds: ObservableObject {
 struct Timervalues {
     let values: Set = [60.0, 300.0, 600.0, 1800.0, 2700.0, 3600.0]
 }
-
-/*
- case .asynctimerison:
-     Counter(timervalue: $timervalue)
-         .onAppear(perform: {
-             startasynctimer()
-         })
-         .onDisappear(perform: {
-             stopasynctimer()
-             timervalue = SharedReference.shared.timervalue ?? 600
-             timerisenabled = false
-         })
- }
- */

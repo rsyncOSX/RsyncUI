@@ -91,7 +91,6 @@ struct DetailsOneTaskAlreadyEstimatedView: View {
                             }
                         }
                     }
-
                 } else {
                     Table(estimatedlistonetask) {
                         TableColumn("Synchronize ID") { data in

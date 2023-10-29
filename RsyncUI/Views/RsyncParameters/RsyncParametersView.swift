@@ -196,3 +196,5 @@ extension RsyncParametersView {
         _ = InterruptProcess()
     }
 }
+
+// swiftlint:enable line_length

@@ -271,7 +271,7 @@ final class Outputfromrsync: ObservableObject {
 
 extension Outputfromrsync {
     func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alerterror(error: error)
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 
