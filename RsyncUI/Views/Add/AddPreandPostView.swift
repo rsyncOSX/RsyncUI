@@ -11,17 +11,13 @@ import SwiftUI
 struct AddPreandPostView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var newdata = ObservablePreandPostTask()
-
+    @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
-    @Bindable var profilenames: Profilenames
-
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var dataischanged = Dataischanged()
-
-    // Reload and show table data
     @State private var showtableview: Bool = true
+    @State private var dataischanged = Dataischanged()
 
     var choosecatalog = false
 

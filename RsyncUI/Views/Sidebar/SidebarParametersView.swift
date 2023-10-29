@@ -17,7 +17,6 @@ struct SidebarParametersView: View {
                 .tabItem {
                     Text("Parameters")
                 }
-
             RsyncDefaultParametersView(reload: $reload)
                 .tabItem {
                     Text("Default")

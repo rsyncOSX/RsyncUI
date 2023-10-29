@@ -19,7 +19,7 @@ struct Sidebar: View {
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
     @Bindable var profilenames: Profilenames
-    @Bindable var errorhandling: ErrorHandling
+    @Bindable var errorhandling: AlertError
     @State private var selectedview: Sidebaritems = .synchronize
 
     // Keep record of actions
@@ -46,7 +46,7 @@ struct Sidebar: View {
         } detail: {
             selectView(selectedview)
         }
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
+        .alert(isPresented: errorhandling.presentalert, content: {
             Alert(localizedError: errorhandling.activeError!)
         })
     }

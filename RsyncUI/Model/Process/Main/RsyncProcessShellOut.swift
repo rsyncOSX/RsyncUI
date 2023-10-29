@@ -156,7 +156,7 @@ final class RsyncProcessShellOut {
 
 extension RsyncProcessShellOut {
     func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alerterror(error: error)
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     func executepretask() async throws {

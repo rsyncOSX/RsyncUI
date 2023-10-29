@@ -51,5 +51,3 @@ struct DeleteLogsView: View {
         dismiss()
     }
 }
-
-// swiftlint:enable line_length

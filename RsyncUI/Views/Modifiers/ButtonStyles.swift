@@ -6,35 +6,7 @@
 //
 
 import SwiftUI
-/*
- struct ColorfulButtonStyle: ButtonStyle {
-     func makeBody(configuration: Self.Configuration) -> some View {
-         configuration.label
-             .padding(8)
-             .background(configuration.isPressed ? Color.accentColor.opacity(0.5) : Color.accentColor)
-             .foregroundColor(.white)
-             .buttonBorderShape(.roundedRectangle)
-             .clipShape(Capsule())
-             .onHover { hover in
-                 hover ? NSCursor.pointingHand.push() : NSCursor.pop()
-             }
-     }
- }
 
- struct AbortButtonStyle: ButtonStyle {
-     func makeBody(configuration: Self.Configuration) -> some View {
-         configuration.label
-             .padding(8)
-             .background(configuration.isPressed ? Color.red.opacity(0.5) : Color.red)
-             .foregroundColor(.white)
-             .buttonBorderShape(.roundedRectangle)
-             .clipShape(Capsule())
-             .onHover { hover in
-                 hover ? NSCursor.pointingHand.push() : NSCursor.pop()
-             }
-     }
- }
- */
 extension Color {
     static let darkStart = Color(red: 50 / 255, green: 60 / 255, blue: 65 / 255)
     static let darkEnd = Color(red: 25 / 255, green: 25 / 255, blue: 30 / 255)

@@ -276,7 +276,7 @@ struct QuicktaskView: View {
     }
 
     var assist: Assist {
-        return Assist(configurations: rsyncUIdata.getallconfigurations())
+        return Assist(configurations: rsyncUIdata.configurations)
     }
 }
 

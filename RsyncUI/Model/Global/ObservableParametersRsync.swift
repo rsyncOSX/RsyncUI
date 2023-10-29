@@ -21,6 +21,10 @@ final class ObservableParametersRsync {
     // Selected configuration
     var configuration: Configuration?
 
+    // Alerts
+    var alerterror: Bool = false
+    var error: Error = Validatedpath.noerror
+
     func setvalues(_ config: Configuration?) {
         if let config = config {
             configuration = config

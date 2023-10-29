@@ -52,7 +52,9 @@ struct LogfileView: View {
                         }
                         .width(min: 700)
                     }
-                    .onChange(of: resetloggfile) { afterareload() }
+                    .onChange(of: resetloggfile) {
+                        afterareload()
+                    }
                 }
             }
 

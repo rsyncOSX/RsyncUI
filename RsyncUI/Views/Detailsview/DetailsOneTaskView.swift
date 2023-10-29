@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 24/10/2022.
 //
+// swiftlint: disable line_length
 
 import Foundation
 import Observation
@@ -204,7 +205,7 @@ final class Outputfromrsync {
 
 extension Outputfromrsync {
     func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alerterror(error: error)
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 
@@ -218,3 +219,5 @@ enum OutputIsTruncated: LocalizedError {
         }
     }
 }
+
+// swiftlint: enable line_length

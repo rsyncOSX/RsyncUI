@@ -11,7 +11,6 @@ import SwiftUI
 struct Counter: View {
     @SwiftUI.Environment(\.scenePhase) var scenePhase
     @SwiftUI.Environment(\.dismiss) var dismiss
-
     @State private var deltatimeinseconds = Deltatimeinseconds()
     // Timer
     @Binding var timervalue: Double

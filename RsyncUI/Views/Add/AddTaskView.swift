@@ -189,9 +189,8 @@ struct AddTaskView: View {
             }
         }
         .sheet(isPresented: $modalview) {
-            AddProfileView(selectedprofile: $selectedprofile,
-                           reload: $reload,
-                           profilenames: profilenames)
+            AddProfileView(profilenames: profilenames, selectedprofile: $selectedprofile,
+                           reload: $reload)
                 .frame(width: 500, height: 500)
         }
         .alert(isPresented: $newdata.alerterror,

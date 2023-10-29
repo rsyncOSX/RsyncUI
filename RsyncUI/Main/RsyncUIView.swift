@@ -75,9 +75,9 @@ struct RsyncUIView: View {
         return RsyncUIconfigurations(profile: selectedprofile, reload)
     }
 
-    var errorhandling: ErrorHandling {
-        SharedReference.shared.errorobject = ErrorHandling()
-        return SharedReference.shared.errorobject ?? ErrorHandling()
+    var errorhandling: AlertError {
+        SharedReference.shared.errorobject = AlertError()
+        return SharedReference.shared.errorobject ?? AlertError()
     }
 
     var profilepicker: some View {

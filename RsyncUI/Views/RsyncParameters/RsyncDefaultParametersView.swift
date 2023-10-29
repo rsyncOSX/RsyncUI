@@ -11,7 +11,6 @@ import SwiftUI
 struct RsyncDefaultParametersView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var parameters = ObservableParametersDefault()
-
     @Binding var reload: Bool
 
     @State private var selectedconfig: Configuration?
@@ -67,6 +66,7 @@ struct RsyncDefaultParametersView: View {
                 VStack(alignment: .leading) {
                     if showtableview {
                         ListofTasksLightView(selecteduuids: $selecteduuids)
+                            .frame(maxWidth: .infinity)
                             .onChange(of: selecteduuids) {
                                 let selected = rsyncUIdata.configurations?.filter { config in
                                     selecteduuids.contains(config.id)
@@ -81,7 +81,6 @@ struct RsyncDefaultParametersView: View {
                                     parameters.setvalues(selectedconfig)
                                 }
                             }
-                            .frame(maxWidth: .infinity)
 
                     } else {
                         notifyupdated

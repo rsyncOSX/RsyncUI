@@ -17,7 +17,7 @@ struct SidebarAddTaskView: View {
             AddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
                 .tabItem { Text("Add task") }
 
-            AddPreandPostView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
+            AddPreandPostView(profilenames: profilenames, selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem { Text("Shell scripts") }
         }
         .padding()

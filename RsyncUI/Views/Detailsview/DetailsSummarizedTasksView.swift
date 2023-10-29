@@ -10,7 +10,6 @@ import SwiftUI
 struct DetailsSummarizedTasksView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
     @Binding var selecteduuids: Set<UUID>
     @Binding var execute: Bool
     var estimatedlist: [RemoteinfonumbersOnetask]
