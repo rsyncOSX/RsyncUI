@@ -10,12 +10,11 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-
     @State private var filterstring: String = ""
+    @State private var hiddenID = -1
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedloguuids = Set<Log.ID>()
     @State private var reload: Bool = false
-    @State private var hiddenID = -1
     // Alert for delete
     @State private var showAlertfordelete = false
 
@@ -35,18 +34,10 @@ struct LogsbyConfigurationView: View {
                             }
                         } else {
                             hiddenID = -1
-                            logrecords.activelogrecords = logrecords.alllogssorted
-                        }
-                        Task {
-                            if hiddenID == -1 {
-                                await logrecordsbyfilter()
-                            } else {
-                                await logrecordsbyhiddenIDandfilter()
-                            }
                         }
                     }
 
-                Table(logrecords.activelogrecords ?? [], selection: $selectedloguuids) {
+                Table(logrecords.filterlogs(filterstring, hiddenID), selection: $selectedloguuids) {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
@@ -60,35 +51,15 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     showAlertfordelete = true
                 }
-                .overlay {
-                    if #available(macOS 14.0, *),
-                       logrecords.activelogrecords?.count == 0
-                    {
-                        ContentUnavailableView.search
-                    }
-                }
-            }
-
-            HStack {
-                Text(numberoflogs)
-
-                // Debounce textfield is not shown, only used for debounce entering
-                // filtervalues
-                DebounceTextField(label: "", value: $filterstring) { value in
-                    Task {
-                        if logrecords.activelogrecords?.count ?? 0 > 0, value.isEmpty == false {
-                            if hiddenID == -1 {
-                                await logrecordsbyfilter()
-                            } else {
-                                await logrecordsbyhiddenIDandfilter()
-                            }
-                        } else {
-                            logrecords.activelogrecords = logrecords.alllogssorted
-                        }
-                    }
-                }
-                .frame(width: 300)
-                .opacity(0)
+                /*
+                 .overlay {
+                     if #available(macOS 14.0, *),
+                        logrecords.activelogrecords?.count == 0
+                     {
+                         ContentUnavailableView.search
+                     }
+                 }
+                  */
             }
         }
         .searchable(text: $filterstring)
@@ -106,25 +77,6 @@ struct LogsbyConfigurationView: View {
             DeleteLogsView(selecteduuids: $selectedloguuids,
                            selectedprofile: rsyncUIdata.profile,
                            logrecords: logrecords)
-        }
-    }
-
-    var numberoflogs: String {
-        return NSLocalizedString("Number of logs", comment: "") + ": " +
-            "\((logrecords.activelogrecords ?? []).count)"
-    }
-
-    func logrecordsbyfilter() async {
-        if filterstring.isEmpty == false {
-            logrecords.filterlogs(filterstring)
-        }
-    }
-
-    func logrecordsbyhiddenIDandfilter() async {
-        if filterstring.isEmpty == true {
-            logrecords.filterlogsbyhiddenID(hiddenID)
-        } else {
-            logrecords.filterlogsbyhiddenIDandfilter(filterstring, hiddenID)
         }
     }
 }
