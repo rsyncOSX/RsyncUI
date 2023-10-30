@@ -27,40 +27,52 @@ final class RsyncUIlogrecords {
     @ObservationIgnored
     var alllogssorted: [Log]? = [Log]()
     @ObservationIgnored
+    var countrecords: Int = 0
+    @ObservationIgnored
     var scheduleConfigurations: [ConfigurationSchedule]?
     @ObservationIgnored
     var logrecordsfromstore: Readlogsfromstore?
 
-    var activelogrecords: [Log]?
+    func filterlogs(_ filter: String, _ hiddenID: Int) -> [Log] {
+        var activelogrecords: [Log]?
+        switch hiddenID {
+        case -1:
+            if filter.isEmpty == false {
+                activelogrecords = nil
+                activelogrecords = alllogssorted?.filter {
+                    $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+                        $0.resultExecuted?.contains(filter) ?? false
+                }
+                let number = activelogrecords?.count ?? 0
+                Logger.process.info("filter ALL logs by \(filter) - count: \(String(number))")
+                countrecords = number
+                return activelogrecords ?? []
 
-    func filterlogs(_ filter: String) {
-        activelogrecords = nil
-        // Important - must localize search in dates
-        activelogrecords = alllogssorted?.filter {
-            filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
-                filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+            } else {
+                let number = alllogssorted?.count ?? 0
+                Logger.process.info("ALL logs - count: \(String(number))")
+                countrecords = number
+                return alllogssorted ?? []
+            }
+        default:
+            if filter.isEmpty == false {
+                activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
+                    filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+                        filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+                }
+                let number = activelogrecords?.count ?? 0
+                Logger.process.info("filter logs BY hiddenID and filter by \(filter) - count: \(String(number))")
+                countrecords = number
+                return activelogrecords ?? []
+            } else {
+                activelogrecords = nil
+                activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >)
+                let number = activelogrecords?.count ?? 0
+                Logger.process.info("filter logs BY hiddenID - count: \(String(number))")
+                countrecords = number
+                return activelogrecords ?? []
+            }
         }
-        let number = activelogrecords?.count ?? 0
-        Logger.process.info("filterlogs - count: \(String(number))")
-    }
-
-    func filterlogsbyhiddenIDandfilter(_ filter: String, _ hiddenID: Int) {
-        activelogrecords = nil
-        guard hiddenID > -1 else { return }
-        activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
-            filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
-                filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
-        }
-        let number = activelogrecords?.count ?? 0
-        Logger.process.info("filterlogsbyhiddenIDandfilter - count: \(String(number))")
-    }
-
-    func filterlogsbyhiddenID(_ hiddenID: Int) {
-        activelogrecords = nil
-        guard hiddenID > -1 else { return }
-        activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >)
-        let number = activelogrecords?.count ?? 0
-        Logger.process.info("filterlogsbyhiddenID - count: \(String(number))")
     }
 
     func removerecords(_ uuids: Set<UUID>) {
@@ -77,7 +89,6 @@ final class RsyncUIlogrecords {
         alllogssorted = logrecordsfromstore?.logrecords
         scheduleConfigurations = logrecordsfromstore?.scheduleConfigurations
         logrecordsfromstore = nil
-        activelogrecords = alllogssorted
     }
 }
 
