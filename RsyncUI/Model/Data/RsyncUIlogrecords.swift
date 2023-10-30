@@ -23,12 +23,12 @@ struct Readlogsfromstore {
 
 final class RsyncUIlogrecords: ObservableObject {
     var alllogssorted: [Log]? = [Log]()
+    var countrecords: Int = 0
     var scheduleConfigurations: [ConfigurationSchedule]?
     var logrecordsfromstore: Readlogsfromstore?
 
     func filterlogs(_ filter: String, _ hiddenID: Int) -> [Log] {
         var activelogrecords: [Log]?
-
         switch hiddenID {
         case -1:
             if filter.isEmpty == false {
@@ -39,11 +39,13 @@ final class RsyncUIlogrecords: ObservableObject {
                 }
                 let number = activelogrecords?.count ?? 0
                 Logger.process.info("filter ALL logs by \(filter) - count: \(String(number))")
+                countrecords = number
                 return activelogrecords ?? []
 
             } else {
                 let number = alllogssorted?.count ?? 0
                 Logger.process.info("ALL logs - count: \(String(number))")
+                countrecords = number
                 return alllogssorted ?? []
             }
         default:
@@ -54,12 +56,14 @@ final class RsyncUIlogrecords: ObservableObject {
                 }
                 let number = activelogrecords?.count ?? 0
                 Logger.process.info("filter logs BY hiddenID and filter by \(filter) - count: \(String(number))")
+                countrecords = number
                 return activelogrecords ?? []
             } else {
                 activelogrecords = nil
                 activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >)
                 let number = activelogrecords?.count ?? 0
                 Logger.process.info("filter logs BY hiddenID - count: \(String(number))")
+                countrecords = number
                 return activelogrecords ?? []
             }
         }

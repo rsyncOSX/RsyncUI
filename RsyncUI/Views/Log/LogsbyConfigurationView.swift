@@ -37,7 +37,7 @@ struct LogsbyConfigurationView: View {
                         }
                     }
 
-                Table(logrecords.filterlogs(filterstring, hiddenID), selection: $selectedloguuids) {
+                Table(records, selection: $selectedloguuids) {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
@@ -51,15 +51,11 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     showAlertfordelete = true
                 }
-                /*
-                 .overlay {
-                     if #available(macOS 14.0, *),
-                        logrecords.activelogrecords?.count == 0
-                     {
-                         ContentUnavailableView.search
-                     }
-                 }
-                  */
+            }
+            HStack {
+                Text("Number of log records: \(logrecords.countrecords)")
+
+                Spacer()
             }
         }
         .searchable(text: $filterstring)
@@ -78,5 +74,9 @@ struct LogsbyConfigurationView: View {
                            selectedprofile: rsyncUIdata.profile,
                            logrecords: logrecords)
         }
+    }
+
+    var records: [Log] {
+        return logrecords.filterlogs(filterstring, hiddenID)
     }
 }
