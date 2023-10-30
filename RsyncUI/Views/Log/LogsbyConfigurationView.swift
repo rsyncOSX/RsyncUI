@@ -51,6 +51,12 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     showAlertfordelete = true
                 }
+                .overlay { if #available(macOS 14.0, *),
+                              logrecords.countrecords == 0
+                    {
+                        ContentUnavailableView.search
+                    }
+                }
             }
             HStack {
                 Text("Number of log records: \(logrecords.countrecords)")

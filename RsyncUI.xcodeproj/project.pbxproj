@@ -177,7 +177,6 @@
 		E9E9CD2526779E2600EB377B /* ExecuteCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */; };
 		E9EA4EA329DAA0EF00456ADA /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EA4EA229DAA0EF00456ADA /* Counter.swift */; };
 		E9F5354C290185AA007EFAE7 /* EstimateTasksAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F5354B290185AA007EFAE7 /* EstimateTasksAsync.swift */; };
-		E9F7E19B2AEBC38900BE5436 /* DebounceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F7E19A2AEBC38900BE5436 /* DebounceTextField.swift */; };
 		E9FAE97928DF4F8F000C0F93 /* LocalRemoteInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FAE97828DF4F8F000C0F93 /* LocalRemoteInfoView.swift */; };
 		E9FBE7912A51C5CA0038B82D /* LogrecordSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBE7902A51C5CA0038B82D /* LogrecordSnapshot.swift */; };
 		E9FBF40D291AFB7000AAAC40 /* SnapshotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF40C291AFB7000AAAC40 /* SnapshotCommands.swift */; };
@@ -379,7 +378,6 @@
 		E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteCommands.swift; sourceTree = "<group>"; };
 		E9EA4EA229DAA0EF00456ADA /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		E9F5354B290185AA007EFAE7 /* EstimateTasksAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTasksAsync.swift; sourceTree = "<group>"; };
-		E9F7E19A2AEBC38900BE5436 /* DebounceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebounceTextField.swift; sourceTree = "<group>"; };
 		E9FAE97828DF4F8F000C0F93 /* LocalRemoteInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRemoteInfoView.swift; sourceTree = "<group>"; };
 		E9FBE7902A51C5CA0038B82D /* LogrecordSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogrecordSnapshot.swift; sourceTree = "<group>"; };
 		E9FBF40C291AFB7000AAAC40 /* SnapshotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCommands.swift; sourceTree = "<group>"; };
@@ -600,7 +598,6 @@
 				E985C62125F3AD8400CB895C /* ToggleView.swift */,
 				E985C62225F3AD8400CB895C /* Viewmodifiers.swift */,
 				E8902992260B0EF700F4F0DC /* ButtonStyles.swift */,
-				E9F7E19A2AEBC38900BE5436 /* DebounceTextField.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -1204,7 +1201,6 @@
 				E9569EAD27B80C220038799C /* DecodeUserConfiguration.swift in Sources */,
 				E801DC662637FD990060723F /* WriteConfigurationJSON.swift in Sources */,
 				E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */,
-				E9F7E19B2AEBC38900BE5436 /* DebounceTextField.swift in Sources */,
 				E985C72D25F3AD9700CB895C /* Snapshotlogsandcatalogs.swift in Sources */,
 				E9C2BB982A991D1000BC50F5 /* ListofTasksAddView.swift in Sources */,
 				E985C66625F3AD8400CB895C /* ToggleView.swift in Sources */,
