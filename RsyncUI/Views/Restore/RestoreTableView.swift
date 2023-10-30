@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 05/06/2023.
 //
 
+import Combine
 import SwiftUI
 
 struct RestoreTableView: View {
@@ -18,6 +19,7 @@ struct RestoreTableView: View {
     @State private var snapshotcatalog: String = ""
     // Filterstring
     @State private var filterstring: String = ""
+    @State var publisher = PassthroughSubject<String, Never>()
 
     var body: some View {
         VStack {
@@ -52,7 +54,6 @@ struct RestoreTableView: View {
                         .onChange(of: rsyncUIdata.profile) { _ in
                             restore.datalist.removeAll()
                         }
-
                         .overlay { if #available(macOS 14.0, *),
                                       filterstring.count > 0,
                                       restore.rsyncdata?.count ?? 0 > 0,
@@ -81,22 +82,6 @@ struct RestoreTableView: View {
                 setfilestorestore
 
                 setpathforrestore
-
-                // Debounce textfield is not shown, only used for debounce entering
-                // filtervalues
-                DebounceTextField(label: "", value: $filterstring) { value in
-                    Task {
-                        if restore.rsyncdata?.count ?? 0 > 0, value.isEmpty == false {
-                            await filterrestorefilelist()
-                        } else {
-                            restore.datalist = restore.rsyncdata?.map { filename in
-                                RestoreFileRecord(filename: filename)
-                            } ?? []
-                        }
-                    }
-                }
-                .frame(width: 300)
-                .opacity(0)
             }
 
             Spacer()
@@ -120,6 +105,23 @@ struct RestoreTableView: View {
         .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .searchable(text: $filterstring)
+        .onChange(of: filterstring, perform: { filter in
+            publisher.send(filter)
+        })
+        .onReceive(
+            publisher.debounce(
+                for: .seconds(1),
+                scheduler: DispatchQueue.main
+            )
+        ) { filter in
+            if restore.rsyncdata?.count ?? 0 > 0, filter.isEmpty == false {
+                filterrestorefilelist()
+            } else {
+                restore.datalist = restore.rsyncdata?.map { filename in
+                    RestoreFileRecord(filename: filename)
+                } ?? []
+            }
+        }
         .toolbar(content: {
             ToolbarItem {
                 if restore.selectedconfig?.task == SharedReference.shared.snapshot {
@@ -309,7 +311,7 @@ extension RestoreTableView {
         }
     }
 
-    func filterrestorefilelist() async {
+    func filterrestorefilelist() {
         if let data = restore.rsyncdata?.filter({ $0.contains(filterstring) }) {
             restore.datalist = data.map { filename in
                 RestoreFileRecord(filename: filename)
@@ -322,3 +324,35 @@ struct RestoreFileRecord: Identifiable {
     let id = UUID()
     var filename: String
 }
+
+/*
+ import Combine
+ import SwiftUI
+
+ struct DebounceTextField: View {
+     @State var publisher = PassthroughSubject<String, Never>()
+     @State var label: String
+     @Binding var value: String
+     var valueChanged: ((_ value: String) -> Void)?
+
+     @State var debounceSeconds = 1.0
+
+     var body: some View {
+         TextField(label, text: $value)
+             .disableAutocorrection(true)
+             .onChange(of: value) { _ in
+                 publisher.send(value)
+             }
+             .onReceive(
+                 publisher.debounce(
+                     for: .seconds(debounceSeconds),
+                     scheduler: DispatchQueue.main
+                 )
+             ) { value in
+                 if let valueChanged = valueChanged {
+                     valueChanged(value)
+                 }
+             }
+     }
+ }
+ */
