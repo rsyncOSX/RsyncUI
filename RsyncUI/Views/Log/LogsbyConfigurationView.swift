@@ -6,17 +6,21 @@
 //  Copyright © 2021 Thomas Evensen. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @State private var filterstring: String = ""
     @State private var hiddenID = -1
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedloguuids = Set<Log.ID>()
     @State private var reload: Bool = false
     // Alert for delete
     @State private var showAlertfordelete = false
+    // Filterstring
+    @State private var filterstring: String = ""
+    @State var publisher = PassthroughSubject<String, Never>()
+    @State private var debouncefilterstring: String = ""
 
     var logrecords: RsyncUIlogrecords
 
@@ -65,6 +69,17 @@ struct LogsbyConfigurationView: View {
             }
         }
         .searchable(text: $filterstring)
+        .onChange(of: filterstring) { _ in
+            publisher.send(filterstring)
+        }
+        .onReceive(
+            publisher.debounce(
+                for: .seconds(1),
+                scheduler: DispatchQueue.main
+            )
+        ) { filter in
+            debouncefilterstring = filter
+        }
         .toolbar(content: {
             ToolbarItem {
                 Button {
@@ -83,6 +98,6 @@ struct LogsbyConfigurationView: View {
     }
 
     var records: [Log] {
-        return logrecords.filterlogs(filterstring, hiddenID)
+        return logrecords.filterlogs(debouncefilterstring, hiddenID)
     }
 }
