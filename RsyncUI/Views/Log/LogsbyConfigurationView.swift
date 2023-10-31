@@ -104,7 +104,7 @@ struct LogsbyConfigurationView: View {
     var records: [Log] {
         return logrecords.filterlogs(debouncefilterstring, hiddenID)
     }
-    
+
     var indebounce: some View {
         ProgressView()
             .controlSize(.small)
