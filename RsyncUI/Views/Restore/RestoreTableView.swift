@@ -20,6 +20,7 @@ struct RestoreTableView: View {
     // Filterstring
     @State private var filterstring: String = ""
     @State var publisher = PassthroughSubject<String, Never>()
+    @State private var showindebounce: Bool = false
 
     var body: some View {
         VStack {
@@ -86,6 +87,10 @@ struct RestoreTableView: View {
 
             Spacer()
 
+            if showindebounce { indebounce }
+
+            Spacer()
+
             VStack(alignment: .leading) {
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
@@ -106,6 +111,7 @@ struct RestoreTableView: View {
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .searchable(text: $filterstring)
         .onChange(of: filterstring, perform: { filter in
+            showindebounce = true
             publisher.send(filter)
         })
         .onReceive(
@@ -114,6 +120,7 @@ struct RestoreTableView: View {
                 scheduler: DispatchQueue.main
             )
         ) { filter in
+            showindebounce = false
             if restore.rsyncdata?.count ?? 0 > 0, filter.isEmpty == false {
                 filterrestorefilelist()
             } else {
@@ -187,18 +194,6 @@ struct RestoreTableView: View {
                   $restore.filestorestore)
     }
 
-    var numberoffiles: some View {
-        HStack {
-            Text(NSLocalizedString("Number of files", comment: "") + ": ")
-            Text(NumberFormatter.localizedString(from: NSNumber(value: restore.numberoffiles),
-                                                 number: NumberFormatter.Style.decimal))
-                .foregroundColor(Color.blue)
-
-            Spacer()
-        }
-        .frame(width: 300)
-    }
-
     // Output from rsync
     var viewoutput: some View {
         OutputRsyncView(output: restore.rsyncdata ?? [])
@@ -229,6 +224,11 @@ struct RestoreTableView: View {
             restore.datalist.removeAll()
             restore.filestorestore = ""
         }
+    }
+
+    var indebounce: some View {
+        ProgressView()
+            .controlSize(.small)
     }
 }
 
