@@ -51,8 +51,8 @@ final class RsyncUIlogrecords: ObservableObject {
         default:
             if filter.isEmpty == false {
                 activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
-                    filter.isEmpty ? true : $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
-                        filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+                    $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+                        $0.resultExecuted?.contains(filter) ?? false
                 }
                 let number = activelogrecords?.count ?? 0
                 Logger.process.info("filter logs BY hiddenID and filter by \(filter) - count: \(String(number))")
@@ -87,3 +87,10 @@ final class RsyncUIlogrecords: ObservableObject {
 }
 
 // swiftlint:enable line_length
+
+/*
+  activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >).filter {
+      filter.isEmpty ? true: $0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filter) ?? false ||
+          filter.isEmpty ? true : $0.resultExecuted?.contains(filter) ?? false
+  }
+ */
