@@ -21,6 +21,7 @@ struct LogsbyConfigurationView: View {
     @State private var filterstring: String = ""
     @State var publisher = PassthroughSubject<String, Never>()
     @State private var debouncefilterstring: String = ""
+    @State private var showindebounce: Bool = false
 
     var logrecords: RsyncUIlogrecords
 
@@ -59,13 +60,19 @@ struct LogsbyConfigurationView: View {
                 }
             }
             HStack {
-                Text("Number of log records: \(logrecords.countrecords)")
+                Text("Number of log records: ")
 
+                if showindebounce {
+                    indebounce
+                } else {
+                    Text("\(logrecords.countrecords)")
+                }
                 Spacer()
             }
         }
         .searchable(text: $filterstring)
         .onChange(of: filterstring) {
+            showindebounce = true
             publisher.send(filterstring)
         }
         .onReceive(
@@ -74,6 +81,7 @@ struct LogsbyConfigurationView: View {
                 scheduler: DispatchQueue.main
             )
         ) { filter in
+            showindebounce = false
             debouncefilterstring = filter
         }
         .toolbar(content: {
@@ -95,5 +103,10 @@ struct LogsbyConfigurationView: View {
 
     var records: [Log] {
         return logrecords.filterlogs(debouncefilterstring, hiddenID)
+    }
+    
+    var indebounce: some View {
+        ProgressView()
+            .controlSize(.small)
     }
 }
