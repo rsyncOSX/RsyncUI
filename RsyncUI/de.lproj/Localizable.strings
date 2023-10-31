@@ -20,6 +20,9 @@
 "Abort" = "Abbrechen";
 
 /* No comment provided by engineer. */
+"Abort (⌘K)" = "Abbrechen(⌘K)";
+
+/* No comment provided by engineer. */
 "Abort task" = "Aufgabe abbrechen";
 
 /* No comment provided by engineer. */
@@ -89,9 +92,6 @@
 "Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
 
 /* No comment provided by engineer. */
-"Command" = "Befehl";
-
-/* No comment provided by engineer. */
 "Copy" = "Kopi";
 
 /* No comment provided by engineer. */
@@ -143,12 +143,6 @@
 "Download" = "Download";
 
 /* No comment provided by engineer. */
-"Either no task is added\n or no match in Synchronize ID" = "Entweder wird keine Aufgabe hinzugefügt\n oder keine Übereinstimmung in der Synchronisierungs-ID";
-
-/* No comment provided by engineer. */
-"Either select a task\n or add a search string" = "Wählen Sie entweder eine Aufgabe aus oder fügen Sie eine Suchzeichenfolge hinzu";
-
-/* No comment provided by engineer. */
 "Enable" = "Aktivieren";
 
 /* No comment provided by engineer. */
@@ -164,10 +158,16 @@
 "Estimate" = "Schätzung";
 
 /* No comment provided by engineer. */
+"Estimate (⌘E)" = "Schätzung (⌘E)";
+
+/* No comment provided by engineer. */
 "Estimated tasks" = "Geschätzte Aufgaben";
 
 /* No comment provided by engineer. */
 "Execute" = "Ausführen";
+
+/* No comment provided by engineer. */
+"Execute (⌘R)" = "Ausführen (⌘R)";
 
 /* No comment provided by engineer. */
 "Filenames" = "Filnamen";
@@ -177,9 +177,6 @@
 
 /* No comment provided by engineer. */
 "Files: " = "Dateien:";
-
-/* No comment provided by engineer. */
-"Filter to search remote data" = "Filtern Sie, um Remote-Daten zu durchsuchen";
 
 /* No comment provided by engineer. */
 "First task" = "Erste Aufgabe";
@@ -224,6 +221,9 @@
 "Linux" = "Linux";
 
 /* No comment provided by engineer. */
+"List tasks all profiles" = "Aufgaben aller Profile auflisten";
+
+/* No comment provided by engineer. */
 "Local catalog" = "Lokaler Katalog";
 
 /* No comment provided by engineer. */
@@ -240,12 +240,6 @@
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
-
-/* No comment provided by engineer. */
-"Log" = "Protkoll";
-
-/* No comment provided by engineer. */
-"Log listings" = "Protokolle";
 
 /* No comment provided by engineer. */
 "Log to file" = "Log in Datei";
@@ -269,13 +263,7 @@
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
-"New version is available" = "Neue Version ist verfügbar";
-
-/* No comment provided by engineer. */
 "New: " = "Neu:";
-
-/* No comment provided by engineer. */
-"No match in Date or Result" = "Keine Übereinstimmung im Datum oder Ergebnis";
 
 /* No comment provided by engineer. */
 "None" = "Keine";
@@ -293,13 +281,7 @@
 "Num" = "Num";
 
 /* No comment provided by engineer. */
-"Number of files" = "Anzahl der Dateien";
-
-/* No comment provided by engineer. */
 "Number of logrecords" = "Anzahl der Protokolle";
-
-/* No comment provided by engineer. */
-"Number of logs" = "Anzahl der Protokolle";
 
 /* No comment provided by engineer. */
 "Number to delete" = "Zu löschende Nummer";
@@ -329,9 +311,6 @@
 "Profiles" = "Profil";
 
 /* No comment provided by engineer. */
-"Quick synchronize" = "Schnell synchronisieren";
-
-/* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
 
 /* No comment provided by engineer. */
@@ -356,13 +335,19 @@
 "Reset" = "Zurücksetzen";
 
 /* No comment provided by engineer. */
+"Reset estimates" = "Schätzungen zurücksetzen";
+
+/* No comment provided by engineer. */
+"Reset selections" = "Auswahl zurücksetzen";
+
+/* No comment provided by engineer. */
 "Restore" = "Wiederherstellen";
 
 /* No comment provided by engineer. */
 "Result" = "Result";
 
 /* No comment provided by engineer. */
-"Rsync parameters" = "Rsync Parameter";
+"Rsync output estimated task" = "Geschätzte Rsync-Ausgabeaufgabe";
 
 /* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
@@ -386,7 +371,7 @@
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
-"Select a configuration" = "Konfiguration auswählen";
+"Select a task" = "Wählen Sie eine Aufgabe aus";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
@@ -426,9 +411,6 @@
 
 /* No comment provided by engineer. */
 "Ssh" = "Ssh";
-
-/* No comment provided by engineer. */
-"Synchronize" = "Synchronisieren";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";
@@ -480,6 +462,9 @@
 
 /* No comment provided by engineer. */
 "View logfile" = "Logdatei anzeigen";
+
+/* No comment provided by engineer. */
+"View output" = "Ausgabe anzeigen";
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Willkommen bei RsyncUI";

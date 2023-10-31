@@ -20,6 +20,9 @@
 "Abort" = "Avbryt";
 
 /* No comment provided by engineer. */
+"Abort (⌘K)" = "Avbryt (⌘K)";
+
+/* No comment provided by engineer. */
 "Abort task" = "Avbryt oppgave";
 
 /* No comment provided by engineer. */
@@ -89,9 +92,6 @@
 "Check for error in output" = "Sjekk for feil i utdata";
 
 /* No comment provided by engineer. */
-"Command" = "Kommando";
-
-/* No comment provided by engineer. */
 "Copy" = "Kopi";
 
 /* No comment provided by engineer. */
@@ -122,7 +122,7 @@
 "Delete configuration(s)" = "Slette konfigurasjoner";
 
 /* No comment provided by engineer. */
-"Delete snapshots(s)" = "Slette snapshot(s)";
+"Delete snapshots(s)" = "Slette snapshot";
 
 /* No comment provided by engineer. */
 "Delete: " = "Slett:";
@@ -143,12 +143,6 @@
 "Download" = "Last ned";
 
 /* No comment provided by engineer. */
-"Either no task is added\n or no match in Synchronize ID" = "Enten er ingen oppgaver lagt til\n eller ingen søk i Synchronize ID";
-
-/* No comment provided by engineer. */
-"Either select a task\n or add a search string" = "Enten velg en oppgave eller legg til en søke streng";
-
-/* No comment provided by engineer. */
 "Enable" = "Aktiver";
 
 /* No comment provided by engineer. */
@@ -164,10 +158,16 @@
 "Estimate" = "Estimer";
 
 /* No comment provided by engineer. */
+"Estimate (⌘E)" = "Estimer (⌘E)";
+
+/* No comment provided by engineer. */
 "Estimated tasks" = "Estimerte oppgaver";
 
 /* No comment provided by engineer. */
 "Execute" = "Utfør";
+
+/* No comment provided by engineer. */
+"Execute (⌘R)" = "Utfør (⌘R)";
 
 /* No comment provided by engineer. */
 "Filenames" = "Filnavn";
@@ -177,9 +177,6 @@
 
 /* No comment provided by engineer. */
 "Files: " = "Filer:";
-
-/* No comment provided by engineer. */
-"Filter to search remote data" = "Filter for å søke data";
 
 /* No comment provided by engineer. */
 "First task" = "Første oppgave";
@@ -224,6 +221,9 @@
 "Linux" = "Linux";
 
 /* No comment provided by engineer. */
+"List tasks all profiles" = "Liste oppgaver alle profiler";
+
+/* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
 
 /* No comment provided by engineer. */
@@ -263,13 +263,7 @@
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
-"New version is available" = "Ny versjon er tilgjengelig";
-
-/* No comment provided by engineer. */
 "New: " = "Ny:";
-
-/* No comment provided by engineer. */
-"No match in Date or Result" = "Ingen søk i dato eller resultat";
 
 /* No comment provided by engineer. */
 "None" = "Ingen";
@@ -287,13 +281,7 @@
 "Num" = "Num";
 
 /* No comment provided by engineer. */
-"Number of files" = "Antall filer";
-
-/* No comment provided by engineer. */
 "Number of logrecords" = "Antall logger";
-
-/* No comment provided by engineer. */
-"Number of logs" = "Antall logger";
 
 /* No comment provided by engineer. */
 "Number to delete" = "Antall å slette";
@@ -347,10 +335,19 @@
 "Reset" = "Nullstille";
 
 /* No comment provided by engineer. */
+"Reset estimates" = "Nulstille estimater";
+
+/* No comment provided by engineer. */
+"Reset selections" = "Nullstille valg";
+
+/* No comment provided by engineer. */
 "Restore" = "Gjenopprett";
 
 /* No comment provided by engineer. */
 "Result" = "Resultat";
+
+/* No comment provided by engineer. */
+"Rsync output estimated task" = "Rsync logg estimert oppgave";
 
 /* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
@@ -377,7 +374,7 @@
 "Saved" = "Lagret";
 
 /* No comment provided by engineer. */
-"Select a task" = "Velg oppgave";
+"Select a task" = "Velg en oppgave";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
@@ -468,6 +465,9 @@
 
 /* No comment provided by engineer. */
 "View logfile" = "Vis loggfil";
+
+/* No comment provided by engineer. */
+"View output" = "Se logg";
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Velkommen til RsyncUI";
