@@ -26,13 +26,11 @@ struct VersionsofRsyncUI: Codable {
 }
 
 struct GetversionsofRsyncUI {
-    let urlSession = URLSession.shared
-    let jsonDecoder = JSONDecoder()
-
     func getversionsofrsyncuibyurl() async throws -> [VersionsofRsyncUI]? {
         if let url = URL(string: Resources().getResource(resource: .urlJSON)) {
-            let (data, _) = try await urlSession.data(from: url)
-            return try jsonDecoder.decode([VersionsofRsyncUI].self, from: data)
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decoder = JSONDecoder()
+            return try decoder.decode([VersionsofRsyncUI].self, from: data)
         } else {
             return nil
         }
