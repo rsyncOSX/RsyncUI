@@ -51,8 +51,6 @@ struct AddTaskView: View {
     @FocusState private var focusField: AddConfigurationField?
     // Modale view
     @State private var modalview = false
-    // Reload and show table data
-    @State private var reloadtasksviewlist: Bool = true
     // Only used for macOS13 and later
     @State private var confirmcopyandpaste: Bool = false
 
@@ -99,80 +97,72 @@ struct AddTaskView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        if reloadtasksviewlist {
-                            if #available(macOS 13.0, *) {
-                                ListofTasksAddView(
-                                    selecteduuids: $selecteduuids,
-                                    reload: $reload,
-                                    reloadtasksviewlist: $reloadtasksviewlist
-                                )
-                                .onChange(of: selecteduuids, perform: { _ in
-                                    let selected = rsyncUIdata.configurations?.filter { config in
-                                        selecteduuids.contains(config.id)
-                                    }
-                                    if (selected?.count ?? 0) == 1 {
-                                        if let config = selected {
-                                            selectedconfig = config[0]
-                                            newdata.updateview(selectedconfig)
-                                        }
-                                    } else {
-                                        selectedconfig = nil
+                        if #available(macOS 13.0, *) {
+                            ListofTasksAddView(
+                                selecteduuids: $selecteduuids,
+                                reload: $reload
+                            )
+                            .onChange(of: selecteduuids, perform: { _ in
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        selectedconfig = config[0]
                                         newdata.updateview(selectedconfig)
                                     }
-                                })
-                                .copyable(copyitems.filter { selecteduuids.contains($0.id) })
-                                .pasteDestination(for: CopyItem.self) { items in
-                                    newdata.preparecopyandpastetasks(items,
-                                                                     rsyncUIdata.configurations ?? [])
-                                    guard items.count > 0 else { return }
-                                    confirmcopyandpaste = true
-                                } validator: { items in
-                                    items.filter { $0.task != SharedReference.shared.snapshot }
+                                } else {
+                                    selectedconfig = nil
+                                    newdata.updateview(selectedconfig)
                                 }
-                                .confirmationDialog(
-                                    NSLocalizedString("Copy configuration(s)", comment: "")
-                                        + "?",
-                                    isPresented: $confirmcopyandpaste
-                                ) {
-                                    Button("Copy") {
-                                        confirmcopyandpaste = false
-                                        newdata.writecopyandpastetasks(rsyncUIdata.profile,
-                                                                       rsyncUIdata.configurations ?? [])
-                                        reload = true
-                                        reloadtasksviewlist = false
-                                        dataischanged.dataischanged = true
-                                    }
+                            })
+                            .copyable(copyitems.filter { selecteduuids.contains($0.id) })
+                            .pasteDestination(for: CopyItem.self) { items in
+                                newdata.preparecopyandpastetasks(items,
+                                                                 rsyncUIdata.configurations ?? [])
+                                guard items.count > 0 else { return }
+                                confirmcopyandpaste = true
+                            } validator: { items in
+                                items.filter { $0.task != SharedReference.shared.snapshot }
+                            }
+                            .confirmationDialog(
+                                NSLocalizedString("Copy configuration(s)", comment: "")
+                                    + "?",
+                                isPresented: $confirmcopyandpaste
+                            ) {
+                                Button("Copy") {
+                                    confirmcopyandpaste = false
+                                    newdata.writecopyandpastetasks(rsyncUIdata.profile,
+                                                                   rsyncUIdata.configurations ?? [])
+                                    reload = true
+                                    dataischanged.dataischanged = true
                                 }
-                            } else {
-                                ListofTasksAddView(
-                                    selecteduuids: $selecteduuids,
-                                    reload: $reload,
-                                    reloadtasksviewlist: $reloadtasksviewlist
-                                )
-                                .onChange(of: selecteduuids, perform: { _ in
-                                    let selected = rsyncUIdata.configurations?.filter { config in
-                                        selecteduuids.contains(config.id)
-                                    }
-                                    if (selected?.count ?? 0) == 1 {
-                                        if let config = selected {
-                                            selectedconfig = config[0]
-                                            newdata.updateview(selectedconfig)
-                                        }
-                                    } else {
-                                        selectedconfig = nil
-                                        newdata.updateview(selectedconfig)
-                                    }
-                                })
                             }
-
-                            HStack {
-                                profilebutton
-
-                                updatebutton
-                            }
-
                         } else {
-                            notifyupdated
+                            ListofTasksAddView(
+                                selecteduuids: $selecteduuids,
+                                reload: $reload
+                            )
+                            .onChange(of: selecteduuids, perform: { _ in
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        selectedconfig = config[0]
+                                        newdata.updateview(selectedconfig)
+                                    }
+                                } else {
+                                    selectedconfig = nil
+                                    newdata.updateview(selectedconfig)
+                                }
+                            })
+                        }
+
+                        HStack {
+                            profilebutton
+
+                            updatebutton
                         }
                     }
                 }
@@ -182,7 +172,6 @@ struct AddTaskView: View {
         .padding()
         .onAppear {
             if dataischanged.dataischanged {
-                reloadtasksviewlist = false
                 dataischanged.dataischanged = false
             }
         }
@@ -452,16 +441,6 @@ struct AddTaskView: View {
         .frame(width: 140)
     }
 
-    var notifyupdated: some View {
-        notifymessage("Updated")
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    reloadtasksviewlist = true
-                }
-            })
-            .frame(maxWidth: .infinity)
-    }
-
     var cannotdeletedefaultprofile: some View {
         AlertToast(type: .error(Color.red),
                    title: Optional("Cannot delete default profile"), subTitle: Optional(""))
@@ -554,14 +533,12 @@ extension AddTaskView {
     func addconfig() {
         newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload
-        reloadtasksviewlist = false
         dataischanged.dataischanged = true
     }
 
     func validateandupdate() {
         newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
-        reloadtasksviewlist = false
         dataischanged.dataischanged = true
     }
 }
