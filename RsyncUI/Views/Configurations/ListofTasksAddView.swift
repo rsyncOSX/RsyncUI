@@ -12,7 +12,6 @@ struct ListofTasksAddView: View {
 
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
-    @Binding var reloadtasksviewlist: Bool
     @State private var confirmdelete: Bool = false
 
     var body: some View {
@@ -72,6 +71,5 @@ struct ListofTasksAddView: View {
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
         reload = true
-        reloadtasksviewlist = true
     }
 }
