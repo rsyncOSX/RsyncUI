@@ -44,7 +44,7 @@ final class RsyncUIlogrecords {
                         $0.resultExecuted?.contains(filter) ?? false
                 }
                 let number = activelogrecords?.count ?? 0
-                Logger.process.info("filter ALL logs by \(filter) - count: \(String(number))")
+                Logger.process.info("filter ALL logs by \(filter, privacy: .public) - count: \(String(number), privacy: .public)")
                 countrecords = number
                 return activelogrecords ?? []
 
@@ -61,14 +61,14 @@ final class RsyncUIlogrecords {
                         $0.resultExecuted?.contains(filter) ?? false
                 }
                 let number = activelogrecords?.count ?? 0
-                Logger.process.info("filter logs BY hiddenID and filter by \(filter) - count: \(String(number))")
+                Logger.process.info("filter logs BY hiddenID and filter by \(filter) - count: \(String(number), privacy: .public)")
                 countrecords = number
                 return activelogrecords ?? []
             } else {
                 activelogrecords = nil
                 activelogrecords = alllogssorted?.filter { $0.hiddenID == hiddenID }.sorted(by: \.date, using: >)
                 let number = activelogrecords?.count ?? 0
-                Logger.process.info("filter logs BY hiddenID - count: \(String(number))")
+                Logger.process.info("filter logs BY hiddenID - count: \(String(number), privacy: .public)")
                 countrecords = number
                 return activelogrecords ?? []
             }

@@ -95,8 +95,8 @@ final class RsyncProcessAsync {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.process.info("RsyncProcessAsync: \(launchPath)")
-            Logger.process.info("RsyncProcessAsync: \(arguments)")
+            Logger.process.info("RsyncProcessAsync: \(launchPath, privacy: .public)")
+            Logger.process.info("RsyncProcessAsync: \(arguments, privacy: .public)")
         }
     }
 
