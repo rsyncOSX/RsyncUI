@@ -356,6 +356,7 @@ extension TasksView {
     }
 
     func estimate() {
+        guard estimatingprogresscount.estimateasync == false else { return }
         let action = ActionHolder(action: "Estimate",
                                   profile: rsyncUIdata.profile ?? "Default profile",
                                   source: "TasksView")
