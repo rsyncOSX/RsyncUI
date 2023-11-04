@@ -18,7 +18,6 @@ struct RsyncUIView: View {
 
     // Initial view in tasks for sidebar macOS 12
     @State private var selection: NavigationItem? = Optional.none
-    var actions: Actions
 
     var body: some View {
         VStack {
@@ -39,8 +38,7 @@ struct RsyncUIView: View {
                 if #available(macOS 13.0, *) {
                     SidebarVentura(reload: $reload,
                                    selectedprofile: $selectedprofile,
-                                   selecteduuids: $selecteduuids,
-                                   actions: actions)
+                                   selecteduuids: $selecteduuids)
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
                         .environmentObject(profilenames)
@@ -51,8 +49,7 @@ struct RsyncUIView: View {
                     SidebarMonterey(reload: $reload,
                                     selectedprofile: $selectedprofile,
                                     selecteduuids: $selecteduuids,
-                                    selection: $selection,
-                                    actions: actions)
+                                    selection: $selection)
                         .environmentObject(rsyncUIdata)
                         .environmentObject(errorhandling)
                         .environmentObject(profilenames)

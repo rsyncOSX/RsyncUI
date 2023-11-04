@@ -26,16 +26,13 @@ struct SidebarMonterey: View {
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var selection: NavigationItem?
 
-    var actions: Actions
-
     var sidebar: some View {
         List(selection: $selection) {
             Spacer()
 
             Group {
                 NavigationLink(destination: SidebarTasksView(selecteduuids: $selecteduuids,
-                                                             reload: $reload,
-                                                             actions: actions),
+                                                             reload: $reload),
                                tag: NavigationItem.tasksview,
                                selection: $selection)
                 {

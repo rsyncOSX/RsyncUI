@@ -20,8 +20,6 @@ struct SidebarVentura: View {
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
     @State private var selectedview: Sidebaritems?
-    // Keep record of actions
-    var actions: Actions
 
     var body: some View {
         NavigationSplitView {
@@ -64,8 +62,7 @@ struct SidebarVentura: View {
             SidebarSnapshotsView(reload: $reload)
         case .synchronize:
             SidebarTasksView(selecteduuids: $selecteduuids,
-                             reload: $reload,
-                             actions: actions)
+                             reload: $reload)
         case .quick_synchronize:
             QuicktaskView()
         }
