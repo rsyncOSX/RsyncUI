@@ -61,7 +61,7 @@ class ReadConfigurationJSON: NamesandPaths {
                     return
                 case .failure:
                     // No file, write new file with default values
-                    Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile"): Creating default file for Configurations")
+                    Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): Creating default file for Configurations")
                     WriteConfigurationJSON(nil, nil)
                     // Mark first time used, only for default profile
                     if profile == nil {

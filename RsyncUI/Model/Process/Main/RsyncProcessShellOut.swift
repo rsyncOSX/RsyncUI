@@ -123,8 +123,8 @@ final class RsyncProcessShellOut {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.process.info("RsyncProcessShellOut: \(launchPath)")
-            Logger.process.info("RsyncProcessShellOut: \(arguments)")
+            Logger.process.info("RsyncProcessShellOut: \(launchPath, privacy: .public)")
+            Logger.process.info("RsyncProcessShellOut: \(arguments, privacy: .public)")
         }
     }
 
@@ -165,9 +165,9 @@ extension RsyncProcessShellOut {
                 try await shellOut(to: pretask)
             } catch let e {
                 let error = e as? ShellOutError
-                Logger.process.critical("Pretask failed: \(pretask) \(error)")
+                Logger.process.critical("Pretask failed: \(pretask, privacy: .public) \(error, privacy: .public)")
             }
-            Logger.process.info("Executed pretask: \(pretask)")
+            Logger.process.info("Executed pretask: \(pretask, privacy: .public)")
         }
     }
 
@@ -177,9 +177,9 @@ extension RsyncProcessShellOut {
                 try await shellOut(to: posttask)
             } catch let e {
                 let error = e as? ShellOutError
-                Logger.process.critical("Posttask failed: \(posttask) \(error)")
+                Logger.process.critical("Posttask failed: \(posttask, privacy: .public) \(error, privacy: .public)")
             }
-            Logger.process.info("Executed posttask: \(posttask)")
+            Logger.process.info("Executed posttask: \(posttask, privacy: .public)")
         }
     }
 }
