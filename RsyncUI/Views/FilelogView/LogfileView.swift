@@ -12,49 +12,19 @@ import SwiftUI
 struct LogfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @State private var resetloggfile = false
-    @State private var showactions = false
-
     @State private var logfileview = Logfileview()
-    var action: Actions
 
     var body: some View {
         VStack {
-            if showactions {
-                Section(header: headeractions) {
-                    Table(action.getactions()) {
-                        TableColumn("Num") { data in
-                            let num = String(data.actionnumber ?? -1)
-                            Text(num)
-                        }
-                        .width(max: 25)
-
-                        TableColumn("Where", value: \.source)
-                            .width(min: 50)
-
-                        TableColumn("Profile", value: \.profile)
-                            .width(min: 50)
-
-                        TableColumn("Date") { data in
-                            let date = data.timestamp.long_localized_string_from_date()
-                            Text(date)
-                        }
-                        .width(max: 400)
-
-                        TableColumn("Action", value: \.action)
-                            .width(min: 700)
+            Section(header: headerlogfile) {
+                Table(logfileview.output) {
+                    TableColumn("Lines") { data in
+                        Text(data.line)
                     }
+                    .width(min: 700)
                 }
-            } else {
-                Section(header: headerlogfile) {
-                    Table(logfileview.output) {
-                        TableColumn("Lines") { data in
-                            Text(data.line)
-                        }
-                        .width(min: 700)
-                    }
-                    .onChange(of: resetloggfile) {
-                        afterareload()
-                    }
+                .onChange(of: resetloggfile) {
+                    afterareload()
                 }
             }
 
@@ -62,14 +32,6 @@ struct LogfileView: View {
 
             HStack {
                 Spacer()
-
-                Toggle("Actions", isOn: $showactions)
-                    .toggleStyle(.switch)
-
-                if showactions == false {
-                    Button("Reset") { reset() }
-                        .buttonStyle(ColorfulButtonStyle())
-                }
 
                 Button("Dismiss") { dismiss() }
                     .buttonStyle(ColorfulButtonStyle())

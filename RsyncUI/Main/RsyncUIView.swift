@@ -16,8 +16,6 @@ struct RsyncUIView: View {
     @State private var start: Bool = true
     @State var selecteduuids = Set<Configuration.ID>()
 
-    var actions: Actions
-
     var body: some View {
         VStack {
             if start {
@@ -38,8 +36,7 @@ struct RsyncUIView: View {
                         selectedprofile: $selectedprofile,
                         selecteduuids: $selecteduuids,
                         profilenames: profilenames,
-                        errorhandling: errorhandling,
-                        actions: actions)
+                        errorhandling: errorhandling)
                     .environment(\.rsyncUIData, rsyncUIdata)
                     .onChange(of: reload) {
                         reload = false

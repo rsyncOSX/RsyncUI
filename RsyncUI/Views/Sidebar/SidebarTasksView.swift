@@ -18,8 +18,6 @@ struct SidebarTasksView: View {
     // Timer values
     @State private var timervalue: Double = 600
 
-    var actions: Actions
-
     enum Task: String, Identifiable {
         case taskview, executestimatedview, executenoestimatetasksview
         var id: String { rawValue }
@@ -47,8 +45,7 @@ struct SidebarTasksView: View {
             TasksView(reload: $reload,
                       selecteduuids: $selecteduuids,
                       showeexecutestimatedview: $showeexecutEstimatedview,
-                      showexecutenoestimateview: $showexecuteNOEstimateview,
-                      actions: actions)
+                      showexecutenoestimateview: $showexecuteNOEstimateview)
                 .environmentObject(progressdetails)
                 .padding()
         case .executestimatedview:

@@ -14,17 +14,15 @@ import UserNotifications
 struct RsyncUIApp: App {
     @State private var viewlogfile: Bool = false
     @State private var selectedprofile: String? = "Default profile"
-    @State private var actions = Actions()
 
     var body: some Scene {
         WindowGroup {
-            RsyncUIView(selectedprofile: $selectedprofile,
-                        actions: actions)
+            RsyncUIView(selectedprofile: $selectedprofile)
                 .task {
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationJSON()
                 }
-                .sheet(isPresented: $viewlogfile) { LogfileView(action: actions) }
+                .sheet(isPresented: $viewlogfile) { LogfileView() }
                 .frame(minWidth: 1300, minHeight: 510)
         }
         .commands {
@@ -55,39 +53,6 @@ struct RsyncUIApp: App {
                 // application.registerForRemoteNotifications()
             }
         }
-    }
-}
-
-struct ActionHolder: Hashable, Identifiable {
-    let id = UUID()
-    var timestamp: Date = .init()
-    var action: String
-    var actionnumber: Int?
-    var profile: String
-    var source: String
-}
-
-@Observable
-final class Actions {
-    var actions = Set<ActionHolder>()
-
-    func addaction(_ action: ActionHolder) {
-        var actioninsert: ActionHolder
-        actioninsert = action
-        actioninsert.actionnumber = actions.count
-        actions.insert(actioninsert)
-    }
-
-    func resetactions() {
-        actions.removeAll()
-    }
-
-    func getactions() -> [ActionHolder] {
-        var privateactions = [ActionHolder]()
-        for action in actions {
-            privateactions.append(action)
-        }
-        return privateactions.sorted { $0.actionnumber ?? -1 < $1.actionnumber ?? -1 }
     }
 }
 

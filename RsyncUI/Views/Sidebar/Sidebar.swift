@@ -22,9 +22,6 @@ struct Sidebar: View {
     @Bindable var errorhandling: AlertError
     @State private var selectedview: Sidebaritems = .synchronize
 
-    // Keep record of actions
-    var actions: Actions
-
     var body: some View {
         NavigationSplitView {
             Divider()
@@ -67,7 +64,7 @@ struct Sidebar: View {
         case .snapshots:
             SidebarSnapshotsView(reload: $reload)
         case .synchronize:
-            SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload, actions: actions)
+            SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
         case .quick_synchronize:
             QuicktaskView()
         }
