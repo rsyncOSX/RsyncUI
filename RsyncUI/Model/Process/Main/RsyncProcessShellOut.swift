@@ -124,7 +124,7 @@ final class RsyncProcessShellOut {
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.process.info("RsyncProcessShellOut: \(launchPath, privacy: .public)")
-            Logger.process.info("RsyncProcessShellOut: \(arguments, privacy: .public)")
+            Logger.process.info("RsyncProcessShellOut: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 

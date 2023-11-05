@@ -118,7 +118,7 @@ final class RsyncProcessAsyncShellOut {
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.process.info("RsyncProcessAsyncShellOut: \(launchPath, privacy: .public)")
-            Logger.process.info("RsyncProcessAsyncShellOut: \(arguments, privacy: .public)")
+            Logger.process.info("RsyncProcessAsyncShellOut: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 

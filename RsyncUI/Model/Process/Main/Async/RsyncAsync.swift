@@ -72,7 +72,7 @@ final class RsyncAsync {
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.process.info("RsyncAsync: \(launchPath, privacy: .public)")
-            Logger.process.info("RsyncAsync: \(arguments, privacy: .public)")
+            Logger.process.info("RsyncAsync: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 
