@@ -71,7 +71,7 @@ final class CommandProcess {
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.process.info("CommandProcess: \(launchPath, privacy: .public)")
-            Logger.process.info("CommandProcess: \(arguments, privacy: .public)")
+            Logger.process.info("CommandProcess: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 
