@@ -103,7 +103,7 @@ final class RsyncProcess {
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.process.info("RsyncProcess: \(launchPath, privacy: .public)")
-            Logger.process.info("RsyncProcess: \(arguments, privacy: .public)")
+            Logger.process.info("RsyncProcess: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 

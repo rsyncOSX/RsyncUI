@@ -69,7 +69,7 @@ final class CommandProcessAsync {
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.process.info("CommandProcessAsync: \(launchPath, privacy: .public)")
-            Logger.process.info("CommandProcessAsync: \(arguments, privacy: .public)")
+            Logger.process.info("CommandProcessAsync: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 
