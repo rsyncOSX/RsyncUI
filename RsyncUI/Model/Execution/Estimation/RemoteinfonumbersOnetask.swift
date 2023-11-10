@@ -10,7 +10,7 @@
 import Foundation
 
 struct RemoteinfonumbersOnetask: Identifiable, Hashable {
-    var id: UUID
+    var id: Configuration.ID
     var hiddenID: Int
     var transferredNumber: String
     var transferredNumberSizebytes: String

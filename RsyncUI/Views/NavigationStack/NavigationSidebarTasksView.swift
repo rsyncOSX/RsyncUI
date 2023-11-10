@@ -29,24 +29,26 @@ struct NavigationSidebarTasksView: View {
     }
 
     var body: some View {
-        if showeexecutEstimatedview == false &&
-            showexecuteNOEstimateview == false &&
-            showestimatedview == false
-        { makeView(task: .taskview) }
+        NavigationStack {
+            if showeexecutEstimatedview == false &&
+                showexecuteNOEstimateview == false &&
+                showestimatedview == false
+            { makeView(task: .taskview) }
 
-        if showeexecutEstimatedview == true &&
-            showexecuteNOEstimateview == false &&
-            showestimatedview == false
-        { makeView(task: .executestimatedview) }
+            if showeexecutEstimatedview == true &&
+                showexecuteNOEstimateview == false &&
+                showestimatedview == false
+            { makeView(task: .executestimatedview) }
 
-        if showeexecutEstimatedview == false &&
-            showexecuteNOEstimateview == true &&
-            showestimatedview == false
-        { makeView(task: .executenoestimatetasksview) }
-        if showeexecutEstimatedview == false &&
-            showexecuteNOEstimateview == false &&
-            showestimatedview == true
-        { makeView(task: .estimatedview) }
+            if showeexecutEstimatedview == false &&
+                showexecuteNOEstimateview == true &&
+                showestimatedview == false
+            { makeView(task: .executenoestimatetasksview) }
+            if showeexecutEstimatedview == false &&
+                showexecuteNOEstimateview == false &&
+                showestimatedview == true
+            { makeView(task: .estimatedview) }
+        }
     }
 
     @ViewBuilder
