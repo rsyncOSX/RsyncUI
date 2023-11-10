@@ -64,7 +64,7 @@ struct Sidebar: View {
         case .snapshots:
             SidebarSnapshotsView(reload: $reload)
         case .synchronize:
-            SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
+            NavigationSidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
         case .quick_synchronize:
             QuicktaskView()
         }
