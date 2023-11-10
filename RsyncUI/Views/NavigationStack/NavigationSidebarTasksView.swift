@@ -78,9 +78,7 @@ struct NavigationSidebarTasksView: View {
                 .padding()
 
         case .estimatedview:
-            DetailsSummarizedTasksView(selecteduuids: $selecteduuids,
-                                       execute: $focusstartexecution,
-                                       estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
+            NavigationSummarizedAllDetailsView(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
         }
     }
 }
