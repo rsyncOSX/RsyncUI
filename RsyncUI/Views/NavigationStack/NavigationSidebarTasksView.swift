@@ -62,7 +62,8 @@ struct NavigationSidebarTasksView: View {
                                                   selecteduuids: $selecteduuids,
                                                   showview: $showview)
         case .estimatedview:
-            NavigationSummarizedAllDetailsView(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
+            NavigationSummarizedAllDetailsView(showview: $showview,
+                                               estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
         case .firsttime:
             FirsttimeView()
         case .dryrunonetask:

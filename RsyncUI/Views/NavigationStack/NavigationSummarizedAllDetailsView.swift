@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NavigationSummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Binding var showview: DestinationView
     var estimatedlist: [RemoteinfonumbersOnetask]
 
     @State private var selecteduuid = Set<Configuration.ID>()
@@ -122,6 +123,16 @@ struct NavigationSummarizedAllDetailsView: View {
         .navigationDestination(isPresented: $showDetails) {
             NavigationOnetaskDetails(estimatedlist: estimatedlist, selecteduuid: uuid.uuid ?? UUID())
         }
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    showview = .executestimatedview
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.backward")
+                }
+                .help("Execute (⌘R)")
+            }
+        })
     }
 }
 
