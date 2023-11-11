@@ -21,12 +21,11 @@ struct NavigationTasksView: View {
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var showview: DestinationView?
     @Bindable var estimatingprogressdetails: EstimateProgressDetails
-
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
     @State private var focusaborttask: Bool = false
-
+    // Filterstring
     @State private var filterstring: String = ""
     // Local data for present local and remote info about task
     @State private var localdata: [String] = []
@@ -39,12 +38,11 @@ struct NavigationTasksView: View {
 
     var body: some View {
         ZStack {
-            ListofTasksMainView(
+            NavigationListofTasksMainView(
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,
-                doubleclick: $doubleclick,
-                showestimateicon: true
+                doubleclick: $doubleclick
             )
             .frame(maxWidth: .infinity)
             .onChange(of: selecteduuids) {
@@ -162,8 +160,6 @@ struct NavigationTasksView: View {
                 }
             }
             .onDisappear {
-                // sheetchooser.sheet = .dryrunalltasks
-                modaleview = false
                 focusstartestimation = false
                 progressdetails.resetcounter()
                 progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NavigationSidebarTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @State private var selectedconfig: Configuration?
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
     @State private var estimatingprogressdetails = EstimateProgressDetails()
@@ -67,7 +66,7 @@ struct NavigationSidebarTasksView: View {
                                                showview: $showview,
                                                estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
         case .firsttime:
-            FirsttimeView()
+            NavigationFirstTimeView()
         case .dryrunonetask:
             NavigationDetailsOneTaskView(selecteduuids: $selecteduuids)
                 .environment(estimatingprogressdetails)
