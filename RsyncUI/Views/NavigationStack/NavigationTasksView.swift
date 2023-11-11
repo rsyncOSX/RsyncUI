@@ -26,7 +26,6 @@ struct NavigationTasksView: View {
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
     @State private var focusfirsttaskinfo: Bool = false
-    @State private var focusshowinfotask: Bool = false
     @State private var focusaborttask: Bool = false
     @State private var focusenabletimer: Bool = false
 
@@ -71,7 +70,6 @@ struct NavigationTasksView: View {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
                 if focusfirsttaskinfo { labelfirsttime }
-                if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
                 if focusenabletimer { labelenabletimer }
                 if estimatingprogresscount.estimateasync { progressviewestimateasync }
@@ -81,7 +79,6 @@ struct NavigationTasksView: View {
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
-        .focusedSceneValue(\.showinfotask, $focusshowinfotask)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .focusedSceneValue(\.enabletimer, $focusenabletimer)
         .task {
@@ -163,12 +160,6 @@ struct NavigationTasksView: View {
         case .dryrunalreadyestimated:
             DetailsOneTaskAlreadyEstimatedView(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [],
                                                selectedconfig: selectedconfig.config)
-        /*
-                case .dryrunalltasks:
-                    DetailsSummarizedTasksView(selecteduuids: $selecteduuids,
-                                               execute: $focusstartexecution,
-                                               estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
-         */
         case .dryrunonetask:
             DetailsOneTaskView(selectedconfig: selectedconfig.config)
                 .environment(estimatingprogresscount)
@@ -182,9 +173,6 @@ struct NavigationTasksView: View {
             AlltasksView()
         case .firsttime:
             FirsttimeView()
-        case .localremoteinfo:
-            LocalRemoteInfoView(localdata: $localdata,
-                                selectedconfig: selectedconfig.config)
         case .asynctimerison:
             Counter(timervalue: $timervalue,
                     timerisenabled: $timerisenabled)
@@ -220,24 +208,6 @@ struct NavigationTasksView: View {
                 progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
                 showview = .estimatedview
             }
-    }
-
-    var showinfotask: some View {
-        AlertToast(displayMode: .alert, type: .loading)
-            .onAppear(perform: {
-                let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig.config)
-                    .argumentslocalcataloginfo(dryRun: true, forDisplay: false)
-                guard argumentslocalinfo != nil else {
-                    focusshowinfotask = false
-                    return
-                }
-
-                Task {
-                    let tasklocalinfo = await RsyncAsync(arguments: argumentslocalinfo,
-                                                         processtermination: processtermination)
-                    await tasklocalinfo.executeProcess()
-                }
-            })
     }
 
     var doubleclickaction: some View {
@@ -310,6 +280,7 @@ extension NavigationTasksView {
             // DryRun: execute a dryrun for one task only
             Logger.process.info("DryRun: execute a dryrun for one task only")
             sheetchooser.sheet = .dryrunonetask
+            modaleview = true
         } else if selectedconfig.config != nil,
                   estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
         {
@@ -396,6 +367,7 @@ extension NavigationTasksView {
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
         estimatingprogresscount.estimateasync = false
+        estimatingprogresscount.estimatedlist = nil
         showview = .taskview
     }
 
@@ -408,14 +380,6 @@ extension NavigationTasksView {
         reload = true
         focusstartestimation = false
         focusstartexecution = false
-    }
-
-    // For showinfo about one task
-    func processtermination(data: [String]?) {
-        localdata = data ?? []
-        focusshowinfotask = false
-        sheetchooser.sheet = .localremoteinfo
-        modaleview = true
     }
 
     // Async start and stop timer
@@ -439,7 +403,7 @@ extension NavigationTasksView {
 }
 
 enum NavigationSheet: String, Identifiable {
-    case dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, localremoteinfo, asynctimerison
+    case dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, asynctimerison
     var id: String { rawValue }
 }
 

@@ -64,8 +64,12 @@ struct Sidebar: View {
         case .snapshots:
             SidebarSnapshotsView(reload: $reload)
         case .synchronize:
-            NavigationStack {
-                NavigationSidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
+            if SharedReference.shared.usenavigationstack {
+                NavigationStack {
+                    NavigationSidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
+                }
+            } else {
+                SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
             }
         case .quick_synchronize:
             QuicktaskView()
