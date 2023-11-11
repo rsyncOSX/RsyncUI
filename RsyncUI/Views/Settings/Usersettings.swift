@@ -13,6 +13,7 @@ struct Usersettings: View {
     @State private var usersettings = ObservableUsersetting()
     @State private var backup = false
     @State private var rsyncversion = Rsyncversion()
+    @State private var trynavigationstack: Bool = SharedReference.shared.usenavigationstack
 
     var body: some View {
         Form {
@@ -53,6 +54,18 @@ struct Usersettings: View {
                         }
 
                         setmarkdays
+                            .padding()
+
+                        Section(header: Text("Try NavigationStack")) {
+                            ToggleViewDefault(NSLocalizedString("NavigationStack on or off", comment: ""),
+                                              $trynavigationstack)
+                                .onChange(of: trynavigationstack) {
+                                    SharedReference.shared.usenavigationstack = trynavigationstack
+                                }
+                            Text("Remember to deselcet and select")
+                            Text("Synchronize to enable selection.")
+                            Text("Selection is NOT saved.")
+                        }
                     }
                     .padding()
 
