@@ -94,7 +94,6 @@ struct NavigationOnetaskDetails: View {
                 TableColumn("") { data in
                     Text(data.line)
                 }
-                .width(min: 800)
             }
         }
         .onAppear {

@@ -144,15 +144,6 @@ struct NavigationTasksView: View {
         case .dryrunalreadyestimated:
             DetailsOneTaskAlreadyEstimatedView(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [],
                                                selectedconfig: selectedconfig.config)
-        case .dryrunonetask:
-            DetailsOneTaskView(selectedconfig: selectedconfig.config)
-                .environment(estimatingprogresscount)
-                .onAppear {
-                    doubleclick = false
-                }
-                .onDisappear {
-                    progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
-                }
         case .alltasksview:
             AlltasksView()
         }
@@ -236,17 +227,12 @@ extension NavigationTasksView {
                   estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
         {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
-            sheetchooser.sheet = .dryrunonetask
-            modaleview = true
-        } else if estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
-            Logger.process.info("DryRun: show summarized dryrun for all tasks")
-            showview = .estimatedview
+            doubleclick = false
+            showview = .dryrunonetask
         } else {
             // New profile is selected, just return no action
             return
         }
-        // modaleview = true
-        modaleview = false
     }
 
     func detailsestimatedtask() {
@@ -330,7 +316,7 @@ extension NavigationTasksView {
 }
 
 enum NavigationSheet: String, Identifiable {
-    case dryrunalreadyestimated, dryrunonetask, alltasksview
+    case dryrunalreadyestimated, alltasksview
     var id: String { rawValue }
 }
 
@@ -340,7 +326,7 @@ final class NavigationSheetChooser {
     // Do not redraw view when changing
     // no @Publised
     @ObservationIgnored
-    var sheet: NavigationSheet = .dryrunonetask
+    var sheet: NavigationSheet = .alltasksview
 }
 
 @Observable

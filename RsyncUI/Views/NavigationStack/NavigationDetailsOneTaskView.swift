@@ -99,10 +99,9 @@ struct NavigationDetailsOneTaskView: View {
                     }
 
                     Table(outputfromrsync.output) {
-                        TableColumn("Output") { data in
+                        TableColumn("") { data in
                             Text(data.line)
                         }
-                        .width(min: 800)
                     }
                 }
 
