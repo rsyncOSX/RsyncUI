@@ -289,7 +289,7 @@ extension NavigationTasksView {
             // Execute all tasks, no estimate
             Logger.process.info("Execute() selected or all tasks NO estimate")
             // Execute tasks, no estimate
-            showview = .executestimatedview
+            showview = .executenoestimatetasksview
         }
     }
 
