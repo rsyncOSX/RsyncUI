@@ -19,10 +19,7 @@ struct NavigationTasksView: View {
     @State private var estimatingstate = EstimatingState()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<Configuration.ID>
-    @Binding var showeexecutestimatedview: Bool
-    @Binding var showexecutenoestimateview: Bool
-    @Binding var showestimatedview: Bool
-
+    @Binding var showview: DestinationView
     @Bindable var estimatingprogresscount: EstimateProgressDetails
 
     // Focus buttons from the menu
@@ -221,10 +218,7 @@ struct NavigationTasksView: View {
                 focusstartestimation = false
                 progressdetails.resetcounter()
                 progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
-
-                showestimatedview = true
-                showeexecutestimatedview = false
-                showexecutenoestimateview = false
+                showview = .estimatedview
             }
     }
 
@@ -328,10 +322,7 @@ extension NavigationTasksView {
             Logger.process.info("DryRun: show summarized dryrun for all tasks")
             // show summarized dry run
             // sheetchooser.sheet = .dryrunalltasks
-            modaleview = false
-            showestimatedview = true
-            showeexecutestimatedview = false
-            showexecutenoestimateview = false
+            showview = .estimatedview
 
         } else {
             // New profile is selected, just return no action
@@ -377,7 +368,7 @@ extension NavigationTasksView {
             selecteduuids = estimatingprogresscount.getuuids()
             estimatingstate.updatestate(state: .start)
             // Change view, see SidebarTasksView
-            showeexecutestimatedview = true
+            showview = .executestimatedview
 
         } else if selecteduuids.count >= 1,
                   estimatingprogresscount.tasksareestimated(selecteduuids) == true
@@ -390,12 +381,12 @@ extension NavigationTasksView {
             selecteduuids = estimatingprogresscount.getuuids()
             estimatingstate.updatestate(state: .start)
             // Change view, see SidebarTasksView
-            showeexecutestimatedview = true
+            showview = .executestimatedview
         } else {
             // Execute all tasks, no estimate
             Logger.process.info("Execute() selected or all tasks NO estimate")
             // Execute tasks, no estimate
-            showexecutenoestimateview = true
+            showview = .executestimatedview
         }
     }
 
@@ -405,7 +396,7 @@ extension NavigationTasksView {
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
         estimatingprogresscount.estimateasync = false
-        // sheetchooser.sheet = .dryrunalltasks
+        showview = .taskview
     }
 
     func abort() {

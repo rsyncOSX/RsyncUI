@@ -14,73 +14,62 @@ struct NavigationSidebarTasksView: View {
     @Binding var reload: Bool
     @State private var estimatingprogresscount = EstimateProgressDetails()
     @StateObject private var progressdetails = ExecuteProgressDetails()
-
-    @State var showeexecutEstimatedview: Bool = false
-    @State var showexecuteNOEstimateview: Bool = false
-    @State var showestimatedview: Bool = false
-    // Timer values
-    @State private var timervalue: Double = 600
-    // Start execution
-    @State private var focusstartexecution: Bool = false
-
-    enum Task: String, Identifiable {
-        case taskview, executestimatedview, executenoestimatetasksview, estimatedview
-        var id: String { rawValue }
-    }
+    // Which view to show
+    @State private var showview: DestinationView = .taskview
+    @State private var showDetails: Bool = false
 
     var body: some View {
         NavigationStack {
-            if showeexecutEstimatedview == false &&
-                showexecuteNOEstimateview == false &&
-                showestimatedview == false
-            { makeView(task: .taskview) }
+            NavigationTasksView(reload: $reload,
+                                selecteduuids: $selecteduuids,
+                                showview: $showview,
+                                estimatingprogresscount: estimatingprogresscount)
+                .environmentObject(progressdetails)
+                .padding()
 
-            if showeexecutEstimatedview == true &&
-                showexecuteNOEstimateview == false &&
-                showestimatedview == false
-            { makeView(task: .executestimatedview) }
-
-            if showeexecutEstimatedview == false &&
-                showexecuteNOEstimateview == true &&
-                showestimatedview == false
-            { makeView(task: .executenoestimatetasksview) }
-            if showeexecutEstimatedview == false &&
-                showexecuteNOEstimateview == false &&
-                showestimatedview == true
-            { makeView(task: .estimatedview) }
+        }.navigationDestination(isPresented: $showDetails) {
+            makeView(view: showview)
+        }
+        .onChange(of: showview) {
+            showDetails = true
         }
     }
 
     @ViewBuilder
-    func makeView(task: Task) -> some View {
-        switch task {
+    func makeView(view: DestinationView) -> some View {
+        switch view {
         case .taskview:
             // This is default main view
             NavigationTasksView(reload: $reload,
                                 selecteduuids: $selecteduuids,
-                                showeexecutestimatedview: $showeexecutEstimatedview,
-                                showexecutenoestimateview: $showexecuteNOEstimateview,
-                                showestimatedview: $showestimatedview,
+                                showview: $showview,
                                 estimatingprogresscount: estimatingprogresscount)
                 .environmentObject(progressdetails)
                 .padding()
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
             // presents progress of synchronization of data.
-            ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
-                                      reload: $reload,
-                                      showeexecutestimatedview: $showeexecutEstimatedview)
+            NavigationExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
+                                                reload: $reload,
+                                                showview: $showview)
                 .environmentObject(progressdetails)
                 .padding()
         case .executenoestimatetasksview:
             // Execute tasks, no estimation ahead of synchronization
-            ExecuteNoestimatedTasksView(reload: $reload,
-                                        selecteduuids: $selecteduuids,
-                                        showexecutenoestimateview: $showexecuteNOEstimateview)
+            NavigationExecuteNoestimatedTasksView(reload: $reload,
+                                                  selecteduuids: $selecteduuids,
+                                                  showview: $showview)
                 .padding()
 
         case .estimatedview:
             NavigationSummarizedAllDetailsView(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
+        case .firsttime:
+            FirsttimeView()
         }
     }
+}
+
+enum DestinationView: String, Identifiable {
+    case taskview, executestimatedview, executenoestimatetasksview, estimatedview, firsttime
+    var id: String { rawValue }
 }

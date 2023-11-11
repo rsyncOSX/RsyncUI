@@ -161,6 +161,8 @@
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E99DE5242A52B16100422E85 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DE5232A52B16100422E85 /* Sidebar.swift */; };
 		E9A6A42429CA076200C59183 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6A42329CA076200C59183 /* TasksView.swift */; };
+		E9AE41462AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */; };
+		E9AE41482AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */; };
 		E9B008DD2ABB427A006E333D /* Snapshotcatalogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */; };
 		E9B34967273AE658000B053E /* OpencatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B34966273AE658000B053E /* OpencatalogView.swift */; };
 		E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */; };
@@ -365,6 +367,8 @@
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E99DE5232A52B16100422E85 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		E9A6A42329CA076200C59183 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
+		E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationExecuteEstimatedTasksView.swift; sourceTree = "<group>"; };
+		E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationExecuteNoestimatedTasksView.swift; sourceTree = "<group>"; };
 		E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshotcatalogs.swift; sourceTree = "<group>"; };
 		E9B34966273AE658000B053E /* OpencatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpencatalogView.swift; sourceTree = "<group>"; };
 		E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareOutput.swift; sourceTree = "<group>"; };
@@ -459,6 +463,8 @@
 				E954AD402AFE8FBB00F3EA63 /* NavigationSummarizedAllDetailsView.swift */,
 				E954AD422AFE901200F3EA63 /* NavigationTasksView.swift */,
 				E94F23A12AFE967800983C1C /* NavigationOnetaskDetails.swift */,
+				E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */,
+				E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */,
 			);
 			path = NavigationStack;
 			sourceTree = "<group>";
@@ -1222,6 +1228,7 @@
 				E93CC3FF2A68218200DB02EB /* ListofTasksView.swift in Sources */,
 				E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */,
 				E985C72D25F3AD9700CB895C /* Snapshotlogsandcatalogs.swift in Sources */,
+				E9AE41462AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift in Sources */,
 				E985C66625F3AD8400CB895C /* ToggleView.swift in Sources */,
 				E985C72925F3AD9700CB895C /* Keypathidentityfile.swift in Sources */,
 				E985C72E25F3AD9700CB895C /* OutputfromProcess.swift in Sources */,
@@ -1343,6 +1350,7 @@
 				E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */,
 				E999F92227690F3400B80DF6 /* Files.swift in Sources */,
 				E985C77125F3AD9700CB895C /* ExecuteProgressDetails.swift in Sources */,
+				E9AE41482AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift in Sources */,
 				E985C79325F3AD9700CB895C /* Rsyncversion.swift in Sources */,
 				E96AA40D2A9923F40031B1C3 /* ListofTasksAddView.swift in Sources */,
 				E985C73625F3AD9700CB895C /* SetandValidatepathforrsync.swift in Sources */,
