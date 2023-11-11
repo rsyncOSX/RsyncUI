@@ -60,26 +60,23 @@ struct AddPreandPostView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        if showtableview {
-                            ListofTasksLightView(selecteduuids: $selecteduuids)
-                                .onChange(of: selecteduuids) {
-                                    let selected = rsyncUIdata.configurations?.filter { config in
-                                        selecteduuids.contains(config.id)
-                                    }
-                                    if (selected?.count ?? 0) == 1 {
-                                        if let config = selected {
-                                            selectedconfig = config[0]
-                                            newdata.updateview(selectedconfig)
-                                        }
-                                    } else {
-                                        selectedconfig = nil
+                        ListofTasksLightView(selecteduuids: $selecteduuids)
+                            .onChange(of: selecteduuids) {
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        selectedconfig = config[0]
                                         newdata.updateview(selectedconfig)
                                     }
+                                } else {
+                                    selectedconfig = nil
+                                    newdata.updateview(selectedconfig)
                                 }
-                            updatebutton
-                        } else {
-                            notifyupdated
-                        }
+                            }
+
+                        updatebutton
                     }
                 }
             }
@@ -111,16 +108,6 @@ struct AddPreandPostView: View {
         .alert(isPresented: $newdata.alerterror,
                content: { Alert(localizedError: newdata.error)
                })
-    }
-
-    var notifyupdated: some View {
-        notifymessage("Updated")
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showtableview = true
-                }
-            })
-            .frame(maxWidth: .infinity)
     }
 
     var updatebutton: some View {
