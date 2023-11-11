@@ -61,6 +61,7 @@ final class EstimateProgressDetails {
         estimatedlist = nil
         timestamp = Date()
         profile = nil
+        uuids.removeAll()
     }
 
     func setmaxcount(_ num: Int) {

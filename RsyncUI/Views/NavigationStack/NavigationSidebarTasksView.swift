@@ -28,7 +28,11 @@ struct NavigationSidebarTasksView: View {
             makeView(view: showview ?? .taskview)
         }
         .onChange(of: showview) {
-            showDetails = true
+            if showview == .taskview {
+                showDetails = false
+            } else {
+                showDetails = true
+            }
         }
         .task {
             if SharedReference.shared.firsttime {
@@ -43,6 +47,7 @@ struct NavigationSidebarTasksView: View {
         switch view {
         case .taskview:
             // This is default main view
+            // Never presented
             NavigationTasksView(reload: $reload,
                                 selecteduuids: $selecteduuids,
                                 showview: $showview,
