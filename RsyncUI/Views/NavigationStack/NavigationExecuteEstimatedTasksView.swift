@@ -10,11 +10,11 @@ import SwiftUI
 struct NavigationExecuteEstimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
-    @State private var estimatingprogresscount = EstimateProgressDetails()
-    @State private var multipletaskstate = MultipleTaskState()
+    @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
-    @Binding var showview: DestinationView
+    @Binding var showview: DestinationView?
+    @State private var multipletaskstate = MultipleTaskState()
     @State private var selectedconfig: Configuration?
     @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false
@@ -74,7 +74,7 @@ extension NavigationExecuteEstimatedTasksView {
     func completed() {
         progressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        estimatingprogresscount.resetcounts()
+        estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         showview = .taskview
         reload = true
@@ -83,7 +83,7 @@ extension NavigationExecuteEstimatedTasksView {
     func abort() {
         progressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        estimatingprogresscount.resetcounts()
+        estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         _ = InterruptProcess()
         showview = .taskview
@@ -91,16 +91,24 @@ extension NavigationExecuteEstimatedTasksView {
     }
 
     func executemultipleestimatedtasks() {
-        guard selecteduuids.count > 0 else {
+        var uuids: Set<Configuration.ID>?
+        if selecteduuids.count > 0 {
+            uuids = selecteduuids
+        } else if estimatingprogressdetails.getuuids().count > 0 {
+            uuids = estimatingprogressdetails.getuuids()
+        }
+        guard (uuids?.count ?? 0) > 0 else {
             showview = .taskview
             return
         }
-        multipletaskstate.updatestate(state: .execute)
-        ExecuteMultipleTasks(uuids: selecteduuids,
-                             profile: rsyncUIdata.profile,
-                             configurations: rsyncUIdata,
-                             multipletaskstateDelegate: multipletaskstate,
-                             estimateprogressdetailsDelegate: estimatingprogresscount,
-                             executeprogressdetailsDelegate: progressdetails)
+        if let uuids = uuids {
+            multipletaskstate.updatestate(state: .execute)
+            ExecuteMultipleTasks(uuids: uuids,
+                                 profile: rsyncUIdata.profile,
+                                 configurations: rsyncUIdata,
+                                 multipletaskstateDelegate: multipletaskstate,
+                                 estimateprogressdetailsDelegate: estimatingprogressdetails,
+                                 executeprogressdetailsDelegate: progressdetails)
+        }
     }
 }

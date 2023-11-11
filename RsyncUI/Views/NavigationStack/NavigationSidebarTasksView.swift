@@ -12,10 +12,10 @@ struct NavigationSidebarTasksView: View {
     @State private var selectedconfig: Configuration?
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
-    @State private var estimatingprogresscount = EstimateProgressDetails()
+    @State private var estimatingprogressdetails = EstimateProgressDetails()
     @StateObject private var progressdetails = ExecuteProgressDetails()
     // Which view to show
-    @State private var showview: DestinationView = .taskview
+    @State private var showview: DestinationView?
     @State private var showDetails: Bool = false
 
     var body: some View {
@@ -23,10 +23,10 @@ struct NavigationSidebarTasksView: View {
             NavigationTasksView(reload: $reload,
                                 selecteduuids: $selecteduuids,
                                 showview: $showview,
-                                estimatingprogresscount: estimatingprogresscount)
+                                estimatingprogressdetails: estimatingprogressdetails)
                 .environmentObject(progressdetails)
         }.navigationDestination(isPresented: $showDetails) {
-            makeView(view: showview)
+            makeView(view: showview ?? .taskview)
         }
         .onChange(of: showview) {
             showDetails = true
@@ -47,12 +47,13 @@ struct NavigationSidebarTasksView: View {
             NavigationTasksView(reload: $reload,
                                 selecteduuids: $selecteduuids,
                                 showview: $showview,
-                                estimatingprogresscount: estimatingprogresscount)
+                                estimatingprogressdetails: estimatingprogressdetails)
                 .environmentObject(progressdetails)
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
             // presents progress of synchronization of data.
-            NavigationExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
+            NavigationExecuteEstimatedTasksView(estimatingprogressdetails: estimatingprogressdetails,
+                                                selecteduuids: $selecteduuids,
                                                 reload: $reload,
                                                 showview: $showview)
                 .environmentObject(progressdetails)
@@ -62,15 +63,16 @@ struct NavigationSidebarTasksView: View {
                                                   selecteduuids: $selecteduuids,
                                                   showview: $showview)
         case .estimatedview:
-            NavigationSummarizedAllDetailsView(showview: $showview,
-                                               estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
+            NavigationSummarizedAllDetailsView(selecteduuids: $selecteduuids,
+                                               showview: $showview,
+                                               estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
         case .firsttime:
             FirsttimeView()
         case .dryrunonetask:
             NavigationDetailsOneTaskView(selecteduuids: $selecteduuids)
-                .environment(estimatingprogresscount)
+                .environment(estimatingprogressdetails)
                 .onDisappear {
-                    progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
+                    progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
                 }
         }
     }

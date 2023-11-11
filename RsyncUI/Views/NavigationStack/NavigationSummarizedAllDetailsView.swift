@@ -9,17 +9,17 @@ import SwiftUI
 
 struct NavigationSummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @Binding var showview: DestinationView
+    @Binding var selecteduuids: Set<Configuration.ID>
+    @Binding var showview: DestinationView?
     var estimatedlist: [RemoteinfonumbersOnetask]
 
-    @State private var selecteduuid = Set<Configuration.ID>()
-    @State private var uuid = SelectedUUID()
+    @State private var selecteduuidfordetailsview = SelectedUUID()
     @State private var showDetails = false
 
     var body: some View {
         NavigationStack {
             HStack {
-                Table(estimatedlist, selection: $selecteduuid) {
+                Table(estimatedlist, selection: $selecteduuids) {
                     TableColumn("Synchronize ID") { data in
                         if data.datatosynchronize {
                             Text(data.backupID)
@@ -44,16 +44,16 @@ struct NavigationSummarizedAllDetailsView: View {
                     }
                     .width(max: 60)
                 }
-                .onChange(of: selecteduuid) {
+                .onChange(of: selecteduuids) {
                     let selected = estimatedlist.filter { estimate in
-                        selecteduuid.contains(estimate.id)
+                        selecteduuids.contains(estimate.id)
                     }
                     if (selected.count) == 1 {
-                        uuid.uuid = selected[0].id
+                        selecteduuidfordetailsview.uuid = selected[0].id
                         showDetails = true
                     } else {
                         showDetails = false
-                        uuid.uuid = nil
+                        selecteduuidfordetailsview.uuid = nil
                     }
                 }
 
@@ -121,7 +121,7 @@ struct NavigationSummarizedAllDetailsView: View {
             }
         }
         .navigationDestination(isPresented: $showDetails) {
-            NavigationOnetaskDetails(estimatedlist: estimatedlist, selecteduuid: uuid.uuid ?? UUID())
+            NavigationOnetaskDetails(estimatedlist: estimatedlist, selecteduuid: selecteduuidfordetailsview.uuid ?? UUID())
         }
         .toolbar(content: {
             ToolbarItem {

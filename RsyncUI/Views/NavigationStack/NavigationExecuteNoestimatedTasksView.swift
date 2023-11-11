@@ -12,7 +12,7 @@ struct NavigationExecuteNoestimatedTasksView: View {
     @State private var estimatingprogresscount = EstimateProgressDetails()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
-    @Binding var showview: DestinationView
+    @Binding var showview: DestinationView?
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executealltasksasync: ExecuteTasksAsync?

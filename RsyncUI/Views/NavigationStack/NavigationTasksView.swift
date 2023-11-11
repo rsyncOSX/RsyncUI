@@ -19,8 +19,8 @@ struct NavigationTasksView: View {
     @State private var estimatingstate = EstimatingState()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<Configuration.ID>
-    @Binding var showview: DestinationView
-    @Bindable var estimatingprogresscount: EstimateProgressDetails
+    @Binding var showview: DestinationView?
+    @Bindable var estimatingprogressdetails: EstimateProgressDetails
 
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
@@ -65,7 +65,7 @@ struct NavigationTasksView: View {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
                 if focusaborttask { labelaborttask }
-                if estimatingprogresscount.estimateasync { progressviewestimateasync }
+                if estimatingprogressdetails.estimateasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
         }
@@ -142,7 +142,7 @@ struct NavigationTasksView: View {
     func makeSheet() -> some View {
         switch sheetchooser.sheet {
         case .dryrunalreadyestimated:
-            DetailsOneTaskAlreadyEstimatedView(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [],
+            DetailsOneTaskAlreadyEstimatedView(estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [],
                                                selectedconfig: selectedconfig.config)
         case .alltasksview:
             AlltasksView()
@@ -155,7 +155,7 @@ struct NavigationTasksView: View {
                 Task {
                     let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
                                                       configurations: rsyncUIdata,
-                                                      updateinprogresscount: estimatingprogresscount,
+                                                      updateinprogresscount: estimatingprogressdetails,
                                                       uuids: selecteduuids,
                                                       filter: filterstring)
                     await estimate.startexecution()
@@ -166,7 +166,7 @@ struct NavigationTasksView: View {
                 modaleview = false
                 focusstartestimation = false
                 progressdetails.resetcounter()
-                progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
+                progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
                 showview = .estimatedview
             }
     }
@@ -207,9 +207,9 @@ struct NavigationTasksView: View {
 
 extension NavigationTasksView {
     func doubleclickactionfunction() {
-        if estimatingprogresscount.getestimatedlist() == nil {
+        if estimatingprogressdetails.getestimatedlist() == nil {
             dryrun()
-        } else if estimatingprogresscount.tasksareestimated(selecteduuids) {
+        } else if estimatingprogressdetails.tasksareestimated(selecteduuids) {
             execute()
         } else {
             dryrun()
@@ -218,13 +218,13 @@ extension NavigationTasksView {
 
     func dryrun() {
         if selectedconfig.config != nil,
-           estimatingprogresscount.getestimatedlist()?.count ?? 0 == 0
+           estimatingprogressdetails.getestimatedlist()?.count ?? 0 == 0
         {
             Logger.process.info("DryRun: execute a dryrun for one task only")
             doubleclick = false
             showview = .dryrunonetask
         } else if selectedconfig.config != nil,
-                  estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
+                  estimatingprogressdetails.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
         {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
             doubleclick = false
@@ -244,7 +244,7 @@ extension NavigationTasksView {
     }
 
     func estimate() {
-        guard estimatingprogresscount.estimateasync == false else {
+        guard estimatingprogressdetails.estimateasync == false else {
             Logger.process.info("TasksView: estimate already in progress")
             return
         }
@@ -255,33 +255,33 @@ extension NavigationTasksView {
                 selectedconfig.config = nil
             }
         }
-        estimatingprogresscount.resetcounts()
+        estimatingprogressdetails.resetcounts()
         progressdetails.resetcounter()
-        estimatingprogresscount.startestimateasync()
+        estimatingprogressdetails.startestimateasync()
     }
 
     func execute() {
         // All tasks are estimated and ready for execution.
         if selecteduuids.count == 0,
-           estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == true
+           estimatingprogressdetails.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == true
 
         {
             Logger.process.info("Execute() all estimated tasks")
             // Execute all estimated tasks
-            selecteduuids = estimatingprogresscount.getuuids()
+            selecteduuids = estimatingprogressdetails.getuuids()
             estimatingstate.updatestate(state: .start)
             // Change view, see SidebarTasksView
             showview = .executestimatedview
 
         } else if selecteduuids.count >= 1,
-                  estimatingprogresscount.tasksareestimated(selecteduuids) == true
+                  estimatingprogressdetails.tasksareestimated(selecteduuids) == true
 
         {
             // One or some tasks are selected and estimated
             Logger.process.info("Execute() estimated tasks only")
             // Execute estimated tasks only
             // Execute all estimated tasks
-            selecteduuids = estimatingprogresscount.getuuids()
+            selecteduuids = estimatingprogressdetails.getuuids()
             estimatingstate.updatestate(state: .start)
             // Change view, see SidebarTasksView
             showview = .executestimatedview
@@ -295,11 +295,11 @@ extension NavigationTasksView {
 
     func reset() {
         progressdetails.resetcounter()
-        estimatingprogresscount.resetcounts()
+        estimatingprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
-        estimatingprogresscount.estimateasync = false
-        estimatingprogresscount.estimatedlist = nil
+        estimatingprogressdetails.estimateasync = false
+        estimatingprogressdetails.estimatedlist = nil
         showview = .taskview
     }
 
@@ -307,7 +307,7 @@ extension NavigationTasksView {
         progressdetails.resetcounter()
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)
-        estimatingprogresscount.resetcounts()
+        estimatingprogressdetails.resetcounts()
         _ = InterruptProcess()
         reload = true
         focusstartestimation = false
