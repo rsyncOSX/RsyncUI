@@ -27,9 +27,9 @@ struct NavigationSummarizedAllDetailsView: View {
                             Text(data.backupID)
                         }
                     }
-                    .width(min: 80, max: 200)
+                    .width(min: 40, max: 80)
                     TableColumn("Task", value: \.task)
-                        .width(max: 80)
+                        .width(max: 60)
                     TableColumn("Local catalog", value: \.localCatalog)
                         .width(min: 100, max: 300)
                     TableColumn("Remote catalog", value: \.offsiteCatalog)
@@ -41,7 +41,7 @@ struct NavigationSummarizedAllDetailsView: View {
                             Text("localhost")
                         }
                     }
-                    .width(max: 80)
+                    .width(max: 60)
                 }
                 .onChange(of: selecteduuid) {
                     let selected = estimatedlist.filter { estimate in

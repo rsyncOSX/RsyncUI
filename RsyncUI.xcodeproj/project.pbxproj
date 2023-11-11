@@ -157,6 +157,7 @@
 		E994E2B12AEE564300CA050A /* View++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E994E2AD2AEE564300CA050A /* View++.swift */; };
 		E997613B271998BD007153DD /* RsyncUIlogrecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = E997613A271998BD007153DD /* RsyncUIlogrecords.swift */; };
 		E999F92227690F3400B80DF6 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999F92127690F3400B80DF6 /* Files.swift */; };
+		E99B56302AFFAD1800D4AA5A /* NavigationDetailsOneTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskView.swift */; };
 		E99C2400261C322E009D4DBF /* ObservableRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObservableRestore.swift */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E99DE5242A52B16100422E85 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DE5232A52B16100422E85 /* Sidebar.swift */; };
@@ -363,6 +364,7 @@
 		E994E2AD2AEE564300CA050A /* View++.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View++.swift"; sourceTree = "<group>"; };
 		E997613A271998BD007153DD /* RsyncUIlogrecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIlogrecords.swift; sourceTree = "<group>"; };
 		E999F92127690F3400B80DF6 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
+		E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDetailsOneTaskView.swift; sourceTree = "<group>"; };
 		E99C23FF261C322E009D4DBF /* ObservableRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRestore.swift; sourceTree = "<group>"; };
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E99DE5232A52B16100422E85 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				E94F23A12AFE967800983C1C /* NavigationOnetaskDetails.swift */,
 				E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */,
 				E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */,
+				E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskView.swift */,
 			);
 			path = NavigationStack;
 			sourceTree = "<group>";
@@ -1291,6 +1294,7 @@
 				E9EA4EA329DAA0EF00456ADA /* Counter.swift in Sources */,
 				E985C77225F3AD9700CB895C /* Logfile.swift in Sources */,
 				E98341BF2ACBBE1200F175B1 /* RsyncProcessAsyncShellOut.swift in Sources */,
+				E99B56302AFFAD1800D4AA5A /* NavigationDetailsOneTaskView.swift in Sources */,
 				E81C244C267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift in Sources */,
 				E985C73425F3AD9700CB895C /* RsyncCommandtoDisplay.swift in Sources */,
 				E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */,

@@ -25,9 +25,7 @@ struct NavigationTasksView: View {
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
-    @State private var focusfirsttaskinfo: Bool = false
     @State private var focusaborttask: Bool = false
-    @State private var focusenabletimer: Bool = false
 
     @State private var filterstring: String = ""
     // Local data for present local and remote info about task
@@ -36,9 +34,6 @@ struct NavigationTasksView: View {
     @State private var modaleview = false
     @State var sheetchooser = NavigationSheetChooser()
     @State var selectedconfig = Selectedconfig()
-    // Timer
-    @State private var timervalue: Double = 600
-    @State private var timerisenabled: Bool = false
     // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
 
@@ -69,25 +64,14 @@ struct NavigationTasksView: View {
             Group {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
-                if focusfirsttaskinfo { labelfirsttime }
                 if focusaborttask { labelaborttask }
-                if focusenabletimer { labelenabletimer }
                 if estimatingprogresscount.estimateasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
-        .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
         .focusedSceneValue(\.aborttask, $focusaborttask)
-        .focusedSceneValue(\.enabletimer, $focusenabletimer)
-        .task {
-            // Discover if firsttime use, if true present view for firsttime
-            if SharedReference.shared.firsttime {
-                sheetchooser.sheet = .firsttime
-                modaleview = true
-            }
-        }
         .sheet(isPresented: $modaleview) { makeSheet() }
         .toolbar(content: {
             ToolbarItem {
@@ -171,20 +155,6 @@ struct NavigationTasksView: View {
                 }
         case .alltasksview:
             AlltasksView()
-        case .firsttime:
-            FirsttimeView()
-        case .asynctimerison:
-            Counter(timervalue: $timervalue,
-                    timerisenabled: $timerisenabled)
-                .onDisappear(perform: {
-                    stopasynctimer()
-                    timervalue = SharedReference.shared.timervalue ?? 600
-                })
-                .onChange(of: timerisenabled) {
-                    if timerisenabled == true {
-                        startasynctimer()
-                    }
-                }
         }
     }
 
@@ -235,29 +205,11 @@ struct NavigationTasksView: View {
             })
     }
 
-    var labelfirsttime: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusfirsttaskinfo = false
-                sheetchooser.sheet = .firsttime
-                modaleview = true
-            })
-    }
-
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 focusaborttask = false
                 abort()
-            })
-    }
-
-    var labelenabletimer: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusenabletimer = false
-                sheetchooser.sheet = .asynctimerison
-                modaleview = true
             })
     }
 }
@@ -277,24 +229,18 @@ extension NavigationTasksView {
         if selectedconfig.config != nil,
            estimatingprogresscount.getestimatedlist()?.count ?? 0 == 0
         {
-            // DryRun: execute a dryrun for one task only
             Logger.process.info("DryRun: execute a dryrun for one task only")
-            sheetchooser.sheet = .dryrunonetask
-            modaleview = true
+            doubleclick = false
+            showview = .dryrunonetask
         } else if selectedconfig.config != nil,
                   estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
         {
-            // Profile is changed, new task selected
-            // DryRun: profile is changed, new task selected, execute a dryrun
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
             sheetchooser.sheet = .dryrunonetask
+            modaleview = true
         } else if estimatingprogresscount.alltasksestimated(rsyncUIdata.profile ?? "Default profile") {
-            // DryRun: show summarized dryrun for all tasks
             Logger.process.info("DryRun: show summarized dryrun for all tasks")
-            // show summarized dry run
-            // sheetchooser.sheet = .dryrunalltasks
             showview = .estimatedview
-
         } else {
             // New profile is selected, just return no action
             return
@@ -381,29 +327,10 @@ extension NavigationTasksView {
         focusstartestimation = false
         focusstartexecution = false
     }
-
-    // Async start and stop timer
-    func startasynctimer() {
-        Logger.process.info("Start Async Timer")
-        SharedReference.shared.workitem = DispatchWorkItem {
-            _ = Logfile(["Timer EXECUTED task on profile: " + (rsyncUIdata.profile ?? "")], error: true)
-            execute()
-        }
-        let time = DispatchTime.now() + timervalue
-        if let workitem = SharedReference.shared.workitem {
-            DispatchQueue.main.asyncAfter(deadline: time, execute: workitem)
-        }
-    }
-
-    func stopasynctimer() {
-        Logger.process.info("Stop Async Timer")
-        SharedReference.shared.workitem?.cancel()
-        SharedReference.shared.workitem = nil
-    }
 }
 
 enum NavigationSheet: String, Identifiable {
-    case dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, asynctimerison
+    case dryrunalreadyestimated, dryrunonetask, alltasksview
     var id: String { rawValue }
 }
 

@@ -25,13 +25,17 @@ struct NavigationSidebarTasksView: View {
                                 showview: $showview,
                                 estimatingprogresscount: estimatingprogresscount)
                 .environmentObject(progressdetails)
-                .padding()
-
         }.navigationDestination(isPresented: $showDetails) {
             makeView(view: showview)
         }
         .onChange(of: showview) {
             showDetails = true
+        }
+        .task {
+            if SharedReference.shared.firsttime {
+                showview = .firsttime
+                showDetails = true
+            }
         }
     }
 
@@ -45,7 +49,6 @@ struct NavigationSidebarTasksView: View {
                                 showview: $showview,
                                 estimatingprogresscount: estimatingprogresscount)
                 .environmentObject(progressdetails)
-                .padding()
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
             // presents progress of synchronization of data.
@@ -53,23 +56,26 @@ struct NavigationSidebarTasksView: View {
                                                 reload: $reload,
                                                 showview: $showview)
                 .environmentObject(progressdetails)
-                .padding()
         case .executenoestimatetasksview:
             // Execute tasks, no estimation ahead of synchronization
             NavigationExecuteNoestimatedTasksView(reload: $reload,
                                                   selecteduuids: $selecteduuids,
                                                   showview: $showview)
-                .padding()
-
         case .estimatedview:
             NavigationSummarizedAllDetailsView(estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
         case .firsttime:
             FirsttimeView()
+        case .dryrunonetask:
+            NavigationDetailsOneTaskView(selecteduuids: $selecteduuids)
+                .environment(estimatingprogresscount)
+                .onDisappear {
+                    progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
+                }
         }
     }
 }
 
 enum DestinationView: String, Identifiable {
-    case taskview, executestimatedview, executenoestimatetasksview, estimatedview, firsttime
+    case taskview, executestimatedview, executenoestimatetasksview, estimatedview, firsttime, dryrunonetask
     var id: String { rawValue }
 }
