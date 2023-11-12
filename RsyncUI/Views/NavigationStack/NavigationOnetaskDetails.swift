@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct NavigationOnetaskDetails: View {
-    @SwiftUI.Environment(\.dismiss) var dismiss
     let estimatedlist: [RemoteinfonumbersOnetask]
     let selecteduuid: Configuration.ID
 
