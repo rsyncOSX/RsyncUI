@@ -62,8 +62,8 @@ struct Usersettings: View {
                                 .onChange(of: trynavigationstack) {
                                     SharedReference.shared.usenavigationstack = trynavigationstack
                                 }
-                            Text("Remember to deselcet and select")
-                            Text("Synchronize to enable selection.")
+                            Text("Remember to deselect and select the")
+                            Text("Synchronize menu to enable selection.")
                             Text("Selection is NOT saved.")
                         }
                     }
