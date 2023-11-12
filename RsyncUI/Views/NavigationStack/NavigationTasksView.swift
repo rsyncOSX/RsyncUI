@@ -70,7 +70,6 @@ struct NavigationTasksView: View {
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.aborttask, $focusaborttask)
-        .sheet(isPresented: $modaleview) { makeSheet() }
         .toolbar(content: {
             ToolbarItem {
                 Button {
@@ -104,21 +103,11 @@ struct NavigationTasksView: View {
 
             ToolbarItem {
                 Button {
-                    sheetchooser.sheet = .alltasksview
-                    modaleview = true
+                    showview = .alltasksview
                 } label: {
                     Image(systemName: "list.bullet")
                 }
                 .help("List tasks all profiles")
-            }
-
-            ToolbarItem {
-                Button {
-                    detailsestimatedtask()
-                } label: {
-                    Image(systemName: "info")
-                }
-                .help("Rsync output estimated task")
             }
 
             ToolbarItem {
@@ -134,17 +123,6 @@ struct NavigationTasksView: View {
                 .help("Abort (⌘K)")
             }
         })
-    }
-
-    @ViewBuilder
-    func makeSheet() -> some View {
-        switch sheetchooser.sheet {
-        case .dryrunalreadyestimated:
-            DetailsOneTaskAlreadyEstimatedView(estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [],
-                                               selectedconfig: selectedconfig.config)
-        case .alltasksview:
-            AlltasksView()
-        }
     }
 
     var progressviewestimateasync: some View {

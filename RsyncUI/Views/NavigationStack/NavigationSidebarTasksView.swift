@@ -78,11 +78,14 @@ struct NavigationSidebarTasksView: View {
                 .onDisappear {
                     progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
                 }
+        case .alltasksview:
+            NavigationAlltasksView()
         }
     }
 }
 
 enum DestinationView: String, Identifiable {
-    case taskview, executestimatedview, executenoestimatetasksview, estimatedview, firsttime, dryrunonetask
+    case taskview, executestimatedview, executenoestimatetasksview, 
+         estimatedview, firsttime, dryrunonetask, alltasksview
     var id: String { rawValue }
 }
