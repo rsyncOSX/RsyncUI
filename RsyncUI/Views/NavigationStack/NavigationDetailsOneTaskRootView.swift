@@ -22,45 +22,46 @@ struct NavigationDetailsOneTaskRootView: View {
     var body: some View {
         VStack(alignment: .leading) {
             ZStack {
-                VStack(alignment: .leading) {
-                    Form {
-                        if gettingremotedata == false {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    LabeledContent("Synchronize ID: ") {
-                                        if estimateddataonetask.estimatedlistonetask[0].backupID.count == 0 {
-                                            Text("Synchronize ID")
-                                                .foregroundColor(.blue)
-                                        } else {
-                                            Text(estimateddataonetask.estimatedlistonetask[0].backupID)
-                                                .foregroundColor(.blue)
-                                        }
-                                    }
-                                    LabeledContent("Task: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].task)
+                if gettingremotedata == false {
+                    HStack {
+                        Form {
+                            VStack(alignment: .leading) {
+                                LabeledContent("Synchronize ID: ") {
+                                    if estimateddataonetask.estimatedlistonetask[0].backupID.count == 0 {
+                                        Text("Synchronize ID")
                                             .foregroundColor(.blue)
-                                    }
-                                    LabeledContent("Local catalog: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].localCatalog)
+                                    } else {
+                                        Text(estimateddataonetask.estimatedlistonetask[0].backupID)
                                             .foregroundColor(.blue)
-                                    }
-                                    LabeledContent("Remote catalog: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].offsiteCatalog)
-                                            .foregroundColor(.blue)
-                                    }
-                                    LabeledContent("Server: ") {
-                                        if estimateddataonetask.estimatedlistonetask[0].offsiteServer.count == 0 {
-                                            Text("localhost")
-                                                .foregroundColor(.blue)
-                                        } else {
-                                            Text(estimateddataonetask.estimatedlistonetask[0].offsiteServer)
-                                                .foregroundColor(.blue)
-                                        }
                                     }
                                 }
+                                LabeledContent("Task: ") {
+                                    Text(estimateddataonetask.estimatedlistonetask[0].task)
+                                        .foregroundColor(.blue)
+                                }
+                                LabeledContent("Local catalog: ") {
+                                    Text(estimateddataonetask.estimatedlistonetask[0].localCatalog)
+                                        .foregroundColor(.blue)
+                                }
+                                LabeledContent("Remote catalog: ") {
+                                    Text(estimateddataonetask.estimatedlistonetask[0].offsiteCatalog)
+                                        .foregroundColor(.blue)
+                                }
+                                LabeledContent("Server: ") {
+                                    if estimateddataonetask.estimatedlistonetask[0].offsiteServer.count == 0 {
+                                        Text("localhost")
+                                            .foregroundColor(.blue)
+                                    } else {
+                                        Text(estimateddataonetask.estimatedlistonetask[0].offsiteServer)
+                                            .foregroundColor(.blue)
+                                    }
+                                }
+                            }
+                        }
+                        .padding()
 
-                                Spacer()
-
+                        Form {
+                            HStack {
                                 VStack(alignment: .trailing) {
                                     LabeledContent("New: ") {
                                         Text(estimateddataonetask.estimatedlistonetask[0].newfiles)
@@ -96,17 +97,17 @@ struct NavigationDetailsOneTaskRootView: View {
                                 }
                             }
                         }
-                    }
-
-                    Table(outputfromrsync.output) {
-                        TableColumn("") { data in
-                            Text(data.line)
-                        }
+                        .padding()
                     }
                 }
-
-                if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
             }
+
+            Table(outputfromrsync.output) {
+                TableColumn("") { data in
+                    Text(data.line)
+                }
+            }
+            if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
         }
         .onAppear(perform: {
             var selectedconfig: Configuration?

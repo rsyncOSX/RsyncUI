@@ -16,8 +16,8 @@ struct NavigationDetailsOneTask: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Form {
-                HStack {
+            HStack {
+                Form {
                     VStack(alignment: .leading) {
                         LabeledContent("Synchronize ID: ") {
                             if estimatedlistonetask[0].backupID.count == 0 {
@@ -50,42 +50,46 @@ struct NavigationDetailsOneTask: View {
                             }
                         }
                     }
+                    .padding()
+                }
 
-                    Spacer()
+                Form {
+                    HStack {
+                        VStack(alignment: .trailing) {
+                            LabeledContent("New: ") {
+                                Text(estimatedlistonetask[0].newfiles)
+                                    .foregroundColor(.blue)
+                            }
+                            LabeledContent("Delete: ") {
+                                Text(estimatedlistonetask[0].deletefiles)
+                                    .foregroundColor(.blue)
+                            }
+                            LabeledContent("Files: ") {
+                                Text(estimatedlistonetask[0].transferredNumber)
+                                    .foregroundColor(.blue)
+                            }
+                            LabeledContent("Bytes: ") {
+                                Text(estimatedlistonetask[0].transferredNumberSizebytes)
+                                    .foregroundColor(.blue)
+                            }
+                        }
 
-                    VStack(alignment: .trailing) {
-                        LabeledContent("New: ") {
-                            Text(estimatedlistonetask[0].newfiles)
-                                .foregroundColor(.blue)
-                        }
-                        LabeledContent("Delete: ") {
-                            Text(estimatedlistonetask[0].deletefiles)
-                                .foregroundColor(.blue)
-                        }
-                        LabeledContent("Files: ") {
-                            Text(estimatedlistonetask[0].transferredNumber)
-                                .foregroundColor(.blue)
-                        }
-                        LabeledContent("Bytes: ") {
-                            Text(estimatedlistonetask[0].transferredNumberSizebytes)
-                                .foregroundColor(.blue)
+                        VStack(alignment: .trailing) {
+                            LabeledContent("Tot num: ") {
+                                Text(estimatedlistonetask[0].totalNumber)
+                                    .foregroundColor(.blue)
+                            }
+                            LabeledContent("Tot bytes: ") {
+                                Text(estimatedlistonetask[0].totalNumberSizebytes)
+                                    .foregroundColor(.blue)
+                            }
+                            LabeledContent("Tot dir: ") {
+                                Text(estimatedlistonetask[0].totalDirs)
+                                    .foregroundColor(.blue)
+                            }
                         }
                     }
-
-                    VStack(alignment: .trailing) {
-                        LabeledContent("Tot num: ") {
-                            Text(estimatedlistonetask[0].totalNumber)
-                                .foregroundColor(.blue)
-                        }
-                        LabeledContent("Tot bytes: ") {
-                            Text(estimatedlistonetask[0].totalNumberSizebytes)
-                                .foregroundColor(.blue)
-                        }
-                        LabeledContent("Tot dir: ") {
-                            Text(estimatedlistonetask[0].totalDirs)
-                                .foregroundColor(.blue)
-                        }
-                    }
+                    .padding()
                 }
             }
 
