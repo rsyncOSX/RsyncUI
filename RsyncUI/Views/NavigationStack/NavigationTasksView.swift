@@ -111,6 +111,15 @@ struct NavigationTasksView: View {
             }
 
             ToolbarItem {
+                Button {
+                    showview = .dryrunonetask
+                } label: {
+                    Image(systemName: "info")
+                }
+                .help("Rsync output estimated task")
+            }
+
+            ToolbarItem {
                 Spacer()
             }
 

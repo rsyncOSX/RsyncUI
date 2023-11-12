@@ -30,14 +30,6 @@ struct NavigationExecuteNoestimatedTasksView: View {
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
         }
-        /*
-         HStack {
-             Spacer()
-
-             Button("Abort") { abort() }
-                 .buttonStyle(ColorfulRedButtonStyle())
-         }
-          */
         .onAppear(perform: {
             Task {
                 await executeallnotestimatedtasks()

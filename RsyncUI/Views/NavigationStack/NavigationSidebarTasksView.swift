@@ -80,12 +80,15 @@ struct NavigationSidebarTasksView: View {
                 }
         case .alltasksview:
             NavigationAlltasksView()
+        case .dryrunonetaskalreqadyestimated:
+            NavigationDetailsOneTask(estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [],
+                                     selecteduuid: $selecteduuids)
         }
     }
 }
 
 enum DestinationView: String, Identifiable {
     case taskview, executestimatedview, executenoestimatetasksview,
-         estimatedview, firsttime, dryrunonetask, alltasksview
+         estimatedview, firsttime, dryrunonetask, alltasksview, dryrunonetaskalreqadyestimated
     var id: String { rawValue }
 }
