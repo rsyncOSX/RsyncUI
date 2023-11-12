@@ -112,7 +112,11 @@ struct NavigationTasksView: View {
 
             ToolbarItem {
                 Button {
-                    showview = .dryrunonetask
+                    if estimatingprogressdetails.tasksareestimated(selecteduuids) {
+                        showview = .dryrunonetaskalreadyestimated
+                    } else {
+                        showview = .dryrunonetask
+                    }
                 } label: {
                     Image(systemName: "info")
                 }

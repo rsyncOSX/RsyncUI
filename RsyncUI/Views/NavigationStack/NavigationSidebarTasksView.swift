@@ -78,19 +78,18 @@ struct NavigationSidebarTasksView: View {
                 .onDisappear {
                     progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
                 }
+        case .dryrunonetaskalreadyestimated:
+            NavigationDetailsOneTask(selecteduuids: selecteduuids,
+                                     estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
         case .alltasksview:
             NavigationAlltasksView()
-            /*
-             case .dryrunonetaskalreqadyestimated:
-                 NavigationDetailsOneTask(estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [],
-                                          selecteduuid: $selecteduuids)
-                  */
         }
     }
 }
 
 enum DestinationView: String, Identifiable {
     case taskview, executestimatedview, executenoestimatetasksview,
-         estimatedview, firsttime, dryrunonetask, alltasksview // , dryrunonetaskalreqadyestimated
+         estimatedview, firsttime, dryrunonetask, alltasksview,
+         dryrunonetaskalreadyestimated
     var id: String { rawValue }
 }
