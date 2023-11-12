@@ -13,11 +13,11 @@ struct NavigationDetailsOneTaskRootView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @SwiftUI.Environment(EstimateProgressDetails.self) var inprogresscountmultipletask
 
-    @Binding var selecteduuids: Set<UUID>
-
     @State private var gettingremotedata = true
     @State private var estimateddataonetask = Estimateddataonetask()
     @State private var outputfromrsync = Outputfromrsync()
+
+    let selecteduuids: Set<Configuration.ID>
 
     var body: some View {
         VStack(alignment: .leading) {

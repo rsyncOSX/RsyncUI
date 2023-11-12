@@ -73,7 +73,7 @@ struct NavigationSidebarTasksView: View {
         case .firsttime:
             NavigationFirstTimeView()
         case .dryrunonetask:
-            NavigationDetailsOneTaskRootView(selecteduuids: $selecteduuids)
+            NavigationDetailsOneTaskRootView(selecteduuids: selecteduuids)
                 .environment(estimatingprogressdetails)
                 .onDisappear {
                     progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())

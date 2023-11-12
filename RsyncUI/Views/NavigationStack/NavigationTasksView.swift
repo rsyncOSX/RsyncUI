@@ -14,8 +14,6 @@ struct NavigationTasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
-    // These two objects keeps track of the state and collects
-    // the estimated values.
     @State private var estimatingstate = EstimatingState()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<Configuration.ID>
@@ -29,9 +27,6 @@ struct NavigationTasksView: View {
     @State private var filterstring: String = ""
     // Local data for present local and remote info about task
     @State private var localdata: [String] = []
-    // Modale view
-    @State private var modaleview = false
-    @State var sheetchooser = NavigationSheetChooser()
     @State var selectedconfig = Selectedconfig()
     // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
@@ -222,14 +217,6 @@ extension NavigationTasksView {
         }
     }
 
-    func detailsestimatedtask() {
-        // DryRun: all tasks already estimated, show details on task
-        guard progressdetails.taskisestimatedbyUUID(selectedconfig.config?.id ?? UUID()) == true else { return }
-        Logger.process.info("DryRun: task is already estimated, show details on task")
-        sheetchooser.sheet = .dryrunalreadyestimated
-        modaleview = true
-    }
-
     func estimate() {
         guard estimatingprogressdetails.estimateasync == false else {
             Logger.process.info("TasksView: estimate already in progress")
@@ -301,24 +288,3 @@ extension NavigationTasksView {
         focusstartexecution = false
     }
 }
-
-enum NavigationSheet: String, Identifiable {
-    case dryrunalreadyestimated, alltasksview
-    var id: String { rawValue }
-}
-
-@Observable
-final class NavigationSheetChooser {
-    // Which sheet to present
-    // Do not redraw view when changing
-    // no @Publised
-    @ObservationIgnored
-    var sheet: NavigationSheet = .alltasksview
-}
-
-@Observable
-final class NavigationSelectedconfig {
-    var config: Configuration?
-}
-
-// swiftlint:enable line_length file_length

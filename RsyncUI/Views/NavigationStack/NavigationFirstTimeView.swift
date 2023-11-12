@@ -42,7 +42,10 @@ struct NavigationFirstTimeView: View {
         .onDisappear {
             SharedReference.shared.firsttime = false
         }
-        .confettiCannon(counter: $counter, num: 100, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 200)
+        .confettiCannon(counter: $counter, num: 100, 
+                        openingAngle: Angle(degrees: 0),
+                        closingAngle: Angle(degrees: 360),
+                        radius: 200)
     }
 
     var imagersyncosx: some View {

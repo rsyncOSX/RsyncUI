@@ -11,9 +11,9 @@ struct NavigationSummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var showview: DestinationView?
-    var estimatedlist: [RemoteinfonumbersOnetask]
-
     @State private var showDetails = false
+
+    var estimatedlist: [RemoteinfonumbersOnetask]
 
     var body: some View {
         NavigationStack {
