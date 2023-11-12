@@ -9,9 +9,8 @@ import Foundation
 import SwiftUI
 
 struct NavigationDetailsOneTask: View {
+    let selecteduuids: Set<Configuration.ID>
     let estimatedlist: [RemoteinfonumbersOnetask]
-    let selecteduuid: Configuration.ID
-
     @State var outputfromrsync = Outputfromrsync()
 
     var body: some View {
@@ -100,14 +99,24 @@ struct NavigationDetailsOneTask: View {
             }
         }
         .onAppear {
-            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selecteduuid }
-            if output.count > 0 {
-                outputfromrsync.generatedata(output[0].outputfromrsync)
+            if let selecteduuid = selecteduuid {
+                let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selecteduuid }
+                if output.count > 0 {
+                    outputfromrsync.generatedata(output[0].outputfromrsync)
+                }
             }
         }
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {
         return estimatedlist.filter { $0.id == selecteduuid }
+    }
+
+    var selecteduuid: Configuration.ID? {
+        if (selecteduuids.count) == 1 {
+            return selecteduuids.first
+        } else {
+            return nil
+        }
     }
 }

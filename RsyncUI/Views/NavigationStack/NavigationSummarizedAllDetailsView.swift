@@ -13,7 +13,6 @@ struct NavigationSummarizedAllDetailsView: View {
     @Binding var showview: DestinationView?
     var estimatedlist: [RemoteinfonumbersOnetask]
 
-    @State private var selecteduuidfordetailsview = SelectedUUID()
     @State private var showDetails = false
 
     var body: some View {
@@ -45,15 +44,13 @@ struct NavigationSummarizedAllDetailsView: View {
                     .width(max: 60)
                 }
                 .onChange(of: selecteduuids) {
-                    let selected = estimatedlist.filter { estimate in
-                        selecteduuids.contains(estimate.id)
+                    let selected = estimatedlist.filter { _ in
+                        selecteduuids.contains(selecteduuid ?? UUID())
                     }
                     if (selected.count) == 1 {
-                        selecteduuidfordetailsview.uuid = selected[0].id
                         showDetails = true
                     } else {
                         showDetails = false
-                        selecteduuidfordetailsview.uuid = nil
                     }
                 }
 
@@ -121,7 +118,7 @@ struct NavigationSummarizedAllDetailsView: View {
             }
         }
         .navigationDestination(isPresented: $showDetails) {
-            NavigationDetailsOneTask(estimatedlist: estimatedlist, selecteduuid: selecteduuidfordetailsview.uuid ?? UUID())
+            NavigationDetailsOneTask(selecteduuids: selecteduuids, estimatedlist: estimatedlist)
         }
         .toolbar(content: {
             ToolbarItem {
@@ -134,9 +131,12 @@ struct NavigationSummarizedAllDetailsView: View {
             }
         })
     }
-}
 
-@Observable
-final class SelectedUUID {
-    var uuid: Configuration.ID?
+    var selecteduuid: Configuration.ID? {
+        if (selecteduuids.count) == 1 {
+            return selecteduuids.first
+        } else {
+            return nil
+        }
+    }
 }
