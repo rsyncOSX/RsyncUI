@@ -108,8 +108,10 @@ struct NavigationTasksView: View {
             ToolbarItem {
                 Button {
                     if estimatingprogressdetails.tasksareestimated(selecteduuids) {
+                        Logger.process.info("Info: view details for already estimated and selected task")
                         showview = .dryrunonetaskalreadyestimated
                     } else {
+                        Logger.process.info("Info: iniate an execute for dryrun to view details for selected task")
                         showview = .dryrunonetask
                     }
                 } label: {
@@ -211,9 +213,6 @@ extension NavigationTasksView {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
             doubleclick = false
             showview = .dryrunonetask
-        } else {
-            // New profile is selected, just return no action
-            return
         }
     }
 
@@ -272,16 +271,14 @@ extension NavigationTasksView {
         estimatingprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
-        estimatingprogressdetails.estimateasync = false
-        estimatingprogressdetails.estimatedlist = nil
         showview = .taskview
     }
 
     func abort() {
         progressdetails.resetcounter()
+        estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)
-        estimatingprogressdetails.resetcounts()
         _ = InterruptProcess()
         reload = true
         focusstartestimation = false
