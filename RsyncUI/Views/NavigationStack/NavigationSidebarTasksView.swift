@@ -85,7 +85,7 @@ struct NavigationSidebarTasksView: View {
 }
 
 enum DestinationView: String, Identifiable {
-    case taskview, executestimatedview, executenoestimatetasksview, 
+    case taskview, executestimatedview, executenoestimatetasksview,
          estimatedview, firsttime, dryrunonetask, alltasksview
     var id: String { rawValue }
 }

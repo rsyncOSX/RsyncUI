@@ -121,7 +121,7 @@ struct NavigationSummarizedAllDetailsView: View {
             }
         }
         .navigationDestination(isPresented: $showDetails) {
-            NavigationOnetaskDetails(estimatedlist: estimatedlist, selecteduuid: selecteduuidfordetailsview.uuid ?? UUID())
+            NavigationDetailsOneTask(estimatedlist: estimatedlist, selecteduuid: selecteduuidfordetailsview.uuid ?? UUID())
         }
         .toolbar(content: {
             ToolbarItem {

@@ -54,17 +54,14 @@ struct Usersettings: View {
                         }
 
                         setmarkdays
-                            .padding()
 
-                        Section(header: Text("Try NavigationStack")) {
+                        Section(header: Text("NavigationStack")) {
                             ToggleViewDefault(NSLocalizedString("NavigationStack on or off", comment: ""),
                                               $trynavigationstack)
                                 .onChange(of: trynavigationstack) {
                                     SharedReference.shared.usenavigationstack = trynavigationstack
                                 }
-                            Text("Remember to deselect and select the")
-                            Text("Synchronize menu to enable selection.")
-                            Text("Selection is NOT saved.")
+                            Text("Remember to restart RsyncUI.")
                         }
                     }
                     .padding()
