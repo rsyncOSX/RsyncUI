@@ -130,6 +130,9 @@ struct NavigationSummarizedAllDetailsView: View {
                 .help("Execute (⌘R)")
             }
         })
+        .onChange(of: selecteduuids) {
+            showDetails = true
+        }
     }
 
     var selecteduuid: Configuration.ID? {
