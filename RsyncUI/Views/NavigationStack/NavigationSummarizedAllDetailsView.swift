@@ -132,7 +132,11 @@ struct NavigationSummarizedAllDetailsView: View {
             }
         })
         .onChange(of: selecteduuids) {
-            showDetails = true
+            if selecteduuid != nil {
+                showDetails = true
+            } else {
+                showDetails = false
+            }
         }
     }
 
