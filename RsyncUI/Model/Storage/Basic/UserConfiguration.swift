@@ -35,6 +35,8 @@ struct UserConfiguration: Codable {
     // Automatic execution
     var automaticexecute: Int?
     var automaticexecutetime: String = "10"
+    // NavigationStack
+    var usenavigationstack: Int?
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -105,6 +107,11 @@ struct UserConfiguration: Codable {
         if Int(automaticexecutetime) ?? 0 > 0 {
             SharedReference.shared.automaticexecutetime = Int(automaticexecutetime) ?? 0
         }
+        if usenavigationstack == 1 {
+            SharedReference.shared.usenavigationstack = true
+        } else {
+            SharedReference.shared.usenavigationstack = false
+        }
     }
 
     // Used when reading JSON data from store
@@ -126,6 +133,7 @@ struct UserConfiguration: Codable {
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
         automaticexecute = data.automaticexecute ?? -1
         automaticexecutetime = data.automaticexecutetime ?? "10"
+        usenavigationstack = data.usenavigationstack
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -197,6 +205,11 @@ struct UserConfiguration: Codable {
             automaticexecute = -1
         }
         automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
+        if SharedReference.shared.usenavigationstack == true {
+            usenavigationstack = 1
+        } else {
+            usenavigationstack = -1
+        }
     }
 }
 

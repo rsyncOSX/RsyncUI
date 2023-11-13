@@ -59,6 +59,7 @@ final class EstimateProgressDetails: ObservableObject {
         estimatedlist = nil
         timestamp = Date()
         profile = nil
+        uuids.removeAll()
     }
 
     func setmaxcount(_ num: Int) {
@@ -67,7 +68,6 @@ final class EstimateProgressDetails: ObservableObject {
 
     func updatetasksinprogresscount(_ num: Double) {
         tasksinprogresscount = num
-        objectWillChange.send()
     }
 
     func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {
@@ -83,27 +83,22 @@ final class EstimateProgressDetails: ObservableObject {
 
     func asyncestimationcomplete() {
         estimateasync = false
-        objectWillChange.send()
     }
 
     func asyncexecutecomplete() {
         executeasyncnoestimationcompleted = true
-        objectWillChange.send()
     }
 
     func startestimateasync() {
         estimateasync = true
-        objectWillChange.send()
     }
 
     func asyncexecutealltasksnoestiamtioncomplete() {
         executeasyncnoestimationcompleted = true
-        objectWillChange.send()
     }
 
     func startasyncexecutealltasksnoestimation() {
         executeasyncnoestimationcompleted = false
-        objectWillChange.send()
     }
 
     func getestimatedlist() -> [RemoteinfonumbersOnetask]? {

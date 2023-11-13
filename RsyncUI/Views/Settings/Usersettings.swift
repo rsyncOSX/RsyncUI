@@ -12,6 +12,7 @@ struct Usersettings: View {
     @StateObject var rsyncversion = Rsyncversion()
     @StateObject var usersettings = ObservableUsersetting()
     @State private var backup = false
+    @State private var trynavigationstack: Bool = SharedReference.shared.usenavigationstack
 
     var body: some View {
         Form {
@@ -42,6 +43,15 @@ struct Usersettings: View {
                         }
 
                         setmarkdays
+
+                        Section(header: Text("NavigationStack")) {
+                            ToggleViewDefault(NSLocalizedString("NavigationStack on or off", comment: ""),
+                                              $trynavigationstack)
+                                .onChange(of: trynavigationstack) { _ in
+                                    SharedReference.shared.usenavigationstack = trynavigationstack
+                                }
+                            Text("Remember to restart RsyncUI.")
+                        }
 
                     }.padding()
 

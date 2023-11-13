@@ -91,6 +91,8 @@ class SharedReference {
     // Used within Tasks for periodic sync of data
     var workitem: DispatchWorkItem?
     var timervalue: Double?
+    // Use NavigationStack
+    var usenavigationstack: Bool = true
 
     private init() {
         synctasks = Set<String>()
