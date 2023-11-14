@@ -55,10 +55,16 @@ struct NavigationSidebarTasksView: View {
             NavigationExecuteNoestimatedTasksView(reload: $reload,
                                                   selecteduuids: $selecteduuids,
                                                   showview: $showview)
+                .onDisappear {
+                    showview = nil
+                }
         case .estimatedview:
             NavigationSummarizedAllDetailsView(selecteduuids: $selecteduuids,
                                                showview: $showview,
                                                estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
+                .onDisappear {
+                    showview = nil
+                }
         case .firsttime:
             NavigationFirstTimeView()
         case .dryrunonetask:
@@ -71,8 +77,14 @@ struct NavigationSidebarTasksView: View {
         case .dryrunonetaskalreadyestimated:
             NavigationDetailsOneTask(selecteduuids: selecteduuids,
                                      estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
+                .onDisappear {
+                    showview = nil
+                }
         case .alltasksview:
             NavigationAlltasksView()
+                .onDisappear {
+                    showview = nil
+                }
         }
     }
 }
