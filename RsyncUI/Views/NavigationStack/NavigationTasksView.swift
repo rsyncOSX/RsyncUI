@@ -14,11 +14,11 @@ struct NavigationTasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
+    @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @State private var estimatingstate = EstimatingState()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var showview: DestinationView?
-    @Bindable var estimatingprogressdetails: EstimateProgressDetails
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false

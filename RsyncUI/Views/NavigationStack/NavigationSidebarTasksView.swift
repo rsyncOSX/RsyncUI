@@ -19,10 +19,10 @@ struct NavigationSidebarTasksView: View {
 
     var body: some View {
         NavigationStack {
-            NavigationTasksView(reload: $reload,
+            NavigationTasksView(estimatingprogressdetails: estimatingprogressdetails,
+                                reload: $reload,
                                 selecteduuids: $selecteduuids,
-                                showview: $showview,
-                                estimatingprogressdetails: estimatingprogressdetails)
+                                showview: $showview)
                 .environmentObject(progressdetails)
         }.navigationDestination(isPresented: $showDetails) {
             makeView(view: showview ?? .firsttime)
