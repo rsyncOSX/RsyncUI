@@ -150,6 +150,7 @@ extension NavigationDetailsOneTaskRootView {
             inprogresscountmultipletask.resetcounts()
             inprogresscountmultipletask.appenduuid(selectedconfig?.id ?? UUID())
             inprogresscountmultipletask.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
+            inprogresscountmultipletask.setprofileandnumberofconfigurations(rsyncUIdata.profile ?? "Default profile", rsyncUIdata.getallconfigurations()?.count ?? 0)
         }
     }
 }

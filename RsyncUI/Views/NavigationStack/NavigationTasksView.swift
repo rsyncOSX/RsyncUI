@@ -58,7 +58,7 @@ struct NavigationTasksView: View {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
                 if focusaborttask { labelaborttask }
-                if estimatingprogressdetails.estimateasync { progressviewestimateasync }
+                if estimatingprogressdetails.estimatealltasksasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
         }
@@ -208,6 +208,13 @@ extension NavigationTasksView {
             doubleclick = false
             showview = .dryrunonetask
         } else if selectedconfig.config != nil,
+                  estimatingprogressdetails.executeanotherdryrun(rsyncUIdata.profile ?? "Default profile") == true
+        {
+            Logger.process.info("DryRun: new task same profile selected, execute a dryrun")
+            doubleclick = false
+            showview = .dryrunonetask
+
+        } else if selectedconfig.config != nil,
                   estimatingprogressdetails.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
         {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
@@ -217,7 +224,7 @@ extension NavigationTasksView {
     }
 
     func estimate() {
-        guard estimatingprogressdetails.estimateasync == false else {
+        guard estimatingprogressdetails.estimatealltasksasync == false else {
             Logger.process.info("TasksView: estimate already in progress")
             return
         }

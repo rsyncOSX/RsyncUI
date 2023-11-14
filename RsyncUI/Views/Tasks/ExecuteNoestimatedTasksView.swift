@@ -78,7 +78,7 @@ extension ExecuteNoestimatedTasksView {
         reload = true
         estimatingprogresscount.resetcounts()
         progressviewshowinfo = false
-        estimatingprogresscount.estimateasync = false
+        estimatingprogresscount.estimatealltasksasync = false
         showexecutenoestimateview = false
     }
 
