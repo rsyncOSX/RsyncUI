@@ -25,14 +25,10 @@ struct NavigationSidebarTasksView: View {
                                 estimatingprogressdetails: estimatingprogressdetails)
                 .environmentObject(progressdetails)
         }.navigationDestination(isPresented: $showDetails) {
-            makeView(view: showview ?? .taskview)
+            makeView(view: showview ?? .firsttime)
         }
         .onChange(of: showview) {
-            if showview == .taskview {
-                showDetails = false
-            } else {
-                showDetails = true
-            }
+            showDetails = true
         }
         .task {
             if SharedReference.shared.firsttime {
@@ -45,14 +41,6 @@ struct NavigationSidebarTasksView: View {
     @ViewBuilder
     func makeView(view: DestinationView) -> some View {
         switch view {
-        case .taskview:
-            // This is default main view
-            // Never presented
-            NavigationTasksView(reload: $reload,
-                                selecteduuids: $selecteduuids,
-                                showview: $showview,
-                                estimatingprogressdetails: estimatingprogressdetails)
-                .environmentObject(progressdetails)
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
             // presents progress of synchronization of data.
@@ -88,7 +76,7 @@ struct NavigationSidebarTasksView: View {
 }
 
 enum DestinationView: String, Identifiable {
-    case taskview, executestimatedview, executenoestimatetasksview,
+    case executestimatedview, executenoestimatetasksview,
          estimatedview, firsttime, dryrunonetask, alltasksview,
          dryrunonetaskalreadyestimated
     var id: String { rawValue }

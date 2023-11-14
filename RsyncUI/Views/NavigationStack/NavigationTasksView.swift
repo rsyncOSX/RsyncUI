@@ -271,7 +271,6 @@ extension NavigationTasksView {
         estimatingprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
-        showview = .taskview
     }
 
     func abort() {

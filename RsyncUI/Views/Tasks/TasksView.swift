@@ -323,9 +323,6 @@ extension TasksView {
             Logger.process.info("DryRun: show summarized dryrun for all tasks")
             // show summarized dry run
             sheetchooser.sheet = .dryrunalltasks
-        } else {
-            // New profile is selected, just return no action
-            return
         }
         modaleview = true
     }
