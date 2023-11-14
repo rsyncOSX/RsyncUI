@@ -48,7 +48,7 @@ final class EstimateProgressDetails: ObservableObject {
             estimatedlist?.count != numberofconfigurations &&
             profile == profilename
     }
-    
+
     func alltasksestimated(_ profilename: String) -> Bool {
         return estimatealltasksasync == false &&
             estimatedlist?.count == numberofconfigurations &&

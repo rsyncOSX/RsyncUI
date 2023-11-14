@@ -77,7 +77,7 @@ struct TasksView: View {
                 if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
                 if focusenabletimer { labelenabletimer }
-                if estimatingprogresscount.estimateasync { progressviewestimateasync }
+                if estimatingprogresscount.estimatealltasksasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
         }
