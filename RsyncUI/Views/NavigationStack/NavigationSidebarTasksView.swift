@@ -30,6 +30,7 @@ struct NavigationSidebarTasksView: View {
             makeView(view: showview ?? .firsttime)
         }
         .onChange(of: showview) {
+            guard showview != nil else { return }
             showDetails = true
         }
         .task {
@@ -67,6 +68,7 @@ struct NavigationSidebarTasksView: View {
                 .environmentObject(estimatingprogressdetails)
                 .onDisappear {
                     progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
+                    showview = nil
                 }
         case .dryrunonetaskalreadyestimated:
             NavigationDetailsOneTask(selecteduuids: selecteduuids,
