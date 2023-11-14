@@ -73,7 +73,6 @@ extension NavigationExecuteNoestimatedTasksView {
         estimatingprogresscount.resetcounts()
         progressviewshowinfo = false
         estimatingprogresscount.estimateasync = false
-        showview = .taskview
     }
 
     func abort() {
@@ -82,7 +81,6 @@ extension NavigationExecuteNoestimatedTasksView {
         _ = InterruptProcess()
         reload = true
         progressviewshowinfo = false
-        showview = .taskview
     }
 
     func executeallnotestimatedtasks() async {

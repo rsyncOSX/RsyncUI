@@ -78,7 +78,6 @@ extension NavigationExecuteEstimatedTasksView {
         multipletaskstate.updatestate(state: .start)
         estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
-        showview = .taskview
         reload = true
     }
 
@@ -88,7 +87,6 @@ extension NavigationExecuteEstimatedTasksView {
         estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         _ = InterruptProcess()
-        showview = .taskview
         reload = true
     }
 
@@ -99,10 +97,7 @@ extension NavigationExecuteEstimatedTasksView {
         } else if estimatingprogressdetails.getuuids().count > 0 {
             uuids = estimatingprogressdetails.getuuids()
         }
-        guard (uuids?.count ?? 0) > 0 else {
-            showview = .taskview
-            return
-        }
+        guard (uuids?.count ?? 0) > 0 else { return }
         if let uuids = uuids {
             multipletaskstate.updatestate(state: .execute)
             ExecuteMultipleTasks(uuids: uuids,
