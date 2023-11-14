@@ -508,16 +508,16 @@
 		E98214572B020DA200383B1B /* NavigationStack */ = {
 			isa = PBXGroup;
 			children = (
-				E982145A2B020DDF00383B1B /* NavigationAlltasksView.swift */,
-				E982145D2B020DDF00383B1B /* NavigationDetailsOneTask.swift */,
-				E982145B2B020DDF00383B1B /* NavigationDetailsOneTaskRootView.swift */,
-				E98214612B020DDF00383B1B /* NavigationExecuteEstimatedTasksView.swift */,
-				E98214582B020DDF00383B1B /* NavigationExecuteNoestimatedTasksView.swift */,
-				E982145E2B020DDF00383B1B /* NavigationFirstTimeView.swift */,
-				E982145F2B020DDF00383B1B /* NavigationListofTasksMainView.swift */,
 				E98214602B020DDF00383B1B /* NavigationSidebarTasksView.swift */,
 				E98214592B020DDF00383B1B /* NavigationSummarizedAllDetailsView.swift */,
 				E982145C2B020DDF00383B1B /* NavigationTasksView.swift */,
+				E98214612B020DDF00383B1B /* NavigationExecuteEstimatedTasksView.swift */,
+				E98214582B020DDF00383B1B /* NavigationExecuteNoestimatedTasksView.swift */,
+				E982145B2B020DDF00383B1B /* NavigationDetailsOneTaskRootView.swift */,
+				E982145D2B020DDF00383B1B /* NavigationDetailsOneTask.swift */,
+				E982145E2B020DDF00383B1B /* NavigationFirstTimeView.swift */,
+				E982145F2B020DDF00383B1B /* NavigationListofTasksMainView.swift */,
+				E982145A2B020DDF00383B1B /* NavigationAlltasksView.swift */,
 			);
 			path = NavigationStack;
 			sourceTree = "<group>";

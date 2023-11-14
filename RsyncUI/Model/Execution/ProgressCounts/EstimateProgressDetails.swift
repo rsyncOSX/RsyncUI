@@ -14,7 +14,12 @@ final class EstimateProgressDetails: ObservableObject {
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
     // Estimate async
-    var estimateasync: Bool = false
+    var estimatealltasksasync: Bool = false
+    // Estimate on task, same profile
+    // If one task in profile is estimated, this is set true
+    // Used to decide if new profile is selected.
+    // The estiamed list is usde for progress if executing.
+    var onetaskisestimated: Bool = false
     var executeasyncnoestimationcompleted: Bool = false
     // Profilename and timestamp start estimation
     var profile: String?
@@ -37,8 +42,15 @@ final class EstimateProgressDetails: ObservableObject {
         numberofconfigurations = num
     }
 
+    func executeanotherdryrun(_ profilename: String) -> Bool {
+        return estimatealltasksasync == false &&
+            onetaskisestimated == true &&
+            estimatedlist?.count != numberofconfigurations &&
+            profile == profilename
+    }
+    
     func alltasksestimated(_ profilename: String) -> Bool {
-        return estimateasync == false &&
+        return estimatealltasksasync == false &&
             estimatedlist?.count == numberofconfigurations &&
             profile == profilename
     }
@@ -60,6 +72,8 @@ final class EstimateProgressDetails: ObservableObject {
         timestamp = Date()
         profile = nil
         uuids.removeAll()
+        onetaskisestimated = false
+        estimatealltasksasync = false
     }
 
     func setmaxcount(_ num: Int) {
@@ -86,7 +100,7 @@ final class EstimateProgressDetails: ObservableObject {
     }
 
     func asyncestimationcomplete() {
-        estimateasync = false
+        estimatealltasksasync = false
         objectWillChange.send()
     }
 
@@ -96,7 +110,7 @@ final class EstimateProgressDetails: ObservableObject {
     }
 
     func startestimateasync() {
-        estimateasync = true
+        estimatealltasksasync = true
         objectWillChange.send()
     }
 
