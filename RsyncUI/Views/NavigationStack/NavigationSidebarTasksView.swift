@@ -25,7 +25,7 @@ struct NavigationSidebarTasksView: View {
                                 showview: $showview)
                 .environmentObject(progressdetails)
         }.navigationDestination(isPresented: $showDetails) {
-            makeView(view: showview ?? .firsttime)
+            makeView(view: showview)
         }
         .onChange(of: showview) {
             guard showview != nil else { return }
@@ -40,7 +40,7 @@ struct NavigationSidebarTasksView: View {
     }
 
     @ViewBuilder
-    func makeView(view: DestinationView) -> some View {
+    func makeView(view: DestinationView?) -> some View {
         switch view {
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
@@ -62,9 +62,6 @@ struct NavigationSidebarTasksView: View {
             NavigationSummarizedAllDetailsView(selecteduuids: $selecteduuids,
                                                showview: $showview,
                                                estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
-                .onDisappear {
-                    showview = nil
-                }
         case .firsttime:
             NavigationFirstTimeView()
         case .dryrunonetask:
@@ -85,6 +82,12 @@ struct NavigationSidebarTasksView: View {
                 .onDisappear {
                     showview = nil
                 }
+        case .none:
+            NavigationTasksView(estimatingprogressdetails: estimatingprogressdetails,
+                                reload: $reload,
+                                selecteduuids: $selecteduuids,
+                                showview: $showview)
+                .environmentObject(progressdetails)
         }
     }
 }
