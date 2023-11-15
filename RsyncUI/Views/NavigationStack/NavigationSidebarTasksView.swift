@@ -25,9 +25,8 @@ struct NavigationSidebarTasksView: View {
                                 showview: $showview)
                 .environmentObject(progressdetails)
                 .environmentObject(estimatingprogressdetails)
-
         }.navigationDestination(isPresented: $showDetails) {
-            makeView(view: showview ?? .firsttime)
+            makeView(view: showview)
         }
         .onChange(of: showview) {
             guard showview != nil else { return }
@@ -42,7 +41,7 @@ struct NavigationSidebarTasksView: View {
     }
 
     @ViewBuilder
-    func makeView(view: DestinationView) -> some View {
+    func makeView(view: DestinationView?) -> some View {
         switch view {
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
@@ -52,26 +51,20 @@ struct NavigationSidebarTasksView: View {
                                                 showview: $showview)
                 .environmentObject(progressdetails)
                 .environmentObject(estimatingprogressdetails)
-                .onDisappear {
-                    showview = nil
-                }
         case .executenoestimatetasksview:
             // Execute tasks, no estimation ahead of synchronization
             NavigationExecuteNoestimatedTasksView(reload: $reload,
                                                   selecteduuids: $selecteduuids,
                                                   showview: $showview)
+                .onDisappear {
+                    showview = nil
+                }
         case .estimatedview:
             NavigationSummarizedAllDetailsView(selecteduuids: $selecteduuids,
                                                showview: $showview,
                                                estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
-                .onDisappear {
-                    showview = nil
-                }
         case .firsttime:
             NavigationFirstTimeView()
-                .onDisappear {
-                    showview = nil
-                }
         case .dryrunonetask:
             NavigationDetailsOneTaskRootView(selecteduuids: selecteduuids)
                 .environmentObject(estimatingprogressdetails)
@@ -90,6 +83,12 @@ struct NavigationSidebarTasksView: View {
                 .onDisappear {
                     showview = nil
                 }
+        case .none:
+            NavigationTasksView(reload: $reload,
+                                selecteduuids: $selecteduuids,
+                                showview: $showview)
+                .environmentObject(progressdetails)
+                .environmentObject(estimatingprogressdetails)
         }
     }
 }
