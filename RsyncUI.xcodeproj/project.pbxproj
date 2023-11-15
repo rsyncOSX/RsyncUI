@@ -46,8 +46,6 @@
 		E954AD3F2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD3E2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift */; };
 		E954AD412AFE8FBB00F3EA63 /* NavigationSummarizedAllDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD402AFE8FBB00F3EA63 /* NavigationSummarizedAllDetailsView.swift */; };
 		E954AD432AFE901200F3EA63 /* NavigationTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD422AFE901200F3EA63 /* NavigationTasksView.swift */; };
-		E956177F2B051547009CEB8D /* TestNavigationSidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956177E2B051547009CEB8D /* TestNavigationSidebarTasksView.swift */; };
-		E95617812B051619009CEB8D /* TestNavigationTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95617802B051619009CEB8D /* TestNavigationTasksView.swift */; };
 		E9569EA927B809EE0038799C /* ReadUserConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */; };
 		E9569EAB27B80BEB0038799C /* UserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EAA27B80BEB0038799C /* UserConfiguration.swift */; };
 		E9569EAD27B80C220038799C /* DecodeUserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EAC27B80C220038799C /* DecodeUserConfiguration.swift */; };
@@ -252,8 +250,6 @@
 		E954AD3E2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSidebarTasksView.swift; sourceTree = "<group>"; };
 		E954AD402AFE8FBB00F3EA63 /* NavigationSummarizedAllDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSummarizedAllDetailsView.swift; sourceTree = "<group>"; };
 		E954AD422AFE901200F3EA63 /* NavigationTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTasksView.swift; sourceTree = "<group>"; };
-		E956177E2B051547009CEB8D /* TestNavigationSidebarTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNavigationSidebarTasksView.swift; sourceTree = "<group>"; };
-		E95617802B051619009CEB8D /* TestNavigationTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNavigationTasksView.swift; sourceTree = "<group>"; };
 		E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUserConfigurationJSON.swift; sourceTree = "<group>"; };
 		E9569EAA27B80BEB0038799C /* UserConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfiguration.swift; sourceTree = "<group>"; };
 		E9569EAC27B80C220038799C /* DecodeUserConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeUserConfiguration.swift; sourceTree = "<group>"; };
@@ -498,15 +494,6 @@
 			path = Async;
 			sourceTree = "<group>";
 		};
-		E956177D2B051523009CEB8D /* TestNavStack */ = {
-			isa = PBXGroup;
-			children = (
-				E956177E2B051547009CEB8D /* TestNavigationSidebarTasksView.swift */,
-				E95617802B051619009CEB8D /* TestNavigationTasksView.swift */,
-			);
-			path = TestNavStack;
-			sourceTree = "<group>";
-		};
 		E95EDC7D26063C7F000018DE /* RsyncParameters */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,7 +564,6 @@
 		E985C60925F3AD8400CB895C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E956177D2B051523009CEB8D /* TestNavStack */,
 				E954AD3D2AFE8DFE00F3EA63 /* NavigationStack */,
 				E8AC45CB26E5ED2500E0AE43 /* Tools */,
 				E985C62025F3AD8400CB895C /* Modifiers */,
@@ -1364,7 +1350,6 @@
 				E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
 				E92FA4412ABEBEC3001E0A14 /* BlurView.swift in Sources */,
-				E95617812B051619009CEB8D /* TestNavigationTasksView.swift in Sources */,
 				E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */,
 				E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */,
 				E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */,
@@ -1375,7 +1360,6 @@
 				E985C77B25F3AD9700CB895C /* DuArgumentsSsh.swift in Sources */,
 				E985C79225F3AD9700CB895C /* Extensions.swift in Sources */,
 				E944E6CA2A16B6A6009BA945 /* ListofTasksMainView.swift in Sources */,
-				E956177F2B051547009CEB8D /* TestNavigationSidebarTasksView.swift in Sources */,
 				E92B19092755F7F600B16B03 /* LogCommands.swift in Sources */,
 				E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */,
 				E98C7AB5262D662200555977 /* ReadScheduleJSON.swift in Sources */,
