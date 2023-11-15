@@ -117,6 +117,11 @@ struct NavigationSummarizedAllDetailsView: View {
                     .width(max: 70)
                 }
             }
+
+            if datatosynchronize == false {
+                Text("There seems to be no data to synchronize")
+                    .font(.title2)
+            }
         }
         .navigationDestination(isPresented: $showDetails) {
             NavigationDetailsOneTask(selecteduuids: selecteduuids, estimatedlist: estimatedlist)
@@ -146,5 +151,9 @@ struct NavigationSummarizedAllDetailsView: View {
         } else {
             return nil
         }
+    }
+
+    var datatosynchronize: Bool {
+        return !estimatedlist.filter { $0.datatosynchronize == true }.isEmpty
     }
 }

@@ -52,6 +52,9 @@ struct NavigationSidebarTasksView: View {
                                                 showview: $showview)
                 .environmentObject(progressdetails)
                 .environmentObject(estimatingprogressdetails)
+                .onDisappear {
+                    showview = nil
+                }
         case .executenoestimatetasksview:
             // Execute tasks, no estimation ahead of synchronization
             NavigationExecuteNoestimatedTasksView(reload: $reload,
@@ -61,8 +64,14 @@ struct NavigationSidebarTasksView: View {
             NavigationSummarizedAllDetailsView(selecteduuids: $selecteduuids,
                                                showview: $showview,
                                                estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
+                .onDisappear {
+                    showview = nil
+                }
         case .firsttime:
             NavigationFirstTimeView()
+                .onDisappear {
+                    showview = nil
+                }
         case .dryrunonetask:
             NavigationDetailsOneTaskRootView(selecteduuids: selecteduuids)
                 .environmentObject(estimatingprogressdetails)
@@ -73,8 +82,14 @@ struct NavigationSidebarTasksView: View {
         case .dryrunonetaskalreadyestimated:
             NavigationDetailsOneTask(selecteduuids: selecteduuids,
                                      estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
+                .onDisappear {
+                    showview = nil
+                }
         case .alltasksview:
             NavigationAlltasksView()
+                .onDisappear {
+                    showview = nil
+                }
         }
     }
 }
