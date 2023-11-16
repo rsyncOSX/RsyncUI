@@ -151,7 +151,7 @@ struct NavigationTasksView: View {
                 focusstartestimation = false
                 progressdetails.resetcounter()
                 progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
-                path.append(Tasks(task: .estimatedview))
+                // path.append(Tasks(task: .estimatedview))
             }
     }
 

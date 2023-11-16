@@ -35,7 +35,7 @@ struct NavigationSidebarTasksView: View {
     }
 
     @ViewBuilder
-    func makeView(view: DestinationView?) -> some View {
+    func makeView(view: DestinationView) -> some View {
         switch view {
         case .executestimatedview:
             // This view is activated for execution of estimated tasks and view
@@ -66,8 +66,6 @@ struct NavigationSidebarTasksView: View {
             NavigationDetailsOneTask(selecteduuids: selecteduuids,
                                      estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
         case .alltasksview:
-            NavigationAlltasksView()
-        case .none:
             NavigationAlltasksView()
         }
     }
