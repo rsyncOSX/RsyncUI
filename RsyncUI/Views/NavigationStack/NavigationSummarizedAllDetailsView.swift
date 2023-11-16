@@ -15,8 +15,6 @@ struct NavigationSummarizedAllDetailsView: View {
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var path: [Tasks]
 
-    @State private var showDetails = false
-
     var body: some View {
         HStack {
             Table(estimatingprogressdetails.getestimatedlist() ?? [],
@@ -47,14 +45,8 @@ struct NavigationSummarizedAllDetailsView: View {
                 .width(max: 60)
             }
             .onChange(of: selecteduuids) {
-                let selected = (estimatingprogressdetails.getestimatedlist() ?? []).filter { _ in
-                    selecteduuids.contains(selecteduuid ?? UUID())
-                }
-                if (selected.count) == 1 {
-                    showDetails = true
-                } else {
-                    showDetails = false
-                }
+                estimatingprogressdetails.uuids = selecteduuids
+                path.append(Tasks(task: .dryrunonetaskalreadyestimated))
             }
 
             Table(estimatingprogressdetails.getestimatedlist() ?? []) {
@@ -129,27 +121,11 @@ struct NavigationSummarizedAllDetailsView: View {
                 .help("Execute (⌘R)")
             }
         })
-        .onChange(of: selecteduuids) {
-            if selecteduuid != nil {
-                showDetails = true
-            } else {
-                showDetails = false
-            }
-        }
         .onAppear {
             guard estimatingprogressdetails.estimatealltasksasync == false else {
                 Logger.process.info("TasksView: estimate already in progress")
                 return
             }
-            /*
-             if selectedconfig.config != nil {
-                 let profile = selectedconfig.config?.profile ?? "Default profile"
-                 if profile != rsyncUIdata.profile {
-                     selecteduuids.removeAll()
-                     selectedconfig.config = nil
-                 }
-             }
-              */
             estimatingprogressdetails.resetcounts()
             progressdetails.resetcounter()
             estimatingprogressdetails.startestimateasync()
@@ -175,17 +151,18 @@ struct NavigationSummarizedAllDetailsView: View {
                 progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
             }
     }
-
-    var selecteduuid: Configuration.ID? {
-        if (selecteduuids.count) == 1 {
-            return selecteduuids.first
-        } else {
-            return nil
-        }
-    }
 }
 
 /*
+
+ var selecteduuid: Configuration.ID? {
+     if (selecteduuids.count) == 1 {
+         return selecteduuids.first
+     } else {
+         return nil
+     }
+ }
+
  estimatedlist: estimatingprogressdetails.getestimatedlist() ?? []
 
  .navigationDestination(isPresented: $showDetails) {

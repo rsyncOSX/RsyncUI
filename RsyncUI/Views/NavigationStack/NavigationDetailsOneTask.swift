@@ -11,7 +11,6 @@ import SwiftUI
 struct NavigationDetailsOneTask: View {
     let selecteduuids: Set<Configuration.ID>
     let estimatedlist: [RemoteinfonumbersOnetask]
-    @State var outputfromrsync = Outputfromrsync()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -98,14 +97,6 @@ struct NavigationDetailsOneTask: View {
                 }
             }
         }
-        .onAppear {
-            if let selecteduuid = selecteduuid {
-                let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selecteduuid }
-                if output.count > 0 {
-                    outputfromrsync.generatedata(output[0].outputfromrsync)
-                }
-            }
-        }
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {
@@ -118,5 +109,17 @@ struct NavigationDetailsOneTask: View {
         } else {
             return nil
         }
+    }
+
+    var outputfromrsync: Outputfromrsync {
+        if let selecteduuid = selecteduuid {
+            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selecteduuid }
+            if output.count > 0 {
+                var data = Outputfromrsync()
+                data.generatedata(output[0].outputfromrsync)
+                return data
+            }
+        }
+        return Outputfromrsync()
     }
 }

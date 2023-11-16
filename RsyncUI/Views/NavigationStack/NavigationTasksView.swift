@@ -52,6 +52,7 @@ struct NavigationTasksView: View {
                 } else {
                     selectedconfig.config = nil
                 }
+                estimatingprogressdetails.uuids = selecteduuids
             }
 
             // Remember max 10 in one Group
