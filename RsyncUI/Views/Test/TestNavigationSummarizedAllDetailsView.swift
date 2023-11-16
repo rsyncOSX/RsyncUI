@@ -10,7 +10,7 @@ import SwiftUI
 struct TestNavigationSummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var selecteduuids: Set<Configuration.ID>
-    @Binding var showview: TestDestinationView?
+    @Binding var path: [Tasks]
     @State private var showDetails = false
 
     var estimatedlist: [RemoteinfonumbersOnetask]

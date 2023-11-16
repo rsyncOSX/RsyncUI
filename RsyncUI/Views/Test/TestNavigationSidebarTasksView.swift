@@ -13,30 +13,33 @@ struct TestNavigationSidebarTasksView: View {
     @Binding var reload: Bool
     @State private var estimatingprogressdetails = EstimateProgressDetails()
     @StateObject private var progressdetails = ExecuteProgressDetails()
-    // Which view to show
-    @State private var showview: TestDestinationView?
-    @State private var showDetails: Bool = false
+
+    @State var path: [Tasks] = []
+    @State var whichtask: TestDestinationView?
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             TestNavigationTasksView(estimatingprogressdetails: estimatingprogressdetails,
                                     reload: $reload,
                                     selecteduuids: $selecteduuids,
-                                    showview: $showview)
+                                    path: $path)
                 .environmentObject(progressdetails)
-        }.navigationDestination(isPresented: $showDetails) {
-            makeView(view: showview)
+                .navigationDestination(for: Tasks.self) { which in
+                    makeView(view: which.task)
+                }
+                .task {
+                    if SharedReference.shared.firsttime {
+                        // makeView(view: .firsttime)
+                    }
+                }
         }
-        .onChange(of: showview) {
-            guard showview != nil else { return }
-            showDetails = true
-        }
-        .task {
-            if SharedReference.shared.firsttime {
-                showview = .firsttime
-                showDetails = true
-            }
-        }
+        /*
+         .onChange(of: whichtask) {
+             var test = path.popLast()
+             test?.task = whichtask ?? .alltasksview
+             path.append(test ?? Tasks(task: .alltasksview))
+         }
+          */
     }
 
     @ViewBuilder
@@ -44,7 +47,7 @@ struct TestNavigationSidebarTasksView: View {
         switch view {
         case .estimatedview:
             TestNavigationSummarizedAllDetailsView(selecteduuids: $selecteduuids,
-                                                   showview: $showview,
+                                                   path: $path,
                                                    estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
         case .firsttime:
             NavigationFirstTimeView()
@@ -53,27 +56,21 @@ struct TestNavigationSidebarTasksView: View {
                 .environment(estimatingprogressdetails)
                 .onDisappear {
                     progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
-                    showview = nil
                 }
         case .dryrunonetaskalreadyestimated:
             NavigationDetailsOneTask(selecteduuids: selecteduuids,
                                      estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
-                .onDisappear {
-                    showview = nil
-                }
         case .alltasksview:
             NavigationAlltasksView()
-                .onDisappear {
-                    showview = nil
-                }
         case .none:
-            TestNavigationTasksView(estimatingprogressdetails: estimatingprogressdetails,
-                                    reload: $reload,
-                                    selecteduuids: $selecteduuids,
-                                    showview: $showview)
-                .environmentObject(progressdetails)
+            NavigationAlltasksView()
         }
     }
+}
+
+struct Tasks: Hashable, Identifiable {
+    let id = UUID()
+    var task: TestDestinationView
 }
 
 enum TestDestinationView: String, Identifiable {
