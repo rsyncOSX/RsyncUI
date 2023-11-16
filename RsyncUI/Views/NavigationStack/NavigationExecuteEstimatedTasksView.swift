@@ -14,7 +14,7 @@ struct NavigationExecuteEstimatedTasksView: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
     @Binding var path: [Tasks]
-    
+
     @State private var multipletaskstate = MultipleTaskState()
     @State private var selectedconfig: Configuration?
     @State private var filterstring: String = ""
@@ -77,7 +77,7 @@ extension NavigationExecuteEstimatedTasksView {
         multipletaskstate.updatestate(state: .start)
         estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
-        path = []
+        path.removeAll()
         reload = true
     }
 
@@ -87,7 +87,7 @@ extension NavigationExecuteEstimatedTasksView {
         estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         _ = InterruptProcess()
-        path = []
+        path.removeAll()
         reload = true
     }
 

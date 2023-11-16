@@ -38,15 +38,12 @@ struct NavigationSidebarTasksView: View {
     func makeView(view: DestinationView) -> some View {
         switch view {
         case .executestimatedview:
-            // This view is activated for execution of estimated tasks and view
-            // presents progress of synchronization of data.
             NavigationExecuteEstimatedTasksView(estimatingprogressdetails: estimatingprogressdetails,
                                                 selecteduuids: $selecteduuids,
                                                 reload: $reload,
                                                 path: $path)
                 .environmentObject(progressdetails)
         case .executenoestimatetasksview:
-            // Execute tasks, no estimation ahead of synchronization
             NavigationExecuteNoestimatedTasksView(reload: $reload,
                                                   selecteduuids: $selecteduuids,
                                                   path: $path)
@@ -58,14 +55,14 @@ struct NavigationSidebarTasksView: View {
         case .firsttime:
             NavigationFirstTimeView()
         case .dryrunonetask:
-            NavigationDetailsOneTaskRootView(selecteduuids: selecteduuids)
-                .environment(estimatingprogressdetails)
+            NavigationDetailsOneTaskRootView(estimatingprogressdetails: estimatingprogressdetails,
+                                             selecteduuids: estimatingprogressdetails.uuids)
                 .onDisappear {
                     progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
                 }
         case .dryrunonetaskalreadyestimated:
-            NavigationDetailsOneTask(selecteduuids: estimatingprogressdetails.uuids,
-                                     estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
+            NavigationDetailsOneTask(estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [],
+                                     selecteduuids: estimatingprogressdetails.uuids)
         case .alltasksview:
             NavigationAlltasksView()
         }

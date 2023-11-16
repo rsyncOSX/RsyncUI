@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct NavigationDetailsOneTask: View {
-    let selecteduuids: Set<Configuration.ID>
     let estimatedlist: [RemoteinfonumbersOnetask]
+    let selecteduuids: Set<Configuration.ID>
 
     var body: some View {
         VStack(alignment: .leading) {
