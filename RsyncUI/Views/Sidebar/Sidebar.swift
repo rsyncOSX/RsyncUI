@@ -66,7 +66,7 @@ struct Sidebar: View {
         case .synchronize:
             if SharedReference.shared.usenavigationstack {
                 NavigationStack {
-                    TestNavigationSidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
+                    NavigationSidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
                 }
             } else {
                 SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)

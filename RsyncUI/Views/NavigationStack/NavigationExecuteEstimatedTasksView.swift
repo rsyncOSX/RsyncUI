@@ -13,7 +13,7 @@ struct NavigationExecuteEstimatedTasksView: View {
     @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
-    @Binding var showview: DestinationView?
+    @Binding var path: [Tasks]
     @State private var multipletaskstate = MultipleTaskState()
     @State private var selectedconfig: Configuration?
     @State private var filterstring: String = ""

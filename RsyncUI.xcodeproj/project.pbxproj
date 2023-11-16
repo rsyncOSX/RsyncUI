@@ -163,9 +163,6 @@
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E99DE5242A52B16100422E85 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DE5232A52B16100422E85 /* Sidebar.swift */; };
 		E9A6A42429CA076200C59183 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6A42329CA076200C59183 /* TasksView.swift */; };
-		E9A848B72B05F4B1002E0EB0 /* TestNavigationSidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A848B62B05F4B1002E0EB0 /* TestNavigationSidebarTasksView.swift */; };
-		E9A848B92B05F51D002E0EB0 /* TestNavigationTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A848B82B05F51D002E0EB0 /* TestNavigationTasksView.swift */; };
-		E9A848BB2B05F601002E0EB0 /* TestNavigationSummarizedAllDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A848BA2B05F601002E0EB0 /* TestNavigationSummarizedAllDetailsView.swift */; };
 		E9AE41462AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */; };
 		E9AE41482AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */; };
 		E9B008DD2ABB427A006E333D /* Snapshotcatalogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */; };
@@ -377,9 +374,6 @@
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E99DE5232A52B16100422E85 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		E9A6A42329CA076200C59183 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
-		E9A848B62B05F4B1002E0EB0 /* TestNavigationSidebarTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNavigationSidebarTasksView.swift; sourceTree = "<group>"; };
-		E9A848B82B05F51D002E0EB0 /* TestNavigationTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNavigationTasksView.swift; sourceTree = "<group>"; };
-		E9A848BA2B05F601002E0EB0 /* TestNavigationSummarizedAllDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNavigationSummarizedAllDetailsView.swift; sourceTree = "<group>"; };
 		E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationExecuteEstimatedTasksView.swift; sourceTree = "<group>"; };
 		E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationExecuteNoestimatedTasksView.swift; sourceTree = "<group>"; };
 		E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshotcatalogs.swift; sourceTree = "<group>"; };
@@ -570,7 +564,6 @@
 		E985C60925F3AD8400CB895C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E9A848B52B05F48A002E0EB0 /* Test */,
 				E954AD3D2AFE8DFE00F3EA63 /* NavigationStack */,
 				E8AC45CB26E5ED2500E0AE43 /* Tools */,
 				E985C62025F3AD8400CB895C /* Modifiers */,
@@ -1011,16 +1004,6 @@
 			path = Restore;
 			sourceTree = "<group>";
 		};
-		E9A848B52B05F48A002E0EB0 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				E9A848B62B05F4B1002E0EB0 /* TestNavigationSidebarTasksView.swift */,
-				E9A848B82B05F51D002E0EB0 /* TestNavigationTasksView.swift */,
-				E9A848BA2B05F601002E0EB0 /* TestNavigationSummarizedAllDetailsView.swift */,
-			);
-			path = Test;
-			sourceTree = "<group>";
-		};
 		E9AA5400262EEB2E0009DF32 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -1331,7 +1314,6 @@
 				E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */,
 				E94F23A22AFE967800983C1C /* NavigationDetailsOneTask.swift in Sources */,
 				E985C73525F3AD9700CB895C /* Backupconfigfiles.swift in Sources */,
-				E9A848BB2B05F601002E0EB0 /* TestNavigationSummarizedAllDetailsView.swift in Sources */,
 				E9B6B3E32AFFDE7500E12EB2 /* NavigationListofTasksMainView.swift in Sources */,
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
 				E985C72A25F3AD9700CB895C /* NamesandPaths.swift in Sources */,
@@ -1368,7 +1350,6 @@
 				E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
 				E92FA4412ABEBEC3001E0A14 /* BlurView.swift in Sources */,
-				E9A848B92B05F51D002E0EB0 /* TestNavigationTasksView.swift in Sources */,
 				E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */,
 				E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */,
 				E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */,
@@ -1379,7 +1360,6 @@
 				E985C77B25F3AD9700CB895C /* DuArgumentsSsh.swift in Sources */,
 				E985C79225F3AD9700CB895C /* Extensions.swift in Sources */,
 				E944E6CA2A16B6A6009BA945 /* ListofTasksMainView.swift in Sources */,
-				E9A848B72B05F4B1002E0EB0 /* TestNavigationSidebarTasksView.swift in Sources */,
 				E92B19092755F7F600B16B03 /* LogCommands.swift in Sources */,
 				E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */,
 				E98C7AB5262D662200555977 /* ReadScheduleJSON.swift in Sources */,

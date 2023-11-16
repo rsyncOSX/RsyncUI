@@ -14,28 +14,23 @@ struct NavigationSidebarTasksView: View {
     @State private var estimatingprogressdetails = EstimateProgressDetails()
     @StateObject private var progressdetails = ExecuteProgressDetails()
     // Which view to show
-    @State private var showview: DestinationView?
-    @State private var showDetails: Bool = false
+    @State var path: [Tasks] = []
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             NavigationTasksView(estimatingprogressdetails: estimatingprogressdetails,
                                 reload: $reload,
                                 selecteduuids: $selecteduuids,
-                                showview: $showview)
+                                path: $path)
                 .environmentObject(progressdetails)
-        }.navigationDestination(isPresented: $showDetails) {
-            makeView(view: showview)
-        }
-        .onChange(of: showview) {
-            guard showview != nil else { return }
-            showDetails = true
-        }
-        .task {
-            if SharedReference.shared.firsttime {
-                showview = .firsttime
-                showDetails = true
-            }
+                .navigationDestination(for: Tasks.self) { which in
+                    makeView(view: which.task)
+                }
+                .task {
+                    if SharedReference.shared.firsttime {
+                        path.append(Tasks(task: .firsttime))
+                    }
+                }
         }
     }
 
@@ -48,19 +43,16 @@ struct NavigationSidebarTasksView: View {
             NavigationExecuteEstimatedTasksView(estimatingprogressdetails: estimatingprogressdetails,
                                                 selecteduuids: $selecteduuids,
                                                 reload: $reload,
-                                                showview: $showview)
+                                                path: $path)
                 .environmentObject(progressdetails)
         case .executenoestimatetasksview:
             // Execute tasks, no estimation ahead of synchronization
             NavigationExecuteNoestimatedTasksView(reload: $reload,
                                                   selecteduuids: $selecteduuids,
-                                                  showview: $showview)
-                .onDisappear {
-                    showview = nil
-                }
+                                                  path: $path)
         case .estimatedview:
             NavigationSummarizedAllDetailsView(selecteduuids: $selecteduuids,
-                                               showview: $showview,
+                                               path: $path,
                                                estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
         case .firsttime:
             NavigationFirstTimeView()
@@ -69,25 +61,14 @@ struct NavigationSidebarTasksView: View {
                 .environment(estimatingprogressdetails)
                 .onDisappear {
                     progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
-                    showview = nil
                 }
         case .dryrunonetaskalreadyestimated:
             NavigationDetailsOneTask(selecteduuids: selecteduuids,
                                      estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
-                .onDisappear {
-                    showview = nil
-                }
         case .alltasksview:
             NavigationAlltasksView()
-                .onDisappear {
-                    showview = nil
-                }
         case .none:
-            NavigationTasksView(estimatingprogressdetails: estimatingprogressdetails,
-                                reload: $reload,
-                                selecteduuids: $selecteduuids,
-                                showview: $showview)
-                .environmentObject(progressdetails)
+            NavigationAlltasksView()
         }
     }
 }
@@ -97,4 +78,9 @@ enum DestinationView: String, Identifiable {
          estimatedview, firsttime, dryrunonetask, alltasksview,
          dryrunonetaskalreadyestimated
     var id: String { rawValue }
+}
+
+struct Tasks: Hashable, Identifiable {
+    let id = UUID()
+    var task: DestinationView
 }

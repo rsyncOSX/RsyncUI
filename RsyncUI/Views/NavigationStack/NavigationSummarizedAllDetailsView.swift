@@ -10,7 +10,7 @@ import SwiftUI
 struct NavigationSummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var selecteduuids: Set<Configuration.ID>
-    @Binding var showview: DestinationView?
+    @Binding var path: [Tasks]
     @State private var showDetails = false
 
     var estimatedlist: [RemoteinfonumbersOnetask]
@@ -128,7 +128,7 @@ struct NavigationSummarizedAllDetailsView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    showview = .executestimatedview
+                    path.append(Tasks(task: .executestimatedview))
                 } label: {
                     Image(systemName: "arrowshape.turn.up.backward")
                 }
