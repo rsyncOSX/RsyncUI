@@ -51,9 +51,10 @@ struct NavigationSidebarTasksView: View {
                                                   selecteduuids: $selecteduuids,
                                                   path: $path)
         case .estimatedview:
-            NavigationSummarizedAllDetailsView(selecteduuids: $selecteduuids,
-                                               path: $path,
-                                               estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
+            NavigationSummarizedAllDetailsView(estimatingprogressdetails: estimatingprogressdetails,
+                                               selecteduuids: $selecteduuids,
+                                               path: $path)
+                .environmentObject(progressdetails)
         case .firsttime:
             NavigationFirstTimeView()
         case .dryrunonetask:

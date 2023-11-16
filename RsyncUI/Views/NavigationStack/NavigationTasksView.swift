@@ -14,6 +14,7 @@ struct NavigationTasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
+
     @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @State private var estimatingstate = EstimatingState()
     @Binding var reload: Bool
@@ -58,7 +59,6 @@ struct NavigationTasksView: View {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
                 if focusaborttask { labelaborttask }
-                if estimatingprogressdetails.estimatealltasksasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
         }
@@ -68,7 +68,7 @@ struct NavigationTasksView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    estimate()
+                    path.append(Tasks(task: .estimatedview))
                 } label: {
                     Image(systemName: "wand.and.stars")
                         .symbolRenderingMode(.palette)
@@ -133,26 +133,6 @@ struct NavigationTasksView: View {
                 .help("Abort (⌘K)")
             }
         })
-    }
-
-    var progressviewestimateasync: some View {
-        AlertToast(displayMode: .alert, type: .loading)
-            .onAppear {
-                Task {
-                    let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
-                                                      configurations: rsyncUIdata,
-                                                      updateinprogresscount: estimatingprogressdetails,
-                                                      uuids: selecteduuids,
-                                                      filter: filterstring)
-                    await estimate.startexecution()
-                }
-            }
-            .onDisappear {
-                focusstartestimation = false
-                progressdetails.resetcounter()
-                progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
-                // path.append(Tasks(task: .estimatedview))
-            }
     }
 
     var doubleclickaction: some View {
