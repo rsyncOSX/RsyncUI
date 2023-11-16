@@ -76,6 +76,7 @@ extension NavigationExecuteEstimatedTasksView {
         multipletaskstate.updatestate(state: .start)
         estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
+        path = []
         reload = true
     }
 
@@ -85,6 +86,7 @@ extension NavigationExecuteEstimatedTasksView {
         estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         _ = InterruptProcess()
+        path = []
         reload = true
     }
 
