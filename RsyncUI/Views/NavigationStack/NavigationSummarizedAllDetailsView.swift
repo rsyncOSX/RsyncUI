@@ -15,6 +15,8 @@ struct NavigationSummarizedAllDetailsView: View {
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var path: [Tasks]
 
+    @State private var focusstartexecution: Bool = false
+
     var body: some View {
         HStack {
             Table(estimatingprogressdetails.getestimatedlist() ?? [],
@@ -110,6 +112,8 @@ struct NavigationSummarizedAllDetailsView: View {
                 }
                 .width(max: 70)
             }
+
+            if focusstartexecution { labelstartexecution }
         }
         .toolbar(content: {
             ToolbarItem {
@@ -121,6 +125,7 @@ struct NavigationSummarizedAllDetailsView: View {
                 .help("Execute (⌘R)")
             }
         })
+        .focusedSceneValue(\.startexecution, $focusstartexecution)
         .onAppear {
             guard estimatingprogressdetails.estimatealltasksasync == false else {
                 Logger.process.info("TasksView: estimate already in progress")
@@ -150,5 +155,14 @@ struct NavigationSummarizedAllDetailsView: View {
                 progressdetails.resetcounter()
                 progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
             }
+    }
+
+    var labelstartexecution: some View {
+        Label("", systemImage: "play.fill")
+            .foregroundColor(.black)
+            .onAppear(perform: {
+                path.append(Tasks(task: .executestimatedview))
+                focusstartexecution = false
+            })
     }
 }
