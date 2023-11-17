@@ -23,7 +23,6 @@ struct NavigationTasksView: View {
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
-    @State private var focusaborttask: Bool = false
     // Filterstring
     @State private var filterstring: String = ""
     // Local data for present local and remote info about task
@@ -55,17 +54,14 @@ struct NavigationTasksView: View {
                 estimatingprogressdetails.uuids = selecteduuids
             }
 
-            // Remember max 10 in one Group
             Group {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
-                if focusaborttask { labelaborttask }
                 if doubleclick { doubleclickaction }
             }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
-        .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
                 Button {
@@ -120,19 +116,6 @@ struct NavigationTasksView: View {
                 }
                 .help("Rsync output estimated task")
             }
-
-            ToolbarItem {
-                Spacer()
-            }
-
-            ToolbarItem {
-                Button {
-                    abort()
-                } label: {
-                    Image(systemName: "stop.fill")
-                }
-                .help("Abort (⌘K)")
-            }
         })
     }
 
@@ -149,7 +132,8 @@ struct NavigationTasksView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                estimate()
+                path.append(Tasks(task: .estimatedview))
+                focusstartestimation = false
             })
     }
 
@@ -158,14 +142,6 @@ struct NavigationTasksView: View {
             .foregroundColor(.black)
             .onAppear(perform: {
                 execute()
-            })
-    }
-
-    var labelaborttask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusaborttask = false
-                abort()
             })
     }
 }
@@ -202,23 +178,6 @@ extension NavigationTasksView {
             doubleclick = false
             path.append(Tasks(task: .dryrunonetask))
         }
-    }
-
-    func estimate() {
-        guard estimatingprogressdetails.estimatealltasksasync == false else {
-            Logger.process.info("TasksView: estimate already in progress")
-            return
-        }
-        if selectedconfig.config != nil {
-            let profile = selectedconfig.config?.profile ?? "Default profile"
-            if profile != rsyncUIdata.profile {
-                selecteduuids.removeAll()
-                selectedconfig.config = nil
-            }
-        }
-        estimatingprogressdetails.resetcounts()
-        progressdetails.resetcounter()
-        estimatingprogressdetails.startestimateasync()
     }
 
     func execute() {

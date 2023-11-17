@@ -101,12 +101,15 @@ struct NavigationDetailsOneTaskRootView: View {
                 }
             }
 
-            Table(outputfromrsync.output) {
-                TableColumn("") { data in
-                    Text(data.line)
+            ZStack {
+                Table(outputfromrsync.output) {
+                    TableColumn("") { data in
+                        Text(data.line)
+                    }
                 }
+
+                if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
             }
-            if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
         }
         .onAppear(perform: {
             var selectedconfig: Configuration?
