@@ -152,20 +152,3 @@ struct NavigationSummarizedAllDetailsView: View {
             }
     }
 }
-
-/*
-
- var selecteduuid: Configuration.ID? {
-     if (selecteduuids.count) == 1 {
-         return selecteduuids.first
-     } else {
-         return nil
-     }
- }
-
- estimatedlist: estimatingprogressdetails.getestimatedlist() ?? []
-
- .navigationDestination(isPresented: $showDetails) {
-     NavigationDetailsOneTask(selecteduuids: selecteduuids,
-                              estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
- */
