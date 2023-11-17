@@ -53,6 +53,7 @@ struct NavigationExecuteNoestimatedTasksView: View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 completed()
+                path.removeAll()
             })
     }
 
