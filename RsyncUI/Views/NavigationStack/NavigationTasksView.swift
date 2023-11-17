@@ -142,6 +142,7 @@ struct NavigationTasksView: View {
             .foregroundColor(.black)
             .onAppear(perform: {
                 execute()
+                focusstartexecution = false
             })
     }
 }
