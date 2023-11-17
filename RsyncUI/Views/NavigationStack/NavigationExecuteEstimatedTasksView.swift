@@ -59,6 +59,7 @@ struct NavigationExecuteEstimatedTasksView: View {
         Label(multipletaskstate.executionstate.rawValue, systemImage: "play.fill")
             .onAppear(perform: {
                 completed()
+                path.removeAll()
             })
     }
 
