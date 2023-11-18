@@ -48,7 +48,6 @@ struct NavigationSummarizedAllDetailsView: View {
             }
             .onChange(of: selecteduuids) {
                 estimatingprogressdetails.uuids = selecteduuids
-                guard estimatingprogressdetails.uuids.count > 0 else { return }
                 path.append(Tasks(task: .dryrunonetaskalreadyestimated))
             }
 
