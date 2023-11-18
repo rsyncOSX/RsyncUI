@@ -49,6 +49,7 @@ struct NavigationSummarizedAllDetailsView: View {
             .onChange(of: selecteduuids) {
                 estimatingprogressdetails.uuids = selecteduuids
                 path.append(Tasks(task: .dryrunonetaskalreadyestimated))
+                Logger.process.info("NavigationSummarizedAllDetailsView: path \(path)")
             }
 
             Table(estimatingprogressdetails.getestimatedlist() ?? []) {
