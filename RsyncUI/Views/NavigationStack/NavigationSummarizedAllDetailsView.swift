@@ -47,9 +47,9 @@ struct NavigationSummarizedAllDetailsView: View {
                 .width(max: 60)
             }
             .onChange(of: selecteduuids) {
+                guard selecteduuids.count > 0 else { return }
                 estimatingprogressdetails.uuids = selecteduuids
                 path.append(Tasks(task: .dryrunonetaskalreadyestimated))
-                Logger.process.info("NavigationSummarizedAllDetailsView: path \(path)")
             }
 
             Table(estimatingprogressdetails.getestimatedlist() ?? []) {
@@ -119,6 +119,7 @@ struct NavigationSummarizedAllDetailsView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
+                    path.removeAll()
                     path.append(Tasks(task: .executestimatedview))
                 } label: {
                     Image(systemName: "arrowshape.turn.up.backward")
@@ -162,6 +163,7 @@ struct NavigationSummarizedAllDetailsView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
+                path.removeAll()
                 path.append(Tasks(task: .executestimatedview))
                 focusstartexecution = false
             })

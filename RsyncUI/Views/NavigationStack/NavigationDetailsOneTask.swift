@@ -10,8 +10,7 @@ import SwiftUI
 
 struct NavigationDetailsOneTask: View {
     let estimatedlist: [RemoteinfonumbersOnetask]
-    @Binding var selecteduuids: Set<Configuration.ID>
-    @Binding var path: [Tasks]
+    let selecteduuids: Set<Configuration.ID>
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -101,20 +100,11 @@ struct NavigationDetailsOneTask: View {
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {
-        let estimate = estimatedlist.filter { $0.id == selecteduuid }
-        if estimate.count == 1 {
-            return estimate
-        } else {
-            return []
-        }
+        return estimatedlist.filter { $0.id == selecteduuid }
     }
 
-    var selecteduuid: Configuration.ID {
-        if (selecteduuids.count) == 1 {
-            return selecteduuids.first ?? UUID()
-        } else {
-            return UUID()
-        }
+    var selecteduuid: Configuration.ID? {
+        return selecteduuids.first
     }
 
     var outputfromrsync: Outputfromrsync {
