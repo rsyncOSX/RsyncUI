@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 10/11/2023.
 //
 
+import OSLog
 import SwiftUI
 
 struct NavigationSidebarTasksView: View {
@@ -31,6 +32,9 @@ struct NavigationSidebarTasksView: View {
                         path.append(Tasks(task: .firsttime))
                     }
                 }
+        }
+        .onChange(of: path) {
+            Logger.process.info("Path : \(path)")
         }
     }
 

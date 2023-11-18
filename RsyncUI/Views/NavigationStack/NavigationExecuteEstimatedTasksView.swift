@@ -96,12 +96,14 @@ extension NavigationExecuteEstimatedTasksView {
         var uuids: Set<Configuration.ID>?
         if selecteduuids.count > 0 {
             uuids = selecteduuids
-        } else if estimatingprogressdetails.getuuids().count > 0 {
-            uuids = estimatingprogressdetails.getuuids()
+        } else if estimatingprogressdetails.estimatedlist?.count ?? 0 > 0 {
+            let uuidcount = estimatingprogressdetails.estimatedlist?.compactMap { $0.id }
+            uuids = Set<Configuration.ID>()
+            for i in 0 ..< (uuidcount?.count ?? 0) {
+                uuids?.insert(uuidcount?[i] ?? UUID())
+            }
         }
-        guard (uuids?.count ?? 0) > 0 else {
-            return
-        }
+        guard (uuids?.count ?? 0) > 0 else { return }
         if let uuids = uuids {
             multipletaskstate.updatestate(state: .execute)
             ExecuteMultipleTasks(uuids: uuids,
