@@ -104,6 +104,7 @@ struct NavigationTasksView: View {
 
             ToolbarItem {
                 Button {
+                    guard selecteduuids.count > 0 else { return }
                     if estimatingprogressdetails.tasksareestimated(selecteduuids) {
                         Logger.process.info("Info: view details for already estimated and selected task")
                         path.append(Tasks(task: .dryrunonetaskalreadyestimated))
