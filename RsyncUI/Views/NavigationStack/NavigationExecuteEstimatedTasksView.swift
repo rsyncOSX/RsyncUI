@@ -101,7 +101,9 @@ extension NavigationExecuteEstimatedTasksView {
             let uuidcount = estimatingprogressdetails.estimatedlist?.compactMap { $0.id }
             uuids = Set<Configuration.ID>()
             for i in 0 ..< (uuidcount?.count ?? 0) {
-                uuids?.insert(uuidcount?[i] ?? UUID())
+                if estimatingprogressdetails.estimatedlist?[i].datatosynchronize == true {
+                    uuids?.insert(uuidcount?[i] ?? UUID())
+                }
             }
         }
         guard (uuids?.count ?? 0) > 0 else { return }
