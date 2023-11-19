@@ -151,6 +151,7 @@ struct DetailsSummarizedTasksView: View {
         .frame(minWidth: 1250, minHeight: 400)
         .onReceive(timer) { _ in
             guard datatosynchronize == true else { return }
+            guard SharedReference.shared.automaticexecute == true else { return }
             timervalue += 1
             if timervalue > Double(SharedReference.shared.automaticexecutetime - 1) {
                 timer.upstream.connect().cancel()
