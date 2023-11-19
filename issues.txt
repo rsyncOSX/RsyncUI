@@ -1,0 +1,4 @@
+Date: 19 Nov 2023
+
+- Automatic execution starts even if toggled off
+- Execute estimated tasks does not stop progressview, NavigationStack only
