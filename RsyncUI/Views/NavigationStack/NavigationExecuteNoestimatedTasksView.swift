@@ -85,13 +85,13 @@ extension NavigationExecuteNoestimatedTasksView {
 
     func executeallnotestimatedtasks() async {
         Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids)")
-         estimatingprogresscount.startasyncexecutealltasksnoestimation()
-         executealltasksasync =
-             ExecuteTasksAsync(profile: rsyncUIdata.profile,
-                               configurations: rsyncUIdata,
-                               updateinprogresscount: estimatingprogresscount,
-                               uuids: selecteduuids,
-                               filter: filterstring)
-         await executealltasksasync?.startexecution()
+        estimatingprogresscount.startasyncexecutealltasksnoestimation()
+        executealltasksasync =
+            ExecuteTasksAsync(profile: rsyncUIdata.profile,
+                              configurations: rsyncUIdata,
+                              updateinprogresscount: estimatingprogresscount,
+                              uuids: selecteduuids,
+                              filter: filterstring)
+        await executealltasksasync?.startexecution()
     }
 }
