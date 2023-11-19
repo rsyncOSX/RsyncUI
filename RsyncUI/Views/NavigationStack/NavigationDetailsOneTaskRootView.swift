@@ -12,8 +12,7 @@ import SwiftUI
 @available(macOS 14.0, *)
 struct NavigationDetailsOneTaskRootView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var inprogresscountmultipletask: EstimateProgressDetails
-
+    @Bindable var estimatingprogressdetails: EstimateProgressDetails14
     @State private var gettingremotedata = true
     @State private var estimateddataonetask = Estimateddataonetask()
     @State private var outputfromrsync = Outputfromrsync()
@@ -103,12 +102,15 @@ struct NavigationDetailsOneTaskRootView: View {
                 }
             }
 
-            Table(outputfromrsync.output) {
-                TableColumn("") { data in
-                    Text(data.line)
+            ZStack {
+                Table(outputfromrsync.output) {
+                    TableColumn("") { data in
+                        Text(data.line)
+                    }
                 }
+
+                if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
             }
-            if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
         }
         .onAppear(perform: {
             var selectedconfig: Configuration?
@@ -149,10 +151,11 @@ extension NavigationDetailsOneTaskRootView {
         gettingremotedata = false
         // Adding computed estimate if later execute and view of progress
         if estimateddataonetask.estimatedlistonetask.count == 1 {
-            inprogresscountmultipletask.resetcounts()
-            inprogresscountmultipletask.appenduuid(selectedconfig?.id ?? UUID())
-            inprogresscountmultipletask.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
-            inprogresscountmultipletask.setprofileandnumberofconfigurations(rsyncUIdata.profile ?? "Default profile", rsyncUIdata.getallconfigurations()?.count ?? 0)
+            estimatingprogressdetails.resetcounts()
+            estimatingprogressdetails.appenduuid(selectedconfig?.id ?? UUID())
+            estimatingprogressdetails.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
+            estimatingprogressdetails.setprofileandnumberofconfigurations(rsyncUIdata.profile ?? "Default profile",
+                                                                          rsyncUIdata.getallconfigurations()?.count ?? 0)
         }
     }
 }

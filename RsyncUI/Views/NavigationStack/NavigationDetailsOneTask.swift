@@ -10,9 +10,8 @@ import SwiftUI
 
 @available(macOS 14.0, *)
 struct NavigationDetailsOneTask: View {
-    let selecteduuids: Set<Configuration.ID>
     let estimatedlist: [RemoteinfonumbersOnetask]
-    @State var outputfromrsync = Outputfromrsync()
+    let selecteduuids: Set<Configuration.ID>
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -99,14 +98,6 @@ struct NavigationDetailsOneTask: View {
                 }
             }
         }
-        .onAppear {
-            if let selecteduuid = selecteduuid {
-                let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selecteduuid }
-                if output.count > 0 {
-                    outputfromrsync.generatedata(output[0].outputfromrsync)
-                }
-            }
-        }
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {
@@ -114,10 +105,16 @@ struct NavigationDetailsOneTask: View {
     }
 
     var selecteduuid: Configuration.ID? {
-        if (selecteduuids.count) == 1 {
-            return selecteduuids.first
-        } else {
-            return nil
+        return selecteduuids.first
+    }
+
+    var outputfromrsync: Outputfromrsync {
+        let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selecteduuid }
+        if output.count > 0 {
+            let data = Outputfromrsync()
+            data.generatedata(output[0].outputfromrsync)
+            return data
         }
+        return Outputfromrsync()
     }
 }

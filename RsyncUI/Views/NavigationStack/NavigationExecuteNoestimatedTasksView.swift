@@ -5,18 +5,19 @@
 //  Created by Thomas Evensen on 11/11/2023.
 //
 
+import OSLog
 import SwiftUI
 
 @available(macOS 14.0, *)
 struct NavigationExecuteNoestimatedTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @State private var estimatingprogresscount = EstimateProgressDetails()
+    @State private var estimatingprogresscount = EstimateProgressDetails14()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
-    @Binding var showview: DestinationView?
+    @Binding var path: [Tasks]
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
-    @State private var executealltasksasync: ExecuteTasksAsync?
+    @State private var executealltasksasync: ExecuteTasksAsync14?
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
 
@@ -54,6 +55,7 @@ struct NavigationExecuteNoestimatedTasksView: View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
                 completed()
+                path.removeAll()
             })
     }
 
@@ -84,13 +86,14 @@ extension NavigationExecuteNoestimatedTasksView {
     }
 
     func executeallnotestimatedtasks() async {
+        Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids)")
         estimatingprogresscount.startasyncexecutealltasksnoestimation()
         executealltasksasync =
-            ExecuteTasksAsync(profile: rsyncUIdata.profile,
-                              configurations: rsyncUIdata,
-                              updateinprogresscount: estimatingprogresscount,
-                              uuids: selecteduuids,
-                              filter: filterstring)
+            ExecuteTasksAsync14(profile: rsyncUIdata.profile,
+                                configurations: rsyncUIdata,
+                                updateinprogresscount: estimatingprogresscount,
+                                uuids: selecteduuids,
+                                filter: filterstring)
         await executealltasksasync?.startexecution()
     }
 }

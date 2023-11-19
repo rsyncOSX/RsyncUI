@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 10/11/2023.
 //
 
+import OSLog
 import SwiftUI
 
 @available(macOS 14.0, *)
@@ -12,83 +13,63 @@ struct NavigationSidebarTasksView: View {
     @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
-    @StateObject private var estimatingprogressdetails = EstimateProgressDetails()
+    @State private var estimatingprogressdetails = EstimateProgressDetails14()
     @StateObject private var progressdetails = ExecuteProgressDetails()
     // Which view to show
-    @State private var showview: DestinationView?
-    @State private var showDetails: Bool = false
+    @State var path: [Tasks] = []
 
     var body: some View {
-        NavigationStack {
-            NavigationTasksView(reload: $reload,
+        NavigationStack(path: $path) {
+            NavigationTasksView(estimatingprogressdetails: estimatingprogressdetails,
+                                reload: $reload,
                                 selecteduuids: $selecteduuids,
-                                showview: $showview)
+                                path: $path)
                 .environmentObject(progressdetails)
-                .environmentObject(estimatingprogressdetails)
-        }.navigationDestination(isPresented: $showDetails) {
-            makeView(view: showview)
+                .navigationDestination(for: Tasks.self) { which in
+                    makeView(view: which.task)
+                }
+                .task {
+                    if SharedReference.shared.firsttime {
+                        path.append(Tasks(task: .firsttime))
+                    }
+                }
         }
-        .onChange(of: showview) {
-            guard showview != nil else { return }
-            showDetails = true
-        }
-        .task {
-            if SharedReference.shared.firsttime {
-                showview = .firsttime
-                showDetails = true
-            }
+        .onChange(of: path) {
+            Logger.process.info("Path : \(path)")
         }
     }
 
     @ViewBuilder
-    func makeView(view: DestinationView?) -> some View {
+    func makeView(view: DestinationView) -> some View {
         switch view {
         case .executestimatedview:
-            // This view is activated for execution of estimated tasks and view
-            // presents progress of synchronization of data.
-            NavigationExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
+            NavigationExecuteEstimatedTasksView(estimatingprogressdetails: estimatingprogressdetails,
+                                                selecteduuids: $selecteduuids,
                                                 reload: $reload,
-                                                showview: $showview)
+                                                path: $path)
                 .environmentObject(progressdetails)
-                .environmentObject(estimatingprogressdetails)
         case .executenoestimatetasksview:
-            // Execute tasks, no estimation ahead of synchronization
             NavigationExecuteNoestimatedTasksView(reload: $reload,
                                                   selecteduuids: $selecteduuids,
-                                                  showview: $showview)
-                .onDisappear {
-                    showview = nil
-                }
+                                                  path: $path)
         case .estimatedview:
-            NavigationSummarizedAllDetailsView(selecteduuids: $selecteduuids,
-                                               showview: $showview,
-                                               estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
+            NavigationSummarizedAllDetailsView(estimatingprogressdetails: estimatingprogressdetails,
+                                               selecteduuids: $selecteduuids,
+                                               path: $path)
+                .environmentObject(progressdetails)
         case .firsttime:
             NavigationFirstTimeView()
         case .dryrunonetask:
-            NavigationDetailsOneTaskRootView(selecteduuids: selecteduuids)
-                .environmentObject(estimatingprogressdetails)
+            NavigationDetailsOneTaskRootView(estimatingprogressdetails: estimatingprogressdetails,
+                                             selecteduuids: selecteduuids)
                 .onDisappear {
                     progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
-                    showview = nil
                 }
         case .dryrunonetaskalreadyestimated:
-            NavigationDetailsOneTask(selecteduuids: selecteduuids,
-                                     estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [])
-                .onDisappear {
-                    showview = nil
-                }
+            NavigationDetailsOneTask(estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [],
+                                     selecteduuids: selecteduuids)
         case .alltasksview:
             NavigationAlltasksView()
-                .onDisappear {
-                    showview = nil
-                }
-        case .none:
-            NavigationTasksView(reload: $reload,
-                                selecteduuids: $selecteduuids,
-                                showview: $showview)
-                .environmentObject(progressdetails)
-                .environmentObject(estimatingprogressdetails)
         }
     }
 }
@@ -98,4 +79,9 @@ enum DestinationView: String, Identifiable {
          estimatedview, firsttime, dryrunonetask, alltasksview,
          dryrunonetaskalreadyestimated
     var id: String { rawValue }
+}
+
+struct Tasks: Hashable, Identifiable {
+    let id = UUID()
+    var task: DestinationView
 }

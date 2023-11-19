@@ -15,15 +15,15 @@ struct NavigationTasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
-    @EnvironmentObject var estimatingprogressdetails: EstimateProgressDetails
+
+    @Bindable var estimatingprogressdetails: EstimateProgressDetails14
     @State private var estimatingstate = EstimatingState()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<Configuration.ID>
-    @Binding var showview: DestinationView?
+    @Binding var path: [Tasks]
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
-    @State private var focusaborttask: Bool = false
     // Filterstring
     @State private var filterstring: String = ""
     // Local data for present local and remote info about task
@@ -52,24 +52,21 @@ struct NavigationTasksView: View {
                 } else {
                     selectedconfig.config = nil
                 }
+                estimatingprogressdetails.uuids = selecteduuids
             }
 
-            // Remember max 10 in one Group
             Group {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
-                if focusaborttask { labelaborttask }
-                if estimatingprogressdetails.estimatealltasksasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
-        .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    estimate()
+                    path.append(Tasks(task: .estimatedview))
                 } label: {
                     Image(systemName: "wand.and.stars")
                         .symbolRenderingMode(.palette)
@@ -99,7 +96,7 @@ struct NavigationTasksView: View {
 
             ToolbarItem {
                 Button {
-                    showview = .alltasksview
+                    path.append(Tasks(task: .alltasksview))
                 } label: {
                     Image(systemName: "list.bullet")
                 }
@@ -108,52 +105,20 @@ struct NavigationTasksView: View {
 
             ToolbarItem {
                 Button {
+                    guard selecteduuids.count > 0 else { return }
                     if estimatingprogressdetails.tasksareestimated(selecteduuids) {
                         Logger.process.info("Info: view details for already estimated and selected task")
-                        showview = .dryrunonetaskalreadyestimated
+                        path.append(Tasks(task: .dryrunonetaskalreadyestimated))
                     } else {
                         Logger.process.info("Info: iniate an execute for dryrun to view details for selected task")
-                        showview = .dryrunonetask
+                        path.append(Tasks(task: .dryrunonetask))
                     }
                 } label: {
                     Image(systemName: "info")
                 }
                 .help("Rsync output estimated task")
             }
-
-            ToolbarItem {
-                Spacer()
-            }
-
-            ToolbarItem {
-                Button {
-                    abort()
-                } label: {
-                    Image(systemName: "stop.fill")
-                }
-                .help("Abort (⌘K)")
-            }
         })
-    }
-
-    var progressviewestimateasync: some View {
-        AlertToast(displayMode: .alert, type: .loading)
-            .onAppear {
-                Task {
-                    let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
-                                                      configurations: rsyncUIdata,
-                                                      updateinprogresscount: estimatingprogressdetails,
-                                                      uuids: selecteduuids,
-                                                      filter: filterstring)
-                    await estimate.startexecution()
-                }
-            }
-            .onDisappear {
-                focusstartestimation = false
-                progressdetails.resetcounter()
-                progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
-                showview = .estimatedview
-            }
     }
 
     var doubleclickaction: some View {
@@ -169,7 +134,8 @@ struct NavigationTasksView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                estimate()
+                path.append(Tasks(task: .estimatedview))
+                focusstartestimation = false
             })
     }
 
@@ -178,14 +144,7 @@ struct NavigationTasksView: View {
             .foregroundColor(.black)
             .onAppear(perform: {
                 execute()
-            })
-    }
-
-    var labelaborttask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusaborttask = false
-                abort()
+                focusstartexecution = false
             })
     }
 }
@@ -208,38 +167,21 @@ extension NavigationTasksView {
         {
             Logger.process.info("DryRun: execute a dryrun for one task only")
             doubleclick = false
-            showview = .dryrunonetask
+            path.append(Tasks(task: .dryrunonetask))
         } else if selectedconfig.config != nil,
                   estimatingprogressdetails.executeanotherdryrun(rsyncUIdata.profile ?? "Default profile") == true
         {
             Logger.process.info("DryRun: new task same profile selected, execute a dryrun")
             doubleclick = false
-            showview = .dryrunonetask
+            path.append(Tasks(task: .dryrunonetask))
 
         } else if selectedconfig.config != nil,
                   estimatingprogressdetails.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
         {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
             doubleclick = false
-            showview = .dryrunonetask
+            path.append(Tasks(task: .dryrunonetask))
         }
-    }
-
-    func estimate() {
-        guard estimatingprogressdetails.estimatealltasksasync == false else {
-            Logger.process.info("TasksView: estimate already in progress")
-            return
-        }
-        if selectedconfig.config != nil {
-            let profile = selectedconfig.config?.profile ?? "Default profile"
-            if profile != rsyncUIdata.profile {
-                selecteduuids.removeAll()
-                selectedconfig.config = nil
-            }
-        }
-        estimatingprogressdetails.resetcounts()
-        progressdetails.resetcounter()
-        estimatingprogressdetails.startestimateasync()
     }
 
     func execute() {
@@ -253,7 +195,7 @@ extension NavigationTasksView {
             selecteduuids = estimatingprogressdetails.getuuids()
             estimatingstate.updatestate(state: .start)
             // Change view, see SidebarTasksView
-            showview = .executestimatedview
+            path.append(Tasks(task: .executestimatedview))
 
         } else if selecteduuids.count >= 1,
                   estimatingprogressdetails.tasksareestimated(selecteduuids) == true
@@ -266,12 +208,12 @@ extension NavigationTasksView {
             selecteduuids = estimatingprogressdetails.getuuids()
             estimatingstate.updatestate(state: .start)
             // Change view, see SidebarTasksView
-            showview = .executestimatedview
+            path.append(Tasks(task: .executestimatedview))
         } else {
             // Execute all tasks, no estimate
             Logger.process.info("Execute() selected or all tasks NO estimate")
             // Execute tasks, no estimate
-            showview = .executenoestimatetasksview
+            path.append(Tasks(task: .executenoestimatetasksview))
         }
     }
 
