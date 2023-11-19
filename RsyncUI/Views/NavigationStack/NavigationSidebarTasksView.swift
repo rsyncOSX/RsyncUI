@@ -60,13 +60,13 @@ struct NavigationSidebarTasksView: View {
             NavigationFirstTimeView()
         case .dryrunonetask:
             NavigationDetailsOneTaskRootView(estimatingprogressdetails: estimatingprogressdetails,
-                                             selecteduuids: estimatingprogressdetails.uuids)
+                                             selecteduuids: selecteduuids)
                 .onDisappear {
                     progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
                 }
         case .dryrunonetaskalreadyestimated:
             NavigationDetailsOneTask(estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [],
-                                     selecteduuids: estimatingprogressdetails.uuids)
+                                     selecteduuids: selecteduuids)
         case .alltasksview:
             NavigationAlltasksView()
         }
