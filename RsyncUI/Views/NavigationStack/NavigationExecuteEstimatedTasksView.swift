@@ -17,7 +17,7 @@ struct NavigationExecuteEstimatedTasksView: View {
     @Binding var reload: Bool
     @Binding var path: [Tasks]
 
-    @State private var multipletaskstate = MultipleTaskState()
+    @State private var multipletaskstate = MultipleTaskState14()
     @State private var selectedconfig: Configuration?
     @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false

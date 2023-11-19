@@ -20,7 +20,7 @@ final class ExecuteMultipleTasks14 {
     // output from rsync
     private var outputfromrsync: [String]?
 
-    weak var multipletaskstate: MultipleTaskState?
+    weak var multipletaskstate: MultipleTaskState14?
     weak var estimateprogressdetails: EstimateProgressDetails14?
     // In progress count each task
     weak var executeprogressdetails: ExecuteProgressDetails?
@@ -59,7 +59,7 @@ final class ExecuteMultipleTasks14 {
     init(uuids: Set<UUID>,
          profile: String?,
          configurations: RsyncUIconfigurations?,
-         multipletaskstateDelegate: MultipleTaskState?,
+         multipletaskstateDelegate: MultipleTaskState14?,
          estimateprogressdetailsDelegate: EstimateProgressDetails14?,
          executeprogressdetailsDelegate: ExecuteProgressDetails?)
     {
