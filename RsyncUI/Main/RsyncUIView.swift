@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 17/06/2021.
 //
 
+import OSLog
 import SwiftUI
 
 struct RsyncUIView: View {
@@ -35,7 +36,17 @@ struct RsyncUIView: View {
                 })
 
             } else {
-                if #available(macOS 13.0, *) {
+                if #available(macOS 14.0, *) {
+                    SidebarSonoma(reload: $reload,
+                                  selectedprofile: $selectedprofile,
+                                  selecteduuids: $selecteduuids)
+                        .environmentObject(rsyncUIdata)
+                        .environmentObject(errorhandling)
+                        .environmentObject(profilenames)
+                        .onChange(of: reload) { _ in
+                            reload = false
+                        }
+                } else if #available(macOS 13.0, *) {
                     SidebarVentura(reload: $reload,
                                    selectedprofile: $selectedprofile,
                                    selecteduuids: $selecteduuids)
@@ -45,7 +56,7 @@ struct RsyncUIView: View {
                         .onChange(of: reload) { _ in
                             reload = false
                         }
-                } else {
+                } else if #available(macOS 12.0, *) {
                     SidebarMonterey(reload: $reload,
                                     selectedprofile: $selectedprofile,
                                     selecteduuids: $selecteduuids,
@@ -134,4 +145,15 @@ extension View {
             .font(.title2)
             .foregroundColor(Color.blue)
     }
+}
+
+extension EnvironmentValues {
+    var rsyncUIData: RsyncUIconfigurations {
+        get { self[RsyncUIDataKey.self] }
+        set { self[RsyncUIDataKey.self] = newValue }
+    }
+}
+
+private struct RsyncUIDataKey: EnvironmentKey {
+    static var defaultValue: RsyncUIconfigurations = .init(profile: nil, true)
 }

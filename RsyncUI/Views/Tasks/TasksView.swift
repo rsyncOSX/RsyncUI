@@ -77,7 +77,7 @@ struct TasksView: View {
                 if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
                 if focusenabletimer { labelenabletimer }
-                if estimatingprogresscount.estimateasync { progressviewestimateasync }
+                if estimatingprogresscount.estimatealltasksasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
         }
@@ -335,7 +335,7 @@ extension TasksView {
     }
 
     func estimate() {
-        guard estimatingprogresscount.estimateasync == false else {
+        guard estimatingprogresscount.estimatealltasksasync == false else {
             Logger.process.info("TasksView: estimate already in progress")
             return
         }
@@ -389,7 +389,7 @@ extension TasksView {
         estimatingprogresscount.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
-        estimatingprogresscount.estimateasync = false
+        estimatingprogresscount.estimatealltasksasync = false
         sheetchooser.sheet = .dryrunalltasks
     }
 

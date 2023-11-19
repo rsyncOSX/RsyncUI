@@ -54,6 +54,18 @@
 		E96ED543292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96ED542292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
 		E97F62F528DC845100DCF475 /* RsyncAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F62F428DC845100DCF475 /* RsyncAsync.swift */; };
+		E98214622B020DDF00383B1B /* NavigationExecuteNoestimatedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98214582B020DDF00383B1B /* NavigationExecuteNoestimatedTasksView.swift */; };
+		E98214632B020DDF00383B1B /* NavigationSummarizedAllDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98214592B020DDF00383B1B /* NavigationSummarizedAllDetailsView.swift */; };
+		E98214642B020DDF00383B1B /* NavigationAlltasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982145A2B020DDF00383B1B /* NavigationAlltasksView.swift */; };
+		E98214652B020DDF00383B1B /* NavigationDetailsOneTaskRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982145B2B020DDF00383B1B /* NavigationDetailsOneTaskRootView.swift */; };
+		E98214662B020DDF00383B1B /* NavigationTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982145C2B020DDF00383B1B /* NavigationTasksView.swift */; };
+		E98214672B020DDF00383B1B /* NavigationDetailsOneTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982145D2B020DDF00383B1B /* NavigationDetailsOneTask.swift */; };
+		E98214682B020DDF00383B1B /* NavigationFirstTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982145E2B020DDF00383B1B /* NavigationFirstTimeView.swift */; };
+		E98214692B020DDF00383B1B /* NavigationListofTasksMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982145F2B020DDF00383B1B /* NavigationListofTasksMainView.swift */; };
+		E982146A2B020DDF00383B1B /* NavigationSidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98214602B020DDF00383B1B /* NavigationSidebarTasksView.swift */; };
+		E982146B2B020DDF00383B1B /* NavigationExecuteEstimatedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98214612B020DDF00383B1B /* NavigationExecuteEstimatedTasksView.swift */; };
+		E982146F2B0213B800383B1B /* SidebarSonoma.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982146E2B0213B800383B1B /* SidebarSonoma.swift */; };
+		E98214722B0214B100383B1B /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E98214712B0214B100383B1B /* ConfettiSwiftUI */; };
 		E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C65525F3AD8400CB895C /* SidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60C25F3AD8400CB895C /* SidebarTasksView.swift */; };
@@ -156,6 +168,10 @@
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E9A6A42429CA076200C59183 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6A42329CA076200C59183 /* TasksView.swift */; };
 		E9B34967273AE658000B053E /* OpencatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B34966273AE658000B053E /* OpencatalogView.swift */; };
+		E9B64C4C2B0A179F0047D502 /* EstimateProgressDetails14.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B64C4B2B0A179F0047D502 /* EstimateProgressDetails14.swift */; };
+		E9B64C4F2B0A1CFF0047D502 /* EstimateTasksAsync14.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B64C4E2B0A1CFF0047D502 /* EstimateTasksAsync14.swift */; };
+		E9B64C522B0A1E430047D502 /* ExecuteMultipleTasks14.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B64C512B0A1E430047D502 /* ExecuteMultipleTasks14.swift */; };
+		E9B64C542B0A1F6C0047D502 /* ExecuteTasksAsync14.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B64C532B0A1F6C0047D502 /* ExecuteTasksAsync14.swift */; };
 		E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */; };
 		E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */; };
 		E9BB4F562903C00A00FEEA0A /* ExecuteTasksAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB4F552903C00A00FEEA0A /* ExecuteTasksAsync.swift */; };
@@ -250,6 +266,17 @@
 		E96ED542292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOneTaskAlreadyEstimatedView.swift; sourceTree = "<group>"; };
 		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
 		E97F62F428DC845100DCF475 /* RsyncAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncAsync.swift; sourceTree = "<group>"; };
+		E98214582B020DDF00383B1B /* NavigationExecuteNoestimatedTasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationExecuteNoestimatedTasksView.swift; sourceTree = "<group>"; };
+		E98214592B020DDF00383B1B /* NavigationSummarizedAllDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationSummarizedAllDetailsView.swift; sourceTree = "<group>"; };
+		E982145A2B020DDF00383B1B /* NavigationAlltasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationAlltasksView.swift; sourceTree = "<group>"; };
+		E982145B2B020DDF00383B1B /* NavigationDetailsOneTaskRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDetailsOneTaskRootView.swift; sourceTree = "<group>"; };
+		E982145C2B020DDF00383B1B /* NavigationTasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTasksView.swift; sourceTree = "<group>"; };
+		E982145D2B020DDF00383B1B /* NavigationDetailsOneTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDetailsOneTask.swift; sourceTree = "<group>"; };
+		E982145E2B020DDF00383B1B /* NavigationFirstTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationFirstTimeView.swift; sourceTree = "<group>"; };
+		E982145F2B020DDF00383B1B /* NavigationListofTasksMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationListofTasksMainView.swift; sourceTree = "<group>"; };
+		E98214602B020DDF00383B1B /* NavigationSidebarTasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationSidebarTasksView.swift; sourceTree = "<group>"; };
+		E98214612B020DDF00383B1B /* NavigationExecuteEstimatedTasksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationExecuteEstimatedTasksView.swift; sourceTree = "<group>"; };
+		E982146E2B0213B800383B1B /* SidebarSonoma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSonoma.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIApp.swift; sourceTree = "<group>"; };
 		E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -357,6 +384,10 @@
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E9A6A42329CA076200C59183 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		E9B34966273AE658000B053E /* OpencatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpencatalogView.swift; sourceTree = "<group>"; };
+		E9B64C4B2B0A179F0047D502 /* EstimateProgressDetails14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateProgressDetails14.swift; sourceTree = "<group>"; };
+		E9B64C4E2B0A1CFF0047D502 /* EstimateTasksAsync14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTasksAsync14.swift; sourceTree = "<group>"; };
+		E9B64C512B0A1E430047D502 /* ExecuteMultipleTasks14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteMultipleTasks14.swift; sourceTree = "<group>"; };
+		E9B64C532B0A1F6C0047D502 /* ExecuteTasksAsync14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteTasksAsync14.swift; sourceTree = "<group>"; };
 		E9B67FAB2646DAA3002BE8F6 /* PrepareOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareOutput.swift; sourceTree = "<group>"; };
 		E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteProfileView.swift; sourceTree = "<group>"; };
 		E9BB4F552903C00A00FEEA0A /* ExecuteTasksAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteTasksAsync.swift; sourceTree = "<group>"; };
@@ -389,6 +420,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E98214722B0214B100383B1B /* ConfettiSwiftUI in Frameworks */,
 				E9CDE6372ADC0869004B16B5 /* Metal.framework in Frameworks */,
 				E9888A3E2AD021E900B35B41 /* ShellOut in Frameworks */,
 			);
@@ -481,6 +513,23 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		E98214572B020DA200383B1B /* NavigationStack */ = {
+			isa = PBXGroup;
+			children = (
+				E98214602B020DDF00383B1B /* NavigationSidebarTasksView.swift */,
+				E98214592B020DDF00383B1B /* NavigationSummarizedAllDetailsView.swift */,
+				E982145C2B020DDF00383B1B /* NavigationTasksView.swift */,
+				E98214612B020DDF00383B1B /* NavigationExecuteEstimatedTasksView.swift */,
+				E98214582B020DDF00383B1B /* NavigationExecuteNoestimatedTasksView.swift */,
+				E982145B2B020DDF00383B1B /* NavigationDetailsOneTaskRootView.swift */,
+				E982145D2B020DDF00383B1B /* NavigationDetailsOneTask.swift */,
+				E982145E2B020DDF00383B1B /* NavigationFirstTimeView.swift */,
+				E982145F2B020DDF00383B1B /* NavigationListofTasksMainView.swift */,
+				E982145A2B020DDF00383B1B /* NavigationAlltasksView.swift */,
+			);
+			path = NavigationStack;
+			sourceTree = "<group>";
+		};
 		E985C5BA25F3AC0700CB895C = {
 			isa = PBXGroup;
 			children = (
@@ -527,6 +576,7 @@
 		E985C60925F3AD8400CB895C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E98214572B020DA200383B1B /* NavigationStack */,
 				E8AC45CB26E5ED2500E0AE43 /* Tools */,
 				E985C62025F3AD8400CB895C /* Modifiers */,
 				E985C60A25F3AD8400CB895C /* Sidebar */,
@@ -557,6 +607,7 @@
 				E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */,
 				E91CC2662607286D00D69D0B /* SidebareRestoreView.swift */,
 				E93D7B7E26CE117300E290A1 /* SidebarParametersView.swift */,
+				E982146E2B0213B800383B1B /* SidebarSonoma.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -805,6 +856,7 @@
 		E985C6E225F3AD9600CB895C /* ExecuteMultipleTasks */ = {
 			isa = PBXGroup;
 			children = (
+				E9B64C502B0A1E1E0047D502 /* NavigationStack */,
 				E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */,
 				E985C6E425F3AD9600CB895C /* MultipleTaskState.swift */,
 				E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */,
@@ -824,6 +876,7 @@
 		E985C6EF25F3AD9600CB895C /* ProgressCounts */ = {
 			isa = PBXGroup;
 			children = (
+				E9B64C4A2B0A17670047D502 /* NavigationStack */,
 				E985C6F125F3AD9600CB895C /* EstimateProgressDetails.swift */,
 				E985C6F225F3AD9700CB895C /* ExecuteProgressDetails.swift */,
 			);
@@ -969,9 +1022,35 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		E9B64C4A2B0A17670047D502 /* NavigationStack */ = {
+			isa = PBXGroup;
+			children = (
+				E9B64C4B2B0A179F0047D502 /* EstimateProgressDetails14.swift */,
+			);
+			path = NavigationStack;
+			sourceTree = "<group>";
+		};
+		E9B64C4D2B0A1CAE0047D502 /* NavigationStack */ = {
+			isa = PBXGroup;
+			children = (
+				E9B64C4E2B0A1CFF0047D502 /* EstimateTasksAsync14.swift */,
+				E9B64C532B0A1F6C0047D502 /* ExecuteTasksAsync14.swift */,
+			);
+			path = NavigationStack;
+			sourceTree = "<group>";
+		};
+		E9B64C502B0A1E1E0047D502 /* NavigationStack */ = {
+			isa = PBXGroup;
+			children = (
+				E9B64C512B0A1E430047D502 /* ExecuteMultipleTasks14.swift */,
+			);
+			path = NavigationStack;
+			sourceTree = "<group>";
+		};
 		E9BB4F572903C07E00FEEA0A /* Async */ = {
 			isa = PBXGroup;
 			children = (
+				E9B64C4D2B0A1CAE0047D502 /* NavigationStack */,
 				E9F5354B290185AA007EFAE7 /* EstimateTasksAsync.swift */,
 				E9BB4F552903C00A00FEEA0A /* ExecuteTasksAsync.swift */,
 			);
@@ -1023,6 +1102,7 @@
 			name = RsyncUI;
 			packageProductDependencies = (
 				E9888A3D2AD021E900B35B41 /* ShellOut */,
+				E98214712B0214B100383B1B /* ConfettiSwiftUI */,
 			);
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
@@ -1099,6 +1179,7 @@
 			mainGroup = E985C5BA25F3AC0700CB895C;
 			packageReferences = (
 				E9888A3C2AD021E900B35B41 /* XCRemoteSwiftPackageReference "ShellOut" */,
+				E98214702B0214B100383B1B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = E985C5C425F3AC0700CB895C /* Products */;
 			projectDirPath = "";
@@ -1168,6 +1249,7 @@
 				E9168C0E2615ABFA00B139CE /* AddTaskView.swift in Sources */,
 				E985C66725F3AD8400CB895C /* Viewmodifiers.swift in Sources */,
 				E985C65825F3AD8400CB895C /* SettingsView.swift in Sources */,
+				E9B64C4F2B0A1CFF0047D502 /* EstimateTasksAsync14.swift in Sources */,
 				E985C77D25F3AD9700CB895C /* ArgumentsSsh.swift in Sources */,
 				E985C68D25F3AD8400CB895C /* ExecuteEstimatedTasksView.swift in Sources */,
 				E9A6A42429CA076200C59183 /* TasksView.swift in Sources */,
@@ -1191,8 +1273,10 @@
 				E985C78425F3AD9700CB895C /* UpdateConfigurations.swift in Sources */,
 				E91CC2622607260B00D69D0B /* RsyncDefaultParametersView.swift in Sources */,
 				E985C76F25F3AD9700CB895C /* ObservableRsyncOutput.swift in Sources */,
+				E98214682B020DDF00383B1B /* NavigationFirstTimeView.swift in Sources */,
 				E9BD14BD2642FDC200E29347 /* TrimOne.swift in Sources */,
 				E985C66525F3AD8400CB895C /* LogfileView.swift in Sources */,
+				E98214632B020DDF00383B1B /* NavigationSummarizedAllDetailsView.swift in Sources */,
 				E985C73D25F3AD9700CB895C /* ResultYTP.swift in Sources */,
 				E9BCCE8C25FB432E0034EDFD /* SidebarLogsView.swift in Sources */,
 				E9D1AFE62A2E49B600AD8125 /* ListofTasksLightView.swift in Sources */,
@@ -1202,6 +1286,7 @@
 				E801DC662637FD990060723F /* WriteConfigurationJSON.swift in Sources */,
 				E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */,
 				E985C72D25F3AD9700CB895C /* Snapshotlogsandcatalogs.swift in Sources */,
+				E982146A2B020DDF00383B1B /* NavigationSidebarTasksView.swift in Sources */,
 				E9C2BB982A991D1000BC50F5 /* ListofTasksAddView.swift in Sources */,
 				E985C66625F3AD8400CB895C /* ToggleView.swift in Sources */,
 				E985C72925F3AD9700CB895C /* Keypathidentityfile.swift in Sources */,
@@ -1210,6 +1295,7 @@
 				E985C77825F3AD9700CB895C /* GetRemoteFileListingsArguments.swift in Sources */,
 				E985C65725F3AD8400CB895C /* SidebarSnapshotsView.swift in Sources */,
 				E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */,
+				E9B64C542B0A1F6C0047D502 /* ExecuteTasksAsync14.swift in Sources */,
 				E9C9306725FEA1CF0049A76B /* ObservableSSH.swift in Sources */,
 				E85FBDD726CD6B0A00186185 /* RsyncParametersView.swift in Sources */,
 				E9E9CD2526779E2600EB377B /* ExecuteCommands.swift in Sources */,
@@ -1236,6 +1322,7 @@
 				E985C76725F3AD9700CB895C /* ExecuteOneTask.swift in Sources */,
 				E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */,
 				E9FAE97928DF4F8F000C0F93 /* LocalRemoteInfoView.swift in Sources */,
+				E9B64C4C2B0A179F0047D502 /* EstimateProgressDetails14.swift in Sources */,
 				E9BD14C12643082100E29347 /* TrimThree.swift in Sources */,
 				E91FDCA12A5173860087B4CE /* Argumentsforrsync.swift in Sources */,
 				E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */,
@@ -1245,6 +1332,7 @@
 				E9B34967273AE658000B053E /* OpencatalogView.swift in Sources */,
 				E985C73825F3AD9700CB895C /* Notifications.swift in Sources */,
 				E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */,
+				E9B64C522B0A1E430047D502 /* ExecuteMultipleTasks14.swift in Sources */,
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
 				E99C2400261C322E009D4DBF /* ObservableRestore.swift in Sources */,
 				E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */,
@@ -1259,17 +1347,20 @@
 				E93F8EC62ABDAE50008FA302 /* AlertToastModifier.swift in Sources */,
 				E93F8EC72ABDAE50008FA302 /* AnimatedCheckmark.swift in Sources */,
 				E94E1E1E2A2DB14A00011FED /* RestoreTableView.swift in Sources */,
+				E98214662B020DDF00383B1B /* NavigationTasksView.swift in Sources */,
 				E9D94DB6294B9409007C21D2 /* Assist.swift in Sources */,
 				E985C77025F3AD9700CB895C /* EstimateProgressDetails.swift in Sources */,
 				E9569EAB27B80BEB0038799C /* UserConfiguration.swift in Sources */,
 				E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */,
 				E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */,
+				E98214622B020DDF00383B1B /* NavigationExecuteNoestimatedTasksView.swift in Sources */,
 				E9EA4EA329DAA0EF00456ADA /* Counter.swift in Sources */,
 				E985C77225F3AD9700CB895C /* Logfile.swift in Sources */,
 				E9888A402AD0226800B35B41 /* RsyncProcessAsyncShellOut.swift in Sources */,
 				E81C244C267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift in Sources */,
 				E985C73425F3AD9700CB895C /* RsyncCommandtoDisplay.swift in Sources */,
 				E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */,
+				E98214692B020DDF00383B1B /* NavigationListofTasksMainView.swift in Sources */,
 				E985C73525F3AD9700CB895C /* Backupconfigfiles.swift in Sources */,
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
 				E985C72A25F3AD9700CB895C /* NamesandPaths.swift in Sources */,
@@ -1291,7 +1382,9 @@
 				E985C67A25F3AD8400CB895C /* RsyncCommandView.swift in Sources */,
 				E985C66C25F3AD8400CB895C /* SnapshotsView.swift in Sources */,
 				E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */,
+				E982146B2B020DDF00383B1B /* NavigationExecuteEstimatedTasksView.swift in Sources */,
 				E985C73B25F3AD9700CB895C /* yudpsocket.c in Sources */,
+				E98214672B020DDF00383B1B /* NavigationDetailsOneTask.swift in Sources */,
 				E997613B271998BD007153DD /* RsyncUIlogrecords.swift in Sources */,
 				E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */,
 				E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */,
@@ -1306,6 +1399,8 @@
 				E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
 				E91CC2672607286D00D69D0B /* SidebareRestoreView.swift in Sources */,
+				E982146F2B0213B800383B1B /* SidebarSonoma.swift in Sources */,
+				E98214652B020DDF00383B1B /* NavigationDetailsOneTaskRootView.swift in Sources */,
 				E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */,
 				E985C75525F3AD9700CB895C /* ConfigurationSchedule.swift in Sources */,
 				E95DD7F428EC738B007654BC /* RsyncProcessAsync.swift in Sources */,
@@ -1322,6 +1417,7 @@
 				E985C68725F3AD8400CB895C /* EditValue.swift in Sources */,
 				E985C74825F3AD9700CB895C /* NetworkMonitor.swift in Sources */,
 				E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */,
+				E98214642B020DDF00383B1B /* NavigationAlltasksView.swift in Sources */,
 				E999F92227690F3400B80DF6 /* Files.swift in Sources */,
 				E985C77125F3AD9700CB895C /* ExecuteProgressDetails.swift in Sources */,
 				E985C79325F3AD9700CB895C /* Rsyncversion.swift in Sources */,
@@ -1682,6 +1778,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E98214702B0214B100383B1B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		E9888A3C2AD021E900B35B41 /* XCRemoteSwiftPackageReference "ShellOut" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftPackageIndex/ShellOut";
@@ -1693,6 +1797,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E98214712B0214B100383B1B /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E98214702B0214B100383B1B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
 		E9888A3D2AD021E900B35B41 /* ShellOut */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E9888A3C2AD021E900B35B41 /* XCRemoteSwiftPackageReference "ShellOut" */;
