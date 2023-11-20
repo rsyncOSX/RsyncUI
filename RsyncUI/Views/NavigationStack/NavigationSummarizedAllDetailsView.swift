@@ -49,7 +49,6 @@ struct NavigationSummarizedAllDetailsView: View {
             }
             .onChange(of: selecteduuids) {
                 guard selecteduuids.count > 0 else { return }
-                estimatingprogressdetails.uuids = selecteduuids
                 path.append(Tasks(task: .dryrunonetaskalreadyestimated))
             }
 
@@ -136,9 +135,9 @@ struct NavigationSummarizedAllDetailsView: View {
             progressdetails.resetcounter()
             estimatingprogressdetails.startestimateasync()
         }
-       
+
         if estimatingprogressdetails.estimatealltasksasync { progressviewestimateasync }
-        
+
         if focusstartexecution { labelstartexecution }
     }
 
