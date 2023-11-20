@@ -118,7 +118,7 @@ struct NavigationRsyncDefaultParametersView: View {
             }
         }
         .navigationDestination(isPresented: $presentsheetview) {
-            OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
+            NavigationOutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }
         .alert(isPresented: $parameters.alerterror,
                content: { Alert(localizedError: parameters.error)

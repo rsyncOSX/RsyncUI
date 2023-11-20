@@ -142,7 +142,7 @@ struct NavigationRsyncParametersView: View {
             }
         }
         .navigationDestination(isPresented: $presentsheetview) {
-            OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
+            NavigationOutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }
     }
 
