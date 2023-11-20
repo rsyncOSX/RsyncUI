@@ -10,7 +10,7 @@ import SwiftUI
 
 struct NavigationDetailsOneTask: View {
     let estimatedlist: [RemoteinfonumbersOnetask]
-    let selecteduuids: Set<Configuration.ID>
+    @Binding var selecteduuids: Set<Configuration.ID>
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -97,6 +97,9 @@ struct NavigationDetailsOneTask: View {
                 }
             }
         }
+        .onDisappear(perform: {
+            selecteduuids.removeAll()
+        })
     }
 
     var estimatedlistonetask: [RemoteinfonumbersOnetask] {

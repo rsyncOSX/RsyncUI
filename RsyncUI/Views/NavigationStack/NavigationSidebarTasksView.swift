@@ -66,7 +66,7 @@ struct NavigationSidebarTasksView: View {
                 }
         case .dryrunonetaskalreadyestimated:
             NavigationDetailsOneTask(estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [],
-                                     selecteduuids: selecteduuids)
+                                     selecteduuids: $selecteduuids)
         case .alltasksview:
             NavigationAlltasksView()
         }
