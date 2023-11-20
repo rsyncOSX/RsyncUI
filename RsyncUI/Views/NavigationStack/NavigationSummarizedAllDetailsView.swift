@@ -137,7 +137,7 @@ struct NavigationSummarizedAllDetailsView: View {
         }
 
         if estimatingprogressdetails.estimatealltasksasync { progressviewestimateasync }
-        
+
         if focusstartexecution { labelstartexecution }
     }
 
