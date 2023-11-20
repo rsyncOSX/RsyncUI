@@ -1,14 +1,13 @@
 //
-//  RsyncDefaultParametersView.swift
+//  NavigationRsyncDefaultParametersView.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 21/03/2021.
+//  Created by Thomas Evensen on 20/11/2023.
 //
-// swiftlint:disable line_length
 
 import SwiftUI
 
-struct RsyncDefaultParametersView: View {
+struct NavigationRsyncDefaultParametersView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var parameters = ObservableParametersDefault()
     @Binding var reload: Bool
@@ -27,94 +26,99 @@ struct RsyncDefaultParametersView: View {
     @State private var focusaborttask: Bool = false
 
     var body: some View {
-        VStack {
-            HStack {
-                VStack(alignment: .leading) {
-                    Section(header: headerssh) {
-                        setsshpath
+        NavigationStack {
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Section(header: headerssh) {
+                            setsshpath
 
-                        setsshport
-                    }
-
-                    Section(header: headerremove) {
-                        VStack(alignment: .leading) {
-                            ToggleViewDefault("-e ssh", $parameters.removessh)
-                                .onChange(of: parameters.removessh) {
-                                    parameters.deletessh(parameters.removessh)
-                                }
-                            ToggleViewDefault("--compress", $parameters.removecompress)
-                                .onChange(of: parameters.removecompress) {
-                                    parameters.deletecompress(parameters.removecompress)
-                                }
-                            ToggleViewDefault("--delete", $parameters.removedelete)
-                                .onChange(of: parameters.removedelete) {
-                                    parameters.deletedelete(parameters.removedelete)
-                                }
+                            setsshport
                         }
-                    }
 
-                    Section(header: headerdaemon) {
-                        ToggleViewDefault("daemon", $parameters.daemon)
-                    }
-
-                    Spacer()
-                }
-
-                VStack(alignment: .leading) {
-                    ListofTasksLightView(selecteduuids: $selecteduuids)
-                        .frame(maxWidth: .infinity)
-                        .onChange(of: selecteduuids) {
-                            let selected = rsyncUIdata.configurations?.filter { config in
-                                selecteduuids.contains(config.id)
+                        Section(header: headerremove) {
+                            VStack(alignment: .leading) {
+                                ToggleViewDefault("-e ssh", $parameters.removessh)
+                                    .onChange(of: parameters.removessh) {
+                                        parameters.deletessh(parameters.removessh)
+                                    }
+                                ToggleViewDefault("--compress", $parameters.removecompress)
+                                    .onChange(of: parameters.removecompress) {
+                                        parameters.deletecompress(parameters.removecompress)
+                                    }
+                                ToggleViewDefault("--delete", $parameters.removedelete)
+                                    .onChange(of: parameters.removedelete) {
+                                        parameters.deletedelete(parameters.removedelete)
+                                    }
                             }
-                            if (selected?.count ?? 0) == 1 {
-                                if let config = selected {
-                                    selectedconfig = config[0]
+                        }
+
+                        Section(header: headerdaemon) {
+                            ToggleViewDefault("daemon", $parameters.daemon)
+                        }
+
+                        Spacer()
+                    }
+
+                    VStack(alignment: .leading) {
+                        ListofTasksLightView(selecteduuids: $selecteduuids)
+                            .frame(maxWidth: .infinity)
+                            .onChange(of: selecteduuids) {
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        selectedconfig = config[0]
+                                        parameters.setvalues(selectedconfig)
+                                    }
+                                } else {
+                                    selectedconfig = nil
                                     parameters.setvalues(selectedconfig)
                                 }
-                            } else {
-                                selectedconfig = nil
-                                parameters.setvalues(selectedconfig)
                             }
-                        }
 
-                    ZStack {
-                        HStack(alignment: .center) {
-                            RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
-                        }
+                        ZStack {
+                            HStack(alignment: .center) {
+                                RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
+                            }
 
-                        if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
+                            if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
+                        }
                     }
+
+                    if focusaborttask { labelaborttask }
                 }
 
-                if focusaborttask { labelaborttask }
-            }
-
-            Spacer()
-
-            HStack {
                 Spacer()
 
-                Button("Verify") {
-                    if let configuration = parameters.updatersyncparameters() {
-                        Task {
-                            await verify(config: configuration)
+                HStack {
+                    Spacer()
+
+                    Button("Verify") {
+                        if let configuration = parameters.updatersyncparameters() {
+                            Task {
+                                await verify(config: configuration)
+                            }
                         }
                     }
-                }
-                .buttonStyle(ColorfulButtonStyle())
-
-                Button("Save") { saversyncparameters() }
                     .buttonStyle(ColorfulButtonStyle())
+
+                    Button("Save") { saversyncparameters() }
+                        .buttonStyle(ColorfulButtonStyle())
+                }
+            }
+            .focusedSceneValue(\.aborttask, $focusaborttask)
+            .padding()
+            // .sheet(isPresented: $presentsheetview) { viewoutput }
+            .onAppear {
+                if dataischanged.dataischanged {
+                    dataischanged.dataischanged = false
+                }
             }
         }
-        .focusedSceneValue(\.aborttask, $focusaborttask)
-        .padding()
-        .sheet(isPresented: $presentsheetview) { viewoutput }
-        .onAppear {
-            if dataischanged.dataischanged {
-                dataischanged.dataischanged = false
-            }
+        .navigationDestination(isPresented: $presentsheetview) {
+            OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }
         .alert(isPresented: $parameters.alerterror,
                content: { Alert(localizedError: parameters.error)
@@ -163,11 +167,6 @@ struct RsyncDefaultParametersView: View {
             }
     }
 
-    // Output
-    var viewoutput: some View {
-        OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
-    }
-
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -177,7 +176,7 @@ struct RsyncDefaultParametersView: View {
     }
 }
 
-extension RsyncDefaultParametersView {
+extension NavigationRsyncDefaultParametersView {
     func saversyncparameters() {
         if let configuration = parameters.updatersyncparameters() {
             let updateconfiguration =
@@ -220,5 +219,3 @@ extension RsyncDefaultParametersView {
         _ = InterruptProcess()
     }
 }
-
-// swiftlint:enable line_length

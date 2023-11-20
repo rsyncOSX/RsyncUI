@@ -58,7 +58,11 @@ struct Sidebar: View {
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:
-            SidebarParametersView(reload: $reload)
+            if SharedReference.shared.usenavigationstack {
+                NavigationSidebarParametersView(reload: $reload)
+            } else {
+                SidebarParametersView(reload: $reload)
+            }
         case .restore:
             SidebareRestoreView()
         case .snapshots:

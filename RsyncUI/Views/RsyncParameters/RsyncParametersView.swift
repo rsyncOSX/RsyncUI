@@ -29,9 +29,6 @@ struct RsyncParametersView: View {
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
 
-    // Reload and show table data
-    @State private var showtableview: Bool = true
-
     var body: some View {
         VStack {
             HStack {
@@ -68,27 +65,22 @@ struct RsyncParametersView: View {
                     Spacer()
                 }
 
-                if showtableview {
-                    ListofTasksLightView(selecteduuids: $selecteduuids)
-                        .frame(maxWidth: .infinity)
-                        .onChange(of: selecteduuids) {
-                            let selected = rsyncUIdata.configurations?.filter { config in
-                                selecteduuids.contains(config.id)
-                            }
-                            if (selected?.count ?? 0) == 1 {
-                                if let config = selected {
-                                    selectedconfig = config[0]
-                                    parameters.setvalues(selectedconfig)
-                                }
-                            } else {
-                                selectedconfig = nil
+                ListofTasksLightView(selecteduuids: $selecteduuids)
+                    .frame(maxWidth: .infinity)
+                    .onChange(of: selecteduuids) {
+                        let selected = rsyncUIdata.configurations?.filter { config in
+                            selecteduuids.contains(config.id)
+                        }
+                        if (selected?.count ?? 0) == 1 {
+                            if let config = selected {
+                                selectedconfig = config[0]
                                 parameters.setvalues(selectedconfig)
                             }
+                        } else {
+                            selectedconfig = nil
+                            parameters.setvalues(selectedconfig)
                         }
-
-                } else {
-                    notifyupdated
-                }
+                    }
 
                 if focusaborttask { labelaborttask }
             }
@@ -141,7 +133,6 @@ struct RsyncParametersView: View {
             .padding()
             .onAppear {
                 if dataischanged.dataischanged {
-                    showtableview = false
                     dataischanged.dataischanged = false
                 }
             }
@@ -163,16 +154,6 @@ struct RsyncParametersView: View {
                 abort()
             })
     }
-
-    var notifyupdated: some View {
-        notifymessage("Updated")
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showtableview = true
-                }
-            })
-            .frame(maxWidth: .infinity)
-    }
 }
 
 extension RsyncParametersView {
@@ -186,7 +167,6 @@ extension RsyncParametersView {
         parameters.reset()
         selectedconfig = nil
         reload = true
-        showtableview = false
         dataischanged.dataischanged = true
     }
 
