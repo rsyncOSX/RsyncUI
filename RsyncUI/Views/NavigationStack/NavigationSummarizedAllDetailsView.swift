@@ -114,8 +114,6 @@ struct NavigationSummarizedAllDetailsView: View {
                 }
                 .width(max: 70)
             }
-
-            if focusstartexecution { labelstartexecution }
         }
         .toolbar(content: {
             ToolbarItem {
@@ -138,8 +136,10 @@ struct NavigationSummarizedAllDetailsView: View {
             progressdetails.resetcounter()
             estimatingprogressdetails.startestimateasync()
         }
-
+       
         if estimatingprogressdetails.estimatealltasksasync { progressviewestimateasync }
+        
+        if focusstartexecution { labelstartexecution }
     }
 
     var progressviewestimateasync: some View {
