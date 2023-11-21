@@ -122,10 +122,3 @@ private struct RsyncUIDataKey: EnvironmentKey {
     static var defaultValue: RsyncUIconfigurations = .init(profile: nil, true)
 }
 
-extension View {
-    func notifymessage(_ text: String) -> some View {
-        Text(text)
-            .font(.title2)
-            .foregroundColor(Color.blue)
-    }
-}

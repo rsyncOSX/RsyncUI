@@ -5,7 +5,6 @@
 //
 // swiftlint:disable multiple_closures_with_trailing_closure
 
-import Observation
 import OSLog
 import SwiftUI
 import UserNotifications

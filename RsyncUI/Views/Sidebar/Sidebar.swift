@@ -44,7 +44,11 @@ struct Sidebar: View {
             selectView(selectedview)
         }
         .alert(isPresented: errorhandling.presentalert, content: {
-            Alert(localizedError: errorhandling.activeError!)
+            if let error = errorhandling.activeError {
+                Alert(localizedError: error)
+            } else {
+                Alert(title: Text("No error"))
+            }
         })
     }
 

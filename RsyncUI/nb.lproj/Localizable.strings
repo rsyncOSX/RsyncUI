@@ -242,6 +242,9 @@
 "localhost" = "localhost";
 
 /* No comment provided by engineer. */
+"Log listings" = "Liste logger";
+
+/* No comment provided by engineer. */
 "Log to file" = "Logg til fil";
 
 /* No comment provided by engineer. */
@@ -281,6 +284,9 @@
 "Num" = "Num";
 
 /* No comment provided by engineer. */
+"Number of log records: " = "Antall logger:";
+
+/* No comment provided by engineer. */
 "Number of logrecords" = "Antall logger";
 
 /* No comment provided by engineer. */
@@ -309,6 +315,9 @@
 
 /* No comment provided by engineer. */
 "Profiles" = "Profiler";
+
+/* No comment provided by engineer. */
+"Quick synchronize" = "Rask synkronisering";
 
 /* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
@@ -348,6 +357,9 @@
 
 /* No comment provided by engineer. */
 "Rsync output estimated task" = "Rsync logg estimert oppgave";
+
+/* No comment provided by engineer. */
+"Rsync parameters" = "Rsync parametre";
 
 /* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
@@ -414,6 +426,9 @@
 
 /* No comment provided by engineer. */
 "Ssh" = "Ssh";
+
+/* No comment provided by engineer. */
+"Synchronize" = "Synkronisere";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";
