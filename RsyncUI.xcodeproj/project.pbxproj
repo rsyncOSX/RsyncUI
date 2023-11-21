@@ -168,12 +168,6 @@
 		E99C2400261C322E009D4DBF /* ObservableRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObservableRestore.swift */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E9A6A42429CA076200C59183 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6A42329CA076200C59183 /* TasksView.swift */; };
-		E9B2D05C2B0CE9A000B249AA /* NavigationRsyncDefaultParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2D0562B0CE99F00B249AA /* NavigationRsyncDefaultParametersView.swift */; };
-		E9B2D05D2B0CE9A000B249AA /* NavigationSidebarParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2D0572B0CE9A000B249AA /* NavigationSidebarParametersView.swift */; };
-		E9B2D05E2B0CE9A000B249AA /* NavigationOutputRsyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2D0582B0CE9A000B249AA /* NavigationOutputRsyncView.swift */; };
-		E9B2D05F2B0CE9A000B249AA /* NavigationRsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2D0592B0CE9A000B249AA /* NavigationRsyncParametersView.swift */; };
-		E9B2D0602B0CE9A000B249AA /* NavigationQuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2D05A2B0CE9A000B249AA /* NavigationQuicktaskView.swift */; };
-		E9B2D0612B0CE9A000B249AA /* NavigationRestoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2D05B2B0CE9A000B249AA /* NavigationRestoreTableView.swift */; };
 		E9B34967273AE658000B053E /* OpencatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B34966273AE658000B053E /* OpencatalogView.swift */; };
 		E9B64C4C2B0A179F0047D502 /* EstimateProgressDetails14.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B64C4B2B0A179F0047D502 /* EstimateProgressDetails14.swift */; };
 		E9B64C4F2B0A1CFF0047D502 /* EstimateTasksAsync14.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B64C4E2B0A1CFF0047D502 /* EstimateTasksAsync14.swift */; };
@@ -391,12 +385,6 @@
 		E99C23FF261C322E009D4DBF /* ObservableRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRestore.swift; sourceTree = "<group>"; };
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E9A6A42329CA076200C59183 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
-		E9B2D0562B0CE99F00B249AA /* NavigationRsyncDefaultParametersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRsyncDefaultParametersView.swift; sourceTree = "<group>"; };
-		E9B2D0572B0CE9A000B249AA /* NavigationSidebarParametersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationSidebarParametersView.swift; sourceTree = "<group>"; };
-		E9B2D0582B0CE9A000B249AA /* NavigationOutputRsyncView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationOutputRsyncView.swift; sourceTree = "<group>"; };
-		E9B2D0592B0CE9A000B249AA /* NavigationRsyncParametersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRsyncParametersView.swift; sourceTree = "<group>"; };
-		E9B2D05A2B0CE9A000B249AA /* NavigationQuicktaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationQuicktaskView.swift; sourceTree = "<group>"; };
-		E9B2D05B2B0CE9A000B249AA /* NavigationRestoreTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRestoreTableView.swift; sourceTree = "<group>"; };
 		E9B34966273AE658000B053E /* OpencatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpencatalogView.swift; sourceTree = "<group>"; };
 		E9B64C4B2B0A179F0047D502 /* EstimateProgressDetails14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateProgressDetails14.swift; sourceTree = "<group>"; };
 		E9B64C4E2B0A1CFF0047D502 /* EstimateTasksAsync14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTasksAsync14.swift; sourceTree = "<group>"; };
@@ -530,12 +518,6 @@
 		E98214572B020DA200383B1B /* NavigationStack */ = {
 			isa = PBXGroup;
 			children = (
-				E9B2D0582B0CE9A000B249AA /* NavigationOutputRsyncView.swift */,
-				E9B2D05A2B0CE9A000B249AA /* NavigationQuicktaskView.swift */,
-				E9B2D05B2B0CE9A000B249AA /* NavigationRestoreTableView.swift */,
-				E9B2D0562B0CE99F00B249AA /* NavigationRsyncDefaultParametersView.swift */,
-				E9B2D0592B0CE9A000B249AA /* NavigationRsyncParametersView.swift */,
-				E9B2D0572B0CE9A000B249AA /* NavigationSidebarParametersView.swift */,
 				E98214602B020DDF00383B1B /* NavigationSidebarTasksView.swift */,
 				E98214592B020DDF00383B1B /* NavigationSummarizedAllDetailsView.swift */,
 				E982145C2B020DDF00383B1B /* NavigationTasksView.swift */,
@@ -1277,7 +1259,6 @@
 				E985C78D25F3AD9700CB895C /* AllConfigurations.swift in Sources */,
 				E985C78625F3AD9700CB895C /* AllLogs.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,
-				E9B2D0602B0CE9A000B249AA /* NavigationQuicktaskView.swift in Sources */,
 				E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */,
 				E9BB4F562903C00A00FEEA0A /* ExecuteTasksAsync.swift in Sources */,
 				E985C76E25F3AD9700CB895C /* EstimatingState.swift in Sources */,
@@ -1337,7 +1318,6 @@
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
 				E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */,
 				E950C92A290BBDC200B8B49F /* CommandProcessAsync.swift in Sources */,
-				E9B2D05C2B0CE9A000B249AA /* NavigationRsyncDefaultParametersView.swift in Sources */,
 				E985C73725F3AD9700CB895C /* extensionDate.swift in Sources */,
 				E9F5354C290185AA007EFAE7 /* EstimateTasksAsync.swift in Sources */,
 				E985C77625F3AD9700CB895C /* ArgumentsSynchronize.swift in Sources */,
@@ -1384,21 +1364,18 @@
 				E81C244C267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift in Sources */,
 				E985C73425F3AD9700CB895C /* RsyncCommandtoDisplay.swift in Sources */,
 				E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */,
-				E9B2D05F2B0CE9A000B249AA /* NavigationRsyncParametersView.swift in Sources */,
 				E98214692B020DDF00383B1B /* NavigationListofTasksMainView.swift in Sources */,
 				E985C73525F3AD9700CB895C /* Backupconfigfiles.swift in Sources */,
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
 				E985C72A25F3AD9700CB895C /* NamesandPaths.swift in Sources */,
 				E943B0A925FFC22200A4F30D /* RsyncProcess.swift in Sources */,
 				E985C72F25F3AD9700CB895C /* OutputfromProcessRsync.swift in Sources */,
-				E9B2D0612B0CE9A000B249AA /* NavigationRestoreTableView.swift in Sources */,
 				E985C65525F3AD8400CB895C /* SidebarTasksView.swift in Sources */,
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
 				E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */,
 				E9888A422AD022B200B35B41 /* RsyncProcessShellOut.swift in Sources */,
 				E93F8EC92ABDAE50008FA302 /* BlurView.swift in Sources */,
 				E904E02E275CED770070DF92 /* FirsttimeView.swift in Sources */,
-				E9B2D05E2B0CE9A000B249AA /* NavigationOutputRsyncView.swift in Sources */,
 				E9134B4929893BF900FDD55D /* ExecuteNoestimatedTasksView.swift in Sources */,
 				E985C77F25F3AD9700CB895C /* MultipletasksPrimaryLogging.swift in Sources */,
 				E9CE04FF29C9DA92001ACEA7 /* AlltasksView.swift in Sources */,
@@ -1436,7 +1413,6 @@
 				E9168C092615AB8500B139CE /* AddPreandPostView.swift in Sources */,
 				E985C77B25F3AD9700CB895C /* DuArgumentsSsh.swift in Sources */,
 				E985C79225F3AD9700CB895C /* Extensions.swift in Sources */,
-				E9B2D05D2B0CE9A000B249AA /* NavigationSidebarParametersView.swift in Sources */,
 				E944E6CA2A16B6A6009BA945 /* ListofTasksMainView.swift in Sources */,
 				E92B19092755F7F600B16B03 /* LogCommands.swift in Sources */,
 				E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */,

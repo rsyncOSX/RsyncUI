@@ -50,19 +50,9 @@ struct SidebarSonoma: View {
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:
-            if SharedReference.shared.usenavigationstack {
-                NavigationSidebarParametersView(reload: $reload)
-            } else {
-                SidebarParametersView(reload: $reload)
-            }
+            SidebarParametersView(reload: $reload)
         case .restore:
-            if SharedReference.shared.usenavigationstack {
-                NavigationStack {
-                    NavigationRestoreTableView()
-                }
-            } else {
-                RestoreTableView()
-            }
+            SidebareRestoreView()
         case .snapshots:
             SidebarSnapshotsView(reload: $reload)
         case .synchronize:
@@ -74,13 +64,7 @@ struct SidebarSonoma: View {
                 SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
             }
         case .quick_synchronize:
-            if SharedReference.shared.usenavigationstack {
-                NavigationStack {
-                    NavigationQuicktaskView()
-                }
-            } else {
-                QuicktaskView()
-            }
+            QuicktaskView()
         }
     }
 }

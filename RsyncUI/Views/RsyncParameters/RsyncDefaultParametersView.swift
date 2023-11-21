@@ -26,6 +26,9 @@ struct RsyncDefaultParametersView: View {
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
 
+    // Reload and show table data
+    @State private var showtableview: Bool = true
+
     var body: some View {
         VStack {
             HStack {
@@ -52,22 +55,27 @@ struct RsyncDefaultParametersView: View {
                 }
 
                 VStack(alignment: .leading) {
-                    ListofTasksLightView(selecteduuids: $selecteduuids)
-                        .frame(maxWidth: .infinity)
-                        .onChange(of: selecteduuids) { _ in
-                            let selected = rsyncUIdata.configurations?.filter { config in
-                                selecteduuids.contains(config.id)
-                            }
-                            if (selected?.count ?? 0) == 1 {
-                                if let config = selected {
-                                    selectedconfig = config[0]
+                    if showtableview {
+                        ListofTasksLightView(selecteduuids: $selecteduuids)
+                            .frame(maxWidth: .infinity)
+                            .onChange(of: selecteduuids) { _ in
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        selectedconfig = config[0]
+                                        parameters.setvalues(selectedconfig)
+                                    }
+                                } else {
+                                    selectedconfig = nil
                                     parameters.setvalues(selectedconfig)
                                 }
-                            } else {
-                                selectedconfig = nil
-                                parameters.setvalues(selectedconfig)
                             }
-                        }
+
+                    } else {
+                        notifyupdated
+                    }
 
                     ZStack {
                         HStack(alignment: .center) {
@@ -104,6 +112,7 @@ struct RsyncDefaultParametersView: View {
         .sheet(isPresented: $presentsheetview) { viewoutput }
         .onAppear {
             if dataischanged.dataischanged {
+                showtableview = false
                 dataischanged.dataischanged = false
             }
         }
@@ -152,6 +161,16 @@ struct RsyncDefaultParametersView: View {
             }
     }
 
+    var notifyupdated: some View {
+        notifymessage("Updated")
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    showtableview = true
+                }
+            })
+            .frame(maxWidth: .infinity)
+    }
+
     // Output
     var viewoutput: some View {
         OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
@@ -177,6 +196,7 @@ extension RsyncDefaultParametersView {
         parameters.reset()
         selectedconfig = nil
         reload = true
+        showtableview = false
         dataischanged.dataischanged = true
     }
 
