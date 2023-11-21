@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 struct VersionsofRsyncUI: Codable {
     let url: String?
@@ -45,6 +46,7 @@ final class CheckfornewversionofRsyncUI: ObservableObject {
         do {
             let versions = GetversionsofRsyncUI()
             if let versionsofrsyncui = try await versions.getversionsofrsyncuibyurl() {
+                Logger.process.info("CheckfornewversionofRsyncUI: \(versionsofrsyncui)")
                 let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
                 let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
                 if check.count > 0 {

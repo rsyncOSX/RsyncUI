@@ -105,7 +105,11 @@ struct SidebarMonterey: View {
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)
         .alert(isPresented: errorhandling.presentalert, content: {
-            Alert(localizedError: errorhandling.activeError ?? ValidateInputError.emptyerror)
+            if let error = errorhandling.activeError {
+                Alert(localizedError: error)
+            } else {
+                Alert(title: Text("No error"))
+            }
         })
     }
 

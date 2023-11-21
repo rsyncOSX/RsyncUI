@@ -139,14 +139,6 @@ struct RsyncUIView: View {
     }
 }
 
-extension View {
-    func notifymessage(_ text: String) -> some View {
-        Text(text)
-            .font(.title2)
-            .foregroundColor(Color.blue)
-    }
-}
-
 extension EnvironmentValues {
     var rsyncUIData: RsyncUIconfigurations {
         get { self[RsyncUIDataKey.self] }
