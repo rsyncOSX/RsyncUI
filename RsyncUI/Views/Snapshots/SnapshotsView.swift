@@ -70,7 +70,6 @@ struct SnapshotsView: View {
             if snapshotdata.inprogressofdelete == true { progressdelete }
         }
 
-        if updated == true { notifyupdated }
         if focustagsnapshot == true { labeltagsnapshot }
         if focusaborttask { labelaborttask }
 
@@ -147,16 +146,6 @@ struct SnapshotsView: View {
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 100)
-    }
-
-    var notifyupdated: some View {
-        notifymessage("Updated")
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    updated = false
-                }
-            })
-            .frame(maxWidth: .infinity)
     }
 
     var labeltagsnapshot: some View {
