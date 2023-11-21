@@ -22,7 +22,7 @@ struct NavigationRsyncParametersView: View {
     @State private var valueselectedrow: String = ""
     @State private var numberoffiles: Int = 0
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var dataischanged = Dataischanged()
+    @State private var dataischanged = Dataischanged14()
 
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 

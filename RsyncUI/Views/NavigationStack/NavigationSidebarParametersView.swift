@@ -27,3 +27,9 @@ struct NavigationSidebarParametersView: View {
         }
     }
 }
+
+@Observable
+@available(macOS 14.0, *)
+final class Dataischanged14 {
+    var dataischanged: Bool = false
+}

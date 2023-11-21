@@ -21,7 +21,7 @@ struct NavigationRsyncDefaultParametersView: View {
     @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var dataischanged = Dataischanged()
+    @State private var dataischanged = Dataischanged14()
 
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
