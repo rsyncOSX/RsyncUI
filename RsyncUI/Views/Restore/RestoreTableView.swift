@@ -181,7 +181,7 @@ struct RestoreTableView: View {
                     restore.pathforrestore = pathforrestore
                 }
             })
-            .onChange(of: restore.pathforrestore) { _ in
+            .onChange(of: restore.pathforrestore) {
                 restore.validatepathforrestore(restore.pathforrestore)
             }
     }
@@ -207,17 +207,17 @@ struct RestoreTableView: View {
         }
         .frame(width: 150)
         .accentColor(.blue)
-        .onChange(of: snapshotdata.catalogsanddates) { _ in
+        .onChange(of: snapshotdata.catalogsanddates) {
             guard snapshotdata.catalogsanddates.count > 0 else { return }
             snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
         }
-        .onChange(of: rsyncUIdata.profile) { _ in
+        .onChange(of: rsyncUIdata.profile) {
             snapshotdata.catalogsanddates.removeAll()
         }
         .onAppear {
             snapshotdata.catalogsanddates.removeAll()
         }
-        .onChange(of: snapshotcatalog) { _ in
+        .onChange(of: snapshotcatalog) {
             restore.datalist.removeAll()
             restore.filestorestore = ""
         }
