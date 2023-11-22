@@ -31,6 +31,8 @@ struct NavigationTasksView: View {
     @State var selectedconfig = Selectedconfig()
     // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
+    // Alert
+    @State private var showingAlert = false
 
     var body: some View {
         ZStack {
@@ -119,6 +121,15 @@ struct NavigationTasksView: View {
                 .help("Rsync output estimated task")
             }
         })
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Execute all tasks with NO estimating first?"),
+                primaryButton: .destructive(Text("Execute")) {
+                    path.append(Tasks(task: .executenoestimatetasksview))
+                },
+                secondaryButton: .cancel()
+            )
+        }
     }
 
     var doubleclickaction: some View {
@@ -212,8 +223,9 @@ extension NavigationTasksView {
         } else {
             // Execute all tasks, no estimate
             Logger.process.info("Execute() selected or all tasks NO estimate")
+            showingAlert = true
             // Execute tasks, no estimate
-            path.append(Tasks(task: .executenoestimatetasksview))
+            // path.append(Tasks(task: .executenoestimatetasksview))
         }
     }
 
