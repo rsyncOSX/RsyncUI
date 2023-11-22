@@ -20,98 +20,102 @@ struct NavigationSummarizedAllDetailsView: View {
 
     var body: some View {
         HStack {
-            Table(estimatingprogressdetails.getestimatedlist() ?? [],
-                  selection: $selecteduuids)
-            {
-                TableColumn("Synchronize ID") { data in
-                    if data.datatosynchronize {
-                        Text(data.backupID)
-                            .foregroundColor(.blue)
-                    } else {
-                        Text(data.backupID)
+            if estimatingprogressdetails.estimatealltasksasync {
+                Text("Estimating")
+            } else {
+                Table(estimatingprogressdetails.getestimatedlist() ?? [],
+                      selection: $selecteduuids)
+                {
+                    TableColumn("Synchronize ID") { data in
+                        if data.datatosynchronize {
+                            Text(data.backupID)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(data.backupID)
+                        }
                     }
-                }
-                .width(min: 40, max: 80)
-                TableColumn("Task", value: \.task)
+                    .width(min: 40, max: 80)
+                    TableColumn("Task", value: \.task)
+                        .width(max: 60)
+                    TableColumn("Local catalog", value: \.localCatalog)
+                        .width(min: 100, max: 300)
+                    TableColumn("Remote catalog", value: \.offsiteCatalog)
+                        .width(min: 100, max: 300)
+                    TableColumn("Server") { data in
+                        if data.offsiteServer.count > 0 {
+                            Text(data.offsiteServer)
+                        } else {
+                            Text("localhost")
+                        }
+                    }
                     .width(max: 60)
-                TableColumn("Local catalog", value: \.localCatalog)
-                    .width(min: 100, max: 300)
-                TableColumn("Remote catalog", value: \.offsiteCatalog)
-                    .width(min: 100, max: 300)
-                TableColumn("Server") { data in
-                    if data.offsiteServer.count > 0 {
-                        Text(data.offsiteServer)
-                    } else {
-                        Text("localhost")
-                    }
                 }
-                .width(max: 60)
-            }
-            .onChange(of: selecteduuids) {
-                guard selecteduuids.count > 0 else { return }
-                path.append(Tasks(task: .dryrunonetaskalreadyestimated))
-            }
+                .onChange(of: selecteduuids) {
+                    guard selecteduuids.count > 0 else { return }
+                    path.append(Tasks(task: .dryrunonetaskalreadyestimated))
+                }
 
-            Table(estimatingprogressdetails.getestimatedlist() ?? []) {
-                TableColumn("New") { files in
-                    if files.datatosynchronize {
-                        Text(files.newfiles)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(.blue)
-                    } else {
-                        Text(files.newfiles)
+                Table(estimatingprogressdetails.getestimatedlist() ?? []) {
+                    TableColumn("New") { files in
+                        if files.datatosynchronize {
+                            Text(files.newfiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(files.newfiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                    }
+                    .width(max: 40)
+                    TableColumn("Delete") { files in
+                        if files.datatosynchronize {
+                            Text(files.deletefiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(files.deletefiles)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                    }
+                    .width(max: 40)
+                    TableColumn("Files") { files in
+                        if files.datatosynchronize {
+                            Text(files.transferredNumber)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(files.transferredNumber)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                    }
+                    .width(max: 40)
+                    TableColumn("Bytes") { files in
+                        if files.datatosynchronize {
+                            Text(files.transferredNumberSizebytes)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.blue)
+                        } else {
+                            Text(files.transferredNumberSizebytes)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                    }
+                    .width(max: 60)
+                    TableColumn("Tot num") { files in
+                        Text(files.totalNumber)
                             .frame(maxWidth: .infinity, alignment: .trailing)
                     }
-                }
-                .width(max: 40)
-                TableColumn("Delete") { files in
-                    if files.datatosynchronize {
-                        Text(files.deletefiles)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(.blue)
-                    } else {
-                        Text(files.deletefiles)
+                    .width(max: 80)
+                    TableColumn("Tot bytes") { files in
+                        Text(files.totalNumberSizebytes)
                             .frame(maxWidth: .infinity, alignment: .trailing)
                     }
-                }
-                .width(max: 40)
-                TableColumn("Files") { files in
-                    if files.datatosynchronize {
-                        Text(files.transferredNumber)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(.blue)
-                    } else {
-                        Text(files.transferredNumber)
+                    .width(max: 80)
+                    TableColumn("Tot dir") { files in
+                        Text(files.totalDirs)
                             .frame(maxWidth: .infinity, alignment: .trailing)
                     }
+                    .width(max: 70)
                 }
-                .width(max: 40)
-                TableColumn("Bytes") { files in
-                    if files.datatosynchronize {
-                        Text(files.transferredNumberSizebytes)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(.blue)
-                    } else {
-                        Text(files.transferredNumberSizebytes)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                }
-                .width(max: 60)
-                TableColumn("Tot num") { files in
-                    Text(files.totalNumber)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
-                .width(max: 80)
-                TableColumn("Tot bytes") { files in
-                    Text(files.totalNumberSizebytes)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
-                .width(max: 80)
-                TableColumn("Tot dir") { files in
-                    Text(files.totalDirs)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
-                .width(max: 70)
             }
         }
         .toolbar(content: {
