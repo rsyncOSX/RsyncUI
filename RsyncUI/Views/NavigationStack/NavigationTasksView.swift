@@ -124,7 +124,7 @@ struct NavigationTasksView: View {
         .alert(isPresented: $showingAlert) {
             Alert(
                 title: Text("Execute all tasks with NO estimating first?"),
-                primaryButton: .destructive(Text("Execute")) {
+                primaryButton: .default(Text("Synchronize")) {
                     path.append(Tasks(task: .executenoestimatetasksview))
                 },
                 secondaryButton: .cancel()
