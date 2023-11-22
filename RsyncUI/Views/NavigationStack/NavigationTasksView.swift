@@ -83,7 +83,7 @@ struct NavigationTasksView: View {
                 } label: {
                     Image(systemName: "arrowshape.turn.up.backward")
                 }
-                .help("Execute (⌘R)")
+                .help("Synchronize (⌘R)")
             }
 
             ToolbarItem {
@@ -123,7 +123,7 @@ struct NavigationTasksView: View {
         })
         .alert(isPresented: $showingAlert) {
             Alert(
-                title: Text("Execute all tasks with NO estimating first?"),
+                title: Text("Synchronize all tasks with NO estimating first?"),
                 primaryButton: .default(Text("Synchronize")) {
                     path.append(Tasks(task: .executenoestimatetasksview))
                 },
