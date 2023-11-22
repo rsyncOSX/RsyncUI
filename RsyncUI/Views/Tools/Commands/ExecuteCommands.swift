@@ -56,7 +56,7 @@ struct StartexecuteButton: View {
         Button {
             startexecution = true
         } label: {
-            Label("Execute", systemImage: "play.fill")
+            Label("Synchronize", systemImage: "play.fill")
         }
         .keyboardShortcut("r", modifiers: [.command])
     }

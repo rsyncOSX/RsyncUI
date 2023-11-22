@@ -82,7 +82,7 @@ struct NavigationTasksView: View {
                 } label: {
                     Image(systemName: "arrowshape.turn.up.backward")
                 }
-                .help("Execute (⌘R)")
+                .help("Synchronize (⌘R)")
             }
 
             ToolbarItem {

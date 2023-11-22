@@ -164,10 +164,10 @@
 "Estimated tasks" = "Geschätzte Aufgaben";
 
 /* No comment provided by engineer. */
-"Execute" = "Ausführen";
+"Synchronize" = "Ausführen";
 
 /* No comment provided by engineer. */
-"Execute (⌘R)" = "Ausführen (⌘R)";
+"Synchronize (⌘R)" = "Ausführen (⌘R)";
 
 /* No comment provided by engineer. */
 "Filenames" = "Filnamen";

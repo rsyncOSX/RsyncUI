@@ -136,7 +136,7 @@ struct DetailsSummarizedTasksView: View {
                 }
 
                 if datatosynchronize == true {
-                    Button("Execute") {
+                    Button("Synchronize") {
                         execute = true
                         dismiss()
                     }
