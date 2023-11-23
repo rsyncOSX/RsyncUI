@@ -70,8 +70,7 @@ struct NavigationTasksView: View {
                     path.append(Tasks(task: .estimatedview))
                 } label: {
                     Image(systemName: "wand.and.stars")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.blue, .blue)
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Estimate (⌘E)")
             }
@@ -80,7 +79,8 @@ struct NavigationTasksView: View {
                 Button {
                     execute()
                 } label: {
-                    Image(systemName: "arrowshape.turn.up.backward")
+                    Image(systemName: "arrowshape.turn.up.left.fill")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Synchronize (⌘R)")
             }

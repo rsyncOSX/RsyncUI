@@ -105,7 +105,8 @@ struct NavigationQuicktaskView: View {
                     Button {
                         getconfigandexecute()
                     } label: {
-                        Image(systemName: "arrowshape.turn.up.backward")
+                        Image(systemName: "arrowshape.turn.up.left.fill")
+                            .foregroundColor(Color(.blue))
                     }
                     .help("Synchronize (⌘R)")
                 }
