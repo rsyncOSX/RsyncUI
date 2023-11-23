@@ -16,6 +16,7 @@ struct NavigationSummarizedAllDetailsView: View {
     @Binding var path: [Tasks]
 
     @State private var focusstartexecution: Bool = false
+    @State private var nodatatosynchronize: Bool = false
 
     var body: some View {
         HStack {
@@ -160,6 +161,15 @@ struct NavigationSummarizedAllDetailsView: View {
             .onDisappear {
                 progressdetails.resetcounter()
                 progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
+                nodatatosynchronize = {
+                    if let data = estimatingprogressdetails.getestimatedlist()?.filter({
+                        $0.datatosynchronize == true })
+                    {
+                        return data.isEmpty
+                    } else {
+                        return false
+                    }
+                }()
             }
     }
 
@@ -171,5 +181,22 @@ struct NavigationSummarizedAllDetailsView: View {
                 path.append(Tasks(task: .executestimatedview))
                 focusstartexecution = false
             })
+    }
+
+    var nosynchronize: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text("No data to synchronize")
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 200, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .onAppear(perform: {
+            // Show updated for 2 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                nodatatosynchronize = false
+            }
+        })
     }
 }
