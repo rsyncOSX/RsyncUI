@@ -69,6 +69,8 @@ struct NavigationSidebarTasksView: View {
                                      selecteduuids: $selecteduuids)
         case .alltasksview:
             NavigationAlltasksView()
+        case .viewlogfile:
+            NavigationLogfileView()
         }
     }
 }
@@ -76,7 +78,7 @@ struct NavigationSidebarTasksView: View {
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
          estimatedview, firsttime, dryrunonetask, alltasksview,
-         dryrunonetaskalreadyestimated
+         dryrunonetaskalreadyestimated, viewlogfile
     var id: String { rawValue }
 }
 

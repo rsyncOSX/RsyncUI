@@ -119,6 +119,15 @@ struct NavigationTasksView: View {
                 }
                 .help("Rsync output estimated task")
             }
+
+            ToolbarItem {
+                Button {
+                    path.append(Tasks(task: .viewlogfile))
+                } label: {
+                    Image(systemName: "info")
+                }
+                .help("View logfile")
+            }
         })
         .alert(isPresented: $showingAlert) {
             Alert(
