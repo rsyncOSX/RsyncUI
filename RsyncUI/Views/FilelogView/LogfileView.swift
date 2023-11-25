@@ -42,6 +42,16 @@ struct LogfileView: View {
         .onAppear {
             logfileview.generatedata()
         }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    reset()
+                } label: {
+                    Image(systemName: "eraser")
+                }
+                .help("Reset logfile")
+            }
+        }
     }
 
     var headerlogfile: some View {
