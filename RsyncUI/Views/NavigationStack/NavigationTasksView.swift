@@ -124,7 +124,7 @@ struct NavigationTasksView: View {
                 Button {
                     path.append(Tasks(task: .viewlogfile))
                 } label: {
-                    Image(systemName: "info")
+                    Image(systemName: "filemenu.and.cursorarrow")
                 }
                 .help("View logfile")
             }
