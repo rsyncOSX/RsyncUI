@@ -13,7 +13,9 @@ struct LogCommands: Commands {
     var body: some Commands {
         CommandMenu("Logfile") {
             Button(action: {
-                presentlogfile()
+                if SharedReference.shared.usenavigationstack == false {
+                    presentlogfile()
+                }
             }) {
                 Text("View logfile")
             }
