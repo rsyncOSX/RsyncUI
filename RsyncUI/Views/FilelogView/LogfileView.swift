@@ -18,7 +18,7 @@ struct LogfileView: View {
         VStack {
             Section(header: headerlogfile) {
                 Table(logfileview.output) {
-                    TableColumn("Lines") { data in
+                    TableColumn("Logfile") { data in
                         Text(data.line)
                     }
                     .width(min: 700)

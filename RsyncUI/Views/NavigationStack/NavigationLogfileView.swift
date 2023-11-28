@@ -16,7 +16,7 @@ struct NavigationLogfileView: View {
     var body: some View {
         VStack {
             Table(logfileview.output) {
-                TableColumn("Lines") { data in
+                TableColumn("Logfile") { data in
                     Text(data.line)
                 }
             }
