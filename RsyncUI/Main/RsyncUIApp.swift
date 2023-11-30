@@ -15,7 +15,7 @@ struct RsyncUIApp: App {
     @State private var selectedprofile: String? = "Default profile"
 
     var body: some Scene {
-        WindowGroup {
+        Window("RsyncUI", id: "main") {
             RsyncUIView(selectedprofile: $selectedprofile)
                 .task {
                     CatalogProfile().createrootprofilecatalog()
