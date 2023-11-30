@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ExecuteCommands: Commands {
+    @Binding var navstackisenabled: Bool
+    @Binding var viewlogfile: Bool
+
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
     @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
@@ -16,22 +19,35 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.enabletimer) private var enabletimer
 
     var body: some Commands {
-        CommandMenu("Tasks") {
-            StarteestimateButton(startestimation: $startestimation)
-            StartexecuteButton(startexecution: $startexecution)
+        if navstackisenabled {
+            CommandMenu("Tasks") {
+                StarteestimateButton(startestimation: $startestimation)
+                StartexecuteButton(startexecution: $startexecution)
 
-            Divider()
+                Divider()
 
-            FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
-            Showinfotask(showinfotask: $showinfotask)
+                Abborttask(aborttask: $aborttask)
+            }
+        } else {
+            CommandMenu("Tasks") {
+                StarteestimateButton(startestimation: $startestimation)
+                StartexecuteButton(startexecution: $startexecution)
 
-            Divider()
+                Divider()
 
-            Enabletimer(enabletimer: $enabletimer)
+                FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
+                Showinfotask(showinfotask: $showinfotask)
 
-            Divider()
+                Divider()
 
-            Abborttask(aborttask: $aborttask)
+                Enabletimer(enabletimer: $enabletimer)
+
+                Divider()
+
+                Abborttask(aborttask: $aborttask)
+            }
+
+            LogCommands(viewlogfile: $viewlogfile)
         }
     }
 }
