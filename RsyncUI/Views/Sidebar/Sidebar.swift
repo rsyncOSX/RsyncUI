@@ -76,7 +76,8 @@ struct Sidebar: View {
                 RestoreTableView()
             }
         case .snapshots:
-            SidebarSnapshotsView(reload: $reload)
+            SnapshotsView(reload: $reload)
+                .padding()
         case .synchronize:
             if SharedReference.shared.usenavigationstack {
                 NavigationStack {
