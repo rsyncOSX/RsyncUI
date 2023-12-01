@@ -24,7 +24,6 @@
 		E91FDCA12A5173860087B4CE /* Argumentsforrsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */; };
 		E927447529407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */; };
 		E927AAD32616E27300DC27A3 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927AAD22616E27300DC27A3 /* QuicktaskView.swift */; };
-		E92B19092755F7F600B16B03 /* LogCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B19082755F7F600B16B03 /* LogCommands.swift */; };
 		E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */; };
 		E92FA43F2ABEBEC3001E0A14 /* AlertToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA4392ABEBEC3001E0A14 /* AlertToast.swift */; };
 		E92FA4412ABEBEC3001E0A14 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA43B2ABEBEC3001E0A14 /* BlurView.swift */; };
@@ -233,7 +232,6 @@
 		E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Argumentsforrsync.swift; sourceTree = "<group>"; };
 		E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckfornewversionofRsyncUI.swift; sourceTree = "<group>"; };
 		E927AAD22616E27300DC27A3 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
-		E92B19082755F7F600B16B03 /* LogCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCommands.swift; sourceTree = "<group>"; };
 		E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteSnapshots.swift; sourceTree = "<group>"; };
 		E92FA4392ABEBEC3001E0A14 /* AlertToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
 		E92FA43B2ABEBEC3001E0A14 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
@@ -463,6 +461,8 @@
 		E927AAD12616E23100DC27A3 /* Quicktask */ = {
 			isa = PBXGroup;
 			children = (
+				E96223942B0BDA7E00C40578 /* NavigationOutputRsyncView.swift */,
+				E931ED952B0C82BB000BEF56 /* NavigationQuicktaskView.swift */,
 				E927AAD22616E27300DC27A3 /* QuicktaskView.swift */,
 				E964FFE62906A86000BFEC94 /* OutputRsyncView.swift */,
 			);
@@ -476,30 +476,6 @@
 				E8944891267B2CB0009F9C4A /* RsyncUIView.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		E954AD3D2AFE8DFE00F3EA63 /* NavigationStack */ = {
-			isa = PBXGroup;
-			children = (
-				E954AD3E2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift */,
-				E954AD402AFE8FBB00F3EA63 /* NavigationSummarizedAllDetailsView.swift */,
-				E954AD422AFE901200F3EA63 /* NavigationTasksView.swift */,
-				E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */,
-				E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */,
-				E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskRootView.swift */,
-				E94F23A12AFE967800983C1C /* NavigationDetailsOneTask.swift */,
-				E9B6B3DD2AFFD91200E12EB2 /* NavigationFirstTimeView.swift */,
-				E9B6B3E22AFFDE7500E12EB2 /* NavigationListofTasksMainView.swift */,
-				E905DFCA2B00CECD00FEFF3A /* NavigationAlltasksView.swift */,
-				E99A79542B0BA1A800D3244A /* NavigationRsyncDefaultParametersView.swift */,
-				E99A79562B0BA1C800D3244A /* NavigationRsyncParametersView.swift */,
-				E99A79582B0BAB2D00D3244A /* NavigationSidebarParametersView.swift */,
-				E96223942B0BDA7E00C40578 /* NavigationOutputRsyncView.swift */,
-				E931ED952B0C82BB000BEF56 /* NavigationQuicktaskView.swift */,
-				E956D3772B0C88B9008B190F /* NavigationRestoreTableView.swift */,
-				E9B6BD342B120B840084BC8B /* NavigationLogfileView.swift */,
-			);
-			path = NavigationStack;
 			sourceTree = "<group>";
 		};
 		E9556ACB290C0CB700B1752A /* Async */ = {
@@ -516,6 +492,8 @@
 		E95EDC7D26063C7F000018DE /* RsyncParameters */ = {
 			isa = PBXGroup;
 			children = (
+				E99A79542B0BA1A800D3244A /* NavigationRsyncDefaultParametersView.swift */,
+				E99A79562B0BA1C800D3244A /* NavigationRsyncParametersView.swift */,
 				E985C63925F3AD8400CB895C /* RsyncCommandView.swift */,
 				E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */,
 				E91CC2612607260B00D69D0B /* RsyncDefaultParametersView.swift */,
@@ -583,7 +561,6 @@
 		E985C60925F3AD8400CB895C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E954AD3D2AFE8DFE00F3EA63 /* NavigationStack */,
 				E8AC45CB26E5ED2500E0AE43 /* Tools */,
 				E985C62025F3AD8400CB895C /* Modifiers */,
 				E985C60A25F3AD8400CB895C /* Sidebar */,
@@ -605,6 +582,8 @@
 		E985C60A25F3AD8400CB895C /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
+				E99A79582B0BAB2D00D3244A /* NavigationSidebarParametersView.swift */,
+				E954AD3E2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift */,
 				E99DE5232A52B16100422E85 /* Sidebar.swift */,
 				E985C60C25F3AD8400CB895C /* SidebarTasksView.swift */,
 				E985C60E25F3AD8400CB895C /* SidebarSnapshotsView.swift */,
@@ -619,6 +598,7 @@
 		E985C61525F3AD8400CB895C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
+				E9B6B3E22AFFDE7500E12EB2 /* NavigationListofTasksMainView.swift */,
 				E944E6C92A16B6A6009BA945 /* ListofTasksMainView.swift */,
 				E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */,
 				E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */,
@@ -642,6 +622,7 @@
 		E985C61E25F3AD8400CB895C /* FilelogView */ = {
 			isa = PBXGroup;
 			children = (
+				E9B6BD342B120B840084BC8B /* NavigationLogfileView.swift */,
 				E985C61F25F3AD8400CB895C /* LogfileView.swift */,
 			);
 			path = FilelogView;
@@ -660,6 +641,10 @@
 		E985C62325F3AD8400CB895C /* Detailsview */ = {
 			isa = PBXGroup;
 			children = (
+				E905DFCA2B00CECD00FEFF3A /* NavigationAlltasksView.swift */,
+				E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskRootView.swift */,
+				E94F23A12AFE967800983C1C /* NavigationDetailsOneTask.swift */,
+				E954AD402AFE8FBB00F3EA63 /* NavigationSummarizedAllDetailsView.swift */,
 				E81C244B267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift */,
 				E943D4232906CE6F0042A560 /* DetailsOneTaskView.swift */,
 				E96ED542292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift */,
@@ -704,6 +689,10 @@
 		E985C64E25F3AD8400CB895C /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				E9B6B3DD2AFFD91200E12EB2 /* NavigationFirstTimeView.swift */,
+				E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */,
+				E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */,
+				E954AD422AFE901200F3EA63 /* NavigationTasksView.swift */,
 				E9A6A42329CA076200C59183 /* TasksView.swift */,
 				E9EA4EA229DAA0EF00456ADA /* Counter.swift */,
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedTasksView.swift */,
@@ -1016,6 +1005,7 @@
 		E99C23F9261C2D21009D4DBF /* Restore */ = {
 			isa = PBXGroup;
 			children = (
+				E956D3772B0C88B9008B190F /* NavigationRestoreTableView.swift */,
 				E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */,
 				E94E1E1D2A2DB14A00011FED /* RestoreTableView.swift */,
 			);
@@ -1053,7 +1043,6 @@
 			isa = PBXGroup;
 			children = (
 				E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */,
-				E92B19082755F7F600B16B03 /* LogCommands.swift */,
 				E9FBF40C291AFB7000AAAC40 /* SnapshotCommands.swift */,
 			);
 			path = Commands;
@@ -1383,7 +1372,6 @@
 				E985C77B25F3AD9700CB895C /* DuArgumentsSsh.swift in Sources */,
 				E985C79225F3AD9700CB895C /* Extensions.swift in Sources */,
 				E944E6CA2A16B6A6009BA945 /* ListofTasksMainView.swift in Sources */,
-				E92B19092755F7F600B16B03 /* LogCommands.swift in Sources */,
 				E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */,
 				E98C7AB5262D662200555977 /* ReadScheduleJSON.swift in Sources */,
 				E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */,

@@ -47,7 +47,14 @@ struct ExecuteCommands: Commands {
                 Abborttask(aborttask: $aborttask)
             }
 
-            LogCommands(viewlogfile: $viewlogfile)
+            CommandMenu("Logfile") {
+                Button(action: {
+                    viewlogfile = true
+                }) {
+                    Text("View logfile")
+                }
+                .keyboardShortcut("o", modifiers: [.command])
+            }
         }
     }
 }
