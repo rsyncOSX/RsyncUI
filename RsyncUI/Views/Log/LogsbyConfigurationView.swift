@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 struct LogsbyConfigurationView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var hiddenID = -1
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedloguuids = Set<Log.ID>()
@@ -29,7 +29,7 @@ struct LogsbyConfigurationView: View {
         VStack {
             HStack {
                 ListofTasksLightView(selecteduuids: $selecteduuids)
-                    .onChange(of: selecteduuids) { _ in
+                    .onChange(of: selecteduuids) {
                         let selected = rsyncUIdata.configurations?.filter { config in
                             selecteduuids.contains(config.id)
                         }
@@ -56,11 +56,7 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     showAlertfordelete = true
                 }
-                .overlay { if #available(macOS 14.0, *),
-                              logrecords.countrecords == 0
-                    {
-                        ContentUnavailableView.search
-                    }
+                .overlay { if logrecords.countrecords == 0 { ContentUnavailableView.search }
                 }
             }
             HStack {
@@ -75,7 +71,7 @@ struct LogsbyConfigurationView: View {
             }
         }
         .searchable(text: $filterstring)
-        .onChange(of: filterstring) { _ in
+        .onChange(of: filterstring) {
             showindebounce = true
             publisher.send(filterstring)
         }

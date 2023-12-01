@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Observation
 
-final class Rsyncversion: ObservableObject {
+@Observable
+final class Rsyncversion {
     func getrsyncversion() async {
         if SharedReference.shared.norsync == false {
             let command = await RsyncAsync(arguments: ["--version"],

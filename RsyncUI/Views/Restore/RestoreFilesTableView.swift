@@ -18,7 +18,7 @@ struct RestoreFilesTableView: View {
             Table(datalist, selection: $selectedid) {
                 TableColumn("Filenames", value: \.filename)
             }
-            .onChange(of: selectedid) { _ in
+            .onChange(of: selectedid) {
                 let record = datalist.filter { $0.id == selectedid }
                 guard record.count > 0 else { return }
                 filestorestore = record[0].filename

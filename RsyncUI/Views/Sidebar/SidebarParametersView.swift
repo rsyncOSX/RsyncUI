@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 19/08/2021.
 //
 
+import Observation
 import SwiftUI
 
 struct SidebarParametersView: View {
@@ -25,6 +26,7 @@ struct SidebarParametersView: View {
     }
 }
 
-final class Dataischanged: ObservableObject {
+@Observable
+final class Dataischanged {
     var dataischanged: Bool = false
 }

@@ -6,21 +6,22 @@
 //
 // swiftlint:disable line_length file_length
 
+import Observation
 import OSLog
 import SwiftUI
 
 struct TasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
     // These two objects keeps track of the state and collects
     // the estimated values.
-    @StateObject private var estimatingstate = EstimatingState()
-    @StateObject private var estimatingprogresscount = EstimateProgressDetails()
+    @State private var estimatingstate = EstimatingState()
+    @State private var estimatingprogresscount = EstimateProgressDetails()
 
     @Binding var reload: Bool
-    @Binding var selecteduuids: Set<UUID>
+    @Binding var selecteduuids: Set<Configuration.ID>
 
     @Binding var showeexecutestimatedview: Bool
     @Binding var showexecutenoestimateview: Bool
@@ -38,8 +39,8 @@ struct TasksView: View {
     @State private var localdata: [String] = []
     // Modale view
     @State private var modaleview = false
-    @StateObject var sheetchooser = SheetChooser()
-    @StateObject var selectedconfig = Selectedconfig()
+    @State var sheetchooser = SheetChooser()
+    @State var selectedconfig = Selectedconfig()
     // Timer
     @State private var timervalue: Double = 600
     @State private var timerisenabled: Bool = false
@@ -56,7 +57,7 @@ struct TasksView: View {
                 showestimateicon: true
             )
             .frame(maxWidth: .infinity)
-            .onChange(of: selecteduuids) { _ in
+            .onChange(of: selecteduuids) {
                 let selected = rsyncUIdata.configurations?.filter { config in
                     selecteduuids.contains(config.id)
                 }
@@ -101,6 +102,8 @@ struct TasksView: View {
                     estimate()
                 } label: {
                     Image(systemName: "wand.and.stars")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.blue, .blue)
                 }
                 .help("Estimate (⌘E)")
             }
@@ -171,7 +174,7 @@ struct TasksView: View {
                                        estimatedlist: estimatingprogresscount.getestimatedlist() ?? [])
         case .dryrunonetask:
             DetailsOneTaskView(selectedconfig: selectedconfig.config)
-                .environmentObject(estimatingprogresscount)
+                .environment(estimatingprogresscount)
                 .onAppear {
                     doubleclick = false
                 }
@@ -192,7 +195,7 @@ struct TasksView: View {
                     stopasynctimer()
                     timervalue = SharedReference.shared.timervalue ?? 600
                 })
-                .onChange(of: timerisenabled) { _ in
+                .onChange(of: timerisenabled) {
                     if timerisenabled == true {
                         startasynctimer()
                     }
@@ -230,9 +233,10 @@ struct TasksView: View {
                     focusshowinfotask = false
                     return
                 }
-                let tasklocalinfo = RsyncAsync(arguments: argumentslocalinfo,
-                                               processtermination: processtermination)
+
                 Task {
+                    let tasklocalinfo = await RsyncAsync(arguments: argumentslocalinfo,
+                                                         processtermination: processtermination)
                     await tasklocalinfo.executeProcess()
                 }
             })
@@ -320,9 +324,6 @@ extension TasksView {
             Logger.process.info("DryRun: show summarized dryrun for all tasks")
             // show summarized dry run
             sheetchooser.sheet = .dryrunalltasks
-        } else {
-            // New profile is selected, just return no action
-            return
         }
         modaleview = true
     }
@@ -438,14 +439,17 @@ enum Sheet: String, Identifiable {
     var id: String { rawValue }
 }
 
-final class SheetChooser: ObservableObject {
+@Observable
+final class SheetChooser {
     // Which sheet to present
     // Do not redraw view when changing
     // no @Publised
+    @ObservationIgnored
     var sheet: Sheet = .dryrunalltasks
 }
 
-final class Selectedconfig: ObservableObject {
+@Observable
+final class Selectedconfig {
     var config: Configuration?
 }
 

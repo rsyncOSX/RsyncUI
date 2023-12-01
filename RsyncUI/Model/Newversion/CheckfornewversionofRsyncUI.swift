@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observation
 import OSLog
 
 struct VersionsofRsyncUI: Codable {
@@ -38,9 +39,9 @@ struct GetversionsofRsyncUI {
     }
 }
 
-@MainActor
-final class CheckfornewversionofRsyncUI: ObservableObject {
-    @Published var notifynewversion: Bool = false
+@Observable
+final class CheckfornewversionofRsyncUI {
+    var notifynewversion: Bool = false
 
     func getversionsofrsyncui() async {
         do {

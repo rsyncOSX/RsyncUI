@@ -1,14 +1,14 @@
 //
-//  RestoreTableView.swift
+//  NavigationRestoreTableView.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 05/06/2023.
+//  Created by Thomas Evensen on 21/11/2023.
 //
 
 import Combine
 import SwiftUI
 
-struct RestoreTableView: View {
+struct NavigationRestoreTableView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State var restore = ObservableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
@@ -23,148 +23,152 @@ struct RestoreTableView: View {
     @State private var showindebounce: Bool = false
 
     var body: some View {
-        VStack {
-            ZStack {
-                HStack {
-                    ListofTasksLightView(selecteduuids: $selecteduuids)
-                        .onChange(of: selecteduuids) {
-                            restore.filestorestore = ""
-                            restore.datalist = []
-                            let selected = rsyncUIdata.configurations?.filter { config in
-                                selecteduuids.contains(config.id)
-                            }
-                            if (selected?.count ?? 0) == 1 {
-                                if let config = selected {
-                                    restore.selectedconfig = config[0]
-                                    if config[0].task == SharedReference.shared.snapshot {
-                                        getsnapshotlogsandcatalogs()
-                                    }
-                                }
-                            } else {
-                                restore.selectedconfig = nil
+        NavigationStack {
+            VStack {
+                ZStack {
+                    HStack {
+                        ListofTasksLightView(selecteduuids: $selecteduuids)
+                            .onChange(of: selecteduuids) {
                                 restore.filestorestore = ""
                                 restore.datalist = []
-                                snapshotdata.catalogsanddates.removeAll()
-                                filterstring = ""
-                                restore.rsyncdata = nil
+                                let selected = rsyncUIdata.configurations?.filter { config in
+                                    selecteduuids.contains(config.id)
+                                }
+                                if (selected?.count ?? 0) == 1 {
+                                    if let config = selected {
+                                        restore.selectedconfig = config[0]
+                                        if config[0].task == SharedReference.shared.snapshot {
+                                            getsnapshotlogsandcatalogs()
+                                        }
+                                    }
+                                } else {
+                                    restore.selectedconfig = nil
+                                    restore.filestorestore = ""
+                                    restore.datalist = []
+                                    snapshotdata.catalogsanddates.removeAll()
+                                    filterstring = ""
+                                    restore.rsyncdata = nil
+                                }
                             }
-                        }
 
-                    RestoreFilesTableView(filestorestore: $restore.filestorestore,
-                                          datalist: restore.datalist)
-                        .onChange(of: rsyncUIdata.profile) {
-                            restore.datalist.removeAll()
-                        }
-                        .overlay { if filterstring.count > 0,
-                                      restore.rsyncdata?.count ?? 0 > 0,
-                                      restore.datalist.count == 0
-                            {
-                                ContentUnavailableView.search
+                        RestoreFilesTableView(filestorestore: $restore.filestorestore,
+                                              datalist: restore.datalist)
+                            .onChange(of: rsyncUIdata.profile) {
+                                restore.datalist.removeAll()
                             }
-                        }
-                }
-
-                if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
-                if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
-            }
-
-            Spacer()
-
-            ZStack {
-                if focusaborttask { labelaborttask }
-            }
-        }
-
-        HStack {
-            VStack(alignment: .leading) {
-                setfilestorestore
-
-                setpathforrestore
-            }
-
-            Spacer()
-
-            if showindebounce { indebounce }
-
-            Spacer()
-
-            VStack(alignment: .leading) {
-                Toggle("--dry-run", isOn: $restore.dryrun)
-                    .toggleStyle(.switch)
-            }
-
-            Button("Files") {
-                Task {
-                    if let config = restore.selectedconfig {
-                        guard config.task != SharedReference.shared.syncremote else { return }
-                        gettingfilelist = true
-                        await getfilelist()
+                            .overlay { if filterstring.count > 0,
+                                          restore.rsyncdata?.count ?? 0 > 0,
+                                          restore.datalist.count == 0
+                                {
+                                    ContentUnavailableView.search
+                                }
+                            }
                     }
+
+                    if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
+                    if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
                 }
-            }
-            .buttonStyle(ColorfulButtonStyle())
-        }
-        .sheet(isPresented: $restore.presentsheetrsync) { viewoutput }
-        .focusedSceneValue(\.aborttask, $focusaborttask)
-        .searchable(text: $filterstring)
-        .onChange(of: filterstring) {
-            showindebounce = true
-            publisher.send(filterstring)
-        }
-        .onReceive(
-            publisher.debounce(
-                for: .seconds(1),
-                scheduler: DispatchQueue.main
-            )
-        ) { filter in
-            showindebounce = false
-            if restore.rsyncdata?.count ?? 0 > 0, filter.isEmpty == false {
-                filterrestorefilelist()
-            } else {
-                restore.datalist = restore.rsyncdata?.map { filename in
-                    RestoreFileRecord(filename: filename)
-                } ?? []
-            }
-        }
-        .toolbar(content: {
-            ToolbarItem {
-                if restore.selectedconfig?.task == SharedReference.shared.snapshot {
-                    snapshotcatalogpicker
+
+                Spacer()
+
+                ZStack {
+                    if focusaborttask { labelaborttask }
                 }
             }
 
-            ToolbarItem {
-                Button {
+            HStack {
+                VStack(alignment: .leading) {
+                    setfilestorestore
+
+                    setpathforrestore
+                }
+
+                Spacer()
+
+                if showindebounce { indebounce }
+
+                Spacer()
+
+                VStack(alignment: .leading) {
+                    Toggle("--dry-run", isOn: $restore.dryrun)
+                        .toggleStyle(.switch)
+                }
+
+                Button("Files") {
                     Task {
-                        await restore()
+                        if let config = restore.selectedconfig {
+                            guard config.task != SharedReference.shared.syncremote else { return }
+                            gettingfilelist = true
+                            await getfilelist()
+                        }
                     }
-                } label: {
-                    Image(systemName: "arrowshape.turn.up.left.fill")
-                        .foregroundColor(Color(.blue))
                 }
-                .help("Restore")
+                .buttonStyle(ColorfulButtonStyle())
             }
+            .focusedSceneValue(\.aborttask, $focusaborttask)
+            .searchable(text: $filterstring)
+            .onChange(of: filterstring) {
+                showindebounce = true
+                publisher.send(filterstring)
+            }
+            .onReceive(
+                publisher.debounce(
+                    for: .seconds(1),
+                    scheduler: DispatchQueue.main
+                )
+            ) { filter in
+                showindebounce = false
+                if restore.rsyncdata?.count ?? 0 > 0, filter.isEmpty == false {
+                    filterrestorefilelist()
+                } else {
+                    restore.datalist = restore.rsyncdata?.map { filename in
+                        RestoreFileRecord(filename: filename)
+                    } ?? []
+                }
+            }
+            .toolbar(content: {
+                ToolbarItem {
+                    if restore.selectedconfig?.task == SharedReference.shared.snapshot {
+                        snapshotcatalogpicker
+                    }
+                }
 
-            ToolbarItem {
-                Button {
-                    guard SharedReference.shared.process == nil else { return }
-                    guard restore.selectedconfig != nil else { return }
-                    restore.presentsheetrsync = true
-                } label: {
-                    Image(systemName: "doc.plaintext")
+                ToolbarItem {
+                    Button {
+                        Task {
+                            await restore()
+                        }
+                    } label: {
+                        Image(systemName: "arrowshape.turn.up.left.fill")
+                            .foregroundColor(Color(.blue))
+                    }
+                    .help("Restore")
                 }
-                .help("View output")
-            }
 
-            ToolbarItem {
-                Button {
-                    abort()
-                } label: {
-                    Image(systemName: "stop.fill")
+                ToolbarItem {
+                    Button {
+                        guard SharedReference.shared.process == nil else { return }
+                        guard restore.selectedconfig != nil else { return }
+                        restore.presentsheetrsync = true
+                    } label: {
+                        Image(systemName: "doc.plaintext")
+                    }
+                    .help("View output")
                 }
-                .help("Abort (⌘K)")
-            }
-        })
+
+                ToolbarItem {
+                    Button {
+                        abort()
+                    } label: {
+                        Image(systemName: "stop.fill")
+                    }
+                    .help("Abort (⌘K)")
+                }
+            })
+        }
+        .navigationDestination(isPresented: $restore.presentsheetrsync) {
+            NavigationOutputRsyncView(output: restore.rsyncdata ?? [])
+        }
     }
 
     var labelaborttask: some View {
@@ -230,7 +234,7 @@ struct RestoreTableView: View {
     }
 }
 
-extension RestoreTableView {
+extension NavigationRestoreTableView {
     func abort() {
         _ = InterruptProcess()
     }
@@ -316,9 +320,4 @@ extension RestoreTableView {
             }
         }
     }
-}
-
-struct RestoreFileRecord: Identifiable {
-    let id = UUID()
-    var filename: String
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observation
 
 struct Profiles: Hashable, Identifiable {
     var profile: String?
@@ -16,7 +17,8 @@ struct Profiles: Hashable, Identifiable {
     }
 }
 
-final class Profilenames: ObservableObject {
+@Observable
+final class Profilenames {
     var profiles: [Profiles] = .init()
 
     func update() {

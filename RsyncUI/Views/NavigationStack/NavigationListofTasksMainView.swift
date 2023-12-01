@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationListofTasksMainView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
 
     @Binding var selecteduuids: Set<Configuration.ID>

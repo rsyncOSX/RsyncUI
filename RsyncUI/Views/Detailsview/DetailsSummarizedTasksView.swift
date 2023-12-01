@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailsSummarizedTasksView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var selecteduuids: Set<UUID>
     @Binding var execute: Bool
     var estimatedlist: [RemoteinfonumbersOnetask]
@@ -136,7 +136,7 @@ struct DetailsSummarizedTasksView: View {
                 }
 
                 if datatosynchronize == true {
-                    Button("Execute") {
+                    Button("Synchronize") {
                         execute = true
                         dismiss()
                     }

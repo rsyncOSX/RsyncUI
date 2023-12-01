@@ -1,21 +1,13 @@
 //
-//  QuicktaskView.swift
+//  NavigationQuicktaskView.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 02/04/2021.
+//  Created by Thomas Evensen on 21/11/2023.
 //
 
 import SwiftUI
 
-enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case synchronize
-    case syncremote
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
-}
-
-struct QuicktaskView: View {
+struct NavigationQuicktaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @State private var localcatalog: String = ""
@@ -50,85 +42,89 @@ struct QuicktaskView: View {
     @FocusState private var focusField: QuicktaskField?
 
     var body: some View {
-        ZStack {
-            Spacer()
+        NavigationStack {
+            ZStack {
+                Spacer()
 
-            // Column 1
-            VStack(alignment: .leading) {
-                VStack(alignment: .trailing) {
-                    pickerselecttypeoftask
-
-                    Toggle("--dry-run", isOn: $dryrun)
-                        .toggleStyle(.switch)
-
-                    Toggle("Don´t add /", isOn: $donotaddtrailingslash)
-                        .toggleStyle(.switch)
-                }
-                .padding()
-
+                // Column 1
                 VStack(alignment: .leading) {
-                    if selectedrsynccommand == .synchronize {
-                        localandremotecatalog
-                    } else {
-                        localandremotecatalogsyncremote
+                    VStack(alignment: .trailing) {
+                        pickerselecttypeoftask
+
+                        Toggle("--dry-run", isOn: $dryrun)
+                            .toggleStyle(.switch)
+
+                        Toggle("Don´t add /", isOn: $donotaddtrailingslash)
+                            .toggleStyle(.switch)
                     }
+                    .padding()
 
-                    remoteuserandserver
+                    VStack(alignment: .leading) {
+                        if selectedrsynccommand == .synchronize {
+                            localandremotecatalog
+                        } else {
+                            localandremotecatalogsyncremote
+                        }
 
-                    HStack {
-                        remoteuserpicker
+                        remoteuserandserver
 
-                        remoteserverpicker
+                        HStack {
+                            remoteuserpicker
+
+                            remoteserverpicker
+                        }
                     }
                 }
-            }
 
-            if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
-            if focusaborttask { labelaborttask }
-            if focusstartexecution { labelstartexecution }
-        }
-        .onSubmit {
-            switch focusField {
-            case .localcatalogField:
-                focusField = .remotecatalogField
-            case .remotecatalogField:
-                focusField = .remoteuserField
-            case .remoteuserField:
-                focusField = .remoteserverField
-            case .remoteserverField:
-                focusField = nil
-                dryrun = true
-            default:
-                return
+                if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
+                if focusaborttask { labelaborttask }
+                if focusstartexecution { labelstartexecution }
             }
-        }
-        .onAppear {
-            focusField = .localcatalogField
-        }
-        .focusedSceneValue(\.aborttask, $focusaborttask)
-        .focusedSceneValue(\.startexecution, $focusstartexecution)
-        .sheet(isPresented: $completed) { viewoutput }
-        .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    getconfigandexecute()
-                } label: {
-                    Image(systemName: "arrowshape.turn.up.left.fill")
-                        .foregroundColor(Color(.blue))
+            .onSubmit {
+                switch focusField {
+                case .localcatalogField:
+                    focusField = .remotecatalogField
+                case .remotecatalogField:
+                    focusField = .remoteuserField
+                case .remoteuserField:
+                    focusField = .remoteserverField
+                case .remoteserverField:
+                    focusField = nil
+                    dryrun = true
+                default:
+                    return
                 }
-                .help("Synchronize (⌘R)")
             }
+            .onAppear {
+                focusField = .localcatalogField
+            }
+            .focusedSceneValue(\.aborttask, $focusaborttask)
+            .focusedSceneValue(\.startexecution, $focusstartexecution)
+            .toolbar(content: {
+                ToolbarItem {
+                    Button {
+                        getconfigandexecute()
+                    } label: {
+                        Image(systemName: "arrowshape.turn.up.left.fill")
+                            .foregroundColor(Color(.blue))
+                    }
+                    .help("Synchronize (⌘R)")
+                }
 
-            ToolbarItem {
-                Button {
-                    abort()
-                } label: {
-                    Image(systemName: "stop.fill")
+                ToolbarItem {
+                    Button {
+                        abort()
+                    } label: {
+                        Image(systemName: "stop.fill")
+                    }
+                    .help("Abort (⌘K)")
                 }
-                .help("Abort (⌘K)")
+            })
+            .padding()
+            .navigationDestination(isPresented: $completed) {
+                NavigationOutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
             }
-        })
-        .padding()
+        }
     }
 
     var remoteuserpicker: some View {
@@ -268,20 +264,12 @@ struct QuicktaskView: View {
         }
     }
 
-    // Output
-    var viewoutput: some View {
-        OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
-            .onDisappear {
-                completed = false
-            }
-    }
-
     var assist: Assist {
         return Assist(configurations: rsyncUIdata.configurations)
     }
 }
 
-extension QuicktaskView {
+extension NavigationQuicktaskView {
     func resetform() {
         localcatalog = ""
         remotecatalog = ""

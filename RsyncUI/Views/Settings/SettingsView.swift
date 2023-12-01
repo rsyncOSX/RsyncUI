@@ -5,18 +5,23 @@
 //  Created by Thomas Evensen on 01/02/2021.
 //
 
+import Observation
 import SwiftUI
 
 struct SettingsView: View {
+    @State private var alerterror = AlertError()
+
     @Binding var selectedprofile: String?
 
     var body: some View {
         TabView {
             Usersettings()
+                .environment(alerterror)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
             Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(profile).getuniqueserversandlogins() ?? [])
+                .environment(alerterror)
                 .tabItem {
                     Label("Ssh", systemImage: "terminal")
                 }
@@ -47,8 +52,9 @@ struct SettingsView: View {
     }
 }
 
-final class AlertError: ObservableObject {
-    @Published private(set) var activeError: Error?
+@Observable
+final class AlertError {
+    private(set) var activeError: Error?
 
     func alert(error: Error) {
         DispatchQueue.main.async {

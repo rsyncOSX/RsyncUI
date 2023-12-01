@@ -6,6 +6,7 @@
 //
 // swiftlint:disable line_length
 
+import Observation
 import OSLog
 import SwiftUI
 
@@ -21,10 +22,15 @@ struct Readlogsfromstore {
     }
 }
 
-final class RsyncUIlogrecords: ObservableObject {
+@Observable
+final class RsyncUIlogrecords {
+    @ObservationIgnored
     var alllogssorted: [Log]? = [Log]()
+    @ObservationIgnored
     var countrecords: Int = 0
+    @ObservationIgnored
     var scheduleConfigurations: [ConfigurationSchedule]?
+    @ObservationIgnored
     var logrecordsfromstore: Readlogsfromstore?
 
     func filterlogs(_ filter: String, _ hiddenID: Int) -> [Log] {

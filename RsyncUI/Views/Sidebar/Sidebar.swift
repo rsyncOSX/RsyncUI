@@ -1,8 +1,8 @@
 //
-//  SidebarVentura.swift
+//  Sidebar.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 25/04/2023.
+//  Created by Thomas Evensen on 03/07/2023.
 //
 
 import SwiftUI
@@ -12,14 +12,15 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
-@available(macOS 13.0, *)
-struct SidebarVentura: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var errorhandling: AlertError
+struct Sidebar: View {
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+
     @Binding var reload: Bool
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
-    @State private var selectedview: Sidebaritems?
+    @Bindable var profilenames: Profilenames
+    @Bindable var errorhandling: AlertError
+    @State private var selectedview: Sidebaritems = .synchronize
 
     var body: some View {
         NavigationSplitView {
@@ -40,10 +41,14 @@ struct SidebarVentura: View {
                 .font(.footnote)
 
         } detail: {
-            selectView(selectedview ?? .synchronize)
+            selectView(selectedview)
         }
         .alert(isPresented: errorhandling.presentalert, content: {
-            Alert(localizedError: errorhandling.activeError!)
+            if let error = errorhandling.activeError {
+                Alert(localizedError: error)
+            } else {
+                Alert(title: Text("No error"))
+            }
         })
     }
 
@@ -51,19 +56,43 @@ struct SidebarVentura: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            SidebarAddTaskView(selectedprofile: $selectedprofile, reload: $reload)
+            SidebarAddTaskView(selectedprofile: $selectedprofile,
+                               reload: $reload,
+                               profilenames: profilenames)
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:
-            SidebarParametersView(reload: $reload)
+            if SharedReference.shared.usenavigationstack {
+                NavigationSidebarParametersView(reload: $reload)
+            } else {
+                SidebarParametersView(reload: $reload)
+            }
         case .restore:
-            SidebareRestoreView()
+            if SharedReference.shared.usenavigationstack {
+                NavigationStack {
+                    NavigationRestoreTableView()
+                }
+            } else {
+                RestoreTableView()
+            }
         case .snapshots:
             SidebarSnapshotsView(reload: $reload)
         case .synchronize:
-            SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
+            if SharedReference.shared.usenavigationstack {
+                NavigationStack {
+                    NavigationSidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
+                }
+            } else {
+                SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
+            }
         case .quick_synchronize:
-            QuicktaskView()
+            if SharedReference.shared.usenavigationstack {
+                NavigationStack {
+                    NavigationQuicktaskView()
+                }
+            } else {
+                QuicktaskView()
+            }
         }
     }
 }

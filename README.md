@@ -1,13 +1,7 @@
-**MacOS Sonoma** The branch `version-1.7.x-macos-sonoma` is for *macOS Sonoma, Swift 5.9* and *Xcode 15*. This branch will only compile and run on macOS Sonoma. The `main` branch will compile and run by Xcode 15 on macOS Ventura. The compiled `main` branch will execute on macOS Monterey and later including macOS Sonoma.
-
-RsyncUI is released for macOS Monterey and later.
+This branch is for **macOS Sonoma**, Swift 5.9 and Xcode 15. It will only compile and run on macOS Sonoma. The major work in this branch is migrating objects and bindings to the new `@Observable` macro introduced in Swift 5.9, Xcode 15 and macOS Sonoma. Migrating code to the new macro is a *breaking change* and that is why there are two builds.  
 
 - the [documentation of RsyncUI](https://rsyncui.netlify.app/)
 - the [changelog](https://rsyncui.netlify.app/post/changelog/)
-
-## Install by Homebrew
-
-RsyncUI can also be installed by Homebrew: `brew install --cask rsyncui`
 
 ## Dependencies
 

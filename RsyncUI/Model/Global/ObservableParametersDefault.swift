@@ -1,67 +1,32 @@
 //
 //  ObservableParametersDefault.swift
-//  ObserveableParametersDefault
 //
 //  Created by Thomas Evensen on 18/08/2021.
 //
 
-import Combine
 import Foundation
+import Observation
 
-@MainActor
-final class ObservableParametersDefault: ObservableObject {
+@Observable
+final class ObservableParametersDefault {
     // Selected configuration
-    @Published var configuration: Configuration?
+    var configuration: Configuration?
     // Local SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
-    @Published var sshport: String = ""
+    var sshport: String = ""
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
-    @Published var sshkeypathandidentityfile: String = ""
+    var sshkeypathandidentityfile: String = ""
     // Remove parameters
-    @Published var removessh: Bool = false
-    @Published var removecompress: Bool = false
-    @Published var removedelete: Bool = false
-    @Published var daemon: Bool = false
+    var removessh: Bool = false
+    var removecompress: Bool = false
+    var removedelete: Bool = false
+    var daemon: Bool = false
     // Alerts
-    @Published var alerterror: Bool = false
-    @Published var error: Error = Validatedpath.noerror
+    var alerterror: Bool = false
+    var error: Error = Validatedpath.noerror
 
-    // Combine
-    var subscriptions = Set<AnyCancellable>()
-
-    init() {
-        $sshkeypathandidentityfile
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] identityfile in
-                sshkeypathandidentiyfile(identityfile)
-            }.store(in: &subscriptions)
-        $sshport
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] port in
-                setsshport(port)
-            }.store(in: &subscriptions)
-        $removessh
-            .sink { [unowned self] removessh in
-                deletessh(removessh)
-            }.store(in: &subscriptions)
-        $removedelete
-            .sink { [unowned self] removedelete in
-                deletedelete(removedelete)
-            }.store(in: &subscriptions)
-        $removecompress
-            .sink { [unowned self] removecompress in
-                deletecompress(removecompress)
-            }.store(in: &subscriptions)
-        $daemon
-            .sink { [unowned self] setdaemon in
-                setrsyncdaemon(setdaemon)
-            }.store(in: &subscriptions)
-    }
-}
-
-extension ObservableParametersDefault {
     func setvalues(_ config: Configuration?) {
         if let config = config {
             configuration = config

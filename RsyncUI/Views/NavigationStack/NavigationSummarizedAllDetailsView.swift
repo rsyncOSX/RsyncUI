@@ -8,11 +8,10 @@
 import OSLog
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationSummarizedAllDetailsView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
-    @Bindable var estimatingprogressdetails: EstimateProgressDetails14
+    @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var path: [Tasks]
 
@@ -157,11 +156,11 @@ struct NavigationSummarizedAllDetailsView: View {
         AlertToast(displayMode: .alert, type: .loading)
             .onAppear {
                 Task {
-                    let estimate = EstimateTasksAsync14(profile: rsyncUIdata.profile,
-                                                        configurations: rsyncUIdata,
-                                                        updateinprogresscount: estimatingprogressdetails,
-                                                        uuids: selecteduuids,
-                                                        filter: "")
+                    let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
+                                                      configurations: rsyncUIdata,
+                                                      updateinprogresscount: estimatingprogressdetails,
+                                                      uuids: selecteduuids,
+                                                      filter: "")
                     await estimate.startexecution()
                 }
             }

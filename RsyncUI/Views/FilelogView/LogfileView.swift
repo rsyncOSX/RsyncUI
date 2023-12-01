@@ -6,23 +6,24 @@
 //
 
 import Foundation
+import Observation
 import SwiftUI
 
 struct LogfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @State private var resetloggfile = false
-    @StateObject private var logfileview = Logfileview()
+    @State private var logfileview = Logfileview()
 
     var body: some View {
         VStack {
             Section(header: headerlogfile) {
                 Table(logfileview.output) {
-                    TableColumn("Lines") { data in
+                    TableColumn("Logfile") { data in
                         Text(data.line)
                     }
                     .width(min: 700)
                 }
-                .onChange(of: resetloggfile) { _ in
+                .onChange(of: resetloggfile) {
                     afterareload()
                 }
             }
@@ -40,6 +41,16 @@ struct LogfileView: View {
         .frame(minWidth: 800, minHeight: 400)
         .onAppear {
             logfileview.generatedata()
+        }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    reset()
+                } label: {
+                    Image(systemName: "eraser")
+                }
+                .help("Reset logfile")
+            }
         }
     }
 
@@ -64,8 +75,9 @@ struct LogfileView: View {
     }
 }
 
-final class Logfileview: ObservableObject {
-    @Published var output = [Data]()
+@Observable
+final class Logfileview {
+    var output = [Data]()
 
     struct Data: Identifiable {
         let id = UUID()

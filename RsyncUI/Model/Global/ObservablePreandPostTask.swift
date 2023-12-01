@@ -5,44 +5,21 @@
 //  Created by Thomas Evensen on 03/06/2021.
 //
 
-import Combine
 import Foundation
+import Observation
 
-@MainActor
-final class ObservablePreandPostTask: ObservableObject {
-    @Published var enablepre: Bool = false
-    @Published var enablepost: Bool = false
-    @Published var pretask: String = ""
-    @Published var posttask: String = ""
-    @Published var haltshelltasksonerror: Bool = false
-    @Published var reload: Bool = false
+@Observable
+final class ObservablePreandPostTask {
+    var enablepre: Bool = false
+    var enablepost: Bool = false
+    var pretask: String = ""
+    var posttask: String = ""
+    var haltshelltasksonerror: Bool = false
+    var reload: Bool = false
     var selectedconfig: Configuration?
     // Alerts
-    @Published var alerterror: Bool = false
-    @Published var error: Error = Validatedpath.noerror
-
-    // Combine
-    var subscriptions = Set<AnyCancellable>()
-
-    init() {
-        $enablepre
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $enablepost
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $pretask
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $posttask
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $haltshelltasksonerror
-            .sink { _ in
-            }.store(in: &subscriptions)
-    }
+    var alerterror: Bool = false
+    var error: Error = Validatedpath.noerror
 
     func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
         // Append default config data to the update,

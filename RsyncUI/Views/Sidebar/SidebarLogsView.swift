@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SidebarLogsView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     var body: some View {
         LogsbyConfigurationView(logrecords: logrecords)

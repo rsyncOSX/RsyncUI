@@ -9,16 +9,14 @@ import OSLog
 import SwiftUI
 
 struct RsyncUIView: View {
-    @StateObject var rsyncversion = Rsyncversion()
-    @StateObject var newversion = CheckfornewversionofRsyncUI()
+    @State private var newversion = CheckfornewversionofRsyncUI()
+    @State private var rsyncversion = Rsyncversion()
     @Binding var selectedprofile: String?
+    @Bindable var navstackisenabled: EnableNavigationStack
 
     @State private var reload: Bool = false
     @State private var start: Bool = true
     @State var selecteduuids = Set<Configuration.ID>()
-
-    // Initial view in tasks for sidebar macOS 12
-    @State private var selection: NavigationItem? = Optional.none
 
     var body: some View {
         VStack {
@@ -32,42 +30,21 @@ struct RsyncUIView: View {
                 .onAppear(perform: {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         start = false
+                        Logger.process.info("RsyncUIView: NavigationStack is \(SharedReference.shared.usenavigationstack, privacy: .public)")
+                        navstackisenabled.navstackisenabled = SharedReference.shared.usenavigationstack
                     }
                 })
 
             } else {
-                if #available(macOS 14.0, *) {
-                    SidebarSonoma(reload: $reload,
-                                  selectedprofile: $selectedprofile,
-                                  selecteduuids: $selecteduuids)
-                        .environmentObject(rsyncUIdata)
-                        .environmentObject(errorhandling)
-                        .environmentObject(profilenames)
-                        .onChange(of: reload) { _ in
-                            reload = false
-                        }
-                } else if #available(macOS 13.0, *) {
-                    SidebarVentura(reload: $reload,
-                                   selectedprofile: $selectedprofile,
-                                   selecteduuids: $selecteduuids)
-                        .environmentObject(rsyncUIdata)
-                        .environmentObject(errorhandling)
-                        .environmentObject(profilenames)
-                        .onChange(of: reload) { _ in
-                            reload = false
-                        }
-                } else if #available(macOS 12.0, *) {
-                    SidebarMonterey(reload: $reload,
-                                    selectedprofile: $selectedprofile,
-                                    selecteduuids: $selecteduuids,
-                                    selection: $selection)
-                        .environmentObject(rsyncUIdata)
-                        .environmentObject(errorhandling)
-                        .environmentObject(profilenames)
-                        .onChange(of: reload) { _ in
-                            reload = false
-                        }
-                }
+                Sidebar(reload: $reload,
+                        selectedprofile: $selectedprofile,
+                        selecteduuids: $selecteduuids,
+                        profilenames: profilenames,
+                        errorhandling: errorhandling)
+                    .environment(\.rsyncUIData, rsyncUIdata)
+                    .onChange(of: reload) {
+                        reload = false
+                    }
             }
 
             HStack {
@@ -81,7 +58,6 @@ struct RsyncUIView: View {
         }
         .padding()
         .task {
-            selection = .tasksview
             await rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }
@@ -114,7 +90,7 @@ struct RsyncUIView: View {
                 }
             }
             .frame(width: 180)
-            .onChange(of: selectedprofile) { _ in
+            .onChange(of: selectedprofile) {
                 selecteduuids.removeAll()
             }
             Spacer()
@@ -124,15 +100,15 @@ struct RsyncUIView: View {
     var notifynewversion: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("New version")
+            Text("New version is available")
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear(perform: {
-            // Show updated for 3 seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            // Show updated for 2 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 newversion.notifynewversion = false
             }
         })

@@ -1,14 +1,13 @@
 //
-//  OutputRsyncView.swift
+//  NavigationOutputRsyncView.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 24/10/2022.
+//  Created by Thomas Evensen on 20/11/2023.
 //
 
 import SwiftUI
 
-struct OutputRsyncView: View {
-    @SwiftUI.Environment(\.dismiss) var dismiss
+struct NavigationOutputRsyncView: View {
     @State private var outputfromrsync = Outputfromrsync()
 
     var output: [String]
@@ -19,19 +18,9 @@ struct OutputRsyncView: View {
                 TableColumn("Output") { data in
                     Text(data.line)
                 }
-                .width(min: 700)
-            }
-            Spacer()
-
-            HStack {
-                Spacer()
-
-                Button("Dismiss") { dismiss() }
-                    .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()
-        .frame(minWidth: 800, minHeight: 600)
         .onAppear {
             outputfromrsync.generatedata(output)
         }

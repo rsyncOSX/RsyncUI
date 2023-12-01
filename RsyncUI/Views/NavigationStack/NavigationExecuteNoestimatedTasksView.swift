@@ -8,16 +8,15 @@
 import OSLog
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationExecuteNoestimatedTasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @State private var estimatingprogresscount = EstimateProgressDetails14()
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @State private var estimatingprogresscount = EstimateProgressDetails()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
-    @State private var executealltasksasync: ExecuteTasksAsync14?
+    @State private var executealltasksasync: ExecuteTasksAsync?
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
 
@@ -68,7 +67,6 @@ struct NavigationExecuteNoestimatedTasksView: View {
     }
 }
 
-@available(macOS 14.0, *)
 extension NavigationExecuteNoestimatedTasksView {
     func completed() {
         reload = true
@@ -89,11 +87,11 @@ extension NavigationExecuteNoestimatedTasksView {
         Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids)")
         estimatingprogresscount.startasyncexecutealltasksnoestimation()
         executealltasksasync =
-            ExecuteTasksAsync14(profile: rsyncUIdata.profile,
-                                configurations: rsyncUIdata,
-                                updateinprogresscount: estimatingprogresscount,
-                                uuids: selecteduuids,
-                                filter: filterstring)
+            ExecuteTasksAsync(profile: rsyncUIdata.profile,
+                              configurations: rsyncUIdata,
+                              updateinprogresscount: estimatingprogresscount,
+                              uuids: selecteduuids,
+                              filter: filterstring)
         await executealltasksasync?.startexecution()
     }
 }

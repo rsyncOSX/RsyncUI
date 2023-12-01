@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observation
 
 enum Snapshotdatastat {
     case start
@@ -13,17 +14,18 @@ enum Snapshotdatastat {
     case gotit
 }
 
-final class SnapshotData: ObservableObject {
-    @Published var maxnumbertodelete: Int = 0
-    @Published var remainingsnapshotstodelete: Int = 0
+@Observable
+final class SnapshotData {
+    var maxnumbertodelete: Int = 0
+    var remainingsnapshotstodelete: Int = 0
     // Deleteobject
-    @Published var delete: DeleteSnapshots?
-    @Published var inprogressofdelete: Bool = false
+    var delete: DeleteSnapshots?
+    var inprogressofdelete: Bool = false
     // Show progress view when getting data
-    @Published var snapshotlist: Bool = false
+    var snapshotlist: Bool = false
     // uuids for DELETE snapshots
-    @Published var snapshotuuidsfordelete = Set<LogrecordSnapshot.ID>()
-    @Published var catalogsanddates: [Catalogsanddates] = []
+    var snapshotuuidsfordelete = Set<LogrecordSnapshot.ID>()
+    var catalogsanddates: [Catalogsanddates] = []
     var logrecordssnapshot: [LogrecordSnapshot]?
     var state: Snapshotdatastat = .start
 
@@ -33,7 +35,6 @@ final class SnapshotData: ObservableObject {
         snapshotuuidsfordelete.removeAll()
         maxnumbertodelete = 0
         remainingsnapshotstodelete = 0
-        objectWillChange.send()
     }
 
     func getsnapshotdata() -> [LogrecordSnapshot]? {

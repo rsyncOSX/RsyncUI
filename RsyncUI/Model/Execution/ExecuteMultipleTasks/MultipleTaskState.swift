@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observation
 
 enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertible {
     case start
@@ -16,8 +17,9 @@ enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertibl
     var description: String { rawValue.localizedCapitalized }
 }
 
-final class MultipleTaskState: ObservableObject {
-    @Published var executionstate: ExecutetaskWork = .start
+@Observable
+final class MultipleTaskState {
+    var executionstate: ExecutetaskWork = .start
 
     func updatestate(state: ExecutetaskWork) {
         executionstate = state

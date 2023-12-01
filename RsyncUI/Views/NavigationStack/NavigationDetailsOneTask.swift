@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationDetailsOneTask: View {
     let estimatedlist: [RemoteinfonumbersOnetask]
     @Binding var selecteduuids: Set<Configuration.ID>

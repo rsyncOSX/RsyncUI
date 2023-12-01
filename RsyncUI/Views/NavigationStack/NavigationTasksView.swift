@@ -9,14 +9,13 @@ import Observation
 import OSLog
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationTasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
 
-    @Bindable var estimatingprogressdetails: EstimateProgressDetails14
+    @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @State private var estimatingstate = EstimatingState()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<Configuration.ID>
@@ -31,7 +30,7 @@ struct NavigationTasksView: View {
     @State var selectedconfig = Selectedconfig()
     // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
-    // Alert
+    // Alert button
     @State private var showingAlert = false
 
     var body: some View {
@@ -71,8 +70,7 @@ struct NavigationTasksView: View {
                     path.append(Tasks(task: .estimatedview))
                 } label: {
                     Image(systemName: "wand.and.stars")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.blue, .blue)
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Estimate (⌘E)")
             }
@@ -121,6 +119,15 @@ struct NavigationTasksView: View {
                 }
                 .help("Rsync output estimated task")
             }
+
+            ToolbarItem {
+                Button {
+                    path.append(Tasks(task: .viewlogfile))
+                } label: {
+                    Image(systemName: "filemenu.and.cursorarrow")
+                }
+                .help("View logfile")
+            }
         })
         .alert(isPresented: $showingAlert) {
             Alert(
@@ -161,7 +168,6 @@ struct NavigationTasksView: View {
     }
 }
 
-@available(macOS 14.0, *)
 extension NavigationTasksView {
     func doubleclickactionfunction() {
         if estimatingprogressdetails.getestimatedlist() == nil {
@@ -224,8 +230,8 @@ extension NavigationTasksView {
         } else {
             // Execute all tasks, no estimate
             Logger.process.info("Execute() selected or all tasks NO estimate")
-            showingAlert = true
             // Execute tasks, no estimate
+            showingAlert = true
             // path.append(Tasks(task: .executenoestimatetasksview))
         }
     }

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct AddProfileView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @StateObject var newdata = ObservableAddConfigurations()
-    @EnvironmentObject var profilenames: Profilenames
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @State private var newdata = ObservableAddConfigurations()
+    @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @State private var uuidprofile = Set<Profiles.ID>()
@@ -24,7 +24,7 @@ struct AddProfileView: View {
                         Text(name.profile ?? "Default profile")
                     }
                 }
-                .onChange(of: uuidprofile) { _ in
+                .onChange(of: uuidprofile) {
                     let profile = profilenames.profiles.filter { profiles in
                         uuidprofile.contains(profiles.id)
                     }

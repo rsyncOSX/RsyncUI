@@ -9,10 +9,9 @@ import Foundation
 import Observation
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationDetailsOneTaskRootView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var estimatingprogressdetails: EstimateProgressDetails14
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @State private var gettingremotedata = true
     @State private var estimateddataonetask = Estimateddataonetask()
     @State private var outputfromrsync = Outputfromrsync()
@@ -134,7 +133,6 @@ struct NavigationDetailsOneTaskRootView: View {
     }
 }
 
-@available(macOS 14.0, *)
 extension NavigationDetailsOneTaskRootView {
     func processtermination(data: [String]?) {
         var selectedconfig: Configuration?

@@ -8,16 +8,15 @@
 import OSLog
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationExecuteEstimatedTasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var progressdetails: ExecuteProgressDetails
-    @Bindable var estimatingprogressdetails: EstimateProgressDetails14
+    @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
     @Binding var path: [Tasks]
 
-    @State private var multipletaskstate = MultipleTaskState14()
+    @State private var multipletaskstate = MultipleTaskState()
     @State private var selectedconfig: Configuration?
     @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false
@@ -74,7 +73,6 @@ struct NavigationExecuteEstimatedTasksView: View {
     }
 }
 
-@available(macOS 14.0, *)
 extension NavigationExecuteEstimatedTasksView {
     func completed() {
         progressdetails.hiddenIDatwork = -1
@@ -112,12 +110,12 @@ extension NavigationExecuteEstimatedTasksView {
         if let uuids = uuids {
             Logger.process.info("Executemultipleestimatedtasks() : \(uuids)")
             multipletaskstate.updatestate(state: .execute)
-            ExecuteMultipleTasks14(uuids: uuids,
-                                   profile: rsyncUIdata.profile,
-                                   configurations: rsyncUIdata,
-                                   multipletaskstateDelegate: multipletaskstate,
-                                   estimateprogressdetailsDelegate: estimatingprogressdetails,
-                                   executeprogressdetailsDelegate: progressdetails)
+            ExecuteMultipleTasks(uuids: uuids,
+                                 profile: rsyncUIdata.profile,
+                                 configurations: rsyncUIdata,
+                                 multipletaskstateDelegate: multipletaskstate,
+                                 estimateprogressdetailsDelegate: estimatingprogressdetails,
+                                 executeprogressdetailsDelegate: progressdetails)
         }
     }
 }

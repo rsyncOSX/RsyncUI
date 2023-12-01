@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-@available(macOS 13.0, *)
 struct CopyItem: Identifiable, Codable, Transferable {
     let id: UUID
     let hiddenID: Int
@@ -29,10 +28,13 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 }
 
 struct AddTaskView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var profilenames: Profilenames
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+
+    @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+    @Bindable var profilenames: Profilenames
+
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var dataischanged = Dataischanged()
@@ -47,11 +49,10 @@ struct AddTaskView: View {
         case backupIDField
     }
 
-    @StateObject var newdata = ObservableAddConfigurations()
     @FocusState private var focusField: AddConfigurationField?
     // Modale view
     @State private var modalview = false
-    // Only used for macOS13 and later
+    // Reload and show table data
     @State private var confirmcopyandpaste: Bool = false
 
     var body: some View {
@@ -97,12 +98,9 @@ struct AddTaskView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        if #available(macOS 13.0, *) {
-                            ListofTasksAddView(
-                                selecteduuids: $selecteduuids,
-                                reload: $reload
-                            )
-                            .onChange(of: selecteduuids, perform: { _ in
+                        ListofTasksAddView(selecteduuids: $selecteduuids,
+                                           reload: $reload)
+                            .onChange(of: selecteduuids) {
                                 let selected = rsyncUIdata.configurations?.filter { config in
                                     selecteduuids.contains(config.id)
                                 }
@@ -115,7 +113,7 @@ struct AddTaskView: View {
                                     selectedconfig = nil
                                     newdata.updateview(selectedconfig)
                                 }
-                            })
+                            }
                             .copyable(copyitems.filter { selecteduuids.contains($0.id) })
                             .pasteDestination(for: CopyItem.self) { items in
                                 newdata.preparecopyandpastetasks(items,
@@ -138,27 +136,6 @@ struct AddTaskView: View {
                                     dataischanged.dataischanged = true
                                 }
                             }
-                        } else {
-                            ListofTasksAddView(
-                                selecteduuids: $selecteduuids,
-                                reload: $reload
-                            )
-                            .onChange(of: selecteduuids, perform: { _ in
-                                let selected = rsyncUIdata.configurations?.filter { config in
-                                    selecteduuids.contains(config.id)
-                                }
-                                if (selected?.count ?? 0) == 1 {
-                                    if let config = selected {
-                                        selectedconfig = config[0]
-                                        newdata.updateview(selectedconfig)
-                                    }
-                                } else {
-                                    selectedconfig = nil
-                                    newdata.updateview(selectedconfig)
-                                }
-                            })
-                        }
-
                         HStack {
                             profilebutton
 
@@ -203,7 +180,7 @@ struct AddTaskView: View {
             }
         }
         .sheet(isPresented: $modalview) {
-            AddProfileView(selectedprofile: $selectedprofile,
+            AddProfileView(profilenames: profilenames, selectedprofile: $selectedprofile,
                            reload: $reload)
                 .frame(width: 500, height: 500)
         }
@@ -245,6 +222,9 @@ struct AddTaskView: View {
     var setremotecatalogsyncremote: some View {
         EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""),
                   $newdata.remotecatalog)
+            .onChange(of: newdata.remotecatalog) {
+                newdata.remotestorageislocal = newdata.verifyremotestorageislocal()
+            }
     }
 
     var setlocalcatalog: some View {
@@ -433,25 +413,16 @@ struct AddTaskView: View {
             ForEach(TypeofTask.allCases) { Text($0.description)
                 .tag($0)
             }
-            .onChange(of: newdata.selectedconfig, perform: { _ in
+            .onChange(of: newdata.selectedconfig) {
                 newdata.selectedrsynccommand = selectpickervalue
-            })
+            }
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 140)
     }
 
-    var cannotdeletedefaultprofile: some View {
-        AlertToast(type: .error(Color.red),
-                   title: Optional("Cannot delete default profile"), subTitle: Optional(""))
-    }
-
     var configurations: [Configuration]? {
         return rsyncUIdata.getallconfigurations()
-    }
-
-    var assist: Assist? {
-        return Assist(configurations: rsyncUIdata.configurations)
     }
 
     var localcatalogspicker: some View {
@@ -460,15 +431,16 @@ struct AddTaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $newdata.assistlocalcatalog) {
                 Text("").tag("")
-                if let catalogs = assist?.catalogs {
-                    ForEach(catalogs.sorted(by: <), id: \.self) { catalog in
-                        Text(catalog)
-                            .tag(catalog)
-                    }
+                ForEach(assist.catalogs.sorted(by: <), id: \.self) { catalog in
+                    Text(catalog)
+                        .tag(catalog)
                 }
             }
             .frame(width: 93)
             .accentColor(.blue)
+            .onChange(of: newdata.assistlocalcatalog) {
+                newdata.assistfunclocalcatalog(newdata.assistlocalcatalog)
+            }
         }
     }
 
@@ -478,15 +450,16 @@ struct AddTaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $newdata.assistremoteuser) {
                 Text("").tag("")
-                if let remoteusers = assist?.remoteusers {
-                    ForEach(remoteusers.sorted(by: <), id: \.self) { remoteuser in
-                        Text(remoteuser)
-                            .tag(remoteuser)
-                    }
+                ForEach(assist.remoteusers.sorted(by: <), id: \.self) { remoteuser in
+                    Text(remoteuser)
+                        .tag(remoteuser)
                 }
             }
             .frame(width: 93)
             .accentColor(.blue)
+            .onChange(of: newdata.assistremoteuser) {
+                newdata.assistfuncremoteuser(newdata.assistremoteuser)
+            }
         }
     }
 
@@ -496,15 +469,16 @@ struct AddTaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $newdata.assistremoteserver) {
                 Text("").tag("")
-                if let remoteservers = assist?.remoteservers {
-                    ForEach(remoteservers.sorted(by: <), id: \.self) { remoteserver in
-                        Text(remoteserver)
-                            .tag(remoteserver)
-                    }
+                ForEach(assist.remoteservers.sorted(by: <), id: \.self) { remoteserver in
+                    Text(remoteserver)
+                        .tag(remoteserver)
                 }
             }
             .frame(width: 93)
             .accentColor(.blue)
+            .onChange(of: newdata.assistremoteserver) {
+                newdata.assistfuncremoteserver(newdata.assistremoteserver)
+            }
         }
     }
 
@@ -516,7 +490,6 @@ struct AddTaskView: View {
             })
     }
 
-    @available(macOS 13.0, *)
     var copyitems: [CopyItem] {
         var items = [CopyItem]()
         for i in 0 ..< (rsyncUIdata.configurations?.count ?? 0) {
@@ -526,6 +499,10 @@ struct AddTaskView: View {
             items.append(item)
         }
         return items
+    }
+
+    var assist: Assist {
+        return Assist(configurations: rsyncUIdata.getallconfigurations())
     }
 }
 

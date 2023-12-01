@@ -8,9 +8,13 @@
 import Foundation
 import OSLog
 
+@Observable
 final class Assist {
+    @ObservationIgnored
     var catalogs = Set<String>()
+    @ObservationIgnored
     var remoteservers = Set<String>()
+    @ObservationIgnored
     var remoteusers = Set<String>()
     var nameandpaths: NamesandPaths?
 

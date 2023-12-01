@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SnapshotListView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @EnvironmentObject var snapshotdata: SnapshotData
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Binding var snapshotdata: SnapshotData
     @Binding var snapshotrecords: LogrecordSnapshot?
     @Binding var selectedconfig: Configuration?
     @State private var confirmdelete: Bool = false

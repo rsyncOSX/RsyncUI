@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Observation
 
-final class EstimateProgressDetails: ObservableObject {
+@Observable
+final class EstimateProgressDetails {
     var estimatedlist: [RemoteinfonumbersOnetask]?
     var tasksinprogresscount: Double = 0
     var max: Int = 0
@@ -78,17 +80,14 @@ final class EstimateProgressDetails: ObservableObject {
 
     func setmaxcount(_ num: Int) {
         max = num
-        objectWillChange.send()
     }
 
     func updatetasksinprogresscount(_ num: Double) {
         tasksinprogresscount = num
-        objectWillChange.send()
     }
 
     func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {
         estimatedlist = argestimatedlist
-        objectWillChange.send()
     }
 
     func appendrecordestimatedlist(_ record: RemoteinfonumbersOnetask) {
@@ -96,32 +95,27 @@ final class EstimateProgressDetails: ObservableObject {
             estimatedlist = [RemoteinfonumbersOnetask]()
         }
         estimatedlist?.append(record)
-        objectWillChange.send()
+        onetaskisestimated = true
     }
 
     func asyncestimationcomplete() {
         estimatealltasksasync = false
-        objectWillChange.send()
     }
 
     func asyncexecutecomplete() {
         executeasyncnoestimationcompleted = true
-        objectWillChange.send()
     }
 
     func startestimateasync() {
         estimatealltasksasync = true
-        objectWillChange.send()
     }
 
     func asyncexecutealltasksnoestiamtioncomplete() {
         executeasyncnoestimationcompleted = true
-        objectWillChange.send()
     }
 
     func startasyncexecutealltasksnoestimation() {
         executeasyncnoestimationcompleted = false
-        objectWillChange.send()
     }
 
     func getestimatedlist() -> [RemoteinfonumbersOnetask]? {

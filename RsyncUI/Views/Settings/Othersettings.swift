@@ -63,8 +63,8 @@ struct Othersettings: View {
                     environment = environmentstring
                 }
             })
-            .onChange(of: environment) { value in
-                SharedReference.shared.environment = value
+            .onChange(of: environment) {
+                SharedReference.shared.environment = environment
             }
     }
 
@@ -75,8 +75,8 @@ struct Othersettings: View {
                     environmentvalue = environmentvaluestring
                 }
             })
-            .onChange(of: environmentvalue) { value in
-                SharedReference.shared.environmentvalue = value
+            .onChange(of: environmentvalue) {
+                SharedReference.shared.environmentvalue = environmentvalue
             }
     }
 }

@@ -8,12 +8,11 @@
 import OSLog
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationSidebarTasksView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
-    @State private var estimatingprogressdetails = EstimateProgressDetails14()
+    @State private var estimatingprogressdetails = EstimateProgressDetails()
     @StateObject private var progressdetails = ExecuteProgressDetails()
     // Which view to show
     @State var path: [Tasks] = []
@@ -70,6 +69,8 @@ struct NavigationSidebarTasksView: View {
                                      selecteduuids: $selecteduuids)
         case .alltasksview:
             NavigationAlltasksView()
+        case .viewlogfile:
+            NavigationLogfileView()
         }
     }
 }
@@ -77,7 +78,7 @@ struct NavigationSidebarTasksView: View {
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
          estimatedview, firsttime, dryrunonetask, alltasksview,
-         dryrunonetaskalreadyestimated
+         dryrunonetaskalreadyestimated, viewlogfile
     var id: String { rawValue }
 }
 

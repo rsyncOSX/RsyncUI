@@ -8,7 +8,6 @@
 import ConfettiSwiftUI
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationFirstTimeView: View {
     @State private var counter: Int = 0
 

@@ -6,51 +6,32 @@
 //
 // swiftlint:disable line_length
 
-import Combine
 import Foundation
+import Observation
 
-final class ObservableRestore: ObservableObject {
-    @Published var pathforrestore: String = ""
-    @Published var restorefilesinprogress: Bool = false
-    @Published var numberoffiles: Int = 0
-    @Published var dryrun: Bool = true
-    @Published var presentsheetrsync = false
+@Observable
+final class ObservableRestore {
+    var pathforrestore: String = ""
+    var restorefilesinprogress: Bool = false
+    var numberoffiles: Int = 0
+    var dryrun: Bool = true
+    var presentsheetrsync = false
     // Value to check if input field is changed by user
-    @Published var inputchangedbyuser: Bool = false
+    var inputchangedbyuser: Bool = false
     // Alerts
-    @Published var alerterror: Bool = false
-    @Published var error: Error = Validatedpath.noerror
+    var alerterror: Bool = false
+    var error: Error = Validatedpath.noerror
     // Filenames in restore
-    @Published var datalist: [RestoreFileRecord] = []
-    @Published var filestorestore: String = ""
-    var rsyncdata: [String]?
-    var arguments: [String]?
+    var datalist: [RestoreFileRecord] = []
+    var filestorestore: String = ""
+    @ObservationIgnored var rsyncdata: [String]?
+    @ObservationIgnored var arguments: [String]?
     var selectedconfig: Configuration?
-    // Combine
-    var subscriptions = Set<AnyCancellable>()
 
     var rsync: String {
         return GetfullpathforRsync().rsyncpath ?? ""
     }
 
-    init() {
-        $inputchangedbyuser
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $dryrun
-            .sink { _ in
-            }.store(in: &subscriptions)
-        $pathforrestore
-            .sink { [unowned self] path in
-                validatepathforrestore(path)
-            }.store(in: &subscriptions)
-        $presentsheetrsync
-            .sink { _ in
-            }.store(in: &subscriptions)
-    }
-}
-
-extension ObservableRestore {
     func processtermination(data: [String]?) {
         rsyncdata = data
         restorefilesinprogress = false

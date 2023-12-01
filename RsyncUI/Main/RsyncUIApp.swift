@@ -5,6 +5,7 @@
 //
 // swiftlint:disable multiple_closures_with_trailing_closure
 
+import Observation
 import OSLog
 import SwiftUI
 import UserNotifications
@@ -13,10 +14,12 @@ import UserNotifications
 struct RsyncUIApp: App {
     @State private var viewlogfile: Bool = false
     @State private var selectedprofile: String? = "Default profile"
+    @State private var enablenavigationstack = EnableNavigationStack()
 
     var body: some Scene {
-        WindowGroup {
-            RsyncUIView(selectedprofile: $selectedprofile)
+        Window("RsyncUI", id: "main") {
+            RsyncUIView(selectedprofile: $selectedprofile,
+                        navstackisenabled: enablenavigationstack)
                 .task {
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationJSON()
@@ -26,8 +29,8 @@ struct RsyncUIApp: App {
         }
         .commands {
             SidebarCommands()
-            ExecuteCommands()
-            LogCommands(viewlogfile: $viewlogfile)
+            ExecuteCommands(navstackisenabled: $enablenavigationstack.navstackisenabled,
+                            viewlogfile: $viewlogfile)
             SnapshotCommands()
 
             CommandGroup(replacing: .help) {
@@ -58,6 +61,11 @@ struct RsyncUIApp: App {
 extension Logger {
     private static var subsystem = Bundle.main.bundleIdentifier!
     static let process = Logger(subsystem: subsystem, category: "process")
+}
+
+@Observable
+final class EnableNavigationStack {
+    var navstackisenabled: Bool = false
 }
 
 // swiftlint:enable multiple_closures_with_trailing_closure

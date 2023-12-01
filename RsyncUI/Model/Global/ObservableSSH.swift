@@ -5,40 +5,22 @@
 //  Created by Thomas Evensen on 14/03/2021.
 //
 
-import Combine
 import Foundation
+import Observation
 
-@MainActor
-final class ObservableSSH: ObservableObject {
+@Observable
+final class ObservableSSH {
     // Global SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
-    @Published var sshportnumber: String = ""
+    var sshportnumber: String = ""
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
-    @Published var sshkeypathandidentityfile: String = ""
+    var sshkeypathandidentityfile: String = ""
     // Alerts
-    @Published var alerterror: Bool = false
-    @Published var error: Error = Validatedpath.noerror
+    var alerterror: Bool = false
+    var error: Error = Validatedpath.noerror
 
-    // Combine
-    var subscriptions = Set<AnyCancellable>()
-
-    init() {
-        $sshkeypathandidentityfile
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] identityfile in
-                sshkeypath(identityfile)
-            }.store(in: &subscriptions)
-        $sshportnumber
-            .debounce(for: .seconds(1), scheduler: globalMainQueue)
-            .sink { [unowned self] port in
-                sshport(port)
-            }.store(in: &subscriptions)
-    }
-}
-
-extension ObservableSSH {
     // SSH identityfile
     private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
         if keypath.first != "~" { throw SshError.noslash }

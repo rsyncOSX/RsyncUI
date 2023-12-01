@@ -36,7 +36,7 @@ struct EditRsyncParameter: View {
         }
         .pickerStyle(MenuPickerStyle())
         .frame(width: 120)
-        .onChange(of: selectedparameter) { _ in
+        .onChange(of: selectedparameter) {
             myvalue.wrappedValue = parameter()
         }
     }

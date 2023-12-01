@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-@available(macOS 14.0, *)
 struct NavigationAlltasksView: View {
     var body: some View {
         VStack {
@@ -69,7 +68,6 @@ struct NavigationAlltasksView: View {
     }
 }
 
-@available(macOS 14.0, *)
 extension NavigationAlltasksView {
     func markconfig(_ config: Configuration?) -> Bool {
         if config?.dateRun != nil {

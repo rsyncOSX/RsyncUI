@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RsyncCommandView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var config: Configuration?
     @Binding var selectedrsynccommand: RsyncCommand
 

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SnapshotsView: View {
-    @EnvironmentObject var rsyncUIdata: RsyncUIconfigurations
-    @StateObject var snapshotdata = SnapshotData()
+    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @State private var snapshotdata = SnapshotData()
 
     @Binding var reload: Bool
 
@@ -39,7 +39,7 @@ struct SnapshotsView: View {
         ZStack {
             HStack {
                 ListofTasksLightView(selecteduuids: $selectedconfiguuid)
-                    .onChange(of: selectedconfiguuid) { _ in
+                    .onChange(of: selectedconfiguuid) {
                         let selected = rsyncUIdata.configurations?.filter { config in
                             selectedconfiguuid.contains(config.id)
                         }
@@ -54,10 +54,10 @@ struct SnapshotsView: View {
                         }
                     }
 
-                SnapshotListView(snapshotrecords: $snapshotrecords,
+                SnapshotListView(snapshotdata: $snapshotdata,
+                                 snapshotrecords: $snapshotrecords,
                                  selectedconfig: $selectedconfig)
-                    .environmentObject(snapshotdata)
-                    .onChange(of: deleteiscompleted) { _ in
+                    .onChange(of: deleteiscompleted) {
                         if deleteiscompleted == true {
                             getdata()
                             deleteiscompleted = false
