@@ -19,6 +19,7 @@ struct NavigationTasksView: View {
     @State private var estimatingstate = EstimatingState()
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<Configuration.ID>
+    // Navigation path
     @Binding var path: [Tasks]
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
@@ -233,6 +234,7 @@ extension NavigationTasksView {
             // Execute tasks, no estimate
             showingAlert = true
             // path.append(Tasks(task: .executenoestimatetasksview))
+            // path.append in Showing alert
         }
     }
 

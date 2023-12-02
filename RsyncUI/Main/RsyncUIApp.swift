@@ -29,8 +29,10 @@ struct RsyncUIApp: App {
         }
         .commands {
             SidebarCommands()
+
             ExecuteCommands(navstackisenabled: $enablenavigationstack.navstackisenabled,
                             viewlogfile: $viewlogfile)
+
             SnapshotCommands()
 
             CommandGroup(replacing: .help) {
@@ -42,6 +44,7 @@ struct RsyncUIApp: App {
                 }
             }
         }
+
         Settings {
             SettingsView(selectedprofile: $selectedprofile)
         }

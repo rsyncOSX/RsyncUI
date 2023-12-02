@@ -14,7 +14,6 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
     @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
-    @FocusedBinding(\.showinfotask) private var showinfotask
     @FocusedBinding(\.aborttask) private var aborttask
     @FocusedBinding(\.enabletimer) private var enabletimer
 
@@ -36,7 +35,6 @@ struct ExecuteCommands: Commands {
                 Divider()
 
                 FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
-                Showinfotask(showinfotask: $showinfotask)
 
                 Divider()
 
@@ -111,19 +109,6 @@ struct FirsttaskInfo: View {
     }
 }
 
-struct Showinfotask: View {
-    @Binding var showinfotask: Bool?
-
-    var body: some View {
-        Button {
-            showinfotask = true
-        } label: {
-            Label("Show info", systemImage: "play.fill")
-        }
-        .keyboardShortcut("i", modifiers: [.command])
-    }
-}
-
 struct Abborttask: View {
     @Binding var aborttask: Bool?
 
@@ -162,10 +147,6 @@ struct FocusedFirsttaskInfo: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
-struct FocusedShowinfoTask: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
-
 struct FocusedAborttask: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -188,11 +169,6 @@ extension FocusedValues {
     var firsttaskinfo: FocusedFirsttaskInfo.Value? {
         get { self[FocusedFirsttaskInfo.self] }
         set { self[FocusedFirsttaskInfo.self] = newValue }
-    }
-
-    var showinfotask: FocusedShowinfoTask.Value? {
-        get { self[FocusedShowinfoTask.self] }
-        set { self[FocusedShowinfoTask.self] = newValue }
     }
 
     var aborttask: FocusedAborttask.Value? {

@@ -10,6 +10,25 @@ import Observation
 import OSLog
 import SwiftUI
 
+enum Sheet: String, Identifiable {
+    case dryrunalltasks, dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, asynctimerison
+    var id: String { rawValue }
+}
+
+@Observable
+final class SheetChooser {
+    // Which sheet to present
+    // Do not redraw view when changing
+    // no @Publised
+    @ObservationIgnored
+    var sheet: Sheet = .dryrunalltasks
+}
+
+@Observable
+final class Selectedconfig {
+    var config: Configuration?
+}
+
 struct TasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     // The object holds the progressdata for the current estimated task
@@ -30,7 +49,6 @@ struct TasksView: View {
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
     @State private var focusfirsttaskinfo: Bool = false
-    @State private var focusshowinfotask: Bool = false
     @State private var focusaborttask: Bool = false
     @State private var focusenabletimer: Bool = false
 
@@ -75,7 +93,6 @@ struct TasksView: View {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
                 if focusfirsttaskinfo { labelfirsttime }
-                if focusshowinfotask { showinfotask }
                 if focusaborttask { labelaborttask }
                 if focusenabletimer { labelenabletimer }
                 if estimatingprogresscount.estimatealltasksasync { progressviewestimateasync }
@@ -85,7 +102,6 @@ struct TasksView: View {
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
-        .focusedSceneValue(\.showinfotask, $focusshowinfotask)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .focusedSceneValue(\.enabletimer, $focusenabletimer)
         .task {
@@ -185,9 +201,6 @@ struct TasksView: View {
             AlltasksView()
         case .firsttime:
             FirsttimeView()
-        case .localremoteinfo:
-            LocalRemoteInfoView(localdata: $localdata,
-                                selectedconfig: selectedconfig.config)
         case .asynctimerison:
             Counter(timervalue: $timervalue,
                     timerisenabled: $timerisenabled)
@@ -222,24 +235,6 @@ struct TasksView: View {
                 progressdetails.resetcounter()
                 progressdetails.setestimatedlist(estimatingprogresscount.getestimatedlist())
             }
-    }
-
-    var showinfotask: some View {
-        AlertToast(displayMode: .alert, type: .loading)
-            .onAppear(perform: {
-                let argumentslocalinfo = ArgumentsLocalcatalogInfo(config: selectedconfig.config)
-                    .argumentslocalcataloginfo(dryRun: true, forDisplay: false)
-                guard argumentslocalinfo != nil else {
-                    focusshowinfotask = false
-                    return
-                }
-
-                Task {
-                    let tasklocalinfo = await RsyncAsync(arguments: argumentslocalinfo,
-                                                         processtermination: processtermination)
-                    await tasklocalinfo.executeProcess()
-                }
-            })
     }
 
     var doubleclickaction: some View {
@@ -406,14 +401,6 @@ extension TasksView {
         focusstartexecution = false
     }
 
-    // For showinfo about one task
-    func processtermination(data: [String]?) {
-        localdata = data ?? []
-        focusshowinfotask = false
-        sheetchooser.sheet = .localremoteinfo
-        modaleview = true
-    }
-
     // Async start and stop timer
     func startasynctimer() {
         Logger.process.info("Start Async Timer")
@@ -432,25 +419,6 @@ extension TasksView {
         SharedReference.shared.workitem?.cancel()
         SharedReference.shared.workitem = nil
     }
-}
-
-enum Sheet: String, Identifiable {
-    case dryrunalltasks, dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, localremoteinfo, asynctimerison
-    var id: String { rawValue }
-}
-
-@Observable
-final class SheetChooser {
-    // Which sheet to present
-    // Do not redraw view when changing
-    // no @Publised
-    @ObservationIgnored
-    var sheet: Sheet = .dryrunalltasks
-}
-
-@Observable
-final class Selectedconfig {
-    var config: Configuration?
 }
 
 // swiftlint:enable line_length file_length
