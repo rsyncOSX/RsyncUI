@@ -42,8 +42,7 @@ struct NavigationSidebarTasksView: View {
     func makeView(view: DestinationView) -> some View {
         switch view {
         case .executestimatedview:
-            NavigationExecuteEstimatedTasksView(estimatingprogressdetails: estimatingprogressdetails,
-                                                selecteduuids: $selecteduuids,
+            NavigationExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
                                                 reload: $reload,
                                                 path: $path)
                 .environmentObject(progressdetails)

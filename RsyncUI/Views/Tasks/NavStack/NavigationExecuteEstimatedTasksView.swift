@@ -10,8 +10,8 @@ import SwiftUI
 
 struct NavigationExecuteEstimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @EnvironmentObject var progressdetails: ExecuteProgressDetails
-    @Bindable var estimatingprogressdetails: EstimateProgressDetails
+    @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
+    // @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
     @Binding var path: [Tasks]
@@ -40,7 +40,7 @@ struct NavigationExecuteEstimatedTasksView: View {
             executemultipleestimatedtasks()
         })
         .onDisappear(perform: {
-            progressdetails.resetcounter()
+            executeprogressdetails.resetcounter()
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
@@ -75,18 +75,18 @@ struct NavigationExecuteEstimatedTasksView: View {
 
 extension NavigationExecuteEstimatedTasksView {
     func completed() {
-        progressdetails.hiddenIDatwork = -1
+        executeprogressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        estimatingprogressdetails.resetcounts()
+        // estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         path.removeAll()
         reload = true
     }
 
     func abort() {
-        progressdetails.hiddenIDatwork = -1
+        executeprogressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        estimatingprogressdetails.resetcounts()
+        // estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         _ = InterruptProcess()
         path.removeAll()
@@ -97,11 +97,11 @@ extension NavigationExecuteEstimatedTasksView {
         var uuids: Set<Configuration.ID>?
         if selecteduuids.count > 0 {
             uuids = selecteduuids
-        } else if estimatingprogressdetails.estimatedlist?.count ?? 0 > 0 {
-            let uuidcount = estimatingprogressdetails.estimatedlist?.compactMap { $0.id }
+        } else if executeprogressdetails.estimatedlist?.count ?? 0 > 0 {
+            let uuidcount = executeprogressdetails.estimatedlist?.compactMap { $0.id }
             uuids = Set<Configuration.ID>()
             for i in 0 ..< (uuidcount?.count ?? 0) {
-                if estimatingprogressdetails.estimatedlist?[i].datatosynchronize == true {
+                if executeprogressdetails.estimatedlist?[i].datatosynchronize == true {
                     uuids?.insert(uuidcount?[i] ?? UUID())
                 }
             }
@@ -115,7 +115,7 @@ extension NavigationExecuteEstimatedTasksView {
                                  configurations: rsyncUIdata,
                                  multipletaskstateDelegate: multipletaskstate,
                                  // estimateprogressdetailsDelegate: estimatingprogressdetails,
-                                 executeprogressdetailsDelegate: progressdetails)
+                                 executeprogressdetailsDelegate: executeprogressdetails)
         }
     }
 }
