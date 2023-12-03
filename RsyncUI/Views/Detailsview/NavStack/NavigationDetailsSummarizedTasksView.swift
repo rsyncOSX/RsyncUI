@@ -10,7 +10,7 @@ import SwiftUI
 
 struct NavigationSummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @EnvironmentObject var progressdetails: ExecuteProgressDetails
+    @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var path: [Tasks]
@@ -138,7 +138,7 @@ struct NavigationSummarizedAllDetailsView: View {
                     return
                 }
                 estimatingprogressdetails.resetcounts()
-                progressdetails.resetcounter()
+                executeprogressdetails.resetcounter()
                 estimatingprogressdetails.startestimateasync()
             }
 
@@ -165,8 +165,8 @@ struct NavigationSummarizedAllDetailsView: View {
                 }
             }
             .onDisappear {
-                progressdetails.resetcounter()
-                progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
+                executeprogressdetails.resetcounter()
+                executeprogressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
                 nodatatosynchronize = {
                     if let data = estimatingprogressdetails.getestimatedlist()?.filter({
                         $0.datatosynchronize == true })
