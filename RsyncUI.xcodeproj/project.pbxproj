@@ -457,10 +457,9 @@
 		E927AAD12616E23100DC27A3 /* Quicktask */ = {
 			isa = PBXGroup;
 			children = (
-				E96223942B0BDA7E00C40578 /* NavigationOutputRsyncView.swift */,
-				E931ED952B0C82BB000BEF56 /* NavigationQuicktaskView.swift */,
-				E927AAD22616E27300DC27A3 /* QuicktaskView.swift */,
+				E9980C792B1CB86400439F1B /* NavStack */,
 				E964FFE62906A86000BFEC94 /* OutputRsyncView.swift */,
+				E927AAD22616E27300DC27A3 /* QuicktaskView.swift */,
 			);
 			path = Quicktask;
 			sourceTree = "<group>";
@@ -488,8 +487,7 @@
 		E95EDC7D26063C7F000018DE /* RsyncParameters */ = {
 			isa = PBXGroup;
 			children = (
-				E99A79542B0BA1A800D3244A /* NavigationRsyncDefaultParametersView.swift */,
-				E99A79562B0BA1C800D3244A /* NavigationRsyncParametersView.swift */,
+				E9980C7A2B1CB88400439F1B /* NavStack */,
 				E985C63925F3AD8400CB895C /* RsyncCommandView.swift */,
 				E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */,
 				E91CC2612607260B00D69D0B /* RsyncDefaultParametersView.swift */,
@@ -578,10 +576,9 @@
 		E985C60A25F3AD8400CB895C /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
+				E9980C7F2B1CB91000439F1B /* NavStack */,
 				E99DE5232A52B16100422E85 /* Sidebar.swift */,
 				E985C61425F3AD8400CB895C /* Profilenames.swift */,
-				E99A79582B0BAB2D00D3244A /* NavigationSidebarParametersView.swift */,
-				E954AD3E2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift */,
 				E985C60C25F3AD8400CB895C /* SidebarTasksView.swift */,
 				E985C64B25F3AD8400CB895C /* SidebarAddTaskView.swift */,
 				E9BCCE8B25FB432E0034EDFD /* SidebarLogsView.swift */,
@@ -593,7 +590,7 @@
 		E985C61525F3AD8400CB895C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				E9B6B3E22AFFDE7500E12EB2 /* NavigationListofTasksMainView.swift */,
+				E9980C7D2B1CB8EC00439F1B /* NavStack */,
 				E944E6C92A16B6A6009BA945 /* ListofTasksMainView.swift */,
 				E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */,
 				E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */,
@@ -617,7 +614,7 @@
 		E985C61E25F3AD8400CB895C /* FilelogView */ = {
 			isa = PBXGroup;
 			children = (
-				E9B6BD342B120B840084BC8B /* NavigationLogfileView.swift */,
+				E9980C7E2B1CB8FB00439F1B /* NavStack */,
 				E985C61F25F3AD8400CB895C /* LogfileView.swift */,
 			);
 			path = FilelogView;
@@ -636,10 +633,7 @@
 		E985C62325F3AD8400CB895C /* Detailsview */ = {
 			isa = PBXGroup;
 			children = (
-				E905DFCA2B00CECD00FEFF3A /* NavigationAlltasksView.swift */,
-				E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskRootView.swift */,
-				E94F23A12AFE967800983C1C /* NavigationDetailsOneTask.swift */,
-				E954AD402AFE8FBB00F3EA63 /* NavigationSummarizedAllDetailsView.swift */,
+				E9980C7C2B1CB8D600439F1B /* NavStack */,
 				E81C244B267DEEAA00C50AE8 /* DetailsSummarizedTasksView.swift */,
 				E943D4232906CE6F0042A560 /* DetailsOneTaskView.swift */,
 				E96ED542292FDC3B0021FF06 /* DetailsOneTaskAlreadyEstimatedView.swift */,
@@ -684,10 +678,7 @@
 		E985C64E25F3AD8400CB895C /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				E9B6B3DD2AFFD91200E12EB2 /* NavigationFirstTimeView.swift */,
-				E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */,
-				E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */,
-				E954AD422AFE901200F3EA63 /* NavigationTasksView.swift */,
+				E9980C7B2B1CB89A00439F1B /* NavStack */,
 				E9A6A42329CA076200C59183 /* TasksView.swift */,
 				E9EA4EA229DAA0EF00456ADA /* Counter.swift */,
 				E985C65225F3AD8400CB895C /* ExecuteEstimatedTasksView.swift */,
@@ -987,6 +978,71 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E9980C792B1CB86400439F1B /* NavStack */ = {
+			isa = PBXGroup;
+			children = (
+				E931ED952B0C82BB000BEF56 /* NavigationQuicktaskView.swift */,
+				E96223942B0BDA7E00C40578 /* NavigationOutputRsyncView.swift */,
+			);
+			path = NavStack;
+			sourceTree = "<group>";
+		};
+		E9980C7A2B1CB88400439F1B /* NavStack */ = {
+			isa = PBXGroup;
+			children = (
+				E99A79542B0BA1A800D3244A /* NavigationRsyncDefaultParametersView.swift */,
+				E99A79562B0BA1C800D3244A /* NavigationRsyncParametersView.swift */,
+			);
+			path = NavStack;
+			sourceTree = "<group>";
+		};
+		E9980C7B2B1CB89A00439F1B /* NavStack */ = {
+			isa = PBXGroup;
+			children = (
+				E9B6B3DD2AFFD91200E12EB2 /* NavigationFirstTimeView.swift */,
+				E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */,
+				E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */,
+				E954AD422AFE901200F3EA63 /* NavigationTasksView.swift */,
+			);
+			path = NavStack;
+			sourceTree = "<group>";
+		};
+		E9980C7C2B1CB8D600439F1B /* NavStack */ = {
+			isa = PBXGroup;
+			children = (
+				E905DFCA2B00CECD00FEFF3A /* NavigationAlltasksView.swift */,
+				E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskRootView.swift */,
+				E94F23A12AFE967800983C1C /* NavigationDetailsOneTask.swift */,
+				E954AD402AFE8FBB00F3EA63 /* NavigationSummarizedAllDetailsView.swift */,
+			);
+			path = NavStack;
+			sourceTree = "<group>";
+		};
+		E9980C7D2B1CB8EC00439F1B /* NavStack */ = {
+			isa = PBXGroup;
+			children = (
+				E9B6B3E22AFFDE7500E12EB2 /* NavigationListofTasksMainView.swift */,
+			);
+			path = NavStack;
+			sourceTree = "<group>";
+		};
+		E9980C7E2B1CB8FB00439F1B /* NavStack */ = {
+			isa = PBXGroup;
+			children = (
+				E9B6BD342B120B840084BC8B /* NavigationLogfileView.swift */,
+			);
+			path = NavStack;
+			sourceTree = "<group>";
+		};
+		E9980C7F2B1CB91000439F1B /* NavStack */ = {
+			isa = PBXGroup;
+			children = (
+				E99A79582B0BAB2D00D3244A /* NavigationSidebarParametersView.swift */,
+				E954AD3E2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift */,
+			);
+			path = NavStack;
+			sourceTree = "<group>";
+		};
 		E999F92027690F0300B80DF6 /* Imports */ = {
 			isa = PBXGroup;
 			children = (
@@ -1000,8 +1056,8 @@
 			isa = PBXGroup;
 			children = (
 				E956D3772B0C88B9008B190F /* NavigationRestoreTableView.swift */,
-				E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */,
 				E94E1E1D2A2DB14A00011FED /* RestoreTableView.swift */,
+				E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */,
 			);
 			path = Restore;
 			sourceTree = "<group>";
