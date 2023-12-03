@@ -10,7 +10,7 @@ import SwiftUI
 struct ExecuteEstimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
-    @State private var estimatingprogressdetails = EstimateProgressDetails()
+    // @State private var estimatingprogressdetails = EstimateProgressDetails()
     @State private var multipletaskstate = MultipleTaskState()
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
@@ -74,7 +74,7 @@ extension ExecuteEstimatedTasksView {
     func completed() {
         executeprogressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        estimatingprogressdetails.resetcounts()
+        // estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         showeexecutestimatedview = false
         reload = true
@@ -83,7 +83,7 @@ extension ExecuteEstimatedTasksView {
     func abort() {
         executeprogressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        estimatingprogressdetails.resetcounts()
+        // estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         _ = InterruptProcess()
         showeexecutestimatedview = false
@@ -100,7 +100,7 @@ extension ExecuteEstimatedTasksView {
                              profile: rsyncUIdata.profile,
                              configurations: rsyncUIdata,
                              multipletaskstateDelegate: multipletaskstate,
-                             estimateprogressdetailsDelegate: estimatingprogressdetails,
+                             // estimateprogressdetailsDelegate: estimatingprogressdetails,
                              executeprogressdetailsDelegate: executeprogressdetails)
     }
 }

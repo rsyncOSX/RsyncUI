@@ -114,7 +114,7 @@ extension NavigationExecuteEstimatedTasksView {
                                  profile: rsyncUIdata.profile,
                                  configurations: rsyncUIdata,
                                  multipletaskstateDelegate: multipletaskstate,
-                                 estimateprogressdetailsDelegate: estimatingprogressdetails,
+                                 // estimateprogressdetailsDelegate: estimatingprogressdetails,
                                  executeprogressdetailsDelegate: progressdetails)
         }
     }
