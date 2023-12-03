@@ -5,12 +5,12 @@
 //  Created by Thomas Evensen on 07/02/2021.
 //
 
+import OSLog
 import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
-    // @State private var estimatingprogressdetails = EstimateProgressDetails()
     @State private var multipletaskstate = MultipleTaskState()
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
@@ -74,7 +74,6 @@ extension ExecuteEstimatedTasksView {
     func completed() {
         executeprogressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        // estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         showeexecutestimatedview = false
         reload = true
@@ -83,7 +82,6 @@ extension ExecuteEstimatedTasksView {
     func abort() {
         executeprogressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        // estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         _ = InterruptProcess()
         showeexecutestimatedview = false
@@ -91,16 +89,27 @@ extension ExecuteEstimatedTasksView {
     }
 
     func executemultipleestimatedtasks() {
-        guard selecteduuids.count > 0 else {
-            showeexecutestimatedview = false
-            return
+        var uuids: Set<Configuration.ID>?
+        if selecteduuids.count > 0 {
+            uuids = selecteduuids
+        } else if executeprogressdetails.estimatedlist?.count ?? 0 > 0 {
+            let uuidcount = executeprogressdetails.estimatedlist?.compactMap { $0.id }
+            uuids = Set<Configuration.ID>()
+            for i in 0 ..< (uuidcount?.count ?? 0) {
+                if executeprogressdetails.estimatedlist?[i].datatosynchronize == true {
+                    uuids?.insert(uuidcount?[i] ?? UUID())
+                }
+            }
         }
-        multipletaskstate.updatestate(state: .execute)
-        ExecuteMultipleTasks(uuids: selecteduuids,
-                             profile: rsyncUIdata.profile,
-                             configurations: rsyncUIdata,
-                             multipletaskstateDelegate: multipletaskstate,
-                             // estimateprogressdetailsDelegate: estimatingprogressdetails,
-                             executeprogressdetailsDelegate: executeprogressdetails)
+        guard (uuids?.count ?? 0) > 0 else { return }
+        if let uuids = uuids {
+            Logger.process.info("Executemultipleestimatedtasks() : \(uuids)")
+            multipletaskstate.updatestate(state: .execute)
+            ExecuteMultipleTasks(uuids: uuids,
+                                 profile: rsyncUIdata.profile,
+                                 configurations: rsyncUIdata,
+                                 multipletaskstateDelegate: multipletaskstate,
+                                 executeprogressdetailsDelegate: executeprogressdetails)
+        }
     }
 }
