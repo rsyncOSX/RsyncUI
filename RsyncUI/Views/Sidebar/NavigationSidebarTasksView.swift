@@ -34,7 +34,7 @@ struct NavigationSidebarTasksView: View {
                 }
         }
         .onChange(of: path) {
-            Logger.process.info("Path : \(path)")
+            Logger.process.info("Path : \(path, privacy: .public)")
         }
     }
 
