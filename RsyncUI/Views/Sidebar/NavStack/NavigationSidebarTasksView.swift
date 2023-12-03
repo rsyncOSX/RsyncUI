@@ -51,7 +51,7 @@ struct NavigationSidebarTasksView: View {
                                                   selecteduuids: $selecteduuids,
                                                   path: $path)
         case .estimatedview:
-            NavigationSummarizedAllDetailsView(estimatingprogressdetails: estimatingprogressdetails,
+            NavigationSummarizedAllDetailsView(estimateprogressdetails: estimatingprogressdetails,
                                                selecteduuids: $selecteduuids,
                                                path: $path)
                 .environmentObject(progressdetails)

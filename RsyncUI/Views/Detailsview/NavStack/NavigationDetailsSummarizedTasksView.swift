@@ -1,5 +1,5 @@
 //
-//  NavigationSummarizedAllDetailsView.swift
+//  NavigationDetailsSummarizedTasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/11/2023.
@@ -11,7 +11,7 @@ import SwiftUI
 struct NavigationSummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
-    @Bindable var estimatingprogressdetails: EstimateProgressDetails
+    @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var path: [Tasks]
 
@@ -21,10 +21,10 @@ struct NavigationSummarizedAllDetailsView: View {
     var body: some View {
         VStack {
             HStack {
-                if estimatingprogressdetails.estimatealltasksasync {
+                if estimateprogressdetails.estimatealltasksasync {
                     Text("Estimating")
                 } else {
-                    Table(estimatingprogressdetails.getestimatedlist() ?? [],
+                    Table(estimateprogressdetails.getestimatedlist() ?? [],
                           selection: $selecteduuids)
                     {
                         TableColumn("Synchronize ID") { data in
@@ -56,7 +56,7 @@ struct NavigationSummarizedAllDetailsView: View {
                         path.append(Tasks(task: .dryrunonetaskalreadyestimated))
                     }
 
-                    Table(estimatingprogressdetails.getestimatedlist() ?? []) {
+                    Table(estimateprogressdetails.getestimatedlist() ?? []) {
                         TableColumn("New") { files in
                             if files.datatosynchronize {
                                 Text(files.newfiles)
@@ -133,13 +133,13 @@ struct NavigationSummarizedAllDetailsView: View {
             })
             .focusedSceneValue(\.startexecution, $focusstartexecution)
             .onAppear {
-                guard estimatingprogressdetails.estimatealltasksasync == false else {
+                guard estimateprogressdetails.estimatealltasksasync == false else {
                     Logger.process.info("TasksView: estimate already in progress")
                     return
                 }
-                estimatingprogressdetails.resetcounts()
+                estimateprogressdetails.resetcounts()
                 executeprogressdetails.resetcounter()
-                estimatingprogressdetails.startestimateasync()
+                estimateprogressdetails.startestimateasync()
             }
 
             Spacer()
@@ -147,7 +147,7 @@ struct NavigationSummarizedAllDetailsView: View {
             if nodatatosynchronize { shownosynchronize }
         }
 
-        if estimatingprogressdetails.estimatealltasksasync { progressviewestimateasync }
+        if estimateprogressdetails.estimatealltasksasync { progressviewestimateasync }
 
         if focusstartexecution { labelstartexecution }
     }
@@ -158,7 +158,7 @@ struct NavigationSummarizedAllDetailsView: View {
                 Task {
                     let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
                                                       configurations: rsyncUIdata,
-                                                      updateinprogresscount: estimatingprogressdetails,
+                                                      updateinprogresscount: estimateprogressdetails,
                                                       uuids: selecteduuids,
                                                       filter: "")
                     await estimate.startexecution()
@@ -166,9 +166,9 @@ struct NavigationSummarizedAllDetailsView: View {
             }
             .onDisappear {
                 executeprogressdetails.resetcounter()
-                executeprogressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
+                executeprogressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
                 nodatatosynchronize = {
-                    if let data = estimatingprogressdetails.getestimatedlist()?.filter({
+                    if let data = estimateprogressdetails.getestimatedlist()?.filter({
                         $0.datatosynchronize == true })
                     {
                         return data.isEmpty
