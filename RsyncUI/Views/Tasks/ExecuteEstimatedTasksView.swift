@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @EnvironmentObject var progressdetails: ExecuteProgressDetails
-    @State private var estimatingprogresscount = EstimateProgressDetails()
+    @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
+    @State private var estimatingprogressdetails = EstimateProgressDetails()
     @State private var multipletaskstate = MultipleTaskState()
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
@@ -38,7 +38,7 @@ struct ExecuteEstimatedTasksView: View {
             executemultipleestimatedtasks()
         })
         .onDisappear(perform: {
-            progressdetails.resetcounter()
+            executeprogressdetails.resetcounter()
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
@@ -72,18 +72,18 @@ struct ExecuteEstimatedTasksView: View {
 
 extension ExecuteEstimatedTasksView {
     func completed() {
-        progressdetails.hiddenIDatwork = -1
+        executeprogressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        estimatingprogresscount.resetcounts()
+        estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         showeexecutestimatedview = false
         reload = true
     }
 
     func abort() {
-        progressdetails.hiddenIDatwork = -1
+        executeprogressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
-        estimatingprogresscount.resetcounts()
+        estimatingprogressdetails.resetcounts()
         selecteduuids.removeAll()
         _ = InterruptProcess()
         showeexecutestimatedview = false
@@ -100,7 +100,7 @@ extension ExecuteEstimatedTasksView {
                              profile: rsyncUIdata.profile,
                              configurations: rsyncUIdata,
                              multipletaskstateDelegate: multipletaskstate,
-                             estimateprogressdetailsDelegate: estimatingprogresscount,
-                             executeprogressdetailsDelegate: progressdetails)
+                             estimateprogressdetailsDelegate: estimatingprogressdetails,
+                             executeprogressdetailsDelegate: executeprogressdetails)
     }
 }
