@@ -7,6 +7,7 @@
 // swiftlint: disable line_length
 
 import Foundation
+import OSLog
 
 class EstimateTasksAsync {
     var structprofile: String?
@@ -65,6 +66,7 @@ class EstimateTasksAsync {
                 }
             }
         }
+        Logger.process.info("EstimateTasksAsync() : \(stackoftasktobeestimated?.count ?? 0, privacy: .public)")
         localestimateprogressdetails?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
         localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }

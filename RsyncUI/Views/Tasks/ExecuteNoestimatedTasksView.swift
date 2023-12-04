@@ -87,7 +87,7 @@ extension ExecuteNoestimatedTasksView {
     }
 
     func executeallnotestimatedtasks() async {
-        Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids)")
+        Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids, privacy: .public)")
         estimateprogressdetails.startasyncexecutealltasksnoestimation()
         executealltasksasync =
             ExecuteTasksAsync(profile: rsyncUIdata.profile,

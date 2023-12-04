@@ -50,7 +50,7 @@ final class RsyncUIlogrecords {
 
             } else {
                 let number = alllogssorted?.count ?? 0
-                Logger.process.info("ALL logs - count: \(String(number))")
+                Logger.process.info("ALL logs - count: \(String(number), privacy: .public)")
                 countrecords = number
                 return alllogssorted ?? []
             }
