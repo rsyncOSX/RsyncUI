@@ -67,12 +67,12 @@ final class ExecuteMultipleTasks {
         multipletaskstate = multipletaskstateDelegate
         executeprogressdetails = executeprogressdetailsDelegate
         guard uuids.count > 0 else {
-            Logger.process.info("class ExecuteMultipleTasks, guard uuids.count > 0: \(uuids.count, privacy: .public)")
+            Logger.process.warning("class ExecuteMultipleTasks, guard uuids.count > 0: \(uuids.count, privacy: .public)")
             multipletaskstate?.updatestate(state: .completed)
             return
         }
         guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else {
-            Logger.process.info("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(uuids.count, privacy: .public)")
+            Logger.process.warning("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(uuids.count, privacy: .public)")
             multipletaskstate?.updatestate(state: .completed)
             return
         }

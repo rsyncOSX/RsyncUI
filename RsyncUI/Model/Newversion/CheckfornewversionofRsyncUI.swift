@@ -54,6 +54,7 @@ final class CheckfornewversionofRsyncUI {
                     notifynewversion = true
                     SharedReference.shared.URLnewVersion = check[0].url
                 } else {
+                    Logger.process.warning("CheckfornewversionofRsyncUI: loading data failed)")
                     notifynewversion = false
                 }
             }
