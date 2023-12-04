@@ -12,12 +12,12 @@ class EstimateTasksAsync {
     var structprofile: String?
     var localconfigurations: RsyncUIconfigurations?
     var stackoftasktobeestimated: [Int]?
-    weak var estimateprogressdetails: EstimateProgressDetails?
+    weak var localestimateprogressdetails: EstimateProgressDetails?
 
     @MainActor
     func startexecution() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
-            estimateprogressdetails?.asyncestimationcomplete()
+            localestimateprogressdetails?.asyncestimationcomplete()
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
@@ -34,13 +34,13 @@ class EstimateTasksAsync {
 
     init(profile: String?,
          configurations: RsyncUIconfigurations?,
-         updateinprogresscount: EstimateProgressDetails?,
+         estimateprogressdetails: EstimateProgressDetails?,
          uuids: Set<UUID>,
          filter: String)
     {
         structprofile = profile
         localconfigurations = configurations
-        estimateprogressdetails = updateinprogresscount
+        localestimateprogressdetails = estimateprogressdetails
         let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()
         // Estimate selected configurations
@@ -65,8 +65,8 @@ class EstimateTasksAsync {
                 }
             }
         }
-        estimateprogressdetails?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
-        estimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
+        localestimateprogressdetails?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
+        localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }
 
     deinit {
@@ -79,10 +79,10 @@ extension EstimateTasksAsync {
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
-        estimateprogressdetails?.appendrecordestimatedlist(record)
+        localestimateprogressdetails?.appendrecordestimatedlist(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {
-                estimateprogressdetails?.appenduuid(config.id)
+                localestimateprogressdetails?.appenduuid(config.id)
             }
         }
         _ = Task.detached {

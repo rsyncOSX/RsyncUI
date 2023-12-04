@@ -12,14 +12,14 @@ struct NavigationSidebarTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
-    @State private var estimatingprogressdetails = EstimateProgressDetails()
+    @State private var estimateprogressdetails = EstimateProgressDetails()
     @StateObject private var progressdetails = ExecuteProgressDetails()
     // Which view to show
     @State var path: [Tasks] = []
 
     var body: some View {
         NavigationStack(path: $path) {
-            NavigationTasksView(estimateprogressdetails: estimatingprogressdetails,
+            NavigationTasksView(estimateprogressdetails: estimateprogressdetails,
                                 reload: $reload,
                                 selecteduuids: $selecteduuids,
                                 path: $path)
@@ -51,20 +51,20 @@ struct NavigationSidebarTasksView: View {
                                                   selecteduuids: $selecteduuids,
                                                   path: $path)
         case .estimatedview:
-            NavigationSummarizedAllDetailsView(estimateprogressdetails: estimatingprogressdetails,
+            NavigationSummarizedAllDetailsView(estimateprogressdetails: estimateprogressdetails,
                                                selecteduuids: $selecteduuids,
                                                path: $path)
                 .environmentObject(progressdetails)
         case .firsttime:
             NavigationFirstTimeView()
         case .dryrunonetask:
-            NavigationDetailsOneTaskRootView(estimatingprogressdetails: estimatingprogressdetails,
+            NavigationDetailsOneTaskRootView(estimateprogressdetails: estimateprogressdetails,
                                              selecteduuids: selecteduuids)
                 .onDisappear {
-                    progressdetails.setestimatedlist(estimatingprogressdetails.getestimatedlist())
+                    progressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
                 }
         case .dryrunonetaskalreadyestimated:
-            NavigationDetailsOneTask(estimatedlist: estimatingprogressdetails.getestimatedlist() ?? [],
+            NavigationDetailsOneTask(estimatedlist: estimateprogressdetails.getestimatedlist() ?? [],
                                      selecteduuids: $selecteduuids)
         case .alltasksview:
             NavigationAlltasksView()

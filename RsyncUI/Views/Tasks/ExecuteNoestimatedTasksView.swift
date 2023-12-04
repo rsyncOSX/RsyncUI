@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 31/01/2023.
 //
 
+import OSLog
 import SwiftUI
 
 struct ExecuteNoestimatedTasksView: View {
@@ -86,11 +87,12 @@ extension ExecuteNoestimatedTasksView {
     }
 
     func executeallnotestimatedtasks() async {
+        Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids)")
         estimateprogressdetails.startasyncexecutealltasksnoestimation()
         executealltasksasync =
             ExecuteTasksAsync(profile: rsyncUIdata.profile,
                               configurations: rsyncUIdata,
-                              updateinprogresscount: estimateprogressdetails,
+                              estimateprogressdetails: estimateprogressdetails,
                               uuids: selecteduuids,
                               filter: filterstring)
         await executealltasksasync?.startexecution()

@@ -159,7 +159,7 @@ struct NavigationSummarizedAllDetailsView: View {
                 Task {
                     let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
                                                       configurations: rsyncUIdata,
-                                                      updateinprogresscount: estimateprogressdetails,
+                                                      estimateprogressdetails: estimateprogressdetails,
                                                       uuids: selecteduuids,
                                                       filter: "")
                     await estimate.startexecution()

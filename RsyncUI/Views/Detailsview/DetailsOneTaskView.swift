@@ -12,7 +12,7 @@ import SwiftUI
 
 struct DetailsOneTaskView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @SwiftUI.Environment(EstimateProgressDetails.self) var inprogresscountmultipletask
+    @SwiftUI.Environment(EstimateProgressDetails.self) var estimateprogressdetails
 
     var selectedconfig: Configuration?
 
@@ -141,9 +141,9 @@ extension DetailsOneTaskView {
         gettingremotedata = false
         // Adding computed estimate if later execute and view of progress
         if estimateddataonetask.estimatedlistonetask.count == 1 {
-            inprogresscountmultipletask.resetcounts()
-            inprogresscountmultipletask.appenduuid(selectedconfig?.id ?? UUID())
-            inprogresscountmultipletask.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
+            estimateprogressdetails.resetcounts()
+            estimateprogressdetails.appenduuid(selectedconfig?.id ?? UUID())
+            estimateprogressdetails.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
         }
     }
 }

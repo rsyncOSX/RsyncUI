@@ -12,7 +12,7 @@ import SwiftUI
 struct NavigationDetailsOneTaskRootView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
-    @Bindable var estimatingprogressdetails: EstimateProgressDetails
+    @Bindable var estimateprogressdetails: EstimateProgressDetails
     @State private var gettingremotedata = true
 
     @State private var estimateddataonetask = Estimateddataonetask()
@@ -151,11 +151,11 @@ extension NavigationDetailsOneTaskRootView {
         gettingremotedata = false
         // Adding computed estimate if later execute and view of progress
         if estimateddataonetask.estimatedlistonetask.count == 1 {
-            estimatingprogressdetails.resetcounts()
-            estimatingprogressdetails.appenduuid(selectedconfig?.id ?? UUID())
-            estimatingprogressdetails.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
-            estimatingprogressdetails.setprofileandnumberofconfigurations(rsyncUIdata.profile ?? "Default profile",
-                                                                          rsyncUIdata.getallconfigurations()?.count ?? 0)
+            estimateprogressdetails.resetcounts()
+            estimateprogressdetails.appenduuid(selectedconfig?.id ?? UUID())
+            estimateprogressdetails.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
+            estimateprogressdetails.setprofileandnumberofconfigurations(rsyncUIdata.profile ?? "Default profile",
+                                                                        rsyncUIdata.getallconfigurations()?.count ?? 0)
         }
     }
 }
