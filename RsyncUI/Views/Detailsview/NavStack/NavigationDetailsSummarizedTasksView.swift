@@ -198,6 +198,7 @@ struct NavigationSummarizedAllDetailsView: View {
                 .foregroundColor(Color.blue)
         }
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .frame(width: 350, height: 20, alignment: .center)
         .onAppear(perform: {
             // Show updated for 2 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
