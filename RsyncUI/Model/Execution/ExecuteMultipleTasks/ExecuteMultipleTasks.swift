@@ -7,6 +7,7 @@
 // swiftlint:disable line_length
 
 import Foundation
+import OSLog
 
 typealias Typelogdata = (Int, String)
 
@@ -25,7 +26,6 @@ final class ExecuteMultipleTasks {
     weak var multipletaskstate: MultipleTaskState?
     // In progress count each task
     weak var executeprogressdetails: ExecuteProgressDetails?
-
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
@@ -67,10 +67,12 @@ final class ExecuteMultipleTasks {
         multipletaskstate = multipletaskstateDelegate
         executeprogressdetails = executeprogressdetailsDelegate
         guard uuids.count > 0 else {
+            Logger.process.info("class ExecuteMultipleTasks, guard uuids.count > 0: \(uuids.count, privacy: .public)")
             multipletaskstate?.updatestate(state: .completed)
             return
         }
         guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else {
+            Logger.process.info("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(uuids.count, privacy: .public)")
             multipletaskstate?.updatestate(state: .completed)
             return
         }

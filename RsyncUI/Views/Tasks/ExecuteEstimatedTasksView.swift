@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 07/02/2021.
 //
 
-import OSLog
 import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
@@ -105,7 +104,6 @@ extension ExecuteEstimatedTasksView {
         }
         guard (uuids?.count ?? 0) > 0 else { return }
         if let uuids = uuids {
-            Logger.process.info("Executemultipleestimatedtasks() : \(uuids, privacy: .public)")
             multipletaskstate.updatestate(state: .execute)
             ExecuteMultipleTasks(uuids: uuids,
                                  profile: rsyncUIdata.profile,
