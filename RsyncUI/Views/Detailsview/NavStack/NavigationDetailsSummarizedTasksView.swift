@@ -193,7 +193,7 @@ struct NavigationSummarizedAllDetailsView: View {
     var shownosynchronize: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("No data to synchronize")
+            Text("There seems to be no data to synchronize")
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }
