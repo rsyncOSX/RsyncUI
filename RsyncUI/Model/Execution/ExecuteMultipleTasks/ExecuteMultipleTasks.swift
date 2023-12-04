@@ -47,11 +47,11 @@ final class ExecuteMultipleTasks {
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
             privatehiddenID = hiddenID
             executeprogressdetails?.hiddenIDatwork = hiddenID
-            let estimation = ExecuteOneTask(hiddenID: hiddenID,
-                                            configurations: localconfigurations,
-                                            termination: processtermination,
-                                            filehandler: filehandler)
-            estimation.startexecution()
+            let execute = ExecuteOneTask(hiddenID: hiddenID,
+                                         configurations: localconfigurations,
+                                         termination: processtermination,
+                                         filehandler: filehandler)
+            execute.startexecution()
         }
     }
 
@@ -70,7 +70,10 @@ final class ExecuteMultipleTasks {
             multipletaskstate?.updatestate(state: .completed)
             return
         }
-        guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else { return }
+        guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else {
+            multipletaskstate?.updatestate(state: .completed)
+            return
+        }
         prepareandstartexecutetasks(configurations: localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) })
         records = [RemoteinfonumbersOnetask]()
         startexecution()
