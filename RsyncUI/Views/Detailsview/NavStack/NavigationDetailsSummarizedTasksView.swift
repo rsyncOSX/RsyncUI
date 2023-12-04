@@ -11,6 +11,7 @@ import SwiftUI
 struct NavigationSummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
+
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var path: [Tasks]

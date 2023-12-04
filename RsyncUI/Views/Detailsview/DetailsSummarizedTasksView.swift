@@ -10,11 +10,13 @@ import SwiftUI
 struct DetailsSummarizedTasksView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+
     @Binding var selecteduuids: Set<UUID>
     @Binding var execute: Bool
-    var estimatedlist: [RemoteinfonumbersOnetask]
 
+    var estimatedlist: [RemoteinfonumbersOnetask]
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
     @State private var timervalue: Double = 0
     @State private var timerbuttonvalue: Int = SharedReference.shared.automaticexecutetime
     @State private var canceltimer: Bool = false

@@ -19,7 +19,7 @@ struct NavigationSidebarTasksView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            NavigationTasksView(estimatingprogressdetails: estimatingprogressdetails,
+            NavigationTasksView(estimateprogressdetails: estimatingprogressdetails,
                                 reload: $reload,
                                 selecteduuids: $selecteduuids,
                                 path: $path)

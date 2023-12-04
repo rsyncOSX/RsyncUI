@@ -9,10 +9,12 @@ import SwiftUI
 
 struct ExecuteNoestimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @State private var estimatingprogresscount = EstimateProgressDetails()
+
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var showexecutenoestimateview: Bool
+
+    @State private var estimateprogressdetails = EstimateProgressDetails()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executealltasksasync: ExecuteTasksAsync?
@@ -26,18 +28,10 @@ struct ExecuteNoestimatedTasksView: View {
                 filterstring: $filterstring
             )
 
-            if estimatingprogresscount.executeasyncnoestimationcompleted == true { labelcompleted }
+            if estimateprogressdetails.executeasyncnoestimationcompleted == true { labelcompleted }
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
         }
-        /*
-         HStack {
-             Spacer()
-
-             Button("Abort") { abort() }
-                 .buttonStyle(ColorfulRedButtonStyle())
-         }
-          */
         .onAppear(perform: {
             Task {
                 await executeallnotestimatedtasks()
@@ -76,15 +70,15 @@ struct ExecuteNoestimatedTasksView: View {
 extension ExecuteNoestimatedTasksView {
     func completed() {
         reload = true
-        estimatingprogresscount.resetcounts()
+        estimateprogressdetails.resetcounts()
         progressviewshowinfo = false
-        estimatingprogresscount.estimatealltasksasync = false
+        estimateprogressdetails.estimatealltasksasync = false
         showexecutenoestimateview = false
     }
 
     func abort() {
         selecteduuids.removeAll()
-        estimatingprogresscount.resetcounts()
+        estimateprogressdetails.resetcounts()
         _ = InterruptProcess()
         reload = true
         progressviewshowinfo = false
@@ -92,11 +86,11 @@ extension ExecuteNoestimatedTasksView {
     }
 
     func executeallnotestimatedtasks() async {
-        estimatingprogresscount.startasyncexecutealltasksnoestimation()
+        estimateprogressdetails.startasyncexecutealltasksnoestimation()
         executealltasksasync =
             ExecuteTasksAsync(profile: rsyncUIdata.profile,
                               configurations: rsyncUIdata,
-                              updateinprogresscount: estimatingprogresscount,
+                              updateinprogresscount: estimateprogressdetails,
                               uuids: selecteduuids,
                               filter: filterstring)
         await executealltasksasync?.startexecution()

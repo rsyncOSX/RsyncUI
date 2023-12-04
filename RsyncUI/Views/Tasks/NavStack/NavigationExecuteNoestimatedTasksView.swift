@@ -10,10 +10,12 @@ import SwiftUI
 
 struct NavigationExecuteNoestimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @State private var estimatingprogresscount = EstimateProgressDetails()
+
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
+
+    @State private var estimatingprogresscount = EstimateProgressDetails()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executealltasksasync: ExecuteTasksAsync?

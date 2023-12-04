@@ -11,6 +11,7 @@ import SwiftUI
 struct NavigationExecuteEstimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
+
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
     @Binding var path: [Tasks]

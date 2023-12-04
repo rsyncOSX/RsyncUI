@@ -11,8 +11,10 @@ import SwiftUI
 
 struct NavigationDetailsOneTaskRootView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+
     @Bindable var estimatingprogressdetails: EstimateProgressDetails
     @State private var gettingremotedata = true
+
     @State private var estimateddataonetask = Estimateddataonetask()
     @State private var outputfromrsync = Outputfromrsync()
 
