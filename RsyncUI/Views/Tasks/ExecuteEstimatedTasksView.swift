@@ -93,11 +93,11 @@ extension ExecuteEstimatedTasksView {
         var uuids: Set<Configuration.ID>?
         if selecteduuids.count > 0 {
             uuids = selecteduuids
-        } else if executeprogressdetails.executedlist?.count ?? 0 > 0 {
-            let uuidcount = executeprogressdetails.executedlist?.compactMap { $0.id }
+        } else if executeprogressdetails.estimatedlist?.count ?? 0 > 0 {
+            let uuidcount = executeprogressdetails.estimatedlist?.compactMap { $0.id }
             uuids = Set<Configuration.ID>()
             for i in 0 ..< (uuidcount?.count ?? 0) where
-                executeprogressdetails.executedlist?[i].datatosynchronize == true
+                executeprogressdetails.estimatedlist?[i].datatosynchronize == true
             {
                 uuids?.insert(uuidcount?[i] ?? UUID())
             }

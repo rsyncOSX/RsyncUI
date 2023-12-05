@@ -12,7 +12,7 @@ final class ExecuteProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
     var currenttaskprogress: Double = 0
     var hiddenIDatwork: Int = -1
-    var executedlist: [RemoteinfonumbersOnetask]?
+    var estimatedlist: [RemoteinfonumbersOnetask]?
 
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
@@ -22,14 +22,14 @@ final class ExecuteProgressDetails: ObservableObject {
     var numberofconfigurations: Int = -1
 
     func taskisestimatedbyUUID(_ uuid: UUID) -> Bool {
-        let answer = executedlist?.contains(where: { task in
+        let answer = estimatedlist?.contains(where: { task in
             task.id == uuid
         }) ?? false ? true : false
         return answer
     }
 
     func isestimating() -> Bool {
-        return (executedlist?.count ?? 0) == 0
+        return (estimatedlist?.count ?? 0) == 0
     }
 
     func setcurrentprogress(_ num: Double) {
@@ -38,7 +38,7 @@ final class ExecuteProgressDetails: ObservableObject {
     }
 
     func getmaxcountbytask() -> Double {
-        let max = executedlist?.filter { $0.hiddenID == hiddenIDatwork }
+        let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
         if (max?.count ?? 0) == 1 {
             return Double(max?[0].outputfromrsync?.count ?? 0)
         } else {
@@ -47,12 +47,12 @@ final class ExecuteProgressDetails: ObservableObject {
     }
 
     func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {
-        executedlist = argestimatedlist
+        estimatedlist = argestimatedlist
     }
 
     func resetcounts() {
         currenttaskprogress = 0
-        executedlist = nil
+        estimatedlist = nil
         numberofconfigurations = -1
         max = 0
         uuids.removeAll()
@@ -69,10 +69,10 @@ final class ExecuteProgressDetails: ObservableObject {
     }
 
     func appendrecordexecutedlist(_ record: RemoteinfonumbersOnetask) {
-        if executedlist == nil {
-            executedlist = [RemoteinfonumbersOnetask]()
+        if estimatedlist == nil {
+            estimatedlist = [RemoteinfonumbersOnetask]()
         }
-        executedlist?.append(record)
+        estimatedlist?.append(record)
     }
 
     func appenduuid(_ id: UUID) {
