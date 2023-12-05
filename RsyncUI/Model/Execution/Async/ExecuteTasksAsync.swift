@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 final class ExecuteTasksAsync {
     var structprofile: String?
@@ -27,6 +28,7 @@ final class ExecuteTasksAsync {
             update.setCurrentDateonConfiguration(configrecords: configrecords)
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             localexecuteprogressdetails?.asyncexecutealltasksnoestiamtioncomplete()
+            Logger.process.info("class ExecuteTasksAsync: async execution is completed")
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()

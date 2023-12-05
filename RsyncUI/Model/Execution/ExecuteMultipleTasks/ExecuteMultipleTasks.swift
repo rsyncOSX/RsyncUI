@@ -105,13 +105,13 @@ extension ExecuteMultipleTasks {
                                               config: localconfigurations?.getconfig(hiddenID: privatehiddenID ?? -1))
         records?.append(record)
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
-            multipletaskstate?.updatestate(state: .completed)
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: privatehiddenID,
                                                      configurations: localconfigurations?.getallconfigurations(),
                                                      validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration(configrecords: configrecords)
             update.addlogpermanentstore(schedulerecords: schedulerecords)
+            multipletaskstate?.updatestate(state: .completed)
             return
         }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
