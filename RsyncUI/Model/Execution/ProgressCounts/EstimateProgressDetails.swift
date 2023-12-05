@@ -22,7 +22,6 @@ final class EstimateProgressDetails {
     // Used to decide if new profile is selected.
     // The estiamed list is usde for progress if executing.
     var onetaskisestimated: Bool = false
-    var executeasyncnoestimationcompleted: Bool = false
     // Profilename and timestamp start estimation
     var profile: String?
     var timestamp: Date?
@@ -102,20 +101,8 @@ final class EstimateProgressDetails {
         estimatealltasksasync = false
     }
 
-    func asyncexecutecomplete() {
-        executeasyncnoestimationcompleted = true
-    }
-
     func startestimateasync() {
         estimatealltasksasync = true
-    }
-
-    func asyncexecutealltasksnoestiamtioncomplete() {
-        executeasyncnoestimationcompleted = true
-    }
-
-    func startasyncexecutealltasksnoestimation() {
-        executeasyncnoestimationcompleted = false
     }
 
     func getestimatedlist() -> [RemoteinfonumbersOnetask]? {

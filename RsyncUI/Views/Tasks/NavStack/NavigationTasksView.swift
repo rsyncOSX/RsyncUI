@@ -240,14 +240,14 @@ extension NavigationTasksView {
     }
 
     func reset() {
-        executeprogressdetails.resetcounter()
+        executeprogressdetails.resetcounts()
         estimateprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
     }
 
     func abort() {
-        executeprogressdetails.resetcounter()
+        executeprogressdetails.resetcounts()
         estimateprogressdetails.resetcounts()
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)

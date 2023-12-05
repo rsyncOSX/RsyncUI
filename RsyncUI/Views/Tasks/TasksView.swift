@@ -232,7 +232,7 @@ struct TasksView: View {
                 sheetchooser.sheet = .dryrunalltasks
                 modaleview = true
                 focusstartestimation = false
-                executeprogressdetails.resetcounter()
+                executeprogressdetails.resetcounts()
                 executeprogressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
             }
     }
@@ -344,7 +344,7 @@ extension TasksView {
             }
         }
         estimateprogressdetails.resetcounts()
-        executeprogressdetails.resetcounter()
+        executeprogressdetails.resetcounts()
         estimateprogressdetails.startestimateasync()
     }
 
@@ -382,7 +382,7 @@ extension TasksView {
     }
 
     func reset() {
-        executeprogressdetails.resetcounter()
+        executeprogressdetails.resetcounts()
         estimateprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
@@ -391,7 +391,7 @@ extension TasksView {
     }
 
     func abort() {
-        executeprogressdetails.resetcounter()
+        executeprogressdetails.resetcounts()
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)
         estimateprogressdetails.resetcounts()

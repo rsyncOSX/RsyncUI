@@ -139,7 +139,7 @@ struct NavigationSummarizedAllDetailsView: View {
                     return
                 }
                 estimateprogressdetails.resetcounts()
-                executeprogressdetails.resetcounter()
+                executeprogressdetails.resetcounts()
                 estimateprogressdetails.startestimateasync()
             }
 
@@ -166,7 +166,7 @@ struct NavigationSummarizedAllDetailsView: View {
                 }
             }
             .onDisappear {
-                executeprogressdetails.resetcounter()
+                executeprogressdetails.resetcounts()
                 executeprogressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
                 nodatatosynchronize = {
                     if let data = estimateprogressdetails.getestimatedlist()?.filter({

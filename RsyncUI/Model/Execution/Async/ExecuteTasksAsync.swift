@@ -7,14 +7,18 @@
 
 import Foundation
 
-final class ExecuteTasksAsync: EstimateTasksAsync {
+final class ExecuteTasksAsync {
+    var structprofile: String?
+    var localconfigurations: RsyncUIconfigurations?
+    var stackoftasktobeestimated: [Int]?
+    weak var localexecuteprogressdetails: ExecuteProgressDetails?
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
 
     @MainActor
-    override func startexecution() async {
+    func startexecution() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: -1,
@@ -22,7 +26,7 @@ final class ExecuteTasksAsync: EstimateTasksAsync {
                                                      validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration(configrecords: configrecords)
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            localestimateprogressdetails?.asyncexecutealltasksnoestiamtioncomplete()
+            localexecuteprogressdetails?.asyncexecutealltasksnoestiamtioncomplete()
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
@@ -44,6 +48,47 @@ final class ExecuteTasksAsync: EstimateTasksAsync {
             }
         }
     }
+
+    init(profile: String?,
+         configurations: RsyncUIconfigurations?,
+         executeprogressdetails: ExecuteProgressDetails?,
+         uuids: Set<UUID>,
+         filter: String)
+    {
+        structprofile = profile
+        localconfigurations = configurations
+        localexecuteprogressdetails = executeprogressdetails
+        let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
+        stackoftasktobeestimated = [Int]()
+        // Estimate selected configurations
+        if uuids.count > 0 {
+            let configurations = filteredconfigurations?.filter { uuids.contains($0.id) }
+            for i in 0 ..< (configurations?.count ?? 0) {
+                let task = configurations?[i].task
+                if SharedReference.shared.synctasks.contains(task ?? "") {
+                    if let hiddenID = configurations?[i].hiddenID {
+                        stackoftasktobeestimated?.append(hiddenID)
+                    }
+                }
+            }
+        } else {
+            // Or estimate all tasks
+            for i in 0 ..< (filteredconfigurations?.count ?? 0) {
+                let task = filteredconfigurations?[i].task
+                if SharedReference.shared.synctasks.contains(task ?? "") {
+                    if let hiddenID = filteredconfigurations?[i].hiddenID {
+                        stackoftasktobeestimated?.append(hiddenID)
+                    }
+                }
+            }
+        }
+        localexecuteprogressdetails?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
+        localexecuteprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
+    }
+
+    deinit {
+        // print("deinit EstimationOnetask")
+    }
 }
 
 extension ExecuteTasksAsync {
@@ -53,13 +98,12 @@ extension ExecuteTasksAsync {
         // When creating the logrecord, decrease the snapshotum by 1
         configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((hiddenID ?? -1, Numbers(outputfromrsync ?? []).stats()))
-
         let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
                                               outputfromrsync: outputfromrsync,
                                               config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
-        localestimateprogressdetails?.appendrecordestimatedlist(record)
+        localexecuteprogressdetails?.appendrecordexecutedlist(record)
         if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {
-            localestimateprogressdetails?.appenduuid(config.id)
+            localexecuteprogressdetails?.appenduuid(config.id)
         }
         _ = Task.detached {
             await self.startexecution()

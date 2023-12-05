@@ -15,7 +15,7 @@ struct NavigationExecuteNoestimatedTasksView: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
 
-    @State private var estimateprogressdetails = EstimateProgressDetails()
+    @State private var executeprogressdetails = ExecuteProgressDetails()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executealltasksasync: ExecuteTasksAsync?
@@ -29,7 +29,7 @@ struct NavigationExecuteNoestimatedTasksView: View {
                 filterstring: $filterstring
             )
 
-            if estimateprogressdetails.executeasyncnoestimationcompleted == true { labelcompleted }
+            if executeprogressdetails.executeasyncnoestimationcompleted == true { labelcompleted }
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
         }
@@ -72,14 +72,13 @@ struct NavigationExecuteNoestimatedTasksView: View {
 extension NavigationExecuteNoestimatedTasksView {
     func completed() {
         reload = true
-        estimateprogressdetails.resetcounts()
+        executeprogressdetails.resetcounts()
         progressviewshowinfo = false
-        estimateprogressdetails.estimatealltasksasync = false
     }
 
     func abort() {
         selecteduuids.removeAll()
-        estimateprogressdetails.resetcounts()
+        executeprogressdetails.resetcounts()
         _ = InterruptProcess()
         reload = true
         progressviewshowinfo = false
@@ -87,11 +86,11 @@ extension NavigationExecuteNoestimatedTasksView {
 
     func executeallnotestimatedtasks() async {
         Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids, privacy: .public)")
-        estimateprogressdetails.startasyncexecutealltasksnoestimation()
+        executeprogressdetails.startasyncexecutealltasksnoestimation()
         executealltasksasync =
             ExecuteTasksAsync(profile: rsyncUIdata.profile,
                               configurations: rsyncUIdata,
-                              estimateprogressdetails: estimateprogressdetails,
+                              executeprogressdetails: executeprogressdetails,
                               uuids: selecteduuids,
                               filter: filterstring)
         await executealltasksasync?.startexecution()
