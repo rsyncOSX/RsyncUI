@@ -165,10 +165,10 @@ struct SnapshotsView: View {
     }
 
     var progressdelete: some View {
-        ProgressView("",
+        ProgressView("Deleting snapshots",
                      value: Double(snapshotdata.remainingsnapshotstodelete),
                      total: Double(snapshotdata.maxnumbertodelete))
-            .frame(width: 100, alignment: .center)
+            .frame(width: 200, alignment: .center)
             .onDisappear(perform: {
                 deleteiscompleted = true
             })
