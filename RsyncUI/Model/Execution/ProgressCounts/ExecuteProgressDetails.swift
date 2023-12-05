@@ -8,11 +8,12 @@
 import Foundation
 
 final class ExecuteProgressDetails: ObservableObject {
+    @Published var executeasyncnoestimationcompleted: Bool = false
     // Value for storing progress for current task in work
     var currenttaskprogress: Double = 0
     var hiddenIDatwork: Int = -1
     var executedlist: [RemoteinfonumbersOnetask]?
-    var executeasyncnoestimationcompleted: Bool = false
+
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
     var max: Int = 0
@@ -61,12 +62,10 @@ final class ExecuteProgressDetails: ObservableObject {
 
     func asyncexecutealltasksnoestiamtioncomplete() {
         executeasyncnoestimationcompleted = true
-        objectWillChange.send()
     }
 
     func startasyncexecutealltasksnoestimation() {
         executeasyncnoestimationcompleted = false
-        objectWillChange.send()
     }
 
     func appendrecordexecutedlist(_ record: RemoteinfonumbersOnetask) {

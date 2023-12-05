@@ -15,7 +15,8 @@ struct NavigationExecuteNoestimatedTasksView: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
 
-    @State private var executeprogressdetails = ExecuteProgressDetails()
+    // Must be stateobject
+    @StateObject private var executeprogressdetails = ExecuteProgressDetails()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executealltasksasync: ExecuteTasksAsync?
