@@ -61,14 +61,12 @@ final class ExecuteProgressDetails: ObservableObject {
 
     func asyncexecutealltasksnoestiamtioncomplete() {
         executeasyncnoestimationcompleted = true
-    }
-
-    func asyncexecutecomplete() {
-        executeasyncnoestimationcompleted = true
+        objectWillChange.send()
     }
 
     func startasyncexecutealltasksnoestimation() {
         executeasyncnoestimationcompleted = false
+        objectWillChange.send()
     }
 
     func appendrecordexecutedlist(_ record: RemoteinfonumbersOnetask) {
