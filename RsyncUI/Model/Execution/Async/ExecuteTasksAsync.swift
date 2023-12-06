@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 22/10/2022.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import OSLog
@@ -107,8 +108,11 @@ extension ExecuteTasksAsync {
         if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {
             localexecuteprogressdetails?.appenduuid(config.id)
         }
-        _ = Task.detached {
+
+        Task {
             await self.startexecution()
         }
     }
 }
+
+// swiftlint:enable line_length

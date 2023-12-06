@@ -85,7 +85,8 @@ extension EstimateTasksAsync {
                 localestimateprogressdetails?.appenduuid(config.id)
             }
         }
-        _ = Task.detached {
+
+        Task {
             await self.startexecution()
         }
     }
