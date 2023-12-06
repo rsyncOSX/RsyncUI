@@ -71,12 +71,13 @@ final class ExecuteMultipleTasks {
             multipletaskstate?.updatestate(state: .completed)
             return
         }
-        guard localconfigurations?.getallconfigurations()?.filter({ uuids.contains($0.id) }).count ?? 0 > 0 else {
+        let taskstosynchronize = localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) }
+        guard (taskstosynchronize?.count ?? 0) > 0 else {
             Logger.process.warning("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(uuids.count, privacy: .public)")
             multipletaskstate?.updatestate(state: .completed)
             return
         }
-        prepareandstartexecutetasks(configurations: localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) })
+        prepareandstartexecutetasks(configurations: taskstosynchronize)
         records = [RemoteDataNumbers]()
         startexecution()
     }

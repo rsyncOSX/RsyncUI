@@ -32,9 +32,7 @@ struct ListofTasksMainView: View {
     var tabledata: some View {
         Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("%") { data in
-                if data.hiddenID == executeprogressdetails.hiddenIDatwork
-                    && executeprogressdetails.isestimating() == false
-                {
+                if data.hiddenID == executeprogressdetails.hiddenIDatwork {
                     ProgressView("",
                                  value: executeprogressdetails.currenttaskprogress,
                                  total: maxcount + 3)

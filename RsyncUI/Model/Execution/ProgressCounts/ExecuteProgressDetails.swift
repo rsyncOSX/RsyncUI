@@ -28,10 +28,6 @@ final class ExecuteProgressDetails: ObservableObject {
         return answer
     }
 
-    func isestimating() -> Bool {
-        return (estimatedlist?.count ?? 0) == 0
-    }
-
     func setcurrentprogress(_ num: Double) {
         currenttaskprogress = num
         objectWillChange.send()

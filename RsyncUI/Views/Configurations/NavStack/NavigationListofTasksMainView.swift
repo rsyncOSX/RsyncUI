@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NavigationListofTasksMainView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @EnvironmentObject var progressdetails: ExecuteProgressDetails
+    @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
 
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
@@ -30,14 +30,12 @@ struct NavigationListofTasksMainView: View {
     var tabledata: some View {
         Table(configurationssorted, selection: $selecteduuids) {
             TableColumn("%") { data in
-                if data.hiddenID == progressdetails.hiddenIDatwork
-                    && progressdetails.isestimating() == false
-                {
+                if data.hiddenID == executeprogressdetails.hiddenIDatwork {
                     ProgressView("",
-                                 value: progressdetails.currenttaskprogress,
+                                 value: executeprogressdetails.currenttaskprogress,
                                  total: maxcount + 3)
                         .frame(alignment: .center)
-                } else if progressdetails.taskisestimatedbyUUID(data.id) {
+                } else if executeprogressdetails.taskisestimatedbyUUID(data.id) {
                     Image("green")
                         .resizable()
                         .frame(width: 15, height: 15, alignment: .trailing)
@@ -86,7 +84,7 @@ struct NavigationListofTasksMainView: View {
                     if data.dateRun?.isEmpty == false {
                         Text(data.dateRun ?? "")
                     } else {
-                        if progressdetails.taskisestimatedbyUUID(data.id) {
+                        if executeprogressdetails.taskisestimatedbyUUID(data.id) {
                             Text("Verified")
                                 .foregroundColor(.green)
                         } else {
@@ -127,7 +125,7 @@ struct NavigationListofTasksMainView: View {
     }
 
     var maxcount: Double {
-        return progressdetails.getmaxcountbytask()
+        return executeprogressdetails.getmaxcountbytask()
     }
 
     func delete() {
