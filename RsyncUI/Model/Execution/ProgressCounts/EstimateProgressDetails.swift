@@ -10,7 +10,7 @@ import Observation
 
 @Observable
 final class EstimateProgressDetails {
-    var estimatedlist: [RemoteinfonumbersOnetask]?
+    var estimatedlist: [RemoteDataNumbers]?
     var tasksinprogresscount: Double = 0
     var max: Int = 0
     // set uuid if data to be transferred
@@ -85,13 +85,13 @@ final class EstimateProgressDetails {
         tasksinprogresscount = num
     }
 
-    func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {
+    func setestimatedlist(_ argestimatedlist: [RemoteDataNumbers]?) {
         estimatedlist = argestimatedlist
     }
 
-    func appendrecordestimatedlist(_ record: RemoteinfonumbersOnetask) {
+    func appendrecordestimatedlist(_ record: RemoteDataNumbers) {
         if estimatedlist == nil {
-            estimatedlist = [RemoteinfonumbersOnetask]()
+            estimatedlist = [RemoteDataNumbers]()
         }
         estimatedlist?.append(record)
         onetaskisestimated = true
@@ -105,7 +105,7 @@ final class EstimateProgressDetails {
         estimatealltasksasync = true
     }
 
-    func getestimatedlist() -> [RemoteinfonumbersOnetask]? {
+    func getestimatedlist() -> [RemoteDataNumbers]? {
         return estimatedlist
     }
 

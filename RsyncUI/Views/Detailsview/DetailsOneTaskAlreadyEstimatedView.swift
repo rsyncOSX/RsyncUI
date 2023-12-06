@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DetailsOneTaskAlreadyEstimatedView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    var estimatedlist: [RemoteinfonumbersOnetask]
+    var estimatedlist: [RemoteDataNumbers]
     var selectedconfig: Configuration?
 
     @State var outputfromrsync = Outputfromrsync()
@@ -111,14 +111,14 @@ struct DetailsOneTaskAlreadyEstimatedView: View {
         .padding()
         .frame(minWidth: 900, minHeight: 500)
         .onAppear {
-            let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selectedconfig?.id }
+            let output: [RemoteDataNumbers] = estimatedlist.filter { $0.id == selectedconfig?.id }
             if output.count > 0 {
                 outputfromrsync.generatedata(output[0].outputfromrsync)
             }
         }
     }
 
-    var estimatedlistonetask: [RemoteinfonumbersOnetask] {
+    var estimatedlistonetask: [RemoteDataNumbers] {
         return estimatedlist.filter { $0.id == selectedconfig?.id }
     }
 }

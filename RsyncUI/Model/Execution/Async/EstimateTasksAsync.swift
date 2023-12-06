@@ -76,9 +76,9 @@ class EstimateTasksAsync {
 
 extension EstimateTasksAsync {
     func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
-        let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
-                                              outputfromrsync: outputfromrsync,
-                                              config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
+        let record = RemoteDataNumbers(hiddenID: hiddenID,
+                                       outputfromrsync: outputfromrsync,
+                                       config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
         localestimateprogressdetails?.appendrecordestimatedlist(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
             if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {

@@ -12,7 +12,7 @@ final class ExecuteProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
     var currenttaskprogress: Double = 0
     var hiddenIDatwork: Int = -1
-    var estimatedlist: [RemoteinfonumbersOnetask]?
+    var estimatedlist: [RemoteDataNumbers]?
 
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
@@ -46,7 +46,7 @@ final class ExecuteProgressDetails: ObservableObject {
         }
     }
 
-    func setestimatedlist(_ argestimatedlist: [RemoteinfonumbersOnetask]?) {
+    func setestimatedlist(_ argestimatedlist: [RemoteDataNumbers]?) {
         estimatedlist = argestimatedlist
     }
 
@@ -68,9 +68,9 @@ final class ExecuteProgressDetails: ObservableObject {
         executeasyncnoestimationcompleted = false
     }
 
-    func appendrecordexecutedlist(_ record: RemoteinfonumbersOnetask) {
+    func appendrecordexecutedlist(_ record: RemoteDataNumbers) {
         if estimatedlist == nil {
-            estimatedlist = [RemoteinfonumbersOnetask]()
+            estimatedlist = [RemoteDataNumbers]()
         }
         estimatedlist?.append(record)
     }

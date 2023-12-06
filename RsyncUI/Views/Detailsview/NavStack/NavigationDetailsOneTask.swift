@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct NavigationDetailsOneTask: View {
-    let estimatedlist: [RemoteinfonumbersOnetask]
+    let estimatedlist: [RemoteDataNumbers]
     @Binding var selecteduuids: Set<Configuration.ID>
 
     var body: some View {
@@ -102,7 +102,7 @@ struct NavigationDetailsOneTask: View {
         })
     }
 
-    var estimatedlistonetask: [RemoteinfonumbersOnetask] {
+    var estimatedlistonetask: [RemoteDataNumbers] {
         return estimatedlist.filter { $0.id == selecteduuid }
     }
 
@@ -111,7 +111,7 @@ struct NavigationDetailsOneTask: View {
     }
 
     var outputfromrsync: Outputfromrsync {
-        let output: [RemoteinfonumbersOnetask] = estimatedlist.filter { $0.id == selecteduuid }
+        let output: [RemoteDataNumbers] = estimatedlist.filter { $0.id == selecteduuid }
         if output.count > 0 {
             let data = Outputfromrsync()
             data.generatedata(output[0].outputfromrsync)

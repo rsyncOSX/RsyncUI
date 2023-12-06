@@ -100,9 +100,9 @@ extension ExecuteTasksAsync {
         // When creating the logrecord, decrease the snapshotum by 1
         configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((hiddenID ?? -1, Numbers(outputfromrsync ?? []).stats()))
-        let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
-                                              outputfromrsync: outputfromrsync,
-                                              config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
+        let record = RemoteDataNumbers(hiddenID: hiddenID,
+                                       outputfromrsync: outputfromrsync,
+                                       config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
         localexecuteprogressdetails?.appendrecordexecutedlist(record)
         if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {
             localexecuteprogressdetails?.appenduuid(config.id)

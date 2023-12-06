@@ -1,5 +1,5 @@
 //
-//  RemoteInfoTask.swift
+//  RemoteDataNumbers.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 31.12.2017.
@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct RemoteinfonumbersOnetask: Identifiable, Hashable {
+struct RemoteDataNumbers: Identifiable, Hashable {
     var id: Configuration.ID
     var hiddenID: Int
     var transferredNumber: String

@@ -150,13 +150,13 @@ extension DetailsOneTaskView {
 
 @Observable
 final class Estimateddataonetask {
-    var estimatedlistonetask = [RemoteinfonumbersOnetask]()
+    var estimatedlistonetask = [RemoteDataNumbers]()
 
     func update(data: [String]?, hiddenID: Int?, config: Configuration?) {
-        let record = RemoteinfonumbersOnetask(hiddenID: hiddenID,
-                                              outputfromrsync: data,
-                                              config: config)
-        estimatedlistonetask = [RemoteinfonumbersOnetask]()
+        let record = RemoteDataNumbers(hiddenID: hiddenID,
+                                       outputfromrsync: data,
+                                       config: config)
+        estimatedlistonetask = [RemoteDataNumbers]()
         estimatedlistonetask.append(record)
     }
 }

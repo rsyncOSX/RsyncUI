@@ -16,14 +16,14 @@ final class ExecuteMultipleTasks {
     private var structprofile: String?
     private var privatehiddenID: Int?
     private var stackoftasktobeexecuted: [Int]?
-    private var records: [RemoteinfonumbersOnetask]?
+    private var records: [RemoteDataNumbers]?
     private var max: Int?
     // Set if abort is executed
     private var setabort = false
     // output from rsync
     private var outputfromrsync: [String]?
 
-    weak var multipletaskstate: MultipleTaskState?
+    weak var multipletaskstate: ExecuteMultipleTasksState?
     // In progress count each task
     weak var executeprogressdetails: ExecuteProgressDetails?
     // Collect loggdata for later save to permanent storage
@@ -59,7 +59,7 @@ final class ExecuteMultipleTasks {
     init(uuids: Set<UUID>,
          profile: String?,
          configurations: RsyncUIconfigurations?,
-         multipletaskstateDelegate: MultipleTaskState?,
+         multipletaskstateDelegate: ExecuteMultipleTasksState?,
          executeprogressdetailsDelegate: ExecuteProgressDetails?)
     {
         structprofile = profile
@@ -77,7 +77,7 @@ final class ExecuteMultipleTasks {
             return
         }
         prepareandstartexecutetasks(configurations: localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) })
-        records = [RemoteinfonumbersOnetask]()
+        records = [RemoteDataNumbers]()
         startexecution()
     }
 
@@ -100,9 +100,9 @@ extension ExecuteMultipleTasks {
         configrecords.append((privatehiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((privatehiddenID ?? -1, Numbers(data ?? []).stats()))
         // Log records
-        let record = RemoteinfonumbersOnetask(hiddenID: privatehiddenID,
-                                              outputfromrsync: outputfromrsync,
-                                              config: localconfigurations?.getconfig(hiddenID: privatehiddenID ?? -1))
+        let record = RemoteDataNumbers(hiddenID: privatehiddenID,
+                                       outputfromrsync: outputfromrsync,
+                                       config: localconfigurations?.getconfig(hiddenID: privatehiddenID ?? -1))
         records?.append(record)
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,

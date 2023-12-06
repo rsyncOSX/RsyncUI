@@ -1,5 +1,5 @@
 //
-//  MultipleTaskState.swift
+//  ExecuteMultipleTasksState.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 22/01/2021.
@@ -18,7 +18,7 @@ enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertibl
 }
 
 @Observable
-final class MultipleTaskState {
+final class ExecuteMultipleTasksState {
     var executionstate: ExecutetaskWork = .start
 
     func updatestate(state: ExecutetaskWork) {
