@@ -52,12 +52,10 @@ struct NavigationSummarizedAllDetailsView: View {
                         }
                         .width(max: 60)
                     }
-                    .onChange(of: selecteduuids) {
-                        guard selecteduuids.count > 0 else { return }
-                        path.append(Tasks(task: .dryrunonetaskalreadyestimated))
-                    }
 
-                    Table(estimateprogressdetails.getestimatedlist() ?? []) {
+                    Table(estimateprogressdetails.getestimatedlist() ?? [],
+                          selection: $selecteduuids)
+                    {
                         TableColumn("New") { files in
                             if files.datatosynchronize {
                                 Text(files.newfiles)
@@ -117,6 +115,10 @@ struct NavigationSummarizedAllDetailsView: View {
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                         .width(max: 70)
+                    }
+                    .onChange(of: selecteduuids) {
+                        guard selecteduuids.count > 0 else { return }
+                        path.append(Tasks(task: .dryrunonetaskalreadyestimated))
                     }
                 }
             }
