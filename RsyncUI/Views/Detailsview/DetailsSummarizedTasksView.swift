@@ -15,13 +15,12 @@ struct DetailsSummarizedTasksView: View {
     @Binding var execute: Bool
 
     var estimatedlist: [RemoteDataNumbers]
-    /*
-     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-     @State private var timervalue: Double = 0
-     // @State private var timerbuttonvalue: Int = SharedReference.shared.automaticexecutetime
-     @State private var canceltimer: Bool = false
-     */
+    @State private var timervalue: Double = 0
+    // @State private var timerbuttonvalue: Int = SharedReference.shared.automaticexecutetime
+    @State private var canceltimer: Bool = false
+
     var body: some View {
         VStack {
             headingtitle

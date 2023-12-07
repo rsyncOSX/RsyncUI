@@ -40,10 +40,10 @@ struct Counter: View {
                         .onChange(of: timerisenabled) {
                             if timerisenabled == true {
                                 if Timervalues().values.contains(timervalue) {
-                                    // SharedReference.shared.timervalue = timervalue
+                                    SharedReference.shared.timervalue = timervalue
                                 }
                             } else {
-                                // timervalue = SharedReference.shared.timervalue ?? 600
+                                timervalue = SharedReference.shared.timervalue ?? 600
                             }
                         }
                 }
