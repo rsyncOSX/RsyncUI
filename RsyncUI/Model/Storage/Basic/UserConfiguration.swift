@@ -99,14 +99,16 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.checkforerrorinrsyncoutput = false
         }
-        if automaticexecute == 1 {
-            SharedReference.shared.automaticexecute = true
-        } else {
-            SharedReference.shared.automaticexecute = false
-        }
-        if Int(automaticexecutetime) ?? 0 > 0 {
-            SharedReference.shared.automaticexecutetime = Int(automaticexecutetime) ?? 0
-        }
+        /*
+         if automaticexecute == 1 {
+             SharedReference.shared.automaticexecute = true
+         } else {
+             SharedReference.shared.automaticexecute = false
+         }
+         if Int(automaticexecutetime) ?? 0 > 0 {
+             SharedReference.shared.automaticexecutetime = Int(automaticexecutetime) ?? 0
+         }
+          */
         if usenavigationstack == 1 {
             SharedReference.shared.usenavigationstack = true
         } else {
@@ -199,12 +201,14 @@ struct UserConfiguration: Codable {
         } else {
             checkforerrorinrsyncoutput = -1
         }
-        if SharedReference.shared.automaticexecute == true {
-            automaticexecute = 1
-        } else {
-            automaticexecute = -1
-        }
-        automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
+        /*
+         if SharedReference.shared.automaticexecute == true {
+             automaticexecute = 1
+         } else {
+             automaticexecute = -1
+         }
+         automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
+          */
         if SharedReference.shared.usenavigationstack == true {
             usenavigationstack = 1
         } else {

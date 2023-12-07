@@ -15,7 +15,7 @@ struct ExecuteCommands: Commands {
     @FocusedBinding(\.startexecution) private var startexecution
     @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
     @FocusedBinding(\.aborttask) private var aborttask
-    @FocusedBinding(\.enabletimer) private var enabletimer
+    // @FocusedBinding(\.enabletimer) private var enabletimer
 
     var body: some Commands {
         if navstackisenabled {
@@ -36,9 +36,9 @@ struct ExecuteCommands: Commands {
 
                 FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
 
-                Divider()
+                // Divider()
 
-                Enabletimer(enabletimer: $enabletimer)
+                // Enabletimer(enabletimer: $enabletimer)
 
                 Divider()
 
@@ -122,18 +122,20 @@ struct Abborttask: View {
     }
 }
 
-struct Enabletimer: View {
-    @Binding var enabletimer: Bool?
+/*
+ struct Enabletimer: View {
+     @Binding var enabletimer: Bool?
 
-    var body: some View {
-        Button {
-            enabletimer = true
-        } label: {
-            Label("Timer", systemImage: "play.fill")
-        }
-        // .keyboardShortcut("", modifiers: [.command])
-    }
-}
+     var body: some View {
+         Button {
+             enabletimer = true
+         } label: {
+             Label("Timer", systemImage: "play.fill")
+         }
+         // .keyboardShortcut("", modifiers: [.command])
+     }
+ }
+ */
 
 struct FocusedEstimateBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
@@ -151,9 +153,11 @@ struct FocusedAborttask: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
-struct FocusedEnabletimer: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
+/*
+ struct FocusedEnabletimer: FocusedValueKey {
+     typealias Value = Binding<Bool>
+ }
+ */
 
 extension FocusedValues {
     var startestimation: FocusedEstimateBinding.Value? {
@@ -176,8 +180,10 @@ extension FocusedValues {
         set { self[FocusedAborttask.self] = newValue }
     }
 
-    var enabletimer: FocusedAborttask.Value? {
-        get { self[FocusedEnabletimer.self] }
-        set { self[FocusedEnabletimer.self] = newValue }
-    }
+    /*
+        var enabletimer: FocusedAborttask.Value? {
+            get { self[FocusedEnabletimer.self] }
+            set { self[FocusedEnabletimer.self] = newValue }
+        }
+     */
 }

@@ -43,8 +43,8 @@ class SharedReference {
     // Check for error in output from rsync
     var checkforerrorinrsyncoutput: Bool = false
     // Automatic execute
-    var automaticexecute: Bool = false
-    var automaticexecutetime: Int = 10
+    // var automaticexecute: Bool = false
+    // var automaticexecutetime: Int = 10
     // Check for network changes
     var monitornetworkconnection: Bool = false
     // Download URL if new version is avaliable
@@ -90,7 +90,8 @@ class SharedReference {
     var firsttime = false
     // Used within Tasks for periodic sync of data
     var workitem: DispatchWorkItem?
-    var timervalue: Double?
+    // Timer is removed
+    // var timervalue: Double?
     // Use NavigationStack
     var usenavigationstack: Bool = true
 

@@ -15,12 +15,13 @@ struct DetailsSummarizedTasksView: View {
     @Binding var execute: Bool
 
     var estimatedlist: [RemoteDataNumbers]
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    /*
+     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-    @State private var timervalue: Double = 0
-    @State private var timerbuttonvalue: Int = SharedReference.shared.automaticexecutetime
-    @State private var canceltimer: Bool = false
-
+     @State private var timervalue: Double = 0
+     // @State private var timerbuttonvalue: Int = SharedReference.shared.automaticexecutetime
+     @State private var canceltimer: Bool = false
+     */
     var body: some View {
         VStack {
             headingtitle
@@ -125,18 +126,18 @@ struct DetailsSummarizedTasksView: View {
                 }
 
                 Spacer()
-
-                if canceltimer == false,
-                   SharedReference.shared.automaticexecute,
-                   datatosynchronize == true
-                {
-                    Button(String(timerbuttonvalue - Int(timervalue))) {
-                        timer.upstream.connect().cancel()
-                        canceltimer = true
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-                }
-
+                /*
+                 if canceltimer == false,
+                    SharedReference.shared.automaticexecute,
+                    datatosynchronize == true
+                 {
+                     Button(String(timerbuttonvalue - Int(timervalue))) {
+                         timer.upstream.connect().cancel()
+                         canceltimer = true
+                     }
+                     .buttonStyle(ColorfulButtonStyle())
+                 }
+                 */
                 if datatosynchronize == true {
                     Button("Synchronize") {
                         execute = true
@@ -151,19 +152,21 @@ struct DetailsSummarizedTasksView: View {
         }
         .padding()
         .frame(minWidth: 1250, minHeight: 400)
-        .onReceive(timer) { _ in
-            guard datatosynchronize == true else { return }
-            guard SharedReference.shared.automaticexecute == true else { return }
-            timervalue += 1
-            if timervalue > Double(SharedReference.shared.automaticexecutetime - 1) {
-                timer.upstream.connect().cancel()
-                execute = true
-                dismiss()
-            }
-        }
-        .onDisappear {
-            timer.upstream.connect().cancel()
-        }
+        /*
+         .onReceive(timer) { _ in
+             guard datatosynchronize == true else { return }
+             guard SharedReference.shared.automaticexecute == true else { return }
+             timervalue += 1
+             if timervalue > Double(SharedReference.shared.automaticexecutetime - 1) {
+                 timer.upstream.connect().cancel()
+                 execute = true
+                 dismiss()
+             }
+         }
+         .onDisappear {
+             timer.upstream.connect().cancel()
+         }
+          */
     }
 
     var headingtitle: some View {

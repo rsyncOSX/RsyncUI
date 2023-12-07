@@ -128,14 +128,16 @@ struct Usersettings: View {
                                             SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
                                         }
 
-                                    HStack {
-                                        ToggleViewDefault(NSLocalizedString("Automatic execute :", comment: ""), $usersettings.automaticexecute)
-                                            .onChange(of: usersettings.automaticexecute) {
-                                                SharedReference.shared.automaticexecute = usersettings.automaticexecute
-                                            }
+                                    /*
+                                     HStack {
+                                         ToggleViewDefault(NSLocalizedString("Automatic execute :", comment: ""), $usersettings.automaticexecute)
+                                             .onChange(of: usersettings.automaticexecute) {
+                                                 SharedReference.shared.automaticexecute = usersettings.automaticexecute
+                                             }
 
-                                        setautomaticexecutetime
-                                    }
+                                         setautomaticexecutetime
+                                     }
+                                      */
                                 }
                             }
                         }
@@ -247,16 +249,18 @@ struct Usersettings: View {
         }
     }
 
-    var setautomaticexecutetime: some View {
-        TextField("",
-                  text: $usersettings.automaticexecutetime)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(width: 45)
-            .lineLimit(1)
-            .onChange(of: usersettings.automaticexecutetime) {
-                usersettings.automaticexecute(seconds: usersettings.automaticexecutetime)
-            }
-    }
+    /*
+        var setautomaticexecutetime: some View {
+            TextField("",
+                      text: $usersettings.automaticexecutetime)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(width: 45)
+                .lineLimit(1)
+                .onChange(of: usersettings.automaticexecutetime) {
+                    usersettings.automaticexecute(seconds: usersettings.automaticexecutetime)
+                }
+        }
+     */
 }
 
 extension Usersettings {

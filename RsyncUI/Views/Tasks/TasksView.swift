@@ -11,7 +11,7 @@ import OSLog
 import SwiftUI
 
 enum Sheet: String, Identifiable {
-    case dryrunalltasks, dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, asynctimerison
+    case dryrunalltasks, dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime // , asynctimerison
     var id: String { rawValue }
 }
 
@@ -50,7 +50,7 @@ struct TasksView: View {
     @State private var focusstartexecution: Bool = false
     @State private var focusfirsttaskinfo: Bool = false
     @State private var focusaborttask: Bool = false
-    @State private var focusenabletimer: Bool = false
+    // @State private var focusenabletimer: Bool = false
 
     @State private var filterstring: String = ""
     // Local data for present local and remote info about task
@@ -94,7 +94,7 @@ struct TasksView: View {
                 if focusstartexecution { labelstartexecution }
                 if focusfirsttaskinfo { labelfirsttime }
                 if focusaborttask { labelaborttask }
-                if focusenabletimer { labelenabletimer }
+                // if focusenabletimer { labelenabletimer }
                 if estimateprogressdetails.estimatealltasksasync { progressviewestimateasync }
                 if doubleclick { doubleclickaction }
             }
@@ -103,7 +103,7 @@ struct TasksView: View {
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.firsttaskinfo, $focusfirsttaskinfo)
         .focusedSceneValue(\.aborttask, $focusaborttask)
-        .focusedSceneValue(\.enabletimer, $focusenabletimer)
+        // .focusedSceneValue(\.enabletimer, $focusenabletimer)
         .task {
             // Discover if firsttime use, if true present view for firsttime
             if SharedReference.shared.firsttime {
@@ -201,18 +201,20 @@ struct TasksView: View {
             AlltasksView()
         case .firsttime:
             FirsttimeView()
-        case .asynctimerison:
-            Counter(timervalue: $timervalue,
-                    timerisenabled: $timerisenabled)
-                .onDisappear(perform: {
-                    stopasynctimer()
-                    timervalue = SharedReference.shared.timervalue ?? 600
-                })
-                .onChange(of: timerisenabled) {
-                    if timerisenabled == true {
-                        startasynctimer()
-                    }
-                }
+            /*
+             case .asynctimerison:
+                 Counter(timervalue: $timervalue,
+                         timerisenabled: $timerisenabled)
+                     .onDisappear(perform: {
+                         stopasynctimer()
+                         timervalue = SharedReference.shared.timervalue ?? 600
+                     })
+                     .onChange(of: timerisenabled) {
+                         if timerisenabled == true {
+                             startasynctimer()
+                         }
+                     }
+              */
         }
     }
 
@@ -279,14 +281,16 @@ struct TasksView: View {
             })
     }
 
-    var labelenabletimer: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusenabletimer = false
-                sheetchooser.sheet = .asynctimerison
-                modaleview = true
-            })
-    }
+    /*
+        var labelenabletimer: some View {
+            Label("", systemImage: "play.fill")
+                .onAppear(perform: {
+                    focusenabletimer = false
+                    sheetchooser.sheet = .asynctimerison
+                    modaleview = true
+                })
+        }
+     */
 }
 
 extension TasksView {

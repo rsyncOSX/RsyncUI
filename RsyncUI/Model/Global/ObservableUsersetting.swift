@@ -35,8 +35,8 @@ final class ObservableUsersetting {
     // Check for "error" in output from rsync
     var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Automatic execution of estimated tasks
-    var automaticexecute: Bool = SharedReference.shared.automaticexecute
-    var automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
+    // var automaticexecute: Bool = SharedReference.shared.automaticexecute
+    // var automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
     // alert about error
     var error: Error = Validatedpath.noerror
     var alerterror: Bool = false
@@ -113,17 +113,19 @@ final class ObservableUsersetting {
         }
     }
 
-    func automaticexecute(seconds: String) {
-        do {
-            let verified = try verifystringtoint(seconds)
-            if verified {
-                SharedReference.shared.automaticexecutetime = Int(seconds) ?? 5
+    /*
+        func automaticexecute(seconds: String) {
+            do {
+                let verified = try verifystringtoint(seconds)
+                if verified {
+                    SharedReference.shared.automaticexecutetime = Int(seconds) ?? 5
+                }
+            } catch let e {
+                error = e
+                alerterror = true
             }
-        } catch let e {
-            error = e
-            alerterror = true
         }
-    }
+     */
 }
 
 enum Validatedpath: LocalizedError {
