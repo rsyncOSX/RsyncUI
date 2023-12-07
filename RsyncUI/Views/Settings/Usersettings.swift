@@ -128,16 +128,14 @@ struct Usersettings: View {
                                             SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
                                         }
 
-                                    /*
-                                     HStack {
-                                         ToggleViewDefault(NSLocalizedString("Automatic execute :", comment: ""), $usersettings.automaticexecute)
-                                             .onChange(of: usersettings.automaticexecute) {
-                                                 SharedReference.shared.automaticexecute = usersettings.automaticexecute
-                                             }
+                                    HStack {
+                                        ToggleViewDefault(NSLocalizedString("Automatic execute :", comment: ""), $usersettings.automaticexecute)
+                                            .onChange(of: usersettings.automaticexecute) {
+                                                SharedReference.shared.automaticexecute = usersettings.automaticexecute
+                                            }
 
-                                         setautomaticexecutetime
-                                     }
-                                      */
+                                        setautomaticexecutetime
+                                    }
                                 }
                             }
                         }

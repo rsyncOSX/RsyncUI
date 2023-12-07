@@ -32,8 +32,6 @@ struct RsyncUIView: View {
                         start = false
                         Logger.process.info("RsyncUIView: NavigationStack is \(SharedReference.shared.usenavigationstack, privacy: .public)")
                         navstackisenabled.navstackisenabled = SharedReference.shared.usenavigationstack
-                        // Disable automatic execution
-                        SharedReference.shared.automaticexecute = false
                     }
                 })
 
