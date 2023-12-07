@@ -31,8 +31,8 @@ struct DecodeUserConfiguration: Codable {
     let environmentvalue: String?
     let checkforerrorinrsyncoutput: Int?
     // Automatic execute
-    let automaticexecute: Int?
-    var automaticexecutetime: String?
+    // let automaticexecute: Int?
+    // var automaticexecutetime: String?
     // NavigationStack
     var usenavigationstack: Int?
 
@@ -51,8 +51,8 @@ struct DecodeUserConfiguration: Codable {
         case environment
         case environmentvalue
         case checkforerrorinrsyncoutput
-        case automaticexecute
-        case automaticexecutetime
+        // case automaticexecute
+        // case automaticexecutetime
         case usenavigationstack
     }
 
@@ -72,8 +72,8 @@ struct DecodeUserConfiguration: Codable {
         environment = try values.decodeIfPresent(String.self, forKey: .environment)
         environmentvalue = try values.decodeIfPresent(String.self, forKey: .environmentvalue)
         checkforerrorinrsyncoutput = try values.decodeIfPresent(Int.self, forKey: .checkforerrorinrsyncoutput)
-        automaticexecute = try values.decodeIfPresent(Int.self, forKey: .automaticexecute)
-        automaticexecutetime = try values.decodeIfPresent(String.self, forKey: .automaticexecutetime)
+        // automaticexecute = try values.decodeIfPresent(Int.self, forKey: .automaticexecute)
+        // automaticexecutetime = try values.decodeIfPresent(String.self, forKey: .automaticexecutetime)
         usenavigationstack = try values.decodeIfPresent(Int.self, forKey: .usenavigationstack)
     }
 
@@ -92,8 +92,8 @@ struct DecodeUserConfiguration: Codable {
         environment = userconfiguration.environment
         environmentvalue = userconfiguration.environmentvalue
         checkforerrorinrsyncoutput = userconfiguration.checkforerrorinrsyncoutput
-        automaticexecute = userconfiguration.automaticexecute
-        automaticexecutetime = userconfiguration.automaticexecutetime
+        // automaticexecute = userconfiguration.automaticexecute
+        // automaticexecutetime = userconfiguration.automaticexecutetime
         usenavigationstack = userconfiguration.usenavigationstack
     }
 }

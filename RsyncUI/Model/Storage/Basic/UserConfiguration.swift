@@ -133,8 +133,8 @@ struct UserConfiguration: Codable {
         environment = data.environment
         environmentvalue = data.environmentvalue
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
-        automaticexecute = data.automaticexecute ?? -1
-        automaticexecutetime = data.automaticexecutetime ?? "10"
+        // automaticexecute = data.automaticexecute ?? -1
+        // automaticexecutetime = data.automaticexecutetime ?? "10"
         usenavigationstack = data.usenavigationstack
         // Set user configdata read from permanent store
         setuserconfigdata()
