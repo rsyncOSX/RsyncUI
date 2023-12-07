@@ -92,7 +92,7 @@ class SharedReference {
     var workitem: DispatchWorkItem?
     var timervalue: Double?
     // Use NavigationStack
-    var usenavigationstack: Bool = false
+    var usenavigationstack: Bool = true
 
     private init() {
         synctasks = Set<String>()
