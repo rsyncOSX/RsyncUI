@@ -100,7 +100,9 @@ struct UserConfiguration: Codable {
             SharedReference.shared.checkforerrorinrsyncoutput = false
         }
         if automaticexecute == 1 {
-            SharedReference.shared.automaticexecute = true
+            // SharedReference.shared.automaticexecute = true
+            // Disabled - set to false anyway
+            SharedReference.shared.automaticexecute = false
         } else {
             SharedReference.shared.automaticexecute = false
         }

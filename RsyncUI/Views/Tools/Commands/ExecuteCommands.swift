@@ -39,7 +39,7 @@ struct ExecuteCommands: Commands {
                 // Divider()
 
                 // Disable automatic execution
-                Enabletimer(enabletimer: $enabletimer)
+                // Enabletimer(enabletimer: $enabletimer)
 
                 Divider()
 
