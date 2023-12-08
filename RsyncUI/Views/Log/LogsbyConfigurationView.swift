@@ -56,7 +56,13 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     showAlertfordelete = true
                 }
-                .overlay { if logrecords.countrecords == 0 { ContentUnavailableView.search }
+                .overlay { if logrecords.countrecords == 0 {
+                    ContentUnavailableView {
+                        Label("There are no logs by this filter", systemImage: "doc.richtext.fill")
+                    } description: {
+                        Text("Try to search for other filter in Date or Result")
+                    }
+                }
                 }
             }
             HStack {

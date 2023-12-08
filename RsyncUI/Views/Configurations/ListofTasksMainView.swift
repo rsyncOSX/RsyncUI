@@ -23,7 +23,11 @@ struct ListofTasksMainView: View {
         tabledata
             .overlay {
                 if configurationssorted.isEmpty {
-                    ContentUnavailableView.search
+                    ContentUnavailableView {
+                        Label("There are no tasks by this Synchronize ID", systemImage: "doc.richtext.fill")
+                    } description: {
+                        Text("Try to search for another ID.")
+                    }
                 }
             }
             .searchable(text: $filterstring)
