@@ -6,10 +6,10 @@ RsyncUI and RsyncOSX are GUI´s on the Apple macOS platform for the command line
 
 Both apps might be installed by Homebrew.
 
-| App      | Homebrew | macOS |  Documentation |
-| ----------- | ----------- |   ----------- |  ----------- |
-| RsyncUI   | `brew install --cask rsyncui`    | **macOS Sonoma**   |   [RsyncUI](https://rsyncui.netlify.app/post/rsyncuidocs/) |
-| RsyncOSX   | `brew install --cask rsyncosx`  |  **macOS Big Sur** and later   |   [RsyncOSX](https://rsyncosx.netlify.app/post/rsyncosxdocs/) |
+| App      | Lines & files | UI | Latest version  |  Version 1.0 | 
+| ----------- | ----------- |   ----------- | -------- |  -------- |
+| RsyncUI   | about 15.5k, 175  | SwiftUI, declarativ     | 1.7.9 - 7 December 2023  | 6 May 2021  | 
+| RsyncOSX   | about 11K, 121  | Storyboard, imperativ   | 6.8.0 - 13 April 2023 |	14 March 2016 | 
 
 ### Why two apps and latest versions
 
