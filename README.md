@@ -15,10 +15,10 @@ Both apps might be installed by Homebrew or by direct Download. The apps are sig
 
 The development of RsyncOSX commenced in *2015* as a private project to learn Swift. In *2019*, Apple released SwiftUI, which is a development framework for building user interfaces for iOS, iPadOS, watchOS, TVOS, and macOS. SwiftUI quickly became very popular, and after some investigation, I decided to commence another private project to learn SwiftUI. The model part of RsyncOSX was at that time quite stable, and I decided to refactor the GUI part of RsyncOSX by utilizing SwiftUI. And that is the short story behind the two applications.
 
-| App      | Lines & files | UI | Latest version  |  Version 1.0 | 
-| ----------- | ----------- |   ----------- | -------- |  -------- |
-| RsyncUI   | about 15.5k, 175  | SwiftUI, declarativ     | [1.7.9 - 7 December 2023](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
-| RsyncOSX   | about 11K, 121  | Storyboard, imperativ   | [6.8.0 - 13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
+| App      | Lines  | files | UI | Latest version  |  Version 1.0 | 
+| ----------- | ----------- |   ----------- | -------- |  -------- | -------- |
+| RsyncUI   | about 15.5k | 175  | SwiftUI, declarativ     | v1.7.9 - [7 December 2023](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
+| RsyncOSX   | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
 
 ### The future
 
