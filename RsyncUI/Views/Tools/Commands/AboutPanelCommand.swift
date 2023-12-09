@@ -11,7 +11,7 @@ import SwiftUI
 public struct AboutPanelCommand: Commands {
     public init(
         title: String,
-        applicationName: String = Bundle.main.bundleIdentifier ?? "",
+        applicationName: String = "RsyncUI",
         credits: String? = nil
     ) {
         let options: [NSApplication.AboutPanelOptionKey: Any]

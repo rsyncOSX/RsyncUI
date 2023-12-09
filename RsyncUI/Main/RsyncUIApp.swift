@@ -45,8 +45,8 @@ struct RsyncUIApp: App {
             }
 
             AboutPanelCommand(
-                title: "About My App",
-                credits: "This amazing app was created in SwiftUI...."
+                title: "About RsyncUI",
+                credits: "This app was created by SwiftUI"
             )
         }
 
