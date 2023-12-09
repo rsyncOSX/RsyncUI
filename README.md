@@ -8,8 +8,8 @@ Both apps might be installed by Homebrew or by direct Download. The apps are sig
 
 | App      | Homebrew | macOS |  Documentation |  
 | ----------- | ----------- |   ----------- |  ----------- |
-| RsyncUI   | `brew install --cask rsyncui`    | **macOS Sonoma**   |   [https://rsyncui.netlify.app](https://rsyncui.netlify.app/post/rsyncuidocs/) | 
-| RsyncOSX   | `brew install --cask rsyncosx`  |  **macOS Big Sur** and later   |  [https://rsyncosx.netlify.app](https://rsyncosx.netlify.app/post/rsyncosxdocs/) |
+| RsyncUI   | `brew install --cask rsyncui`    | macOS Sonoma   |   [rsyncui.netlify.app](https://rsyncui.netlify.app/post/rsyncuidocs/) | 
+| RsyncOSX   | `brew install --cask rsyncosx`  |  macOS Big Sur and later   |  [rsyncosx.netlify.app](https://rsyncosx.netlify.app/post/rsyncosxdocs/) |
 
 ### Why two apps and latest versions
 
