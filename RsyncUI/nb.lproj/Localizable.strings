@@ -26,9 +26,6 @@
 "Abort task" = "Avbryt oppgave";
 
 /* No comment provided by engineer. */
-"Action" = "Aksjon";
-
-/* No comment provided by engineer. */
 "Actions" = "Aksjoner";
 
 /* No comment provided by engineer. */
@@ -131,6 +128,9 @@
 "deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "i sletting av data. Og RsyncUI vil ikke hindre deg i det. Derfor er det";
 
 /* No comment provided by engineer. */
+"Deleting snapshots" = "Slette snapshots";
+
+/* No comment provided by engineer. */
 "Detailed log level" = "Detaljert log nivå";
 
 /* No comment provided by engineer. */
@@ -164,10 +164,7 @@
 "Estimated tasks" = "Estimerte oppgaver";
 
 /* No comment provided by engineer. */
-"Synchronize" = "Utfør";
-
-/* No comment provided by engineer. */
-"Synchronize (⌘R)" = "Utfør (⌘R)";
+"Estimating" = "Estimerer";
 
 /* No comment provided by engineer. */
 "Filenames" = "Filnavn";
@@ -215,9 +212,6 @@
 "Last" = "Siste";
 
 /* No comment provided by engineer. */
-"Logfile" = "Loggfil";
-
-/* No comment provided by engineer. */
 "Linux" = "Linux";
 
 /* No comment provided by engineer. */
@@ -233,16 +227,10 @@
 "Local catalogs" = "Lokale kataloger";
 
 /* No comment provided by engineer. */
-"Local data" = "Lokale data";
-
-/* No comment provided by engineer. */
 "Local ssh keys are present" = "Lokale ssh nøkler funnet";
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
-
-/* No comment provided by engineer. */
-"Log listings" = "Liste logger";
 
 /* No comment provided by engineer. */
 "Log to file" = "Logg til fil";
@@ -260,13 +248,22 @@
 "Monitor network" = "Overvåk nettverk";
 
 /* No comment provided by engineer. */
+"NavigationStack on or off" = "NavigationStack på eller av";
+
+/* No comment provided by engineer. */
 "New" = "Ny";
 
 /* No comment provided by engineer. */
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
+"New version is available" = "Ny versjon er tilgjengelig";
+
+/* No comment provided by engineer. */
 "New: " = "Ny:";
+
+/* No comment provided by engineer. */
+"No error" = "Ingen feil";
 
 /* No comment provided by engineer. */
 "None" = "Ingen";
@@ -279,9 +276,6 @@
 
 /* No comment provided by engineer. */
 "Not verified" = "Ikke verifisert";
-
-/* No comment provided by engineer. */
-"Num" = "Num";
 
 /* No comment provided by engineer. */
 "Number of log records: " = "Antall logger:";
@@ -317,16 +311,10 @@
 "Profiles" = "Profiler";
 
 /* No comment provided by engineer. */
-"Quick synchronize" = "Rask synkronisering";
-
-/* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
 
 /* No comment provided by engineer. */
 "Remote catalog: " = "Eksterne katalog:";
-
-/* No comment provided by engineer. */
-"Remote data" = "Eksterne data";
 
 /* No comment provided by engineer. */
 "Remote parameters" = "Eksterne parametere";
@@ -339,9 +327,6 @@
 
 /* No comment provided by engineer. */
 "Remove default rsync parameters" = "Slett standard rsync parametre";
-
-/* No comment provided by engineer. */
-"Reset" = "Nullstille";
 
 /* No comment provided by engineer. */
 "Reset estimates" = "Nulstille estimater";
@@ -357,9 +342,6 @@
 
 /* No comment provided by engineer. */
 "Rsync output estimated task" = "Rsync logg estimert oppgave";
-
-/* No comment provided by engineer. */
-"Rsync parameters" = "Rsync parametre";
 
 /* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
@@ -416,9 +398,6 @@
 "Shell scripts" = "Shell script";
 
 /* No comment provided by engineer. */
-"Show info" = "Vis info";
-
-/* No comment provided by engineer. */
 "Snap" = "Snap";
 
 /* No comment provided by engineer. */
@@ -429,6 +408,12 @@
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synkronisere";
+
+/* No comment provided by engineer. */
+"Synchronize (⌘R)" = "Utfør (⌘R)";
+
+/* No comment provided by engineer. */
+"Synchronize all tasks with NO estimating first?" = "Synkroniser alle oppgaver UTEN å estimere først?";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";
@@ -452,6 +437,12 @@
 "Tasks" = "Oppgaver";
 
 /* No comment provided by engineer. */
+"There are no logs by this filter" = "Det er ingen logger med dette søk";
+
+/* No comment provided by engineer. */
+"There are no tasks by this Synchronize ID" = "Det er ingen oppgaver med denne Synchronize ID";
+
+/* No comment provided by engineer. */
 "There seems to be no data to synchronize" = "Det synes ikke å være data for synkronisering";
 
 /* No comment provided by engineer. */
@@ -465,6 +456,12 @@
 
 /* No comment provided by engineer. */
 "Tot num" = "Tot num";
+
+/* No comment provided by engineer. */
+"Try to search for another ID." = "Forsøk annet søk i ID";
+
+/* No comment provided by engineer. */
+"Try to search for other filter in Date or Result" = "Forsøk annet søk i Dato eller Resultat";
 
 /* No comment provided by engineer. */
 "Update" = "Oppdater";
@@ -486,7 +483,4 @@
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Velkommen til RsyncUI";
-
-/* No comment provided by engineer. */
-"Where" = "Hvor";
 
