@@ -75,6 +75,8 @@ struct AddPreandPostView: View {
                                     newdata.updateview(selectedconfig)
                                 }
                             }
+
+                        updatebutton
                     }
                 }
             }
@@ -106,14 +108,20 @@ struct AddPreandPostView: View {
         .alert(isPresented: $newdata.alerterror,
                content: { Alert(localizedError: newdata.error)
                })
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    validateandupdate()
-                } label: {
-                    Image(systemName: "square.and.pencil")
+    }
+
+    var updatebutton: some View {
+        HStack {
+            if newdata.selectedconfig == nil {
+                Button("Update") {
+                    // No update
                 }
-                .help("Update task")
+                .buttonStyle(ColorfulButtonStyle())
+            } else {
+                Button("Update") {
+                    validateandupdate()
+                }
+                .buttonStyle(ColorfulButtonStyle())
             }
         }
     }

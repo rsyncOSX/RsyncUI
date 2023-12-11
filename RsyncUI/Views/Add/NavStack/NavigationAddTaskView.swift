@@ -19,6 +19,8 @@ struct NavigationAddTaskView: View {
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var dataischanged = Dataischanged()
+    // Which view to show
+    @State var path: [AddTasks] = []
 
     var choosecatalog = true
 
@@ -37,7 +39,7 @@ struct NavigationAddTaskView: View {
     @State private var confirmcopyandpaste: Bool = false
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             Form {
                 ZStack {
                     HStack {
@@ -160,15 +162,21 @@ struct NavigationAddTaskView: View {
                    content: { Alert(localizedError: newdata.error)
                    })
 
-            .navigationDestination(isPresented: $showprofileview) {
-                NavigationAddProfileView(profilenames: profilenames,
-                                         selectedprofile: $selectedprofile,
-                                         reload: $reload)
+            .navigationDestination(for: AddTasks.self) { which in
+                makeView(view: which.task)
             }
             .toolbar {
                 ToolbarItem {
                     Button {
-                        showprofileview = true
+                        path.append(AddTasks(task: .shelltaskview))
+                    } label: {
+                        Image(systemName: "fossil.shell.fill")
+                    }
+                }
+
+                ToolbarItem {
+                    Button {
+                        path.append(AddTasks(task: .profileview))
                     } label: {
                         Image(systemName: "arrow.triangle.branch")
                     }
@@ -194,6 +202,18 @@ struct NavigationAddTaskView: View {
                     }
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    func makeView(view: AddTaskDestinationView) -> some View {
+        switch view {
+        case .profileview:
+            NavigationAddProfileView(profilenames: profilenames,
+                                     selectedprofile: $selectedprofile,
+                                     reload: $reload)
+        case .shelltaskview:
+            AddPreandPostView(profilenames: profilenames, selectedprofile: $selectedprofile, reload: $reload)
         }
     }
 
@@ -502,6 +522,16 @@ extension NavigationAddTaskView {
         reload = newdata.reload
         dataischanged.dataischanged = true
     }
+}
+
+enum AddTaskDestinationView: String, Identifiable {
+    case profileview, shelltaskview
+    var id: String { rawValue }
+}
+
+struct AddTasks: Hashable, Identifiable {
+    let id = UUID()
+    var task: AddTaskDestinationView
 }
 
 // swiftlint:enable file_length type_body_length

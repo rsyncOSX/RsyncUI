@@ -13,18 +13,18 @@ struct SidebarAddTaskView: View {
     @Bindable var profilenames: Profilenames
 
     var body: some View {
-        TabView {
-            if SharedReference.shared.usenavigationstack {
-                NavigationAddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
-                    .tabItem { Text("Add task") }
-            } else {
+        if SharedReference.shared.usenavigationstack {
+            NavigationAddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
+
+        } else {
+            TabView {
                 AddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
                     .tabItem { Text("Add task") }
-            }
 
-            AddPreandPostView(profilenames: profilenames, selectedprofile: $selectedprofile, reload: $reload)
-                .tabItem { Text("Shell scripts") }
+                AddPreandPostView(profilenames: profilenames, selectedprofile: $selectedprofile, reload: $reload)
+                    .tabItem { Text("Shell scripts") }
+            }
+            .padding()
         }
-        .padding()
     }
 }
