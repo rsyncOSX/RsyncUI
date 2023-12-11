@@ -46,7 +46,7 @@ struct RsyncUIApp: App {
 
             AboutPanelCommand(
                 title: "About RsyncUI",
-                credits: "This app was created by SwiftUI"
+                credits: "This app was created by SwiftUI\n https.//rsyncui.netlify.app"
             )
         }
 
