@@ -14,8 +14,13 @@ struct SidebarAddTaskView: View {
 
     var body: some View {
         TabView {
-            AddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
-                .tabItem { Text("Add task") }
+            if SharedReference.shared.usenavigationstack {
+                NavigationAddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
+                    .tabItem { Text("Add task") }
+            } else {
+                AddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
+                    .tabItem { Text("Add task") }
+            }
 
             AddPreandPostView(profilenames: profilenames, selectedprofile: $selectedprofile, reload: $reload)
                 .tabItem { Text("Shell scripts") }

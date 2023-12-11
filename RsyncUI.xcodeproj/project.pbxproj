@@ -29,6 +29,8 @@
 		E92FA4412ABEBEC3001E0A14 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA43B2ABEBEC3001E0A14 /* BlurView.swift */; };
 		E931ED962B0C82BB000BEF56 /* NavigationQuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931ED952B0C82BB000BEF56 /* NavigationQuicktaskView.swift */; };
 		E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */; };
+		E93878C32B27355A009574CD /* NavigationAddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93878C22B27355A009574CD /* NavigationAddTaskView.swift */; };
+		E93878C52B273666009574CD /* NavigationAddProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93878C42B273666009574CD /* NavigationAddProfileView.swift */; };
 		E93CC3FF2A68218200DB02EB /* ListofTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */; };
 		E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */; };
 		E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */; };
@@ -236,6 +238,8 @@
 		E92FA43B2ABEBEC3001E0A14 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		E931ED952B0C82BB000BEF56 /* NavigationQuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationQuicktaskView.swift; sourceTree = "<group>"; };
 		E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableAddConfigurations.swift; sourceTree = "<group>"; };
+		E93878C22B27355A009574CD /* NavigationAddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAddTaskView.swift; sourceTree = "<group>"; };
+		E93878C42B273666009574CD /* NavigationAddProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAddProfileView.swift; sourceTree = "<group>"; };
 		E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksView.swift; sourceTree = "<group>"; };
 		E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsbyConfigurationView.swift; sourceTree = "<group>"; };
 		E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersDefault.swift; sourceTree = "<group>"; };
@@ -475,6 +479,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		E93878C12B27352F009574CD /* NavStack */ = {
+			isa = PBXGroup;
+			children = (
+				E93878C22B27355A009574CD /* NavigationAddTaskView.swift */,
+				E93878C42B273666009574CD /* NavigationAddProfileView.swift */,
+			);
+			path = NavStack;
+			sourceTree = "<group>";
+		};
 		E9556ACB290C0CB700B1752A /* Async */ = {
 			isa = PBXGroup;
 			children = (
@@ -667,6 +680,7 @@
 		E985C64625F3AD8400CB895C /* Add */ = {
 			isa = PBXGroup;
 			children = (
+				E93878C12B27352F009574CD /* NavStack */,
 				E9B34966273AE658000B053E /* OpencatalogView.swift */,
 				E985C64A25F3AD8400CB895C /* EditValue.swift */,
 				E9168C082615AB8500B139CE /* AddPreandPostView.swift */,
@@ -1399,6 +1413,7 @@
 				E985C72C25F3AD9700CB895C /* SnapshotData.swift in Sources */,
 				E994E2B02AEE564300CA050A /* AlertToastModifier.swift in Sources */,
 				E985C67A25F3AD8400CB895C /* RsyncCommandView.swift in Sources */,
+				E93878C32B27355A009574CD /* NavigationAddTaskView.swift in Sources */,
 				E9B6BD352B120B840084BC8B /* NavigationLogfileView.swift in Sources */,
 				E985C66C25F3AD8400CB895C /* SnapshotsView.swift in Sources */,
 				E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */,
@@ -1440,6 +1455,7 @@
 				E985C73625F3AD9700CB895C /* SetandValidatepathforrsync.swift in Sources */,
 				E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */,
 				E954AD412AFE8FBB00F3EA63 /* NavigationDetailsSummarizedTasksView.swift in Sources */,
+				E93878C52B273666009574CD /* NavigationAddProfileView.swift in Sources */,
 				E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */,
 				E9FBF40D291AFB7000AAAC40 /* SnapshotCommands.swift in Sources */,
 				E985C79125F3AD9700CB895C /* ObservableUsersetting.swift in Sources */,
