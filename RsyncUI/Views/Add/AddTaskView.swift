@@ -136,11 +136,6 @@ struct AddTaskView: View {
                                     dataischanged.dataischanged = true
                                 }
                             }
-                        HStack {
-                            profilebutton
-
-                            updatebutton
-                        }
                     }
                 }
             }
@@ -187,28 +182,33 @@ struct AddTaskView: View {
         .alert(isPresented: $newdata.alerterror,
                content: { Alert(localizedError: newdata.error)
                })
-    }
-
-    var profilebutton: some View {
-        Button("Profile") {
-            modalview = true
-        }
-        .buttonStyle(ColorfulButtonStyle())
-    }
-
-    var updatebutton: some View {
-        HStack {
-            // Add or Update button
-            if newdata.selectedconfig == nil {
-                Button("Add") {
-                    addconfig()
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    modalview = true
+                } label: {
+                    Image(systemName: "arrow.triangle.branch")
                 }
-                .buttonStyle(ColorfulButtonStyle())
+            }
+
+            if newdata.selectedconfig != nil {
+                ToolbarItem {
+                    Button {
+                        validateandupdate()
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+                    .help("Update task")
+                }
             } else {
-                Button("Update") {
-                    validateandupdate()
+                ToolbarItem {
+                    Button {
+                        addconfig()
+                    } label: {
+                        Image(systemName: "plus.app.fill")
+                    }
+                    .help("Add task")
                 }
-                .buttonStyle(ColorfulButtonStyle())
             }
         }
     }
