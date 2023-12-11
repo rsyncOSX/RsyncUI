@@ -14,6 +14,7 @@ struct NavigationAddProfileView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @State private var uuidprofile = Set<Profiles.ID>()
+    @State private var localselectedprofile: String?
 
     var body: some View {
         VStack {
@@ -27,31 +28,14 @@ struct NavigationAddProfileView: View {
                     uuidprofile.contains(profiles.id)
                 }
                 if profile.count == 1 {
-                    selectedprofile = profile[0].profile
+                    localselectedprofile = profile[0].profile
                 }
             }
 
             Spacer()
 
-            HStack {
-                HStack {
-                    Button("Create") { createprofile() }
-                        .buttonStyle(ColorfulButtonStyle())
-
-                    EditValue(150, NSLocalizedString("Create profile", comment: ""),
-                              $newdata.newprofile)
-                }
-
-                Button("Delete") { newdata.showAlertfordelete = true }
-                    .buttonStyle(ColorfulRedButtonStyle())
-                    .sheet(isPresented: $newdata.showAlertfordelete) {
-                        ConfirmDeleteProfileView(delete: $newdata.confirmdeleteselectedprofile,
-                                                 profile: rsyncUIdata.profile)
-                            .onDisappear(perform: {
-                                deleteprofile()
-                            })
-                    }
-            }
+            EditValue(150, NSLocalizedString("Create profile", comment: ""),
+                      $newdata.newprofile)
         }
         .onSubmit {
             createprofile()
@@ -59,6 +43,32 @@ struct NavigationAddProfileView: View {
         .alert(isPresented: $newdata.alerterror,
                content: { Alert(localizedError: newdata.error)
                })
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    newdata.showAlertfordelete = true
+                } label: {
+                    Image(systemName: "trash.fill")
+                }
+                .help("Delete profile")
+                .sheet(isPresented: $newdata.showAlertfordelete) {
+                    ConfirmDeleteProfileView(delete: $newdata.confirmdeleteselectedprofile,
+                                             profile: rsyncUIdata.profile)
+                        .onDisappear(perform: {
+                            deleteprofile()
+                        })
+                }
+            }
+
+            ToolbarItem {
+                Button {
+                    createprofile()
+                } label: {
+                    Image(systemName: "plus.app.fill")
+                }
+                .help("Add profile")
+            }
+        }
     }
 }
 

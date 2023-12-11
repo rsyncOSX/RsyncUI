@@ -32,7 +32,7 @@ struct NavigationAddTaskView: View {
 
     @FocusState private var focusField: AddConfigurationField?
     // Modale view
-    @State private var modalview = false
+    @State private var showprofileview = false
     // Reload and show table data
     @State private var confirmcopyandpaste: Bool = false
 
@@ -118,11 +118,6 @@ struct NavigationAddTaskView: View {
                                         dataischanged.dataischanged = true
                                     }
                                 }
-                            HStack {
-                                profilebutton
-
-                                updatebutton
-                            }
                         }
                     }
                 }
@@ -165,34 +160,39 @@ struct NavigationAddTaskView: View {
                    content: { Alert(localizedError: newdata.error)
                    })
 
-            .navigationDestination(isPresented: $modalview) {
+            .navigationDestination(isPresented: $showprofileview) {
                 NavigationAddProfileView(profilenames: profilenames,
                                          selectedprofile: $selectedprofile,
                                          reload: $reload)
             }
-        }
-    }
-
-    var profilebutton: some View {
-        Button("Profile") {
-            modalview = true
-        }
-        .buttonStyle(ColorfulButtonStyle())
-    }
-
-    var updatebutton: some View {
-        HStack {
-            // Add or Update button
-            if newdata.selectedconfig == nil {
-                Button("Add") {
-                    addconfig()
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        showprofileview = true
+                    } label: {
+                        Image(systemName: "arrow.triangle.branch")
+                    }
                 }
-                .buttonStyle(ColorfulButtonStyle())
-            } else {
-                Button("Update") {
-                    validateandupdate()
+
+                if newdata.selectedconfig != nil {
+                    ToolbarItem {
+                        Button {
+                            validateandupdate()
+                        } label: {
+                            Image(systemName: "square.and.pencil")
+                        }
+                        .help("Update task")
+                    }
+                } else {
+                    ToolbarItem {
+                        Button {
+                            addconfig()
+                        } label: {
+                            Image(systemName: "plus.app.fill")
+                        }
+                        .help("Add task")
+                    }
                 }
-                .buttonStyle(ColorfulButtonStyle())
             }
         }
     }
@@ -470,7 +470,7 @@ struct NavigationAddTaskView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                modalview = true
+                showprofileview = true
             })
     }
 
