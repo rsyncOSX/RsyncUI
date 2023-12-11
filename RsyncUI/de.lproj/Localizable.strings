@@ -26,9 +26,6 @@
 "Abort task" = "Aufgabe abbrechen";
 
 /* No comment provided by engineer. */
-"Action" = "Aufgabe";
-
-/* No comment provided by engineer. */
 "Actions" = "Aufgabe";
 
 /* No comment provided by engineer. */
@@ -131,6 +128,9 @@
 "deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "gelöschte Daten. RsyncUI wird Sie NICHT davon abhalten. Deshalb ist es sehr";
 
 /* No comment provided by engineer. */
+"Deleting snapshots" = "Schnappschüsse löschen";
+
+/* No comment provided by engineer. */
 "Detailed log level" = "Detaillierte Protokollebene";
 
 /* No comment provided by engineer. */
@@ -164,10 +164,7 @@
 "Estimated tasks" = "Geschätzte Aufgaben";
 
 /* No comment provided by engineer. */
-"Synchronize" = "Ausführen";
-
-/* No comment provided by engineer. */
-"Synchronize (⌘R)" = "Ausführen (⌘R)";
+"Estimating" = "Schätzen";
 
 /* No comment provided by engineer. */
 "Filenames" = "Filnamen";
@@ -215,9 +212,6 @@
 "Last" = "Letzte";
 
 /* No comment provided by engineer. */
-"Logfile" = "Logdatei";
-
-/* No comment provided by engineer. */
 "Linux" = "Linux";
 
 /* No comment provided by engineer. */
@@ -233,16 +227,10 @@
 "Local catalogs" = "Lokaler Katalogs";
 
 /* No comment provided by engineer. */
-"Local data" = "Lokaler Data";
-
-/* No comment provided by engineer. */
 "Local ssh keys are present" = "Lokale ssh schlüssel sind vorhanden";
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
-
-/* No comment provided by engineer. */
-"Log listings" = "Protokolle";
 
 /* No comment provided by engineer. */
 "Log to file" = "Log in Datei";
@@ -260,13 +248,22 @@
 "Monitor network" = "Netzwerk überwachen";
 
 /* No comment provided by engineer. */
+"NavigationStack on or off" = "NavigationStack ein- oder ausschalten";
+
+/* No comment provided by engineer. */
 "New" = "Neu";
 
 /* No comment provided by engineer. */
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
+"New version is available" = "Neue Version ist verfügbar";
+
+/* No comment provided by engineer. */
 "New: " = "Neu:";
+
+/* No comment provided by engineer. */
+"No error" = "Kein Fehler";
 
 /* No comment provided by engineer. */
 "None" = "Keine";
@@ -279,9 +276,6 @@
 
 /* No comment provided by engineer. */
 "Not verified" = "Nicht verifiziert";
-
-/* No comment provided by engineer. */
-"Num" = "Num";
 
 /* No comment provided by engineer. */
 "Number of log records: " = "Anzahl der Protokolle:";
@@ -317,16 +311,13 @@
 "Profiles" = "Profil";
 
 /* No comment provided by engineer. */
-"Quick synchronize" = "Schnell synchronisieren";
+"Remember to restart RsyncUI." = "Denken Sie daran, RsyncUI neu zu starten.";
 
 /* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
 
 /* No comment provided by engineer. */
 "Remote catalog: " = "Remote Katalog:";
-
-/* No comment provided by engineer. */
-"Remote data" = "Remote Data";
 
 /* No comment provided by engineer. */
 "Remote parameters" = "Remote Parameter";
@@ -341,10 +332,10 @@
 "Remove default rsync parameters" = "Entfernen Sie die Standard-rsync-Parameter";
 
 /* No comment provided by engineer. */
-"Reset" = "Zurücksetzen";
+"Reset estimates" = "Schätzungen zurücksetzen";
 
 /* No comment provided by engineer. */
-"Reset estimates" = "Schätzungen zurücksetzen";
+"Reset logfile" = "Logdatei zurücksetzen";
 
 /* No comment provided by engineer. */
 "Reset selections" = "Auswahl zurücksetzen";
@@ -359,9 +350,6 @@
 "Rsync output estimated task" = "Geschätzte Rsync-Ausgabeaufgabe";
 
 /* No comment provided by engineer. */
-"Rsync parameters" = "Rsync Parameter";
-
-/* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
@@ -369,6 +357,9 @@
 
 /* No comment provided by engineer. */
 "RsyncUI" = "RsyncUI";
+
+/* No comment provided by engineer. */
+"RsyncUI a GUI for rsync" = "RsyncUI eine GUI für rsync";
 
 /* No comment provided by engineer. */
 "RsyncUI help" = "RsyncUI Hilfe";
@@ -413,9 +404,6 @@
 "Shell scripts" = "Shell scripts";
 
 /* No comment provided by engineer. */
-"Show info" = "Zeige Info";
-
-/* No comment provided by engineer. */
 "Snap" = "Snap";
 
 /* No comment provided by engineer. */
@@ -426,6 +414,12 @@
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synchronisieren";
+
+/* No comment provided by engineer. */
+"Synchronize (⌘R)" = "Ausführen (⌘R)";
+
+/* No comment provided by engineer. */
+"Synchronize all tasks with NO estimating first?" = "Alle Aufgaben ohne vorherige Schätzung synchronisieren?";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";
@@ -449,6 +443,12 @@
 "Tasks" = "Aufgaben";
 
 /* No comment provided by engineer. */
+"There are no logs by this filter" = "Für diesen Filter sind keine Protokolle vorhanden";
+
+/* No comment provided by engineer. */
+"There are no tasks by this Synchronize ID" = "Es gibt keine Aufgaben dieser Synchronisierungs-ID";
+
+/* No comment provided by engineer. */
 "There seems to be no data to synchronize" = "Es scheinen keine Daten zum Synchronisieren vorhanden zu sein";
 
 /* No comment provided by engineer. */
@@ -462,6 +462,12 @@
 
 /* No comment provided by engineer. */
 "Tot num" = "Anzahl Gesamt";
+
+/* No comment provided by engineer. */
+"Try to search for another ID." = "Versuchen Sie, nach einer anderen ID zu suchen.";
+
+/* No comment provided by engineer. */
+"Try to search for other filter in Date or Result" = "Versuchen Sie, in „Datum“ oder „Ergebnis“ nach einem anderen Filter zu suchen";
 
 /* No comment provided by engineer. */
 "Update" = "Aktualisieren";
@@ -483,7 +489,4 @@
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Willkommen bei RsyncUI";
-
-/* No comment provided by engineer. */
-"Where" = "Wo";
 
