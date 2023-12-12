@@ -8,6 +8,16 @@
 
 import SwiftUI
 
+enum AddTaskDestinationView: String, Identifiable {
+    case profileview, shelltaskview
+    var id: String { rawValue }
+}
+
+struct AddTasks: Hashable, Identifiable {
+    let id = UUID()
+    var task: AddTaskDestinationView
+}
+
 struct NavigationAddTaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
@@ -522,16 +532,6 @@ extension NavigationAddTaskView {
         reload = newdata.reload
         dataischanged.dataischanged = true
     }
-}
-
-enum AddTaskDestinationView: String, Identifiable {
-    case profileview, shelltaskview
-    var id: String { rawValue }
-}
-
-struct AddTasks: Hashable, Identifiable {
-    let id = UUID()
-    var task: AddTaskDestinationView
 }
 
 // swiftlint:enable file_length type_body_length

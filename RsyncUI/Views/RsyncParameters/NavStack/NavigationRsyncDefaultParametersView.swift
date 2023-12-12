@@ -14,10 +14,6 @@ struct NavigationRsyncDefaultParametersView: View {
 
     @State private var selectedconfig: Configuration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
-    @State private var rsyncoutput: ObservableRsyncOutput?
-
-    @State private var showprogressview = false
-    @State private var presentsheetview = false
     @State private var valueselectedrow: String = ""
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var dataischanged = Dataischanged()
@@ -26,103 +22,81 @@ struct NavigationRsyncDefaultParametersView: View {
     @State private var focusaborttask: Bool = false
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Section(header: headerssh) {
-                            setsshpath
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Section(header: headerssh) {
+                        setsshpath
 
-                            setsshport
-                        }
-
-                        Section(header: headerremove) {
-                            VStack(alignment: .leading) {
-                                ToggleViewDefault("-e ssh", $parameters.removessh)
-                                    .onChange(of: parameters.removessh) {
-                                        parameters.deletessh(parameters.removessh)
-                                    }
-                                ToggleViewDefault("--compress", $parameters.removecompress)
-                                    .onChange(of: parameters.removecompress) {
-                                        parameters.deletecompress(parameters.removecompress)
-                                    }
-                                ToggleViewDefault("--delete", $parameters.removedelete)
-                                    .onChange(of: parameters.removedelete) {
-                                        parameters.deletedelete(parameters.removedelete)
-                                    }
-                            }
-                        }
-
-                        Section(header: headerdaemon) {
-                            ToggleViewDefault("daemon", $parameters.daemon)
-                        }
-
-                        Spacer()
+                        setsshport
                     }
 
-                    VStack(alignment: .leading) {
-                        ListofTasksLightView(selecteduuids: $selecteduuids)
-                            .frame(maxWidth: .infinity)
-                            .onChange(of: selecteduuids) {
-                                let selected = rsyncUIdata.configurations?.filter { config in
-                                    selecteduuids.contains(config.id)
+                    Section(header: headerremove) {
+                        VStack(alignment: .leading) {
+                            ToggleViewDefault("-e ssh", $parameters.removessh)
+                                .onChange(of: parameters.removessh) {
+                                    parameters.deletessh(parameters.removessh)
                                 }
-                                if (selected?.count ?? 0) == 1 {
-                                    if let config = selected {
-                                        selectedconfig = config[0]
-                                        parameters.setvalues(selectedconfig)
-                                    }
-                                } else {
-                                    selectedconfig = nil
+                            ToggleViewDefault("--compress", $parameters.removecompress)
+                                .onChange(of: parameters.removecompress) {
+                                    parameters.deletecompress(parameters.removecompress)
+                                }
+                            ToggleViewDefault("--delete", $parameters.removedelete)
+                                .onChange(of: parameters.removedelete) {
+                                    parameters.deletedelete(parameters.removedelete)
+                                }
+                        }
+                    }
+
+                    Section(header: headerdaemon) {
+                        ToggleViewDefault("daemon", $parameters.daemon)
+                    }
+
+                    Spacer()
+                }
+
+                VStack(alignment: .leading) {
+                    ListofTasksLightView(selecteduuids: $selecteduuids)
+                        .frame(maxWidth: .infinity)
+                        .onChange(of: selecteduuids) {
+                            let selected = rsyncUIdata.configurations?.filter { config in
+                                selecteduuids.contains(config.id)
+                            }
+                            if (selected?.count ?? 0) == 1 {
+                                if let config = selected {
+                                    selectedconfig = config[0]
                                     parameters.setvalues(selectedconfig)
                                 }
-                            }
-
-                        ZStack {
-                            HStack(alignment: .center) {
-                                RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
-                            }
-
-                            if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
-                        }
-                    }
-
-                    if focusaborttask { labelaborttask }
-                }
-
-                Spacer()
-
-                HStack {
-                    Spacer()
-
-                    Button("Verify") {
-                        if let configuration = parameters.updatersyncparameters() {
-                            Task {
-                                await verify(config: configuration)
+                            } else {
+                                selectedconfig = nil
+                                parameters.setvalues(selectedconfig)
                             }
                         }
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
 
-                    Button("Save") { saversyncparameters() }
-                        .buttonStyle(ColorfulButtonStyle())
-                }
-            }
-            .focusedSceneValue(\.aborttask, $focusaborttask)
-            .padding()
-            // .sheet(isPresented: $presentsheetview) { viewoutput }
-            .onAppear {
-                if dataischanged.dataischanged {
-                    dataischanged.dataischanged = false
+                    ZStack {
+                        HStack(alignment: .center) {
+                            RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
+                        }
+                    }
                 }
             }
         }
-        .navigationDestination(isPresented: $presentsheetview) {
-            NavigationOutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
+        .onAppear {
+            if dataischanged.dataischanged {
+                dataischanged.dataischanged = false
+            }
         }
-        .alert(isPresented: $parameters.alerterror,
-               content: { Alert(localizedError: parameters.error)
-               })
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    saversyncparameters()
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                }
+                .help("Update task")
+            }
+        }
+        .padding()
     }
 
     // Header remove
@@ -188,34 +162,5 @@ extension NavigationRsyncDefaultParametersView {
         selectedconfig = nil
         reload = true
         dataischanged.dataischanged = true
-    }
-
-    func verify(config: Configuration) async {
-        var arguments: [String]?
-        switch selectedrsynccommand {
-        case .synchronize:
-            arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
-        case .restore:
-            arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
-        case .verify:
-            arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
-        }
-        rsyncoutput = ObservableRsyncOutput()
-        showprogressview = true
-        let process = await RsyncProcessAsync(arguments: arguments,
-                                              config: config,
-                                              processtermination: processtermination)
-        await process.executeProcess()
-    }
-
-    func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
-        showprogressview = false
-        rsyncoutput?.setoutput(outputfromrsync)
-        presentsheetview = true
-    }
-
-    func abort() {
-        showprogressview = false
-        _ = InterruptProcess()
     }
 }

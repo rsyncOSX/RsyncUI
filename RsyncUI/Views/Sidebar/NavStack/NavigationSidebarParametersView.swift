@@ -12,17 +12,7 @@ struct NavigationSidebarParametersView: View {
 
     var body: some View {
         NavigationStack {
-            TabView {
-                NavigationRsyncParametersView(reload: $reload)
-                    .tabItem {
-                        Text("Parameters")
-                    }
-                NavigationRsyncDefaultParametersView(reload: $reload)
-                    .tabItem {
-                        Text("Default")
-                    }
-            }
-            .padding()
+            NavigationRsyncParametersView(reload: $reload)
         }
     }
 }
