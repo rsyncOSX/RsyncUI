@@ -17,7 +17,6 @@ struct NavigationRsyncDefaultParametersView: View {
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     @State private var valueselectedrow: String = ""
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var dataischanged = Dataischanged()
 
     var body: some View {
         VStack {
@@ -69,11 +68,6 @@ struct NavigationRsyncDefaultParametersView: View {
 
             RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
         }
-        .onAppear {
-            if dataischanged.dataischanged {
-                dataischanged.dataischanged = false
-            }
-        }
         .toolbar {
             ToolbarItem {
                 Button {
@@ -110,6 +104,5 @@ extension NavigationRsyncDefaultParametersView {
         parameters.reset()
         selectedconfig = nil
         reload = true
-        dataischanged.dataischanged = true
     }
 }

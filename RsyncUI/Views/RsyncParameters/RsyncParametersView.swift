@@ -22,8 +22,6 @@ struct RsyncParametersView: View {
     @State private var valueselectedrow: String = ""
     @State private var numberoffiles: Int = 0
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var dataischanged = Dataischanged()
-
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
     // Focus buttons from the menu
@@ -131,11 +129,6 @@ struct RsyncParametersView: View {
             .focusedSceneValue(\.aborttask, $focusaborttask)
             .sheet(isPresented: $presentsheetview) { viewoutput }
             .padding()
-            .onAppear {
-                if dataischanged.dataischanged {
-                    dataischanged.dataischanged = false
-                }
-            }
             .alert(isPresented: $parameters.alerterror,
                    content: { Alert(localizedError: parameters.error)
                    })
@@ -167,7 +160,6 @@ extension RsyncParametersView {
         parameters.reset()
         selectedconfig = nil
         reload = true
-        dataischanged.dataischanged = true
     }
 
     func verify(config: Configuration) async {

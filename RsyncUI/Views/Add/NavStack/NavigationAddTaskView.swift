@@ -28,7 +28,6 @@ struct NavigationAddTaskView: View {
 
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var dataischanged = Dataischanged()
     // Which view to show
     @State var path: [AddTasks] = []
 
@@ -127,7 +126,6 @@ struct NavigationAddTaskView: View {
                                         newdata.writecopyandpastetasks(rsyncUIdata.profile,
                                                                        rsyncUIdata.configurations ?? [])
                                         reload = true
-                                        dataischanged.dataischanged = true
                                     }
                                 }
                         }
@@ -136,11 +134,6 @@ struct NavigationAddTaskView: View {
             }
             .lineSpacing(2)
             .padding()
-            .onAppear {
-                if dataischanged.dataischanged {
-                    dataischanged.dataischanged = false
-                }
-            }
             .onSubmit {
                 switch focusField {
                 case .localcatalogField:
@@ -524,13 +517,11 @@ extension NavigationAddTaskView {
     func addconfig() {
         newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload
-        dataischanged.dataischanged = true
     }
 
     func validateandupdate() {
         newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
-        dataischanged.dataischanged = true
     }
 }
 

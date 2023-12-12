@@ -16,8 +16,6 @@ struct AddPreandPostView: View {
     @Binding var reload: Bool
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var showtableview: Bool = true
-    @State private var dataischanged = Dataischanged()
 
     var choosecatalog = false
 
@@ -97,12 +95,6 @@ struct AddPreandPostView: View {
                 focusField = nil
             default:
                 return
-            }
-        }
-        .onAppear {
-            if dataischanged.dataischanged {
-                showtableview = false
-                dataischanged.dataischanged = false
             }
         }
         .alert(isPresented: $newdata.alerterror,
@@ -231,8 +223,6 @@ extension AddPreandPostView {
     func validateandupdate() {
         newdata.validateandupdate(profile, configurations)
         reload = newdata.reload
-        showtableview = false
-        dataischanged.dataischanged = true
     }
 }
 

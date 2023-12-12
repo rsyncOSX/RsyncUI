@@ -34,10 +34,8 @@ struct AddTaskView: View {
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
     @Bindable var profilenames: Profilenames
-
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
-    @State private var dataischanged = Dataischanged()
 
     var choosecatalog = true
 
@@ -133,7 +131,6 @@ struct AddTaskView: View {
                                     newdata.writecopyandpastetasks(rsyncUIdata.profile,
                                                                    rsyncUIdata.configurations ?? [])
                                     reload = true
-                                    dataischanged.dataischanged = true
                                 }
                             }
                         HStack {
@@ -147,11 +144,6 @@ struct AddTaskView: View {
         }
         .lineSpacing(2)
         .padding()
-        .onAppear {
-            if dataischanged.dataischanged {
-                dataischanged.dataischanged = false
-            }
-        }
         .onSubmit {
             switch focusField {
             case .localcatalogField:
@@ -510,13 +502,11 @@ extension AddTaskView {
     func addconfig() {
         newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload
-        dataischanged.dataischanged = true
     }
 
     func validateandupdate() {
         newdata.validateandupdate(selectedprofile, configurations)
         reload = newdata.reload
-        dataischanged.dataischanged = true
     }
 }
 
