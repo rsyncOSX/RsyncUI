@@ -73,6 +73,8 @@ struct NavigationRsyncParametersView: View {
                             parameters.configuration?.parameter14 = parameters.parameter14
                         }
 
+                    Spacer()
+
                     HStack {
                         Button("Linux") {
                             parameters.setsuffixlinux()
@@ -119,7 +121,6 @@ struct NavigationRsyncParametersView: View {
             }
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
-        .padding()
         .onAppear {
             if dataischanged.dataischanged {
                 dataischanged.dataischanged = false

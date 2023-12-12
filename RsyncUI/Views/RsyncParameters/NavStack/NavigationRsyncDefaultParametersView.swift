@@ -18,9 +18,6 @@ struct NavigationRsyncDefaultParametersView: View {
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var dataischanged = Dataischanged()
 
-    // Focus buttons from the menu
-    @State private var focusaborttask: Bool = false
-
     var body: some View {
         VStack {
             HStack {
@@ -55,31 +52,27 @@ struct NavigationRsyncDefaultParametersView: View {
                     Spacer()
                 }
 
-                VStack(alignment: .leading) {
-                    ListofTasksLightView(selecteduuids: $selecteduuids)
-                        .frame(maxWidth: .infinity)
-                        .onChange(of: selecteduuids) {
-                            let selected = rsyncUIdata.configurations?.filter { config in
-                                selecteduuids.contains(config.id)
-                            }
-                            if (selected?.count ?? 0) == 1 {
-                                if let config = selected {
-                                    selectedconfig = config[0]
-                                    parameters.setvalues(selectedconfig)
-                                }
-                            } else {
-                                selectedconfig = nil
+                ListofTasksLightView(selecteduuids: $selecteduuids)
+                    .frame(maxWidth: .infinity)
+                    .onChange(of: selecteduuids) {
+                        let selected = rsyncUIdata.configurations?.filter { config in
+                            selecteduuids.contains(config.id)
+                        }
+                        if (selected?.count ?? 0) == 1 {
+                            if let config = selected {
+                                selectedconfig = config[0]
                                 parameters.setvalues(selectedconfig)
                             }
-                        }
-
-                    ZStack {
-                        HStack(alignment: .center) {
-                            RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
+                        } else {
+                            selectedconfig = nil
+                            parameters.setvalues(selectedconfig)
                         }
                     }
-                }
             }
+
+            Spacer()
+
+            RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
         }
         .onAppear {
             if dataischanged.dataischanged {
@@ -139,14 +132,6 @@ struct NavigationRsyncDefaultParametersView: View {
                 parameters.setsshport(parameters.sshport)
                 parameters.setvalues(selectedconfig)
             }
-    }
-
-    var labelaborttask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                focusaborttask = false
-                abort()
-            })
     }
 }
 
