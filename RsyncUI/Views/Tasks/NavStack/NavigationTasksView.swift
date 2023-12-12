@@ -9,6 +9,16 @@ import Observation
 import OSLog
 import SwiftUI
 
+@Observable
+final class Selectedconfig {
+    var config: Configuration?
+}
+
+enum Sheet: String, Identifiable {
+    case dryrunalltasks, dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, asynctimerison
+    var id: String { rawValue }
+}
+
 struct NavigationTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     // The object holds the progressdata for the current estimated task

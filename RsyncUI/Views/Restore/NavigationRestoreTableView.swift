@@ -321,3 +321,8 @@ extension NavigationRestoreTableView {
         }
     }
 }
+
+struct RestoreFileRecord: Identifiable {
+    let id = UUID()
+    var filename: String
+}

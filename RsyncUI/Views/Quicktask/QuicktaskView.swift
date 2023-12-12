@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case synchronize
-    case syncremote
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
-}
-
 struct QuicktaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 

@@ -25,8 +25,3 @@ struct SidebarParametersView: View {
         .padding()
     }
 }
-
-@Observable
-final class Dataischanged {
-    var dataischanged: Bool = false
-}

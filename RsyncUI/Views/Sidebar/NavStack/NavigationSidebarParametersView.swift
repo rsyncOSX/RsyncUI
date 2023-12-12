@@ -26,3 +26,8 @@ struct NavigationSidebarParametersView: View {
         }
     }
 }
+
+@Observable
+final class Dataischanged {
+    var dataischanged: Bool = false
+}

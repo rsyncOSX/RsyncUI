@@ -10,11 +10,6 @@ import Observation
 import OSLog
 import SwiftUI
 
-enum Sheet: String, Identifiable {
-    case dryrunalltasks, dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, asynctimerison
-    var id: String { rawValue }
-}
-
 @Observable
 final class SheetChooser {
     // Which sheet to present
@@ -22,11 +17,6 @@ final class SheetChooser {
     // no @Publised
     @ObservationIgnored
     var sheet: Sheet = .dryrunalltasks
-}
-
-@Observable
-final class Selectedconfig {
-    var config: Configuration?
 }
 
 struct TasksView: View {
