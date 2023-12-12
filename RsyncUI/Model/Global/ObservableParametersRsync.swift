@@ -39,19 +39,26 @@ final class ObservableParametersRsync {
             parameter12 = configuration?.parameter12 ?? ""
             parameter13 = configuration?.parameter13 ?? ""
             parameter14 = configuration?.parameter14 ?? ""
-            if sshport.isEmpty == false {
-                configuration?.sshport = Int(sshport)
-            } else {
-                sshport = String(configuration?.sshport ?? -1)
-                if sshport == "-1" {
-                    sshport = ""
-                }
+            sshport = String(configuration?.sshport ?? -1)
+            if sshport == "-1" {
+                sshport = ""
             }
-            if sshkeypathandidentityfile.isEmpty == false {
-                configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
-            } else {
-                sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
-            }
+            sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
+            /*
+             if sshport.isEmpty == false {
+                 configuration?.sshport = Int(sshport)
+             } else {
+                 sshport = String(configuration?.sshport ?? -1)
+                 if sshport == "-1" {
+                     sshport = ""
+                 }
+             }
+             if sshkeypathandidentityfile.isEmpty == false {
+                 configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
+             } else {
+                 sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
+             }
+              */
         } else {
             reset()
         }
@@ -125,6 +132,16 @@ final class ObservableParametersRsync {
             if parameter12.isEmpty { configuration.parameter12 = nil } else { configuration.parameter12 = parameter12 }
             if parameter13.isEmpty { configuration.parameter13 = nil } else { configuration.parameter13 = parameter13 }
             if parameter14.isEmpty { configuration.parameter14 = nil } else { configuration.parameter14 = parameter14 }
+            if sshport.isEmpty {
+                configuration.sshport = nil
+            } else {
+                configuration.sshport = Int(sshport)
+            }
+            if sshkeypathandidentityfile.isEmpty {
+                configuration.sshkeypathandidentityfile = nil
+            } else {
+                configuration.sshkeypathandidentityfile = sshkeypathandidentityfile
+            }
             return configuration
         }
         return nil

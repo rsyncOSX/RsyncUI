@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 20/11/2023.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -19,16 +20,13 @@ struct ParametersTasks: Hashable, Identifiable {
 
 struct NavigationRsyncParametersView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @State private var parameters = ObservableParametersRsync()
-
     @Binding var reload: Bool
 
+    @State private var parameters = ObservableParametersRsync()
     @State private var selectedconfig: Configuration?
     @State private var rsyncoutput: ObservableRsyncOutput?
-
     @State private var showprogressview = false
     @State private var valueselectedrow: String = ""
-    @State private var numberoffiles: Int = 0
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedrsynccommand = RsyncCommand.synchronize
 
@@ -198,10 +196,12 @@ struct NavigationRsyncParametersView: View {
                     parameters.sshkeypathandidentityfile = sshkeypath
                 }
             })
-            .onChange(of: parameters.sshkeypathandidentityfile) {
-                parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
-                parameters.setvalues(selectedconfig)
-            }
+        /*
+                    .onChange(of: parameters.sshkeypathandidentityfile) {
+                        parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
+                        parameters.setvalues(selectedconfig)
+                    }
+         */
     }
 
     var setsshport: some View {
@@ -211,10 +211,12 @@ struct NavigationRsyncParametersView: View {
                     parameters.sshport = String(sshport)
                 }
             })
-            .onChange(of: parameters.sshport) {
-                parameters.setsshport(parameters.sshport)
-                parameters.setvalues(selectedconfig)
-            }
+        /*
+                    .onChange(of: parameters.sshport) {
+                        parameters.setsshport(parameters.sshport)
+                        parameters.setvalues(selectedconfig)
+                    }
+         */
     }
 }
 

@@ -9,10 +9,10 @@ import SwiftUI
 
 struct NavigationRsyncDefaultParametersView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @State private var parameters = ObservableParametersDefault()
     @Binding var reload: Bool
     @Binding var path: [ParametersTasks]
 
+    @State private var parameters = ObservableParametersDefault()
     @State private var selectedconfig: Configuration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     @State private var valueselectedrow: String = ""

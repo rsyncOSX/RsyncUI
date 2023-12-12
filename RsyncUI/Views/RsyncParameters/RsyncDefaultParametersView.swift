@@ -10,9 +10,9 @@ import SwiftUI
 
 struct RsyncDefaultParametersView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @State private var parameters = ObservableParametersDefault()
     @Binding var reload: Bool
 
+    @State private var parameters = ObservableParametersDefault()
     @State private var selectedconfig: Configuration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     @State private var rsyncoutput: ObservableRsyncOutput?
@@ -137,10 +137,12 @@ struct RsyncDefaultParametersView: View {
                     parameters.sshkeypathandidentityfile = sshkeypath
                 }
             })
-            .onChange(of: parameters.sshkeypathandidentityfile) {
-                parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
-                parameters.setvalues(selectedconfig)
-            }
+        /*
+                    .onChange(of: parameters.sshkeypathandidentityfile) {
+                        parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
+                        parameters.setvalues(selectedconfig)
+                    }
+         */
     }
 
     var setsshport: some View {
@@ -150,10 +152,12 @@ struct RsyncDefaultParametersView: View {
                     parameters.sshport = String(sshport)
                 }
             })
-            .onChange(of: parameters.sshport) {
-                parameters.setsshport(parameters.sshport)
-                parameters.setvalues(selectedconfig)
-            }
+        /*
+                    .onChange(of: parameters.sshport) {
+                        parameters.setsshport(parameters.sshport)
+                        parameters.setvalues(selectedconfig)
+                    }
+         */
     }
 
     // Output
