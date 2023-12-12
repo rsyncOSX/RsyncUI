@@ -169,7 +169,7 @@ struct NavigationRsyncParametersView: View {
     func makeView(view: ParametersDestinationView) -> some View {
         switch view {
         case .defaultparameters:
-            NavigationRsyncDefaultParametersView(reload: $reload)
+            NavigationRsyncDefaultParametersView(reload: $reload, path: $path)
         case .verify:
             NavigationOutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }

@@ -11,6 +11,7 @@ struct NavigationRsyncDefaultParametersView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var parameters = ObservableParametersDefault()
     @Binding var reload: Bool
+    @Binding var path: [ParametersTasks]
 
     @State private var selectedconfig: Configuration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
@@ -83,6 +84,7 @@ struct NavigationRsyncDefaultParametersView: View {
             ToolbarItem {
                 Button {
                     saversyncparameters()
+                    path.removeAll()
                 } label: {
                     Image(systemName: "square.and.pencil")
                 }
