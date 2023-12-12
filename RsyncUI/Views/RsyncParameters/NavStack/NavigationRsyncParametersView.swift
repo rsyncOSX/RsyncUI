@@ -44,6 +44,12 @@ struct NavigationRsyncParametersView: View {
         NavigationStack(path: $path) {
             HStack {
                 VStack(alignment: .leading) {
+                    Section(header: headerssh) {
+                        setsshpath
+
+                        setsshport
+                    }
+
                     EditRsyncParameter(450, $parameters.parameter8)
                         .onChange(of: parameters.parameter8) {
                             parameters.configuration?.parameter8 = parameters.parameter8
@@ -91,6 +97,8 @@ struct NavigationRsyncParametersView: View {
                         }
                         .buttonStyle(ColorfulButtonStyle())
                     }
+
+                    Spacer()
                 }
 
                 ListofTasksLightView(selecteduuids: $selecteduuids)
@@ -163,6 +171,7 @@ struct NavigationRsyncParametersView: View {
         .navigationDestination(for: ParametersTasks.self) { which in
             makeView(view: which.task)
         }
+        .padding()
     }
 
     @ViewBuilder
@@ -181,6 +190,38 @@ struct NavigationRsyncParametersView: View {
                 focusaborttask = false
                 abort()
             })
+    }
+
+    // Ssh header
+    var headerssh: some View {
+        Text("Set ssh keypath and identityfile")
+    }
+
+    var setsshpath: some View {
+        EditValue(250, "Local ssh keypath and identityfile",
+                  $parameters.sshkeypathandidentityfile)
+            .onAppear(perform: {
+                if let sshkeypath = parameters.configuration?.sshkeypathandidentityfile {
+                    parameters.sshkeypathandidentityfile = sshkeypath
+                }
+            })
+            .onChange(of: parameters.sshkeypathandidentityfile) {
+                parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
+                parameters.setvalues(selectedconfig)
+            }
+    }
+
+    var setsshport: some View {
+        EditValue(250, "Local ssh port", $parameters.sshport)
+            .onAppear(perform: {
+                if let sshport = parameters.configuration?.sshport {
+                    parameters.sshport = String(sshport)
+                }
+            })
+            .onChange(of: parameters.sshport) {
+                parameters.setsshport(parameters.sshport)
+                parameters.setvalues(selectedconfig)
+            }
     }
 }
 

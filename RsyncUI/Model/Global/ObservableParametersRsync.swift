@@ -10,6 +10,11 @@ import Observation
 
 @Observable
 final class ObservableParametersRsync {
+    // Set the current value as placeholder text
+    var sshport: String = ""
+    // SSH keypath and identityfile, the settings View is picking up the current value
+    // Set the current value as placeholder text
+    var sshkeypathandidentityfile: String = ""
     // Rsync parameters
     var parameter8: String = ""
     var parameter9: String = ""
@@ -20,7 +25,6 @@ final class ObservableParametersRsync {
     var parameter14: String = ""
     // Selected configuration
     var configuration: Configuration?
-
     // Alerts
     var alerterror: Bool = false
     var error: Error = Validatedpath.noerror
@@ -35,6 +39,19 @@ final class ObservableParametersRsync {
             parameter12 = configuration?.parameter12 ?? ""
             parameter13 = configuration?.parameter13 ?? ""
             parameter14 = configuration?.parameter14 ?? ""
+            if sshport.isEmpty == false {
+                configuration?.sshport = Int(sshport)
+            } else {
+                sshport = String(configuration?.sshport ?? -1)
+                if sshport == "-1" {
+                    sshport = ""
+                }
+            }
+            if sshkeypathandidentityfile.isEmpty == false {
+                configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
+            } else {
+                sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
+            }
         } else {
             reset()
         }
@@ -122,6 +139,65 @@ final class ObservableParametersRsync {
         parameter12 = ""
         parameter13 = ""
         parameter14 = ""
+        sshport = ""
+        sshkeypathandidentityfile = ""
+    }
+
+    // SSH identityfile
+    private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
+        if keypath.first != "~" { throw SshError.noslash }
+        let tempsshkeypath = keypath
+        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
+        guard sshkeypathandidentityfilesplit.count > 2 else { throw SshError.noslash }
+        guard sshkeypathandidentityfilesplit[1].count > 1 else { throw SshError.notvalidpath }
+        guard sshkeypathandidentityfilesplit[2].count > 1 else { throw SshError.notvalidpath }
+        return true
+    }
+
+    func sshkeypathandidentiyfile(_ keypath: String) {
+        guard configuration != nil else { return }
+        // If keypath is empty set it to nil, e.g default value
+        guard keypath.isEmpty == false else {
+            configuration?.sshkeypathandidentityfile = nil
+            return
+        }
+        do {
+            let verified = try checksshkeypathbeforesaving(keypath)
+            if verified {
+                configuration?.sshkeypathandidentityfile = keypath
+            }
+        } catch let e {
+            error = e
+            alerterror = true
+        }
+    }
+
+    // SSH port number
+    private func checksshport(_ port: String) throws -> Bool {
+        guard port.isEmpty == false else { return false }
+        if Int(port) != nil {
+            return true
+        } else {
+            throw InputError.notvalidInt
+        }
+    }
+
+    func setsshport(_ port: String) {
+        guard configuration != nil else { return }
+        // if port is empty set it to nil, e.g. default value
+        guard port.isEmpty == false else {
+            configuration?.sshport = nil
+            return
+        }
+        do {
+            let verified = try checksshport(port)
+            if verified {
+                configuration?.sshport = Int(port)
+            }
+        } catch let e {
+            error = e
+            alerterror = true
+        }
     }
 }
 
