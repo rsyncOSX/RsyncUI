@@ -1,8 +1,8 @@
 //
-//  Sidebar.swift
+//  SidebarNavStack.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 03/07/2023.
+//  Created by Thomas Evensen on 12/12/2023.
 //
 
 import SwiftUI
@@ -12,7 +12,7 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
-struct Sidebar: View {
+struct SidebarNavStack: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @Binding var reload: Bool
@@ -62,38 +62,17 @@ struct Sidebar: View {
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:
-            if SharedReference.shared.usenavigationstack {
-                NavigationSidebarParametersView(reload: $reload)
-            } else {
-                SidebarParametersView(reload: $reload)
-            }
+            NavigationSidebarParametersView(reload: $reload)
         case .restore:
-            if SharedReference.shared.usenavigationstack {
-                NavigationStack {
-                    NavigationRestoreTableView()
-                }
-            } else {
-                RestoreTableView()
+            NavigationStack {
+                NavigationRestoreTableView()
             }
         case .snapshots:
             SnapshotsView(reload: $reload)
-                .padding()
         case .synchronize:
-            if SharedReference.shared.usenavigationstack {
-                NavigationStack {
-                    NavigationSidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
-                }
-            } else {
-                SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
-            }
+            NavigationSidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
         case .quick_synchronize:
-            if SharedReference.shared.usenavigationstack {
-                NavigationStack {
-                    NavigationQuicktaskView()
-                }
-            } else {
-                QuicktaskView()
-            }
+            NavigationQuicktaskView()
         }
     }
 }

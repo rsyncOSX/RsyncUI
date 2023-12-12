@@ -36,15 +36,27 @@ struct RsyncUIView: View {
                 })
 
             } else {
-                Sidebar(reload: $reload,
-                        selectedprofile: $selectedprofile,
-                        selecteduuids: $selecteduuids,
-                        profilenames: profilenames,
-                        errorhandling: errorhandling)
-                    .environment(\.rsyncUIData, rsyncUIdata)
-                    .onChange(of: reload) {
-                        reload = false
-                    }
+                if SharedReference.shared.usenavigationstack {
+                    SidebarNavStack(reload: $reload,
+                                    selectedprofile: $selectedprofile,
+                                    selecteduuids: $selecteduuids,
+                                    profilenames: profilenames,
+                                    errorhandling: errorhandling)
+                        .environment(\.rsyncUIData, rsyncUIdata)
+                        .onChange(of: reload) {
+                            reload = false
+                        }
+                } else {
+                    SidebarSheetView(reload: $reload,
+                                     selectedprofile: $selectedprofile,
+                                     selecteduuids: $selecteduuids,
+                                     profilenames: profilenames,
+                                     errorhandling: errorhandling)
+                        .environment(\.rsyncUIData, rsyncUIdata)
+                        .onChange(of: reload) {
+                            reload = false
+                        }
+                }
             }
 
             HStack {
