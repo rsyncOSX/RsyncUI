@@ -40,6 +40,7 @@ final class ObservableParametersDefault {
             // Rsync daemon
             // configuration?.rsyncdaemon = config.rsyncdaemon
             if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
+            sshport = String(configuration?.sshport ?? -1)
             // ssh port and keypart
             if sshport == "-1" {
                 sshport = ""
