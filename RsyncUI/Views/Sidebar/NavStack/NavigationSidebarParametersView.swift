@@ -11,8 +11,6 @@ struct NavigationSidebarParametersView: View {
     @Binding var reload: Bool
 
     var body: some View {
-        NavigationStack {
-            NavigationRsyncParametersView(reload: $reload)
-        }
+        NavigationRsyncParametersView(reload: $reload)
     }
 }

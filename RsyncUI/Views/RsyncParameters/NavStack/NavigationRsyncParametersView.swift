@@ -135,7 +135,7 @@ struct NavigationRsyncParametersView: View {
                 Button {
                     path.append(ParametersTasks(task: .defaultparameters))
                 } label: {
-                    Image(systemName: "fossil.shell.fill")
+                    Image(systemName: "house.fill")
                 }
             }
 
