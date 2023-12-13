@@ -33,7 +33,6 @@ final class ObservableSSH {
     }
 
     func sshkeypath(_ keypath: String) {
-        // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             SharedReference.shared.sshkeypathandidentityfile = nil
             return
@@ -64,7 +63,6 @@ final class ObservableSSH {
     }
 
     func sshport(_ port: String) {
-        // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
             SharedReference.shared.sshport = nil
             return
@@ -73,7 +71,6 @@ final class ObservableSSH {
             let verified = try checksshport(port)
             if verified {
                 SharedReference.shared.sshport = Int(port)
-                // Save identityfile also
                 SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
             }
         } catch let e {

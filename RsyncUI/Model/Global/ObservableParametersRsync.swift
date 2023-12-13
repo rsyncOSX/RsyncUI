@@ -171,9 +171,8 @@ final class ObservableParametersRsync {
         return true
     }
 
-    func sshkeypathandidentiyfile(_ keypath: String) {
+    func sshkeypath(_ keypath: String) {
         guard configuration != nil else { return }
-        // If keypath is empty set it to nil, e.g default value
         guard keypath.isEmpty == false else {
             configuration?.sshkeypathandidentityfile = nil
             return
@@ -201,7 +200,6 @@ final class ObservableParametersRsync {
 
     func setsshport(_ port: String) {
         guard configuration != nil else { return }
-        // if port is empty set it to nil, e.g. default value
         guard port.isEmpty == false else {
             configuration?.sshport = nil
             return
@@ -214,17 +212,6 @@ final class ObservableParametersRsync {
         } catch let e {
             error = e
             alerterror = true
-        }
-    }
-}
-
-enum ParameterError: LocalizedError {
-    case notvalid
-
-    var errorDescription: String? {
-        switch self {
-        case .notvalid:
-            return "Not a valid "
         }
     }
 }

@@ -196,12 +196,9 @@ struct NavigationRsyncParametersView: View {
                     parameters.sshkeypathandidentityfile = sshkeypath
                 }
             })
-        /*
-                    .onChange(of: parameters.sshkeypathandidentityfile) {
-                        parameters.sshkeypathandidentiyfile(parameters.sshkeypathandidentityfile)
-                        parameters.setvalues(selectedconfig)
-                    }
-         */
+            .onChange(of: parameters.sshkeypathandidentityfile) {
+                parameters.sshkeypath(parameters.sshkeypathandidentityfile)
+            }
     }
 
     var setsshport: some View {
@@ -211,12 +208,9 @@ struct NavigationRsyncParametersView: View {
                     parameters.sshport = String(sshport)
                 }
             })
-        /*
-                    .onChange(of: parameters.sshport) {
-                        parameters.setsshport(parameters.sshport)
-                        parameters.setvalues(selectedconfig)
-                    }
-         */
+            .onChange(of: parameters.sshport) {
+                parameters.setsshport(parameters.sshport)
+            }
     }
 }
 
