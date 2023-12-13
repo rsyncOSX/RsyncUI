@@ -6,6 +6,7 @@
 //
 // swiftlint:disable line_length
 
+import Combine
 import SwiftUI
 
 enum ParametersDestinationView: String, Identifiable {
@@ -29,12 +30,13 @@ struct NavigationRsyncParametersView: View {
     @State private var valueselectedrow: String = ""
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedrsynccommand = RsyncCommand.synchronize
-
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
-
     // Which view to show
     @State var path: [ParametersTasks] = []
+    // Combine for debounce of sshport and keypath
+    @State var publisherport = PassthroughSubject<String, Never>()
+    @State var publisherkeypath = PassthroughSubject<String, Never>()
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -197,6 +199,14 @@ struct NavigationRsyncParametersView: View {
                 }
             })
             .onChange(of: parameters.sshkeypathandidentityfile) {
+                publisherkeypath.send(parameters.sshkeypathandidentityfile)
+            }
+            .onReceive(
+                publisherkeypath.debounce(
+                    for: .seconds(3),
+                    scheduler: DispatchQueue.main
+                )
+            ) { _ in
                 parameters.sshkeypath(parameters.sshkeypathandidentityfile)
             }
     }
@@ -209,6 +219,14 @@ struct NavigationRsyncParametersView: View {
                 }
             })
             .onChange(of: parameters.sshport) {
+                publisherport.send(parameters.sshport)
+            }
+            .onReceive(
+                publisherport.debounce(
+                    for: .seconds(1),
+                    scheduler: DispatchQueue.main
+                )
+            ) { _ in
                 parameters.setsshport(parameters.sshport)
             }
     }

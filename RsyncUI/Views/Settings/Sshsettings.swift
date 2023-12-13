@@ -6,6 +6,7 @@
 //
 // swiftlint:disable line_length
 
+import Combine
 import SwiftUI
 
 struct Sshsettings: View {
@@ -15,6 +16,9 @@ struct Sshsettings: View {
     @State private var selectedlogin: UniqueserversandLogins?
     @State private var backup = false
     @State private var localsshkeys: Bool = false // SshKeys().validatepublickeypresent()
+    // Combine for debounce of sshport and keypath
+    @State var publisherport = PassthroughSubject<String, Never>()
+    @State var publisherkeypath = PassthroughSubject<String, Never>()
 
     var uniqueserversandlogins: [UniqueserversandLogins]
 
@@ -99,6 +103,14 @@ struct Sshsettings: View {
                 }
             })
             .onChange(of: usersettings.sshkeypathandidentityfile) {
+                publisherkeypath.send(usersettings.sshkeypathandidentityfile)
+            }
+            .onReceive(
+                publisherkeypath.debounce(
+                    for: .seconds(3),
+                    scheduler: DispatchQueue.main
+                )
+            ) { _ in
                 usersettings.sshkeypath(usersettings.sshkeypathandidentityfile)
             }
     }
@@ -112,6 +124,14 @@ struct Sshsettings: View {
                 }
             })
             .onChange(of: usersettings.sshportnumber) {
+                publisherport.send(usersettings.sshportnumber)
+            }
+            .onReceive(
+                publisherport.debounce(
+                    for: .seconds(1),
+                    scheduler: DispatchQueue.main
+                )
+            ) { _ in
                 usersettings.sshport(usersettings.sshportnumber)
             }
     }
