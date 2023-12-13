@@ -137,6 +137,7 @@ struct NavigationRsyncParametersView: View {
                 } label: {
                     Image(systemName: "house.fill")
                 }
+                .help("Default rsync parameters")
             }
 
             ToolbarItem {
@@ -149,7 +150,7 @@ struct NavigationRsyncParametersView: View {
                 } label: {
                     Image(systemName: "flag.checkered")
                 }
-                .help("Verify")
+                .help("Verify task")
             }
 
             ToolbarItem {
