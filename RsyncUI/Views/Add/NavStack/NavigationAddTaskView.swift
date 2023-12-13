@@ -175,6 +175,7 @@ struct NavigationAddTaskView: View {
                     } label: {
                         Image(systemName: "fossil.shell.fill")
                     }
+                    .help("Shell commands")
                 }
 
                 ToolbarItem {
@@ -183,6 +184,7 @@ struct NavigationAddTaskView: View {
                     } label: {
                         Image(systemName: "arrow.triangle.branch")
                     }
+                    .help("Profiles")
                 }
 
                 if newdata.selectedconfig != nil {
