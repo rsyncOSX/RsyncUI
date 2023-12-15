@@ -81,22 +81,24 @@ struct NavigationRsyncParametersView: View {
 
                     Spacer()
 
-                    HStack {
-                        Button("Linux") {
-                            parameters.setsuffixlinux()
-                        }
-                        .buttonStyle(ColorfulButtonStyle())
+                    /*
+                                        HStack {
+                                            Button("Linux") {
+                                                parameters.setsuffixlinux()
+                                            }
+                                            .buttonStyle(ColorfulButtonStyle())
 
-                        Button("FreeBSD") {
-                            parameters.setsuffixfreebsd()
-                        }
-                        .buttonStyle(ColorfulButtonStyle())
+                                            Button("FreeBSD") {
+                                                parameters.setsuffixfreebsd()
+                                            }
+                                            .buttonStyle(ColorfulButtonStyle())
 
-                        Button("Backup") {
-                            parameters.setbackup()
-                        }
-                        .buttonStyle(ColorfulButtonStyle())
-                    }
+                                            Button("Backup") {
+                                                parameters.setbackup()
+                                            }
+                                            .buttonStyle(ColorfulButtonStyle())
+                                        }
+                     */
 
                     Spacer()
                 }

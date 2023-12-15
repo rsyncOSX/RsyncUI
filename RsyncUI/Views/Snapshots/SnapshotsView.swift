@@ -99,6 +99,7 @@ struct SnapshotsView: View {
                 .help("Abort (⌘K)")
             }
         })
+        .padding()
     }
 
     var labelnumberoflogs: some View {

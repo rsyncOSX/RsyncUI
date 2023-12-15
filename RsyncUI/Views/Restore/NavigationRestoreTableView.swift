@@ -169,6 +169,7 @@ struct NavigationRestoreTableView: View {
         .navigationDestination(isPresented: $restore.presentsheetrsync) {
             NavigationOutputRsyncView(output: restore.rsyncdata ?? [])
         }
+        .padding()
     }
 
     var labelaborttask: some View {

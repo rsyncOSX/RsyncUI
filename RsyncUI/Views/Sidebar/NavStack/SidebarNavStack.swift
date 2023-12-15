@@ -56,9 +56,7 @@ struct SidebarNavStack: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            SidebarAddTaskView(selectedprofile: $selectedprofile,
-                               reload: $reload,
-                               profilenames: profilenames)
+            NavigationAddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:
