@@ -37,6 +37,8 @@ struct NavigationRsyncParametersView: View {
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
+    // Backup switch
+    @State var backup: Bool = false
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -81,24 +83,11 @@ struct NavigationRsyncParametersView: View {
 
                     Spacer()
 
-                    /*
-                                        HStack {
-                                            Button("Linux") {
-                                                parameters.setsuffixlinux()
-                                            }
-                                            .buttonStyle(ColorfulButtonStyle())
-
-                                            Button("FreeBSD") {
-                                                parameters.setsuffixfreebsd()
-                                            }
-                                            .buttonStyle(ColorfulButtonStyle())
-
-                                            Button("Backup") {
-                                                parameters.setbackup()
-                                            }
-                                            .buttonStyle(ColorfulButtonStyle())
-                                        }
-                     */
+                    Toggle("Backup", isOn: $backup)
+                        .toggleStyle(.switch)
+                        .onChange(of: backup) {
+                            parameters.setbackup()
+                        }
 
                     Spacer()
                 }
@@ -117,6 +106,7 @@ struct NavigationRsyncParametersView: View {
                         } else {
                             selectedconfig = nil
                             parameters.setvalues(selectedconfig)
+                            backup = false
                         }
                     }
 

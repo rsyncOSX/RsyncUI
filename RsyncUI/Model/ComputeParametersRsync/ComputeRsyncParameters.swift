@@ -97,15 +97,7 @@ class ComputeRsyncParameters {
             }
         }
         if config.parameter14 != nil {
-            if config.offsiteServer.isEmpty == true {
-                if config.parameter14! == RsyncArguments().suffixstringfreebsd ||
-                    config.parameter14! == RsyncArguments().suffixstringlinux
-                {
-                    appendParameter(parameter: setdatesuffixlocalhost(), forDisplay: forDisplay)
-                }
-            } else {
-                appendParameter(parameter: config.parameter14!, forDisplay: forDisplay)
-            }
+            appendParameter(parameter: config.parameter14!, forDisplay: forDisplay)
         }
         // Append --stats parameter to collect info about run
         if dryRun {

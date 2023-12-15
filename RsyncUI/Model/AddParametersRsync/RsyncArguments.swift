@@ -30,6 +30,4 @@ struct RsyncArguments {
     // Preselected parameters for storing a backup of deleted or changed files before
     // rsync synchronises the directories
     let backupstrings = ["--backup", "--backup-dir=~/backup", "--backup-dir=../backup"]
-    let suffixstringfreebsd = "--suffix=_`date +'%Y-%m-%d.%H.%M'`"
-    let suffixstringlinux = "--suffix=_$(date +%Y-%m-%d.%H.%M)"
 }
