@@ -90,8 +90,8 @@ struct NavigationRsyncParametersView: View {
                                 backup = false
                                 return
                             }
-                            guard selectedconfig?.parameter12?.isEmpty == true,
-                                  selectedconfig?.parameter13?.isEmpty == true
+                            guard selectedconfig?.parameter12?.isEmpty ?? true == true,
+                                  selectedconfig?.parameter13?.isEmpty ?? true == true
                             else {
                                 backup = false
                                 return
