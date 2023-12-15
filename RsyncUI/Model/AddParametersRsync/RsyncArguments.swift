@@ -18,7 +18,6 @@ enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvert
     case maxsize = "--max-size"
     case suffix = "--suffix"
     case maxdelete = "--max-delete"
-    case deleteexcluded = "--delete-excluded"
     case include = "--include"
     case filter = "--filter"
     case select
