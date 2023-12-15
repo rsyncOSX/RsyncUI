@@ -197,12 +197,13 @@ class ComputeRsyncParameters {
         if forDisplay { arguments?.append(" ") }
     }
 
-    func setdatesuffixlocalhost() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "-yyyy-MM-dd"
-        return "--suffix=" + formatter.string(from: Date())
-    }
-
+    /*
+     func setdatesuffixlocalhost() -> String {
+         let formatter = DateFormatter()
+         formatter.dateFormat = "-yyyy-MM-dd"
+         return "--suffix=" + formatter.string(from: Date())
+     }
+     */
     func dryrunparameter(config _: Configuration, forDisplay: Bool) {
         let dryrun = "--dry-run"
         arguments?.append(dryrun)

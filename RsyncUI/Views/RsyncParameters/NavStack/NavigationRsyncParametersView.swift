@@ -86,6 +86,16 @@ struct NavigationRsyncParametersView: View {
                     Toggle("Backup", isOn: $backup)
                         .toggleStyle(.switch)
                         .onChange(of: backup) {
+                            guard selectedconfig != nil else {
+                                backup = false
+                                return
+                            }
+                            guard selectedconfig?.parameter12?.isEmpty == true,
+                                  selectedconfig?.parameter13?.isEmpty == true
+                            else {
+                                backup = false
+                                return
+                            }
                             parameters.setbackup()
                         }
 
