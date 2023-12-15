@@ -42,11 +42,13 @@ struct NavigationRsyncParametersView: View {
         NavigationStack(path: $path) {
             HStack {
                 VStack(alignment: .leading) {
-                    Section(header: headerssh) {
+                    // Section(header: headerssh) {
+                    HStack {
                         setsshpath
 
                         setsshport
                     }
+                    // }
 
                     EditRsyncParameter(450, $parameters.parameter8)
                         .onChange(of: parameters.parameter8) {
@@ -186,13 +188,8 @@ struct NavigationRsyncParametersView: View {
             })
     }
 
-    // Ssh header
-    var headerssh: some View {
-        Text("Set ssh keypath and identityfile")
-    }
-
     var setsshpath: some View {
-        EditValue(250, "Local ssh keypath and identityfile",
+        EditValue(300, "Ssh keypath and identityfile",
                   $parameters.sshkeypathandidentityfile)
             .onChange(of: parameters.sshkeypathandidentityfile) {
                 publisherkeypath.send(parameters.sshkeypathandidentityfile)
@@ -203,12 +200,13 @@ struct NavigationRsyncParametersView: View {
                     scheduler: DispatchQueue.main
                 )
             ) { _ in
+                guard selectedconfig != nil else { return }
                 parameters.sshkeypath(parameters.sshkeypathandidentityfile)
             }
     }
 
     var setsshport: some View {
-        EditValue(250, "Local ssh port", $parameters.sshport)
+        EditValue(150, "Ssh port", $parameters.sshport)
             .onChange(of: parameters.sshport) {
                 publisherport.send(parameters.sshport)
             }
@@ -218,6 +216,7 @@ struct NavigationRsyncParametersView: View {
                     scheduler: DispatchQueue.main
                 )
             ) { _ in
+                guard selectedconfig != nil else { return }
                 parameters.setsshport(parameters.sshport)
             }
     }
@@ -230,10 +229,10 @@ extension NavigationRsyncParametersView {
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.getallconfigurations())
             updateconfiguration.updateconfiguration(configuration, true)
+            parameters.reset()
+            selectedconfig = nil
+            reload = true
         }
-        parameters.reset()
-        selectedconfig = nil
-        reload = true
     }
 
     func verify(config: Configuration) async {
