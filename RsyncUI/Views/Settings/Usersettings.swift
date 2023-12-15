@@ -55,14 +55,16 @@ struct Usersettings: View {
 
                         setmarkdays
 
-                        Section(header: Text("NavigationStack")) {
-                            ToggleViewDefault(NSLocalizedString("NavigationStack on or off", comment: ""),
-                                              $trynavigationstack)
-                                .onChange(of: trynavigationstack) {
-                                    SharedReference.shared.usenavigationstack = trynavigationstack
-                                }
-                            Text("Remember to restart RsyncUI.")
-                        }
+                        /*
+                         Section(header: Text("NavigationStack")) {
+                             ToggleViewDefault(NSLocalizedString("NavigationStack on or off", comment: ""),
+                                               $trynavigationstack)
+                                 .onChange(of: trynavigationstack) {
+                                     SharedReference.shared.usenavigationstack = trynavigationstack
+                                 }
+                             Text("Remember to restart RsyncUI.")
+                         }
+                          */
                     }
                     .padding()
 

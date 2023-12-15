@@ -40,25 +40,8 @@ final class ObservableParametersRsync {
             parameter13 = configuration?.parameter13 ?? ""
             parameter14 = configuration?.parameter14 ?? ""
             sshport = String(configuration?.sshport ?? -1)
-            if sshport == "-1" {
-                sshport = ""
-            }
+            if sshport == "-1" { sshport = "" }
             sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
-            /*
-             if sshport.isEmpty == false {
-                 configuration?.sshport = Int(sshport)
-             } else {
-                 sshport = String(configuration?.sshport ?? -1)
-                 if sshport == "-1" {
-                     sshport = ""
-                 }
-             }
-             if sshkeypathandidentityfile.isEmpty == false {
-                 configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
-             } else {
-                 sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
-             }
-              */
         } else {
             reset()
         }

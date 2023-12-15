@@ -41,26 +41,8 @@ final class ObservableParametersDefault {
             // configuration?.rsyncdaemon = config.rsyncdaemon
             if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
             sshport = String(configuration?.sshport ?? -1)
-            // ssh port and keypart
-            if sshport == "-1" {
-                sshport = ""
-            }
+            if sshport == "-1" { sshport = "" }
             sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
-            /*
-             if sshport.isEmpty == false {
-                 configuration?.sshport = Int(sshport)
-             } else {
-                 sshport = String(configuration?.sshport ?? -1)
-                 if sshport == "-1" {
-                     sshport = ""
-                 }
-             }
-             if sshkeypathandidentityfile.isEmpty == false {
-                 configuration?.sshkeypathandidentityfile = sshkeypathandidentityfile
-             } else {
-                 sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
-             }
-              */
         } else {
             reset()
         }

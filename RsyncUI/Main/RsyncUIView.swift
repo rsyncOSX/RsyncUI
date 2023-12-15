@@ -30,33 +30,47 @@ struct RsyncUIView: View {
                 .onAppear(perform: {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         start = false
-                        Logger.process.info("RsyncUIView: NavigationStack is \(SharedReference.shared.usenavigationstack, privacy: .public)")
-                        navstackisenabled.navstackisenabled = SharedReference.shared.usenavigationstack
+                        /*
+                         Logger.process.info("RsyncUIView: NavigationStack is \(SharedReference.shared.usenavigationstack, privacy: .public)")
+                         navstackisenabled.navstackisenabled = SharedReference.shared.usenavigationstack
+                          */
                     }
                 })
 
             } else {
-                if SharedReference.shared.usenavigationstack {
-                    SidebarNavStack(reload: $reload,
-                                    selectedprofile: $selectedprofile,
-                                    selecteduuids: $selecteduuids,
-                                    profilenames: profilenames,
-                                    errorhandling: errorhandling)
-                        .environment(\.rsyncUIData, rsyncUIdata)
-                        .onChange(of: reload) {
-                            reload = false
-                        }
-                } else {
-                    SidebarSheetView(reload: $reload,
+                SidebarNavStack(reload: $reload,
+                                selectedprofile: $selectedprofile,
+                                selecteduuids: $selecteduuids,
+                                profilenames: profilenames,
+                                errorhandling: errorhandling)
+                    .environment(\.rsyncUIData, rsyncUIdata)
+                    .onChange(of: reload) {
+                        reload = false
+                    }
+
+                /*
+                 if SharedReference.shared.usenavigationstack {
+                     SidebarNavStack(reload: $reload,
                                      selectedprofile: $selectedprofile,
                                      selecteduuids: $selecteduuids,
                                      profilenames: profilenames,
                                      errorhandling: errorhandling)
-                        .environment(\.rsyncUIData, rsyncUIdata)
-                        .onChange(of: reload) {
-                            reload = false
-                        }
-                }
+                         .environment(\.rsyncUIData, rsyncUIdata)
+                         .onChange(of: reload) {
+                             reload = false
+                         }
+                 } else {
+                     SidebarSheetView(reload: $reload,
+                                      selectedprofile: $selectedprofile,
+                                      selecteduuids: $selecteduuids,
+                                      profilenames: profilenames,
+                                      errorhandling: errorhandling)
+                         .environment(\.rsyncUIData, rsyncUIdata)
+                         .onChange(of: reload) {
+                             reload = false
+                         }
+                 }
+                  */
             }
 
             HStack {
