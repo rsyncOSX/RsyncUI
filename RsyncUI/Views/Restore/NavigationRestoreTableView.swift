@@ -89,10 +89,8 @@ struct NavigationRestoreTableView: View {
 
                 Spacer()
 
-                VStack(alignment: .leading) {
-                    Toggle("--dry-run", isOn: $restore.dryrun)
-                        .toggleStyle(.switch)
-                }
+                Toggle("--dry-run", isOn: $restore.dryrun)
+                    .toggleStyle(.switch)
 
                 Button("Files") {
                     Task {
