@@ -1,10 +1,9 @@
 //
-//  ObserveableReferenceAddConfigurations.swift
+//  ObservableAddConfigurations.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 03/06/2021.
 //
-// swiftlint: disable type_body_length function_body_length
 
 import Foundation
 import Observation
@@ -314,5 +313,3 @@ struct MaxhiddenID {
         return 0
     }
 }
-
-// swiftlint: enable type_body_length function_body_length
