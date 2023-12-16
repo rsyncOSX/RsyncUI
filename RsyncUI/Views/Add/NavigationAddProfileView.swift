@@ -65,6 +65,7 @@ struct NavigationAddProfileView: View {
                     createprofile()
                 } label: {
                     Image(systemName: "plus.app.fill")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Add profile")
             }

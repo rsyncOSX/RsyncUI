@@ -140,7 +140,7 @@ struct NavigationRestoreTableView: View {
                         Image(systemName: "arrowshape.turn.up.left.fill")
                             .foregroundColor(Color(.blue))
                     }
-                    .help("Restore")
+                    .help("Restore files")
                 }
 
                 ToolbarItem {

@@ -104,6 +104,7 @@ struct AddPreandPostView: View {
                     validateandupdate()
                 } label: {
                     Image(systemName: "square.and.pencil")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Update task")
             }

@@ -162,6 +162,7 @@ struct NavigationRsyncParametersView: View {
                     saversyncparameters()
                 } label: {
                     Image(systemName: "square.and.pencil")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Update task")
             }

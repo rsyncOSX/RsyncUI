@@ -169,13 +169,26 @@ struct NavigationAddTaskView: View {
                 makeView(view: which.task)
             }
             .toolbar {
-                ToolbarItem {
-                    Button {
-                        path.append(AddTasks(task: .shelltaskview))
-                    } label: {
-                        Image(systemName: "fossil.shell.fill")
+                if newdata.selectedconfig != nil {
+                    ToolbarItem {
+                        Button {
+                            validateandupdate()
+                        } label: {
+                            Image(systemName: "square.and.pencil")
+                                .foregroundColor(Color(.blue))
+                        }
+                        .help("Update task")
                     }
-                    .help("Shell commands")
+                } else {
+                    ToolbarItem {
+                        Button {
+                            addconfig()
+                        } label: {
+                            Image(systemName: "plus.app.fill")
+                                .foregroundColor(Color(.blue))
+                        }
+                        .help("Add task")
+                    }
                 }
 
                 ToolbarItem {
@@ -187,24 +200,13 @@ struct NavigationAddTaskView: View {
                     .help("Profiles")
                 }
 
-                if newdata.selectedconfig != nil {
-                    ToolbarItem {
-                        Button {
-                            validateandupdate()
-                        } label: {
-                            Image(systemName: "square.and.pencil")
-                        }
-                        .help("Update task")
+                ToolbarItem {
+                    Button {
+                        path.append(AddTasks(task: .shelltaskview))
+                    } label: {
+                        Image(systemName: "fossil.shell.fill")
                     }
-                } else {
-                    ToolbarItem {
-                        Button {
-                            addconfig()
-                        } label: {
-                            Image(systemName: "plus.app.fill")
-                        }
-                        .help("Add task")
-                    }
+                    .help("Shell commands")
                 }
             }
         }

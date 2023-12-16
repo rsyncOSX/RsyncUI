@@ -75,6 +75,7 @@ struct NavigationRsyncDefaultParametersView: View {
                     path.removeAll()
                 } label: {
                     Image(systemName: "square.and.pencil")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Update task")
             }
