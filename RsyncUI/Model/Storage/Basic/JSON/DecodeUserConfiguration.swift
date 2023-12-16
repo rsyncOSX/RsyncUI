@@ -33,8 +33,6 @@ struct DecodeUserConfiguration: Codable {
     // Automatic execute
     let automaticexecute: Int?
     var automaticexecutetime: String?
-    // NavigationStack
-    var usenavigationstack: Int?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -53,7 +51,6 @@ struct DecodeUserConfiguration: Codable {
         case checkforerrorinrsyncoutput
         case automaticexecute
         case automaticexecutetime
-        case usenavigationstack
     }
 
     init(from decoder: Decoder) throws {
@@ -74,7 +71,6 @@ struct DecodeUserConfiguration: Codable {
         checkforerrorinrsyncoutput = try values.decodeIfPresent(Int.self, forKey: .checkforerrorinrsyncoutput)
         automaticexecute = try values.decodeIfPresent(Int.self, forKey: .automaticexecute)
         automaticexecutetime = try values.decodeIfPresent(String.self, forKey: .automaticexecutetime)
-        usenavigationstack = try values.decodeIfPresent(Int.self, forKey: .usenavigationstack)
     }
 
     init(_ userconfiguration: UserConfiguration) {
@@ -94,6 +90,5 @@ struct DecodeUserConfiguration: Codable {
         checkforerrorinrsyncoutput = userconfiguration.checkforerrorinrsyncoutput
         automaticexecute = userconfiguration.automaticexecute
         automaticexecutetime = userconfiguration.automaticexecutetime
-        usenavigationstack = userconfiguration.usenavigationstack
     }
 }

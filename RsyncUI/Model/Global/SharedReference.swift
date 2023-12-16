@@ -93,7 +93,7 @@ class SharedReference {
     // Timer is disabled in code
     var timervalue: Double?
     // Use NavigationStack
-    var usenavigationstack: Bool = true
+    // var usenavigationstack: Bool = true
 
     private init() {
         synctasks = Set<String>()
