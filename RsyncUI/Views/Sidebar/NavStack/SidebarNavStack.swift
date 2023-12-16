@@ -60,7 +60,7 @@ struct SidebarNavStack: View {
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:
-            NavigationSidebarParametersView(reload: $reload)
+            NavigationRsyncParametersView(reload: $reload)
         case .restore:
             NavigationStack {
                 NavigationRestoreTableView()

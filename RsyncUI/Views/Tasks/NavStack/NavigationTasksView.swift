@@ -9,6 +9,25 @@ import Observation
 import OSLog
 import SwiftUI
 
+struct CopyItem: Identifiable, Codable, Transferable {
+    let id: UUID
+    let hiddenID: Int
+    let task: String
+
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .data)
+    }
+}
+
+enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case synchronize
+    case snapshot
+    case syncremote
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
+}
+
 @Observable
 final class Selectedconfig {
     var config: Configuration?

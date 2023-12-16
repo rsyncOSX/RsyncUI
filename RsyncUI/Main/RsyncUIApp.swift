@@ -12,7 +12,6 @@ import UserNotifications
 
 @main
 struct RsyncUIApp: App {
-    @State private var viewlogfile: Bool = false
     @State private var selectedprofile: String? = "Default profile"
     @State private var enablenavigationstack = EnableNavigationStack()
 
@@ -24,14 +23,12 @@ struct RsyncUIApp: App {
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationJSON()
                 }
-                .sheet(isPresented: $viewlogfile) { LogfileView() }
                 .frame(minWidth: 1300, minHeight: 510)
         }
         .commands {
             SidebarCommands()
 
-            ExecuteCommands(navstackisenabled: $enablenavigationstack.navstackisenabled,
-                            viewlogfile: $viewlogfile)
+            ExecuteCommands()
 
             SnapshotCommands()
 

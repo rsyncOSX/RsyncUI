@@ -8,47 +8,19 @@
 import SwiftUI
 
 struct ExecuteCommands: Commands {
-    @Binding var navstackisenabled: Bool
-    @Binding var viewlogfile: Bool
-
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
     @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
     @FocusedBinding(\.aborttask) private var aborttask
-    @FocusedBinding(\.enabletimer) private var enabletimer
 
     var body: some Commands {
-        if navstackisenabled {
-            CommandMenu("Tasks") {
-                StarteestimateButton(startestimation: $startestimation)
-                StartexecuteButton(startexecution: $startexecution)
+        CommandMenu("Tasks") {
+            StarteestimateButton(startestimation: $startestimation)
+            StartexecuteButton(startexecution: $startexecution)
 
-                Divider()
+            Divider()
 
-                Abborttask(aborttask: $aborttask)
-            }
-        } else {
-            CommandMenu("Tasks") {
-                StarteestimateButton(startestimation: $startestimation)
-                StartexecuteButton(startexecution: $startexecution)
-
-                Divider()
-
-                FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
-
-                Divider()
-
-                Abborttask(aborttask: $aborttask)
-            }
-
-            CommandMenu("Logfile") {
-                Button(action: {
-                    viewlogfile = true
-                }) {
-                    Text("View logfile")
-                }
-                .keyboardShortcut("o", modifiers: [.command])
-            }
+            Abborttask(aborttask: $aborttask)
         }
     }
 }
@@ -118,19 +90,6 @@ struct Abborttask: View {
     }
 }
 
-struct Enabletimer: View {
-    @Binding var enabletimer: Bool?
-
-    var body: some View {
-        Button {
-            enabletimer = true
-        } label: {
-            Label("Timer", systemImage: "play.fill")
-        }
-        // .keyboardShortcut("", modifiers: [.command])
-    }
-}
-
 struct FocusedEstimateBinding: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
@@ -144,10 +103,6 @@ struct FocusedFirsttaskInfo: FocusedValueKey {
 }
 
 struct FocusedAborttask: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
-
-struct FocusedEnabletimer: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
@@ -170,10 +125,5 @@ extension FocusedValues {
     var aborttask: FocusedAborttask.Value? {
         get { self[FocusedAborttask.self] }
         set { self[FocusedAborttask.self] = newValue }
-    }
-
-    var enabletimer: FocusedAborttask.Value? {
-        get { self[FocusedEnabletimer.self] }
-        set { self[FocusedEnabletimer.self] = newValue }
     }
 }
