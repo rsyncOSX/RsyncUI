@@ -40,8 +40,6 @@ struct AboutView: View {
         VStack {
             Spacer()
 
-            // headingtitle
-
             Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
                 .resizable()
                 .aspectRatio(1.0, contentMode: .fit)
@@ -68,22 +66,6 @@ struct AboutView: View {
         .padding()
         .task {
             await newversion.getversionsofrsyncui()
-        }
-    }
-
-    var headingtitle: some View {
-        VStack(spacing: 3) {
-            Text("RsyncUI")
-                .fontWeight(.bold)
-
-            Text("Version \(appVersion) (\(appBuild))")
-                .font(.caption)
-
-            Text(copyright)
-                .font(.caption)
-
-            Text(iconbystring)
-                .font(.caption)
         }
     }
 
