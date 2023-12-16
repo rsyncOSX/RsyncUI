@@ -94,6 +94,7 @@ struct LogsbyConfigurationView: View {
             ToolbarItem {
                 Button {
                     selectedloguuids.removeAll()
+                    selecteduuids.removeAll()
                 } label: {
                     Image(systemName: "eraser")
                 }
