@@ -26,12 +26,6 @@
 "Abort task" = "Aufgabe abbrechen";
 
 /* No comment provided by engineer. */
-"Actions" = "Aufgabe";
-
-/* No comment provided by engineer. */
-"Add" = "Neu";
-
-/* No comment provided by engineer. */
 "Add local as remote catalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
 
 /* No comment provided by engineer. */
@@ -42,6 +36,9 @@
 
 /* No comment provided by engineer. */
 "Add pretask" = "Pretask hinzufügen";
+
+/* No comment provided by engineer. */
+"Add profile" = "Profil hinzufügen";
 
 /* No comment provided by engineer. */
 "Add remote as local catalog - required" = "Remote als localcatalog hinzufügen - erforderlich";
@@ -110,13 +107,16 @@
 "Days" = "Tage";
 
 /* No comment provided by engineer. */
-"Default" = "Standard";
+"Default rsync parameters" = "Standard rsync Parameter";
 
 /* No comment provided by engineer. */
 "Delete" = "Löschen";
 
 /* No comment provided by engineer. */
 "Delete configuration(s)" = "Konfiguration(en) löschen";
+
+/* No comment provided by engineer. */
+"Delete profile" = "Profil löschen";
 
 /* No comment provided by engineer. */
 "Delete snapshots(s)" = "Schnappschüsse löschen";
@@ -161,9 +161,6 @@
 "Estimate (⌘E)" = "Schätzung (⌘E)";
 
 /* No comment provided by engineer. */
-"Estimated tasks" = "Geschätzte Aufgaben";
-
-/* No comment provided by engineer. */
 "Estimating" = "Schätzen";
 
 /* No comment provided by engineer. */
@@ -177,9 +174,6 @@
 
 /* No comment provided by engineer. */
 "First task" = "Erste Aufgabe";
-
-/* No comment provided by engineer. */
-"FreeBSD" = "FreeBSD";
 
 /* No comment provided by engineer. */
 "Full" = "Voll";
@@ -210,9 +204,6 @@
 
 /* No comment provided by engineer. */
 "Last" = "Letzte";
-
-/* No comment provided by engineer. */
-"Linux" = "Linux";
 
 /* No comment provided by engineer. */
 "List tasks all profiles" = "Aufgaben aller Profile auflisten";
@@ -246,9 +237,6 @@
 
 /* No comment provided by engineer. */
 "Monitor network" = "Netzwerk überwachen";
-
-/* No comment provided by engineer. */
-"NavigationStack on or off" = "NavigationStack ein- oder ausschalten";
 
 /* No comment provided by engineer. */
 "New" = "Neu";
@@ -296,9 +284,6 @@
 "Output" = "Ausgabe";
 
 /* No comment provided by engineer. */
-"Parameters" = "Parameter";
-
-/* No comment provided by engineer. */
 "Path for restore" = "Pfad zum Wiederherstellen";
 
 /* No comment provided by engineer. */
@@ -309,9 +294,6 @@
 
 /* No comment provided by engineer. */
 "Profiles" = "Profil";
-
-/* No comment provided by engineer. */
-"Remember to restart RsyncUI." = "Denken Sie daran, RsyncUI neu zu starten.";
 
 /* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
@@ -341,7 +323,7 @@
 "Reset selections" = "Auswahl zurücksetzen";
 
 /* No comment provided by engineer. */
-"Restore" = "Wiederherstellen";
+"Restore files" = "Dateien wiederherstellen";
 
 /* No comment provided by engineer. */
 "Result" = "Result";
@@ -374,16 +356,10 @@
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
-"Select a task" = "Wählen Sie eine Aufgabe aus";
-
-/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
 "Select task" = "Aufgabe auswählen";
-
-/* No comment provided by engineer. */
-"Selected profile:" = "Ausgewähltes Profil:";
 
 /* No comment provided by engineer. */
 "selecting Important. Setting the wrong parameters to rsync can result in" = "wählen Sie Wichtig aus. Das Einstellen der falschen Parameter für rsync kann dazu führen";
@@ -395,13 +371,10 @@
 "Server: " = "Server:";
 
 /* No comment provided by engineer. */
-"Set ssh keypath and identityfile" = "Ssh Schlüsselpfad und Identitätsdatei festlegen";
-
-/* No comment provided by engineer. */
 "Settings" = "Einstellungen";
 
 /* No comment provided by engineer. */
-"Shell scripts" = "Shell scripts";
+"Shell commands" = "Shell Befehle";
 
 /* No comment provided by engineer. */
 "Snap" = "Snap";
@@ -470,16 +443,13 @@
 "Try to search for other filter in Date or Result" = "Versuchen Sie, in „Datum“ oder „Ergebnis“ nach einem anderen Filter zu suchen";
 
 /* No comment provided by engineer. */
-"Update" = "Aktualisieren";
+"Update task" = "Aufgabe aktualisieren";
 
 /* No comment provided by engineer. */
 "Verified" = "Verifiziert";
 
 /* No comment provided by engineer. */
-"Verify" = "Verifizieren";
-
-/* No comment provided by engineer. */
-"Version %@ (%@)" = "Version %1$@ (%2$@)";
+"Verify task" = "Aufgabe verifizieren";
 
 /* No comment provided by engineer. */
 "View logfile" = "Logdatei anzeigen";

@@ -26,12 +26,6 @@
 "Abort task" = "Avbryt oppgave";
 
 /* No comment provided by engineer. */
-"Actions" = "Aksjoner";
-
-/* No comment provided by engineer. */
-"Add" = "Legg til";
-
-/* No comment provided by engineer. */
 "Add local as remote catalog - required" = "Legg til lokal som eksternkatalog - kreves";
 
 /* No comment provided by engineer. */
@@ -42,6 +36,9 @@
 
 /* No comment provided by engineer. */
 "Add pretask" = "Legg til preoppgave";
+
+/* No comment provided by engineer. */
+"Add profile" = "Ny profil";
 
 /* No comment provided by engineer. */
 "Add remote as local catalog - required" = "Legg til ekstern som lokal katalog - kreves";
@@ -110,13 +107,13 @@
 "Days" = "Dager";
 
 /* No comment provided by engineer. */
-"Default" = "Standard";
-
-/* No comment provided by engineer. */
 "Delete" = "Slett";
 
 /* No comment provided by engineer. */
 "Delete configuration(s)" = "Slette konfigurasjoner";
+
+/* No comment provided by engineer. */
+"Delete profile" = "Slett profil";
 
 /* No comment provided by engineer. */
 "Delete snapshots(s)" = "Slette snapshot";
@@ -161,9 +158,6 @@
 "Estimate (⌘E)" = "Estimer (⌘E)";
 
 /* No comment provided by engineer. */
-"Estimated tasks" = "Estimerte oppgaver";
-
-/* No comment provided by engineer. */
 "Estimating" = "Estimerer";
 
 /* No comment provided by engineer. */
@@ -177,9 +171,6 @@
 
 /* No comment provided by engineer. */
 "First task" = "Første oppgave";
-
-/* No comment provided by engineer. */
-"FreeBSD" = "FreeBSD";
 
 /* No comment provided by engineer. */
 "Full" = "Full";
@@ -210,9 +201,6 @@
 
 /* No comment provided by engineer. */
 "Last" = "Siste";
-
-/* No comment provided by engineer. */
-"Linux" = "Linux";
 
 /* No comment provided by engineer. */
 "List tasks all profiles" = "Liste oppgaver alle profiler";
@@ -246,9 +234,6 @@
 
 /* No comment provided by engineer. */
 "Monitor network" = "Overvåk nettverk";
-
-/* No comment provided by engineer. */
-"NavigationStack on or off" = "NavigationStack på eller av";
 
 /* No comment provided by engineer. */
 "New" = "Ny";
@@ -296,9 +281,6 @@
 "Output" = "Utdata";
 
 /* No comment provided by engineer. */
-"Parameters" = "Parametre";
-
-/* No comment provided by engineer. */
 "Path for restore" = "Sti for gjenoppretting";
 
 /* No comment provided by engineer. */
@@ -332,10 +314,13 @@
 "Reset estimates" = "Nulstille estimater";
 
 /* No comment provided by engineer. */
+"Reset logfile" = "Slett loggfil";
+
+/* No comment provided by engineer. */
 "Reset selections" = "Nullstille valg";
 
 /* No comment provided by engineer. */
-"Restore" = "Gjenopprett";
+"Restore files" = "Kopier filer";
 
 /* No comment provided by engineer. */
 "Result" = "Resultat";
@@ -368,16 +353,10 @@
 "Saved" = "Lagret";
 
 /* No comment provided by engineer. */
-"Select a task" = "Velg en oppgave";
-
-/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
 
 /* No comment provided by engineer. */
 "Select task" = "Velg oppgave";
-
-/* No comment provided by engineer. */
-"Selected profile:" = "Valgt profil";
 
 /* No comment provided by engineer. */
 "selecting Important. Setting the wrong parameters to rsync can result in" = "under Viktig. Sette gale parametre til rsync kan resultere i";
@@ -389,13 +368,10 @@
 "Server: " = "Tjener:";
 
 /* No comment provided by engineer. */
-"Set ssh keypath and identityfile" = "Sett ssh keypath og identityfile";
-
-/* No comment provided by engineer. */
 "Settings" = "Innstillinger";
 
 /* No comment provided by engineer. */
-"Shell scripts" = "Shell script";
+"Shell commands" = "Skall kommando";
 
 /* No comment provided by engineer. */
 "Snap" = "Snap";
@@ -464,16 +440,13 @@
 "Try to search for other filter in Date or Result" = "Forsøk annet søk i Dato eller Resultat";
 
 /* No comment provided by engineer. */
-"Update" = "Oppdater";
+"Update task" = "Oppdater oppgave";
 
 /* No comment provided by engineer. */
 "Verified" = "Verifisert";
 
 /* No comment provided by engineer. */
-"Verify" = "Verifiser";
-
-/* No comment provided by engineer. */
-"Version %@ (%@)" = "Versjon %@ (%@)";
+"Verify task" = "Verifiser oppgave";
 
 /* No comment provided by engineer. */
 "View logfile" = "Vis loggfil";
