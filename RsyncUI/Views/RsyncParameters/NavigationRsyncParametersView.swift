@@ -81,8 +81,6 @@ struct NavigationRsyncParametersView: View {
                             parameters.configuration?.parameter14 = parameters.parameter14
                         }
 
-                    Spacer()
-
                     Toggle("Backup", isOn: $backup)
                         .toggleStyle(.switch)
                         .onChange(of: backup) {
