@@ -36,11 +36,6 @@ struct ExecuteCommands: Commands {
 
                 FirsttaskInfo(firsttaskinfo: $firsttaskinfo)
 
-                // Divider()
-
-                // Disable automatic execution
-                // Enabletimer(enabletimer: $enabletimer)
-
                 Divider()
 
                 Abborttask(aborttask: $aborttask)

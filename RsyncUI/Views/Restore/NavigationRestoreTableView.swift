@@ -195,11 +195,6 @@ struct NavigationRestoreTableView: View {
                   $restore.filestorestore)
     }
 
-    // Output from rsync
-    var viewoutput: some View {
-        OutputRsyncView(output: restore.rsyncdata ?? [])
-    }
-
     var snapshotcatalogpicker: some View {
         Picker("", selection: $snapshotcatalog) {
             Text("")
