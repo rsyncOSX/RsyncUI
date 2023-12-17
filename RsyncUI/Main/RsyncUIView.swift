@@ -34,10 +34,10 @@ struct RsyncUIView: View {
 
             } else {
                 Sidebar(reload: $reload,
-                                selectedprofile: $selectedprofile,
-                                selecteduuids: $selecteduuids,
-                                profilenames: profilenames,
-                                errorhandling: errorhandling)
+                        selectedprofile: $selectedprofile,
+                        selecteduuids: $selecteduuids,
+                        profilenames: profilenames,
+                        errorhandling: errorhandling)
                     .environment(\.rsyncUIData, rsyncUIdata)
                     .onChange(of: reload) {
                         reload = false

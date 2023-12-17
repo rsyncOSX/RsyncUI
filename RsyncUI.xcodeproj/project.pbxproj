@@ -538,9 +538,7 @@
 		E985C60A25F3AD8400CB895C /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
-				E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */,
 				E96036032B288CB600438D8B /* Sidebar.swift */,
-				E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */,
 				E985C61425F3AD8400CB895C /* Profilenames.swift */,
 			);
 			path = Sidebar;
@@ -611,6 +609,7 @@
 		E985C64125F3AD8400CB895C /* Log */ = {
 			isa = PBXGroup;
 			children = (
+				E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */,
 				E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */,
 				E9712FBB2602465D003842FD /* DeleteLogsView.swift */,
 				E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */,
@@ -634,6 +633,7 @@
 		E985C64E25F3AD8400CB895C /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */,
 				E9B6B3DD2AFFD91200E12EB2 /* NavigationFirstTimeView.swift */,
 				E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */,
 				E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */,
