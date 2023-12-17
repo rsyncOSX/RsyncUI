@@ -36,7 +36,7 @@ struct Counter: View {
                 if timerisenabled == false {
                     timerpicker
 
-                    ToggleViewNolabel($timerisenabled)
+                    ToggleViewDefault("", $timerisenabled)
                         .onChange(of: timerisenabled) {
                             if timerisenabled == true {
                                 if Timervalues().values.contains(timervalue) {
