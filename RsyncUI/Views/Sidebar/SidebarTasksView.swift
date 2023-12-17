@@ -1,5 +1,5 @@
 //
-//  NavigationSidebarTasksView.swift
+//  SidebarTasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/11/2023.
@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-struct NavigationSidebarTasksView: View {
+struct SidebarTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool

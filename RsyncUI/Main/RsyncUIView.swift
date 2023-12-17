@@ -33,7 +33,7 @@ struct RsyncUIView: View {
                 })
 
             } else {
-                SidebarNavStack(reload: $reload,
+                Sidebar(reload: $reload,
                                 selectedprofile: $selectedprofile,
                                 selecteduuids: $selecteduuids,
                                 profilenames: profilenames,

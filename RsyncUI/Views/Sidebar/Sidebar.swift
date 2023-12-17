@@ -1,5 +1,5 @@
 //
-//  SidebarNavStack.swift
+//  Sidebar.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 12/12/2023.
@@ -12,7 +12,7 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
-struct SidebarNavStack: View {
+struct Sidebar: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @Binding var reload: Bool
@@ -68,7 +68,7 @@ struct SidebarNavStack: View {
         case .snapshots:
             SnapshotsView(reload: $reload)
         case .synchronize:
-            NavigationSidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
+            SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
         case .quick_synchronize:
             NavigationQuicktaskView()
         }

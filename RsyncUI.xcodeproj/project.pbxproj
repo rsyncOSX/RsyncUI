@@ -33,7 +33,7 @@
 		E94F23A22AFE967800983C1C /* NavigationDetailsOneTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F23A12AFE967800983C1C /* NavigationDetailsOneTask.swift */; };
 		E950C92A290BBDC200B8B49F /* CommandProcessAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */; };
 		E95480B82ACFD8FB0034C866 /* RsyncProcessShellOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95480B72ACFD8FB0034C866 /* RsyncProcessShellOut.swift */; };
-		E954AD3F2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD3E2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift */; };
+		E954AD3F2AFE8F3800F3EA63 /* SidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */; };
 		E954AD412AFE8FBB00F3EA63 /* NavigationDetailsSummarizedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD402AFE8FBB00F3EA63 /* NavigationDetailsSummarizedTasksView.swift */; };
 		E954AD432AFE901200F3EA63 /* NavigationTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD422AFE901200F3EA63 /* NavigationTasksView.swift */; };
 		E9569EA927B809EE0038799C /* ReadUserConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */; };
@@ -43,7 +43,7 @@
 		E95DD7F428EC738B007654BC /* RsyncProcessAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DD7F328EC738B007654BC /* RsyncProcessAsync.swift */; };
 		E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */; };
 		E95EDC8A26063EAA000018DE /* ObservableParametersRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC8926063EAA000018DE /* ObservableParametersRsync.swift */; };
-		E96036042B288CB600438D8B /* SidebarNavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036032B288CB600438D8B /* SidebarNavStack.swift */; };
+		E96036042B288CB600438D8B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036032B288CB600438D8B /* Sidebar.swift */; };
 		E96223952B0BDA7E00C40578 /* NavigationOutputRsyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96223942B0BDA7E00C40578 /* NavigationOutputRsyncView.swift */; };
 		E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */; };
 		E96A165E272E735F00B95D3D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E96A165C272E735F00B95D3D /* Localizable.strings */; };
@@ -222,7 +222,7 @@
 		E94F8337272E7ABA00D3924B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E950C929290BBDC200B8B49F /* CommandProcessAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandProcessAsync.swift; sourceTree = "<group>"; };
 		E95480B72ACFD8FB0034C866 /* RsyncProcessShellOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessShellOut.swift; sourceTree = "<group>"; };
-		E954AD3E2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSidebarTasksView.swift; sourceTree = "<group>"; };
+		E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTasksView.swift; sourceTree = "<group>"; };
 		E954AD402AFE8FBB00F3EA63 /* NavigationDetailsSummarizedTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDetailsSummarizedTasksView.swift; sourceTree = "<group>"; };
 		E954AD422AFE901200F3EA63 /* NavigationTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTasksView.swift; sourceTree = "<group>"; };
 		E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUserConfigurationJSON.swift; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		E95DD7F328EC738B007654BC /* RsyncProcessAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessAsync.swift; sourceTree = "<group>"; };
 		E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRsyncParameter.swift; sourceTree = "<group>"; };
 		E95EDC8926063EAA000018DE /* ObservableParametersRsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersRsync.swift; sourceTree = "<group>"; };
-		E96036032B288CB600438D8B /* SidebarNavStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavStack.swift; sourceTree = "<group>"; };
+		E96036032B288CB600438D8B /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		E96223942B0BDA7E00C40578 /* NavigationOutputRsyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOutputRsyncView.swift; sourceTree = "<group>"; };
 		E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLogs.swift; sourceTree = "<group>"; };
 		E96A165D272E735F00B95D3D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -538,8 +538,8 @@
 		E985C60A25F3AD8400CB895C /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
-				E954AD3E2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift */,
-				E96036032B288CB600438D8B /* SidebarNavStack.swift */,
+				E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */,
+				E96036032B288CB600438D8B /* Sidebar.swift */,
 				E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */,
 				E985C61425F3AD8400CB895C /* Profilenames.swift */,
 			);
@@ -1189,7 +1189,7 @@
 				E9AE41462AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift in Sources */,
 				E985C72925F3AD9700CB895C /* Keypathidentityfile.swift in Sources */,
 				E985C72E25F3AD9700CB895C /* OutputfromProcess.swift in Sources */,
-				E96036042B288CB600438D8B /* SidebarNavStack.swift in Sources */,
+				E96036042B288CB600438D8B /* Sidebar.swift in Sources */,
 				E98C7ABA262D664900555977 /* ReadConfigurationJSON.swift in Sources */,
 				E985C77825F3AD9700CB895C /* GetRemoteFileListingsArguments.swift in Sources */,
 				E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */,
@@ -1256,7 +1256,7 @@
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
 				E985C72A25F3AD9700CB895C /* NamesandPaths.swift in Sources */,
 				E943B0A925FFC22200A4F30D /* RsyncProcess.swift in Sources */,
-				E954AD3F2AFE8F3800F3EA63 /* NavigationSidebarTasksView.swift in Sources */,
+				E954AD3F2AFE8F3800F3EA63 /* SidebarTasksView.swift in Sources */,
 				E985C72F25F3AD9700CB895C /* OutputfromProcessRsync.swift in Sources */,
 				E994E2AF2AEE564300CA050A /* AnimatedCheckmark.swift in Sources */,
 				E985C72825F3AD9700CB895C /* Catalogsandfiles.swift in Sources */,
