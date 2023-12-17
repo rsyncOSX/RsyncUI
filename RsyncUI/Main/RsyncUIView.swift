@@ -12,7 +12,6 @@ struct RsyncUIView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
     @State private var rsyncversion = Rsyncversion()
     @Binding var selectedprofile: String?
-    @Bindable var navstackisenabled: EnableNavigationStack
 
     @State private var reload: Bool = false
     @State private var start: Bool = true
@@ -30,10 +29,6 @@ struct RsyncUIView: View {
                 .onAppear(perform: {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         start = false
-                        /*
-                         Logger.process.info("RsyncUIView: NavigationStack is \(SharedReference.shared.usenavigationstack, privacy: .public)")
-                         navstackisenabled.navstackisenabled = SharedReference.shared.usenavigationstack
-                          */
                     }
                 })
 
