@@ -19,6 +19,7 @@ struct EstimationInProgressView: View {
     var body: some View {
         VStack {
             if estimateprogressdetails.estimatealltasksasync { progressviewestimateasync }
+            Text("UUID \(estimateprogressdetails.configurationtobestimated ?? UUID())")
         }
         .onAppear {
             guard estimateprogressdetails.estimatealltasksasync == false else {

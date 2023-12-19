@@ -19,13 +19,15 @@ final class EstimateProgressDetails {
     // Estimate on task, same profile
     // If one task in profile is estimated, this is set true
     // Used to decide if new profile is selected.
-    // The estiamed list is usde for progress if executing.
+    // The estiamed list is used for progress if executing.
     var onetaskisestimated: Bool = false
     // Profilename and timestamp start estimation
     var profile: String?
     var timestamp: Date?
     var numberofconfigurations: Int = 0
     var numberofconfigurationsestimated: Double = 0
+    // UUID for configuration to be estimated
+    var configurationtobestimated: UUID?
 
     func tasksareestimated(_ uuids: Set<UUID>) -> Bool {
         let answer = estimatedlist?.filter {
@@ -74,6 +76,9 @@ final class EstimateProgressDetails {
         uuids.removeAll()
         onetaskisestimated = false
         estimatealltasksasync = false
+        numberofconfigurations = 0
+        numberofconfigurationsestimated = 0
+        configurationtobestimated = nil
     }
 
     func setmaxcount(_ num: Int) {

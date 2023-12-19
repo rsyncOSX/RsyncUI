@@ -25,6 +25,8 @@ class EstimateTasksAsync {
         if let config = localconfigurations?.getconfig(hiddenID: localhiddenID ?? 0) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .argdryRun)
             guard arguments.count > 0 else { return }
+            // Used to display details of configuration in estimation
+            localestimateprogressdetails?.configurationtobestimated = config.id
             let process = RsyncProcessAsync(arguments: arguments,
                                             config: config,
                                             processtermination: processtermination)
