@@ -147,6 +147,7 @@
 		E99B56302AFFAD1800D4AA5A /* NavigationDetailsOneTaskRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskRootView.swift */; };
 		E99C2400261C322E009D4DBF /* ObservableRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObservableRestore.swift */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
+		E9A2AA7D2B31D0E800916896 /* EstimationInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */; };
 		E9AE41462AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */; };
 		E9AE41482AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */; };
 		E9B008DD2ABB427A006E333D /* Snapshotcatalogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */; };
@@ -342,6 +343,7 @@
 		E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDetailsOneTaskRootView.swift; sourceTree = "<group>"; };
 		E99C23FF261C322E009D4DBF /* ObservableRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRestore.swift; sourceTree = "<group>"; };
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimationInProgressView.swift; sourceTree = "<group>"; };
 		E9AE41452AFF5A8A00F3D562 /* NavigationExecuteEstimatedTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationExecuteEstimatedTasksView.swift; sourceTree = "<group>"; };
 		E9AE41472AFF5AAA00F3D562 /* NavigationExecuteNoestimatedTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationExecuteNoestimatedTasksView.swift; sourceTree = "<group>"; };
 		E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshotcatalogs.swift; sourceTree = "<group>"; };
@@ -589,6 +591,7 @@
 				E99B562F2AFFAD1800D4AA5A /* NavigationDetailsOneTaskRootView.swift */,
 				E94F23A12AFE967800983C1C /* NavigationDetailsOneTask.swift */,
 				E954AD402AFE8FBB00F3EA63 /* NavigationDetailsSummarizedTasksView.swift */,
+				E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */,
 			);
 			path = Detailsview;
 			sourceTree = "<group>";
@@ -1275,6 +1278,7 @@
 				E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */,
 				E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */,
 				E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */,
+				E9A2AA7D2B31D0E800916896 /* EstimationInProgressView.swift in Sources */,
 				E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */,
 				E985C75925F3AD9700CB895C /* Configuration.swift in Sources */,
 				E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */,
