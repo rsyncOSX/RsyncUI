@@ -89,7 +89,7 @@ final class EstimateProgressDetails {
             estimatedlist = [RemoteDataNumbers]()
         }
         estimatedlist?.append(record)
-        numberofconfigurationsestimated = +1
+        numberofconfigurationsestimated = Double(estimatedlist?.count ?? 0)
         onetaskisestimated = true
     }
 
