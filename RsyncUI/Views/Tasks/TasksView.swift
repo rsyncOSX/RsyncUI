@@ -1,5 +1,5 @@
 //
-//  NavigationTasksView.swift
+//  TasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/11/2023.
@@ -38,7 +38,7 @@ enum Sheet: String, Identifiable {
     var id: String { rawValue }
 }
 
-struct NavigationTasksView: View {
+struct TasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
@@ -199,7 +199,7 @@ struct NavigationTasksView: View {
     }
 }
 
-extension NavigationTasksView {
+extension TasksView {
     func doubleclickactionfunction() {
         if estimateprogressdetails.getestimatedlist() == nil {
             dryrun()

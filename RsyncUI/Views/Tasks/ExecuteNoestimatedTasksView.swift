@@ -1,5 +1,5 @@
 //
-//  NavigationExecuteNoestimatedTasksView.swift
+//  ExecuteNoestimatedTasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/11/2023.
@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-struct NavigationExecuteNoestimatedTasksView: View {
+struct ExecuteNoestimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @Binding var reload: Bool
@@ -70,7 +70,7 @@ struct NavigationExecuteNoestimatedTasksView: View {
     }
 }
 
-extension NavigationExecuteNoestimatedTasksView {
+extension ExecuteNoestimatedTasksView {
     func completed() {
         reload = true
         executeprogressdetails.resetcounts()

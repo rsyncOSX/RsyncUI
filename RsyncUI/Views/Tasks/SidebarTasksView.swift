@@ -19,10 +19,10 @@ struct SidebarTasksView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            NavigationTasksView(estimateprogressdetails: estimateprogressdetails,
-                                reload: $reload,
-                                selecteduuids: $selecteduuids,
-                                path: $path)
+            TasksView(estimateprogressdetails: estimateprogressdetails,
+                      reload: $reload,
+                      selecteduuids: $selecteduuids,
+                      path: $path)
                 .environmentObject(executeprogressdetails)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
@@ -42,21 +42,21 @@ struct SidebarTasksView: View {
     func makeView(view: DestinationView) -> some View {
         switch view {
         case .executestimatedview:
-            NavigationExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
-                                                reload: $reload,
-                                                path: $path)
+            ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
+                                      reload: $reload,
+                                      path: $path)
                 .environmentObject(executeprogressdetails)
         case .executenoestimatetasksview:
-            NavigationExecuteNoestimatedTasksView(reload: $reload,
-                                                  selecteduuids: $selecteduuids,
-                                                  path: $path)
+            ExecuteNoestimatedTasksView(reload: $reload,
+                                        selecteduuids: $selecteduuids,
+                                        path: $path)
         case .estimatedview:
             SummarizedAllDetailsView(estimateprogressdetails: estimateprogressdetails,
                                      selecteduuids: $selecteduuids,
                                      path: $path)
                 .environmentObject(executeprogressdetails)
         case .firsttime:
-            NavigationFirstTimeView()
+            FirstTimeView()
         case .dryrunonetask:
             DetailsOneTaskRootView(estimateprogressdetails: estimateprogressdetails,
                                    selecteduuids: selecteduuids)

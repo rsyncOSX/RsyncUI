@@ -1,5 +1,5 @@
 //
-//  NavigationFirstTimeView.swift
+//  FirstTimeView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/11/2023.
@@ -8,7 +8,7 @@
 import ConfettiSwiftUI
 import SwiftUI
 
-struct NavigationFirstTimeView: View {
+struct FirstTimeView: View {
     @State private var counter: Int = 0
 
     let info: String = "https://rsyncui.netlify.app/post/important/"
