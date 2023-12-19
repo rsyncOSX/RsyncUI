@@ -2,7 +2,7 @@
 //  ListofTasksMainView.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 18/05/2023.
+//  Created by Thomas Evensen on 11/11/2023.
 //
 
 import SwiftUI
@@ -16,8 +16,6 @@ struct ListofTasksMainView: View {
     @Binding var reload: Bool
     @Binding var doubleclick: Bool
     @State private var confirmdelete: Bool = false
-
-    var showestimateicon: Bool
 
     var body: some View {
         tabledata
@@ -41,9 +39,7 @@ struct ListofTasksMainView: View {
                                  value: executeprogressdetails.currenttaskprogress,
                                  total: maxcount + 3)
                         .frame(alignment: .center)
-                } else if executeprogressdetails.taskisestimatedbyUUID(data.id),
-                          showestimateicon
-                {
+                } else if executeprogressdetails.taskisestimatedbyUUID(data.id) {
                     Image("green")
                         .resizable()
                         .frame(width: 15, height: 15, alignment: .trailing)

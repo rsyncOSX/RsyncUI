@@ -66,7 +66,7 @@ struct NavigationTasksView: View {
 
     var body: some View {
         ZStack {
-            NavigationListofTasksMainView(
+            ListofTasksMainView(
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,

@@ -27,8 +27,7 @@ struct NavigationExecuteEstimatedTasksView: View {
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,
-                doubleclick: $doubleclick,
-                showestimateicon: false
+                doubleclick: $doubleclick
             )
 
             if multipletaskstate.executionstate == .completed { labelcompleted }
