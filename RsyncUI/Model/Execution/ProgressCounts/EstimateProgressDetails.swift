@@ -11,7 +11,6 @@ import Observation
 @Observable
 final class EstimateProgressDetails {
     var estimatedlist: [RemoteDataNumbers]?
-    var tasksinprogresscount: Double = 0
     var max: Int = 0
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
@@ -25,7 +24,8 @@ final class EstimateProgressDetails {
     // Profilename and timestamp start estimation
     var profile: String?
     var timestamp: Date?
-    var numberofconfigurations: Int = -1
+    var numberofconfigurations: Int = 0
+    var numberofconfigurationsestimated: Double = 0
 
     func tasksareestimated(_ uuids: Set<UUID>) -> Bool {
         let answer = estimatedlist?.filter {
@@ -66,7 +66,6 @@ final class EstimateProgressDetails {
 
     func resetcounts() {
         numberofconfigurations = -1
-        tasksinprogresscount = 0
         max = 0
         uuids.removeAll()
         estimatedlist = nil
@@ -81,10 +80,6 @@ final class EstimateProgressDetails {
         max = num
     }
 
-    func updatetasksinprogresscount(_ num: Double) {
-        tasksinprogresscount = num
-    }
-
     func setestimatedlist(_ argestimatedlist: [RemoteDataNumbers]?) {
         estimatedlist = argestimatedlist
     }
@@ -94,6 +89,7 @@ final class EstimateProgressDetails {
             estimatedlist = [RemoteDataNumbers]()
         }
         estimatedlist?.append(record)
+        numberofconfigurationsestimated = +1
         onetaskisestimated = true
     }
 

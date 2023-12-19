@@ -17,8 +17,13 @@ struct EstimationInProgressView: View {
     @Binding var nodatatosynchronize: Bool
 
     var body: some View {
-        HStack {
-            Text("Estimating")
+        ZStack {
+            ProgressView("Estimating",
+                         value: estimateprogressdetails.numberofconfigurationsestimated,
+                         total: Double(rsyncUIdata.getallconfigurations()?.count ?? 0))
+
+            if estimateprogressdetails.estimatealltasksasync { progressviewestimateasync }
+
         }.onAppear {
             guard estimateprogressdetails.estimatealltasksasync == false else {
                 Logger.process.warning("TasksView: estimate already in progress")
@@ -28,8 +33,7 @@ struct EstimationInProgressView: View {
             executeprogressdetails.resetcounts()
             estimateprogressdetails.startestimateasync()
         }
-
-        if estimateprogressdetails.estimatealltasksasync { progressviewestimateasync }
+        .padding()
     }
 
     var progressviewestimateasync: some View {
