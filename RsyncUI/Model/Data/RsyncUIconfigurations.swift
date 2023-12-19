@@ -41,6 +41,12 @@ final class RsyncUIconfigurations {
         return configuration?[0]
     }
 
+    func getconfig(uuid: UUID?) -> Configuration? {
+        let configuration = configurations?.filter { $0.id == uuid }
+        guard configuration?.count == 1 else { return nil }
+        return configuration?[0]
+    }
+
     // Function for getting Configurations read into memory, sorted by runddate
     func getallconfigurations() -> [Configuration]? {
         if let configurations = configurations {

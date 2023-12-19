@@ -19,7 +19,7 @@ struct EstimationInProgressView: View {
     var body: some View {
         VStack {
             if estimateprogressdetails.estimatealltasksasync { progressviewestimateasync }
-            Text("UUID \(estimateprogressdetails.configurationtobestimated ?? UUID())")
+            details
         }
         .onAppear {
             guard estimateprogressdetails.estimatealltasksasync == false else {
@@ -60,5 +60,13 @@ struct EstimationInProgressView: View {
                     }
                 }()
             }
+    }
+
+    var details: some View {
+        if let config = rsyncUIdata.getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
+            Text("\(config.localCatalog)")
+        } else {
+            Text("")
+        }
     }
 }
