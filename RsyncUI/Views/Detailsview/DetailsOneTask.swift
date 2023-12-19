@@ -1,5 +1,5 @@
 //
-//  NavigationDetailsOneTask.swift
+//  DetailsOneTask.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/11/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct NavigationDetailsOneTask: View {
+struct DetailsOneTask: View {
     let estimatedlist: [RemoteDataNumbers]
     @Binding var selecteduuids: Set<Configuration.ID>
 

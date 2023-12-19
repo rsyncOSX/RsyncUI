@@ -51,23 +51,23 @@ struct SidebarTasksView: View {
                                                   selecteduuids: $selecteduuids,
                                                   path: $path)
         case .estimatedview:
-            NavigationSummarizedAllDetailsView(estimateprogressdetails: estimateprogressdetails,
-                                               selecteduuids: $selecteduuids,
-                                               path: $path)
+            SummarizedAllDetailsView(estimateprogressdetails: estimateprogressdetails,
+                                     selecteduuids: $selecteduuids,
+                                     path: $path)
                 .environmentObject(executeprogressdetails)
         case .firsttime:
             NavigationFirstTimeView()
         case .dryrunonetask:
-            NavigationDetailsOneTaskRootView(estimateprogressdetails: estimateprogressdetails,
-                                             selecteduuids: selecteduuids)
+            DetailsOneTaskRootView(estimateprogressdetails: estimateprogressdetails,
+                                   selecteduuids: selecteduuids)
                 .onDisappear {
                     executeprogressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
                 }
         case .dryrunonetaskalreadyestimated:
-            NavigationDetailsOneTask(estimatedlist: estimateprogressdetails.getestimatedlist() ?? [],
-                                     selecteduuids: $selecteduuids)
+            DetailsOneTask(estimatedlist: estimateprogressdetails.getestimatedlist() ?? [],
+                           selecteduuids: $selecteduuids)
         case .alltasksview:
-            NavigationAlltasksView()
+            AlltasksView()
         case .viewlogfile:
             NavigationLogfileView()
         }

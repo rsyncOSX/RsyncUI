@@ -1,5 +1,5 @@
 //
-//  NavigationDetailsSummarizedTasksView.swift
+//  DetailsSummarizedTasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/11/2023.
@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-struct NavigationSummarizedAllDetailsView: View {
+struct SummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
 

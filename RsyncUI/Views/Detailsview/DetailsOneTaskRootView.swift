@@ -1,5 +1,5 @@
 //
-//  NavigationDetailsOneTaskRootView.swift
+//  DetailsOneTaskRootView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/11/2023.
@@ -9,7 +9,7 @@ import Foundation
 import Observation
 import SwiftUI
 
-struct NavigationDetailsOneTaskRootView: View {
+struct DetailsOneTaskRootView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @Bindable var estimateprogressdetails: EstimateProgressDetails
@@ -135,7 +135,7 @@ struct NavigationDetailsOneTaskRootView: View {
     }
 }
 
-extension NavigationDetailsOneTaskRootView {
+extension DetailsOneTaskRootView {
     func processtermination(data: [String]?) {
         var selectedconfig: Configuration?
         let selected = rsyncUIdata.configurations?.filter { config in

@@ -1,5 +1,5 @@
 //
-//  NavigationAlltasksView.swift
+//  AlltasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 12/11/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct NavigationAlltasksView: View {
+struct AlltasksView: View {
     var body: some View {
         VStack {
             Table(data) {
@@ -68,7 +68,7 @@ struct NavigationAlltasksView: View {
     }
 }
 
-extension NavigationAlltasksView {
+extension AlltasksView {
     func markconfig(_ config: Configuration?) -> Bool {
         if config?.dateRun != nil {
             if let secondssince = config?.lastruninseconds {
