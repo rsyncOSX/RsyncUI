@@ -151,7 +151,6 @@ struct SummarizedAllDetailsView: View {
 
         Spacer()
 
-        if nodatatosynchronize { shownosynchronize }
         if focusstartexecution { labelstartexecution }
     }
 

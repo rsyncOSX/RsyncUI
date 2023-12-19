@@ -17,9 +17,10 @@ struct EstimationInProgressView: View {
     @Binding var nodatatosynchronize: Bool
 
     var body: some View {
-        HStack {
+        VStack {
             if estimateprogressdetails.estimatealltasksasync { progressviewestimateasync }
-        }.onAppear {
+        }
+        .onAppear {
             guard estimateprogressdetails.estimatealltasksasync == false else {
                 Logger.process.warning("TasksView: estimate already in progress")
                 return
