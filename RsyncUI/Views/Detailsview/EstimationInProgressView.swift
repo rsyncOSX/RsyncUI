@@ -65,10 +65,8 @@ struct EstimationInProgressView: View {
 
     var details: some View {
         if let config = rsyncUIdata.getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
-            Text("Synchronize ID: \(config.backupID) " +
-                "localcatalog: \(config.localCatalog) " +
-                "remotecatalog: \(config.offsiteCatalog) " +
-                "offisteserver: \(config.offsiteServer)")
+            Text("Estimating now: " +
+                "Synchronize ID: \(config.backupID)")
         } else {
             Text("")
         }
