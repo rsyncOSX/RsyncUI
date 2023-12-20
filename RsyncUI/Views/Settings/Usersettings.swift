@@ -163,6 +163,7 @@ struct Usersettings: View {
                 } label: {
                     Image(systemName: "wrench.adjustable")
                         .foregroundColor(Color(.blue))
+                        .imageScale(.large)
                 }
                 .help("Backup configurations")
             }
@@ -173,6 +174,7 @@ struct Usersettings: View {
                 } label: {
                     Image(systemName: "square.and.pencil")
                         .foregroundColor(Color(.blue))
+                        .imageScale(.large)
                 }
                 .help("Save usersettings")
             }

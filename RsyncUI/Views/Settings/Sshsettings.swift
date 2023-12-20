@@ -80,6 +80,7 @@ struct Sshsettings: View {
                 } label: {
                     Image(systemName: "key")
                         .foregroundColor(Color(.blue))
+                        .imageScale(.large)
                 }
                 .help("Create keys")
             }
@@ -90,6 +91,7 @@ struct Sshsettings: View {
                 } label: {
                     Image(systemName: "square.and.pencil")
                         .foregroundColor(Color(.blue))
+                        .imageScale(.large)
                 }
                 .help("Save usersettings")
             }

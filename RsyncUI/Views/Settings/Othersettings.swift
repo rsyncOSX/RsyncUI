@@ -54,6 +54,7 @@ struct Othersettings: View {
                 } label: {
                     Image(systemName: "square.and.pencil")
                         .foregroundColor(Color(.blue))
+                        .imageScale(.large)
                 }
                 .help("Save usersettings")
             }

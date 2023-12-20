@@ -64,6 +64,7 @@ struct AboutView: View {
                 } label: {
                     Image(systemName: "wrench.adjustable")
                         .foregroundColor(Color(.blue))
+                        .imageScale(.large)
                 }
                 .help("Changelog")
             }
@@ -74,6 +75,7 @@ struct AboutView: View {
                 } label: {
                     Image(systemName: "square.and.pencil")
                         .foregroundColor(Color(.blue))
+                        .imageScale(.large)
                 }
                 .help("Download")
             }
