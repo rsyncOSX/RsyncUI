@@ -91,17 +91,6 @@ struct RestoreTableView: View {
 
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
-
-                Button("Files") {
-                    Task {
-                        if let config = restore.selectedconfig {
-                            guard config.task != SharedReference.shared.syncremote else { return }
-                            gettingfilelist = true
-                            await getfilelist()
-                        }
-                    }
-                }
-                .buttonStyle(ColorfulButtonStyle())
             }
             .focusedSceneValue(\.aborttask, $focusaborttask)
             .searchable(text: $filterstring)
@@ -141,6 +130,17 @@ struct RestoreTableView: View {
                             .foregroundColor(Color(.blue))
                     }
                     .help("Restore files")
+                }
+
+                ToolbarItem {
+                    Button {
+                        Task {
+                            await getlistoffilesforrestore()
+                        }
+                    } label: {
+                        Image(systemName: "square.and.arrow.down.fill")
+                    }
+                    .help("Get list of files for restore")
                 }
 
                 ToolbarItem {
@@ -229,6 +229,14 @@ struct RestoreTableView: View {
 }
 
 extension RestoreTableView {
+    func getlistoffilesforrestore() async {
+        if let config = restore.selectedconfig {
+            guard config.task != SharedReference.shared.syncremote else { return }
+            gettingfilelist = true
+            await getfilelist()
+        }
+    }
+
     func abort() {
         _ = InterruptProcess()
     }
