@@ -39,10 +39,6 @@ struct ListofTasksMainView: View {
                                  value: executeprogressdetails.currenttaskprogress,
                                  total: maxcount + 3)
                         .frame(alignment: .center)
-                } else if executeprogressdetails.taskisestimatedbyUUID(data.id) {
-                    Image("green")
-                        .resizable()
-                        .frame(width: 15, height: 15, alignment: .trailing)
                 }
             }
             .width(min: 50, ideal: 50)
