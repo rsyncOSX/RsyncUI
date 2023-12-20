@@ -168,6 +168,29 @@ struct Usersettings: View {
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
+        /*
+         .toolbar {
+             ToolbarItem {
+                 Button {
+                     backupuserconfigs()
+                 } label: {
+                     Image(systemName: "square.and.pencil")
+                         .foregroundColor(Color(.blue))
+                 }
+                 .help("Backup configurations")
+             }
+
+             ToolbarItem {
+                 Button {
+                     saveusersettings()
+                 } label: {
+                     Image(systemName: "square.and.pencil")
+                         .foregroundColor(Color(.blue))
+                 }
+                 .help("Save usersettings")
+             }
+         }
+          */
     }
 
     // Rsync
