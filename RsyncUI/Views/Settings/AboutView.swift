@@ -52,20 +52,31 @@ struct AboutView: View {
             if newversion.notifynewversion { notifynewversion }
 
             Spacer()
-
-            HStack {
-                Spacer()
-
-                Button("Changelog") { openchangelog() }
-                    .buttonStyle(ColorfulButtonStyle())
-
-                Button("Download") { opendownload() }
-                    .buttonStyle(ColorfulButtonStyle())
-            }
         }
         .padding()
         .task {
             await newversion.getversionsofrsyncui()
+        }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    openchangelog()
+                } label: {
+                    Image(systemName: "wrench.adjustable")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Changelog")
+            }
+
+            ToolbarItem {
+                Button {
+                    opendownload()
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Download")
+            }
         }
     }
 

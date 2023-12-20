@@ -149,48 +149,34 @@ struct Usersettings: View {
                 }
             }
 
-            // Save button right down corner
             Spacer()
-
-            HStack {
-                Spacer()
-
-                // Backup configuration files
-                Button("Backup") { backupuserconfigs() }
-                    .buttonStyle(ColorfulButtonStyle())
-
-                Button("Save") { saveusersettings() }
-                    .buttonStyle(ColorfulButtonStyle())
-            }
         }
         .lineSpacing(2)
         .padding()
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
-        /*
-         .toolbar {
-             ToolbarItem {
-                 Button {
-                     backupuserconfigs()
-                 } label: {
-                     Image(systemName: "square.and.pencil")
-                         .foregroundColor(Color(.blue))
-                 }
-                 .help("Backup configurations")
-             }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    backupuserconfigs()
+                } label: {
+                    Image(systemName: "wrench.adjustable")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Backup configurations")
+            }
 
-             ToolbarItem {
-                 Button {
-                     saveusersettings()
-                 } label: {
-                     Image(systemName: "square.and.pencil")
-                         .foregroundColor(Color(.blue))
-                 }
-                 .help("Save usersettings")
-             }
-         }
-          */
+            ToolbarItem {
+                Button {
+                    saveusersettings()
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Save usersettings")
+            }
+        }
     }
 
     // Rsync

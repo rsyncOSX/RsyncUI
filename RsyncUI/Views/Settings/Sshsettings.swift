@@ -64,17 +64,7 @@ struct Sshsettings: View {
             // Save button right down corner
             Spacer()
 
-            HStack {
-                if selectedlogin != nil { strings }
-
-                Spacer()
-
-                Button("Create") { createkeys() }
-                    .buttonStyle(ColorfulButtonStyle())
-
-                Button("Save") { saveusersettings() }
-                    .buttonStyle(ColorfulButtonStyle())
-            }
+            if selectedlogin != nil { strings }
         }
         .padding()
         .onAppear(perform: {
@@ -83,6 +73,27 @@ struct Sshsettings: View {
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    createkeys()
+                } label: {
+                    Image(systemName: "key")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Create keys")
+            }
+
+            ToolbarItem {
+                Button {
+                    saveusersettings()
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Save usersettings")
+            }
+        }
     }
 
     // Copy strings

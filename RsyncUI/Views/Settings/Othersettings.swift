@@ -44,16 +44,20 @@ struct Othersettings: View {
             }
             // Save button right down corner
             Spacer()
-
-            HStack {
-                Spacer()
-
-                Button("Save") { saveusersettings() }
-                    .buttonStyle(ColorfulButtonStyle())
-            }
         }
         .lineSpacing(2)
         .padding()
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    saveusersettings()
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Save usersettings")
+            }
+        }
     }
 
     var setenvironment: some View {

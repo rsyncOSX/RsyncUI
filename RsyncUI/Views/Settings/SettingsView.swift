@@ -8,31 +8,26 @@
 import Observation
 import SwiftUI
 
-struct SettingsView: View {
-    @State private var alerterror = AlertError()
+enum SideSettingsbaritems: String, Identifiable, CaseIterable {
+    case settings, ssh, environment, info
+    var id: String { rawValue }
+}
 
+struct SettingsView: View {
     @Binding var selectedprofile: String?
 
+    @State private var alerterror = AlertError()
+    @State private var selectedsetting: SideSettingsbaritems = .settings
+
     var body: some View {
-        TabView {
-            Usersettings()
-                .environment(alerterror)
-                .tabItem {
-                    Label("Settings", systemImage: "gear")
+        NavigationSplitView {
+            List(SideSettingsbaritems.allCases, selection: $selectedsetting) { selectedsetting in
+                NavigationLink(value: selectedsetting) {
+                    SidebarSettingsRow(sidebaritem: selectedsetting)
                 }
-            Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(profile).getuniqueserversandlogins() ?? [])
-                .environment(alerterror)
-                .tabItem {
-                    Label("Ssh", systemImage: "terminal")
-                }
-            Othersettings()
-                .tabItem {
-                    Label("Environment", systemImage: "gear")
-                }
-            AboutView()
-                .tabItem {
-                    Label("Info", systemImage: "info.circle.fill")
-                }
+            }
+        } detail: {
+            settingsView(selectedsetting)
         }
         .padding()
         .frame(minWidth: 800, minHeight: 450)
@@ -43,11 +38,49 @@ struct SettingsView: View {
         }
     }
 
+    @ViewBuilder
+    func settingsView(_ view: SideSettingsbaritems) -> some View {
+        switch view {
+        case .settings:
+            Usersettings()
+                .environment(alerterror)
+        case .ssh:
+            Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(profile).getuniqueserversandlogins() ?? [])
+                .environment(alerterror)
+        case .environment:
+            Othersettings()
+        case .info:
+            AboutView()
+        }
+    }
+
     var profile: String? {
         if selectedprofile == SharedReference.shared.defaultprofile || selectedprofile == nil {
             return nil
         } else {
             return selectedprofile
+        }
+    }
+}
+
+struct SidebarSettingsRow: View {
+    var sidebaritem: SideSettingsbaritems
+
+    var body: some View {
+        Label(sidebaritem.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
+              systemImage: systemimage(sidebaritem))
+    }
+
+    func systemimage(_ view: SideSettingsbaritems) -> String {
+        switch view {
+        case .settings:
+            return "gear"
+        case .ssh:
+            return "terminal"
+        case .environment:
+            return "gear"
+        case .info:
+            return "info.circle.fill"
         }
     }
 }
