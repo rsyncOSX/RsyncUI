@@ -31,7 +31,6 @@ struct RsyncUIView: View {
                         start = false
                     }
                 })
-
             } else {
                 Sidebar(reload: $reload,
                         selectedprofile: $selectedprofile,
