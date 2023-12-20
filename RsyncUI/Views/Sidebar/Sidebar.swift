@@ -56,21 +56,21 @@ struct Sidebar: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            NavigationAddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
+            AddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
         case .log_listings:
             SidebarLogsView()
         case .rsync_parameters:
-            NavigationRsyncParametersView(reload: $reload)
+            RsyncParametersView(reload: $reload)
         case .restore:
             NavigationStack {
-                NavigationRestoreTableView()
+                RestoreTableView()
             }
         case .snapshots:
             SnapshotsView(reload: $reload)
         case .synchronize:
             SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
         case .quick_synchronize:
-            NavigationQuicktaskView()
+            QuicktaskView()
         }
     }
 }

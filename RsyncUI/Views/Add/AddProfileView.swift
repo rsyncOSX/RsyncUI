@@ -1,5 +1,5 @@
 //
-//  NavigationAddProfileView.swift
+//  AddProfileView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/12/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NavigationAddProfileView: View {
+struct AddProfileView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State private var newdata = ObservableAddConfigurations()
     @Bindable var profilenames: Profilenames
@@ -73,7 +73,7 @@ struct NavigationAddProfileView: View {
     }
 }
 
-extension NavigationAddProfileView {
+extension AddProfileView {
     func createprofile() {
         newdata.createprofile()
         profilenames.update()

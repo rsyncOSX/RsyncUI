@@ -1,5 +1,5 @@
 //
-//  NavigationQuicktaskView.swift
+//  QuicktaskView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 21/11/2023.
@@ -15,7 +15,7 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
     var description: String { rawValue.localizedLowercase }
 }
 
-struct NavigationQuicktaskView: View {
+struct QuicktaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @State private var localcatalog: String = ""
@@ -130,7 +130,7 @@ struct NavigationQuicktaskView: View {
             })
             .padding()
             .navigationDestination(isPresented: $completed) {
-                NavigationOutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
+                OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
             }
         }
     }
@@ -277,7 +277,7 @@ struct NavigationQuicktaskView: View {
     }
 }
 
-extension NavigationQuicktaskView {
+extension QuicktaskView {
     func resetform() {
         localcatalog = ""
         remotecatalog = ""

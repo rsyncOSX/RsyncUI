@@ -1,5 +1,5 @@
 //
-//  NavigationRsyncDefaultParametersView.swift
+//  RsyncDefaultParametersView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 20/11/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NavigationRsyncDefaultParametersView: View {
+struct RsyncDefaultParametersView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var reload: Bool
     @Binding var path: [ParametersTasks]
@@ -94,7 +94,7 @@ struct NavigationRsyncDefaultParametersView: View {
     }
 }
 
-extension NavigationRsyncDefaultParametersView {
+extension RsyncDefaultParametersView {
     func saversyncparameters() {
         if let configuration = parameters.updatersyncparameters() {
             let updateconfiguration =

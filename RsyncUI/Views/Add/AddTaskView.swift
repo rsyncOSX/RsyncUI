@@ -1,5 +1,5 @@
 //
-//  NavigationAddTaskView.swift
+//  AddTaskView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/12/2023.
@@ -18,7 +18,7 @@ struct AddTasks: Hashable, Identifiable {
     var task: AddTaskDestinationView
 }
 
-struct NavigationAddTaskView: View {
+struct AddTaskView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @State private var newdata = ObservableAddConfigurations()
@@ -216,9 +216,9 @@ struct NavigationAddTaskView: View {
     func makeView(view: AddTaskDestinationView) -> some View {
         switch view {
         case .profileview:
-            NavigationAddProfileView(profilenames: profilenames,
-                                     selectedprofile: $selectedprofile,
-                                     reload: $reload)
+            AddProfileView(profilenames: profilenames,
+                           selectedprofile: $selectedprofile,
+                           reload: $reload)
         case .shelltaskview:
             AddPreandPostView(profilenames: profilenames, selectedprofile: $selectedprofile, reload: $reload)
         }
@@ -517,7 +517,7 @@ struct NavigationAddTaskView: View {
     }
 }
 
-extension NavigationAddTaskView {
+extension AddTaskView {
     func addconfig() {
         newdata.addconfig(selectedprofile, configurations)
         reload = newdata.reload

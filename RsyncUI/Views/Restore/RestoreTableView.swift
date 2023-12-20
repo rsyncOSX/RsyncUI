@@ -1,5 +1,5 @@
 //
-//  NavigationRestoreTableView.swift
+//  RestoreTableView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 21/11/2023.
@@ -8,7 +8,7 @@
 import Combine
 import SwiftUI
 
-struct NavigationRestoreTableView: View {
+struct RestoreTableView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @State var restore = ObservableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
@@ -165,7 +165,7 @@ struct NavigationRestoreTableView: View {
             })
         }
         .navigationDestination(isPresented: $restore.presentsheetrsync) {
-            NavigationOutputRsyncView(output: restore.rsyncdata ?? [])
+            OutputRsyncView(output: restore.rsyncdata ?? [])
         }
         .padding()
     }
@@ -228,7 +228,7 @@ struct NavigationRestoreTableView: View {
     }
 }
 
-extension NavigationRestoreTableView {
+extension RestoreTableView {
     func abort() {
         _ = InterruptProcess()
     }

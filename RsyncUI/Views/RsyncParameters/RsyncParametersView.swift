@@ -1,5 +1,5 @@
 //
-//  NavigationRsyncParametersView.swift
+//  RsyncParametersView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 20/11/2023.
@@ -19,7 +19,7 @@ struct ParametersTasks: Hashable, Identifiable {
     var task: ParametersDestinationView
 }
 
-struct NavigationRsyncParametersView: View {
+struct RsyncParametersView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var reload: Bool
 
@@ -175,9 +175,9 @@ struct NavigationRsyncParametersView: View {
     func makeView(view: ParametersDestinationView) -> some View {
         switch view {
         case .defaultparameters:
-            NavigationRsyncDefaultParametersView(reload: $reload, path: $path)
+            RsyncDefaultParametersView(reload: $reload, path: $path)
         case .verify:
-            NavigationOutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
+            OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }
     }
 
@@ -223,7 +223,7 @@ struct NavigationRsyncParametersView: View {
     }
 }
 
-extension NavigationRsyncParametersView {
+extension RsyncParametersView {
     func saversyncparameters() {
         if let configuration = parameters.updatersyncparameters() {
             let updateconfiguration =
