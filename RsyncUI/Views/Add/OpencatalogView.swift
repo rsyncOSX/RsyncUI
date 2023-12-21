@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OpencatalogView: View {
     @Binding var catalog: String
+    
     var choosecatalog: Bool
 
     var body: some View {

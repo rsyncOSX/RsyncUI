@@ -13,6 +13,7 @@ struct AddProfileView: View {
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
+   
     @State private var uuidprofile = Set<Profiles.ID>()
     @State private var localselectedprofile: String?
 
@@ -46,6 +47,16 @@ struct AddProfileView: View {
         .toolbar {
             ToolbarItem {
                 Button {
+                    createprofile()
+                } label: {
+                    Image(systemName: "plus.app.fill")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Add profile")
+            }
+            
+            ToolbarItem {
+                Button {
                     newdata.showAlertfordelete = true
                 } label: {
                     Image(systemName: "trash.fill")
@@ -58,16 +69,6 @@ struct AddProfileView: View {
                             deleteprofile()
                         })
                 }
-            }
-
-            ToolbarItem {
-                Button {
-                    createprofile()
-                } label: {
-                    Image(systemName: "plus.app.fill")
-                        .foregroundColor(Color(.blue))
-                }
-                .help("Add profile")
             }
         }
     }
