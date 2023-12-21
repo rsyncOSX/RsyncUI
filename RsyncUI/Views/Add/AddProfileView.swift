@@ -13,7 +13,7 @@ struct AddProfileView: View {
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
-   
+
     @State private var uuidprofile = Set<Profiles.ID>()
     @State private var localselectedprofile: String?
 
@@ -54,7 +54,7 @@ struct AddProfileView: View {
                 }
                 .help("Add profile")
             }
-            
+
             ToolbarItem {
                 Button {
                     newdata.showAlertfordelete = true
