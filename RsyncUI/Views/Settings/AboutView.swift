@@ -66,18 +66,18 @@ struct AboutView: View {
                         .foregroundColor(Color(.blue))
                         .imageScale(.large)
                 }
-                .help("Changelog")
+                .help("Open Changelog")
             }
 
             ToolbarItem {
                 Button {
                     opendownload()
                 } label: {
-                    Image(systemName: "square.and.pencil")
+                    Image(systemName: "square.and.arrow.down.fill")
                         .foregroundColor(Color(.blue))
                         .imageScale(.large)
                 }
-                .help("Download")
+                .help("Download new version")
             }
         }
     }
