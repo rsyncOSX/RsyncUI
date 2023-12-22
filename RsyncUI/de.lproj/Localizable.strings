@@ -71,6 +71,9 @@
 "Backup" = "Sichern";
 
 /* No comment provided by engineer. */
+"Backup configurations" = "Sichern datei";
+
+/* No comment provided by engineer. */
 "Bytes" = "Bytes";
 
 /* No comment provided by engineer. */
@@ -78,9 +81,6 @@
 
 /* No comment provided by engineer. */
 "Catalog parameters" = "Katalogparameter";
-
-/* No comment provided by engineer. */
-"Changelog" = "Änderungsprotokoll";
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
@@ -95,7 +95,7 @@
 "Copyright ©2023 Thomas Evensen" = "Copyright ©2023 Thomas Evensen";
 
 /* No comment provided by engineer. */
-"Create" = "Anlegen";
+"Create keys" = "Keys erstellen";
 
 /* No comment provided by engineer. */
 "Create profile" = "Profil erstellen";
@@ -140,7 +140,7 @@
 "Don´t add /" = "Nicht hinzufügen/";
 
 /* No comment provided by engineer. */
-"Download" = "Download";
+"Download new version" = "Neue Version herunterladen";
 
 /* No comment provided by engineer. */
 "Enable" = "Aktivieren";
@@ -182,6 +182,9 @@
 "German translation by: Andre Voigtmann" = "Deutsche Übersetzung von: Andre Voigtmann";
 
 /* No comment provided by engineer. */
+"Get list of files for restore" = "Rufen Sie eine Liste der wiederherzustellenden Dateien ab";
+
+/* No comment provided by engineer. */
 "Global ssh keypath and identityfile" = "Globale SSH-Tastatur und Identitätsdatei";
 
 /* No comment provided by engineer. */
@@ -198,9 +201,6 @@
 
 /* No comment provided by engineer. */
 "important to execute a simulated run and inspect what happens before a real run." = "wichtig, einen simulierten Lauf durchzuführen und zu überprüfen, was vor einem echten Lauf passiert.";
-
-/* No comment provided by engineer. */
-"Info" = "Info";
 
 /* No comment provided by engineer. */
 "Last" = "Letzte";
@@ -278,6 +278,9 @@
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
+"Open Changelog" = "Öffnen Sie das Änderungsprotokoll";
+
+/* No comment provided by engineer. */
 "Other settings" = "Andere Einstellungen";
 
 /* No comment provided by engineer. */
@@ -353,6 +356,9 @@
 "Save settings" = "Einstellungen speichern";
 
 /* No comment provided by engineer. */
+"Save usersettings" = "Benutzereinstellungen speichern";
+
+/* No comment provided by engineer. */
 "Saved" = "Gespeichert";
 
 /* No comment provided by engineer. */
@@ -371,9 +377,6 @@
 "Server: " = "Server:";
 
 /* No comment provided by engineer. */
-"Settings" = "Einstellungen";
-
-/* No comment provided by engineer. */
 "Shell commands" = "Shell Befehle";
 
 /* No comment provided by engineer. */
@@ -381,9 +384,6 @@
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
-
-/* No comment provided by engineer. */
-"Ssh" = "Ssh";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synchronisieren";

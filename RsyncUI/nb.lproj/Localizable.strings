@@ -71,6 +71,9 @@
 "Backup" = "Backup";
 
 /* No comment provided by engineer. */
+"Backup configurations" = "Lagre konfigurasjoner";
+
+/* No comment provided by engineer. */
 "Bytes" = "bytes";
 
 /* No comment provided by engineer. */
@@ -78,9 +81,6 @@
 
 /* No comment provided by engineer. */
 "Catalog parameters" = "Katalog parametre";
-
-/* No comment provided by engineer. */
-"Changelog" = "Endringslogg";
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Sjekk for feil i utdata";
@@ -95,7 +95,7 @@
 "Copyright ©2023 Thomas Evensen" = "Opphavsrett ©2023 Thomas Evensen";
 
 /* No comment provided by engineer. */
-"Create" = "Opprett";
+"Create keys" = "Opprett nøkler";
 
 /* No comment provided by engineer. */
 "Create profile" = "Opprett profil";
@@ -105,6 +105,9 @@
 
 /* No comment provided by engineer. */
 "Days" = "Dager";
+
+/* No comment provided by engineer. */
+"Default rsync parameters" = "Standard rsync parametre";
 
 /* No comment provided by engineer. */
 "Delete" = "Slett";
@@ -137,7 +140,7 @@
 "Don´t add /" = "Ikke legg til /";
 
 /* No comment provided by engineer. */
-"Download" = "Last ned";
+"Download new version" = "Last ned ny versjon";
 
 /* No comment provided by engineer. */
 "Enable" = "Aktiver";
@@ -179,6 +182,9 @@
 "German translation by: Andre Voigtmann" = "Tysk oversettelse av: Andre Voigtmann";
 
 /* No comment provided by engineer. */
+"Get list of files for restore" = "Hent filenavn for opprett";
+
+/* No comment provided by engineer. */
 "Global ssh keypath and identityfile" = "Global ssh keypath og identifikasjonsfil";
 
 /* No comment provided by engineer. */
@@ -195,9 +201,6 @@
 
 /* No comment provided by engineer. */
 "important to execute a simulated run and inspect what happens before a real run." = "viktig å utføre en simulert kjøring og inspisere resultatet før synkronisering";
-
-/* No comment provided by engineer. */
-"Info" = "Info";
 
 /* No comment provided by engineer. */
 "Last" = "Siste";
@@ -273,6 +276,9 @@
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
+
+/* No comment provided by engineer. */
+"Open Changelog" = "Åpne endringslogg";
 
 /* No comment provided by engineer. */
 "Other settings" = "Andre settinger";
@@ -368,9 +374,6 @@
 "Server: " = "Tjener:";
 
 /* No comment provided by engineer. */
-"Settings" = "Innstillinger";
-
-/* No comment provided by engineer. */
 "Shell commands" = "Skall kommando";
 
 /* No comment provided by engineer. */
@@ -378,9 +381,6 @@
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
-
-/* No comment provided by engineer. */
-"Ssh" = "Ssh";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synkronisere";
