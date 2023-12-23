@@ -32,6 +32,11 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var outputfromrsync: [String]?
     // True if data to synchronize
     var datatosynchronize: Bool
+    // Ask if synchronizing so much data
+    // is true or not. If not either yes,
+    // new task or no if like server is not
+    // online.
+    var confirmsynchronize: Bool = false
 
     init(hiddenID: Int?,
          outputfromrsync: [String]?,
