@@ -8,6 +8,7 @@
 // swiftlint:disable line_length
 
 import Foundation
+import OSLog
 
 struct RemoteDataNumbers: Identifiable, Hashable {
     var id: Configuration.ID
@@ -36,7 +37,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     // is true or not. If not either yes,
     // new task or no if like server is not
     // online.
-    var confirmsynchronize: Bool = false
+    var confirmsynchronize: Bool
 
     init(hiddenID: Int?,
          outputfromrsync: [String]?,
@@ -64,6 +65,13 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             datatosynchronize = true
         } else {
             datatosynchronize = false
+        }
+        if totalNumber == "0", (outputfromrsync?.count ?? 0) - (Int(newfiles) ?? 0) < 30 {
+            confirmsynchronize = true
+            Logger.process.info("RemoteDataNumbers: confirmsynchronize - TRUE")
+        } else {
+            confirmsynchronize = false
+            Logger.process.info("RemoteDataNumbers: confirmsynchronize - FALSE")
         }
     }
 }
