@@ -19,6 +19,8 @@ struct SummarizedAllDetailsView: View {
     @State private var focusstartexecution: Bool = false
     @State private var nodatatosynchronize: Bool = false
 
+    @State private var isPresentingConfirm: Bool = false
+
     var body: some View {
         VStack {
             HStack {
@@ -128,13 +130,24 @@ struct SummarizedAllDetailsView: View {
             .toolbar(content: {
                 ToolbarItem {
                     Button {
-                        path.removeAll()
-                        path.append(Tasks(task: .executestimatedview))
+                        isPresentingConfirm = estimateprogressdetails.confirmexecutetasks()
+                        if isPresentingConfirm == false {
+                            path.removeAll()
+                            path.append(Tasks(task: .executestimatedview))
+                        }
                     } label: {
                         Image(systemName: "arrowshape.turn.up.left.fill")
                             .foregroundColor(Color(.blue))
                     }
                     .help("Synchronize (⌘R)")
+                    .confirmationDialog("Synchronize tasks?",
+                                        isPresented: $isPresentingConfirm)
+                    {
+                        Button("Synchronize", role: .destructive) {
+                            path.removeAll()
+                            path.append(Tasks(task: .executestimatedview))
+                        }
+                    }
                 }
             })
             .focusedSceneValue(\.startexecution, $focusstartexecution)

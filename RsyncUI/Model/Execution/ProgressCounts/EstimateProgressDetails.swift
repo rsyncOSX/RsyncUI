@@ -110,6 +110,11 @@ final class EstimateProgressDetails {
         return estimatedlist
     }
 
+    func confirmexecutetasks() -> Bool {
+        let filterconfirm = estimatedlist?.filter { $0.confirmsynchronize == true }
+        return filterconfirm?.count ?? 0 > 0
+    }
+
     deinit {
         // print("deinit InprogressCountMultipleTasks")
     }
