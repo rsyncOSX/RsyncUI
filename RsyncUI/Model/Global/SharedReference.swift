@@ -89,11 +89,14 @@ class SharedReference {
     // If firstime use
     var firsttime = false
     // Used within Tasks for periodic sync of data
+    // Not used
     var workitem: DispatchWorkItem?
     // Timer is disabled in code
+    // Not used
     var timervalue: Double?
-    // Use NavigationStack
-    // var usenavigationstack: Bool = true
+    // Confirm execution
+    // A safety rule
+    var confirmexecutetasks: Bool = true
 
     private init() {
         synctasks = Set<String>()
