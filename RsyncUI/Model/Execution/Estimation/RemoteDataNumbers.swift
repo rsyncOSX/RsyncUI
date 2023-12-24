@@ -66,7 +66,9 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         } else {
             datatosynchronize = false
         }
-        if totalNumber == "0", (outputfromrsync?.count ?? 0) - (Int(newfiles) ?? 0) < 30 {
+        if totalNumber == "0", deletefiles == "0",
+           (outputfromrsync?.count ?? 0) - (Int(newfiles) ?? 0) < 30
+        {
             confirmsynchronize = true
             Logger.process.info("RemoteDataNumbers: confirmsynchronize - TRUE")
         } else {
