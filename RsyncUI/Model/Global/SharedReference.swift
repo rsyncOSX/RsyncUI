@@ -88,12 +88,6 @@ class SharedReference {
     let defaultprofile = "Default profile"
     // If firstime use
     var firsttime = false
-    // Used within Tasks for periodic sync of data
-    // Not used
-    var workitem: DispatchWorkItem?
-    // Timer is disabled in code
-    // Not used
-    var timervalue: Double?
     // Confirm execution
     // A safety rule
     var confirmexecutetasks: Bool = true

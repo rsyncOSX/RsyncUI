@@ -172,7 +172,6 @@
 		E9DE1DB22B23993A0077B935 /* AboutPanelCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE1DB12B23993A0077B935 /* AboutPanelCommand.swift */; };
 		E9E811F92669E2EA0049E672 /* ObservablePreandPostTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E811F82669E2EA0049E672 /* ObservablePreandPostTask.swift */; };
 		E9E9CD2526779E2600EB377B /* ExecuteCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */; };
-		E9EA4EA329DAA0EF00456ADA /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EA4EA229DAA0EF00456ADA /* Counter.swift */; };
 		E9F5354C290185AA007EFAE7 /* EstimateTasksAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F5354B290185AA007EFAE7 /* EstimateTasksAsync.swift */; };
 		E9FBE7912A51C5CA0038B82D /* LogrecordSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBE7902A51C5CA0038B82D /* LogrecordSnapshot.swift */; };
 		E9FBF40D291AFB7000AAAC40 /* SnapshotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF40C291AFB7000AAAC40 /* SnapshotCommands.swift */; };
@@ -368,7 +367,6 @@
 		E9DE1DB12B23993A0077B935 /* AboutPanelCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPanelCommand.swift; sourceTree = "<group>"; };
 		E9E811F82669E2EA0049E672 /* ObservablePreandPostTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePreandPostTask.swift; sourceTree = "<group>"; };
 		E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteCommands.swift; sourceTree = "<group>"; };
-		E9EA4EA229DAA0EF00456ADA /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		E9F5354B290185AA007EFAE7 /* EstimateTasksAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTasksAsync.swift; sourceTree = "<group>"; };
 		E9FBE7902A51C5CA0038B82D /* LogrecordSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogrecordSnapshot.swift; sourceTree = "<group>"; };
 		E9FBF40C291AFB7000AAAC40 /* SnapshotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCommands.swift; sourceTree = "<group>"; };
@@ -640,7 +638,6 @@
 				E9AE41452AFF5A8A00F3D562 /* ExecuteEstimatedTasksView.swift */,
 				E9AE41472AFF5AAA00F3D562 /* ExecuteNoestimatedTasksView.swift */,
 				E954AD422AFE901200F3EA63 /* TasksView.swift */,
-				E9EA4EA229DAA0EF00456ADA /* Counter.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -1246,7 +1243,6 @@
 				E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */,
 				E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */,
 				E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */,
-				E9EA4EA329DAA0EF00456ADA /* Counter.swift in Sources */,
 				E985C77225F3AD9700CB895C /* Logfile.swift in Sources */,
 				E98341BF2ACBBE1200F175B1 /* RsyncProcessAsyncShellOut.swift in Sources */,
 				E9C8E0CC2B2D9BB50083D1CC /* SidebarLogsView.swift in Sources */,
