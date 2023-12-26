@@ -32,7 +32,6 @@ struct DecodeUserConfiguration: Codable {
     let checkforerrorinrsyncoutput: Int?
     // Automatic execute
     let automaticexecute: Int?
-    var automaticexecutetime: String?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -50,7 +49,6 @@ struct DecodeUserConfiguration: Codable {
         case environmentvalue
         case checkforerrorinrsyncoutput
         case automaticexecute
-        case automaticexecutetime
     }
 
     init(from decoder: Decoder) throws {
@@ -70,7 +68,6 @@ struct DecodeUserConfiguration: Codable {
         environmentvalue = try values.decodeIfPresent(String.self, forKey: .environmentvalue)
         checkforerrorinrsyncoutput = try values.decodeIfPresent(Int.self, forKey: .checkforerrorinrsyncoutput)
         automaticexecute = try values.decodeIfPresent(Int.self, forKey: .automaticexecute)
-        automaticexecutetime = try values.decodeIfPresent(String.self, forKey: .automaticexecutetime)
     }
 
     init(_ userconfiguration: UserConfiguration) {
@@ -89,6 +86,5 @@ struct DecodeUserConfiguration: Codable {
         environmentvalue = userconfiguration.environmentvalue
         checkforerrorinrsyncoutput = userconfiguration.checkforerrorinrsyncoutput
         automaticexecute = userconfiguration.automaticexecute
-        automaticexecutetime = userconfiguration.automaticexecutetime
     }
 }

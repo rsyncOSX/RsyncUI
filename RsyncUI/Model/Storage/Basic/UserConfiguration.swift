@@ -34,7 +34,6 @@ struct UserConfiguration: Codable {
     var checkforerrorinrsyncoutput: Int = -1
     // Automatic execution
     var automaticexecute: Int?
-    var automaticexecutetime: String = "10"
     // NavigationStack
     var usenavigationstack: Int?
 
@@ -106,9 +105,6 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.automaticexecute = false
         }
-        if Int(automaticexecutetime) ?? 0 > 0 {
-            SharedReference.shared.automaticexecutetime = Int(automaticexecutetime) ?? 0
-        }
     }
 
     // Used when reading JSON data from store
@@ -129,7 +125,6 @@ struct UserConfiguration: Codable {
         environmentvalue = data.environmentvalue
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
         automaticexecute = data.automaticexecute ?? -1
-        automaticexecutetime = data.automaticexecutetime ?? "10"
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -200,7 +195,6 @@ struct UserConfiguration: Codable {
         } else {
             automaticexecute = -1
         }
-        automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
     }
 }
 

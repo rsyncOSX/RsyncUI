@@ -36,7 +36,6 @@ final class ObservableUsersetting {
     var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Automatic execution of estimated tasks
     var automaticexecute: Bool = SharedReference.shared.automaticexecute
-    var automaticexecutetime = String(SharedReference.shared.automaticexecutetime)
     // alert about error
     var error: Error = Validatedpath.noerror
     var alerterror: Bool = false
@@ -106,18 +105,6 @@ final class ObservableUsersetting {
             let verified = try verifystringtoint(days)
             if verified {
                 SharedReference.shared.marknumberofdayssince = Int(days) ?? 5
-            }
-        } catch let e {
-            error = e
-            alerterror = true
-        }
-    }
-
-    func automaticexecute(seconds: String) {
-        do {
-            let verified = try verifystringtoint(seconds)
-            if verified {
-                SharedReference.shared.automaticexecutetime = Int(seconds) ?? 5
             }
         } catch let e {
             error = e

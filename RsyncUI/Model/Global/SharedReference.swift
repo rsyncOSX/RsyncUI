@@ -42,9 +42,6 @@ class SharedReference {
     var sshkeypathandidentityfile: String?
     // Check for error in output from rsync
     var checkforerrorinrsyncoutput: Bool = false
-    // Automatic execute
-    var automaticexecute: Bool = false
-    var automaticexecutetime: Int = 10
     // Check for network changes
     var monitornetworkconnection: Bool = false
     // Download URL if new version is avaliable
@@ -91,6 +88,8 @@ class SharedReference {
     // Confirm execution
     // A safety rule
     var confirmexecutetasks: Bool = true
+    // Automatic execute
+    var automaticexecute: Bool = false
 
     private init() {
         synctasks = Set<String>()
