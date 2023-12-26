@@ -99,8 +99,7 @@ struct UserConfiguration: Codable {
             SharedReference.shared.checkforerrorinrsyncoutput = false
         }
         if confirmexecute == 1 {
-            // Disabled - set to false anyway
-            SharedReference.shared.confirmexecute = false
+            SharedReference.shared.confirmexecute = true
         } else {
             SharedReference.shared.confirmexecute = false
         }

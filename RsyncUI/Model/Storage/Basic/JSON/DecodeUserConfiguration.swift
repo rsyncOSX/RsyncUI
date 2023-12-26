@@ -30,7 +30,7 @@ struct DecodeUserConfiguration: Codable {
     let environment: String?
     let environmentvalue: String?
     let checkforerrorinrsyncoutput: Int?
-    // Automatic execute
+    // Confirm execute
     let confirmexecute: Int?
 
     enum CodingKeys: String, CodingKey {
