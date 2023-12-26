@@ -117,16 +117,11 @@ struct Usersettings: View {
                                         .onChange(of: usersettings.checkforerrorinrsyncoutput) {
                                             SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
                                         }
-                                    /*
-                                                                        HStack {
-                                                                            ToggleViewDefault(NSLocalizedString("Automatic execute :", comment: ""), $usersettings.automaticexecute)
-                                                                                .onChange(of: usersettings.automaticexecute) {
-                                                                                    SharedReference.shared.automaticexecute = usersettings.automaticexecute
-                                                                                }
 
-                                                                            setautomaticexecutetime
-                                                                        }
-                                     */
+                                    ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
+                                        .onChange(of: usersettings.confirmexecute) {
+                                            SharedReference.shared.confirmexecute = usersettings.confirmexecute
+                                        }
                                 }
                             }
                         }

@@ -35,7 +35,7 @@ final class ObservableUsersetting {
     // Check for "error" in output from rsync
     var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Automatic execution of estimated tasks
-    var automaticexecute: Bool = SharedReference.shared.automaticexecute
+    var confirmexecute: Bool = SharedReference.shared.confirmexecute
     // alert about error
     var error: Error = Validatedpath.noerror
     var alerterror: Bool = false

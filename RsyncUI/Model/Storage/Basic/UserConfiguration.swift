@@ -33,7 +33,7 @@ struct UserConfiguration: Codable {
     // Check for error in output from rsync
     var checkforerrorinrsyncoutput: Int = -1
     // Automatic execution
-    var automaticexecute: Int?
+    var confirmexecute: Int?
     // NavigationStack
     var usenavigationstack: Int?
 
@@ -98,12 +98,11 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.checkforerrorinrsyncoutput = false
         }
-        if automaticexecute == 1 {
-            // SharedReference.shared.automaticexecute = true
+        if confirmexecute == 1 {
             // Disabled - set to false anyway
-            SharedReference.shared.automaticexecute = false
+            SharedReference.shared.confirmexecute = false
         } else {
-            SharedReference.shared.automaticexecute = false
+            SharedReference.shared.confirmexecute = false
         }
     }
 
@@ -124,7 +123,7 @@ struct UserConfiguration: Codable {
         environment = data.environment
         environmentvalue = data.environmentvalue
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
-        automaticexecute = data.automaticexecute ?? -1
+        confirmexecute = data.confirmexecute ?? -1
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -190,10 +189,10 @@ struct UserConfiguration: Codable {
         } else {
             checkforerrorinrsyncoutput = -1
         }
-        if SharedReference.shared.automaticexecute == true {
-            automaticexecute = 1
+        if SharedReference.shared.confirmexecute == true {
+            confirmexecute = 1
         } else {
-            automaticexecute = -1
+            confirmexecute = -1
         }
     }
 }

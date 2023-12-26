@@ -89,7 +89,7 @@ class SharedReference {
     // A safety rule
     var confirmexecutetasks: Bool = true
     // Automatic execute
-    var automaticexecute: Bool = false
+    var confirmexecute: Bool = false
 
     private init() {
         synctasks = Set<String>()
