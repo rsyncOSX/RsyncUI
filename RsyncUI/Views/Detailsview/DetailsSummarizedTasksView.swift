@@ -128,7 +128,7 @@ struct SummarizedAllDetailsView: View {
                 }
             }
             .toolbar(content: {
-                if SharedReference.shared.confirmexecutetasks {
+                if SharedReference.shared.confirmexecute {
                     ToolbarItem {
                         Button {
                             isPresentingConfirm = estimateprogressdetails.confirmexecutetasks()
