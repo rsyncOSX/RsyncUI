@@ -121,7 +121,7 @@ struct TasksView: View {
                     selecteduuids.removeAll()
                     reset()
                 } label: {
-                    Image(systemName: "eraser")
+                    Image(systemName: "trash.fill")
                 }
                 .help("Reset estimates")
             }
@@ -155,7 +155,7 @@ struct TasksView: View {
                 Button {
                     path.append(Tasks(task: .viewlogfile))
                 } label: {
-                    Image(systemName: "filemenu.and.cursorarrow")
+                    Image(systemName: "doc.plaintext")
                 }
                 .help("View logfile")
             }

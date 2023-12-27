@@ -96,7 +96,7 @@ struct LogsbyConfigurationView: View {
                     selectedloguuids.removeAll()
                     selecteduuids.removeAll()
                 } label: {
-                    Image(systemName: "eraser")
+                    Image(systemName: "trash.fill")
                 }
                 .help("Reset selections")
             }
