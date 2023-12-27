@@ -76,6 +76,7 @@ struct AddProfileView: View {
 
 extension AddProfileView {
     func createprofile() {
+        guard newdata.newprofile != "" else { return }
         newdata.createprofile()
         profilenames.update()
         selectedprofile = newdata.selectedprofile
