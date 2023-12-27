@@ -167,6 +167,7 @@
 		E9C8E0CC2B2D9BB50083D1CC /* SidebarLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */; };
 		E9D1AFE62A2E49B600AD8125 /* ListofTasksLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */; };
+		E9D317D02B3C09B9000B8FC9 /* HomeCatalogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D317CF2B3C09B9000B8FC9 /* HomeCatalogsView.swift */; };
 		E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */; };
 		E9D94DB6294B9409007C21D2 /* Assist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D94DB5294B9409007C21D2 /* Assist.swift */; };
 		E9DE1DB22B23993A0077B935 /* AboutPanelCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE1DB12B23993A0077B935 /* AboutPanelCommand.swift */; };
@@ -362,6 +363,7 @@
 		E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarLogsView.swift; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableSSH.swift; sourceTree = "<group>"; };
 		E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksLightView.swift; sourceTree = "<group>"; };
+		E9D317CF2B3C09B9000B8FC9 /* HomeCatalogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCatalogsView.swift; sourceTree = "<group>"; };
 		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
 		E9D94DB5294B9409007C21D2 /* Assist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assist.swift; sourceTree = "<group>"; };
 		E9DE1DB12B23993A0077B935 /* AboutPanelCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPanelCommand.swift; sourceTree = "<group>"; };
@@ -626,6 +628,7 @@
 				E985C64A25F3AD8400CB895C /* EditValue.swift */,
 				E9168C082615AB8500B139CE /* AddPreandPostView.swift */,
 				E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */,
+				E9D317CF2B3C09B9000B8FC9 /* HomeCatalogsView.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -1305,6 +1308,7 @@
 				E985C79325F3AD9700CB895C /* Rsyncversion.swift in Sources */,
 				E96AA40D2A9923F40031B1C3 /* ListofTasksAddView.swift in Sources */,
 				E985C73625F3AD9700CB895C /* SetandValidatepathforrsync.swift in Sources */,
+				E9D317D02B3C09B9000B8FC9 /* HomeCatalogsView.swift in Sources */,
 				E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */,
 				E954AD412AFE8FBB00F3EA63 /* DetailsSummarizedTasksView.swift in Sources */,
 				E93878C52B273666009574CD /* AddProfileView.swift in Sources */,

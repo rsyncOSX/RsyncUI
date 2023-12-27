@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case profileview, shelltaskview
+    case profileview, shelltaskview, homecatalogs
     var id: String { rawValue }
 }
 
@@ -76,16 +76,17 @@ struct AddTaskView: View {
                             VStack(alignment: .leading) { remoteuserandserver }
 
                             Spacer()
+                            /*
+                                                        HStack {
+                                                            localcatalogspicker
 
-                            HStack {
-                                localcatalogspicker
+                                                            remoteuserpicker
 
-                                remoteuserpicker
+                                                            remoteserverpicker
+                                                        }
 
-                                remoteserverpicker
-                            }
-
-                            Spacer()
+                                                        Spacer()
+                             */
                         }
 
                         // Column 2
@@ -193,6 +194,15 @@ struct AddTaskView: View {
 
                 ToolbarItem {
                     Button {
+                        path.append(AddTasks(task: .homecatalogs))
+                    } label: {
+                        Image(systemName: "house.fill")
+                    }
+                    .help("Home catalogs")
+                }
+
+                ToolbarItem {
+                    Button {
                         path.append(AddTasks(task: .profileview))
                     } label: {
                         Image(systemName: "arrow.triangle.branch")
@@ -221,6 +231,26 @@ struct AddTaskView: View {
                            reload: $reload)
         case .shelltaskview:
             AddPreandPostView(profilenames: profilenames, selectedprofile: $selectedprofile, reload: $reload)
+        case .homecatalogs:
+            HomeCatalogsView(catalog: $newdata.assistlocalcatalog,
+                             path: $path,
+                             homecatalogs: {
+                                 if let atpath = NamesandPaths(.configurations).userHomeDirectoryPath {
+                                     var catalogs = [Catalognames]()
+                                     do {
+                                         for folders in try Folder(path: atpath).subfolders {
+                                             catalogs.append(Catalognames(folders.name))
+                                         }
+                                         return catalogs
+                                     } catch {
+                                         return []
+                                     }
+                                 }
+                                 return []
+                             }())
+                .onChange(of: newdata.assistlocalcatalog) {
+                    newdata.assistfunclocalcatalog(newdata.assistlocalcatalog)
+                }
         }
     }
 
@@ -436,63 +466,64 @@ struct AddTaskView: View {
         return rsyncUIdata.getallconfigurations()
     }
 
-    var localcatalogspicker: some View {
-        VStack(alignment: .trailing) {
-            Text("Local catalogs")
-                .font(Font.footnote)
-            Picker("", selection: $newdata.assistlocalcatalog) {
-                Text("").tag("")
-                ForEach(assist.catalogs.sorted(by: <), id: \.self) { catalog in
-                    Text(catalog)
-                        .tag(catalog)
-                }
-            }
-            .frame(width: 93)
-            .accentColor(.blue)
-            .onChange(of: newdata.assistlocalcatalog) {
-                newdata.assistfunclocalcatalog(newdata.assistlocalcatalog)
-            }
-        }
-    }
+    /*
+     var localcatalogspicker: some View {
+         VStack(alignment: .trailing) {
+             Text("Local catalogs")
+                 .font(Font.footnote)
+             Picker("", selection: $newdata.assistlocalcatalog) {
+                 Text("").tag("")
+                 ForEach(assist.catalogs.sorted(by: <), id: \.self) { catalog in
+                     Text(catalog)
+                         .tag(catalog)
+                 }
+             }
+             .frame(width: 93)
+             .accentColor(.blue)
+             .onChange(of: newdata.assistlocalcatalog) {
+                 newdata.assistfunclocalcatalog(newdata.assistlocalcatalog)
+             }
+         }
+     }
 
-    var remoteuserpicker: some View {
-        VStack(alignment: .trailing) {
-            Text("Remote user")
-                .font(Font.footnote)
-            Picker("", selection: $newdata.assistremoteuser) {
-                Text("").tag("")
-                ForEach(assist.remoteusers.sorted(by: <), id: \.self) { remoteuser in
-                    Text(remoteuser)
-                        .tag(remoteuser)
-                }
-            }
-            .frame(width: 93)
-            .accentColor(.blue)
-            .onChange(of: newdata.assistremoteuser) {
-                newdata.assistfuncremoteuser(newdata.assistremoteuser)
-            }
-        }
-    }
+     var remoteuserpicker: some View {
+         VStack(alignment: .trailing) {
+             Text("Remote user")
+                 .font(Font.footnote)
+             Picker("", selection: $newdata.assistremoteuser) {
+                 Text("").tag("")
+                 ForEach(assist.remoteusers.sorted(by: <), id: \.self) { remoteuser in
+                     Text(remoteuser)
+                         .tag(remoteuser)
+                 }
+             }
+             .frame(width: 93)
+             .accentColor(.blue)
+             .onChange(of: newdata.assistremoteuser) {
+                 newdata.assistfuncremoteuser(newdata.assistremoteuser)
+             }
+         }
+     }
 
-    var remoteserverpicker: some View {
-        VStack(alignment: .trailing) {
-            Text("Remote server")
-                .font(Font.footnote)
-            Picker("", selection: $newdata.assistremoteserver) {
-                Text("").tag("")
-                ForEach(assist.remoteservers.sorted(by: <), id: \.self) { remoteserver in
-                    Text(remoteserver)
-                        .tag(remoteserver)
-                }
-            }
-            .frame(width: 93)
-            .accentColor(.blue)
-            .onChange(of: newdata.assistremoteserver) {
-                newdata.assistfuncremoteserver(newdata.assistremoteserver)
-            }
-        }
-    }
-
+     var remoteserverpicker: some View {
+         VStack(alignment: .trailing) {
+             Text("Remote server")
+                 .font(Font.footnote)
+             Picker("", selection: $newdata.assistremoteserver) {
+                 Text("").tag("")
+                 ForEach(assist.remoteservers.sorted(by: <), id: \.self) { remoteserver in
+                     Text(remoteserver)
+                         .tag(remoteserver)
+                 }
+             }
+             .frame(width: 93)
+             .accentColor(.blue)
+             .onChange(of: newdata.assistremoteserver) {
+                 newdata.assistfuncremoteserver(newdata.assistremoteserver)
+             }
+         }
+     }
+     */
     var labelprofiletask: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
@@ -512,9 +543,11 @@ struct AddTaskView: View {
         return items
     }
 
-    var assist: Assist {
-        return Assist(configurations: rsyncUIdata.getallconfigurations())
-    }
+    /*
+     var assist: Assist {
+         return Assist(configurations: rsyncUIdata.getallconfigurations())
+     }
+      */
 }
 
 extension AddTaskView {
