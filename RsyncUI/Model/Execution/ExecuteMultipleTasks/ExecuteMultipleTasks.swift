@@ -100,13 +100,6 @@ extension ExecuteMultipleTasks {
         // When creating the logrecord, decrease the snapshotum by 1
         configrecords.append((privatehiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((privatehiddenID ?? -1, Numbers(data ?? []).stats()))
-        /*
-         // Log records
-         let record = RemoteDataNumbers(hiddenID: privatehiddenID,
-                                        outputfromrsync: outputfromrsync,
-                                        config: localconfigurations?.getconfig(hiddenID: privatehiddenID ?? -1))
-         records?.append(record)
-          */
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: privatehiddenID,
