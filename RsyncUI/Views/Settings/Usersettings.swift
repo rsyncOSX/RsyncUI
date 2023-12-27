@@ -167,7 +167,7 @@ struct Usersettings: View {
                 Button {
                     saveusersettings()
                 } label: {
-                    Image(systemName: "square.and.pencil")
+                    Image(systemName: "square.and.arrow.down.fill")
                         .foregroundColor(Color(.blue))
                         .imageScale(.large)
                 }
