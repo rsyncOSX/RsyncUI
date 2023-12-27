@@ -38,6 +38,8 @@ struct QuicktaskView: View {
     // Completed task
     @State private var completed: Bool = false
 
+    let assist: Assist
+
     var choosecatalog = true
 
     enum QuicktaskField: Hashable {
@@ -135,15 +137,20 @@ struct QuicktaskView: View {
         }
     }
 
+    /*
+     ForEach(PlanSnapshots.allCases) { Text($0.description)
+         .tag($0)
+     }
+     */
+
     var remoteuserpicker: some View {
         VStack(alignment: .trailing) {
             Text("Remote user")
                 .font(Font.footnote)
             Picker("", selection: $remoteuser) {
-                Text("").tag("")
-                ForEach(assist.remoteusers.sorted(by: <), id: \.self) { remoteuser in
-                    Text(remoteuser)
-                        .tag(remoteuser)
+                ForEach(assist.remoteusers) {
+                    Text($0.name ?? "")
+                        .tag($0)
                 }
             }
             .frame(width: 93)
@@ -157,9 +164,9 @@ struct QuicktaskView: View {
                 .font(Font.footnote)
             Picker("", selection: $remoteserver) {
                 Text("").tag("")
-                ForEach(assist.remoteservers.sorted(by: <), id: \.self) { remoteserver in
-                    Text(remoteserver)
-                        .tag(remoteserver)
+                ForEach(assist.remoteservers) { remoteserver in
+                    Text(remoteserver.name ?? "")
+                        .tag(remoteserver.name)
                 }
             }
             .frame(width: 93)
@@ -270,10 +277,6 @@ struct QuicktaskView: View {
                 .textContentType(.none)
                 .submitLabel(.return)
         }
-    }
-
-    var assist: Assist {
-        return Assist(configurations: rsyncUIdata.configurations)
     }
 }
 
