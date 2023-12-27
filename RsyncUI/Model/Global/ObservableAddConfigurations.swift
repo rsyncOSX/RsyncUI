@@ -250,7 +250,12 @@ final class ObservableAddConfigurations {
 
     func assistfunclocalcatalog(_ localcatalog: String) {
         guard localcatalog.isEmpty == false else { return }
-        remotecatalog = "/mounted_Volume/" + localcatalog
+        if let mounted = attachedVolumes() {
+            let urlcomponent = mounted[0]
+            remotecatalog = urlcomponent.path() + localcatalog
+        } else {
+            remotecatalog = "/mounted_Volume/" + localcatalog
+        }
         self.localcatalog = localhome + "/" + localcatalog
     }
 
@@ -295,6 +300,25 @@ final class ObservableAddConfigurations {
                                  configurations: configurations)
         updateconfigurations.writecopyandpastetask(copyandpasteconfigurations)
         reload = true
+    }
+
+    func attachedVolumes() -> [URL]? {
+        let keys: [URLResourceKey] = [.volumeNameKey, .volumeIsRemovableKey, .volumeIsEjectableKey]
+        let paths = FileManager().mountedVolumeURLs(includingResourceValuesForKeys: keys, options: [])
+        var volumesarray = [URL]()
+        if let urls = paths {
+            for url in urls {
+                let components = url.pathComponents
+                if components.count > 1, components[1] == "Volumes" {
+                    volumesarray.append(url)
+                }
+            }
+        }
+        if volumesarray.count > 0 {
+            return volumesarray
+        } else {
+            return nil
+        }
     }
 }
 

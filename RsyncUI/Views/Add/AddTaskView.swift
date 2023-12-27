@@ -76,17 +76,6 @@ struct AddTaskView: View {
                             VStack(alignment: .leading) { remoteuserandserver }
 
                             Spacer()
-                            /*
-                                                        HStack {
-                                                            localcatalogspicker
-
-                                                            remoteuserpicker
-
-                                                            remoteserverpicker
-                                                        }
-
-                                                        Spacer()
-                             */
                         }
 
                         // Column 2
@@ -466,64 +455,6 @@ struct AddTaskView: View {
         return rsyncUIdata.getallconfigurations()
     }
 
-    /*
-     var localcatalogspicker: some View {
-         VStack(alignment: .trailing) {
-             Text("Local catalogs")
-                 .font(Font.footnote)
-             Picker("", selection: $newdata.assistlocalcatalog) {
-                 Text("").tag("")
-                 ForEach(assist.catalogs.sorted(by: <), id: \.self) { catalog in
-                     Text(catalog)
-                         .tag(catalog)
-                 }
-             }
-             .frame(width: 93)
-             .accentColor(.blue)
-             .onChange(of: newdata.assistlocalcatalog) {
-                 newdata.assistfunclocalcatalog(newdata.assistlocalcatalog)
-             }
-         }
-     }
-
-     var remoteuserpicker: some View {
-         VStack(alignment: .trailing) {
-             Text("Remote user")
-                 .font(Font.footnote)
-             Picker("", selection: $newdata.assistremoteuser) {
-                 Text("").tag("")
-                 ForEach(assist.remoteusers.sorted(by: <), id: \.self) { remoteuser in
-                     Text(remoteuser)
-                         .tag(remoteuser)
-                 }
-             }
-             .frame(width: 93)
-             .accentColor(.blue)
-             .onChange(of: newdata.assistremoteuser) {
-                 newdata.assistfuncremoteuser(newdata.assistremoteuser)
-             }
-         }
-     }
-
-     var remoteserverpicker: some View {
-         VStack(alignment: .trailing) {
-             Text("Remote server")
-                 .font(Font.footnote)
-             Picker("", selection: $newdata.assistremoteserver) {
-                 Text("").tag("")
-                 ForEach(assist.remoteservers.sorted(by: <), id: \.self) { remoteserver in
-                     Text(remoteserver)
-                         .tag(remoteserver)
-                 }
-             }
-             .frame(width: 93)
-             .accentColor(.blue)
-             .onChange(of: newdata.assistremoteserver) {
-                 newdata.assistfuncremoteserver(newdata.assistremoteserver)
-             }
-         }
-     }
-     */
     var labelprofiletask: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
@@ -542,12 +473,6 @@ struct AddTaskView: View {
         }
         return items
     }
-
-    /*
-     var assist: Assist {
-         return Assist(configurations: rsyncUIdata.getallconfigurations())
-     }
-      */
 }
 
 extension AddTaskView {
