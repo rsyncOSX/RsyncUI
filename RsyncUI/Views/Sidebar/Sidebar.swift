@@ -70,7 +70,7 @@ struct Sidebar: View {
         case .synchronize:
             SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
         case .quick_synchronize:
-            QuicktaskView(assist: Assist(configurations: rsyncUIdata.configurations))
+            QuicktaskView(userserver: UserServer(configurations: rsyncUIdata.configurations))
         }
     }
 }
