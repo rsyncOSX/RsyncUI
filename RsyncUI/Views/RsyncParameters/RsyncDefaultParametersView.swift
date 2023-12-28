@@ -74,7 +74,7 @@ struct RsyncDefaultParametersView: View {
                     saversyncparameters()
                     path.removeAll()
                 } label: {
-                    Image(systemName: "square.and.pencil")
+                    Image(systemName: "square.and.arrow.down.fill")
                         .foregroundColor(Color(.blue))
                 }
                 .help("Update task")

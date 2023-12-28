@@ -159,7 +159,7 @@ struct RsyncParametersView: View {
                 Button {
                     saversyncparameters()
                 } label: {
-                    Image(systemName: "square.and.pencil")
+                    Image(systemName: "square.and.arrow.down.fill")
                         .foregroundColor(Color(.blue))
                 }
                 .help("Update task")
