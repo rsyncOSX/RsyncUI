@@ -1,21 +1,3 @@
-/* No comment provided by engineer. */
-"1 hour" = "1 Stunde";
-
-/* No comment provided by engineer. */
-"1 min" = "1 Minute";
-
-/* No comment provided by engineer. */
-"5 min" = "5 Minute";
-
-/* No comment provided by engineer. */
-"10 min" = "10 Minute";
-
-/* No comment provided by engineer. */
-"30 min" = "30 Minute";
-
-/* No comment provided by engineer. */
-"45 min" = "45 Minute";
-
 /* (No Comment) */
 "Abort" = "Abbrechen";
 
@@ -63,9 +45,6 @@
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
-
-/* No comment provided by engineer. */
-"Automatic execute :" = "Automatische Synchronisierung:";
 
 /* No comment provided by engineer. */
 "Backup" = "Sichern";
@@ -134,9 +113,6 @@
 "Detailed log level" = "Detaillierte Protokollebene";
 
 /* No comment provided by engineer. */
-"Dismiss" = "Verwerfen";
-
-/* No comment provided by engineer. */
 "Don´t add /" = "Nicht hinzufügen/";
 
 /* No comment provided by engineer. */
@@ -194,6 +170,9 @@
 "Halt on error" = "Bei Fehler stoppen";
 
 /* No comment provided by engineer. */
+"Home catalogs" = "Hauskataloge";
+
+/* No comment provided by engineer. */
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
 /* No comment provided by engineer. */
@@ -213,9 +192,6 @@
 
 /* No comment provided by engineer. */
 "Local catalog: " = "Lokaler Katalog:";
-
-/* No comment provided by engineer. */
-"Local catalogs" = "Lokaler Katalogs";
 
 /* No comment provided by engineer. */
 "Local ssh keys are present" = "Lokale ssh schlüssel sind vorhanden";
@@ -401,6 +377,9 @@
 "Synchronize ID: " = "Synchronisierungs-ID:";
 
 /* No comment provided by engineer. */
+"Synchronize tasks?" = "Aufgaben synchronisieren?";
+
+/* No comment provided by engineer. */
 "Tag" = "Tag";
 
 /* No comment provided by engineer. */
@@ -423,9 +402,6 @@
 
 /* No comment provided by engineer. */
 "There seems to be no data to synchronize" = "Es scheinen keine Daten zum Synchronisieren vorhanden zu sein";
-
-/* No comment provided by engineer. */
-"Timer" = "Timer";
 
 /* No comment provided by engineer. */
 "Tot bytes" = "Bytes Gesamt";

@@ -1,21 +1,3 @@
-/* No comment provided by engineer. */
-"1 hour" = "1 time";
-
-/* No comment provided by engineer. */
-"1 min" = "1 min";
-
-/* No comment provided by engineer. */
-"5 min" = "5 min";
-
-/* No comment provided by engineer. */
-"10 min" = "10 min";
-
-/* No comment provided by engineer. */
-"30 min" = "30 min";
-
-/* No comment provided by engineer. */
-"45 min" = "45 min";
-
 /* (No Comment) */
 "Abort" = "Avbryt";
 
@@ -63,9 +45,6 @@
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
-
-/* No comment provided by engineer. */
-"Automatic execute :" = "Automatisk synkronisering:";
 
 /* No comment provided by engineer. */
 "Backup" = "Backup";
@@ -134,9 +113,6 @@
 "Detailed log level" = "Detaljert log nivå";
 
 /* No comment provided by engineer. */
-"Dismiss" = "Lukk";
-
-/* No comment provided by engineer. */
 "Don´t add /" = "Ikke legg til /";
 
 /* No comment provided by engineer. */
@@ -194,6 +170,9 @@
 "Halt on error" = "Stopp ved feil";
 
 /* No comment provided by engineer. */
+"Home catalogs" = "Hjemmekataloger";
+
+/* No comment provided by engineer. */
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
 
 /* No comment provided by engineer. */
@@ -213,9 +192,6 @@
 
 /* No comment provided by engineer. */
 "Local catalog: " = "Lokal katalog:";
-
-/* No comment provided by engineer. */
-"Local catalogs" = "Lokale kataloger";
 
 /* No comment provided by engineer. */
 "Local ssh keys are present" = "Lokale ssh nøkler funnet";
@@ -356,6 +332,9 @@
 "Save settings" = "Lagre innstillinger";
 
 /* No comment provided by engineer. */
+"Save usersettings" = "Lagre brukervalg";
+
+/* No comment provided by engineer. */
 "Saved" = "Lagret";
 
 /* No comment provided by engineer. */
@@ -398,6 +377,9 @@
 "Synchronize ID: " = "Synkroniserings ID:";
 
 /* No comment provided by engineer. */
+"Synchronize tasks?" = "Synkronisere oppgaver?";
+
+/* No comment provided by engineer. */
 "Tag" = "Tag";
 
 /* No comment provided by engineer. */
@@ -420,9 +402,6 @@
 
 /* No comment provided by engineer. */
 "There seems to be no data to synchronize" = "Det synes ikke å være data for synkronisering";
-
-/* No comment provided by engineer. */
-"Timer" = "Utsett";
 
 /* No comment provided by engineer. */
 "Tot bytes" = "Tot bytes";
