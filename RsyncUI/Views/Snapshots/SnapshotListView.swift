@@ -21,7 +21,7 @@ struct SnapshotListView: View {
             ContentUnavailableView {
                 Label("Select a snapshot task", systemImage: "doc.richtext.fill")
             } description: {
-                Text("If seleceted, try to search for date.")
+                Text("If seleceted, no records, try to search for other Date.")
             }
         } else {
             Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete) {
