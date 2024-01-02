@@ -34,6 +34,8 @@ struct SnapshotsView: View {
     @State private var confirmdelete: Bool = false
     // Delete is completed and reload of data
     @State private var deleteiscompleted: Bool = false
+    // Filter
+    @State private var filterstring: String = ""
 
     var body: some View {
         ZStack {
@@ -56,6 +58,7 @@ struct SnapshotsView: View {
 
                 SnapshotListView(snapshotdata: $snapshotdata,
                                  snapshotrecords: $snapshotrecords,
+                                 filterstring: $filterstring,
                                  selectedconfig: $selectedconfig)
                     .onChange(of: deleteiscompleted) {
                         if deleteiscompleted == true {
