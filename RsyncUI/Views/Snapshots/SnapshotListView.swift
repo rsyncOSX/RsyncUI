@@ -23,9 +23,10 @@ struct SnapshotListView: View {
            snapshotdata.snapshotlist == false
         {
             ContentUnavailableView {
-                Label("There are no recods by this Date or Tag", systemImage: "doc.richtext.fill")
+                Label("There are no snapshot records by this search string in Date or Tag", 
+                      systemImage: "doc.richtext.fill")
             } description: {
-                Text("Try to search for other filter")
+                Text("Change search string to filter records")
             }
         } else {
             Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete) {
