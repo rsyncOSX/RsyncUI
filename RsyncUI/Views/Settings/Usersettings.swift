@@ -14,6 +14,9 @@ struct Usersettings: View {
     @State private var backup = false
     @State private var rsyncversion = Rsyncversion()
 
+    // Rsync paths
+    @State private var defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
+
     var body: some View {
         Form {
             Spacer()
@@ -31,6 +34,10 @@ struct Usersettings: View {
                                                   $usersettings.rsyncversion3)
                                     .onChange(of: usersettings.rsyncversion3) {
                                         SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
+                                        Task {
+                                            await rsyncversion.getrsyncversion()
+                                        }
+                                        defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
                                     }
 
                                 ToggleViewDefault(NSLocalizedString("Apple Silicon", comment: ""),
@@ -41,7 +48,6 @@ struct Usersettings: View {
                             }
                         }
 
-                        // Not working
                         if usersettings.localrsyncpath.isEmpty == true {
                             setrsyncpathdefault
                         } else {
@@ -189,8 +195,7 @@ struct Usersettings: View {
     }
 
     var setrsyncpathdefault: some View {
-        EditValue(250, SetandValidatepathforrsync().getpathforrsync(),
-                  $usersettings.localrsyncpath)
+        EditValue(250, defaultpathrsync, $usersettings.localrsyncpath)
             .onChange(of: usersettings.localrsyncpath) {
                 usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
             }
@@ -248,10 +253,6 @@ struct Usersettings: View {
 extension Usersettings {
     func saveusersettings() {
         _ = WriteUserConfigurationJSON(UserConfiguration())
-        // Update the rsync version string
-        Task {
-            await rsyncversion.getrsyncversion()
-        }
         backup = true
     }
 
