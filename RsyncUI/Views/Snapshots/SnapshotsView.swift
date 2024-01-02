@@ -102,6 +102,7 @@ struct SnapshotsView: View {
                 .help("Abort (⌘K)")
             }
         })
+        .searchable(text: $filterstring)
         .padding()
     }
 

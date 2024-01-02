@@ -75,7 +75,6 @@ struct SnapshotListView: View {
             .onDeleteCommand {
                 confirmdelete = true
             }
-            .searchable(text: $filterstring)
         }
     }
 
