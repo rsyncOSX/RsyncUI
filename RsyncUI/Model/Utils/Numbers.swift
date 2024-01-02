@@ -16,6 +16,7 @@ import Foundation
 enum EnumNumbers {
     case totalNumber
     case totalDirs
+    case totalNumber_totalDirs
     case totalNumberSizebytes
     case transferredNumber
     case transferredNumberSizebytes
@@ -76,6 +77,8 @@ final class Numbers {
         case .delete:
             let num = deletefiles ?? 0
             return Int(num)
+        case .totalNumber_totalDirs:
+            return (totDir ?? 0) + (totNum ?? 0)
         }
     }
 

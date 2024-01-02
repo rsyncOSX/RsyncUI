@@ -54,15 +54,15 @@ struct DetailsOneTask: View {
                 Form {
                     HStack {
                         VStack(alignment: .trailing) {
-                            LabeledContent("New: ") {
+                            LabeledContent("New files: ") {
                                 Text(estimatedlistonetask[0].newfiles)
                                     .foregroundColor(.blue)
                             }
-                            LabeledContent("Delete: ") {
+                            LabeledContent("Delete files: ") {
                                 Text(estimatedlistonetask[0].deletefiles)
                                     .foregroundColor(.blue)
                             }
-                            LabeledContent("Files: ") {
+                            LabeledContent("Changed files: ") {
                                 Text(estimatedlistonetask[0].transferredNumber)
                                     .foregroundColor(.blue)
                             }
@@ -73,16 +73,23 @@ struct DetailsOneTask: View {
                         }
 
                         VStack(alignment: .trailing) {
-                            LabeledContent("Tot num: ") {
+                            LabeledContent("Total number of files: ") {
                                 Text(estimatedlistonetask[0].totalNumber)
                                     .foregroundColor(.blue)
                             }
-                            LabeledContent("Tot bytes: ") {
-                                Text(estimatedlistonetask[0].totalNumberSizebytes)
+
+                            LabeledContent("Total number of catalogs: ") {
+                                Text(estimatedlistonetask[0].totalDirs)
                                     .foregroundColor(.blue)
                             }
-                            LabeledContent("Tot dir: ") {
-                                Text(estimatedlistonetask[0].totalDirs)
+
+                            LabeledContent("Total numbers: ") {
+                                Text(estimatedlistonetask[0].totalNumber_totalDirs)
+                                    .foregroundColor(.blue)
+                            }
+
+                            LabeledContent("Total bytes: ") {
+                                Text(estimatedlistonetask[0].totalNumberSizebytes)
                                     .foregroundColor(.blue)
                             }
                         }
