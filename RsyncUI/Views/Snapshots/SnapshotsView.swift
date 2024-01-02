@@ -9,10 +9,9 @@ import SwiftUI
 
 struct SnapshotsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @State private var snapshotdata = SnapshotData()
-
     @Binding var reload: Bool
 
+    @State private var snapshotdata = SnapshotData()
     @State private var selectedconfig: Configuration?
     @State private var snapshotrecords: LogrecordSnapshot?
     @State private var selectedconfiguuid = Set<Configuration.ID>()
@@ -53,6 +52,7 @@ struct SnapshotsView: View {
                         } else {
                             selectedconfig = nil
                             snapshotdata.setsnapshotdata(nil)
+                            filterstring = ""
                         }
                     }
 

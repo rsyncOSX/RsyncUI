@@ -17,11 +17,15 @@ struct SnapshotListView: View {
     @State private var confirmdelete: Bool = false
 
     var body: some View {
-        if logrecords.count == 0 {
+        if logrecords.count == 0,
+           selectedconfig != nil,
+           selectedconfig?.task == SharedReference.shared.snapshot,
+           snapshotdata.snapshotlist == false
+        {
             ContentUnavailableView {
-                Label("Select a snapshot task", systemImage: "doc.richtext.fill")
+                Label("There are no recods by this Date or Tag", systemImage: "doc.richtext.fill")
             } description: {
-                Text("If seleceted, no records, try to search for other Date.")
+                Text("Try to search for other filter")
             }
         } else {
             Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete) {
@@ -79,7 +83,9 @@ struct SnapshotListView: View {
         if filterstring.isEmpty {
             return snapshotdata.getsnapshotdata() ?? []
         } else {
-            return snapshotdata.getsnapshotdata()?.filter { ($0.snapshotCatalog ?? "").contains(filterstring) } ?? []
+            return snapshotdata.getsnapshotdata()?.filter { ($0.dateExecuted).contains(filterstring) ||
+                ($0.period ?? "").contains(filterstring)
+            } ?? []
         }
     }
 
