@@ -14,8 +14,7 @@ struct DetailsOneTaskRootView: View {
 
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @State private var gettingremotedata = true
-
-    @State private var estimateddataonetask = Estimateddataonetask()
+    @State private var estimatedtask: RemoteDataNumbers?
     @State private var outputfromrsync = Outputfromrsync()
 
     let selecteduuids: Set<Configuration.ID>
@@ -24,102 +23,13 @@ struct DetailsOneTaskRootView: View {
         VStack(alignment: .leading) {
             ZStack {
                 if gettingremotedata == false {
-                    HStack {
-                        Form {
-                            VStack(alignment: .leading) {
-                                LabeledContent("Synchronize ID: ") {
-                                    if estimateddataonetask.estimatedlistonetask[0].backupID.count == 0 {
-                                        Text("Synchronize ID")
-                                            .foregroundColor(.blue)
-                                    } else {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].backupID)
-                                            .foregroundColor(.blue)
-                                    }
-                                }
-                                LabeledContent("Task: ") {
-                                    Text(estimateddataonetask.estimatedlistonetask[0].task)
-                                        .foregroundColor(.blue)
-                                }
-                                LabeledContent("Local catalog: ") {
-                                    Text(estimateddataonetask.estimatedlistonetask[0].localCatalog)
-                                        .foregroundColor(.blue)
-                                }
-                                LabeledContent("Remote catalog: ") {
-                                    Text(estimateddataonetask.estimatedlistonetask[0].offsiteCatalog)
-                                        .foregroundColor(.blue)
-                                }
-                                LabeledContent("Server: ") {
-                                    if estimateddataonetask.estimatedlistonetask[0].offsiteServer.count == 0 {
-                                        Text("localhost")
-                                            .foregroundColor(.blue)
-                                    } else {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].offsiteServer)
-                                            .foregroundColor(.blue)
-                                    }
-                                }
-                            }
-                        }
-                        .padding()
-
-                        Form {
-                            HStack {
-                                VStack(alignment: .trailing) {
-                                    LabeledContent("New: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].newfiles)
-                                            .foregroundColor(.blue)
-                                    }
-                                    LabeledContent("Delete: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].deletefiles)
-                                            .foregroundColor(.blue)
-                                    }
-                                    LabeledContent("Files: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].transferredNumber)
-                                            .foregroundColor(.blue)
-                                    }
-                                    LabeledContent("Bytes: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].transferredNumberSizebytes)
-                                            .foregroundColor(.blue)
-                                    }
-                                }
-
-                                VStack(alignment: .trailing) {
-                                    LabeledContent("Total number of files: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].totalNumber)
-                                            .foregroundColor(.blue)
-                                    }
-
-                                    LabeledContent("Total number of catalogs: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].totalDirs)
-                                            .foregroundColor(.blue)
-                                    }
-
-                                    LabeledContent("Total numbers: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].totalNumber_totalDirs)
-                                            .foregroundColor(.blue)
-                                    }
-
-                                    LabeledContent("Total bytes: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].totalNumberSizebytes)
-                                            .foregroundColor(.blue)
-                                    }
-                                }
-                            }
-                        }
-                        .padding()
+                    if let estimatedtask = estimatedtask {
+                        DetailsOneTask(estimatedtask: estimatedtask)
                     }
-                }
-            }
-
-            ZStack {
-                Table(outputfromrsync.output) {
-                    TableColumn("") { data in
-                        Text(data.line)
-                    }
-                }
-
-                if gettingremotedata {
+                } else {
                     VStack {
                         ProgressView()
+                            .padding()
                         details
                     }
                 }
@@ -166,16 +76,7 @@ extension DetailsOneTaskRootView {
                 selectedconfig = config[0]
             }
         }
-        outputfromrsync.generatedata(data)
-        estimateddataonetask.update(data: data, hiddenID: selectedconfig?.hiddenID, config: selectedconfig)
+        estimatedtask = RemoteDataNumbers(hiddenID: selectedconfig?.hiddenID, outputfromrsync: data, config: selectedconfig)
         gettingremotedata = false
-        // Adding computed estimate if later execute and view of progress
-        if estimateddataonetask.estimatedlistonetask.count == 1 {
-            estimateprogressdetails.resetcounts()
-            estimateprogressdetails.appenduuid(selectedconfig?.id ?? UUID())
-            estimateprogressdetails.appendrecordestimatedlist(estimateddataonetask.estimatedlistonetask[0])
-            estimateprogressdetails.setprofileandnumberofconfigurations(rsyncUIdata.profile ?? "Default profile",
-                                                                        rsyncUIdata.getallconfigurations()?.count ?? 0)
-        }
     }
 }

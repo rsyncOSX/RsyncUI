@@ -9,8 +9,6 @@ import Foundation
 import SwiftUI
 
 struct DetailsOneTask: View {
-    @Binding var selecteduuids: Set<Configuration.ID>
-
     let estimatedtask: RemoteDataNumbers
 
     var body: some View {
@@ -105,42 +103,12 @@ struct DetailsOneTask: View {
                 }
             }
         }
-        .onDisappear(perform: {
-            selecteduuids.removeAll()
-        })
-    }
-
-    /*
-     var estimatedlistonetask: RemoteDataNumbers {
-         let estimate = estimatedlist.filter { $0.id == selecteduuid }
-         if estimate.count == 1 {
-             return estimate[0]
-         } else {
-             return RemoteDataNumbers()
-         }
-     }
-     */
-    var selecteduuid: Configuration.ID? {
-        return selecteduuids.first
     }
 
     var outputfromrsync: Outputfromrsync {
         let data = Outputfromrsync()
         data.generatedata(estimatedtask.outputfromrsync)
         return data
-    }
-}
-
-@Observable
-final class Estimateddataonetask {
-    var estimatedlistonetask = [RemoteDataNumbers]()
-
-    func update(data: [String]?, hiddenID: Int?, config: Configuration?) {
-        let record = RemoteDataNumbers(hiddenID: hiddenID,
-                                       outputfromrsync: data,
-                                       config: config)
-        estimatedlistonetask = [RemoteDataNumbers]()
-        estimatedlistonetask.append(record)
     }
 }
 

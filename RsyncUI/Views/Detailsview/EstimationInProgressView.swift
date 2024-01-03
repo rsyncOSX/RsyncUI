@@ -61,6 +61,7 @@ struct EstimationInProgressView: View {
                 }()
             }
             .progressViewStyle(.circular)
+            .padding()
     }
 
     var details: some View {
