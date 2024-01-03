@@ -117,7 +117,12 @@ struct DetailsOneTaskRootView: View {
                     }
                 }
 
-                if gettingremotedata { AlertToast(displayMode: .alert, type: .loading) }
+                if gettingremotedata {
+                    VStack {
+                        ProgressView()
+                        details
+                    }
+                }
             }
         }
         .onAppear(perform: {
@@ -139,6 +144,14 @@ struct DetailsOneTaskRootView: View {
                 await task.executeProcess()
             }
         })
+    }
+
+    var details: some View {
+        if let config = rsyncUIdata.getconfig(uuid: selecteduuids.first) {
+            Text("Estimating now: " + "\(config.backupID)")
+        } else {
+            Text("")
+        }
     }
 }
 

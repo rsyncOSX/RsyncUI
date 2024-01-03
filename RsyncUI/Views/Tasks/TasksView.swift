@@ -138,11 +138,13 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard selecteduuids.count > 0 else { return }
+                    guard selecteduuids.count == 1 else {
+                        path.append(Tasks(task: .estimatedview))
+                        return
+                    }
                     if estimateprogressdetails.tasksareestimated(selecteduuids) {
-                        Logger.process.info("Info: view details for already estimated and selected task")
                         path.append(Tasks(task: .dryrunonetaskalreadyestimated))
                     } else {
-                        Logger.process.info("Info: iniate an execute for dryrun to view details for selected task")
                         path.append(Tasks(task: .dryrunonetask))
                     }
                 } label: {
