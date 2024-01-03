@@ -97,7 +97,7 @@ struct SnapshotsView: View {
                     Image(systemName: "square.and.arrow.down.fill")
                         .foregroundColor(Color(.blue))
                 }
-                .help("Save plan snapshot")
+                .help("Update plan snapshot")
             }
 
             ToolbarItem {
