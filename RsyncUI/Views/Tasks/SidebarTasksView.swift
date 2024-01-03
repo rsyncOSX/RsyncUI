@@ -64,8 +64,11 @@ struct SidebarTasksView: View {
                     executeprogressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
                 }
         case .dryrunonetaskalreadyestimated:
-            DetailsOneTask(estimatedlist: estimateprogressdetails.getestimatedlist() ?? [],
-                           selecteduuids: $selecteduuids)
+            if let estimates = estimateprogressdetails.getestimatedlist()?.filter({ $0.id == selecteduuids.first }) {
+                if estimates.count == 1 {
+                    DetailsOneTask(selecteduuids: $selecteduuids, estimatedtask: estimates[0])
+                }
+            }
         case .alltasksview:
             AlltasksView()
         case .viewlogfile:

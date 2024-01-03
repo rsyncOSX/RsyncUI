@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 
 struct DetailsOneTask: View {
-    let estimatedlist: [RemoteDataNumbers]
     @Binding var selecteduuids: Set<Configuration.ID>
+
+    let estimatedtask: RemoteDataNumbers
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -18,32 +19,32 @@ struct DetailsOneTask: View {
                 Form {
                     VStack(alignment: .leading) {
                         LabeledContent("Synchronize ID: ") {
-                            if estimatedlistonetask[0].backupID.count == 0 {
+                            if estimatedtask.backupID.count == 0 {
                                 Text("Synchronize ID")
                                     .foregroundColor(.blue)
                             } else {
-                                Text(estimatedlistonetask[0].backupID)
+                                Text(estimatedtask.backupID)
                                     .foregroundColor(.blue)
                             }
                         }
                         LabeledContent("Task: ") {
-                            Text(estimatedlistonetask[0].task)
+                            Text(estimatedtask.task)
                                 .foregroundColor(.blue)
                         }
                         LabeledContent("Local catalog: ") {
-                            Text(estimatedlistonetask[0].localCatalog)
+                            Text(estimatedtask.localCatalog)
                                 .foregroundColor(.blue)
                         }
                         LabeledContent("Remote catalog: ") {
-                            Text(estimatedlistonetask[0].offsiteCatalog)
+                            Text(estimatedtask.offsiteCatalog)
                                 .foregroundColor(.blue)
                         }
                         LabeledContent("Server: ") {
-                            if estimatedlistonetask[0].offsiteServer.count == 0 {
+                            if estimatedtask.offsiteServer.count == 0 {
                                 Text("localhost")
                                     .foregroundColor(.blue)
                             } else {
-                                Text(estimatedlistonetask[0].offsiteServer)
+                                Text(estimatedtask.offsiteServer)
                                     .foregroundColor(.blue)
                             }
                         }
@@ -55,41 +56,41 @@ struct DetailsOneTask: View {
                     HStack {
                         VStack(alignment: .trailing) {
                             LabeledContent("New files: ") {
-                                Text(estimatedlistonetask[0].newfiles)
+                                Text(estimatedtask.newfiles)
                                     .foregroundColor(.blue)
                             }
                             LabeledContent("Delete files: ") {
-                                Text(estimatedlistonetask[0].deletefiles)
+                                Text(estimatedtask.deletefiles)
                                     .foregroundColor(.blue)
                             }
                             LabeledContent("Changed files: ") {
-                                Text(estimatedlistonetask[0].transferredNumber)
+                                Text(estimatedtask.transferredNumber)
                                     .foregroundColor(.blue)
                             }
                             LabeledContent("Bytes: ") {
-                                Text(estimatedlistonetask[0].transferredNumberSizebytes)
+                                Text(estimatedtask.transferredNumberSizebytes)
                                     .foregroundColor(.blue)
                             }
                         }
 
                         VStack(alignment: .trailing) {
                             LabeledContent("Total number of files: ") {
-                                Text(estimatedlistonetask[0].totalNumber)
+                                Text(estimatedtask.totalNumber)
                                     .foregroundColor(.blue)
                             }
 
                             LabeledContent("Total number of catalogs: ") {
-                                Text(estimatedlistonetask[0].totalDirs)
+                                Text(estimatedtask.totalDirs)
                                     .foregroundColor(.blue)
                             }
 
                             LabeledContent("Total numbers: ") {
-                                Text(estimatedlistonetask[0].totalNumber_totalDirs)
+                                Text(estimatedtask.totalNumber_totalDirs)
                                     .foregroundColor(.blue)
                             }
 
                             LabeledContent("Total bytes: ") {
-                                Text(estimatedlistonetask[0].totalNumberSizebytes)
+                                Text(estimatedtask.totalNumberSizebytes)
                                     .foregroundColor(.blue)
                             }
                         }
@@ -109,22 +110,24 @@ struct DetailsOneTask: View {
         })
     }
 
-    var estimatedlistonetask: [RemoteDataNumbers] {
-        return estimatedlist.filter { $0.id == selecteduuid }
-    }
-
+    /*
+     var estimatedlistonetask: RemoteDataNumbers {
+         let estimate = estimatedlist.filter { $0.id == selecteduuid }
+         if estimate.count == 1 {
+             return estimate[0]
+         } else {
+             return RemoteDataNumbers()
+         }
+     }
+     */
     var selecteduuid: Configuration.ID? {
         return selecteduuids.first
     }
 
     var outputfromrsync: Outputfromrsync {
-        let output: [RemoteDataNumbers] = estimatedlist.filter { $0.id == selecteduuid }
-        if output.count > 0 {
-            let data = Outputfromrsync()
-            data.generatedata(output[0].outputfromrsync)
-            return data
-        }
-        return Outputfromrsync()
+        let data = Outputfromrsync()
+        data.generatedata(estimatedtask.outputfromrsync)
+        return data
     }
 }
 
