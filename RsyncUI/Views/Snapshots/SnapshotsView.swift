@@ -77,9 +77,6 @@ struct SnapshotsView: View {
         if focusaborttask { labelaborttask }
 
         HStack {
-            Button("Save") { updateplansnapshot() }
-                .buttonStyle(ColorfulButtonStyle())
-
             VStack(alignment: .leading) {
                 pickersnaplast
 
@@ -93,6 +90,16 @@ struct SnapshotsView: View {
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    updateplansnapshot()
+                } label: {
+                    Image(systemName: "square.and.arrow.down.fill")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Save plan snapshot")
+            }
+
             ToolbarItem {
                 Button {
                     focusaborttask = true
@@ -110,7 +117,7 @@ struct SnapshotsView: View {
         VStack(alignment: .leading) {
             Text(NSLocalizedString("Number of logrecords", comment: "") +
                 ": " + "\(snapshotdata.logrecordssnapshot?.count ?? 0)")
-            Text(NSLocalizedString("Number to delete", comment: "") +
+            Text(NSLocalizedString("Selected logrecords for delete", comment: "") +
                 ": " + "\(snapshotdata.snapshotuuidsfordelete.count)")
         }
     }
