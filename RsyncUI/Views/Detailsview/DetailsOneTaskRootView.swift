@@ -83,16 +83,23 @@ struct DetailsOneTaskRootView: View {
                                 }
 
                                 VStack(alignment: .trailing) {
-                                    LabeledContent("Tot num: ") {
+                                    LabeledContent("Total number of files: ") {
                                         Text(estimateddataonetask.estimatedlistonetask[0].totalNumber)
                                             .foregroundColor(.blue)
                                     }
-                                    LabeledContent("Tot bytes: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].totalNumberSizebytes)
+
+                                    LabeledContent("Total number of catalogs: ") {
+                                        Text(estimateddataonetask.estimatedlistonetask[0].totalDirs)
                                             .foregroundColor(.blue)
                                     }
-                                    LabeledContent("Tot dir: ") {
-                                        Text(estimateddataonetask.estimatedlistonetask[0].totalDirs)
+
+                                    LabeledContent("Total numbers: ") {
+                                        Text(estimateddataonetask.estimatedlistonetask[0].totalNumber_totalDirs)
+                                            .foregroundColor(.blue)
+                                    }
+
+                                    LabeledContent("Total bytes: ") {
+                                        Text(estimateddataonetask.estimatedlistonetask[0].totalNumberSizebytes)
                                             .foregroundColor(.blue)
                                     }
                                 }
