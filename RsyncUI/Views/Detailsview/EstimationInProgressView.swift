@@ -34,7 +34,7 @@ struct EstimationInProgressView: View {
     }
 
     var progressviewestimateasync: some View {
-        ProgressView("Estimating",
+        ProgressView("",
                      value: estimateprogressdetails.numberofconfigurationsestimated,
                      total: Double(rsyncUIdata.getallconfigurations()?.count ?? 0))
             .onAppear {
