@@ -93,7 +93,6 @@ struct DetailsOneTask: View {
                             }
                         }
                     }
-                    .padding()
                 }
             }
 

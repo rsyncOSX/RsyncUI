@@ -76,7 +76,9 @@ extension DetailsOneTaskRootView {
                 selectedconfig = config[0]
             }
         }
-        estimatedtask = RemoteDataNumbers(hiddenID: selectedconfig?.hiddenID, outputfromrsync: data, config: selectedconfig)
+        estimatedtask = RemoteDataNumbers(hiddenID: selectedconfig?.hiddenID,
+                                          outputfromrsync: data,
+                                          config: selectedconfig)
         gettingremotedata = false
     }
 }
