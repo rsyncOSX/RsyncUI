@@ -68,7 +68,8 @@ struct EstimationInProgressView: View {
         if let config = rsyncUIdata.getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
             Text("Estimating now: " + "\(config.backupID)")
         } else {
-            Text("")
+            Text("Ouch, something did not work as planned. Please reset estimates and try again")
+                .font(.title2)
         }
     }
 }
