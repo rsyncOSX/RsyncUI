@@ -31,10 +31,9 @@ struct DetailsOneTaskRootView: View {
                     }
                 } else {
                     VStack {
-                        ProgressView()
-                            .padding()
-
                         details
+
+                        ProgressView()
                     }
                 }
             }

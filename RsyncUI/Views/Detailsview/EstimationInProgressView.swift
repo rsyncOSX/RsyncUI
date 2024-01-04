@@ -18,10 +18,9 @@ struct EstimationInProgressView: View {
 
     var body: some View {
         VStack {
-            if estimateprogressdetails.estimatealltasksasync { progressviewestimateasync }
-
             details
-                .padding(-100)
+
+            progressviewestimateasync
         }
         .onAppear {
             guard estimateprogressdetails.estimatealltasksasync == false else {
@@ -63,7 +62,6 @@ struct EstimationInProgressView: View {
                 }()
             }
             .progressViewStyle(.circular)
-            .padding()
     }
 
     var details: some View {
