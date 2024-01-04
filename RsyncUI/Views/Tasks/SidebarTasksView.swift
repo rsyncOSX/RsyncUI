@@ -58,8 +58,8 @@ struct SidebarTasksView: View {
         case .firsttime:
             FirstTimeView()
         case .dryrunonetask:
-            DetailsOneTaskRootView(estimateprogressdetails: estimateprogressdetails,
-                                   selecteduuids: selecteduuids)
+            DetailsOneTaskEstimatingView(estimateprogressdetails: estimateprogressdetails,
+                                         selecteduuids: selecteduuids)
                 .onDisappear {
                     executeprogressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
                 }

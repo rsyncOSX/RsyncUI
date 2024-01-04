@@ -1,5 +1,5 @@
 //
-//  DetailsOneTaskRootView.swift
+//  DetailsOneTaskEstimatingView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/11/2023.
@@ -9,7 +9,7 @@ import Foundation
 import Observation
 import SwiftUI
 
-struct DetailsOneTaskRootView: View {
+struct DetailsOneTaskEstimatingView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
 
     @Bindable var estimateprogressdetails: EstimateProgressDetails
@@ -31,7 +31,12 @@ struct DetailsOneTaskRootView: View {
                     }
                 } else {
                     VStack {
-                        details
+                        // Only one task is estimated if selected, if more than one
+                        // task is selected multiple estimation is selected. That is why
+                        // that is why (uuid: selecteduuids.first)
+                        if let config = rsyncUIdata.getconfig(uuid: selecteduuids.first) {
+                            Text("Estimating now: " + "\(config.backupID)")
+                        }
 
                         ProgressView()
                     }
@@ -58,17 +63,9 @@ struct DetailsOneTaskRootView: View {
             }
         })
     }
-
-    var details: some View {
-        if let config = rsyncUIdata.getconfig(uuid: selecteduuids.first) {
-            Text("Estimating now: " + "\(config.backupID)")
-        } else {
-            Text("")
-        }
-    }
 }
 
-extension DetailsOneTaskRootView {
+extension DetailsOneTaskEstimatingView {
     func processtermination(data: [String]?) {
         var selectedconfig: Configuration?
         let selected = rsyncUIdata.configurations?.filter { config in

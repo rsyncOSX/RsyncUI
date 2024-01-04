@@ -18,7 +18,9 @@ struct EstimationInProgressView: View {
 
     var body: some View {
         VStack {
-            details
+            if let config = rsyncUIdata.getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
+                Text("Estimating now: " + "\(config.backupID)")
+            }
 
             progressviewestimateasync
         }
@@ -40,12 +42,15 @@ struct EstimationInProgressView: View {
                      total: Double(rsyncUIdata.getallconfigurations()?.count ?? 0))
             .onAppear {
                 Task {
+                    // Either is there some selcetd tasks or if not
+                    // the EstimateTasksAsync selects all tasks to be
+                    // estimated.
                     let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
                                                       configurations: rsyncUIdata,
                                                       estimateprogressdetails: estimateprogressdetails,
                                                       uuids: selecteduuids,
                                                       filter: "")
-                    await estimate.startexecution()
+                    await estimate.startestimation()
                 }
             }
             .onDisappear {
@@ -62,14 +67,5 @@ struct EstimationInProgressView: View {
                 }()
             }
             .progressViewStyle(.circular)
-    }
-
-    var details: some View {
-        if let config = rsyncUIdata.getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
-            Text("Estimating now: " + "\(config.backupID)")
-        } else {
-            Text("Ouch, something did not work as planned. Please reset estimates and try again")
-                .font(.title2)
-        }
     }
 }

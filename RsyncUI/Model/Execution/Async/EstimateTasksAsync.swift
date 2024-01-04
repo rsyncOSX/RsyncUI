@@ -15,7 +15,7 @@ class EstimateTasksAsync {
     weak var localestimateprogressdetails: EstimateProgressDetails?
 
     @MainActor
-    func startexecution() async {
+    func startestimation() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             localestimateprogressdetails?.asyncestimationcomplete()
             return
@@ -89,7 +89,7 @@ extension EstimateTasksAsync {
         }
 
         Task {
-            await self.startexecution()
+            await self.startestimation()
         }
     }
 }

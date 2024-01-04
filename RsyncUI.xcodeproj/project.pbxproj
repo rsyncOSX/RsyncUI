@@ -144,7 +144,7 @@
 		E999F92227690F3400B80DF6 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999F92127690F3400B80DF6 /* Files.swift */; };
 		E99A79552B0BA1A800D3244A /* RsyncDefaultParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A79542B0BA1A800D3244A /* RsyncDefaultParametersView.swift */; };
 		E99A79572B0BA1C800D3244A /* RsyncParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A79562B0BA1C800D3244A /* RsyncParametersView.swift */; };
-		E99B56302AFFAD1800D4AA5A /* DetailsOneTaskRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B562F2AFFAD1800D4AA5A /* DetailsOneTaskRootView.swift */; };
+		E99B56302AFFAD1800D4AA5A /* DetailsOneTaskEstimatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B562F2AFFAD1800D4AA5A /* DetailsOneTaskEstimatingView.swift */; };
 		E99C2400261C322E009D4DBF /* ObservableRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObservableRestore.swift */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E9A2AA7D2B31D0E800916896 /* EstimationInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */; };
@@ -341,7 +341,7 @@
 		E999F92127690F3400B80DF6 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		E99A79542B0BA1A800D3244A /* RsyncDefaultParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncDefaultParametersView.swift; sourceTree = "<group>"; };
 		E99A79562B0BA1C800D3244A /* RsyncParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncParametersView.swift; sourceTree = "<group>"; };
-		E99B562F2AFFAD1800D4AA5A /* DetailsOneTaskRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOneTaskRootView.swift; sourceTree = "<group>"; };
+		E99B562F2AFFAD1800D4AA5A /* DetailsOneTaskEstimatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOneTaskEstimatingView.swift; sourceTree = "<group>"; };
 		E99C23FF261C322E009D4DBF /* ObservableRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRestore.swift; sourceTree = "<group>"; };
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimationInProgressView.swift; sourceTree = "<group>"; };
@@ -590,7 +590,7 @@
 			isa = PBXGroup;
 			children = (
 				E905DFCA2B00CECD00FEFF3A /* AlltasksView.swift */,
-				E99B562F2AFFAD1800D4AA5A /* DetailsOneTaskRootView.swift */,
+				E99B562F2AFFAD1800D4AA5A /* DetailsOneTaskEstimatingView.swift */,
 				E94F23A12AFE967800983C1C /* DetailsOneTask.swift */,
 				E954AD402AFE8FBB00F3EA63 /* DetailsSummarizedTasksView.swift */,
 				E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */,
@@ -1250,7 +1250,7 @@
 				E98341BF2ACBBE1200F175B1 /* RsyncProcessAsyncShellOut.swift in Sources */,
 				E9C8E0CC2B2D9BB50083D1CC /* SidebarLogsView.swift in Sources */,
 				E9A38E2C2B32CA8700D8445E /* AlertError.swift in Sources */,
-				E99B56302AFFAD1800D4AA5A /* DetailsOneTaskRootView.swift in Sources */,
+				E99B56302AFFAD1800D4AA5A /* DetailsOneTaskEstimatingView.swift in Sources */,
 				E985C73425F3AD9700CB895C /* RsyncCommandtoDisplay.swift in Sources */,
 				E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */,
 				E94F23A22AFE967800983C1C /* DetailsOneTask.swift in Sources */,
