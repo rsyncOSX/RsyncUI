@@ -25,11 +25,15 @@ struct DetailsOneTaskRootView: View {
                 if gettingremotedata == false {
                     if let estimatedtask = estimatedtask {
                         DetailsOneTask(estimatedtask: estimatedtask)
+                            .onDisappear(perform: {
+                                estimateprogressdetails.appendrecordestimatedlist(estimatedtask)
+                            })
                     }
                 } else {
                     VStack {
                         ProgressView()
                             .padding()
+
                         details
                     }
                 }

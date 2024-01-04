@@ -18,7 +18,6 @@ struct SummarizedAllDetailsView: View {
 
     @State private var focusstartexecution: Bool = false
     @State private var nodatatosynchronize: Bool = false
-
     @State private var isPresentingConfirm: Bool = false
 
     var body: some View {

@@ -106,7 +106,7 @@ struct DetailsOneTask: View {
 
     var outputfromrsync: Outputfromrsync {
         let data = Outputfromrsync()
-        data.generatedata(estimatedtask.outputfromrsync)
+        data.generateoutput(estimatedtask.outputfromrsync)
         return data
     }
 }
@@ -131,7 +131,7 @@ final class Outputfromrsync {
         return false
     }
 
-    func generatedata(_ data: [String]?) {
+    func generateoutput(_ data: [String]?) {
         var count = data?.count
         let summarycount = data?.count
         if count ?? 0 > 20000 { count = 20000 }

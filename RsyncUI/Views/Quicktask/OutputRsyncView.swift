@@ -22,7 +22,7 @@ struct OutputRsyncView: View {
         }
         .padding()
         .onAppear {
-            outputfromrsync.generatedata(output)
+            outputfromrsync.generateoutput(output)
         }
     }
 }

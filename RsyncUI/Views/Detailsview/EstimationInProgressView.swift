@@ -19,7 +19,9 @@ struct EstimationInProgressView: View {
     var body: some View {
         VStack {
             if estimateprogressdetails.estimatealltasksasync { progressviewestimateasync }
+
             details
+                .padding(-100)
         }
         .onAppear {
             guard estimateprogressdetails.estimatealltasksasync == false else {
