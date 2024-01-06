@@ -9,10 +9,10 @@ import Foundation
 
 final class ExecuteProgressDetails: ObservableObject {
     // Value for storing progress for current task in work
-    var currenttaskprogress: Double = 0
+    @Published var currenttaskprogress: Double = 0
+
     var hiddenIDatwork: Int = -1
     var estimatedlist: [RemoteDataNumbers]?
-    // Profilename and timestamp start estimation
     var profile: String?
     var numberofconfigurations: Int = -1
 
@@ -21,11 +21,6 @@ final class ExecuteProgressDetails: ObservableObject {
             task.id == uuid
         }) ?? false ? true : false
         return answer
-    }
-
-    func setcurrentprogress(_ num: Double) {
-        currenttaskprogress = num
-        objectWillChange.send()
     }
 
     func getmaxcountbytask() -> Double {

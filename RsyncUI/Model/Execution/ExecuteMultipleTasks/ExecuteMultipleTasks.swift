@@ -122,7 +122,7 @@ extension ExecuteMultipleTasks {
     }
 
     func filehandler(count: Int) {
-        executeprogressdetails?.setcurrentprogress(Double(count))
+        executeprogressdetails?.currenttaskprogress = Double(count)
     }
 }
 
