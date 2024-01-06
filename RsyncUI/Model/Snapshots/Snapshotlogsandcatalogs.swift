@@ -62,7 +62,7 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
             }
             return false
         }
-        // Add records to the StateObject for use in View
+        // Add records for use in the View
         mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
         guard logrecordssnapshot?.count ?? 0 > 0 else { return }
         firstsnapshotctalogNOdelete = logrecordssnapshot?[(logrecordssnapshot?.count ?? 0) - 1].snapshotCatalog
