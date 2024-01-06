@@ -85,7 +85,6 @@ final class ExecuteTasksAsync {
                 }
             }
         }
-        localexecuteprogressdetails?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
         localexecuteprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }
 

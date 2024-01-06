@@ -16,7 +16,6 @@ final class ExecuteProgressDetails: ObservableObject {
 
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
-    var max: Int = 0
     // Profilename and timestamp start estimation
     var profile: String?
     var numberofconfigurations: Int = -1
@@ -50,10 +49,8 @@ final class ExecuteProgressDetails: ObservableObject {
         currenttaskprogress = 0
         estimatedlist = nil
         numberofconfigurations = -1
-        max = 0
         uuids.removeAll()
         profile = nil
-        uuids.removeAll()
     }
 
     func asyncexecutealltasksnoestiamtioncomplete() {
@@ -73,10 +70,6 @@ final class ExecuteProgressDetails: ObservableObject {
 
     func appenduuid(_ id: UUID) {
         uuids.insert(id)
-    }
-
-    func setmaxcount(_ num: Int) {
-        max = num
     }
 
     func setprofileandnumberofconfigurations(_ profilename: String, _ num: Int) {
