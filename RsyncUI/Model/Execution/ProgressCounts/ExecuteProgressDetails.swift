@@ -8,14 +8,10 @@
 import Foundation
 
 final class ExecuteProgressDetails: ObservableObject {
-    @Published var executeasyncnoestimationcompleted: Bool = false
     // Value for storing progress for current task in work
     var currenttaskprogress: Double = 0
     var hiddenIDatwork: Int = -1
     var estimatedlist: [RemoteDataNumbers]?
-
-    // set uuid if data to be transferred
-    var uuids = Set<UUID>()
     // Profilename and timestamp start estimation
     var profile: String?
     var numberofconfigurations: Int = -1
@@ -49,27 +45,7 @@ final class ExecuteProgressDetails: ObservableObject {
         currenttaskprogress = 0
         estimatedlist = nil
         numberofconfigurations = -1
-        uuids.removeAll()
         profile = nil
-    }
-
-    func asyncexecutealltasksnoestiamtioncomplete() {
-        executeasyncnoestimationcompleted = true
-    }
-
-    func startasyncexecutealltasksnoestimation() {
-        executeasyncnoestimationcompleted = false
-    }
-
-    func appendrecordexecutedlist(_ record: RemoteDataNumbers) {
-        if estimatedlist == nil {
-            estimatedlist = [RemoteDataNumbers]()
-        }
-        estimatedlist?.append(record)
-    }
-
-    func appenduuid(_ id: UUID) {
-        uuids.insert(id)
     }
 
     func setprofileandnumberofconfigurations(_ profilename: String, _ num: Int) {
