@@ -1,5 +1,5 @@
 //
-//  ExecuteAsyncNoEstimationCompleted.swift
+//  ExecuteAsyncNoEstimation.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 06/01/2024.
@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class ExecuteAsyncNoEstimationCompleted {
+final class ExecuteAsyncNoEstimation {
     var executeasyncnoestimationcompleted: Bool = false
     var estimatedlist: [RemoteDataNumbers]?
     // set uuid if data to be transferred

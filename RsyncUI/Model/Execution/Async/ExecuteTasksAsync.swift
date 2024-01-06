@@ -13,7 +13,7 @@ final class ExecuteTasksAsync {
     var structprofile: String?
     var localconfigurations: RsyncUIconfigurations?
     var stackoftasktobeestimated: [Int]?
-    weak var localexecuteasyncnoestimationcompleted: ExecuteAsyncNoEstimationCompleted?
+    weak var localexecuteasyncnoestimation: ExecuteAsyncNoEstimation?
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
@@ -28,7 +28,7 @@ final class ExecuteTasksAsync {
                                                      validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration(configrecords: configrecords)
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            localexecuteasyncnoestimationcompleted?.asyncexecutealltasksnoestiamtioncomplete()
+            localexecuteasyncnoestimation?.asyncexecutealltasksnoestiamtioncomplete()
             Logger.process.info("class ExecuteTasksAsync: async execution is completed")
             return
         }
@@ -54,13 +54,13 @@ final class ExecuteTasksAsync {
 
     init(profile: String?,
          configurations: RsyncUIconfigurations?,
-         executeasyncnoestimationcompleted: ExecuteAsyncNoEstimationCompleted?,
+         executeasyncnoestimation: ExecuteAsyncNoEstimation?,
          uuids: Set<UUID>,
          filter: String)
     {
         structprofile = profile
         localconfigurations = configurations
-        localexecuteasyncnoestimationcompleted = executeasyncnoestimationcompleted
+        localexecuteasyncnoestimation = executeasyncnoestimation
         let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()
         // Estimate selected configurations
@@ -102,9 +102,9 @@ extension ExecuteTasksAsync {
         let record = RemoteDataNumbers(hiddenID: hiddenID,
                                        outputfromrsync: outputfromrsync,
                                        config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
-        localexecuteasyncnoestimationcompleted?.appendrecordexecutedlist(record)
+        localexecuteasyncnoestimation?.appendrecordexecutedlist(record)
         if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {
-            localexecuteasyncnoestimationcompleted?.appenduuid(config.id)
+            localexecuteasyncnoestimation?.appenduuid(config.id)
         }
 
         Task {

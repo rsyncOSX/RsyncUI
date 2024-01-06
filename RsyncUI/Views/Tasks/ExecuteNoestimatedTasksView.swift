@@ -16,7 +16,7 @@ struct ExecuteNoestimatedTasksView: View {
     @Binding var path: [Tasks]
 
     // Must be stateobject
-    @State private var executeasyncnoestimationcompleted = ExecuteAsyncNoEstimationCompleted()
+    @State private var executeasyncnoestimation = ExecuteAsyncNoEstimation()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executealltasksasync: ExecuteTasksAsync?
@@ -30,7 +30,7 @@ struct ExecuteNoestimatedTasksView: View {
                 filterstring: $filterstring
             )
 
-            if executeasyncnoestimationcompleted.executeasyncnoestimationcompleted == true { labelcompleted }
+            if executeasyncnoestimation.executeasyncnoestimationcompleted == true { labelcompleted }
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
         }
@@ -74,7 +74,7 @@ extension ExecuteNoestimatedTasksView {
     func completed() {
         reload = true
         progressviewshowinfo = false
-        executeasyncnoestimationcompleted.reset()
+        executeasyncnoestimation.reset()
     }
 
     func abort() {
@@ -82,16 +82,16 @@ extension ExecuteNoestimatedTasksView {
         _ = InterruptProcess()
         reload = true
         progressviewshowinfo = false
-        executeasyncnoestimationcompleted.reset()
+        executeasyncnoestimation.reset()
     }
 
     func executeallnoestimationtasks() async {
         Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids, privacy: .public)")
-        executeasyncnoestimationcompleted.startasyncexecutealltasksnoestimation()
+        executeasyncnoestimation.startasyncexecutealltasksnoestimation()
         executealltasksasync =
             ExecuteTasksAsync(profile: rsyncUIdata.profile,
                               configurations: rsyncUIdata,
-                              executeasyncnoestimationcompleted: executeasyncnoestimationcompleted,
+                              executeasyncnoestimation: executeasyncnoestimation,
                               uuids: selecteduuids,
                               filter: filterstring)
         await executealltasksasync?.startexecution()
