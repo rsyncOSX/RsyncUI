@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 19/12/2023.
 //
 
-import OSLog
 import SwiftUI
 
 struct EstimationInProgressView: View {
@@ -25,10 +24,6 @@ struct EstimationInProgressView: View {
             progressviewestimateasync
         }
         .onAppear {
-            guard estimateprogressdetails.estimatealltasksasync == false else {
-                Logger.process.warning("TasksView: estimate already in progress")
-                return
-            }
             estimateprogressdetails.resetcounts()
             executeprogressdetails.resetcounts()
             estimateprogressdetails.startestimateasync()
