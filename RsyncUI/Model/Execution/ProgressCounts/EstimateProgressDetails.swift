@@ -23,7 +23,6 @@ final class EstimateProgressDetails {
     var onetaskisestimated: Bool = false
     // Profilename and timestamp start estimation
     var profile: String?
-    var timestamp: Date?
     var numberofconfigurations: Int = 0
     var numberofconfigurationsestimated: Double = 0
     // UUID for configuration to be estimated
@@ -71,9 +70,7 @@ final class EstimateProgressDetails {
         max = 0
         uuids.removeAll()
         estimatedlist = nil
-        timestamp = Date()
         profile = nil
-        uuids.removeAll()
         onetaskisestimated = false
         estimatealltasksasync = false
         numberofconfigurations = 0
