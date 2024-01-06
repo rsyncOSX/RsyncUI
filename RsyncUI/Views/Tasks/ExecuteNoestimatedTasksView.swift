@@ -16,7 +16,7 @@ struct ExecuteNoestimatedTasksView: View {
     @Binding var path: [Tasks]
 
     // Must be stateobject
-    @State private var executeasynccompleted = ExecuteAsyncCompleted()
+    @State private var executeasyncnoestimationcompleted = ExecuteAsyncNoEstimationCompleted()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executealltasksasync: ExecuteTasksAsync?
@@ -30,13 +30,13 @@ struct ExecuteNoestimatedTasksView: View {
                 filterstring: $filterstring
             )
 
-            if executeasynccompleted.executeasyncnoestimationcompleted == true { labelcompleted }
+            if executeasyncnoestimationcompleted.executeasyncnoestimationcompleted == true { labelcompleted }
             if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
             if focusaborttask { labelaborttask }
         }
         .onAppear(perform: {
             Task {
-                await executeallnotestimatedtasks()
+                await executeallnoestimationtasks()
             }
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
@@ -74,7 +74,7 @@ extension ExecuteNoestimatedTasksView {
     func completed() {
         reload = true
         progressviewshowinfo = false
-        executeasynccompleted.reset()
+        executeasyncnoestimationcompleted.reset()
     }
 
     func abort() {
@@ -82,50 +82,18 @@ extension ExecuteNoestimatedTasksView {
         _ = InterruptProcess()
         reload = true
         progressviewshowinfo = false
-        executeasynccompleted.reset()
+        executeasyncnoestimationcompleted.reset()
     }
 
-    func executeallnotestimatedtasks() async {
+    func executeallnoestimationtasks() async {
         Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids, privacy: .public)")
-        executeasynccompleted.startasyncexecutealltasksnoestimation()
+        executeasyncnoestimationcompleted.startasyncexecutealltasksnoestimation()
         executealltasksasync =
             ExecuteTasksAsync(profile: rsyncUIdata.profile,
                               configurations: rsyncUIdata,
-                              executeasynccompleted: executeasynccompleted,
+                              executeasyncnoestimationcompleted: executeasyncnoestimationcompleted,
                               uuids: selecteduuids,
                               filter: filterstring)
         await executealltasksasync?.startexecution()
-    }
-}
-
-@Observable
-final class ExecuteAsyncCompleted {
-    var executeasyncnoestimationcompleted: Bool = false
-    var estimatedlist: [RemoteDataNumbers]?
-    // set uuid if data to be transferred
-    var uuids = Set<UUID>()
-
-    func asyncexecutealltasksnoestiamtioncomplete() {
-        executeasyncnoestimationcompleted = true
-    }
-
-    func startasyncexecutealltasksnoestimation() {
-        executeasyncnoestimationcompleted = false
-    }
-
-    func appendrecordexecutedlist(_ record: RemoteDataNumbers) {
-        if estimatedlist == nil {
-            estimatedlist = [RemoteDataNumbers]()
-        }
-        estimatedlist?.append(record)
-    }
-
-    func appenduuid(_ id: UUID) {
-        uuids.insert(id)
-    }
-
-    func reset() {
-        uuids.removeAll()
-        estimatedlist = nil
     }
 }
