@@ -20,7 +20,9 @@ struct ListofTasksView: View {
     }
 
     var tabledata: some View {
-        Table(configurationssorted, selection: $selecteduuids) {
+        Table((rsyncUIdata.configurations ?? []).filter {
+            filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
+        }, selection: $selecteduuids) {
             TableColumn("%") { _ in
                 Text("")
             }
@@ -68,14 +70,6 @@ struct ListofTasksView: View {
                 }
             }
             .width(max: 120)
-        }
-    }
-
-    var configurationssorted: [Configuration] {
-        if filterstring.isEmpty {
-            return rsyncUIdata.configurations ?? []
-        } else {
-            return rsyncUIdata.filterconfigurations(filterstring) ?? []
         }
     }
 

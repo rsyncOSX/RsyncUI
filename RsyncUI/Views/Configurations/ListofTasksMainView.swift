@@ -20,7 +20,9 @@ struct ListofTasksMainView: View {
     var body: some View {
         tabledata
             .overlay {
-                if configurationssorted.isEmpty {
+                if (rsyncUIdata.configurations ?? []).filter(
+                    { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }).isEmpty
+                {
                     ContentUnavailableView {
                         Label("There are no tasks by this Synchronize ID", systemImage: "doc.richtext.fill")
                     } description: {
@@ -32,7 +34,8 @@ struct ListofTasksMainView: View {
     }
 
     var tabledata: some View {
-        Table(configurationssorted, selection: $selecteduuids) {
+        Table((rsyncUIdata.configurations ?? []).filter { filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
+        }, selection: $selecteduuids) {
             TableColumn("%") { data in
                 if data.hiddenID == executeprogressdetails.hiddenIDatwork {
                     ProgressView("",
@@ -113,14 +116,6 @@ struct ListofTasksMainView: View {
         }
         .onDeleteCommand {
             confirmdelete = true
-        }
-    }
-
-    var configurationssorted: [Configuration] {
-        if filterstring.isEmpty {
-            return rsyncUIdata.configurations ?? []
-        } else {
-            return rsyncUIdata.filterconfigurations(filterstring) ?? []
         }
     }
 
