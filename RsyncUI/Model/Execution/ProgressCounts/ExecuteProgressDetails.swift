@@ -13,8 +13,6 @@ final class ExecuteProgressDetails: ObservableObject {
 
     var hiddenIDatwork: Int = -1
     var estimatedlist: [RemoteDataNumbers]?
-    var profile: String?
-    var numberofconfigurations: Int = -1
 
     func taskisestimatedbyUUID(_ uuid: UUID) -> Bool {
         let answer = estimatedlist?.contains(where: { task in
@@ -39,13 +37,6 @@ final class ExecuteProgressDetails: ObservableObject {
     func resetcounts() {
         currenttaskprogress = 0
         estimatedlist = nil
-        numberofconfigurations = -1
-        profile = nil
-    }
-
-    func setprofileandnumberofconfigurations(_ profilename: String, _ num: Int) {
-        profile = profilename
-        numberofconfigurations = num
     }
 
     deinit {
