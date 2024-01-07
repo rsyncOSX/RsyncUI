@@ -5,12 +5,13 @@
 //  Created by Thomas Evensen on 11/11/2023.
 //
 
+import OSLog
 import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
 
+    @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var reload: Bool
     @Binding var path: [Tasks]
@@ -21,13 +22,19 @@ struct ExecuteEstimatedTasksView: View {
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false
 
+    // Test
+    @State private var progress: Double = 0
+
     var body: some View {
         ZStack {
             ListofTasksMainView(
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,
-                doubleclick: $doubleclick
+                doubleclick: $doubleclick,
+                progress: $progress,
+                executeprogressdetails: executeprogressdetails,
+                max: executeprogressdetails.getmaxcountbytask()
             )
 
             if multipletaskstate.executionstate == .completed { labelcompleted }
@@ -72,6 +79,12 @@ struct ExecuteEstimatedTasksView: View {
 }
 
 extension ExecuteEstimatedTasksView {
+    func filehandler(count: Int) {
+        Logger.process.info("class ExecuteEstimatedTasksView (filehandler): \(count, privacy: .public)")
+        // executeprogressdetails.currenttaskprogress = Double(count)
+        progress = Double(count)
+    }
+
     func completed() {
         executeprogressdetails.hiddenIDatwork = -1
         multipletaskstate.updatestate(state: .start)
@@ -109,7 +122,8 @@ extension ExecuteEstimatedTasksView {
                                  profile: rsyncUIdata.profile,
                                  configurations: rsyncUIdata,
                                  multipletaskstateDelegate: multipletaskstate,
-                                 executeprogressdetailsDelegate: executeprogressdetails)
+                                 executeprogressdetailsDelegate: executeprogressdetails,
+                                 filehandler: filehandler)
         }
     }
 }

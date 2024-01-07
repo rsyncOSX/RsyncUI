@@ -9,8 +9,8 @@ import SwiftUI
 
 struct EstimationInProgressView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
 
+    @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var nodatatosynchronize: Bool

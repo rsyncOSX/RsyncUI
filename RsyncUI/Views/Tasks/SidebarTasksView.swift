@@ -10,20 +10,23 @@ import SwiftUI
 
 struct SidebarTasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
+
+    @State private var executeprogressdetails = ExecuteProgressDetails()
     @State private var estimateprogressdetails = EstimateProgressDetails()
-    @StateObject private var executeprogressdetails = ExecuteProgressDetails()
+
     // Which view to show
     @State var path: [Tasks] = []
 
     var body: some View {
         NavigationStack(path: $path) {
-            TasksView(estimateprogressdetails: estimateprogressdetails,
+            TasksView(executeprogressdetails: executeprogressdetails,
+                      estimateprogressdetails: estimateprogressdetails,
                       reload: $reload,
                       selecteduuids: $selecteduuids,
                       path: $path)
-                .environmentObject(executeprogressdetails)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
                 }
@@ -42,19 +45,19 @@ struct SidebarTasksView: View {
     func makeView(view: DestinationView) -> some View {
         switch view {
         case .executestimatedview:
-            ExecuteEstimatedTasksView(selecteduuids: $selecteduuids,
+            ExecuteEstimatedTasksView(executeprogressdetails: executeprogressdetails,
+                                      selecteduuids: $selecteduuids,
                                       reload: $reload,
                                       path: $path)
-                .environmentObject(executeprogressdetails)
         case .executenoestimatetasksview:
             ExecuteNoestimatedTasksView(reload: $reload,
                                         selecteduuids: $selecteduuids,
                                         path: $path)
         case .estimatedview:
-            SummarizedAllDetailsView(estimateprogressdetails: estimateprogressdetails,
+            SummarizedAllDetailsView(executeprogressdetails: executeprogressdetails,
+                                     estimateprogressdetails: estimateprogressdetails,
                                      selecteduuids: $selecteduuids,
                                      path: $path)
-                .environmentObject(executeprogressdetails)
         case .firsttime:
             FirstTimeView()
         case .dryrunonetask:

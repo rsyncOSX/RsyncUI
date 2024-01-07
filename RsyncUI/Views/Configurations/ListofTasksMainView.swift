@@ -9,13 +9,17 @@ import SwiftUI
 
 struct ListofTasksMainView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
+
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
     @Binding var reload: Bool
     @Binding var doubleclick: Bool
+    @Binding var progress: Double
 
     @State private var confirmdelete: Bool = false
+
+    let executeprogressdetails: ExecuteProgressDetails
+    let max: Double
 
     var body: some View {
         tabledata
@@ -38,11 +42,10 @@ struct ListofTasksMainView: View {
             filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
         }, selection: $selecteduuids) {
             TableColumn("%") { data in
-                let max = executeprogressdetails.getmaxcountbytask()
-                if data.hiddenID == executeprogressdetails.hiddenIDatwork {
+                if data.hiddenID == executeprogressdetails.hiddenIDatwork, max > 0 {
                     ProgressView("",
-                                 value: executeprogressdetails.currenttaskprogress,
-                                 total: max + 3)
+                                 value: progress,
+                                 total: max)
                         .frame(alignment: .center)
                 }
             }

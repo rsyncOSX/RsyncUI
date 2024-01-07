@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import Observation
+import OSLog
 
-final class ExecuteProgressDetails: ObservableObject {
+@Observable
+final class ExecuteProgressDetails {
     // Value for storing progress for current task in work
-    @Published var currenttaskprogress: Double = 0
-
+    var currenttaskprogress: Double = 0
     var hiddenIDatwork: Int = -1
-    var estimatedlist: [RemoteDataNumbers]?
+
+    @ObservationIgnored var estimatedlist: [RemoteDataNumbers]?
 
     func taskisestimatedbyUUID(_ uuid: UUID) -> Bool {
         let answer = estimatedlist?.contains(where: { task in
@@ -24,6 +27,8 @@ final class ExecuteProgressDetails: ObservableObject {
     func getmaxcountbytask() -> Double {
         let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
         if (max?.count ?? 0) == 1 {
+            let num = Double(max?[0].outputfromrsync?.count ?? 0)
+            Logger.process.info("ExecuteProgressDetails (getmaxcount): \(num, privacy: .public)")
             return Double(max?[0].outputfromrsync?.count ?? 0)
         } else {
             return 0
@@ -36,7 +41,6 @@ final class ExecuteProgressDetails: ObservableObject {
 
     func resetcounts() {
         currenttaskprogress = 0
-        hiddenIDatwork = -1
         estimatedlist = nil
     }
 

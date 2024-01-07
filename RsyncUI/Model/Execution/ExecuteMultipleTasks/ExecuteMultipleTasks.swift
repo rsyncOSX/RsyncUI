@@ -25,6 +25,8 @@ final class ExecuteMultipleTasks {
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
 
+    var localfilehandler: (Int) -> Void
+
     private func prepareandstartexecutetasks(configurations: [Configuration]?) {
         stackoftasktobeexecuted = [Int]()
         // Multiple selected indexes
@@ -32,6 +34,7 @@ final class ExecuteMultipleTasks {
             for i in 0 ..< configurations.count {
                 stackoftasktobeexecuted?.append(configurations[i].hiddenID)
             }
+            // max = stackoftasktobeexecuted?.count
         }
     }
 
@@ -42,8 +45,9 @@ final class ExecuteMultipleTasks {
             let execute = ExecuteOneTask(hiddenID: hiddenID,
                                          configurations: localconfigurations,
                                          termination: processtermination,
-                                         filehandler: filehandler)
+                                         filehandler: localfilehandler)
             execute.startexecution()
+            Logger.process.info("class ExecuteMultipleTasks (hiddenIDatwork): \(hiddenID, privacy: .public)")
         }
     }
 
@@ -52,12 +56,15 @@ final class ExecuteMultipleTasks {
          profile: String?,
          configurations: RsyncUIconfigurations?,
          multipletaskstateDelegate: ExecuteMultipleTasksState?,
-         executeprogressdetailsDelegate: ExecuteProgressDetails?)
+         executeprogressdetailsDelegate: ExecuteProgressDetails?,
+         filehandler: @escaping (Int) -> Void)
     {
         structprofile = profile
         localconfigurations = configurations
         multipletaskstate = multipletaskstateDelegate
         executeprogressdetails = executeprogressdetailsDelegate
+        localfilehandler = filehandler
+
         guard uuids.count > 0 else {
             Logger.process.warning("class ExecuteMultipleTasks, guard uuids.count > 0: \(uuids.count, privacy: .public)")
             multipletaskstate?.updatestate(state: .completed)
@@ -70,7 +77,6 @@ final class ExecuteMultipleTasks {
             return
         }
         prepareandstartexecutetasks(configurations: taskstosynchronize)
-        // records = [RemoteDataNumbers]()
         startexecution()
     }
 
@@ -107,13 +113,10 @@ extension ExecuteMultipleTasks {
             let execution = ExecuteOneTask(hiddenID: hiddenID,
                                            configurations: localconfigurations,
                                            termination: processtermination,
-                                           filehandler: filehandler)
+                                           filehandler: localfilehandler)
             execution.startexecution()
+            Logger.process.info("class ExecuteMultipleTasks (hiddenIDatwork): \(hiddenID, privacy: .public)")
         }
-    }
-
-    func filehandler(count: Int) {
-        executeprogressdetails?.currenttaskprogress = Double(count)
     }
 }
 

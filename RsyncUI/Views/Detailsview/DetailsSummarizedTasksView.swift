@@ -10,8 +10,8 @@ import SwiftUI
 
 struct SummarizedAllDetailsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
 
+    @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var path: [Tasks]
@@ -24,10 +24,10 @@ struct SummarizedAllDetailsView: View {
         VStack {
             HStack {
                 if estimateprogressdetails.estimatealltasksasync {
-                    EstimationInProgressView(estimateprogressdetails: estimateprogressdetails,
+                    EstimationInProgressView(executeprogressdetails: executeprogressdetails,
+                                             estimateprogressdetails: estimateprogressdetails,
                                              selecteduuids: $selecteduuids,
                                              nodatatosynchronize: $nodatatosynchronize)
-                        .environmentObject(executeprogressdetails)
                 } else {
                     Table(estimateprogressdetails.getestimatedlist() ?? [],
                           selection: $selecteduuids)

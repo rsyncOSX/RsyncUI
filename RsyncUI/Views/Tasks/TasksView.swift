@@ -42,8 +42,7 @@ struct TasksView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
-    @EnvironmentObject var executeprogressdetails: ExecuteProgressDetails
-
+    @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<Configuration.ID>
@@ -64,13 +63,19 @@ struct TasksView: View {
     // Alert button
     @State private var showingAlert = false
 
+    // Test
+    @State private var progress: Double = 0
+
     var body: some View {
         ZStack {
             ListofTasksMainView(
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,
-                doubleclick: $doubleclick
+                doubleclick: $doubleclick,
+                progress: $progress,
+                executeprogressdetails: executeprogressdetails,
+                max: executeprogressdetails.getmaxcountbytask()
             )
             .frame(maxWidth: .infinity)
             .onChange(of: selecteduuids) {
