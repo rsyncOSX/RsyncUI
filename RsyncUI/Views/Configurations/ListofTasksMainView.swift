@@ -38,10 +38,11 @@ struct ListofTasksMainView: View {
             filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
         }, selection: $selecteduuids) {
             TableColumn("%") { data in
+                let max = executeprogressdetails.getmaxcountbytask()
                 if data.hiddenID == executeprogressdetails.hiddenIDatwork {
                     ProgressView("",
                                  value: executeprogressdetails.currenttaskprogress,
-                                 total: maxcount + 3)
+                                 total: max + 3)
                         .frame(alignment: .center)
                 }
             }
@@ -118,10 +119,6 @@ struct ListofTasksMainView: View {
         .onDeleteCommand {
             confirmdelete = true
         }
-    }
-
-    var maxcount: Double {
-        return executeprogressdetails.getmaxcountbytask()
     }
 
     func delete() {
