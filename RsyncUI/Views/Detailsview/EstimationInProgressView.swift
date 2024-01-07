@@ -37,9 +37,8 @@ struct EstimationInProgressView: View {
                      total: Double(rsyncUIdata.getallconfigurations()?.count ?? 0))
             .onAppear {
                 Task {
-                    // Either is there some selcetd tasks or if not
-                    // the EstimateTasksAsync selects all tasks to be
-                    // estimated.
+                    // Either is there some selceted tasks or if not
+                    // the EstimateTasksAsync selects all tasks to be estimated.
                     let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
                                                       configurations: rsyncUIdata,
                                                       estimateprogressdetails: estimateprogressdetails,

@@ -11,10 +11,7 @@ import OSLog
 
 @Observable
 final class ExecuteProgressDetails {
-    // Value for storing progress for current task in work
-    var currenttaskprogress: Double = 0
     var hiddenIDatwork: Int = -1
-
     @ObservationIgnored var estimatedlist: [RemoteDataNumbers]?
 
     func taskisestimatedbyUUID(_ uuid: UUID) -> Bool {
@@ -40,7 +37,6 @@ final class ExecuteProgressDetails {
     }
 
     func resetcounts() {
-        currenttaskprogress = 0
         estimatedlist = nil
     }
 

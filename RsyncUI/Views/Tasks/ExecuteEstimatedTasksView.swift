@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 11/11/2023.
 //
 
-import OSLog
 import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
@@ -21,8 +20,7 @@ struct ExecuteEstimatedTasksView: View {
     @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false
-
-    // Test
+    // Progress of synchronization
     @State private var progress: Double = 0
 
     var body: some View {
@@ -80,8 +78,6 @@ struct ExecuteEstimatedTasksView: View {
 
 extension ExecuteEstimatedTasksView {
     func filehandler(count: Int) {
-        Logger.process.info("class ExecuteEstimatedTasksView (filehandler): \(count, privacy: .public)")
-        // executeprogressdetails.currenttaskprogress = Double(count)
         progress = Double(count)
     }
 

@@ -24,7 +24,7 @@ final class ExecuteMultipleTasks {
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
-
+    // Report progress to caller
     var localfilehandler: (Int) -> Void
 
     private func prepareandstartexecutetasks(configurations: [Configuration]?) {
@@ -47,7 +47,6 @@ final class ExecuteMultipleTasks {
                                          termination: processtermination,
                                          filehandler: localfilehandler)
             execute.startexecution()
-            Logger.process.info("class ExecuteMultipleTasks (hiddenIDatwork): \(hiddenID, privacy: .public)")
         }
     }
 
@@ -115,7 +114,6 @@ extension ExecuteMultipleTasks {
                                            termination: processtermination,
                                            filehandler: localfilehandler)
             execution.startexecution()
-            Logger.process.info("class ExecuteMultipleTasks (hiddenIDatwork): \(hiddenID, privacy: .public)")
         }
     }
 }

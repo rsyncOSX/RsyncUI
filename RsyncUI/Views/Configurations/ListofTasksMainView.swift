@@ -14,6 +14,7 @@ struct ListofTasksMainView: View {
     @Binding var filterstring: String
     @Binding var reload: Bool
     @Binding var doubleclick: Bool
+    // Progress of synchronization
     @Binding var progress: Double
 
     @State private var confirmdelete: Bool = false
