@@ -79,14 +79,12 @@
 		E985C73525F3AD9700CB895C /* Backupconfigfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6A825F3AD9600CB895C /* Backupconfigfiles.swift */; };
 		E985C73625F3AD9700CB895C /* SetandValidatepathforrsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6A925F3AD9600CB895C /* SetandValidatepathforrsync.swift */; };
 		E985C73725F3AD9700CB895C /* extensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6AA25F3AD9600CB895C /* extensionDate.swift */; };
-		E985C73825F3AD9700CB895C /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6AB25F3AD9600CB895C /* Notifications.swift */; };
 		E985C73B25F3AD9700CB895C /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = E985C6AF25F3AD9600CB895C /* yudpsocket.c */; };
 		E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B025F3AD9600CB895C /* ytcpsocket.c */; };
 		E985C73D25F3AD9700CB895C /* ResultYTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B125F3AD9600CB895C /* ResultYTP.swift */; };
 		E985C73E25F3AD9700CB895C /* ytcpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B325F3AD9600CB895C /* ytcpsocket.swift */; };
 		E985C73F25F3AD9700CB895C /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B425F3AD9600CB895C /* Socket.swift */; };
 		E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B525F3AD9600CB895C /* TCPconnections.swift */; };
-		E985C74125F3AD9700CB895C /* PreandPostTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B625F3AD9600CB895C /* PreandPostTasks.swift */; };
 		E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B725F3AD9600CB895C /* Macserialnumber.swift */; };
 		E985C74325F3AD9700CB895C /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B825F3AD9600CB895C /* Resources.swift */; };
 		E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6B925F3AD9600CB895C /* GetConfigurationData.swift */; };
@@ -276,7 +274,6 @@
 		E985C6A825F3AD9600CB895C /* Backupconfigfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backupconfigfiles.swift; sourceTree = "<group>"; };
 		E985C6A925F3AD9600CB895C /* SetandValidatepathforrsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetandValidatepathforrsync.swift; sourceTree = "<group>"; };
 		E985C6AA25F3AD9600CB895C /* extensionDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensionDate.swift; sourceTree = "<group>"; };
-		E985C6AB25F3AD9600CB895C /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		E985C6AF25F3AD9600CB895C /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
 		E985C6B025F3AD9600CB895C /* ytcpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ytcpsocket.c; sourceTree = "<group>"; };
 		E985C6B125F3AD9600CB895C /* ResultYTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultYTP.swift; sourceTree = "<group>"; };
@@ -284,7 +281,6 @@
 		E985C6B325F3AD9600CB895C /* ytcpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ytcpsocket.swift; sourceTree = "<group>"; };
 		E985C6B425F3AD9600CB895C /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		E985C6B525F3AD9600CB895C /* TCPconnections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPconnections.swift; sourceTree = "<group>"; };
-		E985C6B625F3AD9600CB895C /* PreandPostTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreandPostTasks.swift; sourceTree = "<group>"; };
 		E985C6B725F3AD9600CB895C /* Macserialnumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macserialnumber.swift; sourceTree = "<group>"; };
 		E985C6B825F3AD9600CB895C /* Resources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		E985C6B925F3AD9600CB895C /* GetConfigurationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetConfigurationData.swift; sourceTree = "<group>"; };
@@ -718,10 +714,8 @@
 				E985C6A825F3AD9600CB895C /* Backupconfigfiles.swift */,
 				E985C6A925F3AD9600CB895C /* SetandValidatepathforrsync.swift */,
 				E985C6AA25F3AD9600CB895C /* extensionDate.swift */,
-				E985C6AB25F3AD9600CB895C /* Notifications.swift */,
 				E985C6AE25F3AD9600CB895C /* yudpsocket */,
 				E985C6B525F3AD9600CB895C /* TCPconnections.swift */,
-				E985C6B625F3AD9600CB895C /* PreandPostTasks.swift */,
 				E985C6B725F3AD9600CB895C /* Macserialnumber.swift */,
 				E985C6B825F3AD9600CB895C /* Resources.swift */,
 				E985C6B925F3AD9600CB895C /* GetConfigurationData.swift */,
@@ -1220,7 +1214,6 @@
 				E985C73725F3AD9700CB895C /* extensionDate.swift in Sources */,
 				E9F5354C290185AA007EFAE7 /* EstimateTasksAsync.swift in Sources */,
 				E985C77625F3AD9700CB895C /* ArgumentsSynchronize.swift in Sources */,
-				E985C74125F3AD9700CB895C /* PreandPostTasks.swift in Sources */,
 				E985C76725F3AD9700CB895C /* ExecuteOneTask.swift in Sources */,
 				E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */,
 				E905DFCB2B00CECD00FEFF3A /* AlltasksView.swift in Sources */,
@@ -1232,7 +1225,6 @@
 				E9B67FAC2646DAA3002BE8F6 /* PrepareOutput.swift in Sources */,
 				E99A79572B0BA1C800D3244A /* RsyncParametersView.swift in Sources */,
 				E9B34967273AE658000B053E /* OpencatalogView.swift in Sources */,
-				E985C73825F3AD9700CB895C /* Notifications.swift in Sources */,
 				E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */,
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
 				E99C2400261C322E009D4DBF /* ObservableRestore.swift in Sources */,
