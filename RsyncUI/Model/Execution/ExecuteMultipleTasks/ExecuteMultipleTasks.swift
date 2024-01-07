@@ -16,12 +16,7 @@ final class ExecuteMultipleTasks {
     private var structprofile: String?
     private var privatehiddenID: Int?
     private var stackoftasktobeexecuted: [Int]?
-    // private var records: [RemoteDataNumbers]?
-    private var max: Int?
-    // Set if abort is executed
     private var setabort = false
-    // output from rsync
-    private var outputfromrsync: [String]?
 
     weak var multipletaskstate: ExecuteMultipleTasksState?
     // In progress count each task
@@ -38,7 +33,6 @@ final class ExecuteMultipleTasks {
             for i in 0 ..< configurations.count {
                 stackoftasktobeexecuted?.append(configurations[i].hiddenID)
             }
-            max = stackoftasktobeexecuted?.count
         }
     }
 
