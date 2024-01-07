@@ -211,6 +211,7 @@ extension TasksView {
         if estimateprogressdetails.getestimatedlist() == nil {
             dryrun()
         } else if estimateprogressdetails.tasksareestimated(selecteduuids) {
+            executeprogressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
             execute()
         } else {
             dryrun()
