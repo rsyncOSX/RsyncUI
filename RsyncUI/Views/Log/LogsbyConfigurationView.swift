@@ -11,10 +11,11 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Binding var reload: Bool
+
     @State private var hiddenID = -1
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var selectedloguuids = Set<Log.ID>()
-    @State private var reload: Bool = false
     // Alert for delete
     @State private var showAlertfordelete = false
     // Filterstring
@@ -102,7 +103,8 @@ struct LogsbyConfigurationView: View {
             }
         })
         .sheet(isPresented: $showAlertfordelete) {
-            DeleteLogsView(selecteduuids: $selectedloguuids,
+            DeleteLogsView(reload: $reload,
+                           selectedloguuids: $selectedloguuids,
                            selectedprofile: rsyncUIdata.profile,
                            logrecords: logrecords)
         }

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct DeleteLogsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @Binding var selecteduuids: Set<UUID>
+    @Binding var reload: Bool
+    @Binding var selectedloguuids: Set<UUID>
     var selectedprofile: String?
     var logrecords: RsyncUIlogrecords
 
@@ -34,7 +35,7 @@ struct DeleteLogsView: View {
     var header: some View {
         HStack {
             let message = NSLocalizedString("Delete", comment: "")
-                + " \(selecteduuids.count) "
+                + " \(selectedloguuids.count) "
                 + "log(s)?"
             Text(message)
                 .font(.title2)
@@ -43,11 +44,12 @@ struct DeleteLogsView: View {
     }
 
     func delete() {
-        logrecords.removerecords(selecteduuids)
+        logrecords.removerecords(selectedloguuids)
         let deleteschedule = UpdateLogs(profile: selectedprofile,
                                         scheduleConfigurations: logrecords.scheduleConfigurations)
-        deleteschedule.deletelogs(uuids: selecteduuids)
-        selecteduuids.removeAll()
+        deleteschedule.deletelogs(uuids: selectedloguuids)
+        selectedloguuids.removeAll()
+        reload = true
         dismiss()
     }
 }

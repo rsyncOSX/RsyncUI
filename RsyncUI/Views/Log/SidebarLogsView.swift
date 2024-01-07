@@ -9,9 +9,13 @@ import SwiftUI
 
 struct SidebarLogsView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @State private var reload: Bool = false
 
     var body: some View {
-        LogsbyConfigurationView(logrecords: logrecords)
+        LogsbyConfigurationView(reload: $reload, logrecords: logrecords)
+            .onChange(of: reload) {
+                reload = false
+            }
             .padding()
     }
 
