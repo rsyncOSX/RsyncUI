@@ -14,7 +14,6 @@ typealias Typelogdata = (Int, String)
 final class ExecuteMultipleTasks {
     private var localconfigurations: RsyncUIconfigurations?
     private var structprofile: String?
-    private var privatehiddenID: Int?
     private var stackoftasktobeexecuted: [Int]?
     private var setabort = false
 
@@ -39,7 +38,6 @@ final class ExecuteMultipleTasks {
     private func startexecution() {
         guard (stackoftasktobeexecuted?.count ?? 0) > 0 else { return }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
-            privatehiddenID = hiddenID
             executeprogressdetails?.hiddenIDatwork = hiddenID
             let execute = ExecuteOneTask(hiddenID: hiddenID,
                                          configurations: localconfigurations,
@@ -87,16 +85,16 @@ final class ExecuteMultipleTasks {
 }
 
 extension ExecuteMultipleTasks {
-    func processtermination(data: [String]?, hiddenID _: Int?) {
+    func processtermination(data: [String]?, _ hiddenID: Int?) {
         guard setabort == false else { return }
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
-        configrecords.append((privatehiddenID ?? -1, Date().en_us_string_from_date()))
-        schedulerecords.append((privatehiddenID ?? -1, Numbers(data ?? []).stats()))
+        configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
+        schedulerecords.append((hiddenID ?? -1, Numbers(data ?? []).stats()))
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
-                                                     hiddenID: privatehiddenID,
+                                                     hiddenID: hiddenID,
                                                      configurations: localconfigurations?.getallconfigurations(),
                                                      validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             update.setCurrentDateonConfiguration(configrecords: configrecords)
@@ -105,7 +103,6 @@ extension ExecuteMultipleTasks {
             return
         }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
-            privatehiddenID = hiddenID
             executeprogressdetails?.hiddenIDatwork = hiddenID
             let execution = ExecuteOneTask(hiddenID: hiddenID,
                                            configurations: localconfigurations,
