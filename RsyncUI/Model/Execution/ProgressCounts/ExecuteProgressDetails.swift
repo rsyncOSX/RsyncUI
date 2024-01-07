@@ -36,6 +36,7 @@ final class ExecuteProgressDetails: ObservableObject {
 
     func resetcounts() {
         currenttaskprogress = 0
+        hiddenIDatwork = -1
         estimatedlist = nil
     }
 
