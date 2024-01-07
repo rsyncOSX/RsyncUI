@@ -34,7 +34,8 @@ struct ListofTasksMainView: View {
     }
 
     var tabledata: some View {
-        Table((rsyncUIdata.configurations ?? []).filter { filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
+        Table((rsyncUIdata.configurations ?? []).filter {
+            filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
         }, selection: $selecteduuids) {
             TableColumn("%") { data in
                 if data.hiddenID == executeprogressdetails.hiddenIDatwork {
