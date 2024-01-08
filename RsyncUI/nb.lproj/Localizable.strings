@@ -62,7 +62,16 @@
 "Catalog parameters" = "Katalog parametre";
 
 /* No comment provided by engineer. */
+"Catalogs" = "Kataloger";
+
+/* No comment provided by engineer. */
+"Changed files: " = "Endrede filer:";
+
+/* No comment provided by engineer. */
 "Check for error in output" = "Sjekk for feil i utdata";
+
+/* No comment provided by engineer. */
+"Confirm execute" = "Bekreft synkroniser";
 
 /* No comment provided by engineer. */
 "Copy" = "Kopi";
@@ -95,13 +104,13 @@
 "Delete configuration(s)" = "Slette konfigurasjoner";
 
 /* No comment provided by engineer. */
+"Delete files: " = "Slett filer:";
+
+/* No comment provided by engineer. */
 "Delete profile" = "Slett profil";
 
 /* No comment provided by engineer. */
 "Delete snapshots(s)" = "Slette snapshot";
-
-/* No comment provided by engineer. */
-"Delete: " = "Slett:";
 
 /* No comment provided by engineer. */
 "deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "i sletting av data. Og RsyncUI vil ikke hindre deg i det. Derfor er det";
@@ -137,16 +146,10 @@
 "Estimate (⌘E)" = "Estimer (⌘E)";
 
 /* No comment provided by engineer. */
-"Estimating" = "Estimerer";
-
-/* No comment provided by engineer. */
 "Filenames" = "Filnavn";
 
 /* No comment provided by engineer. */
 "Files" = "Filer";
-
-/* No comment provided by engineer. */
-"Files: " = "Filer:";
 
 /* No comment provided by engineer. */
 "First task" = "Første oppgave";
@@ -218,13 +221,13 @@
 "New" = "Ny";
 
 /* No comment provided by engineer. */
+"New files: " = "Nye filer:";
+
+/* No comment provided by engineer. */
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
 "New version is available" = "Ny versjon er tilgjengelig";
-
-/* No comment provided by engineer. */
-"New: " = "Ny:";
 
 /* No comment provided by engineer. */
 "No error" = "Ingen feil";
@@ -246,9 +249,6 @@
 
 /* No comment provided by engineer. */
 "Number of logrecords" = "Antall logger";
-
-/* No comment provided by engineer. */
-"Number to delete" = "Antall å slette";
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
@@ -326,9 +326,6 @@
 "RsyncUI help" = "RsyncUI hjelp";
 
 /* No comment provided by engineer. */
-"Save" = "Lagre";
-
-/* No comment provided by engineer. */
 "Save settings" = "Lagre innstillinger";
 
 /* No comment provided by engineer. */
@@ -342,6 +339,9 @@
 
 /* No comment provided by engineer. */
 "Select task" = "Velg oppgave";
+
+/* No comment provided by engineer. */
+"Selected logrecords for delete" = "Valgte log for å slette";
 
 /* No comment provided by engineer. */
 "selecting Important. Setting the wrong parameters to rsync can result in" = "under Viktig. Sette gale parametre til rsync kan resultere i";
