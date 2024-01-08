@@ -96,8 +96,9 @@ struct LogsbyConfigurationView: View {
                 Button {
                     selectedloguuids.removeAll()
                     selecteduuids.removeAll()
+                    reload = true
                 } label: {
-                    Image(systemName: "trash.fill")
+                    Image(systemName: "clear")
                 }
                 .help("Reset selections")
             }

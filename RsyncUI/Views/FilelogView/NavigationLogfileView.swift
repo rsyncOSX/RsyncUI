@@ -33,7 +33,7 @@ struct NavigationLogfileView: View {
                 Button {
                     reset()
                 } label: {
-                    Image(systemName: "trash.fill")
+                    Image(systemName: "clear")
                 }
                 .help("Reset logfile")
             }

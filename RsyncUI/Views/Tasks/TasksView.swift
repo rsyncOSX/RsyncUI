@@ -126,7 +126,7 @@ struct TasksView: View {
                     selecteduuids.removeAll()
                     reset()
                 } label: {
-                    Image(systemName: "trash.fill")
+                    Image(systemName: "clear")
                 }
                 .help("Reset estimates")
             }
