@@ -11,7 +11,6 @@ import Observation
 @Observable
 final class EstimateProgressDetails {
     var estimatedlist: [RemoteDataNumbers]?
-    var max: Int = 0
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
     // Estimate async
@@ -67,7 +66,6 @@ final class EstimateProgressDetails {
 
     func resetcounts() {
         numberofconfigurations = -1
-        max = 0
         uuids.removeAll()
         estimatedlist = nil
         profile = nil
@@ -76,10 +74,6 @@ final class EstimateProgressDetails {
         numberofconfigurations = 0
         numberofconfigurationsestimated = 0
         configurationtobestimated = nil
-    }
-
-    func setmaxcount(_ num: Int) {
-        max = num
     }
 
     func setestimatedlist(_ argestimatedlist: [RemoteDataNumbers]?) {

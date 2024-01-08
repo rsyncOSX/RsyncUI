@@ -10,21 +10,7 @@ import Observation
 
 @Observable
 final class ObservableRsyncOutput {
-    private var max: Int = 0
     private var output: [String]?
-
-    func resetcounts() {
-        max = 0
-        output = nil
-    }
-
-    func setmaxcount(_ num: Int) {
-        max = num
-    }
-
-    func getmaxcount() -> Int {
-        return max
-    }
 
     func setoutput(_ data: [String]?) {
         output = data

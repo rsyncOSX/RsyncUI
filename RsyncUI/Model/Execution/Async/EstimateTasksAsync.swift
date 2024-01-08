@@ -67,7 +67,6 @@ class EstimateTasksAsync {
                 }
             }
         }
-        localestimateprogressdetails?.setmaxcount(stackoftasktobeestimated?.count ?? 0)
         localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }
 

@@ -18,10 +18,8 @@ final class ExecuteMultipleTasks {
     private var setabort = false
 
     weak var multipletaskstate: ExecuteMultipleTasksState?
-    // In progress count each task
     weak var executeprogressdetails: ExecuteProgressDetails?
-    // Collect loggdata for later save to permanent storage
-    // (hiddenID, log)
+    // Collect loggdata for later save to permanent storage (hiddenID, log)
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
     // Report progress to caller
@@ -29,12 +27,10 @@ final class ExecuteMultipleTasks {
 
     private func prepareandstartexecutetasks(configurations: [Configuration]?) {
         stackoftasktobeexecuted = [Int]()
-        // Multiple selected indexes
         if let configurations = configurations {
             for i in 0 ..< configurations.count {
                 stackoftasktobeexecuted?.append(configurations[i].hiddenID)
             }
-            // max = stackoftasktobeexecuted?.count
         }
     }
 

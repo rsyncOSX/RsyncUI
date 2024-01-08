@@ -11,7 +11,7 @@ import OSLog
 
 @Observable
 final class ExecuteProgressDetails {
-    var hiddenIDatwork: Int = -1
+    @ObservationIgnored var hiddenIDatwork: Int = -1
     @ObservationIgnored var estimatedlist: [RemoteDataNumbers]?
 
     func taskisestimatedbyUUID(_ uuid: UUID) -> Bool {
@@ -30,14 +30,6 @@ final class ExecuteProgressDetails {
         } else {
             return 0
         }
-    }
-
-    func setestimatedlist(_ argestimatedlist: [RemoteDataNumbers]?) {
-        estimatedlist = argestimatedlist
-    }
-
-    func resetcounts() {
-        estimatedlist = nil
     }
 
     deinit {

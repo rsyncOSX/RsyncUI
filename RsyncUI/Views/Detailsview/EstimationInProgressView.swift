@@ -25,7 +25,7 @@ struct EstimationInProgressView: View {
         }
         .onAppear {
             estimateprogressdetails.resetcounts()
-            executeprogressdetails.resetcounts()
+            executeprogressdetails.estimatedlist = nil
             estimateprogressdetails.startestimateasync()
         }
         .padding()
@@ -48,8 +48,8 @@ struct EstimationInProgressView: View {
                 }
             }
             .onDisappear {
-                executeprogressdetails.resetcounts()
-                executeprogressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
+                executeprogressdetails.estimatedlist = nil
+                executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
                 nodatatosynchronize = {
                     if let data = estimateprogressdetails.getestimatedlist()?.filter({
                         $0.datatosynchronize == true })

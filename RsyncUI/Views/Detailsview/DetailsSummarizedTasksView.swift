@@ -169,7 +169,7 @@ struct SummarizedAllDetailsView: View {
                     return
                 }
                 estimateprogressdetails.resetcounts()
-                executeprogressdetails.resetcounts()
+                executeprogressdetails.estimatedlist = nil
                 estimateprogressdetails.startestimateasync()
             }
         }

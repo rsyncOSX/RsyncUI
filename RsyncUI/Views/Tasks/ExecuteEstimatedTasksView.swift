@@ -43,7 +43,7 @@ struct ExecuteEstimatedTasksView: View {
             executemultipleestimatedtasks()
         })
         .onDisappear(perform: {
-            executeprogressdetails.resetcounts()
+            executeprogressdetails.estimatedlist = nil
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {

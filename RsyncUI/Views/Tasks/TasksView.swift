@@ -211,7 +211,8 @@ extension TasksView {
         if estimateprogressdetails.getestimatedlist() == nil {
             dryrun()
         } else if estimateprogressdetails.tasksareestimated(selecteduuids) {
-            executeprogressdetails.setestimatedlist(estimateprogressdetails.getestimatedlist())
+            Logger.process.info("Doubleclick: execute a real run for one task only")
+            executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
             execute()
         } else {
             dryrun()
@@ -277,14 +278,14 @@ extension TasksView {
     }
 
     func reset() {
-        executeprogressdetails.resetcounts()
+        executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
     }
 
     func abort() {
-        executeprogressdetails.resetcounts()
+        executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)
