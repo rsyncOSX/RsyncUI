@@ -1,5 +1,5 @@
 //
-//  DecodeConfigurationSchedule.swift
+//  DecodeLogRecords.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 18/10/2020.
@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct Logrecord: Codable, Hashable {
+struct DecodeLog: Codable, Hashable {
     var dateExecuted: String?
     var resultExecuted: String?
 
@@ -31,12 +31,11 @@ struct Logrecord: Codable, Hashable {
     }
 }
 
-struct DecodeConfigurationSchedule: Codable {
+struct DecodeLogRecords: Codable {
     let dateStart: String?
     let hiddenID: Int?
-    var logrecords: [Logrecord]?
+    var logrecords: [DecodeLog]?
     let offsiteserver: String?
-    // let schedule: String?
     let profilename: String?
 
     enum CodingKeys: String, CodingKey {
@@ -44,7 +43,6 @@ struct DecodeConfigurationSchedule: Codable {
         case hiddenID
         case logrecords
         case offsiteserver
-        // case schedule
         case profilename
     }
 
@@ -52,9 +50,8 @@ struct DecodeConfigurationSchedule: Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         dateStart = try values.decodeIfPresent(String.self, forKey: .dateStart)
         hiddenID = try values.decodeIfPresent(Int.self, forKey: .hiddenID)
-        logrecords = try values.decodeIfPresent([Logrecord].self, forKey: .logrecords)
+        logrecords = try values.decodeIfPresent([DecodeLog].self, forKey: .logrecords)
         offsiteserver = try values.decodeIfPresent(String.self, forKey: .offsiteserver)
-        // schedule = try values.decodeIfPresent(String.self, forKey: .schedule)
         profilename = try values.decodeIfPresent(String.self, forKey: .profilename)
     }
 
@@ -63,11 +60,10 @@ struct DecodeConfigurationSchedule: Codable {
         dateStart = data.dateStart
         hiddenID = data.hiddenID
         offsiteserver = data.offsiteserver
-        // schedule = data.schedule
         profilename = data.profilename
         for i in 0 ..< (data.logrecords?.count ?? 0) {
-            if i == 0 { logrecords = [Logrecord]() }
-            var log = Logrecord()
+            if i == 0 { logrecords = [DecodeLog]() }
+            var log = DecodeLog()
             log.dateExecuted = data.logrecords?[i].dateExecuted
             log.resultExecuted = data.logrecords?[i].resultExecuted
             logrecords?.append(log)

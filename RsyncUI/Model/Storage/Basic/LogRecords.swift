@@ -16,7 +16,6 @@ struct Log: Identifiable, Codable {
         return dateExecuted?.en_us_date_from_string() ?? Date()
     }
 
-    // Used only in view logs
     var hiddenID: Int?
 }
 
@@ -25,17 +24,15 @@ struct LogRecords: Identifiable, Codable {
     var hiddenID: Int
     var offsiteserver: String?
     var dateStart: String
-    // var schedule: String
     var logrecords: [Log]?
     var profilename: String?
 
     // Used when reading JSON data from store
     // see in ReadScheduleJSON
-    init(_ data: DecodeConfigurationSchedule) {
+    init(_ data: DecodeLogRecords) {
         dateStart = data.dateStart ?? ""
         hiddenID = data.hiddenID ?? -1
         offsiteserver = data.offsiteserver
-        // schedule = data.schedule ?? ""
         for i in 0 ..< (data.logrecords?.count ?? 0) {
             if i == 0 { logrecords = [Log]() }
             var log = Log()
@@ -58,14 +55,12 @@ extension LogRecords: Hashable, Equatable {
     static func == (lhs: LogRecords, rhs: LogRecords) -> Bool {
         return lhs.hiddenID == rhs.hiddenID &&
             lhs.dateStart == rhs.dateStart &&
-            // lhs.schedule == rhs.schedule &&
             lhs.offsiteserver == rhs.offsiteserver
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(String(hiddenID))
         hasher.combine(dateStart)
-        // hasher.combine(schedule)
         hasher.combine(offsiteserver)
     }
 }

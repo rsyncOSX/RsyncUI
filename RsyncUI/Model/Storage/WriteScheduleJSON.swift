@@ -47,10 +47,10 @@ class WriteScheduleJSON: NamesandPaths {
             self.profile = profile
         }
         schedules.publisher
-            .map { schedules -> [DecodeConfigurationSchedule] in
-                var data = [DecodeConfigurationSchedule]()
+            .map { schedules -> [DecodeLogRecords] in
+                var data = [DecodeLogRecords]()
                 for i in 0 ..< schedules.count {
-                    data.append(DecodeConfigurationSchedule(schedules[i]))
+                    data.append(DecodeLogRecords(schedules[i]))
                 }
                 return data
             }
