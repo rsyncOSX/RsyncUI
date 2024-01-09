@@ -11,7 +11,7 @@ import Observation
 @Observable
 final class ExecuteAsyncNoEstimation {
     var executeasyncnoestimationcompleted: Bool = false
-    var estimatedlist: [RemoteDataNumbers]?
+    var executelist: [RemoteDataNumbers]?
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
 
@@ -24,10 +24,10 @@ final class ExecuteAsyncNoEstimation {
     }
 
     func appendrecordexecutedlist(_ record: RemoteDataNumbers) {
-        if estimatedlist == nil {
-            estimatedlist = [RemoteDataNumbers]()
+        if executelist == nil {
+            executelist = [RemoteDataNumbers]()
         }
-        estimatedlist?.append(record)
+        executelist?.append(record)
     }
 
     func appenduuid(_ id: UUID) {
@@ -36,6 +36,6 @@ final class ExecuteAsyncNoEstimation {
 
     func reset() {
         uuids.removeAll()
-        estimatedlist = nil
+        executelist = nil
     }
 }
