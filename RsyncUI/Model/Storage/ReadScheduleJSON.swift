@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 class ReadScheduleJSON: NamesandPaths {
-    var schedules: [ConfigurationSchedule]?
+    var schedules: [LogRecords]?
     var logrecords: [Log]?
     var filenamedatastore = [SharedReference.shared.fileschedulesjson]
     var subscriptons = Set<AnyCancellable>()
@@ -43,9 +43,9 @@ class ReadScheduleJSON: NamesandPaths {
                     WriteScheduleJSON(nil, nil)
                 }
             } receiveValue: { [unowned self] data in
-                schedules = [ConfigurationSchedule]()
+                schedules = [LogRecords]()
                 for i in 0 ..< data.count {
-                    var oneschedule = ConfigurationSchedule(data[i])
+                    var oneschedule = LogRecords(data[i])
                     oneschedule.profilename = profile
                     if validhiddenID.contains(oneschedule.hiddenID) {
                         schedules?.append(oneschedule)

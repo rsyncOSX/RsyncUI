@@ -12,7 +12,7 @@ import SwiftUI
 
 struct Readlogsfromstore {
     var logrecords: [Log]?
-    var scheduleConfigurations: [ConfigurationSchedule]?
+    var scheduleConfigurations: [LogRecords]?
 
     init(profile: String?, validhiddenIDs: Set<Int>?) {
         guard validhiddenIDs != nil else { return }
@@ -29,7 +29,7 @@ final class RsyncUIlogrecords {
     @ObservationIgnored
     var countrecords: Int = 0
     @ObservationIgnored
-    var scheduleConfigurations: [ConfigurationSchedule]?
+    var scheduleConfigurations: [LogRecords]?
     @ObservationIgnored
     var logrecordsfromstore: Readlogsfromstore?
 

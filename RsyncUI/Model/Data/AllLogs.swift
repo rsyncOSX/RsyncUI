@@ -9,7 +9,7 @@
 import Foundation
 
 struct AllLogs {
-    var scheduleConfigurations: [ConfigurationSchedule]?
+    var scheduleConfigurations: [LogRecords]?
     var logrecords: [Log]?
 
     init(profile: String?, validhiddenIDs: Set<Int>) {

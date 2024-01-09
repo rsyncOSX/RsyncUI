@@ -37,7 +37,7 @@ class WriteScheduleJSON: NamesandPaths {
     // We have to remove UUID and computed properties ahead of writing JSON file
     // done in the .map operator
     @discardableResult
-    init(_ profile: String?, _ schedules: [ConfigurationSchedule]?) {
+    init(_ profile: String?, _ schedules: [LogRecords]?) {
         super.init(.configurations)
         // print("WriteScheduleJSON")
         // Set profile and filename ahead of encoding an write

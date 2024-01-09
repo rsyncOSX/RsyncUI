@@ -8,7 +8,7 @@
 import Foundation
 
 final class UpdateLogs {
-    private var structschedules: [ConfigurationSchedule]?
+    private var structschedules: [LogRecords]?
     private var localeprofile: String?
 
     func deletelogs(uuids: Set<UUID>) {
@@ -31,7 +31,7 @@ final class UpdateLogs {
     }
 
     init(profile: String?,
-         scheduleConfigurations: [ConfigurationSchedule]?)
+         scheduleConfigurations: [LogRecords]?)
     {
         localeprofile = profile
         structschedules = scheduleConfigurations

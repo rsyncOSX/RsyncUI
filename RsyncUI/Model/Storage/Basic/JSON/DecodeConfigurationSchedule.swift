@@ -59,7 +59,7 @@ struct DecodeConfigurationSchedule: Codable {
     }
 
     // This init is used in WriteScheduleJSON
-    init(_ data: ConfigurationSchedule) {
+    init(_ data: LogRecords) {
         dateStart = data.dateStart
         hiddenID = data.hiddenID
         offsiteserver = data.offsiteserver

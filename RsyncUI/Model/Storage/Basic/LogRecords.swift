@@ -1,5 +1,5 @@
 //
-//  ConfigurationSchedule.swift
+//  LogRecords.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 02/05/16.
@@ -20,7 +20,7 @@ struct Log: Identifiable, Codable {
     var hiddenID: Int?
 }
 
-struct ConfigurationSchedule: Identifiable, Codable {
+struct LogRecords: Identifiable, Codable {
     var id = UUID()
     var hiddenID: Int
     var offsiteserver: String?
@@ -54,8 +54,8 @@ struct ConfigurationSchedule: Identifiable, Codable {
     }
 }
 
-extension ConfigurationSchedule: Hashable, Equatable {
-    static func == (lhs: ConfigurationSchedule, rhs: ConfigurationSchedule) -> Bool {
+extension LogRecords: Hashable, Equatable {
+    static func == (lhs: LogRecords, rhs: LogRecords) -> Bool {
         return lhs.hiddenID == rhs.hiddenID &&
             lhs.dateStart == rhs.dateStart &&
             // lhs.schedule == rhs.schedule &&

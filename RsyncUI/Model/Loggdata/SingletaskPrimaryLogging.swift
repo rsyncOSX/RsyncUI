@@ -19,7 +19,7 @@ import OSLog
  */
 class SingletaskPrimaryLogging {
     var structconfigurations: [Configuration]?
-    var structschedules: [ConfigurationSchedule]?
+    var structschedules: [LogRecords]?
     var localeprofile: String?
     var localehiddenID: Int?
 
@@ -98,7 +98,7 @@ class SingletaskPrimaryLogging {
     func addlognew(hiddenID: Int, result: String, date: String) -> Bool {
         let configdata = GetConfigurationData(configurations: structconfigurations)
         if SharedReference.shared.synctasks.contains(configdata.getconfigurationdata(hiddenID, resource: .task) ?? "") {
-            var newrecord = ConfigurationSchedule()
+            var newrecord = LogRecords()
             newrecord.hiddenID = hiddenID
             let currendate = Date()
             newrecord.dateStart = currendate.en_us_string_from_date()
@@ -132,7 +132,7 @@ class SingletaskPrimaryLogging {
         structconfigurations = configurations
         structschedules = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs).scheduleConfigurations
         if structschedules == nil {
-            structschedules = [ConfigurationSchedule]()
+            structschedules = [LogRecords]()
         }
     }
 
