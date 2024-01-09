@@ -8,14 +8,15 @@
 import Foundation
 import OSLog
 
-enum Scheduletype: String {
-    // case once
-    // case daily
-    // case weekly
-    case manuel
-    // case stopped
-}
-
+/*
+ enum Scheduletype: String {
+     // case once
+     // case daily
+     // case weekly
+     case manuel
+     // case stopped
+ }
+ */
 class SingletaskPrimaryLogging {
     var structconfigurations: [Configuration]?
     var structschedules: [ConfigurationSchedule]?
@@ -101,7 +102,7 @@ class SingletaskPrimaryLogging {
             newrecord.hiddenID = hiddenID
             let currendate = Date()
             newrecord.dateStart = currendate.en_us_string_from_date()
-            newrecord.schedule = Scheduletype.manuel.rawValue
+            // newrecord.schedule = Scheduletype.manuel.rawValue
             var log = Log()
             log.dateExecuted = date
             log.resultExecuted = result

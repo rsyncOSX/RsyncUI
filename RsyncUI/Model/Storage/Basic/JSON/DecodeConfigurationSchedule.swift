@@ -36,7 +36,7 @@ struct DecodeConfigurationSchedule: Codable {
     let hiddenID: Int?
     var logrecords: [Logrecord]?
     let offsiteserver: String?
-    let schedule: String?
+    // let schedule: String?
     let profilename: String?
 
     enum CodingKeys: String, CodingKey {
@@ -44,7 +44,7 @@ struct DecodeConfigurationSchedule: Codable {
         case hiddenID
         case logrecords
         case offsiteserver
-        case schedule
+        // case schedule
         case profilename
     }
 
@@ -54,7 +54,7 @@ struct DecodeConfigurationSchedule: Codable {
         hiddenID = try values.decodeIfPresent(Int.self, forKey: .hiddenID)
         logrecords = try values.decodeIfPresent([Logrecord].self, forKey: .logrecords)
         offsiteserver = try values.decodeIfPresent(String.self, forKey: .offsiteserver)
-        schedule = try values.decodeIfPresent(String.self, forKey: .schedule)
+        // schedule = try values.decodeIfPresent(String.self, forKey: .schedule)
         profilename = try values.decodeIfPresent(String.self, forKey: .profilename)
     }
 
@@ -63,7 +63,7 @@ struct DecodeConfigurationSchedule: Codable {
         dateStart = data.dateStart
         hiddenID = data.hiddenID
         offsiteserver = data.offsiteserver
-        schedule = data.schedule
+        // schedule = data.schedule
         profilename = data.profilename
         for i in 0 ..< (data.logrecords?.count ?? 0) {
             if i == 0 { logrecords = [Logrecord]() }

@@ -25,7 +25,7 @@ struct ConfigurationSchedule: Identifiable, Codable {
     var hiddenID: Int
     var offsiteserver: String?
     var dateStart: String
-    var schedule: String
+    // var schedule: String
     var logrecords: [Log]?
     var profilename: String?
 
@@ -35,7 +35,7 @@ struct ConfigurationSchedule: Identifiable, Codable {
         dateStart = data.dateStart ?? ""
         hiddenID = data.hiddenID ?? -1
         offsiteserver = data.offsiteserver
-        schedule = data.schedule ?? ""
+        // schedule = data.schedule ?? ""
         for i in 0 ..< (data.logrecords?.count ?? 0) {
             if i == 0 { logrecords = [Log]() }
             var log = Log()
@@ -50,7 +50,7 @@ struct ConfigurationSchedule: Identifiable, Codable {
     init() {
         hiddenID = -1
         dateStart = ""
-        schedule = ""
+        // schedule = ""
     }
 }
 
@@ -58,14 +58,14 @@ extension ConfigurationSchedule: Hashable, Equatable {
     static func == (lhs: ConfigurationSchedule, rhs: ConfigurationSchedule) -> Bool {
         return lhs.hiddenID == rhs.hiddenID &&
             lhs.dateStart == rhs.dateStart &&
-            lhs.schedule == rhs.schedule &&
+            // lhs.schedule == rhs.schedule &&
             lhs.offsiteserver == rhs.offsiteserver
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(String(hiddenID))
         hasher.combine(dateStart)
-        hasher.combine(schedule)
+        // hasher.combine(schedule)
         hasher.combine(offsiteserver)
     }
 }
