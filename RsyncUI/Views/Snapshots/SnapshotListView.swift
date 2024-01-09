@@ -10,7 +10,7 @@ import SwiftUI
 struct SnapshotListView: View {
     @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var snapshotdata: SnapshotData
-    @Binding var snapshotrecords: LogrecordSnapshot?
+    @Binding var snapshotrecords: SnapshotLogRecords?
     @Binding var filterstring: String
 
     @Binding var selectedconfig: Configuration?
@@ -79,7 +79,7 @@ struct SnapshotListView: View {
         }
     }
 
-    var logrecords: [LogrecordSnapshot] {
+    var logrecords: [SnapshotLogRecords] {
         if filterstring.isEmpty {
             return snapshotdata.getsnapshotdata() ?? []
         } else {

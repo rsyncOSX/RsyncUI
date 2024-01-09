@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LogrecordSnapshot: Identifiable {
+struct SnapshotLogRecords: Identifiable {
     var id = UUID()
     var hiddenID: Int
     var localCatalog: String
@@ -26,14 +26,14 @@ struct LogrecordSnapshot: Identifiable {
     var seconds: Int = 0
 }
 
-final class LogRecords {
+final class SnapshotRecords {
     private var localconfigurations: RsyncUIconfigurations?
     private var structschedules: AllLogs?
-    var loggrecordssnapshots: [LogrecordSnapshot]?
+    var loggrecordssnapshots: [SnapshotLogRecords]?
     private var localehiddenID: Int?
 
     private func readandsortallloggdata(hiddenID: Int?) {
-        var data = [LogrecordSnapshot]()
+        var data = [SnapshotLogRecords]()
         if let input: [ConfigurationSchedule] = structschedules?.scheduleConfigurations {
             for i in 0 ..< input.count {
                 for j in 0 ..< (input[i].logrecords?.count ?? 0) {
@@ -48,7 +48,7 @@ final class LogRecords {
                         }
                         let configdata = GetConfigurationData(configurations: localconfigurations?.getallconfigurations())
                         let record =
-                            LogrecordSnapshot(
+                            SnapshotLogRecords(
                                 hiddenID: hiddenID,
                                 localCatalog: configdata.getconfigurationdata(hiddenID, resource: .localCatalog) ?? "",
                                 remoteCatalog: configdata.getconfigurationdata(hiddenID, resource: .remoteCatalog) ?? "",
@@ -85,8 +85,8 @@ final class LogRecords {
     }
 }
 
-extension LogrecordSnapshot: Hashable, Equatable {
-    static func == (lhs: LogrecordSnapshot, rhs: LogrecordSnapshot) -> Bool {
+extension SnapshotLogRecords: Hashable, Equatable {
+    static func == (lhs: SnapshotLogRecords, rhs: SnapshotLogRecords) -> Bool {
         return lhs.dateExecuted == rhs.dateExecuted &&
             lhs.resultExecuted == rhs.resultExecuted &&
             lhs.snapshotCatalog == rhs.snapshotCatalog &&

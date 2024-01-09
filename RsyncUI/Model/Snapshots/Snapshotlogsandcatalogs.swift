@@ -10,7 +10,7 @@ import Foundation
 
 final class Snapshotlogsandcatalogs: Snapshotcatalogs {
     // Number of local logrecords
-    var logrecordssnapshot: [LogrecordSnapshot]?
+    var logrecordssnapshot: [SnapshotLogRecords]?
     var firstsnapshotctalogNOdelete: String?
     var lastsnapshotctalogNOdelete: String?
 
@@ -28,7 +28,7 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
 
     // Merging remote snaphotcatalogs and existing logs
     private func mergeremotecatalogsandlogs() {
-        var adjustedlogrecords = [LogrecordSnapshot]()
+        var adjustedlogrecords = [SnapshotLogRecords]()
         let mycatalogs = catalogsanddates
         var mylogrecords = logrecordssnapshot
         // Loop through all real catalogs, find the corresponding logrecord if any
@@ -96,9 +96,9 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
     {
         super.init(config: config, snapshotdata: snapshotdata)
         // Getting log records from schedules, sorted after date
-        logrecordssnapshot = LogRecords(hiddenID: config.hiddenID,
-                                        profile: profile,
-                                        configurations: configurations).loggrecordssnapshots
+        logrecordssnapshot = SnapshotRecords(hiddenID: config.hiddenID,
+                                             profile: profile,
+                                             configurations: configurations).loggrecordssnapshots
     }
 
     override func processtermination(data: [String]?) {

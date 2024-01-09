@@ -13,7 +13,7 @@ struct SnapshotsView: View {
 
     @State private var snapshotdata = SnapshotData()
     @State private var selectedconfig: Configuration?
-    @State private var snapshotrecords: LogrecordSnapshot?
+    @State private var snapshotrecords: SnapshotLogRecords?
     @State private var selectedconfiguuid = Set<Configuration.ID>()
     // If not a snapshot
     @State private var notsnapshot = false
