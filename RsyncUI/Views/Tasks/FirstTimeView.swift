@@ -5,11 +5,11 @@
 //  Created by Thomas Evensen on 11/11/2023.
 //
 
-import ConfettiSwiftUI
+// import ConfettiSwiftUI
 import SwiftUI
 
 struct FirstTimeView: View {
-    @State private var counter: Int = 0
+    // @State private var counter: Int = 0
 
     let info: String = "https://rsyncui.netlify.app/post/important/"
     let add: String = "https://rsyncui.netlify.app/post/addconfigurations/"
@@ -36,16 +36,19 @@ struct FirstTimeView: View {
             }
         }
         .padding()
-        .onAppear {
-            counter += 1
-        }
         .onDisappear {
             SharedReference.shared.firsttime = false
         }
-        .confettiCannon(counter: $counter, num: 100,
-                        openingAngle: Angle(degrees: 0),
-                        closingAngle: Angle(degrees: 360),
-                        radius: 200)
+        /*
+         .onAppear {
+             counter += 1
+         }
+
+         .confettiCannon(counter: $counter, num: 100,
+                         openingAngle: Angle(degrees: 0),
+                         closingAngle: Angle(degrees: 360),
+                         radius: 200)
+          */
     }
 
     var imagersyncosx: some View {
