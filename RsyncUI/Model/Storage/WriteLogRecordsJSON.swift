@@ -1,5 +1,5 @@
 //
-//  WriteScheduleJSON.swift
+//  WriteLogRecordsJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 27/04/2021.
@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import OSLog
 
-class WriteScheduleJSON: NamesandPaths {
+class WriteLogRecordsJSON: NamesandPaths {
     var profile: String?
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
@@ -25,7 +25,7 @@ class WriteScheduleJSON: NamesandPaths {
                 let file = try folder.createFile(named: filename)
                 if let data = data {
                     try file.write(data)
-                    Logger.process.info("WriteScheduleJSON: write logdata to permanent storage")
+                    Logger.process.info("WriteLogRecordsJSON: write logdata to permanent storage")
                 }
             } catch let e {
                 let error = e

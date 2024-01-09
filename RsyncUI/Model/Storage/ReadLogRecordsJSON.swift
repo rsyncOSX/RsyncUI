@@ -1,5 +1,5 @@
 //
-//  ReadScheduleJSON.swift
+//  ReadLogRecordsJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/04/2021.
@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import OSLog
 
-class ReadScheduleJSON: NamesandPaths {
+class ReadLogRecordsJSON: NamesandPaths {
     var schedules: [LogRecords]?
     var logrecords: [Log]?
     var filenamedatastore = [SharedReference.shared.fileschedulesjson]
@@ -39,8 +39,8 @@ class ReadScheduleJSON: NamesandPaths {
                 case .finished:
                     return
                 case .failure:
-                    Logger.process.info("ReadScheduleJSON: Creating default file for log records")
-                    WriteScheduleJSON(nil, nil)
+                    Logger.process.info("ReadLogRecordsJSON: Creating default file for log records")
+                    WriteLogRecordsJSON(nil, nil)
                 }
             } receiveValue: { [unowned self] data in
                 schedules = [LogRecords]()
@@ -59,7 +59,7 @@ class ReadScheduleJSON: NamesandPaths {
                         }
                     }
                     logrecords = logrecords?.sorted(by: \.date, using: >)
-                    Logger.process.info("ReadScheduleJSON: read logdata from permanent storage")
+                    Logger.process.info("ReadLogRecordsJSON: read logdata from permanent storage")
                 }
                 subscriptons.removeAll()
             }.store(in: &subscriptons)

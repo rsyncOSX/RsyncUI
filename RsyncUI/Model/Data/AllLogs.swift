@@ -14,13 +14,13 @@ struct AllLogs {
 
     init(profile: String?, validhiddenIDs: Set<Int>) {
         if profile == SharedReference.shared.defaultprofile || profile == nil {
-            let schedulesdata = ReadScheduleJSON(nil, validhiddenIDs)
+            let schedulesdata = ReadLogRecordsJSON(nil, validhiddenIDs)
             scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
                 log1.dateStart > log2.dateStart
             }
             logrecords = schedulesdata.logrecords
         } else {
-            let schedulesdata = ReadScheduleJSON(profile, validhiddenIDs)
+            let schedulesdata = ReadLogRecordsJSON(profile, validhiddenIDs)
             scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
                 log1.dateStart > log2.dateStart
             }

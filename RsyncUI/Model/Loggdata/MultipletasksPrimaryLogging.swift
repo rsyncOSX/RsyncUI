@@ -53,7 +53,7 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
                     }
                 }
             }
-            WriteScheduleJSON(localeprofile, structschedules)
+            WriteLogRecordsJSON(localeprofile, structschedules)
         }
     }
 

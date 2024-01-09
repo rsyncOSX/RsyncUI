@@ -69,7 +69,7 @@ class SingletaskPrimaryLogging {
                         inserted = addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
                     }
                     if inserted {
-                        WriteScheduleJSON(localeprofile, structschedules)
+                        WriteLogRecordsJSON(localeprofile, structschedules)
                     }
                     _ = Logfile(TrimTwo(outputrsync ?? []).trimmeddata, error: false)
                 }
