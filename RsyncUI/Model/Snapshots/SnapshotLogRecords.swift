@@ -28,16 +28,16 @@ struct SnapshotLogRecords: Identifiable {
 
 final class SnapshotRecords {
     private var localconfigurations: RsyncUIconfigurations?
-    private var structschedules: AllLogs?
+    private var alllogrecords: AllLogs?
     var loggrecordssnapshots: [SnapshotLogRecords]?
     private var localehiddenID: Int?
 
     private func readandsortallloggdata(hiddenID: Int?) {
         var data = [SnapshotLogRecords]()
-        if let input: [LogRecords] = structschedules?.logrecords {
+        if let input: [LogRecords] = alllogrecords?.logrecords {
             for i in 0 ..< input.count {
                 for j in 0 ..< (input[i].logrecords?.count ?? 0) {
-                    if let hiddenID = structschedules?.logrecords?[i].hiddenID {
+                    if let hiddenID = alllogrecords?.logrecords?[i].hiddenID {
                         var datestring: String?
                         var date: Date?
                         if let stringdate = input[i].logrecords?[j].dateExecuted {
@@ -74,7 +74,7 @@ final class SnapshotRecords {
     {
         localehiddenID = hiddenID
         localconfigurations = configurations
-        structschedules = AllLogs(profile: profile, validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
+        alllogrecords = AllLogs(profile: profile, validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
         if loggrecordssnapshots == nil {
             readandsortallloggdata(hiddenID: hiddenID)
         }

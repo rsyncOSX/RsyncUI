@@ -8,11 +8,11 @@
 import Foundation
 
 final class UpdateLogs {
-    private var structschedules: [LogRecords]?
+    private var logrecords: [LogRecords]?
     private var localeprofile: String?
 
     func deletelogs(uuids: Set<UUID>) {
-        if let schedules = structschedules {
+        if let schedules = logrecords {
             var indexset = IndexSet()
 
             for i in 0 ..< schedules.count {
@@ -23,10 +23,10 @@ final class UpdateLogs {
                         indexset.insert(index)
                     }
                 }
-                structschedules?[i].logrecords?.remove(atOffsets: indexset)
+                logrecords?[i].logrecords?.remove(atOffsets: indexset)
                 indexset.removeAll()
             }
-            WriteLogRecordsJSON(localeprofile, structschedules)
+            WriteLogRecordsJSON(localeprofile, logrecords)
         }
     }
 
@@ -34,7 +34,7 @@ final class UpdateLogs {
          scheduleConfigurations: [LogRecords]?)
     {
         localeprofile = profile
-        structschedules = scheduleConfigurations
+        logrecords = scheduleConfigurations
     }
 
     deinit {
