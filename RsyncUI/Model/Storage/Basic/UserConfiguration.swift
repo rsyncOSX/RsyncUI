@@ -36,6 +36,8 @@ struct UserConfiguration: Codable {
     var confirmexecute: Int?
     // NavigationStack
     var usenavigationstack: Int?
+    // New file logrecords in use
+    var newfilelogrecordsinuse: Int = 0
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -103,6 +105,7 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.confirmexecute = false
         }
+        SharedReference.shared.newfilelogrecordsinuse = newfilelogrecordsinuse
     }
 
     // Used when reading JSON data from store
@@ -123,6 +126,7 @@ struct UserConfiguration: Codable {
         environmentvalue = data.environmentvalue
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
         confirmexecute = data.confirmexecute ?? -1
+        newfilelogrecordsinuse = data.newfilelogrecordsinuse ?? 0
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -193,6 +197,7 @@ struct UserConfiguration: Codable {
         } else {
             confirmexecute = -1
         }
+        newfilelogrecordsinuse = SharedReference.shared.newfilelogrecordsinuse
     }
 }
 
