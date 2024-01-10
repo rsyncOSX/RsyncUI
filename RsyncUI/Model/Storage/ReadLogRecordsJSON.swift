@@ -41,6 +41,7 @@ class ReadLogRecordsJSON: NamesandPaths {
                 case .failure:
                     Logger.process.info("ReadLogRecordsJSON: Creating default file for log records")
                     var defaultlogrecords = [LogRecords()]
+                    guard defaultlogrecords.count == 1 else { return }
                     defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
                     defaultlogrecords[0].profilename = profile
                     WriteLogRecordsJSON(profile, defaultlogrecords)
