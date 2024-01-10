@@ -23,25 +23,34 @@ class ReadConfigurationJSON: NamesandPaths {
     }
 
     private func failurereadlogrecords(_ profile: String?, _ validhiddenID: Set<Int>) {
-        if var atpath = fullpathmacserial {
+        if let atpath = fullpathmacserial {
+            var oldfilelogrecords = ""
+            var newfilelogrecords = ""
+            var oldfileexists = true
+            var newfileexists = false
             do {
                 if profile != nil {
-                    atpath += "/" + (profile ?? "") + "/" + SharedReference.shared.fileschedulesjson
+                    oldfilelogrecords = atpath + "/" + (profile ?? "") + "/" + SharedReference.shared.fileschedulesjson
+                    newfilelogrecords = atpath + "/" + (profile ?? "") + "/" + SharedReference.shared.filenamelogrecordsjson
                 } else {
-                    atpath += "/" + SharedReference.shared.fileschedulesjson
+                    oldfilelogrecords = atpath + "/" + SharedReference.shared.fileschedulesjson
+                    newfilelogrecords = atpath + "/" + SharedReference.shared.filenamelogrecordsjson
                 }
-                let exists = try validatepath(atpath)
-                if exists {
+                oldfileexists = try validatepath(oldfilelogrecords)
+                newfileexists = try validatepath(newfilelogrecords)
+                if oldfileexists == true, newfileexists == false {
                     Logger.process.info("ReadLogRecordsJSON: Copy old file for log records and save to new file")
                     _ = ReadLogrecordsOldName(profile, validhiddenID)
                 }
             } catch _ {
-                Logger.process.info("ReadLogRecordsJSON: Creating DEFAULT file for log records")
-                var defaultlogrecords = [LogRecords()]
-                guard defaultlogrecords.count == 1 else { return }
-                defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
-                defaultlogrecords[0].profilename = profile
-                WriteLogRecordsJSON(profile, defaultlogrecords)
+                if newfileexists == false {
+                    Logger.process.info("ReadLogRecordsJSON: Creating DEFAULT file for log records")
+                    var defaultlogrecords = [LogRecords()]
+                    guard defaultlogrecords.count == 1 else { return }
+                    defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
+                    defaultlogrecords[0].profilename = profile
+                    WriteLogRecordsJSON(profile, defaultlogrecords)
+                }
             }
         }
     }
@@ -49,7 +58,7 @@ class ReadConfigurationJSON: NamesandPaths {
     private func createdefaultfileconfigurations(_ profile: String?) {
         // No file, write new file with default values
         Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): Creating default file for Configurations")
-        var defaultconfiguration = [Configuration()]
+        let defaultconfiguration = [Configuration()]
         WriteConfigurationJSON(profile, defaultconfiguration)
     }
 
