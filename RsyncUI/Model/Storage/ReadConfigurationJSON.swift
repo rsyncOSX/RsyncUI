@@ -37,10 +37,8 @@ class ReadConfigurationJSON: NamesandPaths {
                 newfileexists = validatepath(newfilelogrecords)
                 if oldfileexists == true, newfileexists == false {
                     Logger.process.info("ReadLogRecordsJSON: Copy OLD file for logrecords and save to NEW file")
-                    _ = ReadLogrecordsOldName(profile, validhiddenID)
-                }
-            } catch _ {
-                if newfileexists == false {
+                    _ = ReadLogrecordsOldAndSaveNewfile(profile, validhiddenID)
+                } else if oldfileexists == false, newfileexists == false {
                     Logger.process.info("ReadLogRecordsJSON: Creating DEFAULT file for logrecords")
                     var defaultlogrecords = [LogRecords()]
                     guard defaultlogrecords.count == 1 else { return }

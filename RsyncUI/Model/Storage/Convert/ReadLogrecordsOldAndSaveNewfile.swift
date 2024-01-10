@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import OSLog
 
-class ReadLogrecordsOldName: NamesandPaths {
+class ReadLogrecordsOldAndSaveNewfile: NamesandPaths {
     var logrecords: [LogRecords]?
     var filenamedatastore = [SharedReference.shared.fileschedulesjson]
     var subscriptons = Set<AnyCancellable>()
