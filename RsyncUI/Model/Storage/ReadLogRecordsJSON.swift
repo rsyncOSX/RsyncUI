@@ -15,9 +15,39 @@ class ReadLogRecordsJSON: NamesandPaths {
     var filenamedatastore = [SharedReference.shared.filenamelogrecordsjson]
     var subscriptons = Set<AnyCancellable>()
 
+    private func validatepath(_ path: String) throws -> Bool {
+        if FileManager.default.fileExists(atPath: path, isDirectory: nil) == false {
+            throw Validatedpath.nopath
+        }
+        return true
+    }
+
+    private func failurereadlogrecords(_ profile: String?, _ validhiddenID: Set<Int>) {
+        if var atpath = fullpathmacserial {
+            do {
+                if profile != nil {
+                    atpath += "/" + (profile ?? "") + "/" + SharedReference.shared.fileschedulesjson
+                } else {
+                    atpath += "/" + SharedReference.shared.fileschedulesjson
+                }
+                let exists = try validatepath(atpath)
+                if exists {
+                    Logger.process.info("ReadLogRecordsJSON: Copy old file for log records and save to new file")
+                    _ = ReadLogrecordsOldName(profile, validhiddenID)
+                }
+            } catch _ {
+                Logger.process.info("ReadLogRecordsJSON: Creating default file for log records")
+                var defaultlogrecords = [LogRecords()]
+                guard defaultlogrecords.count == 1 else { return }
+                defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
+                defaultlogrecords[0].profilename = profile
+                WriteLogRecordsJSON(profile, defaultlogrecords)
+            }
+        }
+    }
+
     init(_ profile: String?, _ validhiddenID: Set<Int>) {
         super.init(.configurations)
-        // print("ReadScheduleJSON")
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
@@ -39,12 +69,7 @@ class ReadLogRecordsJSON: NamesandPaths {
                 case .finished:
                     return
                 case .failure:
-                    Logger.process.info("ReadLogRecordsJSON: Creating default file for log records")
-                    var defaultlogrecords = [LogRecords()]
-                    guard defaultlogrecords.count == 1 else { return }
-                    defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
-                    defaultlogrecords[0].profilename = profile
-                    WriteLogRecordsJSON(profile, defaultlogrecords)
+                    self.failurereadlogrecords(profile, validhiddenID)
                 }
             } receiveValue: { [unowned self] data in
                 logrecords = [LogRecords]()

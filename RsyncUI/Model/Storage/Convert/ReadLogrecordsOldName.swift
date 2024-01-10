@@ -11,7 +11,6 @@ import OSLog
 
 class ReadLogrecordsOldName: NamesandPaths {
     var logrecords: [LogRecords]?
-    var logs: [Log]?
     var filenamedatastore = [SharedReference.shared.fileschedulesjson]
     var subscriptons = Set<AnyCancellable>()
 
@@ -38,8 +37,7 @@ class ReadLogrecordsOldName: NamesandPaths {
                 case .finished:
                     return
                 case .failure:
-                    Logger.process.info("ReadLogRecordsJSON: Creating default file for log records")
-                    WriteLogRecordsJSON(nil, nil)
+                    return
                 }
             } receiveValue: { [unowned self] data in
                 logrecords = [LogRecords]()
@@ -50,16 +48,8 @@ class ReadLogrecordsOldName: NamesandPaths {
                         logrecords?.append(oneschedule)
                     }
                 }
-                if logrecords?.count ?? 0 > 0 {
-                    logs = [Log]()
-                    for i in 0 ..< (logrecords?.count ?? 0) {
-                        if let records = logrecords?[i].logrecords {
-                            logs?.append(contentsOf: records)
-                        }
-                    }
-                    logs = logs?.sorted(by: \.date, using: >)
-                    Logger.process.info("ReadLogRecordsJSON: read logdata from permanent storage")
-                }
+                // Write old logrecords to new file for logrecords
+                WriteLogRecordsJSON(profile, logrecords)
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
     }
