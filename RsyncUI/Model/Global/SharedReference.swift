@@ -76,6 +76,7 @@ class SharedReference {
     var process: Process?
     // JSON names
     let fileschedulesjson = "schedules.json"
+    let filenamelogrecordsjson = "logrecords.json"
     let fileconfigurationsjson = "configurations.json"
     // Object for propogate errors to views
     var errorobject: AlertError?

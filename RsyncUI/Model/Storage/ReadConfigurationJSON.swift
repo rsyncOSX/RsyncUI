@@ -78,7 +78,7 @@ class ReadConfigurationJSON: NamesandPaths {
                         if validhiddenIDs.contains(configuration.hiddenID) == false {
                             configurations.append(configuration)
                             // Create set of validated hidden IDs, used when
-                            // loading schedules and logs
+                            // loading logrecords
                             validhiddenIDs.insert(configuration.hiddenID)
                         }
                     }
