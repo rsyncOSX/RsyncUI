@@ -46,7 +46,7 @@ struct DeleteLogsView: View {
     func delete() {
         logrecords.removerecords(selectedloguuids)
         let deleteschedule = UpdateLogs(profile: selectedprofile,
-                                        scheduleConfigurations: logrecords.scheduleConfigurations)
+                                        scheduleConfigurations: logrecords.logrecords)
         deleteschedule.deletelogs(uuids: selectedloguuids)
         selectedloguuids.removeAll()
         reload = true

@@ -11,14 +11,14 @@ import OSLog
 import SwiftUI
 
 struct Readlogsfromstore {
-    var logrecords: [Log]?
-    var scheduleConfigurations: [LogRecords]?
+    var logs: [Log]?
+    var logrecords: [LogRecords]?
 
     init(profile: String?, validhiddenIDs: Set<Int>?) {
         guard validhiddenIDs != nil else { return }
         let alllogs = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs ?? Set<Int>())
-        logrecords = alllogs.logs
-        scheduleConfigurations = alllogs.logrecords
+        logs = alllogs.logs
+        logrecords = alllogs.logrecords
     }
 }
 
@@ -29,7 +29,7 @@ final class RsyncUIlogrecords {
     @ObservationIgnored
     var countrecords: Int = 0
     @ObservationIgnored
-    var scheduleConfigurations: [LogRecords]?
+    var logrecords: [LogRecords]?
     @ObservationIgnored
     var logrecordsfromstore: Readlogsfromstore?
 
@@ -86,8 +86,8 @@ final class RsyncUIlogrecords {
         } else {
             logrecordsfromstore = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
         }
-        alllogssorted = logrecordsfromstore?.logrecords
-        scheduleConfigurations = logrecordsfromstore?.scheduleConfigurations
+        alllogssorted = logrecordsfromstore?.logs
+        logrecords = logrecordsfromstore?.logrecords
         logrecordsfromstore = nil
     }
 }
