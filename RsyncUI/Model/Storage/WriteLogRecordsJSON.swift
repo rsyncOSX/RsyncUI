@@ -13,7 +13,7 @@ class WriteLogRecordsJSON: NamesandPaths {
     var profile: String?
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
-    var filename = SharedReference.shared.fileschedulesjson
+    var filename = SharedReference.shared.filenamelogrecordsjson
 
     private func writeJSONToPersistentStore(_ data: String?) {
         if var atpath = fullpathmacserial {

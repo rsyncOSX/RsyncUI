@@ -1,23 +1,22 @@
 //
-//  ReadLogRecordsJSON.swift
+//  ReadLogrecordsOldName.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 19/04/2021.
+//  Created by Thomas Evensen on 10/01/2024.
 //
 
 import Combine
 import Foundation
 import OSLog
 
-class ReadLogRecordsJSON: NamesandPaths {
+class ReadLogrecordsOldName: NamesandPaths {
     var logrecords: [LogRecords]?
     var logs: [Log]?
-    var filenamedatastore = [SharedReference.shared.filenamelogrecordsjson]
+    var filenamedatastore = [SharedReference.shared.fileschedulesjson]
     var subscriptons = Set<AnyCancellable>()
 
     init(_ profile: String?, _ validhiddenID: Set<Int>) {
         super.init(.configurations)
-        // print("ReadScheduleJSON")
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
@@ -40,10 +39,7 @@ class ReadLogRecordsJSON: NamesandPaths {
                     return
                 case .failure:
                     Logger.process.info("ReadLogRecordsJSON: Creating default file for log records")
-                    var defaultlogrecords = [LogRecords()]
-                    defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
-                    defaultlogrecords[0].profilename = profile
-                    WriteLogRecordsJSON(profile, defaultlogrecords)
+                    WriteLogRecordsJSON(nil, nil)
                 }
             } receiveValue: { [unowned self] data in
                 logrecords = [LogRecords]()

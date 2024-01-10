@@ -47,7 +47,6 @@ struct LogRecords: Identifiable, Codable {
     init() {
         hiddenID = -1
         dateStart = ""
-        // schedule = ""
     }
 }
 
