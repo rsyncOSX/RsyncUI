@@ -135,11 +135,6 @@ class ReadConfigurationJSON: NamesandPaths {
                 Logger.process.info("ReadConfigurationJSON: read configurations from permanent storage")
             }.store(in: &subscriptons)
 
-        if SharedReference.shared.newfilelogrecordsinuse == 0 {
-            createdefaultfilelogrecords(profile, validhiddenIDs)
-            SharedReference.shared.newfilelogrecordsinuse = 1
-            Logger.process.info("ReadConfigurationJSON: UPDATING user configuration new file for logrecords")
-            _ = WriteUserConfigurationJSON(UserConfiguration())
-        }
+        createdefaultfilelogrecords(profile, validhiddenIDs)
     }
 }

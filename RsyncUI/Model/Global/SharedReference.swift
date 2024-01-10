@@ -78,7 +78,6 @@ class SharedReference {
     let fileschedulesjson = "schedules.json"
     let filenamelogrecordsjson = "logrecords.json"
     let fileconfigurationsjson = "configurations.json"
-    var newfilelogrecordsinuse: Int = 0
     // Object for propogate errors to views
     var errorobject: AlertError?
     // Used when starting up RsyncUI
