@@ -34,10 +34,10 @@ final class SnapshotRecords {
 
     private func readandsortallloggdata(hiddenID: Int?) {
         var data = [SnapshotLogRecords]()
-        if let input: [LogRecords] = structschedules?.scheduleConfigurations {
+        if let input: [LogRecords] = structschedules?.logrecords {
             for i in 0 ..< input.count {
                 for j in 0 ..< (input[i].logrecords?.count ?? 0) {
-                    if let hiddenID = structschedules?.scheduleConfigurations?[i].hiddenID {
+                    if let hiddenID = structschedules?.logrecords?[i].hiddenID {
                         var datestring: String?
                         var date: Date?
                         if let stringdate = input[i].logrecords?[j].dateExecuted {

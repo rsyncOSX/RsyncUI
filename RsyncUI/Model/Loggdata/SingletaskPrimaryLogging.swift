@@ -8,18 +8,9 @@
 import Foundation
 import OSLog
 
-/*
- enum Scheduletype: String {
-     // case once
-     // case daily
-     // case weekly
-     case manuel
-     // case stopped
- }
- */
 class SingletaskPrimaryLogging {
     var structconfigurations: [Configuration]?
-    var structschedules: [LogRecords]?
+    var logrecords: [LogRecords]?
     var localeprofile: String?
     var localehiddenID: Int?
 
@@ -69,7 +60,7 @@ class SingletaskPrimaryLogging {
                         inserted = addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
                     }
                     if inserted {
-                        WriteLogRecordsJSON(localeprofile, structschedules)
+                        WriteLogRecordsJSON(localeprofile, logrecords)
                     }
                     _ = Logfile(TrimTwo(outputrsync ?? []).trimmeddata, error: false)
                 }
@@ -80,14 +71,14 @@ class SingletaskPrimaryLogging {
     func addlogexisting(hiddenID: Int, result: String, date: String) -> Bool {
         let configdata = GetConfigurationData(configurations: structconfigurations)
         if SharedReference.shared.synctasks.contains(configdata.getconfigurationdata(hiddenID, resource: .task) ?? "") {
-            if let index = structschedules?.firstIndex(where: { $0.hiddenID == hiddenID }) {
+            if let index = logrecords?.firstIndex(where: { $0.hiddenID == hiddenID }) {
                 var log = Log()
                 log.dateExecuted = date
                 log.resultExecuted = result
-                if structschedules?[index].logrecords == nil {
-                    structschedules?[index].logrecords = [Log]()
+                if logrecords?[index].logrecords == nil {
+                    logrecords?[index].logrecords = [Log]()
                 }
-                structschedules?[index].logrecords?.append(log)
+                logrecords?[index].logrecords?.append(log)
                 Logger.process.info("SingletaskPrimaryLogging: added log existing task")
                 return true
             }
@@ -108,7 +99,7 @@ class SingletaskPrimaryLogging {
             log.resultExecuted = result
             newrecord.logrecords = [Log]()
             newrecord.logrecords?.append(log)
-            structschedules?.append(newrecord)
+            logrecords?.append(newrecord)
             Logger.process.info("SingletaskPrimaryLogging: added log new task")
             return true
         }
@@ -130,9 +121,9 @@ class SingletaskPrimaryLogging {
         localeprofile = profile
         localehiddenID = hiddenID
         structconfigurations = configurations
-        structschedules = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs).scheduleConfigurations
-        if structschedules == nil {
-            structschedules = [LogRecords]()
+        logrecords = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs).logrecords
+        if logrecords == nil {
+            logrecords = [LogRecords]()
         }
     }
 

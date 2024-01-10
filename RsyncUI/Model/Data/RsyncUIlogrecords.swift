@@ -17,8 +17,8 @@ struct Readlogsfromstore {
     init(profile: String?, validhiddenIDs: Set<Int>?) {
         guard validhiddenIDs != nil else { return }
         let alllogs = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs ?? Set<Int>())
-        logrecords = alllogs.logrecords
-        scheduleConfigurations = alllogs.scheduleConfigurations
+        logrecords = alllogs.logs
+        scheduleConfigurations = alllogs.logrecords
     }
 }
 

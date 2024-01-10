@@ -9,22 +9,22 @@
 import Foundation
 
 struct AllLogs {
-    var scheduleConfigurations: [LogRecords]?
-    var logrecords: [Log]?
+    var logrecords: [LogRecords]?
+    var logs: [Log]?
 
     init(profile: String?, validhiddenIDs: Set<Int>) {
         if profile == SharedReference.shared.defaultprofile || profile == nil {
             let schedulesdata = ReadLogRecordsJSON(nil, validhiddenIDs)
-            scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
+            logrecords = schedulesdata.logrecords?.sorted { log1, log2 in
                 log1.dateStart > log2.dateStart
             }
-            logrecords = schedulesdata.logrecords
+            logs = schedulesdata.logs
         } else {
             let schedulesdata = ReadLogRecordsJSON(profile, validhiddenIDs)
-            scheduleConfigurations = schedulesdata.schedules?.sorted { log1, log2 in
+            logrecords = schedulesdata.logrecords?.sorted { log1, log2 in
                 log1.dateStart > log2.dateStart
             }
-            logrecords = schedulesdata.logrecords
+            logs = schedulesdata.logs
         }
     }
 }

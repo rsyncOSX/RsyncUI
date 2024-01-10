@@ -10,8 +10,8 @@ import Foundation
 import OSLog
 
 class ReadLogRecordsJSON: NamesandPaths {
-    var schedules: [LogRecords]?
-    var logrecords: [Log]?
+    var logrecords: [LogRecords]?
+    var logs: [Log]?
     var filenamedatastore = [SharedReference.shared.fileschedulesjson]
     var subscriptons = Set<AnyCancellable>()
 
@@ -43,22 +43,22 @@ class ReadLogRecordsJSON: NamesandPaths {
                     WriteLogRecordsJSON(nil, nil)
                 }
             } receiveValue: { [unowned self] data in
-                schedules = [LogRecords]()
+                logrecords = [LogRecords]()
                 for i in 0 ..< data.count {
                     var oneschedule = LogRecords(data[i])
                     oneschedule.profilename = profile
                     if validhiddenID.contains(oneschedule.hiddenID) {
-                        schedules?.append(oneschedule)
+                        logrecords?.append(oneschedule)
                     }
                 }
-                if schedules?.count ?? 0 > 0 {
-                    logrecords = [Log]()
-                    for i in 0 ..< (schedules?.count ?? 0) {
-                        if let records = schedules?[i].logrecords {
-                            logrecords?.append(contentsOf: records)
+                if logrecords?.count ?? 0 > 0 {
+                    logs = [Log]()
+                    for i in 0 ..< (logrecords?.count ?? 0) {
+                        if let records = logrecords?[i].logrecords {
+                            logs?.append(contentsOf: records)
                         }
                     }
-                    logrecords = logrecords?.sorted(by: \.date, using: >)
+                    logs = logs?.sorted(by: \.date, using: >)
                     Logger.process.info("ReadLogRecordsJSON: read logdata from permanent storage")
                 }
                 subscriptons.removeAll()
