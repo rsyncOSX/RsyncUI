@@ -31,7 +31,7 @@ struct ListofTasksMainView: View {
                     ContentUnavailableView {
                         Label("There are no tasks by this Synchronize ID", systemImage: "doc.richtext.fill")
                     } description: {
-                        Text("Try to search for another ID or if new user, add tasks.")
+                        Text("Try to search for another ID or \n If new user, add Tasks.")
                     }
                 }
             }

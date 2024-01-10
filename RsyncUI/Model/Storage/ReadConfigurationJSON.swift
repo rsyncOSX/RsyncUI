@@ -15,6 +15,44 @@ class ReadConfigurationJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
     var validhiddenIDs = Set<Int>()
 
+    private func validatepath(_ path: String) throws -> Bool {
+        if FileManager.default.fileExists(atPath: path, isDirectory: nil) == false {
+            throw Validatedpath.nopath
+        }
+        return true
+    }
+
+    private func failurereadlogrecords(_ profile: String?, _ validhiddenID: Set<Int>) {
+        if var atpath = fullpathmacserial {
+            do {
+                if profile != nil {
+                    atpath += "/" + (profile ?? "") + "/" + SharedReference.shared.fileschedulesjson
+                } else {
+                    atpath += "/" + SharedReference.shared.fileschedulesjson
+                }
+                let exists = try validatepath(atpath)
+                if exists {
+                    Logger.process.info("ReadLogRecordsJSON: Copy old file for log records and save to new file")
+                    _ = ReadLogrecordsOldName(profile, validhiddenID)
+                }
+            } catch _ {
+                Logger.process.info("ReadLogRecordsJSON: Creating DEFAULT file for log records")
+                var defaultlogrecords = [LogRecords()]
+                guard defaultlogrecords.count == 1 else { return }
+                defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
+                defaultlogrecords[0].profilename = profile
+                WriteLogRecordsJSON(profile, defaultlogrecords)
+            }
+        }
+    }
+
+    private func createdefaultfileconfigurations(_ profile: String?) {
+        // No file, write new file with default values
+        Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): Creating default file for Configurations")
+        var defaultconfiguration = [Configuration()]
+        WriteConfigurationJSON(profile, defaultconfiguration)
+    }
+
     func getuniqueserversandlogins() -> [UniqueserversandLogins]? {
         let configs = configurations?.filter {
             SharedReference.shared.synctasks.contains($0.task)
@@ -60,9 +98,7 @@ class ReadConfigurationJSON: NamesandPaths {
                 case .finished:
                     return
                 case .failure:
-                    // No file, write new file with default values
-                    Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): Creating default file for Configurations")
-                    WriteConfigurationJSON(nil, nil)
+                    self.createdefaultfileconfigurations(profile)
                     // Mark first time used, only for default profile
                     if profile == nil {
                         SharedReference.shared.firsttime = true
