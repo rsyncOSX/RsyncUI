@@ -25,7 +25,7 @@ class WriteLogRecordsJSON: NamesandPaths {
                 let file = try folder.createFile(named: filename)
                 if let data = data {
                     try file.write(data)
-                    Logger.process.info("WriteLogRecordsJSON: write logdata to permanent storage")
+                    Logger.process.info("WriteLogRecordsJSON: write logrecords to permanent storage")
                 }
             } catch let e {
                 let error = e

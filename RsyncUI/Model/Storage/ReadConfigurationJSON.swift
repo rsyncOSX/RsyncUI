@@ -15,14 +15,11 @@ class ReadConfigurationJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
     var validhiddenIDs = Set<Int>()
 
-    private func validatepath(_ path: String) throws -> Bool {
-        if FileManager.default.fileExists(atPath: path, isDirectory: nil) == false {
-            throw Validatedpath.nopath
-        }
-        return true
+    private func validatepath(_ path: String) -> Bool {
+        return FileManager.default.fileExists(atPath: path, isDirectory: nil)
     }
 
-    private func failurereadlogrecords(_ profile: String?, _ validhiddenID: Set<Int>) {
+    private func createdefaultfilelogrecords(_ profile: String?, _ validhiddenID: Set<Int>) {
         if let atpath = fullpathmacserial {
             var oldfilelogrecords = ""
             var newfilelogrecords = ""
@@ -36,15 +33,15 @@ class ReadConfigurationJSON: NamesandPaths {
                     oldfilelogrecords = atpath + "/" + SharedReference.shared.fileschedulesjson
                     newfilelogrecords = atpath + "/" + SharedReference.shared.filenamelogrecordsjson
                 }
-                oldfileexists = try validatepath(oldfilelogrecords)
-                newfileexists = try validatepath(newfilelogrecords)
+                oldfileexists = validatepath(oldfilelogrecords)
+                newfileexists = validatepath(newfilelogrecords)
                 if oldfileexists == true, newfileexists == false {
-                    Logger.process.info("ReadLogRecordsJSON: Copy old file for log records and save to new file")
+                    Logger.process.info("ReadLogRecordsJSON: Copy OLD file for logrecords and save to NEW file")
                     _ = ReadLogrecordsOldName(profile, validhiddenID)
                 }
             } catch _ {
                 if newfileexists == false {
-                    Logger.process.info("ReadLogRecordsJSON: Creating DEFAULT file for log records")
+                    Logger.process.info("ReadLogRecordsJSON: Creating DEFAULT file for logrecords")
                     var defaultlogrecords = [LogRecords()]
                     guard defaultlogrecords.count == 1 else { return }
                     defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
@@ -122,8 +119,7 @@ class ReadConfigurationJSON: NamesandPaths {
                     if SharedReference.shared.synctasks.contains(configuration.task) {
                         if validhiddenIDs.contains(configuration.hiddenID) == false {
                             configurations.append(configuration)
-                            // Create set of validated hidden IDs, used when
-                            // loading logrecords
+                            // Create set of validated hidden IDs, used when loading logrecords
                             validhiddenIDs.insert(configuration.hiddenID)
                         }
                     }
@@ -140,5 +136,7 @@ class ReadConfigurationJSON: NamesandPaths {
                 subscriptons.removeAll()
                 Logger.process.info("ReadConfigurationJSON: read configurations from permanent storage")
             }.store(in: &subscriptons)
+
+        createdefaultfilelogrecords(profile, validhiddenIDs)
     }
 }

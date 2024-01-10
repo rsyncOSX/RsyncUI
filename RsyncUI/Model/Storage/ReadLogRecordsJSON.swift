@@ -58,7 +58,9 @@ class ReadLogRecordsJSON: NamesandPaths {
                         }
                     }
                     logs = logs?.sorted(by: \.date, using: >)
-                    Logger.process.info("ReadLogRecordsJSON: read logdata from permanent storage")
+                    Logger.process.info("ReadLogRecordsJSON: read logrecords from permanent storage")
+                } else {
+                    Logger.process.warning("ReadLogRecordsJSON: NO logrecords in JSON from permanent storage")
                 }
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
