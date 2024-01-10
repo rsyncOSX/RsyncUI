@@ -95,7 +95,7 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
          snapshotdata: SnapshotData)
     {
         super.init(config: config, snapshotdata: snapshotdata)
-        // Getting log records from schedules, sorted after date
+        // Getting log records, sorted after date
         logrecordssnapshot = SnapshotRecords(hiddenID: config.hiddenID,
                                              profile: profile,
                                              configurations: configurations).loggrecordssnapshots

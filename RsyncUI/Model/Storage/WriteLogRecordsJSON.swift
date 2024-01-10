@@ -37,7 +37,7 @@ class WriteLogRecordsJSON: NamesandPaths {
     // We have to remove UUID and computed properties ahead of writing JSON file
     // done in the .map operator
     @discardableResult
-    init(_ profile: String?, _ schedules: [LogRecords]?) {
+    init(_ profile: String?, _ logrecords: [LogRecords]?) {
         super.init(.configurations)
         // print("WriteScheduleJSON")
         // Set profile and filename ahead of encoding an write
@@ -46,11 +46,11 @@ class WriteLogRecordsJSON: NamesandPaths {
         } else {
             self.profile = profile
         }
-        schedules.publisher
-            .map { schedules -> [DecodeLogRecords] in
+        logrecords.publisher
+            .map { logrecords -> [DecodeLogRecords] in
                 var data = [DecodeLogRecords]()
-                for i in 0 ..< schedules.count {
-                    data.append(DecodeLogRecords(schedules[i]))
+                for i in 0 ..< logrecords.count {
+                    data.append(DecodeLogRecords(logrecords[i]))
                 }
                 return data
             }

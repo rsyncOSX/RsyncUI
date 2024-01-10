@@ -12,12 +12,12 @@ final class UpdateLogs {
     private var localeprofile: String?
 
     func deletelogs(uuids: Set<UUID>) {
-        if let schedules = logrecords {
+        if let records = logrecords {
             var indexset = IndexSet()
 
-            for i in 0 ..< schedules.count {
+            for i in 0 ..< records.count {
                 for j in 0 ..< uuids.count {
-                    if let index = schedules[i].logrecords?.firstIndex(
+                    if let index = records[i].logrecords?.firstIndex(
                         where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] })
                     {
                         indexset.insert(index)
