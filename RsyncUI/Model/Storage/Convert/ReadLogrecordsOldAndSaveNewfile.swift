@@ -49,6 +49,7 @@ class ReadLogrecordsOldAndSaveNewfile: NamesandPaths {
                     }
                 }
                 // Write old logrecords to new file for logrecords
+                Logger.process.info("ReadLogrecordsOldAndSaveNewfile: \(profile ?? "default profile", privacy: .public), COPY old data and create NEW file for LogRecords")
                 WriteLogRecordsJSON(profile, logrecords)
                 subscriptons.removeAll()
             }.store(in: &subscriptons)

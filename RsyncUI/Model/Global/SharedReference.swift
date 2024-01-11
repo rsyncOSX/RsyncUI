@@ -89,6 +89,9 @@ class SharedReference {
     // Confirm execution
     // A safety rule
     var confirmexecute: Bool = false
+    // Logfile and convert logfile
+    var defaultlogfileexist: Bool = true
+    var copydataoldlogfiletonewlogfile: Bool = false
 
     private init() {
         synctasks = Set<String>()

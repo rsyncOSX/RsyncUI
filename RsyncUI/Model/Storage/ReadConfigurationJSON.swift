@@ -15,46 +15,21 @@ class ReadConfigurationJSON: NamesandPaths {
     var subscriptons = Set<AnyCancellable>()
     var validhiddenIDs = Set<Int>()
 
-    private func validatepath(_ path: String) -> Bool {
-        return FileManager.default.fileExists(atPath: path, isDirectory: nil)
-    }
-
-    private func createdefaultfilelogrecords(_ profile: String?, _ validhiddenID: Set<Int>) {
-        if let atpath = fullpathmacserial {
-            var oldfilelogrecords = ""
-            var newfilelogrecords = ""
-            var oldfileexists = true
-            var newfileexists = false
-            do {
-                if profile != nil {
-                    oldfilelogrecords = atpath + "/" + (profile ?? "") + "/" + SharedReference.shared.fileschedulesjson
-                    newfilelogrecords = atpath + "/" + (profile ?? "") + "/" + SharedReference.shared.filenamelogrecordsjson
-                } else {
-                    oldfilelogrecords = atpath + "/" + SharedReference.shared.fileschedulesjson
-                    newfilelogrecords = atpath + "/" + SharedReference.shared.filenamelogrecordsjson
-                }
-                oldfileexists = validatepath(oldfilelogrecords)
-                newfileexists = validatepath(newfilelogrecords)
-                if oldfileexists == true, newfileexists == false {
-                    Logger.process.info("ReadLogRecordsJSON: Copy OLD file for logrecords and save to NEW file")
-                    _ = ReadLogrecordsOldAndSaveNewfile(profile, validhiddenID)
-                } else if oldfileexists == false, newfileexists == false {
-                    Logger.process.info("ReadLogRecordsJSON: Creating DEFAULT file for logrecords")
-                    var defaultlogrecords = [LogRecords()]
-                    guard defaultlogrecords.count == 1 else { return }
-                    defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
-                    defaultlogrecords[0].profilename = profile
-                    WriteLogRecordsJSON(profile, defaultlogrecords)
-                }
-            }
-        }
-    }
-
     private func createdefaultfileconfigurations(_ profile: String?) {
         // No file, write new file with default values
         Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): Creating default file for Configurations")
         let defaultconfiguration = [Configuration()]
         WriteConfigurationJSON(profile, defaultconfiguration)
+    }
+
+    private func createdefaultfilelogrecords(_ profile: String?) {
+        var defaultlogrecords = [LogRecords()]
+        guard defaultlogrecords.count == 1 else { return }
+        // No file, write new file with default values
+        Logger.process.info("ReadConfigurationJSON: \(profile ?? "default profile", privacy: .public), creating default file for LogRecords")
+        defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
+        defaultlogrecords[0].profilename = profile
+        WriteLogRecordsJSON(profile, defaultlogrecords)
     }
 
     func getuniqueserversandlogins() -> [UniqueserversandLogins]? {
@@ -80,7 +55,9 @@ class ReadConfigurationJSON: NamesandPaths {
 
     init(_ profile: String?) {
         super.init(.configurations)
-        // print("ReadConfigurationJSON")
+
+        _ = CreateDefaultFilesJSON(profile)
+
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
@@ -135,6 +112,15 @@ class ReadConfigurationJSON: NamesandPaths {
                 Logger.process.info("ReadConfigurationJSON: read configurations from permanent storage")
             }.store(in: &subscriptons)
 
-        createdefaultfilelogrecords(profile, validhiddenIDs)
+        // Initial checks for logrecords JSON file
+        if SharedReference.shared.defaultlogfileexist == false,
+           SharedReference.shared.copydataoldlogfiletonewlogfile == true
+        {
+            _ = ReadLogrecordsOldAndSaveNewfile(profile, validhiddenIDs)
+        } else if SharedReference.shared.defaultlogfileexist == false,
+                  SharedReference.shared.copydataoldlogfiletonewlogfile == false
+        {
+            createdefaultfilelogrecords(profile)
+        }
     }
 }
