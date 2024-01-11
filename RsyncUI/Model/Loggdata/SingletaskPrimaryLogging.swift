@@ -93,7 +93,6 @@ class SingletaskPrimaryLogging {
             newrecord.hiddenID = hiddenID
             let currendate = Date()
             newrecord.dateStart = currendate.en_us_string_from_date()
-            // newrecord.schedule = Scheduletype.manuel.rawValue
             var log = Log()
             log.dateExecuted = date
             log.resultExecuted = result
@@ -121,7 +120,7 @@ class SingletaskPrimaryLogging {
         localeprofile = profile
         localehiddenID = hiddenID
         structconfigurations = configurations
-        logrecords = AllLogs(profile: profile, validhiddenIDs: validhiddenIDs).logrecords
+        logrecords = ReadLogRecords(profile: profile, validhiddenIDs: validhiddenIDs).logrecords
         if logrecords == nil {
             logrecords = [LogRecords]()
         }

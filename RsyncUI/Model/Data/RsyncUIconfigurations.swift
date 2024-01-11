@@ -14,7 +14,7 @@ struct Readconfigurationsfromstore {
     var validhiddenIDs: Set<Int>
 
     init(profile: String?) {
-        let configurationsfromstore = AllConfigurations(profile: profile)
+        let configurationsfromstore = ReadConfigurations(profile: profile)
         configurations = configurationsfromstore.configurations
         validhiddenIDs = configurationsfromstore.validhiddenIDs ?? Set()
     }

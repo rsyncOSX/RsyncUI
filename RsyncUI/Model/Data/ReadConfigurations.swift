@@ -1,6 +1,6 @@
 //
-//  AllConfigurations.swift
-//  RsyncOSX
+//  ReadConfigurations.swift
+//  RsyncUI
 //
 //  Created by Thomas Evensen on 26/12/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AllConfigurations {
+struct ReadConfigurations {
     var configurations: [Configuration]?
     var validhiddenIDs: Set<Int>?
 

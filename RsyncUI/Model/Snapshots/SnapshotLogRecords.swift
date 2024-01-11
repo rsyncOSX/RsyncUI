@@ -28,7 +28,7 @@ struct SnapshotLogRecords: Identifiable {
 
 final class SnapshotRecords {
     private var localconfigurations: RsyncUIconfigurations?
-    private var alllogrecords: AllLogs?
+    private var alllogrecords: ReadLogRecords?
     var loggrecordssnapshots: [SnapshotLogRecords]?
     private var localehiddenID: Int?
 
@@ -74,7 +74,7 @@ final class SnapshotRecords {
     {
         localehiddenID = hiddenID
         localconfigurations = configurations
-        alllogrecords = AllLogs(profile: profile, validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
+        alllogrecords = ReadLogRecords(profile: profile, validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
         if loggrecordssnapshots == nil {
             readandsortallloggdata(hiddenID: hiddenID)
         }

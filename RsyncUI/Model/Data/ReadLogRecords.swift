@@ -1,6 +1,6 @@
 //
-//  AllLogs.swift
-//  RsyncOSXSwiftUI
+//  ReadLogRecords.swift
+//  RsyncUI
 //
 //  Created by Thomas Evensen on 29/12/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AllLogs {
+struct ReadLogRecords {
     var logrecords: [LogRecords]?
     var logs: [Log]?
 
