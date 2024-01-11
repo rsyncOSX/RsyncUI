@@ -531,7 +531,7 @@
 				E985C61525F3AD8400CB895C /* Configurations */,
 				E985C61A25F3AD8400CB895C /* Settings */,
 				E985C61E25F3AD8400CB895C /* FilelogView */,
-				E985C64125F3AD8400CB895C /* Log */,
+				E985C64125F3AD8400CB895C /* LogRecords */,
 				E985C64625F3AD8400CB895C /* Add */,
 			);
 			path = Views;
@@ -608,7 +608,7 @@
 			path = Snapshots;
 			sourceTree = "<group>";
 		};
-		E985C64125F3AD8400CB895C /* Log */ = {
+		E985C64125F3AD8400CB895C /* LogRecords */ = {
 			isa = PBXGroup;
 			children = (
 				E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */,
@@ -616,7 +616,7 @@
 				E9712FBB2602465D003842FD /* DeleteLogsView.swift */,
 				E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */,
 			);
-			path = Log;
+			path = LogRecords;
 			sourceTree = "<group>";
 		};
 		E985C64625F3AD8400CB895C /* Add */ = {
