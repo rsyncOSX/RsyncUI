@@ -16,7 +16,6 @@
 		E913C0AD2ACBBC3000DB7B68 /* ShellOut in Frameworks */ = {isa = PBXBuildFile; productRef = E913C0AC2ACBBC3000DB7B68 /* ShellOut */; };
 		E9168C092615AB8500B139CE /* AddPreandPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C082615AB8500B139CE /* AddPreandPostView.swift */; };
 		E91FDCA12A5173860087B4CE /* Argumentsforrsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */; };
-		E92102242B4FC367003C98F7 /* CreateDefaultFilesJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92102232B4FC367003C98F7 /* CreateDefaultFilesJSON.swift */; };
 		E927447529407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */; };
 		E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */; };
 		E92FA43F2ABEBEC3001E0A14 /* AlertToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA4392ABEBEC3001E0A14 /* AlertToast.swift */; };
@@ -204,7 +203,6 @@
 		E905DFCA2B00CECD00FEFF3A /* AlltasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlltasksView.swift; sourceTree = "<group>"; };
 		E9168C082615AB8500B139CE /* AddPreandPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPreandPostView.swift; sourceTree = "<group>"; };
 		E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Argumentsforrsync.swift; sourceTree = "<group>"; };
-		E92102232B4FC367003C98F7 /* CreateDefaultFilesJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDefaultFilesJSON.swift; sourceTree = "<group>"; };
 		E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckfornewversionofRsyncUI.swift; sourceTree = "<group>"; };
 		E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteSnapshots.swift; sourceTree = "<group>"; };
 		E92FA4392ABEBEC3001E0A14 /* AlertToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
@@ -674,7 +672,6 @@
 				E985C69725F3AD9600CB895C /* Catalogsandfiles.swift */,
 				E985C69825F3AD9600CB895C /* Keypathidentityfile.swift */,
 				E985C69925F3AD9600CB895C /* NamesandPaths.swift */,
-				E92102232B4FC367003C98F7 /* CreateDefaultFilesJSON.swift */,
 			);
 			path = FilesAndCatalogs;
 			sourceTree = "<group>";
@@ -1306,7 +1303,6 @@
 				E9D317D02B3C09B9000B8FC9 /* HomeCatalogsView.swift in Sources */,
 				E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */,
 				E954AD412AFE8FBB00F3EA63 /* DetailsSummarizedTasksView.swift in Sources */,
-				E92102242B4FC367003C98F7 /* CreateDefaultFilesJSON.swift in Sources */,
 				E93878C52B273666009574CD /* AddProfileView.swift in Sources */,
 				E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */,
 				E9FBF40D291AFB7000AAAC40 /* SnapshotCommands.swift in Sources */,

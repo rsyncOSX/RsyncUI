@@ -38,9 +38,6 @@ class ReadConfigurationJSON: NamesandPaths {
 
     init(_ profile: String?) {
         super.init(.configurations)
-
-        _ = CreateDefaultFilesJSON(profile)
-
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
