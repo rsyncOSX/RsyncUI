@@ -2,7 +2,7 @@
 
 RsyncUI and RsyncOSX are GUI´s on the Apple macOS platform for the command line tool [rsync](https://github.com/WayneD/rsync). The main difference between the two apps is how the User Interface (UI) is built. It is `rsync` which executes the synchronize data tasks in both apps. The GUI´s are only for organizing tasks, setting parameters to `rsync` and most likely make it easier to use `rsync`.
 
-If you are on *macOS Sonoma* use RsyncUI. RsyncUI is under active development now and in the future.  There is also some info about [how the apps are built](https://rsyncui.netlify.app/post/built/). It is high level info only, most towards RsyncUI and SwiftUI, but you will get the idea. 
+If you are on *macOS Sonoma* use RsyncUI. RsyncUI is under active development now and in the future.  There is also some high level info about [how the apps are built](https://rsyncui.netlify.app/post/built/).
 
 ### Install by Homebrew
 
@@ -19,7 +19,7 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 
 | App      | #lines  | #files | UI | Latest version  |  Version 1.0 | 
 | ----------- | ----------- |   ----------- | -------- |  -------- | -------- |
-| RsyncUI   | about 13.4k | 161  | SwiftUI, declarativ     | v1.8.2 - [8 January 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
+| RsyncUI   | about 13.4k | 163  | SwiftUI, declarativ     | v1.8.2 - [8 January 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
 | RsyncOSX   | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
 
 ### The future
@@ -38,7 +38,7 @@ Please be aware it is an external task *not controlled* by RsyncOSX or RsyncUI, 
 
 ### RsyncUI
 
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.8.2/total) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.8.1/total) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.8.2/total) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 **RsyncUI** is released for **macOS Sonoma**. Latest build is [8 January 2024](https://github.com/rsyncOSX/RsyncUI/releases).
 
