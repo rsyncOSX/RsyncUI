@@ -14,9 +14,14 @@ struct Readconfigurationsfromstore {
     var validhiddenIDs: Set<Int>
 
     init(profile: String?) {
-        let configurationsfromstore = ReadConfigurations(profile: profile)
-        configurations = configurationsfromstore.configurations
-        validhiddenIDs = configurationsfromstore.validhiddenIDs ?? Set()
+        var configurationsfromstore: ReadConfigurations?
+        if profile == SharedReference.shared.defaultprofile {
+            configurationsfromstore = ReadConfigurations(profile: nil)
+        } else {
+            configurationsfromstore = ReadConfigurations(profile: profile)
+        }
+        configurations = configurationsfromstore?.configurations
+        validhiddenIDs = configurationsfromstore?.validhiddenIDs ?? Set()
     }
 }
 
