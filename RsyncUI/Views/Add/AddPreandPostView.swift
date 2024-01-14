@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AddPreandPostView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservablePreandPostTask()
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
@@ -58,7 +58,7 @@ struct AddPreandPostView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        ListofTasksLightView(selecteduuids: $selecteduuids)
+                        ListofTasksLightView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
                             .onChange(of: selecteduuids) {
                                 let selected = rsyncUIdata.configurations?.filter { config in
                                     selecteduuids.contains(config.id)

@@ -63,18 +63,12 @@ final class RsyncUIconfigurations {
         return nil
     }
 
-    init(profile: String?, _ reload: Bool) {
-        if reload == false {
-            self.profile = profile
-            if profile == SharedReference.shared.defaultprofile || profile == nil {
-                configurationsfromstore = Readconfigurationsfromstore(profile: nil)
-            } else {
-                configurationsfromstore = Readconfigurationsfromstore(profile: profile)
-            }
-            configurations = configurationsfromstore?.configurations
-            validhiddenIDs = configurationsfromstore?.validhiddenIDs
-            // Release struct
-            configurationsfromstore = nil
-        }
+    init(_ profile: String?,
+         _ configurationsfromstore: [Configuration],
+         _ validehiddenIDsfromstore: Set<Int>)
+    {
+        self.profile = profile
+        configurations = configurationsfromstore
+        validhiddenIDs = validehiddenIDsfromstore
     }
 }

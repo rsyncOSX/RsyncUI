@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListofTasksAddView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
 

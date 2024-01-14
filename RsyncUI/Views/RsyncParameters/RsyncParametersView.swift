@@ -20,7 +20,7 @@ struct ParametersTasks: Hashable, Identifiable {
 }
 
 struct RsyncParametersView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var reload: Bool
 
     @State private var parameters = ObservableParametersRsync()
@@ -100,7 +100,7 @@ struct RsyncParametersView: View {
                     Spacer()
                 }
 
-                ListofTasksLightView(selecteduuids: $selecteduuids)
+                ListofTasksLightView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
                     .frame(maxWidth: .infinity)
                     .onChange(of: selecteduuids) {
                         let selected = rsyncUIdata.configurations?.filter { config in
@@ -175,7 +175,7 @@ struct RsyncParametersView: View {
     func makeView(view: ParametersDestinationView) -> some View {
         switch view {
         case .defaultparameters:
-            RsyncDefaultParametersView(reload: $reload, path: $path)
+            RsyncDefaultParametersView(rsyncUIdata: rsyncUIdata, reload: $reload, path: $path)
         case .verify:
             OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }

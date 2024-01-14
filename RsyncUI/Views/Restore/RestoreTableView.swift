@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 struct RestoreTableView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State var restore = ObservableRestore()
     @State private var selecteduuids = Set<Configuration.ID>()
     @State private var gettingfilelist: Bool = false
@@ -27,7 +27,7 @@ struct RestoreTableView: View {
             VStack {
                 ZStack {
                     HStack {
-                        ListofTasksLightView(selecteduuids: $selecteduuids)
+                        ListofTasksLightView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
                             .onChange(of: selecteduuids) {
                                 restore.filestorestore = ""
                                 restore.datalist = []

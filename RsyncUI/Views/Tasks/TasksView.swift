@@ -39,7 +39,7 @@ enum Sheet: String, Identifiable {
 }
 
 struct TasksView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @Bindable var executeprogressdetails: ExecuteProgressDetails
@@ -69,6 +69,7 @@ struct TasksView: View {
     var body: some View {
         ZStack {
             ListofTasksMainView(
+                rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 reload: $reload,

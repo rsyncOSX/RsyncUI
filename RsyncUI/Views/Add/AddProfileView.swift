@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddProfileView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservableAddConfigurations()
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?

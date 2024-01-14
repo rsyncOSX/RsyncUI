@@ -9,8 +9,7 @@ import OSLog
 import SwiftUI
 
 struct SidebarTasksView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var reload: Bool
 
@@ -22,7 +21,8 @@ struct SidebarTasksView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            TasksView(executeprogressdetails: executeprogressdetails,
+            TasksView(rsyncUIdata: rsyncUIdata,
+                      executeprogressdetails: executeprogressdetails,
                       estimateprogressdetails: estimateprogressdetails,
                       reload: $reload,
                       selecteduuids: $selecteduuids,
@@ -45,23 +45,27 @@ struct SidebarTasksView: View {
     func makeView(view: DestinationView) -> some View {
         switch view {
         case .executestimatedview:
-            ExecuteEstimatedTasksView(executeprogressdetails: executeprogressdetails,
+            ExecuteEstimatedTasksView(rsyncUIdata: rsyncUIdata,
+                                      executeprogressdetails: executeprogressdetails,
                                       selecteduuids: $selecteduuids,
                                       reload: $reload,
                                       path: $path)
         case .executenoestimatetasksview:
-            ExecuteNoestimatedTasksView(reload: $reload,
+            ExecuteNoestimatedTasksView(rsyncUIdata: rsyncUIdata,
+                                        reload: $reload,
                                         selecteduuids: $selecteduuids,
                                         path: $path)
         case .estimatedview:
-            SummarizedAllDetailsView(executeprogressdetails: executeprogressdetails,
+            SummarizedAllDetailsView(rsyncUIdata: rsyncUIdata,
+                                     executeprogressdetails: executeprogressdetails,
                                      estimateprogressdetails: estimateprogressdetails,
                                      selecteduuids: $selecteduuids,
                                      path: $path)
         case .firsttime:
             FirstTimeView()
         case .dryrunonetask:
-            DetailsOneTaskEstimatingView(estimateprogressdetails: estimateprogressdetails,
+            DetailsOneTaskEstimatingView(rsyncUIdata: rsyncUIdata,
+                                         estimateprogressdetails: estimateprogressdetails,
                                          selecteduuids: selecteduuids)
                 .onDisappear {
                     executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()

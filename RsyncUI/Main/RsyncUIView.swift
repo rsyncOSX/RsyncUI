@@ -32,12 +32,12 @@ struct RsyncUIView: View {
                     }
                 })
             } else {
-                Sidebar(reload: $reload,
+                Sidebar(rsyncUIdata: rsyncUIdata,
+                        reload: $reload,
                         selectedprofile: $selectedprofile,
                         selecteduuids: $selecteduuids,
                         profilenames: profilenames,
                         errorhandling: errorhandling)
-                    .environment(\.rsyncUIData, rsyncUIdata)
                     .onChange(of: reload) {
                         reload = false
                     }
@@ -69,7 +69,13 @@ struct RsyncUIView: View {
     }
 
     var rsyncUIdata: RsyncUIconfigurations {
-        return RsyncUIconfigurations(profile: selectedprofile, reload)
+        return RsyncUIconfigurations(selectedprofile,
+                                     configurationsdata.configurations ?? [],
+                                     configurationsdata.validhiddenIDs)
+    }
+
+    var configurationsdata: Readconfigurationsfromstore {
+        return Readconfigurationsfromstore(profile: selectedprofile)
     }
 
     var errorhandling: AlertError {
@@ -112,12 +118,12 @@ struct RsyncUIView: View {
 }
 
 extension EnvironmentValues {
-    var rsyncUIData: RsyncUIconfigurations {
-        get { self[RsyncUIDataKey.self] }
-        set { self[RsyncUIDataKey.self] = newValue }
+    var ConfigurationsData: Readconfigurationsfromstore {
+        get { self[ConfigurationsDataKey.self] }
+        set { self[ConfigurationsDataKey.self] = newValue }
     }
 }
 
-private struct RsyncUIDataKey: EnvironmentKey {
-    static var defaultValue: RsyncUIconfigurations = .init(profile: nil, true)
+private struct ConfigurationsDataKey: EnvironmentKey {
+    static var defaultValue: Readconfigurationsfromstore = .init(profile: nil)
 }

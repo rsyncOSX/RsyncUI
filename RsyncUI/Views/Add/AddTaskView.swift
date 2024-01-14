@@ -19,8 +19,7 @@ struct AddTasks: Hashable, Identifiable {
 }
 
 struct AddTaskView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
     @Binding var reload: Bool
@@ -81,7 +80,8 @@ struct AddTaskView: View {
                         // Column 2
 
                         VStack(alignment: .leading) {
-                            ListofTasksAddView(selecteduuids: $selecteduuids,
+                            ListofTasksAddView(rsyncUIdata: rsyncUIdata,
+                                               selecteduuids: $selecteduuids,
                                                reload: $reload)
                                 .onChange(of: selecteduuids) {
                                     let selected = rsyncUIdata.configurations?.filter { config in
@@ -215,11 +215,15 @@ struct AddTaskView: View {
     func makeView(view: AddTaskDestinationView) -> some View {
         switch view {
         case .profileview:
-            AddProfileView(profilenames: profilenames,
+            AddProfileView(rsyncUIdata: rsyncUIdata,
+                           profilenames: profilenames,
                            selectedprofile: $selectedprofile,
                            reload: $reload)
         case .shelltaskview:
-            AddPreandPostView(profilenames: profilenames, selectedprofile: $selectedprofile, reload: $reload)
+            AddPreandPostView(rsyncUIdata: rsyncUIdata,
+                              profilenames: profilenames,
+                              selectedprofile: $selectedprofile,
+                              reload: $reload)
         case .homecatalogs:
             HomeCatalogsView(catalog: $newdata.assistlocalcatalog,
                              path: $path,

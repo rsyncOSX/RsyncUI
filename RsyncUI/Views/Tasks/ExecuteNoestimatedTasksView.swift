@@ -9,8 +9,7 @@ import OSLog
 import SwiftUI
 
 struct ExecuteNoestimatedTasksView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
@@ -26,6 +25,7 @@ struct ExecuteNoestimatedTasksView: View {
     var body: some View {
         ZStack {
             ListofTasksView(
+                rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring
             )

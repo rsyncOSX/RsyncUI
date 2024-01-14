@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ListofTasksMainView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
     @Binding var reload: Bool

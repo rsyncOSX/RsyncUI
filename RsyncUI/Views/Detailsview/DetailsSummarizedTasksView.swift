@@ -9,8 +9,7 @@ import OSLog
 import SwiftUI
 
 struct SummarizedAllDetailsView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<Configuration.ID>
@@ -24,7 +23,8 @@ struct SummarizedAllDetailsView: View {
         VStack {
             HStack {
                 if estimateprogressdetails.estimatealltasksasync {
-                    EstimationInProgressView(executeprogressdetails: executeprogressdetails,
+                    EstimationInProgressView(rsyncUIdata: rsyncUIdata,
+                                             executeprogressdetails: executeprogressdetails,
                                              estimateprogressdetails: estimateprogressdetails,
                                              selecteduuids: $selecteduuids,
                                              nodatatosynchronize: $nodatatosynchronize)
