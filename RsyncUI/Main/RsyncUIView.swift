@@ -69,13 +69,10 @@ struct RsyncUIView: View {
     }
 
     var rsyncUIdata: RsyncUIconfigurations {
+        let configurationsdata = Readconfigurationsfromstore(profile: selectedprofile)
         return RsyncUIconfigurations(selectedprofile,
                                      configurationsdata.configurations ?? [],
                                      configurationsdata.validhiddenIDs)
-    }
-
-    var configurationsdata: Readconfigurationsfromstore {
-        return Readconfigurationsfromstore(profile: selectedprofile)
     }
 
     var errorhandling: AlertError {
