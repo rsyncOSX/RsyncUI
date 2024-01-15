@@ -104,7 +104,7 @@ struct RsyncParametersView: View {
                             if let config = selected {
                                 selectedconfig = config[0]
                                 parameters.setvalues(selectedconfig)
-                                backup = !parameters.verifybackupison()
+                                // backup = !parameters.verifybackupison()
                             }
                         } else {
                             selectedconfig = nil
