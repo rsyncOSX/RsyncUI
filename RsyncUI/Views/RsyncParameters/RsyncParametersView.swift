@@ -88,12 +88,6 @@ struct RsyncParametersView: View {
                                 backup = false
                                 return
                             }
-                            guard selectedconfig?.parameter12?.isEmpty ?? true == true,
-                                  selectedconfig?.parameter13?.isEmpty ?? true == true
-                            else {
-                                backup = false
-                                return
-                            }
                             parameters.setbackup()
                         }
 
@@ -110,6 +104,7 @@ struct RsyncParametersView: View {
                             if let config = selected {
                                 selectedconfig = config[0]
                                 parameters.setvalues(selectedconfig)
+                                backup = !parameters.verifybackupison()
                             }
                         } else {
                             selectedconfig = nil

@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 19/04/2021.
 //
+// swiftlint:disable line_length cyclomatic_complexity
 
 import Combine
 import Foundation
@@ -124,3 +125,5 @@ class ReadConfigurationJSON: NamesandPaths {
         }
     }
 }
+
+// swiftlint:enable line_length cyclomatic_complexity
