@@ -120,7 +120,7 @@ class SingletaskPrimaryLogging {
         localeprofile = profile
         localehiddenID = hiddenID
         structconfigurations = configurations
-        logrecords = ReadLogRecords(profile: profile, validhiddenIDs: validhiddenIDs).logrecords
+        logrecords = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs).logrecords
         if logrecords == nil {
             logrecords = [LogRecords]()
         }

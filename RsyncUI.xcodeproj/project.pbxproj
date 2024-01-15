@@ -122,9 +122,7 @@
 		E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70625F3AD9700CB895C /* SingletaskPrimaryLogging.swift */; };
 		E985C78425F3AD9700CB895C /* UpdateConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70B25F3AD9700CB895C /* UpdateConfigurations.swift */; };
 		E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */; };
-		E985C78625F3AD9700CB895C /* ReadLogRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70D25F3AD9700CB895C /* ReadLogRecords.swift */; };
 		E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */; };
-		E985C78D25F3AD9700CB895C /* ReadConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71625F3AD9700CB895C /* ReadConfigurations.swift */; };
 		E985C78E25F3AD9700CB895C /* RsyncArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71825F3AD9700CB895C /* RsyncArguments.swift */; };
 		E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71B25F3AD9700CB895C /* SharedReference.swift */; };
 		E985C79125F3AD9700CB895C /* ObservableUsersetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71C25F3AD9700CB895C /* ObservableUsersetting.swift */; };
@@ -319,9 +317,7 @@
 		E985C70625F3AD9700CB895C /* SingletaskPrimaryLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingletaskPrimaryLogging.swift; sourceTree = "<group>"; };
 		E985C70B25F3AD9700CB895C /* UpdateConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateConfigurations.swift; sourceTree = "<group>"; };
 		E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyConfiguration.swift; sourceTree = "<group>"; };
-		E985C70D25F3AD9700CB895C /* ReadLogRecords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadLogRecords.swift; sourceTree = "<group>"; };
 		E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncUIconfigurations.swift; sourceTree = "<group>"; };
-		E985C71625F3AD9700CB895C /* ReadConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadConfigurations.swift; sourceTree = "<group>"; };
 		E985C71825F3AD9700CB895C /* RsyncArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncArguments.swift; sourceTree = "<group>"; };
 		E985C71B25F3AD9700CB895C /* SharedReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedReference.swift; sourceTree = "<group>"; };
 		E985C71C25F3AD9700CB895C /* ObservableUsersetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableUsersetting.swift; sourceTree = "<group>"; };
@@ -865,8 +861,6 @@
 			isa = PBXGroup;
 			children = (
 				E985C70825F3AD9700CB895C /* Configurations */,
-				E985C70D25F3AD9700CB895C /* ReadLogRecords.swift */,
-				E985C71625F3AD9700CB895C /* ReadConfigurations.swift */,
 				E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */,
 				E997613A271998BD007153DD /* RsyncUIlogrecords.swift */,
 			);
@@ -1167,8 +1161,6 @@
 				E985C65825F3AD8400CB895C /* SettingsView.swift in Sources */,
 				E985C77D25F3AD9700CB895C /* ArgumentsSsh.swift in Sources */,
 				E96223952B0BDA7E00C40578 /* OutputRsyncView.swift in Sources */,
-				E985C78D25F3AD9700CB895C /* ReadConfigurations.swift in Sources */,
-				E985C78625F3AD9700CB895C /* ReadLogRecords.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,
 				E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */,
 				E9BB4F562903C00A00FEEA0A /* ExecuteTasksAsync.swift in Sources */,
