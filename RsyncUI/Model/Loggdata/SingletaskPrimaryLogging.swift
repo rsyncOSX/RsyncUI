@@ -120,7 +120,11 @@ class SingletaskPrimaryLogging {
         localeprofile = profile
         localehiddenID = hiddenID
         structconfigurations = configurations
-        logrecords = ReadLogRecordsJSON(profile, validhiddenIDs).logrecords
+        if profile == SharedReference.shared.defaultprofile {
+            logrecords = ReadLogRecordsJSON(nil, validhiddenIDs).logrecords
+        } else {
+            logrecords = ReadLogRecordsJSON(profile, validhiddenIDs).logrecords
+        }
         if logrecords == nil {
             logrecords = [LogRecords]()
         }

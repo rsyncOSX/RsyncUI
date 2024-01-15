@@ -74,7 +74,11 @@ final class SnapshotRecords {
     {
         localehiddenID = hiddenID
         localconfigurations = configurations
-        alllogrecords = ReadLogRecordsJSON(profile, localconfigurations?.validhiddenIDs ?? Set())
+        if profile == SharedReference.shared.defaultprofile {
+            alllogrecords = ReadLogRecordsJSON(nil, localconfigurations?.validhiddenIDs ?? Set())
+        } else {
+            alllogrecords = ReadLogRecordsJSON(profile, localconfigurations?.validhiddenIDs ?? Set())
+        }
         if loggrecordssnapshots == nil {
             readandsortallloggdata(hiddenID: hiddenID)
         }
