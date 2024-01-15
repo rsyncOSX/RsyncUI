@@ -29,9 +29,9 @@ final class ExecuteTasksAsync {
                                                      configurations: localconfigurations?.getallconfigurations(),
                                                      validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
             let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
-
+            // Send date stamped configurations back to caller
             localupdateconfigurations(updateconfigurations)
-
+            // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             localexecuteasyncnoestimation?.asyncexecutealltasksnoestiamtioncomplete()
             Logger.process.info("class ExecuteTasksAsync: async execution is completed")
