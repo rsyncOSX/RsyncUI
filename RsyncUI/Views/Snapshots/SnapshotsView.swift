@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SnapshotsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var reload: Bool
 
     @State private var snapshotdata = SnapshotData()
     @State private var selectedconfig: Configuration?
@@ -268,7 +267,7 @@ extension SnapshotsView {
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.getallconfigurations())
             updateconfiguration.updateconfiguration(selectedconfig, false)
-            reload = true
+
             updated = true
         }
     }

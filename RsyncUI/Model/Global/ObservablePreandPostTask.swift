@@ -15,7 +15,6 @@ final class ObservablePreandPostTask {
     var pretask: String = ""
     var posttask: String = ""
     var haltshelltasksonerror: Bool = false
-    var reload: Bool = false
     var selectedconfig: Configuration?
     // Alerts
     var alerterror: Bool = false
@@ -42,7 +41,7 @@ final class ObservablePreandPostTask {
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
             updateconfiguration.updateconfiguration(updatedconfig, false)
-            reload = true
+
             // updated = true
             resetform()
         }

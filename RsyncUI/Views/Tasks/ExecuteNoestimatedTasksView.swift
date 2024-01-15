@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ExecuteNoestimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var reload: Bool
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
 
@@ -72,7 +71,6 @@ struct ExecuteNoestimatedTasksView: View {
 
 extension ExecuteNoestimatedTasksView {
     func completed() {
-        reload = true
         progressviewshowinfo = false
         executeasyncnoestimation.reset()
     }
@@ -80,7 +78,7 @@ extension ExecuteNoestimatedTasksView {
     func abort() {
         selecteduuids.removeAll()
         _ = InterruptProcess()
-        reload = true
+
         progressviewshowinfo = false
         executeasyncnoestimation.reset()
     }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RsyncDefaultParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var reload: Bool
     @Binding var path: [ParametersTasks]
 
     @State private var parameters = ObservableParametersDefault()
@@ -104,6 +103,5 @@ extension RsyncDefaultParametersView {
         }
         parameters.reset()
         selectedconfig = nil
-        reload = true
     }
 }

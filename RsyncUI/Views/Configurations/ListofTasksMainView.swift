@@ -11,7 +11,6 @@ struct ListofTasksMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<Configuration.ID>
     @Binding var filterstring: String
-    @Binding var reload: Bool
     @Binding var doubleclick: Bool
     // Progress of synchronization
     @Binding var progress: Double

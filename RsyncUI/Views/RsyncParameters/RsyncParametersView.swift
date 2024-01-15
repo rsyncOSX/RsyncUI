@@ -21,7 +21,6 @@ struct ParametersTasks: Hashable, Identifiable {
 
 struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var reload: Bool
 
     @State private var parameters = ObservableParametersRsync()
     @State private var selectedconfig: Configuration?
@@ -170,7 +169,7 @@ struct RsyncParametersView: View {
     func makeView(view: ParametersDestinationView) -> some View {
         switch view {
         case .defaultparameters:
-            RsyncDefaultParametersView(rsyncUIdata: rsyncUIdata, reload: $reload, path: $path)
+            RsyncDefaultParametersView(rsyncUIdata: rsyncUIdata, path: $path)
         case .verify:
             OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }
@@ -227,7 +226,6 @@ extension RsyncParametersView {
             updateconfiguration.updateconfiguration(configuration, true)
             parameters.reset()
             selectedconfig = nil
-            reload = true
         }
     }
 

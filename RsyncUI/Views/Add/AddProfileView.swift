@@ -12,7 +12,6 @@ struct AddProfileView: View {
     @State private var newdata = ObservableAddConfigurations()
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
-    @Binding var reload: Bool
 
     @State private var uuidprofile = Set<Profiles.ID>()
     @State private var localselectedprofile: String?
@@ -80,13 +79,12 @@ extension AddProfileView {
         newdata.createprofile()
         profilenames.update()
         selectedprofile = newdata.selectedprofile
-        reload = true
     }
 
     func deleteprofile() {
         newdata.deleteprofile(selectedprofile)
         profilenames.update()
-        reload = true
+
         selectedprofile = nil
     }
 }

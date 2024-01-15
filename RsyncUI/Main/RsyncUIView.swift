@@ -13,7 +13,6 @@ struct RsyncUIView: View {
     @State private var rsyncversion = Rsyncversion()
     @Binding var selectedprofile: String?
 
-    @State private var reload: Bool = false
     @State private var start: Bool = true
     @State var selecteduuids = Set<Configuration.ID>()
 
@@ -33,14 +32,10 @@ struct RsyncUIView: View {
                 })
             } else {
                 Sidebar(rsyncUIdata: rsyncUIdata,
-                        reload: $reload,
                         selectedprofile: $selectedprofile,
                         selecteduuids: $selecteduuids,
                         profilenames: profilenames,
                         errorhandling: errorhandling)
-                    .onChange(of: reload) {
-                        reload = false
-                    }
             }
 
             HStack {

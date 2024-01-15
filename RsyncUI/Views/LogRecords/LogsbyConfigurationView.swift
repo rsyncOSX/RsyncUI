@@ -11,7 +11,6 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var reload: Bool
 
     @State private var hiddenID = -1
     @State private var selecteduuids = Set<Configuration.ID>()
@@ -97,7 +96,7 @@ struct LogsbyConfigurationView: View {
                 Button {
                     selectedloguuids.removeAll()
                     selecteduuids.removeAll()
-                    reload = true
+
                 } label: {
                     Image(systemName: "clear")
                 }
@@ -105,10 +104,11 @@ struct LogsbyConfigurationView: View {
             }
         })
         .sheet(isPresented: $showAlertfordelete) {
-            DeleteLogsView(reload: $reload,
-                           selectedloguuids: $selectedloguuids,
-                           selectedprofile: rsyncUIdata.profile,
-                           logrecords: logrecords)
+            DeleteLogsView(
+                selectedloguuids: $selectedloguuids,
+                selectedprofile: rsyncUIdata.profile,
+                logrecords: logrecords
+            )
         }
     }
 

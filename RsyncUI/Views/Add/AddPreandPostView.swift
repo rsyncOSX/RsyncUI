@@ -13,7 +13,7 @@ struct AddPreandPostView: View {
     @State private var newdata = ObservablePreandPostTask()
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
-    @Binding var reload: Bool
+
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
 
@@ -215,7 +215,6 @@ struct AddPreandPostView: View {
 extension AddPreandPostView {
     func validateandupdate() {
         newdata.validateandupdate(profile, configurations)
-        reload = newdata.reload
     }
 }
 

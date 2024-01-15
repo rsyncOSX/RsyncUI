@@ -44,7 +44,6 @@ struct TasksView: View {
     // which is executed. Data for progressview.
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
-    @Binding var reload: Bool
     @Binding var selecteduuids: Set<Configuration.ID>
     // Navigation path
     @Binding var path: [Tasks]
@@ -72,7 +71,7 @@ struct TasksView: View {
                 rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
-                reload: $reload,
+
                 doubleclick: $doubleclick,
                 progress: $progress,
                 executeprogressdetails: executeprogressdetails,
@@ -291,7 +290,7 @@ extension TasksView {
         selecteduuids.removeAll()
         estimatingstate.updatestate(state: .start)
         _ = InterruptProcess()
-        reload = true
+
         focusstartestimation = false
         focusstartexecution = false
     }

@@ -11,11 +11,9 @@ import SwiftUI
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<Configuration.ID>
-    @Binding var reload: Bool
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
     @State private var estimateprogressdetails = EstimateProgressDetails()
-
     // Which view to show
     @State var path: [Tasks] = []
 
@@ -24,7 +22,7 @@ struct SidebarTasksView: View {
             TasksView(rsyncUIdata: rsyncUIdata,
                       executeprogressdetails: executeprogressdetails,
                       estimateprogressdetails: estimateprogressdetails,
-                      reload: $reload,
+
                       selecteduuids: $selecteduuids,
                       path: $path)
                 .navigationDestination(for: Tasks.self) { which in
@@ -48,11 +46,11 @@ struct SidebarTasksView: View {
             ExecuteEstimatedTasksView(rsyncUIdata: rsyncUIdata,
                                       executeprogressdetails: executeprogressdetails,
                                       selecteduuids: $selecteduuids,
-                                      reload: $reload,
+
                                       path: $path)
         case .executenoestimatetasksview:
             ExecuteNoestimatedTasksView(rsyncUIdata: rsyncUIdata,
-                                        reload: $reload,
+
                                         selecteduuids: $selecteduuids,
                                         path: $path)
         case .estimatedview:

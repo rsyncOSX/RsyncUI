@@ -11,7 +11,6 @@ struct ExecuteEstimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Binding var selecteduuids: Set<UUID>
-    @Binding var reload: Bool
     @Binding var path: [Tasks]
 
     @State private var multipletaskstate = ExecuteMultipleTasksState()
@@ -28,7 +27,7 @@ struct ExecuteEstimatedTasksView: View {
                 rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
-                reload: $reload,
+
                 doubleclick: $doubleclick,
                 progress: $progress,
                 executeprogressdetails: executeprogressdetails,
@@ -86,7 +85,6 @@ extension ExecuteEstimatedTasksView {
         multipletaskstate.updatestate(state: .start)
         selecteduuids.removeAll()
         path.removeAll()
-        reload = true
     }
 
     func abort() {
@@ -95,7 +93,6 @@ extension ExecuteEstimatedTasksView {
         selecteduuids.removeAll()
         _ = InterruptProcess()
         path.removeAll()
-        reload = true
     }
 
     func executemultipleestimatedtasks() {

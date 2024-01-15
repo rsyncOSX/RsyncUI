@@ -22,7 +22,7 @@ struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
-    @Binding var reload: Bool
+
     @Bindable var profilenames: Profilenames
 
     @State private var selectedconfig: Configuration?
@@ -114,7 +114,6 @@ struct AddTaskView: View {
                                         confirmcopyandpaste = false
                                         newdata.writecopyandpastetasks(rsyncUIdata.profile,
                                                                        rsyncUIdata.configurations ?? [])
-                                        reload = true
                                     }
                                 }
                         }
@@ -216,13 +215,11 @@ struct AddTaskView: View {
         case .profileview:
             AddProfileView(rsyncUIdata: rsyncUIdata,
                            profilenames: profilenames,
-                           selectedprofile: $selectedprofile,
-                           reload: $reload)
+                           selectedprofile: $selectedprofile)
         case .shelltaskview:
             AddPreandPostView(rsyncUIdata: rsyncUIdata,
                               profilenames: profilenames,
-                              selectedprofile: $selectedprofile,
-                              reload: $reload)
+                              selectedprofile: $selectedprofile)
         case .homecatalogs:
             HomeCatalogsView(catalog: $newdata.assistlocalcatalog,
                              path: $path,
