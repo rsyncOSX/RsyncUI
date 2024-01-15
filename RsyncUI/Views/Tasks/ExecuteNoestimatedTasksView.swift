@@ -91,7 +91,12 @@ extension ExecuteNoestimatedTasksView {
                               rsyncuiconfigurations: rsyncUIdata,
                               executeasyncnoestimation: executeasyncnoestimation,
                               uuids: selecteduuids,
-                              filter: filterstring)
+                              filter: filterstring,
+                              updateconfigurations: updateconfiguration)
         await executealltasksasync?.startexecution()
+    }
+
+    func updateconfiguration(_ configurations: [Configuration]) {
+        rsyncUIdata.configurations = configurations
     }
 }

@@ -18,6 +18,8 @@ final class ExecuteTasksAsync {
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
+    // Update configigurations
+    var localupdateconfigurations: ([Configuration]) -> Void
 
     @MainActor
     func startexecution() async {
@@ -26,7 +28,10 @@ final class ExecuteTasksAsync {
                                                      hiddenID: -1,
                                                      configurations: localconfigurations?.getallconfigurations(),
                                                      validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
-            update.setCurrentDateonConfiguration(configrecords: configrecords)
+            let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
+
+            localupdateconfigurations(updateconfigurations)
+
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             localexecuteasyncnoestimation?.asyncexecutealltasksnoestiamtioncomplete()
             Logger.process.info("class ExecuteTasksAsync: async execution is completed")
@@ -56,11 +61,13 @@ final class ExecuteTasksAsync {
          rsyncuiconfigurations: RsyncUIconfigurations?,
          executeasyncnoestimation: ExecuteAsyncNoEstimation?,
          uuids: Set<UUID>,
-         filter: String)
+         filter: String,
+         updateconfigurations: @escaping ([Configuration]) -> Void)
     {
         structprofile = profile
         localconfigurations = rsyncuiconfigurations
         localexecuteasyncnoestimation = executeasyncnoestimation
+        localupdateconfigurations = updateconfigurations
         let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()
         // Estimate selected configurations
