@@ -81,8 +81,7 @@ struct AddTaskView: View {
 
                         VStack(alignment: .leading) {
                             ListofTasksAddView(rsyncUIdata: rsyncUIdata,
-                                               selecteduuids: $selecteduuids,
-                                               reload: $reload)
+                                               selecteduuids: $selecteduuids)
                                 .onChange(of: selecteduuids) {
                                     let selected = rsyncUIdata.configurations?.filter { config in
                                         selecteduuids.contains(config.id)
@@ -481,13 +480,11 @@ struct AddTaskView: View {
 
 extension AddTaskView {
     func addconfig() {
-        newdata.addconfig(selectedprofile, configurations)
-        reload = newdata.reload
+        rsyncUIdata.configurations = newdata.addconfig(selectedprofile, configurations)
     }
 
     func validateandupdate() {
-        newdata.validateandupdate(selectedprofile, configurations)
-        reload = newdata.reload
+        rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, configurations)
     }
 }
 

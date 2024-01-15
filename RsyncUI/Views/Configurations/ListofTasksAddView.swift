@@ -10,7 +10,6 @@ import SwiftUI
 struct ListofTasksAddView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<Configuration.ID>
-    @Binding var reload: Bool
 
     @State private var confirmdelete: Bool = false
 
@@ -20,8 +19,8 @@ struct ListofTasksAddView: View {
 
     var tabledata: some View {
         Table(rsyncUIdata.configurations ?? [], selection: $selecteduuids) {
-            TableColumn("Profile") { data in
-                Text(data.profile ?? "Default profile")
+            TableColumn("Profile") { _ in
+                Text(rsyncUIdata.profile ?? "Default profile")
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID", value: \.backupID)
@@ -70,6 +69,6 @@ struct ListofTasksAddView: View {
                                  configurations: rsyncUIdata.getallconfigurations())
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
-        reload = true
+        rsyncUIdata.configurations = deleteconfigurations.configurations
     }
 }

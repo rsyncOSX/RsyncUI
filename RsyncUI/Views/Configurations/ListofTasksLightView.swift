@@ -17,8 +17,8 @@ struct ListofTasksLightView: View {
 
     var tabledata: some View {
         Table(rsyncUIdata.configurations ?? [], selection: $selecteduuids) {
-            TableColumn("Profile") { data in
-                Text(data.profile ?? "Default profile")
+            TableColumn("Profile") { _ in
+                Text(rsyncUIdata.profile ?? "Default profile")
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID", value: \.backupID)

@@ -29,10 +29,10 @@ struct ListofTasksView: View {
             .width(max: 50)
             TableColumn("Profile") { data in
                 if markconfig(data) {
-                    Text(data.profile ?? "Default profile")
+                    Text(rsyncUIdata.profile ?? "Default profile")
                         .foregroundColor(.red)
                 } else {
-                    Text(data.profile ?? "Default profile")
+                    Text(rsyncUIdata.profile ?? "Default profile")
                 }
             }
             .width(min: 50, max: 200)

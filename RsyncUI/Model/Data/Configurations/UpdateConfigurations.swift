@@ -7,7 +7,7 @@
 import Foundation
 
 final class UpdateConfigurations {
-    private var configurations: [Configuration]?
+    var configurations: [Configuration]?
     private var localeprofile: String?
 
     // Variable computes max hiddenID used

@@ -52,10 +52,10 @@ struct ListofTasksMainView: View {
             .width(min: 50, ideal: 50)
             TableColumn("Profile") { data in
                 if markconfig(data) {
-                    Text(data.profile ?? "Default profile")
+                    Text(rsyncUIdata.profile ?? "Default profile")
                         .foregroundColor(.red)
                 } else {
-                    Text(data.profile ?? "Default profile")
+                    Text(rsyncUIdata.profile ?? "Default profile")
                 }
             }
             .width(min: 50, max: 200)
@@ -130,7 +130,7 @@ struct ListofTasksMainView: View {
                                  configurations: rsyncUIdata.getallconfigurations())
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
-        reload = true
+        rsyncUIdata.configurations = deleteconfigurations.configurations
     }
 
     func markconfig(_ config: Configuration?) -> Bool {
