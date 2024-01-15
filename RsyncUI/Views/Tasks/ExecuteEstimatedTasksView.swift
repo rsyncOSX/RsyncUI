@@ -116,7 +116,12 @@ extension ExecuteEstimatedTasksView {
                                  rsyncuiconfigurations: rsyncUIdata,
                                  multipletaskstateDelegate: multipletaskstate,
                                  executeprogressdetailsDelegate: executeprogressdetails,
-                                 filehandler: filehandler)
+                                 filehandler: filehandler,
+                                 updateconfigurations: updateconfiguration)
         }
+    }
+
+    func updateconfiguration(_ configurations: [Configuration]) {
+        rsyncUIdata.configurations = configurations
     }
 }
