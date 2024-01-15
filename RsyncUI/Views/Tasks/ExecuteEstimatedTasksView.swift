@@ -113,7 +113,7 @@ extension ExecuteEstimatedTasksView {
             multipletaskstate.updatestate(state: .execute)
             ExecuteMultipleTasks(uuids: uuids,
                                  profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata,
+                                 rsyncuiconfigurations: rsyncUIdata,
                                  multipletaskstateDelegate: multipletaskstate,
                                  executeprogressdetailsDelegate: executeprogressdetails,
                                  filehandler: filehandler)

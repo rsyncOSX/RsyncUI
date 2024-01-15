@@ -15,6 +15,7 @@ struct AddProfileView: View {
 
     @State private var uuidprofile = Set<Profiles.ID>()
     @State private var localselectedprofile: String?
+    @State private var newprofile: String = ""
 
     var body: some View {
         VStack {
@@ -35,7 +36,7 @@ struct AddProfileView: View {
             Spacer()
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
-                      $newdata.newprofile)
+                      $newprofile)
         }
         .onSubmit {
             createprofile()
@@ -75,16 +76,17 @@ struct AddProfileView: View {
 
 extension AddProfileView {
     func createprofile() {
-        guard newdata.newprofile != "" else { return }
-        newdata.createprofile()
+        guard newprofile.isEmpty == false else { return }
+        newdata.createprofile(newprofile: newprofile)
         profilenames.update()
         selectedprofile = newdata.selectedprofile
+        rsyncUIdata.profile = selectedprofile
     }
 
     func deleteprofile() {
         newdata.deleteprofile(selectedprofile)
         profilenames.update()
-
         selectedprofile = nil
+        rsyncUIdata.profile = nil
     }
 }

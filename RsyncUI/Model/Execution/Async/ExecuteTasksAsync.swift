@@ -53,13 +53,13 @@ final class ExecuteTasksAsync {
     }
 
     init(profile: String?,
-         configurations: RsyncUIconfigurations?,
+         rsyncuiconfigurations: RsyncUIconfigurations?,
          executeasyncnoestimation: ExecuteAsyncNoEstimation?,
          uuids: Set<UUID>,
          filter: String)
     {
         structprofile = profile
-        localconfigurations = configurations
+        localconfigurations = rsyncuiconfigurations
         localexecuteasyncnoestimation = executeasyncnoestimation
         let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()

@@ -28,8 +28,6 @@ final class ObservableAddConfigurations {
     var remoteserver: String = ""
     var backupID: String = ""
     var selectedrsynccommand = TypeofTask.synchronize
-
-    var newprofile: String = ""
     var selectedprofile: String?
     var deletedefaultprofile: Bool = false
 
@@ -129,13 +127,12 @@ final class ObservableAddConfigurations {
         selectedconfig = nil
     }
 
-    func createprofile() {
+    func createprofile(newprofile: String) {
         guard newprofile.isEmpty == false else { return }
         let catalogprofile = CatalogProfile()
         catalogprofile.createprofilecatalog(profile: newprofile)
         selectedprofile = newprofile
         created = true
-        newprofile = ""
     }
 
     func deleteprofile(_ profile: String?) {
@@ -170,7 +167,7 @@ final class ObservableAddConfigurations {
             error = e
             alerterror = true
         }
-        return nil
+        return configurations
     }
 
     func updateview(_ config: Configuration?) {

@@ -220,10 +220,11 @@ struct RsyncParametersView: View {
 extension RsyncParametersView {
     func saversyncparameters() {
         if let configuration = parameters.updatersyncparameters() {
-            let updateconfiguration =
+            let updateconfigurations =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.getallconfigurations())
-            updateconfiguration.updateconfiguration(configuration, true)
+            updateconfigurations.updateconfiguration(configuration, true)
+            rsyncUIdata.configurations = updateconfigurations.configurations
             parameters.reset()
             selectedconfig = nil
         }

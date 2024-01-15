@@ -67,7 +67,7 @@ final class ObservablePreandPostTask {
             error = e
             alerterror = true
         }
-        return nil
+        return configurations
     }
 
     func updateview(_ config: Configuration?) {

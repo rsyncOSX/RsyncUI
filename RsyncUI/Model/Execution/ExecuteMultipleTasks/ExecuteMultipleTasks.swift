@@ -49,13 +49,13 @@ final class ExecuteMultipleTasks {
     @discardableResult
     init(uuids: Set<UUID>,
          profile: String?,
-         configurations: RsyncUIconfigurations?,
+         rsyncuiconfigurations: RsyncUIconfigurations?,
          multipletaskstateDelegate: ExecuteMultipleTasksState?,
          executeprogressdetailsDelegate: ExecuteProgressDetails?,
          filehandler: @escaping (Int) -> Void)
     {
         structprofile = profile
-        localconfigurations = configurations
+        localconfigurations = rsyncuiconfigurations
         multipletaskstate = multipletaskstateDelegate
         executeprogressdetails = executeprogressdetailsDelegate
         localfilehandler = filehandler

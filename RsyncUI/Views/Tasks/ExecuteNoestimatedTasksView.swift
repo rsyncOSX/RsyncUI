@@ -88,7 +88,7 @@ extension ExecuteNoestimatedTasksView {
         executeasyncnoestimation.startasyncexecutealltasksnoestimation()
         executealltasksasync =
             ExecuteTasksAsync(profile: rsyncUIdata.profile,
-                              configurations: rsyncUIdata,
+                              rsyncuiconfigurations: rsyncUIdata,
                               executeasyncnoestimation: executeasyncnoestimation,
                               uuids: selecteduuids,
                               filter: filterstring)
