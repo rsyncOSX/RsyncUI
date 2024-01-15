@@ -206,15 +206,11 @@ struct AddPreandPostView: View {
     var profile: String? {
         return rsyncUIdata.profile
     }
-
-    var configurations: [Configuration]? {
-        return rsyncUIdata.getallconfigurations()
-    }
 }
 
 extension AddPreandPostView {
     func validateandupdate() {
-        newdata.validateandupdate(profile, configurations)
+        rsyncUIdata.configurations = newdata.validateandupdate(profile, rsyncUIdata.configurations)
     }
 }
 

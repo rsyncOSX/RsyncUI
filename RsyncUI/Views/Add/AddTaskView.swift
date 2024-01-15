@@ -451,10 +451,6 @@ struct AddTaskView: View {
         .frame(width: 140)
     }
 
-    var configurations: [Configuration]? {
-        return rsyncUIdata.getallconfigurations()
-    }
-
     var labelprofiletask: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
@@ -477,11 +473,11 @@ struct AddTaskView: View {
 
 extension AddTaskView {
     func addconfig() {
-        rsyncUIdata.configurations = newdata.addconfig(selectedprofile, configurations)
+        rsyncUIdata.configurations = newdata.addconfig(selectedprofile, rsyncUIdata.configurations)
     }
 
     func validateandupdate() {
-        rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, configurations)
+        rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
     }
 }
 
