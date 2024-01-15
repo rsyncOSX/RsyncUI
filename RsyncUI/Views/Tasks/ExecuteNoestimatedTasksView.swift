@@ -78,7 +78,6 @@ extension ExecuteNoestimatedTasksView {
     func abort() {
         selecteduuids.removeAll()
         _ = InterruptProcess()
-
         progressviewshowinfo = false
         executeasyncnoestimation.reset()
     }

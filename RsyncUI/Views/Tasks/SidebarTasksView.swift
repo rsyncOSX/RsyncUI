@@ -50,7 +50,6 @@ struct SidebarTasksView: View {
                                       path: $path)
         case .executenoestimatetasksview:
             ExecuteNoestimatedTasksView(rsyncUIdata: rsyncUIdata,
-
                                         selecteduuids: $selecteduuids,
                                         path: $path)
         case .estimatedview:

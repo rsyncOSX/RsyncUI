@@ -71,7 +71,6 @@ struct TasksView: View {
                 rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
-
                 doubleclick: $doubleclick,
                 progress: $progress,
                 executeprogressdetails: executeprogressdetails,

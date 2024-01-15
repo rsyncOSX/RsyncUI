@@ -109,13 +109,15 @@ struct RsyncUIView: View {
     }
 }
 
-extension EnvironmentValues {
-    var ConfigurationsData: Readconfigurationsfromstore {
-        get { self[ConfigurationsDataKey.self] }
-        set { self[ConfigurationsDataKey.self] = newValue }
-    }
-}
+/*
+ extension EnvironmentValues {
+     var ConfigurationsData: Readconfigurationsfromstore {
+         get { self[ConfigurationsDataKey.self] }
+         set { self[ConfigurationsDataKey.self] = newValue }
+     }
+ }
 
-private struct ConfigurationsDataKey: EnvironmentKey {
-    static var defaultValue: Readconfigurationsfromstore = .init(profile: nil)
-}
+ private struct ConfigurationsDataKey: EnvironmentKey {
+     static var defaultValue: Readconfigurationsfromstore = .init(profile: nil)
+ }
+ */
