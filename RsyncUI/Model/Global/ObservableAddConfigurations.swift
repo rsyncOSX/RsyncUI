@@ -292,11 +292,12 @@ final class ObservableAddConfigurations {
     }
 
     // After accept of Copy and Paste a write operation is performed
-    func writecopyandpastetasks(_ profile: String?, _ configurations: [Configuration]) {
+    func writecopyandpastetasks(_ profile: String?, _ configurations: [Configuration]) -> [Configuration]? {
         let updateconfigurations =
             UpdateConfigurations(profile: profile,
                                  configurations: configurations)
         updateconfigurations.writecopyandpastetask(copyandpasteconfigurations)
+        return updateconfigurations.configurations
     }
 
     func attachedVolumes() -> [URL]? {

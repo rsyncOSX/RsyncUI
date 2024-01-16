@@ -39,8 +39,6 @@ class WriteLogRecordsJSON: NamesandPaths {
     @discardableResult
     init(_ profile: String?, _ logrecords: [LogRecords]?) {
         super.init(.configurations)
-        // print("WriteScheduleJSON")
-        // Set profile and filename ahead of encoding an write
         if profile == SharedReference.shared.defaultprofile {
             self.profile = nil
         } else {
@@ -58,7 +56,6 @@ class WriteLogRecordsJSON: NamesandPaths {
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    // print("The publisher finished normally.")
                     return
                 case let .failure(error):
                     self.propogateerror(error: error)

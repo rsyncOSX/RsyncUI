@@ -111,8 +111,9 @@ struct AddTaskView: View {
                                 ) {
                                     Button("Copy") {
                                         confirmcopyandpaste = false
-                                        newdata.writecopyandpastetasks(rsyncUIdata.profile,
-                                                                       rsyncUIdata.configurations ?? [])
+                                        rsyncUIdata.configurations =
+                                            newdata.writecopyandpastetasks(rsyncUIdata.profile,
+                                                                           rsyncUIdata.configurations ?? [])
                                     }
                                 }
                         }
