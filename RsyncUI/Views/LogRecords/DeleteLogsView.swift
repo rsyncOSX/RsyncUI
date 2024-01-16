@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DeleteLogsView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    @Binding var reload: Bool
+
     @Binding var selectedloguuids: Set<UUID>
     var selectedprofile: String?
     var logrecords: RsyncUIlogrecords
@@ -49,7 +49,7 @@ struct DeleteLogsView: View {
                                         scheduleConfigurations: logrecords.logrecords)
         deleteschedule.deletelogs(uuids: selectedloguuids)
         selectedloguuids.removeAll()
-        reload = true
+
         dismiss()
     }
 }

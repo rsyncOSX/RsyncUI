@@ -47,12 +47,8 @@ final class ObservableParametersRsync {
         }
     }
 
-    func verifybackupison() -> Bool {
-        if let config = configuration {
-            return parameter12 == RsyncArguments().backupstrings[0]
-        } else {
-            return false
-        }
+    func verifybackupison(_ config: Configuration) -> Bool {
+        return config.parameter12 == RsyncArguments().backupstrings[0]
     }
 
     func setbackup() {
@@ -85,35 +81,6 @@ final class ObservableParametersRsync {
         }
     }
 
-    /*
-     func setsuffixlinux() {
-         guard configuration != nil else { return }
-         if parameter14.isEmpty == false {
-             if parameter14 == RsyncArguments().suffixstringfreebsd {
-                 parameter14 = RsyncArguments().suffixstringlinux
-             } else {
-                 parameter14 = ""
-             }
-         } else {
-             parameter14 = RsyncArguments().suffixstringlinux
-         }
-         configuration?.parameter14 = parameter14
-     }
-
-     func setsuffixfreebsd() {
-         guard configuration != nil else { return }
-         if parameter14.isEmpty == false {
-             if parameter14 == RsyncArguments().suffixstringlinux {
-                 parameter14 = RsyncArguments().suffixstringfreebsd
-             } else {
-                 parameter14 = ""
-             }
-         } else {
-             parameter14 = RsyncArguments().suffixstringfreebsd
-         }
-         configuration?.parameter14 = parameter14
-     }
-     */
     // Return the updated configuration
     func updatersyncparameters() -> Configuration? {
         if var configuration = configuration {

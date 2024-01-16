@@ -9,9 +9,7 @@ import OSLog
 import SwiftUI
 
 struct ExecuteNoestimatedTasksView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
-    @Binding var reload: Bool
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
 
@@ -26,6 +24,7 @@ struct ExecuteNoestimatedTasksView: View {
     var body: some View {
         ZStack {
             ListofTasksView(
+                rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring
             )
@@ -72,7 +71,6 @@ struct ExecuteNoestimatedTasksView: View {
 
 extension ExecuteNoestimatedTasksView {
     func completed() {
-        reload = true
         progressviewshowinfo = false
         executeasyncnoestimation.reset()
     }
@@ -80,7 +78,6 @@ extension ExecuteNoestimatedTasksView {
     func abort() {
         selecteduuids.removeAll()
         _ = InterruptProcess()
-        reload = true
         progressviewshowinfo = false
         executeasyncnoestimation.reset()
     }
@@ -90,10 +87,15 @@ extension ExecuteNoestimatedTasksView {
         executeasyncnoestimation.startasyncexecutealltasksnoestimation()
         executealltasksasync =
             ExecuteTasksAsync(profile: rsyncUIdata.profile,
-                              configurations: rsyncUIdata,
+                              rsyncuiconfigurations: rsyncUIdata,
                               executeasyncnoestimation: executeasyncnoestimation,
                               uuids: selecteduuids,
-                              filter: filterstring)
+                              filter: filterstring,
+                              updateconfigurations: updateconfigurations)
         await executealltasksasync?.startexecution()
+    }
+
+    func updateconfigurations(_ configurations: [Configuration]) {
+        rsyncUIdata.configurations = configurations
     }
 }

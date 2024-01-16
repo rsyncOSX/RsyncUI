@@ -20,8 +20,7 @@ struct ParametersTasks: Hashable, Identifiable {
 }
 
 struct RsyncParametersView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @Binding var reload: Bool
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     @State private var parameters = ObservableParametersRsync()
     @State private var selectedconfig: Configuration?
@@ -94,7 +93,7 @@ struct RsyncParametersView: View {
                     Spacer()
                 }
 
-                ListofTasksLightView(selecteduuids: $selecteduuids)
+                ListofTasksLightView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
                     .frame(maxWidth: .infinity)
                     .onChange(of: selecteduuids) {
                         let selected = rsyncUIdata.configurations?.filter { config in
@@ -104,7 +103,6 @@ struct RsyncParametersView: View {
                             if let config = selected {
                                 selectedconfig = config[0]
                                 parameters.setvalues(selectedconfig)
-                                // backup = !parameters.verifybackupison()
                             }
                         } else {
                             selectedconfig = nil
@@ -170,7 +168,7 @@ struct RsyncParametersView: View {
     func makeView(view: ParametersDestinationView) -> some View {
         switch view {
         case .defaultparameters:
-            RsyncDefaultParametersView(reload: $reload, path: $path)
+            RsyncDefaultParametersView(rsyncUIdata: rsyncUIdata, path: $path)
         case .verify:
             OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }
@@ -221,13 +219,13 @@ struct RsyncParametersView: View {
 extension RsyncParametersView {
     func saversyncparameters() {
         if let configuration = parameters.updatersyncparameters() {
-            let updateconfiguration =
+            let updateconfigurations =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.getallconfigurations())
-            updateconfiguration.updateconfiguration(configuration, true)
+            updateconfigurations.updateconfiguration(configuration, true)
+            rsyncUIdata.configurations = updateconfigurations.configurations
             parameters.reset()
             selectedconfig = nil
-            reload = true
         }
     }
 

@@ -28,15 +28,12 @@ final class ObservableAddConfigurations {
     var remoteserver: String = ""
     var backupID: String = ""
     var selectedrsynccommand = TypeofTask.synchronize
-
-    var newprofile: String = ""
     var selectedprofile: String?
     var deletedefaultprofile: Bool = false
 
     var deleted: Bool = false
-    var added: Bool = false
     var created: Bool = false
-    var reload: Bool = false
+
     var confirmdeleteselectedprofile: Bool = false
     var showAlertfordelete: Bool = false
 
@@ -64,7 +61,7 @@ final class ObservableAddConfigurations {
 
     var copyandpasteconfigurations: [Configuration]?
 
-    func addconfig(_ profile: String?, _ configurations: [Configuration]?) {
+    func addconfig(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
@@ -79,19 +76,20 @@ final class ObservableAddConfigurations {
                                  nil,
                                  nil)
         // If newconfig is verified add it
-        if let newconfig = VerifyConfiguration().verify(getdata) {
+        if var newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
+            newconfig.profile = selectedprofile
             if updateconfigurations.addconfiguration(newconfig) == true {
-                reload = true
-                added = true
                 resetform()
+                return updateconfigurations.configurations
             }
         }
+        return configurations
     }
 
-    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
+    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
         updatepreandpost()
         let updateddata = AppendTask(selectedrsynccommand.rawValue,
                                      localcatalog,
@@ -109,14 +107,14 @@ final class ObservableAddConfigurations {
                                      haltshelltasksonerror,
                                      selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
-            let updateconfiguration =
+            let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
-            updateconfiguration.updateconfiguration(updatedconfig, false)
-            reload = true
-            // updated = true
+            updateconfigurations.updateconfiguration(updatedconfig, false)
             resetform()
+            return updateconfigurations.configurations
         }
+        return configurations
     }
 
     func resetform() {
@@ -129,13 +127,12 @@ final class ObservableAddConfigurations {
         selectedconfig = nil
     }
 
-    func createprofile() {
+    func createprofile(newprofile: String) {
         guard newprofile.isEmpty == false else { return }
         let catalogprofile = CatalogProfile()
         catalogprofile.createprofilecatalog(profile: newprofile)
         selectedprofile = newprofile
         created = true
-        newprofile = ""
     }
 
     func deleteprofile(_ profile: String?) {
@@ -159,17 +156,18 @@ final class ObservableAddConfigurations {
         }
     }
 
-    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) {
+    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
         // Validate not a snapshot task
         do {
             let validated = try validatenotsnapshottask()
             if validated {
-                updateconfig(profile, configurations)
+                return updateconfig(profile, configurations)
             }
         } catch let e {
             error = e
             alerterror = true
         }
+        return configurations
     }
 
     func updateview(_ config: Configuration?) {
@@ -294,12 +292,12 @@ final class ObservableAddConfigurations {
     }
 
     // After accept of Copy and Paste a write operation is performed
-    func writecopyandpastetasks(_ profile: String?, _ configurations: [Configuration]) {
+    func writecopyandpastetasks(_ profile: String?, _ configurations: [Configuration]) -> [Configuration]? {
         let updateconfigurations =
             UpdateConfigurations(profile: profile,
                                  configurations: configurations)
         updateconfigurations.writecopyandpastetask(copyandpasteconfigurations)
-        reload = true
+        return updateconfigurations.configurations
     }
 
     func attachedVolumes() -> [URL]? {

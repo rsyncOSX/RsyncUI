@@ -13,9 +13,7 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
 }
 
 struct Sidebar: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
-    @Binding var reload: Bool
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<Configuration.ID>
     @Bindable var profilenames: Profilenames
@@ -56,19 +54,19 @@ struct Sidebar: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            AddTaskView(selectedprofile: $selectedprofile, reload: $reload, profilenames: profilenames)
+            AddTaskView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile, profilenames: profilenames)
         case .log_listings:
-            SidebarLogsView()
+            SidebarLogsView(rsyncUIdata: rsyncUIdata)
         case .rsync_parameters:
-            RsyncParametersView(reload: $reload)
+            RsyncParametersView(rsyncUIdata: rsyncUIdata)
         case .restore:
             NavigationStack {
-                RestoreTableView()
+                RestoreTableView(rsyncUIdata: rsyncUIdata)
             }
         case .snapshots:
-            SnapshotsView(reload: $reload)
+            SnapshotsView(rsyncUIdata: rsyncUIdata)
         case .synchronize:
-            SidebarTasksView(selecteduuids: $selecteduuids, reload: $reload)
+            SidebarTasksView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
         case .quick_synchronize:
             QuicktaskView(userserver: UserServer(configurations: rsyncUIdata.configurations))
         }

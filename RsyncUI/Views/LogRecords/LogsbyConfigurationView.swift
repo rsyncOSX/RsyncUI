@@ -10,8 +10,7 @@ import Combine
 import SwiftUI
 
 struct LogsbyConfigurationView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @Binding var reload: Bool
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     @State private var hiddenID = -1
     @State private var selecteduuids = Set<Configuration.ID>()
@@ -29,7 +28,8 @@ struct LogsbyConfigurationView: View {
     var body: some View {
         VStack {
             HStack {
-                ListofTasksLightView(selecteduuids: $selecteduuids)
+                ListofTasksLightView(rsyncUIdata: rsyncUIdata,
+                                     selecteduuids: $selecteduuids)
                     .onChange(of: selecteduuids) {
                         let selected = rsyncUIdata.configurations?.filter { config in
                             selecteduuids.contains(config.id)
@@ -96,7 +96,7 @@ struct LogsbyConfigurationView: View {
                 Button {
                     selectedloguuids.removeAll()
                     selecteduuids.removeAll()
-                    reload = true
+
                 } label: {
                     Image(systemName: "clear")
                 }
@@ -104,10 +104,11 @@ struct LogsbyConfigurationView: View {
             }
         })
         .sheet(isPresented: $showAlertfordelete) {
-            DeleteLogsView(reload: $reload,
-                           selectedloguuids: $selectedloguuids,
-                           selectedprofile: rsyncUIdata.profile,
-                           logrecords: logrecords)
+            DeleteLogsView(
+                selectedloguuids: $selectedloguuids,
+                selectedprofile: rsyncUIdata.profile,
+                logrecords: logrecords
+            )
         }
     }
 

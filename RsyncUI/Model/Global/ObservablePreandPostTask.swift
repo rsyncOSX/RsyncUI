@@ -15,13 +15,12 @@ final class ObservablePreandPostTask {
     var pretask: String = ""
     var posttask: String = ""
     var haltshelltasksonerror: Bool = false
-    var reload: Bool = false
     var selectedconfig: Configuration?
     // Alerts
     var alerterror: Bool = false
     var error: Error = Validatedpath.noerror
 
-    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) {
+    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
         // Append default config data to the update,
         // only post and pretask is new
         let updateddata = AppendTask(selectedconfig?.task ?? "",
@@ -38,14 +37,14 @@ final class ObservablePreandPostTask {
                                      haltshelltasksonerror,
                                      selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
-            let updateconfiguration =
+            let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
-            updateconfiguration.updateconfiguration(updatedconfig, false)
-            reload = true
-            // updated = true
+            updateconfigurations.updateconfiguration(updatedconfig, false)
             resetform()
+            return updateconfigurations.configurations
         }
+        return configurations
     }
 
     func resetform() {
@@ -57,17 +56,18 @@ final class ObservablePreandPostTask {
         selectedconfig = nil
     }
 
-    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) {
+    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
         // Validate not a snapshot task
         do {
             let validated = try validatenotsnapshottask()
             if validated {
-                updateconfig(profile, configurations)
+                return updateconfig(profile, configurations)
             }
         } catch let e {
             error = e
             alerterror = true
         }
+        return configurations
     }
 
     func updateview(_ config: Configuration?) {

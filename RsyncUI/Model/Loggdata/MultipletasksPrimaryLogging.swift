@@ -8,7 +8,7 @@
 import Foundation
 
 final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
-    func setCurrentDateonConfiguration(configrecords: [Typelogdata]) {
+    func setCurrentDateonConfiguration(configrecords: [Typelogdata]) -> [Configuration] {
         for i in 0 ..< configrecords.count {
             let hiddenID = configrecords[i].0
             let date = configrecords[i].1
@@ -21,6 +21,7 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
             }
         }
         WriteConfigurationJSON(localeprofile, structconfigurations)
+        return structconfigurations ?? []
     }
 
     // Caution, the snapshotnum is alrady increased in

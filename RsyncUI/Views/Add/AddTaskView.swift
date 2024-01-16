@@ -19,11 +19,9 @@ struct AddTasks: Hashable, Identifiable {
 }
 
 struct AddTaskView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
-    @Binding var reload: Bool
     @Bindable var profilenames: Profilenames
 
     @State private var selectedconfig: Configuration?
@@ -81,8 +79,8 @@ struct AddTaskView: View {
                         // Column 2
 
                         VStack(alignment: .leading) {
-                            ListofTasksAddView(selecteduuids: $selecteduuids,
-                                               reload: $reload)
+                            ListofTasksAddView(rsyncUIdata: rsyncUIdata,
+                                               selecteduuids: $selecteduuids)
                                 .onChange(of: selecteduuids) {
                                     let selected = rsyncUIdata.configurations?.filter { config in
                                         selecteduuids.contains(config.id)
@@ -113,9 +111,9 @@ struct AddTaskView: View {
                                 ) {
                                     Button("Copy") {
                                         confirmcopyandpaste = false
-                                        newdata.writecopyandpastetasks(rsyncUIdata.profile,
-                                                                       rsyncUIdata.configurations ?? [])
-                                        reload = true
+                                        rsyncUIdata.configurations =
+                                            newdata.writecopyandpastetasks(rsyncUIdata.profile,
+                                                                           rsyncUIdata.configurations ?? [])
                                     }
                                 }
                         }
@@ -215,11 +213,13 @@ struct AddTaskView: View {
     func makeView(view: AddTaskDestinationView) -> some View {
         switch view {
         case .profileview:
-            AddProfileView(profilenames: profilenames,
-                           selectedprofile: $selectedprofile,
-                           reload: $reload)
+            AddProfileView(rsyncUIdata: rsyncUIdata,
+                           profilenames: profilenames,
+                           selectedprofile: $selectedprofile)
         case .shelltaskview:
-            AddPreandPostView(profilenames: profilenames, selectedprofile: $selectedprofile, reload: $reload)
+            AddPreandPostView(rsyncUIdata: rsyncUIdata,
+                              profilenames: profilenames,
+                              selectedprofile: $selectedprofile)
         case .homecatalogs:
             HomeCatalogsView(catalog: $newdata.assistlocalcatalog,
                              path: $path,
@@ -451,10 +451,6 @@ struct AddTaskView: View {
         .frame(width: 140)
     }
 
-    var configurations: [Configuration]? {
-        return rsyncUIdata.getallconfigurations()
-    }
-
     var labelprofiletask: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
@@ -477,13 +473,11 @@ struct AddTaskView: View {
 
 extension AddTaskView {
     func addconfig() {
-        newdata.addconfig(selectedprofile, configurations)
-        reload = newdata.reload
+        rsyncUIdata.configurations = newdata.addconfig(selectedprofile, rsyncUIdata.configurations)
     }
 
     func validateandupdate() {
-        newdata.validateandupdate(selectedprofile, configurations)
-        reload = newdata.reload
+        rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
     }
 }
 

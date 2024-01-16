@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Binding var selecteduuids: Set<UUID>
-    @Binding var reload: Bool
     @Binding var path: [Tasks]
 
     @State private var multipletaskstate = ExecuteMultipleTasksState()
@@ -26,9 +24,9 @@ struct ExecuteEstimatedTasksView: View {
     var body: some View {
         ZStack {
             ListofTasksMainView(
+                rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
-                reload: $reload,
                 doubleclick: $doubleclick,
                 progress: $progress,
                 executeprogressdetails: executeprogressdetails,
@@ -86,7 +84,6 @@ extension ExecuteEstimatedTasksView {
         multipletaskstate.updatestate(state: .start)
         selecteduuids.removeAll()
         path.removeAll()
-        reload = true
     }
 
     func abort() {
@@ -95,7 +92,6 @@ extension ExecuteEstimatedTasksView {
         selecteduuids.removeAll()
         _ = InterruptProcess()
         path.removeAll()
-        reload = true
     }
 
     func executemultipleestimatedtasks() {
@@ -116,10 +112,15 @@ extension ExecuteEstimatedTasksView {
             multipletaskstate.updatestate(state: .execute)
             ExecuteMultipleTasks(uuids: uuids,
                                  profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata,
+                                 rsyncuiconfigurations: rsyncUIdata,
                                  multipletaskstateDelegate: multipletaskstate,
                                  executeprogressdetailsDelegate: executeprogressdetails,
-                                 filehandler: filehandler)
+                                 filehandler: filehandler,
+                                 updateconfigurations: updateconfigurations)
         }
+    }
+
+    func updateconfigurations(_ configurations: [Configuration]) {
+        rsyncUIdata.configurations = configurations
     }
 }

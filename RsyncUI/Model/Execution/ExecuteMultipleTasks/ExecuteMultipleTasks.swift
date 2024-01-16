@@ -24,6 +24,8 @@ final class ExecuteMultipleTasks {
     private var schedulerecords = [Typelogdata]()
     // Report progress to caller
     var localfilehandler: (Int) -> Void
+    // Update configigurations
+    var localupdateconfigurations: ([Configuration]) -> Void
 
     private func prepareandstartexecutetasks(configurations: [Configuration]?) {
         stackoftasktobeexecuted = [Int]()
@@ -49,16 +51,18 @@ final class ExecuteMultipleTasks {
     @discardableResult
     init(uuids: Set<UUID>,
          profile: String?,
-         configurations: RsyncUIconfigurations?,
+         rsyncuiconfigurations: RsyncUIconfigurations?,
          multipletaskstateDelegate: ExecuteMultipleTasksState?,
          executeprogressdetailsDelegate: ExecuteProgressDetails?,
-         filehandler: @escaping (Int) -> Void)
+         filehandler: @escaping (Int) -> Void,
+         updateconfigurations: @escaping ([Configuration]) -> Void)
     {
         structprofile = profile
-        localconfigurations = configurations
+        localconfigurations = rsyncuiconfigurations
         multipletaskstate = multipletaskstateDelegate
         executeprogressdetails = executeprogressdetailsDelegate
         localfilehandler = filehandler
+        localupdateconfigurations = updateconfigurations
 
         guard uuids.count > 0 else {
             Logger.process.warning("class ExecuteMultipleTasks, guard uuids.count > 0: \(uuids.count, privacy: .public)")
@@ -98,7 +102,10 @@ extension ExecuteMultipleTasks {
                                                      hiddenID: hiddenID,
                                                      configurations: localconfigurations?.getallconfigurations(),
                                                      validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
-            update.setCurrentDateonConfiguration(configrecords: configrecords)
+            let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
+            // Send date stamped configurations back to caller
+            localupdateconfigurations(updateconfigurations)
+            // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             multipletaskstate?.updatestate(state: .completed)
             return

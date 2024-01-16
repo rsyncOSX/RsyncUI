@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct AddPreandPostView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservablePreandPostTask()
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
-    @Binding var reload: Bool
+
     @State private var selectedconfig: Configuration?
     @State private var selecteduuids = Set<Configuration.ID>()
 
@@ -58,7 +58,7 @@ struct AddPreandPostView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        ListofTasksLightView(selecteduuids: $selecteduuids)
+                        ListofTasksLightView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
                             .onChange(of: selecteduuids) {
                                 let selected = rsyncUIdata.configurations?.filter { config in
                                     selecteduuids.contains(config.id)
@@ -206,16 +206,11 @@ struct AddPreandPostView: View {
     var profile: String? {
         return rsyncUIdata.profile
     }
-
-    var configurations: [Configuration]? {
-        return rsyncUIdata.getallconfigurations()
-    }
 }
 
 extension AddPreandPostView {
     func validateandupdate() {
-        newdata.validateandupdate(profile, configurations)
-        reload = newdata.reload
+        rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
     }
 }
 

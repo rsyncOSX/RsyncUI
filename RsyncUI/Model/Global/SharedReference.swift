@@ -81,7 +81,6 @@ class SharedReference {
     // Object for propogate errors to views
     var errorobject: AlertError?
     // Used when starting up RsyncUI
-    // var reload: Bool = true
     // Default profile
     let defaultprofile = "Default profile"
     // If firstime use

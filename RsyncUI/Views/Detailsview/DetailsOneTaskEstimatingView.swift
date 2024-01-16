@@ -10,8 +10,7 @@ import Observation
 import SwiftUI
 
 struct DetailsOneTaskEstimatingView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @State private var gettingremotedata = true
     @State private var estimatedtask: RemoteDataNumbers?

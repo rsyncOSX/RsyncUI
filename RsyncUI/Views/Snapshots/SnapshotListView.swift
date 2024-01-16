@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SnapshotListView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
     @Binding var snapshotdata: SnapshotData
     @Binding var snapshotrecords: SnapshotLogRecords?
     @Binding var filterstring: String

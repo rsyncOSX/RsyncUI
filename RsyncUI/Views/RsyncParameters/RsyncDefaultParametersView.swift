@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct RsyncDefaultParametersView: View {
-    @SwiftUI.Environment(\.rsyncUIData) private var rsyncUIdata
-    @Binding var reload: Bool
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var path: [ParametersTasks]
 
     @State private var parameters = ObservableParametersDefault()
@@ -46,7 +45,7 @@ struct RsyncDefaultParametersView: View {
                     Spacer()
                 }
 
-                ListofTasksLightView(selecteduuids: $selecteduuids)
+                ListofTasksLightView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
                     .frame(maxWidth: .infinity)
                     .onChange(of: selecteduuids) {
                         let selected = rsyncUIdata.configurations?.filter { config in
@@ -97,13 +96,13 @@ struct RsyncDefaultParametersView: View {
 extension RsyncDefaultParametersView {
     func saversyncparameters() {
         if let configuration = parameters.updatersyncparameters() {
-            let updateconfiguration =
+            let updateconfigurations =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.getallconfigurations())
-            updateconfiguration.updateconfiguration(configuration, true)
+                                     configurations: rsyncUIdata.configurations)
+            updateconfigurations.updateconfiguration(configuration, true)
+            rsyncUIdata.configurations = updateconfigurations.configurations
+            parameters.reset()
+            selectedconfig = nil
         }
-        parameters.reset()
-        selectedconfig = nil
-        reload = true
     }
 }

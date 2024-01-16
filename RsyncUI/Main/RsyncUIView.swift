@@ -13,7 +13,6 @@ struct RsyncUIView: View {
     @State private var rsyncversion = Rsyncversion()
     @Binding var selectedprofile: String?
 
-    @State private var reload: Bool = false
     @State private var start: Bool = true
     @State var selecteduuids = Set<Configuration.ID>()
 
@@ -32,15 +31,11 @@ struct RsyncUIView: View {
                     }
                 })
             } else {
-                Sidebar(reload: $reload,
+                Sidebar(rsyncUIdata: rsyncUIdata,
                         selectedprofile: $selectedprofile,
                         selecteduuids: $selecteduuids,
                         profilenames: profilenames,
                         errorhandling: errorhandling)
-                    .environment(\.rsyncUIData, rsyncUIdata)
-                    .onChange(of: reload) {
-                        reload = false
-                    }
             }
 
             HStack {
@@ -69,7 +64,10 @@ struct RsyncUIView: View {
     }
 
     var rsyncUIdata: RsyncUIconfigurations {
-        return RsyncUIconfigurations(profile: selectedprofile, reload)
+        let configurationsdata = Readconfigurationsfromstore(profile: selectedprofile)
+        return RsyncUIconfigurations(selectedprofile,
+                                     configurationsdata.configurations ?? [],
+                                     configurationsdata.validhiddenIDs)
     }
 
     var errorhandling: AlertError {
@@ -111,13 +109,15 @@ struct RsyncUIView: View {
     }
 }
 
-extension EnvironmentValues {
-    var rsyncUIData: RsyncUIconfigurations {
-        get { self[RsyncUIDataKey.self] }
-        set { self[RsyncUIDataKey.self] = newValue }
-    }
-}
+/*
+ extension EnvironmentValues {
+     var ConfigurationsData: Readconfigurationsfromstore {
+         get { self[ConfigurationsDataKey.self] }
+         set { self[ConfigurationsDataKey.self] = newValue }
+     }
+ }
 
-private struct RsyncUIDataKey: EnvironmentKey {
-    static var defaultValue: RsyncUIconfigurations = .init(profile: nil, true)
-}
+ private struct ConfigurationsDataKey: EnvironmentKey {
+     static var defaultValue: Readconfigurationsfromstore = .init(profile: nil)
+ }
+ */
