@@ -86,7 +86,7 @@ extension AddProfileView {
     func deleteprofile() {
         newdata.deleteprofile(selectedprofile)
         profilenames.update()
-        selectedprofile = nil
-        rsyncUIdata.profile = nil
+        selectedprofile = SharedReference.shared.defaultprofile
+        rsyncUIdata.profile = SharedReference.shared.defaultprofile
     }
 }
