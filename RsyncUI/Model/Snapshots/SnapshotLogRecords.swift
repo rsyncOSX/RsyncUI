@@ -74,7 +74,7 @@ final class SnapshotRecords {
     {
         localehiddenID = hiddenID
         localconfigurations = configurations
-        alllogrecords = Readlogsfromstore(profile: profile, validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
+        alllogrecords = Readlogsfromstore(profile, localconfigurations?.validhiddenIDs ?? Set())
         if loggrecordssnapshots == nil {
             readandsortallloggdata(hiddenID: hiddenID)
         }

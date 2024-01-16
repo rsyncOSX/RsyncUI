@@ -14,10 +14,9 @@ struct Readlogsfromstore {
     var logs: [Log]?
     var logrecords: [LogRecords]?
 
-    init(profile: String?, validhiddenIDs: Set<Int>?) {
+    init(_ profile: String?, _ validhiddenIDs: Set<Int>?) {
         guard validhiddenIDs != nil else { return }
         var logdata: ReadLogRecordsJSON?
-
         if profile == SharedReference.shared.defaultprofile || profile == nil {
             logdata = ReadLogRecordsJSON(nil, validhiddenIDs ?? Set())
         } else {
@@ -32,13 +31,10 @@ struct Readlogsfromstore {
 
 @Observable
 final class RsyncUIlogrecords {
-    @ObservationIgnored
-    var alllogssorted: [Log]? = [Log]()
-    @ObservationIgnored
+    var profile: String? = ""
+    var alllogssorted: [Log]?
     var countrecords: Int = 0
-    @ObservationIgnored
     var logrecords: [LogRecords]?
-    @ObservationIgnored
     var logrecordsfromstore: Readlogsfromstore?
 
     func filterlogs(_ filter: String, _ hiddenID: Int) -> [Log] {
@@ -87,16 +83,13 @@ final class RsyncUIlogrecords {
         alllogssorted?.removeAll(where: { uuids.contains($0.id) })
     }
 
-    init(profile: String?, validhiddenIDs: Set<Int>?) {
-        guard validhiddenIDs != nil else { return }
-        if profile == SharedReference.shared.defaultprofile || profile == nil {
-            logrecordsfromstore = Readlogsfromstore(profile: nil, validhiddenIDs: validhiddenIDs)
-        } else {
-            logrecordsfromstore = Readlogsfromstore(profile: profile, validhiddenIDs: validhiddenIDs)
-        }
-        alllogssorted = logrecordsfromstore?.logs
-        logrecords = logrecordsfromstore?.logrecords
-        logrecordsfromstore = nil
+    init(_ profile: String?,
+         _ logrecordsfromstore: [LogRecords]?,
+         _ logs: [Log]?)
+    {
+        self.profile = profile
+        logrecords = logrecordsfromstore
+        alllogssorted = logs
     }
 }
 
