@@ -101,8 +101,8 @@ extension RsyncDefaultParametersView {
                                      configurations: rsyncUIdata.configurations)
             updateconfigurations.updateconfiguration(configuration, true)
             rsyncUIdata.configurations = updateconfigurations.configurations
+            parameters.reset()
+            selectedconfig = nil
         }
-        parameters.reset()
-        selectedconfig = nil
     }
 }

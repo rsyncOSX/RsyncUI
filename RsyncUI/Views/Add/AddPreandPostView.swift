@@ -210,7 +210,7 @@ struct AddPreandPostView: View {
 
 extension AddPreandPostView {
     func validateandupdate() {
-        rsyncUIdata.configurations = newdata.validateandupdate(profile, rsyncUIdata.configurations)
+        rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
     }
 }
 
