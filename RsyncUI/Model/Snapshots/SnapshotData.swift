@@ -8,12 +8,6 @@
 import Foundation
 import Observation
 
-enum Snapshotdatastat {
-    case start
-    case getdata
-    case gotit
-}
-
 @Observable
 final class SnapshotData {
     var maxnumbertodelete: Int = 0
@@ -27,7 +21,6 @@ final class SnapshotData {
     var snapshotuuidsfordelete = Set<SnapshotLogRecords.ID>()
     var catalogsanddates: [Catalogsanddates] = []
     var logrecordssnapshot: [SnapshotLogRecords]?
-    var state: Snapshotdatastat = .start
 
     func setsnapshotdata(_ data: [SnapshotLogRecords]?) {
         logrecordssnapshot = data
