@@ -105,7 +105,6 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
         prepareremotesnapshotcatalogs(data: data)
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
-        mysnapshotdata?.state = .gotit
         // Getting data is completed
         mysnapshotdata?.snapshotlist = false
     }

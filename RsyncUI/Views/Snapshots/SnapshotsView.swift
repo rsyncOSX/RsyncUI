@@ -130,9 +130,6 @@ struct SnapshotsView: View {
         }
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-        .onAppear {
-            snapshotdata.state = .gotit
-        }
     }
 
     var pickersnapdayoffweek: some View {
@@ -188,7 +185,6 @@ struct SnapshotsView: View {
 
 extension SnapshotsView {
     func abort() {
-        snapshotdata.state = .start
         snapshotdata.setsnapshotdata(nil)
         snapshotdata.delete?.snapshotcatalogstodelete = nil
         // kill any ongoing processes
@@ -267,7 +263,6 @@ extension SnapshotsView {
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.getallconfigurations())
             updateconfiguration.updateconfiguration(selectedconfig, false)
-
             updated = true
         }
     }
