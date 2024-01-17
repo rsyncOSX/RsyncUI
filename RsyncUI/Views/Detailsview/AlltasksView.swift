@@ -13,32 +13,30 @@ struct AlltasksView: View {
         VStack {
             Table(data) {
                 TableColumn("Profile") { data in
-                    if markconfig(data) {
-                        Text(data.profile ?? "")
-                            .foregroundColor(.red)
-                    } else {
-                        Text(data.profile ?? "")
-                    }
+                    Text(data.profile ?? "")
                 }
                 .width(min: 100, max: 200)
                 TableColumn("Synchronize ID", value: \.backupID)
                     .width(min: 100, max: 200)
                 TableColumn("Days") { data in
-                    if markconfig(data) {
-                        Text(data.dayssincelastbackup ?? "")
+                    var seconds: Double {
+                        if let date = data.dateRun {
+                            let lastbackup = date.en_us_date_from_string()
+                            return lastbackup.timeIntervalSinceNow * -1
+                        } else {
+                            return 0
+                        }
+                    }
+                    if markconfig(seconds) {
+                        Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
                             .foregroundColor(.red)
                     } else {
-                        Text(data.dayssincelastbackup ?? "")
+                        Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
                     }
                 }
                 .width(max: 50)
                 TableColumn("Last") { data in
-                    if markconfig(data) {
-                        Text(data.dateRun ?? "")
-                            .foregroundColor(.red)
-                    } else {
-                        Text(data.dateRun ?? "")
-                    }
+                    Text(data.dateRun ?? "")
                 }
                 .width(max: 120)
                 TableColumn("Task", value: \.task)
@@ -66,17 +64,8 @@ struct AlltasksView: View {
             return false
         }) ?? []
     }
-}
 
-extension AlltasksView {
-    func markconfig(_ config: Configuration?) -> Bool {
-        if config?.dateRun != nil {
-            if let secondssince = config?.lastruninseconds {
-                if secondssince / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince) {
-                    return true
-                }
-            }
-        }
-        return false
+    func markconfig(_ seconds: Double) -> Bool {
+        return seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 }
