@@ -118,9 +118,7 @@ struct Configuration: Identifiable, Codable {
             snaplast = data.snaplast ?? 1
         }
         // Last run of task
-        if let dateRun = data.dateRun {
-            self.dateRun = dateRun
-        }
+        dateRun = data.dateRun
     }
 
     // Create an empty record with no values
