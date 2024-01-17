@@ -67,7 +67,7 @@ struct Configuration: Identifiable, Codable {
     var sshkeypathandidentityfile: String?
     // Calculated days since last backup
     var dayssincelastbackup: String?
-    var markdays: Bool = false
+    // var markdays: Bool = false
     var profile: String?
     // Snapshots, day to save and last = 1 or every last=0
     var snapdayoffweek: String?
@@ -78,16 +78,6 @@ struct Configuration: Identifiable, Codable {
     var executeposttask: Int?
     var posttask: String?
     var haltshelltasksonerror: Int?
-
-    var lastruninseconds: Double? {
-        if let date = dateRun {
-            let lastbackup = date.en_us_date_from_string()
-            let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
-            return seconds * -1
-        } else {
-            return nil
-        }
-    }
 
     // Used when reading JSON data from store
     // see in ReadConfigurationJSON
@@ -130,12 +120,6 @@ struct Configuration: Identifiable, Codable {
         // Last run of task
         if let dateRun = data.dateRun {
             self.dateRun = dateRun
-            if let secondssince = lastruninseconds {
-                dayssincelastbackup = String(format: "%.2f", secondssince / (60 * 60 * 24))
-                if secondssince / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince) {
-                    markdays = true
-                }
-            }
         }
     }
 

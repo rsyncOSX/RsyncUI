@@ -38,7 +38,15 @@ struct ListofTasksLightView: View {
             }
             .width(min: 50, max: 80)
             TableColumn("Days") { data in
-                Text(data.dayssincelastbackup ?? "")
+                var seconds: Double {
+                    if let date = data.dateRun {
+                        let lastbackup = date.en_us_date_from_string()
+                        return lastbackup.timeIntervalSinceNow * -1
+                    } else {
+                        return 0
+                    }
+                }
+                Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
             }
             .width(max: 50)
             TableColumn("Last") { data in

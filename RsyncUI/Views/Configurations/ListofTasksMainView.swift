@@ -49,13 +49,8 @@ struct ListofTasksMainView: View {
                 }
             }
             .width(min: 50, ideal: 50)
-            TableColumn("Profile") { data in
-                if markconfig(data) {
-                    Text(rsyncUIdata.profile ?? "Default profile")
-                        .foregroundColor(.red)
-                } else {
-                    Text(rsyncUIdata.profile ?? "Default profile")
-                }
+            TableColumn("Profile") { _ in
+                Text(rsyncUIdata.profile ?? "Default profile")
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID", value: \.backupID)
@@ -75,29 +70,32 @@ struct ListofTasksMainView: View {
             }
             .width(min: 50, max: 80)
             TableColumn("Days") { data in
-                if markconfig(data) {
-                    Text(data.dayssincelastbackup ?? "")
+                var seconds: Double {
+                    if let date = data.dateRun {
+                        let lastbackup = date.en_us_date_from_string()
+                        return lastbackup.timeIntervalSinceNow * -1
+                    } else {
+                        return 0
+                    }
+                }
+                if markconfig(seconds) {
+                    Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
                         .foregroundColor(.red)
                 } else {
-                    Text(data.dayssincelastbackup ?? "")
+                    Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
                 }
             }
             .width(max: 50)
             TableColumn("Last") { data in
-                if markconfig(data) {
+                if data.dateRun?.isEmpty == false {
                     Text(data.dateRun ?? "")
-                        .foregroundColor(.red)
                 } else {
-                    if data.dateRun?.isEmpty == false {
-                        Text(data.dateRun ?? "")
+                    if executeprogressdetails.taskisestimatedbyUUID(data.id) {
+                        Text("Verified")
+                            .foregroundColor(.green)
                     } else {
-                        if executeprogressdetails.taskisestimatedbyUUID(data.id) {
-                            Text("Verified")
-                                .foregroundColor(.green)
-                        } else {
-                            Text("Not verified")
-                                .foregroundColor(.red)
-                        }
+                        Text("Not verified")
+                            .foregroundColor(.red)
                     }
                 }
             }
@@ -132,14 +130,7 @@ struct ListofTasksMainView: View {
         rsyncUIdata.configurations = deleteconfigurations.configurations
     }
 
-    func markconfig(_ config: Configuration?) -> Bool {
-        if config?.dateRun != nil {
-            if let secondssince = config?.lastruninseconds {
-                if secondssince / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince) {
-                    return true
-                }
-            }
-        }
-        return false
+    func markconfig(_ seconds: Double) -> Bool {
+        return seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 }
