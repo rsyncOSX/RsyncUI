@@ -120,10 +120,6 @@ final class UpdateConfigurations {
             self.configurations = configurations
         }
     }
-
-    deinit {
-        // print("deinit UpdateConfigurations")
-    }
 }
 
 // swiftlint:enable opening_brace

@@ -59,10 +59,6 @@ class Snapshotcatalogs {
         }
     }
 
-    deinit {
-        // print("deinit Snapshotcatalogs")
-    }
-
     func processtermination(data: [String]?) {
         prepareremotesnapshotcatalogs(data: data)
         mysnapshotdata?.catalogsanddates = catalogsanddates ?? []

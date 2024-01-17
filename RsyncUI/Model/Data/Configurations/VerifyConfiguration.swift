@@ -259,10 +259,6 @@ final class VerifyConfiguration: Connected {
         }
         return true
     }
-
-    deinit {
-        // print("deinit VerifyConfiguration")
-    }
 }
 
 extension VerifyConfiguration {

@@ -43,8 +43,4 @@ final class ExecuteOneTask {
             arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
         }
     }
-
-    deinit {
-        // print("deinit ExecuteOneTask")
-    }
 }

@@ -38,7 +38,6 @@ final class TrimTwo {
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    // print("The publisher finished normally.")
                     return
                 case let .failure(error):
                     self.propogateerror(error: error)

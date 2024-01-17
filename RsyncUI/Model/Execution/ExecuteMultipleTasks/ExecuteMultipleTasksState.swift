@@ -24,8 +24,4 @@ final class ExecuteMultipleTasksState {
     func updatestate(state: ExecutetaskWork) {
         executionstate = state
     }
-
-    deinit {
-        // print("deinit MultipleTaskState")
-    }
 }
