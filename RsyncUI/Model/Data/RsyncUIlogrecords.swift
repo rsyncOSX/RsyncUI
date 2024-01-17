@@ -32,8 +32,8 @@ struct Readlogsfromstore {
 @Observable
 final class RsyncUIlogrecords {
     var profile: String? = ""
-    var alllogssorted: [Log]?
-    var countrecords: Int = 0
+    @ObservationIgnored var alllogssorted: [Log]?
+    @ObservationIgnored var countrecords: Int = 0
     var logrecords: [LogRecords]?
     var logrecordsfromstore: Readlogsfromstore?
 
