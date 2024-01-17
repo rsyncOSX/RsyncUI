@@ -113,11 +113,6 @@ struct LogsbyConfigurationView: View {
         }
     }
 
-    /*
-     var records: [Log] {
-         return rsyncUIlogrecords.filterlogs(debouncefilterstring, hiddenID)
-     }
-     */
     var indebounce: some View {
         ProgressView()
             .controlSize(.small)
