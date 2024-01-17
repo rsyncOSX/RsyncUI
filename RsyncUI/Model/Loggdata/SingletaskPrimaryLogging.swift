@@ -125,8 +125,4 @@ class SingletaskPrimaryLogging {
             logrecords = [LogRecords]()
         }
     }
-
-    deinit {
-        // print("deinit SingletaskPrimaryLogging")
-    }
 }

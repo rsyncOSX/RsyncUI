@@ -62,10 +62,6 @@ final class DeleteSnapshots {
         mysnapshotdata = snapshotdata
         preparesnapshotcatalogsfordelete(logrecordssnapshot: logrecordssnapshot)
     }
-
-    deinit {
-        // print("deinit Snapshotlogsandcatalogs")
-    }
 }
 
 extension DeleteSnapshots {

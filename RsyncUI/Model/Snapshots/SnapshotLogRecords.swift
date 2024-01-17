@@ -79,10 +79,6 @@ final class SnapshotRecords {
             readandsortallloggdata(hiddenID: hiddenID)
         }
     }
-
-    deinit {
-        // print("deinit LogRecords")
-    }
 }
 
 extension SnapshotLogRecords: Hashable, Equatable {

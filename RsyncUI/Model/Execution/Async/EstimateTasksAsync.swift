@@ -69,10 +69,6 @@ class EstimateTasksAsync {
         }
         localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
     }
-
-    deinit {
-        // print("deinit EstimationOnetask")
-    }
 }
 
 extension EstimateTasksAsync {

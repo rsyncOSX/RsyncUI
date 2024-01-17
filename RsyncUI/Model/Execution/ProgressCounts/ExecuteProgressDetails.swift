@@ -31,8 +31,4 @@ final class ExecuteProgressDetails {
             return 0
         }
     }
-
-    deinit {
-        // print("deinit ProgressDetails")
-    }
 }

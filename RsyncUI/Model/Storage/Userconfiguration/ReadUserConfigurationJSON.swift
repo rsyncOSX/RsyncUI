@@ -32,7 +32,6 @@ class ReadUserConfigurationJSON: NamesandPaths {
             .sink { completion in
                 switch completion {
                 case .finished:
-                    // print("The publisher finished normally.")
                     return
                 case .failure:
                     // No file, write new file with default values

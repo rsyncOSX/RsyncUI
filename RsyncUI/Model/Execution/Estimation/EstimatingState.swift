@@ -24,8 +24,4 @@ final class EstimatingState {
     func updatestate(state: EstimatetaskWork) {
         estimationstate = state
     }
-
-    deinit {
-        // print("deinit EstimationState")
-    }
 }

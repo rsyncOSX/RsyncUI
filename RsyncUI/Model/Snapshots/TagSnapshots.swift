@@ -190,8 +190,4 @@ final class TagSnapshots {
         now = Date().localized_string_from_date()
         markfordelete()
     }
-
-    deinit {
-        // print("deinit TagSnapshots")
-    }
 }

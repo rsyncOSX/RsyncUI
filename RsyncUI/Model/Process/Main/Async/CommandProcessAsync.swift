@@ -57,7 +57,6 @@ final class CommandProcessAsync {
                 // Logg to file
                 self.processtermination(self.outputprocess?.getOutput())
                 // Release Combine subscribers
-                // print("process termination")
                 self.subscriptons.removeAll()
             }.store(in: &subscriptons)
         SharedReference.shared.process = task
@@ -90,7 +89,6 @@ final class CommandProcessAsync {
 
     deinit {
         SharedReference.shared.process = nil
-        // print("deinit RsyncAsync")
     }
 }
 

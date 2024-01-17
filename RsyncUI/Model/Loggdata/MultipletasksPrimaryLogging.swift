@@ -57,8 +57,4 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
             WriteLogRecordsJSON(localeprofile, logrecords)
         }
     }
-
-    deinit {
-        // print("deinit MultipletasksPrimaryLogging")
-    }
 }

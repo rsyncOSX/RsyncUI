@@ -19,8 +19,4 @@ final class ObservableRsyncOutput {
     func getoutput() -> [String]? {
         return output
     }
-
-    deinit {
-        // print("deinit InprogressCountRsyncOutput")
-    }
 }
