@@ -11,6 +11,7 @@ import SwiftUI
 
 struct LogsbyConfigurationView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Bindable var rsyncUIlogrecords: RsyncUIlogrecords
 
     @State private var hiddenID = -1
     @State private var selecteduuids = Set<Configuration.ID>()
@@ -22,8 +23,6 @@ struct LogsbyConfigurationView: View {
     @State var publisher = PassthroughSubject<String, Never>()
     @State private var debouncefilterstring: String = ""
     @State private var showindebounce: Bool = false
-
-    var logrecords: RsyncUIlogrecords
 
     var body: some View {
         VStack {
@@ -43,7 +42,9 @@ struct LogsbyConfigurationView: View {
                         }
                     }
 
-                Table(records, selection: $selectedloguuids) {
+                Table(rsyncUIlogrecords.filterlogs(debouncefilterstring, hiddenID),
+                      selection: $selectedloguuids)
+                {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
@@ -57,7 +58,7 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     showAlertfordelete = true
                 }
-                .overlay { if logrecords.countrecords == 0 {
+                .overlay { if rsyncUIlogrecords.countrecords == 0 {
                     ContentUnavailableView {
                         Label("There are no logs by this filter", systemImage: "doc.richtext.fill")
                     } description: {
@@ -72,7 +73,7 @@ struct LogsbyConfigurationView: View {
                 if showindebounce {
                     indebounce
                 } else {
-                    Text("\(logrecords.countrecords)")
+                    Text("\(rsyncUIlogrecords.countrecords)")
                 }
                 Spacer()
             }
@@ -105,15 +106,11 @@ struct LogsbyConfigurationView: View {
         })
         .sheet(isPresented: $showAlertfordelete) {
             DeleteLogsView(
+                rsyncUIlogrecords: rsyncUIlogrecords,
                 selectedloguuids: $selectedloguuids,
-                selectedprofile: rsyncUIdata.profile,
-                logrecords: logrecords
+                selectedprofile: rsyncUIdata.profile
             )
         }
-    }
-
-    var records: [Log] {
-        return logrecords.filterlogs(debouncefilterstring, hiddenID)
     }
 
     var indebounce: some View {

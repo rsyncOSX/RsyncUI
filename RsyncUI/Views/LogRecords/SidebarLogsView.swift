@@ -11,11 +11,11 @@ struct SidebarLogsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     var body: some View {
-        LogsbyConfigurationView(rsyncUIdata: rsyncUIdata, logrecords: logrecords)
+        LogsbyConfigurationView(rsyncUIdata: rsyncUIdata, rsyncUIlogrecords: rsyncUIlogrecords)
             .padding()
     }
 
-    var logrecords: RsyncUIlogrecords {
+    var rsyncUIlogrecords: RsyncUIlogrecords {
         let logrecordsdata = Readlogsfromstore(rsyncUIdata.profile, rsyncUIdata.validhiddenIDs)
         return RsyncUIlogrecords(rsyncUIdata.profile, logrecordsdata.logrecords, logrecordsdata.logs)
     }

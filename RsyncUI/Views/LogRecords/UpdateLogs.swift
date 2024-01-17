@@ -11,7 +11,7 @@ final class UpdateLogs {
     private var logrecords: [LogRecords]?
     private var localeprofile: String?
 
-    func deletelogs(uuids: Set<UUID>) {
+    func deletelogs(uuids: Set<UUID>) -> [LogRecords] {
         if let records = logrecords {
             var indexset = IndexSet()
 
@@ -27,17 +27,15 @@ final class UpdateLogs {
                 indexset.removeAll()
             }
             WriteLogRecordsJSON(localeprofile, logrecords)
+            return logrecords ?? []
         }
+        return logrecords ?? []
     }
 
     init(profile: String?,
-         scheduleConfigurations: [LogRecords]?)
+         logrecords: [LogRecords]?)
     {
         localeprofile = profile
-        logrecords = scheduleConfigurations
-    }
-
-    deinit {
-        // print("deinit UpdateSchedules")
+        self.logrecords = logrecords
     }
 }
