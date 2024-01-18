@@ -25,7 +25,7 @@
 		E93878C32B27355A009574CD /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93878C22B27355A009574CD /* AddTaskView.swift */; };
 		E93878C52B273666009574CD /* AddProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93878C42B273666009574CD /* AddProfileView.swift */; };
 		E93B16852B557C930050610B /* ReadLogrecordsOldAndSaveNewfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93B16842B557C930050610B /* ReadLogrecordsOldAndSaveNewfile.swift */; };
-		E93B16872B557E380050610B /* CreateDefaultFilesJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93B16862B557E380050610B /* CreateDefaultFilesJSON.swift */; };
+		E93B16872B557E380050610B /* DefaultFilesJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93B16862B557E380050610B /* DefaultFilesJSON.swift */; };
 		E93CC3FF2A68218200DB02EB /* ListofTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */; };
 		E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */; };
 		E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */; };
@@ -214,7 +214,7 @@
 		E93878C22B27355A009574CD /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		E93878C42B273666009574CD /* AddProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileView.swift; sourceTree = "<group>"; };
 		E93B16842B557C930050610B /* ReadLogrecordsOldAndSaveNewfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadLogrecordsOldAndSaveNewfile.swift; sourceTree = "<group>"; };
-		E93B16862B557E380050610B /* CreateDefaultFilesJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDefaultFilesJSON.swift; sourceTree = "<group>"; };
+		E93B16862B557E380050610B /* DefaultFilesJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFilesJSON.swift; sourceTree = "<group>"; };
 		E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksView.swift; sourceTree = "<group>"; };
 		E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsbyConfigurationView.swift; sourceTree = "<group>"; };
 		E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersDefault.swift; sourceTree = "<group>"; };
@@ -684,7 +684,7 @@
 				E985C69725F3AD9600CB895C /* Catalogsandfiles.swift */,
 				E985C69825F3AD9600CB895C /* Keypathidentityfile.swift */,
 				E985C69925F3AD9600CB895C /* NamesandPaths.swift */,
-				E93B16862B557E380050610B /* CreateDefaultFilesJSON.swift */,
+				E93B16862B557E380050610B /* DefaultFilesJSON.swift */,
 			);
 			path = FilesAndCatalogs;
 			sourceTree = "<group>";
@@ -1326,7 +1326,7 @@
 				E9D317D02B3C09B9000B8FC9 /* HomeCatalogsView.swift in Sources */,
 				E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */,
 				E954AD412AFE8FBB00F3EA63 /* DetailsSummarizedTasksView.swift in Sources */,
-				E93B16872B557E380050610B /* CreateDefaultFilesJSON.swift in Sources */,
+				E93B16872B557E380050610B /* DefaultFilesJSON.swift in Sources */,
 				E93878C52B273666009574CD /* AddProfileView.swift in Sources */,
 				E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */,
 				E9FBF40D291AFB7000AAAC40 /* SnapshotCommands.swift in Sources */,
