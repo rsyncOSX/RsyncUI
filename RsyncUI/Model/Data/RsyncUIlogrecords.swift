@@ -11,7 +11,7 @@ import OSLog
 
 @Observable
 final class RsyncUIlogrecords {
-    var profile: String? = ""
+    var profile: String?
     var logrecords: [LogRecords]?
     var alllogssorted: [Log]?
 
