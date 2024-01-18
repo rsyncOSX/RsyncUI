@@ -13,8 +13,6 @@ import SwiftUI
 final class RsyncUIconfigurations {
     var configurations: [Configuration]?
     var profile: String? = ""
-
-    var configurationsfromstore: ReadConfigurationsfromstore?
     var validhiddenIDs: Set<Int>? = Set<Int>()
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {
