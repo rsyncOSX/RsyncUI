@@ -1,5 +1,5 @@
 //
-//  CreateDefaultFilesJSON.swift
+//  DefaultFilesJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/01/2024.
@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 
-class CreateDefaultFilesJSON: NamesandPaths {
+class DefaultFilesJSON: NamesandPaths {
     private func validatepath(_ path: String) -> Bool {
         return FileManager.default.fileExists(atPath: path, isDirectory: nil)
     }

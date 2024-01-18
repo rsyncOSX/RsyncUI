@@ -9,28 +9,12 @@
 import Observation
 import SwiftUI
 
-struct Readconfigurationsfromstore {
-    var configurations: [Configuration]?
-    var validhiddenIDs: Set<Int>
-
-    init(_ profile: String?) {
-        var configurationsfromstore: ReadConfigurationJSON?
-        if profile == SharedReference.shared.defaultprofile {
-            configurationsfromstore = ReadConfigurationJSON(nil)
-        } else {
-            configurationsfromstore = ReadConfigurationJSON(profile)
-        }
-        configurations = configurationsfromstore?.configurations
-        validhiddenIDs = configurationsfromstore?.validhiddenIDs ?? Set()
-    }
-}
-
 @Observable
 final class RsyncUIconfigurations {
     var configurations: [Configuration]?
     var profile: String? = ""
 
-    var configurationsfromstore: Readconfigurationsfromstore?
+    var configurationsfromstore: ReadConfigurationsfromstore?
     var validhiddenIDs: Set<Int>? = Set<Int>()
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {
