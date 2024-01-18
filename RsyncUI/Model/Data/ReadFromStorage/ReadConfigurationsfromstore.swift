@@ -9,7 +9,7 @@ import Foundation
 
 struct ReadConfigurationsfromstore {
     var configurations: [Configuration]?
-    var validhiddenIDs: Set<Int>
+    var validhiddenIDs: Set<Int>?
 
     init(_ profile: String?) {
         var configurationsfromstore: ReadConfigurationJSON?
@@ -19,6 +19,6 @@ struct ReadConfigurationsfromstore {
             configurationsfromstore = ReadConfigurationJSON(profile)
         }
         configurations = configurationsfromstore?.configurations
-        validhiddenIDs = configurationsfromstore?.validhiddenIDs ?? Set()
+        validhiddenIDs = configurationsfromstore?.validhiddenIDs
     }
 }

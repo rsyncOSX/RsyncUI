@@ -12,8 +12,8 @@ import SwiftUI
 @Observable
 final class RsyncUIconfigurations {
     var configurations: [Configuration]?
-    var profile: String? = ""
-    var validhiddenIDs: Set<Int>? = Set<Int>()
+    var profile: String?
+    var validhiddenIDs: Set<Int>?
 
     func filterconfigurations(_ filter: String) -> [Configuration]? {
         return configurations?.filter {
@@ -51,8 +51,8 @@ final class RsyncUIconfigurations {
     }
 
     init(_ profile: String?,
-         _ configurationsfromstore: [Configuration],
-         _ validehiddenIDsfromstore: Set<Int>)
+         _ configurationsfromstore: [Configuration]?,
+         _ validehiddenIDsfromstore: Set<Int>?)
     {
         self.profile = profile
         configurations = configurationsfromstore
