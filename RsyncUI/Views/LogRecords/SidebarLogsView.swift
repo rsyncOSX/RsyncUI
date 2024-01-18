@@ -16,7 +16,7 @@ struct SidebarLogsView: View {
     }
 
     var rsyncUIlogrecords: RsyncUIlogrecords {
-        let logrecordsdata = Readlogsfromstore(rsyncUIdata.profile, rsyncUIdata.validhiddenIDs)
+        let logrecordsdata = ReadLogRecordsfromstore(rsyncUIdata.profile, rsyncUIdata.validhiddenIDs)
         return RsyncUIlogrecords(rsyncUIdata.profile, logrecordsdata.logrecords, logrecordsdata.logs)
     }
 }
