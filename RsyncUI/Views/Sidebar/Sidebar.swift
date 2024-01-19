@@ -71,7 +71,9 @@ struct Sidebar: View {
         case .quick_synchronize:
             QuicktaskView(userserver: UserServer(configurations: rsyncUIdata.configurations))
         case .settings:
-            SidebarSettingsView(selectedprofile: $selectedprofile)
+            NavigationStack {
+                SidebarSettingsView(selectedprofile: $selectedprofile)
+            }
         }
     }
 }

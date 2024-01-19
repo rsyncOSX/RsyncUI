@@ -8,11 +8,6 @@
 import Foundation
 import SwiftUI
 
-enum SidebarSettingsViews: String, Identifiable, CaseIterable {
-    case info, ssh, settings, environment
-    var id: String { rawValue }
-}
-
 struct SidebarSettingsView: View {
     @Binding var selectedprofile: String?
 
@@ -21,6 +16,8 @@ struct SidebarSettingsView: View {
 
     var body: some View {
         NavigationSplitView {
+            Divider()
+
             List(SideSettingsbaritems.allCases, selection: $selectedsetting) { selectedsetting in
                 NavigationLink(value: selectedsetting) {
                     SidebarSettingsRow(sidebaritem: selectedsetting)

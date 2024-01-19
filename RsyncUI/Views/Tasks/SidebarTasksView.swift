@@ -22,7 +22,6 @@ struct SidebarTasksView: View {
             TasksView(rsyncUIdata: rsyncUIdata,
                       executeprogressdetails: executeprogressdetails,
                       estimateprogressdetails: estimateprogressdetails,
-
                       selecteduuids: $selecteduuids,
                       path: $path)
                 .navigationDestination(for: Tasks.self) { which in
