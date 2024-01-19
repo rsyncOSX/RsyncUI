@@ -9,7 +9,6 @@ import OSLog
 import SwiftUI
 
 struct RsyncUIView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
 
     @State private var newversion = CheckfornewversionofRsyncUI()
@@ -58,6 +57,13 @@ struct RsyncUIView: View {
                 profilepicker
             }
         })
+    }
+
+    var rsyncUIdata: RsyncUIconfigurations {
+        let configurationsdata = ReadConfigurationsfromstore(selectedprofile)
+        return RsyncUIconfigurations(selectedprofile,
+                                     configurationsdata.configurations ?? [],
+                                     configurationsdata.validhiddenIDs)
     }
 
     var profilenames: Profilenames {
