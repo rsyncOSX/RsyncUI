@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct SidebarSettingsView: View {
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
 
     @State private var alerterror = AlertError()
@@ -41,7 +42,7 @@ struct SidebarSettingsView: View {
             Usersettings()
                 .environment(alerterror)
         case .ssh:
-            Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(profile).getuniqueserversandlogins() ?? [])
+            Sshsettings(uniqueserversandlogins: rsyncUIdata.getuniqueserversandlogins() ?? [])
                 .environment(alerterror)
         case .environment:
             Othersettings()

@@ -43,10 +43,11 @@ struct RsyncUIApp: App {
                 credits: "This app was created by SwiftUI\n https.//rsyncui.netlify.app"
             )
         }
-
-        Settings {
-            SettingsView(selectedprofile: $selectedprofile)
-        }
+        /*
+                Settings {
+                    SettingsView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
+                }
+         */
     }
 
     func setusernotifications() {

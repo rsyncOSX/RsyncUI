@@ -13,7 +13,6 @@ struct Usersettings: View {
     @SwiftUI.Environment(AlertError.self) private var alerterror
     @State private var usersettings = ObservableUsersetting()
     @State private var rsyncversion = Rsyncversion()
-
     // Rsync paths
     @State private var defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
 
@@ -160,7 +159,7 @@ struct Usersettings: View {
         .onDisappear(perform: {
             if SharedReference.shared.settingsischanged {
                 Logger.process.info("Usersettings is SAVED")
-                _ = WriteUserConfigurationJSON(UserConfiguration())
+                // _ = WriteUserConfigurationJSON(UserConfiguration())
             }
             SharedReference.shared.settingsischanged = false
         })
