@@ -17,33 +17,104 @@ class SharedReference {
         return Singleton.instance
     }
 
-    var rsyncversion3: Bool = false
+    var settingsischanged: Bool = false
+    var rsyncversion3: Bool = false {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // Optional path to rsync
-    var localrsyncpath: String?
+    var localrsyncpath: String? {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // No valid rsyncPath - true if no valid rsync is found
     var norsync: Bool = false
     // Path for restore
-    var pathforrestore: String?
+    var pathforrestore: String? {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // Detailed logging
-    var detailedlogging: Bool = true
+    var detailedlogging: Bool = true {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // Logging to logfile
-    var minimumlogging: Bool = false
-    var fulllogging: Bool = false
-    var nologging: Bool = true
+    var minimumlogging: Bool = false {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
+    var fulllogging: Bool = false {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
+    var nologging: Bool = true {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // Set to here
     // Mark number of days since last backup
-    var marknumberofdayssince: Int = 5
-    var environment: String?
-    var environmentvalue: String?
+    var marknumberofdayssince: Int = 5 {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
+    var environment: String? {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
+    var environmentvalue: String? {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // Halt on error
     // var haltonerror: Bool = false
     // Global SSH parameters
-    var sshport: Int?
-    var sshkeypathandidentityfile: String?
+    var sshport: Int? {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
+    var sshkeypathandidentityfile: String? {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // Check for error in output from rsync
-    var checkforerrorinrsyncoutput: Bool = false
+    var checkforerrorinrsyncoutput: Bool = false {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // Check for network changes
-    var monitornetworkconnection: Bool = false
+    var monitornetworkconnection: Bool = false {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // Download URL if new version is avaliable
     var URLnewVersion: String?
     // rsync command
@@ -87,7 +158,12 @@ class SharedReference {
     var firsttime = false
     // Confirm execution
     // A safety rule
-    var confirmexecute: Bool = false
+    var confirmexecute: Bool = false {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
     // Logfile and convert logfile
     var defaultlogfileexist: Bool = true
     var copydataoldlogfiletonewlogfile: Bool = false

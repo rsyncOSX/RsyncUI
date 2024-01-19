@@ -5,10 +5,10 @@
 //  Created by Thomas Evensen on 03/03/2021.
 //
 
+import OSLog
 import SwiftUI
 
 struct Othersettings: View {
-    @State private var backup: Bool = false
     @State private var environmentvalue: String = ""
     @State private var environment: String = ""
 
@@ -30,35 +30,24 @@ struct Othersettings: View {
 
                     Spacer()
                 }
-
-                if backup == true {
-                    AlertToast(type: .complete(Color.green),
-                               title: Optional(NSLocalizedString("Saved", comment: "")), subTitle: Optional(""))
-                        .onAppear(perform: {
-                            // Show updated for 1 second
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                backup = false
-                            }
-                        })
-                }
             }
             // Save button right down corner
             Spacer()
         }
         .lineSpacing(2)
-        .padding()
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    saveusersettings()
-                } label: {
-                    Image(systemName: "square.and.arrow.down.fill")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
-                }
-                .help("Save usersettings")
+        .onDisappear(perform: {
+            if SharedReference.shared.settingsischanged {
+                Logger.process.info("Othersettings is SAVED")
+                _ = WriteUserConfigurationJSON(UserConfiguration())
             }
-        }
+            SharedReference.shared.settingsischanged = false
+        })
+        .onAppear(perform: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                Logger.process.info("Othersettings is DEFAULT")
+                SharedReference.shared.settingsischanged = false
+            }
+        })
     }
 
     var setenvironment: some View {
@@ -83,12 +72,5 @@ struct Othersettings: View {
             .onChange(of: environmentvalue) {
                 SharedReference.shared.environmentvalue = environmentvalue
             }
-    }
-}
-
-extension Othersettings {
-    func saveusersettings() {
-        _ = WriteUserConfigurationJSON(UserConfiguration())
-        backup = true
     }
 }
