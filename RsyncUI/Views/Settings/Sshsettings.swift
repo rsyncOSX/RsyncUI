@@ -57,7 +57,7 @@ struct Sshsettings: View {
         }
         .onAppear(perform: {
             localsshkeys = SshKeys().validatepublickeypresent()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 Logger.process.info("Sshsettings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
             }
@@ -65,9 +65,9 @@ struct Sshsettings: View {
         .onDisappear(perform: {
             if SharedReference.shared.settingsischanged {
                 Logger.process.info("Sshsettings is SAVED")
-                SharedReference.shared.settingsischanged = false
                 _ = WriteUserConfigurationJSON(UserConfiguration())
             }
+            SharedReference.shared.settingsischanged = false
         })
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
