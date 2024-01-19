@@ -6,12 +6,12 @@
 //
 // swiftlint:disable line_length
 
+import OSLog
 import SwiftUI
 
 struct Usersettings: View {
     @SwiftUI.Environment(AlertError.self) private var alerterror
     @State private var usersettings = ObservableUsersetting()
-    @State private var backup = false
     @State private var rsyncversion = Rsyncversion()
 
     // Rsync paths
@@ -137,23 +137,11 @@ struct Usersettings: View {
                     // For center
                     Spacer()
                 }
-
-                if backup == true {
-                    AlertToast(type: .complete(Color.green),
-                               title: Optional(NSLocalizedString("Saved", comment: "")), subTitle: Optional(""))
-                        .onAppear(perform: {
-                            // Show updated for 1 second
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                backup = false
-                            }
-                        })
-                }
             }
 
             Spacer()
         }
         .lineSpacing(2)
-        .padding()
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
@@ -168,18 +156,20 @@ struct Usersettings: View {
                 }
                 .help("Backup configurations")
             }
-
-            ToolbarItem {
-                Button {
-                    saveusersettings()
-                } label: {
-                    Image(systemName: "square.and.arrow.down.fill")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
-                }
-                .help("Save usersettings")
-            }
         }
+        .onDisappear(perform: {
+            if SharedReference.shared.settingsischanged {
+                Logger.process.info("Usersettings is SAVED")
+                SharedReference.shared.settingsischanged = false
+                _ = WriteUserConfigurationJSON(UserConfiguration())
+            }
+        })
+        .onAppear(perform: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                Logger.process.info("Usersettings is DEFAULT")
+                SharedReference.shared.settingsischanged = false
+            }
+        })
     }
 
     // Rsync
@@ -251,14 +241,8 @@ struct Usersettings: View {
 }
 
 extension Usersettings {
-    func saveusersettings() {
-        _ = WriteUserConfigurationJSON(UserConfiguration())
-        backup = true
-    }
-
     func backupuserconfigs() {
         _ = Backupconfigfiles()
-        backup = true
     }
 }
 
