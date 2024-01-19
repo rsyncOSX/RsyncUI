@@ -9,10 +9,11 @@ import OSLog
 import SwiftUI
 
 struct RsyncUIView: View {
-    @State private var newversion = CheckfornewversionofRsyncUI()
-    @State private var rsyncversion = Rsyncversion()
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
 
+    @State private var newversion = CheckfornewversionofRsyncUI()
+    @State private var rsyncversion = Rsyncversion()
     @State private var start: Bool = true
     @State var selecteduuids = Set<Configuration.ID>()
 
@@ -61,13 +62,6 @@ struct RsyncUIView: View {
 
     var profilenames: Profilenames {
         return Profilenames()
-    }
-
-    var rsyncUIdata: RsyncUIconfigurations {
-        let configurationsdata = ReadConfigurationsfromstore(selectedprofile)
-        return RsyncUIconfigurations(selectedprofile,
-                                     configurationsdata.configurations ?? [],
-                                     configurationsdata.validhiddenIDs)
     }
 
     var errorhandling: AlertError {

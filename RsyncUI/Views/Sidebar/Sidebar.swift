@@ -72,7 +72,7 @@ struct Sidebar: View {
             QuicktaskView(userserver: UserServer(configurations: rsyncUIdata.configurations))
         case .settings:
             NavigationStack {
-                SidebarSettingsView(selectedprofile: $selectedprofile)
+                SidebarSettingsView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
             }
         }
     }

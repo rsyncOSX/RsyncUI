@@ -14,6 +14,7 @@ enum SideSettingsbaritems: String, Identifiable, CaseIterable {
 }
 
 struct SettingsView: View {
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
 
     @State private var alerterror = AlertError()
@@ -29,13 +30,13 @@ struct SettingsView: View {
         } detail: {
             settingsView(selectedsetting)
         }
-        .padding()
         .frame(minWidth: 800, minHeight: 450)
         .onAppear {
             Task {
                 await Rsyncversion().getrsyncversion()
             }
         }
+        .toolbar(.hidden, for: .windowToolbar)
     }
 
     @ViewBuilder
@@ -45,7 +46,7 @@ struct SettingsView: View {
             Usersettings()
                 .environment(alerterror)
         case .ssh:
-            Sshsettings(uniqueserversandlogins: ReadConfigurationJSON(profile).getuniqueserversandlogins() ?? [])
+            Sshsettings(uniqueserversandlogins: rsyncUIdata.getuniqueserversandlogins() ?? [])
                 .environment(alerterror)
         case .environment:
             Othersettings()

@@ -15,7 +15,7 @@ struct Sshsettings: View {
     @State private var usersettings = ObservableSSH()
 
     @State private var selectedlogin: UniqueserversandLogins?
-    @State private var localsshkeys: Bool = false // SshKeys().validatepublickeypresent()
+    @State private var localsshkeys: Bool = false
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
@@ -65,25 +65,27 @@ struct Sshsettings: View {
         .onDisappear(perform: {
             if SharedReference.shared.settingsischanged {
                 Logger.process.info("Sshsettings is SAVED")
-                _ = WriteUserConfigurationJSON(UserConfiguration())
+                // _ = WriteUserConfigurationJSON(UserConfiguration())
             }
             SharedReference.shared.settingsischanged = false
         })
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    createkeys()
-                } label: {
-                    Image(systemName: "key")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
-                }
-                .help("Create keys")
-            }
-        }
+        /*
+         .toolbar {
+             ToolbarItem {
+                 Button {
+                     createkeys()
+                 } label: {
+                     Image(systemName: "key")
+                         .foregroundColor(Color(.blue))
+                         .imageScale(.large)
+                 }
+                 .help("Create keys")
+             }
+         }
+          */
     }
 
     // Copy strings

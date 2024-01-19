@@ -53,33 +53,34 @@ struct AboutView: View {
 
             Spacer()
         }
-        .padding()
         .task {
             await newversion.getversionsofrsyncui()
         }
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    openchangelog()
-                } label: {
-                    Image(systemName: "wrench.adjustable")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
-                }
-                .help("Open Changelog")
-            }
+        /*
+         .toolbar {
+             ToolbarItem {
+                 Button {
+                     openchangelog()
+                 } label: {
+                     Image(systemName: "wrench.adjustable")
+                         .foregroundColor(Color(.blue))
+                         .imageScale(.large)
+                 }
+                 .help("Open Changelog")
+             }
 
-            ToolbarItem {
-                Button {
-                    opendownload()
-                } label: {
-                    Image(systemName: "square.and.arrow.down.fill")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
-                }
-                .help("Download new version")
-            }
-        }
+             ToolbarItem {
+                 Button {
+                     opendownload()
+                 } label: {
+                     Image(systemName: "square.and.arrow.down.fill")
+                         .foregroundColor(Color(.blue))
+                         .imageScale(.large)
+                 }
+                 .help("Download new version")
+             }
+         }
+          */
     }
 
     var rsyncversionshortstring: some View {
