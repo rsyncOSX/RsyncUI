@@ -7,6 +7,7 @@
 // swiftlint:disable line_length
 
 import Combine
+import OSLog
 import SwiftUI
 
 struct Sshsettings: View {
@@ -14,7 +15,6 @@ struct Sshsettings: View {
     @State private var usersettings = ObservableSSH()
 
     @State private var selectedlogin: UniqueserversandLogins?
-    @State private var backup = false
     @State private var localsshkeys: Bool = false // SshKeys().validatepublickeypresent()
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
@@ -49,26 +49,25 @@ struct Sshsettings: View {
                     // For center
                     Spacer()
                 }
-
-                if backup == true {
-                    AlertToast(type: .complete(Color.green),
-                               title: Optional(NSLocalizedString("Saved", comment: "")), subTitle: Optional(""))
-                        .onAppear(perform: {
-                            // Show updated for 1 second
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                backup = false
-                            }
-                        })
-                }
             }
             // Save button right down corner
             Spacer()
 
             if selectedlogin != nil { strings }
         }
-        .padding()
         .onAppear(perform: {
             localsshkeys = SshKeys().validatepublickeypresent()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                Logger.process.info("Sshsettings is DEFAULT")
+                SharedReference.shared.settingsischanged = false
+            }
+        })
+        .onDisappear(perform: {
+            if SharedReference.shared.settingsischanged {
+                Logger.process.info("Sshsettings is SAVED")
+                SharedReference.shared.settingsischanged = false
+                _ = WriteUserConfigurationJSON(UserConfiguration())
+            }
         })
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
@@ -83,17 +82,6 @@ struct Sshsettings: View {
                         .imageScale(.large)
                 }
                 .help("Create keys")
-            }
-
-            ToolbarItem {
-                Button {
-                    saveusersettings()
-                } label: {
-                    Image(systemName: "square.and.arrow.down.fill")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
-                }
-                .help("Save usersettings")
             }
         }
     }
@@ -190,15 +178,6 @@ struct ServerRow: View {
 }
 
 extension Sshsettings {
-    func saveusersettings() {
-        _ = WriteUserConfigurationJSON(UserConfiguration())
-        backup = true
-        // wait for a half second and then force a new check if keys are created and exists
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            localsshkeys = SshKeys().validatepublickeypresent()
-        }
-    }
-
     func createkeys() {
         let create = SshKeys().createPublicPrivateRSAKeyPair()
         if create == true {
