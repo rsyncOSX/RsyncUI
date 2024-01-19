@@ -15,7 +15,7 @@ struct RsyncUIApp: App {
 
     var body: some Scene {
         Window("RsyncUI", id: "main") {
-            RsyncUIView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
+            RsyncUIView(selectedprofile: $selectedprofile)
                 .task {
                     CatalogProfile().createrootprofilecatalog()
                     ReadUserConfigurationJSON()
@@ -43,16 +43,11 @@ struct RsyncUIApp: App {
                 credits: "This app was created by SwiftUI\n https.//rsyncui.netlify.app"
             )
         }
-        Settings {
-            SettingsView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
-        }
-    }
-
-    var rsyncUIdata: RsyncUIconfigurations {
-        let configurationsdata = ReadConfigurationsfromstore(selectedprofile)
-        return RsyncUIconfigurations(selectedprofile,
-                                     configurationsdata.configurations ?? [],
-                                     configurationsdata.validhiddenIDs)
+        /*
+         Settings {
+             SettingsView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
+         }
+          */
     }
 
     func setusernotifications() {
