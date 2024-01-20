@@ -26,6 +26,7 @@ struct SettingsView: View {
                     SidebarSettingsRow(sidebaritem: selectedsetting)
                 }
             }
+            .toolbar(removing: .sidebarToggle)
         } detail: {
             settingsView(selectedsetting)
         }
@@ -35,7 +36,6 @@ struct SettingsView: View {
                 await Rsyncversion().getrsyncversion()
             }
         }
-        // .toolbar(.hidden, for: .windowToolbar)
     }
 
     @ViewBuilder
