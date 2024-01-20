@@ -14,7 +14,6 @@ enum SideSettingsbaritems: String, Identifiable, CaseIterable {
 }
 
 struct SettingsView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
 
     @State private var alerterror = AlertError()
@@ -61,6 +60,13 @@ struct SettingsView: View {
         } else {
             return selectedprofile
         }
+    }
+
+    var rsyncUIdata: RsyncUIconfigurations {
+        let configurationsdata = ReadConfigurationsfromstore(selectedprofile)
+        return RsyncUIconfigurations(selectedprofile,
+                                     configurationsdata.configurations ?? [],
+                                     configurationsdata.validhiddenIDs)
     }
 }
 
