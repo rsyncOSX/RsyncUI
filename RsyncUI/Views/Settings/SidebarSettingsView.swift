@@ -32,7 +32,7 @@ struct SidebarSettingsView: View {
                 await Rsyncversion().getrsyncversion()
             }
         }
-        .toolbar(.hidden, for: .windowToolbar)
+        // .toolbar(.hidden, for: .windowToolbar)
     }
 
     @ViewBuilder

@@ -72,20 +72,18 @@ struct Sshsettings: View {
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
-        /*
-         .toolbar {
-             ToolbarItem {
-                 Button {
-                     createkeys()
-                 } label: {
-                     Image(systemName: "key")
-                         .foregroundColor(Color(.blue))
-                         .imageScale(.large)
-                 }
-                 .help("Create keys")
-             }
-         }
-          */
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    createkeys()
+                } label: {
+                    Image(systemName: "key")
+                        .foregroundColor(Color(.blue))
+                        .imageScale(.large)
+                }
+                .help("Create keys")
+            }
+        }
     }
 
     // Copy strings

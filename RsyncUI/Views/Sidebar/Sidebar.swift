@@ -71,9 +71,7 @@ struct Sidebar: View {
         case .quick_synchronize:
             QuicktaskView(userserver: UserServer(configurations: rsyncUIdata.configurations))
         case .settings:
-            NavigationStack {
-                SidebarSettingsView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
-            }
+            SidebarSettingsView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         }
     }
 }
@@ -103,7 +101,7 @@ struct SidebarRow: View {
         case .quick_synchronize:
             return "arrowshape.turn.up.left.2"
         case .settings:
-            return "wrench"
+            return "wrench.adjustable.fill"
         }
     }
 }
