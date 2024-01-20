@@ -159,12 +159,12 @@ struct Usersettings: View {
         .onDisappear(perform: {
             if SharedReference.shared.settingsischanged {
                 Logger.process.info("Usersettings is SAVED")
-                // _ = WriteUserConfigurationJSON(UserConfiguration())
+                _ = WriteUserConfigurationJSON(UserConfiguration())
             }
             SharedReference.shared.settingsischanged = false
         })
         .onAppear(perform: {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 Logger.process.info("Usersettings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
             }

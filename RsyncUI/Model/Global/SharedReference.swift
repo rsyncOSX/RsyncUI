@@ -18,6 +18,7 @@ class SharedReference {
     }
 
     var settingsischanged: Bool = false
+
     var rsyncversion3: Bool = false {
         didSet {
             settingsischanged = true
@@ -66,7 +67,6 @@ class SharedReference {
         }
     }
 
-    // Set to here
     // Mark number of days since last backup
     var marknumberofdayssince: Int = 5 {
         didSet {
@@ -86,8 +86,6 @@ class SharedReference {
         }
     }
 
-    // Halt on error
-    // var haltonerror: Bool = false
     // Global SSH parameters
     var sshport: Int? {
         didSet {
