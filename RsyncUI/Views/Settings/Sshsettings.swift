@@ -41,23 +41,20 @@ struct Sshsettings: View {
 
                     // Column 2
                     VStack(alignment: .leading) {
-                        // Section(header: headeruniqueue) {
                         uniqueuserversandloginslist
-                        // }
                     }
 
                     // For center
                     Spacer()
                 }
             }
-            // Save button right down corner
             Spacer()
 
             if selectedlogin != nil { strings }
         }
         .onAppear(perform: {
             localsshkeys = SshKeys().validatepublickeypresent()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 Logger.process.info("Sshsettings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
             }
@@ -65,7 +62,7 @@ struct Sshsettings: View {
         .onDisappear(perform: {
             if SharedReference.shared.settingsischanged {
                 Logger.process.info("Sshsettings is SAVED")
-                // _ = WriteUserConfigurationJSON(UserConfiguration())
+                _ = WriteUserConfigurationJSON(UserConfiguration())
             }
             SharedReference.shared.settingsischanged = false
         })
@@ -108,7 +105,7 @@ struct Sshsettings: View {
             }
             .onReceive(
                 publisherkeypath.debounce(
-                    for: .seconds(3),
+                    for: .seconds(2),
                     scheduler: DispatchQueue.main
                 )
             ) { _ in

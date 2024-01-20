@@ -65,7 +65,7 @@ struct AboutView: View {
                         .foregroundColor(Color(.blue))
                         .imageScale(.large)
                 }
-                .help("Open Changelog")
+                .help("Changelog")
             }
 
             ToolbarItem {
