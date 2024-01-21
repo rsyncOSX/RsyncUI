@@ -149,7 +149,7 @@ struct Usersettings: View {
                 Button {
                     backupuserconfigs()
                 } label: {
-                    Image(systemName: "wrench.adjustable")
+                    Image(systemName: "wrench.adjustable.fill")
                         .foregroundColor(Color(.blue))
                         .imageScale(.large)
                 }
