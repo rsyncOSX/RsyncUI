@@ -26,7 +26,7 @@ struct Othersettings: View {
                         setenvironment
 
                         setenvironmenvariable
-                    }.padding()
+                    }
 
                     Spacer()
                 }

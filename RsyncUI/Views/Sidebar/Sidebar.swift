@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, quick_synchronize, rsync_parameters, tasks, snapshots, log_listings, restore, settings
+    case synchronize, quick_synchronize, rsync_parameters, tasks, snapshots, log_listings, restore
     var id: String { rawValue }
 }
 
@@ -31,8 +31,7 @@ struct Sidebar: View {
 
                 if selectedview == .quick_synchronize ||
                     selectedview == .tasks ||
-                    selectedview == .snapshots ||
-                    selectedview == .restore { Divider() }
+                    selectedview == .snapshots { Divider() }
             }
 
             Text(selectedprofile ?? "")
@@ -70,8 +69,6 @@ struct Sidebar: View {
             SidebarTasksView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
         case .quick_synchronize:
             QuicktaskView(userserver: UserServer(configurations: rsyncUIdata.configurations))
-        case .settings:
-            SidebarSettingsView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         }
     }
 }
@@ -100,8 +97,6 @@ struct SidebarRow: View {
             return "arrowshape.turn.up.backward"
         case .quick_synchronize:
             return "arrowshape.turn.up.left.2"
-        case .settings:
-            return "wrench.adjustable.fill"
         }
     }
 }
