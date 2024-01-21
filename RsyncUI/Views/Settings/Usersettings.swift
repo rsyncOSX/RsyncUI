@@ -15,6 +15,8 @@ struct Usersettings: View {
     @State private var rsyncversion = Rsyncversion()
     // Rsync paths
     @State private var defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
+    // Settings are changed
+    @State var settings: Bool = false
 
     var body: some View {
         Form {
@@ -155,7 +157,22 @@ struct Usersettings: View {
                 }
                 .help("Backup configurations")
             }
+
+            ToolbarItem {
+                if settings {
+                    thumbsupgreen
+                } else {
+                    thumbsdownred
+                }
+            }
         }
+        .onAppear(perform: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                Logger.process.info("Usersettings is DEFAULT")
+                SharedReference.shared.settingsischanged = false
+                settings = true
+            }
+        })
         .onDisappear(perform: {
             if SharedReference.shared.settingsischanged {
                 Logger.process.info("Usersettings is SAVED")
@@ -163,12 +180,24 @@ struct Usersettings: View {
             }
             SharedReference.shared.settingsischanged = false
         })
-        .onAppear(perform: {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                Logger.process.info("Usersettings is DEFAULT")
-                SharedReference.shared.settingsischanged = false
-            }
-        })
+    }
+
+    var thumbsdownred: some View {
+        Label("", systemImage: "hand.thumbsdown")
+            .foregroundColor(Color(.red))
+            .padding()
+    }
+
+    var thumbsupgreen: some View {
+        Label("", systemImage: "hand.thumbsup")
+            .foregroundColor(Color(.green))
+            .padding()
+    }
+
+    var thumbsupyellow: some View {
+        Label("", systemImage: "hand.thumbsup")
+            .foregroundColor(Color(.yellow))
+            .padding()
     }
 
     // Rsync
