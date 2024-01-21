@@ -45,7 +45,7 @@ struct SettingsView: View {
             Usersettings()
                 .environment(alerterror)
         case .ssh:
-            Sshsettings(uniqueserversandlogins: rsyncUIdata.getuniqueserversandlogins() ?? [])
+            Sshsettings(selectedprofile: $selectedprofile)
                 .environment(alerterror)
         case .environment:
             Othersettings()
@@ -60,13 +60,6 @@ struct SettingsView: View {
         } else {
             return selectedprofile
         }
-    }
-
-    var rsyncUIdata: RsyncUIconfigurations {
-        let configurationsdata = ReadConfigurationsfromstore(selectedprofile)
-        return RsyncUIconfigurations(selectedprofile,
-                                     configurationsdata.configurations ?? [],
-                                     configurationsdata.validhiddenIDs)
     }
 }
 

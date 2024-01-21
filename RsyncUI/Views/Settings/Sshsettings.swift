@@ -12,15 +12,14 @@ import SwiftUI
 
 struct Sshsettings: View {
     @SwiftUI.Environment(AlertError.self) private var alerterror
-    @State private var usersettings = ObservableSSH()
+    @Binding var selectedprofile: String?
 
+    @State private var usersettings = ObservableSSH()
     @State private var selectedlogin: UniqueserversandLogins?
     @State private var localsshkeys: Bool = false
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
-
-    var uniqueserversandlogins: [UniqueserversandLogins]
 
     var body: some View {
         Form {
@@ -83,8 +82,14 @@ struct Sshsettings: View {
         }
     }
 
-    // Copy strings
+    var rsyncUIdata: RsyncUIconfigurations {
+        let configurationsdata = ReadConfigurationsfromstore(selectedprofile)
+        return RsyncUIconfigurations(selectedprofile,
+                                     configurationsdata.configurations ?? [],
+                                     configurationsdata.validhiddenIDs)
+    }
 
+    // Copy strings
     var strings: some View {
         VStack(alignment: .leading) {
             Text(verifystring)
@@ -136,7 +141,7 @@ struct Sshsettings: View {
 
     var uniqueuserversandloginslist: some View {
         List(selection: $selectedlogin) {
-            ForEach(uniqueserversandlogins) { record in
+            ForEach(rsyncUIdata.getuniqueserversandlogins() ?? []) { record in
                 ServerRow(record: record)
                     .tag(record)
             }
