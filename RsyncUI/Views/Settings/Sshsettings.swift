@@ -20,6 +20,8 @@ struct Sshsettings: View {
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
+    // Settings are changed
+    @State var settings: Bool = false
 
     var body: some View {
         Form {
@@ -54,13 +56,14 @@ struct Sshsettings: View {
         .onAppear(perform: {
             localsshkeys = SshKeys().validatepublickeypresent()
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                Logger.process.info("Sshsettings is DEFAULT")
+                Logger.process.info("SSH settings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
+                settings = true
             }
         })
         .onDisappear(perform: {
             if SharedReference.shared.settingsischanged {
-                Logger.process.info("Sshsettings is SAVED")
+                Logger.process.info("SSH settings is SAVED")
                 _ = WriteUserConfigurationJSON(UserConfiguration())
             }
             SharedReference.shared.settingsischanged = false
@@ -79,6 +82,14 @@ struct Sshsettings: View {
                 }
                 .help("Create keys")
             }
+
+            ToolbarItem {
+                if settings {
+                    thumbsupgreen
+                } else {
+                    thumbsdownred
+                }
+            }
         }
     }
 
@@ -87,6 +98,18 @@ struct Sshsettings: View {
         return RsyncUIconfigurations(selectedprofile,
                                      configurationsdata.configurations ?? [],
                                      configurationsdata.validhiddenIDs)
+    }
+
+    var thumbsdownred: some View {
+        Label("", systemImage: "hand.thumbsdown")
+            .foregroundColor(Color(.red))
+            .padding()
+    }
+
+    var thumbsupgreen: some View {
+        Label("", systemImage: "hand.thumbsup")
+            .foregroundColor(Color(.green))
+            .padding()
     }
 
     // Copy strings

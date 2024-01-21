@@ -43,7 +43,7 @@ struct Othersettings: View {
             SharedReference.shared.settingsischanged = false
         })
         .onAppear(perform: {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 Logger.process.info("Othersettings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
             }
