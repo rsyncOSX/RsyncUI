@@ -56,14 +56,14 @@ struct Sshsettings: View {
         .onAppear(perform: {
             localsshkeys = SshKeys().validatepublickeypresent()
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                Logger.process.info("Sshsettings is DEFAULT")
+                Logger.process.info("SSH settings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
                 settings = true
             }
         })
         .onDisappear(perform: {
             if SharedReference.shared.settingsischanged {
-                Logger.process.info("Sshsettings is SAVED")
+                Logger.process.info("SSH settings is SAVED")
                 _ = WriteUserConfigurationJSON(UserConfiguration())
             }
             SharedReference.shared.settingsischanged = false
@@ -109,12 +109,6 @@ struct Sshsettings: View {
     var thumbsupgreen: some View {
         Label("", systemImage: "hand.thumbsup")
             .foregroundColor(Color(.green))
-            .padding()
-    }
-
-    var thumbsupyellow: some View {
-        Label("", systemImage: "hand.thumbsup")
-            .foregroundColor(Color(.yellow))
             .padding()
     }
 

@@ -167,7 +167,7 @@ struct Usersettings: View {
             }
         }
         .onAppear(perform: {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 Logger.process.info("Usersettings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
                 settings = true
@@ -191,12 +191,6 @@ struct Usersettings: View {
     var thumbsupgreen: some View {
         Label("", systemImage: "hand.thumbsup")
             .foregroundColor(Color(.green))
-            .padding()
-    }
-
-    var thumbsupyellow: some View {
-        Label("", systemImage: "hand.thumbsup")
-            .foregroundColor(Color(.yellow))
             .padding()
     }
 
