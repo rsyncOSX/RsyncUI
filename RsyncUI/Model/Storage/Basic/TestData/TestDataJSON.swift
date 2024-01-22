@@ -1,65 +1,86 @@
-//
-//  TestDataJSON.swift
-//  RsyncUI
-//
-//  Created by Thomas Evensen on 22/01/2024.
-//
-
 import Foundation
 
 class TestDataJSON {
     let urlSession = URLSession.shared
     let jsonDecoder = JSONDecoder()
-    
+
     var configurationsJSON: String =
-    "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/configurations.json"
+        "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/configurations.json"
     var logrecordsJSON: String =
-    "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/ogrecords.json"
-    
+        "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/logrecords.json"
+
     var configurations: [Configuration]?
     var logrecords: [LogRecords]?
-    
-    func getconfigurationsJSON() async throws -> [Configuration]? {
+    var logs: [Log]?
+    var validhiddenIDs = Set<Int>()
+
+    func getconfigurationsJSON() async throws -> [DecodeConfiguration]? {
         if let url = URL(string: configurationsJSON) {
             let (data, _) = try await urlSession.data(from: url)
-            return try jsonDecoder.decode([Configuration].self, from: data)
+            return try jsonDecoder.decode([DecodeConfiguration].self, from: data)
         } else {
             return nil
         }
     }
-    
-    func getlogrecordsJSON() async throws -> [LogRecords]? {
+
+    func getlogrecordsJSON() async throws -> [DecodeLogRecords]? {
         if let url = URL(string: logrecordsJSON) {
             let (data, _) = try await urlSession.data(from: url)
-            return try jsonDecoder.decode([LogRecords].self, from: data)
+            return try jsonDecoder.decode([DecodeLogRecords].self, from: data)
         } else {
             return nil
         }
     }
-    
-    func getJSONdata() async {
+
+    func getconfigurations() async {
         do {
             if let data = try await getconfigurationsJSON() {
-                configurations = data
+                var myconfigurations = [Configuration]()
+                for i in 0 ..< data.count {
+                    let oneconfiguration = Configuration(data[i])
+                    myconfigurations.append(oneconfiguration)
+                    validhiddenIDs.insert(oneconfiguration.hiddenID)
+                }
+                let sorted = myconfigurations.sorted { conf1, conf2 in
+                    if let days1 = conf1.dateRun?.en_us_date_from_string(),
+                       let days2 = conf2.dateRun?.en_us_date_from_string()
+                    {
+                        return days1 > days2
+                    }
+                    return false
+                }
+                configurations = sorted
             }
-            
-        } catch {
-            
-        }
-        
+        } catch {}
+    }
+
+    func getlogrecords() async {
         do {
             if let data = try await getlogrecordsJSON() {
-                logrecords = data
+                var mylogrecords = [LogRecords]()
+                for i in 0 ..< data.count {
+                    let oneschedule = LogRecords(data[i])
+                    mylogrecords.append(oneschedule)
+                }
+                logrecords = mylogrecords
+                if mylogrecords.count > 0 {
+                    var mylogs = [Log]()
+                    for i in 0 ..< mylogrecords.count {
+                        if let records = mylogrecords[i].logrecords {
+                            mylogs.append(contentsOf: records)
+                        }
+                    }
+                    logs = mylogs.sorted(by: \.date, using: >)
+                }
             }
-            
-        } catch {
-            
-        }
+        } catch {}
     }
-    
+
     init() {
+        validhiddenIDs.removeAll()
         Task {
-            await getJSONdata()
+            await getconfigurations()
+            await getlogrecords()
         }
     }
 }
