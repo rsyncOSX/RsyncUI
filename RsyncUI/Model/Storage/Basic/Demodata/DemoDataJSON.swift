@@ -16,6 +16,7 @@ class DemoDataJSON {
     var logrecordsJSON: String =
         "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/logrecords.json"
 
+    let profile: String = "DemoData"
     var configurations: [Configuration]?
     var logrecords: [LogRecords]?
     var logs: [Log]?
