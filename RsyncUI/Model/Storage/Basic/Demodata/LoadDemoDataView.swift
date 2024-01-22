@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LoadDemoDataView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Bindable var profilenames: Profilenames
+    @Binding var selectedprofile: String?
 
     @State private var newdata = ObservableAddConfigurations()
     let profile: String = "DemoData"
@@ -19,13 +21,10 @@ struct LoadDemoDataView: View {
         }
     }
 
-    var profilenames: Profilenames {
-        return Profilenames()
-    }
-
     func loaddataandcreaterecords() {
         guard profilenames.profiles.filter({ $0.profile == "DemoData" }).count == 0 else { return }
         newdata.createprofile(newprofile: profile)
+        profilenames.update()
 
         let getdemodata = DemoDataJSON()
 
@@ -35,8 +34,8 @@ struct LoadDemoDataView: View {
             _ = WriteConfigurationJSON(profile, configurations)
             _ = WriteLogRecordsJSON(profile, logrecords)
 
-            rsyncUIdata.profile = profile
-            rsyncUIdata.configurations = configurations
+            selectedprofile = newdata.selectedprofile
+            rsyncUIdata.profile = selectedprofile
         }
     }
 }

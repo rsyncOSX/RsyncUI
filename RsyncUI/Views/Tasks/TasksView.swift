@@ -165,15 +165,6 @@ struct TasksView: View {
                 }
                 .help("View logfile")
             }
-
-            ToolbarItem {
-                Button {
-                    path.append(Tasks(task: .loaddemodata))
-                } label: {
-                    Image(systemName: "doc.plaintext")
-                }
-                .help("Demodata")
-            }
         })
         .alert(isPresented: $showingAlert) {
             Alert(

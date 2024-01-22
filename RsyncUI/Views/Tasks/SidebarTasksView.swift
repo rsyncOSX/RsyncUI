@@ -79,8 +79,6 @@ struct SidebarTasksView: View {
             AlltasksView()
         case .viewlogfile:
             NavigationLogfileView()
-        case .loaddemodata:
-            LoadDemoDataView(rsyncUIdata: rsyncUIdata)
         }
     }
 }
@@ -88,7 +86,7 @@ struct SidebarTasksView: View {
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
          estimatedview, firsttime, dryrunonetask, alltasksview,
-         dryrunonetaskalreadyestimated, viewlogfile, loaddemodata
+         dryrunonetaskalreadyestimated, viewlogfile
     var id: String { rawValue }
 }
 
