@@ -16,13 +16,7 @@ class DemoDataJSON {
     var logrecordsJSON: String =
         "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/logrecords.json"
 
-    let profile: String = "DemoData"
-    var configurations: [Configuration]?
-    var logrecords: [LogRecords]?
-    var logs: [Log]?
-    var validhiddenIDs = Set<Int>()
-
-    func getconfigurationsJSON() async throws -> [DecodeConfiguration]? {
+    private func getconfigurationsJSON() async throws -> [DecodeConfiguration]? {
         if let url = URL(string: configurationsJSON) {
             let (data, _) = try await urlSession.data(from: url)
             return try jsonDecoder.decode([DecodeConfiguration].self, from: data)
@@ -31,7 +25,7 @@ class DemoDataJSON {
         }
     }
 
-    func getlogrecordsJSON() async throws -> [DecodeLogRecords]? {
+    private func getlogrecordsJSON() async throws -> [DecodeLogRecords]? {
         if let url = URL(string: logrecordsJSON) {
             let (data, _) = try await urlSession.data(from: url)
             return try jsonDecoder.decode([DecodeLogRecords].self, from: data)
@@ -40,15 +34,13 @@ class DemoDataJSON {
         }
     }
 
-    func getconfigurations() async {
-        validhiddenIDs.removeAll()
+    func getconfigurations() async -> [Configuration]? {
         do {
             if let data = try await getconfigurationsJSON() {
                 var myconfigurations = [Configuration]()
                 for i in 0 ..< data.count {
                     let oneconfiguration = Configuration(data[i])
                     myconfigurations.append(oneconfiguration)
-                    validhiddenIDs.insert(oneconfiguration.hiddenID)
                 }
                 let sorted = myconfigurations.sorted { conf1, conf2 in
                     if let days1 = conf1.dateRun?.en_us_date_from_string(),
@@ -58,12 +50,15 @@ class DemoDataJSON {
                     }
                     return false
                 }
-                configurations = sorted
+                return sorted
             }
-        } catch {}
+        } catch {
+            return nil
+        }
+        return nil
     }
 
-    func getlogrecords() async {
+    func getlogrecords() async -> [LogRecords]? {
         do {
             if let data = try await getlogrecordsJSON() {
                 var mylogrecords = [LogRecords]()
@@ -71,17 +66,11 @@ class DemoDataJSON {
                     let oneschedule = LogRecords(data[i])
                     mylogrecords.append(oneschedule)
                 }
-                logrecords = mylogrecords
-                if mylogrecords.count > 0 {
-                    var mylogs = [Log]()
-                    for i in 0 ..< mylogrecords.count {
-                        if let records = mylogrecords[i].logrecords {
-                            mylogs.append(contentsOf: records)
-                        }
-                    }
-                    logs = mylogs.sorted(by: \.date, using: >)
-                }
+                return mylogrecords
             }
-        } catch {}
+        } catch {
+            return nil
+        }
+        return nil
     }
 }
