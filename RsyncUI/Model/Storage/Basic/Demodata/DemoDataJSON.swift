@@ -1,6 +1,13 @@
+//
+//  DemoDataJSON.swift
+//  RsyncUI
+//
+//  Created by Thomas Evensen on 22/01/2024.
+//
+
 import Foundation
 
-class TestDataJSON {
+class DemoDataJSON {
     let urlSession = URLSession.shared
     let jsonDecoder = JSONDecoder()
 

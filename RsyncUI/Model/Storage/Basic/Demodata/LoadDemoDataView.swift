@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoadTestDataView: View {
+struct LoadDemoDataView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     var body: some View {
