@@ -64,7 +64,7 @@ struct AddProfileView: View {
                 .help("Delete profile")
                 .sheet(isPresented: $newdata.showAlertfordelete) {
                     ConfirmDeleteProfileView(delete: $newdata.confirmdeleteselectedprofile,
-                                             profile: rsyncUIdata.profile)
+                                             profile: localselectedprofile)
                         .onDisappear(perform: {
                             deleteprofile()
                         })
@@ -84,7 +84,7 @@ extension AddProfileView {
     }
 
     func deleteprofile() {
-        newdata.deleteprofile(selectedprofile)
+        newdata.deleteprofile(localselectedprofile)
         profilenames.update()
         selectedprofile = SharedReference.shared.defaultprofile
         rsyncUIdata.profile = SharedReference.shared.defaultprofile
