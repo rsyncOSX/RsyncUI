@@ -11,6 +11,8 @@ import SwiftUI
 struct Othersettings: View {
     @State private var environmentvalue: String = ""
     @State private var environment: String = ""
+    // Settings are changed
+    @State var settings: Bool = false
 
     var body: some View {
         Form {
@@ -34,6 +36,15 @@ struct Othersettings: View {
             // Save button right down corner
             Spacer()
         }
+        .toolbar {
+            ToolbarItem {
+                if settings {
+                    thumbsupgreen
+                } else {
+                    thumbsdownred
+                }
+            }
+        }
         .lineSpacing(2)
         .onDisappear(perform: {
             if SharedReference.shared.settingsischanged {
@@ -46,8 +57,21 @@ struct Othersettings: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 Logger.process.info("Othersettings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
+                settings = true
             }
         })
+    }
+
+    var thumbsdownred: some View {
+        Label("", systemImage: "hand.thumbsdown")
+            .foregroundColor(Color(.red))
+            .padding()
+    }
+
+    var thumbsupgreen: some View {
+        Label("", systemImage: "hand.thumbsup")
+            .foregroundColor(Color(.green))
+            .padding()
     }
 
     var setenvironment: some View {
