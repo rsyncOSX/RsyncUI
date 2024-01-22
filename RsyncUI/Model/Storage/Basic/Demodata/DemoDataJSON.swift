@@ -33,6 +33,7 @@ class TestDataJSON {
     }
 
     func getconfigurations() async {
+        validhiddenIDs.removeAll()
         do {
             if let data = try await getconfigurationsJSON() {
                 var myconfigurations = [Configuration]()
@@ -74,13 +75,5 @@ class TestDataJSON {
                 }
             }
         } catch {}
-    }
-
-    init() {
-        validhiddenIDs.removeAll()
-        Task {
-            await getconfigurations()
-            await getlogrecords()
-        }
     }
 }
