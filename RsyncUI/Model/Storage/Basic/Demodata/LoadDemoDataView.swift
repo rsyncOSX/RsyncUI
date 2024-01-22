@@ -14,7 +14,12 @@ struct LoadDemoDataView: View {
         Text("")
     }
 
+    var profilenames: Profilenames {
+        return Profilenames()
+    }
+
     func verifyloaddemodata() -> Bool {
-        return rsyncUIdata.configurations?.count == 0
+        return rsyncUIdata.configurations?.count == 0 &&
+            profilenames.profiles.filter { $0.profile == "DemoData" }.count == 0
     }
 }
