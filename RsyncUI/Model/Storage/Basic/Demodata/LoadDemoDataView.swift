@@ -16,15 +16,17 @@ struct LoadDemoDataView: View {
 
     @State private var newdata = ObservableAddConfigurations()
     @State private var demodataexists: Bool = false
+    @State private var demodataiscreataed: Bool = false
+
     let profile: String = "DemoData"
 
     var body: some View {
         VStack {
-            Text("Load Demo Data")
+            Text("Load DemoData")
                 .padding()
 
             HStack {
-                Button("Create") { loaddataandcreaterecords() }
+                Button("Load DemoData") { loaddataandcreaterecords() }
                     .buttonStyle(ColorfulButtonStyle())
 
                 Button("Dismiss") { dismiss() }
@@ -35,8 +37,13 @@ struct LoadDemoDataView: View {
                 Text("Profile DemoData exists")
                     .padding()
             }
+
+            if demodataiscreataed {
+                Text("Profile DemoData is created and demodata is loaded.\n You can dimiss the view.")
+                    .padding()
+            }
         }
-        .frame(width: 200, height: 200, alignment: .center)
+        .frame(width: 400, height: 300, alignment: .center)
     }
 
     func loaddataandcreaterecords() {
@@ -65,7 +72,7 @@ struct LoadDemoDataView: View {
             rsyncUIdata.validhiddenIDs = hiddenIDs
             rsyncUIdata.configurations = configurations
 
-            dismiss()
+            demodataiscreataed = true
         }
     }
 }
