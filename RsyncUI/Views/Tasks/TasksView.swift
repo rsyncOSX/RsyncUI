@@ -33,11 +33,6 @@ final class Selectedconfig {
     var config: Configuration?
 }
 
-enum Sheet: String, Identifiable {
-    case dryrunalltasks, dryrunalreadyestimated, dryrunonetask, alltasksview, firsttime, asynctimerison
-    var id: String { rawValue }
-}
-
 struct TasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
@@ -57,12 +52,10 @@ struct TasksView: View {
     // Local data for present local and remote info about task
     @State private var localdata: [String] = []
     @State var selectedconfig = Selectedconfig()
-    // Double click, only for macOS13 and later
     @State private var doubleclick: Bool = false
     // Alert button
     @State private var showingAlert = false
-
-    // Test
+    // Progress synchronizing
     @State private var progress: Double = 0
 
     var body: some View {
