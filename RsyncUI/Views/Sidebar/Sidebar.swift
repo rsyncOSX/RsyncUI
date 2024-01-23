@@ -19,6 +19,8 @@ struct Sidebar: View {
     @Bindable var profilenames: Profilenames
     @Bindable var errorhandling: AlertError
     @State private var selectedview: Sidebaritems = .synchronize
+    // Focus buttons from the menu
+    @State private var focusdemodata: Bool = false
 
     var body: some View {
         NavigationSplitView {
@@ -48,6 +50,10 @@ struct Sidebar: View {
                 Alert(title: Text("No error"))
             }
         })
+        .focusedSceneValue(\.demodata, $focusdemodata)
+        .sheet(isPresented: $focusdemodata) {
+            LoadDemoDataView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
+        }
     }
 
     @ViewBuilder

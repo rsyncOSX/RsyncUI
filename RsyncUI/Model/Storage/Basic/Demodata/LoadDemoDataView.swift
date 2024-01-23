@@ -8,21 +8,42 @@
 import SwiftUI
 
 struct LoadDemoDataView: View {
+    @SwiftUI.Environment(\.dismiss) var dismiss
+
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
 
     @State private var newdata = ObservableAddConfigurations()
+    @State private var demodataexists: Bool = false
     let profile: String = "DemoData"
 
     var body: some View {
-        Button("Create") {
-            loaddataandcreaterecords()
+        VStack {
+            Text("Load Demo Data")
+                .padding()
+
+            HStack {
+                Button("Create") { loaddataandcreaterecords() }
+                    .buttonStyle(ColorfulButtonStyle())
+
+                Button("Dismiss") { dismiss() }
+                    .buttonStyle(ColorfulButtonStyle())
+            }
+
+            if demodataexists {
+                Text("Profile DemoData exists")
+                    .padding()
+            }
         }
+        .frame(width: 200, height: 200, alignment: .center)
     }
 
     func loaddataandcreaterecords() {
-        guard profilenames.profiles.filter({ $0.profile == "DemoData" }).count == 0 else { return }
+        guard profilenames.profiles.filter({ $0.profile == "DemoData" }).count == 0 else {
+            demodataexists = true
+            return
+        }
         newdata.createprofile(newprofile: profile)
         profilenames.update()
 
@@ -43,6 +64,8 @@ struct LoadDemoDataView: View {
             }
             rsyncUIdata.validhiddenIDs = hiddenIDs
             rsyncUIdata.configurations = configurations
+
+            dismiss()
         }
     }
 }
