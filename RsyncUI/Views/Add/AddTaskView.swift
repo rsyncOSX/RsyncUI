@@ -474,6 +474,8 @@ struct AddTaskView: View {
 extension AddTaskView {
     func addconfig() {
         rsyncUIdata.configurations = newdata.addconfig(selectedprofile, rsyncUIdata.configurations)
+        // Reset and update validhiddenIDs
+        rsyncUIdata.resetandupdatevalidhiddenIDS()
     }
 
     func validateandupdate() {
