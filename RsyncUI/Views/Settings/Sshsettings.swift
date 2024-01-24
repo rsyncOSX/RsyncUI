@@ -15,98 +15,78 @@ struct Sshsettings: View {
     @Binding var selectedprofile: String?
 
     @State private var usersettings = ObservableSSH()
-    @State private var selectedlogin: UniqueserversandLogins?
     @State private var localsshkeys: Bool = false
+    @State private var showcopykeys: Bool = false
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
 
     var body: some View {
-        Form {
-            Spacer()
+        NavigationStack {
+            VStack(alignment: .leading) {
+                ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $localsshkeys)
 
-            ZStack {
-                HStack {
-                    // For center
-                    Spacer()
-                    // Column 1
-                    VStack(alignment: .leading) {
-                        ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $localsshkeys)
+                setsshpath
 
-                        setsshpath
-
-                        setsshport
-                    }
-
-                    // Column 2
-                    VStack(alignment: .leading) {
-                        uniqueuserversandloginslist
-                    }
-
-                    // For center
-                    Spacer()
+                setsshport
+            }
+            .onAppear(perform: {
+                localsshkeys = SshKeys().validatepublickeypresent()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    Logger.process.info("SSH settings is DEFAULT")
+                    SharedReference.shared.settingsischanged = false
+                    usersettings.ready = true
+                }
+            })
+            .onChange(of: SharedReference.shared.settingsischanged) {
+                guard SharedReference.shared.settingsischanged == true,
+                      usersettings.ready == true else { return }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    _ = WriteUserConfigurationJSON(UserConfiguration())
+                    SharedReference.shared.settingsischanged = false
+                    Logger.process.info("Usersettings is SAVED")
                 }
             }
-            Spacer()
-
-            if selectedlogin != nil { strings }
-        }
-        .onAppear(perform: {
-            localsshkeys = SshKeys().validatepublickeypresent()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                Logger.process.info("SSH settings is DEFAULT")
-                SharedReference.shared.settingsischanged = false
-            }
-        })
-        .onChange(of: SharedReference.shared.settingsischanged) {
-            guard SharedReference.shared.settingsischanged == true else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                _ = WriteUserConfigurationJSON(UserConfiguration())
-                SharedReference.shared.settingsischanged = false
-                Logger.process.info("Usersettings is SAVED")
-            }
-        }
-        .alert(isPresented: $usersettings.alerterror,
-               content: { Alert(localizedError: usersettings.error)
-               })
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    createkeys()
-                } label: {
-                    Image(systemName: "key")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
+            .alert(isPresented: $usersettings.alerterror,
+                   content: { Alert(localizedError: usersettings.error)
+                   })
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        createkeys()
+                    } label: {
+                        Image(systemName: "key")
+                            .foregroundColor(Color(.blue))
+                            .imageScale(.large)
+                    }
+                    .help("Create keys")
                 }
-                .help("Create keys")
-            }
 
-            ToolbarItem {
-                if SharedReference.shared.settingsischanged { thumbsupgreen }
+                ToolbarItem {
+                    Button {
+                        showcopykeys = true
+                    } label: {
+                        Image(systemName: "arrow.forward.circle")
+                            .foregroundColor(Color(.blue))
+                            .imageScale(.large)
+                    }
+                    .help("Show copy keys")
+                }
+
+                ToolbarItem {
+                    if SharedReference.shared.settingsischanged { thumbsupgreen }
+                }
             }
         }
-    }
-
-    var rsyncUIdata: RsyncUIconfigurations {
-        let configurationsdata = ReadConfigurationsfromstore(selectedprofile)
-        return RsyncUIconfigurations(selectedprofile,
-                                     configurationsdata.configurations ?? [],
-                                     configurationsdata.validhiddenIDs)
+        .navigationDestination(isPresented: $showcopykeys) {
+            ShowSSHCopyKeysView(selectedprofile: $selectedprofile)
+        }
     }
 
     var thumbsupgreen: some View {
         Label("", systemImage: "hand.thumbsup")
             .foregroundColor(Color(.green))
             .padding()
-    }
-
-    // Copy strings
-    var strings: some View {
-        VStack(alignment: .leading) {
-            Text(verifystring)
-            Text(copystring)
-        }
-        .textSelection(.enabled)
     }
 
     var setsshpath: some View {
@@ -149,45 +129,6 @@ struct Sshsettings: View {
                 usersettings.sshport(usersettings.sshportnumber)
             }
     }
-
-    var uniqueuserversandloginslist: some View {
-        List(selection: $selectedlogin) {
-            ForEach(rsyncUIdata.getuniqueserversandlogins() ?? []) { record in
-                ServerRow(record: record)
-                    .tag(record)
-            }
-        }
-        .frame(width: 250, height: 100)
-    }
-
-    var verifystring: String {
-        if let login = selectedlogin {
-            return SshKeys().verifyremotekey(remote: login)
-        } else {
-            return ""
-        }
-    }
-
-    var copystring: String {
-        if let login = selectedlogin {
-            return SshKeys().copylocalpubrsakeyfile(remote: login)
-        } else {
-            return ""
-        }
-    }
-}
-
-struct ServerRow: View {
-    var record: UniqueserversandLogins
-
-    var body: some View {
-        HStack {
-            Text(record.offsiteUsername ?? "")
-                .modifier(FixedTag(80, .leading))
-            Text(record.offsiteServer ?? "")
-                .modifier(FixedTag(80, .leading))
-        }
-    }
 }
 
 extension Sshsettings {
@@ -199,23 +140,5 @@ extension Sshsettings {
                 localsshkeys = SshKeys().validatepublickeypresent()
             }
         }
-    }
-}
-
-struct UniqueserversandLogins: Hashable, Identifiable {
-    var id = UUID()
-    var offsiteUsername: String?
-    var offsiteServer: String?
-
-    init(_ username: String,
-         _ servername: String)
-    {
-        offsiteServer = servername
-        offsiteUsername = username
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(offsiteUsername)
-        hasher.combine(offsiteServer)
     }
 }

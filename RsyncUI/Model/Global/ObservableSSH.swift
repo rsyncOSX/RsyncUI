@@ -20,6 +20,8 @@ final class ObservableSSH {
     // Alerts
     var alerterror: Bool = false
     var error: Error = Validatedpath.noerror
+    // For updating settings
+    @ObservationIgnored var ready: Bool = false
 
     // SSH identityfile
     private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {

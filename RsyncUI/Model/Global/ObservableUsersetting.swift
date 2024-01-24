@@ -39,6 +39,8 @@ final class ObservableUsersetting {
     // alert about error
     var error: Error = Validatedpath.noerror
     var alerterror: Bool = false
+    // For updating settings
+    @ObservationIgnored var ready: Bool = false
 
     // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) {

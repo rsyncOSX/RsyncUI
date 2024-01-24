@@ -26,7 +26,6 @@ struct SettingsView: View {
                     SidebarSettingsRow(sidebaritem: selectedsetting)
                 }
             }
-            // .toolbar(removing: .sidebarToggle)
         } detail: {
             settingsView(selectedsetting)
         }
@@ -45,8 +44,10 @@ struct SettingsView: View {
             Usersettings()
                 .environment(alerterror)
         case .ssh:
-            Sshsettings(selectedprofile: $selectedprofile)
-                .environment(alerterror)
+            NavigationStack {
+                Sshsettings(selectedprofile: $selectedprofile)
+                    .environment(alerterror)
+            }
         case .environment:
             Othersettings()
         case .info:

@@ -34,8 +34,6 @@ struct UserConfiguration: Codable {
     var checkforerrorinrsyncoutput: Int = -1
     // Automatic execution
     var confirmexecute: Int?
-    // NavigationStack
-    var usenavigationstack: Int?
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
