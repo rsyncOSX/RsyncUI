@@ -36,8 +36,6 @@ class ReadConfigurationJSON: NamesandPaths {
     init(_ profile: String?) {
         super.init(.configurations)
 
-        _ = DefaultFilesJSON(profile)
-
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
@@ -91,17 +89,6 @@ class ReadConfigurationJSON: NamesandPaths {
                 subscriptons.removeAll()
                 Logger.process.info("ReadConfigurationJSON: read configurations from permanent storage")
             }.store(in: &subscriptons)
-
-        // Initial checks for logrecords JSON file
-        if SharedReference.shared.defaultlogfileexist == false,
-           SharedReference.shared.copydataoldlogfiletonewlogfile == true
-        {
-            _ = ReadLogrecordsOldAndSaveNewfile(profile, validhiddenIDs)
-        } else if SharedReference.shared.defaultlogfileexist == false,
-                  SharedReference.shared.copydataoldlogfiletonewlogfile == false
-        {
-            createdefaultfilelogrecords(profile)
-        }
     }
 }
 
