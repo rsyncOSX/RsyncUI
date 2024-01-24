@@ -128,6 +128,7 @@ struct ListofTasksMainView: View {
         deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
         selecteduuids.removeAll()
         rsyncUIdata.configurations = deleteconfigurations.configurations
+        rsyncUIdata.resetandupdatevalidhiddenIDS()
     }
 
     func markconfig(_ seconds: Double) -> Bool {
