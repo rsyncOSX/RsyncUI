@@ -20,8 +20,6 @@ struct Sshsettings: View {
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
-    // Settings are changed
-    @State var settings: Bool = false
 
     var body: some View {
         Form {
@@ -58,16 +56,16 @@ struct Sshsettings: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 Logger.process.info("SSH settings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
-                settings = true
             }
         })
-        .onDisappear(perform: {
-            if SharedReference.shared.settingsischanged {
-                Logger.process.info("SSH settings is SAVED")
+        .onChange(of: SharedReference.shared.settingsischanged) {
+            guard SharedReference.shared.settingsischanged == true else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 _ = WriteUserConfigurationJSON(UserConfiguration())
+                SharedReference.shared.settingsischanged = false
+                Logger.process.info("Usersettings is SAVED")
             }
-            SharedReference.shared.settingsischanged = false
-        })
+        }
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
@@ -84,11 +82,7 @@ struct Sshsettings: View {
             }
 
             ToolbarItem {
-                if settings {
-                    thumbsupgreen
-                } else {
-                    thumbsdownred
-                }
+                if SharedReference.shared.settingsischanged { thumbsupgreen }
             }
         }
     }
@@ -98,12 +92,6 @@ struct Sshsettings: View {
         return RsyncUIconfigurations(selectedprofile,
                                      configurationsdata.configurations ?? [],
                                      configurationsdata.validhiddenIDs)
-    }
-
-    var thumbsdownred: some View {
-        Label("", systemImage: "hand.thumbsdown")
-            .foregroundColor(Color(.red))
-            .padding()
     }
 
     var thumbsupgreen: some View {

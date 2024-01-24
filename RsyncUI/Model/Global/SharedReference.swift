@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import Observation
 
+@Observable
 class SharedReference {
     // Creates a singelton of this class
     class var shared: SharedReference {
@@ -19,108 +21,116 @@ class SharedReference {
 
     var settingsischanged: Bool = false
 
-    var rsyncversion3: Bool = false {
+    @ObservationIgnored var rsyncversion3: Bool = false {
         didSet {
             settingsischanged = true
         }
     }
 
     // Optional path to rsync
-    var localrsyncpath: String? {
+    @ObservationIgnored var localrsyncpath: String? {
         didSet {
             settingsischanged = true
         }
     }
 
     // No valid rsyncPath - true if no valid rsync is found
-    var norsync: Bool = false
+    @ObservationIgnored var norsync: Bool = false
     // Path for restore
-    var pathforrestore: String? {
+    @ObservationIgnored var pathforrestore: String? {
         didSet {
             settingsischanged = true
         }
     }
 
     // Detailed logging
-    var detailedlogging: Bool = true {
+    @ObservationIgnored var detailedlogging: Bool = true {
         didSet {
             settingsischanged = true
         }
     }
 
     // Logging to logfile
-    var minimumlogging: Bool = false {
+    @ObservationIgnored var minimumlogging: Bool = false {
         didSet {
             settingsischanged = true
         }
     }
 
-    var fulllogging: Bool = false {
+    @ObservationIgnored var fulllogging: Bool = false {
         didSet {
             settingsischanged = true
         }
     }
 
-    var nologging: Bool = true {
+    @ObservationIgnored var nologging: Bool = true {
         didSet {
             settingsischanged = true
         }
     }
 
     // Mark number of days since last backup
-    var marknumberofdayssince: Int = 5 {
+    @ObservationIgnored var marknumberofdayssince: Int = 5 {
         didSet {
             settingsischanged = true
         }
     }
 
-    var environment: String? {
+    @ObservationIgnored var environment: String? {
         didSet {
             settingsischanged = true
         }
     }
 
-    var environmentvalue: String? {
+    @ObservationIgnored var environmentvalue: String? {
         didSet {
             settingsischanged = true
         }
     }
 
     // Global SSH parameters
-    var sshport: Int? {
+    @ObservationIgnored var sshport: Int? {
         didSet {
             settingsischanged = true
         }
     }
 
-    var sshkeypathandidentityfile: String? {
+    @ObservationIgnored var sshkeypathandidentityfile: String? {
         didSet {
             settingsischanged = true
         }
     }
 
     // Check for error in output from rsync
-    var checkforerrorinrsyncoutput: Bool = false {
+    @ObservationIgnored var checkforerrorinrsyncoutput: Bool = false {
         didSet {
             settingsischanged = true
         }
     }
 
     // Check for network changes
-    var monitornetworkconnection: Bool = false {
+    @ObservationIgnored var monitornetworkconnection: Bool = false {
+        didSet {
+            settingsischanged = true
+        }
+    }
+
+    // Confirm execution
+    // A safety rule
+    @ObservationIgnored var confirmexecute: Bool = false {
         didSet {
             settingsischanged = true
         }
     }
 
     // Download URL if new version is avaliable
-    var URLnewVersion: String?
+    @ObservationIgnored var URLnewVersion: String?
     // rsync command
     let rsync: String = "rsync"
     let usrbin: String = "/usr/bin"
     let usrlocalbin: String = "/usr/local/bin"
     let usrlocalbinarm: String = "/opt/homebrew/bin"
-    var macosarm: Bool = false
+    @ObservationIgnored var macosarm: Bool = false
     // RsyncUI config files and path
     let configpath: String = "/.rsyncosx/"
     let logname: String = "rsyncui.txt"
@@ -130,36 +140,29 @@ class SharedReference {
     let synchronize: String = "synchronize"
     let snapshot: String = "snapshot"
     let syncremote: String = "syncremote"
-    var synctasks: Set<String>
+    @ObservationIgnored var synctasks: Set<String>
     // rsync version string
-    var rsyncversionstring: String?
+    @ObservationIgnored var rsyncversionstring: String?
     // rsync short version
-    var rsyncversionshort: String?
+    @ObservationIgnored var rsyncversionshort: String?
     // filsize logfile warning
-    var logfilesize: Int = 100_000
+    let logfilesize: Int = 100_000
     // Mac serialnumer
-    var macserialnumber: String?
+    @ObservationIgnored var macserialnumber: String?
     // True if menuapp is running
     // var menuappisrunning: Bool = false
     // Reference to the active process
-    var process: Process?
+    @ObservationIgnored var process: Process?
     // JSON names
     let filenamelogrecordsjson = "logrecords.json"
     let fileconfigurationsjson = "configurations.json"
     // Object for propogate errors to views
-    var errorobject: AlertError?
+    @ObservationIgnored var errorobject: AlertError?
     // Used when starting up RsyncUI
     // Default profile
     let defaultprofile = "Default profile"
     // If firstime use
-    var firsttime = false
-    // Confirm execution
-    // A safety rule
-    var confirmexecute: Bool = false {
-        didSet {
-            settingsischanged = true
-        }
-    }
+    @ObservationIgnored var firsttime = false
 
     private init() {
         synctasks = Set<String>()

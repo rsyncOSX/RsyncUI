@@ -38,21 +38,10 @@ struct Othersettings: View {
         }
         .toolbar {
             ToolbarItem {
-                if settings {
-                    thumbsupgreen
-                } else {
-                    thumbsdownred
-                }
+                if SharedReference.shared.settingsischanged { thumbsupgreen }
             }
         }
         .lineSpacing(2)
-        .onDisappear(perform: {
-            if SharedReference.shared.settingsischanged {
-                Logger.process.info("Othersettings is SAVED")
-                _ = WriteUserConfigurationJSON(UserConfiguration())
-            }
-            SharedReference.shared.settingsischanged = false
-        })
         .onAppear(perform: {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 Logger.process.info("Othersettings is DEFAULT")
@@ -60,12 +49,14 @@ struct Othersettings: View {
                 settings = true
             }
         })
-    }
-
-    var thumbsdownred: some View {
-        Label("", systemImage: "hand.thumbsdown")
-            .foregroundColor(Color(.red))
-            .padding()
+        .onChange(of: SharedReference.shared.settingsischanged) {
+            guard SharedReference.shared.settingsischanged == true else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                _ = WriteUserConfigurationJSON(UserConfiguration())
+                SharedReference.shared.settingsischanged = false
+                Logger.process.info("Usersettings is SAVED")
+            }
+        }
     }
 
     var thumbsupgreen: some View {

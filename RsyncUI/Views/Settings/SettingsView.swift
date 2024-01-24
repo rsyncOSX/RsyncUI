@@ -26,7 +26,7 @@ struct SettingsView: View {
                     SidebarSettingsRow(sidebaritem: selectedsetting)
                 }
             }
-            .toolbar(removing: .sidebarToggle)
+            // .toolbar(removing: .sidebarToggle)
         } detail: {
             settingsView(selectedsetting)
         }
