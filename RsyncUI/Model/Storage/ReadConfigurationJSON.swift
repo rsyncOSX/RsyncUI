@@ -58,6 +58,7 @@ class ReadConfigurationJSON: NamesandPaths {
                     return
                 case .failure:
                     self.createdefaultfileconfigurations(profile)
+                    self.createdefaultfilelogrecords(profile)
                     // Mark first time used, only for default profile
                     if profile == nil {
                         SharedReference.shared.firsttime = true
