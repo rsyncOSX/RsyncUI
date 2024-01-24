@@ -12,10 +12,20 @@ struct ShowSSHCopyKeysView: View {
     @State private var selectedlogin: UniqueserversandLogins?
 
     var body: some View {
-        HStack {
-            uniqueuserversandloginslist
+        VStack(alignment: .leading) {
+            List(selection: $selectedlogin) {
+                ForEach(rsyncUIdata.getuniqueserversandlogins() ?? []) { record in
+                    ServerRow(record: record)
+                        .tag(record)
+                }
+            }
+            .frame(width: 250, height: 100)
 
-            if selectedlogin != nil { strings }
+            if selectedlogin != nil {
+                strings
+            } else {
+                defaultstrings
+            }
         }
     }
 
@@ -26,39 +36,22 @@ struct ShowSSHCopyKeysView: View {
                                      configurationsdata.validhiddenIDs)
     }
 
-    var uniqueuserversandloginslist: some View {
-        List(selection: $selectedlogin) {
-            ForEach(rsyncUIdata.getuniqueserversandlogins() ?? []) { record in
-                ServerRow(record: record)
-                    .tag(record)
-            }
-        }
-        .frame(width: 250, height: 100)
-    }
-
-    var verifystring: String {
-        if let login = selectedlogin {
-            return SshKeys().verifyremotekey(remote: login)
-        } else {
-            return ""
-        }
-    }
-
-    var copystring: String {
-        if let login = selectedlogin {
-            return SshKeys().copylocalpubrsakeyfile(remote: login)
-        } else {
-            return ""
-        }
-    }
-
     // Copy strings
     var strings: some View {
-        VStack(alignment: .leading) {
-            Text(verifystring)
-            Text(copystring)
+        VStack {
+            Text(SshKeys().verifyremotekey(remote: selectedlogin))
+            Text(SshKeys().copylocalpubrsakeyfile(remote: selectedlogin))
         }
         .textSelection(.enabled)
+    }
+
+    // Default strings
+
+    var defaultstrings: some View {
+        VStack {
+            Text("Test SSH")
+            Text("Copy strings")
+        }
     }
 }
 
