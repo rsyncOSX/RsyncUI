@@ -25,6 +25,7 @@ struct Sshsettings: View {
         NavigationStack {
             VStack(alignment: .leading) {
                 ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $localsshkeys)
+                    .disabled(true)
 
                 setsshpath
 

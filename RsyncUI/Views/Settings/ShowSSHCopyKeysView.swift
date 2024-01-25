@@ -21,10 +21,10 @@ struct ShowSSHCopyKeysView: View {
             }
             .frame(width: 250, height: 100)
 
-            if selectedlogin != nil {
-                strings
-            } else {
+            if selectedlogin == nil {
                 defaultstrings
+            } else {
+                strings
             }
         }
     }

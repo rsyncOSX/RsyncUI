@@ -44,6 +44,7 @@ struct Usersettings: View {
                                     .onChange(of: usersettings.macosarm) {
                                         SharedReference.shared.macosarm = usersettings.macosarm
                                     }
+                                    .disabled(true)
                             }
                         }
 
