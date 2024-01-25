@@ -12,7 +12,7 @@ struct ShowSSHCopyKeysView: View {
     @State private var selectedlogin: UniqueserversandLogins?
 
     var body: some View {
-        VStack(alignment: .leading) {
+        HStack {
             List(selection: $selectedlogin) {
                 ForEach(rsyncUIdata.getuniqueserversandlogins() ?? []) { record in
                     ServerRow(record: record)
@@ -38,20 +38,22 @@ struct ShowSSHCopyKeysView: View {
 
     // Copy strings
     var strings: some View {
-        VStack {
-            Text(SshKeys().verifyremotekey(remote: selectedlogin))
-            Text(SshKeys().copylocalpubrsakeyfile(remote: selectedlogin))
+        VStack(alignment: .leading) {
+            Text("Test SSH connection:\n" + SshKeys().verifyremotekey(remote: selectedlogin))
+            Text("Copy public SSH key:\n" + SshKeys().copylocalpubrsakeyfile(remote: selectedlogin))
         }
         .textSelection(.enabled)
+        .frame(width: 400, height: 200)
     }
 
     // Default strings
 
     var defaultstrings: some View {
-        VStack {
-            Text("Test SSH")
-            Text("Copy strings")
+        VStack(alignment: .leading) {
+            Text("Test SSH connection: \n select a login and server")
+            Text("Copy public SSH key:")
         }
+        .frame(width: 400, height: 100)
     }
 }
 
