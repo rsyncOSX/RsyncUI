@@ -15,26 +15,10 @@ struct Othersettings: View {
     @State var settings: Bool = false
 
     var body: some View {
-        Form {
-            Spacer()
+        VStack(alignment: .leading) {
+            setenvironment
 
-            ZStack {
-                HStack {
-                    // For center
-                    Spacer()
-
-                    // Column 1
-                    VStack(alignment: .leading) {
-                        setenvironment
-
-                        setenvironmenvariable
-                    }
-
-                    Spacer()
-                }
-            }
-            // Save button right down corner
-            Spacer()
+            setenvironmenvariable
         }
         .toolbar {
             ToolbarItem {

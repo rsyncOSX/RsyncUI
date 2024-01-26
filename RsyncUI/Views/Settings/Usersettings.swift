@@ -142,7 +142,7 @@ struct Usersettings: View {
             }
 
             ToolbarItem {
-                if SharedReference.shared.settingsischanged { thumbsupgreen }
+                if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
             }
         }
         .onAppear(perform: {
