@@ -17,129 +17,113 @@ struct Usersettings: View {
     @State private var defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
 
     var body: some View {
-        Form {
-            Spacer()
-
-            ZStack {
-                HStack {
-                    // For center
-                    Spacer()
-
-                    // Column 1
-                    VStack(alignment: .leading) {
-                        Section(header: headerrsync) {
-                            HStack {
-                                ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""),
-                                                  $usersettings.rsyncversion3)
-                                    .onChange(of: usersettings.rsyncversion3) {
-                                        SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
-                                        Task {
-                                            await rsyncversion.getrsyncversion()
-                                        }
-                                        defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
-                                    }
-
-                                ToggleViewDefault(NSLocalizedString("Apple Silicon", comment: ""),
-                                                  $usersettings.macosarm)
-                                    .onChange(of: usersettings.macosarm) {
-                                        SharedReference.shared.macosarm = usersettings.macosarm
-                                    }
-                                    .disabled(true)
-                            }
-                        }
-
-                        if usersettings.localrsyncpath.isEmpty == true {
-                            setrsyncpathdefault
-                        } else {
-                            setrsyncpathlocalpath
-                        }
-
-                        Section(header: headerpathforrestore) {
-                            setpathforrestore
-                        }
-
-                        setmarkdays
-                    }
-                    .padding()
-
-                    // Column 2
-                    VStack(alignment: .leading) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Section(header: headerloggingtofile) {
-                                    ToggleViewDefault(NSLocalizedString("None", comment: ""),
-                                                      $usersettings.nologging)
-                                        .onChange(of: usersettings.nologging) {
-                                            if usersettings.nologging == true {
-                                                usersettings.minimumlogging = false
-                                                usersettings.fulllogging = false
-                                            } else {
-                                                usersettings.minimumlogging = true
-                                                usersettings.fulllogging = false
-                                            }
-                                            SharedReference.shared.fulllogging = usersettings.fulllogging
-                                            SharedReference.shared.minimumlogging = usersettings.minimumlogging
-                                            SharedReference.shared.nologging = usersettings.nologging
-                                        }
-
-                                    ToggleViewDefault(NSLocalizedString("Min", comment: ""),
-                                                      $usersettings.minimumlogging)
-                                        .onChange(of: usersettings.minimumlogging) {
-                                            if usersettings.minimumlogging == true {
-                                                usersettings.nologging = false
-                                                usersettings.fulllogging = false
-                                            }
-                                            SharedReference.shared.fulllogging = usersettings.fulllogging
-                                            SharedReference.shared.minimumlogging = usersettings.minimumlogging
-                                            SharedReference.shared.nologging = usersettings.nologging
-                                        }
-
-                                    ToggleViewDefault(NSLocalizedString("Full", comment: ""),
-                                                      $usersettings.fulllogging)
-                                        .onChange(of: usersettings.fulllogging) {
-                                            if usersettings.fulllogging == true {
-                                                usersettings.nologging = false
-                                                usersettings.minimumlogging = false
-                                            }
-                                            SharedReference.shared.fulllogging = usersettings.fulllogging
-                                            SharedReference.shared.minimumlogging = usersettings.minimumlogging
-                                            SharedReference.shared.nologging = usersettings.nologging
-                                        }
+        HStack {
+            // Column 1
+            VStack(alignment: .leading) {
+                Section(header: headerrsync) {
+                    HStack {
+                        ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""),
+                                          $usersettings.rsyncversion3)
+                            .onChange(of: usersettings.rsyncversion3) {
+                                SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
+                                Task {
+                                    await rsyncversion.getrsyncversion()
                                 }
+                                defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
                             }
 
-                            VStack(alignment: .leading) {
-                                Section(header: othersettings) {
-                                    ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
-                                        .onChange(of: usersettings.detailedlogging) {
-                                            SharedReference.shared.detailedlogging = usersettings.detailedlogging
-                                        }
-
-                                    ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
-                                        .onChange(of: usersettings.monitornetworkconnection) {
-                                            SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
-                                        }
-                                    ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
-                                        .onChange(of: usersettings.checkforerrorinrsyncoutput) {
-                                            SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
-                                        }
-
-                                    ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
-                                        .onChange(of: usersettings.confirmexecute) {
-                                            SharedReference.shared.confirmexecute = usersettings.confirmexecute
-                                        }
-                                }
+                        ToggleViewDefault(NSLocalizedString("Apple Silicon", comment: ""),
+                                          $usersettings.macosarm)
+                            .onChange(of: usersettings.macosarm) {
+                                SharedReference.shared.macosarm = usersettings.macosarm
                             }
-                        }
+                            .disabled(true)
                     }
-                    .padding()
-
-                    // For center
-                    Spacer()
                 }
+
+                if usersettings.localrsyncpath.isEmpty == true {
+                    setrsyncpathdefault
+                } else {
+                    setrsyncpathlocalpath
+                }
+
+                Section(header: headerpathforrestore) {
+                    setpathforrestore
+                }
+
+                setmarkdays
             }
 
-            Spacer()
+            // Column 2
+            VStack(alignment: .leading) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Section(header: headerloggingtofile) {
+                            ToggleViewDefault(NSLocalizedString("None", comment: ""),
+                                              $usersettings.nologging)
+                                .onChange(of: usersettings.nologging) {
+                                    if usersettings.nologging == true {
+                                        usersettings.minimumlogging = false
+                                        usersettings.fulllogging = false
+                                    } else {
+                                        usersettings.minimumlogging = true
+                                        usersettings.fulllogging = false
+                                    }
+                                    SharedReference.shared.fulllogging = usersettings.fulllogging
+                                    SharedReference.shared.minimumlogging = usersettings.minimumlogging
+                                    SharedReference.shared.nologging = usersettings.nologging
+                                }
+
+                            ToggleViewDefault(NSLocalizedString("Min", comment: ""),
+                                              $usersettings.minimumlogging)
+                                .onChange(of: usersettings.minimumlogging) {
+                                    if usersettings.minimumlogging == true {
+                                        usersettings.nologging = false
+                                        usersettings.fulllogging = false
+                                    }
+                                    SharedReference.shared.fulllogging = usersettings.fulllogging
+                                    SharedReference.shared.minimumlogging = usersettings.minimumlogging
+                                    SharedReference.shared.nologging = usersettings.nologging
+                                }
+
+                            ToggleViewDefault(NSLocalizedString("Full", comment: ""),
+                                              $usersettings.fulllogging)
+                                .onChange(of: usersettings.fulllogging) {
+                                    if usersettings.fulllogging == true {
+                                        usersettings.nologging = false
+                                        usersettings.minimumlogging = false
+                                    }
+                                    SharedReference.shared.fulllogging = usersettings.fulllogging
+                                    SharedReference.shared.minimumlogging = usersettings.minimumlogging
+                                    SharedReference.shared.nologging = usersettings.nologging
+                                }
+                        }
+                    }
+
+                    VStack(alignment: .leading) {
+                        Section(header: othersettings) {
+                            ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
+                                .onChange(of: usersettings.detailedlogging) {
+                                    SharedReference.shared.detailedlogging = usersettings.detailedlogging
+                                }
+
+                            ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
+                                .onChange(of: usersettings.monitornetworkconnection) {
+                                    SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
+                                }
+                            ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
+                                .onChange(of: usersettings.checkforerrorinrsyncoutput) {
+                                    SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
+                                }
+
+                            ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
+                                .onChange(of: usersettings.confirmexecute) {
+                                    SharedReference.shared.confirmexecute = usersettings.confirmexecute
+                                }
+                        }
+                    }
+                }
+            }
         }
         .lineSpacing(2)
         .alert(isPresented: $usersettings.alerterror,
@@ -148,7 +132,7 @@ struct Usersettings: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    backupuserconfigs()
+                    _ = Backupconfigfiles()
                 } label: {
                     Image(systemName: "wrench.adjustable.fill")
                         .foregroundColor(Color(.blue))
@@ -250,12 +234,6 @@ struct Usersettings: View {
                     usersettings.markdays(days: usersettings.marknumberofdayssince)
                 }
         }
-    }
-}
-
-extension Usersettings {
-    func backupuserconfigs() {
-        _ = Backupconfigfiles()
     }
 }
 
