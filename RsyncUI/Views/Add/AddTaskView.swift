@@ -40,8 +40,6 @@ struct AddTaskView: View {
     }
 
     @FocusState private var focusField: AddConfigurationField?
-    // Modale view
-    @State private var showprofileview = false
     // Reload and show table data
     @State private var confirmcopyandpaste: Bool = false
 
@@ -449,14 +447,6 @@ struct AddTaskView: View {
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 140)
-    }
-
-    var labelprofiletask: some View {
-        Label("", systemImage: "play.fill")
-            .foregroundColor(.black)
-            .onAppear(perform: {
-                showprofileview = true
-            })
     }
 
     var copyitems: [CopyItem] {
