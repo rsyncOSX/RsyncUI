@@ -10,7 +10,7 @@ import OSLog
 import SwiftUI
 
 struct Usersettings: View {
-    @SwiftUI.Environment(AlertError.self) private var alerterror
+    @Environment(AlertError.self) private var alerterror
     @State private var usersettings = ObservableUsersetting()
     @State private var rsyncversion = Rsyncversion()
     // Rsync paths

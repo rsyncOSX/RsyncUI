@@ -1,5 +1,5 @@
 //
-//  numbers.swift
+//  Numbers.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 22.05.2017.

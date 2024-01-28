@@ -1,5 +1,5 @@
 //
-//  Verifyrsyncpath.swift
+//  RsyncCommandtoDisplay.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 22.07.2017.

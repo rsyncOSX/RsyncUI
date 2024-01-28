@@ -1,5 +1,5 @@
 //
-//  AddPostandPreView.swift
+//  AddPreandPostView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 01/04/2021.

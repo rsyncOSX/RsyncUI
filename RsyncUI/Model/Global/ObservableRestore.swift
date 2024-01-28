@@ -1,5 +1,5 @@
 //
-//  ObserveableRestore.swift
+//  ObservableRestore.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 06/04/2021.

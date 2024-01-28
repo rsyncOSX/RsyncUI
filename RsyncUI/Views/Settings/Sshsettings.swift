@@ -11,7 +11,7 @@ import OSLog
 import SwiftUI
 
 struct Sshsettings: View {
-    @SwiftUI.Environment(AlertError.self) private var alerterror
+    @Environment(AlertError.self) private var alerterror
     @Binding var selectedprofile: String?
 
     @State private var usersettings = ObservableSSH()

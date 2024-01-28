@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConfirmDeleteProfileView: View {
-    @SwiftUI.Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @Binding var delete: Bool
     var profile: String?
 

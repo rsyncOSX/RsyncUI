@@ -55,7 +55,7 @@ final class RsyncProcessAsync {
         task.arguments = arguments
         // If there are any Environmentvariables like
         // SSH_AUTH_SOCK": "/Users/user/.gnupg/S.gpg-agent.ssh"
-        if let environment = Environment() {
+        if let environment = MyEnvironment() {
             task.environment = environment.environment
         }
         // Pipe for reading output from Process

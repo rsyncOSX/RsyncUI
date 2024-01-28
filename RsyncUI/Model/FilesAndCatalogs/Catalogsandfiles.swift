@@ -1,5 +1,5 @@
 //
-//  files.swift
+//  Catalogsandfiles.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 26.04.2017.

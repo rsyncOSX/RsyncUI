@@ -1,5 +1,5 @@
 //
-//  AddConfiguration.swift
+//  VerifyConfiguration.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 25/02/2021.

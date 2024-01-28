@@ -1,5 +1,5 @@
 //
-//  scpNSTaskArguments.swift
+//  RestorefilesArguments.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 27/06/16.

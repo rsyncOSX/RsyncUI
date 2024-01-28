@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoadDemoDataView: View {
-    @SwiftUI.Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
 
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var profilenames: Profilenames

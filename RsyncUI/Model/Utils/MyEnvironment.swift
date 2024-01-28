@@ -1,5 +1,5 @@
 //
-//  Environment.swift
+//  MyEnvironment.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 02/06/2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Environment {
+struct MyEnvironment {
     var environment: [String: String]?
 
     init?() {

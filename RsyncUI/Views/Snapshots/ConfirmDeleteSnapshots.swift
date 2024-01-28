@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConfirmDeleteSnapshots: View {
-    @SwiftUI.Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @Binding var delete: Bool
     var snapshotuuidsfordelete: Set<SnapshotLogRecords.ID>
 
