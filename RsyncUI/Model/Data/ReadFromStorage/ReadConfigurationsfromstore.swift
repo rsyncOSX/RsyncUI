@@ -8,7 +8,7 @@
 import Foundation
 
 struct ReadConfigurationsfromstore {
-    var configurations: [Configuration]?
+    var configurations: [SynchronizeConfiguration]?
     var validhiddenIDs: Set<Int>?
 
     init(_ profile: String?) {

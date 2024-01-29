@@ -16,7 +16,7 @@ final class RsyncProcess {
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
     // Verify network connection
-    var config: Configuration?
+    var config: SynchronizeConfiguration?
     var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
@@ -113,7 +113,7 @@ final class RsyncProcess {
     }
 
     init(arguments: [String]?,
-         config: Configuration?,
+         config: SynchronizeConfiguration?,
          processtermination: @escaping ([String]?, Int?) -> Void,
          filehandler: @escaping (Int) -> Void)
     {

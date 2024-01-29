@@ -12,7 +12,7 @@ struct SummarizedAllDetailsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
-    @Binding var selecteduuids: Set<Configuration.ID>
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var path: [Tasks]
 
     @State private var focusstartexecution: Bool = false

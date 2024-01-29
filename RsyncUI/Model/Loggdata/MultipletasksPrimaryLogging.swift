@@ -8,7 +8,7 @@
 import Foundation
 
 final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
-    func setCurrentDateonConfiguration(configrecords: [Typelogdata]) -> [Configuration] {
+    func setCurrentDateonConfiguration(configrecords: [Typelogdata]) -> [SynchronizeConfiguration] {
         for i in 0 ..< configrecords.count {
             let hiddenID = configrecords[i].0
             let date = configrecords[i].1

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<Configuration.ID>
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
     @State private var estimateprogressdetails = EstimateProgressDetails()

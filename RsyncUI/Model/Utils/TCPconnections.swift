@@ -11,7 +11,7 @@ import Foundation
 class TCPconnections {
     var indexBoolremoteserverOff: [Bool]?
     var client: TCPClient?
-    var configurations: [Configuration]?
+    var configurations: [SynchronizeConfiguration]?
 
     // Test for TCP connection
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
@@ -46,7 +46,7 @@ class TCPconnections {
         }
 
      */
-    init(_ configurations: [Configuration]?) {
+    init(_ configurations: [SynchronizeConfiguration]?) {
         self.configurations = configurations
     }
 }

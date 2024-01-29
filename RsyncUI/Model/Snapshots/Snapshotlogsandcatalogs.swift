@@ -90,7 +90,7 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
     }
 
     init(profile: String?,
-         config: Configuration,
+         config: SynchronizeConfiguration,
          configurations: RsyncUIconfigurations?,
          snapshotdata: SnapshotData)
     {

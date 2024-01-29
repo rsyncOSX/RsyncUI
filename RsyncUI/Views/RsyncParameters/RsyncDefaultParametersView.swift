@@ -12,10 +12,10 @@ struct RsyncDefaultParametersView: View {
     @Binding var path: [ParametersTasks]
 
     @State private var parameters = ObservableParametersDefault()
-    @State private var selectedconfig: Configuration?
+    @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     @State private var valueselectedrow: String = ""
-    @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     var body: some View {
         VStack {

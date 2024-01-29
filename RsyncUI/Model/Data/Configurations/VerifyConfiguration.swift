@@ -118,8 +118,8 @@ final class VerifyConfiguration: Connected {
     let ssh: String = "ssh"
 
     // Verify parameters for new config.
-    func verify(_ data: AppendTask) -> Configuration? {
-        var newconfig = Configuration()
+    func verify(_ data: AppendTask) -> SynchronizeConfiguration? {
+        var newconfig = SynchronizeConfiguration()
         newconfig.task = data.newtask
         newconfig.backupID = data.newbackupID ?? ""
         newconfig.localCatalog = data.newlocalCatalog
@@ -210,7 +210,7 @@ final class VerifyConfiguration: Connected {
     }
 
     // Create remote snapshot catalog
-    private func snapshotcreateremotecatalog(config: Configuration) {
+    private func snapshotcreateremotecatalog(config: SynchronizeConfiguration) {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = SnapshotCreateCatalogArguments(config: config)
         let updatecurrent = CommandProcess(command: args.getCommand(),
@@ -220,7 +220,7 @@ final class VerifyConfiguration: Connected {
     }
 
     // Validate input, throws errors
-    private func validateinput(config: Configuration) throws -> Bool {
+    private func validateinput(config: SynchronizeConfiguration) throws -> Bool {
         guard config.localCatalog.isEmpty == false,
               config.offsiteCatalog.isEmpty == false
         else {

@@ -302,7 +302,7 @@ extension QuicktaskView {
         }
     }
 
-    func execute(config: Configuration, dryrun: Bool) async {
+    func execute(config: SynchronizeConfiguration, dryrun: Bool) async {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
         rsyncoutput = ObservableRsyncOutput()
         // Start progressview

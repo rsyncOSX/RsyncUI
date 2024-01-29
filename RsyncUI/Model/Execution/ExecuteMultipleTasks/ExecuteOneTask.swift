@@ -11,7 +11,7 @@ final class ExecuteOneTask {
     var arguments: [String]?
     var termination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
-    var config: Configuration?
+    var config: SynchronizeConfiguration?
 
     func startexecution() {
         if let arguments = arguments {

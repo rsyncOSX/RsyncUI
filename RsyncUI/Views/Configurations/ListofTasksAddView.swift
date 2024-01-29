@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListofTasksAddView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<Configuration.ID>
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var confirmdelete: Bool = false
 

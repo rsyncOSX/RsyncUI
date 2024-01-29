@@ -115,7 +115,7 @@ struct DecodeConfiguration: Codable {
     }
 
     // This init is used in WriteConfigurationJSON
-    init(_ data: Configuration) {
+    init(_ data: SynchronizeConfiguration) {
         backupID = data.backupID
         dateRun = data.dateRun
         haltshelltasksonerror = data.haltshelltasksonerror

@@ -22,12 +22,12 @@ extension Sequence {
 }
 
 protocol Connected {
-    func connected(config: Configuration?) -> Bool
+    func connected(config: SynchronizeConfiguration?) -> Bool
     func connected(server: String?) -> Bool
 }
 
 extension Connected {
-    func connected(config: Configuration?) -> Bool {
+    func connected(config: SynchronizeConfiguration?) -> Bool {
         var port = 22
         if let config = config {
             if config.offsiteServer.isEmpty == false {

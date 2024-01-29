@@ -9,7 +9,7 @@
 import Foundation
 
 final class SnapshotDeleteCatalogsArguments {
-    private var config: Configuration?
+    private var config: SynchronizeConfiguration?
     private var args: [String]?
     private var command: String?
     private var remotecatalog: String?
@@ -44,7 +44,7 @@ final class SnapshotDeleteCatalogsArguments {
         return command
     }
 
-    init(config: Configuration, remotecatalog: String) {
+    init(config: SynchronizeConfiguration, remotecatalog: String) {
         args = [String]()
         self.config = config
         self.remotecatalog = remotecatalog

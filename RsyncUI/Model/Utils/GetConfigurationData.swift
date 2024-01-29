@@ -10,7 +10,7 @@
 import Foundation
 
 struct GetConfigurationData {
-    private var configurations: [Configuration]?
+    private var configurations: [SynchronizeConfiguration]?
 
     func getconfigurationdata(_ hiddenID: Int, resource: ResourceInConfiguration) -> String? {
         if let result = configurations?.filter({ $0.hiddenID == hiddenID }) {
@@ -44,7 +44,7 @@ struct GetConfigurationData {
         }
     }
 
-    init(configurations: [Configuration]?) {
+    init(configurations: [SynchronizeConfiguration]?) {
         self.configurations = configurations
     }
 }

@@ -10,7 +10,7 @@
 import Foundation
 
 final class DuArgumentsSsh {
-    private var config: Configuration?
+    private var config: SynchronizeConfiguration?
     private var args: [String]?
     private var command: String?
 
@@ -43,7 +43,7 @@ final class DuArgumentsSsh {
         return args
     }
 
-    init(config: Configuration) {
+    init(config: SynchronizeConfiguration) {
         self.config = config
         argumentsDuremote()
     }

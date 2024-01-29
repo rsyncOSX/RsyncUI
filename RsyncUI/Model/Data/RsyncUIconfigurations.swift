@@ -11,7 +11,7 @@ import SwiftUI
 
 @Observable
 final class RsyncUIconfigurations {
-    var configurations: [Configuration]?
+    var configurations: [SynchronizeConfiguration]?
     var profile: String?
     @ObservationIgnored var validhiddenIDs: Set<Int>?
 
@@ -26,27 +26,27 @@ final class RsyncUIconfigurations {
         }
     }
 
-    func filterconfigurations(_ filter: String) -> [Configuration]? {
+    func filterconfigurations(_ filter: String) -> [SynchronizeConfiguration]? {
         return configurations?.filter {
             filter.isEmpty ? true : $0.backupID.contains(filter)
         }
     }
 
     // Function for getting Configurations read into memory
-    func getconfig(hiddenID: Int) -> Configuration? {
+    func getconfig(hiddenID: Int) -> SynchronizeConfiguration? {
         let configuration = configurations?.filter { $0.hiddenID == hiddenID }
         guard configuration?.count == 1 else { return nil }
         return configuration?[0]
     }
 
-    func getconfig(uuid: UUID?) -> Configuration? {
+    func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
         let configuration = configurations?.filter { $0.id == uuid }
         guard configuration?.count == 1 else { return nil }
         return configuration?[0]
     }
 
     // Function for getting Configurations read into memory, sorted by runddate
-    func getallconfigurations() -> [Configuration]? {
+    func getallconfigurations() -> [SynchronizeConfiguration]? {
         if let configurations = configurations {
             let sorted = configurations.sorted { conf1, conf2 in
                 if let days1 = conf1.dateRun?.en_us_date_from_string(),
@@ -83,7 +83,7 @@ final class RsyncUIconfigurations {
     }
 
     init(_ profile: String?,
-         _ configurationsfromstore: [Configuration]?,
+         _ configurationsfromstore: [SynchronizeConfiguration]?,
          _ validehiddenIDsfromstore: Set<Int>?)
     {
         self.profile = profile

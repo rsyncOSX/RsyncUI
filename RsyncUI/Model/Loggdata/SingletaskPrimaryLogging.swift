@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 class SingletaskPrimaryLogging {
-    var structconfigurations: [Configuration]?
+    var structconfigurations: [SynchronizeConfiguration]?
     var logrecords: [LogRecords]?
     var localeprofile: String?
     var localehiddenID: Int?
@@ -105,7 +105,7 @@ class SingletaskPrimaryLogging {
         return false
     }
 
-    func getconfig(hiddenID: Int) -> Configuration? {
+    func getconfig(hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = structconfigurations?.firstIndex(where: { $0.hiddenID == hiddenID }) {
             return structconfigurations?[index]
         }
@@ -114,7 +114,7 @@ class SingletaskPrimaryLogging {
 
     init(profile: String?,
          hiddenID: Int?,
-         configurations: [Configuration]?,
+         configurations: [SynchronizeConfiguration]?,
          validhiddenIDs: Set<Int>)
     {
         localeprofile = profile

@@ -14,7 +14,7 @@ final class UserServer {
     @ObservationIgnored
     var remoteusers = Set<String>()
 
-    func setserversandlogins(_ configurations: [Configuration]?) {
+    func setserversandlogins(_ configurations: [SynchronizeConfiguration]?) {
         guard configurations != nil else { return }
         for i in 0 ..< (configurations?.count ?? 0) {
             if let config = configurations?[i] {
@@ -30,7 +30,7 @@ final class UserServer {
         }
     }
 
-    init(configurations: [Configuration]?) {
+    init(configurations: [SynchronizeConfiguration]?) {
         setserversandlogins(configurations)
     }
 }

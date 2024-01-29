@@ -7,7 +7,7 @@
 
 class Allprofilesandtasks {
     // Configurations object
-    var alltasks: [Configuration]?
+    var alltasks: [SynchronizeConfiguration]?
     var allprofiles: [String]?
 
     private func getprofilenames() {
@@ -15,7 +15,7 @@ class Allprofilesandtasks {
     }
 
     private func readalltasks() {
-        var configurations: [Configuration]?
+        var configurations: [SynchronizeConfiguration]?
         for i in 0 ..< (allprofiles?.count ?? 0) {
             let profilename = allprofiles?[i]
             if alltasks == nil { alltasks = [] }

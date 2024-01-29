@@ -11,7 +11,7 @@ import SwiftUI
 struct RestoreTableView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State var restore = ObservableRestore()
-    @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var gettingfilelist: Bool = false
     @State private var focusaborttask: Bool = false
     // Restore snapshot

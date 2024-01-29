@@ -18,7 +18,7 @@ class ComputeRsyncParameters {
     var remoteargs: String?
     var linkdestparam: String?
 
-    func setParameters1To6(config: Configuration, dryRun _: Bool, forDisplay: Bool, verify: Bool) {
+    func setParameters1To6(config: SynchronizeConfiguration, dryRun _: Bool, forDisplay: Bool, verify: Bool) {
         var parameter1: String?
         if verify { parameter1 = "--checksum" } else
         { parameter1 = config.parameter1 }
@@ -69,7 +69,7 @@ class ComputeRsyncParameters {
 
     // Compute user selected parameters parameter8 ... parameter14
     // Brute force, check every parameter, not special elegant, but it works
-    func setParameters8To14(config: Configuration, dryRun: Bool, forDisplay: Bool) {
+    func setParameters8To14(config: SynchronizeConfiguration, dryRun: Bool, forDisplay: Bool) {
         stats = false
         if config.parameter8 != nil {
             appendParameter(parameter: config.parameter8!, forDisplay: forDisplay)
@@ -110,7 +110,7 @@ class ComputeRsyncParameters {
     }
 
     // Local params rules global settings
-    func sshparameterslocal(config: Configuration, forDisplay: Bool) {
+    func sshparameterslocal(config: SynchronizeConfiguration, forDisplay: Bool) {
         // -e "ssh -i ~/.ssh/id_myserver -p 22"
         // -e "ssh -i ~/sshkeypath/sshidentityfile -p portnumber"
         // default is
@@ -154,7 +154,7 @@ class ComputeRsyncParameters {
     }
 
     // Global ssh parameters
-    func sshparametersglobal(config: Configuration, forDisplay: Bool) {
+    func sshparametersglobal(config: SynchronizeConfiguration, forDisplay: Bool) {
         // -e "ssh -i ~/.ssh/id_myserver -p 22"
         // -e "ssh -i ~/sshkeypath/sshidentityfile -p portnumber"
         // default is
@@ -204,7 +204,7 @@ class ComputeRsyncParameters {
          return "--suffix=" + formatter.string(from: Date())
      }
      */
-    func dryrunparameter(config _: Configuration, forDisplay: Bool) {
+    func dryrunparameter(config _: SynchronizeConfiguration, forDisplay: Bool) {
         let dryrun = "--dry-run"
         arguments?.append(dryrun)
         if forDisplay { arguments?.append(" ") }
@@ -226,7 +226,7 @@ class ComputeRsyncParameters {
         }
     }
 
-    func remoteargs(config: Configuration) {
+    func remoteargs(config: SynchronizeConfiguration) {
         offsiteCatalog = config.offsiteCatalog
         offsiteUsername = config.offsiteUsername
         offsiteServer = config.offsiteServer
@@ -249,7 +249,7 @@ class ComputeRsyncParameters {
         }
     }
 
-    func remoteargssyncremote(config: Configuration) {
+    func remoteargssyncremote(config: SynchronizeConfiguration) {
         offsiteCatalog = config.offsiteCatalog
         localCatalog = config.localCatalog
         offsiteUsername = config.offsiteUsername
@@ -273,7 +273,7 @@ class ComputeRsyncParameters {
         }
     }
 
-    func remoteargssnapshot(config: Configuration) {
+    func remoteargssnapshot(config: SynchronizeConfiguration) {
         let snapshotnum = config.snapshotnum ?? 1
         offsiteCatalog = config.offsiteCatalog + String(snapshotnum - 1) + "/"
         offsiteUsername = config.offsiteUsername
@@ -298,7 +298,7 @@ class ComputeRsyncParameters {
     }
 
     // Additional parameters if snapshot
-    func linkdestparameter(config: Configuration, verify: Bool) {
+    func linkdestparameter(config: SynchronizeConfiguration, verify: Bool) {
         let snapshotnum = config.snapshotnum ?? 1
         linkdestparam = "--link-dest=" + config.offsiteCatalog + String(snapshotnum - 1)
         if remoteargs != nil {

@@ -16,7 +16,7 @@ struct DetailsOneTaskEstimatingView: View {
     @State private var estimatedtask: RemoteDataNumbers?
     @State private var outputfromrsync = Outputfromrsync()
 
-    let selecteduuids: Set<Configuration.ID>
+    let selecteduuids: Set<SynchronizeConfiguration.ID>
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -43,7 +43,7 @@ struct DetailsOneTaskEstimatingView: View {
             }
         }
         .onAppear(perform: {
-            var selectedconfig: Configuration?
+            var selectedconfig: SynchronizeConfiguration?
             let selected = rsyncUIdata.configurations?.filter { config in
                 selecteduuids.contains(config.id)
             }
@@ -66,7 +66,7 @@ struct DetailsOneTaskEstimatingView: View {
 
 extension DetailsOneTaskEstimatingView {
     func processtermination(data: [String]?) {
-        var selectedconfig: Configuration?
+        var selectedconfig: SynchronizeConfiguration?
         let selected = rsyncUIdata.configurations?.filter { config in
             selecteduuids.contains(config.id)
         }

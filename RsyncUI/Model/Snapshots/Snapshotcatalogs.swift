@@ -12,7 +12,7 @@ class Snapshotcatalogs {
     var catalogsanddates: [Catalogsanddates]?
 
     @MainActor
-    func getremotecataloginfo(_ config: Configuration) async {
+    func getremotecataloginfo(_ config: SynchronizeConfiguration) async {
         let arguments = RestorefilesArguments(task: .snapshotcatalogsonly,
                                               config: config,
                                               remoteFile: nil,
@@ -49,7 +49,7 @@ class Snapshotcatalogs {
         }
     }
 
-    init(config: Configuration,
+    init(config: SynchronizeConfiguration,
          snapshotdata: SnapshotData)
     {
         guard config.task == SharedReference.shared.snapshot else { return }

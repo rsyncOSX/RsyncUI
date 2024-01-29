@@ -10,7 +10,7 @@ import Observation
 @Observable
 final class ObservableParametersDefault {
     // Selected configuration
-    var configuration: Configuration?
+    var configuration: SynchronizeConfiguration?
     // Local SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
@@ -27,7 +27,7 @@ final class ObservableParametersDefault {
     var alerterror: Bool = false
     var error: Error = Validatedpath.noerror
 
-    func setvalues(_ config: Configuration?) {
+    func setvalues(_ config: SynchronizeConfiguration?) {
         if let config = config {
             configuration = config
             // --compress parameter3
@@ -145,7 +145,7 @@ final class ObservableParametersDefault {
     }
 
     // Return the updated configuration
-    func updatersyncparameters() -> Configuration? {
+    func updatersyncparameters() -> SynchronizeConfiguration? {
         if var configuration = configuration {
             if sshport.isEmpty {
                 configuration.sshport = nil

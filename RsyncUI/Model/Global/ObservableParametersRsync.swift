@@ -24,12 +24,12 @@ final class ObservableParametersRsync {
     var parameter13: String = ""
     var parameter14: String = ""
     // Selected configuration
-    var configuration: Configuration?
+    var configuration: SynchronizeConfiguration?
     // Alerts
     var alerterror: Bool = false
     var error: Error = Validatedpath.noerror
 
-    func setvalues(_ config: Configuration?) {
+    func setvalues(_ config: SynchronizeConfiguration?) {
         if let config = config {
             configuration = config
             parameter8 = configuration?.parameter8 ?? ""
@@ -47,7 +47,7 @@ final class ObservableParametersRsync {
         }
     }
 
-    func verifybackupison(_ config: Configuration) -> Bool {
+    func verifybackupison(_ config: SynchronizeConfiguration) -> Bool {
         return config.parameter12 == RsyncArguments().backupstrings[0]
     }
 
@@ -82,7 +82,7 @@ final class ObservableParametersRsync {
     }
 
     // Return the updated configuration
-    func updatersyncparameters() -> Configuration? {
+    func updatersyncparameters() -> SynchronizeConfiguration? {
         if var configuration = configuration {
             if parameter8.isEmpty { configuration.parameter8 = nil } else { configuration.parameter8 = parameter8 }
             if parameter9.isEmpty { configuration.parameter9 = nil } else { configuration.parameter9 = parameter9 }

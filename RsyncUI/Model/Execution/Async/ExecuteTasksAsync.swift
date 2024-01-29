@@ -19,7 +19,7 @@ final class ExecuteTasksAsync {
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
     // Update configigurations
-    var localupdateconfigurations: ([Configuration]) -> Void
+    var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
 
     @MainActor
     func startexecution() async {
@@ -62,7 +62,7 @@ final class ExecuteTasksAsync {
          executeasyncnoestimation: ExecuteAsyncNoEstimation?,
          uuids: Set<UUID>,
          filter: String,
-         updateconfigurations: @escaping ([Configuration]) -> Void)
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         structprofile = profile
         localconfigurations = rsyncuiconfigurations

@@ -15,7 +15,7 @@ final class RsyncProcessAsyncShellOut {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Verify network connection
-    var config: Configuration?
+    var config: SynchronizeConfiguration?
     var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
@@ -128,7 +128,7 @@ final class RsyncProcessAsyncShellOut {
     }
 
     init(arguments: [String]?,
-         config: Configuration?,
+         config: SynchronizeConfiguration?,
          processtermination: @escaping ([String]?, Int?) -> Void)
     {
         self.arguments = arguments

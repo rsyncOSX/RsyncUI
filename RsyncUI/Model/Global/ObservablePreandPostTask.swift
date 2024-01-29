@@ -15,12 +15,12 @@ final class ObservablePreandPostTask {
     var pretask: String = ""
     var posttask: String = ""
     var haltshelltasksonerror: Bool = false
-    var selectedconfig: Configuration?
+    var selectedconfig: SynchronizeConfiguration?
     // Alerts
     var alerterror: Bool = false
     var error: Error = Validatedpath.noerror
 
-    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
+    func updateconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         // Append default config data to the update,
         // only post and pretask is new
         let updateddata = AppendTask(selectedconfig?.task ?? "",
@@ -56,7 +56,7 @@ final class ObservablePreandPostTask {
         selectedconfig = nil
     }
 
-    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
+    func validateandupdate(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         // Validate not a snapshot task
         do {
             let validated = try validatenotsnapshottask()
@@ -70,7 +70,7 @@ final class ObservablePreandPostTask {
         return configurations
     }
 
-    func updateview(_ config: Configuration?) {
+    func updateview(_ config: SynchronizeConfiguration?) {
         selectedconfig = config
         if let config = selectedconfig {
             // pre task

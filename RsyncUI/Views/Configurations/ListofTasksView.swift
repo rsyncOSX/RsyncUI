@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListofTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<Configuration.ID>
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var filterstring: String
 
     var body: some View {

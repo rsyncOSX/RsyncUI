@@ -23,11 +23,11 @@ struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     @State private var parameters = ObservableParametersRsync()
-    @State private var selectedconfig: Configuration?
+    @State private var selectedconfig: SynchronizeConfiguration?
     @State private var rsyncoutput: ObservableRsyncOutput?
     @State private var showprogressview = false
     @State private var valueselectedrow: String = ""
-    @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
@@ -229,7 +229,7 @@ extension RsyncParametersView {
         }
     }
 
-    func verify(config: Configuration) async {
+    func verify(config: SynchronizeConfiguration) async {
         var arguments: [String]?
         switch selectedrsynccommand {
         case .synchronize:

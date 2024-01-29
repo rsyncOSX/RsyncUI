@@ -54,14 +54,14 @@ final class ObservableAddConfigurations {
 
     // Set true if remote storage is a local attached Volume
     var remotestorageislocal: Bool = false
-    var selectedconfig: Configuration?
+    var selectedconfig: SynchronizeConfiguration?
     var localhome: String {
         return NamesandPaths(.configurations).userHomeDirectoryPath ?? ""
     }
 
-    var copyandpasteconfigurations: [Configuration]?
+    var copyandpasteconfigurations: [SynchronizeConfiguration]?
 
-    func addconfig(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
+    func addconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
@@ -89,7 +89,7 @@ final class ObservableAddConfigurations {
         return configurations
     }
 
-    func updateconfig(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
+    func updateconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         updatepreandpost()
         let updateddata = AppendTask(selectedrsynccommand.rawValue,
                                      localcatalog,
@@ -156,7 +156,7 @@ final class ObservableAddConfigurations {
         }
     }
 
-    func validateandupdate(_ profile: String?, _ configurations: [Configuration]?) -> [Configuration]? {
+    func validateandupdate(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         // Validate not a snapshot task
         do {
             let validated = try validatenotsnapshottask()
@@ -170,7 +170,7 @@ final class ObservableAddConfigurations {
         return configurations
     }
 
-    func updateview(_ config: Configuration?) {
+    func updateview(_ config: SynchronizeConfiguration?) {
         selectedconfig = config
         if let config = selectedconfig {
             localcatalog = config.localCatalog
@@ -268,9 +268,9 @@ final class ObservableAddConfigurations {
     }
 
     // Prepare for Copy and Paste tasks
-    func preparecopyandpastetasks(_ items: [CopyItem], _ configurations: [Configuration]) {
+    func preparecopyandpastetasks(_ items: [CopyItem], _ configurations: [SynchronizeConfiguration]) {
         copyandpasteconfigurations = nil
-        copyandpasteconfigurations = [Configuration]()
+        copyandpasteconfigurations = [SynchronizeConfiguration]()
         let copyitems = configurations.filter { config in
             items.contains { item in
                 item.id == config.id
@@ -278,7 +278,7 @@ final class ObservableAddConfigurations {
         }
         let existingmaxhiddenID = MaxhiddenID().computemaxhiddenID(configurations)
         for i in 0 ..< copyitems.count {
-            var copy: Configuration?
+            var copy: SynchronizeConfiguration?
             copy = copyitems[i]
             copy?.backupID = "COPY " + copyitems[i].backupID
             copy?.dateRun = nil
@@ -292,7 +292,7 @@ final class ObservableAddConfigurations {
     }
 
     // After accept of Copy and Paste a write operation is performed
-    func writecopyandpastetasks(_ profile: String?, _ configurations: [Configuration]) -> [Configuration]? {
+    func writecopyandpastetasks(_ profile: String?, _ configurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
         let updateconfigurations =
             UpdateConfigurations(profile: profile,
                                  configurations: configurations)
@@ -322,7 +322,7 @@ final class ObservableAddConfigurations {
 
 // Compute max hiddenID as part of copy and paste function..
 struct MaxhiddenID {
-    func computemaxhiddenID(_ configurations: [Configuration]?) -> Int {
+    func computemaxhiddenID(_ configurations: [SynchronizeConfiguration]?) -> Int {
         // Reading Configurations from memory
         if let configs = configurations {
             var setofhiddenIDs = Set<Int>()

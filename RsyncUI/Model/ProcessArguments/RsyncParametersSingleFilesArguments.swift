@@ -17,7 +17,7 @@ final class RsyncParametersSingleFilesArguments {
     let sshp: String = "ssh -p"
     let dryrun: String = "--dry-run"
 
-    private var config: Configuration?
+    private var config: SynchronizeConfiguration?
     private var args: [String]?
 
     // Set parameters for rsync
@@ -62,7 +62,7 @@ final class RsyncParametersSingleFilesArguments {
         return args
     }
 
-    init(config: Configuration?, remoteFile: String?, localCatalog: String?, drynrun: Bool?) {
+    init(config: SynchronizeConfiguration?, remoteFile: String?, localCatalog: String?, drynrun: Bool?) {
         if let config = config {
             self.config = config
             args = [String]()

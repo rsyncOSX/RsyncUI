@@ -11,9 +11,9 @@ struct SnapshotsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     @State private var snapshotdata = SnapshotData()
-    @State private var selectedconfig: Configuration?
+    @State private var selectedconfig: SynchronizeConfiguration?
     @State private var snapshotrecords: SnapshotLogRecords?
-    @State private var selectedconfiguuid = Set<Configuration.ID>()
+    @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     // If not a snapshot
     @State private var notsnapshot = false
     // Plan for tagging and administrating snapshots

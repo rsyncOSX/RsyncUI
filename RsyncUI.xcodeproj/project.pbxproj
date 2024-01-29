@@ -96,7 +96,7 @@
 		E985C75025F3AD9700CB895C /* DecodeLogRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C825F3AD9600CB895C /* DecodeLogRecords.swift */; };
 		E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6C925F3AD9600CB895C /* DecodeConfiguration.swift */; };
 		E985C75525F3AD9700CB895C /* LogRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6CD25F3AD9600CB895C /* LogRecords.swift */; };
-		E985C75925F3AD9700CB895C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D125F3AD9600CB895C /* Configuration.swift */; };
+		E985C75925F3AD9700CB895C /* SynchronizeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D125F3AD9600CB895C /* SynchronizeConfiguration.swift */; };
 		E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6DD25F3AD9600CB895C /* SshKeys.swift */; };
 		E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */; };
 		E985C76625F3AD9700CB895C /* ExecuteMultipleTasksState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E425F3AD9600CB895C /* ExecuteMultipleTasksState.swift */; };
@@ -294,7 +294,7 @@
 		E985C6C825F3AD9600CB895C /* DecodeLogRecords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodeLogRecords.swift; sourceTree = "<group>"; };
 		E985C6C925F3AD9600CB895C /* DecodeConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodeConfiguration.swift; sourceTree = "<group>"; };
 		E985C6CD25F3AD9600CB895C /* LogRecords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogRecords.swift; sourceTree = "<group>"; };
-		E985C6D125F3AD9600CB895C /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		E985C6D125F3AD9600CB895C /* SynchronizeConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizeConfiguration.swift; sourceTree = "<group>"; };
 		E985C6DD25F3AD9600CB895C /* SshKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SshKeys.swift; sourceTree = "<group>"; };
 		E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteMultipleTasks.swift; sourceTree = "<group>"; };
 		E985C6E425F3AD9600CB895C /* ExecuteMultipleTasksState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteMultipleTasksState.swift; sourceTree = "<group>"; };
@@ -774,7 +774,7 @@
 				E914EBC92B5E711C00E212D3 /* Demodata */,
 				E9AA5400262EEB2E0009DF32 /* JSON */,
 				E985C6CD25F3AD9600CB895C /* LogRecords.swift */,
-				E985C6D125F3AD9600CB895C /* Configuration.swift */,
+				E985C6D125F3AD9600CB895C /* SynchronizeConfiguration.swift */,
 				E9569EAA27B80BEB0038799C /* UserConfiguration.swift */,
 			);
 			path = Basic;
@@ -1301,7 +1301,7 @@
 				E985C74425F3AD9700CB895C /* GetConfigurationData.swift in Sources */,
 				E9A2AA7D2B31D0E800916896 /* EstimationInProgressView.swift in Sources */,
 				E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */,
-				E985C75925F3AD9700CB895C /* Configuration.swift in Sources */,
+				E985C75925F3AD9700CB895C /* SynchronizeConfiguration.swift in Sources */,
 				E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
 				E92FA4412ABEBEC3001E0A14 /* BlurView.swift in Sources */,

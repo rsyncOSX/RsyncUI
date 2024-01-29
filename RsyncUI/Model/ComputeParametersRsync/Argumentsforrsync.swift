@@ -10,7 +10,7 @@ import Foundation
 struct Argumentsforrsync {
     // Function return arguments for rsync, either arguments for
     // real runn or arguments for --dry-run for Configuration at selected index
-    func argumentsforrsync(config: Configuration, argtype: ArgumentsRsync) -> [String] {
+    func argumentsforrsync(config: SynchronizeConfiguration, argtype: ArgumentsRsync) -> [String] {
         switch argtype {
         case .arg:
             return ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,

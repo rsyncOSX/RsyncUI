@@ -9,7 +9,7 @@
 import Foundation
 
 final class GetRemoteFileListingsArguments {
-    private var config: Configuration?
+    private var config: SynchronizeConfiguration?
     private var args: [String]?
 
     private func remotearguments(recursive: Bool) {
@@ -87,7 +87,7 @@ final class GetRemoteFileListingsArguments {
         return args
     }
 
-    init(config: Configuration?,
+    init(config: SynchronizeConfiguration?,
          recursive: Bool,
          snapshot: Bool)
     {

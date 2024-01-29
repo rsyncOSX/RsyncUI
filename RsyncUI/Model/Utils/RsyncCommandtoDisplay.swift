@@ -26,7 +26,7 @@ struct RsyncCommandtoDisplay {
     var rsynccommand: String?
 
     init(display: RsyncCommand,
-         config: Configuration)
+         config: SynchronizeConfiguration)
     {
         var str = ""
         str = GetfullpathforRsync().rsyncpath ?? ""

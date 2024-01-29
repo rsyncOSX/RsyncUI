@@ -7,7 +7,7 @@
 import Foundation
 
 final class UpdateConfigurations {
-    var configurations: [Configuration]?
+    var configurations: [SynchronizeConfiguration]?
     private var localeprofile: String?
 
     // Variable computes max hiddenID used
@@ -27,7 +27,7 @@ final class UpdateConfigurations {
 
     // Function is updating Configurations in memory (by record) and
     // then saves updated Configurations from memory to persistent store
-    func updateconfiguration(_ config: Configuration, _ parameters: Bool) {
+    func updateconfiguration(_ config: SynchronizeConfiguration, _ parameters: Bool) {
         if let index = configurations?.firstIndex(where: { $0.hiddenID == config.hiddenID }) {
             if parameters {
                 // Updated parameters only, keep all other
@@ -87,9 +87,9 @@ final class UpdateConfigurations {
     }
 
     // Add new configurations
-    func addconfiguration(_ config: Configuration) -> Bool {
+    func addconfiguration(_ config: SynchronizeConfiguration) -> Bool {
         let beforecount = (configurations?.count ?? 0)
-        var newconfig: Configuration = config
+        var newconfig: SynchronizeConfiguration = config
         newconfig.hiddenID = maxhiddenID + 1
         configurations?.append(newconfig)
         let aftercount = (configurations?.count ?? 0)
@@ -102,7 +102,7 @@ final class UpdateConfigurations {
     }
 
     // Write Copy and Paste tasks
-    func writecopyandpastetask(_ copyandpastetasks: [Configuration]?) {
+    func writecopyandpastetask(_ copyandpastetasks: [SynchronizeConfiguration]?) {
         if let copyandpastetasks = copyandpastetasks {
             for i in 0 ..< copyandpastetasks.count {
                 configurations?.append(copyandpastetasks[i])
@@ -111,11 +111,11 @@ final class UpdateConfigurations {
         WriteConfigurationJSON(localeprofile, configurations)
     }
 
-    init(profile: String?, configurations: [Configuration]?) {
+    init(profile: String?, configurations: [SynchronizeConfiguration]?) {
         localeprofile = profile
         // Create new set of configurations
         if configurations == nil {
-            self.configurations = [Configuration]()
+            self.configurations = [SynchronizeConfiguration]()
         } else {
             self.configurations = configurations
         }

@@ -36,7 +36,7 @@ enum PlanSnapshots: String, CaseIterable, Identifiable, CustomStringConvertible 
     var description: String { rawValue.localizedLowercase }
 }
 
-struct Configuration: Identifiable, Codable {
+struct SynchronizeConfiguration: Identifiable, Codable {
     var id = UUID()
     var hiddenID: Int
     var task: String
@@ -139,8 +139,8 @@ struct Configuration: Identifiable, Codable {
     }
 }
 
-extension Configuration: Hashable, Equatable {
-    static func == (lhs: Configuration, rhs: Configuration) -> Bool {
+extension SynchronizeConfiguration: Hashable, Equatable {
+    static func == (lhs: SynchronizeConfiguration, rhs: SynchronizeConfiguration) -> Bool {
         return lhs.localCatalog == rhs.localCatalog &&
             lhs.offsiteCatalog == rhs.offsiteCatalog &&
             lhs.offsiteUsername == rhs.offsiteUsername &&

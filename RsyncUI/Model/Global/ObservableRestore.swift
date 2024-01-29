@@ -26,7 +26,7 @@ final class ObservableRestore {
     var filestorestore: String = ""
     @ObservationIgnored var rsyncdata: [String]?
     @ObservationIgnored var arguments: [String]?
-    var selectedconfig: Configuration?
+    var selectedconfig: SynchronizeConfiguration?
 
     var rsync: String {
         return GetfullpathforRsync().rsyncpath ?? ""
@@ -38,7 +38,7 @@ final class ObservableRestore {
         presentsheetrsync = true
     }
 
-    private func validatetask(_ config: Configuration) throws -> Bool {
+    private func validatetask(_ config: SynchronizeConfiguration) throws -> Bool {
         if config.task != SharedReference.shared.syncremote {
             return true
         } else {
@@ -94,7 +94,7 @@ final class ObservableRestore {
         return true
     }
 
-    private func verifyrestorefile(_ config: Configuration, _: String) -> String {
+    private func verifyrestorefile(_ config: SynchronizeConfiguration, _: String) -> String {
         // Restore file or catalog
         // drop "./" in filetorestore
         // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)
@@ -109,7 +109,7 @@ final class ObservableRestore {
         }
     }
 
-    private func verifyrestorefilesnapshot(_ config: Configuration, _: String) -> String? {
+    private func verifyrestorefilesnapshot(_ config: SynchronizeConfiguration, _: String) -> String? {
         // Restore file or catalog
         // drop "./" in filetorestore
         // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)

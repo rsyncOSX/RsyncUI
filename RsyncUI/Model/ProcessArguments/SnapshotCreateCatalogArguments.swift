@@ -9,7 +9,7 @@
 import Foundation
 
 final class SnapshotCreateCatalogArguments {
-    private var config: Configuration?
+    private var config: SynchronizeConfiguration?
     private var args: [String]?
     private var command: String?
 
@@ -36,7 +36,7 @@ final class SnapshotCreateCatalogArguments {
         return command
     }
 
-    init(config: Configuration?) {
+    init(config: SynchronizeConfiguration?) {
         guard config != nil else { return }
         args = [String]()
         self.config = config

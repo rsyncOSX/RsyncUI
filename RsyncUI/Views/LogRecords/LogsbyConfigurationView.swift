@@ -14,7 +14,7 @@ struct LogsbyConfigurationView: View {
     @Bindable var rsyncUIlogrecords: RsyncUIlogrecords
 
     @State private var hiddenID = -1
-    @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedloguuids = Set<Log.ID>()
     // Alert for delete
     @State private var showAlertfordelete = false

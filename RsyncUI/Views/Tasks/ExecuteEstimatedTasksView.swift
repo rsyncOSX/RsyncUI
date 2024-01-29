@@ -14,7 +14,7 @@ struct ExecuteEstimatedTasksView: View {
     @Binding var path: [Tasks]
 
     @State private var multipletaskstate = ExecuteMultipleTasksState()
-    @State private var selectedconfig: Configuration?
+    @State private var selectedconfig: SynchronizeConfiguration?
     @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false
@@ -95,12 +95,12 @@ extension ExecuteEstimatedTasksView {
     }
 
     func executemultipleestimatedtasks() {
-        var uuids: Set<Configuration.ID>?
+        var uuids: Set<SynchronizeConfiguration.ID>?
         if selecteduuids.count > 0 {
             uuids = selecteduuids
         } else if executeprogressdetails.estimatedlist?.count ?? 0 > 0 {
             let uuidcount = executeprogressdetails.estimatedlist?.compactMap { $0.id }
-            uuids = Set<Configuration.ID>()
+            uuids = Set<SynchronizeConfiguration.ID>()
             for i in 0 ..< (uuidcount?.count ?? 0) where
                 executeprogressdetails.estimatedlist?[i].datatosynchronize == true
             {
@@ -120,7 +120,7 @@ extension ExecuteEstimatedTasksView {
         }
     }
 
-    func updateconfigurations(_ configurations: [Configuration]) {
+    func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
         rsyncUIdata.configurations = configurations
     }
 }

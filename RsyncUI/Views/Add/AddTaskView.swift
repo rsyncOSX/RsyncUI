@@ -24,8 +24,8 @@ struct AddTaskView: View {
     @Binding var selectedprofile: String?
     @Bindable var profilenames: Profilenames
 
-    @State private var selectedconfig: Configuration?
-    @State private var selecteduuids = Set<Configuration.ID>()
+    @State private var selectedconfig: SynchronizeConfiguration?
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     // Which view to show
     @State var path: [AddTasks] = []
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListofTasksMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<Configuration.ID>
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var filterstring: String
     @Binding var doubleclick: Bool
     // Progress of synchronization
@@ -111,7 +111,7 @@ struct ListofTasksMainView: View {
                 confirmdelete = false
             }
         }
-        .contextMenu(forSelectionType: Configuration.ID.self) { _ in
+        .contextMenu(forSelectionType: SynchronizeConfiguration.ID.self) { _ in
             // ...
         } primaryAction: { _ in
             doubleclick = true

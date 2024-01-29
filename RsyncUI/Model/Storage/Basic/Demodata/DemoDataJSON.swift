@@ -34,12 +34,12 @@ class DemoDataJSON {
         }
     }
 
-    func getconfigurations() async -> [Configuration]? {
+    func getconfigurations() async -> [SynchronizeConfiguration]? {
         do {
             if let data = try await getconfigurationsJSON() {
-                var myconfigurations = [Configuration]()
+                var myconfigurations = [SynchronizeConfiguration]()
                 for i in 0 ..< data.count {
-                    let oneconfiguration = Configuration(data[i])
+                    let oneconfiguration = SynchronizeConfiguration(data[i])
                     myconfigurations.append(oneconfiguration)
                 }
                 let sorted = myconfigurations.sorted { conf1, conf2 in

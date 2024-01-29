@@ -22,7 +22,7 @@ final class RestorefilesArguments {
         return arguments
     }
 
-    init(task: Enumrestorefiles, config: Configuration?, remoteFile: String?, localCatalog: String?, drynrun: Bool?, snapshot _: Bool) {
+    init(task: Enumrestorefiles, config: SynchronizeConfiguration?, remoteFile: String?, localCatalog: String?, drynrun: Bool?, snapshot _: Bool) {
         if let config = config {
             arguments = [String]()
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false

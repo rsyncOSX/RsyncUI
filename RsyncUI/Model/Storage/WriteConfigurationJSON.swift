@@ -37,7 +37,7 @@ class WriteConfigurationJSON: NamesandPaths {
     // We have to remove UUID and computed properties ahead of writing JSON file
     // done in the .map operator
     @discardableResult
-    init(_ profile: String?, _ configurations: [Configuration]?) {
+    init(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) {
         super.init(.configurations)
         SharedReference.shared.firsttime = false
         if profile == SharedReference.shared.defaultprofile {

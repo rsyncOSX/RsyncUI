@@ -9,7 +9,7 @@
 import Foundation
 
 final class ArgumentsSynchronize: ComputeRsyncParameters {
-    var config: Configuration?
+    var config: SynchronizeConfiguration?
 
     func argumentssynchronize(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config = config {
@@ -37,7 +37,7 @@ final class ArgumentsSynchronize: ComputeRsyncParameters {
         return nil
     }
 
-    init(config: Configuration?) {
+    init(config: SynchronizeConfiguration?) {
         super.init()
         self.config = config
     }

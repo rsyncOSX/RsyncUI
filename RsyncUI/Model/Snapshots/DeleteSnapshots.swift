@@ -8,7 +8,7 @@
 import Foundation
 
 final class DeleteSnapshots {
-    var localeconfig: Configuration?
+    var localeconfig: SynchronizeConfiguration?
     var snapshotcatalogstodelete: [String]?
     var mysnapshotdata: SnapshotData?
 
@@ -53,7 +53,7 @@ final class DeleteSnapshots {
         }
     }
 
-    init(config: Configuration,
+    init(config: SynchronizeConfiguration,
          snapshotdata: SnapshotData,
          logrecordssnapshot: [SnapshotLogRecords]?)
     {

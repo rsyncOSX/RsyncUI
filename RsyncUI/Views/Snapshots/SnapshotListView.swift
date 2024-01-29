@@ -12,7 +12,7 @@ struct SnapshotListView: View {
     @Binding var snapshotrecords: SnapshotLogRecords?
     @Binding var filterstring: String
 
-    @Binding var selectedconfig: Configuration?
+    @Binding var selectedconfig: SynchronizeConfiguration?
     @State private var confirmdelete: Bool = false
 
     var body: some View {

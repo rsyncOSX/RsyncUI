@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 struct RemoteDataNumbers: Identifiable, Hashable {
-    var id: Configuration.ID
+    var id: SynchronizeConfiguration.ID
     var hiddenID: Int
     var transferredNumber: String
     var transferredNumberSizebytes: String
@@ -21,7 +21,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var newfiles: String
     var deletefiles: String
     var totalNumber_totalDirs: String
-    var config: Configuration?
+    var config: SynchronizeConfiguration?
 
     var task: String
     var localCatalog: String
@@ -42,7 +42,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
 
     init(hiddenID: Int?,
          outputfromrsync: [String]?,
-         config: Configuration?)
+         config: SynchronizeConfiguration?)
     {
         self.hiddenID = hiddenID ?? -1
         self.config = config

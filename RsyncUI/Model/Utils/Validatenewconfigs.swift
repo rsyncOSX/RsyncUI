@@ -12,7 +12,7 @@ import Foundation
 struct Validatenewconfigs: Connected {
     var validated: Bool = false
 
-    init(config: Configuration) {
+    init(config: SynchronizeConfiguration) {
         guard config.localCatalog.isEmpty == false, config.offsiteCatalog.isEmpty == false else { return }
         guard config.localCatalog != "/" || config.offsiteCatalog != "/" else { return }
 
@@ -34,7 +34,7 @@ struct Validatenewconfigs: Connected {
         validated = true
     }
 
-    init(config: Configuration, Edit _: Bool) {
+    init(config: SynchronizeConfiguration, Edit _: Bool) {
         guard config.localCatalog.isEmpty == false, config.offsiteCatalog.isEmpty == false else { return }
         guard config.localCatalog != "/" || config.offsiteCatalog != "/" else { return }
         if config.offsiteServer.isEmpty == false {

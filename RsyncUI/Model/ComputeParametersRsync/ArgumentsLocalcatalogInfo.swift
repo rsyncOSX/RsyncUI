@@ -9,7 +9,7 @@
 import Foundation
 
 final class ArgumentsLocalcatalogInfo: ComputeRsyncParameters {
-    var config: Configuration?
+    var config: SynchronizeConfiguration?
 
     func argumentslocalcataloginfo(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config = config {
@@ -31,7 +31,7 @@ final class ArgumentsLocalcatalogInfo: ComputeRsyncParameters {
         return nil
     }
 
-    init(config: Configuration?) {
+    init(config: SynchronizeConfiguration?) {
         super.init()
         self.config = config
     }

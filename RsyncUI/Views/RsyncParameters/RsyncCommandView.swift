@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RsyncCommandView: View {
-    @Binding var config: Configuration?
+    @Binding var config: SynchronizeConfiguration?
     @Binding var selectedrsynccommand: RsyncCommand
 
     // Not used but requiered in parameter

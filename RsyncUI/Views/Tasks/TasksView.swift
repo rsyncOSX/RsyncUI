@@ -30,7 +30,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 
 @Observable
 final class Selectedconfig {
-    var config: Configuration?
+    var config: SynchronizeConfiguration?
 }
 
 struct TasksView: View {
@@ -39,7 +39,7 @@ struct TasksView: View {
     // which is executed. Data for progressview.
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
-    @Binding var selecteduuids: Set<Configuration.ID>
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Navigation path
     @Binding var path: [Tasks]
 

@@ -9,7 +9,7 @@
 import Foundation
 
 final class ArgumentsRestore: ComputeRsyncParameters {
-    var config: Configuration?
+    var config: SynchronizeConfiguration?
     var restoresnapshotbyfiles: Bool = false
 
     func argumentsrestore(dryRun: Bool, forDisplay: Bool, tmprestore: Bool) -> [String]? {
@@ -47,7 +47,7 @@ final class ArgumentsRestore: ComputeRsyncParameters {
         return nil
     }
 
-    init(config: Configuration?, restoresnapshotbyfiles: Bool) {
+    init(config: SynchronizeConfiguration?, restoresnapshotbyfiles: Bool) {
         super.init()
         self.config = config
         self.restoresnapshotbyfiles = restoresnapshotbyfiles

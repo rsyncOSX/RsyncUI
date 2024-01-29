@@ -25,9 +25,9 @@ final class ExecuteMultipleTasks {
     // Report progress to caller
     var localfilehandler: (Int) -> Void
     // Update configigurations
-    var localupdateconfigurations: ([Configuration]) -> Void
+    var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
 
-    private func prepareandstartexecutetasks(configurations: [Configuration]?) {
+    private func prepareandstartexecutetasks(configurations: [SynchronizeConfiguration]?) {
         stackoftasktobeexecuted = [Int]()
         if let configurations = configurations {
             for i in 0 ..< configurations.count {
@@ -55,7 +55,7 @@ final class ExecuteMultipleTasks {
          multipletaskstateDelegate: ExecuteMultipleTasksState?,
          executeprogressdetailsDelegate: ExecuteProgressDetails?,
          filehandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([Configuration]) -> Void)
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         structprofile = profile
         localconfigurations = rsyncuiconfigurations

@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 class ReadConfigurationJSON: NamesandPaths {
-    var configurations: [Configuration]?
+    var configurations: [SynchronizeConfiguration]?
     var filenamedatastore = [SharedReference.shared.fileconfigurationsjson]
     var subscriptons = Set<AnyCancellable>()
     var validhiddenIDs = Set<Int>()
@@ -19,7 +19,7 @@ class ReadConfigurationJSON: NamesandPaths {
     private func createdefaultfileconfigurations(_ profile: String?) {
         // No file, write new file with default values
         Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): Creating default file for Configurations")
-        let defaultconfiguration = [Configuration()]
+        let defaultconfiguration = [SynchronizeConfiguration()]
         WriteConfigurationJSON(profile, defaultconfiguration)
     }
 
@@ -65,9 +65,9 @@ class ReadConfigurationJSON: NamesandPaths {
                     }
                 }
             } receiveValue: { [unowned self] data in
-                var configurations = [Configuration]()
+                var configurations = [SynchronizeConfiguration]()
                 for i in 0 ..< data.count {
-                    var configuration = Configuration(data[i])
+                    var configuration = SynchronizeConfiguration(data[i])
                     configuration.profile = profile
                     // Validate sync task
                     if SharedReference.shared.synctasks.contains(configuration.task) {
