@@ -27,7 +27,7 @@ class ReadConfigurationJSON: NamesandPaths {
         var defaultlogrecords = [LogRecords()]
         guard defaultlogrecords.count == 1 else { return }
         // No file, write new file with default values
-        Logger.process.info("ReadConfigurationJSON: \(profile ?? "default profile", privacy: .public), creating default file for LogRecords")
+        Logger.process.info("ReadConfigurationJSON: \(profile ?? "default profile", privacy: .public), Creating default file for LogRecords")
         defaultlogrecords[0].dateStart = Date().en_us_string_from_date()
         defaultlogrecords[0].profilename = profile
         WriteLogRecordsJSON(profile, defaultlogrecords)
