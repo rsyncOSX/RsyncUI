@@ -44,10 +44,10 @@ class ReadLogRecordsJSON: NamesandPaths {
             } receiveValue: { [unowned self] data in
                 logrecords = [LogRecords]()
                 for i in 0 ..< data.count {
-                    var oneschedule = LogRecords(data[i])
-                    oneschedule.profilename = profile
-                    if validhiddenID.contains(oneschedule.hiddenID) {
-                        logrecords?.append(oneschedule)
+                    var onerecords = LogRecords(data[i])
+                    onerecords.profilename = profile
+                    if validhiddenID.contains(onerecords.hiddenID) {
+                        logrecords?.append(onerecords)
                     }
                 }
                 if logrecords?.count ?? 0 > 0 {

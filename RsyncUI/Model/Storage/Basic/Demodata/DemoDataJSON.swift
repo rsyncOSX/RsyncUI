@@ -63,8 +63,8 @@ class DemoDataJSON {
             if let data = try await getlogrecordsJSON() {
                 var mylogrecords = [LogRecords]()
                 for i in 0 ..< data.count {
-                    let oneschedule = LogRecords(data[i])
-                    mylogrecords.append(oneschedule)
+                    let onerecord = LogRecords(data[i])
+                    mylogrecords.append(onerecord)
                 }
                 return mylogrecords
             }
