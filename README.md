@@ -23,6 +23,8 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 | RsyncUI   | SwiftData | about 11.8k | 138  | SwiftUI, declarativ     | v1.9.0 - [February 2024](https://github.com/rsyncOSX/RsyncUISwiftData)  | February 2024 | 
 | RsyncOSX  | JSON | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
 
+RsyncUI will be avaliable with support for SwiftData later in February 2024, only for download on GitHub as a start. There is more info about RsyncUI and SwiftData within the [RsyncUI user guide](https://rsyncui.netlify.app/post/built/).
+
 ### The future
 
 According to Apple, SwiftUI is the future. In my own experience, coding in SwiftUI is easier and more predictable than by Storyboard and Swift, which are the basis for RsyncOSX. Both apps are maintained, but RsyncUI is the future, and new development is within RsyncUI. And with every new release of macOS, Swift and Xcode there are new exciting features in SwiftUI.
