@@ -55,7 +55,6 @@ struct DecodeLogRecords: Codable {
         profilename = try values.decodeIfPresent(String.self, forKey: .profilename)
     }
 
-    // This init is used in WriteScheduleJSON
     init(_ data: LogRecords) {
         dateStart = data.dateStart
         hiddenID = data.hiddenID

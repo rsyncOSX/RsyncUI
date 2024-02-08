@@ -55,7 +55,7 @@ class SingletaskPrimaryLogging {
                         resultannotaded = stats
                     }
                     var inserted: Bool = addlogexisting(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
-                    // Record does not exist, create new Schedule (not inserted)
+                    // Record does not exist, create new LogRecord (not inserted)
                     if inserted == false {
                         inserted = addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
                     }

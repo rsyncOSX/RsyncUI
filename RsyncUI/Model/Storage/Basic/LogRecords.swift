@@ -28,7 +28,6 @@ struct LogRecords: Identifiable, Codable {
     var profilename: String?
 
     // Used when reading JSON data from store
-    // see in ReadScheduleJSON
     init(_ data: DecodeLogRecords) {
         dateStart = data.dateStart ?? ""
         hiddenID = data.hiddenID ?? -1
