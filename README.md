@@ -20,7 +20,7 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 | App      | Data  | #lines  | #files | UI | Latest version  |  Version 1.0 | 
 | ----------- | ----------- |   ----------- | -------- |  -------- | -------- | -------- |
 | RsyncUI   | JSON  | about 13.4k | 164  | SwiftUI, declarativ     | v1.8.6 - [30 January 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
-| RsyncUI   | SwiftData | about 11.8k | 138  | SwiftUI, declarativ     | v1.8.6 - [30 January 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | February 2024  | 
+| RsyncUI   | SwiftData | about 11.8k | 138  | SwiftUI, declarativ     | v1.9.0 - [February 2024](https://github.com/rsyncOSX/RsyncUISwiftData)  | February 2024 | 
 | RsyncOSX  | JSON | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
 
 ### The future
