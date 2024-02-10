@@ -215,10 +215,13 @@ extension SnapshotsView {
                 self.snapdayofweek = snapdayofweek
             }
             snapshotdata.snapshotlist = true
-            _ = Snapshotlogsandcatalogs(profile: rsyncUIdata.profile,
-                                        config: config,
-                                        configurations: rsyncUIdata,
-                                        snapshotdata: snapshotdata)
+            if let config = selectedconfig,
+               let logrecords = ReadLogRecordsJSON(rsyncUIdata.profile, rsyncUIdata.validhiddenIDs ?? Set(), false).logrecords
+            {
+                _ = Snapshotlogsandcatalogs(config: config,
+                                            logrecords: logrecords,
+                                            snapshotdata: snapshotdata)
+            }
         }
     }
 

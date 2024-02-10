@@ -27,56 +27,46 @@ struct SnapshotLogRecords: Identifiable {
 }
 
 final class SnapshotRecords {
-    private var localconfigurations: RsyncUIconfigurations?
-    private var alllogrecords: ReadLogRecordsfromstore?
     var loggrecordssnapshots: [SnapshotLogRecords]?
     private var localehiddenID: Int?
 
-    private func readandsortallloggdata(hiddenID: Int?) {
+    private func readandsortallloggdata(_ config: SynchronizeConfiguration,
+                                        _ logrecords: [LogRecords])
+    {
         var data = [SnapshotLogRecords]()
-        if let input: [LogRecords] = alllogrecords?.logrecords {
-            for i in 0 ..< input.count {
-                for j in 0 ..< (input[i].logrecords?.count ?? 0) {
-                    if let hiddenID = alllogrecords?.logrecords?[i].hiddenID {
-                        var datestring: String?
-                        var date: Date?
-                        if let stringdate = input[i].logrecords?[j].dateExecuted {
-                            if stringdate.isEmpty == false {
-                                datestring = stringdate.en_us_date_from_string().localized_string_from_date()
-                                date = stringdate.en_us_date_from_string()
-                            }
-                        }
-                        let configdata = GetConfigurationData(configurations: localconfigurations?.getallconfigurations())
-                        let record =
-                            SnapshotLogRecords(
-                                hiddenID: hiddenID,
-                                localCatalog: configdata.getconfigurationdata(hiddenID, resource: .localCatalog) ?? "",
-                                remoteCatalog: configdata.getconfigurationdata(hiddenID, resource: .remoteCatalog) ?? "",
-                                offsiteServer: configdata.getconfigurationdata(hiddenID, resource: .offsiteServer) ?? "",
-                                task: configdata.getconfigurationdata(hiddenID, resource: .task) ?? "",
-                                backupID: configdata.getconfigurationdata(hiddenID, resource: .backupid) ?? "",
-                                dateExecuted: datestring ?? "",
-                                date: date ?? Date(),
-                                resultExecuted: input[i].logrecords?[j].resultExecuted ?? ""
-                            )
-                        data.append(record)
-                    }
+        let localrecords = logrecords.filter { $0.hiddenID == config.hiddenID }
+        guard localrecords.count == 1 else { return }
+        for i in 0 ..< (localrecords[0].logrecords?.count ?? 0) {
+            var datestring: String?
+            var date: Date?
+            if let stringdate = localrecords[0].logrecords?[i].dateExecuted {
+                if stringdate.isEmpty == false {
+                    datestring = stringdate.en_us_date_from_string().localized_string_from_date()
+                    date = stringdate.en_us_date_from_string()
                 }
             }
+            let record =
+                SnapshotLogRecords(
+                    hiddenID: config.hiddenID,
+                    localCatalog: config.localCatalog,
+                    remoteCatalog: config.offsiteCatalog,
+                    offsiteServer: config.offsiteServer,
+                    task: config.task,
+                    backupID: config.backupID,
+                    dateExecuted: datestring ?? "",
+                    date: date ?? Date(),
+                    resultExecuted: localrecords[0].logrecords?[i].resultExecuted ?? ""
+                )
+            data.append(record)
         }
-        if hiddenID != nil { data = data.filter { $0.hiddenID == hiddenID } }
         loggrecordssnapshots = data.sorted(by: \.date, using: >)
     }
 
-    init(hiddenID: Int?,
-         profile: String?,
-         configurations: RsyncUIconfigurations?)
+    init(config: SynchronizeConfiguration,
+         logrecords: [LogRecords])
     {
-        localehiddenID = hiddenID
-        localconfigurations = configurations
-        alllogrecords = ReadLogRecordsfromstore(profile, localconfigurations?.validhiddenIDs ?? Set())
         if loggrecordssnapshots == nil {
-            readandsortallloggdata(hiddenID: hiddenID)
+            readandsortallloggdata(config, logrecords)
         }
     }
 }

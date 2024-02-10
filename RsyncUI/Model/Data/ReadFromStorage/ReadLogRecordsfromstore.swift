@@ -15,9 +15,9 @@ struct ReadLogRecordsfromstore {
         guard validhiddenIDs != nil else { return }
         var logdatafromstore: ReadLogRecordsJSON?
         if profile == SharedReference.shared.defaultprofile || profile == nil {
-            logdatafromstore = ReadLogRecordsJSON(nil, validhiddenIDs ?? Set())
+            logdatafromstore = ReadLogRecordsJSON(nil, validhiddenIDs ?? Set(), false)
         } else {
-            logdatafromstore = ReadLogRecordsJSON(profile, validhiddenIDs ?? Set())
+            logdatafromstore = ReadLogRecordsJSON(profile, validhiddenIDs ?? Set(), false)
         }
         logrecords = logdatafromstore?.logrecords?.sorted { log1, log2 in
             log1.dateStart > log2.dateStart

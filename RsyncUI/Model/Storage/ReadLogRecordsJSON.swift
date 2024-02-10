@@ -15,7 +15,7 @@ class ReadLogRecordsJSON: NamesandPaths {
     var filenamedatastore = [SharedReference.shared.filenamelogrecordsjson]
     var subscriptons = Set<AnyCancellable>()
 
-    init(_ profile: String?, _ validhiddenID: Set<Int>) {
+    init(_ profile: String?, _ validhiddenID: Set<Int>, _ onlylogrecords: Bool) {
         super.init(.configurations)
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
@@ -50,17 +50,19 @@ class ReadLogRecordsJSON: NamesandPaths {
                         logrecords?.append(onerecords)
                     }
                 }
-                if logrecords?.count ?? 0 > 0 {
-                    logs = [Log]()
-                    for i in 0 ..< (logrecords?.count ?? 0) {
-                        if let records = logrecords?[i].logrecords {
-                            logs?.append(contentsOf: records)
+                if onlylogrecords == false {
+                    if logrecords?.count ?? 0 > 0 {
+                        logs = [Log]()
+                        for i in 0 ..< (logrecords?.count ?? 0) {
+                            if let records = logrecords?[i].logrecords {
+                                logs?.append(contentsOf: records)
+                            }
                         }
+                        logs = logs?.sorted(by: \.date, using: >)
+                        Logger.process.info("ReadLogRecordsJSON: read logrecords from permanent storage")
+                    } else {
+                        Logger.process.warning("ReadLogRecordsJSON: NO logrecords in JSON from permanent storage")
                     }
-                    logs = logs?.sorted(by: \.date, using: >)
-                    Logger.process.info("ReadLogRecordsJSON: read logrecords from permanent storage")
-                } else {
-                    Logger.process.warning("ReadLogRecordsJSON: NO logrecords in JSON from permanent storage")
                 }
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
