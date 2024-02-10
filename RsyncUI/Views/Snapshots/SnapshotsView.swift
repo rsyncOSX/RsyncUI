@@ -215,8 +215,12 @@ extension SnapshotsView {
                 self.snapdayofweek = snapdayofweek
             }
             snapshotdata.snapshotlist = true
+            var profile: String? = rsyncUIdata.profile ?? ""
+            if profile == SharedReference.shared.defaultprofile || profile == nil {
+                profile = nil
+            }
             if let config = selectedconfig,
-               let logrecords = ReadLogRecordsJSON(rsyncUIdata.profile, rsyncUIdata.validhiddenIDs ?? Set(), false).logrecords
+               let logrecords = ReadLogRecordsJSON(profile, rsyncUIdata.validhiddenIDs ?? Set(), false).logrecords
             {
                 _ = Snapshotlogsandcatalogs(config: config,
                                             logrecords: logrecords,
