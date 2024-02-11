@@ -27,7 +27,9 @@ struct RestoreTableView: View {
             VStack {
                 ZStack {
                     HStack {
-                        ListofTasksLightView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
+                        ListofTasksLightView(selecteduuids: $selecteduuids,
+                                             profile: rsyncUIdata.profile,
+                                             configurations: rsyncUIdata.configurations ?? [])
                             .onChange(of: selecteduuids) {
                                 restore.filestorestore = ""
                                 restore.datalist = []

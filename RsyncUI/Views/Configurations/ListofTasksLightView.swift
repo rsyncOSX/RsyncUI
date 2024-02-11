@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ListofTasksLightView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    let profile: String?
+    let configurations: [SynchronizeConfiguration]
 
     var body: some View {
         tabledata
     }
 
     var tabledata: some View {
-        Table(rsyncUIdata.configurations ?? [], selection: $selecteduuids) {
+        Table(configurations, selection: $selecteduuids) {
             TableColumn("Profile") { _ in
-                Text(rsyncUIdata.profile ?? "Default profile")
+                Text(profile ?? "Default profile")
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID", value: \.backupID)

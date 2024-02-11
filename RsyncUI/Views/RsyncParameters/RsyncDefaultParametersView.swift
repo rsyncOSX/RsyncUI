@@ -45,7 +45,9 @@ struct RsyncDefaultParametersView: View {
                     Spacer()
                 }
 
-                ListofTasksLightView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
+                ListofTasksLightView(selecteduuids: $selecteduuids,
+                                     profile: rsyncUIdata.profile,
+                                     configurations: rsyncUIdata.configurations ?? [])
                     .frame(maxWidth: .infinity)
                     .onChange(of: selecteduuids) {
                         let selected = rsyncUIdata.configurations?.filter { config in

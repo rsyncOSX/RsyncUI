@@ -27,8 +27,9 @@ struct LogsbyConfigurationView: View {
     var body: some View {
         VStack {
             HStack {
-                ListofTasksLightView(rsyncUIdata: rsyncUIdata,
-                                     selecteduuids: $selecteduuids)
+                ListofTasksLightView(selecteduuids: $selecteduuids,
+                                     profile: rsyncUIdata.profile,
+                                     configurations: rsyncUIdata.configurations ?? [])
                     .onChange(of: selecteduuids) {
                         let selected = rsyncUIdata.configurations?.filter { config in
                             selecteduuids.contains(config.id)

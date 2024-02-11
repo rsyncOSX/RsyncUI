@@ -58,7 +58,9 @@ struct AddPreandPostView: View {
                     // Column 2
 
                     VStack(alignment: .leading) {
-                        ListofTasksLightView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
+                        ListofTasksLightView(selecteduuids: $selecteduuids,
+                                             profile: rsyncUIdata.profile,
+                                             configurations: rsyncUIdata.configurations ?? [])
                             .onChange(of: selecteduuids) {
                                 let selected = rsyncUIdata.configurations?.filter { config in
                                     selecteduuids.contains(config.id)
