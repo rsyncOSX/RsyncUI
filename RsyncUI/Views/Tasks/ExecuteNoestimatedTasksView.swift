@@ -24,9 +24,10 @@ struct ExecuteNoestimatedTasksView: View {
     var body: some View {
         ZStack {
             ListofTasksView(
-                rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
-                filterstring: $filterstring
+                filterstring: $filterstring,
+                profile: rsyncUIdata.profile,
+                configurations: rsyncUIdata.configurations ?? []
             )
 
             if executeasyncnoestimation.executeasyncnoestimationcompleted == true { labelcompleted }

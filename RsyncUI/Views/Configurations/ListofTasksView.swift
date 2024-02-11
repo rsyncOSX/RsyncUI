@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ListofTasksView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var filterstring: String
+
+    let profile: String?
+    let configurations: [SynchronizeConfiguration]
 
     var body: some View {
         VStack {
@@ -20,7 +22,7 @@ struct ListofTasksView: View {
     }
 
     var tabledata: some View {
-        Table((rsyncUIdata.configurations ?? []).filter {
+        Table(configurations.filter {
             filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
         }, selection: $selecteduuids) {
             TableColumn("%") { _ in
@@ -28,7 +30,7 @@ struct ListofTasksView: View {
             }
             .width(max: 50)
             TableColumn("Profile") { _ in
-                Text(rsyncUIdata.profile ?? "Default profile")
+                Text(profile ?? "Default profile")
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID", value: \.backupID)
