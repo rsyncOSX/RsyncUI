@@ -13,6 +13,13 @@ final class ExecuteOneTask {
     var filehandler: (Int) -> Void
     var config: SynchronizeConfiguration?
 
+    func getconfig(_ hiddenID: Int, _ configurations: [SynchronizeConfiguration]) -> SynchronizeConfiguration? {
+        if let index = configurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
+            return configurations[index]
+        }
+        return nil
+    }
+
     func startexecution() {
         if let arguments = arguments {
             if config?.pretask?.isEmpty == false, config?.executepretask == 1 {
@@ -32,13 +39,13 @@ final class ExecuteOneTask {
     }
 
     init(hiddenID: Int,
-         configurations: RsyncUIconfigurations?,
+         configurations: [SynchronizeConfiguration],
          termination: @escaping ([String]?, Int?) -> Void,
          filehandler: @escaping (Int) -> Void)
     {
         self.termination = termination
         self.filehandler = filehandler
-        config = configurations?.getconfig(hiddenID: hiddenID)
+        config = getconfig(hiddenID, configurations)
         if let config = config {
             arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
         }

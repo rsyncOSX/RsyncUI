@@ -12,7 +12,7 @@ import OSLog
 typealias Typelogdata = (Int, String)
 
 final class ExecuteMultipleTasks {
-    private var localconfigurations: RsyncUIconfigurations?
+    private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
     private var stackoftasktobeexecuted: [Int]?
     private var setabort = false
@@ -26,6 +26,8 @@ final class ExecuteMultipleTasks {
     var localfilehandler: (Int) -> Void
     // Update configigurations
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
+    // ValidHiddenIDs
+    var validhiddenIDs = Set<Int>()
 
     private func prepareandstartexecutetasks(configurations: [SynchronizeConfiguration]?) {
         stackoftasktobeexecuted = [Int]()
@@ -51,7 +53,7 @@ final class ExecuteMultipleTasks {
     @discardableResult
     init(uuids: Set<UUID>,
          profile: String?,
-         rsyncuiconfigurations: RsyncUIconfigurations?,
+         rsyncuiconfigurations: [SynchronizeConfiguration],
          multipletaskstateDelegate: ExecuteMultipleTasksState?,
          executeprogressdetailsDelegate: ExecuteProgressDetails?,
          filehandler: @escaping (Int) -> Void,
@@ -69,12 +71,16 @@ final class ExecuteMultipleTasks {
             multipletaskstate?.updatestate(state: .completed)
             return
         }
-        let taskstosynchronize = localconfigurations?.getallconfigurations()?.filter { uuids.contains($0.id) }
-        guard (taskstosynchronize?.count ?? 0) > 0 else {
+        let taskstosynchronize = localconfigurations.filter { uuids.contains($0.id) }
+        guard taskstosynchronize.count > 0 else {
             Logger.process.warning("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(uuids.count, privacy: .public)")
             multipletaskstate?.updatestate(state: .completed)
             return
         }
+        for i in 0 ..< localconfigurations.count {
+            validhiddenIDs.insert(localconfigurations[i].hiddenID)
+        }
+
         prepareandstartexecutetasks(configurations: taskstosynchronize)
         startexecution()
     }
@@ -100,8 +106,8 @@ extension ExecuteMultipleTasks {
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: hiddenID,
-                                                     configurations: localconfigurations?.getallconfigurations(),
-                                                     validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
+                                                     configurations: localconfigurations,
+                                                     validhiddenIDs: validhiddenIDs)
             let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
             // Send date stamped configurations back to caller
             localupdateconfigurations(updateconfigurations)

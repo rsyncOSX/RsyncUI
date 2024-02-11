@@ -109,14 +109,16 @@ extension ExecuteEstimatedTasksView {
         }
         guard (uuids?.count ?? 0) > 0 else { return }
         if let uuids = uuids {
-            multipletaskstate.updatestate(state: .execute)
-            ExecuteMultipleTasks(uuids: uuids,
-                                 profile: rsyncUIdata.profile,
-                                 rsyncuiconfigurations: rsyncUIdata,
-                                 multipletaskstateDelegate: multipletaskstate,
-                                 executeprogressdetailsDelegate: executeprogressdetails,
-                                 filehandler: filehandler,
-                                 updateconfigurations: updateconfigurations)
+            if let configurations = rsyncUIdata.configurations {
+                multipletaskstate.updatestate(state: .execute)
+                ExecuteMultipleTasks(uuids: uuids,
+                                     profile: rsyncUIdata.profile,
+                                     rsyncuiconfigurations: configurations,
+                                     multipletaskstateDelegate: multipletaskstate,
+                                     executeprogressdetailsDelegate: executeprogressdetails,
+                                     filehandler: filehandler,
+                                     updateconfigurations: updateconfigurations)
+            }
         }
     }
 

@@ -89,7 +89,6 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
         return j - 1
     }
 
-    // TODO: fix
     init(config: SynchronizeConfiguration,
          logrecords: [LogRecords],
          snapshotdata: SnapshotData)
