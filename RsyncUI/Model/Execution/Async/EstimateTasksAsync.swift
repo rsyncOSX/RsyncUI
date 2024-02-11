@@ -14,9 +14,9 @@ class EstimateTasksAsync {
     var stackoftasktobeestimated: [Int]?
     weak var localestimateprogressdetails: EstimateProgressDetails?
 
-    func getconfig(_ hiddenID: Int, _ configurations: [SynchronizeConfiguration]) -> SynchronizeConfiguration? {
-        if let index = configurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
-            return configurations[index]
+    func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
+        if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
+            return localconfigurations[index]
         }
         return nil
     }
@@ -29,7 +29,7 @@ class EstimateTasksAsync {
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
         guard localhiddenID != nil else { return }
-        if let config = getconfig(localhiddenID ?? -1, localconfigurations) {
+        if let config = getconfig(localhiddenID ?? -1) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .argdryRun)
             guard arguments.count > 0 else { return }
             // Used to display details of configuration in estimation
@@ -72,10 +72,10 @@ extension EstimateTasksAsync {
     func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
         let record = RemoteDataNumbers(hiddenID: hiddenID,
                                        outputfromrsync: outputfromrsync,
-                                       config: getconfig(hiddenID ?? -1, localconfigurations))
+                                       config: getconfig(hiddenID ?? -1))
         localestimateprogressdetails?.appendrecordestimatedlist(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
-            if let config = getconfig(hiddenID ?? -1, localconfigurations) {
+            if let config = getconfig(hiddenID ?? -1) {
                 localestimateprogressdetails?.appenduuid(config.id)
             }
         }

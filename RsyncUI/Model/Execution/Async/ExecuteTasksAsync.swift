@@ -23,9 +23,9 @@ final class ExecuteTasksAsync {
     // ValidHiddenIDs
     var validhiddenIDs = Set<Int>()
 
-    func getconfig(_ hiddenID: Int, _ configurations: [SynchronizeConfiguration]) -> SynchronizeConfiguration? {
-        if let index = configurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
-            return configurations[index]
+    func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
+        if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
+            return localconfigurations[index]
         }
         return nil
     }
@@ -47,7 +47,7 @@ final class ExecuteTasksAsync {
             return
         }
         if let localhiddenID = stackoftasktobeestimated?.removeLast() {
-            if let config = getconfig(localhiddenID, localconfigurations) {
+            if let config = getconfig(localhiddenID) {
                 let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
                 guard arguments.count > 0 else { return }
                 // Check if ShellOut is active
@@ -104,7 +104,7 @@ extension ExecuteTasksAsync {
         // When creating the logrecord, decrease the snapshotum by 1
         configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((hiddenID ?? -1, Numbers(outputfromrsync ?? []).stats()))
-        if let config = getconfig(hiddenID ?? -1, localconfigurations) {
+        if let config = getconfig(hiddenID ?? -1) {
             let record = RemoteDataNumbers(hiddenID: hiddenID,
                                            outputfromrsync: outputfromrsync,
                                            config: config)
