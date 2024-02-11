@@ -14,10 +14,10 @@ enum SideSettingsbaritems: String, Identifiable, CaseIterable {
 }
 
 struct SettingsView: View {
-    @Binding var selectedprofile: String?
-
     @State private var alerterror = AlertError()
     @State private var selectedsetting: SideSettingsbaritems = .settings
+
+    let configurations: [SynchronizeConfiguration]
 
     var body: some View {
         NavigationSplitView {
@@ -45,21 +45,13 @@ struct SettingsView: View {
                 .environment(alerterror)
         case .ssh:
             NavigationStack {
-                Sshsettings(selectedprofile: $selectedprofile)
+                Sshsettings(configurations: configurations)
                     .environment(alerterror)
             }
         case .environment:
             Othersettings()
         case .info:
             AboutView()
-        }
-    }
-
-    var profile: String? {
-        if selectedprofile == SharedReference.shared.defaultprofile || selectedprofile == nil {
-            return nil
-        } else {
-            return selectedprofile
         }
     }
 }

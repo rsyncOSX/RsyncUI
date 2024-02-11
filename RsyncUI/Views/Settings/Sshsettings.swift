@@ -12,7 +12,6 @@ import SwiftUI
 
 struct Sshsettings: View {
     @Environment(AlertError.self) private var alerterror
-    @Binding var selectedprofile: String?
 
     @State private var usersettings = ObservableSSH()
     @State private var localsshkeys: Bool = false
@@ -20,6 +19,8 @@ struct Sshsettings: View {
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
+
+    let configurations: [SynchronizeConfiguration]
 
     var body: some View {
         NavigationStack {
@@ -80,7 +81,7 @@ struct Sshsettings: View {
             }
         }
         .navigationDestination(isPresented: $showcopykeys) {
-            ShowSSHCopyKeysView(selectedprofile: $selectedprofile)
+            ShowSSHCopyKeysView(configurations: configurations)
         }
     }
 

@@ -45,7 +45,8 @@ struct RsyncUIApp: App {
         }
 
         Settings {
-            SettingsView(selectedprofile: $selectedprofile)
+            // TODO:
+            SettingsView(configurations: [])
         }
     }
 

@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ShowSSHCopyKeysView: View {
-    @Binding var selectedprofile: String?
     @State private var selectedlogin: UniqueserversandLogins?
+    let configurations: [SynchronizeConfiguration]
 
     var body: some View {
         HStack {
             List(selection: $selectedlogin) {
-                ForEach(rsyncUIdata.getuniqueserversandlogins() ?? []) { record in
+                ForEach(getuniqueserversandlogins() ?? []) { record in
                     ServerRow(record: record)
                         .tag(record)
                 }
@@ -27,13 +27,6 @@ struct ShowSSHCopyKeysView: View {
                 strings
             }
         }
-    }
-
-    var rsyncUIdata: RsyncUIconfigurations {
-        let configurationsdata = ReadConfigurationsfromstore(selectedprofile)
-        return RsyncUIconfigurations(selectedprofile,
-                                     configurationsdata.configurations ?? [],
-                                     configurationsdata.validhiddenIDs)
     }
 
     // Copy strings
@@ -54,6 +47,22 @@ struct ShowSSHCopyKeysView: View {
             Text("Copy public SSH key:")
         }
         .frame(width: 400, height: 100)
+    }
+
+    func getuniqueserversandlogins() -> [UniqueserversandLogins]? {
+        var uniqueserversandlogins = [UniqueserversandLogins]()
+        for i in 0 ..< configurations.count {
+            let config = configurations[i]
+            if config.offsiteUsername.isEmpty == false, config.offsiteServer.isEmpty == false {
+                let record = UniqueserversandLogins(config.offsiteUsername, config.offsiteServer)
+                if uniqueserversandlogins.filter({ ($0.offsiteUsername == record.offsiteUsername) &&
+                        ($0.offsiteServer == record.offsiteServer)
+                }).count == 0 {
+                    uniqueserversandlogins.append(record)
+                }
+            }
+        }
+        return uniqueserversandlogins
     }
 }
 
