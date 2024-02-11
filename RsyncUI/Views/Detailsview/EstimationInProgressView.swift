@@ -33,17 +33,19 @@ struct EstimationInProgressView: View {
     var progressviewestimateasync: some View {
         ProgressView("",
                      value: estimateprogressdetails.numberofconfigurationsestimated,
-                     total: Double(rsyncUIdata.getallconfigurations()?.count ?? 0))
+                     total: Double(rsyncUIdata.configurations?.count ?? 0))
             .onAppear {
                 Task {
                     // Either is there some selceted tasks or if not
                     // the EstimateTasksAsync selects all tasks to be estimated.
-                    let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
-                                                      configurations: rsyncUIdata,
-                                                      estimateprogressdetails: estimateprogressdetails,
-                                                      uuids: selecteduuids,
-                                                      filter: "")
-                    await estimate.startestimation()
+                    if let configurations = rsyncUIdata.configurations {
+                        let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
+                                                          configurations: configurations,
+                                                          estimateprogressdetails: estimateprogressdetails,
+                                                          uuids: selecteduuids,
+                                                          filter: "")
+                        await estimate.startestimation()
+                    }
                 }
             }
             .onDisappear {

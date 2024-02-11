@@ -72,12 +72,14 @@ struct ListofTasksAddView: View {
     }
 
     func delete() {
-        let deleteconfigurations =
-            UpdateConfigurations(profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata.getallconfigurations())
-        deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
-        selecteduuids.removeAll()
-        rsyncUIdata.configurations = deleteconfigurations.configurations
-        rsyncUIdata.resetandupdatevalidhiddenIDS()
+        if let configurations = rsyncUIdata.configurations {
+            let deleteconfigurations =
+                UpdateConfigurations(profile: rsyncUIdata.profile,
+                                     configurations: configurations)
+            deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
+            selecteduuids.removeAll()
+            rsyncUIdata.configurations = deleteconfigurations.configurations
+            rsyncUIdata.resetandupdatevalidhiddenIDS()
+        }
     }
 }

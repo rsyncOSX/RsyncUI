@@ -10,9 +10,16 @@ import Foundation
 
 class EstimateTasksAsync {
     var structprofile: String?
-    var localconfigurations: RsyncUIconfigurations?
+    var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
     weak var localestimateprogressdetails: EstimateProgressDetails?
+
+    func getconfig(_ hiddenID: Int, _ configurations: [SynchronizeConfiguration]) -> SynchronizeConfiguration? {
+        if let index = configurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
+            return configurations[index]
+        }
+        return nil
+    }
 
     @MainActor
     func startestimation() async {
@@ -22,7 +29,7 @@ class EstimateTasksAsync {
         }
         let localhiddenID = stackoftasktobeestimated?.removeLast()
         guard localhiddenID != nil else { return }
-        if let config = localconfigurations?.getconfig(hiddenID: localhiddenID ?? 0) {
+        if let config = getconfig(localhiddenID ?? -1, localconfigurations) {
             let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .argdryRun)
             guard arguments.count > 0 else { return }
             // Used to display details of configuration in estimation
@@ -35,7 +42,7 @@ class EstimateTasksAsync {
     }
 
     init(profile: String?,
-         configurations: RsyncUIconfigurations?,
+         configurations: [SynchronizeConfiguration],
          estimateprogressdetails: EstimateProgressDetails?,
          uuids: Set<UUID>,
          filter: String)
@@ -43,31 +50,21 @@ class EstimateTasksAsync {
         structprofile = profile
         localconfigurations = configurations
         localestimateprogressdetails = estimateprogressdetails
-        let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
+        let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()
         // Estimate selected configurations
         if uuids.count > 0 {
-            let configurations = filteredconfigurations?.filter { uuids.contains($0.id) }
-            for i in 0 ..< (configurations?.count ?? 0) {
-                let task = configurations?[i].task
-                if SharedReference.shared.synctasks.contains(task ?? "") {
-                    if let hiddenID = configurations?[i].hiddenID {
-                        stackoftasktobeestimated?.append(hiddenID)
-                    }
-                }
+            let configurations = filteredconfigurations.filter { uuids.contains($0.id) }
+            for i in 0 ..< configurations.count {
+                stackoftasktobeestimated?.append(configurations[i].hiddenID)
             }
         } else {
             // Or estimate all tasks
-            for i in 0 ..< (filteredconfigurations?.count ?? 0) {
-                let task = filteredconfigurations?[i].task
-                if SharedReference.shared.synctasks.contains(task ?? "") {
-                    if let hiddenID = filteredconfigurations?[i].hiddenID {
-                        stackoftasktobeestimated?.append(hiddenID)
-                    }
-                }
+            for i in 0 ..< filteredconfigurations.count {
+                stackoftasktobeestimated?.append(filteredconfigurations[i].hiddenID)
             }
         }
-        localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations?.getallconfigurations()?.count ?? 0)
+        localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations.count)
     }
 }
 
@@ -75,10 +72,10 @@ extension EstimateTasksAsync {
     func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
         let record = RemoteDataNumbers(hiddenID: hiddenID,
                                        outputfromrsync: outputfromrsync,
-                                       config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
+                                       config: getconfig(hiddenID ?? -1, localconfigurations))
         localestimateprogressdetails?.appendrecordestimatedlist(record)
         if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
-            if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {
+            if let config = getconfig(hiddenID ?? -1, localconfigurations) {
                 localestimateprogressdetails?.appenduuid(config.id)
             }
         }

@@ -45,22 +45,23 @@ final class RsyncUIconfigurations {
         return configuration?[0]
     }
 
-    // Function for getting Configurations read into memory, sorted by runddate
-    func getallconfigurations() -> [SynchronizeConfiguration]? {
-        if let configurations = configurations {
-            let sorted = configurations.sorted { conf1, conf2 in
-                if let days1 = conf1.dateRun?.en_us_date_from_string(),
-                   let days2 = conf2.dateRun?.en_us_date_from_string()
-                {
-                    return days1 > days2
-                }
-                return false
-            }
-            return sorted
-        }
-        return nil
-    }
-
+    /*
+     // Function for getting Configurations read into memory, sorted by runddate
+     func getallconfigurations() -> [SynchronizeConfiguration]? {
+         if let configurations = configurations {
+             let sorted = configurations.sorted { conf1, conf2 in
+                 if let days1 = conf1.dateRun?.en_us_date_from_string(),
+                    let days2 = conf2.dateRun?.en_us_date_from_string()
+                 {
+                     return days1 > days2
+                 }
+                 return false
+             }
+             return sorted
+         }
+         return nil
+     }
+     */
     func getuniqueserversandlogins() -> [UniqueserversandLogins]? {
         let configs = configurations?.filter {
             SharedReference.shared.synctasks.contains($0.task)
