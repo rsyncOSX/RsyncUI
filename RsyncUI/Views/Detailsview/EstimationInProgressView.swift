@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct EstimationInProgressView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    // @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var nodatatosynchronize: Bool
 
+    let profile: String?
+    let configurations: [SynchronizeConfiguration]
+
     var body: some View {
         VStack {
-            if let config = rsyncUIdata.getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
+            if let config = getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
                 Text("Estimating now: " + "\(config.backupID)")
             }
 
@@ -33,19 +36,18 @@ struct EstimationInProgressView: View {
     var progressviewestimateasync: some View {
         ProgressView("",
                      value: estimateprogressdetails.numberofconfigurationsestimated,
-                     total: Double(rsyncUIdata.configurations?.count ?? 0))
+                     total: Double(configurations.count))
             .onAppear {
                 Task {
                     // Either is there some selceted tasks or if not
                     // the EstimateTasksAsync selects all tasks to be estimated.
-                    if let configurations = rsyncUIdata.configurations {
-                        let estimate = EstimateTasksAsync(profile: rsyncUIdata.profile,
-                                                          configurations: configurations,
-                                                          estimateprogressdetails: estimateprogressdetails,
-                                                          uuids: selecteduuids,
-                                                          filter: "")
-                        await estimate.startestimation()
-                    }
+
+                    let estimate = EstimateTasksAsync(profile: profile,
+                                                      configurations: configurations,
+                                                      estimateprogressdetails: estimateprogressdetails,
+                                                      uuids: selecteduuids,
+                                                      filter: "")
+                    await estimate.startestimation()
                 }
             }
             .onDisappear {
@@ -62,5 +64,11 @@ struct EstimationInProgressView: View {
                 }()
             }
             .progressViewStyle(.circular)
+    }
+
+    func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
+        let configuration = configurations.filter { $0.id == uuid }
+        guard configuration.count == 1 else { return nil }
+        return configuration[0]
     }
 }

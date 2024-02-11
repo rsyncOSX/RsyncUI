@@ -60,12 +60,15 @@ struct SidebarTasksView: View {
         case .firsttime:
             FirstTimeView()
         case .dryrunonetask:
-            DetailsOneTaskEstimatingView(rsyncUIdata: rsyncUIdata,
-                                         estimateprogressdetails: estimateprogressdetails,
-                                         selecteduuids: selecteduuids)
-                .onDisappear {
-                    executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
-                }
+            if let configurations = rsyncUIdata.configurations {
+                DetailsOneTaskEstimatingView(estimateprogressdetails: estimateprogressdetails,
+                                             selecteduuids: selecteduuids,
+                                             configurations: configurations)
+                    .onDisappear {
+                        executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
+                    }
+            }
+
         case .dryrunonetaskalreadyestimated:
             if let estimates = estimateprogressdetails.getestimatedlist()?.filter({ $0.id == selecteduuids.first }) {
                 if estimates.count == 1 {

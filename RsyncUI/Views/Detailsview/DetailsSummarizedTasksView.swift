@@ -23,11 +23,15 @@ struct SummarizedAllDetailsView: View {
         VStack {
             HStack {
                 if estimateprogressdetails.estimatealltasksasync {
-                    EstimationInProgressView(rsyncUIdata: rsyncUIdata,
-                                             executeprogressdetails: executeprogressdetails,
-                                             estimateprogressdetails: estimateprogressdetails,
-                                             selecteduuids: $selecteduuids,
-                                             nodatatosynchronize: $nodatatosynchronize)
+                    if let configurations = rsyncUIdata.configurations {
+                        EstimationInProgressView(executeprogressdetails: executeprogressdetails,
+                                                 estimateprogressdetails: estimateprogressdetails,
+                                                 selecteduuids: $selecteduuids,
+                                                 nodatatosynchronize: $nodatatosynchronize,
+                                                 profile: rsyncUIdata.profile,
+                                                 configurations: configurations)
+                    }
+
                 } else {
                     Table(estimateprogressdetails.getestimatedlist() ?? [],
                           selection: $selecteduuids)

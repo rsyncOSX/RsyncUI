@@ -10,13 +10,14 @@ import Observation
 import SwiftUI
 
 struct DetailsOneTaskEstimatingView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    // @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @State private var gettingremotedata = true
     @State private var estimatedtask: RemoteDataNumbers?
     @State private var outputfromrsync = Outputfromrsync()
 
     let selecteduuids: Set<SynchronizeConfiguration.ID>
+    let configurations: [SynchronizeConfiguration]
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,7 +34,7 @@ struct DetailsOneTaskEstimatingView: View {
                         // Only one task is estimated if selected, if more than one
                         // task is selected multiple estimation is selected. That is why
                         // that is why (uuid: selecteduuids.first)
-                        if let config = rsyncUIdata.getconfig(uuid: selecteduuids.first) {
+                        if let config = getconfig(uuid: selecteduuids.first) {
                             Text("Estimating now: " + "\(config.backupID)")
                         }
 
@@ -44,13 +45,11 @@ struct DetailsOneTaskEstimatingView: View {
         }
         .onAppear(perform: {
             var selectedconfig: SynchronizeConfiguration?
-            let selected = rsyncUIdata.configurations?.filter { config in
+            let selected = configurations.filter { config in
                 selecteduuids.contains(config.id)
             }
-            if (selected?.count ?? 0) == 1 {
-                if let config = selected {
-                    selectedconfig = config[0]
-                }
+            if selected.count == 1 {
+                selectedconfig = selected[0]
             }
             let arguments = ArgumentsSynchronize(config: selectedconfig)
                 .argumentssynchronize(dryRun: true, forDisplay: false)
@@ -62,18 +61,22 @@ struct DetailsOneTaskEstimatingView: View {
             }
         })
     }
+
+    func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
+        let configuration = configurations.filter { $0.id == uuid }
+        guard configuration.count == 1 else { return nil }
+        return configuration[0]
+    }
 }
 
 extension DetailsOneTaskEstimatingView {
     func processtermination(data: [String]?) {
         var selectedconfig: SynchronizeConfiguration?
-        let selected = rsyncUIdata.configurations?.filter { config in
+        let selected = configurations.filter { config in
             selecteduuids.contains(config.id)
         }
-        if (selected?.count ?? 0) == 1 {
-            if let config = selected {
-                selectedconfig = config[0]
-            }
+        if selected.count == 1 {
+            selectedconfig = selected[0]
         }
         estimatedtask = RemoteDataNumbers(hiddenID: selectedconfig?.hiddenID,
                                           outputfromrsync: data,

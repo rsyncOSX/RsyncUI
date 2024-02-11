@@ -26,25 +26,6 @@ final class RsyncUIconfigurations {
         }
     }
 
-    func filterconfigurations(_ filter: String) -> [SynchronizeConfiguration]? {
-        return configurations?.filter {
-            filter.isEmpty ? true : $0.backupID.contains(filter)
-        }
-    }
-
-    // Function for getting Configurations read into memory
-    func getconfig(hiddenID: Int) -> SynchronizeConfiguration? {
-        let configuration = configurations?.filter { $0.hiddenID == hiddenID }
-        guard configuration?.count == 1 else { return nil }
-        return configuration?[0]
-    }
-
-    func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
-        let configuration = configurations?.filter { $0.id == uuid }
-        guard configuration?.count == 1 else { return nil }
-        return configuration?[0]
-    }
-
     func getuniqueserversandlogins() -> [UniqueserversandLogins]? {
         let configs = configurations?.filter {
             SharedReference.shared.synctasks.contains($0.task)
