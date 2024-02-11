@@ -11,7 +11,7 @@ import OSLog
 
 final class ExecuteTasksAsync {
     var structprofile: String?
-    var localconfigurations: RsyncUIconfigurations?
+    var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
     weak var localexecuteasyncnoestimation: ExecuteAsyncNoEstimation?
     // Collect loggdata for later save to permanent storage
@@ -20,14 +20,23 @@ final class ExecuteTasksAsync {
     private var schedulerecords = [Typelogdata]()
     // Update configigurations
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
+    // ValidHiddenIDs
+    var validhiddenIDs = Set<Int>()
+
+    func getconfig(_ hiddenID: Int, _ configurations: [SynchronizeConfiguration]) -> SynchronizeConfiguration? {
+        if let index = configurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
+            return configurations[index]
+        }
+        return nil
+    }
 
     @MainActor
     func startexecution() async {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: -1,
-                                                     configurations: localconfigurations?.getallconfigurations(),
-                                                     validhiddenIDs: localconfigurations?.validhiddenIDs ?? Set())
+                                                     configurations: localconfigurations,
+                                                     validhiddenIDs: validhiddenIDs)
             let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
             // Send date stamped configurations back to caller
             localupdateconfigurations(updateconfigurations)
@@ -37,28 +46,28 @@ final class ExecuteTasksAsync {
             Logger.process.info("class ExecuteTasksAsync: async execution is completed")
             return
         }
-        let localhiddenID = stackoftasktobeestimated?.removeLast()
-        guard localhiddenID != nil else { return }
-        if let config = localconfigurations?.getconfig(hiddenID: localhiddenID ?? 0) {
-            let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
-            guard arguments.count > 0 else { return }
-            // Check if ShellOut is active
-            if config.pretask?.isEmpty == false, config.executepretask == 1 {
-                let processshellout = RsyncProcessAsyncShellOut(arguments: arguments,
-                                                                config: config,
-                                                                processtermination: processterminationexecute)
-                await processshellout.executeProcess()
-            } else {
-                let process = RsyncProcessAsync(arguments: arguments,
-                                                config: config,
-                                                processtermination: processterminationexecute)
-                await process.executeProcess()
+        if let localhiddenID = stackoftasktobeestimated?.removeLast() {
+            if let config = getconfig(localhiddenID, localconfigurations) {
+                let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
+                guard arguments.count > 0 else { return }
+                // Check if ShellOut is active
+                if config.pretask?.isEmpty == false, config.executepretask == 1 {
+                    let processshellout = RsyncProcessAsyncShellOut(arguments: arguments,
+                                                                    config: config,
+                                                                    processtermination: processterminationexecute)
+                    await processshellout.executeProcess()
+                } else {
+                    let process = RsyncProcessAsync(arguments: arguments,
+                                                    config: config,
+                                                    processtermination: processterminationexecute)
+                    await process.executeProcess()
+                }
             }
         }
     }
 
     init(profile: String?,
-         rsyncuiconfigurations: RsyncUIconfigurations?,
+         rsyncuiconfigurations: [SynchronizeConfiguration],
          executeasyncnoestimation: ExecuteAsyncNoEstimation?,
          uuids: Set<UUID>,
          filter: String,
@@ -68,28 +77,21 @@ final class ExecuteTasksAsync {
         localconfigurations = rsyncuiconfigurations
         localexecuteasyncnoestimation = executeasyncnoestimation
         localupdateconfigurations = updateconfigurations
-        let filteredconfigurations = localconfigurations?.getallconfigurations()?.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
+        let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()
         // Estimate selected configurations
         if uuids.count > 0 {
-            let configurations = filteredconfigurations?.filter { uuids.contains($0.id) }
-            for i in 0 ..< (configurations?.count ?? 0) {
-                let task = configurations?[i].task
-                if SharedReference.shared.synctasks.contains(task ?? "") {
-                    if let hiddenID = configurations?[i].hiddenID {
-                        stackoftasktobeestimated?.append(hiddenID)
-                    }
-                }
+            let configurations = filteredconfigurations.filter { uuids.contains($0.id) }
+            for i in 0 ..< configurations.count {
+                stackoftasktobeestimated?.append(configurations[i].hiddenID)
             }
         } else {
             // Or estimate all tasks
-            for i in 0 ..< (filteredconfigurations?.count ?? 0) {
-                let task = filteredconfigurations?[i].task
-                if SharedReference.shared.synctasks.contains(task ?? "") {
-                    if let hiddenID = filteredconfigurations?[i].hiddenID {
-                        stackoftasktobeestimated?.append(hiddenID)
-                    }
-                }
+            for i in 0 ..< filteredconfigurations.count {
+                stackoftasktobeestimated?.append(filteredconfigurations[i].hiddenID)
+            }
+            for i in 0 ..< localconfigurations.count {
+                validhiddenIDs.insert(localconfigurations[i].hiddenID)
             }
         }
     }
@@ -102,16 +104,16 @@ extension ExecuteTasksAsync {
         // When creating the logrecord, decrease the snapshotum by 1
         configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((hiddenID ?? -1, Numbers(outputfromrsync ?? []).stats()))
-        let record = RemoteDataNumbers(hiddenID: hiddenID,
-                                       outputfromrsync: outputfromrsync,
-                                       config: localconfigurations?.getconfig(hiddenID: hiddenID ?? -1))
-        localexecuteasyncnoestimation?.appendrecordexecutedlist(record)
-        if let config = localconfigurations?.getconfig(hiddenID: hiddenID ?? -1) {
+        if let config = getconfig(hiddenID ?? -1, localconfigurations) {
+            let record = RemoteDataNumbers(hiddenID: hiddenID,
+                                           outputfromrsync: outputfromrsync,
+                                           config: config)
+            localexecuteasyncnoestimation?.appendrecordexecutedlist(record)
             localexecuteasyncnoestimation?.appenduuid(config.id)
-        }
 
-        Task {
-            await self.startexecution()
+            Task {
+                await self.startexecution()
+            }
         }
     }
 }

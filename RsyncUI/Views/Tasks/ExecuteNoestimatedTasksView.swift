@@ -85,14 +85,16 @@ extension ExecuteNoestimatedTasksView {
     func executeallnoestimationtasks() async {
         Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids, privacy: .public)")
         executeasyncnoestimation.startasyncexecutealltasksnoestimation()
-        executealltasksasync =
-            ExecuteTasksAsync(profile: rsyncUIdata.profile,
-                              rsyncuiconfigurations: rsyncUIdata,
-                              executeasyncnoestimation: executeasyncnoestimation,
-                              uuids: selecteduuids,
-                              filter: filterstring,
-                              updateconfigurations: updateconfigurations)
-        await executealltasksasync?.startexecution()
+        if let configurations = rsyncUIdata.configurations {
+            executealltasksasync =
+                ExecuteTasksAsync(profile: rsyncUIdata.profile,
+                                  rsyncuiconfigurations: configurations,
+                                  executeasyncnoestimation: executeasyncnoestimation,
+                                  uuids: selecteduuids,
+                                  filter: filterstring,
+                                  updateconfigurations: updateconfigurations)
+            await executealltasksasync?.startexecution()
+        }
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
