@@ -45,10 +45,7 @@ struct LogsbyConfigurationView: View {
                         }
                     }
 
-                /* Table(rsyncUIlogrecords.filterlogs(debouncefilterstring, hiddenID),
-                 selection: $selectedloguuids)*/
-
-                Table(logs) {
+                Table(logs, selection: $selectedloguuids) {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
@@ -122,7 +119,7 @@ struct LogsbyConfigurationView: View {
             .controlSize(.small)
     }
 
-    // TODO: fix filter and by hiddenID
+    // TODO: fix filter and sorting by click
     var logs: [Log] {
         if let logrecords = rsyncUIlogrecords.logrecords {
             if hiddenID == -1 {
@@ -130,9 +127,14 @@ struct LogsbyConfigurationView: View {
                 for i in 0 ..< logrecords.count {
                     merged = [merged + (logrecords[i].logrecords ?? [])].flatMap { $0 }
                 }
+                // return merged.sorted(by: \.date, using: >)
                 return merged
+            } else {
+                if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }) {
+                    return logrecords[index].logrecords ?? []
+                }
+                return []
             }
-            return []
         }
         return []
     }
