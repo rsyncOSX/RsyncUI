@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 struct RestoreTableView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    // @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State var restore = ObservableRestore()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var gettingfilelist: Bool = false
@@ -22,26 +22,27 @@ struct RestoreTableView: View {
     @State var publisher = PassthroughSubject<String, Never>()
     @State private var showindebounce: Bool = false
 
+    @Binding var profile: String?
+    let configurations: [SynchronizeConfiguration]
+
     var body: some View {
         NavigationStack {
             VStack {
                 ZStack {
                     HStack {
                         ListofTasksLightView(selecteduuids: $selecteduuids,
-                                             profile: rsyncUIdata.profile,
-                                             configurations: rsyncUIdata.configurations ?? [])
+                                             profile: profile,
+                                             configurations: configurations)
                             .onChange(of: selecteduuids) {
                                 restore.filestorestore = ""
                                 restore.datalist = []
-                                let selected = rsyncUIdata.configurations?.filter { config in
+                                let selected = configurations.filter { config in
                                     selecteduuids.contains(config.id)
                                 }
-                                if (selected?.count ?? 0) == 1 {
-                                    if let config = selected {
-                                        restore.selectedconfig = config[0]
-                                        if config[0].task == SharedReference.shared.snapshot {
-                                            getsnapshotlogsandcatalogs()
-                                        }
+                                if selected.count == 1 {
+                                    restore.selectedconfig = selected[0]
+                                    if selected[0].task == SharedReference.shared.snapshot {
+                                        getsnapshotlogsandcatalogs()
                                     }
                                 } else {
                                     restore.selectedconfig = nil
@@ -55,7 +56,7 @@ struct RestoreTableView: View {
 
                         RestoreFilesTableView(filestorestore: $restore.filestorestore,
                                               datalist: restore.datalist)
-                            .onChange(of: rsyncUIdata.profile) {
+                            .onChange(of: profile) {
                                 restore.datalist.removeAll()
                             }
                             .overlay { if filterstring.count > 0,
@@ -212,7 +213,7 @@ struct RestoreTableView: View {
             guard snapshotdata.catalogsanddates.count > 0 else { return }
             snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
         }
-        .onChange(of: rsyncUIdata.profile) {
+        .onChange(of: profile) {
             snapshotdata.catalogsanddates.removeAll()
         }
         .onAppear {

@@ -67,7 +67,10 @@ struct Sidebar: View {
             RsyncParametersView(rsyncUIdata: rsyncUIdata)
         case .restore:
             NavigationStack {
-                RestoreTableView(rsyncUIdata: rsyncUIdata)
+                if let configurations = rsyncUIdata.configurations {
+                    RestoreTableView(profile: $rsyncUIdata.profile,
+                                     configurations: configurations)
+                }
             }
         case .snapshots:
             SnapshotsView(rsyncUIdata: rsyncUIdata)
