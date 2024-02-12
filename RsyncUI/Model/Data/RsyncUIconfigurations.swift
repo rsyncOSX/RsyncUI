@@ -13,25 +13,11 @@ import SwiftUI
 final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?
     var profile: String?
-    @ObservationIgnored var validhiddenIDs: Set<Int>?
-
-    func resetandupdatevalidhiddenIDS() {
-        if validhiddenIDs == nil {
-            validhiddenIDs = Set<Int>()
-        } else {
-            validhiddenIDs?.removeAll()
-        }
-        for i in 0 ..< (configurations?.count ?? 0) {
-            validhiddenIDs?.insert(configurations?[i].hiddenID ?? -1)
-        }
-    }
 
     init(_ profile: String?,
-         _ configurationsfromstore: [SynchronizeConfiguration]?,
-         _ validehiddenIDsfromstore: Set<Int>?)
+         _ configurationsfromstore: [SynchronizeConfiguration]?)
     {
         self.profile = profile
         configurations = configurationsfromstore
-        validhiddenIDs = validehiddenIDsfromstore
     }
 }

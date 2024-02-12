@@ -129,7 +129,6 @@ struct ListofTasksMainView: View {
             deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
             selecteduuids.removeAll()
             rsyncUIdata.configurations = deleteconfigurations.configurations
-            rsyncUIdata.resetandupdatevalidhiddenIDS()
         }
     }
 

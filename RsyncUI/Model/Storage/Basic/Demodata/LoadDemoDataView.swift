@@ -69,9 +69,7 @@ struct LoadDemoDataView: View {
             for i in 0 ..< (configurations?.count ?? 0) {
                 hiddenIDs.insert(configurations?[i].hiddenID ?? -1)
             }
-            rsyncUIdata.validhiddenIDs = hiddenIDs
             rsyncUIdata.configurations = configurations
-
             demodataiscreataed = true
         }
     }
