@@ -26,8 +26,6 @@ final class ExecuteMultipleTasks {
     var localfilehandler: (Int) -> Void
     // Update configigurations
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
-    // ValidHiddenIDs
-    var validhiddenIDs = Set<Int>()
 
     private func prepareandstartexecutetasks(configurations: [SynchronizeConfiguration]?) {
         stackoftasktobeexecuted = [Int]()
@@ -76,9 +74,6 @@ final class ExecuteMultipleTasks {
             Logger.process.warning("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(uuids.count, privacy: .public)")
             multipletaskstate?.updatestate(state: .completed)
             return
-        }
-        for i in 0 ..< localconfigurations.count {
-            validhiddenIDs.insert(localconfigurations[i].hiddenID)
         }
 
         prepareandstartexecutetasks(configurations: taskstosynchronize)
