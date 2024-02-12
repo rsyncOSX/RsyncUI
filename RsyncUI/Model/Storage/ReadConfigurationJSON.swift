@@ -14,7 +14,6 @@ class ReadConfigurationJSON: NamesandPaths {
     var configurations: [SynchronizeConfiguration]?
     var filenamedatastore = [SharedReference.shared.fileconfigurationsjson]
     var subscriptons = Set<AnyCancellable>()
-    var validhiddenIDs = Set<Int>()
 
     private func createdefaultfileconfigurations(_ profile: String?) {
         // No file, write new file with default values
@@ -69,12 +68,7 @@ class ReadConfigurationJSON: NamesandPaths {
                 for i in 0 ..< data.count {
                     var configuration = SynchronizeConfiguration(data[i])
                     configuration.profile = profile
-                    // Validate sync task
-                    if validhiddenIDs.contains(configuration.hiddenID) == false {
-                        configurations.append(configuration)
-                        // Create set of validated hidden IDs, used when loading logrecords
-                        validhiddenIDs.insert(configuration.hiddenID)
-                    }
+                    configurations.append(configuration)
                 }
                 let sorted = configurations.sorted { conf1, conf2 in
                     if let days1 = conf1.dateRun?.en_us_date_from_string(),

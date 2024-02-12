@@ -12,7 +12,6 @@ import OSLog
 class ReadUserConfigurationJSON: NamesandPaths {
     var filenamedatastore = [SharedReference.shared.userconfigjson]
     var subscriptons = Set<AnyCancellable>()
-    var validhiddenIDs = Set<Int>()
 
     @discardableResult
     init() {

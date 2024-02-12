@@ -20,8 +20,6 @@ final class ExecuteTasksAsync {
     private var schedulerecords = [Typelogdata]()
     // Update configigurations
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
-    // ValidHiddenIDs
-    var validhiddenIDs = Set<Int>()
 
     func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
@@ -88,9 +86,6 @@ final class ExecuteTasksAsync {
             // Or estimate all tasks
             for i in 0 ..< filteredconfigurations.count {
                 stackoftasktobeestimated?.append(filteredconfigurations[i].hiddenID)
-            }
-            for i in 0 ..< localconfigurations.count {
-                validhiddenIDs.insert(localconfigurations[i].hiddenID)
             }
         }
     }
