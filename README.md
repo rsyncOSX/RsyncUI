@@ -23,7 +23,7 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 | RsyncUI   | SwiftData | about 11.8k | 138  | SwiftUI, declarativ     | v1.0.0 - [9 February 2024](https://github.com/rsyncOSX/RsyncUISwiftData/releases/tag/v1.0.0)  | 9 February 2024 | 
 | RsyncOSX  | JSON | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
 
-There is more info about RsyncUI and SwiftData in [the How is RsyncUI built?](https://rsyncui.netlify.app/post/built/).
+There is more info about RsyncUI and SwiftData in [the How is RsyncUI built?](https://rsyncui.netlify.app/post/built/). The SwiftData is a kind of experiement and project to learn more about it.
 
 ### The future
 
