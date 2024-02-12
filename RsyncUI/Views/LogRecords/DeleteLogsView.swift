@@ -44,11 +44,14 @@ struct DeleteLogsView: View {
     }
 
     func delete() {
-        rsyncUIlogrecords.removerecords(selectedloguuids)
-        let deleteschedule = UpdateLogs(profile: selectedprofile,
-                                        logrecords: rsyncUIlogrecords.logrecords)
-        rsyncUIlogrecords.logrecords = deleteschedule.deletelogs(uuids: selectedloguuids)
-        selectedloguuids.removeAll()
+        // TODO:
+        /*
+         rsyncUIlogrecords.removerecords(selectedloguuids)
+         let deleteschedule = UpdateLogs(profile: selectedprofile,
+                                         logrecords: rsyncUIlogrecords.logrecords)
+         rsyncUIlogrecords.logrecords = deleteschedule.deletelogs(uuids: selectedloguuids)
+         selectedloguuids.removeAll()
+          */
         dismiss()
     }
 }

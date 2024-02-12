@@ -8,20 +8,20 @@
 import Foundation
 
 struct ReadLogRecordsfromstore {
-    var logs: [Log]?
+    // var logs: [Log]?
     var logrecords: [LogRecords]?
 
     init(_ profile: String?, _ validhiddenIDs: Set<Int>?) {
         guard validhiddenIDs != nil else { return }
         var logdatafromstore: ReadLogRecordsJSON?
         if profile == SharedReference.shared.defaultprofile || profile == nil {
-            logdatafromstore = ReadLogRecordsJSON(nil, validhiddenIDs ?? Set(), false)
+            logdatafromstore = ReadLogRecordsJSON(nil, validhiddenIDs ?? Set())
         } else {
-            logdatafromstore = ReadLogRecordsJSON(profile, validhiddenIDs ?? Set(), false)
+            logdatafromstore = ReadLogRecordsJSON(profile, validhiddenIDs ?? Set())
         }
         logrecords = logdatafromstore?.logrecords?.sorted { log1, log2 in
             log1.dateStart > log2.dateStart
         }
-        logs = logdatafromstore?.logs
+        // logs = logdatafromstore?.logs
     }
 }

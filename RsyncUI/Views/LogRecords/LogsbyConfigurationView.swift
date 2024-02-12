@@ -45,9 +45,10 @@ struct LogsbyConfigurationView: View {
                         }
                     }
 
-                Table(rsyncUIlogrecords.filterlogs(debouncefilterstring, hiddenID),
-                      selection: $selectedloguuids)
-                {
+                /* Table(rsyncUIlogrecords.filterlogs(debouncefilterstring, hiddenID),
+                 selection: $selectedloguuids)*/
+
+                Table(logs) {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
@@ -61,7 +62,7 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     showAlertfordelete = true
                 }
-                .overlay { if rsyncUIlogrecords.countrecords == 0 {
+                .overlay { if logs.count == 0 {
                     ContentUnavailableView {
                         Label("There are no logs by this filter", systemImage: "doc.richtext.fill")
                     } description: {
@@ -119,5 +120,19 @@ struct LogsbyConfigurationView: View {
     var indebounce: some View {
         ProgressView()
             .controlSize(.small)
+    }
+
+    var logs: [Log] {
+        if let logrecords = rsyncUIlogrecords.logrecords {
+            if hiddenID == -1 {
+                var merged = [Log]()
+                for i in 0 ..< logrecords.count {
+                    merged = [merged + (logrecords[i].logrecords ?? [])].flatMap { $0 }
+                }
+                return merged
+            }
+            return []
+        }
+        return []
     }
 }
