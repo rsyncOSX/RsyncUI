@@ -8,19 +8,26 @@
 import SwiftUI
 
 struct SidebarLogsView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    let configurations: [SynchronizeConfiguration]
+    let profile: String?
 
     var body: some View {
-        if let configurations = rsyncUIdata.configurations {
-            LogsbyConfigurationView(rsyncUIlogrecords: rsyncUIlogrecords,
-                                    profile: rsyncUIdata.profile,
-                                    configurations: configurations)
-                .padding()
-        }
+        LogsbyConfigurationView(rsyncUIlogrecords: rsyncUIlogrecords,
+                                profile: profile,
+                                configurations: configurations)
+            .padding()
     }
 
     var rsyncUIlogrecords: RsyncUIlogrecords {
-        let logrecordsdata = ReadLogRecordsfromstore(rsyncUIdata.profile, rsyncUIdata.validhiddenIDs)
-        return RsyncUIlogrecords(rsyncUIdata.profile, logrecordsdata.logrecords, logrecordsdata.logs)
+        let logrecordsdata = ReadLogRecordsfromstore(profile, validhiddenIDs)
+        return RsyncUIlogrecords(profile, logrecordsdata.logrecords, logrecordsdata.logs)
+    }
+
+    var validhiddenIDs: Set<Int> {
+        var temp = Set<Int>()
+        for i in 0 ..< configurations.count {
+            temp.insert(configurations[i].hiddenID)
+        }
+        return temp
     }
 }

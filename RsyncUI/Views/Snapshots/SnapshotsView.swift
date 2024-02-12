@@ -221,8 +221,14 @@ extension SnapshotsView {
             if profile == SharedReference.shared.defaultprofile || profile == nil {
                 profile = nil
             }
+            var validhiddenIDs = Set<Int>()
+            if let configurations = rsyncUIdata.configurations {
+                for i in 0 ..< configurations.count {
+                    validhiddenIDs.insert(configurations[i].hiddenID)
+                }
+            }
             if let config = selectedconfig,
-               let logrecords = ReadLogRecordsJSON(profile, rsyncUIdata.validhiddenIDs ?? Set(), false).logrecords
+               let logrecords = ReadLogRecordsJSON(profile, validhiddenIDs, false).logrecords
             {
                 _ = Snapshotlogsandcatalogs(config: config,
                                             logrecords: logrecords,

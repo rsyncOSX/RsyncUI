@@ -70,12 +70,10 @@ class ReadConfigurationJSON: NamesandPaths {
                     var configuration = SynchronizeConfiguration(data[i])
                     configuration.profile = profile
                     // Validate sync task
-                    if SharedReference.shared.synctasks.contains(configuration.task) {
-                        if validhiddenIDs.contains(configuration.hiddenID) == false {
-                            configurations.append(configuration)
-                            // Create set of validated hidden IDs, used when loading logrecords
-                            validhiddenIDs.insert(configuration.hiddenID)
-                        }
+                    if validhiddenIDs.contains(configuration.hiddenID) == false {
+                        configurations.append(configuration)
+                        // Create set of validated hidden IDs, used when loading logrecords
+                        validhiddenIDs.insert(configuration.hiddenID)
                     }
                 }
                 let sorted = configurations.sorted { conf1, conf2 in

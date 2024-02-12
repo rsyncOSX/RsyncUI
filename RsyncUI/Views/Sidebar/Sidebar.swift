@@ -64,7 +64,11 @@ struct Sidebar: View {
                         selectedprofile: $selectedprofile,
                         profilenames: profilenames)
         case .log_listings:
-            SidebarLogsView(rsyncUIdata: rsyncUIdata)
+            if let configurations = rsyncUIdata.configurations {
+                SidebarLogsView(configurations: configurations,
+                                profile: rsyncUIdata.profile)
+            }
+
         case .rsync_parameters:
             RsyncParametersView(rsyncUIdata: rsyncUIdata)
         case .restore:
