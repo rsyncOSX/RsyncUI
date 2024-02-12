@@ -60,7 +60,9 @@ struct Sidebar: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            AddTaskView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile, profilenames: profilenames)
+            AddTaskView(rsyncUIdata: rsyncUIdata,
+                        selectedprofile: $selectedprofile,
+                        profilenames: profilenames)
         case .log_listings:
             SidebarLogsView(rsyncUIdata: rsyncUIdata)
         case .rsync_parameters:

@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 struct LogsbyConfigurationView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    // @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var rsyncUIlogrecords: RsyncUIlogrecords
 
     @State private var hiddenID = -1
@@ -24,20 +24,22 @@ struct LogsbyConfigurationView: View {
     @State private var debouncefilterstring: String = ""
     @State private var showindebounce: Bool = false
 
+    let profile: String?
+    let configurations: [SynchronizeConfiguration]
+
     var body: some View {
         VStack {
             HStack {
                 ListofTasksLightView(selecteduuids: $selecteduuids,
-                                     profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.configurations ?? [])
+                                     profile: profile,
+                                     configurations: configurations)
                     .onChange(of: selecteduuids) {
-                        let selected = rsyncUIdata.configurations?.filter { config in
+                        let selected = configurations.filter { config in
                             selecteduuids.contains(config.id)
                         }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                hiddenID = config[0].hiddenID
-                            }
+                        if selected.count == 1 {
+                            hiddenID = selected[0].hiddenID
+
                         } else {
                             hiddenID = -1
                         }
@@ -109,7 +111,7 @@ struct LogsbyConfigurationView: View {
             DeleteLogsView(
                 rsyncUIlogrecords: rsyncUIlogrecords,
                 selectedloguuids: $selectedloguuids,
-                selectedprofile: rsyncUIdata.profile
+                selectedprofile: profile
             )
         }
     }
