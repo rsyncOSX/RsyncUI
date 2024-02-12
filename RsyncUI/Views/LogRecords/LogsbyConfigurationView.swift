@@ -183,7 +183,4 @@ struct LogsbyConfigurationView: View {
         }
     }
 
-    func removerecords(_ uuids: Set<UUID>) {
-        alllogssorted?.removeAll(where: { uuids.contains($0.id) })
-    }
  */
