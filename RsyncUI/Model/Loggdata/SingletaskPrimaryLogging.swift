@@ -114,12 +114,17 @@ class SingletaskPrimaryLogging {
 
     init(profile: String?,
          hiddenID: Int?,
-         configurations: [SynchronizeConfiguration]?,
-         validhiddenIDs: Set<Int>)
+         configurations: [SynchronizeConfiguration]?)
     {
         localeprofile = profile
         localehiddenID = hiddenID
         structconfigurations = configurations
+        var validhiddenIDs = Set<Int>()
+        if let configurations = configurations {
+            for i in 0 ..< configurations.count {
+                validhiddenIDs.insert(configurations[i].hiddenID)
+            }
+        }
         logrecords = ReadLogRecordsfromstore(profile, validhiddenIDs).logrecords
         if logrecords == nil {
             logrecords = [LogRecords]()
