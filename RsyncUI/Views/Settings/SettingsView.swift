@@ -17,8 +17,6 @@ struct SettingsView: View {
     @State private var alerterror = AlertError()
     @State private var selectedsetting: SideSettingsbaritems = .settings
 
-    let configurations: [SynchronizeConfiguration]
-
     var body: some View {
         NavigationSplitView {
             List(SideSettingsbaritems.allCases, selection: $selectedsetting) { selectedsetting in
@@ -45,7 +43,7 @@ struct SettingsView: View {
                 .environment(alerterror)
         case .ssh:
             NavigationStack {
-                Sshsettings(configurations: configurations)
+                Sshsettings()
                     .environment(alerterror)
             }
         case .environment:

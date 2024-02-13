@@ -45,8 +45,7 @@ struct RsyncUIApp: App {
         }
 
         Settings {
-            // TODO:
-            SettingsView(configurations: [])
+            SettingsView()
         }
     }
 

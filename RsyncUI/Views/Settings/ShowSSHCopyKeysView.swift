@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ShowSSHCopyKeysView: View {
     @State private var selectedlogin: UniqueserversandLogins?
-    let configurations: [SynchronizeConfiguration]
+    @State private var selectedprofile: String?
+    @State private var configurations: [SynchronizeConfiguration]?
 
     var body: some View {
         HStack {
@@ -26,6 +27,31 @@ struct ShowSSHCopyKeysView: View {
             } else {
                 strings
             }
+        }
+        .toolbar(content: {
+            ToolbarItem {
+                profilepicker
+            }
+        })
+    }
+
+    var profilenames: Profilenames {
+        return Profilenames()
+    }
+
+    var profilepicker: some View {
+        HStack {
+            Picker("", selection: $selectedprofile) {
+                ForEach(profilenames.profiles, id: \.self) { profile in
+                    Text(profile.profile ?? "")
+                        .tag(profile.profile)
+                }
+            }
+            .frame(width: 180)
+            .onChange(of: selectedprofile) {
+                configurations = ReadConfigurationsfromstore(selectedprofile).configurations
+            }
+            Spacer()
         }
     }
 
@@ -51,14 +77,16 @@ struct ShowSSHCopyKeysView: View {
 
     func getuniqueserversandlogins() -> [UniqueserversandLogins]? {
         var uniqueserversandlogins = [UniqueserversandLogins]()
-        for i in 0 ..< configurations.count {
-            let config = configurations[i]
-            if config.offsiteUsername.isEmpty == false, config.offsiteServer.isEmpty == false {
-                let record = UniqueserversandLogins(config.offsiteUsername, config.offsiteServer)
-                if uniqueserversandlogins.filter({ ($0.offsiteUsername == record.offsiteUsername) &&
-                        ($0.offsiteServer == record.offsiteServer)
-                }).count == 0 {
-                    uniqueserversandlogins.append(record)
+        if let configurations = configurations {
+            for i in 0 ..< configurations.count {
+                let config = configurations[i]
+                if config.offsiteUsername.isEmpty == false, config.offsiteServer.isEmpty == false {
+                    let record = UniqueserversandLogins(config.offsiteUsername, config.offsiteServer)
+                    if uniqueserversandlogins.filter({ ($0.offsiteUsername == record.offsiteUsername) &&
+                            ($0.offsiteServer == record.offsiteServer)
+                    }).count == 0 {
+                        uniqueserversandlogins.append(record)
+                    }
                 }
             }
         }

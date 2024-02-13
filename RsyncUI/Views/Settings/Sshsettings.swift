@@ -20,8 +20,6 @@ struct Sshsettings: View {
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
 
-    let configurations: [SynchronizeConfiguration]
-
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -81,7 +79,7 @@ struct Sshsettings: View {
             }
         }
         .navigationDestination(isPresented: $showcopykeys) {
-            ShowSSHCopyKeysView(configurations: configurations)
+            ShowSSHCopyKeysView()
         }
     }
 
