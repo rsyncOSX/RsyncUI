@@ -15,10 +15,14 @@ final class RsyncUIlogrecords {
     var logrecords: [LogRecords]?
 
     init(_ profile: String?,
-         _ logrecordsfromstore: [LogRecords]?)
+         _ validhiddenIDs: Set<Int>?)
     {
         self.profile = profile
-        logrecords = logrecordsfromstore
+        if profile == SharedReference.shared.defaultprofile || profile == nil {
+            logrecords = ReadLogRecordsJSON(nil, validhiddenIDs ?? Set()).logrecords
+        } else {
+            logrecords = ReadLogRecordsJSON(profile, validhiddenIDs ?? Set()).logrecords
+        }
     }
 }
 

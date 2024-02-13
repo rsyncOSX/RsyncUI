@@ -49,7 +49,7 @@ struct ShowSSHCopyKeysView: View {
             }
             .frame(width: 180)
             .onChange(of: selectedprofile) {
-                configurations = ReadConfigurationsfromstore(selectedprofile).configurations
+                configurations = RsyncUIconfigurations(selectedprofile).configurations
             }
             Spacer()
         }

@@ -19,8 +19,7 @@ struct SidebarLogsView: View {
     }
 
     var rsyncUIlogrecords: RsyncUIlogrecords {
-        let logrecordsdata = ReadLogRecordsfromstore(profile, validhiddenIDs)
-        return RsyncUIlogrecords(profile, logrecordsdata.logrecords)
+        return RsyncUIlogrecords(profile, validhiddenIDs)
     }
 
     var validhiddenIDs: Set<Int> {

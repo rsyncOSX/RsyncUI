@@ -50,22 +50,7 @@ class ReadLogRecordsJSON: NamesandPaths {
                         logrecords?.append(onerecords)
                     }
                 }
-                /*
-                 if onlylogrecords == false {
-                     if logrecords?.count ?? 0 > 0 {
-                         logs = [Log]()
-                         for i in 0 ..< (logrecords?.count ?? 0) {
-                             if let records = logrecords?[i].logrecords {
-                                 logs?.append(contentsOf: records)
-                             }
-                         }
-                         logs = logs?.sorted(by: \.date, using: >)
-                         Logger.process.info("ReadLogRecordsJSON: read logrecords from permanent storage")
-                     } else {
-                         Logger.process.warning("ReadLogRecordsJSON: NO logrecords in JSON from permanent storage")
-                     }
-                 }
-                  */
+                Logger.process.info("ReadLogRecordsJSON: read logrecords from permanent storage")
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
     }

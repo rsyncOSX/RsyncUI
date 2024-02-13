@@ -60,8 +60,7 @@ struct RsyncUIView: View {
     }
 
     var rsyncUIdata: RsyncUIconfigurations {
-        let configurationsdata = ReadConfigurationsfromstore(selectedprofile)
-        return RsyncUIconfigurations(selectedprofile, configurationsdata.configurations ?? [])
+        return RsyncUIconfigurations(selectedprofile)
     }
 
     var profilenames: Profilenames {

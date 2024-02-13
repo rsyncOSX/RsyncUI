@@ -125,7 +125,7 @@ class SingletaskPrimaryLogging {
                 validhiddenIDs.insert(configurations[i].hiddenID)
             }
         }
-        logrecords = ReadLogRecordsfromstore(profile, validhiddenIDs).logrecords
+        logrecords = RsyncUIlogrecords(profile, validhiddenIDs).logrecords
         if logrecords == nil {
             logrecords = [LogRecords]()
         }
