@@ -10,7 +10,6 @@ import Combine
 import SwiftUI
 
 struct LogsbyConfigurationView: View {
-    // @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var rsyncUIlogrecords: RsyncUIlogrecords
 
     @State private var hiddenID = -1

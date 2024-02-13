@@ -9,7 +9,6 @@ import OSLog
 import SwiftUI
 
 struct SummarizedAllDetailsView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
@@ -19,18 +18,19 @@ struct SummarizedAllDetailsView: View {
     @State private var nodatatosynchronize: Bool = false
     @State private var isPresentingConfirm: Bool = false
 
+    let configurations: [SynchronizeConfiguration]
+    let profile: String?
+
     var body: some View {
         VStack {
             HStack {
                 if estimateprogressdetails.estimatealltasksasync {
-                    if let configurations = rsyncUIdata.configurations {
-                        EstimationInProgressView(executeprogressdetails: executeprogressdetails,
-                                                 estimateprogressdetails: estimateprogressdetails,
-                                                 selecteduuids: $selecteduuids,
-                                                 nodatatosynchronize: $nodatatosynchronize,
-                                                 profile: rsyncUIdata.profile,
-                                                 configurations: configurations)
-                    }
+                    EstimationInProgressView(executeprogressdetails: executeprogressdetails,
+                                             estimateprogressdetails: estimateprogressdetails,
+                                             selecteduuids: $selecteduuids,
+                                             nodatatosynchronize: $nodatatosynchronize,
+                                             profile: profile,
+                                             configurations: configurations)
 
                 } else {
                     Table(estimateprogressdetails.getestimatedlist() ?? [],

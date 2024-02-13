@@ -9,7 +9,6 @@ import Combine
 import SwiftUI
 
 struct RestoreTableView: View {
-    // @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State var restore = ObservableRestore()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var gettingfilelist: Bool = false

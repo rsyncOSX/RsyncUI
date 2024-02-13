@@ -52,11 +52,15 @@ struct SidebarTasksView: View {
                                         selecteduuids: $selecteduuids,
                                         path: $path)
         case .estimatedview:
-            SummarizedAllDetailsView(rsyncUIdata: rsyncUIdata,
-                                     executeprogressdetails: executeprogressdetails,
-                                     estimateprogressdetails: estimateprogressdetails,
-                                     selecteduuids: $selecteduuids,
-                                     path: $path)
+            if let configurations = rsyncUIdata.configurations {
+                SummarizedAllDetailsView(executeprogressdetails: executeprogressdetails,
+                                         estimateprogressdetails: estimateprogressdetails,
+                                         selecteduuids: $selecteduuids,
+                                         path: $path,
+                                         configurations: configurations,
+                                         profile: rsyncUIdata.profile)
+            }
+
         case .firsttime:
             FirstTimeView()
         case .dryrunonetask:
