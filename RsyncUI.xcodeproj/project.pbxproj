@@ -871,7 +871,6 @@
 		E985C70725F3AD9700CB895C /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				E9FA37892B59148100F31FF1 /* ReadFromStorage */,
 				E985C70825F3AD9700CB895C /* Configurations */,
 				E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */,
 				E997613A271998BD007153DD /* RsyncUIlogrecords.swift */,
@@ -996,13 +995,6 @@
 				E9DE1DB12B23993A0077B935 /* AboutPanelCommand.swift */,
 			);
 			path = Commands;
-			sourceTree = "<group>";
-		};
-		E9FA37892B59148100F31FF1 /* ReadFromStorage */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ReadFromStorage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
