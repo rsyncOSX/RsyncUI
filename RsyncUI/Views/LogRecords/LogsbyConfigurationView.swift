@@ -35,12 +35,8 @@ struct LogsbyConfigurationView: View {
                                      profile: profile,
                                      configurations: configurations)
                     .onChange(of: selecteduuids) {
-                        let selected = configurations.filter { config in
-                            selecteduuids.contains(config.id)
-                        }
-                        if selected.count == 1 {
-                            hiddenID = selected[0].hiddenID
-
+                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                            hiddenID = configurations[index].hiddenID
                         } else {
                             hiddenID = -1
                         }
