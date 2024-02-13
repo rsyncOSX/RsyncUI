@@ -51,4 +51,3 @@ struct DeleteLogsView: View {
         dismiss()
     }
 }
-

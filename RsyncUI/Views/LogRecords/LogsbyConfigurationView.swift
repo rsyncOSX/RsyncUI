@@ -24,6 +24,8 @@ struct LogsbyConfigurationView: View {
     @State private var debouncefilterstring: String = ""
     @State private var showindebounce: Bool = false
 
+    @State private var sortOrder = [KeyPathComparator(\Log.resultExecuted, order: .reverse)]
+
     let profile: String?
     let configurations: [SynchronizeConfiguration]
 
@@ -128,10 +130,10 @@ struct LogsbyConfigurationView: View {
                     merged = [merged + (logrecords[i].logrecords ?? [])].flatMap { $0 }
                 }
                 // return merged.sorted(by: \.date, using: >)
-                return merged
+                return merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
             } else {
                 if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }) {
-                    return logrecords[index].logrecords ?? []
+                    return (logrecords[index].logrecords ?? []).sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
                 }
                 return []
             }
