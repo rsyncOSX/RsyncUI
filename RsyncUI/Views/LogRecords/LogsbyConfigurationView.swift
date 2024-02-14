@@ -41,7 +41,9 @@ struct LogsbyConfigurationView: View {
                         } else {
                             hiddenID = -1
                         }
-                        updatelogs()
+                        Task {
+                            await updatelogs()
+                        }
                     }
 
                 Table(logs, selection: $selectedloguuids) {
@@ -80,7 +82,9 @@ struct LogsbyConfigurationView: View {
         }
         .searchable(text: $filterstring)
         .onAppear {
-            updatelogs()
+            Task {
+                await updatelogs()
+            }
         }
         .onChange(of: filterstring) {
             showindebounce = true
@@ -122,7 +126,7 @@ struct LogsbyConfigurationView: View {
     }
 
     // TODO: fix filter and sorting by click
-    func updatelogs() {
+    func updatelogs() async {
         if let logrecords = rsyncUIlogrecords.logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
