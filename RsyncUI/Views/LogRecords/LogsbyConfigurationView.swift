@@ -24,6 +24,7 @@ struct LogsbyConfigurationView: View {
     @State private var showindebounce: Bool = false
 
     @State private var sortOrder = [KeyPathComparator(\Log.resultExecuted, order: .reverse)]
+    @State private var logs: [Log] = []
 
     let profile: String?
     let configurations: [SynchronizeConfiguration]
@@ -40,6 +41,7 @@ struct LogsbyConfigurationView: View {
                         } else {
                             hiddenID = -1
                         }
+                        updatelogs()
                     }
 
                 Table(logs, selection: $selectedloguuids) {
@@ -77,6 +79,9 @@ struct LogsbyConfigurationView: View {
             }
         }
         .searchable(text: $filterstring)
+        .onAppear {
+            updatelogs()
+        }
         .onChange(of: filterstring) {
             showindebounce = true
             publisher.send(filterstring)
@@ -117,7 +122,7 @@ struct LogsbyConfigurationView: View {
     }
 
     // TODO: fix filter and sorting by click
-    var logs: [Log] {
+    func updatelogs() {
         if let logrecords = rsyncUIlogrecords.logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
@@ -125,15 +130,13 @@ struct LogsbyConfigurationView: View {
                     merged = [merged + (logrecords[i].logrecords ?? [])].flatMap { $0 }
                 }
                 // return merged.sorted(by: \.date, using: >)
-                return merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
+                logs = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
             } else {
                 if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }) {
-                    return (logrecords[index].logrecords ?? []).sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
+                    logs = (logrecords[index].logrecords ?? []).sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
                 }
-                return []
             }
         }
-        return []
     }
 }
 
