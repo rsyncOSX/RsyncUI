@@ -42,18 +42,15 @@ struct SnapshotsView: View {
                                      profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.configurations ?? [])
                     .onChange(of: selectedconfiguuid) {
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selectedconfiguuid.contains(config.id)
-                        }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                selectedconfig = config[0]
+                        if let configurations = rsyncUIdata.configurations {
+                            if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
+                                selectedconfig = configurations[index]
                                 getdata()
+                            } else {
+                                selectedconfig = nil
+                                snapshotdata.setsnapshotdata(nil)
+                                filterstring = ""
                             }
-                        } else {
-                            selectedconfig = nil
-                            snapshotdata.setsnapshotdata(nil)
-                            filterstring = ""
                         }
                     }
 

@@ -71,15 +71,12 @@ struct TasksView: View {
             )
             .frame(maxWidth: .infinity)
             .onChange(of: selecteduuids) {
-                let selected = rsyncUIdata.configurations?.filter { config in
-                    selecteduuids.contains(config.id)
-                }
-                if (selected?.count ?? 0) == 1 {
-                    if let config = selected {
-                        selectedconfig.config = config[0]
+                if let configurations = rsyncUIdata.configurations {
+                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                        selectedconfig.config = configurations[index]
+                    } else {
+                        selectedconfig.config = nil
                     }
-                } else {
-                    selectedconfig.config = nil
                 }
                 estimateprogressdetails.uuids = selecteduuids
             }

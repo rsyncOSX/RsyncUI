@@ -50,17 +50,14 @@ struct RsyncDefaultParametersView: View {
                                      configurations: rsyncUIdata.configurations ?? [])
                     .frame(maxWidth: .infinity)
                     .onChange(of: selecteduuids) {
-                        let selected = rsyncUIdata.configurations?.filter { config in
-                            selecteduuids.contains(config.id)
-                        }
-                        if (selected?.count ?? 0) == 1 {
-                            if let config = selected {
-                                selectedconfig = config[0]
-                                parameters.setvalues(selectedconfig)
+                        if let configurations = rsyncUIdata.configurations {
+                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                selectedconfig = configurations[index]
+                                parameters.setvalues(configurations[index])
+                            } else {
+                                selectedconfig = nil
+                                parameters.setvalues(nil)
                             }
-                        } else {
-                            selectedconfig = nil
-                            parameters.setvalues(selectedconfig)
                         }
                     }
             }
