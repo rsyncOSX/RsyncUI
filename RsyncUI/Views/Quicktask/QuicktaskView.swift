@@ -36,7 +36,6 @@ struct QuicktaskView: View {
     // Completed task
     @State private var completed: Bool = false
 
-    let userserver: UserServer
     var choosecatalog = true
 
     enum QuicktaskField: Hashable {
@@ -54,16 +53,18 @@ struct QuicktaskView: View {
 
             // Column 1
             VStack(alignment: .leading) {
-                VStack(alignment: .trailing) {
+                HStack {
                     pickerselecttypeoftask
 
-                    Toggle("--dry-run", isOn: $dryrun)
-                        .toggleStyle(.switch)
+                    VStack(alignment: .trailing) {
+                        Toggle("--dry-run", isOn: $dryrun)
+                            .toggleStyle(.switch)
 
-                    Toggle("Don´t add /", isOn: $donotaddtrailingslash)
-                        .toggleStyle(.switch)
+                        Toggle("Don´t add /", isOn: $donotaddtrailingslash)
+                            .toggleStyle(.switch)
+                    }
+                    .padding()
                 }
-                .padding()
 
                 VStack(alignment: .leading) {
                     if selectedrsynccommand == .synchronize {
@@ -73,12 +74,6 @@ struct QuicktaskView: View {
                     }
 
                     remoteuserandserver
-
-                    HStack {
-                        remoteuserpicker
-
-                        remoteserverpicker
-                    }
                 }
             }
 
@@ -129,38 +124,6 @@ struct QuicktaskView: View {
         .padding()
         .navigationDestination(isPresented: $completed) {
             OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
-        }
-    }
-
-    var remoteuserpicker: some View {
-        VStack(alignment: .trailing) {
-            Text("Remote user")
-                .font(Font.footnote)
-            Picker("", selection: $remoteuser) {
-                Text("").tag("")
-                ForEach(userserver.remoteusers.sorted(by: <), id: \.self) { remoteuser in
-                    Text(remoteuser)
-                        .tag(remoteuser)
-                }
-            }
-            .frame(width: 93)
-            .accentColor(.blue)
-        }
-    }
-
-    var remoteserverpicker: some View {
-        VStack(alignment: .trailing) {
-            Text("Remote server")
-                .font(Font.footnote)
-            Picker("", selection: $remoteserver) {
-                Text("").tag("")
-                ForEach(userserver.remoteservers.sorted(by: <), id: \.self) { remoteserver in
-                    Text(remoteserver)
-                        .tag(remoteserver)
-                }
-            }
-            .frame(width: 93)
-            .accentColor(.blue)
         }
     }
 

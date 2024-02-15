@@ -87,7 +87,7 @@ struct SidebarTasksView: View {
         case .viewlogfile:
             NavigationLogfileView()
         case .quick_synchronize:
-            QuicktaskView(userserver: UserServer(configurations: rsyncUIdata.configurations))
+            QuicktaskView()
         }
     }
 }
