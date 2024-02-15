@@ -49,88 +49,86 @@ struct QuicktaskView: View {
     @FocusState private var focusField: QuicktaskField?
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Spacer()
+        ZStack {
+            Spacer()
 
-                // Column 1
+            // Column 1
+            VStack(alignment: .leading) {
+                VStack(alignment: .trailing) {
+                    pickerselecttypeoftask
+
+                    Toggle("--dry-run", isOn: $dryrun)
+                        .toggleStyle(.switch)
+
+                    Toggle("Don´t add /", isOn: $donotaddtrailingslash)
+                        .toggleStyle(.switch)
+                }
+                .padding()
+
                 VStack(alignment: .leading) {
-                    VStack(alignment: .trailing) {
-                        pickerselecttypeoftask
-
-                        Toggle("--dry-run", isOn: $dryrun)
-                            .toggleStyle(.switch)
-
-                        Toggle("Don´t add /", isOn: $donotaddtrailingslash)
-                            .toggleStyle(.switch)
+                    if selectedrsynccommand == .synchronize {
+                        localandremotecatalog
+                    } else {
+                        localandremotecatalogsyncremote
                     }
-                    .padding()
 
-                    VStack(alignment: .leading) {
-                        if selectedrsynccommand == .synchronize {
-                            localandremotecatalog
-                        } else {
-                            localandremotecatalogsyncremote
-                        }
+                    remoteuserandserver
 
-                        remoteuserandserver
+                    HStack {
+                        remoteuserpicker
 
-                        HStack {
-                            remoteuserpicker
-
-                            remoteserverpicker
-                        }
+                        remoteserverpicker
                     }
                 }
+            }
 
-                if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
-                if focusaborttask { labelaborttask }
-                if focusstartexecution { labelstartexecution }
+            if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
+            if focusaborttask { labelaborttask }
+            if focusstartexecution { labelstartexecution }
+        }
+        .onSubmit {
+            switch focusField {
+            case .localcatalogField:
+                focusField = .remotecatalogField
+            case .remotecatalogField:
+                focusField = .remoteuserField
+            case .remoteuserField:
+                focusField = .remoteserverField
+            case .remoteserverField:
+                focusField = nil
+                dryrun = true
+            default:
+                return
             }
-            .onSubmit {
-                switch focusField {
-                case .localcatalogField:
-                    focusField = .remotecatalogField
-                case .remotecatalogField:
-                    focusField = .remoteuserField
-                case .remoteuserField:
-                    focusField = .remoteserverField
-                case .remoteserverField:
-                    focusField = nil
-                    dryrun = true
-                default:
-                    return
+        }
+        .onAppear {
+            focusField = .localcatalogField
+        }
+        .focusedSceneValue(\.aborttask, $focusaborttask)
+        .focusedSceneValue(\.startexecution, $focusstartexecution)
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    getconfigandexecute()
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.left.fill")
+                        .foregroundColor(Color(.blue))
                 }
+                .help("Synchronize (⌘R)")
             }
-            .onAppear {
-                focusField = .localcatalogField
-            }
-            .focusedSceneValue(\.aborttask, $focusaborttask)
-            .focusedSceneValue(\.startexecution, $focusstartexecution)
-            .toolbar(content: {
-                ToolbarItem {
-                    Button {
-                        getconfigandexecute()
-                    } label: {
-                        Image(systemName: "arrowshape.turn.up.left.fill")
-                            .foregroundColor(Color(.blue))
-                    }
-                    .help("Synchronize (⌘R)")
-                }
 
-                ToolbarItem {
-                    Button {
-                        abort()
-                    } label: {
-                        Image(systemName: "stop.fill")
-                    }
-                    .help("Abort (⌘K)")
+            ToolbarItem {
+                Button {
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
                 }
-            })
-            .padding()
-            .navigationDestination(isPresented: $completed) {
-                OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
+                .help("Abort (⌘K)")
             }
+        })
+        .padding()
+        .navigationDestination(isPresented: $completed) {
+            OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }
     }
 

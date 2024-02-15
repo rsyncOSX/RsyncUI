@@ -86,6 +86,8 @@ struct SidebarTasksView: View {
             AlltasksView()
         case .viewlogfile:
             NavigationLogfileView()
+        case .quick_synchronize:
+            QuicktaskView(userserver: UserServer(configurations: rsyncUIdata.configurations))
         }
     }
 }
@@ -93,7 +95,7 @@ struct SidebarTasksView: View {
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
          estimatedview, firsttime, dryrunonetask, alltasksview,
-         dryrunonetaskalreadyestimated, viewlogfile
+         dryrunonetaskalreadyestimated, viewlogfile, quick_synchronize
     var id: String { rawValue }
 }
 
