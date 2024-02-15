@@ -56,7 +56,7 @@ class ReadConfigurationJSON: NamesandPaths {
                 case .finished:
                     return
                 case .failure:
-                    self.createdefaultfileconfigurations(profile)
+                    // self.createdefaultfileconfigurations(profile)
                     self.createdefaultfilelogrecords(profile)
                     // Mark first time used, only for default profile
                     if profile == nil {
