@@ -5,31 +5,8 @@
 //  Created by Thomas Evensen on 18/10/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
-//	Model file generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport
 
 import Foundation
-
-struct DecodeLog: Codable, Hashable {
-    var dateExecuted: String?
-    var resultExecuted: String?
-
-    enum CodingKeys: String, CodingKey {
-        case dateExecuted
-        case resultExecuted
-    }
-
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        dateExecuted = try values.decodeIfPresent(String.self, forKey: .dateExecuted)
-        resultExecuted = try values.decodeIfPresent(String.self, forKey: .resultExecuted)
-    }
-
-    // This init is used in WriteConfigurationJSON
-    init() {
-        dateExecuted = nil
-        resultExecuted = nil
-    }
-}
 
 struct DecodeLogRecords: Codable {
     let dateStart: String?
@@ -67,5 +44,27 @@ struct DecodeLogRecords: Codable {
             log.resultExecuted = data.logrecords?[i].resultExecuted
             logrecords?.append(log)
         }
+    }
+}
+
+struct DecodeLog: Codable, Hashable {
+    var dateExecuted: String?
+    var resultExecuted: String?
+
+    enum CodingKeys: String, CodingKey {
+        case dateExecuted
+        case resultExecuted
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        dateExecuted = try values.decodeIfPresent(String.self, forKey: .dateExecuted)
+        resultExecuted = try values.decodeIfPresent(String.self, forKey: .resultExecuted)
+    }
+
+    // This init is used in WriteConfigurationJSON
+    init() {
+        dateExecuted = nil
+        resultExecuted = nil
     }
 }
