@@ -60,14 +60,13 @@ struct LoadDemoDataView: View {
             let configurations = await getdemodata.getconfigurations()
             let logrecords = await getdemodata.getlogrecords()
             let snapshots = await getdemodata.getsnapshots()
-            /*
-                        _ = WriteConfigurationJSON(profile, configurations)
-                        _ = WriteLogRecordsJSON(profile, logrecords)
+            _ = WriteConfigurationJSON(profile, configurations)
+            _ = WriteLogRecordsJSON(profile, logrecords)
 
-                        selectedprofile = newdata.selectedprofile
-                        rsyncUIdata.profile = selectedprofile
-                        rsyncUIdata.configurations = configurations
-             */
+            selectedprofile = newdata.selectedprofile
+            rsyncUIdata.profile = selectedprofile
+            rsyncUIdata.configurations = configurations
+
             demodataiscreataed = true
         }
     }
