@@ -165,6 +165,7 @@ class SharedReference {
     @ObservationIgnored var firsttime = false
     // DemoData
     @ObservationIgnored var demodata = false
+    @ObservationIgnored var demodataprocesstermination: [String]?
 
     private init() {
         synctasks = Set<String>()

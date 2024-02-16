@@ -26,6 +26,12 @@ struct RsyncUIApp: App {
             if selectedprofile == "DemoData" {
                 SharedReference.shared.demodata = true
                 Logger.process.info("Demodata is TRUE")
+                Task {
+                    let data = await DemoDataJSONSnapshots().getsnapshots()
+                    SharedReference.shared.demodataprocesstermination = data
+                    Logger.process.info("Demodata is SET")
+                }
+
             } else {
                 SharedReference.shared.demodata = false
                 Logger.process.info("Demodata is FALSE")
