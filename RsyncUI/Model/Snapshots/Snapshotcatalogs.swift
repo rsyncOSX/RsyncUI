@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 class Snapshotcatalogs {
     var mysnapshotdata: SnapshotData?
@@ -54,8 +55,19 @@ class Snapshotcatalogs {
     {
         guard config.task == SharedReference.shared.snapshot else { return }
         mysnapshotdata = snapshotdata
-        Task {
-            await getremotecataloginfo(config)
+
+        if SharedReference.shared.demodata == false {
+            Task {
+                await getremotecataloginfo(config)
+            }
+
+        } else {
+            Logger.process.info("Demodata SNAPSHOTS")
+
+            Task {
+                let demodata = await DemoDataJSONSnapshots().getsnapshots()
+                processtermination(data: demodata)
+            }
         }
     }
 
