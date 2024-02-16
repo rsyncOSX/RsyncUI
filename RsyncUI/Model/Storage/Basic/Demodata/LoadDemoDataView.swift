@@ -47,21 +47,22 @@ struct LoadDemoDataView: View {
     }
 
     func loaddataandcreaterecords() {
-        guard profilenames.profiles.filter({ $0.profile == "DemoData" }).count == 0 else {
-            demodataexists = true
-            return
-        }
-        newdata.createprofile(newprofile: profile)
-        profilenames.update()
-
+        /*
+         guard profilenames.profiles.filter({ $0.profile == "DemoData" }).count == 0 else {
+             demodataexists = true
+             return
+         }
+         newdata.createprofile(newprofile: profile)
+         profilenames.update()
+         */
         let getdemodata = DemoDataJSON()
 
         Task {
             let configurations = await getdemodata.getconfigurations()
             let logrecords = await getdemodata.getlogrecords()
             let snapshots = await getdemodata.getsnapshots()
-            _ = WriteConfigurationJSON(profile, configurations)
-            _ = WriteLogRecordsJSON(profile, logrecords)
+            // _ = WriteConfigurationJSON(profile, configurations)
+            // _ = WriteLogRecordsJSON(profile, logrecords)
 
             selectedprofile = newdata.selectedprofile
             rsyncUIdata.profile = selectedprofile

@@ -18,10 +18,10 @@ class DemoDataJSON {
     var snapshotsJSON: String =
         "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/snapshotsV2.json"
 
-    private func getsnapshotsJSON() async throws -> [DecodeSnapshots]? {
+    private func getsnapshotsJSON() async throws -> [DecodeSnapshot]? {
         if let url = URL(string: snapshotsJSON) {
             let (data, _) = try await urlSession.data(from: url)
-            return try jsonDecoder.decode([DecodeSnapshots].self, from: data)
+            return try jsonDecoder.decode([DecodeSnapshot].self, from: data)
         } else {
             return nil
         }
@@ -93,8 +93,8 @@ class DemoDataJSON {
     }
 }
 
-struct DecodeSnapshots: Codable, Hashable {
-    var line: String?
+struct DecodeSnapshot: Codable, Hashable {
+    let line: String?
 
     enum CodingKeys: String, CodingKey {
         case line
