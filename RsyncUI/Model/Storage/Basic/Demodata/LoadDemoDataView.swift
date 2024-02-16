@@ -47,12 +47,12 @@ struct LoadDemoDataView: View {
     }
 
     func loaddataandcreaterecords() {
-         guard profilenames.profiles.filter({ $0.profile == "DemoData" }).count == 0 else {
-             demodataexists = true
-             return
-         }
-         newdata.createprofile(newprofile: profile)
-         profilenames.update()
+        guard profilenames.profiles.filter({ $0.profile == "DemoData" }).count == 0 else {
+            demodataexists = true
+            return
+        }
+        newdata.createprofile(newprofile: profile)
+        profilenames.update()
 
         let getdemodata = DemoDataJSON()
 

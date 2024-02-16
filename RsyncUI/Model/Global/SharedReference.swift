@@ -163,6 +163,8 @@ class SharedReference {
     let defaultprofile = "Default profile"
     // If firstime use
     @ObservationIgnored var firsttime = false
+    // DemoData
+    @ObservationIgnored var demodata = false
 
     private init() {
         synctasks = Set<String>()

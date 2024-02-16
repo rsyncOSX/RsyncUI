@@ -22,6 +22,15 @@ struct RsyncUIApp: App {
                 }
                 .frame(minWidth: 1300, minHeight: 510)
         }
+        .onChange(of: selectedprofile) {
+            if selectedprofile == "DemoData" {
+                SharedReference.shared.demodata = true
+                Logger.process.info("Demodata is TRUE")
+            } else {
+                SharedReference.shared.demodata = false
+                Logger.process.info("Demodata is FALSE")
+            }
+        }
         .commands {
             SidebarCommands()
 
