@@ -56,26 +56,36 @@ struct SnapshotsView: View {
                         }
 
                     if SharedReference.shared.demodata {
-                        Text("Demo V2")
+                        Text("Demo")
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(Color.blue)
+                                    .opacity(0.5)
+                                    .padding(-10)
+                            }
                             .font(.largeTitle)
                     }
+
+                    if notsnapshot == true { notasnapshottask }
                 }
 
-                SnapshotListView(snapshotdata: $snapshotdata,
-                                 snapshotrecords: $snapshotrecords,
-                                 filterstring: $filterstring,
-                                 selectedconfig: $selectedconfig)
-                    .onChange(of: deleteiscompleted) {
-                        if deleteiscompleted == true {
-                            getdata()
-                            deleteiscompleted = false
+                ZStack {
+                    SnapshotListView(snapshotdata: $snapshotdata,
+                                     snapshotrecords: $snapshotrecords,
+                                     filterstring: $filterstring,
+                                     selectedconfig: $selectedconfig)
+                        .onChange(of: deleteiscompleted) {
+                            if deleteiscompleted == true {
+                                getdata()
+                                deleteiscompleted = false
+                            }
                         }
-                    }
+
+                    if snapshotdata.inprogressofdelete == true { progressdelete }
+                }
             }
 
             if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
-            if notsnapshot == true { notasnapshottask }
-            if snapshotdata.inprogressofdelete == true { progressdelete }
         }
 
         if focustagsnapshot == true { labeltagsnapshot }

@@ -49,7 +49,13 @@ struct LogsbyConfigurationView: View {
                         }
 
                     if SharedReference.shared.demodata {
-                        Text("Demo V2")
+                        Text("Demo")
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(Color.blue)
+                                    .opacity(0.5)
+                                    .padding(-10)
+                            }
                             .font(.largeTitle)
                     }
                 }
