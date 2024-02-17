@@ -105,6 +105,9 @@ struct LogsbyConfigurationView: View {
         ) { filter in
             showindebounce = false
             debouncefilterstring = filter
+            Task {
+                await updatelogs()
+            }
         }
         .toolbar(content: {
             ToolbarItem {
@@ -132,19 +135,31 @@ struct LogsbyConfigurationView: View {
             .controlSize(.small)
     }
 
-    // TODO: fix filter
     func updatelogs() async {
         if let logrecords = rsyncUIlogrecords.logrecords {
-            if hiddenID == -1 {
-                var merged = [Log]()
-                for i in 0 ..< logrecords.count {
-                    merged += [logrecords[i].logrecords ?? []].flatMap { $0 }
+            if debouncefilterstring != "" {
+                if hiddenID == -1 {
+                    var merged = [Log]()
+                    for i in 0 ..< logrecords.count {
+                        merged += [logrecords[i].logrecords ?? []].flatMap { $0 }
+                    }
+                    // return merged.sorted(by: \.date, using: >)
+                    let records = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
+                    logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring))!
+                    }
                 }
-                // return merged.sorted(by: \.date, using: >)
-                logs = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
             } else {
-                if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }) {
-                    logs = (logrecords[index].logrecords ?? []).sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
+                if hiddenID == -1 {
+                    var merged = [Log]()
+                    for i in 0 ..< logrecords.count {
+                        merged += [logrecords[i].logrecords ?? []].flatMap { $0 }
+                    }
+                    // return merged.sorted(by: \.date, using: >)
+                    logs = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
+                } else {
+                    if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }) {
+                        logs = (logrecords[index].logrecords ?? []).sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
+                    }
                 }
             }
         }
