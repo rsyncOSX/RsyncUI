@@ -18,7 +18,7 @@ struct LoadDemoDataView: View {
     @State private var demodataexists: Bool = false
     @State private var demodataiscreataed: Bool = false
 
-    let profile: String = "DemoData"
+    let profile: String = SharedReference.shared.demprofile
 
     var body: some View {
         VStack {
@@ -47,7 +47,7 @@ struct LoadDemoDataView: View {
     }
 
     func loaddataandcreaterecords() {
-        guard profilenames.profiles.filter({ $0.profile == "DemoData" }).count == 0 else {
+        guard profilenames.profiles.filter({ $0.profile == SharedReference.shared.demprofile }).count == 0 else {
             demodataexists = true
             return
         }

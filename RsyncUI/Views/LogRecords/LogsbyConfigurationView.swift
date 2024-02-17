@@ -49,8 +49,8 @@ struct LogsbyConfigurationView: View {
                         }
 
                     if SharedReference.shared.demodata {
-                        Text("DemoData")
-                            .font(.title)
+                        Text("Demo V2")
+                            .font(.largeTitle)
                     }
                 }
 

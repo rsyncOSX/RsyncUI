@@ -23,7 +23,7 @@ struct RsyncUIApp: App {
                 .frame(minWidth: 1300, minHeight: 510)
         }
         .onChange(of: selectedprofile) {
-            if selectedprofile == "DemoData" {
+            if selectedprofile == SharedReference.shared.demprofile {
                 SharedReference.shared.demodata = true
                 Logger.process.info("Demodata is TRUE")
                 Task {

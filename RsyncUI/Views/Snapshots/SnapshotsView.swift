@@ -56,8 +56,8 @@ struct SnapshotsView: View {
                         }
 
                     if SharedReference.shared.demodata {
-                        Text("DemoData")
-                            .font(.title)
+                        Text("Demo V2")
+                            .font(.largeTitle)
                     }
                 }
 
