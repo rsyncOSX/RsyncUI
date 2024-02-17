@@ -145,12 +145,12 @@ struct LogsbyConfigurationView: View {
                     }
                     // return merged.sorted(by: \.date, using: >)
                     let records = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                    logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring))!
+                    logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring)) ?? false
                     }
                 } else {
                     if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }) {
                         let records = (logrecords[index].logrecords ?? []).sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                        logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring))!
+                        logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring)) ?? false
                         }
                     }
                 }
