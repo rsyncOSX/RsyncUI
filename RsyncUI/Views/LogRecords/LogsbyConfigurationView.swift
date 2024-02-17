@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 04/01/2021.
 //  Copyright © 2021 Thomas Evensen. All rights reserved.
 //
+// swiftlint: disable line_length
 
 import Combine
 import SwiftUI
@@ -145,12 +146,12 @@ struct LogsbyConfigurationView: View {
                     }
                     // return merged.sorted(by: \.date, using: >)
                     let records = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                    logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring)) ?? false
+                    logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring)) ?? false || ($0.resultExecuted?.contains(debouncefilterstring) ?? false)
                     }
                 } else {
                     if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }) {
                         let records = (logrecords[index].logrecords ?? []).sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                        logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring)) ?? false
+                        logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring)) ?? false || ($0.resultExecuted?.contains(debouncefilterstring) ?? false)
                         }
                     }
                 }
@@ -172,6 +173,4 @@ struct LogsbyConfigurationView: View {
     }
 }
 
-/*
- .filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring) ?? false) || $0.resultExecuted?.contains(debouncefilterstring) ?? false }
- */
+// swiftlint: enable line_length
