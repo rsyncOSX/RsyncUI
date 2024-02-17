@@ -22,7 +22,11 @@ class Snapshotcatalogs {
                                               snapshot: true)
         let command = RsyncAsync(arguments: arguments.getArguments(),
                                  processtermination: processtermination)
-        await command.executeProcess()
+        if SharedReference.shared.demodata == false {
+            await command.executeProcess()
+        } else {
+            processtermination(data: SharedReference.shared.demodataprocesstermination)
+        }
     }
 
     // Getting, from process, remote snapshotcatalogs
