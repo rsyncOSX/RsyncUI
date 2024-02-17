@@ -38,21 +38,28 @@ struct SnapshotsView: View {
     var body: some View {
         ZStack {
             HStack {
-                ListofTasksLightView(selecteduuids: $selectedconfiguuid,
-                                     profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.configurations ?? [])
-                    .onChange(of: selectedconfiguuid) {
-                        if let configurations = rsyncUIdata.configurations {
-                            if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
-                                selectedconfig = configurations[index]
-                                getdata()
-                            } else {
-                                selectedconfig = nil
-                                snapshotdata.setsnapshotdata(nil)
-                                filterstring = ""
+                ZStack {
+                    ListofTasksLightView(selecteduuids: $selectedconfiguuid,
+                                         profile: rsyncUIdata.profile,
+                                         configurations: rsyncUIdata.configurations ?? [])
+                        .onChange(of: selectedconfiguuid) {
+                            if let configurations = rsyncUIdata.configurations {
+                                if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
+                                    selectedconfig = configurations[index]
+                                    getdata()
+                                } else {
+                                    selectedconfig = nil
+                                    snapshotdata.setsnapshotdata(nil)
+                                    filterstring = ""
+                                }
                             }
                         }
+
+                    if SharedReference.shared.demodata {
+                        Text("DemoData")
+                            .font(.title)
                     }
+                }
 
                 SnapshotListView(snapshotdata: $snapshotdata,
                                  snapshotrecords: $snapshotrecords,

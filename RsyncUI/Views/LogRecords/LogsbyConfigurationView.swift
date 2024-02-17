@@ -32,19 +32,26 @@ struct LogsbyConfigurationView: View {
     var body: some View {
         VStack {
             HStack {
-                ListofTasksLightView(selecteduuids: $selecteduuids,
-                                     profile: profile,
-                                     configurations: configurations)
-                    .onChange(of: selecteduuids) {
-                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                            hiddenID = configurations[index].hiddenID
-                        } else {
-                            hiddenID = -1
+                ZStack {
+                    ListofTasksLightView(selecteduuids: $selecteduuids,
+                                         profile: profile,
+                                         configurations: configurations)
+                        .onChange(of: selecteduuids) {
+                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                hiddenID = configurations[index].hiddenID
+                            } else {
+                                hiddenID = -1
+                            }
+                            Task {
+                                await updatelogs()
+                            }
                         }
-                        Task {
-                            await updatelogs()
-                        }
+
+                    if SharedReference.shared.demodata {
+                        Text("DemoData")
+                            .font(.title)
                     }
+                }
 
                 Table(logs, selection: $selectedloguuids) {
                     TableColumn("Date") { data in
