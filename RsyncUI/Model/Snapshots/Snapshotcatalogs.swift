@@ -54,17 +54,11 @@ class Snapshotcatalogs {
          snapshotdata: SnapshotData)
     {
         guard config.task == SharedReference.shared.snapshot else { return }
-
-        if SharedReference.shared.demodata == false {
-            Task {
-                await getremotecataloginfo(config)
-            }
-        } else {
-            prepareremotesnapshotcatalogs(data: SharedReference.shared.demodataprocesstermination)
-            mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
-        }
-
         mysnapshotdata = snapshotdata
+
+        Task {
+            await getremotecataloginfo(config)
+        }
     }
 
     func processtermination(data: [String]?) {
