@@ -53,19 +53,6 @@ struct DetailsOneTask: View {
                 Form {
                     HStack {
                         VStack(alignment: .trailing) {
-                            Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) is new.")
-
-                            Text("^[\(estimatedtask.deletefiles_Int) file](inflect: true) for delete.")
-
-                            Text("^[\(estimatedtask.transferredNumber_Int) file](inflect: true) changed.")
-
-                            LabeledContent("Bytes: ") {
-                                Text(estimatedtask.transferredNumberSizebytes)
-                                    .foregroundColor(.blue)
-                            }
-                        }
-
-                        VStack(alignment: .trailing) {
                             LabeledContent("Total number of files: ") {
                                 Text(estimatedtask.totalNumber)
                                     .foregroundColor(.blue)
@@ -86,6 +73,22 @@ struct DetailsOneTask: View {
                                     .foregroundColor(.blue)
                             }
                         }
+
+                        Spacer()
+
+                        VStack(alignment: .trailing) {
+                            Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) is new")
+
+                            Text("^[\(estimatedtask.deletefiles_Int) file](inflect: true) for delete")
+
+                            Text("^[\(estimatedtask.transferredNumber_Int) file](inflect: true) changed")
+
+                            LabeledContent("Bytes: ") {
+                                Text(estimatedtask.transferredNumberSizebytes)
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                        .padding()
                     }
                 }
             }
