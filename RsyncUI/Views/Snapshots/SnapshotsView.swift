@@ -130,10 +130,8 @@ struct SnapshotsView: View {
 
     var labelnumberoflogs: some View {
         VStack(alignment: .leading) {
-            Text(NSLocalizedString("Number of logrecords", comment: "") +
-                ": " + "\(snapshotdata.logrecordssnapshot?.count ?? 0)")
-            Text(NSLocalizedString("Selected logrecords for delete", comment: "") +
-                ": " + "\(snapshotdata.snapshotuuidsfordelete.count)")
+            Text("There is ^[\(snapshotdata.logrecordssnapshot?.count ?? 0) snapshot](inflect: true)")
+            Text("Marked ^[\(snapshotdata.snapshotuuidsfordelete.count) snapshot](inflect: true) for delete")
         }
     }
 

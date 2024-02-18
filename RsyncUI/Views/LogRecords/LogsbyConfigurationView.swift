@@ -84,12 +84,10 @@ struct LogsbyConfigurationView: View {
                 }
             }
             HStack {
-                Text("Number of log records: ")
-
                 if showindebounce {
                     indebounce
                 } else {
-                    Text("\(logs.count)")
+                    Text("Counting ^[\(logs.count) log](inflect: true)")
                 }
                 Spacer()
             }
