@@ -102,8 +102,7 @@ struct ListofTasksMainView: View {
             .width(max: 120)
         }
         .confirmationDialog(
-            NSLocalizedString("Delete configuration(s)", comment: "")
-                + "?",
+            Text("Delete ^[\(selecteduuids.count) configuration](inflect: true)"),
             isPresented: $confirmdelete
         ) {
             Button("Delete") {

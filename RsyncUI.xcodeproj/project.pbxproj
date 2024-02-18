@@ -18,7 +18,6 @@
 		E9168C092615AB8500B139CE /* AddPreandPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9168C082615AB8500B139CE /* AddPreandPostView.swift */; };
 		E91FDCA12A5173860087B4CE /* Argumentsforrsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */; };
 		E927447529407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */; };
-		E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */; };
 		E92FA43F2ABEBEC3001E0A14 /* AlertToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA4392ABEBEC3001E0A14 /* AlertToast.swift */; };
 		E92FA4412ABEBEC3001E0A14 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA43B2ABEBEC3001E0A14 /* BlurView.swift */; };
 		E931ED962B0C82BB000BEF56 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931ED952B0C82BB000BEF56 /* QuicktaskView.swift */; };
@@ -207,7 +206,6 @@
 		E9168C082615AB8500B139CE /* AddPreandPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPreandPostView.swift; sourceTree = "<group>"; };
 		E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Argumentsforrsync.swift; sourceTree = "<group>"; };
 		E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckfornewversionofRsyncUI.swift; sourceTree = "<group>"; };
-		E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteSnapshots.swift; sourceTree = "<group>"; };
 		E92FA4392ABEBEC3001E0A14 /* AlertToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
 		E92FA43B2ABEBEC3001E0A14 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		E931ED952B0C82BB000BEF56 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
@@ -614,7 +612,6 @@
 			children = (
 				E985C62825F3AD8400CB895C /* SnapshotListView.swift */,
 				E985C62925F3AD8400CB895C /* SnapshotsView.swift */,
-				E92CB776264BF38F004FE022 /* ConfirmDeleteSnapshots.swift */,
 			);
 			path = Snapshots;
 			sourceTree = "<group>";
@@ -1208,7 +1205,6 @@
 				E9E9CD2526779E2600EB377B /* ExecuteCommands.swift in Sources */,
 				E985C74625F3AD9700CB895C /* Numbers.swift in Sources */,
 				E9FBE7912A51C5CA0038B82D /* SnapshotLogRecords.swift in Sources */,
-				E92CB777264BF38F004FE022 /* ConfirmDeleteSnapshots.swift in Sources */,
 				E92FA43F2ABEBEC3001E0A14 /* AlertToast.swift in Sources */,
 				E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */,
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,

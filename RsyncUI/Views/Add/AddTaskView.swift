@@ -100,8 +100,7 @@ struct AddTaskView: View {
                                     items.filter { $0.task != SharedReference.shared.snapshot }
                                 }
                                 .confirmationDialog(
-                                    NSLocalizedString("Copy configuration(s)", comment: "")
-                                        + "?",
+                                    Text("Copy ^[\(newdata.copyandpasteconfigurations?.count ?? 0) configuration](inflect: true)"),
                                     isPresented: $confirmcopyandpaste
                                 ) {
                                     Button("Copy") {
