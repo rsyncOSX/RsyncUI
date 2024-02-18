@@ -1,3 +1,12 @@
+/* No comment provided by engineer. */
+"^[%lld file](inflect: true) changed." = "^[%lld fil](inflect: true) er endret.";
+
+/* No comment provided by engineer. */
+"^[%lld file](inflect: true) for delete." = "^[%lld fil](inflect: true) skal slettes.";
+
+/* No comment provided by engineer. */
+"^[%lld file](inflect: true) is new." = "^[%lld fil](inflect: true) er ny.";
+
 /* (No Comment) */
 "Abort" = "Avbryt";
 
@@ -65,7 +74,7 @@
 "Catalogs" = "Kataloger";
 
 /* No comment provided by engineer. */
-"Changed files: " = "Endrede filer:";
+"Changelog" = "Endringslogg";
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Sjekk for feil i utdata";
@@ -75,9 +84,6 @@
 
 /* No comment provided by engineer. */
 "Copy" = "Kopi";
-
-/* No comment provided by engineer. */
-"Copy configuration(s)" = "Kopi konfigurasjoner";
 
 /* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Opphavsrett ©2023 Thomas Evensen";
@@ -101,16 +107,7 @@
 "Delete" = "Slett";
 
 /* No comment provided by engineer. */
-"Delete configuration(s)" = "Slette konfigurasjoner";
-
-/* No comment provided by engineer. */
-"Delete files: " = "Slett filer:";
-
-/* No comment provided by engineer. */
 "Delete profile" = "Slett profil";
-
-/* No comment provided by engineer. */
-"Delete snapshots(s)" = "Slette snapshot";
 
 /* No comment provided by engineer. */
 "deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "i sletting av data. Og RsyncUI vil ikke hindre deg i det. Derfor er det";
@@ -221,9 +218,6 @@
 "New" = "Ny";
 
 /* No comment provided by engineer. */
-"New files: " = "Nye filer:";
-
-/* No comment provided by engineer. */
 "New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
@@ -245,16 +239,7 @@
 "Not verified" = "Ikke verifisert";
 
 /* No comment provided by engineer. */
-"Number of log records: " = "Antall logger:";
-
-/* No comment provided by engineer. */
-"Number of logrecords" = "Antall logger";
-
-/* No comment provided by engineer. */
 "OK" = "Ok";
-
-/* No comment provided by engineer. */
-"Changelog" = "Endringslogg";
 
 /* No comment provided by engineer. */
 "Other settings" = "Andre settinger";
@@ -282,12 +267,6 @@
 
 /* No comment provided by engineer. */
 "Remote parameters" = "Eksterne parametere";
-
-/* No comment provided by engineer. */
-"Remote server" = "Ekstern tjener";
-
-/* No comment provided by engineer. */
-"Remote user" = "Ekstern bruker";
 
 /* No comment provided by engineer. */
 "Remove default rsync parameters" = "Slett standard rsync parametre";
@@ -329,19 +308,10 @@
 "Save settings" = "Lagre innstillinger";
 
 /* No comment provided by engineer. */
-"Save usersettings" = "Lagre brukervalg";
-
-/* No comment provided by engineer. */
-"Saved" = "Lagret";
-
-/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
 
 /* No comment provided by engineer. */
 "Select task" = "Velg oppgave";
-
-/* No comment provided by engineer. */
-"Selected logrecords for delete" = "Valgte log for å slette";
 
 /* No comment provided by engineer. */
 "selecting Important. Setting the wrong parameters to rsync can result in" = "under Viktig. Sette gale parametre til rsync kan resultere i";
@@ -411,9 +381,6 @@
 
 /* No comment provided by engineer. */
 "Tot num" = "Tot num";
-
-/* No comment provided by engineer. */
-"Try to search for another ID." = "Forsøk annet søk i ID";
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Date or Result" = "Forsøk annet søk i Dato eller Resultat";

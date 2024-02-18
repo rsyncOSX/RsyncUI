@@ -68,7 +68,7 @@
 "Change search string to filter records" = "Ändern Sie die Suchzeichenfolge, um Datensätze zu filtern";
 
 /* No comment provided by engineer. */
-"Changed files: " = "Geänderte Dateien:";
+"Changelog" = "Änderungsprotokoll";
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
@@ -78,9 +78,6 @@
 
 /* No comment provided by engineer. */
 "Copy" = "Kopi";
-
-/* No comment provided by engineer. */
-"Copy configuration(s)" = "Konfiguration(en) kopieren";
 
 /* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Copyright ©2023 Thomas Evensen";
@@ -104,16 +101,7 @@
 "Delete" = "Löschen";
 
 /* No comment provided by engineer. */
-"Delete configuration(s)" = "Konfiguration(en) löschen";
-
-/* No comment provided by engineer. */
-"Delete files: " = "Datei löschen";
-
-/* No comment provided by engineer. */
 "Delete profile" = "Profil löschen";
-
-/* No comment provided by engineer. */
-"Delete snapshots(s)" = "Schnappschüsse löschen";
 
 /* No comment provided by engineer. */
 "deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "gelöschte Daten. RsyncUI wird Sie NICHT davon abhalten. Deshalb ist es sehr";
@@ -224,9 +212,6 @@
 "New" = "Neu";
 
 /* No comment provided by engineer. */
-"New files: " = "Neue datei:";
-
-/* No comment provided by engineer. */
 "New version" = "Neue Version";
 
 /* No comment provided by engineer. */
@@ -248,16 +233,7 @@
 "Not verified" = "Nicht verifiziert";
 
 /* No comment provided by engineer. */
-"Number of log records: " = "Anzahl der Protokolle:";
-
-/* No comment provided by engineer. */
-"Number of logrecords" = "Anzahl der Protokolle";
-
-/* No comment provided by engineer. */
 "OK" = "Ok";
-
-/* No comment provided by engineer. */
-"Changelog" = "Änderungsprotokoll";
 
 /* No comment provided by engineer. */
 "Other settings" = "Andere Einstellungen";
@@ -285,12 +261,6 @@
 
 /* No comment provided by engineer. */
 "Remote parameters" = "Remote Parameter";
-
-/* No comment provided by engineer. */
-"Remote server" = "Entfernter Server ";
-
-/* No comment provided by engineer. */
-"Remote user" = "Entfernter Benutzer";
 
 /* No comment provided by engineer. */
 "Remove default rsync parameters" = "Entfernen Sie die Standard-rsync-Parameter";
@@ -332,19 +302,10 @@
 "Save settings" = "Einstellungen speichern";
 
 /* No comment provided by engineer. */
-"Save usersettings" = "Benutzereinstellungen speichern";
-
-/* No comment provided by engineer. */
-"Saved" = "Gespeichert";
-
-/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
 "Select task" = "Aufgabe auswählen";
-
-/* No comment provided by engineer. */
-"Selected logrecords for delete" = "Ausgewählte Protokolldatensätze zum Löschen";
 
 /* No comment provided by engineer. */
 "selecting Important. Setting the wrong parameters to rsync can result in" = "wählen Sie Wichtig aus. Das Einstellen der falschen Parameter für rsync kann dazu führen";
@@ -414,9 +375,6 @@
 
 /* No comment provided by engineer. */
 "Tot num" = "Anzahl Gesamt";
-
-/* No comment provided by engineer. */
-"Try to search for another ID." = "Versuchen Sie, nach einer anderen ID zu suchen.";
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Date or Result" = "Versuchen Sie, in „Datum“ oder „Ergebnis“ nach einem anderen Filter zu suchen";

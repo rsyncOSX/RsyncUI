@@ -53,18 +53,12 @@ struct DetailsOneTask: View {
                 Form {
                     HStack {
                         VStack(alignment: .trailing) {
-                            LabeledContent("New files: ") {
-                                Text(estimatedtask.newfiles)
-                                    .foregroundColor(.blue)
-                            }
-                            LabeledContent("Delete files: ") {
-                                Text(estimatedtask.deletefiles)
-                                    .foregroundColor(.blue)
-                            }
-                            LabeledContent("Changed files: ") {
-                                Text(estimatedtask.transferredNumber)
-                                    .foregroundColor(.blue)
-                            }
+                            Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) is new.")
+
+                            Text("^[\(estimatedtask.deletefiles_Int) file](inflect: true) for delete.")
+
+                            Text("^[\(estimatedtask.transferredNumber_Int) file](inflect: true) changed.")
+
                             LabeledContent("Bytes: ") {
                                 Text(estimatedtask.transferredNumberSizebytes)
                                     .foregroundColor(.blue)
