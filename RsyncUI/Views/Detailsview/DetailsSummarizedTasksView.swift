@@ -97,13 +97,13 @@ struct SummarizedAllDetailsView: View {
                             }
                         }
                         .width(max: 40)
-                        TableColumn("Bytes") { files in
+                        TableColumn("kB") { files in
                             if files.datatosynchronize {
-                                Text(files.transferredNumberSizebytes)
+                                Text("\(files.transferredNumberSizebytes_Int / 1000)")
                                     .frame(maxWidth: .infinity, alignment: .trailing)
                                     .foregroundColor(.blue)
                             } else {
-                                Text(files.transferredNumberSizebytes)
+                                Text("\(files.transferredNumberSizebytes_Int / 1000)")
                                     .frame(maxWidth: .infinity, alignment: .trailing)
                             }
                         }
@@ -113,8 +113,8 @@ struct SummarizedAllDetailsView: View {
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                         .width(max: 80)
-                        TableColumn("Tot bytes") { files in
-                            Text(files.totalNumberSizebytes)
+                        TableColumn("Tot kB") { files in
+                            Text("\(files.totalNumberSizebytes_Int / 1000)")
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                         .width(max: 80)

@@ -67,10 +67,10 @@ final class Numbers {
             return transferNum ?? 0
         case .totalNumberSizebytes:
             let size = totNumSize ?? 0
-            return Int(size / 1024)
+            return Int(size)
         case .transferredNumberSizebytes:
             let size = transferNumSize ?? 0
-            return Int(size / 1024)
+            return Int(size)
         case .new:
             let num = newfiles ?? 0
             return Int(num)
@@ -201,11 +201,11 @@ final class Numbers {
         // Dont have numbers of file as input
         if numberOfFiles == nil {
             return String(output?.count ?? 0) + " files : " +
-                String(format: "%.2f", (bytesTotal / 1024) / 1000) +
+                String(format: "%.2f", (bytesTotal / 1000) / 1000) +
                 " MB in " + String(format: "%.2f", seconds) + " seconds"
         } else {
             return numberOfFiles! + " files : " +
-                String(format: "%.2f", (bytesTotal / 1024) / 1000) +
+                String(format: "%.2f", (bytesTotal / 1000) / 1000) +
                 " MB in " + String(format: "%.2f", seconds) + " seconds"
         }
     }

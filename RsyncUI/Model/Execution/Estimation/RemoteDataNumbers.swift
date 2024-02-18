@@ -16,8 +16,10 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var transferredNumber: String
     var transferredNumber_Int: Int
     var transferredNumberSizebytes: String
+    var transferredNumberSizebytes_Int: Int
     var totalNumber: String
     var totalNumberSizebytes: String
+    var totalNumberSizebytes_Int: Int
     var totalDirs: String
     var newfiles: String
     var newfiles_Int: Int
@@ -60,8 +62,10 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         transferredNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.none)
         transferredNumber_Int = number.getTransferredNumbers(numbers: .transferredNumber)
         transferredNumberSizebytes = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal)
+        transferredNumberSizebytes_Int = number.getTransferredNumbers(numbers: .transferredNumberSizebytes)
         totalNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber)), number: NumberFormatter.Style.decimal)
         totalNumberSizebytes = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumberSizebytes)), number: NumberFormatter.Style.decimal)
+        totalNumberSizebytes_Int = number.getTransferredNumbers(numbers: .totalNumberSizebytes)
         totalDirs = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalDirs)), number: NumberFormatter.Style.decimal)
         totalNumber_totalDirs = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber_totalDirs)), number: NumberFormatter.Style.decimal)
         newfiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .new)), number: NumberFormatter.Style.none)

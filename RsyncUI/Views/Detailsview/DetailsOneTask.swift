@@ -16,19 +16,23 @@ struct DetailsOneTask: View {
             HStack {
                 Form {
                     VStack(alignment: .leading) {
-                        LabeledContent("Synchronize ID: ") {
-                            if estimatedtask.backupID.count == 0 {
-                                Text("Synchronize ID")
-                                    .foregroundColor(.blue)
-                            } else {
-                                Text(estimatedtask.backupID)
+                        HStack {
+                            LabeledContent("Synchronize ID: ") {
+                                if estimatedtask.backupID.count == 0 {
+                                    Text("Synchronize ID")
+                                        .foregroundColor(.blue)
+                                } else {
+                                    Text(estimatedtask.backupID)
+                                        .foregroundColor(.blue)
+                                }
+                            }
+
+                            LabeledContent("Task: ") {
+                                Text(estimatedtask.task)
                                     .foregroundColor(.blue)
                             }
                         }
-                        LabeledContent("Task: ") {
-                            Text(estimatedtask.task)
-                                .foregroundColor(.blue)
-                        }
+
                         LabeledContent("Local catalog: ") {
                             Text(estimatedtask.localCatalog)
                                 .foregroundColor(.blue)
@@ -77,16 +81,20 @@ struct DetailsOneTask: View {
                         Spacer()
 
                         VStack(alignment: .trailing) {
+                            Text("1 kB is 1000 bytes")
+                            Text("1 MB is 1 000 000 bytes")
+                        }
+
+                        Spacer()
+
+                        VStack(alignment: .trailing) {
                             Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) is new")
 
                             Text("^[\(estimatedtask.deletefiles_Int) file](inflect: true) for delete")
 
                             Text("^[\(estimatedtask.transferredNumber_Int) file](inflect: true) changed")
 
-                            LabeledContent("Bytes: ") {
-                                Text(estimatedtask.transferredNumberSizebytes)
-                                    .foregroundColor(.blue)
-                            }
+                            Text("^[\(estimatedtask.transferredNumberSizebytes_Int) byte](inflect: true) for transfer")
                         }
                         .padding()
                     }
