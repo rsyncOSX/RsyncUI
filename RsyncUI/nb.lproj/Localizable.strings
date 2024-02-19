@@ -2,13 +2,19 @@
 "^[%lld byte](inflect: true) for transfer" = "^[%lld byte](inflect: true) for overføring";
 
 /* No comment provided by engineer. */
-"^[%lld file](inflect: true) changed" = "^[%lld byte](inflect: true) endret";
+"^[%lld file](inflect: true) changed" = "^[%lld fil](inflect: true) endret";
 
 /* No comment provided by engineer. */
-"^[%lld file](inflect: true) for delete" = "^[%lld byte](inflect: true) slettes";
+"^[%lld file](inflect: true) for delete" = "^[%lld fil](inflect: true) slettes";
 
 /* No comment provided by engineer. */
-"^[%lld file](inflect: true) new" = "^[%lld byte](inflect: true) nye";
+"^[%lld file](inflect: true) new" = "^[%lld fil](inflect: true) nye";
+
+/* No comment provided by engineer. */
+"1 kB is 1000 bytes" = "1 kB er 1000 bytes";
+
+/* No comment provided by engineer. */
+"1 MB is 1 000 000 bytes" = "1 MB er 1 000 000 bytes";
 
 /* (No Comment) */
 "Abort" = "Avbryt";
@@ -86,7 +92,13 @@
 "Copy" = "Kopi";
 
 /* No comment provided by engineer. */
+"Copy ^[%lld configuration](inflect: true)" = "Kopi ^[%lld konfigurasjon](inflect: true)";
+
+/* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Opphavsrett ©2023 Thomas Evensen";
+
+/* No comment provided by engineer. */
+"Counting ^[%lld log](inflect: true)" = "Antall ^[%lld log](inflect: true)";
 
 /* No comment provided by engineer. */
 "Create keys" = "Opprett nøkler";
@@ -107,6 +119,15 @@
 "Delete" = "Slett";
 
 /* No comment provided by engineer. */
+"Delete ^[%lld configuration](inflect: true)" = "Slett ^[%lld konfigurasjon](inflect: true)";
+
+/* No comment provided by engineer. */
+"Delete ^[%lld log](inflect: true)" = "Slett ^[%lld log](inflect: true)";
+
+/* No comment provided by engineer. */
+"Delete ^[%lld snapshot](inflect: true)" = "Slett ^[%lld snapshot](inflect: true)";
+
+/* No comment provided by engineer. */
 "Delete profile" = "Slett profil";
 
 /* No comment provided by engineer. */
@@ -116,7 +137,13 @@
 "Deleting snapshots" = "Slette snapshots";
 
 /* No comment provided by engineer. */
+"Demo" = "Demo";
+
+/* No comment provided by engineer. */
 "Detailed log level" = "Detaljert log nivå";
+
+/* No comment provided by engineer. */
+"Dismiss" = "Lukk";
 
 /* No comment provided by engineer. */
 "Don´t add /" = "Ikke legg til /";
@@ -182,10 +209,16 @@
 "important to execute a simulated run and inspect what happens before a real run." = "viktig å utføre en simulert kjøring og inspisere resultatet før synkronisering";
 
 /* No comment provided by engineer. */
+"kB" = "kB";
+
+/* No comment provided by engineer. */
 "Last" = "Siste";
 
 /* No comment provided by engineer. */
 "List tasks all profiles" = "Liste oppgaver alle profiler";
+
+/* No comment provided by engineer. */
+"Load DemoData" = "Last Demo data";
 
 /* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
@@ -207,6 +240,9 @@
 
 /* No comment provided by engineer. */
 "Mark days :" = "Marker dager:";
+
+/* No comment provided by engineer. */
+"Marked ^[%lld snapshot](inflect: true) for delete" = "Markert ^[%lld snapshot](inflect: true) for sletting";
 
 /* No comment provided by engineer. */
 "Min" = "Minimum";
@@ -255,6 +291,12 @@
 
 /* No comment provided by engineer. */
 "Profile" = "Profil";
+
+/* No comment provided by engineer. */
+"Profile DemoData exists" = "Profil Demo data eksisterer";
+
+/* No comment provided by engineer. */
+"Profile DemoData is created and demodata is loaded.\n You can dimiss the view." = "Profile Demo data er opprettet og demo data er lastet. Du kan lukke vinduet.";
 
 /* No comment provided by engineer. */
 "Profiles" = "Profiler";
@@ -326,6 +368,9 @@
 "Shell commands" = "Skall kommando";
 
 /* No comment provided by engineer. */
+"Show copy keys" = "Hvis kopi nøkler";
+
+/* No comment provided by engineer. */
 "Snap" = "Snap";
 
 /* No comment provided by engineer. */
@@ -365,10 +410,19 @@
 "Tasks" = "Oppgaver";
 
 /* No comment provided by engineer. */
+"Test SSH connection: \n select a login and server" = "Test SSH konfigurasjon: velg login og tjener";
+
+/* No comment provided by engineer. */
 "There are no logs by this filter" = "Det er ingen logger med dette søk";
 
 /* No comment provided by engineer. */
+"There are no snapshot records by this search string in Date or Tag" = "Ingen snapshot med denne søke strengen i Dato eller Tag";
+
+/* No comment provided by engineer. */
 "There are no tasks by this Synchronize ID" = "Det er ingen oppgaver med denne Synchronize ID";
+
+/* No comment provided by engineer. */
+"There is ^[%lld snapshot](inflect: true)" = "Det er i^[%lld snapshot](inflect: true)";
 
 /* No comment provided by engineer. */
 "There seems to be no data to synchronize" = "Det synes ikke å være data for synkronisering";
@@ -381,6 +435,9 @@
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Date or Result" = "Forsøk annet søk i Dato eller Resultat";
+
+/* No comment provided by engineer. */
+"Update plan snapshot" = "Oppdater plan snapshot";
 
 /* No comment provided by engineer. */
 "Update task" = "Oppdater oppgave";
