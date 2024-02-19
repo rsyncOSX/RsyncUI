@@ -128,10 +128,10 @@
 "Delete ^[%lld configuration](inflect: true)" = "Löschen ^[%lld configuration](inflect: true)";
 
 /* No comment provided by engineer. */
-"Delete ^[%lld log](inflect: true)" = "Löschen ^[%lld configuration](inflect: true)";
+"Delete ^[%lld log](inflect: true)" = "Löschen ^[%lld log](inflect: true)";
 
 /* No comment provided by engineer. */
-"Delete ^[%lld snapshot](inflect: true)" = "Löschen ^[%lld configuration](inflect: true)";
+"Delete ^[%lld snapshot](inflect: true)" = "Löschen ^[%lld snapshot](inflect: true)";
 
 /* No comment provided by engineer. */
 "Delete profile" = "Profil löschen";
@@ -419,7 +419,7 @@
 "There are no tasks by this Synchronize ID" = "Es gibt keine Aufgaben dieser Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
-"There is ^[%lld snapshot](inflect: true)" = "There is ^[%lld snapshot](inflect: true)";
+"There is ^[%lld snapshot](inflect: true)" = "Es gibt  ^[%lld snapshot](inflect: true)";
 
 /* No comment provided by engineer. */
 "There seems to be no data to synchronize" = "Es scheinen keine Daten zum Synchronisieren vorhanden zu sein";
