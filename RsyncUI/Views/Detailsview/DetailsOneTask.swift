@@ -88,7 +88,7 @@ struct DetailsOneTask: View {
                         Spacer()
 
                         VStack(alignment: .trailing) {
-                            Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) is new")
+                            Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) new")
 
                             Text("^[\(estimatedtask.deletefiles_Int) file](inflect: true) for delete")
 
