@@ -422,7 +422,7 @@
 "There are no tasks by this Synchronize ID" = "Det er ingen oppgaver med denne Synchronize ID";
 
 /* No comment provided by engineer. */
-"There is ^[%lld snapshot](inflect: true)" = "Det er i^[%lld snapshot](inflect: true)";
+"There is ^[%lld snapshot](inflect: true)" = "Det er ^[%lld snapshot](inflect: true)";
 
 /* No comment provided by engineer. */
 "There seems to be no data to synchronize" = "Det synes ikke å være data for synkronisering";
