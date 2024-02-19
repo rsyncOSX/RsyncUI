@@ -1,3 +1,15 @@
+/* No comment provided by engineer. */
+"^[%lld byte](inflect: true) for transfer" = "^[%lld byte](inflect: true) zum Übertragen";
+
+/* No comment provided by engineer. */
+"^[%lld file](inflect: true) changed" = "^[%lld byte](inflect: true) geändert";
+
+/* No comment provided by engineer. */
+"^[%lld file](inflect: true) for delete" = "^[%lld byte](inflect: true) löschen";
+
+/* No comment provided by engineer. */
+"^[%lld file](inflect: true) new" = "^[%lld byte](inflect: true) neu";
+
 /* (No Comment) */
 "Abort" = "Abbrechen";
 
@@ -53,9 +65,6 @@
 "Backup configurations" = "Sichern datei";
 
 /* No comment provided by engineer. */
-"Bytes" = "Bytes";
-
-/* No comment provided by engineer. */
 "Cancel" = "Abbrechen";
 
 /* No comment provided by engineer. */
@@ -80,7 +89,13 @@
 "Copy" = "Kopi";
 
 /* No comment provided by engineer. */
+"Copy ^[%lld configuration](inflect: true)" = "Copy ^[%lld configuration](inflect: true)";
+
+/* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Copyright ©2023 Thomas Evensen";
+
+/* No comment provided by engineer. */
+"Counting ^[%lld log](inflect: true)" = "Counting ^[%lld log](inflect: true)";
 
 /* No comment provided by engineer. */
 "Create keys" = "Keys erstellen";
@@ -99,6 +114,15 @@
 
 /* No comment provided by engineer. */
 "Delete" = "Löschen";
+
+/* No comment provided by engineer. */
+"Delete ^[%lld configuration](inflect: true)" = "Delete ^[%lld configuration](inflect: true)";
+
+/* No comment provided by engineer. */
+"Delete ^[%lld log](inflect: true)" = "Delete ^[%lld configuration](inflect: true)";
+
+/* No comment provided by engineer. */
+"Delete ^[%lld snapshot](inflect: true)" = "Delete ^[%lld configuration](inflect: true)";
 
 /* No comment provided by engineer. */
 "Delete profile" = "Profil löschen";
@@ -201,6 +225,9 @@
 
 /* No comment provided by engineer. */
 "Mark days :" = "Tage markieren:";
+
+/* No comment provided by engineer. */
+"Marked ^[%lld snapshot](inflect: true) for delete" = "Marked ^[%lld snapshot](inflect: true) for delete";
 
 /* No comment provided by engineer. */
 "Min" = "Min";
@@ -365,10 +392,10 @@
 "There are no tasks by this Synchronize ID" = "Es gibt keine Aufgaben dieser Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
-"There seems to be no data to synchronize" = "Es scheinen keine Daten zum Synchronisieren vorhanden zu sein";
+"There is ^[%lld snapshot](inflect: true)" = "There is ^[%lld snapshot](inflect: true)";
 
 /* No comment provided by engineer. */
-"Tot bytes" = "Bytes Gesamt";
+"There seems to be no data to synchronize" = "Es scheinen keine Daten zum Synchronisieren vorhanden zu sein";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Verzeichnisse Gesamt";

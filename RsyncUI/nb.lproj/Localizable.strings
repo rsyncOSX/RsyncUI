@@ -1,11 +1,14 @@
 /* No comment provided by engineer. */
-"^[%lld file](inflect: true) changed." = "^[%lld fil](inflect: true) er endret.";
+"^[%lld byte](inflect: true) for transfer" = "^[%lld byte](inflect: true) for overføring";
 
 /* No comment provided by engineer. */
-"^[%lld file](inflect: true) for delete." = "^[%lld fil](inflect: true) skal slettes.";
+"^[%lld file](inflect: true) changed" = "^[%lld byte](inflect: true) endret";
 
 /* No comment provided by engineer. */
-"^[%lld file](inflect: true) is new." = "^[%lld fil](inflect: true) er ny.";
+"^[%lld file](inflect: true) for delete" = "^[%lld byte](inflect: true) slettes";
+
+/* No comment provided by engineer. */
+"^[%lld file](inflect: true) new" = "^[%lld byte](inflect: true) nye";
 
 /* (No Comment) */
 "Abort" = "Avbryt";
@@ -60,9 +63,6 @@
 
 /* No comment provided by engineer. */
 "Backup configurations" = "Lagre konfigurasjoner";
-
-/* No comment provided by engineer. */
-"Bytes" = "bytes";
 
 /* No comment provided by engineer. */
 "Cancel" = "Kanseler";
@@ -372,9 +372,6 @@
 
 /* No comment provided by engineer. */
 "There seems to be no data to synchronize" = "Det synes ikke å være data for synkronisering";
-
-/* No comment provided by engineer. */
-"Tot bytes" = "Tot bytes";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Tot dir";
