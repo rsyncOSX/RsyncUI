@@ -2,13 +2,13 @@
 "^[%lld byte](inflect: true) for transfer" = "^[%lld byte](inflect: true) zum Übertragen";
 
 /* No comment provided by engineer. */
-"^[%lld file](inflect: true) changed" = "^[%lld byte](inflect: true) geändert";
+"^[%lld file](inflect: true) changed" = "^[%lld Datei](inflect: true) geändert";
 
 /* No comment provided by engineer. */
-"^[%lld file](inflect: true) for delete" = "^[%lld byte](inflect: true) löschen";
+"^[%lld file](inflect: true) for delete" = "^[%lld Datei](inflect: true) löschen";
 
 /* No comment provided by engineer. */
-"^[%lld file](inflect: true) new" = "^[%lld byte](inflect: true) neu";
+"^[%lld file](inflect: true) new" = "^[%lld Datei](inflect: true) neu";
 
 /* No comment provided by engineer. */
 "1 kB is 1000 bytes" = "1 kB sind 1000 Bytes";
