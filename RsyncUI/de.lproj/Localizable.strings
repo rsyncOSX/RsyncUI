@@ -10,6 +10,12 @@
 /* No comment provided by engineer. */
 "^[%lld file](inflect: true) new" = "^[%lld byte](inflect: true) neu";
 
+/* No comment provided by engineer. */
+"1 kB is 1000 bytes" = "1 kB sind 1000 Bytes";
+
+/* No comment provided by engineer. */
+"1 MB is 1 000 000 bytes" = "1 MB sind 1 000 000 Bytes";
+
 /* (No Comment) */
 "Abort" = "Abbrechen";
 
@@ -89,13 +95,16 @@
 "Copy" = "Kopi";
 
 /* No comment provided by engineer. */
-"Copy ^[%lld configuration](inflect: true)" = "Copy ^[%lld configuration](inflect: true)";
+"Copy ^[%lld configuration](inflect: true)" = "Kopi ^[%lld configuration](inflect: true)";
+
+/* No comment provided by engineer. */
+"Copy public SSH key:" = "Öffentlichen SSH-Schlüssel kopieren:";
 
 /* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Copyright ©2023 Thomas Evensen";
 
 /* No comment provided by engineer. */
-"Counting ^[%lld log](inflect: true)" = "Counting ^[%lld log](inflect: true)";
+"Counting ^[%lld log](inflect: true)" = "Zählen ^[%lld log](inflect: true)";
 
 /* No comment provided by engineer. */
 "Create keys" = "Keys erstellen";
@@ -116,13 +125,13 @@
 "Delete" = "Löschen";
 
 /* No comment provided by engineer. */
-"Delete ^[%lld configuration](inflect: true)" = "Delete ^[%lld configuration](inflect: true)";
+"Delete ^[%lld configuration](inflect: true)" = "Löschen ^[%lld configuration](inflect: true)";
 
 /* No comment provided by engineer. */
-"Delete ^[%lld log](inflect: true)" = "Delete ^[%lld configuration](inflect: true)";
+"Delete ^[%lld log](inflect: true)" = "Löschen ^[%lld configuration](inflect: true)";
 
 /* No comment provided by engineer. */
-"Delete ^[%lld snapshot](inflect: true)" = "Delete ^[%lld configuration](inflect: true)";
+"Delete ^[%lld snapshot](inflect: true)" = "Löschen ^[%lld configuration](inflect: true)";
 
 /* No comment provided by engineer. */
 "Delete profile" = "Profil löschen";
@@ -134,7 +143,13 @@
 "Deleting snapshots" = "Schnappschüsse löschen";
 
 /* No comment provided by engineer. */
+"Demo" = "Demo";
+
+/* No comment provided by engineer. */
 "Detailed log level" = "Detaillierte Protokollebene";
+
+/* No comment provided by engineer. */
+"Dismiss" = "Zurückweisen";
 
 /* No comment provided by engineer. */
 "Don´t add /" = "Nicht hinzufügen/";
@@ -206,6 +221,9 @@
 "List tasks all profiles" = "Aufgaben aller Profile auflisten";
 
 /* No comment provided by engineer. */
+"Load DemoData" = "Demodaten laden";
+
+/* No comment provided by engineer. */
 "Local catalog" = "Lokaler Katalog";
 
 /* No comment provided by engineer. */
@@ -227,7 +245,7 @@
 "Mark days :" = "Tage markieren:";
 
 /* No comment provided by engineer. */
-"Marked ^[%lld snapshot](inflect: true) for delete" = "Marked ^[%lld snapshot](inflect: true) for delete";
+"Marked ^[%lld snapshot](inflect: true) for delete" = "^[%lld snapshot](inflect: true) zum Löschen markiert";
 
 /* No comment provided by engineer. */
 "Min" = "Min";
@@ -276,6 +294,12 @@
 
 /* No comment provided by engineer. */
 "Profile" = "Profil";
+
+/* No comment provided by engineer. */
+"Profile DemoData exists" = "Profil DemoData vorhanden";
+
+/* No comment provided by engineer. */
+"Profile DemoData is created and demodata is loaded.\n You can dimiss the view." = "Profil-Demodaten werden erstellt und Demodaten werden geladen. Sie können die Ansicht verkleinern.";
 
 /* No comment provided by engineer. */
 "Profiles" = "Profil";
@@ -389,6 +413,9 @@
 "There are no logs by this filter" = "Für diesen Filter sind keine Protokolle vorhanden";
 
 /* No comment provided by engineer. */
+"There are no snapshot records by this search string in Date or Tag" = "Für diese Suchzeichenfolge gibt es in Datum oder Tag keine Snapshot-Datensätze";
+
+/* No comment provided by engineer. */
 "There are no tasks by this Synchronize ID" = "Es gibt keine Aufgaben dieser Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
@@ -405,6 +432,9 @@
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Date or Result" = "Versuchen Sie, in „Datum“ oder „Ergebnis“ nach einem anderen Filter zu suchen";
+
+/* No comment provided by engineer. */
+"Try to search for other filter in Synchronize ID or \n If new user, add Tasks." = "Versuchen Sie, in Synchronize ID oder nach einem anderen Filter zu suchen\n Wenn Sie ein neuer Benutzer sind, fügen Sie Aufgaben hinzu.";
 
 /* No comment provided by engineer. */
 "Update task" = "Aufgabe aktualisieren";
