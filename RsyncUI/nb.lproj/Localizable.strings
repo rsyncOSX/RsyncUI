@@ -98,6 +98,9 @@
 "Copy ^[%lld configuration](inflect: true)" = "Kopi ^[%lld konfigurasjon](inflect: true)";
 
 /* No comment provided by engineer. */
+"Copy public SSH key:" = "Kopier public ssh-nøkkel";
+
+/* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Opphavsrett ©2023 Thomas Evensen";
 
 /* No comment provided by engineer. */
@@ -305,6 +308,9 @@
 "Profiles" = "Profiler";
 
 /* No comment provided by engineer. */
+"Quick synchronize" = "Rask synckronizering";
+
+/* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
 
 /* No comment provided by engineer. */
@@ -434,7 +440,22 @@
 "Tot dir" = "Tot dir";
 
 /* No comment provided by engineer. */
+"Tot kB" = "Tot kB";
+
+/* No comment provided by engineer. */
 "Tot num" = "Tot num";
+
+/* No comment provided by engineer. */
+"Total bytes: " = "Total bytes:";
+
+/* No comment provided by engineer. */
+"Total number of catalogs: " = "Totalt antall kataloger:";
+
+/* No comment provided by engineer. */
+"Total number of files: " = "Totalt antall filer:";
+
+/* No comment provided by engineer. */
+"Total numbers: " = "Total antall:";
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Date or Result" = "Forsøk annet søk i Dato eller Resultat";
