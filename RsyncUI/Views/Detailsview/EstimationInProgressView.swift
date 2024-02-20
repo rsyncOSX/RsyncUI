@@ -21,7 +21,7 @@ struct EstimationInProgressView: View {
             if let config = getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
                 VStack {
                     Text("Estimating now")
-                    Text(": \(config.backupID)")
+                    Text("\(config.backupID)")
                 }
             }
 

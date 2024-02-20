@@ -1,4 +1,16 @@
 /* No comment provided by engineer. */
+"--dry-run" = "--dry-run";
+
+/* No comment provided by engineer. */
+"%" = "%";
+
+/* No comment provided by engineer. */
+"%@" = "%@";
+
+/* No comment provided by engineer. */
+"%lld" = "%lld";
+
+/* No comment provided by engineer. */
 "^[%lld byte](inflect: true) for transfer" = "^[%lld byte](inflect: true) for overføring";
 
 /* No comment provided by engineer. */
@@ -176,6 +188,9 @@
 "Estimate (⌘E)" = "Estimer (⌘E)";
 
 /* No comment provided by engineer. */
+"Estimating now" = "Estimerer nå";
+
+/* No comment provided by engineer. */
 "Filenames" = "Filnavn";
 
 /* No comment provided by engineer. */
@@ -204,6 +219,9 @@
 
 /* No comment provided by engineer. */
 "Home catalogs" = "Hjemmekataloger";
+
+/* No comment provided by engineer. */
+"https://rsyncui.netlify.app" = "https://rsyncui.netlify.app";
 
 /* No comment provided by engineer. */
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";

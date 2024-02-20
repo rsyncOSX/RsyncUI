@@ -1,4 +1,16 @@
 /* No comment provided by engineer. */
+"--dry-run" = "--dry-run";
+
+/* No comment provided by engineer. */
+"%" = "%";
+
+/* No comment provided by engineer. */
+"%@" = "%@";
+
+/* No comment provided by engineer. */
+"%lld" = "%lld";
+
+/* No comment provided by engineer. */
 "^[%lld byte](inflect: true) for transfer" = "^[%lld byte](inflect: true) zum Übertragen";
 
 /* No comment provided by engineer. */
@@ -176,6 +188,9 @@
 "Estimate (⌘E)" = "Schätzung (⌘E)";
 
 /* No comment provided by engineer. */
+"Estimating now" = "Jetzt schätzen";
+
+/* No comment provided by engineer. */
 "Filenames" = "Filnamen";
 
 /* No comment provided by engineer. */
@@ -206,6 +221,9 @@
 "Home catalogs" = "Hauskataloge";
 
 /* No comment provided by engineer. */
+"https://rsyncui.netlify.app" = "https://rsyncui.netlify.app";
+
+/* No comment provided by engineer. */
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
 /* No comment provided by engineer. */
@@ -213,6 +231,9 @@
 
 /* No comment provided by engineer. */
 "important to execute a simulated run and inspect what happens before a real run." = "wichtig, einen simulierten Lauf durchzuführen und zu überprüfen, was vor einem echten Lauf passiert.";
+
+/* No comment provided by engineer. */
+"kB" = "kB";
 
 /* No comment provided by engineer. */
 "Last" = "Letzte";
@@ -437,13 +458,31 @@
 "Tot dir" = "Verzeichnisse Gesamt";
 
 /* No comment provided by engineer. */
+"Tot kB" = "Tot Kb";
+
+/* No comment provided by engineer. */
 "Tot num" = "Anzahl Gesamt";
+
+/* No comment provided by engineer. */
+"Total bytes: " = "Total bytes:";
+
+/* No comment provided by engineer. */
+"Total number of catalogs: " = "Gesamtzahl der Kataloge:";
+
+/* No comment provided by engineer. */
+"Total number of files: " = "Gesamtzahl der Dateien:";
+
+/* No comment provided by engineer. */
+"Total numbers: " = "Gesamtzahl:";
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Date or Result" = "Versuchen Sie, in „Datum“ oder „Ergebnis“ nach einem anderen Filter zu suchen";
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Synchronize ID or \n If new user, add Tasks." = "Versuchen Sie, in Synchronize ID oder nach einem anderen Filter zu suchen\n Wenn Sie ein neuer Benutzer sind, fügen Sie Aufgaben hinzu.";
+
+/* No comment provided by engineer. */
+"Update plan snapshot" = "Plan-Snapshot aktualisieren";
 
 /* No comment provided by engineer. */
 "Update task" = "Aufgabe aktualisieren";
