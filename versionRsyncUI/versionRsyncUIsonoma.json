@@ -1,6 +1,10 @@
 [
     {
         "version": "1.8.5",
-        "url":"https://github.com/rsyncOSX/RsyncUI/releases/download/v1.8.6/RsyncUI.1.8.6.dmg"
+        "url":"https://github.com/rsyncOSX/RsyncUI/releases/download/v1.8.7/RsyncUI.1.8.7.dmg"
+    },
+    {
+        "version": "1.8.6",
+        "url":"https://github.com/rsyncOSX/RsyncUI/releases/download/v1.8.7/RsyncUI.1.8.7.dmg"
     }
 ]
