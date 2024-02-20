@@ -80,6 +80,9 @@
 "Catalogs" = "Kataloger";
 
 /* No comment provided by engineer. */
+"Change search string to filter records" = "Endre søkestreng";
+
+/* No comment provided by engineer. */
 "Changelog" = "Endringslogg";
 
 /* No comment provided by engineer. */
@@ -435,6 +438,9 @@
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Date or Result" = "Forsøk annet søk i Dato eller Resultat";
+
+/* No comment provided by engineer. */
+"Try to search for other filter in Synchronize ID or \n If new user, add Tasks." = "Endre søke filter for Synchronize ID eller hvis ny bruker, opprett oppgave";
 
 /* No comment provided by engineer. */
 "Update plan snapshot" = "Oppdater plan snapshot";
