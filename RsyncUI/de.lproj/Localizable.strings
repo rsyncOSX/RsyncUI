@@ -305,6 +305,9 @@
 "Profiles" = "Profil";
 
 /* No comment provided by engineer. */
+"Quick synchronize" = "Schnelle Synchronisierung";
+
+/* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
 
 /* No comment provided by engineer. */
@@ -371,6 +374,9 @@
 "Shell commands" = "Shell Befehle";
 
 /* No comment provided by engineer. */
+"Show copy keys" = "Kopierschlüssel anzeigen";
+
+/* No comment provided by engineer. */
 "Snap" = "Snap";
 
 /* No comment provided by engineer. */
@@ -408,6 +414,9 @@
 
 /* No comment provided by engineer. */
 "Tasks" = "Aufgaben";
+
+/* No comment provided by engineer. */
+"Test SSH connection: \n select a login and server" = "SSH-Verbindung testen:\n  Wählen Sie ein Login und einen Server aus";
 
 /* No comment provided by engineer. */
 "There are no logs by this filter" = "Für diesen Filter sind keine Protokolle vorhanden";
