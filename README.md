@@ -19,7 +19,7 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 
 | App      | Storage  | #lines  | #files | UI | Latest version  |  Version 1.0 | 
 | ----------- | ----------- |   ----------- | -------- |  -------- | -------- | -------- |
-| RsyncUI   | JSON  | about 13.4k | 164  | SwiftUI, declarativ     | v1.8.7 - [20 February 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
+| RsyncUI   | JSON  | about 13.3k | 162  | SwiftUI, declarativ     | v1.8.7 - [20 February 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
 | RsyncOSX  | JSON | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
 
 There is also a test project about RsyncUI using SwiftData. There is some more info in  [the How is RsyncUI built?](https://rsyncui.netlify.app/post/built/). This project is a kind of experiement to learn more about it. SwiftData is easy to use, but i am not convinced it is right for RsyncUI. 
