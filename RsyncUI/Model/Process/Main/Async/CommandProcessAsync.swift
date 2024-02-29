@@ -89,6 +89,7 @@ final class CommandProcessAsync {
 
     deinit {
         SharedReference.shared.process = nil
+        Logger.process.info("CommandProcessAsync: DEINIT")
     }
 }
 

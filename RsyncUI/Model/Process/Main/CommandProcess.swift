@@ -87,6 +87,7 @@ final class CommandProcess {
 
     deinit {
         SharedReference.shared.process = nil
+        Logger.process.info("CommandProcess: DEINIT")
     }
 }
 

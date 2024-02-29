@@ -280,7 +280,7 @@ extension QuicktaskView {
         _ = InterruptProcess()
     }
 
-    func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
+    func processtermination(_ outputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
         rsyncoutput?.setoutput(outputfromrsync)
         completed = true

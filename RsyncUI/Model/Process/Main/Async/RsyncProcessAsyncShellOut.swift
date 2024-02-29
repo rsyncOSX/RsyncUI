@@ -142,6 +142,7 @@ final class RsyncProcessAsyncShellOut {
         self.monitor?.stopMonitoring()
         self.monitor = nil
         SharedReference.shared.process = nil
+        Logger.process.info("RsyncProcessAsyncShellOut: DEINIT")
     }
 }
 

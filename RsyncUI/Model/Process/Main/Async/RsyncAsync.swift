@@ -90,6 +90,7 @@ final class RsyncAsync {
 
     deinit {
         SharedReference.shared.process = nil
+        Logger.process.info("RsyncAsync: DEINIT")
     }
 }
 
