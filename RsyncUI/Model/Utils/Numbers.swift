@@ -248,3 +248,5 @@ final class Numbers {
         }
     }
 }
+
+// swiftlint:enable cyclomatic_complexity
