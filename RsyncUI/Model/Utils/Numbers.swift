@@ -85,8 +85,8 @@ final class Numbers {
     private func checandadjustknumbers() {
         guard transferNum != nil else { return }
         if (transferNum ?? 0) > 0 {
-            totNum = (totNum ?? 0) - (transferNum ?? 0)
-            totNumSize = (totNumSize ?? 0) - (transferNumSize ?? 0)
+            totNum = (totNum ?? 0) // - (transferNum ?? 0)
+            totNumSize = (totNumSize ?? 0) // - (transferNumSize ?? 0)
         }
     }
 
