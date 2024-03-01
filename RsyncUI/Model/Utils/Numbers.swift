@@ -82,14 +82,6 @@ final class Numbers {
         }
     }
 
-    private func checandadjustknumbers() {
-        guard transferNum != nil else { return }
-        if (transferNum ?? 0) > 0 {
-            totNum = (totNum ?? 0) // - (transferNum ?? 0)
-            totNumSize = (totNumSize ?? 0) // - (transferNumSize ?? 0)
-        }
-    }
-
     private func resultrsyncver3() {
         guard files?.count ?? -1 > 0 else { return }
         guard filesSize?.count ?? -1 > 0 else { return }
@@ -237,10 +229,8 @@ final class Numbers {
         if files?.count == 1, filesSize?.count == 1, totfileSize?.count == 1, totfilesNum?.count == 1 {
             if SharedReference.shared.rsyncversion3 {
                 resultrsyncver3()
-                checandadjustknumbers()
             } else {
                 resultrsyncver2()
-                checandadjustknumbers()
             }
         } else {
             // If it breaks set number of transferred files to size of output.
