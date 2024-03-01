@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 22/10/2022.
 //
-// swiftlint:disable line_length
 
 import Foundation
 import OSLog

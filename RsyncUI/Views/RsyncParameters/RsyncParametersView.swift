@@ -245,9 +245,9 @@ extension RsyncParametersView {
         }
         rsyncoutput = ObservableRsyncOutput()
         showprogressview = true
-        let process = await RsyncProcessAsync(arguments: arguments,
-                                              config: config,
-                                              processtermination: processtermination)
+        let process = RsyncProcessAsync(arguments: arguments,
+                                        config: config,
+                                        processtermination: processtermination)
         await process.executeProcess()
     }
 

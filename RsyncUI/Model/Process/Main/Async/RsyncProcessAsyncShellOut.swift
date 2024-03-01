@@ -4,13 +4,13 @@
 //
 //  Created by Thomas Evensen on 03/10/2023.
 //
+// swiftlint:disable function_body_length
 
 import Combine
 import Foundation
 import OSLog
 import ShellOut
 
-@MainActor
 final class RsyncProcessAsyncShellOut {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
@@ -46,6 +46,7 @@ final class RsyncProcessAsyncShellOut {
         }
     }
 
+    @MainActor
     func executeProcess() async {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
@@ -175,3 +176,5 @@ extension RsyncProcessAsyncShellOut {
         }
     }
 }
+
+// swiftlint:enable function_body_length

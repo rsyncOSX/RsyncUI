@@ -268,11 +268,13 @@ extension QuicktaskView {
         rsyncoutput = ObservableRsyncOutput()
         // Start progressview
         showprogressview = true
-        let process = await RsyncProcessAsync(arguments: arguments,
-                                              config: config,
-                                              processtermination: processtermination)
+        let process = RsyncProcessAsync(arguments: arguments,
+                                        config: config,
+                                        processtermination: processtermination)
         Task {
+            print("Start")
             await process.executeProcess()
+            print("Done")
         }
     }
 
@@ -281,6 +283,7 @@ extension QuicktaskView {
     }
 
     func processtermination(_ outputfromrsync: [String]?, hiddenID _: Int?) {
+        print("processtermination")
         showprogressview = false
         rsyncoutput?.setoutput(outputfromrsync)
         completed = true
