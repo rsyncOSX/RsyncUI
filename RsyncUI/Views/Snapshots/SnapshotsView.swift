@@ -66,24 +66,21 @@ struct SnapshotsView: View {
                             .font(.largeTitle)
                     }
 
+                    if snapshotdata.inprogressofdelete == true { progressdelete }
                     if notsnapshot == true { notasnapshottask }
                     if snapshotdata.snapshotlist { AlertToast(displayMode: .alert, type: .loading) }
                 }
 
-                ZStack {
-                    SnapshotListView(snapshotdata: $snapshotdata,
-                                     snapshotrecords: $snapshotrecords,
-                                     filterstring: $filterstring,
-                                     selectedconfig: $selectedconfig)
-                        .onChange(of: deleteiscompleted) {
-                            if deleteiscompleted == true {
-                                getdata()
-                                deleteiscompleted = false
-                            }
+                SnapshotListView(snapshotdata: $snapshotdata,
+                                 snapshotrecords: $snapshotrecords,
+                                 filterstring: $filterstring,
+                                 selectedconfig: $selectedconfig)
+                    .onChange(of: deleteiscompleted) {
+                        if deleteiscompleted == true {
+                            getdata()
+                            deleteiscompleted = false
                         }
-
-                    if snapshotdata.inprogressofdelete == true { progressdelete }
-                }
+                    }
             }
 
             if focustagsnapshot == true { labeltagsnapshot }
