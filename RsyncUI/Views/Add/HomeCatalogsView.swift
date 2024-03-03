@@ -33,9 +33,6 @@ struct HomeCatalogsView: View {
     @State private var selecteduuid: Catalognames.ID?
     @State private var selectedAttachedVolume: AttachedVolumes.ID?
 
-    let homecatalogs: [Catalognames]
-    let attachedVolumes: [AttachedVolumes]
-
     var body: some View {
         HStack {
             Table(homecatalogs, selection: $selecteduuid) {
@@ -43,27 +40,68 @@ struct HomeCatalogsView: View {
                     Text(catalog.catalogname ?? "")
                 }
             }
-            .onChange(of: selecteduuid) {
-                let names = homecatalogs.filter { $0.id == selecteduuid }
-                if names.count == 1 {
-                    catalog = names[0].catalogname ?? ""
-                }
-                path.removeAll()
-            }
 
             Table(attachedVolumes, selection: $selectedAttachedVolume) {
                 TableColumn("Attached Volumes") { volume in
                     Text(volume.volumename?.path() ?? "")
                 }
             }
-            .onChange(of: selectedAttachedVolume) {
-                let volume = attachedVolumes.filter { $0.id == selectedAttachedVolume }
-                if volume.count == 1 {
-                    if let volume = volume[0].volumename?.path() {
-                        // attachedvolume = volume
+        }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    if let index = homecatalogs.firstIndex(where: { $0.id == selecteduuid }) {
+                        if let selectedcatalog = homecatalogs[index].catalogname {
+                            catalog = selectedcatalog
+                        }
                     }
+                    print(selecteduuid)
+                    print(selectedAttachedVolume)
+                    if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
+                        if let selectedvolume = attachedVolumes[index].volumename?.path() {
+                            attachedvolume = selectedvolume
+                        }
+                    }
+                    path.removeAll()
+                } label: {
+                    Image(systemName: "return")
+                }
+                .help("Select home catalog")
+            }
+        }
+    }
+
+    var homecatalogs: [Catalognames] {
+        if let atpath = NamesandPaths(.configurations).userHomeDirectoryPath {
+            var catalogs = [Catalognames]()
+            do {
+                for folders in try Folder(path: atpath).subfolders {
+                    catalogs.append(Catalognames(folders.name))
+                }
+                return catalogs
+            } catch {
+                return []
+            }
+        }
+        return []
+    }
+
+    var attachedVolumes: [AttachedVolumes] {
+        let keys: [URLResourceKey] = [.volumeNameKey, .volumeIsRemovableKey, .volumeIsEjectableKey]
+        let paths = FileManager().mountedVolumeURLs(includingResourceValuesForKeys: keys, options: [])
+        var volumesarray = [AttachedVolumes]()
+        if let urls = paths {
+            for url in urls {
+                let components = url.pathComponents
+                if components.count > 1, components[1] == "Volumes" {
+                    volumesarray.append(AttachedVolumes(url))
                 }
             }
+        }
+        if volumesarray.count > 0 {
+            return volumesarray
+        } else {
+            return []
         }
     }
 }
