@@ -215,12 +215,45 @@ struct AddTaskView: View {
                               profilenames: profilenames,
                               selectedprofile: $selectedprofile)
         case .homecatalogs:
-            HomeCatalogsView(catalog: $newdata.assistlocalcatalog,
-                             attachedvolume: $newdata.attachedVolume,
-                             path: $path)
-                .onChange(of: newdata.assistlocalcatalog) {
-                    newdata.assistfunclocalcatalog(newdata.assistlocalcatalog)
-                }
+            HomeCatalogsView(newdata: newdata,
+                             path: $path,
+                             homecatalogs: {
+                                 if let atpath = NamesandPaths(.configurations).userHomeDirectoryPath {
+                                     var catalogs = [Catalognames]()
+                                     do {
+                                         for folders in try Folder(path: atpath).subfolders {
+                                             catalogs.append(Catalognames(folders.name))
+                                         }
+                                         return catalogs
+                                     } catch {
+                                         return []
+                                     }
+                                 }
+                                 return []
+                             }(),
+
+                             attachedVolumes: {
+                                 let keys: [URLResourceKey] = [.volumeNameKey,
+                                                               .volumeIsRemovableKey,
+                                                               .volumeIsEjectableKey]
+                                 let paths = FileManager()
+                                     .mountedVolumeURLs(includingResourceValuesForKeys: keys,
+                                                        options: [])
+                                 var volumesarray = [AttachedVolumes]()
+                                 if let urls = paths {
+                                     for url in urls {
+                                         let components = url.pathComponents
+                                         if components.count > 1, components[1] == "Volumes" {
+                                             volumesarray.append(AttachedVolumes(url))
+                                         }
+                                     }
+                                 }
+                                 if volumesarray.count > 0 {
+                                     return volumesarray
+                                 } else {
+                                     return []
+                                 }
+                             }())
         }
     }
 

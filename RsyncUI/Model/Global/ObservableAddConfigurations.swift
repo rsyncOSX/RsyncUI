@@ -30,8 +30,6 @@ final class ObservableAddConfigurations {
     var selectedrsynccommand = TypeofTask.synchronize
     var selectedprofile: String?
     var deletedefaultprofile: Bool = false
-    // Selected Attached Volume
-    var attachedVolume: String = ""
 
     var deleted: Bool = false
     var created: Bool = false
@@ -39,7 +37,6 @@ final class ObservableAddConfigurations {
     var confirmdeleteselectedprofile: Bool = false
     var showAlertfordelete: Bool = false
 
-    var assistlocalcatalog: String = ""
     var assistremoteuser: String = ""
     var assistremoteserver: String = ""
 
@@ -248,16 +245,6 @@ final class ObservableAddConfigurations {
         }
     }
 
-    func assistfunclocalcatalog(_ localcatalog: String) {
-        guard localcatalog.isEmpty == false else { return }
-        if remotecatalog == "" {
-            remotecatalog = "/mounted_Volume/" + localcatalog
-        } else {
-            remotecatalog = attachedVolume + "/" + localcatalog
-        }
-        self.localcatalog = localhome + "/" + localcatalog
-    }
-
     func assistfuncremoteuser(_ remoteuser: String) {
         guard remoteuser.isEmpty == false else { return }
         self.remoteuser = remoteuser
@@ -300,27 +287,6 @@ final class ObservableAddConfigurations {
         updateconfigurations.writecopyandpastetask(copyandpasteconfigurations)
         return updateconfigurations.configurations
     }
-
-    /*
-        func attachedVolumes() -> [URL]? {
-            let keys: [URLResourceKey] = [.volumeNameKey, .volumeIsRemovableKey, .volumeIsEjectableKey]
-            let paths = FileManager().mountedVolumeURLs(includingResourceValuesForKeys: keys, options: [])
-            var volumesarray = [URL]()
-            if let urls = paths {
-                for url in urls {
-                    let components = url.pathComponents
-                    if components.count > 1, components[1] == "Volumes" {
-                        volumesarray.append(url)
-                    }
-                }
-            }
-            if volumesarray.count > 0 {
-                return volumesarray
-            } else {
-                return nil
-            }
-        }
-     */
 }
 
 // Compute max hiddenID as part of copy and paste function..

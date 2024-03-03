@@ -26,9 +26,11 @@ struct AttachedVolumes: Identifiable {
 }
 
 struct HomeCatalogsView: View {
-    @Binding var catalog: String
-    @Binding var attachedvolume: String
+    @Bindable var newdata: ObservableAddConfigurations
     @Binding var path: [AddTasks]
+
+    let homecatalogs: [Catalognames]
+    let attachedVolumes: [AttachedVolumes]
 
     @State private var selecteduuid: Catalognames.ID?
     @State private var selectedAttachedVolume: AttachedVolumes.ID?
@@ -50,17 +52,19 @@ struct HomeCatalogsView: View {
         .toolbar {
             ToolbarItem {
                 Button {
+                    var catalog: String = ""
                     if let index = homecatalogs.firstIndex(where: { $0.id == selecteduuid }) {
                         if let selectedcatalog = homecatalogs[index].catalogname {
                             catalog = selectedcatalog
+                            newdata.localcatalog = newdata.localhome + "/" + selectedcatalog
                         }
                     }
-                    print(selecteduuid)
-                    print(selectedAttachedVolume)
                     if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                         if let selectedvolume = attachedVolumes[index].volumename?.path() {
-                            attachedvolume = selectedvolume
+                            newdata.remotecatalog = selectedvolume + catalog
                         }
+                    } else {
+                        newdata.remotecatalog = "/mounted_Volume/" + catalog
                     }
                     path.removeAll()
                 } label: {
@@ -68,40 +72,6 @@ struct HomeCatalogsView: View {
                 }
                 .help("Select home catalog")
             }
-        }
-    }
-
-    var homecatalogs: [Catalognames] {
-        if let atpath = NamesandPaths(.configurations).userHomeDirectoryPath {
-            var catalogs = [Catalognames]()
-            do {
-                for folders in try Folder(path: atpath).subfolders {
-                    catalogs.append(Catalognames(folders.name))
-                }
-                return catalogs
-            } catch {
-                return []
-            }
-        }
-        return []
-    }
-
-    var attachedVolumes: [AttachedVolumes] {
-        let keys: [URLResourceKey] = [.volumeNameKey, .volumeIsRemovableKey, .volumeIsEjectableKey]
-        let paths = FileManager().mountedVolumeURLs(includingResourceValuesForKeys: keys, options: [])
-        var volumesarray = [AttachedVolumes]()
-        if let urls = paths {
-            for url in urls {
-                let components = url.pathComponents
-                if components.count > 1, components[1] == "Volumes" {
-                    volumesarray.append(AttachedVolumes(url))
-                }
-            }
-        }
-        if volumesarray.count > 0 {
-            return volumesarray
-        } else {
-            return []
         }
     }
 }
