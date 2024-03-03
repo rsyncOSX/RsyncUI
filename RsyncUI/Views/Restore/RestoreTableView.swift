@@ -112,21 +112,21 @@ struct RestoreTableView: View {
             }
             .toolbar(content: {
                 ToolbarItem {
-                    if restore.selectedconfig?.task == SharedReference.shared.snapshot {
-                        snapshotcatalogpicker
-                    }
-                }
-
-                ToolbarItem {
                     Button {
                         Task {
                             await restore()
                         }
                     } label: {
-                        Image(systemName: "arrowshape.turn.up.left.fill")
+                        Image(systemName: "return")
                             .foregroundColor(Color(.blue))
                     }
                     .help("Restore files")
+                }
+
+                ToolbarItem {
+                    if restore.selectedconfig?.task == SharedReference.shared.snapshot {
+                        snapshotcatalogpicker
+                    }
                 }
 
                 ToolbarItem {

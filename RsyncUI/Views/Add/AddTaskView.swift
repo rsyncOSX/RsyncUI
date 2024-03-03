@@ -156,7 +156,7 @@ struct AddTaskView: View {
                         Button {
                             validateandupdate()
                         } label: {
-                            Image(systemName: "square.and.arrow.down.fill")
+                            Image(systemName: "return")
                                 .foregroundColor(Color(.blue))
                         }
                         .help("Update task")
@@ -166,7 +166,7 @@ struct AddTaskView: View {
                         Button {
                             addconfig()
                         } label: {
-                            Image(systemName: "plus.app.fill")
+                            Image(systemName: "return")
                                 .foregroundColor(Color(.blue))
                         }
                         .help("Add task")

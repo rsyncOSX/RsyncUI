@@ -102,7 +102,7 @@ struct AddPreandPostView: View {
                 Button {
                     validateandupdate()
                 } label: {
-                    Image(systemName: "square.and.arrow.down.fill")
+                    Image(systemName: "return")
                         .foregroundColor(Color(.blue))
                 }
                 .help("Update task")

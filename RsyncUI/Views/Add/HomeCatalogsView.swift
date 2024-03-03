@@ -49,29 +49,21 @@ struct HomeCatalogsView: View {
                 }
             }
         }
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    var catalog: String = ""
-                    if let index = homecatalogs.firstIndex(where: { $0.id == selecteduuid }) {
-                        if let selectedcatalog = homecatalogs[index].catalogname {
-                            catalog = selectedcatalog
-                            newdata.localcatalog = newdata.localhome + "/" + selectedcatalog
-                        }
-                    }
-                    if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
-                        if let selectedvolume = attachedVolumes[index].volumename?.path() {
-                            newdata.remotecatalog = selectedvolume + catalog
-                        }
-                    } else {
-                        newdata.remotecatalog = "/mounted_Volume/" + catalog
-                    }
-                    path.removeAll()
-                } label: {
-                    Image(systemName: "return")
+        .onDisappear(perform: {
+            var catalog: String = ""
+            if let index = homecatalogs.firstIndex(where: { $0.id == selecteduuid }) {
+                if let selectedcatalog = homecatalogs[index].catalogname {
+                    catalog = selectedcatalog
+                    newdata.localcatalog = newdata.localhome + "/" + selectedcatalog
                 }
-                .help("Select home catalog")
             }
-        }
+            if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
+                if let selectedvolume = attachedVolumes[index].volumename?.path() {
+                    newdata.remotecatalog = selectedvolume + catalog
+                }
+            } else {
+                newdata.remotecatalog = "/mounted_Volume/" + catalog
+            }
+        })
     }
 }

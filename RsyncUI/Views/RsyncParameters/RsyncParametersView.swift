@@ -130,6 +130,16 @@ struct RsyncParametersView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
+                    saversyncparameters()
+                } label: {
+                    Image(systemName: "return")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Update task")
+            }
+
+            ToolbarItem {
+                Button {
                     path.append(ParametersTasks(task: .defaultparameters))
                 } label: {
                     Image(systemName: "house.fill")
@@ -148,16 +158,6 @@ struct RsyncParametersView: View {
                     Image(systemName: "flag.checkered")
                 }
                 .help("Verify task")
-            }
-
-            ToolbarItem {
-                Button {
-                    saversyncparameters()
-                } label: {
-                    Image(systemName: "square.and.arrow.down.fill")
-                        .foregroundColor(Color(.blue))
-                }
-                .help("Update task")
             }
         })
         .navigationDestination(for: ParametersTasks.self) { which in

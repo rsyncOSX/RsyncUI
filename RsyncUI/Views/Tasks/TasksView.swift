@@ -127,6 +127,7 @@ struct TasksView: View {
                     reset()
                 } label: {
                     Image(systemName: "clear")
+                        .foregroundColor(Color(.red))
                 }
                 .help("Reset estimates")
             }

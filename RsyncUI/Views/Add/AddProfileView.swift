@@ -49,7 +49,7 @@ struct AddProfileView: View {
                 Button {
                     createprofile()
                 } label: {
-                    Image(systemName: "plus.app.fill")
+                    Image(systemName: "return")
                         .foregroundColor(Color(.blue))
                 }
                 .help("Add profile")
