@@ -134,6 +134,11 @@ struct LogsbyConfigurationView: View {
                 selectedprofile: profile
             )
         }
+        .onChange(of: rsyncUIlogrecords.profile) {
+            Task {
+                await updatelogs()
+            }
+        }
     }
 
     var indebounce: some View {
