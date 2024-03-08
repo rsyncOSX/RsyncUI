@@ -12,8 +12,8 @@ import Observation
 final class Rsyncversion {
     func getrsyncversion() async {
         if SharedReference.shared.norsync == false {
-            let command = await RsyncAsync(arguments: ["--version"],
-                                           processtermination: processtermination)
+            let command = RsyncAsync(arguments: ["--version"],
+                                     processtermination: processtermination)
 
             await command.executeProcess()
         }
