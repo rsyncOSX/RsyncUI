@@ -46,18 +46,10 @@ final class ExecuteTasksAsync {
             if let config = getconfig(localhiddenID) {
                 let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
                 guard arguments.count > 0 else { return }
-                // Check if ShellOut is active
-                if config.pretask?.isEmpty == false, config.executepretask == 1 {
-                    let processshellout = RsyncProcessAsyncShellOut(arguments: arguments,
-                                                                    config: config,
-                                                                    processtermination: processterminationexecute)
-                    await processshellout.executeProcess()
-                } else {
-                    let process = RsyncProcessAsync(arguments: arguments,
-                                                    config: config,
-                                                    processtermination: processterminationexecute)
-                    await process.executeProcess()
-                }
+                let process = RsyncProcessAsync(arguments: arguments,
+                                                config: config,
+                                                processtermination: processterminationexecute)
+                await process.executeProcess()
             }
         }
     }
