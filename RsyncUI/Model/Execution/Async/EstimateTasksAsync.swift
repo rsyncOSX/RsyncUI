@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EstimateTasksAsync {
+class EstimateTasksAsync: @unchecked Sendable {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?

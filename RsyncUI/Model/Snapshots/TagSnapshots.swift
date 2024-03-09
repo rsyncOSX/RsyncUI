@@ -191,3 +191,5 @@ final class TagSnapshots {
         markfordelete()
     }
 }
+
+// swiftlint:enable line_length

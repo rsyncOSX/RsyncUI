@@ -11,7 +11,6 @@ import Foundation
 struct DecodeConfiguration: Codable {
     let backupID: String?
     let dateRun: String?
-    let haltshelltasksonerror: Int?
     let hiddenID: Int?
     let localCatalog: String?
     let offsiteCatalog: String?
@@ -36,16 +35,11 @@ struct DecodeConfiguration: Codable {
     let task: String?
     let snapdayoffweek: String?
     let snaplast: Int?
-    let executepretask: Int?
-    let pretask: String?
-    let executeposttask: Int?
-    let posttask: String?
     let snapshotnum: Int?
 
     enum CodingKeys: String, CodingKey {
         case backupID
         case dateRun
-        case haltshelltasksonerror
         case hiddenID
         case localCatalog
         case offsiteCatalog
@@ -70,10 +64,6 @@ struct DecodeConfiguration: Codable {
         case task
         case snapdayoffweek
         case snaplast
-        case executepretask
-        case pretask
-        case executeposttask
-        case posttask
         case snapshotnum
     }
 
@@ -81,7 +71,6 @@ struct DecodeConfiguration: Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         backupID = try values.decodeIfPresent(String.self, forKey: .backupID)
         dateRun = try values.decodeIfPresent(String.self, forKey: .dateRun)
-        haltshelltasksonerror = try values.decodeIfPresent(Int.self, forKey: .haltshelltasksonerror)
         hiddenID = try values.decodeIfPresent(Int.self, forKey: .hiddenID)
         localCatalog = try values.decodeIfPresent(String.self, forKey: .localCatalog)
         offsiteCatalog = try values.decodeIfPresent(String.self, forKey: .offsiteCatalog)
@@ -106,10 +95,6 @@ struct DecodeConfiguration: Codable {
         task = try values.decodeIfPresent(String.self, forKey: .task)
         snapdayoffweek = try values.decodeIfPresent(String.self, forKey: .snapdayoffweek)
         snaplast = try values.decodeIfPresent(Int.self, forKey: .snaplast)
-        executepretask = try values.decodeIfPresent(Int.self, forKey: .executepretask)
-        pretask = try values.decodeIfPresent(String.self, forKey: .pretask)
-        executeposttask = try values.decodeIfPresent(Int.self, forKey: .executeposttask)
-        posttask = try values.decodeIfPresent(String.self, forKey: .posttask)
         snapshotnum = try values.decodeIfPresent(Int.self, forKey: .snapshotnum)
     }
 
@@ -117,7 +102,6 @@ struct DecodeConfiguration: Codable {
     init(_ data: SynchronizeConfiguration) {
         backupID = data.backupID
         dateRun = data.dateRun
-        haltshelltasksonerror = data.haltshelltasksonerror
         hiddenID = data.hiddenID
         localCatalog = data.localCatalog
         offsiteCatalog = data.offsiteCatalog
@@ -142,10 +126,6 @@ struct DecodeConfiguration: Codable {
         task = data.task
         snapdayoffweek = data.snapdayoffweek
         snaplast = data.snaplast
-        executepretask = data.executepretask
-        pretask = data.pretask
-        executeposttask = data.executeposttask
-        posttask = data.posttask
         snapshotnum = data.snapshotnum
     }
 }

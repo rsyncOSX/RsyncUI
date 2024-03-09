@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 27/06/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length
+// swiftlint:disable line_length
 
 import Foundation
 
@@ -22,21 +22,33 @@ final class RestorefilesArguments {
         return arguments
     }
 
-    init(task: Enumrestorefiles, config: SynchronizeConfiguration?, remoteFile: String?, localCatalog: String?, drynrun: Bool?, snapshot _: Bool) {
+    init(task: Enumrestorefiles, config: SynchronizeConfiguration?,
+         remoteFile: String?, localCatalog: String?, drynrun: Bool?,
+         snapshot _: Bool)
+    {
         if let config = config {
             arguments = [String]()
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
             switch task {
             case .rsync:
-                let arguments = RsyncParametersSingleFilesArguments(config: config, remoteFile: remoteFile, localCatalog: localCatalog, drynrun: drynrun)
+                let arguments = RsyncParametersSingleFilesArguments(config: config,
+                                                                    remoteFile: remoteFile,
+                                                                    localCatalog: localCatalog,
+                                                                    drynrun: drynrun)
                 self.arguments = arguments.getArguments()
             case .rsyncfilelistings:
-                let arguments = GetRemoteFileListingsArguments(config: config, recursive: true, snapshot: snapshot)
+                let arguments = GetRemoteFileListingsArguments(config: config,
+                                                               recursive: true,
+                                                               snapshot: snapshot)
                 self.arguments = arguments.getArguments()
             case .snapshotcatalogsonly:
-                let arguments = GetRemoteFileListingsArguments(config: config, recursive: false, snapshot: snapshot)
+                let arguments = GetRemoteFileListingsArguments(config: config,
+                                                               recursive: false,
+                                                               snapshot: snapshot)
                 self.arguments = arguments.getArguments()
             }
         }
     }
 }
+
+// swiftlint:enable line_length

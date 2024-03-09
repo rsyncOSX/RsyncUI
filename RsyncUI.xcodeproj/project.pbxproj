@@ -165,7 +165,6 @@
 		E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */; };
 		E9D94DB6294B9409007C21D2 /* UserServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D94DB5294B9409007C21D2 /* UserServer.swift */; };
 		E9DE1DB22B23993A0077B935 /* AboutPanelCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE1DB12B23993A0077B935 /* AboutPanelCommand.swift */; };
-		E9E811F92669E2EA0049E672 /* ObservablePreandPostTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E811F82669E2EA0049E672 /* ObservablePreandPostTask.swift */; };
 		E9E9CD2526779E2600EB377B /* ExecuteCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */; };
 		E9F5354C290185AA007EFAE7 /* EstimateTasksAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F5354B290185AA007EFAE7 /* EstimateTasksAsync.swift */; };
 		E9FBE7912A51C5CA0038B82D /* SnapshotLogRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBE7902A51C5CA0038B82D /* SnapshotLogRecords.swift */; };
@@ -357,7 +356,6 @@
 		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
 		E9D94DB5294B9409007C21D2 /* UserServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServer.swift; sourceTree = "<group>"; };
 		E9DE1DB12B23993A0077B935 /* AboutPanelCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPanelCommand.swift; sourceTree = "<group>"; };
-		E9E811F82669E2EA0049E672 /* ObservablePreandPostTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePreandPostTask.swift; sourceTree = "<group>"; };
 		E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteCommands.swift; sourceTree = "<group>"; };
 		E9F5354B290185AA007EFAE7 /* EstimateTasksAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTasksAsync.swift; sourceTree = "<group>"; };
 		E9FBE7902A51C5CA0038B82D /* SnapshotLogRecords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotLogRecords.swift; sourceTree = "<group>"; };
@@ -893,7 +891,6 @@
 				E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */,
 				E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */,
 				E99C23FF261C322E009D4DBF /* ObservableRestore.swift */,
-				E9E811F82669E2EA0049E672 /* ObservablePreandPostTask.swift */,
 				E985C6F025F3AD9600CB895C /* ObservableRsyncOutput.swift */,
 				E9A38E2B2B32CA8700D8445E /* AlertError.swift */,
 			);
@@ -1275,7 +1272,6 @@
 				E985C75525F3AD9700CB895C /* LogRecords.swift in Sources */,
 				E95DD7F428EC738B007654BC /* RsyncProcessAsync.swift in Sources */,
 				E985C73325F3AD9700CB895C /* MyEnvironment.swift in Sources */,
-				E9E811F92669E2EA0049E672 /* ObservablePreandPostTask.swift in Sources */,
 				E985C77B25F3AD9700CB895C /* DuArgumentsSsh.swift in Sources */,
 				E985C79225F3AD9700CB895C /* Extensions.swift in Sources */,
 				E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */,

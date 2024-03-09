@@ -105,12 +105,6 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         sshkeypathandidentityfile = data.sshkeypathandidentityfile
         sshport = data.sshport
         task = data.task ?? ""
-        executepretask = data.executepretask
-        pretask = data.pretask
-        executeposttask = data.executeposttask
-        posttask = data.posttask
-        snapshotnum = data.snapshotnum
-        haltshelltasksonerror = data.haltshelltasksonerror
         // For snapshots
         if let snapshotnum = data.snapshotnum {
             self.snapshotnum = snapshotnum

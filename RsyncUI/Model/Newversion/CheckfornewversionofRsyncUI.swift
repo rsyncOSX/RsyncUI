@@ -40,7 +40,7 @@ struct GetversionsofRsyncUI {
 }
 
 @Observable
-final class CheckfornewversionofRsyncUI {
+final class CheckfornewversionofRsyncUI: @unchecked Sendable {
     var notifynewversion: Bool = false
 
     func getversionsofrsyncui() async {

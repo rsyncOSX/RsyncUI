@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DemoDataJSONSnapshots {
+class DemoDataJSONSnapshots: @unchecked Sendable {
     let urlSession = URLSession.shared
     let jsonDecoder = JSONDecoder()
     var snapshotdata: [String]?

@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 15/10/2021.
 //
-// swiftlint:disable line_length
 
 import Observation
 import OSLog
@@ -25,5 +24,3 @@ final class RsyncUIlogrecords {
         }
     }
 }
-
-// swiftlint:enable line_length

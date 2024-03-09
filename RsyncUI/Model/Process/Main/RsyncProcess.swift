@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 15/03/2021.
 //
-// swiftlint:disable function_body_length
 
 import Combine
 import Foundation
@@ -139,5 +138,3 @@ extension RsyncProcess {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
-
-// swiftlint:enable function_body_length

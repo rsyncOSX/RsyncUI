@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 03/06/2021.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import Observation
@@ -20,7 +21,7 @@ enum CannotUpdateSnaphotsError: LocalizedError {
 }
 
 @Observable
-final class ObservableAddConfigurations {
+final class ObservableAddConfigurations: @unchecked Sendable {
     var localcatalog: String = ""
     var remotecatalog: String = ""
     var donotaddtrailingslash: Bool = false
@@ -304,3 +305,5 @@ struct MaxhiddenID {
         return 0
     }
 }
+
+// swiftlint:enable line_length
