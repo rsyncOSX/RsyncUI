@@ -35,7 +35,7 @@ struct SettingsView: View {
         }
     }
 
-    @ViewBuilder
+    @MainActor @ViewBuilder
     func settingsView(_ view: SideSettingsbaritems) -> some View {
         switch view {
         case .settings:
