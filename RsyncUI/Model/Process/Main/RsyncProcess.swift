@@ -9,7 +9,6 @@
 import Combine
 import Foundation
 import OSLog
-import ShellOut
 
 final class RsyncProcess {
     // Combine subscribers
@@ -24,9 +23,6 @@ final class RsyncProcess {
     var arguments: [String]?
     // Output
     var outputprocess: OutputfromProcess?
-    // ShellOut
-    var shelloutpretask: Bool = false
-    var shelloutposttask: Bool = false
 
     func executemonitornetworkconnection() {
         guard config?.offsiteServer.isEmpty == false else { return }
@@ -97,23 +93,9 @@ final class RsyncProcess {
                 _ = Logfile(TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 // Release Combine subscribers
                 subscriptons.removeAll()
-                // Execute posttask
-                if self.shelloutposttask {
-                    Task {
-                        try await executeposttask()
-                    }
-                }
             }.store(in: &subscriptons)
 
         SharedReference.shared.process = task
-        // Execute pretask
-        if shelloutpretask {
-            do {
-                Task {
-                    try await executepretask()
-                }
-            }
-        }
         do {
             try task.run()
         } catch let e {
@@ -140,24 +122,8 @@ final class RsyncProcess {
         self.processtermination = processtermination
         self.filehandler = filehandler
         self.config = config
-        if let config = self.config {
-            if config.pretask?.isEmpty == false, config.executepretask == 1 {
-                shelloutpretask = true
-                Logger.process.info("RsyncProcessAsync: Pre SHELLOUT true")
-            } else {
-                shelloutpretask = false
-            }
-            if config.posttask?.isEmpty == false, config.executeposttask == 1 {
-                shelloutposttask = true
-                Logger.process.info("RsyncProcessAsync: Post SHELLOUT true")
-            } else {
-                shelloutposttask = false
-            }
-            outputprocess = OutputfromProcess()
-            executemonitornetworkconnection()
-        } else {
-            return
-        }
+        outputprocess = OutputfromProcess()
+        executemonitornetworkconnection()
     }
 
     deinit {
@@ -171,30 +137,6 @@ final class RsyncProcess {
 extension RsyncProcess {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
-    }
-
-    func executepretask() async throws {
-        if let pretask = config?.pretask {
-            do {
-                try await shellOut(to: pretask)
-            } catch let e {
-                let error = e as? ShellOutError
-                Logger.process.critical("Pretask failed: \(pretask, privacy: .public) \(error, privacy: .public)")
-            }
-            Logger.process.info("Executed pretask: \(pretask, privacy: .public)")
-        }
-    }
-
-    func executeposttask() async throws {
-        if let posttask = config?.posttask {
-            do {
-                try await shellOut(to: posttask)
-            } catch let e {
-                let error = e as? ShellOutError
-                Logger.process.critical("Posttask failed: \(posttask, privacy: .public) \(error, privacy: .public)")
-            }
-            Logger.process.info("Executed posttask: \(posttask, privacy: .public)")
-        }
     }
 }
 

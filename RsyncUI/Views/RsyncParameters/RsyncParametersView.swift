@@ -233,6 +233,7 @@ extension RsyncParametersView {
         }
     }
 
+    @MainActor
     func verify(config: SynchronizeConfiguration) async {
         var arguments: [String]?
         switch selectedrsynccommand {

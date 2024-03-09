@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case profileview, shelltaskview, homecatalogs
+    case profileview, homecatalogs
     var id: String { rawValue }
 }
 
@@ -190,15 +190,6 @@ struct AddTaskView: View {
                     }
                     .help("Profiles")
                 }
-
-                ToolbarItem {
-                    Button {
-                        path.append(AddTasks(task: .shelltaskview))
-                    } label: {
-                        Image(systemName: "fossil.shell.fill")
-                    }
-                    .help("Shell commands")
-                }
             }
         }
     }
@@ -210,10 +201,6 @@ struct AddTaskView: View {
             AddProfileView(rsyncUIdata: rsyncUIdata,
                            profilenames: profilenames,
                            selectedprofile: $selectedprofile)
-        case .shelltaskview:
-            AddPreandPostView(rsyncUIdata: rsyncUIdata,
-                              profilenames: profilenames,
-                              selectedprofile: $selectedprofile)
         case .homecatalogs:
             HomeCatalogsView(newdata: newdata,
                              path: $path,
