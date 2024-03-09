@@ -55,6 +55,7 @@ struct HomeCatalogsView: View {
                 if let selectedcatalog = homecatalogs[index].catalogname {
                     catalog = selectedcatalog
                     newdata.localcatalog = newdata.localhome + "/" + selectedcatalog
+                    newdata.backupID = "Backup of: " + selectedcatalog
                 }
             }
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
