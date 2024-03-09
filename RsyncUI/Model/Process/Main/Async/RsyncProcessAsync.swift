@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 15/03/2021.
 //
+// swiftlint:disable function_body_length
 
 import Combine
 import Foundation
@@ -139,10 +140,10 @@ final class RsyncProcessAsync {
                 shelloutpretask = false
             }
             if config.posttask?.isEmpty == false, config.executeposttask == 1 {
-                shelloutpretask = true
+                shelloutposttask = true
                 Logger.process.info("RsyncProcessAsync: Post SHELLOUT true")
             } else {
-                shelloutpretask = false
+                shelloutposttask = false
             }
             outputprocess = OutputfromProcess()
             executemonitornetworkconnection()
@@ -164,6 +165,7 @@ extension RsyncProcessAsync {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 
+    @MainActor
     func executepretask() async throws {
         if let pretask = config?.pretask {
             do {
@@ -176,6 +178,7 @@ extension RsyncProcessAsync {
         }
     }
 
+    @MainActor
     func executeposttask() async throws {
         if let posttask = config?.posttask {
             do {
@@ -188,3 +191,5 @@ extension RsyncProcessAsync {
         }
     }
 }
+
+// swiftlint:enable function_body_length
