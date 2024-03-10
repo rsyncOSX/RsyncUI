@@ -77,7 +77,7 @@ struct QuicktaskView: View {
                 }
             }
 
-            if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
+            if showprogressview { ProgressView() }
             if focusaborttask { labelaborttask }
             if focusstartexecution { labelstartexecution }
         }

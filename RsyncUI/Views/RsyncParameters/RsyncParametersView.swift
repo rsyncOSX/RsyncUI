@@ -120,7 +120,7 @@ struct RsyncParametersView: View {
                 RsyncCommandView(config: $parameters.configuration,
                                  selectedrsynccommand: $selectedrsynccommand)
 
-                if showprogressview { AlertToast(displayMode: .alert, type: .loading) }
+                if showprogressview { ProgressView() }
             }
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)

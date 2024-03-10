@@ -62,8 +62,8 @@ struct RestoreTableView: View {
                             }
                     }
 
-                    if gettingfilelist { AlertToast(displayMode: .alert, type: .loading) }
-                    if restore.restorefilesinprogress { AlertToast(displayMode: .alert, type: .loading) }
+                    if gettingfilelist { ProgressView() }
+                    if restore.restorefilesinprogress { ProgressView() }
                 }
 
                 Spacer()

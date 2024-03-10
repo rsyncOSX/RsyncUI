@@ -76,8 +76,8 @@ struct RsyncUIApp: App {
     }
 }
 
-extension Logger {
-    private static var subsystem = Bundle.main.bundleIdentifier!
+extension Logger: @unchecked Sendable {
+    private static let subsystem = Bundle.main.bundleIdentifier!
     static let process = Logger(subsystem: subsystem, category: "process")
 }
 

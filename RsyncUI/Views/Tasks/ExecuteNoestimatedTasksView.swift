@@ -31,7 +31,7 @@ struct ExecuteNoestimatedTasksView: View {
             )
 
             if executeasyncnoestimation.executeasyncnoestimationcompleted == true { labelcompleted }
-            if progressviewshowinfo { AlertToast(displayMode: .alert, type: .loading) }
+            if progressviewshowinfo { ProgressView() }
             if focusaborttask { labelaborttask }
         }
         .onAppear(perform: {

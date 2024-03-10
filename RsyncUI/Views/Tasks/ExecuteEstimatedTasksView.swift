@@ -34,7 +34,7 @@ struct ExecuteEstimatedTasksView: View {
             )
 
             if multipletaskstate.executionstate == .completed { labelcompleted }
-            if multipletaskstate.executionstate == .execute { AlertToast(displayMode: .alert, type: .loading) }
+            if multipletaskstate.executionstate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
         }
         .onAppear(perform: {
