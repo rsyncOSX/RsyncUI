@@ -193,7 +193,7 @@ struct SnapshotsView: View {
     }
 }
 
-extension SnapshotsView {
+extension SnapshotsView: @unchecked Sendable {
     func abort() {
         snapshotdata.setsnapshotdata(nil)
         snapshotdata.delete?.snapshotcatalogstodelete = nil

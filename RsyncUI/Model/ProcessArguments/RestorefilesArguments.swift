@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 27/06/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
 
 import Foundation
 
@@ -50,5 +49,3 @@ final class RestorefilesArguments {
         }
     }
 }
-
-// swiftlint:enable line_length

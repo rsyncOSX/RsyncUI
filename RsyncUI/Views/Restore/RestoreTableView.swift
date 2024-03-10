@@ -225,7 +225,7 @@ struct RestoreTableView: View {
     }
 }
 
-extension RestoreTableView {
+extension RestoreTableView: @unchecked Sendable {
     func getlistoffilesforrestore() async {
         if let config = restore.selectedconfig {
             guard config.task != SharedReference.shared.syncremote else { return }

@@ -174,5 +174,3 @@ enum OutputIsTruncated: LocalizedError {
         }
     }
 }
-
-// swiftlint: enable line_length
