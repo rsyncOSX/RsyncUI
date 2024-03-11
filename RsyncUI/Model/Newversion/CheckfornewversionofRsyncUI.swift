@@ -44,8 +44,8 @@ final class CheckfornewversionofRsyncUI: @unchecked Sendable {
     var notifynewversion: Bool = false
 
     func notify() {
-        // Show updated for 2 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        Task {
+            try await Task.sleep(seconds: 2)
             self.notifynewversion = false
         }
     }

@@ -140,7 +140,8 @@ final class ObservableAddConfigurations: @unchecked Sendable {
         if let profile = profile {
             guard profile != SharedReference.shared.defaultprofile else {
                 deletedefaultprofile = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                Task {
+                    try await Task.sleep(seconds: 1)
                     deletedefaultprofile = false
                 }
                 return
@@ -150,7 +151,8 @@ final class ObservableAddConfigurations: @unchecked Sendable {
             deleted = true
         } else {
             deletedefaultprofile = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+            Task {
+                try await Task.sleep(seconds: 1)
                 deletedefaultprofile = false
             }
         }
