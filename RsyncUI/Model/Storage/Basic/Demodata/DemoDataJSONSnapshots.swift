@@ -7,15 +7,12 @@
 
 import Foundation
 
-class DemoDataJSONSnapshots: @unchecked Sendable {
+class DemoDataJSONSnapshots {
     let urlSession = URLSession.shared
     let jsonDecoder = JSONDecoder()
-    var snapshotdata: [String]?
 
     var snapshotsJSON: String =
         "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/snapshotsV2.json"
-
-    // let snapshots = await getdemodata.getsnapshots()
 
     private func getsnapshotsJSON() async throws -> [DecodeSnapshot]? {
         if let url = URL(string: snapshotsJSON) {
@@ -26,6 +23,7 @@ class DemoDataJSONSnapshots: @unchecked Sendable {
         }
     }
 
+    @MainActor
     func getsnapshots() async -> [String]? {
         do {
             if let data = try await getsnapshotsJSON() {

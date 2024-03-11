@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 23/02/2021.
 //
-// swiftlint:disable line_length
 
 import Foundation
 
@@ -88,5 +87,3 @@ extension SnapshotLogRecords: Hashable, Equatable {
         hasher.combine(period)
     }
 }
-
-// swiftlint:enable line_length

@@ -37,7 +37,7 @@ final class SshKeys: Catalogsandfiles {
     var arguments: [String]?
 
     // Create rsa keypair
-    func createPublicPrivateRSAKeyPair() -> Bool {
+    func createPublicPrivateRSAKeyPair() async -> Bool {
         do {
             let present = try islocalpublicrsakeypresent()
             if present == false {

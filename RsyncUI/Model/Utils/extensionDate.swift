@@ -204,3 +204,5 @@ extension String {
         return self + formatter.string(from: Date())
     }
 }
+
+// swiftlint:enable line_length

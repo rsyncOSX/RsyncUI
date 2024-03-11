@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/11/2023.
 //
+// swiftlint:disable line_length
 
 import Combine
 import SwiftUI
@@ -226,6 +227,7 @@ struct RestoreTableView: View {
 }
 
 extension RestoreTableView: @unchecked Sendable {
+    @MainActor
     func getlistoffilesforrestore() async {
         if let config = restore.selectedconfig {
             guard config.task != SharedReference.shared.syncremote else { return }
@@ -325,3 +327,5 @@ struct RestoreFileRecord: Identifiable {
     let id = UUID()
     var filename: String
 }
+
+// swiftlint:enable line_length

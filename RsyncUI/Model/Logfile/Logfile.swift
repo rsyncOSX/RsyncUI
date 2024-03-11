@@ -188,3 +188,5 @@ final class Logfile: NamesandPaths {
         }
     }
 }
+
+// swiftlint:enable line_length

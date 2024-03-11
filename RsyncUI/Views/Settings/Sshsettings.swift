@@ -133,12 +133,13 @@ struct Sshsettings: View {
 
 extension Sshsettings {
     func createkeys() {
-        let create = SshKeys().createPublicPrivateRSAKeyPair()
-        if create == true {
-            // wait for a half second and then force a new check if keys are created and exists
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        Task {
+            let create = await SshKeys().createPublicPrivateRSAKeyPair()
+            if create == true {
                 localsshkeys = SshKeys().validatepublickeypresent()
             }
         }
     }
 }
+
+// swiftlint:enable line_length

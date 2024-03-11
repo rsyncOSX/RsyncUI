@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 10/11/2023.
 //
+// swiftlint:disable cyclomatic_complexity
 
 import OSLog
 import SwiftUI
@@ -103,3 +104,5 @@ struct Tasks: Hashable, Identifiable {
     let id = UUID()
     var task: DestinationView
 }
+
+// swiftlint:enable cyclomatic_complexity

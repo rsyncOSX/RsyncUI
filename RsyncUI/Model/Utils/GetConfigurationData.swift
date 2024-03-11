@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 02/01/2021.
 //  Copyright © 2021 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable cyclomatic_complexity
+// swiftlint:disable cyclomatic_complexity
 
 import Foundation
 
@@ -48,3 +48,5 @@ struct GetConfigurationData {
         self.configurations = configurations
     }
 }
+
+// swiftlint:enable cyclomatic_complexity

@@ -378,3 +378,5 @@ class ComputeRsyncParameters {
         arguments = [String]()
     }
 }
+
+// swiftlint:enable cyclomatic_complexity type_body_length opening_brace

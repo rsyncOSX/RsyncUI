@@ -1052,3 +1052,5 @@ private extension String {
         return appending(suffix)
     }
 }
+
+// swiftlint:enable force_try statement_position file_length

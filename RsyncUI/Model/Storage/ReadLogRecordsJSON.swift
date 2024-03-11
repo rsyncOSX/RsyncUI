@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 19/04/2021.
 //
+// swiftlint:disable line_length
 
 import Combine
 import Foundation
@@ -55,3 +56,5 @@ class ReadLogRecordsJSON: NamesandPaths {
             }.store(in: &subscriptons)
     }
 }
+
+// swiftlint:enable line_length

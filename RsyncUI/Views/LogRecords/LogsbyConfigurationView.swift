@@ -146,6 +146,7 @@ struct LogsbyConfigurationView: View {
             .controlSize(.small)
     }
 
+    @MainActor
     func updatelogs() async {
         if let logrecords = rsyncUIlogrecords.logrecords {
             if debouncefilterstring != "" {

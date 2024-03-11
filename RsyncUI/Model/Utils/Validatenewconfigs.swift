@@ -46,3 +46,5 @@ struct Validatenewconfigs: Connected {
         validated = true
     }
 }
+
+// swiftlint:enable cyclomatic_complexity
