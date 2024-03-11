@@ -20,7 +20,7 @@ enum Networkerror: LocalizedError {
     }
 }
 
-final class NetworkMonitor {
+final class NetworkMonitor: @unchecked Sendable {
     var monitor: NWPathMonitor?
     var netStatusChangeHandler: (() -> Void)?
 

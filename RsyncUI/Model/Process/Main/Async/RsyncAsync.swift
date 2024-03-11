@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import OSLog
 
-final class RsyncAsync {
+final class RsyncAsync: @unchecked Sendable {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Verify network connection

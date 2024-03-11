@@ -110,10 +110,7 @@ struct AboutView: View {
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear(perform: {
-            // Show updated for 1 second
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                newversion.notifynewversion = false
-            }
+            newversion.notify()
         })
     }
 }

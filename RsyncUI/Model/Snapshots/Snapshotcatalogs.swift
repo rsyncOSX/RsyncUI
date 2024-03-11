@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 
-class Snapshotcatalogs {
+class Snapshotcatalogs: @unchecked Sendable {
     var mysnapshotdata: SnapshotData?
     var catalogsanddates: [Catalogsanddates]?
 
