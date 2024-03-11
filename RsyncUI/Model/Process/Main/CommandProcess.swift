@@ -56,7 +56,7 @@ final class CommandProcess {
         // Combine, subscribe to Process.didTerminateNotification
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
-            .debounce(for: .milliseconds(500), scheduler: globalMainQueue)
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink { [self] _ in
                 self.processtermination(self.outputprocess?.getOutput())
                 // Release Combine subscribers

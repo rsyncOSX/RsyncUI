@@ -27,7 +27,8 @@ struct Othersettings: View {
         }
         .lineSpacing(2)
         .onAppear(perform: {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            Task {
+                try await Task.sleep(seconds: 1)
                 Logger.process.info("Othersettings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
                 settings = true
@@ -35,7 +36,8 @@ struct Othersettings: View {
         })
         .onChange(of: SharedReference.shared.settingsischanged) {
             guard SharedReference.shared.settingsischanged == true else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            Task {
+                try await Task.sleep(seconds: 1)
                 _ = WriteUserConfigurationJSON(UserConfiguration())
                 SharedReference.shared.settingsischanged = false
                 Logger.process.info("Usersettings is SAVED")

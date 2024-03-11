@@ -26,9 +26,11 @@ struct RsyncUIView: View {
                         .font(.title2)
                 }
                 .onAppear(perform: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    Task {
+                        try await Task.sleep(seconds: 1)
                         start = false
                     }
+
                 })
             } else {
                 Sidebar(rsyncUIdata: rsyncUIdata,
@@ -100,6 +102,13 @@ struct RsyncUIView: View {
         .onAppear(perform: {
             newversion.notify()
         })
+    }
+}
+
+extension Task where Success == Never, Failure == Never {
+    static func sleep(seconds: Double) async throws {
+        let duration = UInt64(seconds * 1_000_000_000)
+        try await Task.sleep(nanoseconds: duration)
     }
 }
 

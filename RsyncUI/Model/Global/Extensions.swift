@@ -72,15 +72,3 @@ enum ResourceInConfiguration {
     case offsiteusername
     case sshport
 }
-
-var globalMainQueue: DispatchQueue {
-    return DispatchQueue.main
-}
-
-var globalBackgroundQueue: DispatchQueue {
-    return DispatchQueue.global(qos: .background)
-}
-
-var globalDefaultQueue: DispatchQueue {
-    return DispatchQueue.global(qos: .default)
-}

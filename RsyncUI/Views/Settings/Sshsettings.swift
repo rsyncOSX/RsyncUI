@@ -32,7 +32,8 @@ struct Sshsettings: View {
             }
             .onAppear(perform: {
                 localsshkeys = SshKeys().validatepublickeypresent()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                Task {
+                    try await Task.sleep(seconds: 3)
                     Logger.process.info("SSH settings is DEFAULT")
                     SharedReference.shared.settingsischanged = false
                     usersettings.ready = true
@@ -41,7 +42,8 @@ struct Sshsettings: View {
             .onChange(of: SharedReference.shared.settingsischanged) {
                 guard SharedReference.shared.settingsischanged == true,
                       usersettings.ready == true else { return }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                Task {
+                    try await Task.sleep(seconds: 3)
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     SharedReference.shared.settingsischanged = false
                     Logger.process.info("Usersettings is SAVED")
@@ -134,8 +136,7 @@ struct Sshsettings: View {
 extension Sshsettings {
     func createkeys() {
         Task {
-            let create = await SshKeys().createPublicPrivateRSAKeyPair()
-            if create == true {
+            if await SshKeys().createPublicPrivateRSAKeyPair() {
                 localsshkeys = SshKeys().validatepublickeypresent()
             }
         }
