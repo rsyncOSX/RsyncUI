@@ -29,9 +29,7 @@ struct SettingsView: View {
         }
         .frame(minWidth: 800, minHeight: 450)
         .onAppear {
-            Task {
-                await Rsyncversion().getrsyncversion()
-            }
+            Rsyncversion().getrsyncversion()
         }
     }
 

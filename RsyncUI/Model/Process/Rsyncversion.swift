@@ -10,7 +10,7 @@ import Observation
 
 @Observable
 final class Rsyncversion {
-    func getrsyncversion() async {
+    func getrsyncversion() {
         if SharedReference.shared.norsync == false {
             let command = RsyncProcessNOFilehandler(arguments: ["--version"],
                                                     processtermination: processtermination)

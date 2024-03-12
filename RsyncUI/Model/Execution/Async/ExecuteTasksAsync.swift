@@ -27,7 +27,6 @@ final class ExecuteTasksAsync: @unchecked Sendable {
         return nil
     }
 
-    @MainActor
     func startexecution() {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
@@ -83,7 +82,6 @@ final class ExecuteTasksAsync: @unchecked Sendable {
 }
 
 extension ExecuteTasksAsync {
-    @MainActor
     func processterminationexecute(outputfromrsync: [String]?, hiddenID: Int?) {
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.

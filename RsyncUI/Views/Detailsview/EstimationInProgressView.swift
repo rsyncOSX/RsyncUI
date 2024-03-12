@@ -40,17 +40,14 @@ struct EstimationInProgressView: View {
                      value: estimateprogressdetails.numberofconfigurationsestimated,
                      total: Double(configurations.count))
             .onAppear {
-                Task {
-                    // Either is there some selceted tasks or if not
-                    // the EstimateTasksAsync selects all tasks to be estimated.
-
-                    let estimate = EstimateTasksAsync(profile: profile,
-                                                      configurations: configurations,
-                                                      estimateprogressdetails: estimateprogressdetails,
-                                                      uuids: selecteduuids,
-                                                      filter: "")
-                    estimate.startestimation()
-                }
+                // Either is there some selceted tasks or if not
+                // the EstimateTasks selects all tasks to be estimated
+                let estimate = EstimateTasks(profile: profile,
+                                             configurations: configurations,
+                                             estimateprogressdetails: estimateprogressdetails,
+                                             uuids: selecteduuids,
+                                             filter: "")
+                estimate.startestimation()
             }
             .onDisappear {
                 executeprogressdetails.estimatedlist = nil

@@ -283,13 +283,11 @@ extension SnapshotsView: @unchecked Sendable {
                 return
             }
             selectedconfig.snapdayoffweek = snapdayofweek
-            if let configurations = rsyncUIdata.configurations {
-                let updateconfiguration =
-                    UpdateConfigurations(profile: rsyncUIdata.profile,
-                                         configurations: rsyncUIdata.configurations)
-                updateconfiguration.updateconfiguration(selectedconfig, false)
-                updated = true
-            }
+            let updateconfiguration =
+                UpdateConfigurations(profile: rsyncUIdata.profile,
+                                     configurations: rsyncUIdata.configurations)
+            updateconfiguration.updateconfiguration(selectedconfig, false)
+            updated = true
         }
     }
 }

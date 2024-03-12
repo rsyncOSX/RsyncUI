@@ -35,9 +35,7 @@ struct ExecuteNoestimatedTasksView: View {
             if focusaborttask { labelaborttask }
         }
         .onAppear(perform: {
-            Task {
-                await executeallnoestimationtasks()
-            }
+            executeallnoestimationtasks()
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
@@ -83,7 +81,7 @@ extension ExecuteNoestimatedTasksView {
         executeasyncnoestimation.reset()
     }
 
-    func executeallnoestimationtasks() async {
+    func executeallnoestimationtasks() {
         Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids, privacy: .public)")
         executeasyncnoestimation.startasyncexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
@@ -94,7 +92,7 @@ extension ExecuteNoestimatedTasksView {
                                   uuids: selecteduuids,
                                   filter: filterstring,
                                   updateconfigurations: updateconfigurations)
-            await executealltasksasync?.startexecution()
+            executealltasksasync?.startexecution()
         }
     }
 

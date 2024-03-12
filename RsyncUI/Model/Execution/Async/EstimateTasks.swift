@@ -1,5 +1,5 @@
 //
-//  EstimateTasksAsync.swift
+//  EstimateTasks.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 20/10/2022.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EstimateTasksAsync {
+class EstimateTasks {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
@@ -67,7 +67,7 @@ class EstimateTasksAsync {
     }
 }
 
-extension EstimateTasksAsync {
+extension EstimateTasks {
     func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
         let record = RemoteDataNumbers(hiddenID: hiddenID,
                                        outputfromrsync: outputfromrsync,

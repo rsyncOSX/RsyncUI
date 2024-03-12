@@ -26,9 +26,7 @@ struct Usersettings: View {
                                           $usersettings.rsyncversion3)
                             .onChange(of: usersettings.rsyncversion3) {
                                 SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
-                                Task {
-                                    await rsyncversion.getrsyncversion()
-                                }
+                                rsyncversion.getrsyncversion()
                                 defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
                             }
 

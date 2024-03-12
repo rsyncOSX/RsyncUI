@@ -114,9 +114,7 @@ struct RestoreTableView: View {
             .toolbar(content: {
                 ToolbarItem {
                     Button {
-                        Task {
-                            executerestore()
-                        }
+                        executerestore()
                     } label: {
                         Image(systemName: "return")
                             .foregroundColor(Color(.blue))
@@ -132,9 +130,7 @@ struct RestoreTableView: View {
 
                 ToolbarItem {
                     Button {
-                        Task {
-                            getlistoffilesforrestore()
-                        }
+                        getlistoffilesforrestore()
                     } label: {
                         Image(systemName: "square.and.arrow.down.fill")
                     }
@@ -227,7 +223,6 @@ struct RestoreTableView: View {
 }
 
 extension RestoreTableView {
-    @MainActor
     func getlistoffilesforrestore() {
         if let config = restore.selectedconfig {
             guard config.task != SharedReference.shared.syncremote else { return }
@@ -248,7 +243,6 @@ extension RestoreTableView {
         } ?? []
     }
 
-    @MainActor
     func getfilelist() {
         if let config = restore.selectedconfig {
             var arguments: [String]?
@@ -283,7 +277,6 @@ extension RestoreTableView {
         }
     }
 
-    @MainActor
     func executerestore() {
         if let config = restore.selectedconfig {
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
