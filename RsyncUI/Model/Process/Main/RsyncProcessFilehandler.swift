@@ -1,5 +1,5 @@
 //
-//  RsyncProcess.swift
+//  RsyncProcessFilehandler.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 15/03/2021.
@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import OSLog
 
-final class RsyncProcess {
+final class RsyncProcessFilehandler {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -133,7 +133,7 @@ final class RsyncProcess {
     }
 }
 
-extension RsyncProcess {
+extension RsyncProcessFilehandler {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }

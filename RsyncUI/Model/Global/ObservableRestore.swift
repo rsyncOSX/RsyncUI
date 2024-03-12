@@ -75,8 +75,8 @@ final class ObservableRestore {
                 arguments = computerestorearguments(forDisplay: false)
                 if let arguments = arguments {
                     restorefilesinprogress = true
-                    let command = RsyncAsync(arguments: arguments,
-                                             processtermination: processtermination)
+                    let command = RsyncProcessNOFilehandler(arguments: arguments,
+                                                            processtermination: processtermination)
                     command.executeProcess()
                 }
             }

@@ -277,8 +277,8 @@ extension RestoreTableView {
                                                   snapshot: snapshot).getArguments()
             }
             guard arguments?.isEmpty == false else { return }
-            let command = RsyncAsync(arguments: arguments,
-                                     processtermination: processtermination)
+            let command = RsyncProcessNOFilehandler(arguments: arguments,
+                                                    processtermination: processtermination)
             command.executeProcess()
         }
     }

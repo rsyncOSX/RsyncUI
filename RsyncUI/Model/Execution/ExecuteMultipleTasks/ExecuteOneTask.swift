@@ -22,10 +22,10 @@ final class ExecuteOneTask {
 
     func startexecution() {
         if let arguments = arguments {
-            let process = RsyncProcess(arguments: arguments,
-                                       config: config,
-                                       processtermination: termination,
-                                       filehandler: filehandler)
+            let process = RsyncProcessFilehandler(arguments: arguments,
+                                                  config: config,
+                                                  processtermination: termination,
+                                                  filehandler: filehandler)
             process.executeProcess()
         }
     }

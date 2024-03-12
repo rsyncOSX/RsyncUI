@@ -53,8 +53,8 @@ struct DetailsOneTaskEstimatingView: View {
             let arguments = ArgumentsSynchronize(config: selectedconfig)
                 .argumentssynchronize(dryRun: true, forDisplay: false)
             guard arguments != nil else { return }
-            let task = RsyncAsync(arguments: arguments,
-                                  processtermination: processtermination)
+            let task = RsyncProcessNOFilehandler(arguments: arguments,
+                                                 processtermination: processtermination)
             task.executeProcess()
         })
     }

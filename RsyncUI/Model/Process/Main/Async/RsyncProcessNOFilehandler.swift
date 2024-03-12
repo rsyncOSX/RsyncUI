@@ -1,5 +1,5 @@
 //
-//  RsyncAsync.swift
+//  RsyncProcessNOFilehandler.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 22/09/2022.
@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import OSLog
 
-final class RsyncAsync {
+final class RsyncProcessNOFilehandler {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Verify network connection
@@ -93,7 +93,7 @@ final class RsyncAsync {
     }
 }
 
-extension RsyncAsync {
+extension RsyncProcessNOFilehandler {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
