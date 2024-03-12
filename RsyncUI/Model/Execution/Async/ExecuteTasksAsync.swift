@@ -28,7 +28,7 @@ final class ExecuteTasksAsync: @unchecked Sendable {
     }
 
     @MainActor
-    func startexecution() async {
+    func startexecution() {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
                                                      hiddenID: -1,
@@ -46,10 +46,10 @@ final class ExecuteTasksAsync: @unchecked Sendable {
             if let config = getconfig(localhiddenID) {
                 let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
                 guard arguments.count > 0 else { return }
-                let process = RsyncProcessAsync(arguments: arguments,
-                                                config: config,
-                                                processtermination: processterminationexecute)
-                await process.executeProcess()
+                let process = RsyncProcessNetworkNOFilehandler(arguments: arguments,
+                                                               config: config,
+                                                               processtermination: processterminationexecute)
+                process.executeProcess()
             }
         }
     }
@@ -83,6 +83,7 @@ final class ExecuteTasksAsync: @unchecked Sendable {
 }
 
 extension ExecuteTasksAsync {
+    @MainActor
     func processterminationexecute(outputfromrsync: [String]?, hiddenID: Int?) {
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
@@ -95,10 +96,7 @@ extension ExecuteTasksAsync {
                                            config: config)
             localexecuteasyncnoestimation?.appendrecordexecutedlist(record)
             localexecuteasyncnoestimation?.appenduuid(config.id)
-
-            Task {
-                await self.startexecution()
-            }
+            startexecution()
         }
     }
 }

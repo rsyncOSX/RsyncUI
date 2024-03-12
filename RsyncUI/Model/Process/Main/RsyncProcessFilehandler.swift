@@ -102,8 +102,8 @@ final class RsyncProcessFilehandler {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.process.info("RsyncProcess: \(launchPath, privacy: .public)")
-            Logger.process.info("RsyncProcess: \(arguments.joined(separator: "\n"), privacy: .public)")
+            Logger.process.info("RsyncProcessFilehandler: \(launchPath, privacy: .public)")
+            Logger.process.info("RsyncProcessFilehandler: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 
@@ -129,7 +129,7 @@ final class RsyncProcessFilehandler {
         self.monitor?.stopMonitoring()
         self.monitor = nil
         SharedReference.shared.process = nil
-        Logger.process.info("RsyncProcess: DEINIT")
+        Logger.process.info("RsyncProcessFilehandler: DEINIT")
     }
 }
 

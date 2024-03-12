@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EstimateTasksAsync: @unchecked Sendable {
+class EstimateTasksAsync {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
@@ -21,8 +21,7 @@ class EstimateTasksAsync: @unchecked Sendable {
         return nil
     }
 
-    @MainActor
-    func startestimation() async {
+    func startestimation() {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             localestimateprogressdetails?.asyncestimationcomplete()
             return
@@ -34,10 +33,10 @@ class EstimateTasksAsync: @unchecked Sendable {
             guard arguments.count > 0 else { return }
             // Used to display details of configuration in estimation
             localestimateprogressdetails?.configurationtobestimated = config.id
-            let process = RsyncProcessAsync(arguments: arguments,
-                                            config: config,
-                                            processtermination: processtermination)
-            await process.executeProcess()
+            let process = RsyncProcessNetworkNOFilehandler(arguments: arguments,
+                                                           config: config,
+                                                           processtermination: processtermination)
+            process.executeProcess()
         }
     }
 
@@ -79,10 +78,7 @@ extension EstimateTasksAsync {
                 localestimateprogressdetails?.appenduuid(config.id)
             }
         }
-
-        Task {
-            await self.startestimation()
-        }
+        startestimation()
     }
 }
 

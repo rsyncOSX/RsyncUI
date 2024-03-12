@@ -150,9 +150,7 @@ struct RsyncParametersView: View {
             ToolbarItem {
                 Button {
                     if let configuration = parameters.updatersyncparameters() {
-                        Task {
-                            await verify(config: configuration)
-                        }
+                        verify(config: configuration)
                     }
                 } label: {
                     Image(systemName: "flag.checkered")
@@ -233,8 +231,7 @@ extension RsyncParametersView {
         }
     }
 
-    @MainActor
-    func verify(config: SynchronizeConfiguration) async {
+    func verify(config: SynchronizeConfiguration) {
         var arguments: [String]?
         switch selectedrsynccommand {
         case .synchronize:
@@ -246,10 +243,10 @@ extension RsyncParametersView {
         }
         rsyncoutput = ObservableRsyncOutput()
         showprogressview = true
-        let process = RsyncProcessAsync(arguments: arguments,
-                                        config: config,
-                                        processtermination: processtermination)
-        await process.executeProcess()
+        let process = RsyncProcessNetworkNOFilehandler(arguments: arguments,
+                                                       config: config,
+                                                       processtermination: processtermination)
+        process.executeProcess()
     }
 
     func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {

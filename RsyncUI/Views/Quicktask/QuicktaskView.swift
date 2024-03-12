@@ -256,24 +256,19 @@ extension QuicktaskView {
                                  nil)
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
-            // Now can prepare for execute.
-            Task {
-                await execute(config: newconfig, dryrun: dryrun)
-            }
+            execute(config: newconfig, dryrun: dryrun)
         }
     }
 
-    func execute(config: SynchronizeConfiguration, dryrun: Bool) async {
+    func execute(config: SynchronizeConfiguration, dryrun: Bool) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
         rsyncoutput = ObservableRsyncOutput()
         // Start progressview
         showprogressview = true
-        let process = RsyncProcessAsync(arguments: arguments,
-                                        config: config,
-                                        processtermination: processtermination)
-        Task {
-            await process.executeProcess()
-        }
+        let process = RsyncProcessNetworkNOFilehandler(arguments: arguments,
+                                                       config: config,
+                                                       processtermination: processtermination)
+        process.executeProcess()
     }
 
     func abort() {

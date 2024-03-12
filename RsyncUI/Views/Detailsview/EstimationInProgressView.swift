@@ -49,7 +49,7 @@ struct EstimationInProgressView: View {
                                                       estimateprogressdetails: estimateprogressdetails,
                                                       uuids: selecteduuids,
                                                       filter: "")
-                    await estimate.startestimation()
+                    estimate.startestimation()
                 }
             }
             .onDisappear {
