@@ -87,7 +87,7 @@ struct LogsbyConfigurationView: View {
                 }
                 }
             }
-            
+
             HStack {
                 if showindebounce {
                     indebounce

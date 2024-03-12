@@ -20,7 +20,6 @@ class Snapshotcatalogs {
                                               drynrun: nil,
                                               snapshot: true)
         let command = RsyncProcessNOFilehandler(arguments: arguments.getArguments(),
-                                                config: nil,
                                                 processtermination: processtermination)
         if SharedReference.shared.demodata == false {
             command.executeProcess()

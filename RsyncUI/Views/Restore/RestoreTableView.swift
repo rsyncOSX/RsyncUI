@@ -272,7 +272,6 @@ extension RestoreTableView {
             }
             guard arguments?.isEmpty == false else { return }
             let command = RsyncProcessNOFilehandler(arguments: arguments,
-                                                    config: nil,
                                                     processtermination: processtermination)
             command.executeProcess()
         }

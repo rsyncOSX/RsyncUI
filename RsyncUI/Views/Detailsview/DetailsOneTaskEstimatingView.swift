@@ -54,7 +54,6 @@ struct DetailsOneTaskEstimatingView: View {
                 .argumentssynchronize(dryRun: true, forDisplay: false)
             guard arguments != nil else { return }
             let task = RsyncProcessNOFilehandler(arguments: arguments,
-                                                 config: nil,
                                                  processtermination: processtermination)
             task.executeProcess()
         })

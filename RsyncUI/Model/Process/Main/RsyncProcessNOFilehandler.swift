@@ -115,13 +115,20 @@ final class RsyncProcessNOFilehandler {
         self.arguments = arguments
         self.processtermination = processtermination
         outputprocess = OutputfromProcess()
-
+        // Only execute montornetwork connection if
+        // a selected configuration
         if let config = config {
-            // Only execute montornetwork connection if
-            // a selected configuration
             self.config = config
             executemonitornetworkconnection()
         }
+    }
+
+    convenience init(arguments: [String]?,
+                     processtermination: @escaping ([String]?, Int?) -> Void)
+    {
+        self.init(arguments: arguments,
+                  config: nil,
+                  processtermination: processtermination)
     }
 
     deinit {
