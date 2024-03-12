@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 
-final class ExecuteTasksAsync: @unchecked Sendable {
+final class ExecuteTasksAsync {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?

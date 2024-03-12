@@ -24,7 +24,7 @@ struct SummarizedAllDetailsView: View {
     var body: some View {
         VStack {
             HStack {
-                if estimateprogressdetails.estimatealltasksasync {
+                if estimateprogressdetails.estimatealltasksinprogress {
                     EstimationInProgressView(executeprogressdetails: executeprogressdetails,
                                              estimateprogressdetails: estimateprogressdetails,
                                              selecteduuids: $selecteduuids,
@@ -168,7 +168,7 @@ struct SummarizedAllDetailsView: View {
             })
             .focusedSceneValue(\.startexecution, $focusstartexecution)
             .onAppear {
-                guard estimateprogressdetails.estimatealltasksasync == false else {
+                guard estimateprogressdetails.estimatealltasksinprogress == false else {
                     Logger.process.warning("TasksView: estimate already in progress")
                     return
                 }
