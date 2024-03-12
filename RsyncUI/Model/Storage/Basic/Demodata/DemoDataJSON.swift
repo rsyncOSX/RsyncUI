@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DemoDataJSON {
+class DemoDataJSON: @unchecked Sendable {
     let urlSession = URLSession.shared
     let jsonDecoder = JSONDecoder()
 

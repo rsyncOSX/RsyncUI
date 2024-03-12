@@ -10,7 +10,7 @@ import Observation
 import SwiftUI
 
 @Observable
-final class AlertError {
+final class AlertError: @unchecked Sendable {
     private(set) var activeError: Error?
 
     func alert(error: Error) {

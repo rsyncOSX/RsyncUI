@@ -133,7 +133,7 @@ struct Sshsettings: View {
     }
 }
 
-extension Sshsettings {
+extension Sshsettings: @unchecked Sendable {
     func createkeys() {
         Task {
             if await SshKeys().createPublicPrivateRSAKeyPair() {
