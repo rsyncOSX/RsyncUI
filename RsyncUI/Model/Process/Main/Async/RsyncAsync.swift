@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import OSLog
 
-final class RsyncAsync: @unchecked Sendable {
+final class RsyncAsync {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Verify network connection
@@ -21,7 +21,7 @@ final class RsyncAsync: @unchecked Sendable {
     var outputprocess: OutputfromProcess?
 
     @MainActor
-    func executeProcess() async {
+    func executeProcess() {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         // Process
@@ -52,26 +52,17 @@ final class RsyncAsync: @unchecked Sendable {
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
             }.store(in: &subscriptons)
-        /*
-         // Combine, subscribe to Process.didTerminateNotification
-         NotificationCenter.default.publisher(
-             for: Process.didTerminateNotification)
-             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
-             .sink { _ in
-                 // Logg to file
-                 self.processtermination(self.outputprocess?.getOutput())
-                 // Release Combine subscribers
-                 self.subscriptons.removeAll()
-             }.store(in: &subscriptons)
-          */
+        // Combine, subscribe to Process.didTerminateNotification
+        NotificationCenter.default.publisher(
+            for: Process.didTerminateNotification)
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .sink { _ in
+                // Logg to file
+                self.processtermination(self.outputprocess?.getOutput())
+                // Release Combine subscribers
+                self.subscriptons.removeAll()
+            }.store(in: &subscriptons)
         SharedReference.shared.process = task
-        task.terminationHandler = { _ in
-            // Logg to file
-            self.processtermination(self.outputprocess?.getOutput())
-            // Release Combine subscribers
-            self.subscriptons.removeAll()
-            Logger.process.info("RsyncAsync: terminationHandler")
-        }
         do {
             try task.run()
         } catch let e {

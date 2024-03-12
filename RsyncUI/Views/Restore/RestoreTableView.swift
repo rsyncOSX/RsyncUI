@@ -115,7 +115,7 @@ struct RestoreTableView: View {
                 ToolbarItem {
                     Button {
                         Task {
-                            await restore()
+                            executerestore()
                         }
                     } label: {
                         Image(systemName: "return")
@@ -133,7 +133,7 @@ struct RestoreTableView: View {
                 ToolbarItem {
                     Button {
                         Task {
-                            await getlistoffilesforrestore()
+                            getlistoffilesforrestore()
                         }
                     } label: {
                         Image(systemName: "square.and.arrow.down.fill")
@@ -226,13 +226,13 @@ struct RestoreTableView: View {
     }
 }
 
-extension RestoreTableView: @unchecked Sendable {
+extension RestoreTableView {
     @MainActor
-    func getlistoffilesforrestore() async {
+    func getlistoffilesforrestore() {
         if let config = restore.selectedconfig {
             guard config.task != SharedReference.shared.syncremote else { return }
             gettingfilelist = true
-            await getfilelist()
+            getfilelist()
         }
     }
 
@@ -249,7 +249,7 @@ extension RestoreTableView: @unchecked Sendable {
     }
 
     @MainActor
-    func getfilelist() async {
+    func getfilelist() {
         if let config = restore.selectedconfig {
             var arguments: [String]?
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
@@ -279,12 +279,12 @@ extension RestoreTableView: @unchecked Sendable {
             guard arguments?.isEmpty == false else { return }
             let command = RsyncAsync(arguments: arguments,
                                      processtermination: processtermination)
-            await command.executeProcess()
+            command.executeProcess()
         }
     }
 
     @MainActor
-    func restore() async {
+    func executerestore() {
         if let config = restore.selectedconfig {
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
             if snapshot, snapshotcatalog.isEmpty == false {
@@ -296,9 +296,9 @@ extension RestoreTableView: @unchecked Sendable {
                     tempconfig.snapshotnum = snapshotnum + 1
                 }
                 restore.selectedconfig = tempconfig
-                await restore.restore()
+                restore.executerestore()
             } else {
-                await restore.restore()
+                restore.executerestore()
             }
         }
     }
