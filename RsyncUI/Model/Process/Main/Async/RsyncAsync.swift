@@ -52,17 +52,26 @@ final class RsyncAsync: @unchecked Sendable {
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
             }.store(in: &subscriptons)
-        // Combine, subscribe to Process.didTerminateNotification
-        NotificationCenter.default.publisher(
-            for: Process.didTerminateNotification)
-            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
-            .sink { _ in
-                // Logg to file
-                self.processtermination(self.outputprocess?.getOutput())
-                // Release Combine subscribers
-                self.subscriptons.removeAll()
-            }.store(in: &subscriptons)
+        /*
+         // Combine, subscribe to Process.didTerminateNotification
+         NotificationCenter.default.publisher(
+             for: Process.didTerminateNotification)
+             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+             .sink { _ in
+                 // Logg to file
+                 self.processtermination(self.outputprocess?.getOutput())
+                 // Release Combine subscribers
+                 self.subscriptons.removeAll()
+             }.store(in: &subscriptons)
+          */
         SharedReference.shared.process = task
+        task.terminationHandler = { _ in
+            // Logg to file
+            self.processtermination(self.outputprocess?.getOutput())
+            // Release Combine subscribers
+            self.subscriptons.removeAll()
+            Logger.process.info("RsyncAsync: terminationHandler")
+        }
         do {
             try task.run()
         } catch let e {
