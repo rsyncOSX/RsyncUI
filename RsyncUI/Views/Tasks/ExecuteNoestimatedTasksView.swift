@@ -17,7 +17,7 @@ struct ExecuteNoestimatedTasksView: View {
     @State private var executeasyncnoestimation = ExecuteAsyncNoEstimation()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
-    @State private var executealltasksasync: ExecuteTasksAsync?
+    @State private var executetasks: ExecuteTasks?
     @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
 
@@ -85,14 +85,14 @@ extension ExecuteNoestimatedTasksView {
         Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids, privacy: .public)")
         executeasyncnoestimation.startasyncexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
-            executealltasksasync =
-                ExecuteTasksAsync(profile: rsyncUIdata.profile,
-                                  rsyncuiconfigurations: configurations,
-                                  executeasyncnoestimation: executeasyncnoestimation,
-                                  uuids: selecteduuids,
-                                  filter: filterstring,
-                                  updateconfigurations: updateconfigurations)
-            executealltasksasync?.startexecution()
+            executetasks =
+                ExecuteTasks(profile: rsyncUIdata.profile,
+                             rsyncuiconfigurations: configurations,
+                             executeasyncnoestimation: executeasyncnoestimation,
+                             uuids: selecteduuids,
+                             filter: filterstring,
+                             updateconfigurations: updateconfigurations)
+            executetasks?.startexecution()
         }
     }
 
