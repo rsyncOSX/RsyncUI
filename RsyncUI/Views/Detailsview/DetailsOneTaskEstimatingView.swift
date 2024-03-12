@@ -55,9 +55,7 @@ struct DetailsOneTaskEstimatingView: View {
             guard arguments != nil else { return }
             let task = RsyncAsync(arguments: arguments,
                                   processtermination: processtermination)
-            Task {
-                await task.executeProcess()
-            }
+            task.executeProcess()
         })
     }
 

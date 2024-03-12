@@ -20,7 +20,6 @@ final class RsyncAsync {
     // Output
     var outputprocess: OutputfromProcess?
 
-    @MainActor
     func executeProcess() {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }

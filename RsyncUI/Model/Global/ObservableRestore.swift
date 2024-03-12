@@ -67,7 +67,6 @@ final class ObservableRestore {
         return true
     }
 
-    @MainActor
     func executerestore() {
         var arguments: [String]?
         do {

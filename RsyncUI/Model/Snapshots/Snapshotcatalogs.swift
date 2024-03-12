@@ -8,12 +8,11 @@
 import Foundation
 import OSLog
 
-class Snapshotcatalogs: @unchecked Sendable {
+class Snapshotcatalogs {
     var mysnapshotdata: SnapshotData?
     var catalogsanddates: [Catalogsanddates]?
 
-    @MainActor
-    func getremotecataloginfo(_ config: SynchronizeConfiguration) async {
+    func getremotecataloginfo(_ config: SynchronizeConfiguration) {
         let arguments = RestorefilesArguments(task: .snapshotcatalogsonly,
                                               config: config,
                                               remoteFile: nil,
@@ -23,7 +22,7 @@ class Snapshotcatalogs: @unchecked Sendable {
         let command = RsyncAsync(arguments: arguments.getArguments(),
                                  processtermination: processtermination)
         if SharedReference.shared.demodata == false {
-            await command.executeProcess()
+            command.executeProcess()
         } else {
             processtermination(data: SharedReference.shared.demodataprocesstermination)
         }
@@ -59,10 +58,7 @@ class Snapshotcatalogs: @unchecked Sendable {
     {
         guard config.task == SharedReference.shared.snapshot else { return }
         mysnapshotdata = snapshotdata
-
-        Task {
-            await getremotecataloginfo(config)
-        }
+        getremotecataloginfo(config)
     }
 
     func processtermination(data: [String]?) {

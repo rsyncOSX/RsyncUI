@@ -10,13 +10,12 @@ import Observation
 
 @Observable
 final class Rsyncversion {
-    @MainActor
     func getrsyncversion() async {
         if SharedReference.shared.norsync == false {
             let command = RsyncAsync(arguments: ["--version"],
                                      processtermination: processtermination)
 
-            await command.executeProcess()
+            command.executeProcess()
         }
     }
 
