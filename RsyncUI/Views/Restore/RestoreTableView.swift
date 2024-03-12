@@ -235,7 +235,7 @@ extension RestoreTableView {
         _ = InterruptProcess()
     }
 
-    func processtermination(data: [String]?) {
+    func processtermination(data: [String]?, hiddenID _: Int?) {
         gettingfilelist = false
         restore.rsyncdata = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         restore.datalist = restore.rsyncdata?.map { filename in
@@ -272,6 +272,7 @@ extension RestoreTableView {
             }
             guard arguments?.isEmpty == false else { return }
             let command = RsyncProcessNOFilehandler(arguments: arguments,
+                                                    config: nil,
                                                     processtermination: processtermination)
             command.executeProcess()
         }

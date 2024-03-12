@@ -51,7 +51,7 @@ struct RsyncUIView: View {
         }
         .padding()
         .task {
-            await rsyncversion.getrsyncversion()
+            rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }
         .toolbar(content: {

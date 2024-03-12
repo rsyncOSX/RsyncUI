@@ -265,9 +265,9 @@ extension QuicktaskView {
         rsyncoutput = ObservableRsyncOutput()
         // Start progressview
         showprogressview = true
-        let process = RsyncProcessNetworkNOFilehandler(arguments: arguments,
-                                                       config: config,
-                                                       processtermination: processtermination)
+        let process = RsyncProcessNOFilehandler(arguments: arguments,
+                                                config: config,
+                                                processtermination: processtermination)
         process.executeProcess()
     }
 

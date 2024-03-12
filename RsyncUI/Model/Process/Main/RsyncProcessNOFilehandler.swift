@@ -2,7 +2,7 @@
 //  RsyncProcessNOFilehandler.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 22/09/2022.
+//  Created by Thomas Evensen on 15/03/2021.
 //
 
 import Combine
@@ -13,12 +13,36 @@ final class RsyncProcessNOFilehandler {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Verify network connection
+    var config: SynchronizeConfiguration?
+    var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
-    // Process termination and filehandler closures
-    var processtermination: ([String]?) -> Void
+    // Process termination
+    var processtermination: ([String]?, Int?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
+
+    func executemonitornetworkconnection() {
+        guard config?.offsiteServer.isEmpty == false else { return }
+        guard SharedReference.shared.monitornetworkconnection == true else { return }
+        monitor = NetworkMonitor()
+        monitor?.netStatusChangeHandler = { [unowned self] in
+            do {
+                try statusDidChange()
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
+            }
+        }
+    }
+
+    // Throws error
+    func statusDidChange() throws {
+        if monitor?.monitor?.currentPath.status != .satisfied {
+            _ = InterruptProcess()
+            throw Networkerror.networkdropped
+        }
+    }
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -56,8 +80,13 @@ final class RsyncProcessNOFilehandler {
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink { _ in
-                // Logg to file
-                self.processtermination(self.outputprocess?.getOutput())
+                // Process termination and Log to file
+                if self.config == nil {
+                    self.processtermination(self.outputprocess?.getOutput(), -1)
+                } else {
+                    self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
+                }
+                _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
                 // Release Combine subscribers
                 self.subscriptons.removeAll()
             }.store(in: &subscriptons)
@@ -69,8 +98,8 @@ final class RsyncProcessNOFilehandler {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.process.info("RsyncAsync: \(launchPath, privacy: .public)")
-            Logger.process.info("RsyncAsync: \(arguments.joined(separator: "\n"), privacy: .public)")
+            Logger.process.info("RsyncProcessNOFilehandler: \(launchPath, privacy: .public)")
+            Logger.process.info("RsyncProcessNOFilehandler: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 
@@ -80,16 +109,26 @@ final class RsyncProcessNOFilehandler {
     }
 
     init(arguments: [String]?,
-         processtermination: @escaping ([String]?) -> Void)
+         config: SynchronizeConfiguration?,
+         processtermination: @escaping ([String]?, Int?) -> Void)
     {
         self.arguments = arguments
         self.processtermination = processtermination
         outputprocess = OutputfromProcess()
+
+        if let config = config {
+            // Only execute montornetwork connection if
+            // a selected configuration
+            self.config = config
+            executemonitornetworkconnection()
+        }
     }
 
     deinit {
+        self.monitor?.stopMonitoring()
+        self.monitor = nil
         SharedReference.shared.process = nil
-        Logger.process.info("RsyncAsync: DEINIT")
+        Logger.process.info("RsyncProcessNOFilehandler: DEINIT")
     }
 }
 

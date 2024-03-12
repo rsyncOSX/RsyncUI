@@ -33,9 +33,9 @@ class EstimateTasks {
             guard arguments.count > 0 else { return }
             // Used to display details of configuration in estimation
             localestimateprogressdetails?.configurationtobestimated = config.id
-            let process = RsyncProcessNetworkNOFilehandler(arguments: arguments,
-                                                           config: config,
-                                                           processtermination: processtermination)
+            let process = RsyncProcessNOFilehandler(arguments: arguments,
+                                                    config: config,
+                                                    processtermination: processtermination)
             process.executeProcess()
         }
     }

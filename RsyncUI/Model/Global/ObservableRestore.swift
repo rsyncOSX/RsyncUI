@@ -32,7 +32,7 @@ final class ObservableRestore {
         return GetfullpathforRsync().rsyncpath ?? ""
     }
 
-    func processtermination(data: [String]?) {
+    func processtermination(data: [String]?, hiddenID _: Int?) {
         rsyncdata = data
         restorefilesinprogress = false
         presentsheetrsync = true
@@ -76,6 +76,7 @@ final class ObservableRestore {
                 if let arguments = arguments {
                     restorefilesinprogress = true
                     let command = RsyncProcessNOFilehandler(arguments: arguments,
+                                                            config: nil,
                                                             processtermination: processtermination)
                     command.executeProcess()
                 }

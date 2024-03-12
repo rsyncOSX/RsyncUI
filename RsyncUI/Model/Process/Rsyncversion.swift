@@ -13,6 +13,7 @@ final class Rsyncversion {
     func getrsyncversion() {
         if SharedReference.shared.norsync == false {
             let command = RsyncProcessNOFilehandler(arguments: ["--version"],
+                                                    config: nil,
                                                     processtermination: processtermination)
 
             command.executeProcess()
@@ -30,7 +31,7 @@ final class Rsyncversion {
 }
 
 extension Rsyncversion {
-    func processtermination(data: [String]?) {
+    func processtermination(data: [String]?, hiddenID _: Int?) {
         guard data?.count ?? 0 > 0 else { return }
         if let rsyncversionshort = data?[0],
            let rsyncversionstring = data?.joined(separator: "\n")

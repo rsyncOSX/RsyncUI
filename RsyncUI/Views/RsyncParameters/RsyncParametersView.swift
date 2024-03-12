@@ -243,9 +243,9 @@ extension RsyncParametersView {
         }
         rsyncoutput = ObservableRsyncOutput()
         showprogressview = true
-        let process = RsyncProcessNetworkNOFilehandler(arguments: arguments,
-                                                       config: config,
-                                                       processtermination: processtermination)
+        let process = RsyncProcessNOFilehandler(arguments: arguments,
+                                                config: config,
+                                                processtermination: processtermination)
         process.executeProcess()
     }
 

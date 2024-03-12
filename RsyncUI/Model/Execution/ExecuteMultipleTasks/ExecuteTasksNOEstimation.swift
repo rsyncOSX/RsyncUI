@@ -1,5 +1,5 @@
 //
-//  ExecuteTasks.swift
+//  ExecuteTasksNOEstimation.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 22/10/2022.
@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 
-final class ExecuteTasks {
+final class ExecuteTasksNOEstimation {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
@@ -38,16 +38,16 @@ final class ExecuteTasks {
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             localexecuteasyncnoestimation?.asyncexecutealltasksnoestiamtioncomplete()
-            Logger.process.info("class ExecuteTasksAsync: async execution is completed")
+            Logger.process.info("class ExecuteTasks: execution is completed")
             return
         }
         if let localhiddenID = stackoftasktobeestimated?.removeLast() {
             if let config = getconfig(localhiddenID) {
                 let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
                 guard arguments.count > 0 else { return }
-                let process = RsyncProcessNetworkNOFilehandler(arguments: arguments,
-                                                               config: config,
-                                                               processtermination: processterminationexecute)
+                let process = RsyncProcessNOFilehandler(arguments: arguments,
+                                                        config: config,
+                                                        processtermination: processtermination)
                 process.executeProcess()
             }
         }
@@ -81,8 +81,8 @@ final class ExecuteTasks {
     }
 }
 
-extension ExecuteTasks {
-    func processterminationexecute(outputfromrsync: [String]?, hiddenID: Int?) {
+extension ExecuteTasksNOEstimation {
+    func processtermination(outputfromrsync: [String]?, hiddenID: Int?) {
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1

@@ -20,11 +20,12 @@ class Snapshotcatalogs {
                                               drynrun: nil,
                                               snapshot: true)
         let command = RsyncProcessNOFilehandler(arguments: arguments.getArguments(),
+                                                config: nil,
                                                 processtermination: processtermination)
         if SharedReference.shared.demodata == false {
             command.executeProcess()
         } else {
-            processtermination(data: SharedReference.shared.demodataprocesstermination)
+            processtermination(data: SharedReference.shared.demodataprocesstermination, hiddenID: -1)
         }
     }
 
@@ -61,7 +62,7 @@ class Snapshotcatalogs {
         getremotecataloginfo(config)
     }
 
-    func processtermination(data: [String]?) {
+    func processtermination(data: [String]?, hiddenID _: Int?) {
         prepareremotesnapshotcatalogs(data: data)
         mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
     }
