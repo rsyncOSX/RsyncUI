@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoadDemoDataView: View {
+struct LoadDemoDataView: View, @unchecked Sendable {
     @Environment(\.dismiss) var dismiss
 
     @Bindable var rsyncUIdata: RsyncUIconfigurations
