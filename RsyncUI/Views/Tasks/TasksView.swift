@@ -50,7 +50,6 @@ struct TasksView: View {
     // Filterstring
     @State private var filterstring: String = ""
     // Local data for present local and remote info about task
-    @State private var localdata: [String] = []
     @State var selectedconfig = Selectedconfig()
     @State private var doubleclick: Bool = false
     // Alert button
@@ -292,16 +291,5 @@ extension TasksView {
         estimateprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
-    }
-
-    func abort() {
-        executeprogressdetails.estimatedlist = nil
-        estimateprogressdetails.resetcounts()
-        selecteduuids.removeAll()
-        estimatingstate.updatestate(state: .start)
-        _ = InterruptProcess()
-
-        focusstartestimation = false
-        focusstartexecution = false
     }
 }
