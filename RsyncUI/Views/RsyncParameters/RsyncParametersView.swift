@@ -26,7 +26,6 @@ struct RsyncParametersView: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var rsyncoutput: ObservableRsyncOutput?
     @State private var showprogressview = false
-    @State private var valueselectedrow: String = ""
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     // Focus buttons from the menu

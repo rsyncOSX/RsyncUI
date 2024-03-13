@@ -12,11 +12,6 @@ struct RsyncCommandView: View {
     @Binding var config: SynchronizeConfiguration?
     @Binding var selectedrsynccommand: RsyncCommand
 
-    // Not used but requiered in parameter
-    @State private var inwork = -1
-    @State private var selectable = false
-    @State private var selecteduuids = Set<UUID>()
-
     var body: some View {
         HStack {
             pickerselectcommand

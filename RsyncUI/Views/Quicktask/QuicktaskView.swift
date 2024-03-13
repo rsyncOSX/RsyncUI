@@ -25,11 +25,8 @@ struct QuicktaskView: View {
     @State private var dryrun: Bool = true
 
     // Executed labels
-    @State private var presentsheetview = false
     @State private var showprogressview = false
     @State private var rsyncoutput: ObservableRsyncOutput?
-    // Selected row in output
-    @State private var valueselectedrow: String = ""
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
     @State private var focusstartexecution: Bool = false

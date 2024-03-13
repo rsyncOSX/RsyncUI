@@ -12,9 +12,7 @@ struct RsyncDefaultParametersView: View {
     @Binding var path: [ParametersTasks]
 
     @State private var parameters = ObservableParametersDefault()
-    @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
-    @State private var valueselectedrow: String = ""
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     var body: some View {
@@ -52,10 +50,8 @@ struct RsyncDefaultParametersView: View {
                     .onChange(of: selecteduuids) {
                         if let configurations = rsyncUIdata.configurations {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                selectedconfig = configurations[index]
                                 parameters.setvalues(configurations[index])
                             } else {
-                                selectedconfig = nil
                                 parameters.setvalues(nil)
                             }
                         }
@@ -103,7 +99,6 @@ extension RsyncDefaultParametersView {
             updateconfigurations.updateconfiguration(updatedconfiguration, true)
             rsyncUIdata.configurations = updateconfigurations.configurations
             parameters.reset()
-            selectedconfig = nil
         }
     }
 }
