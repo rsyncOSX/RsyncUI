@@ -92,35 +92,38 @@ struct RsyncParametersView: View {
                     Spacer()
                 }
 
-                ListofTasksLightView(selecteduuids: $selecteduuids,
-                                     profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.configurations ?? [])
-                    .frame(maxWidth: .infinity)
-                    .onChange(of: selecteduuids) {
-                        if let configurations = rsyncUIdata.configurations {
-                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                selectedconfig = configurations[index]
-                                parameters.setvalues(configurations[index])
-                                if configurations[index].parameter12 != "--backup" {
+                ZStack {
+                    ListofTasksLightView(selecteduuids: $selecteduuids,
+                                         profile: rsyncUIdata.profile,
+                                         configurations: rsyncUIdata.configurations ?? [])
+                        .frame(maxWidth: .infinity)
+                        .onChange(of: selecteduuids) {
+                            if let configurations = rsyncUIdata.configurations {
+                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                    selectedconfig = configurations[index]
+                                    parameters.setvalues(configurations[index])
+                                    if configurations[index].parameter12 != "--backup" {
+                                        backup = false
+                                    }
+                                } else {
+                                    selectedconfig = nil
+                                    parameters.setvalues(selectedconfig)
                                     backup = false
                                 }
-                            } else {
-                                selectedconfig = nil
-                                parameters.setvalues(selectedconfig)
-                                backup = false
                             }
                         }
+
+                    if showprogressview {
+                        ProgressView()
+                            .padding()
                     }
+                }
 
                 if focusaborttask { labelaborttask }
             }
 
-            ZStack {
-                RsyncCommandView(config: $parameters.configuration,
-                                 selectedrsynccommand: $selectedrsynccommand)
-
-                if showprogressview { ProgressView() }
-            }
+            RsyncCommandView(config: $parameters.configuration,
+                             selectedrsynccommand: $selectedrsynccommand)
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .alert(isPresented: $parameters.alerterror,
