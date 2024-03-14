@@ -245,12 +245,7 @@ extension QuicktaskView {
                                  donotaddtrailingslash,
                                  remoteuser,
                                  remoteserver,
-                                 "",
-                                 nil,
-                                 nil,
-                                 nil,
-                                 nil,
-                                 nil)
+                                 "")
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
             execute(config: newconfig, dryrun: dryrun)

@@ -45,13 +45,6 @@ final class ObservableAddConfigurations: @unchecked Sendable {
     var error: Error = Validatedpath.noerror
     var alerterror: Bool = false
 
-    // For update post and pretasks
-    var enablepre: Bool = false
-    var enablepost: Bool = false
-    var pretask: String = ""
-    var posttask: String = ""
-    var haltshelltasksonerror: Bool = false
-
     // Set true if remote storage is a local attached Volume
     var remotestorageislocal: Bool = false
     var selectedconfig: SynchronizeConfiguration?
@@ -68,13 +61,7 @@ final class ObservableAddConfigurations: @unchecked Sendable {
                                  donotaddtrailingslash,
                                  remoteuser,
                                  remoteserver,
-                                 backupID,
-                                 // add post and pretask in it own view, set nil here
-                                 nil,
-                                 nil,
-                                 nil,
-                                 nil,
-                                 nil)
+                                 backupID)
         // If newconfig is verified add it
         if var newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
@@ -90,7 +77,6 @@ final class ObservableAddConfigurations: @unchecked Sendable {
     }
 
     func updateconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
-        updatepreandpost()
         let updateddata = AppendTask(selectedrsynccommand.rawValue,
                                      localcatalog,
                                      remotecatalog,
@@ -98,13 +84,6 @@ final class ObservableAddConfigurations: @unchecked Sendable {
                                      remoteuser,
                                      remoteserver,
                                      backupID,
-                                     // add post and pretask in it own view,
-                                     // but if update save pre and post task
-                                     enablepre,
-                                     pretask,
-                                     enablepost,
-                                     posttask,
-                                     haltshelltasksonerror,
                                      selectedconfig?.hiddenID ?? -1)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfigurations =
@@ -207,44 +186,6 @@ final class ObservableAddConfigurations: @unchecked Sendable {
             return true
         } catch {
             return false
-        }
-    }
-
-    private func updatepreandpost() {
-        if let config = selectedconfig {
-            // pre task
-            pretask = config.pretask ?? ""
-            if config.pretask != nil {
-                if config.executepretask == 1 {
-                    enablepre = true
-                } else {
-                    enablepre = false
-                }
-            } else {
-                enablepre = false
-            }
-
-            // post task
-            posttask = config.posttask ?? ""
-            if config.posttask != nil {
-                if config.executeposttask == 1 {
-                    enablepost = true
-                } else {
-                    enablepost = false
-                }
-            } else {
-                enablepost = false
-            }
-
-            if config.posttask != nil {
-                if config.haltshelltasksonerror == 1 {
-                    haltshelltasksonerror = true
-                } else {
-                    haltshelltasksonerror = false
-                }
-            } else {
-                haltshelltasksonerror = false
-            }
         }
     }
 

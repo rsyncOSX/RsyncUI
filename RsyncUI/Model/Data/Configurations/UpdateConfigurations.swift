@@ -55,11 +55,6 @@ final class UpdateConfigurations {
                 configurations?[index].offsiteCatalog = config.offsiteCatalog
                 configurations?[index].offsiteServer = config.offsiteServer
                 configurations?[index].offsiteUsername = config.offsiteUsername
-                configurations?[index].executepretask = config.executepretask
-                configurations?[index].pretask = config.pretask
-                configurations?[index].executeposttask = config.executeposttask
-                configurations?[index].posttask = config.posttask
-                configurations?[index].haltshelltasksonerror = config.haltshelltasksonerror
                 configurations?[index].backupID = config.backupID
                 configurations?[index].snaplast = config.snaplast
                 configurations?[index].snapdayoffweek = config.snapdayoffweek
