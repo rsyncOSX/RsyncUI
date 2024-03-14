@@ -44,12 +44,6 @@
 "Add local catalog - required" = "Legg til lokalkatalog - kreves";
 
 /* No comment provided by engineer. */
-"Add posttask" = "Legg til postoppgave";
-
-/* No comment provided by engineer. */
-"Add pretask" = "Legg til preoppgave";
-
-/* No comment provided by engineer. */
 "Add profile" = "Ny profil";
 
 /* No comment provided by engineer. */
@@ -170,9 +164,6 @@
 "Download new version" = "Last ned ny versjon";
 
 /* No comment provided by engineer. */
-"Enable" = "Aktiver";
-
-/* No comment provided by engineer. */
 "Enable rsync daemon" = "Aktiver rsync daemon";
 
 /* No comment provided by engineer. */
@@ -213,9 +204,6 @@
 
 /* No comment provided by engineer. */
 "Global ssh port" = "Global ssh port";
-
-/* No comment provided by engineer. */
-"Halt on error" = "Stopp ved feil";
 
 /* No comment provided by engineer. */
 "Home catalogs" = "Hjemmekataloger";
@@ -392,9 +380,6 @@
 "Server: " = "Tjener:";
 
 /* No comment provided by engineer. */
-"Shell commands" = "Skall kommando";
-
-/* No comment provided by engineer. */
 "Show copy keys" = "Hvis kopi nøkler";
 
 /* No comment provided by engineer. */
@@ -450,9 +435,6 @@
 
 /* No comment provided by engineer. */
 "There is ^[%lld snapshot](inflect: true)" = "Det er ^[%lld snapshot](inflect: true)";
-
-/* No comment provided by engineer. */
-"There seems to be no data to synchronize" = "Det synes ikke å være data for synkronisering";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Tot dir";

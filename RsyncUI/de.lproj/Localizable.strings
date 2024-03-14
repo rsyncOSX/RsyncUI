@@ -44,12 +44,6 @@
 "Add local catalog - required" = "Lokalkatalog hinzufügen - erforderlich";
 
 /* No comment provided by engineer. */
-"Add posttask" = "Posttask hinzufügen";
-
-/* No comment provided by engineer. */
-"Add pretask" = "Pretask hinzufügen";
-
-/* No comment provided by engineer. */
 "Add profile" = "Profil hinzufügen";
 
 /* No comment provided by engineer. */
@@ -75,6 +69,9 @@
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
+
+/* No comment provided by engineer. */
+"Attached Volumes" = "Angehängte Bände";
 
 /* No comment provided by engineer. */
 "Backup" = "Sichern";
@@ -170,9 +167,6 @@
 "Download new version" = "Neue Version herunterladen";
 
 /* No comment provided by engineer. */
-"Enable" = "Aktivieren";
-
-/* No comment provided by engineer. */
 "Enable rsync daemon" = "Rsync daemon aktivieren";
 
 /* No comment provided by engineer. */
@@ -213,9 +207,6 @@
 
 /* No comment provided by engineer. */
 "Global ssh port" = "Globaler SSH-Port";
-
-/* No comment provided by engineer. */
-"Halt on error" = "Bei Fehler stoppen";
 
 /* No comment provided by engineer. */
 "Home catalogs" = "Hauskataloge";
@@ -392,9 +383,6 @@
 "Server: " = "Server:";
 
 /* No comment provided by engineer. */
-"Shell commands" = "Shell Befehle";
-
-/* No comment provided by engineer. */
 "Show copy keys" = "Kopierschlüssel anzeigen";
 
 /* No comment provided by engineer. */
@@ -450,9 +438,6 @@
 
 /* No comment provided by engineer. */
 "There is ^[%lld snapshot](inflect: true)" = "Es gibt  ^[%lld snapshot](inflect: true)";
-
-/* No comment provided by engineer. */
-"There seems to be no data to synchronize" = "Es scheinen keine Daten zum Synchronisieren vorhanden zu sein";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Verzeichnisse Gesamt";
