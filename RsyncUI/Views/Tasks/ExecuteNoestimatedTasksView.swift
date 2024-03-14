@@ -18,7 +18,6 @@ struct ExecuteNoestimatedTasksView: View {
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executetasks: ExecuteTasksNOEstimation?
-    @State private var confirmdelete = false
     @State private var focusaborttask: Bool = false
 
     var body: some View {

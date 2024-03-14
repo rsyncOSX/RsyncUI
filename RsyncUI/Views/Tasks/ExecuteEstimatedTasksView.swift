@@ -14,7 +14,6 @@ struct ExecuteEstimatedTasksView: View {
     @Binding var path: [Tasks]
 
     @State private var multipletaskstate = ExecuteMultipleTasksState()
-    @State private var selectedconfig: SynchronizeConfiguration?
     @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false

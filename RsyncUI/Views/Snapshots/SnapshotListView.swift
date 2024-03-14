@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SnapshotListView: View {
     @Binding var snapshotdata: SnapshotData
-    @Binding var snapshotrecords: SnapshotLogRecords?
     @Binding var filterstring: String
 
     @Binding var selectedconfig: SynchronizeConfiguration?

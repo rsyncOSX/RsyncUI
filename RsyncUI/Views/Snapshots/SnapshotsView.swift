@@ -12,7 +12,6 @@ struct SnapshotsView: View {
 
     @State private var snapshotdata = SnapshotData()
     @State private var selectedconfig: SynchronizeConfiguration?
-    @State private var snapshotrecords: SnapshotLogRecords?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     // If not a snapshot
     @State private var notsnapshot = false
@@ -21,15 +20,9 @@ struct SnapshotsView: View {
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
     // Update plan and snapday
     @State private var updated: Bool = false
-    // Confirm delete
-    @State private var confirmdeletesnapshots = false
-    // Alert for delete
-    @State private var showAlertfordelete = false
     // Focus buttons from the menu
     @State private var focustagsnapshot: Bool = false
     @State private var focusaborttask: Bool = false
-    // Delete
-    @State private var confirmdelete: Bool = false
     // Delete is completed and reload of data
     @State private var deleteiscompleted: Bool = false
     // Filter
@@ -72,7 +65,6 @@ struct SnapshotsView: View {
                 }
 
                 SnapshotListView(snapshotdata: $snapshotdata,
-                                 snapshotrecords: $snapshotrecords,
                                  filterstring: $filterstring,
                                  selectedconfig: $selectedconfig)
                     .onChange(of: deleteiscompleted) {
