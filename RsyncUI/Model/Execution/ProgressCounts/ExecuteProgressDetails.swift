@@ -11,7 +11,7 @@ import OSLog
 
 @Observable
 final class ExecuteProgressDetails {
-    @ObservationIgnored var hiddenIDatwork: Int = -1
+    var hiddenIDatwork: Int = -1
     @ObservationIgnored var estimatedlist: [RemoteDataNumbers]?
 
     func taskisestimatedbyUUID(_ uuid: UUID) -> Bool {

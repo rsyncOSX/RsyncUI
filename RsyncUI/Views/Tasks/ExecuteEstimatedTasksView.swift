@@ -20,6 +20,7 @@ struct ExecuteEstimatedTasksView: View {
     @State private var doubleclick: Bool = false
     // Progress of synchronization
     @State private var progress: Double = 0
+    @State private var maxcount: Double = 0
 
     var body: some View {
         ZStack {
@@ -30,8 +31,11 @@ struct ExecuteEstimatedTasksView: View {
                 doubleclick: $doubleclick,
                 progress: $progress,
                 executeprogressdetails: executeprogressdetails,
-                max: executeprogressdetails.getmaxcountbytask()
+                max: maxcount
             )
+            .onChange(of: executeprogressdetails.hiddenIDatwork) {
+                maxcount = executeprogressdetails.getmaxcountbytask()
+            }
 
             if multipletaskstate.executionstate == .completed { labelcompleted }
             if multipletaskstate.executionstate == .execute { ProgressView() }
