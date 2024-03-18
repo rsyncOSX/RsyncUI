@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 11/11/2023.
 //
 
-import OSLog
 import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
@@ -81,7 +80,6 @@ struct ExecuteEstimatedTasksView: View {
 extension ExecuteEstimatedTasksView {
     func filehandler(count: Int) {
         progress = Double(count)
-        Logger.process.info("ExecuteEstimatedTasksView() progress count: \(progress), privacy: .public)")
     }
 
     func completed() {
