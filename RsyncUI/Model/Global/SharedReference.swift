@@ -163,10 +163,6 @@ class SharedReference: @unchecked Sendable {
     let defaultprofile = "Default profile"
     // If firstime use
     @ObservationIgnored var firsttime = false
-    // DemoData
-    @ObservationIgnored var demodata = false
-    @ObservationIgnored var demodataprocesstermination: [String]?
-    @ObservationIgnored let demprofile = "DemoDataV2"
 
     private init() {
         synctasks = Set<String>()

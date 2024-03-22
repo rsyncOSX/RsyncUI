@@ -48,17 +48,6 @@ struct SnapshotsView: View {
                             }
                         }
 
-                    if SharedReference.shared.demodata {
-                        Text("Demo")
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 5)
-                                    .fill(Color.blue)
-                                    .opacity(0.5)
-                                    .padding(-10)
-                            }
-                            .font(.largeTitle)
-                    }
-
                     if snapshotdata.inprogressofdelete == true { progressdelete }
                     if notsnapshot == true { notasnapshottask }
                     if snapshotdata.snapshotlist { ProgressView() }

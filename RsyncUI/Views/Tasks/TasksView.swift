@@ -85,17 +85,6 @@ struct TasksView: View {
                 if focusstartexecution { labelstartexecution }
                 if doubleclick { doubleclickaction }
             }
-
-            if SharedReference.shared.demodata {
-                Text("Demo")
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(Color.blue)
-                            .opacity(0.5)
-                            .padding(-10)
-                    }
-                    .font(.largeTitle)
-            }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)

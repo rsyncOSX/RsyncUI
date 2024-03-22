@@ -21,11 +21,7 @@ class Snapshotcatalogs {
                                               snapshot: true)
         let command = RsyncProcessNOFilehandler(arguments: arguments.getArguments(),
                                                 processtermination: processtermination)
-        if SharedReference.shared.demodata == false {
-            command.executeProcess()
-        } else {
-            processtermination(data: SharedReference.shared.demodataprocesstermination, hiddenID: -1)
-        }
+        command.executeProcess()
     }
 
     // Getting, from process, remote snapshotcatalogs
