@@ -43,7 +43,7 @@ struct GetversionsofRsyncUI {
 final class CheckfornewversionofRsyncUI: Sendable {
     var notifynewversion: Bool = false
 
-    func notify() {
+    func dismissnotify() {
         Task {
             try await Task.sleep(seconds: 2)
             self.notifynewversion = false

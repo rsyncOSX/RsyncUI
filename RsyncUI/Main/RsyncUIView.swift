@@ -102,7 +102,7 @@ struct RsyncUIView: View {
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear(perform: {
             Task {
-                newversion.notify()
+                newversion.dismissnotify()
             }
         })
     }
