@@ -7,18 +7,19 @@
 
 import Foundation
 
-class DemoDataJSON: @unchecked Sendable {
+actor DemoDataJSON {
     let urlSession = URLSession.shared
     let jsonDecoder = JSONDecoder()
 
-    var configurationsJSON: String =
+    let configurationsJSON: String =
         "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/configurationsV2.json"
-    var logrecordsJSON: String =
+    let logrecordsJSON: String =
         "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/samplejsondata/logrecordsV2.json"
 
     private func getconfigurationsJSON() async throws -> [DecodeConfiguration]? {
         if let url = URL(string: configurationsJSON) {
-            let (data, _) = try await urlSession.data(from: url)
+            // let (data, _) = try await urlSession.data(from: url)
+            let (data, _) = try await urlSession.getData(for: url)
             return try jsonDecoder.decode([DecodeConfiguration].self, from: data)
         } else {
             return nil
@@ -27,7 +28,8 @@ class DemoDataJSON: @unchecked Sendable {
 
     private func getlogrecordsJSON() async throws -> [DecodeLogRecords]? {
         if let url = URL(string: logrecordsJSON) {
-            let (data, _) = try await urlSession.data(from: url)
+            // let (data, _) = try await urlSession.data(from: url)
+            let (data, _) = try await urlSession.getData(for: url)
             return try jsonDecoder.decode([DecodeLogRecords].self, from: data)
         } else {
             return nil
@@ -64,5 +66,15 @@ class DemoDataJSON: @unchecked Sendable {
             return nil
         }
         return nil
+    }
+}
+
+public extension URLSession {
+    nonisolated func getData(for request: URLRequest) async throws -> (Data, URLResponse) {
+        try await data(for: request)
+    }
+
+    nonisolated func getData(for url: URL) async throws -> (Data, URLResponse) {
+        try await data(from: url)
     }
 }

@@ -31,7 +31,7 @@ struct GetversionsofRsyncUI {
 
     func getversionsofrsyncuibyurl() async throws -> [VersionsofRsyncUI]? {
         if let url = URL(string: Resources().getResource(resource: .urlJSON)) {
-            let (data, _) = try await urlSession.data(from: url)
+            let (data, _) = try await urlSession.getData(for: url)
             return try jsonDecoder.decode([VersionsofRsyncUI].self, from: data)
         } else {
             return nil
@@ -39,8 +39,8 @@ struct GetversionsofRsyncUI {
     }
 }
 
-@Observable
-final class CheckfornewversionofRsyncUI: @unchecked Sendable {
+@Observable @MainActor
+final class CheckfornewversionofRsyncUI: Sendable {
     var notifynewversion: Bool = false
 
     func notify() {

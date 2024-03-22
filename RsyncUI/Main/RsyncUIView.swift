@@ -8,6 +8,7 @@
 import OSLog
 import SwiftUI
 
+@MainActor
 struct RsyncUIView: View {
     @Binding var selectedprofile: String?
 
@@ -100,7 +101,9 @@ struct RsyncUIView: View {
         .frame(width: 200, height: 20, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear(perform: {
-            newversion.notify()
+            Task {
+                newversion.notify()
+            }
         })
     }
 }
