@@ -21,7 +21,7 @@ struct SnapshotListView: View {
            snapshotdata.snapshotlist == false
         {
             ContentUnavailableView {
-                Label("There are no snapshot records by this search string in Date or Tag",
+                Label("There are no snapshot records by this search string in Date or Tag.\nOr you are not connected?",
                       systemImage: "doc.richtext.fill")
             } description: {
                 Text("Change search string to filter records")
