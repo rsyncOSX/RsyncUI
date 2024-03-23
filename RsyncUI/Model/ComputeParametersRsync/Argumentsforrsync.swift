@@ -25,3 +25,10 @@ struct Argumentsforrsync {
         }
     }
 }
+
+// Used to select argument
+enum ArgumentsRsync {
+    case arg
+    case argdryRun
+    case argdryRunlocalcataloginfo
+}

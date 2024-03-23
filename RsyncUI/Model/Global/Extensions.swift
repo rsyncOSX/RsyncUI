@@ -55,13 +55,6 @@ extension Connected {
     }
 }
 
-// Used to select argument
-enum ArgumentsRsync {
-    case arg
-    case argdryRun
-    case argdryRunlocalcataloginfo
-}
-
 // Enum which resource to return
 enum ResourceInConfiguration {
     case remoteCatalog
