@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 23/02/2021.
 //
-// swiftlint:disable cyclomatic_complexity
 
 import SwiftUI
 
@@ -175,7 +174,7 @@ struct SnapshotsView: View {
     }
 }
 
-extension SnapshotsView: @unchecked Sendable, Connected {
+extension SnapshotsView: @unchecked Sendable {
     func abort() {
         snapshotdata.setsnapshotdata(nil)
         snapshotdata.delete?.snapshotcatalogstodelete = nil
@@ -184,49 +183,46 @@ extension SnapshotsView: @unchecked Sendable, Connected {
     }
 
     func getdata() {
+        snapshotdata.snapshotuuidsfordelete.removeAll()
+        guard SharedReference.shared.process == nil else { return }
         if let config = selectedconfig {
-            guard connected(server: config.offsiteServer) else { return }
-            snapshotdata.snapshotuuidsfordelete.removeAll()
-            guard SharedReference.shared.process == nil else { return }
-            if let config = selectedconfig {
-                guard config.task == SharedReference.shared.snapshot else {
-                    notsnapshot = true
-                    // Show added for 1 second
-                    Task {
-                        try await Task.sleep(seconds: 1)
-                        notsnapshot = false
-                    }
-                    return
+            guard config.task == SharedReference.shared.snapshot else {
+                notsnapshot = true
+                // Show added for 1 second
+                Task {
+                    try await Task.sleep(seconds: 1)
+                    notsnapshot = false
                 }
-                // Setting values for tagging snapshots
-                if let snaplast = config.snaplast {
-                    if snaplast == 0 {
-                        self.snaplast = PlanSnapshots.Last.rawValue
-                    } else {
-                        self.snaplast = PlanSnapshots.Every.rawValue
-                    }
+                return
+            }
+            // Setting values for tagging snapshots
+            if let snaplast = config.snaplast {
+                if snaplast == 0 {
+                    self.snaplast = PlanSnapshots.Last.rawValue
+                } else {
+                    self.snaplast = PlanSnapshots.Every.rawValue
                 }
-                if let snapdayofweek = config.snapdayoffweek {
-                    self.snapdayofweek = snapdayofweek
+            }
+            if let snapdayofweek = config.snapdayoffweek {
+                self.snapdayofweek = snapdayofweek
+            }
+            snapshotdata.snapshotlist = true
+            var profile: String? = rsyncUIdata.profile ?? ""
+            if profile == SharedReference.shared.defaultprofile || profile == nil {
+                profile = nil
+            }
+            var validhiddenIDs = Set<Int>()
+            if let configurations = rsyncUIdata.configurations {
+                for i in 0 ..< configurations.count {
+                    validhiddenIDs.insert(configurations[i].hiddenID)
                 }
-                snapshotdata.snapshotlist = true
-                var profile: String? = rsyncUIdata.profile ?? ""
-                if profile == SharedReference.shared.defaultprofile || profile == nil {
-                    profile = nil
-                }
-                var validhiddenIDs = Set<Int>()
-                if let configurations = rsyncUIdata.configurations {
-                    for i in 0 ..< configurations.count {
-                        validhiddenIDs.insert(configurations[i].hiddenID)
-                    }
-                }
-                if let config = selectedconfig,
-                   let logrecords = ReadLogRecordsJSON(profile, validhiddenIDs).logrecords
-                {
-                    _ = Snapshotlogsandcatalogs(config: config,
-                                                logrecords: logrecords,
-                                                snapshotdata: snapshotdata)
-                }
+            }
+            if let config = selectedconfig,
+               let logrecords = ReadLogRecordsJSON(profile, validhiddenIDs).logrecords
+            {
+                _ = Snapshotlogsandcatalogs(config: config,
+                                            logrecords: logrecords,
+                                            snapshotdata: snapshotdata)
             }
         }
     }
@@ -276,5 +272,3 @@ extension SnapshotsView: @unchecked Sendable, Connected {
         }
     }
 }
-
-// swiftlint:enable cyclomatic_complexity
