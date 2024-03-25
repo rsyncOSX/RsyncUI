@@ -52,6 +52,7 @@ struct RsyncUIView: View {
         }
         .padding()
         .task {
+            ReadUserConfigurationJSON()
             rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }

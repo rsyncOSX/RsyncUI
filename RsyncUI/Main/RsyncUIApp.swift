@@ -18,7 +18,6 @@ struct RsyncUIApp: App {
             RsyncUIView(selectedprofile: $selectedprofile)
                 .task {
                     CatalogProfile().createrootprofilecatalog()
-                    ReadUserConfigurationJSON()
                 }
                 .frame(minWidth: 1300, minHeight: 510)
         }
