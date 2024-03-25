@@ -7,6 +7,7 @@
 // swiftlint:disable cyclomatic_complexity function_body_length
 
 import Foundation
+import OSLog
 
 enum ValidateInputError: LocalizedError {
     case localcatalog
@@ -185,15 +186,18 @@ final class VerifyConfiguration: Connected {
             // Verify rsync version 3.x
             if let rsyncversionshort = SharedReference.shared.rsyncversionshort {
                 guard rsyncversionshort.contains("version 3") else {
+                    Logger.process.warning("VerifyConfiguration: snapshots requiere version 3.x of rsync.")
                     throw ValidateInputError.rsyncversion2
                 }
             }
             guard config.snapshotnum == 1 else {
+                Logger.process.warning("VerifyConfiguration: snapshotnum not 1 (initial value).")
                 throw ValidateInputError.snapshotnum
             }
             // also check if connected because creating base remote catalog if remote server
             // must be connected to create remote base catalog
             guard connected(server: config.offsiteServer) else {
+                Logger.process.warning("VerifyConfiguration: not connected to remote server.")
                 throw ValidateInputError.notconnected
             }
         }
