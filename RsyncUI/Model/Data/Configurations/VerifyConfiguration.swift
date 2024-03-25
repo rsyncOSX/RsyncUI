@@ -83,7 +83,7 @@ struct AppendTask {
     }
 }
 
-final class VerifyConfiguration: Connected {
+final class VerifyConfiguration: @unchecked Sendable, Connected {
     let archive: String = "--archive"
     let verbose: String = "--verbose"
     let compress: String = "--compress"
@@ -193,8 +193,10 @@ final class VerifyConfiguration: Connected {
             }
             // also check if connected because creating base remote catalog if remote server
             // must be connected to create remote base catalog
-            guard connected(server: config.offsiteServer) else {
-                throw ValidateInputError.notconnected
+            Task {
+                guard await connected(server: config.offsiteServer) else {
+                    throw ValidateInputError.notconnected
+                }
             }
         }
         if config.task == SharedReference.shared.syncremote {
