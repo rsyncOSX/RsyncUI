@@ -19,7 +19,7 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 
 | App      | Storage  | #lines  | #files | UI | Latest version  |  Version 1.0 | 
 | ----------- | ----------- |   ----------- | -------- |  -------- | -------- | -------- |
-| RsyncUI   | JSON  | about 11.6k | 146  | SwiftUI, declarativ     | v1.8.8 - [14 March 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
+| RsyncUI   | JSON  | about 11.6k | 146  | SwiftUI, declarativ     | v1.8.9 - [26 March 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
 | RsyncOSX  | JSON | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
 
 There is also a test project about RsyncUI using SwiftData. There is some more info in [the How is RsyncUI built](https://rsyncuibuilt.netlify.app). This project is a kind of experiement to learn more about it. SwiftData is easy to use, but i am not convinced it is right for RsyncUI. 
@@ -34,9 +34,9 @@ Please be aware it is an external task *not controlled* by RsyncOSX or RsyncUI, 
 
 ### RsyncUI
 
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.8.8/total)  ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.8.7/total) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.8.9/total)  ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.8.8/total) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
-**RsyncUI** is released for **macOS Sonoma**. Latest build is [14 March 2024](https://github.com/rsyncOSX/RsyncUI/releases).
+**RsyncUI** is released for **macOS Sonoma**. Latest build is [26 March 2024](https://github.com/rsyncOSX/RsyncUI/releases).
 
 - the [documentation of RsyncUI](https://rsyncui.netlify.app/)
 - the [changelog](https://rsyncui.netlify.app/post/changelog/)
