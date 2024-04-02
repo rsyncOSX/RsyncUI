@@ -37,7 +37,7 @@ struct ListofTasksLightView: View {
                     Text("localhost")
                 }
             }
-            .width(min: 50, max: 80)
+            .width(min: 50, max: 90)
             TableColumn("Days") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
