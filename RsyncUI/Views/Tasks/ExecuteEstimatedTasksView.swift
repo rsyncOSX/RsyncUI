@@ -45,6 +45,9 @@ struct ExecuteEstimatedTasksView: View {
         })
         .onDisappear(perform: {
             executeprogressdetails.estimatedlist = nil
+            if SharedReference.shared.process != nil {
+                _ = InterruptProcess()
+            }
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {

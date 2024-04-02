@@ -36,6 +36,11 @@ struct ExecuteNoestimatedTasksView: View {
         .onAppear(perform: {
             executeallnoestimationtasks()
         })
+        .onDisappear(perform: {
+            if SharedReference.shared.process != nil {
+                _ = InterruptProcess()
+            }
+        })
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
