@@ -10,13 +10,26 @@ import SwiftUI
 struct ConfigurationsTableDataView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var filterstring: String
+    @Binding var progress: Double
+
     let profile: String?
     let configurations: [SynchronizeConfiguration]
+    let executeprogressdetails: ExecuteProgressDetails
+    let max: Double
 
     var body: some View {
         Table(configurations.filter {
             filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
         }, selection: $selecteduuids) {
+            TableColumn("%") { data in
+                if data.hiddenID == executeprogressdetails.hiddenIDatwork, max > 0, progress <= max {
+                    ProgressView("",
+                                 value: progress,
+                                 total: max)
+                        .frame(alignment: .center)
+                }
+            }
+            .width(min: 50, ideal: 50)
             TableColumn("Profile") { _ in
                 Text(profile ?? "Default profile")
             }
