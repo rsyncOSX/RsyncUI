@@ -21,6 +21,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var totalNumberSizebytes: String
     var totalNumberSizebytes_Int: Int
     var totalDirs: String
+    var totalDirs_Int: Int
     var newfiles: String
     var newfiles_Int: Int
     var deletefiles: String
@@ -61,6 +62,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         let number = Numbers(outputfromrsync ?? [])
         transferredNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.none)
         transferredNumber_Int = number.getTransferredNumbers(numbers: .transferredNumber)
+        totalDirs_Int = number.getTransferredNumbers(numbers: .totalDirs)
         transferredNumberSizebytes = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal)
         transferredNumberSizebytes_Int = number.getTransferredNumbers(numbers: .transferredNumberSizebytes)
         totalNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber)), number: NumberFormatter.Style.decimal)
@@ -78,7 +80,9 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         } else {
             datatosynchronize = false
         }
-        if totalNumberSizebytes_Int >= transferredNumberSizebytes_Int {
+        if SharedReference.shared.rsyncversion3,
+           transferredNumber_Int + totalDirs_Int == newfiles_Int
+        {
             // if  == "0", deletefiles == "0", totalNumberSizebytes == "0"
             // (outputfromrsync?.count ?? 0) - (Int(newfiles) ?? 0) < 30
             confirmsynchronize = true

@@ -1,5 +1,5 @@
 //
-//  TableDataView.swift
+//  ConfigurationsTableDataView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 03/04/2024.
@@ -12,8 +12,7 @@ struct ConfigurationsTableDataView: View {
     @Binding var filterstring: String
     let profile: String?
     let configurations: [SynchronizeConfiguration]
-    
-    
+
     var body: some View {
         Table(configurations.filter {
             filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
@@ -57,4 +56,3 @@ struct ConfigurationsTableDataView: View {
         }
     }
 }
-
