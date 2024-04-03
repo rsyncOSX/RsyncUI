@@ -21,14 +21,13 @@ struct ListofTasksMainView: View {
     let max: Double
 
     var body: some View {
-        // tabledata
-        ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                    filterstring: $filterstring,
-                                    progress: $progress,
-                                    profile: rsyncUIdata.profile,
-                                    configurations: rsyncUIdata.configurations ?? [],
-                                    executeprogressdetails: executeprogressdetails,
-                                    max: max)
+        ConfigurationsTableDataMainView(selecteduuids: $selecteduuids,
+                                        filterstring: $filterstring,
+                                        progress: $progress,
+                                        profile: rsyncUIdata.profile,
+                                        configurations: rsyncUIdata.configurations ?? [],
+                                        executeprogressdetails: executeprogressdetails,
+                                        max: max)
             .overlay {
                 if (rsyncUIdata.configurations ?? []).filter(
                     { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }).isEmpty

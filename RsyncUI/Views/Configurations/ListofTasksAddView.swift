@@ -12,62 +12,25 @@ struct ListofTasksAddView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var confirmdelete: Bool = false
+    @State private var filterstring: String = ""
 
     var body: some View {
-        tabledata
-    }
-
-    var tabledata: some View {
-        Table(rsyncUIdata.configurations ?? [], selection: $selecteduuids) {
-            TableColumn("Profile") { _ in
-                Text(rsyncUIdata.profile ?? "Default profile")
-            }
-            .width(min: 50, max: 200)
-            TableColumn("Synchronize ID", value: \.backupID)
-                .width(min: 50, max: 200)
-            TableColumn("Task", value: \.task)
-                .width(max: 80)
-            TableColumn("Local catalog", value: \.localCatalog)
-                .width(min: 80, max: 300)
-            TableColumn("Remote catalog", value: \.offsiteCatalog)
-                .width(min: 80, max: 300)
-            TableColumn("Server") { data in
-                if data.offsiteServer.count > 0 {
-                    Text(data.offsiteServer)
-                } else {
-                    Text("localhost")
+        ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                    filterstring: $filterstring,
+                                    profile: rsyncUIdata.profile,
+                                    configurations: rsyncUIdata.configurations ?? [])
+            .confirmationDialog(
+                Text("Delete ^[\(selecteduuids.count) configuration](inflect: true)"),
+                isPresented: $confirmdelete
+            ) {
+                Button("Delete") {
+                    delete()
+                    confirmdelete = false
                 }
             }
-            .width(min: 50, max: 90)
-            TableColumn("Days") { data in
-                var seconds: Double {
-                    if let date = data.dateRun {
-                        let lastbackup = date.en_us_date_from_string()
-                        return lastbackup.timeIntervalSinceNow * -1
-                    } else {
-                        return 0
-                    }
-                }
-                Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
+            .onDeleteCommand {
+                confirmdelete = true
             }
-            .width(max: 50)
-            TableColumn("Last") { data in
-                Text(data.dateRun ?? "")
-            }
-            .width(max: 120)
-        }
-        .confirmationDialog(
-            Text("Delete ^[\(selecteduuids.count) configuration](inflect: true)"),
-            isPresented: $confirmdelete
-        ) {
-            Button("Delete") {
-                delete()
-                confirmdelete = false
-            }
-        }
-        .onDeleteCommand {
-            confirmdelete = true
-        }
     }
 
     func delete() {
