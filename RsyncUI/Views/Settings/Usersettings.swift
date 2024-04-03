@@ -114,10 +114,12 @@ struct Usersettings: View {
                                     SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
                                 }
 
-                            ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
-                                .onChange(of: usersettings.confirmexecute) {
-                                    SharedReference.shared.confirmexecute = usersettings.confirmexecute
-                                }
+                            if SharedReference.shared.rsyncversion3 {
+                                ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
+                                    .onChange(of: usersettings.confirmexecute) {
+                                        SharedReference.shared.confirmexecute = usersettings.confirmexecute
+                                    }
+                            }
                         }
                     }
                 }
