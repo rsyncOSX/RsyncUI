@@ -94,3 +94,5 @@ extension NamesandPaths {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
+
+// swiftlint:enable line_length

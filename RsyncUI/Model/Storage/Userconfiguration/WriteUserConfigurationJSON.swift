@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
+// swiftlint:disable line_length
 
 import Combine
 import Foundation
@@ -94,3 +95,5 @@ extension WriteUserConfigurationJSON {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
+
+// swiftlint:enable line_length
