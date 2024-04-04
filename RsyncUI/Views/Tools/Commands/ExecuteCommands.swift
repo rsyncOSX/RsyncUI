@@ -10,7 +10,6 @@ import SwiftUI
 struct ExecuteCommands: Commands {
     @FocusedBinding(\.startestimation) private var startestimation
     @FocusedBinding(\.startexecution) private var startexecution
-    @FocusedBinding(\.firsttaskinfo) private var firsttaskinfo
     @FocusedBinding(\.aborttask) private var aborttask
 
     var body: some Commands {
@@ -64,19 +63,6 @@ struct SelectTask: View {
     }
 }
 
-struct FirsttaskInfo: View {
-    @Binding var firsttaskinfo: Bool?
-
-    var body: some View {
-        Button {
-            firsttaskinfo = true
-        } label: {
-            Label("First task", systemImage: "play.fill")
-        }
-        .keyboardShortcut("f", modifiers: [.command])
-    }
-}
-
 struct Abborttask: View {
     @Binding var aborttask: Bool?
 
@@ -119,11 +105,6 @@ extension FocusedValues {
     var startexecution: FocusedExecuteBinding.Value? {
         get { self[FocusedExecuteBinding.self] }
         set { self[FocusedExecuteBinding.self] = newValue }
-    }
-
-    var firsttaskinfo: FocusedFirsttaskInfo.Value? {
-        get { self[FocusedFirsttaskInfo.self] }
-        set { self[FocusedFirsttaskInfo.self] = newValue }
     }
 
     var aborttask: FocusedAborttask.Value? {
