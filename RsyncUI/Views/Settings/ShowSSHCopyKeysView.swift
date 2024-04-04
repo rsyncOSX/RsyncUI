@@ -13,26 +13,19 @@ struct ShowSSHCopyKeysView: View {
     @State private var configurations: [SynchronizeConfiguration]?
 
     var body: some View {
-        HStack {
+        VStack(alignment: .center) {
+            profilepicker
+
             List(selection: $selectedlogin) {
                 ForEach(getuniqueserversandlogins() ?? []) { record in
                     ServerRow(record: record)
                         .tag(record)
                 }
             }
-            .frame(width: 250, height: 100)
+            .frame(width: 250, height: 50)
 
-            if selectedlogin == nil {
-                defaultstrings
-            } else {
-                strings
-            }
+            strings
         }
-        .toolbar(content: {
-            ToolbarItem {
-                profilepicker
-            }
-        })
     }
 
     var profilenames: Profilenames {
@@ -40,39 +33,25 @@ struct ShowSSHCopyKeysView: View {
     }
 
     var profilepicker: some View {
-        HStack {
-            Picker("", selection: $selectedprofile) {
-                ForEach(profilenames.profiles, id: \.self) { profile in
-                    Text(profile.profile ?? "")
-                        .tag(profile.profile)
-                }
+        Picker("Profile", selection: $selectedprofile) {
+            ForEach(profilenames.profiles, id: \.self) { profile in
+                Text(profile.profile ?? "")
+                    .tag(profile.profile)
             }
-            .frame(width: 180)
-            .onChange(of: selectedprofile) {
-                configurations = RsyncUIconfigurations(selectedprofile).configurations
-            }
-            Spacer()
+        }
+        .frame(width: 180)
+        .onChange(of: selectedprofile) {
+            configurations = RsyncUIconfigurations(selectedprofile).configurations
         }
     }
 
     // Copy strings
     var strings: some View {
         VStack(alignment: .leading) {
-            Text("Test SSH connection:\n" + SshKeys().verifyremotekey(remote: selectedlogin))
-            Text("Copy public SSH key:\n" + SshKeys().copylocalpubrsakeyfile(remote: selectedlogin))
+            Text("Copy public SSH key: " + SshKeys().copylocalpubrsakeyfile(remote: selectedlogin))
+            Text("Test SSH connection: " + SshKeys().verifyremotekey(remote: selectedlogin))
         }
         .textSelection(.enabled)
-        .frame(width: 400, height: 200)
-    }
-
-    // Default strings
-
-    var defaultstrings: some View {
-        VStack(alignment: .leading) {
-            Text("Test SSH connection: \n select a login and server")
-            Text("Copy public SSH key:")
-        }
-        .frame(width: 400, height: 100)
     }
 
     func getuniqueserversandlogins() -> [UniqueserversandLogins]? {
