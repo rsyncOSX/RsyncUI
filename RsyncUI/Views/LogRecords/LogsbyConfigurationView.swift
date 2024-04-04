@@ -67,6 +67,20 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     showAlertfordelete = true
                 }
+                .onChange(of: selectedloguuids) {
+                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                        hiddenID = configurations[index].hiddenID
+                    } else {
+                        hiddenID = -1
+                    }
+                    Task {
+                        if debouncefilterstring != "" {
+                            await updatelogsbyfilter()
+                        } else {
+                            await updatelogsbyhiddenID()
+                        }
+                    }
+                }
                 .overlay { if logs.count == 0 {
                     ContentUnavailableView {
                         Label("There are no logs by this filter", systemImage: "doc.richtext.fill")
