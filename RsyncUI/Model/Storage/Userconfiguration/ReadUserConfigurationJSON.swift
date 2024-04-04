@@ -35,7 +35,9 @@ class ReadUserConfigurationJSON: NamesandPaths {
                 case .failure:
                     // No file, write new file with default values
                     Logger.process.info("ReadUserConfigurationJSON: Creating default file for user configurations")
-                    WriteUserConfigurationJSON(UserConfiguration())
+                    Task {
+                        await WriteUserConfigurationJSON(UserConfiguration())
+                    }
                 }
             } receiveValue: { [unowned self] data in
                 UserConfiguration(data)

@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 28/07/2020.
 //  Copyright © 2020 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import SwiftUI
@@ -24,10 +25,6 @@ class NamesandPaths {
     // If global keypath and identityfile is set must split keypath and identifile
     // create a new key require full path
     var identityfile: String?
-    // configuration path, ViewControllerReference.shared.configpath
-    // let configpath: String = "/.rsyncosx/"
-    var configpath: String?
-
     // Documentscatalog
     var documentscatalog: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -81,11 +78,10 @@ class NamesandPaths {
     }
 
     init(_ path: Rootpath) {
-        configpath = SharedReference.shared.configpath
         switch path {
         case .configurations:
-            fullpathmacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "") + (macserialnumber ?? "")
-            fullpathnomacserial = (userHomeDirectoryPath ?? "") + (configpath ?? "")
+            fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
+            fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
         case .ssh:
             fullpathsshkeys = sshkeypath
             identityfile = sshkeypathandidentityfile

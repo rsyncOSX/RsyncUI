@@ -9,7 +9,34 @@ import Combine
 import Foundation
 import OSLog
 
-class WriteUserConfigurationJSON: NamesandPaths {
+@MainActor
+class WriteUserConfigurationJSON {
+    // path without macserialnumber
+    var fullpathnomacserial: String?
+    // path with macserialnumber
+    var fullpathmacserial: String?
+    // configuration path, ViewControllerReference.shared.configpath
+
+    // Mac serialnumber
+    nonisolated
+    var macserialnumber: String? {
+        if SharedReference.shared.macserialnumber == nil {
+            SharedReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber() ?? ""
+        }
+        return SharedReference.shared.macserialnumber
+    }
+
+    nonisolated
+    var userHomeDirectoryPath: String? {
+        let pw = getpwuid(getuid())
+        if let home = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+            return homePath
+        } else {
+            return nil
+        }
+    }
+
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
     var filename = SharedReference.shared.userconfigjson
@@ -33,7 +60,13 @@ class WriteUserConfigurationJSON: NamesandPaths {
     // done in the .map operator
     @discardableResult
     init(_ userconfiguration: UserConfiguration?) {
-        super.init(.configurations)
+        Task {
+            await MainActor.run(body: {
+                fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
+                fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
+            })
+        }
+
         userconfiguration.publisher
             .map { userconfiguration in
                 userconfiguration
@@ -53,5 +86,11 @@ class WriteUserConfigurationJSON: NamesandPaths {
                 subscriptons.removeAll()
             })
             .store(in: &subscriptons)
+    }
+}
+
+extension WriteUserConfigurationJSON {
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
