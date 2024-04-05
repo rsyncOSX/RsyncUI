@@ -34,7 +34,6 @@ struct NavigationLogfileView: View {
                     reset()
                 } label: {
                     Image(systemName: "clear")
-                        .foregroundColor(Color(.red))
                 }
                 .help("Reset logfile")
             }
