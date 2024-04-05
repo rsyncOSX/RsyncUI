@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 27/04/2021.
 //
+// swiftlint:disable line_length
 
 import Combine
 import Foundation
@@ -25,7 +26,7 @@ class WriteConfigurationJSON: NamesandPaths {
                 let file = try folder.createFile(named: filename)
                 if let data = data {
                     try file.write(data)
-                    Logger.process.info("WriteConfigurationJSON - \(profile ?? "default profile", privacy: .public): write configurations to permanent storage")
+                    Logger.process.info("WriteConfigurationJSON - \(self.profile ?? "default profile", privacy: .public): write configurations to permanent storage")
                 }
             } catch let e {
                 let error = e
@@ -69,3 +70,5 @@ class WriteConfigurationJSON: NamesandPaths {
             .store(in: &subscriptons)
     }
 }
+
+// swiftlint:enable line_length
