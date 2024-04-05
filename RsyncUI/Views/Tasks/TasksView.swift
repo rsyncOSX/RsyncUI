@@ -296,8 +296,6 @@ extension TasksView {
             Logger.process.info("Execute() selected or all tasks NO estimate")
             // Execute tasks, no estimate
             showingAlert = true
-            // path.append(Tasks(task: .executenoestimatetasksview))
-            // path.append in Showing alert
         }
     }
 

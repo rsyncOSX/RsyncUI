@@ -87,6 +87,7 @@ extension ExecuteEstimatedTasksView {
 
     func completed() {
         executeprogressdetails.hiddenIDatwork = -1
+        executeprogressdetails.estimatedlist = nil
         multipletaskstate.updatestate(state: .start)
         selecteduuids.removeAll()
         path.removeAll()
