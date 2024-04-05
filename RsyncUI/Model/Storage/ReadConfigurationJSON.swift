@@ -72,7 +72,7 @@ class ReadConfigurationJSON: NamesandPaths {
                 }
                 self.configurations = configurations
                 subscriptons.removeAll()
-                Logger.process.info("ReadConfigurationJSON: read configurations from permanent storage")
+                Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
             }.store(in: &subscriptons)
     }
 }

@@ -33,7 +33,7 @@ struct ShowSSHCopyKeysView: View {
     }
 
     var profilepicker: some View {
-        Picker("Profile", selection: $selectedprofile) {
+        Picker("Select profile", selection: $selectedprofile) {
             ForEach(profilenames.profiles, id: \.self) { profile in
                 Text(profile.profile ?? "")
                     .tag(profile.profile)
@@ -48,8 +48,8 @@ struct ShowSSHCopyKeysView: View {
     // Copy strings
     var strings: some View {
         VStack(alignment: .leading) {
-            Text("Copy public SSH key: " + SshKeys().copylocalpubrsakeyfile(remote: selectedlogin))
-            Text("Test SSH connection: " + SshKeys().verifyremotekey(remote: selectedlogin))
+            Text("Copy public SSH key:\n" + SshKeys().copylocalpubrsakeyfile(remote: selectedlogin))
+            Text("Test SSH connection:\n" + SshKeys().verifyremotekey(remote: selectedlogin))
         }
         .textSelection(.enabled)
     }
