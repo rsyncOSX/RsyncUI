@@ -82,6 +82,9 @@ struct TasksView: View {
                 }
                 estimateprogressdetails.uuids = selecteduuids
             }
+            .onChange(of: rsyncUIdata.profile) {
+                reset()
+            }
 
             Group {
                 if focusstartestimation { labelstartestimation }
