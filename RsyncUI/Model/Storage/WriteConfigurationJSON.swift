@@ -26,7 +26,8 @@ class WriteConfigurationJSON: NamesandPaths {
                 let file = try folder.createFile(named: filename)
                 if let data = data {
                     try file.write(data)
-                    Logger.process.info("WriteConfigurationJSON - \(self.profile ?? "default profile", privacy: .public): write configurations to permanent storage")
+                    let myprofile = profile
+                    Logger.process.info("WriteConfigurationJSON - \(myprofile ?? "default profile", privacy: .public): write configurations to permanent storage")
                 }
             } catch let e {
                 let error = e

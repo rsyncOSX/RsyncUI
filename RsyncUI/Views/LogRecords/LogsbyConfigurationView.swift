@@ -129,8 +129,12 @@ struct LogsbyConfigurationView: View {
                     selecteduuids.removeAll()
 
                 } label: {
-                    Image(systemName: "clear")
-                        .foregroundColor(Color(.red))
+                    if selectedloguuids.count == 0 {
+                        Image(systemName: "clear")
+                    } else {
+                        Image(systemName: "clear")
+                            .foregroundColor(Color(.red))
+                    }
                 }
                 .help("Reset selections")
             }

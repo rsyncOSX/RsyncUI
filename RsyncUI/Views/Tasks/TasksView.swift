@@ -33,6 +33,7 @@ final class Selectedconfig {
     var config: SynchronizeConfiguration?
 }
 
+@MainActor
 struct TasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
@@ -56,6 +57,8 @@ struct TasksView: View {
     @State private var showingAlert = false
     // Progress synchronizing
     @State private var progress: Double = 0
+    // Show reset message
+    @State private var resetmessage: Bool = false
 
     var body: some View {
         ZStack {
@@ -84,6 +87,7 @@ struct TasksView: View {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
                 if doubleclick { doubleclickaction }
+                if resetmessage { notifyresetestimate }
             }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
@@ -114,8 +118,12 @@ struct TasksView: View {
                     selecteduuids.removeAll()
                     reset()
                 } label: {
-                    Image(systemName: "clear")
-                        .foregroundColor(Color(.red))
+                    if executeprogressdetails.estimatedlist == nil {
+                        Image(systemName: "clear")
+                    } else {
+                        Image(systemName: "clear")
+                            .foregroundColor(Color(.red))
+                    }
                 }
                 .help("Reset estimates")
             }
@@ -202,6 +210,24 @@ struct TasksView: View {
                 focusstartexecution = false
             })
     }
+
+    var notifyresetestimate: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text("Estimates reset")
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 200, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .onAppear(perform: {
+            Task {
+                try await Task.sleep(seconds: 0.5)
+                resetmessage = false
+            }
+
+        })
+    }
 }
 
 extension TasksView {
@@ -276,9 +302,11 @@ extension TasksView {
     }
 
     func reset() {
+        guard executeprogressdetails.estimatedlist != nil else { return }
         executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
+        resetmessage = true
     }
 }
