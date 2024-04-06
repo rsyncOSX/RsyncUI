@@ -217,7 +217,7 @@ struct TasksView: View {
     var notifyresetestimate: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Estimates reset")
+            Text("Reset estimates")
                 .font(.title3)
                 .foregroundColor(Color.blue)
         }
@@ -225,7 +225,7 @@ struct TasksView: View {
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         .onAppear(perform: {
             Task {
-                try await Task.sleep(seconds: 0.5)
+                try await Task.sleep(seconds: 1)
                 resetmessage = false
             }
 
