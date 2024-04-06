@@ -107,9 +107,6 @@
 "Copy ^[%lld configuration](inflect: true)" = "Kopi ^[%lld configuration](inflect: true)";
 
 /* No comment provided by engineer. */
-"Copy public SSH key:" = "Öffentlichen SSH-Schlüssel kopieren:";
-
-/* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Copyright ©2023 Thomas Evensen";
 
 /* No comment provided by engineer. */
@@ -152,13 +149,7 @@
 "Deleting snapshots" = "Schnappschüsse löschen";
 
 /* No comment provided by engineer. */
-"Demo" = "Demo";
-
-/* No comment provided by engineer. */
 "Detailed log level" = "Detaillierte Protokollebene";
-
-/* No comment provided by engineer. */
-"Dismiss" = "Zurückweisen";
 
 /* No comment provided by engineer. */
 "Don´t add /" = "Nicht hinzufügen/";
@@ -189,9 +180,6 @@
 
 /* No comment provided by engineer. */
 "Files" = "Dateien";
-
-/* No comment provided by engineer. */
-"First task" = "Erste Aufgabe";
 
 /* No comment provided by engineer. */
 "Full" = "Voll";
@@ -231,9 +219,6 @@
 
 /* No comment provided by engineer. */
 "List tasks all profiles" = "Aufgaben aller Profile auflisten";
-
-/* No comment provided by engineer. */
-"Load DemoData" = "Demodaten laden";
 
 /* No comment provided by engineer. */
 "Local catalog" = "Lokaler Katalog";
@@ -285,9 +270,6 @@
 
 /* No comment provided by engineer. */
 "Not a snapshot task" = "Keine Snapshot-Aufgabe";
-
-/* No comment provided by engineer. */
-"Not verified" = "Nicht verifiziert";
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
@@ -365,6 +347,9 @@
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
+"Select profile" = "Profil auswählen";
+
+/* No comment provided by engineer. */
 "Select task" = "Aufgabe auswählen";
 
 /* No comment provided by engineer. */
@@ -419,13 +404,10 @@
 "Tasks" = "Aufgaben";
 
 /* No comment provided by engineer. */
-"Test SSH connection: \n select a login and server" = "SSH-Verbindung testen:\n  Wählen Sie ein Login und einen Server aus";
-
-/* No comment provided by engineer. */
 "There are no logs by this filter" = "Für diesen Filter sind keine Protokolle vorhanden";
 
 /* No comment provided by engineer. */
-"There are no snapshot records by this search string in Date or Tag" = "Für diese Suchzeichenfolge gibt es in Datum oder Tag keine Snapshot-Datensätze";
+"There are no snapshot records by this search string in Date or Tag." = "Für diese Suchzeichenfolge gibt es in „Datum“ oder „Tag“ keine Snapshot-Datensätze.";
 
 /* No comment provided by engineer. */
 "There are no tasks by this Synchronize ID" = "Es gibt keine Aufgaben dieser Synchronisierungs-ID";
@@ -465,9 +447,6 @@
 
 /* No comment provided by engineer. */
 "Update task" = "Aufgabe aktualisieren";
-
-/* No comment provided by engineer. */
-"Verified" = "Verifiziert";
 
 /* No comment provided by engineer. */
 "Verify task" = "Aufgabe verifizieren";

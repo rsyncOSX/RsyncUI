@@ -71,6 +71,9 @@
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
+"Attached Volumes" = "Tilkoblet disker";
+
+/* No comment provided by engineer. */
 "Backup" = "Backup";
 
 /* No comment provided by engineer. */
@@ -102,9 +105,6 @@
 
 /* No comment provided by engineer. */
 "Copy ^[%lld configuration](inflect: true)" = "Kopi ^[%lld konfigurasjon](inflect: true)";
-
-/* No comment provided by engineer. */
-"Copy public SSH key:" = "Kopier public ssh-nøkkel";
 
 /* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Opphavsrett ©2023 Thomas Evensen";
@@ -149,13 +149,7 @@
 "Deleting snapshots" = "Slette snapshots";
 
 /* No comment provided by engineer. */
-"Demo" = "Demo";
-
-/* No comment provided by engineer. */
 "Detailed log level" = "Detaljert log nivå";
-
-/* No comment provided by engineer. */
-"Dismiss" = "Lukk";
 
 /* No comment provided by engineer. */
 "Don´t add /" = "Ikke legg til /";
@@ -186,9 +180,6 @@
 
 /* No comment provided by engineer. */
 "Files" = "Filer";
-
-/* No comment provided by engineer. */
-"First task" = "Første oppgave";
 
 /* No comment provided by engineer. */
 "Full" = "Full";
@@ -228,9 +219,6 @@
 
 /* No comment provided by engineer. */
 "List tasks all profiles" = "Liste oppgaver alle profiler";
-
-/* No comment provided by engineer. */
-"Load DemoData" = "Last Demo data";
 
 /* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
@@ -282,9 +270,6 @@
 
 /* No comment provided by engineer. */
 "Not a snapshot task" = "Ikke en snapshot oppgave";
-
-/* No comment provided by engineer. */
-"Not verified" = "Ikke verifisert";
 
 /* No comment provided by engineer. */
 "OK" = "Ok";
@@ -362,6 +347,9 @@
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
 
 /* No comment provided by engineer. */
+"Select profile" = "Velg profil";
+
+/* No comment provided by engineer. */
 "Select task" = "Velg oppgave";
 
 /* No comment provided by engineer. */
@@ -416,13 +404,10 @@
 "Tasks" = "Oppgaver";
 
 /* No comment provided by engineer. */
-"Test SSH connection: \n select a login and server" = "Test SSH konfigurasjon: velg login og tjener";
-
-/* No comment provided by engineer. */
 "There are no logs by this filter" = "Det er ingen logger med dette søk";
 
 /* No comment provided by engineer. */
-"There are no snapshot records by this search string in Date or Tag" = "Ingen snapshot med denne søke strengen i Dato eller Tag";
+"There are no snapshot records by this search string in Date or Tag." = "Det er ingen snapshots med denne søket i dato eller tag";
 
 /* No comment provided by engineer. */
 "There are no tasks by this Synchronize ID" = "Det er ingen oppgaver med denne Synchronize ID";
@@ -462,9 +447,6 @@
 
 /* No comment provided by engineer. */
 "Update task" = "Oppdater oppgave";
-
-/* No comment provided by engineer. */
-"Verified" = "Verifisert";
 
 /* No comment provided by engineer. */
 "Verify task" = "Verifiser oppgave";
