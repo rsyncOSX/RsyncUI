@@ -16,7 +16,6 @@ class WriteUserConfigurationJSON {
     var fullpathnomacserial: String?
     // path with macserialnumber
     var fullpathmacserial: String?
-    // configuration path, ViewControllerReference.shared.configpath
 
     // Mac serialnumber
     nonisolated
