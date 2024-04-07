@@ -8,17 +8,6 @@
 
 import Foundation
 
-enum ProfileexistsError: LocalizedError {
-    case profileexists
-
-    var errorDescription: String? {
-        switch self {
-        case .profileexists:
-            return "Profile exists"
-        }
-    }
-}
-
 final class CatalogProfile: Catalogsandfiles {
     func createprofilecatalog(profile: String) {
         var rootpath: Folder?

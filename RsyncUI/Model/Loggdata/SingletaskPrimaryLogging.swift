@@ -14,57 +14,9 @@ class SingletaskPrimaryLogging {
     var localeprofile: String?
     var localehiddenID: Int?
 
-    func setCurrentDateonConfiguration() {
-        if let hiddenID = localehiddenID,
-           let index = structconfigurations?.firstIndex(where: { $0.hiddenID == hiddenID })
-        {
-            // Caution, snapshotnum already increased before logrecord
-            if structconfigurations?[index].task == SharedReference.shared.snapshot {
-                increasesnapshotnum(index: index)
-            }
-            let currendate = Date()
-            structconfigurations?[index].dateRun = currendate.en_us_string_from_date()
-            WriteConfigurationJSON(localeprofile, structconfigurations)
-        }
-    }
-
     func increasesnapshotnum(index: Int) {
         if let num = structconfigurations?[index].snapshotnum {
             structconfigurations?[index].snapshotnum = num + 1
-        }
-    }
-
-    // Caution, the snapshotnum is alrady increased in setCurrentDateonConfiguration().
-    // Must set -1 to get correct num in log
-    func addlogpermanentstore(outputrsync: [String]?) {
-        if let hiddenID = localehiddenID {
-            if SharedReference.shared.detailedlogging {
-                let stats = Numbers(outputrsync ?? []).stats()
-                // Set the current date
-                let currendate = Date()
-                let date = currendate.en_us_string_from_date()
-                if let config = getconfig(hiddenID: hiddenID) {
-                    var resultannotaded: String?
-                    if config.task == SharedReference.shared.snapshot {
-                        if let snapshotnum = config.snapshotnum {
-                            resultannotaded = "(" + String(snapshotnum - 1) + ") " + stats
-                        } else {
-                            resultannotaded = "(" + "1" + ") " + stats
-                        }
-                    } else {
-                        resultannotaded = stats
-                    }
-                    var inserted: Bool = addlogexisting(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
-                    // Record does not exist, create new LogRecord (not inserted)
-                    if inserted == false {
-                        inserted = addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
-                    }
-                    if inserted {
-                        WriteLogRecordsJSON(localeprofile, logrecords)
-                    }
-                    _ = Logfile(TrimTwo(outputrsync ?? []).trimmeddata, error: false)
-                }
-            }
         }
     }
 
