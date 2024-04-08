@@ -16,12 +16,13 @@ struct Sidebar: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Bindable var profilenames: Profilenames
     @Bindable var errorhandling: AlertError
     @State private var selectedview: Sidebaritems = .synchronize
 
     var body: some View {
         NavigationSplitView {
+            profilepicker
+
             Divider()
 
             List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
@@ -31,10 +32,6 @@ struct Sidebar: View {
 
                 if selectedview == .tasks || selectedview == .snapshots { Divider() }
             }
-
-            Text(selectedprofile ?? "")
-                .padding()
-                .font(.footnote)
 
         } detail: {
             selectView(selectedview)
@@ -75,6 +72,26 @@ struct Sidebar: View {
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
         }
+    }
+
+    var profilepicker: some View {
+        HStack {
+            Picker("", selection: $selectedprofile) {
+                ForEach(profilenames.profiles, id: \.self) { profile in
+                    Text(profile.profile ?? "")
+                        .tag(profile.profile)
+                }
+            }
+            .frame(width: 180)
+            .onChange(of: selectedprofile) {
+                selecteduuids.removeAll()
+            }
+            Spacer()
+        }
+    }
+
+    var profilenames: Profilenames {
+        return Profilenames()
     }
 }
 

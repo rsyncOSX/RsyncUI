@@ -37,7 +37,6 @@ struct RsyncUIView: View {
                 Sidebar(rsyncUIdata: rsyncUIdata,
                         selectedprofile: $selectedprofile,
                         selecteduuids: $selecteduuids,
-                        profilenames: profilenames,
                         errorhandling: errorhandling)
             }
 
@@ -56,40 +55,15 @@ struct RsyncUIView: View {
             rsyncversion.getrsyncversion()
             await newversion.getversionsofrsyncui()
         }
-        .toolbar(content: {
-            ToolbarItem {
-                profilepicker
-            }
-        })
     }
 
     var rsyncUIdata: RsyncUIconfigurations {
         return RsyncUIconfigurations(selectedprofile)
     }
 
-    var profilenames: Profilenames {
-        return Profilenames()
-    }
-
     var errorhandling: AlertError {
         SharedReference.shared.errorobject = AlertError()
         return SharedReference.shared.errorobject ?? AlertError()
-    }
-
-    var profilepicker: some View {
-        HStack {
-            Picker("", selection: $selectedprofile) {
-                ForEach(profilenames.profiles, id: \.self) { profile in
-                    Text(profile.profile ?? "")
-                        .tag(profile.profile)
-                }
-            }
-            .frame(width: 180)
-            .onChange(of: selectedprofile) {
-                selecteduuids.removeAll()
-            }
-            Spacer()
-        }
     }
 
     var notifynewversion: some View {
