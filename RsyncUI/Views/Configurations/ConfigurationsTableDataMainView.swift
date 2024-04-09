@@ -30,6 +30,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             .width(min: 50, ideal: 50)
+            .defaultVisibility(visible)
             TableColumn("Profile") { _ in
                 Text(profile ?? "Default profile")
             }
@@ -66,6 +67,14 @@ struct ConfigurationsTableDataMainView: View {
                 Text(data.dateRun ?? "")
             }
             .width(max: 120)
+        }
+    }
+
+    var visible: Visibility {
+        if max == 0 {
+            return .hidden
+        } else {
+            return .automatic
         }
     }
 }
