@@ -59,6 +59,8 @@ struct TasksView: View {
     @State private var progress: Double = 0
     // Show reset message
     @State private var resetmessage: Bool = false
+    // Noy used, only for parameter
+    @State private var maxcount: Double = 0
 
     var body: some View {
         ZStack {
@@ -69,7 +71,7 @@ struct TasksView: View {
                 doubleclick: $doubleclick,
                 progress: $progress,
                 executeprogressdetails: executeprogressdetails,
-                max: executeprogressdetails.getmaxcountbytask()
+                max: maxcount
             )
             .frame(maxWidth: .infinity)
             .onChange(of: selecteduuids) {
