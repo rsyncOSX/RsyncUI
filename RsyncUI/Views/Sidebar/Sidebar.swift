@@ -22,6 +22,7 @@ struct Sidebar: View {
     var body: some View {
         NavigationSplitView {
             profilepicker
+                .padding([.bottom, .top], 5)
 
             Divider()
 
