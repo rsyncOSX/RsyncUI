@@ -29,20 +29,21 @@ struct ConfigurationsTableDataMainView: View {
                         .frame(alignment: .center)
                 }
             }
-            .width(min: 50, ideal: 50)
-            .defaultVisibility(visible)
+            .width(min: 70, ideal: 70)
+            .defaultVisibility(visible_progress)
             TableColumn("Profile") { _ in
                 Text(profile ?? "Default profile")
             }
-            .width(min: 50, max: 200)
+            .width(min: 50, max: 100)
+            .defaultVisibility(visible_not_progress)
             TableColumn("Synchronize ID", value: \.backupID)
-                .width(min: 50, max: 200)
+                .width(min: 50, max: 150)
             TableColumn("Task", value: \.task)
                 .width(max: 80)
             TableColumn("Local catalog", value: \.localCatalog)
-                .width(min: 80, max: 300)
+                .width(min: 120, max: 400)
             TableColumn("Remote catalog", value: \.offsiteCatalog)
-                .width(min: 80, max: 300)
+                .width(min: 120, max: 400)
             TableColumn("Server") { data in
                 if data.offsiteServer.count > 0 {
                     Text(data.offsiteServer)
@@ -70,11 +71,19 @@ struct ConfigurationsTableDataMainView: View {
         }
     }
 
-    var visible: Visibility {
+    var visible_progress: Visibility {
         if max == 0 {
             return .hidden
         } else {
-            return .automatic
+            return .visible
+        }
+    }
+
+    var visible_not_progress: Visibility {
+        if max == 0 {
+            return .visible
+        } else {
+            return .hidden
         }
     }
 }
