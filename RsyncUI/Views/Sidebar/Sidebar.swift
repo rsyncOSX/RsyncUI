@@ -34,6 +34,10 @@ struct Sidebar: View {
                 if selectedview == .tasks || selectedview == .snapshots { Divider() }
             }
 
+            Text(SharedReference.shared.rsyncversionshort ?? "")
+                .padding()
+                .font(.footnote)
+
         } detail: {
             selectView(selectedview)
         }

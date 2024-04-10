@@ -144,7 +144,7 @@ class SharedReference: @unchecked Sendable {
     // rsync version string
     @ObservationIgnored var rsyncversionstring: String?
     // rsync short version
-    @ObservationIgnored var rsyncversionshort: String?
+    var rsyncversionshort: String?
     // filsize logfile warning
     let logfilesize: Int = 100_000
     // Mac serialnumer
