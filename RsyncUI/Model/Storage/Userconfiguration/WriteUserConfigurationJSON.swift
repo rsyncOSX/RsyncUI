@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
-// swiftlint:disable line_length
 
 import Combine
 import Foundation
@@ -60,12 +59,8 @@ class WriteUserConfigurationJSON {
     // done in the .map operator
     @discardableResult
     init(_ userconfiguration: UserConfiguration?) {
-        Task {
-            await MainActor.run(body: {
-                fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
-                fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
-            })
-        }
+        fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
+        fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
 
         userconfiguration.publisher
             .map { userconfiguration in
@@ -94,5 +89,3 @@ extension WriteUserConfigurationJSON {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
-
-// swiftlint:enable line_length
