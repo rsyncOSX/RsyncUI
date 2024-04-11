@@ -35,7 +35,8 @@ extension Rsyncversion {
         if let rsyncversionshort = data?[0],
            let rsyncversionstring = data?.joined(separator: "\n")
         {
-            SharedReference.shared.rsyncversionshort = rsyncversionshort
+            SharedReference.shared.rsyncversionshort =
+                rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
             SharedReference.shared.rsyncversionstring = rsyncversionstring
         }
     }

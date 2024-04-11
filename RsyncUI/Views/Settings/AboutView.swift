@@ -69,15 +69,17 @@ struct AboutView: View {
                 .help("Changelog")
             }
 
-            ToolbarItem {
-                Button {
-                    opendownload()
-                } label: {
-                    Image(systemName: "square.and.arrow.down.fill")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
+            if newversion.downloadavaliable {
+                ToolbarItem {
+                    Button {
+                        opendownload()
+                    } label: {
+                        Image(systemName: "square.and.arrow.down.fill")
+                            .foregroundColor(Color(.blue))
+                            .imageScale(.large)
+                    }
+                    .help("Download new version")
                 }
-                .help("Download new version")
             }
         }
     }
@@ -86,6 +88,7 @@ struct AboutView: View {
         VStack {
             Text(SharedReference.shared.rsyncversionshort ?? "")
             Text("RsyncUI configpath: " + configpath)
+                .padding([.top])
         }
         .font(.caption)
         .padding(3)

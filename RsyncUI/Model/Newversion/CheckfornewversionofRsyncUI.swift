@@ -42,6 +42,7 @@ struct GetversionsofRsyncUI {
 @Observable @MainActor
 final class CheckfornewversionofRsyncUI: Sendable {
     var notifynewversion: Bool = false
+    var downloadavaliable: Bool = false
 
     func dismissnotify() {
         Task {
@@ -63,6 +64,7 @@ final class CheckfornewversionofRsyncUI: Sendable {
                 } else {
                     notifynewversion = false
                 }
+                downloadavaliable = notifynewversion
             }
         } catch {
             Logger.process.warning("CheckfornewversionofRsyncUI: loading data failed)")
