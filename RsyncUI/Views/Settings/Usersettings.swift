@@ -13,6 +13,7 @@ struct Usersettings: View {
     @Environment(AlertError.self) private var alerterror
     @State private var usersettings = ObservableUsersetting()
     @State private var rsyncversion = Rsyncversion()
+    @State private var configurationsarebackedup: Bool = false
     // Rsync paths
     @State private var defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
 
@@ -133,6 +134,12 @@ struct Usersettings: View {
             ToolbarItem {
                 Button {
                     _ = Backupconfigfiles()
+                    configurationsarebackedup = true
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        configurationsarebackedup = false
+                    }
+
                 } label: {
                     Image(systemName: "wrench.adjustable.fill")
                         .foregroundColor(Color(.blue))
@@ -143,6 +150,10 @@ struct Usersettings: View {
 
             ToolbarItem {
                 if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
+            }
+
+            ToolbarItem {
+                if configurationsarebackedup { thumbsupgreen }
             }
         }
         .onAppear(perform: {
