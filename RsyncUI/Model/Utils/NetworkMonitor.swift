@@ -11,11 +11,14 @@ import Network
 
 enum Networkerror: LocalizedError {
     case networkdropped
+    case noconnection
 
     var errorDescription: String? {
         switch self {
         case .networkdropped:
             return "Network connection is dropped"
+        case .noconnection:
+            return "No connection to server"
         }
     }
 }
