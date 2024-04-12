@@ -105,6 +105,17 @@ final class RsyncProcessFilehandler {
             Logger.process.info("RsyncProcessFilehandler: \(launchPath, privacy: .public)")
             Logger.process.info("RsyncProcessFilehandler: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
+
+        if let server = config?.offsiteServer {
+            Task {
+                do {
+                    _ = try await TCPconnections().asyncverifyTCPconnection(server, port: 22)
+                } catch let e {
+                    let error = e
+                    propogateerror(error: error)
+                }
+            }
+        }
     }
 
     // Terminate Process, used when user Aborts task.
@@ -133,7 +144,7 @@ final class RsyncProcessFilehandler {
     }
 }
 
-extension RsyncProcessFilehandler {
+extension RsyncProcessFilehandler: Sendable {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
