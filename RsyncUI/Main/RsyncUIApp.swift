@@ -19,7 +19,7 @@ struct RsyncUIApp: App {
                 .task {
                     CatalogProfile().createrootprofilecatalog()
                 }
-                .frame(minWidth: 1300, minHeight: 510)
+                .frame(minWidth: 1100, minHeight: 510)
         }
         .commands {
             SidebarCommands()
@@ -30,7 +30,7 @@ struct RsyncUIApp: App {
 
             CommandGroup(replacing: .help) {
                 Button(action: {
-                    let documents: String = "https://rsyncui.netlify.app/"
+                    let documents = "https://rsyncui.netlify.app/"
                     NSWorkspace.shared.open(URL(string: documents)!)
                 }) {
                     Text("RsyncUI help")

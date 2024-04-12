@@ -50,7 +50,7 @@ struct HomeCatalogsView: View {
             }
         }
         .onDisappear(perform: {
-            var catalog: String = ""
+            var catalog = ""
             if let index = homecatalogs.firstIndex(where: { $0.id == selecteduuid }) {
                 if let selectedcatalog = homecatalogs[index].catalogname {
                     catalog = selectedcatalog
