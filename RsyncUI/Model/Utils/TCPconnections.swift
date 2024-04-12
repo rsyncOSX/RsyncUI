@@ -10,13 +10,10 @@ import Foundation
 
 final class TCPconnections {
     var indexBoolremoteserverOff: [Bool]?
-    var client: TCPClient?
-    var configurations: [SynchronizeConfiguration]?
 
     // Test for TCP connection
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
-        self.client = TCPClient(address: host, port: Int32(port))
-        guard let client = client else { return true }
+        let client = TCPClient(address: host, port: Int32(port))
         switch client.connect(timeout: timeout) {
         case .success:
             return true
@@ -27,7 +24,7 @@ final class TCPconnections {
 
     // Testing all remote servers.
     // Adding connection true or false in array[bool]
-    func verifyallremoteserverTCPconnections() {
+    func verifyallremoteserverTCPconnections(configurations: [SynchronizeConfiguration]?) {
         indexBoolremoteserverOff = [Bool]()
         guard (configurations?.count ?? 0) > 0 else { return }
         var port = 22
@@ -42,9 +39,5 @@ final class TCPconnections {
                 }
             }
         }
-    }
-
-    init(_ configurations: [SynchronizeConfiguration]?) {
-        self.configurations = configurations
     }
 }
