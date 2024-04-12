@@ -114,7 +114,11 @@ extension ExecuteEstimatedTasksView {
                 uuids?.insert(uuidcount?[i] ?? UUID())
             }
         }
-        guard (uuids?.count ?? 0) > 0 else { return }
+        guard (uuids?.count ?? 0) > 0 else {
+            executeprogressdetails.estimatedlist = nil
+            path.removeAll()
+            return
+        }
         if let uuids = uuids {
             if let configurations = rsyncUIdata.configurations {
                 multipletaskstate.updatestate(state: .execute)
