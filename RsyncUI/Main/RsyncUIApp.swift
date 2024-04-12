@@ -19,7 +19,7 @@ struct RsyncUIApp: App {
                 .task {
                     CatalogProfile().createrootprofilecatalog()
                 }
-                .frame(minWidth: 1100, minHeight: 510)
+                .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
         }
         .commands {
             SidebarCommands()
