@@ -103,20 +103,19 @@ final class RsyncProcessNOFilehandler: @unchecked Sendable {
             Logger.process.info("RsyncProcessNOFilehandler: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
 
-        /*
-                if let server = config?.offsiteServer,
-                   SharedReference.shared.monitornetworkconnection
-                {
-                    Task {
-                        do {
-                            _ = try await TCPconnections().asyncverifyTCPconnection(server, port: 22)
-                        } catch let e {
-                            let error = e
-                            propogateerror(error: error)
-                        }
-                    }
+        if let server = config?.offsiteServer,
+           SharedReference.shared.monitornetworkconnection,
+           server.isEmpty == false
+        {
+            Task {
+                do {
+                    _ = try await TCPconnections().asyncverifyTCPconnection(server, port: 22)
+                } catch let e {
+                    let error = e
+                    propogateerror(error: error)
                 }
-         */
+            }
+        }
     }
 
     // Terminate Process, used when user Aborts task.
