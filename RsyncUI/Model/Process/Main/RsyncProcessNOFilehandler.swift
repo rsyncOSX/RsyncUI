@@ -10,7 +10,7 @@ import Combine
 import Foundation
 import OSLog
 
-final class RsyncProcessNOFilehandler {
+final class RsyncProcessNOFilehandler: @unchecked Sendable {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Verify network connection
@@ -103,7 +103,9 @@ final class RsyncProcessNOFilehandler {
             Logger.process.info("RsyncProcessNOFilehandler: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
 
-        if let server = config?.offsiteServer {
+        if let server = config?.offsiteServer,
+           SharedReference.shared.monitornetworkconnection
+        {
             Task {
                 do {
                     _ = try await TCPconnections().asyncverifyTCPconnection(server, port: 22)
@@ -151,7 +153,7 @@ final class RsyncProcessNOFilehandler {
     }
 }
 
-extension RsyncProcessNOFilehandler: Sendable {
+extension RsyncProcessNOFilehandler {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }

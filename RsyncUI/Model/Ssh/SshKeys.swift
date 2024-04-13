@@ -71,7 +71,8 @@ final class SshKeys: Catalogsandfiles {
         throw SshError.sshkeys
     }
 
-    nonisolated func validatepublickeypresent() -> Bool {
+    nonisolated
+    func validatepublickeypresent() -> Bool {
         guard keyFileStrings != nil else { return false }
         guard keyFileStrings?.filter({ $0.contains(self.identityfile ?? "") }).count ?? 0 > 0 else { return false }
         guard keyFileStrings?.filter({ $0.contains((self.identityfile ?? "") + ".pub") }).count ?? 0 > 0 else {

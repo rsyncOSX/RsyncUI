@@ -4,12 +4,13 @@
 //
 //  Created by Thomas Evensen on 15/03/2021.
 //
+// swiftlint:disable function_body_length
 
 import Combine
 import Foundation
 import OSLog
 
-final class RsyncProcessFilehandler {
+final class RsyncProcessFilehandler: @unchecked Sendable {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -106,7 +107,9 @@ final class RsyncProcessFilehandler {
             Logger.process.info("RsyncProcessFilehandler: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
 
-        if let server = config?.offsiteServer {
+        if let server = config?.offsiteServer,
+           SharedReference.shared.monitornetworkconnection
+        {
             Task {
                 do {
                     _ = try await TCPconnections().asyncverifyTCPconnection(server, port: 22)
@@ -144,8 +147,10 @@ final class RsyncProcessFilehandler {
     }
 }
 
-extension RsyncProcessFilehandler: Sendable {
+extension RsyncProcessFilehandler {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
+
+// swiftlint:enable function_body_length
