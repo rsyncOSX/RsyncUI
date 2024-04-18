@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case profileview, homecatalogs
+    case profileview, homecatalogs, verify
     var id: String { rawValue }
 }
 
@@ -28,6 +28,9 @@ struct AddTaskView: View {
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     // Which view to show
     @State var path: [AddTasks] = []
+    // For verify a task
+    @State private var rsyncoutput: ObservableRsyncOutput?
+    @State private var showprogressview = false
 
     var choosecatalog = true
 
@@ -77,39 +80,45 @@ struct AddTaskView: View {
                         // Column 2
 
                         VStack(alignment: .leading) {
-                            ListofTasksAddView(rsyncUIdata: rsyncUIdata,
-                                               selecteduuids: $selecteduuids)
-                                .onChange(of: selecteduuids) {
-                                    if let configurations = rsyncUIdata.configurations {
-                                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                            selectedconfig = configurations[index]
-                                            newdata.updateview(configurations[index])
-                                        } else {
-                                            selectedconfig = nil
-                                            newdata.updateview(nil)
+                            ZStack {
+                                ListofTasksAddView(rsyncUIdata: rsyncUIdata,
+                                                   selecteduuids: $selecteduuids)
+                                    .onChange(of: selecteduuids) {
+                                        if let configurations = rsyncUIdata.configurations {
+                                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                                selectedconfig = configurations[index]
+                                                newdata.updateview(configurations[index])
+                                            } else {
+                                                selectedconfig = nil
+                                                newdata.updateview(nil)
+                                            }
                                         }
                                     }
-                                }
-                                .copyable(copyitems.filter { selecteduuids.contains($0.id) })
-                                .pasteDestination(for: CopyItem.self) { items in
-                                    newdata.preparecopyandpastetasks(items,
-                                                                     rsyncUIdata.configurations ?? [])
-                                    guard items.count > 0 else { return }
-                                    confirmcopyandpaste = true
-                                } validator: { items in
-                                    items.filter { $0.task != SharedReference.shared.snapshot }
-                                }
-                                .confirmationDialog(
-                                    Text("Copy ^[\(newdata.copyandpasteconfigurations?.count ?? 0) configuration](inflect: true)"),
-                                    isPresented: $confirmcopyandpaste
-                                ) {
-                                    Button("Copy") {
-                                        confirmcopyandpaste = false
-                                        rsyncUIdata.configurations =
-                                            newdata.writecopyandpastetasks(rsyncUIdata.profile,
-                                                                           rsyncUIdata.configurations ?? [])
+                                    .copyable(copyitems.filter { selecteduuids.contains($0.id) })
+                                    .pasteDestination(for: CopyItem.self) { items in
+                                        newdata.preparecopyandpastetasks(items,
+                                                                         rsyncUIdata.configurations ?? [])
+                                        guard items.count > 0 else { return }
+                                        confirmcopyandpaste = true
+                                    } validator: { items in
+                                        items.filter { $0.task != SharedReference.shared.snapshot }
                                     }
+                                    .confirmationDialog(
+                                        Text("Copy ^[\(newdata.copyandpasteconfigurations?.count ?? 0) configuration](inflect: true)"),
+                                        isPresented: $confirmcopyandpaste
+                                    ) {
+                                        Button("Copy") {
+                                            confirmcopyandpaste = false
+                                            rsyncUIdata.configurations =
+                                                newdata.writecopyandpastetasks(rsyncUIdata.profile,
+                                                                               rsyncUIdata.configurations ?? [])
+                                        }
+                                    }
+                                if showprogressview {
+                                    ProgressView()
+                                        .padding()
                                 }
+                            }
                         }
                     }
                 }
@@ -190,6 +199,17 @@ struct AddTaskView: View {
                     }
                     .help("Profiles")
                 }
+
+                ToolbarItem {
+                    Button {
+                        if let configuration = selectedconfig {
+                            verify(config: configuration)
+                        }
+                    } label: {
+                        Image(systemName: "flag.checkered")
+                    }
+                    .help("Verify task")
+                }
             }
         }
     }
@@ -241,6 +261,8 @@ struct AddTaskView: View {
                                      return []
                                  }
                              }())
+        case .verify:
+            OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
         }
     }
 
@@ -471,6 +493,28 @@ extension AddTaskView {
 
     func validateandupdate() {
         rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
+    }
+
+    func verify(config: SynchronizeConfiguration) {
+        var arguments: [String]?
+        arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
+        rsyncoutput = ObservableRsyncOutput()
+        showprogressview = true
+        let process = RsyncProcessNOFilehandler(arguments: arguments,
+                                                config: config,
+                                                processtermination: processtermination)
+        process.executeProcess()
+    }
+
+    func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
+        showprogressview = false
+        rsyncoutput?.setoutput(outputfromrsync)
+        path.append(AddTasks(task: .verify))
+    }
+
+    func abort() {
+        showprogressview = false
+        _ = InterruptProcess()
     }
 }
 
