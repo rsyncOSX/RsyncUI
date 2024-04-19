@@ -107,13 +107,20 @@ final class RsyncProcessFilehandler: @unchecked Sendable {
             Logger.process.info("RsyncProcessFilehandler: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
 
-        if let server = config?.offsiteServer,
-           SharedReference.shared.monitornetworkconnection,
-           server.isEmpty == false
-        {
+        if SharedReference.shared.monitornetworkconnection {
             Task {
+                var sshport = 22
+                if let port = config?.sshport {
+                    sshport = port
+                } else if let port = SharedReference.shared.sshport {
+                    sshport = port
+                }
                 do {
-                    _ = try await TCPconnections().asyncverifyTCPconnection(server, port: 22)
+                    let server = config?.offsiteServer ?? ""
+                    if server.isEmpty == false {
+                        Logger.process.info("RsyncProcessFilehandler: checking networkconnection")
+                        _ = try await TCPconnections().asyncverifyTCPconnection(config?.offsiteServer ?? "", port: sshport)
+                    }
                 } catch let e {
                     let error = e
                     propogateerror(error: error)
