@@ -17,24 +17,24 @@ Both apps might be installed by Homebrew or by direct Download. The apps are sig
 
 The development of RsyncOSX commenced in *2015* as a private project to learn Swift. In *2019*, Apple released SwiftUI, which is a development framework for building user interfaces for iOS, iPadOS, watchOS, TVOS, and macOS. SwiftUI quickly became very popular, and after some investigation, I decided to commence another private project to learn SwiftUI. The model part of RsyncOSX was at that time quite stable, and I decided to refactor the GUI part of RsyncOSX by utilizing SwiftUI. And that is the short story behind the two applications.
 
-| App      | Storage  | #lines  | #files | UI | Latest version  |  Version 1.0 | 
+| App      | Storage  | #lines  | #files | UI | Latest version  |  Version 1.0.0 | 
 | ----------- | ----------- |   ----------- | -------- |  -------- | -------- | -------- |
 | RsyncUI   | JSON  | about 11.5k | 146  | SwiftUI, declarativ     | v1.9.0 - [12 April 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
 | RsyncOSX  | JSON | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
 
-There is also a test project about RsyncUI using SwiftData. There is some more info in [the How is RsyncUI built](https://rsyncuibuilt.netlify.app). This project is a kind of experiement to learn more about it. SwiftData is easy to use, but i am not convinced it is right for RsyncUI. 
+There is some more info about [how is RsyncUI built](https://rsyncuibuilt.netlify.app).
 
 ### Important to verify new tasks
 
-The UI of RsyncOSX and RsyncUI can for users who dont know `rsync` be difficult to understand. Setting wrong parameters to `rsync` can result in deleted data. RsyncOSX nor RsyncUI will not stop you for doing so. That is why it is *very* important to execute a simulated run, a `--dry-run`, and verify the result before the real run.
+The UI of RsyncUI and RsyncOSX can for users who dont know `rsync` be difficult and complex to understand. Setting wrong parameters to `rsync` can result in deleted data.RsyncUI nor RsyncOSX will not stop you for doing so. That is why it is *very* important to execute a simulated run, a `--dry-run`, and verify the result before the real run.
 
 ### External task executing rsync 
 
-Please be aware it is an external task *not controlled* by RsyncOSX or RsyncUI, which executes the command-line tool rsync. The progress and termination of the external rsync task are monitored. The user can abort the task at any time. Please let the abort finish and cleanup properly before starting a new task. It might take a few seconds. If not, the apps might become unresponsive.
+Please be aware it is an external task *not controlled* by RsyncUI or RsyncOSX, which executes the command-line tool rsync. The progress and termination of the external rsync task are monitored. The user can abort the task at any time. Please let the abort finish and cleanup properly before starting a new task. It might take a few seconds. If not, the apps might become unresponsive.
 
 ### RsyncUI (Swift, SwiftUI)
 
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.9.0/total) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.8.9/total)  [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.9.0/total) [![Netlify Status](https://api.netlify.com/api/v1/badges/1d14d49b-ff14-4142-b135-771db071b58a/deploy-status)](https://app.netlify.com/sites/rsyncui/deploys) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 **RsyncUI** is released for **macOS Sonoma**. Latest build is [12 April 2024](https://github.com/rsyncOSX/RsyncUI/releases).
 
