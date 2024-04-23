@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 15/03/2021.
 //
-// swiftlint:disable function_body_length cyclomatic_complexity
+// swiftlint:disable function_body_length cyclomatic_complexity line_length
 
 import Combine
 import Foundation
@@ -168,4 +168,4 @@ extension RsyncProcessNOFilehandler {
     }
 }
 
-// swiftlint:enable function_body_length cyclomatic_complexity
+// swiftlint:enable function_body_length cyclomatic_complexity line_length

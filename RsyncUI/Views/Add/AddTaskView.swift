@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 11/12/2023.
 //
-// swiftlint:disable file_length type_body_length line_length
+// swiftlint:disable file_length type_body_length line_length cyclomatic_complexity
 
 import SwiftUI
 
@@ -489,4 +489,4 @@ extension AddTaskView {
     }
 }
 
-// swiftlint:enable file_length type_body_length line_length
+// swiftlint:enable file_length type_body_length line_length cyclomatic_complexity

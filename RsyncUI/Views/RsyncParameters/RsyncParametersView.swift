@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 20/11/2023.
 //
-// swiftlint:disable line_length
 
 import Combine
 import SwiftUI
@@ -226,5 +225,3 @@ extension RsyncParametersView {
         }
     }
 }
-
-// swiftlint:enable line_length

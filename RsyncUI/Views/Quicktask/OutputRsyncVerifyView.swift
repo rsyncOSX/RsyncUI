@@ -9,13 +9,13 @@ import SwiftUI
 
 @MainActor
 struct OutputRsyncVerifyView: View {
-    @State private var output = Outputfromrsync()
+    @State private var outputromrsync = Outputfromrsync()
 
     let config: SynchronizeConfiguration
     let selectedrsynccommand: RsyncCommand
 
     var body: some View {
-        Table(output.output) {
+        Table(outputromrsync.output) {
             TableColumn("Output") { data in
                 Text(data.line)
             }
@@ -41,7 +41,8 @@ struct OutputRsyncVerifyView: View {
         case .synchronize:
             arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
         case .restore:
-            arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
+            arguments = ArgumentsRestore(config: config,
+                                         restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
         case .verify:
             arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
         }
@@ -50,15 +51,15 @@ struct OutputRsyncVerifyView: View {
                                               processtermination: processtermination,
                                               filehandler: filehandler)
         process.executeProcess()
-    }
 
-    func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
-        output.generateoutput(outputfromrsync)
-    }
+        func processtermination(data: [String]?, hiddenID _: Int?) {
+            outputromrsync.generateoutput(data)
+        }
 
-    func filehandler(count _: Int) {}
+        func filehandler(count _: Int) {}
 
-    func abort() {
-        _ = InterruptProcess()
+        func abort() {
+            _ = InterruptProcess()
+        }
     }
 }
