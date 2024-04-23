@@ -142,6 +142,7 @@
 		E9B6BD352B120B840084BC8B /* NavigationLogfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B6BD342B120B840084BC8B /* NavigationLogfileView.swift */; };
 		E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */; };
 		E9BB4F562903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB4F552903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift */; };
+		E9BC17EA2BD8042C0049641B /* OutputRsyncVerifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */; };
 		E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BA2642F94400E29347 /* TrimFour.swift */; };
 		E9BD14BD2642FDC200E29347 /* TrimOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BC2642FDC200E29347 /* TrimOne.swift */; };
 		E9BD14BF2642FE6300E29347 /* TrimTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BE2642FE6300E29347 /* TrimTwo.swift */; };
@@ -322,6 +323,7 @@
 		E9B6BD342B120B840084BC8B /* NavigationLogfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLogfileView.swift; sourceTree = "<group>"; };
 		E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteProfileView.swift; sourceTree = "<group>"; };
 		E9BB4F552903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteTasksNOEstimation.swift; sourceTree = "<group>"; };
+		E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputRsyncVerifyView.swift; sourceTree = "<group>"; };
 		E9BD14BA2642F94400E29347 /* TrimFour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimFour.swift; sourceTree = "<group>"; };
 		E9BD14BC2642FDC200E29347 /* TrimOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimOne.swift; sourceTree = "<group>"; };
 		E9BD14BE2642FE6300E29347 /* TrimTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimTwo.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 			children = (
 				E931ED952B0C82BB000BEF56 /* QuicktaskView.swift */,
 				E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */,
+				E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */,
 			);
 			path = Quicktask;
 			sourceTree = "<group>";
@@ -1220,6 +1223,7 @@
 				E9FBF40D291AFB7000AAAC40 /* SnapshotCommands.swift in Sources */,
 				E985C79125F3AD9700CB895C /* ObservableUsersetting.swift in Sources */,
 				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,
+				E9BC17EA2BD8042C0049641B /* OutputRsyncVerifyView.swift in Sources */,
 				E985C75025F3AD9700CB895C /* DecodeLogRecords.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

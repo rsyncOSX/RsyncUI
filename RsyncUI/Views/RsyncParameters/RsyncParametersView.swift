@@ -24,8 +24,6 @@ struct RsyncParametersView: View {
 
     @State private var parameters = ObservableParametersRsync()
     @State private var selectedconfig: SynchronizeConfiguration?
-    @State private var rsyncoutput: ObservableRsyncOutput?
-    @State private var showprogressview = false
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     // Focus buttons from the menu
@@ -112,11 +110,6 @@ struct RsyncParametersView: View {
                                 }
                             }
                         }
-
-                    if showprogressview {
-                        ProgressView()
-                            .padding()
-                    }
                 }
 
                 if focusaborttask { labelaborttask }
@@ -151,9 +144,7 @@ struct RsyncParametersView: View {
 
             ToolbarItem {
                 Button {
-                    if let configuration = parameters.updatersyncparameters() {
-                        verify(config: configuration)
-                    }
+                    path.append(ParametersTasks(task: .verify))
                 } label: {
                     Image(systemName: "flag.checkered")
                 }
@@ -172,7 +163,9 @@ struct RsyncParametersView: View {
         case .defaultparameters:
             RsyncDefaultParametersView(rsyncUIdata: rsyncUIdata, path: $path)
         case .verify:
-            OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
+            if let config = selectedconfig {
+                OutputRsyncVerifyView(config: config, selectedrsynccommand: selectedrsynccommand)
+            }
         }
     }
 
@@ -231,35 +224,6 @@ extension RsyncParametersView {
             parameters.reset()
             selectedconfig = nil
         }
-    }
-
-    func verify(config: SynchronizeConfiguration) {
-        var arguments: [String]?
-        switch selectedrsynccommand {
-        case .synchronize:
-            arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
-        case .restore:
-            arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
-        case .verify:
-            arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
-        }
-        rsyncoutput = ObservableRsyncOutput()
-        showprogressview = true
-        let process = RsyncProcessNOFilehandler(arguments: arguments,
-                                                config: config,
-                                                processtermination: processtermination)
-        process.executeProcess()
-    }
-
-    func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
-        showprogressview = false
-        rsyncoutput?.setoutput(outputfromrsync)
-        path.append(ParametersTasks(task: .verify))
-    }
-
-    func abort() {
-        showprogressview = false
-        _ = InterruptProcess()
     }
 }
 

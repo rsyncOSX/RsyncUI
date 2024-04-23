@@ -28,9 +28,6 @@ struct AddTaskView: View {
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     // Which view to show
     @State var path: [AddTasks] = []
-    // For verify a task
-    @State private var rsyncoutput: ObservableRsyncOutput?
-    @State private var showprogressview = false
 
     var choosecatalog = true
 
@@ -114,10 +111,6 @@ struct AddTaskView: View {
                                                                                rsyncUIdata.configurations ?? [])
                                         }
                                     }
-                                if showprogressview {
-                                    ProgressView()
-                                        .padding()
-                                }
                             }
                         }
                     }
@@ -202,9 +195,7 @@ struct AddTaskView: View {
 
                 ToolbarItem {
                     Button {
-                        if let configuration = selectedconfig {
-                            verify(config: configuration)
-                        }
+                        path.append(AddTasks(task: .verify))
                     } label: {
                         Image(systemName: "flag.checkered")
                     }
@@ -262,7 +253,9 @@ struct AddTaskView: View {
                                  }
                              }())
         case .verify:
-            OutputRsyncView(output: rsyncoutput?.getoutput() ?? [])
+            if let config = selectedconfig {
+                OutputRsyncVerifyView(config: config, selectedrsynccommand: .synchronize)
+            }
         }
     }
 
@@ -493,28 +486,6 @@ extension AddTaskView {
 
     func validateandupdate() {
         rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
-    }
-
-    func verify(config: SynchronizeConfiguration) {
-        var arguments: [String]?
-        arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
-        rsyncoutput = ObservableRsyncOutput()
-        showprogressview = true
-        let process = RsyncProcessNOFilehandler(arguments: arguments,
-                                                config: config,
-                                                processtermination: processtermination)
-        process.executeProcess()
-    }
-
-    func processtermination(outputfromrsync: [String]?, hiddenID _: Int?) {
-        showprogressview = false
-        rsyncoutput?.setoutput(outputfromrsync)
-        path.append(AddTasks(task: .verify))
-    }
-
-    func abort() {
-        showprogressview = false
-        _ = InterruptProcess()
     }
 }
 
