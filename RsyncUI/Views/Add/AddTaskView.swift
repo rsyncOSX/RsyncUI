@@ -254,7 +254,7 @@ struct AddTaskView: View {
                              }())
         case .verify:
             if let config = selectedconfig {
-                OutputRsyncVerifyView(config: config, selectedrsynccommand: .synchronize)
+                OutputRsyncVerifyView(config: config)
             }
         }
     }

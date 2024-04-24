@@ -10,17 +10,24 @@ import SwiftUI
 @MainActor
 struct OutputRsyncVerifyView: View {
     @State private var outputromrsync = Outputfromrsync()
+    @State private var progress = false
 
     let config: SynchronizeConfiguration
-    let selectedrsynccommand: RsyncCommand
 
     var body: some View {
-        Table(outputromrsync.output) {
-            TableColumn("Output") { data in
-                Text(data.line)
+        ZStack {
+            Table(outputromrsync.output) {
+                TableColumn("Output") { data in
+                    Text(data.line)
+                }
+            }
+
+            if progress {
+                ProgressView()
             }
         }
         .onAppear {
+            progress = true
             verify(config: config)
         }
         .toolbar(content: {
@@ -37,26 +44,17 @@ struct OutputRsyncVerifyView: View {
 
     func verify(config: SynchronizeConfiguration) {
         var arguments: [String]?
-        switch selectedrsynccommand {
-        case .synchronize:
-            arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: false)
-        case .restore:
-            arguments = ArgumentsRestore(config: config,
-                                         restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: false, tmprestore: true)
-        case .verify:
-            arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false)
-        }
-        let process = RsyncProcessFilehandler(arguments: arguments,
-                                              config: config,
-                                              processtermination: processtermination,
-                                              filehandler: filehandler)
+        arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+                                                                              forDisplay: false)
+        let process = RsyncProcessNOFilehandler(arguments: arguments,
+                                                config: config,
+                                                processtermination: processtermination)
         process.executeProcess()
 
         func processtermination(data: [String]?, hiddenID _: Int?) {
+            progress = false
             outputromrsync.generateoutput(data)
         }
-
-        func filehandler(count _: Int) {}
 
         func abort() {
             _ = InterruptProcess()
