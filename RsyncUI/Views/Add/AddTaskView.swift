@@ -67,7 +67,7 @@ struct AddTaskView: View {
                                                   $newdata.donotaddtrailingslash)
                             }
 
-                            VStack(alignment: .leading) { synchronizeid }
+                            VStack(alignment: .leading) { synchronizeID }
 
                             VStack(alignment: .leading) { remoteuserandserver }
 
@@ -373,7 +373,7 @@ struct AddTaskView: View {
             .modifier(FixedTag(200, .leading))
     }
 
-    var synchronizeid: some View {
+    var synchronizeID: some View {
         Section(header: headerID) {
             // Synchronize ID
             if newdata.selectedconfig == nil { setID } else {
