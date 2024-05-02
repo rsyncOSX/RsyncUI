@@ -12,6 +12,7 @@ struct AddProfileView: View {
     @State private var newdata = ObservableAddConfigurations()
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
+    @Binding var path: [AddTasks]
 
     @State private var uuidprofile = Set<Profiles.ID>()
     @State private var localselectedprofile: String?
@@ -40,6 +41,7 @@ struct AddProfileView: View {
         }
         .onSubmit {
             createprofile()
+            path.removeAll()
         }
         .alert(isPresented: $newdata.alerterror,
                content: { Alert(localizedError: newdata.error)
@@ -48,6 +50,7 @@ struct AddProfileView: View {
             ToolbarItem {
                 Button {
                     createprofile()
+                    path.removeAll()
                 } label: {
                     Image(systemName: "return")
                         .foregroundColor(Color(.blue))
@@ -67,6 +70,7 @@ struct AddProfileView: View {
                                              profile: localselectedprofile)
                         .onDisappear(perform: {
                             deleteprofile()
+                            path.removeAll()
                         })
                 }
             }

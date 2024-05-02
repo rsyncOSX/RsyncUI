@@ -211,7 +211,8 @@ struct AddTaskView: View {
         case .profileview:
             AddProfileView(rsyncUIdata: rsyncUIdata,
                            profilenames: profilenames,
-                           selectedprofile: $selectedprofile)
+                           selectedprofile: $selectedprofile,
+                           path: $path)
         case .homecatalogs:
             HomeCatalogsView(newdata: newdata,
                              path: $path,

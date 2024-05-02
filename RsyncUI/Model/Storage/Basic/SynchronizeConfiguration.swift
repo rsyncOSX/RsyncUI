@@ -148,7 +148,7 @@ extension SynchronizeConfiguration: Hashable, Equatable {
             lhs.parameter12 == rhs.parameter12 &&
             lhs.parameter13 == rhs.parameter13 &&
             lhs.parameter14 == rhs.parameter14 &&
-            lhs.dateRun == rhs.dateRun
+            lhs.backupID == rhs.backupID
     }
 
     func hash(into hasher: inout Hasher) {
@@ -170,6 +170,6 @@ extension SynchronizeConfiguration: Hashable, Equatable {
         hasher.combine(parameter12)
         hasher.combine(parameter13)
         hasher.combine(parameter14)
-        hasher.combine(dateRun)
+        hasher.combine(backupID)
     }
 }
