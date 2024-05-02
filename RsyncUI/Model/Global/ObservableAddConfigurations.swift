@@ -54,6 +54,7 @@ final class ObservableAddConfigurations: @unchecked Sendable {
 
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
 
+    @MainActor
     func addconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
@@ -76,6 +77,7 @@ final class ObservableAddConfigurations: @unchecked Sendable {
         return configurations
     }
 
+    @MainActor
     func updateconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         let updateddata = AppendTask(selectedrsynccommand.rawValue,
                                      localcatalog,
@@ -137,9 +139,10 @@ final class ObservableAddConfigurations: @unchecked Sendable {
         }
     }
 
+    @MainActor
     func validateandupdate(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
-        // Validate not a snapshot task
         do {
+            // Validate not a snapshot task
             let validated = try validatenotsnapshottask()
             if validated {
                 return updateconfig(profile, configurations)

@@ -36,7 +36,7 @@ struct AddTaskView: View {
         case remotecatalogField
         case remoteuserField
         case remoteserverField
-        case backupIDField
+        case synchronizeIDField
     }
 
     @FocusState private var focusField: AddConfigurationField?
@@ -123,7 +123,7 @@ struct AddTaskView: View {
                 case .localcatalogField:
                     focusField = .remotecatalogField
                 case .remotecatalogField:
-                    focusField = .backupIDField
+                    focusField = .synchronizeIDField
                 case .remoteuserField:
                     focusField = .remoteserverField
                 case .remoteserverField:
@@ -133,7 +133,7 @@ struct AddTaskView: View {
                         validateandupdate()
                     }
                     focusField = nil
-                case .backupIDField:
+                case .synchronizeIDField:
                     if newdata.remotestorageislocal == true,
                        newdata.selectedconfig == nil
                     {
@@ -362,7 +362,7 @@ struct AddTaskView: View {
     var setID: some View {
         EditValue(300, NSLocalizedString("Add synchronize ID", comment: ""),
                   $newdata.backupID)
-            .focused($focusField, equals: .backupIDField)
+            .focused($focusField, equals: .synchronizeIDField)
             .textContentType(.none)
             .submitLabel(.continue)
     }
@@ -377,7 +377,7 @@ struct AddTaskView: View {
             // Synchronize ID
             if newdata.selectedconfig == nil { setID } else {
                 EditValue(300, nil, $newdata.backupID)
-                    .focused($focusField, equals: .backupIDField)
+                    .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none)
                     .submitLabel(.continue)
                     .onAppear(perform: {
@@ -480,10 +480,12 @@ struct AddTaskView: View {
 }
 
 extension AddTaskView {
+    @MainActor
     func addconfig() {
         rsyncUIdata.configurations = newdata.addconfig(selectedprofile, rsyncUIdata.configurations)
     }
 
+    @MainActor
     func validateandupdate() {
         rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
     }
