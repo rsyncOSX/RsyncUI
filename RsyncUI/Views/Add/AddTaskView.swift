@@ -195,6 +195,7 @@ struct AddTaskView: View {
 
                 ToolbarItem {
                     Button {
+                        guard selectedconfig != nil else { return }
                         path.append(AddTasks(task: .verify))
                     } label: {
                         Image(systemName: "flag.checkered")
