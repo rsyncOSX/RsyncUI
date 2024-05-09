@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case profileview, homecatalogs, verify
+    case homecatalogs, verify
     var id: String { rawValue }
 }
 
@@ -186,15 +186,6 @@ struct AddTaskView: View {
 
                 ToolbarItem {
                     Button {
-                        path.append(AddTasks(task: .profileview))
-                    } label: {
-                        Image(systemName: "arrow.triangle.branch")
-                    }
-                    .help("Profiles")
-                }
-
-                ToolbarItem {
-                    Button {
                         guard selectedconfig != nil else { return }
                         path.append(AddTasks(task: .verify))
                     } label: {
@@ -209,11 +200,6 @@ struct AddTaskView: View {
     @MainActor @ViewBuilder
     func makeView(view: AddTaskDestinationView) -> some View {
         switch view {
-        case .profileview:
-            AddProfileView(rsyncUIdata: rsyncUIdata,
-                           profilenames: profilenames,
-                           selectedprofile: $selectedprofile,
-                           path: $path)
         case .homecatalogs:
             HomeCatalogsView(newdata: newdata,
                              path: $path,

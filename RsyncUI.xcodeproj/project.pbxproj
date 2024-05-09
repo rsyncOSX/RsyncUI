@@ -36,6 +36,7 @@
 		E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */; };
 		E95EDC8A26063EAA000018DE /* ObservableParametersRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC8926063EAA000018DE /* ObservableParametersRsync.swift */; };
 		E96036042B288CB600438D8B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036032B288CB600438D8B /* Sidebar.swift */; };
+		E961D0512BEC8CE300CBF9B1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E961D0502BEC8CE300CBF9B1 /* ProfileView.swift */; };
 		E96223952B0BDA7E00C40578 /* OutputRsyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */; };
 		E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */; };
 		E969669E2B49AEA90054E6C6 /* ExecuteAsyncNoEstimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E969669D2B49AEA90054E6C6 /* ExecuteAsyncNoEstimation.swift */; };
@@ -210,6 +211,7 @@
 		E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRsyncParameter.swift; sourceTree = "<group>"; };
 		E95EDC8926063EAA000018DE /* ObservableParametersRsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersRsync.swift; sourceTree = "<group>"; };
 		E96036032B288CB600438D8B /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		E961D0502BEC8CE300CBF9B1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputRsyncView.swift; sourceTree = "<group>"; };
 		E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLogs.swift; sourceTree = "<group>"; };
 		E969669D2B49AEA90054E6C6 /* ExecuteAsyncNoEstimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteAsyncNoEstimation.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				E985C64A25F3AD8400CB895C /* EditValue.swift */,
 				E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */,
 				E9D317CF2B3C09B9000B8FC9 /* HomeCatalogsView.swift */,
+				E961D0502BEC8CE300CBF9B1 /* ProfileView.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -1151,6 +1154,7 @@
 				E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */,
 				E8518C7A263807F200128796 /* WriteLogRecordsJSON.swift in Sources */,
 				E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */,
+				E961D0512BEC8CE300CBF9B1 /* ProfileView.swift in Sources */,
 				E98F608D290D034300952149 /* CommandProcess.swift in Sources */,
 				E9D94DB6294B9409007C21D2 /* UserServer.swift in Sources */,
 				E985C77025F3AD9700CB895C /* EstimateProgressDetails.swift in Sources */,
