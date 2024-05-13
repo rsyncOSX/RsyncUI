@@ -24,6 +24,7 @@ struct SettingsView: View {
                     SidebarSettingsRow(sidebaritem: selectedsetting)
                 }
             }
+            .listStyle(.sidebar)
         } detail: {
             settingsView(selectedsetting)
         }
