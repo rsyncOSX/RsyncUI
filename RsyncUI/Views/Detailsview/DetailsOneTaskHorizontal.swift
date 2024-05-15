@@ -24,20 +24,26 @@ struct DetailsOneTaskHorizontal: View {
                                 .foregroundColor(.blue)
                         }
                     }
+                    .padding(-3)
 
                     LabeledContent("Task: ") {
                         Text(estimatedtask.task)
                             .foregroundColor(.blue)
                     }
+                    .padding(-3)
 
                     LabeledContent("Local catalog: ") {
                         Text(estimatedtask.localCatalog)
                             .foregroundColor(.blue)
                     }
+                    .padding(-3)
+
                     LabeledContent("Remote catalog: ") {
                         Text(estimatedtask.offsiteCatalog)
                             .foregroundColor(.blue)
                     }
+                    .padding(-3)
+
                     LabeledContent("Server: ") {
                         if estimatedtask.offsiteServer.count == 0 {
                             Text("localhost")
@@ -47,6 +53,7 @@ struct DetailsOneTaskHorizontal: View {
                                 .foregroundColor(.blue)
                         }
                     }
+                    .padding(-3)
                 }
                 .padding()
 
@@ -55,21 +62,25 @@ struct DetailsOneTaskHorizontal: View {
                         Text(estimatedtask.totalNumber)
                             .foregroundColor(.blue)
                     }
+                    .padding(-3)
 
                     LabeledContent("Total number of catalogs: ") {
                         Text(estimatedtask.totalDirs)
                             .foregroundColor(.blue)
                     }
+                    .padding(-3)
 
                     LabeledContent("Total numbers: ") {
                         Text(estimatedtask.totalNumber_totalDirs)
                             .foregroundColor(.blue)
                     }
+                    .padding(-3)
 
                     LabeledContent("Total bytes: ") {
                         Text(estimatedtask.totalNumberSizebytes)
                             .foregroundColor(.blue)
                     }
+                    .padding(-3)
                 }
                 .padding()
 
