@@ -86,23 +86,48 @@ struct DetailsOneTaskVertical: View {
 
                 Spacer()
 
-                VStack(alignment: .leading) {
-                    Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) new")
+                if estimatedtask.datatosynchronize {
+                    VStack(alignment: .leading) {
+                        Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) new")
 
-                    Text("^[\(estimatedtask.deletefiles_Int) file](inflect: true) for delete")
+                        Text("^[\(estimatedtask.deletefiles_Int) file](inflect: true) for delete")
 
-                    Text("^[\(estimatedtask.transferredNumber_Int) file](inflect: true) changed")
+                        Text("^[\(estimatedtask.transferredNumber_Int) file](inflect: true) changed")
 
-                    Text("^[\(estimatedtask.transferredNumberSizebytes_Int) byte](inflect: true) for transfer")
+                        Text("^[\(estimatedtask.transferredNumberSizebytes_Int) byte](inflect: true) for transfer")
+                    }
+                    .padding()
+                    .foregroundStyle(.white)
+                    .background {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(.blue.gradient)
+                    }
 
-                    Text("1 kB is 1000 bytes")
-                    Text("1 MB is 1 000 000 bytes")
+                    VStack(alignment: .leading) {
+                        Text("1 kB is 1000 bytes")
+                        Text("1 MB is 1 000 000 bytes")
+                    }
+                    .padding()
+                    .foregroundStyle(.white)
+                    .background {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(.blue.gradient)
+                    }
+
+                } else {
+                    Text("All set")
+                        .font(.title2)
+                        .padding()
+                        .foregroundStyle(.white)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(.blue.gradient)
+                        }
                 }
-                .padding()
             }
 
             Table(outputfromrsync.output) {
-                TableColumn("") { data in
+                TableColumn("Output from rsync") { data in
                     Text(data.line)
                 }
             }
