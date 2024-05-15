@@ -273,3 +273,16 @@ extension QuicktaskView {
         completed = true
     }
 }
+
+@Observable
+final class ObservableRsyncOutput {
+    private var output: [String]?
+
+    func setoutput(_ data: [String]?) {
+        output = data
+    }
+
+    func getoutput() -> [String]? {
+        return output
+    }
+}

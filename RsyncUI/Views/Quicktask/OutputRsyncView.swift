@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OutputRsyncView: View {
-    @State private var outputfromrsync = Outputfromrsync()
+    @State private var outputfromrsync = ObservableOutputfromrsync()
 
     var output: [String]
 

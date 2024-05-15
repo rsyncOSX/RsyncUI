@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 struct OutputRsyncVerifyView: View {
-    @State private var outputromrsync = Outputfromrsync()
+    @State private var outputromrsync = ObservableOutputfromrsync()
     @State private var progress = false
 
     let config: SynchronizeConfiguration

@@ -13,7 +13,7 @@ struct DetailsOneTaskEstimatingView: View {
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @State private var gettingremotedata = true
     @State private var estimatedtask: RemoteDataNumbers?
-    @State private var outputfromrsync = Outputfromrsync()
+    @State private var outputfromrsync = ObservableOutputfromrsync()
 
     let selecteduuids: Set<SynchronizeConfiguration.ID>
     let configurations: [SynchronizeConfiguration]
