@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct DetailsOneTaskHorizontal: View {
+struct DetailsOneTaskVertical: View {
     let estimatedtask: RemoteDataNumbers
 
     var body: some View {
