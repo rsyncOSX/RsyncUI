@@ -89,11 +89,8 @@ struct DetailsOneTaskVertical: View {
                 if estimatedtask.datatosynchronize {
                     VStack(alignment: .leading) {
                         Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) new")
-
                         Text("^[\(estimatedtask.deletefiles_Int) file](inflect: true) for delete")
-
                         Text("^[\(estimatedtask.transferredNumber_Int) file](inflect: true) changed")
-
                         Text("^[\(estimatedtask.transferredNumberSizebytes_Int) byte](inflect: true) for transfer")
                     }
                     .padding()
@@ -115,7 +112,7 @@ struct DetailsOneTaskVertical: View {
                     }
 
                 } else {
-                    Text("All set")
+                    Text("No data to synchronize")
                         .font(.title2)
                         .padding()
                         .foregroundStyle(.white)

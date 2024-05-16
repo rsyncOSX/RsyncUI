@@ -23,7 +23,7 @@ struct DetailsOneTaskEstimatingView: View {
             ZStack {
                 if gettingremotedata == false {
                     if let estimatedtask = estimatedtask {
-                        DetailsOneTask(estimatedtask: estimatedtask)
+                        DetailsOneTaskVertical(estimatedtask: estimatedtask)
                             .onDisappear(perform: {
                                 estimateprogressdetails.appendrecordestimatedlist(estimatedtask)
                             })

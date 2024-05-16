@@ -20,8 +20,6 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 | RsyncUI   | JSON  | about 11.5k | 146  | SwiftUI, declarativ     | v1.9.0 - [12 April 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  | 
 | RsyncOSX  | JSON | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 | 
 
-There is some more info about [how is RsyncUI built](https://rsyncuibuilt.netlify.app).
-
 ### Important to verify new tasks
 
 The UI of RsyncUI and RsyncOSX can for users who dont know `rsync` be difficult and complex to understand. Setting wrong parameters to `rsync` can result in deleted data.RsyncUI nor RsyncOSX will not stop you for doing so. That is why it is *very* important to execute a simulated run, a `--dry-run`, and verify the result before the real run.
