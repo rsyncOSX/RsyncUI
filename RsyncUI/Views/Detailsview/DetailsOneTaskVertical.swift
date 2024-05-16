@@ -14,75 +14,83 @@ struct DetailsOneTaskVertical: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                VStack(alignment: .leading) {
-                    LabeledContent("Synchronize ID: ") {
-                        if estimatedtask.backupID.count == 0 {
-                            Text("Synchronize ID")
-                                .foregroundColor(.blue)
-                        } else {
-                            Text(estimatedtask.backupID)
+                Form {
+                    VStack(alignment: .leading) {
+                        LabeledContent("Synchronize ID: ") {
+                            if estimatedtask.backupID.count == 0 {
+                                Text("Synchronize ID")
+                                    .foregroundColor(.blue)
+                            } else {
+                                Text(estimatedtask.backupID)
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                        .padding(-3)
+
+                        LabeledContent("Task: ") {
+                            Text(estimatedtask.task)
                                 .foregroundColor(.blue)
                         }
-                    }
-                    .padding(-3)
+                        .padding(-3)
 
-                    LabeledContent("Task: ") {
-                        Text(estimatedtask.task)
-                            .foregroundColor(.blue)
-                    }
-                    .padding(-3)
-
-                    LabeledContent("Local catalog: ") {
-                        Text(estimatedtask.localCatalog)
-                            .foregroundColor(.blue)
-                    }
-                    .padding(-3)
-
-                    LabeledContent("Remote catalog: ") {
-                        Text(estimatedtask.offsiteCatalog)
-                            .foregroundColor(.blue)
-                    }
-                    .padding(-3)
-
-                    LabeledContent("Server: ") {
-                        if estimatedtask.offsiteServer.count == 0 {
-                            Text("localhost")
-                                .foregroundColor(.blue)
-                        } else {
-                            Text(estimatedtask.offsiteServer)
+                        LabeledContent("Local catalog: ") {
+                            Text(estimatedtask.localCatalog)
                                 .foregroundColor(.blue)
                         }
+                        .padding(-3)
+
+                        LabeledContent("Remote catalog: ") {
+                            Text(estimatedtask.offsiteCatalog)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(-3)
+
+                        LabeledContent("Server: ") {
+                            if estimatedtask.offsiteServer.count == 0 {
+                                Text("localhost")
+                                    .foregroundColor(.blue)
+                            } else {
+                                Text(estimatedtask.offsiteServer)
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                        .padding(-3)
                     }
-                    .padding(-3)
                 }
-                .padding()
+                .formStyle(.grouped)
+                .frame(width: 350)
+                .padding(-3)
 
-                VStack(alignment: .leading) {
-                    LabeledContent("Total number of files: ") {
-                        Text(estimatedtask.totalNumber)
-                            .foregroundColor(.blue)
-                    }
-                    .padding(-3)
+                Form {
+                    VStack(alignment: .leading) {
+                        LabeledContent("Total number of files: ") {
+                            Text(estimatedtask.totalNumber)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(-3)
 
-                    LabeledContent("Total number of catalogs: ") {
-                        Text(estimatedtask.totalDirs)
-                            .foregroundColor(.blue)
-                    }
-                    .padding(-3)
+                        LabeledContent("Total number of catalogs: ") {
+                            Text(estimatedtask.totalDirs)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(-3)
 
-                    LabeledContent("Total numbers: ") {
-                        Text(estimatedtask.totalNumber_totalDirs)
-                            .foregroundColor(.blue)
-                    }
-                    .padding(-3)
+                        LabeledContent("Total numbers: ") {
+                            Text(estimatedtask.totalNumber_totalDirs)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(-3)
 
-                    LabeledContent("Total bytes: ") {
-                        Text(estimatedtask.totalNumberSizebytes)
-                            .foregroundColor(.blue)
+                        LabeledContent("Total bytes: ") {
+                            Text(estimatedtask.totalNumberSizebytes)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(-3)
                     }
-                    .padding(-3)
                 }
-                .padding()
+                .formStyle(.grouped)
+                .frame(width: 350)
+                .padding(-3)
 
                 Spacer()
 
@@ -104,7 +112,6 @@ struct DetailsOneTaskVertical: View {
                         Text("1 kB is 1000 bytes")
                         Text("1 MB is 1 000 000 bytes")
                     }
-                    .padding()
                     .foregroundStyle(.white)
                     .background {
                         RoundedRectangle(cornerRadius: 8)
