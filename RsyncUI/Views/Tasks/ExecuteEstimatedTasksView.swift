@@ -125,6 +125,6 @@ extension ExecuteEstimatedTasksView {
         executeprogressdetails.estimatedlist = nil
         multipletaskstate.updatestate(state: .start)
         selecteduuids.removeAll()
-        path.removeAll()
+        path.append(Tasks(task: .completedview))
     }
 }

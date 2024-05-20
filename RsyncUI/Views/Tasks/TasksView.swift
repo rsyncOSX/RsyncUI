@@ -232,7 +232,6 @@ struct TasksView: View {
                 try await Task.sleep(seconds: 1)
                 resetmessage = false
             }
-
         })
     }
 }

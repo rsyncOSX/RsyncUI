@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 struct ListofTasksMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>

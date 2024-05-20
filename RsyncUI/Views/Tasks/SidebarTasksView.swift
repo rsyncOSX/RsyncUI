@@ -9,6 +9,7 @@
 import OSLog
 import SwiftUI
 
+@MainActor
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
@@ -89,6 +90,8 @@ struct SidebarTasksView: View {
             NavigationLogfileView()
         case .quick_synchronize:
             QuicktaskView()
+        case .completedview:
+            CompletedView(path: $path)
         }
     }
 }
@@ -96,7 +99,8 @@ struct SidebarTasksView: View {
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
          estimatedview, firsttime, dryrunonetask, alltasksview,
-         dryrunonetaskalreadyestimated, viewlogfile, quick_synchronize
+         dryrunonetaskalreadyestimated, viewlogfile, quick_synchronize,
+         completedview
     var id: String { rawValue }
 }
 

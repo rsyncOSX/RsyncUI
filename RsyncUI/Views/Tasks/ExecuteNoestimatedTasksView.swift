@@ -91,6 +91,6 @@ extension ExecuteNoestimatedTasksView {
         rsyncUIdata.configurations = configurations
         progressviewshowinfo = false
         executeasyncnoestimation.reset()
-        path.removeAll()
+        path.append(Tasks(task: .completedview))
     }
 }
