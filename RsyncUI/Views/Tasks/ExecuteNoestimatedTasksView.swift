@@ -30,7 +30,6 @@ struct ExecuteNoestimatedTasksView: View {
                 configurations: rsyncUIdata.configurations ?? []
             )
 
-            if executeasyncnoestimation.executeasyncnoestimationcompleted == true { labelcompleted }
             if progressviewshowinfo { ProgressView() }
             if focusaborttask { labelaborttask }
         }
@@ -55,15 +54,6 @@ struct ExecuteNoestimatedTasksView: View {
         })
     }
 
-    // When status execution is .completed, present label and execute completed.
-    var labelcompleted: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear(perform: {
-                completed()
-                path.removeAll()
-            })
-    }
-
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -74,11 +64,6 @@ struct ExecuteNoestimatedTasksView: View {
 }
 
 extension ExecuteNoestimatedTasksView {
-    func completed() {
-        progressviewshowinfo = false
-        executeasyncnoestimation.reset()
-    }
-
     func abort() {
         selecteduuids.removeAll()
         _ = InterruptProcess()
@@ -102,7 +87,10 @@ extension ExecuteNoestimatedTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
-        Logger.process.info("updateconfigurations() in memory")
+        Logger.process.info("Updateconfigurations() in memory\n Reset data and return to main task view")
         rsyncUIdata.configurations = configurations
+        progressviewshowinfo = false
+        executeasyncnoestimation.reset()
+        path.removeAll()
     }
 }

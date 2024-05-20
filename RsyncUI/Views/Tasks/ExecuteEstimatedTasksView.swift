@@ -38,7 +38,6 @@ struct ExecuteEstimatedTasksView: View {
                 maxcount = executeprogressdetails.getmaxcountbytask()
             }
 
-            if multipletaskstate.executionstate == .completed { labelcompleted }
             if multipletaskstate.executionstate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
         }
@@ -62,19 +61,6 @@ struct ExecuteEstimatedTasksView: View {
                 .help("Abort (⌘K)")
             }
         })
-    }
-
-    // When status execution is .completed, present label and execute completed.
-    var labelcompleted: some View {
-        Label(multipletaskstate.executionstate.rawValue, systemImage: "play.fill")
-            .onAppear(perform: {
-                executeprogressdetails.hiddenIDatwork = -1
-                executeprogressdetails.estimatedlist = nil
-                multipletaskstate.updatestate(state: .start)
-                selecteduuids.removeAll()
-                path.removeAll()
-                Logger.process.info("labelcompleted")
-            })
     }
 
     var labelaborttask: some View {
@@ -133,7 +119,12 @@ extension ExecuteEstimatedTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
-        Logger.process.info("updateconfigurations() in memory")
+        Logger.process.info("Updateconfigurations() in memory\n Reset data and return to main task view")
         rsyncUIdata.configurations = configurations
+        executeprogressdetails.hiddenIDatwork = -1
+        executeprogressdetails.estimatedlist = nil
+        multipletaskstate.updatestate(state: .start)
+        selecteduuids.removeAll()
+        path.removeAll()
     }
 }
