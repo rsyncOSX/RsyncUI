@@ -8,7 +8,6 @@
 import OSLog
 import SwiftUI
 
-@MainActor
 struct ExecuteNoestimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<UUID>

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@MainActor
 struct ConfigurationsTableDataMainView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var filterstring: String

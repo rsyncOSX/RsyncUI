@@ -9,7 +9,6 @@
 import OSLog
 import SwiftUI
 
-@MainActor
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>

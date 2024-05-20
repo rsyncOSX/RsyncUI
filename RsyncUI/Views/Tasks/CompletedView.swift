@@ -15,7 +15,7 @@ struct CompletedView: View {
             .font(.title2)
             .onAppear(perform: {
                 Task {
-                    try await Task.sleep(seconds: 2)
+                    try await Task.sleep(seconds: 1)
                     path.removeAll()
                 }
             })

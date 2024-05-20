@@ -468,12 +468,10 @@ struct AddTaskView: View {
 }
 
 extension AddTaskView {
-    @MainActor
     func addconfig() {
         rsyncUIdata.configurations = newdata.addconfig(selectedprofile, rsyncUIdata.configurations)
     }
 
-    @MainActor
     func validateandupdate() {
         rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
     }
