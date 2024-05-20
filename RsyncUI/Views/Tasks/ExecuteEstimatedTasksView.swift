@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 struct ExecuteEstimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var executeprogressdetails: ExecuteProgressDetails
