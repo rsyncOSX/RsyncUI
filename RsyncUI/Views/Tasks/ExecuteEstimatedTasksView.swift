@@ -68,8 +68,12 @@ struct ExecuteEstimatedTasksView: View {
     var labelcompleted: some View {
         Label(multipletaskstate.executionstate.rawValue, systemImage: "play.fill")
             .onAppear(perform: {
-                completed()
+                executeprogressdetails.hiddenIDatwork = -1
+                executeprogressdetails.estimatedlist = nil
+                multipletaskstate.updatestate(state: .start)
+                selecteduuids.removeAll()
                 path.removeAll()
+                Logger.process.info("labelcompleted")
             })
     }
 
@@ -85,14 +89,6 @@ struct ExecuteEstimatedTasksView: View {
 extension ExecuteEstimatedTasksView {
     func filehandler(count: Int) {
         progress = Double(count)
-    }
-
-    func completed() {
-        executeprogressdetails.hiddenIDatwork = -1
-        executeprogressdetails.estimatedlist = nil
-        multipletaskstate.updatestate(state: .start)
-        selecteduuids.removeAll()
-        path.removeAll()
     }
 
     func abort() {
