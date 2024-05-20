@@ -57,8 +57,6 @@ struct TasksView: View {
     @State private var showingAlert = false
     // Progress synchronizing
     @State private var progress: Double = 0
-    // Show reset message
-    @State private var resetmessage: Bool = false
     // Show completed
     @State private var completedmessage: Bool = false
     // Noy used, only for parameter
@@ -89,12 +87,15 @@ struct TasksView: View {
             .onChange(of: rsyncUIdata.profile) {
                 reset()
             }
+            .onChange(of: path) {
+                guard path.isEmpty == true else { return }
+                reset()
+            }
 
             Group {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
                 if doubleclick { doubleclickaction }
-                if resetmessage { notifyresetestimate }
             }
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
@@ -217,23 +218,6 @@ struct TasksView: View {
                 focusstartexecution = false
             })
     }
-
-    var notifyresetestimate: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Reset estimates")
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 200, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-        .onAppear(perform: {
-            Task {
-                try await Task.sleep(seconds: 1)
-                resetmessage = false
-            }
-        })
-    }
 }
 
 extension TasksView {
@@ -306,11 +290,9 @@ extension TasksView {
     }
 
     func reset() {
-        guard executeprogressdetails.estimatedlist != nil else { return }
         executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
-        resetmessage = true
     }
 }
