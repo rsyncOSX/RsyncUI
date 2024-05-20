@@ -59,6 +59,8 @@ struct TasksView: View {
     @State private var progress: Double = 0
     // Show reset message
     @State private var resetmessage: Bool = false
+    // Show completed
+    @State private var completedmessage: Bool = false
     // Noy used, only for parameter
     @State private var maxcount: Double = 0
 
@@ -87,7 +89,7 @@ struct TasksView: View {
             .onChange(of: rsyncUIdata.profile) {
                 reset()
             }
-
+    
             Group {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
