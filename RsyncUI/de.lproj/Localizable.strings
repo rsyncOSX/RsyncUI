@@ -22,12 +22,6 @@
 /* No comment provided by engineer. */
 "^[%lld file](inflect: true) new" = "^[%lld Datei](inflect: true) neu";
 
-/* No comment provided by engineer. */
-"1 kB is 1000 bytes" = "1 kB sind 1000 Bytes";
-
-/* No comment provided by engineer. */
-"1 MB is 1 000 000 bytes" = "1 MB sind 1 000 000 Bytes";
-
 /* (No Comment) */
 "Abort" = "Abbrechen";
 
@@ -260,6 +254,9 @@
 "New version is available" = "Neue Version ist verfügbar";
 
 /* No comment provided by engineer. */
+"No data to synchronize" = "Keine Daten zum Synchronisieren";
+
+/* No comment provided by engineer. */
 "No error" = "Kein Fehler";
 
 /* No comment provided by engineer. */
@@ -279,6 +276,9 @@
 
 /* No comment provided by engineer. */
 "Output" = "Ausgabe";
+
+/* No comment provided by engineer. */
+"Output from rsync" = "Ausgabe von rsync";
 
 /* No comment provided by engineer. */
 "Path for restore" = "Pfad zum Wiederherstellen";

@@ -22,12 +22,6 @@
 /* No comment provided by engineer. */
 "^[%lld file](inflect: true) new" = "^[%lld fil](inflect: true) nye";
 
-/* No comment provided by engineer. */
-"1 kB is 1000 bytes" = "1 kB er 1000 bytes";
-
-/* No comment provided by engineer. */
-"1 MB is 1 000 000 bytes" = "1 MB er 1 000 000 bytes";
-
 /* (No Comment) */
 "Abort" = "Avbryt";
 
@@ -260,6 +254,9 @@
 "New version is available" = "Ny versjon er tilgjengelig";
 
 /* No comment provided by engineer. */
+"No data to synchronize" = "Ingen data å synchronisere";
+
+/* No comment provided by engineer. */
 "No error" = "Ingen feil";
 
 /* No comment provided by engineer. */
@@ -279,6 +276,9 @@
 
 /* No comment provided by engineer. */
 "Output" = "Utdata";
+
+/* No comment provided by engineer. */
+"Output from rsync" = "Utdata fra rsync";
 
 /* No comment provided by engineer. */
 "Path for restore" = "Sti for gjenoppretting";

@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 27/04/2021.
 //
-// swiftlint:disable line_length
+// swiftlint:disable line_length non_optional_string_data_conversion
 
 import Combine
 import Foundation
@@ -72,4 +72,4 @@ class WriteConfigurationJSON: NamesandPaths {
     }
 }
 
-// swiftlint:enable line_length
+// swiftlint:enable line_length non_optional_string_data_conversion

@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 27/04/2021.
 //
+// swiftlint: disable non_optional_string_data_conversion
 
 import Combine
 import Foundation
@@ -68,3 +69,5 @@ class WriteLogRecordsJSON: NamesandPaths {
             .store(in: &subscriptons)
     }
 }
+
+// swiftlint: enable non_optional_string_data_conversion

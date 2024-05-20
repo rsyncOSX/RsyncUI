@@ -99,17 +99,7 @@ struct DetailsOneTaskVertical: View {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(.blue.gradient)
                     }
-
-                    VStack(alignment: .leading) {
-                        Text("1 kB is 1000 bytes")
-                        Text("1 MB is 1 000 000 bytes")
-                    }
                     .padding()
-                    .foregroundStyle(.white)
-                    .background {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(.blue.gradient)
-                    }
 
                 } else {
                     Text("No data to synchronize")
