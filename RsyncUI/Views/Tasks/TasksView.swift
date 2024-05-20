@@ -89,7 +89,7 @@ struct TasksView: View {
             .onChange(of: rsyncUIdata.profile) {
                 reset()
             }
-    
+
             Group {
                 if focusstartestimation { labelstartestimation }
                 if focusstartexecution { labelstartexecution }
