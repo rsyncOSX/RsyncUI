@@ -8,6 +8,7 @@
 import OSLog
 import SwiftUI
 
+@MainActor
 struct ExecuteNoestimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<UUID>
@@ -86,7 +87,7 @@ extension ExecuteNoestimatedTasksView {
     }
 
     func executeallnoestimationtasks() {
-        Logger.process.info("ExecuteallNOtestimatedtasks() : \(selecteduuids, privacy: .public)")
+        Logger.process.info("executeallnoestimationtasks(): \(selecteduuids, privacy: .public)")
         executeasyncnoestimation.startasyncexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
             executetasks =
@@ -101,6 +102,7 @@ extension ExecuteNoestimatedTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
+        Logger.process.info("updateconfigurations() in memory")
         rsyncUIdata.configurations = configurations
     }
 }

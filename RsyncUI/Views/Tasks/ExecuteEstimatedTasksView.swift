@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 11/11/2023.
 //
 
+import OSLog
 import SwiftUI
 
 @MainActor
@@ -103,6 +104,7 @@ extension ExecuteEstimatedTasksView {
     }
 
     func executemultipleestimatedtasks() {
+        Logger.process.info("executemultipleestimatedtasks(): \(selecteduuids, privacy: .public)")
         var uuids: Set<SynchronizeConfiguration.ID>?
         if selecteduuids.count > 0 {
             uuids = selecteduuids
@@ -135,6 +137,7 @@ extension ExecuteEstimatedTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
+        Logger.process.info("updateconfigurations() in memory")
         rsyncUIdata.configurations = configurations
     }
 }
