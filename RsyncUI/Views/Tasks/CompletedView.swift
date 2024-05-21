@@ -11,7 +11,7 @@ struct CompletedView: View {
     @Binding var path: [Tasks]
 
     var body: some View {
-        Text("Synchronization completed")
+        Text("Synchronize data completed")
             .font(.title2)
             .onAppear(perform: {
                 Task {
