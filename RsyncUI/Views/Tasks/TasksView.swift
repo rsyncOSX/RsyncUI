@@ -59,8 +59,10 @@ struct TasksView: View {
     @State private var progress: Double = 0
     // Show completed
     @State private var completedmessage: Bool = false
-    // Noy used, only for parameter
+    // Not used, only for parameter
     @State private var maxcount: Double = 0
+    // For estimates is true
+    @State private var thereisestimates: Bool = false
 
     var body: some View {
         ZStack {
@@ -87,9 +89,12 @@ struct TasksView: View {
             .onChange(of: rsyncUIdata.profile) {
                 reset()
             }
-            .onChange(of: path) {
-                guard path.isEmpty == true else { return }
-                reset()
+            .onChange(of: estimateprogressdetails.estimatedlist) {
+                if estimateprogressdetails.estimatedlist == nil {
+                    thereisestimates = false
+                } else {
+                    thereisestimates = true
+                }
             }
 
             Group {
@@ -126,11 +131,11 @@ struct TasksView: View {
                     selecteduuids.removeAll()
                     reset()
                 } label: {
-                    if executeprogressdetails.estimatedlist == nil {
-                        Image(systemName: "clear")
-                    } else {
+                    if thereisestimates == true {
                         Image(systemName: "clear")
                             .foregroundColor(Color(.red))
+                    } else {
+                        Image(systemName: "clear")
                     }
                 }
                 .help("Reset estimates")
@@ -294,5 +299,6 @@ extension TasksView {
         estimateprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
+        thereisestimates = false
     }
 }
