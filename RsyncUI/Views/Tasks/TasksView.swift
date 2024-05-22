@@ -62,7 +62,7 @@ struct TasksView: View {
     // Not used, only for parameter
     @State private var maxcount: Double = 0
     // For estimates is true
-    @State private var thereisestimates: Bool = false
+    @State private var thereareestimates: Bool = false
 
     var body: some View {
         ZStack {
@@ -91,9 +91,9 @@ struct TasksView: View {
             }
             .onChange(of: estimateprogressdetails.estimatedlist) {
                 if estimateprogressdetails.estimatedlist == nil {
-                    thereisestimates = false
+                    thereareestimates = false
                 } else {
-                    thereisestimates = true
+                    thereareestimates = true
                 }
             }
 
@@ -131,7 +131,7 @@ struct TasksView: View {
                     selecteduuids.removeAll()
                     reset()
                 } label: {
-                    if thereisestimates == true {
+                    if thereareestimates == true {
                         Image(systemName: "clear")
                             .foregroundColor(Color(.red))
                     } else {
@@ -229,7 +229,8 @@ extension TasksView {
     func doubleclickactionfunction() {
         if estimateprogressdetails.getestimatedlist() == nil {
             dryrun()
-        } else if estimateprogressdetails.tasksareestimated(selecteduuids) {
+        } else if estimateprogressdetails.onlyselectedtaskisestimated(selecteduuids) {
+            // Only execute task if this task only is estimated
             Logger.process.info("Doubleclick: execute a real run for one task only")
             executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
             execute()
@@ -299,6 +300,6 @@ extension TasksView {
         estimateprogressdetails.resetcounts()
         estimatingstate.updatestate(state: .start)
         selectedconfig.config = nil
-        thereisestimates = false
+        thereareestimates = false
     }
 }

@@ -34,6 +34,13 @@ final class EstimateProgressDetails {
         return answer?.count == uuids.count
     }
 
+    func onlyselectedtaskisestimated(_ uuids: Set<UUID>) -> Bool {
+        let answer = estimatedlist?.filter {
+            uuids.contains($0.id)
+        }
+        return (answer?.count ?? 0 == 1) && (estimatedlist?.count ?? 0 == 1)
+    }
+
     func getprofile() -> String {
         return profile ?? "Default profile"
     }

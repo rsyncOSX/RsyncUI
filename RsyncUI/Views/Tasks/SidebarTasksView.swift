@@ -91,7 +91,15 @@ struct SidebarTasksView: View {
             QuicktaskView()
         case .completedview:
             CompletedView(path: $path)
+                .onAppear {
+                    reset()
+                }
         }
+    }
+
+    func reset() {
+        executeprogressdetails.estimatedlist = nil
+        estimateprogressdetails.resetcounts()
     }
 }
 
