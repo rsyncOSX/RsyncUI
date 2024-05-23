@@ -25,6 +25,10 @@ struct OutputRsyncByUUIDView: View {
         .onAppear {
             outputfromrsync.generateoutput(rsyncoutput)
         }
+        .onChange(of: selecteduuids) {
+            outputfromrsync.output.removeAll()
+            outputfromrsync.generateoutput(rsyncoutput)
+        }
     }
 
     var rsyncoutput: [String] {
