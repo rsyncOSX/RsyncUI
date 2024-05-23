@@ -12,10 +12,14 @@ import UserNotifications
 @main
 struct RsyncUIApp: App {
     @State private var selectedprofile: String? = SharedReference.shared.defaultprofile
+    @State private var estimateprogressdetails = EstimateProgressDetails()
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     var body: some Scene {
         Window("RsyncUI", id: "main") {
-            RsyncUIView(selectedprofile: $selectedprofile)
+            RsyncUIView(selectedprofile: $selectedprofile,
+                        selecteduuids: $selecteduuids,
+                        estimateprogressdetails: estimateprogressdetails)
                 .task {
                     CatalogProfile().createrootprofilecatalog()
                 }
@@ -40,6 +44,11 @@ struct RsyncUIApp: App {
 
         Window("View logfile", id: "logfile") {
             NavigationLogfileView()
+        }
+
+        Window("Rsync output", id: "output") {
+            OutputRsyncByUUIDView(estimateprogressdetails: estimateprogressdetails,
+                                  selecteduuids: $selecteduuids)
         }
 
         Settings {

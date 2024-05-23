@@ -14,6 +14,8 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
 
 struct Sidebar: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Bindable var estimateprogressdetails: EstimateProgressDetails
+
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Bindable var errorhandling: AlertError
@@ -75,7 +77,9 @@ struct Sidebar: View {
         case .snapshots:
             SnapshotsView(rsyncUIdata: rsyncUIdata)
         case .synchronize:
-            SidebarTasksView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
+            SidebarTasksView(rsyncUIdata: rsyncUIdata,
+                             selecteduuids: $selecteduuids,
+                             estimateprogressdetails: estimateprogressdetails)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         }

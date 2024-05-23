@@ -12,9 +12,10 @@ import SwiftUI
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    @Bindable var estimateprogressdetails: EstimateProgressDetails
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
-    @State private var estimateprogressdetails = EstimateProgressDetails()
+    // @State private var estimateprogressdetails = EstimateProgressDetails()
     // Which view to show
     @State var path: [Tasks] = []
 

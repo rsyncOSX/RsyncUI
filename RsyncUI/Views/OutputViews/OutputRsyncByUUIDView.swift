@@ -12,7 +12,6 @@ struct OutputRsyncByUUIDView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var outputfromrsync = ObservableOutputfromrsync()
-    @State private var output: [String]
 
     var body: some View {
         VStack {
@@ -24,12 +23,15 @@ struct OutputRsyncByUUIDView: View {
         }
         .padding()
         .onAppear {
-            if let index = estimateprogressdetails.estimatedlist?.firstIndex(where: { $0.id == selecteduuids.first }) {
-                output = estimateprogressdetails.estimatedlist?[index].outputfromrsync ?? []
-            } else {
-                output = []
-            }
-            outputfromrsync.generateoutput(output)
+            outputfromrsync.generateoutput(rsyncoutput)
+        }
+    }
+
+    var rsyncoutput: [String] {
+        if let index = estimateprogressdetails.estimatedlist?.firstIndex(where: { $0.id == selecteduuids.first }) {
+            return estimateprogressdetails.estimatedlist?[index].outputfromrsync ?? []
+        } else {
+            return []
         }
     }
 }
