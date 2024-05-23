@@ -38,6 +38,10 @@ struct RsyncUIApp: App {
             }
         }
 
+        Window("View logfile", id: "logfile") {
+            NavigationLogfileView()
+        }
+
         Settings {
             SettingsView()
         }

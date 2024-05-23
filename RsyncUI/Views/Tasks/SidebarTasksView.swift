@@ -85,8 +85,6 @@ struct SidebarTasksView: View {
             }
         case .alltasksview:
             AlltasksView()
-        case .viewlogfile:
-            NavigationLogfileView()
         case .quick_synchronize:
             QuicktaskView()
         case .completedview:
@@ -106,7 +104,7 @@ struct SidebarTasksView: View {
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
          estimatedview, firsttime, dryrunonetask, alltasksview,
-         dryrunonetaskalreadyestimated, viewlogfile, quick_synchronize,
+         dryrunonetaskalreadyestimated, quick_synchronize,
          completedview
     var id: String { rawValue }
 }
