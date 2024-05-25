@@ -16,7 +16,7 @@ struct OutputRsyncVerifyView: View {
     var body: some View {
         ZStack {
             Table(outputromrsync.output) {
-                TableColumn("Output") { data in
+                TableColumn("Output from rsync") { data in
                     Text(data.line)
                 }
             }

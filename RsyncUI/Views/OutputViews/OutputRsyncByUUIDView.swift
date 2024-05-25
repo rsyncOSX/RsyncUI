@@ -16,7 +16,7 @@ struct OutputRsyncByUUIDView: View {
     var body: some View {
         VStack {
             Table(outputfromrsync.output) {
-                TableColumn("Output") { data in
+                TableColumn("Output from rsync") { data in
                     Text(data.line)
                 }
             }

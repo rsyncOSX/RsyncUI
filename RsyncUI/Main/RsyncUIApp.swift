@@ -42,11 +42,11 @@ struct RsyncUIApp: App {
             }
         }
 
-        Window("View logfile", id: "logfile") {
+        Window("Logfile", id: "logfile") {
             NavigationLogfileView()
         }
 
-        Window("Rsync output", id: "output") {
+        Window("Output from rsync", id: "output") {
             OutputRsyncByUUIDView(estimateprogressdetails: estimateprogressdetails,
                                   selecteduuids: $selecteduuids)
         }

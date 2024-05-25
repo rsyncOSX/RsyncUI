@@ -145,7 +145,7 @@ struct RestoreTableView: View {
                     } label: {
                         Image(systemName: "doc.plaintext")
                     }
-                    .help("View output")
+                    .help("Output from rsync")
                 }
 
                 ToolbarItem {
