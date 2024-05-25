@@ -35,7 +35,7 @@ struct OutputRsyncByUUIDView: View {
         if let index = estimateprogressdetails.estimatedlist?.firstIndex(where: { $0.id == selecteduuids.first }) {
             return estimateprogressdetails.estimatedlist?[index].outputfromrsync ?? []
         } else {
-            return ["Select a task or not estimated"]
+            return ["Either select a task or the task is not estimated"]
         }
     }
 }
