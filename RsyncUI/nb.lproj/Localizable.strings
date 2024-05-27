@@ -275,9 +275,6 @@
 "Other settings" = "Andre settinger";
 
 /* No comment provided by engineer. */
-"Output" = "Utdata";
-
-/* No comment provided by engineer. */
 "Output from rsync" = "Utdata fra rsync";
 
 /* No comment provided by engineer. */
@@ -380,6 +377,9 @@
 "Synchronize all tasks with NO estimating first?" = "Synkroniser alle oppgaver UTEN å estimere først?";
 
 /* No comment provided by engineer. */
+"Synchronize data is completed" = "Synkronisering data er ferdig";
+
+/* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";
 
 /* No comment provided by engineer. */
@@ -450,12 +450,6 @@
 
 /* No comment provided by engineer. */
 "Verify task" = "Verifiser oppgave";
-
-/* No comment provided by engineer. */
-"View logfile" = "Vis loggfil";
-
-/* No comment provided by engineer. */
-"View output" = "Se logg";
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Velkommen til RsyncUI";

@@ -275,9 +275,6 @@
 "Other settings" = "Andere Einstellungen";
 
 /* No comment provided by engineer. */
-"Output" = "Ausgabe";
-
-/* No comment provided by engineer. */
 "Output from rsync" = "Ausgabe von rsync";
 
 /* No comment provided by engineer. */
@@ -380,6 +377,9 @@
 "Synchronize all tasks with NO estimating first?" = "Alle Aufgaben ohne vorherige Schätzung synchronisieren?";
 
 /* No comment provided by engineer. */
+"Synchronize data is completed" = "Die Synchronisierung der Daten ist abgeschlossen";
+
+/* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
@@ -450,12 +450,6 @@
 
 /* No comment provided by engineer. */
 "Verify task" = "Aufgabe verifizieren";
-
-/* No comment provided by engineer. */
-"View logfile" = "Logdatei anzeigen";
-
-/* No comment provided by engineer. */
-"View output" = "Ausgabe anzeigen";
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Willkommen bei RsyncUI";
