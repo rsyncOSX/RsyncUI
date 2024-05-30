@@ -11,8 +11,6 @@ import SwiftUI
 @MainActor
 struct RsyncUIView: View {
     @Binding var selectedprofile: String?
-    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
 
     @State private var newversion = CheckfornewversionofRsyncUI()
     @State private var rsyncversion = Rsyncversion()
@@ -37,9 +35,7 @@ struct RsyncUIView: View {
                 })
             } else {
                 Sidebar(rsyncUIdata: rsyncUIdata,
-                        estimateprogressdetails: estimateprogressdetails,
                         selectedprofile: $selectedprofile,
-                        selecteduuids: $selecteduuids,
                         errorhandling: errorhandling)
             }
 

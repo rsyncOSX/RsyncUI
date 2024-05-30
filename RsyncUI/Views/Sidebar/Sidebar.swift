@@ -14,11 +14,11 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
 
 struct Sidebar: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
-
     @Binding var selectedprofile: String?
-    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Bindable var errorhandling: AlertError
+
+    @State private var estimateprogressdetails = EstimateProgressDetails()
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedview: Sidebaritems = .synchronize
 
     var body: some View {
