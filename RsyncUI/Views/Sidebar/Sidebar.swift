@@ -84,11 +84,16 @@ struct Sidebar: View {
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         case .rsync_output:
             if let index = estimateprogressdetails.estimatedlist?.firstIndex(where: { $0.id == selecteduuids.first }) {
-                if let estimatedtask = estimateprogressdetails.estimatedlist?[index] {
-                    OutputRsyncByUUIDView(estimateprogressdetails: estimateprogressdetails,
-                                          selecteduuids: $selecteduuids,
-                                          estimatedtask: estimatedtask)
+                if let estimatedtask = estimateprogressdetails.estimatedlist?[index],
+                   let rsyncoutput = estimateprogressdetails.estimatedlist?[index].outputfromrsync
+                {
+                    OutputRsyncByUUIDView(selecteduuids: $selecteduuids,
+                                          estimatedtask: estimatedtask,
+                                          rsyncoutput: rsyncoutput)
                 }
+            } else {
+                Text("Either select a task or the task is not estimated")
+                    .font(.title2)
             }
         }
     }

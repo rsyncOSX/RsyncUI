@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct OutputRsyncByUUIDView: View {
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-
     @State private var outputfromrsync = ObservableOutputfromrsync()
 
     let estimatedtask: RemoteDataNumbers
+    let rsyncoutput: [String]
 
     var body: some View {
         HStack {
@@ -130,14 +129,6 @@ struct OutputRsyncByUUIDView: View {
         .onChange(of: selecteduuids) {
             outputfromrsync.output.removeAll()
             outputfromrsync.generateoutput(rsyncoutput)
-        }
-    }
-
-    var rsyncoutput: [String] {
-        if let index = estimateprogressdetails.estimatedlist?.firstIndex(where: { $0.id == selecteduuids.first }) {
-            return estimateprogressdetails.estimatedlist?[index].outputfromrsync ?? []
-        } else {
-            return ["Either select a task or the task is not estimated"]
         }
     }
 }
