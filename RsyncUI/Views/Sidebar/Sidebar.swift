@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles
+    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles, rsync_output
     var id: String { rawValue }
 }
 
@@ -82,6 +82,14 @@ struct Sidebar: View {
                              estimateprogressdetails: estimateprogressdetails)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
+        case .rsync_output:
+            if let index = estimateprogressdetails.estimatedlist?.firstIndex(where: { $0.id == selecteduuids.first }) {
+                if let estimatedtask = estimateprogressdetails.estimatedlist?[index] {
+                    OutputRsyncByUUIDView(estimateprogressdetails: estimateprogressdetails,
+                                          selecteduuids: $selecteduuids,
+                                          estimatedtask: estimatedtask)
+                }
+            }
         }
     }
 
@@ -130,6 +138,8 @@ struct SidebarRow: View {
             return "arrowshape.turn.up.backward"
         case .profiles:
             return "arrow.triangle.branch"
+        case .rsync_output:
+            return "info"
         }
     }
 }

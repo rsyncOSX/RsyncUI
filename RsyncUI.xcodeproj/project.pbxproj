@@ -413,6 +413,7 @@
 				E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */,
 				E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */,
 				E9541A5B2BFF89B200638B2E /* OutputRsyncByUUIDView.swift */,
+				E9493E4A2BF4DB1000512A8A /* DetailsOneTaskVertical.swift */,
 			);
 			path = OutputViews;
 			sourceTree = "<group>";
@@ -552,7 +553,6 @@
 				E99B562F2AFFAD1800D4AA5A /* DetailsOneTaskEstimatingView.swift */,
 				E954AD402AFE8FBB00F3EA63 /* DetailsSummarizedTasksView.swift */,
 				E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */,
-				E9493E4A2BF4DB1000512A8A /* DetailsOneTaskVertical.swift */,
 			);
 			path = Detailsview;
 			sourceTree = "<group>";
