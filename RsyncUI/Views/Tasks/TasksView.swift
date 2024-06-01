@@ -170,6 +170,15 @@ struct TasksView: View {
 
             ToolbarItem {
                 Button {
+                    path.append(Tasks(task: .viewlogfile))
+                } label: {
+                    Image(systemName: "doc.plaintext")
+                }
+                .help("View logfile")
+            }
+
+            ToolbarItem {
+                Button {
                     path.append(Tasks(task: .quick_synchronize))
                 } label: {
                     Image(systemName: "hare")

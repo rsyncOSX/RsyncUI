@@ -93,6 +93,8 @@ struct SidebarTasksView: View {
                 .onAppear {
                     reset()
                 }
+        case .viewlogfile:
+            NavigationLogfileView()
         }
     }
 
@@ -106,7 +108,7 @@ enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
          estimatedview, firsttime, dryrunonetask, alltasksview,
          dryrunonetaskalreadyestimated, quick_synchronize,
-         completedview
+         completedview, viewlogfile
     var id: String { rawValue }
 }
 
