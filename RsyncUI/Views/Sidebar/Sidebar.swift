@@ -144,7 +144,7 @@ struct SidebarRow: View {
         case .profiles:
             return "arrow.triangle.branch"
         case .rsync_output:
-            return "info"
+            return "text.magnifyingglass"
         }
     }
 }
