@@ -27,13 +27,18 @@ struct Sshsettings: View {
                     VStack(alignment: .leading) {
                         ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $localsshkeys)
                             .disabled(true)
-
-                        setsshpath
-
-                        setsshport
                     }
                 } header: {
                     Text("SSH keys")
+                }
+
+                Section {
+                    setsshpath
+
+                    setsshport
+
+                } header: {
+                    Text("SSH path and port")
                 }
             }
             .formStyle(.grouped)
