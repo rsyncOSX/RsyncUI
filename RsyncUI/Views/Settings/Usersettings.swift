@@ -19,92 +19,91 @@ struct Usersettings: View {
 
     var body: some View {
         Form {
-            VStack(alignment: .leading) {
-                Section {
-                    HStack {
-                        ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""),
-                                          $usersettings.rsyncversion3)
-                            .onChange(of: usersettings.rsyncversion3) {
-                                SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
-                                rsyncversion.getrsyncversion()
-                                defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
-                            }
+            // VStack(alignment: .leading) {
+            Section {
+                HStack {
+                    ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""),
+                                      $usersettings.rsyncversion3)
+                        .onChange(of: usersettings.rsyncversion3) {
+                            SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
+                            rsyncversion.getrsyncversion()
+                            defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
+                        }
 
-                        ToggleViewDefault(NSLocalizedString("Apple Silicon", comment: ""),
-                                          $usersettings.macosarm)
-                            .onChange(of: usersettings.macosarm) {
-                                SharedReference.shared.macosarm = usersettings.macosarm
-                            }
-                            .disabled(true)
-                    }
-                } header: {
-                    Text("Version rsync")
+                    ToggleViewDefault(NSLocalizedString("Apple Silicon", comment: ""),
+                                      $usersettings.macosarm)
+                        .onChange(of: usersettings.macosarm) {
+                            SharedReference.shared.macosarm = usersettings.macosarm
+                        }
+                        .disabled(true)
                 }
-
-                Section {
-                    if usersettings.localrsyncpath.isEmpty == true {
-                        setrsyncpathdefault
-                    } else {
-                        setrsyncpathlocalpath
-                    }
-                } header: {
-                    Text("Path rsync")
-                }
-
-                Section {
-                    setpathforrestore
-                } header: {
-                    Text("Path for restore")
-                }
-
-                Section {
-                    HStack {
-                        Text("Days :")
-
-                        TextField("",
-                                  text: $usersettings.marknumberofdayssince)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(width: 45)
-                            .lineLimit(1)
-                            .onChange(of: usersettings.marknumberofdayssince) {
-                                usersettings.markdays(days: usersettings.marknumberofdayssince)
-                            }
-                    }
-                } header: {
-                    Text("Mark days")
-                }
+            } header: {
+                Text("Version rsync")
             }
 
-            VStack(alignment: .leading) {
-                Section {
-                    ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
-                        .onChange(of: usersettings.monitornetworkconnection) {
-                            SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
-                        }
-                    ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
-                        .onChange(of: usersettings.checkforerrorinrsyncoutput) {
-                            SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
-                        }
-                    ToggleViewDefault(NSLocalizedString("Add summary to logfile", comment: ""), $usersettings.detailedlogging)
-                        .onChange(of: usersettings.detailedlogging) {
-                            SharedReference.shared.detailedlogging = usersettings.detailedlogging
-                        }
-                    ToggleViewDefault(NSLocalizedString("Log summary to file", comment: ""),
-                                      $usersettings.logtofile)
-                        .onChange(of: usersettings.logtofile) {
-                            SharedReference.shared.logtofile = usersettings.logtofile
-                        }
-
-                    if SharedReference.shared.rsyncversion3 {
-                        ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
-                            .onChange(of: usersettings.confirmexecute) {
-                                SharedReference.shared.confirmexecute = usersettings.confirmexecute
-                            }
-                    }
-                } header: {
-                    Text("Other settings")
+            Section {
+                if usersettings.localrsyncpath.isEmpty == true {
+                    setrsyncpathdefault
+                } else {
+                    setrsyncpathlocalpath
                 }
+            } header: {
+                Text("Path rsync")
             }
+
+            Section {
+                setpathforrestore
+            } header: {
+                Text("Path for restore")
+            }
+
+            Section {
+                HStack {
+                    Text("Days :")
+
+                    TextField("",
+                              text: $usersettings.marknumberofdayssince)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(width: 45)
+                        .lineLimit(1)
+                        .onChange(of: usersettings.marknumberofdayssince) {
+                            usersettings.markdays(days: usersettings.marknumberofdayssince)
+                        }
+                }
+            } header: {
+                Text("Mark days")
+            }
+
+            // VStack(alignment: .leading) {
+            Section {
+                ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
+                    .onChange(of: usersettings.monitornetworkconnection) {
+                        SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
+                    }
+                ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
+                    .onChange(of: usersettings.checkforerrorinrsyncoutput) {
+                        SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
+                    }
+                ToggleViewDefault(NSLocalizedString("Add summary to logfile", comment: ""), $usersettings.detailedlogging)
+                    .onChange(of: usersettings.detailedlogging) {
+                        SharedReference.shared.detailedlogging = usersettings.detailedlogging
+                    }
+                ToggleViewDefault(NSLocalizedString("Log summary to file", comment: ""),
+                                  $usersettings.logtofile)
+                    .onChange(of: usersettings.logtofile) {
+                        SharedReference.shared.logtofile = usersettings.logtofile
+                    }
+
+                if SharedReference.shared.rsyncversion3 {
+                    ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
+                        .onChange(of: usersettings.confirmexecute) {
+                            SharedReference.shared.confirmexecute = usersettings.confirmexecute
+                        }
+                }
+            } header: {
+                Text("Other settings")
+            }
+            // }
         }
         .formStyle(.grouped)
         .alert(isPresented: $usersettings.alerterror,

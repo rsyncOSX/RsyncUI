@@ -1,5 +1,5 @@
 //
-//  Othersettings.swift
+//  Environmentsettings.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 03/03/2021.
@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-struct Othersettings: View {
+struct Environmentsettings: View {
     @State private var environmentvalue: String = ""
     @State private var environment: String = ""
     // Settings are changed

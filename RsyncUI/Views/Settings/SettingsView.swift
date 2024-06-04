@@ -46,7 +46,7 @@ struct SettingsView: View {
                     .environment(alerterror)
             }
         case .environment:
-            Othersettings()
+            Environmentsettings()
         case .info:
             AboutView()
         }

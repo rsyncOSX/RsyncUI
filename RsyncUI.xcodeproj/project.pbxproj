@@ -50,7 +50,7 @@
 		E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61425F3AD8400CB895C /* Profilenames.swift */; };
 		E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61B25F3AD8400CB895C /* Sshsettings.swift */; };
 		E985C66325F3AD8400CB895C /* Usersettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61C25F3AD8400CB895C /* Usersettings.swift */; };
-		E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61D25F3AD8400CB895C /* Othersettings.swift */; };
+		E985C66425F3AD8400CB895C /* Environmentsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61D25F3AD8400CB895C /* Environmentsettings.swift */; };
 		E985C66725F3AD8400CB895C /* Viewmodifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62225F3AD8400CB895C /* Viewmodifiers.swift */; };
 		E985C66B25F3AD8400CB895C /* SnapshotListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62825F3AD8400CB895C /* SnapshotListView.swift */; };
 		E985C66C25F3AD8400CB895C /* SnapshotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C62925F3AD8400CB895C /* SnapshotsView.swift */; };
@@ -232,7 +232,7 @@
 		E985C61425F3AD8400CB895C /* Profilenames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profilenames.swift; sourceTree = "<group>"; };
 		E985C61B25F3AD8400CB895C /* Sshsettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sshsettings.swift; sourceTree = "<group>"; };
 		E985C61C25F3AD8400CB895C /* Usersettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Usersettings.swift; sourceTree = "<group>"; };
-		E985C61D25F3AD8400CB895C /* Othersettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Othersettings.swift; sourceTree = "<group>"; };
+		E985C61D25F3AD8400CB895C /* Environmentsettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environmentsettings.swift; sourceTree = "<group>"; };
 		E985C62225F3AD8400CB895C /* Viewmodifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Viewmodifiers.swift; sourceTree = "<group>"; };
 		E985C62825F3AD8400CB895C /* SnapshotListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotListView.swift; sourceTree = "<group>"; };
 		E985C62925F3AD8400CB895C /* SnapshotsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotsView.swift; sourceTree = "<group>"; };
@@ -521,7 +521,7 @@
 			children = (
 				E985C63B25F3AD8400CB895C /* AboutView.swift */,
 				E985C61C25F3AD8400CB895C /* Usersettings.swift */,
-				E985C61D25F3AD8400CB895C /* Othersettings.swift */,
+				E985C61D25F3AD8400CB895C /* Environmentsettings.swift */,
 				E985C60F25F3AD8400CB895C /* SettingsView.swift */,
 				E985C61B25F3AD8400CB895C /* Sshsettings.swift */,
 				E986073A2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift */,
@@ -1212,7 +1212,7 @@
 				E985C75925F3AD9700CB895C /* SynchronizeConfiguration.swift in Sources */,
 				E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */,
 				E985C72725F3AD9700CB895C /* CatalogProfile.swift in Sources */,
-				E985C66425F3AD8400CB895C /* Othersettings.swift in Sources */,
+				E985C66425F3AD8400CB895C /* Environmentsettings.swift in Sources */,
 				E9C1113A2BBD8DE30041CEA0 /* ConfigurationsTableDataView.swift in Sources */,
 				E985C75525F3AD9700CB895C /* LogRecords.swift in Sources */,
 				E95DD7F428EC738B007654BC /* RsyncProcessNOFilehandler.swift in Sources */,
