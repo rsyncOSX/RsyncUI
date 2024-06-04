@@ -54,15 +54,29 @@ struct Usersettings: View {
                 Section {
                     setpathforrestore
                 } header: {
-                    headerpathforrestore
+                    Text("Path for restore")
                 }
 
-                setmarkdays
+                Section {
+                    HStack {
+                        Text("Days :")
+
+                        TextField("",
+                                  text: $usersettings.marknumberofdayssince)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 45)
+                            .lineLimit(1)
+                            .onChange(of: usersettings.marknumberofdayssince) {
+                                usersettings.markdays(days: usersettings.marknumberofdayssince)
+                            }
+                    }
+                } header: {
+                    Text("Mark days")
+                }
             }
-            .padding()
 
             VStack(alignment: .leading) {
-                Section(header: othersettings) {
+                Section {
                     ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
                         .onChange(of: usersettings.monitornetworkconnection) {
                             SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
@@ -87,6 +101,8 @@ struct Usersettings: View {
                                 SharedReference.shared.confirmexecute = usersettings.confirmexecute
                             }
                     }
+                } header: {
+                    Text("Other settings")
                 }
             }
         }
@@ -160,11 +176,6 @@ struct Usersettings: View {
             }
     }
 
-    // Restore path
-    var headerpathforrestore: some View {
-        Text("Path for restore")
-    }
-
     var setpathforrestore: some View {
         EditValue(250, NSLocalizedString("Path for restore", comment: ""),
                   $usersettings.temporarypathforrestore)
@@ -178,29 +189,9 @@ struct Usersettings: View {
             }
     }
 
-    // Detail of logging
-    var othersettings: some View {
-        Text("Other settings")
-    }
-
     // Header user setting
     var headerusersetting: some View {
         Text("Save settings")
-    }
-
-    var setmarkdays: some View {
-        HStack {
-            Text("Mark days :")
-
-            TextField("",
-                      text: $usersettings.marknumberofdayssince)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .frame(width: 45)
-                .lineLimit(1)
-                .onChange(of: usersettings.marknumberofdayssince) {
-                    usersettings.markdays(days: usersettings.marknumberofdayssince)
-                }
-        }
     }
 }
 

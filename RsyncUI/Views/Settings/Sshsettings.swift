@@ -22,14 +22,21 @@ struct Sshsettings: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
-                ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $localsshkeys)
-                    .disabled(true)
+            Form {
+                Section {
+                    VStack(alignment: .leading) {
+                        ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $localsshkeys)
+                            .disabled(true)
 
-                setsshpath
+                        setsshpath
 
-                setsshport
+                        setsshport
+                    }
+                } header: {
+                    Text("SSH keys")
+                }
             }
+            .formStyle(.grouped)
             .onAppear(perform: {
                 localsshkeys = SshKeys().validatepublickeypresent()
                 Task {
