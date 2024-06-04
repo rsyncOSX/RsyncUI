@@ -9,13 +9,13 @@ import Observation
 import SwiftUI
 
 enum SideSettingsbaritems: String, Identifiable, CaseIterable {
-    case settings, ssh, environment, info
+    case rsync_and_path, monitor_network, ssh, environment, info
     var id: String { rawValue }
 }
 
 struct SettingsView: View {
     @State private var alerterror = AlertError()
-    @State private var selectedsetting: SideSettingsbaritems = .settings
+    @State private var selectedsetting: SideSettingsbaritems = .rsync_and_path
 
     var body: some View {
         NavigationSplitView {
@@ -37,8 +37,11 @@ struct SettingsView: View {
     @MainActor @ViewBuilder
     func settingsView(_ view: SideSettingsbaritems) -> some View {
         switch view {
-        case .settings:
-            Usersettings()
+        case .rsync_and_path:
+            RsyncandPathsettings()
+                .environment(alerterror)
+        case .monitor_network:
+            Logsettings()
                 .environment(alerterror)
         case .ssh:
             NavigationStack {
@@ -63,8 +66,10 @@ struct SidebarSettingsRow: View {
 
     func systemimage(_ view: SideSettingsbaritems) -> String {
         switch view {
-        case .settings:
+        case .rsync_and_path:
             return "gear"
+        case .monitor_network:
+            return "network"
         case .ssh:
             return "terminal"
         case .environment:

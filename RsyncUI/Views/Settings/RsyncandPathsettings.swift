@@ -1,5 +1,5 @@
 //
-//  Usersettings.swift
+//  RsyncandPathsettings.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 10/02/2021.
@@ -9,7 +9,7 @@
 import OSLog
 import SwiftUI
 
-struct Usersettings: View {
+struct RsyncandPathsettings: View {
     @Environment(AlertError.self) private var alerterror
     @State private var usersettings = ObservableUsersetting()
     @State private var rsyncversion = Rsyncversion()
@@ -19,7 +19,6 @@ struct Usersettings: View {
 
     var body: some View {
         Form {
-            // VStack(alignment: .leading) {
             Section {
                 HStack {
                     ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""),
@@ -64,46 +63,16 @@ struct Usersettings: View {
                     TextField("",
                               text: $usersettings.marknumberofdayssince)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .frame(width: 45)
                         .lineLimit(1)
                         .onChange(of: usersettings.marknumberofdayssince) {
                             usersettings.markdays(days: usersettings.marknumberofdayssince)
                         }
+
+                    Spacer()
                 }
             } header: {
-                Text("Mark days")
+                Text("Mark days after")
             }
-
-            // VStack(alignment: .leading) {
-            Section {
-                ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
-                    .onChange(of: usersettings.monitornetworkconnection) {
-                        SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
-                    }
-                ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
-                    .onChange(of: usersettings.checkforerrorinrsyncoutput) {
-                        SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
-                    }
-                ToggleViewDefault(NSLocalizedString("Add summary to logfile", comment: ""), $usersettings.detailedlogging)
-                    .onChange(of: usersettings.detailedlogging) {
-                        SharedReference.shared.detailedlogging = usersettings.detailedlogging
-                    }
-                ToggleViewDefault(NSLocalizedString("Log summary to file", comment: ""),
-                                  $usersettings.logtofile)
-                    .onChange(of: usersettings.logtofile) {
-                        SharedReference.shared.logtofile = usersettings.logtofile
-                    }
-
-                if SharedReference.shared.rsyncversion3 {
-                    ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
-                        .onChange(of: usersettings.confirmexecute) {
-                            SharedReference.shared.confirmexecute = usersettings.confirmexecute
-                        }
-                }
-            } header: {
-                Text("Other settings")
-            }
-            // }
         }
         .formStyle(.grouped)
         .alert(isPresented: $usersettings.alerterror,
@@ -138,7 +107,7 @@ struct Usersettings: View {
         .onAppear(perform: {
             Task {
                 try await Task.sleep(seconds: 1)
-                Logger.process.info("Usersettings is DEFAULT")
+                Logger.process.info("RsyncAndPath settings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
                 usersettings.ready = true
             }
@@ -150,7 +119,7 @@ struct Usersettings: View {
                 try await Task.sleep(seconds: 1)
                 _ = WriteUserConfigurationJSON(UserConfiguration())
                 SharedReference.shared.settingsischanged = false
-                Logger.process.info("Usersettings is SAVED")
+                Logger.process.info("RsyncAndPath is SAVED")
             }
         }
     }
@@ -186,11 +155,6 @@ struct Usersettings: View {
             .onChange(of: usersettings.temporarypathforrestore) {
                 usersettings.setandvalidapathforrestore(usersettings.temporarypathforrestore)
             }
-    }
-
-    // Header user setting
-    var headerusersetting: some View {
-        Text("Save settings")
     }
 }
 
