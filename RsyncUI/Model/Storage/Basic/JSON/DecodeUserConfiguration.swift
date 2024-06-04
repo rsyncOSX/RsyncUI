@@ -12,9 +12,7 @@ struct DecodeUserConfiguration: Codable {
     // Detailed logging
     let detailedlogging: Int?
     // Logging to logfile
-    let minimumlogging: Int?
-    let fulllogging: Int?
-    let nologging: Int?
+    let logtofile: Int?
     // Monitor network connection
     let monitornetworkconnection: Int?
     // local path for rsync
@@ -36,9 +34,7 @@ struct DecodeUserConfiguration: Codable {
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
         case detailedlogging
-        case minimumlogging
-        case fulllogging
-        case nologging
+        case logtofile
         case monitornetworkconnection
         case localrsyncpath
         case pathforrestore
@@ -55,9 +51,7 @@ struct DecodeUserConfiguration: Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         rsyncversion3 = try values.decodeIfPresent(Int.self, forKey: .rsyncversion3)
         detailedlogging = try values.decodeIfPresent(Int.self, forKey: .detailedlogging)
-        minimumlogging = try values.decodeIfPresent(Int.self, forKey: .minimumlogging)
-        fulllogging = try values.decodeIfPresent(Int.self, forKey: .fulllogging)
-        nologging = try values.decodeIfPresent(Int.self, forKey: .nologging)
+        logtofile = try values.decodeIfPresent(Int.self, forKey: .logtofile)
         monitornetworkconnection = try values.decodeIfPresent(Int.self, forKey: .monitornetworkconnection)
         localrsyncpath = try values.decodeIfPresent(String.self, forKey: .localrsyncpath)
         pathforrestore = try values.decodeIfPresent(String.self, forKey: .pathforrestore)
@@ -73,9 +67,7 @@ struct DecodeUserConfiguration: Codable {
     init(_ userconfiguration: UserConfiguration) {
         rsyncversion3 = userconfiguration.rsyncversion3
         detailedlogging = userconfiguration.detailedlogging
-        minimumlogging = userconfiguration.minimumlogging
-        fulllogging = userconfiguration.fulllogging
-        nologging = userconfiguration.nologging
+        logtofile = userconfiguration.logtofile
         monitornetworkconnection = userconfiguration.monitornetworkconnection
         localrsyncpath = userconfiguration.localrsyncpath
         pathforrestore = userconfiguration.pathforrestore

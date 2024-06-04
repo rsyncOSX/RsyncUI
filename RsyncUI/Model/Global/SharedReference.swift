@@ -50,7 +50,7 @@ class SharedReference: @unchecked Sendable {
         }
     }
 
-    @ObservationIgnored var nologging: Bool = true {
+    @ObservationIgnored var logtofile: Bool = false {
         didSet {
             settingsischanged = true
         }

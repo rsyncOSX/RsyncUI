@@ -13,9 +13,7 @@ struct UserConfiguration: Codable {
     // Detailed logging
     var detailedlogging: Int = 1
     // Logging to logfile
-    var minimumlogging: Int = -1
-    var fulllogging: Int = -1
-    var nologging: Int = 1
+    var logtofile: Int = 1
     // Montor network connection
     var monitornetworkconnection: Int = -1
     // local path for rsync
@@ -46,10 +44,10 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.detailedlogging = false
         }
-        if nologging == 1 {
-            SharedReference.shared.nologging = true
+        if logtofile == 1 {
+            SharedReference.shared.logtofile = true
         } else {
-            SharedReference.shared.nologging = false
+            SharedReference.shared.logtofile = false
         }
         if monitornetworkconnection == 1 {
             SharedReference.shared.monitornetworkconnection = true
@@ -98,9 +96,7 @@ struct UserConfiguration: Codable {
     init(_ data: DecodeUserConfiguration) {
         rsyncversion3 = data.rsyncversion3 ?? -1
         detailedlogging = data.detailedlogging ?? 1
-        minimumlogging = data.minimumlogging ?? -1
-        fulllogging = data.fulllogging ?? -1
-        nologging = data.nologging ?? 1
+        logtofile = data.logtofile ?? 0
         monitornetworkconnection = data.monitornetworkconnection ?? -1
         localrsyncpath = data.localrsyncpath
         pathforrestore = data.pathforrestore
@@ -128,10 +124,10 @@ struct UserConfiguration: Codable {
         } else {
             detailedlogging = -1
         }
-        if SharedReference.shared.nologging {
-            nologging = 1
+        if SharedReference.shared.logtofile {
+            logtofile = 1
         } else {
-            nologging = -1
+            logtofile = -1
         }
         if SharedReference.shared.monitornetworkconnection {
             monitornetworkconnection = 1

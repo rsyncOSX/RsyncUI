@@ -70,10 +70,10 @@ struct Usersettings: View {
                             .onChange(of: usersettings.checkforerrorinrsyncoutput) {
                                 SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
                             }
-                        ToggleViewDefault(NSLocalizedString("Log to file", comment: ""),
-                                          $usersettings.nologging)
-                            .onChange(of: usersettings.nologging) {
-                                SharedReference.shared.nologging = usersettings.nologging
+                        ToggleViewDefault(NSLocalizedString("Log summary to file", comment: ""),
+                                          $usersettings.logtofile)
+                            .onChange(of: usersettings.logtofile) {
+                                SharedReference.shared.logtofile = usersettings.logtofile
                             }
 
                         if SharedReference.shared.rsyncversion3 {
