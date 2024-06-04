@@ -15,10 +15,14 @@ struct Environmentsettings: View {
     @State var settings: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            setenvironment
+        Form {
+            Section {
+                setenvironment
 
-            setenvironmenvariable
+                setenvironmenvariable
+            } header: {
+                Text("Rsync environment")
+            }
         }
         .toolbar {
             ToolbarItem {
@@ -29,7 +33,7 @@ struct Environmentsettings: View {
         .onAppear(perform: {
             Task {
                 try await Task.sleep(seconds: 1)
-                Logger.process.info("Othersettings is DEFAULT")
+                Logger.process.info("Environmentsettings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
                 settings = true
             }
@@ -40,7 +44,7 @@ struct Environmentsettings: View {
                 try await Task.sleep(seconds: 1)
                 _ = WriteUserConfigurationJSON(UserConfiguration())
                 SharedReference.shared.settingsischanged = false
-                Logger.process.info("Usersettings is SAVED")
+                Logger.process.info("Environmentsettings is SAVED")
             }
         }
     }
