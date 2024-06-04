@@ -116,24 +116,6 @@ final class Logfile: NamesandPaths {
         }
     }
 
-    private func minimumlogging(_ data: [String]) {
-        let date = Date().localized_string_from_date()
-        readloggfile()
-        var tmplogg = [String]()
-        var startindex = data.count - 8
-        if startindex < 0 { startindex = 0 }
-        tmplogg.append("\n" + date + "\n")
-        for i in startindex ..< data.count {
-            tmplogg.append(data[i])
-        }
-        if logfile == nil {
-            logfile = tmplogg.joined(separator: "\n")
-        } else {
-            logfile! += tmplogg.joined(separator: "\n")
-        }
-        writeloggfile()
-    }
-
     private func fulllogging(_ data: [String]) {
         let date = Date().localized_string_from_date()
         readloggfile()
@@ -173,17 +155,6 @@ final class Logfile: NamesandPaths {
         if error {
             if let data = data {
                 fulllogging(data)
-            }
-        } else {
-            guard SharedReference.shared.fulllogging == true ||
-                SharedReference.shared.minimumlogging == true
-            else {
-                return
-            }
-            if SharedReference.shared.fulllogging {
-                fulllogging(data ?? [])
-            } else {
-                minimumlogging(data ?? [])
             }
         }
     }

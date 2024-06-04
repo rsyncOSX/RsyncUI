@@ -55,72 +55,32 @@ struct Usersettings: View {
 
             // Column 2
             VStack(alignment: .leading) {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Section(header: headerloggingtofile) {
-                            ToggleViewDefault(NSLocalizedString("None", comment: ""),
-                                              $usersettings.nologging)
-                                .onChange(of: usersettings.nologging) {
-                                    if usersettings.nologging == true {
-                                        usersettings.minimumlogging = false
-                                        usersettings.fulllogging = false
-                                    } else {
-                                        usersettings.minimumlogging = true
-                                        usersettings.fulllogging = false
-                                    }
-                                    SharedReference.shared.fulllogging = usersettings.fulllogging
-                                    SharedReference.shared.minimumlogging = usersettings.minimumlogging
-                                    SharedReference.shared.nologging = usersettings.nologging
-                                }
-
-                            ToggleViewDefault(NSLocalizedString("Min", comment: ""),
-                                              $usersettings.minimumlogging)
-                                .onChange(of: usersettings.minimumlogging) {
-                                    if usersettings.minimumlogging == true {
-                                        usersettings.nologging = false
-                                        usersettings.fulllogging = false
-                                    }
-                                    SharedReference.shared.fulllogging = usersettings.fulllogging
-                                    SharedReference.shared.minimumlogging = usersettings.minimumlogging
-                                    SharedReference.shared.nologging = usersettings.nologging
-                                }
-
-                            ToggleViewDefault(NSLocalizedString("Full", comment: ""),
-                                              $usersettings.fulllogging)
-                                .onChange(of: usersettings.fulllogging) {
-                                    if usersettings.fulllogging == true {
-                                        usersettings.nologging = false
-                                        usersettings.minimumlogging = false
-                                    }
-                                    SharedReference.shared.fulllogging = usersettings.fulllogging
-                                    SharedReference.shared.minimumlogging = usersettings.minimumlogging
-                                    SharedReference.shared.nologging = usersettings.nologging
-                                }
-                        }
-                    }
-
-                    VStack(alignment: .leading) {
-                        Section(header: othersettings) {
-                            ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
-                                .onChange(of: usersettings.detailedlogging) {
-                                    SharedReference.shared.detailedlogging = usersettings.detailedlogging
-                                }
-
-                            ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
-                                .onChange(of: usersettings.monitornetworkconnection) {
-                                    SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
-                                }
-                            ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
-                                .onChange(of: usersettings.checkforerrorinrsyncoutput) {
-                                    SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
-                                }
-
-                            if SharedReference.shared.rsyncversion3 {
-                                ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
-                                    .onChange(of: usersettings.confirmexecute) {
-                                        SharedReference.shared.confirmexecute = usersettings.confirmexecute
-                                    }
+                VStack(alignment: .leading) {
+                    Section(header: othersettings) {
+                        ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
+                            .onChange(of: usersettings.detailedlogging) {
+                                SharedReference.shared.detailedlogging = usersettings.detailedlogging
                             }
+
+                        ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
+                            .onChange(of: usersettings.monitornetworkconnection) {
+                                SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
+                            }
+                        ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
+                            .onChange(of: usersettings.checkforerrorinrsyncoutput) {
+                                SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
+                            }
+                        ToggleViewDefault(NSLocalizedString("Log to file", comment: ""),
+                                          $usersettings.nologging)
+                            .onChange(of: usersettings.nologging) {
+                                SharedReference.shared.nologging = usersettings.nologging
+                            }
+
+                        if SharedReference.shared.rsyncversion3 {
+                            ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
+                                .onChange(of: usersettings.confirmexecute) {
+                                    SharedReference.shared.confirmexecute = usersettings.confirmexecute
+                                }
                         }
                     }
                 }
@@ -217,11 +177,6 @@ struct Usersettings: View {
             .onChange(of: usersettings.temporarypathforrestore) {
                 usersettings.setandvalidapathforrestore(usersettings.temporarypathforrestore)
             }
-    }
-
-    // Logging
-    var headerloggingtofile: some View {
-        Text("Log to file")
     }
 
     // Detail of logging

@@ -50,19 +50,6 @@ class SharedReference: @unchecked Sendable {
         }
     }
 
-    // Logging to logfile
-    @ObservationIgnored var minimumlogging: Bool = false {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
-    @ObservationIgnored var fulllogging: Bool = false {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
     @ObservationIgnored var nologging: Bool = true {
         didSet {
             settingsischanged = true

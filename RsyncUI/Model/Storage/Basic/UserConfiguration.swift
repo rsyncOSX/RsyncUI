@@ -46,16 +46,6 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.detailedlogging = false
         }
-        if minimumlogging == 1 {
-            SharedReference.shared.minimumlogging = true
-        } else {
-            SharedReference.shared.minimumlogging = false
-        }
-        if fulllogging == 1 {
-            SharedReference.shared.fulllogging = true
-        } else {
-            SharedReference.shared.fulllogging = false
-        }
         if nologging == 1 {
             SharedReference.shared.nologging = true
         } else {
@@ -137,16 +127,6 @@ struct UserConfiguration: Codable {
             detailedlogging = 1
         } else {
             detailedlogging = -1
-        }
-        if SharedReference.shared.minimumlogging {
-            minimumlogging = 1
-        } else {
-            minimumlogging = -1
-        }
-        if SharedReference.shared.fulllogging {
-            fulllogging = 1
-        } else {
-            fulllogging = -1
         }
         if SharedReference.shared.nologging {
             nologging = 1
