@@ -87,7 +87,10 @@ final class RsyncProcessNOFilehandler: @unchecked Sendable {
                 } else {
                     self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
                 }
-                _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+                // Logg to file
+                if self.arguments?.contains("--dry-run") == false, self.arguments?.contains("--version") == false {
+                    _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+                }
                 // Release Combine subscribers
                 self.subscriptons.removeAll()
             }.store(in: &subscriptons)
