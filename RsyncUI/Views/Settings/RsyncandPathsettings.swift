@@ -57,19 +57,12 @@ struct RsyncandPathsettings: View {
             }
 
             Section {
-                HStack {
-                    Text("Days :")
-
-                    TextField("",
-                              text: $usersettings.marknumberofdayssince)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .lineLimit(1)
-                        .onChange(of: usersettings.marknumberofdayssince) {
-                            usersettings.markdays(days: usersettings.marknumberofdayssince)
-                        }
-
-                    Spacer()
-                }
+                TextField("",
+                          text: $usersettings.marknumberofdayssince)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .onChange(of: usersettings.marknumberofdayssince) {
+                        usersettings.markdays(days: usersettings.marknumberofdayssince)
+                    }
             } header: {
                 Text("Mark days after")
             }
