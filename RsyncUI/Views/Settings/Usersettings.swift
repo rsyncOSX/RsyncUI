@@ -18,10 +18,9 @@ struct Usersettings: View {
     @State private var defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
 
     var body: some View {
-        HStack {
-            // Column 1
+        Form {
             VStack(alignment: .leading) {
-                Section(header: headerrsync) {
+                Section {
                     HStack {
                         ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""),
                                           $usersettings.rsyncversion3)
@@ -38,54 +37,60 @@ struct Usersettings: View {
                             }
                             .disabled(true)
                     }
+                } header: {
+                    Text("Version rsync")
                 }
 
-                if usersettings.localrsyncpath.isEmpty == true {
-                    setrsyncpathdefault
-                } else {
-                    setrsyncpathlocalpath
+                Section {
+                    if usersettings.localrsyncpath.isEmpty == true {
+                        setrsyncpathdefault
+                    } else {
+                        setrsyncpathlocalpath
+                    }
+                } header: {
+                    Text("Path rsync")
                 }
 
-                Section(header: headerpathforrestore) {
+                Section {
                     setpathforrestore
+                } header: {
+                    headerpathforrestore
                 }
 
                 setmarkdays
             }
+            .padding()
 
-            // Column 2
             VStack(alignment: .leading) {
-                VStack(alignment: .leading) {
-                    Section(header: othersettings) {
-                        ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
-                            .onChange(of: usersettings.monitornetworkconnection) {
-                                SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
-                            }
-                        ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
-                            .onChange(of: usersettings.checkforerrorinrsyncoutput) {
-                                SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
-                            }
-                        ToggleViewDefault(NSLocalizedString("Add summary to logfile", comment: ""), $usersettings.detailedlogging)
-                            .onChange(of: usersettings.detailedlogging) {
-                                SharedReference.shared.detailedlogging = usersettings.detailedlogging
-                            }
-                        ToggleViewDefault(NSLocalizedString("Log summary to file", comment: ""),
-                                          $usersettings.logtofile)
-                            .onChange(of: usersettings.logtofile) {
-                                SharedReference.shared.logtofile = usersettings.logtofile
-                            }
-
-                        if SharedReference.shared.rsyncversion3 {
-                            ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
-                                .onChange(of: usersettings.confirmexecute) {
-                                    SharedReference.shared.confirmexecute = usersettings.confirmexecute
-                                }
+                Section(header: othersettings) {
+                    ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
+                        .onChange(of: usersettings.monitornetworkconnection) {
+                            SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
                         }
+                    ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
+                        .onChange(of: usersettings.checkforerrorinrsyncoutput) {
+                            SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
+                        }
+                    ToggleViewDefault(NSLocalizedString("Add summary to logfile", comment: ""), $usersettings.detailedlogging)
+                        .onChange(of: usersettings.detailedlogging) {
+                            SharedReference.shared.detailedlogging = usersettings.detailedlogging
+                        }
+                    ToggleViewDefault(NSLocalizedString("Log summary to file", comment: ""),
+                                      $usersettings.logtofile)
+                        .onChange(of: usersettings.logtofile) {
+                            SharedReference.shared.logtofile = usersettings.logtofile
+                        }
+
+                    if SharedReference.shared.rsyncversion3 {
+                        ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
+                            .onChange(of: usersettings.confirmexecute) {
+                                SharedReference.shared.confirmexecute = usersettings.confirmexecute
+                            }
                     }
                 }
             }
         }
-        .lineSpacing(2)
+        .formStyle(.grouped)
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
@@ -139,11 +144,6 @@ struct Usersettings: View {
         Label("", systemImage: "hand.thumbsup")
             .foregroundColor(Color(.green))
             .padding()
-    }
-
-    // Rsync
-    var headerrsync: some View {
-        Text("Rsync version and path")
     }
 
     var setrsyncpathlocalpath: some View {
