@@ -57,11 +57,6 @@ struct Usersettings: View {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
                     Section(header: othersettings) {
-                        ToggleViewDefault(NSLocalizedString("Detailed log level", comment: ""), $usersettings.detailedlogging)
-                            .onChange(of: usersettings.detailedlogging) {
-                                SharedReference.shared.detailedlogging = usersettings.detailedlogging
-                            }
-
                         ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
                             .onChange(of: usersettings.monitornetworkconnection) {
                                 SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
@@ -69,6 +64,10 @@ struct Usersettings: View {
                         ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
                             .onChange(of: usersettings.checkforerrorinrsyncoutput) {
                                 SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
+                            }
+                        ToggleViewDefault(NSLocalizedString("Add summary to logfile", comment: ""), $usersettings.detailedlogging)
+                            .onChange(of: usersettings.detailedlogging) {
+                                SharedReference.shared.detailedlogging = usersettings.detailedlogging
                             }
                         ToggleViewDefault(NSLocalizedString("Log summary to file", comment: ""),
                                           $usersettings.logtofile)
