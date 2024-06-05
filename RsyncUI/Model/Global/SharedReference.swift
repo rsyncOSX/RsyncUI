@@ -43,8 +43,8 @@ class SharedReference: @unchecked Sendable {
         }
     }
 
-    // Detailed logging
-    @ObservationIgnored var detailedlogging: Bool = true {
+    // Add summary to logrecords
+    @ObservationIgnored var addsummarylogrecord: Bool = true {
         didSet {
             settingsischanged = true
         }

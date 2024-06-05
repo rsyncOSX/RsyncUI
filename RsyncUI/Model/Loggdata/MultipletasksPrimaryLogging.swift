@@ -28,7 +28,7 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
     // setCurrentDateonConfiguration(configrecords: [Typelogdata]).
     // Must set -1 to get correct num in log
     func addlogpermanentstore(schedulerecords: [Typelogdata]) {
-        if SharedReference.shared.detailedlogging {
+        if SharedReference.shared.addsummarylogrecord {
             for i in 0 ..< schedulerecords.count {
                 let hiddenID = schedulerecords[i].0
                 let stats = schedulerecords[i].1

@@ -21,7 +21,7 @@ final class ObservableUsersetting {
     // Set the current value as placeholder text
     var temporarypathforrestore: String = ""
     // Detailed logging
-    var detailedlogging: Bool = SharedReference.shared.detailedlogging
+    var addsummarylogrecord: Bool = SharedReference.shared.addsummarylogrecord
     var logtofile: Bool = SharedReference.shared.logtofile
     // Mark number of days since last backup
     var marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)

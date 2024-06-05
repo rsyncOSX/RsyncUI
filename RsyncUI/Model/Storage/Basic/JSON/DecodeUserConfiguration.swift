@@ -10,7 +10,7 @@ import Foundation
 struct DecodeUserConfiguration: Codable {
     let rsyncversion3: Int?
     // Detailed logging
-    let detailedlogging: Int?
+    let addsummarylogrecord: Int?
     // Logging to logfile
     let logtofile: Int?
     // Monitor network connection
@@ -33,7 +33,7 @@ struct DecodeUserConfiguration: Codable {
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
-        case detailedlogging
+        case addsummarylogrecord
         case logtofile
         case monitornetworkconnection
         case localrsyncpath
@@ -50,7 +50,7 @@ struct DecodeUserConfiguration: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         rsyncversion3 = try values.decodeIfPresent(Int.self, forKey: .rsyncversion3)
-        detailedlogging = try values.decodeIfPresent(Int.self, forKey: .detailedlogging)
+        addsummarylogrecord = try values.decodeIfPresent(Int.self, forKey: .addsummarylogrecord)
         logtofile = try values.decodeIfPresent(Int.self, forKey: .logtofile)
         monitornetworkconnection = try values.decodeIfPresent(Int.self, forKey: .monitornetworkconnection)
         localrsyncpath = try values.decodeIfPresent(String.self, forKey: .localrsyncpath)
@@ -66,7 +66,7 @@ struct DecodeUserConfiguration: Codable {
 
     init(_ userconfiguration: UserConfiguration) {
         rsyncversion3 = userconfiguration.rsyncversion3
-        detailedlogging = userconfiguration.detailedlogging
+        addsummarylogrecord = userconfiguration.addsummarylogrecord
         logtofile = userconfiguration.logtofile
         monitornetworkconnection = userconfiguration.monitornetworkconnection
         localrsyncpath = userconfiguration.localrsyncpath

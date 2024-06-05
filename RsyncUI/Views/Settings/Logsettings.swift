@@ -24,9 +24,9 @@ struct Logsettings: View {
                     .onChange(of: usersettings.checkforerrorinrsyncoutput) {
                         SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
                     }
-                ToggleViewDefault(NSLocalizedString("Add summary logrecords", comment: ""), $usersettings.detailedlogging)
-                    .onChange(of: usersettings.detailedlogging) {
-                        SharedReference.shared.detailedlogging = usersettings.detailedlogging
+                ToggleViewDefault(NSLocalizedString("Add summary logrecord", comment: ""), $usersettings.addsummarylogrecord)
+                    .onChange(of: usersettings.addsummarylogrecord) {
+                        SharedReference.shared.addsummarylogrecord = usersettings.addsummarylogrecord
                     }
                 ToggleViewDefault(NSLocalizedString("Log summary logfile", comment: ""),
                                   $usersettings.logtofile)

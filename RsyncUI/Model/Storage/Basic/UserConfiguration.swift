@@ -11,7 +11,7 @@ import Foundation
 struct UserConfiguration: Codable {
     var rsyncversion3: Int = -1
     // Detailed logging
-    var detailedlogging: Int = 1
+    var addsummarylogrecord: Int = 1
     // Logging to logfile
     var logtofile: Int = 1
     // Montor network connection
@@ -39,10 +39,10 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.rsyncversion3 = false
         }
-        if detailedlogging == 1 {
-            SharedReference.shared.detailedlogging = true
+        if addsummarylogrecord == 1 {
+            SharedReference.shared.addsummarylogrecord = true
         } else {
-            SharedReference.shared.detailedlogging = false
+            SharedReference.shared.addsummarylogrecord = false
         }
         if logtofile == 1 {
             SharedReference.shared.logtofile = true
@@ -95,7 +95,7 @@ struct UserConfiguration: Codable {
     @discardableResult
     init(_ data: DecodeUserConfiguration) {
         rsyncversion3 = data.rsyncversion3 ?? -1
-        detailedlogging = data.detailedlogging ?? 1
+        addsummarylogrecord = data.addsummarylogrecord ?? 1
         logtofile = data.logtofile ?? 0
         monitornetworkconnection = data.monitornetworkconnection ?? -1
         localrsyncpath = data.localrsyncpath
@@ -119,10 +119,10 @@ struct UserConfiguration: Codable {
         } else {
             rsyncversion3 = -1
         }
-        if SharedReference.shared.detailedlogging {
-            detailedlogging = 1
+        if SharedReference.shared.addsummarylogrecord {
+            addsummarylogrecord = 1
         } else {
-            detailedlogging = -1
+            addsummarylogrecord = -1
         }
         if SharedReference.shared.logtofile {
             logtofile = 1
