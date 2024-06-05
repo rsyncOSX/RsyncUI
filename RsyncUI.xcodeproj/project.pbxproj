@@ -46,7 +46,7 @@
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
 		E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
-		E985C65825F3AD8400CB895C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60F25F3AD8400CB895C /* SettingsView.swift */; };
+		E985C65825F3AD8400CB895C /* SidebarSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */; };
 		E985C65D25F3AD8400CB895C /* Profilenames.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61425F3AD8400CB895C /* Profilenames.swift */; };
 		E985C66225F3AD8400CB895C /* Sshsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61B25F3AD8400CB895C /* Sshsettings.swift */; };
 		E985C66325F3AD8400CB895C /* RsyncandPathsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C61C25F3AD8400CB895C /* RsyncandPathsettings.swift */; };
@@ -229,7 +229,7 @@
 		E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RsyncUI.entitlements; sourceTree = "<group>"; };
 		E985C5D825F3AC0800CB895C /* RsyncUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RsyncUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5E325F3AC0800CB895C /* RsyncUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RsyncUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E985C60F25F3AD8400CB895C /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarSettingsView.swift; sourceTree = "<group>"; };
 		E985C61425F3AD8400CB895C /* Profilenames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profilenames.swift; sourceTree = "<group>"; };
 		E985C61B25F3AD8400CB895C /* Sshsettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sshsettings.swift; sourceTree = "<group>"; };
 		E985C61C25F3AD8400CB895C /* RsyncandPathsettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncandPathsettings.swift; sourceTree = "<group>"; };
@@ -524,7 +524,7 @@
 				E985C63B25F3AD8400CB895C /* AboutView.swift */,
 				E985C61C25F3AD8400CB895C /* RsyncandPathsettings.swift */,
 				E985C61D25F3AD8400CB895C /* Environmentsettings.swift */,
-				E985C60F25F3AD8400CB895C /* SettingsView.swift */,
+				E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */,
 				E985C61B25F3AD8400CB895C /* Sshsettings.swift */,
 				E986073A2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift */,
 				E9A7F7132C0F6784001AC38F /* Logsettings.swift */,
@@ -1096,7 +1096,7 @@
 			files = (
 				E9B008DD2ABB427A006E333D /* Snapshotcatalogs.swift in Sources */,
 				E985C66725F3AD8400CB895C /* Viewmodifiers.swift in Sources */,
-				E985C65825F3AD8400CB895C /* SettingsView.swift in Sources */,
+				E985C65825F3AD8400CB895C /* SidebarSettingsView.swift in Sources */,
 				E985C77D25F3AD9700CB895C /* ArgumentsSsh.swift in Sources */,
 				E96223952B0BDA7E00C40578 /* OutputRsyncView.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* SnapshotCreateCatalogArguments.swift in Sources */,

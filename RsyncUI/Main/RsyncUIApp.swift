@@ -39,7 +39,7 @@ struct RsyncUIApp: App {
         }
 
         Settings {
-            SettingsView()
+            SidebarSettingsView()
         }
     }
 

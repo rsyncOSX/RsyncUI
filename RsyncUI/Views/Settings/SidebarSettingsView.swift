@@ -1,5 +1,5 @@
 //
-//  SettingsView.swift
+//  SidebarSettingsView.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 01/02/2021.
@@ -13,7 +13,7 @@ enum SideSettingsbaritems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
-struct SettingsView: View {
+struct SidebarSettingsView: View {
     @State private var alerterror = AlertError()
     @State private var selectedsetting: SideSettingsbaritems = .rsync_and_path
 

@@ -35,6 +35,7 @@ struct Sidebar: View {
 
                 if selectedview == .tasks || selectedview == .snapshots || selectedview == .restore { Divider() }
             }
+            .listStyle(.sidebar)
 
             Text(SharedReference.shared.rsyncversionshort ?? "")
                 .padding()
