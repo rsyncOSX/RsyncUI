@@ -118,21 +118,21 @@ struct RsyncandPathsettings: View {
     }
 
     var setrsyncpathlocalpath: some View {
-        EditValue(250, nil, $usersettings.localrsyncpath)
+        EditValue(300, nil, $usersettings.localrsyncpath)
             .onAppear(perform: {
                 usersettings.localrsyncpath = SetandValidatepathforrsync().getpathforrsync()
             })
     }
 
     var setrsyncpathdefault: some View {
-        EditValue(250, defaultpathrsync, $usersettings.localrsyncpath)
+        EditValue(300, defaultpathrsync, $usersettings.localrsyncpath)
             .onChange(of: usersettings.localrsyncpath) {
                 usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
             }
     }
 
     var setpathforrestore: some View {
-        EditValue(250, NSLocalizedString("Path for restore", comment: ""),
+        EditValue(300, NSLocalizedString("Path for restore", comment: ""),
                   $usersettings.temporarypathforrestore)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {

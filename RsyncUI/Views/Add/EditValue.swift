@@ -15,7 +15,7 @@ struct EditValue: View {
     var body: some View {
         TextField("", text: myvalue, prompt: myprompt)
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(width: mywidth)
+            .frame(width: mywidth, alignment: .trailing)
             .lineLimit(1)
     }
 

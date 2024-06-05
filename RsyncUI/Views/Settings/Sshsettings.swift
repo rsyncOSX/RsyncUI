@@ -104,7 +104,7 @@ struct Sshsettings: View {
     }
 
     var setsshpath: some View {
-        EditValue(250, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile)
+        EditValue(300, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile)
             .onAppear(perform: {
                 if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
                     usersettings.sshkeypathandidentityfile = sshkeypath

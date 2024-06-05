@@ -55,7 +55,7 @@ struct Environmentsettings: View {
     }
 
     var setenvironment: some View {
-        EditValue(350, NSLocalizedString("Environment", comment: ""), $environment)
+        EditValue(250, NSLocalizedString("Environment", comment: ""), $environment)
             .onAppear(perform: {
                 if let environmentstring = SharedReference.shared.environment {
                     environment = environmentstring
@@ -67,7 +67,7 @@ struct Environmentsettings: View {
     }
 
     var setenvironmenvariable: some View {
-        EditValue(350, NSLocalizedString("Environment variable", comment: ""), $environmentvalue)
+        EditValue(250, NSLocalizedString("Environment variable", comment: ""), $environmentvalue)
             .onAppear(perform: {
                 if let environmentvaluestring = SharedReference.shared.environmentvalue {
                     environmentvalue = environmentvaluestring
