@@ -139,11 +139,11 @@ final class Logfile: NamesandPaths {
         readloggfile()
         var tmplogg = [String]()
 
-        var startindex = data.count - 10
+        var startindex = data.count - 20
         if startindex < 0 { startindex = 0 }
         tmplogg.append("\n" + date)
         tmplogg.append(command)
-        tmplogg.append("Last ten records from rsync output\n")
+        tmplogg.append("Last twenty records from rsync output\n")
         for i in startindex ..< data.count {
             tmplogg.append(data[i])
         }
