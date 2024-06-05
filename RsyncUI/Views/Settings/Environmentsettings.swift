@@ -29,7 +29,6 @@ struct Environmentsettings: View {
                 if SharedReference.shared.settingsischanged { thumbsupgreen }
             }
         }
-        .lineSpacing(2)
         .onAppear(perform: {
             Task {
                 try await Task.sleep(seconds: 1)

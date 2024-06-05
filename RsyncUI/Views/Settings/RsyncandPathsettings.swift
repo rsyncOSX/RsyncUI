@@ -145,7 +145,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setmarkdays: some View {
-        EditValue(100, NSLocalizedString("", comment: ""),
+        EditValue(150, NSLocalizedString("", comment: ""),
                   $usersettings.marknumberofdayssince)
             .onChange(of: usersettings.marknumberofdayssince) {
                 usersettings.markdays(days: usersettings.marknumberofdayssince)

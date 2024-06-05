@@ -124,7 +124,7 @@ struct Sshsettings: View {
     }
 
     var setsshport: some View {
-        EditValue(250, NSLocalizedString("Global ssh port", comment: ""),
+        EditValue(150, NSLocalizedString("Global ssh port", comment: ""),
                   $usersettings.sshportnumber)
             .onAppear(perform: {
                 if let sshport = SharedReference.shared.sshport {
