@@ -141,8 +141,9 @@ final class Logfile: NamesandPaths {
 
         var startindex = data.count - 10
         if startindex < 0 { startindex = 0 }
-        tmplogg.append("\n" + date + "\n")
+        tmplogg.append("\n" + date)
         tmplogg.append(command)
+        tmplogg.append("Last ten records from rsync output\n")
         for i in startindex ..< data.count {
             tmplogg.append(data[i])
         }
@@ -179,7 +180,7 @@ final class Logfile: NamesandPaths {
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
-            logfile = date + ": " + "logfile is reset..."
+            logfile = date + ": " + "logfile is reset..." + "\n"
             writeloggfile()
         } else {
             // Read the logfile
