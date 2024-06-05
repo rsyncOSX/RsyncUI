@@ -57,12 +57,7 @@ struct RsyncandPathsettings: View {
             }
 
             Section {
-                TextField("",
-                          text: $usersettings.marknumberofdayssince)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .onChange(of: usersettings.marknumberofdayssince) {
-                        usersettings.markdays(days: usersettings.marknumberofdayssince)
-                    }
+                setmarkdays
             } header: {
                 Text("Mark days after")
             }
@@ -147,6 +142,14 @@ struct RsyncandPathsettings: View {
             })
             .onChange(of: usersettings.temporarypathforrestore) {
                 usersettings.setandvalidapathforrestore(usersettings.temporarypathforrestore)
+            }
+    }
+
+    var setmarkdays: some View {
+        EditValue(100, NSLocalizedString("", comment: ""),
+                  $usersettings.marknumberofdayssince)
+            .onChange(of: usersettings.marknumberofdayssince) {
+                usersettings.markdays(days: usersettings.marknumberofdayssince)
             }
     }
 }

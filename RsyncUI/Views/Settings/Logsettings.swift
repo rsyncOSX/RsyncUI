@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 04/06/2024.
 //
+// swiftlint:disable line_length
 
 import OSLog
 import SwiftUI
@@ -23,11 +24,11 @@ struct Logsettings: View {
                     .onChange(of: usersettings.checkforerrorinrsyncoutput) {
                         SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
                     }
-                ToggleViewDefault(NSLocalizedString("Add summary to logfile", comment: ""), $usersettings.detailedlogging)
+                ToggleViewDefault(NSLocalizedString("Add summary logrecords", comment: ""), $usersettings.detailedlogging)
                     .onChange(of: usersettings.detailedlogging) {
                         SharedReference.shared.detailedlogging = usersettings.detailedlogging
                     }
-                ToggleViewDefault(NSLocalizedString("Log summary to file", comment: ""),
+                ToggleViewDefault(NSLocalizedString("Log summary logfile", comment: ""),
                                   $usersettings.logtofile)
                     .onChange(of: usersettings.logtofile) {
                         SharedReference.shared.logtofile = usersettings.logtofile

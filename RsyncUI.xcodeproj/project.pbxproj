@@ -521,13 +521,13 @@
 		E985C61A25F3AD8400CB895C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */,
 				E985C63B25F3AD8400CB895C /* AboutView.swift */,
 				E985C61C25F3AD8400CB895C /* RsyncandPathsettings.swift */,
+				E9A7F7132C0F6784001AC38F /* Logsettings.swift */,
 				E985C61D25F3AD8400CB895C /* Environmentsettings.swift */,
-				E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */,
 				E985C61B25F3AD8400CB895C /* Sshsettings.swift */,
 				E986073A2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift */,
-				E9A7F7132C0F6784001AC38F /* Logsettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
