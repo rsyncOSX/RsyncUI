@@ -147,6 +147,7 @@ final class Logfile: NamesandPaths {
         for i in startindex ..< data.count {
             tmplogg.append(data[i])
         }
+        tmplogg.append("\n")
         if logfile == nil {
             logfile = tmplogg.joined(separator: "\n")
         } else {
