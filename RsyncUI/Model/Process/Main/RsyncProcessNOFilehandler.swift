@@ -88,8 +88,12 @@ final class RsyncProcessNOFilehandler: @unchecked Sendable {
                     self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
                 }
                 // Logg to file
-                if self.arguments?.contains("--dry-run") == false, self.arguments?.contains("--version") == false {
-                    _ = Logfile(TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata, error: false)
+                if self.arguments?.contains("--dry-run") == false,
+                   self.arguments?.contains("--version") == false,
+                   let config = self.config
+                {
+                    let command = RsyncCommandtoDisplay(display: .synchronize, config: config).rsynccommand
+                    _ = Logfile(command: command ?? "", data: TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata)
                 }
                 // Release Combine subscribers
                 self.subscriptons.removeAll()
