@@ -25,6 +25,7 @@ struct SidebarSettingsView: View {
                 }
             }
             .listStyle(.sidebar)
+            .toolbar(removing: .sidebarToggle)
         } detail: {
             settingsView(selectedsetting)
         }

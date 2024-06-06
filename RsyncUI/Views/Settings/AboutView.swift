@@ -57,31 +57,6 @@ struct AboutView: View {
         .task {
             await newversion.getversionsofrsyncui()
         }
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    openchangelog()
-                } label: {
-                    Image(systemName: "doc.plaintext")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
-                }
-                .help("Changelog")
-            }
-
-            if newversion.downloadavaliable {
-                ToolbarItem {
-                    Button {
-                        opendownload()
-                    } label: {
-                        Image(systemName: "square.and.arrow.down.fill")
-                            .foregroundColor(Color(.blue))
-                            .imageScale(.large)
-                    }
-                    .help("Download new version")
-                }
-            }
-        }
     }
 
     var rsyncversionshortstring: some View {
@@ -133,3 +108,31 @@ extension AboutView {
         }
     }
 }
+
+/*
+ .toolbar {
+     ToolbarItem {
+         Button {
+             openchangelog()
+         } label: {
+             Image(systemName: "doc.plaintext")
+                 .foregroundColor(Color(.blue))
+                 .imageScale(.large)
+         }
+         .help("Changelog")
+     }
+
+     if newversion.downloadavaliable {
+         ToolbarItem {
+             Button {
+                 opendownload()
+             } label: {
+                 Image(systemName: "square.and.arrow.down.fill")
+                     .foregroundColor(Color(.blue))
+                     .imageScale(.large)
+             }
+             .help("Download new version")
+         }
+     }
+ }
+ */

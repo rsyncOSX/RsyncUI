@@ -24,11 +24,6 @@ struct Environmentsettings: View {
                 Text("Rsync environment")
             }
         }
-        .toolbar {
-            ToolbarItem {
-                if SharedReference.shared.settingsischanged { thumbsupgreen }
-            }
-        }
         .onAppear(perform: {
             Task {
                 try await Task.sleep(seconds: 1)
@@ -78,3 +73,11 @@ struct Environmentsettings: View {
             }
     }
 }
+
+/*
+ .toolbar {
+     ToolbarItem {
+         if SharedReference.shared.settingsischanged { thumbsupgreen }
+     }
+ }
+ */

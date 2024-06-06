@@ -40,6 +40,31 @@ struct Sshsettings: View {
                 } header: {
                     Text("SSH path and port")
                 }
+
+                Section {
+                    HStack {
+                        Button {
+                            showcopykeys = true
+                        } label: {
+                            Image(systemName: "arrow.forward.circle")
+                        }
+                        .help("Show copy keys")
+
+                        if localsshkeys == false {
+                            Button {
+                                createkeys()
+                            } label: {
+                                Image(systemName: "key")
+                            }
+                            .help("Create keys")
+                        }
+
+                        if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
+                    }
+
+                } header: {
+                    Text("SSH keys")
+                }
             }
             .formStyle(.grouped)
             .onAppear(perform: {
@@ -64,33 +89,6 @@ struct Sshsettings: View {
             .alert(isPresented: $usersettings.alerterror,
                    content: { Alert(localizedError: usersettings.error)
                    })
-            .toolbar {
-                ToolbarItem {
-                    Button {
-                        createkeys()
-                    } label: {
-                        Image(systemName: "key")
-                            .foregroundColor(Color(.blue))
-                            .imageScale(.large)
-                    }
-                    .help("Create keys")
-                }
-
-                ToolbarItem {
-                    Button {
-                        showcopykeys = true
-                    } label: {
-                        Image(systemName: "arrow.forward.circle")
-                            .foregroundColor(Color(.blue))
-                            .imageScale(.large)
-                    }
-                    .help("Show copy keys")
-                }
-
-                ToolbarItem {
-                    if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
-                }
-            }
         }
         .navigationDestination(isPresented: $showcopykeys) {
             ShowSSHCopyKeysView()
@@ -154,3 +152,33 @@ extension Sshsettings {
 }
 
 // swiftlint:enable line_length
+
+/*
+ .toolbar {
+     ToolbarItem {
+         Button {
+             createkeys()
+         } label: {
+             Image(systemName: "key")
+                 .foregroundColor(Color(.blue))
+                 .imageScale(.large)
+         }
+         .help("Create keys")
+     }
+
+     ToolbarItem {
+         Button {
+             showcopykeys = true
+         } label: {
+             Image(systemName: "arrow.forward.circle")
+                 .foregroundColor(Color(.blue))
+                 .imageScale(.large)
+         }
+         .help("Show copy keys")
+     }
+
+     ToolbarItem {
+         if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
+     }
+ }
+ */

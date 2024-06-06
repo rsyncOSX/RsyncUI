@@ -65,32 +65,6 @@ struct RsyncandPathsettings: View {
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    _ = Backupconfigfiles()
-                    configurationsarebackedup = true
-                    Task {
-                        try await Task.sleep(seconds: 2)
-                        configurationsarebackedup = false
-                    }
-
-                } label: {
-                    Image(systemName: "wrench.adjustable.fill")
-                        .foregroundColor(Color(.blue))
-                        .imageScale(.large)
-                }
-                .help("Backup configurations")
-            }
-
-            ToolbarItem {
-                if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
-            }
-
-            ToolbarItem {
-                if configurationsarebackedup { thumbsupgreen }
-            }
-        }
         .onAppear(perform: {
             Task {
                 try await Task.sleep(seconds: 1)
@@ -152,3 +126,32 @@ struct RsyncandPathsettings: View {
             }
     }
 }
+
+/*
+ .toolbar {
+     ToolbarItem {
+         Button {
+             _ = Backupconfigfiles()
+             configurationsarebackedup = true
+             Task {
+                 try await Task.sleep(seconds: 2)
+                 configurationsarebackedup = false
+             }
+
+         } label: {
+             Image(systemName: "wrench.adjustable.fill")
+                 .foregroundColor(Color(.blue))
+                 .imageScale(.large)
+         }
+         .help("Backup configurations")
+     }
+
+     ToolbarItem {
+         if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
+     }
+
+     ToolbarItem {
+         if configurationsarebackedup { thumbsupgreen }
+     }
+ }
+ */
