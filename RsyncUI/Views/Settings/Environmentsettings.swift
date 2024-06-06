@@ -24,6 +24,7 @@ struct Environmentsettings: View {
                 Text("Rsync environment")
             }
         }
+        .formStyle(.grouped)
         .onAppear(perform: {
             Task {
                 try await Task.sleep(seconds: 1)

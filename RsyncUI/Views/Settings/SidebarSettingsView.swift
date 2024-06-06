@@ -29,7 +29,7 @@ struct SidebarSettingsView: View {
         } detail: {
             settingsView(selectedsetting)
         }
-        .frame(minWidth: 600, minHeight: 450)
+        .frame(minWidth: 600, minHeight: 500)
         .onAppear {
             Rsyncversion().getrsyncversion()
         }

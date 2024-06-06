@@ -60,6 +60,28 @@ struct RsyncandPathsettings: View {
             } header: {
                 Text("Mark days after")
             }
+
+            Section {
+                HStack {
+                    Button {
+                        // _ = Backupconfigfiles()
+                        configurationsarebackedup = true
+                        Task {
+                            try await Task.sleep(seconds: 2)
+                            configurationsarebackedup = false
+                        }
+
+                    } label: {
+                        Image(systemName: "wrench.adjustable.fill")
+                    }
+
+                    if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
+                    if configurationsarebackedup { thumbsupgreen }
+                }
+
+            } header: {
+                Text("Backup configurations")
+            }
         }
         .formStyle(.grouped)
         .alert(isPresented: $usersettings.alerterror,
@@ -88,7 +110,7 @@ struct RsyncandPathsettings: View {
     var thumbsupgreen: some View {
         Label("", systemImage: "hand.thumbsup")
             .foregroundColor(Color(.green))
-            .padding()
+            .imageScale(.large)
     }
 
     var setrsyncpathlocalpath: some View {

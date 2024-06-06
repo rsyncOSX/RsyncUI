@@ -38,25 +38,28 @@ struct AboutView: View {
     }
 
     var body: some View {
-        VStack {
-            Spacer()
+        Form {
+            VStack {
+                Spacer()
 
-            Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
-                .resizable()
-                .aspectRatio(1.0, contentMode: .fit)
-                .frame(width: 64, height: 64)
+                Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
+                    .resizable()
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .frame(width: 64, height: 64)
 
-            translations
+                translations
 
-            rsyncversionshortstring
+                rsyncversionshortstring
 
-            if newversion.notifynewversion { notifynewversion }
+                if newversion.notifynewversion { notifynewversion }
 
-            Spacer()
+                Spacer()
+            }
+            .task {
+                await newversion.getversionsofrsyncui()
+            }
         }
-        .task {
-            await newversion.getversionsofrsyncui()
-        }
+        .formStyle(.grouped)
     }
 
     var rsyncversionshortstring: some View {
