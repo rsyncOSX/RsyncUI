@@ -39,25 +39,51 @@ struct AboutView: View {
 
     var body: some View {
         Form {
-            VStack {
-                Spacer()
+            Section {
+                HStack {
+                    Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
+                        .resizable()
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .frame(width: 64, height: 64)
 
-                Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
-                    .resizable()
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .frame(width: 64, height: 64)
-
-                translations
+                    translations
+                }
 
                 rsyncversionshortstring
-
-                if newversion.notifynewversion { notifynewversion }
-
-                Spacer()
             }
-            .task {
-                await newversion.getversionsofrsyncui()
+
+            Section {
+                HStack {
+                    Button {
+                        openchangelog()
+                    } label: {
+                        Image(systemName: "doc.plaintext")
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
+
+                    if newversion.downloadavaliable {
+                        Button {
+                            opendownload()
+                        } label: {
+                            Image(systemName: "square.and.arrow.down.fill")
+                        }
+                        .help("Download new version")
+                        .buttonStyle(ColorfulButtonStyle())
+                    }
+
+                    if newversion.notifynewversion { notifynewversion }
+                }
+
+            } header: {
+                if newversion.downloadavaliable {
+                    Text("Changelog and download new version")
+                } else {
+                    Text("Changelog")
+                }
             }
+        }
+        .task {
+            await newversion.getversionsofrsyncui()
         }
         .formStyle(.grouped)
     }
@@ -73,7 +99,7 @@ struct AboutView: View {
     }
 
     var translations: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text(germanstring)
                 .font(.caption)
             Text(norwegianstring)
@@ -111,31 +137,3 @@ extension AboutView {
         }
     }
 }
-
-/*
- .toolbar {
-     ToolbarItem {
-         Button {
-             openchangelog()
-         } label: {
-             Image(systemName: "doc.plaintext")
-                 .foregroundColor(Color(.blue))
-                 .imageScale(.large)
-         }
-         .help("Changelog")
-     }
-
-     if newversion.downloadavaliable {
-         ToolbarItem {
-             Button {
-                 opendownload()
-             } label: {
-                 Image(systemName: "square.and.arrow.down.fill")
-                     .foregroundColor(Color(.blue))
-                     .imageScale(.large)
-             }
-             .help("Download new version")
-         }
-     }
- }
- */

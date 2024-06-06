@@ -40,6 +40,9 @@ struct Logsettings: View {
                             SharedReference.shared.confirmexecute = usersettings.confirmexecute
                         }
                 }
+
+                if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
+
             } header: {
                 Text("Monitor network, error and log settings")
             }
@@ -48,11 +51,6 @@ struct Logsettings: View {
         .alert(isPresented: $usersettings.alerterror,
                content: { Alert(localizedError: usersettings.error)
                })
-        .toolbar {
-            ToolbarItem {
-                if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
-            }
-        }
         .onAppear(perform: {
             Task {
                 try await Task.sleep(seconds: 1)

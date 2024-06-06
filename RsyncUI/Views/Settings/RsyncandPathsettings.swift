@@ -64,7 +64,7 @@ struct RsyncandPathsettings: View {
             Section {
                 HStack {
                     Button {
-                        // _ = Backupconfigfiles()
+                        _ = Backupconfigfiles()
                         configurationsarebackedup = true
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -74,6 +74,7 @@ struct RsyncandPathsettings: View {
                     } label: {
                         Image(systemName: "wrench.adjustable.fill")
                     }
+                    .buttonStyle(ColorfulButtonStyle())
 
                     if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
                     if configurationsarebackedup { thumbsupgreen }
@@ -148,32 +149,3 @@ struct RsyncandPathsettings: View {
             }
     }
 }
-
-/*
- .toolbar {
-     ToolbarItem {
-         Button {
-             _ = Backupconfigfiles()
-             configurationsarebackedup = true
-             Task {
-                 try await Task.sleep(seconds: 2)
-                 configurationsarebackedup = false
-             }
-
-         } label: {
-             Image(systemName: "wrench.adjustable.fill")
-                 .foregroundColor(Color(.blue))
-                 .imageScale(.large)
-         }
-         .help("Backup configurations")
-     }
-
-     ToolbarItem {
-         if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
-     }
-
-     ToolbarItem {
-         if configurationsarebackedup { thumbsupgreen }
-     }
- }
- */

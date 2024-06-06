@@ -49,6 +49,7 @@ struct Sshsettings: View {
                             Image(systemName: "arrow.forward.circle")
                         }
                         .help("Show copy keys")
+                        .buttonStyle(ColorfulButtonStyle())
 
                         if localsshkeys == false {
                             Button {
@@ -57,6 +58,7 @@ struct Sshsettings: View {
                                 Image(systemName: "key")
                             }
                             .help("Create keys")
+                            .buttonStyle(ColorfulButtonStyle())
                         }
 
                         if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
@@ -152,33 +154,3 @@ extension Sshsettings {
 }
 
 // swiftlint:enable line_length
-
-/*
- .toolbar {
-     ToolbarItem {
-         Button {
-             createkeys()
-         } label: {
-             Image(systemName: "key")
-                 .foregroundColor(Color(.blue))
-                 .imageScale(.large)
-         }
-         .help("Create keys")
-     }
-
-     ToolbarItem {
-         Button {
-             showcopykeys = true
-         } label: {
-             Image(systemName: "arrow.forward.circle")
-                 .foregroundColor(Color(.blue))
-                 .imageScale(.large)
-         }
-         .help("Show copy keys")
-     }
-
-     ToolbarItem {
-         if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
-     }
- }
- */

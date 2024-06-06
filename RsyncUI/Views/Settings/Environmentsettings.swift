@@ -20,6 +20,9 @@ struct Environmentsettings: View {
                 setenvironment
 
                 setenvironmenvariable
+
+                if SharedReference.shared.settingsischanged { thumbsupgreen }
+
             } header: {
                 Text("Rsync environment")
             }
@@ -74,11 +77,3 @@ struct Environmentsettings: View {
             }
     }
 }
-
-/*
- .toolbar {
-     ToolbarItem {
-         if SharedReference.shared.settingsischanged { thumbsupgreen }
-     }
- }
- */
