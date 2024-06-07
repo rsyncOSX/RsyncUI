@@ -91,7 +91,7 @@ struct Sidebar: View {
                 {
                     OutputRsyncByUUIDView(selecteduuids: $selecteduuids,
                                           estimatedtask: estimatedtask,
-                                          rsyncoutput: rsyncoutput)
+                                          data: rsyncoutput)
                 }
             } else {
                 Text("Either select a task or the task is not estimated")
