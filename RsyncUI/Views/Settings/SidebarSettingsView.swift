@@ -19,6 +19,8 @@ struct SidebarSettingsView: View {
 
     var body: some View {
         NavigationSplitView {
+            Divider()
+
             List(SideSettingsbaritems.allCases, selection: $selectedsetting) { selectedsetting in
                 NavigationLink(value: selectedsetting) {
                     SidebarSettingsRow(sidebaritem: selectedsetting)

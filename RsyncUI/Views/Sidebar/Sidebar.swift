@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles, rsync_output
+    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, rsync_output, profiles
     var id: String { rawValue }
 }
 
