@@ -89,8 +89,7 @@ extension ExecuteTasksNOEstimation {
         configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
         schedulerecords.append((hiddenID ?? -1, Numbers(outputfromrsync ?? []).stats()))
         if let config = getconfig(hiddenID ?? -1) {
-            let record = RemoteDataNumbers(hiddenID: hiddenID,
-                                           outputfromrsync: outputfromrsync,
+            let record = RemoteDataNumbers(outputfromrsync: outputfromrsync,
                                            config: config)
             localexecuteasyncnoestimation?.appendrecordexecutedlist(record)
             localexecuteasyncnoestimation?.appenduuid(config.id)

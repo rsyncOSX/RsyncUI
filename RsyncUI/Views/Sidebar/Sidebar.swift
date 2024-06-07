@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/12/2023.
 //
+// swiftlint:disable cyclomatic_complexity
 
 import SwiftUI
 
@@ -149,3 +150,5 @@ struct SidebarRow: View {
         }
     }
 }
+
+// swiftlint:enable cyclomatic_complexity

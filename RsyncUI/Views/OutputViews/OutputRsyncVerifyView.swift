@@ -146,8 +146,7 @@ struct OutputRsyncVerifyView: View {
     }
 
     var estimatedtask: RemoteDataNumbers {
-        return RemoteDataNumbers(hiddenID: config.hiddenID,
-                                 outputfromrsync: data,
+        return RemoteDataNumbers(outputfromrsync: data,
                                  config: config)
     }
 

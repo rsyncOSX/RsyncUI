@@ -27,7 +27,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var deletefiles: String
     var deletefiles_Int: Int
     var totalNumber_totalDirs: String
-    var config: SynchronizeConfiguration?
 
     var task: String
     var localCatalog: String
@@ -46,13 +45,11 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     // online.
     var confirmsynchronize: Bool
 
-    init(hiddenID: Int?,
-         outputfromrsync: [String]?,
+    init(outputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
-        self.hiddenID = hiddenID ?? -1
-        self.config = config
         self.outputfromrsync = outputfromrsync
+        hiddenID = config?.hiddenID ?? -1
         task = config?.task ?? ""
         localCatalog = config?.localCatalog ?? ""
         offsiteServer = config?.offsiteServer ?? "localhost"
@@ -83,8 +80,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         if SharedReference.shared.rsyncversion3,
            transferredNumber_Int + totalDirs_Int == newfiles_Int
         {
-            // if  == "0", deletefiles == "0", totalNumberSizebytes == "0"
-            // (outputfromrsync?.count ?? 0) - (Int(newfiles) ?? 0) < 30
             confirmsynchronize = true
             Logger.process.info("RemoteDataNumbers: confirmsynchronize - TRUE")
         } else {
