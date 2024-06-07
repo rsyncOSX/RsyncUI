@@ -35,6 +35,7 @@ struct SidebarSettingsView: View {
         .onAppear {
             Rsyncversion().getrsyncversion()
         }
+        .navigationTitle("Settings")
     }
 
     @MainActor @ViewBuilder
