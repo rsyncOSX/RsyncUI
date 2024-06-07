@@ -119,6 +119,7 @@
 		E985C79325F3AD9700CB895C /* Rsyncversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71F25F3AD9700CB895C /* Rsyncversion.swift */; };
 		E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72425F3AD9700CB895C /* InterruptProcess.swift */; };
 		E986073B2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E986073A2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift */; };
+		E98722202C1365F9006112CD /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E987221F2C1365F8006112CD /* DetailsView.swift */; };
 		E987648D2ADAD938001B4B7E /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E987648C2ADAD938001B4B7E /* Metal.framework */; };
 		E98A7E2929C9BB64000C8607 /* Allprofilesandtasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A7E2829C9BB64000C8607 /* Allprofilesandtasks.swift */; };
 		E98C7AB5262D662200555977 /* ReadLogRecordsJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C7AB4262D662200555977 /* ReadLogRecordsJSON.swift */; };
@@ -303,6 +304,7 @@
 		E985C71F25F3AD9700CB895C /* Rsyncversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rsyncversion.swift; sourceTree = "<group>"; };
 		E985C72425F3AD9700CB895C /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
 		E986073A2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSSHCopyKeysView.swift; sourceTree = "<group>"; };
+		E987221F2C1365F8006112CD /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		E987648C2ADAD938001B4B7E /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		E98A7E2829C9BB64000C8607 /* Allprofilesandtasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allprofilesandtasks.swift; sourceTree = "<group>"; };
 		E98C7AB4262D662200555977 /* ReadLogRecordsJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadLogRecordsJSON.swift; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 				E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */,
 				E9541A5B2BFF89B200638B2E /* OutputRsyncByUUIDView.swift */,
 				E9493E4A2BF4DB1000512A8A /* DetailsOneTaskVertical.swift */,
+				E987221F2C1365F8006112CD /* DetailsView.swift */,
 			);
 			path = OutputViews;
 			sourceTree = "<group>";
@@ -1171,6 +1174,7 @@
 				E8518C7A263807F200128796 /* WriteLogRecordsJSON.swift in Sources */,
 				E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */,
 				E961D0512BEC8CE300CBF9B1 /* ProfileView.swift in Sources */,
+				E98722202C1365F9006112CD /* DetailsView.swift in Sources */,
 				E98F608D290D034300952149 /* CommandProcess.swift in Sources */,
 				E9D94DB6294B9409007C21D2 /* UserServer.swift in Sources */,
 				E985C77025F3AD9700CB895C /* EstimateProgressDetails.swift in Sources */,
