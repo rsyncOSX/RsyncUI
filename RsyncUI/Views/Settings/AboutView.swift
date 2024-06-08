@@ -53,33 +53,32 @@ struct AboutView: View {
             }
 
             Section {
-                HStack {
-                    Button {
-                        openchangelog()
-                    } label: {
-                        Image(systemName: "doc.plaintext")
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-
-                    if newversion.downloadavaliable {
-                        Button {
-                            opendownload()
-                        } label: {
-                            Image(systemName: "square.and.arrow.down.fill")
-                        }
-                        .help("Download new version")
-                        .buttonStyle(ColorfulButtonStyle())
-                    }
-
-                    if newversion.notifynewversion { notifynewversion }
+                Button {
+                    openchangelog()
+                } label: {
+                    Image(systemName: "doc.plaintext")
                 }
+                .buttonStyle(ColorfulButtonStyle())
 
             } header: {
-                if newversion.downloadavaliable {
-                    Text("Changelog and download new version")
-                } else {
-                    Text("Changelog")
+                Text("Changelog")
+            }
+
+            if newversion.downloadavaliable {
+                Section {
+                    Button {
+                        opendownload()
+                    } label: {
+                        Image(systemName: "square.and.arrow.down.fill")
+                    }
+                    .help("Download new version")
+                    .buttonStyle(ColorfulButtonStyle())
+
+                } header: {
+                    Text("New version")
                 }
+
+                if newversion.notifynewversion { notifynewversion }
             }
         }
         .task {
