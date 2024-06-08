@@ -53,6 +53,9 @@
 "Add remote user" = "Legg til ekstern bruker";
 
 /* No comment provided by engineer. */
+"Add summary logrecord" = "Oppsummering i logrecord";
+
+/* No comment provided by engineer. */
 "Add synchronize ID" = "Legg til synkroniserings ID";
 
 /* No comment provided by engineer. */
@@ -87,6 +90,9 @@
 
 /* No comment provided by engineer. */
 "Changelog" = "Endringslogg";
+
+/* No comment provided by engineer. */
+"Changelog and download new version" = "Endringslogg og last ned ny versjon";
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Sjekk for feil i utdata";
@@ -143,13 +149,13 @@
 "Deleting snapshots" = "Slette snapshots";
 
 /* No comment provided by engineer. */
-"Detailed log level" = "Detaljert log nivå";
-
-/* No comment provided by engineer. */
 "Don´t add /" = "Ikke legg til /";
 
 /* No comment provided by engineer. */
 "Download new version" = "Last ned ny versjon";
+
+/* No comment provided by engineer. */
+"Either select a task or the task is not estimated" = "Enten velg oppgave eller den er ikke estimert";
 
 /* No comment provided by engineer. */
 "Enable rsync daemon" = "Aktiver rsync daemon";
@@ -174,9 +180,6 @@
 
 /* No comment provided by engineer. */
 "Files" = "Filer";
-
-/* No comment provided by engineer. */
-"Full" = "Full";
 
 /* No comment provided by engineer. */
 "German translation by: Andre Voigtmann" = "Tysk oversettelse av: Andre Voigtmann";
@@ -227,22 +230,22 @@
 "localhost" = "localhost";
 
 /* No comment provided by engineer. */
-"Log to file" = "Logg til fil";
+"Log summary logfile" = "Logg oppsummering log fil";
 
 /* No comment provided by engineer. */
 "Logfile" = "Loggfil";
 
 /* No comment provided by engineer. */
-"Mark days :" = "Marker dager:";
+"Mark days after" = "Merk dager etter";
 
 /* No comment provided by engineer. */
 "Marked ^[%lld snapshot](inflect: true) for delete" = "Markert ^[%lld snapshot](inflect: true) for sletting";
 
 /* No comment provided by engineer. */
-"Min" = "Minimum";
+"Monitor network" = "Overvåk nettverk";
 
 /* No comment provided by engineer. */
-"Monitor network" = "Overvåk nettverk";
+"Monitor network, error and log settings" = "Monitorer nettverk, feil og logg setting";
 
 /* No comment provided by engineer. */
 "New" = "Ny";
@@ -260,9 +263,6 @@
 "No error" = "Ingen feil";
 
 /* No comment provided by engineer. */
-"None" = "Ingen";
-
-/* No comment provided by engineer. */
 "Norwegian translation by: Thomas Evensen" = "Norsk oversettelse av: Thomas Evensen";
 
 /* No comment provided by engineer. */
@@ -272,13 +272,13 @@
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
-"Other settings" = "Andre settinger";
-
-/* No comment provided by engineer. */
 "Output from rsync" = "Utdata fra rsync";
 
 /* No comment provided by engineer. */
 "Path for restore" = "Sti for gjenoppretting";
+
+/* No comment provided by engineer. */
+"Path rsync" = "Sti rsync";
 
 /* No comment provided by engineer. */
 "Please read and understand the information below. There is more info" = "Les og forstå informasjonen under. Det er mer info";
@@ -320,13 +320,13 @@
 "Result" = "Resultat";
 
 /* No comment provided by engineer. */
+"Rsync environment" = "Rsync miljø";
+
+/* No comment provided by engineer. */
 "Rsync output estimated task" = "Rsync logg estimert oppgave";
 
 /* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
-
-/* No comment provided by engineer. */
-"Rsync version and path" = "Rsync versjon og sti";
 
 /* No comment provided by engineer. */
 "RsyncUI" = "RsyncUI";
@@ -336,9 +336,6 @@
 
 /* No comment provided by engineer. */
 "RsyncUI help" = "RsyncUI hjelp";
-
-/* No comment provided by engineer. */
-"Save settings" = "Lagre innstillinger";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
@@ -359,6 +356,9 @@
 "Server: " = "Tjener:";
 
 /* No comment provided by engineer. */
+"Settings" = "Settinger";
+
+/* No comment provided by engineer. */
 "Show copy keys" = "Hvis kopi nøkler";
 
 /* No comment provided by engineer. */
@@ -366,6 +366,12 @@
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
+
+/* No comment provided by engineer. */
+"SSH keys" = "SSH nøkkel";
+
+/* No comment provided by engineer. */
+"SSH path and port" = "SSH sti og port";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synkronisere";
@@ -450,6 +456,12 @@
 
 /* No comment provided by engineer. */
 "Verify task" = "Verifiser oppgave";
+
+/* No comment provided by engineer. */
+"Version rsync" = "Versjon rsync";
+
+/* No comment provided by engineer. */
+"View logfile" = "Se loggfil";
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Velkommen til RsyncUI";

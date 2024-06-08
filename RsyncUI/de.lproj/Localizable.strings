@@ -53,6 +53,9 @@
 "Add remote user" = "Remote-Benutzer hinzufügen";
 
 /* No comment provided by engineer. */
+"Add summary logrecord" = "Zusammenfassenden Logdatensatz hinzufügen";
+
+/* No comment provided by engineer. */
 "Add synchronize ID" = "Synchronisierungs-ID hinzufügen";
 
 /* No comment provided by engineer. */
@@ -87,6 +90,9 @@
 
 /* No comment provided by engineer. */
 "Changelog" = "Änderungsprotokoll";
+
+/* No comment provided by engineer. */
+"Changelog and download new version" = "Changelog und Download der neuen Version";
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
@@ -143,13 +149,13 @@
 "Deleting snapshots" = "Schnappschüsse löschen";
 
 /* No comment provided by engineer. */
-"Detailed log level" = "Detaillierte Protokollebene";
-
-/* No comment provided by engineer. */
 "Don´t add /" = "Nicht hinzufügen/";
 
 /* No comment provided by engineer. */
 "Download new version" = "Neue Version herunterladen";
+
+/* No comment provided by engineer. */
+"Either select a task or the task is not estimated" = "Wählen Sie entweder eine Aufgabe aus oder die Aufgabe wird nicht geschätzt";
 
 /* No comment provided by engineer. */
 "Enable rsync daemon" = "Rsync daemon aktivieren";
@@ -174,9 +180,6 @@
 
 /* No comment provided by engineer. */
 "Files" = "Dateien";
-
-/* No comment provided by engineer. */
-"Full" = "Voll";
 
 /* No comment provided by engineer. */
 "German translation by: Andre Voigtmann" = "Deutsche Übersetzung von: Andre Voigtmann";
@@ -227,22 +230,22 @@
 "localhost" = "localhost";
 
 /* No comment provided by engineer. */
-"Log to file" = "Log in Datei";
+"Log summary logfile" = "Protokollzusammenfassungs-Protokolldatei";
 
 /* No comment provided by engineer. */
 "Logfile" = "Protokolldatei";
 
 /* No comment provided by engineer. */
-"Mark days :" = "Tage markieren:";
+"Mark days after" = "Markieren Sie Tage danach";
 
 /* No comment provided by engineer. */
 "Marked ^[%lld snapshot](inflect: true) for delete" = "^[%lld snapshot](inflect: true) zum Löschen markiert";
 
 /* No comment provided by engineer. */
-"Min" = "Min";
+"Monitor network" = "Netzwerk überwachen";
 
 /* No comment provided by engineer. */
-"Monitor network" = "Netzwerk überwachen";
+"Monitor network, error and log settings" = "Überwachen Sie Netzwerk-, Fehler- und Protokolleinstellungen";
 
 /* No comment provided by engineer. */
 "New" = "Neu";
@@ -260,9 +263,6 @@
 "No error" = "Kein Fehler";
 
 /* No comment provided by engineer. */
-"None" = "Keine";
-
-/* No comment provided by engineer. */
 "Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
 
 /* No comment provided by engineer. */
@@ -272,13 +272,13 @@
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
-"Other settings" = "Andere Einstellungen";
-
-/* No comment provided by engineer. */
 "Output from rsync" = "Ausgabe von rsync";
 
 /* No comment provided by engineer. */
 "Path for restore" = "Pfad zum Wiederherstellen";
+
+/* No comment provided by engineer. */
+"Path rsync" = "Pfad rsync";
 
 /* No comment provided by engineer. */
 "Please read and understand the information below. There is more info" = "Bitte lesen und verstehen Sie die nachstehenden Informationen. Es gibt mehr Informationen";
@@ -320,13 +320,13 @@
 "Result" = "Result";
 
 /* No comment provided by engineer. */
+"Rsync environment" = "Rsync-Umgebung";
+
+/* No comment provided by engineer. */
 "Rsync output estimated task" = "Geschätzte Rsync-Ausgabeaufgabe";
 
 /* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
-
-/* No comment provided by engineer. */
-"Rsync version and path" = "Rsync-Version und -Pfad";
 
 /* No comment provided by engineer. */
 "RsyncUI" = "RsyncUI";
@@ -336,9 +336,6 @@
 
 /* No comment provided by engineer. */
 "RsyncUI help" = "RsyncUI Hilfe";
-
-/* No comment provided by engineer. */
-"Save settings" = "Einstellungen speichern";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
@@ -359,6 +356,9 @@
 "Server: " = "Server:";
 
 /* No comment provided by engineer. */
+"Settings" = "Einstellungen";
+
+/* No comment provided by engineer. */
 "Show copy keys" = "Kopierschlüssel anzeigen";
 
 /* No comment provided by engineer. */
@@ -366,6 +366,12 @@
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
+
+/* No comment provided by engineer. */
+"SSH keys" = "SSH-Schlüssel";
+
+/* No comment provided by engineer. */
+"SSH path and port" = "SSH-Pfad und -Port";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synchronisieren";
@@ -450,6 +456,12 @@
 
 /* No comment provided by engineer. */
 "Verify task" = "Aufgabe verifizieren";
+
+/* No comment provided by engineer. */
+"Version rsync" = "Version rsync";
+
+/* No comment provided by engineer. */
+"View logfile" = "Logdatei anzeigen";
 
 /* No comment provided by engineer. */
 "Welcome to RsyncUI" = "Willkommen bei RsyncUI";
