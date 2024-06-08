@@ -22,7 +22,7 @@
 		E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */; };
 		E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */; };
 		E943B0A925FFC22200A4F30D /* RsyncProcessFilehandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcessFilehandler.swift */; };
-		E9493E4B2BF4DB1000512A8A /* DetailsOneTaskVertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493E4A2BF4DB1000512A8A /* DetailsOneTaskVertical.swift */; };
+		E9493E4B2BF4DB1000512A8A /* DetailsOneTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493E4A2BF4DB1000512A8A /* DetailsOneTaskView.swift */; };
 		E9493E4D2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */; };
 		E94E1E1C2A2DAA3E00011FED /* RestoreFilesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */; };
 		E9541A5C2BFF89B200638B2E /* OutputRsyncByUUIDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9541A5B2BFF89B200638B2E /* OutputRsyncByUUIDView.swift */; };
@@ -199,7 +199,7 @@
 		E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsbyConfigurationView.swift; sourceTree = "<group>"; };
 		E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersDefault.swift; sourceTree = "<group>"; };
 		E943B0A825FFC22200A4F30D /* RsyncProcessFilehandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessFilehandler.swift; sourceTree = "<group>"; };
-		E9493E4A2BF4DB1000512A8A /* DetailsOneTaskVertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOneTaskVertical.swift; sourceTree = "<group>"; };
+		E9493E4A2BF4DB1000512A8A /* DetailsOneTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOneTaskView.swift; sourceTree = "<group>"; };
 		E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableOutputfromrsync.swift; sourceTree = "<group>"; };
 		E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFilesTableView.swift; sourceTree = "<group>"; };
 		E94F8337272E7ABA00D3924B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -417,7 +417,7 @@
 				E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */,
 				E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */,
 				E9541A5B2BFF89B200638B2E /* OutputRsyncByUUIDView.swift */,
-				E9493E4A2BF4DB1000512A8A /* DetailsOneTaskVertical.swift */,
+				E9493E4A2BF4DB1000512A8A /* DetailsOneTaskView.swift */,
 				E987221F2C1365F8006112CD /* DetailsView.swift */,
 			);
 			path = OutputViews;
@@ -1169,7 +1169,7 @@
 				E985C77925F3AD9700CB895C /* SnapshotDeleteCatalogsArguments.swift in Sources */,
 				E99C2400261C322E009D4DBF /* ObservableRestore.swift in Sources */,
 				E985C74025F3AD9700CB895C /* TCPconnections.swift in Sources */,
-				E9493E4B2BF4DB1000512A8A /* DetailsOneTaskVertical.swift in Sources */,
+				E9493E4B2BF4DB1000512A8A /* DetailsOneTaskView.swift in Sources */,
 				E9BD14BB2642F94400E29347 /* TrimFour.swift in Sources */,
 				E8518C7A263807F200128796 /* WriteLogRecordsJSON.swift in Sources */,
 				E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */,

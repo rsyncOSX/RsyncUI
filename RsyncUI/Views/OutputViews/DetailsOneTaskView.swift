@@ -1,5 +1,5 @@
 //
-//  DetailsOneTaskVertical.swift
+//  DetailsOneTaskView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 15/05/2024.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct DetailsOneTaskVertical: View {
+struct DetailsOneTaskView: View {
     let estimatedtask: RemoteDataNumbers
 
     var body: some View {

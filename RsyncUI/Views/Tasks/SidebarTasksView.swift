@@ -78,7 +78,7 @@ struct SidebarTasksView: View {
         case .dryrunonetaskalreadyestimated:
             if let estimates = estimateprogressdetails.getestimatedlist()?.filter({ $0.id == selecteduuids.first }) {
                 if estimates.count == 1 {
-                    DetailsOneTaskVertical(estimatedtask: estimates[0])
+                    DetailsOneTaskView(estimatedtask: estimates[0])
                         .onDisappear(perform: {
                             selecteduuids.removeAll()
                         })
