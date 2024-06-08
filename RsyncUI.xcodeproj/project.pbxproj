@@ -36,7 +36,7 @@
 		E95DD7F428EC738B007654BC /* RsyncProcessNOFilehandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DD7F328EC738B007654BC /* RsyncProcessNOFilehandler.swift */; };
 		E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */; };
 		E95EDC8A26063EAA000018DE /* ObservableParametersRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC8926063EAA000018DE /* ObservableParametersRsync.swift */; };
-		E96036042B288CB600438D8B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036032B288CB600438D8B /* Sidebar.swift */; };
+		E96036042B288CB600438D8B /* SidebarMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96036032B288CB600438D8B /* SidebarMainView.swift */; };
 		E961D0512BEC8CE300CBF9B1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E961D0502BEC8CE300CBF9B1 /* ProfileView.swift */; };
 		E96223952B0BDA7E00C40578 /* OutputRsyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */; };
 		E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */; };
@@ -214,7 +214,7 @@
 		E95DD7F328EC738B007654BC /* RsyncProcessNOFilehandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessNOFilehandler.swift; sourceTree = "<group>"; };
 		E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRsyncParameter.swift; sourceTree = "<group>"; };
 		E95EDC8926063EAA000018DE /* ObservableParametersRsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersRsync.swift; sourceTree = "<group>"; };
-		E96036032B288CB600438D8B /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		E96036032B288CB600438D8B /* SidebarMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarMainView.swift; sourceTree = "<group>"; };
 		E961D0502BEC8CE300CBF9B1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputRsyncView.swift; sourceTree = "<group>"; };
 		E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLogs.swift; sourceTree = "<group>"; };
@@ -502,7 +502,7 @@
 		E985C60A25F3AD8400CB895C /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
-				E96036032B288CB600438D8B /* Sidebar.swift */,
+				E96036032B288CB600438D8B /* SidebarMainView.swift */,
 				E985C61425F3AD8400CB895C /* Profilenames.swift */,
 			);
 			path = Sidebar;
@@ -1130,7 +1130,7 @@
 				E9AE41462AFF5A8A00F3D562 /* ExecuteEstimatedTasksView.swift in Sources */,
 				E985C72925F3AD9700CB895C /* Keypathidentityfile.swift in Sources */,
 				E985C72E25F3AD9700CB895C /* OutputfromProcess.swift in Sources */,
-				E96036042B288CB600438D8B /* Sidebar.swift in Sources */,
+				E96036042B288CB600438D8B /* SidebarMainView.swift in Sources */,
 				E98C7ABA262D664900555977 /* ReadConfigurationJSON.swift in Sources */,
 				E985C77825F3AD9700CB895C /* GetRemoteFileListingsArguments.swift in Sources */,
 				E9C029292BFB872E00461AD3 /* CompletedView.swift in Sources */,

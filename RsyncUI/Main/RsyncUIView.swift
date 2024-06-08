@@ -34,9 +34,9 @@ struct RsyncUIView: View {
 
                 })
             } else {
-                Sidebar(rsyncUIdata: rsyncUIdata,
-                        selectedprofile: $selectedprofile,
-                        errorhandling: errorhandling)
+                SidebarMainView(rsyncUIdata: rsyncUIdata,
+                                selectedprofile: $selectedprofile,
+                                errorhandling: errorhandling)
             }
 
             HStack {

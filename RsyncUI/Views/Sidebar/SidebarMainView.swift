@@ -1,5 +1,5 @@
 //
-//  Sidebar.swift
+//  SidebarMainView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 12/12/2023.
@@ -13,7 +13,7 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
-struct Sidebar: View {
+struct SidebarMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError

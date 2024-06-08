@@ -39,16 +39,6 @@ struct FirstTimeView: View {
         .onDisappear {
             SharedReference.shared.firsttime = false
         }
-        /*
-         .onAppear {
-             counter += 1
-         }
-
-         .confettiCannon(counter: $counter, num: 100,
-                         openingAngle: Angle(degrees: 0),
-                         closingAngle: Angle(degrees: 360),
-                         radius: 200)
-          */
     }
 
     var imagersyncosx: some View {
