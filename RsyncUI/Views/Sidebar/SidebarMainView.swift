@@ -4,12 +4,11 @@
 //
 //  Created by Thomas Evensen on 12/12/2023.
 //
-// swiftlint:disable cyclomatic_complexity
 
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, rsync_output, profiles
+    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles
     var id: String { rawValue }
 }
 
@@ -84,19 +83,6 @@ struct SidebarMainView: View {
                              estimateprogressdetails: estimateprogressdetails)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
-        case .rsync_output:
-            if let index = estimateprogressdetails.estimatedlist?.firstIndex(where: { $0.id == selecteduuids.first }) {
-                if let estimatedtask = estimateprogressdetails.estimatedlist?[index],
-                   let rsyncoutput = estimateprogressdetails.estimatedlist?[index].outputfromrsync
-                {
-                    OutputRsyncByUUIDView(selecteduuids: $selecteduuids,
-                                          estimatedtask: estimatedtask,
-                                          data: rsyncoutput)
-                }
-            } else {
-                Text("Either select a task or the task is not estimated")
-                    .font(.title2)
-            }
         }
     }
 
@@ -145,10 +131,6 @@ struct SidebarRow: View {
             return "arrowshape.turn.up.backward"
         case .profiles:
             return "arrow.triangle.branch"
-        case .rsync_output:
-            return "text.magnifyingglass"
         }
     }
 }
-
-// swiftlint:enable cyclomatic_complexity

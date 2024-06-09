@@ -163,7 +163,7 @@ struct TasksView: View {
                         path.append(Tasks(task: .dryrunonetask))
                     }
                 } label: {
-                    Image(systemName: "info")
+                    Image(systemName: "text.magnifyingglass")
                 }
                 .help("Rsync output estimated task")
             }
