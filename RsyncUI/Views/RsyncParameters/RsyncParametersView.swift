@@ -39,13 +39,11 @@ struct RsyncParametersView: View {
         NavigationStack(path: $path) {
             HStack {
                 VStack(alignment: .leading) {
-                    // Section(header: headerssh) {
                     HStack {
                         setsshpath
 
                         setsshport
                     }
-                    // }
 
                     EditRsyncParameter(450, $parameters.parameter8)
                         .onChange(of: parameters.parameter8) {
@@ -89,27 +87,25 @@ struct RsyncParametersView: View {
                     Spacer()
                 }
 
-                ZStack {
-                    ListofTasksLightView(selecteduuids: $selecteduuids,
-                                         profile: rsyncUIdata.profile,
-                                         configurations: rsyncUIdata.configurations ?? [])
-                        .frame(maxWidth: .infinity)
-                        .onChange(of: selecteduuids) {
-                            if let configurations = rsyncUIdata.configurations {
-                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                    selectedconfig = configurations[index]
-                                    parameters.setvalues(configurations[index])
-                                    if configurations[index].parameter12 != "--backup" {
-                                        backup = false
-                                    }
-                                } else {
-                                    selectedconfig = nil
-                                    parameters.setvalues(selectedconfig)
+                ListofTasksLightView(selecteduuids: $selecteduuids,
+                                     profile: rsyncUIdata.profile,
+                                     configurations: rsyncUIdata.configurations ?? [])
+                    .frame(maxWidth: .infinity)
+                    .onChange(of: selecteduuids) {
+                        if let configurations = rsyncUIdata.configurations {
+                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                selectedconfig = configurations[index]
+                                parameters.setvalues(configurations[index])
+                                if configurations[index].parameter12 != "--backup" {
                                     backup = false
                                 }
+                            } else {
+                                selectedconfig = nil
+                                parameters.setvalues(selectedconfig)
+                                backup = false
                             }
                         }
-                }
+                    }
 
                 if focusaborttask { labelaborttask }
             }

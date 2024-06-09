@@ -45,154 +45,142 @@ struct AddTaskView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            Form {
-                ZStack {
-                    HStack {
-                        // For center
-                        Spacer()
+            HStack {
+                Spacer()
+                // Column 1
+                VStack(alignment: .leading) {
+                    pickerselecttypeoftask
 
-                        // Column 1
-                        VStack(alignment: .leading) {
-                            pickerselecttypeoftask
+                    if newdata.selectedrsynccommand == .syncremote {
+                        VStack(alignment: .leading) { localandremotecatalogsyncremote }
 
-                            if newdata.selectedrsynccommand == .syncremote {
-                                VStack(alignment: .leading) { localandremotecatalogsyncremote }
-
-                            } else {
-                                VStack(alignment: .leading) { localandremotecatalog }
-                            }
-
-                            VStack(alignment: .leading) {
-                                ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""),
-                                                  $newdata.donotaddtrailingslash)
-                            }
-
-                            VStack(alignment: .leading) { synchronizeID }
-
-                            VStack(alignment: .leading) { remoteuserandserver }
-
-                            Spacer()
-                        }
-
-                        // Column 2
-
-                        VStack(alignment: .leading) {
-                            ZStack {
-                                ListofTasksAddView(rsyncUIdata: rsyncUIdata,
-                                                   selecteduuids: $selecteduuids)
-                                    .onChange(of: selecteduuids) {
-                                        if let configurations = rsyncUIdata.configurations {
-                                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                                selectedconfig = configurations[index]
-                                                newdata.updateview(configurations[index])
-                                            } else {
-                                                selectedconfig = nil
-                                                newdata.updateview(nil)
-                                            }
-                                        }
-                                    }
-                                    .copyable(copyitems.filter { selecteduuids.contains($0.id) })
-                                    .pasteDestination(for: CopyItem.self) { items in
-                                        newdata.preparecopyandpastetasks(items,
-                                                                         rsyncUIdata.configurations ?? [])
-                                        guard items.count > 0 else { return }
-                                        confirmcopyandpaste = true
-                                    } validator: { items in
-                                        items.filter { $0.task != SharedReference.shared.snapshot }
-                                    }
-                                    .confirmationDialog(
-                                        Text("Copy ^[\(newdata.copyandpasteconfigurations?.count ?? 0) configuration](inflect: true)"),
-                                        isPresented: $confirmcopyandpaste
-                                    ) {
-                                        Button("Copy") {
-                                            confirmcopyandpaste = false
-                                            rsyncUIdata.configurations =
-                                                newdata.writecopyandpastetasks(rsyncUIdata.profile,
-                                                                               rsyncUIdata.configurations ?? [])
-                                        }
-                                    }
-                            }
-                        }
+                    } else {
+                        VStack(alignment: .leading) { localandremotecatalog }
                     }
+
+                    VStack(alignment: .leading) {
+                        ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""),
+                                          $newdata.donotaddtrailingslash)
+                    }
+
+                    VStack(alignment: .leading) { synchronizeID }
+
+                    VStack(alignment: .leading) { remoteuserandserver }
+
+                    Spacer()
+                }
+                // Column 2
+                VStack(alignment: .leading) {
+                    ListofTasksAddView(rsyncUIdata: rsyncUIdata,
+                                       selecteduuids: $selecteduuids)
+                        .onChange(of: selecteduuids) {
+                            if let configurations = rsyncUIdata.configurations {
+                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                    selectedconfig = configurations[index]
+                                    newdata.updateview(configurations[index])
+                                } else {
+                                    selectedconfig = nil
+                                    newdata.updateview(nil)
+                                }
+                            }
+                        }
+                        .copyable(copyitems.filter { selecteduuids.contains($0.id) })
+                        .pasteDestination(for: CopyItem.self) { items in
+                            newdata.preparecopyandpastetasks(items,
+                                                             rsyncUIdata.configurations ?? [])
+                            guard items.count > 0 else { return }
+                            confirmcopyandpaste = true
+                        } validator: { items in
+                            items.filter { $0.task != SharedReference.shared.snapshot }
+                        }
+                        .confirmationDialog(
+                            Text("Copy ^[\(newdata.copyandpasteconfigurations?.count ?? 0) configuration](inflect: true)"),
+                            isPresented: $confirmcopyandpaste
+                        ) {
+                            Button("Copy") {
+                                confirmcopyandpaste = false
+                                rsyncUIdata.configurations =
+                                    newdata.writecopyandpastetasks(rsyncUIdata.profile,
+                                                                   rsyncUIdata.configurations ?? [])
+                            }
+                        }
                 }
             }
-            .lineSpacing(2)
-            .padding()
-            .onSubmit {
-                switch focusField {
-                case .localcatalogField:
-                    focusField = .remotecatalogField
-                case .remotecatalogField:
-                    focusField = .synchronizeIDField
-                case .remoteuserField:
-                    focusField = .remoteserverField
-                case .remoteserverField:
-                    if newdata.selectedconfig == nil {
-                        addconfig()
-                    } else {
-                        validateandupdate()
-                    }
-                    focusField = nil
-                case .synchronizeIDField:
-                    if newdata.remotestorageislocal == true,
-                       newdata.selectedconfig == nil
-                    {
-                        addconfig()
-                    } else {
-                        focusField = .remoteuserField
-                    }
-                default:
-                    return
-                }
-            }
-            .alert(isPresented: $newdata.alerterror,
-                   content: { Alert(localizedError: newdata.error)
-                   })
-
-            .navigationDestination(for: AddTasks.self) { which in
-                makeView(view: which.task)
-            }
-            .toolbar {
-                if newdata.selectedconfig != nil {
-                    ToolbarItem {
-                        Button {
-                            validateandupdate()
-                        } label: {
-                            Image(systemName: "return")
-                                .foregroundColor(Color(.blue))
-                        }
-                        .help("Update task")
-                    }
+        }
+        .onSubmit {
+            switch focusField {
+            case .localcatalogField:
+                focusField = .remotecatalogField
+            case .remotecatalogField:
+                focusField = .synchronizeIDField
+            case .remoteuserField:
+                focusField = .remoteserverField
+            case .remoteserverField:
+                if newdata.selectedconfig == nil {
+                    addconfig()
                 } else {
-                    ToolbarItem {
-                        Button {
-                            addconfig()
-                        } label: {
-                            Image(systemName: "return")
-                                .foregroundColor(Color(.blue))
-                        }
-                        .help("Add task")
-                    }
+                    validateandupdate()
                 }
+                focusField = nil
+            case .synchronizeIDField:
+                if newdata.remotestorageislocal == true,
+                   newdata.selectedconfig == nil
+                {
+                    addconfig()
+                } else {
+                    focusField = .remoteuserField
+                }
+            default:
+                return
+            }
+        }
+        .alert(isPresented: $newdata.alerterror,
+               content: { Alert(localizedError: newdata.error)
+               })
 
+        .navigationDestination(for: AddTasks.self) { which in
+            makeView(view: which.task)
+        }
+        .toolbar {
+            if newdata.selectedconfig != nil {
                 ToolbarItem {
                     Button {
-                        path.append(AddTasks(task: .homecatalogs))
+                        validateandupdate()
                     } label: {
-                        Image(systemName: "house.fill")
+                        Image(systemName: "return")
+                            .foregroundColor(Color(.blue))
                     }
-                    .help("Home catalogs")
+                    .help("Update task")
                 }
-
+            } else {
                 ToolbarItem {
                     Button {
-                        guard selectedconfig != nil else { return }
-                        path.append(AddTasks(task: .verify))
+                        addconfig()
                     } label: {
-                        Image(systemName: "flag.checkered")
+                        Image(systemName: "return")
+                            .foregroundColor(Color(.blue))
                     }
-                    .help("Verify task")
+                    .help("Add task")
                 }
+            }
+
+            ToolbarItem {
+                Button {
+                    path.append(AddTasks(task: .homecatalogs))
+                } label: {
+                    Image(systemName: "house.fill")
+                }
+                .help("Home catalogs")
+            }
+
+            ToolbarItem {
+                Button {
+                    guard selectedconfig != nil else { return }
+                    path.append(AddTasks(task: .verify))
+                } label: {
+                    Image(systemName: "flag.checkered")
+                }
+                .help("Verify task")
             }
         }
     }
