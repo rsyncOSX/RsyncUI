@@ -46,7 +46,6 @@ struct AddTaskView: View {
     var body: some View {
         NavigationStack(path: $path) {
             HStack {
-                Spacer()
                 // Column 1
                 VStack(alignment: .leading) {
                     pickerselecttypeoftask
@@ -137,10 +136,6 @@ struct AddTaskView: View {
         .alert(isPresented: $newdata.alerterror,
                content: { Alert(localizedError: newdata.error)
                })
-
-        .navigationDestination(for: AddTasks.self) { which in
-            makeView(view: which.task)
-        }
         .toolbar {
             if newdata.selectedconfig != nil {
                 ToolbarItem {
@@ -183,6 +178,10 @@ struct AddTaskView: View {
                 .help("Verify task")
             }
         }
+        .navigationDestination(for: AddTasks.self) { which in
+            makeView(view: which.task)
+        }
+        .padding()
     }
 
     @MainActor @ViewBuilder
