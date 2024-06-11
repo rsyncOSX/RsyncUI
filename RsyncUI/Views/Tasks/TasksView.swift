@@ -33,7 +33,6 @@ final class Selectedconfig {
     var config: SynchronizeConfiguration?
 }
 
-@MainActor
 struct TasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task

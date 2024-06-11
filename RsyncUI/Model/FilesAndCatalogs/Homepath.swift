@@ -1,28 +1,41 @@
 //
-//  Catalogsandfiles.swift
-//  RsyncOSX
+//  Homepath.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 26.04.2017.
-//  Copyright © 2017 Thomas Evensen. All rights reserved.
+//  Created by Thomas Evensen on 11/06/2024.
 //
-// swiftlint:disable opening_brace
+
+// swiftlint:disable line_length
 
 import Foundation
 
-class Catalogsandfiles: NamesandPaths {
-    func getfullpathsshkeys() -> [String]? {
-        if let atpath = fullpathsshkeys {
-            do {
-                var array = [String]()
-                for file in try Folder(path: atpath).files {
-                    array.append(file.name)
-                }
-                return array
-            } catch {
-                return nil
-            }
+class Homepath {
+    // path without macserialnumber
+    var fullpathnomacserial: String?
+    // path with macserialnumber
+    var fullpathmacserial: String?
+    // Documentscatalog
+    var documentscatalog: String? {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+        return paths.firstObject as? String
+    }
+
+    // Mac serialnumber
+    var macserialnumber: String? {
+        if SharedReference.shared.macserialnumber == nil {
+            SharedReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber() ?? ""
         }
-        return nil
+        return SharedReference.shared.macserialnumber
+    }
+
+    var userHomeDirectoryPath: String? {
+        let pw = getpwuid(getuid())
+        if let home = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+            return homePath
+        } else {
+            return nil
+        }
     }
 
     func getcatalogsasstringnames() -> [String]? {
@@ -84,25 +97,16 @@ class Catalogsandfiles: NamesandPaths {
         }
     }
 
-    // Create SSH catalog
-    // If ssh catalog exists - bail out, no need to create
-    func createsshkeyrootpath() {
-        if let path = onlysshkeypath {
-            let root = Folder.home
-            guard root.containsSubfolder(named: path) == false else { return }
-            do {
-                try root.createSubfolder(at: path)
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-                return
-            }
-        }
-    }
-
-    override init(_ whichroot: Rootpath) {
-        super.init(whichroot)
+    init() {
+        fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
+        fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
     }
 }
 
-// swiftlint:enable opening_brace
+extension Homepath {
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
+}
+
+// swiftlint:enable line_length

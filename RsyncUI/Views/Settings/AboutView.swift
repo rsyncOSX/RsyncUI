@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@MainActor
 struct AboutView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
 
@@ -34,7 +33,7 @@ struct AboutView: View {
     }
 
     var configpath: String {
-        return NamesandPaths(.configurations).fullpathmacserial ?? ""
+        return Homepath().fullpathmacserial ?? ""
     }
 
     var body: some View {

@@ -26,7 +26,7 @@ enum SshError: LocalizedError {
     }
 }
 
-final class SshKeys: Catalogsandfiles {
+final class SshKeys {
     // Process termination and filehandler closures
     var commandCopyPasteTerminal: String?
     var rsaStringPath: String?
@@ -35,6 +35,8 @@ final class SshKeys: Catalogsandfiles {
     var argumentsssh: ArgumentsSsh?
     var command: String?
     var arguments: [String]?
+    // All paths for ssh
+    let path = SSHpath()
 
     // Create rsa keypair
     func createPublicPrivateRSAKeyPair() -> Bool {
@@ -42,10 +44,10 @@ final class SshKeys: Catalogsandfiles {
             let present = try islocalpublicrsakeypresent()
             if present == false {
                 // If new keypath is set create it
-                createsshkeyrootpath()
+                path.createsshkeyrootpath()
                 // Create keys
-                argumentsssh = ArgumentsSsh(remote: nil, sshkeypathandidentityfile: (fullpathsshkeys ?? "") +
-                    "/" + (identityfile ?? ""))
+                argumentsssh = ArgumentsSsh(remote: nil, sshkeypathandidentityfile: (path.fullpathsshkeys ?? "") +
+                    "/" + (path.identityfile ?? ""))
                 arguments = argumentsssh?.argumentscreatekey()
                 command = argumentsssh?.getCommand()
                 executesshcreatekeys()
@@ -53,7 +55,7 @@ final class SshKeys: Catalogsandfiles {
             }
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            path.propogateerror(error: error)
             return false
         }
         return false
@@ -62,11 +64,11 @@ final class SshKeys: Catalogsandfiles {
     // Check if rsa pub key exists
     func islocalpublicrsakeypresent() throws -> Bool {
         guard keyFileStrings != nil else { return false }
-        guard keyFileStrings?.filter({ $0.contains(self.identityfile ?? "") }).count ?? 0 > 0 else { return false }
-        guard keyFileStrings?.filter({ $0.contains((self.identityfile ?? "") + ".pub") }).count ?? 0 > 0 else {
+        guard keyFileStrings?.filter({ $0.contains(self.path.identityfile ?? "") }).count ?? 0 > 0 else { return false }
+        guard keyFileStrings?.filter({ $0.contains((self.path.identityfile ?? "") + ".pub") }).count ?? 0 > 0 else {
             throw SshError.sshkeys
         }
-        rsaStringPath = keyFileStrings?.filter { $0.contains((self.identityfile ?? "") + ".pub") }[0]
+        rsaStringPath = keyFileStrings?.filter { $0.contains((self.path.identityfile ?? "") + ".pub") }[0]
         guard rsaStringPath?.count ?? 0 > 0 else { return false }
         throw SshError.sshkeys
     }
@@ -74,26 +76,26 @@ final class SshKeys: Catalogsandfiles {
     nonisolated
     func validatepublickeypresent() -> Bool {
         guard keyFileStrings != nil else { return false }
-        guard keyFileStrings?.filter({ $0.contains(self.identityfile ?? "") }).count ?? 0 > 0 else { return false }
-        guard keyFileStrings?.filter({ $0.contains((self.identityfile ?? "") + ".pub") }).count ?? 0 > 0 else {
+        guard keyFileStrings?.filter({ $0.contains(self.path.identityfile ?? "") }).count ?? 0 > 0 else { return false }
+        guard keyFileStrings?.filter({ $0.contains((self.path.identityfile ?? "") + ".pub") }).count ?? 0 > 0 else {
             return true
         }
-        rsaStringPath = keyFileStrings?.filter { $0.contains((self.identityfile ?? "") + ".pub") }[0]
+        rsaStringPath = keyFileStrings?.filter { $0.contains((self.path.identityfile ?? "") + ".pub") }[0]
         guard rsaStringPath?.count ?? 0 > 0 else { return false }
         return true
     }
 
     // Secure copy of public key from local to remote catalog
     func copylocalpubrsakeyfile(remote: UniqueserversandLogins?) -> String {
-        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (fullpathsshkeys ?? "") +
-            "/" + (identityfile ?? ""))
+        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (path.fullpathsshkeys ?? "") +
+            "/" + (path.identityfile ?? ""))
         return argumentsssh.argumentssshcopyid() ?? ""
     }
 
     // Check for remote pub keys
     func verifyremotekey(remote: UniqueserversandLogins?) -> String {
-        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (fullpathsshkeys ?? "") +
-            "/" + (identityfile ?? ""))
+        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (path.fullpathsshkeys ?? "") +
+            "/" + (path.identityfile ?? ""))
         return argumentsssh.argumentscheckremotepubkey() ?? ""
     }
 
@@ -111,7 +113,6 @@ final class SshKeys: Catalogsandfiles {
     }
 
     init() {
-        super.init(.ssh)
-        keyFileStrings = getfullpathsshkeys()
+        keyFileStrings = path.getfullpathsshkeys()
     }
 }

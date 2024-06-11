@@ -10,10 +10,11 @@ import Combine
 import Foundation
 import OSLog
 
-class ReadConfigurationJSON: NamesandPaths {
+class ReadConfigurationJSON {
     var configurations: [SynchronizeConfiguration]?
     var filenamedatastore = [SharedReference.shared.fileconfigurationsjson]
     var subscriptons = Set<AnyCancellable>()
+    let path = Homepath()
 
     private func createdefaultfileconfigurations(_ profile: String?) {
         // No file, write new file with default values
@@ -33,15 +34,13 @@ class ReadConfigurationJSON: NamesandPaths {
     }
 
     init(_ profile: String?) {
-        super.init(.configurations)
-
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
-                if let profile = profile, let path = fullpathmacserial {
+                if let profile = profile, let path = path.fullpathmacserial {
                     filename = path + "/" + profile + "/" + filenamejson
                 } else {
-                    if let path = fullpathmacserial {
+                    if let path = path.fullpathmacserial {
                         filename = path + "/" + filenamejson
                     }
                 }

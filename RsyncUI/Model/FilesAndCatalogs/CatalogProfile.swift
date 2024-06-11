@@ -8,10 +8,12 @@
 
 import Foundation
 
-final class CatalogProfile: Catalogsandfiles {
+final class CatalogProfile {
+    let path = Homepath()
+
     func createprofilecatalog(profile: String) {
         var rootpath: Folder?
-        if let path = fullpathmacserial {
+        if let path = path.fullpathmacserial {
             do {
                 rootpath = try Folder(path: path)
                 // check if profile exist
@@ -24,7 +26,7 @@ final class CatalogProfile: Catalogsandfiles {
                         try rootpath?.createSubfolder(at: profile)
                     } catch let e {
                         let error = e
-                        propogateerror(error: error)
+                        self.path.propogateerror(error: error)
                     }
                 }
             } catch {}
@@ -34,20 +36,18 @@ final class CatalogProfile: Catalogsandfiles {
     // Function for deleting profile directory
     func deleteprofilecatalog(profileName: String) {
         let fileManager = FileManager.default
-        if let path = fullpathmacserial {
+        if let path = path.fullpathmacserial {
             let profileDirectory = path + "/" + profileName
             if fileManager.fileExists(atPath: profileDirectory) == true {
                 do {
                     try fileManager.removeItem(atPath: profileDirectory)
                 } catch let e {
                     let error = e as NSError
-                    propogateerror(error: error)
+                    self.path.propogateerror(error: error)
                 }
             }
         }
     }
 
-    init() {
-        super.init(.configurations)
-    }
+    init() {}
 }

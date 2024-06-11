@@ -10,14 +10,15 @@ import Combine
 import Foundation
 import OSLog
 
-class WriteConfigurationJSON: NamesandPaths {
+class WriteConfigurationJSON {
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
     var filename = SharedReference.shared.fileconfigurationsjson
     var profile: String?
+    let path = Homepath()
 
     private func writeJSONToPersistentStore(_ data: String?) {
-        if var atpath = fullpathmacserial {
+        if var atpath = path.fullpathmacserial {
             do {
                 if profile != nil {
                     atpath += "/" + (profile ?? "")
@@ -31,7 +32,7 @@ class WriteConfigurationJSON: NamesandPaths {
                 }
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                path.propogateerror(error: error)
             }
         }
     }
@@ -40,7 +41,6 @@ class WriteConfigurationJSON: NamesandPaths {
     // done in the .map operator
     @discardableResult
     init(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) {
-        super.init(.configurations)
         SharedReference.shared.firsttime = false
         if profile == SharedReference.shared.defaultprofile {
             self.profile = nil
@@ -61,7 +61,7 @@ class WriteConfigurationJSON: NamesandPaths {
                 case .finished:
                     return
                 case let .failure(error):
-                    self.propogateerror(error: error)
+                    self.path.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
                 let jsonfile = String(data: result, encoding: .utf8)

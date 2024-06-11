@@ -1,35 +1,18 @@
 //
-//  NamesandPaths.swift
-//  RsyncOSX
+//  SSHpath.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 28/07/2020.
-//  Copyright © 2020 Thomas Evensen. All rights reserved.
+//  Created by Thomas Evensen on 11/06/2024.
 //
-// swiftlint:disable line_length
 
 import Foundation
-import SwiftUI
 
-enum Rootpath {
-    case configurations
-    case ssh
-}
-
-class NamesandPaths {
-    // path without macserialnumber
-    var fullpathnomacserial: String?
-    // path with macserialnumber
-    var fullpathmacserial: String?
+class SSHpath {
     // path for sshkeys
     var fullpathsshkeys: String?
     // If global keypath and identityfile is set must split keypath and identifile
     // create a new key require full path
     var identityfile: String?
-    // Documentscatalog
-    var documentscatalog: String? {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-        return paths.firstObject as? String
-    }
 
     // Path to ssh keypath
     var sshkeypath: String? {
@@ -59,14 +42,6 @@ class NamesandPaths {
         }
     }
 
-    // Mac serialnumber
-    var macserialnumber: String? {
-        if SharedReference.shared.macserialnumber == nil {
-            SharedReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber() ?? ""
-        }
-        return SharedReference.shared.macserialnumber
-    }
-
     var userHomeDirectoryPath: String? {
         let pw = getpwuid(getuid())
         if let home = pw?.pointee.pw_dir {
@@ -77,22 +52,45 @@ class NamesandPaths {
         }
     }
 
-    init(_ path: Rootpath) {
-        switch path {
-        case .configurations:
-            fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
-            fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
-        case .ssh:
-            fullpathsshkeys = sshkeypath
-            identityfile = sshkeypathandidentityfile
+    func getfullpathsshkeys() -> [String]? {
+        if let atpath = fullpathsshkeys {
+            do {
+                var array = [String]()
+                for file in try Folder(path: atpath).files {
+                    array.append(file.name)
+                }
+                return array
+            } catch {
+                return nil
+            }
         }
+        return nil
+    }
+
+    // Create SSH catalog
+    // If ssh catalog exists - bail out, no need to create
+    func createsshkeyrootpath() {
+        if let path = onlysshkeypath {
+            let root = Folder.home
+            guard root.containsSubfolder(named: path) == false else { return }
+            do {
+                try root.createSubfolder(at: path)
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
+                return
+            }
+        }
+    }
+
+    init() {
+        fullpathsshkeys = sshkeypath
+        identityfile = sshkeypathandidentityfile
     }
 }
 
-extension NamesandPaths {
+extension SSHpath {
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
-
-// swiftlint:enable line_length

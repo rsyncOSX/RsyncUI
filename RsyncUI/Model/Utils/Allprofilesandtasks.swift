@@ -11,7 +11,7 @@ class Allprofilesandtasks {
     var allprofiles: [String]?
 
     private func getprofilenames() {
-        allprofiles = Catalogsandfiles(.configurations).getcatalogsasstringnames()
+        allprofiles = Homepath().getcatalogsasstringnames()
     }
 
     private func readalltasks() {

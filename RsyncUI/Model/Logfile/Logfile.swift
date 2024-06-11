@@ -40,16 +40,17 @@ enum FilesizeError: LocalizedError {
     }
 }
 
-final class Logfile: NamesandPaths {
+final class Logfile {
     private var logfile: String?
     private var preparedlogview = [String]()
+    let path = Homepath()
 
     func getlogfile() -> [String] {
         return preparedlogview
     }
 
     func writeloggfile() {
-        if let atpath = fullpathmacserial {
+        if let atpath = path.fullpathmacserial {
             do {
                 let folder = try Folder(path: atpath)
                 let file = try folder.createFile(named: SharedReference.shared.logname)
@@ -66,20 +67,20 @@ final class Logfile: NamesandPaths {
                             }
                             return
                         case let .failure(error):
-                            self?.propogateerror(error: error)
+                            self?.path.propogateerror(error: error)
                         }
                     }
                 }
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                path.propogateerror(error: error)
             }
         }
     }
 
     //  typealias HandlerNSNumber = (Result<NSNumber, Error>) -> Void
     func filesize(then handler: @escaping HandlerNSNumber) {
-        if var atpath = fullpathmacserial {
+        if var atpath = path.fullpathmacserial {
             do {
                 // check if file exists befor reading, if not bail out
                 let fileexists = try Folder(path: atpath).containsFile(named: SharedReference.shared.logname)
@@ -102,7 +103,7 @@ final class Logfile: NamesandPaths {
     }
 
     func readloggfile() {
-        if var atpath = fullpathmacserial {
+        if var atpath = path.fullpathmacserial {
             do {
                 // check if file exists ahead of reading, if not bail out
                 guard try Folder(path: atpath).containsFile(named: SharedReference.shared.logname) else { return }
@@ -111,7 +112,7 @@ final class Logfile: NamesandPaths {
                 logfile = try file.readAsString()
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                path.propogateerror(error: error)
             }
         }
     }
@@ -177,7 +178,6 @@ final class Logfile: NamesandPaths {
     }
 
     init(_ reset: Bool) {
-        super.init(.configurations)
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
@@ -191,7 +191,6 @@ final class Logfile: NamesandPaths {
     }
 
     init(_ data: [String]?, error: Bool) {
-        super.init(.configurations)
         if error {
             if let data = data {
                 fulllogging(data)
@@ -200,7 +199,6 @@ final class Logfile: NamesandPaths {
     }
 
     init(command: String, data: [String]?) {
-        super.init(.configurations)
         if SharedReference.shared.logtofile {
             if let data = data {
                 minimumloggingwithcommand(command: command, data: data)

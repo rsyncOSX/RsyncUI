@@ -191,7 +191,7 @@ struct AddTaskView: View {
             HomeCatalogsView(newdata: newdata,
                              path: $path,
                              homecatalogs: {
-                                 if let atpath = NamesandPaths(.configurations).userHomeDirectoryPath {
+                                 if let atpath = Homepath().userHomeDirectoryPath {
                                      var catalogs = [Catalognames]()
                                      do {
                                          for folders in try Folder(path: atpath).subfolders {

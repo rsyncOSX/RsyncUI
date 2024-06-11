@@ -32,7 +32,7 @@ final class Backupconfigfiles {
     }
 
     init() {
-        let path = NamesandPaths(.configurations)
+        let path = Homepath()
         usedpath = path.fullpathnomacserial
         backuppath = path.documentscatalog
         backup()

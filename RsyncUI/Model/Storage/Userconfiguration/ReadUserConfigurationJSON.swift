@@ -9,17 +9,17 @@ import Combine
 import Foundation
 import OSLog
 
-class ReadUserConfigurationJSON: NamesandPaths {
+class ReadUserConfigurationJSON {
     var filenamedatastore = [SharedReference.shared.userconfigjson]
     var subscriptons = Set<AnyCancellable>()
+    let path = Homepath()
 
     @discardableResult
     init() {
-        super.init(.configurations)
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
-                if let path = fullpathmacserial {
+                if let path = path.fullpathmacserial {
                     filename = path + "/" + filenamejson
                 }
                 return URL(fileURLWithPath: filename)

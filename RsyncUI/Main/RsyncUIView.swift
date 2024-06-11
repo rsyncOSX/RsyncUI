@@ -8,7 +8,6 @@
 import OSLog
 import SwiftUI
 
-@MainActor
 struct RsyncUIView: View {
     @Binding var selectedprofile: String?
 

@@ -49,7 +49,7 @@ final class ObservableAddConfigurations: @unchecked Sendable {
     var remotestorageislocal: Bool = false
     var selectedconfig: SynchronizeConfiguration?
     var localhome: String {
-        return NamesandPaths(.configurations).userHomeDirectoryPath ?? ""
+        return Homepath().userHomeDirectoryPath ?? ""
     }
 
     var copyandpasteconfigurations: [SynchronizeConfiguration]?

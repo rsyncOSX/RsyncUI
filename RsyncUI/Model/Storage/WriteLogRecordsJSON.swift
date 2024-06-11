@@ -10,14 +10,15 @@ import Combine
 import Foundation
 import OSLog
 
-class WriteLogRecordsJSON: NamesandPaths {
+class WriteLogRecordsJSON {
     var profile: String?
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
     var filename = SharedReference.shared.filenamelogrecordsjson
+    let path = Homepath()
 
     private func writeJSONToPersistentStore(_ data: String?) {
-        if var atpath = fullpathmacserial {
+        if var atpath = path.fullpathmacserial {
             do {
                 if profile != nil {
                     atpath += "/" + (profile ?? "")
@@ -30,7 +31,7 @@ class WriteLogRecordsJSON: NamesandPaths {
                 }
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                path.propogateerror(error: error)
             }
         }
     }
@@ -39,7 +40,6 @@ class WriteLogRecordsJSON: NamesandPaths {
     // done in the .map operator
     @discardableResult
     init(_ profile: String?, _ logrecords: [LogRecords]?) {
-        super.init(.configurations)
         if profile == SharedReference.shared.defaultprofile {
             self.profile = nil
         } else {
@@ -59,7 +59,7 @@ class WriteLogRecordsJSON: NamesandPaths {
                 case .finished:
                     return
                 case let .failure(error):
-                    self.propogateerror(error: error)
+                    self.path.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
                 let jsonfile = String(data: result, encoding: .utf8)

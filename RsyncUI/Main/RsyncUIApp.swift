@@ -17,7 +17,7 @@ struct RsyncUIApp: App {
         Window("RsyncUI", id: "main") {
             RsyncUIView(selectedprofile: $selectedprofile)
                 .task {
-                    CatalogProfile().createrootprofilecatalog()
+                    Homepath().createrootprofilecatalog()
                 }
                 .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
         }
