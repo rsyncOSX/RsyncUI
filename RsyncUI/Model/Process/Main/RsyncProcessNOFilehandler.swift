@@ -92,8 +92,7 @@ final class RsyncProcessNOFilehandler: @unchecked Sendable {
                    self.arguments?.contains("--version") == false,
                    let config = self.config
                 {
-                    let command = RsyncCommandtoDisplay(display: .synchronize, config: config).rsynccommand
-                    _ = Logfile(command: command ?? "", data: TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata)
+                    _ = Logfile(command: config.backupID, data: TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata)
                 }
                 // Release Combine subscribers
                 self.subscriptons.removeAll()
