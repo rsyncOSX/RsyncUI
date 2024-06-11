@@ -31,4 +31,4 @@ class OutputfromProcess {
     }
 }
 
-extension String: Identifiable { public var id: String { self } }
+extension String: @retroactive Identifiable { public var id: String { self } }
