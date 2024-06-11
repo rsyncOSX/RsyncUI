@@ -24,9 +24,9 @@ struct RsyncUIApp: App {
         .commands {
             SidebarCommands()
 
-            ExecuteCommands()
+            // ExecuteCommands()
 
-            SnapshotCommands()
+            // SnapshotCommands()
 
             CommandGroup(replacing: .help) {
                 Button(action: {

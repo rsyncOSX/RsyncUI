@@ -90,7 +90,7 @@ struct RestoreTableView: View {
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
             }
-            .focusedSceneValue(\.aborttask, $focusaborttask)
+            // .focusedSceneValue(\.aborttask, $focusaborttask)
             .searchable(text: $filterstring)
             .onChange(of: filterstring) {
                 showindebounce = true

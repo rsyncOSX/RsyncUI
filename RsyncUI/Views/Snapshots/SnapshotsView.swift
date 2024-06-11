@@ -79,8 +79,8 @@ struct SnapshotsView: View {
                 Spacer()
             }
         }
-        .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
-        .focusedSceneValue(\.aborttask, $focusaborttask)
+        // .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
+        // .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
                 Button {

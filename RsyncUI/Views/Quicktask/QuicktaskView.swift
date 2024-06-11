@@ -96,8 +96,8 @@ struct QuicktaskView: View {
         .onAppear {
             focusField = .localcatalogField
         }
-        .focusedSceneValue(\.aborttask, $focusaborttask)
-        .focusedSceneValue(\.startexecution, $focusstartexecution)
+        // .focusedSceneValue(\.aborttask, $focusaborttask)
+        // .focusedSceneValue(\.startexecution, $focusstartexecution)
         .toolbar(content: {
             ToolbarItem {
                 Button {

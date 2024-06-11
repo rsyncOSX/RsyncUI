@@ -103,8 +103,8 @@ struct TasksView: View {
                 if doubleclick { doubleclickaction }
             }
         }
-        .focusedSceneValue(\.startestimation, $focusstartestimation)
-        .focusedSceneValue(\.startexecution, $focusstartexecution)
+        // .focusedSceneValue(\.startestimation, $focusstartestimation)
+        // .focusedSceneValue(\.startexecution, $focusstartexecution)
         .toolbar(content: {
             ToolbarItem {
                 Button {
