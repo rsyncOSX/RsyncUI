@@ -5,11 +5,10 @@
 //  Created by Thomas Evensen on 11/06/2024.
 //
 
-// swiftlint:disable line_length
 
 import Foundation
 
-class Homepath {
+struct Homepath {
     // path without macserialnumber
     var fullpathnomacserial: String?
     // path with macserialnumber
@@ -109,4 +108,3 @@ extension Homepath {
     }
 }
 
-// swiftlint:enable line_length

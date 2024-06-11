@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SSHpath {
+struct SSHpath {
     // path for sshkeys
     var fullpathsshkeys: String?
     // If global keypath and identityfile is set must split keypath and identifile
