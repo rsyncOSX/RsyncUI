@@ -8,6 +8,7 @@
 
 import Foundation
 import Network
+import OSLog
 
 enum Networkerror: LocalizedError {
     case networkdropped
@@ -50,10 +51,12 @@ final class NetworkMonitor: @unchecked Sendable {
     }
 
     init() {
+        Logger.process.info("NetworkMonitor: startMonitoring()")
         startMonitoring()
     }
 
     deinit {
+        Logger.process.info("NetworkMonitor: stopMonitoring()")
         self.stopMonitoring()
     }
 
