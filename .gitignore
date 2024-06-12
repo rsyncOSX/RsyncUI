@@ -8,6 +8,7 @@ DerivedData/
 Logs/
 Build/
 ModuleCache.noindex/
+Index.noindex/
 
 ## Various settings
 *.pbxuser
