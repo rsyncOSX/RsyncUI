@@ -10,7 +10,8 @@ import Combine
 import Foundation
 import OSLog
 
-final class RsyncProcessNOFilehandler: @unchecked Sendable {
+@MainActor
+final class RsyncProcessNOFilehandler {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Verify network connection

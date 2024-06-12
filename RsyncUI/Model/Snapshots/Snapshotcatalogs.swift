@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 
+@MainActor
 class Snapshotcatalogs {
     var mysnapshotdata: SnapshotData?
     var catalogsanddates: [Catalogsanddates]?

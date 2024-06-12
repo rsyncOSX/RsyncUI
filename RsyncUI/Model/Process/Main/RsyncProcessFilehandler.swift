@@ -10,7 +10,8 @@ import Combine
 import Foundation
 import OSLog
 
-final class RsyncProcessFilehandler: @unchecked Sendable {
+@MainActor
+final class RsyncProcessFilehandler {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures

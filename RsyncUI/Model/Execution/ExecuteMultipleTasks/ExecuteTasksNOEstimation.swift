@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 
+@MainActor
 final class ExecuteTasksNOEstimation {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]

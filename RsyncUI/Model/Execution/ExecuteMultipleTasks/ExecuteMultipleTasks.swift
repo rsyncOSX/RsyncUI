@@ -11,6 +11,7 @@ import OSLog
 
 typealias Typelogdata = (Int, String)
 
+@MainActor
 final class ExecuteMultipleTasks {
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?

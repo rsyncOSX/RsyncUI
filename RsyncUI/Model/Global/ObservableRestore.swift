@@ -9,7 +9,7 @@
 import Foundation
 import Observation
 
-@Observable
+@Observable @MainActor
 final class ObservableRestore {
     var pathforrestore: String = ""
     var restorefilesinprogress: Bool = false

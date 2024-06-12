@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class ExecuteOneTask {
     var arguments: [String]?
     var termination: ([String]?, Int?) -> Void
