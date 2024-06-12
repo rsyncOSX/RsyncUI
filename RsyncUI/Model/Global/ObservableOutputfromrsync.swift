@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@Observable
+@Observable @MainActor
 final class ObservableOutputfromrsync {
     var output = [Data]()
 

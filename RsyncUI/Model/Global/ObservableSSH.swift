@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-@Observable
+@Observable @MainActor
 final class ObservableSSH {
     // Global SSH parameters
     // Have to convert String -> Int before saving
