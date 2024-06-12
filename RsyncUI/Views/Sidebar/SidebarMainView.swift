@@ -65,7 +65,6 @@ struct SidebarMainView: View {
                 SidebarLogsView(configurations: configurations,
                                 profile: rsyncUIdata.profile)
             }
-
         case .rsync_parameters:
             RsyncParametersView(rsyncUIdata: rsyncUIdata)
         case .restore:

@@ -62,7 +62,6 @@ struct SidebarTasksView: View {
                                          configurations: configurations,
                                          profile: rsyncUIdata.profile)
             }
-
         case .firsttime:
             FirstTimeView()
         case .dryrunonetask:
@@ -74,7 +73,6 @@ struct SidebarTasksView: View {
                         executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
                     }
             }
-
         case .dryrunonetaskalreadyestimated:
             if let estimates = estimateprogressdetails.getestimatedlist()?.filter({ $0.id == selecteduuids.first }) {
                 if estimates.count == 1 {
