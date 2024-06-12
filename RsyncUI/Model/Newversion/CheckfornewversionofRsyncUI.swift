@@ -40,7 +40,7 @@ struct GetversionsofRsyncUI {
 }
 
 @Observable @MainActor
-final class CheckfornewversionofRsyncUI: Sendable {
+final class CheckfornewversionofRsyncUI {
     var notifynewversion: Bool = false
     var downloadavaliable: Bool = false
 
