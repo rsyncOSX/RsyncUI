@@ -10,7 +10,7 @@ import Foundation
 import Observation
 
 @Observable
-class SharedReference: @unchecked Sendable {
+final class SharedReference: @unchecked Sendable {
     // Creates a singelton of this class
     class var shared: SharedReference {
         struct Singleton {
