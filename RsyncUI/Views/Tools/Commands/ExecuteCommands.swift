@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 14/06/2021.
 //
-
+/*
 import SwiftUI
 
 struct ExecuteCommands: Commands {
@@ -40,7 +40,7 @@ extension FocusedValues {
         set { self[FocusedAborttask.self] = newValue }
     }
 }
-
+*/
 /*
  import SwiftUI
 
