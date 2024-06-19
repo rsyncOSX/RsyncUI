@@ -73,7 +73,6 @@ final class SshKeys {
         throw SshError.sshkeys
     }
 
-    nonisolated
     func validatepublickeypresent() -> Bool {
         guard keyFileStrings != nil else { return false }
         guard keyFileStrings?.filter({ $0.contains(self.path.identityfile ?? "") }).count ?? 0 > 0 else { return false }

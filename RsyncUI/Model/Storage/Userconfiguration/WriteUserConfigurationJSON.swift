@@ -18,7 +18,6 @@ final class WriteUserConfigurationJSON {
     var fullpathmacserial: String?
 
     // Mac serialnumber
-    nonisolated(unsafe)
     var macserialnumber: String? {
         if SharedReference.shared.macserialnumber == nil {
             SharedReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber() ?? ""
@@ -26,7 +25,6 @@ final class WriteUserConfigurationJSON {
         return SharedReference.shared.macserialnumber
     }
 
-    nonisolated(unsafe)
     var userHomeDirectoryPath: String? {
         let pw = getpwuid(getuid())
         if let home = pw?.pointee.pw_dir {
