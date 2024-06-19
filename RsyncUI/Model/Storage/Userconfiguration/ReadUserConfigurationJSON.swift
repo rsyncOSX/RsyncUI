@@ -9,6 +9,7 @@ import Combine
 import Foundation
 import OSLog
 
+@MainActor
 final class ReadUserConfigurationJSON {
     var filenamedatastore = [SharedReference.shared.userconfigjson]
     var subscriptons = Set<AnyCancellable>()
@@ -35,9 +36,7 @@ final class ReadUserConfigurationJSON {
                 case .failure:
                     // No file, write new file with default values
                     Logger.process.info("ReadUserConfigurationJSON: Creating default file for user configurations")
-                    Task {
-                        await WriteUserConfigurationJSON(UserConfiguration())
-                    }
+                    WriteUserConfigurationJSON(UserConfiguration())
                 }
             } receiveValue: { [unowned self] data in
                 UserConfiguration(data)
