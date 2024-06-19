@@ -10,6 +10,7 @@ import Combine
 import Foundation
 import OSLog
 
+@MainActor
 final class ReadLogRecordsJSON {
     var logrecords: [LogRecords]?
     // var logs: [Log]?
