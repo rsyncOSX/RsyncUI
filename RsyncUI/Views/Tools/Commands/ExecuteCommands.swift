@@ -4,43 +4,7 @@
 //
 //  Created by Thomas Evensen on 14/06/2021.
 //
-/*
-import SwiftUI
 
-struct ExecuteCommands: Commands {
-    @FocusedBinding(\.aborttask) private var aborttask
-    var body: some Commands {
-        CommandMenu("Abort") {
-
-            Abborttask(aborttask: $aborttask)
-        }
-    }
-}
-
-struct Abborttask: View {
-    @Binding var aborttask: Bool?
-
-    var body: some View {
-        Button {
-            aborttask = true
-        } label: {
-            Label("Abort task", systemImage: "play.fill")
-        }
-        .keyboardShortcut("k", modifiers: [.command])
-    }
-}
-
-struct FocusedAborttask: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
-
-extension FocusedValues {
-    var aborttask: FocusedAborttask.Value? {
-        get { self[FocusedAborttask.self] }
-        set { self[FocusedAborttask.self] = newValue }
-    }
-}
-*/
 /*
  import SwiftUI
 
