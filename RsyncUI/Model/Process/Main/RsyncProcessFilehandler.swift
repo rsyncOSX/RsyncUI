@@ -17,35 +17,11 @@ final class RsyncProcessFilehandler {
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
-    // Verify network connection
     var config: SynchronizeConfiguration?
-    var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
     // Output
     var outputprocess: OutputfromProcess?
-
-    func executemonitornetworkconnection() {
-        guard config?.offsiteServer.isEmpty == false else { return }
-        guard SharedReference.shared.monitornetworkconnection == true else { return }
-        monitor = NetworkMonitor()
-        monitor?.netStatusChangeHandler = { [unowned self] in
-            do {
-                try statusDidChange()
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-            }
-        }
-    }
-
-    // Throws error
-    func statusDidChange() throws {
-        if monitor?.monitor?.currentPath.status != .satisfied {
-            _ = InterruptProcess()
-            throw Networkerror.networkdropped
-        }
-    }
 
     private func localfilehandler() -> Int {
         return outputprocess?.getOutput()?.count ?? 0
@@ -150,12 +126,9 @@ final class RsyncProcessFilehandler {
         self.filehandler = filehandler
         self.config = config
         outputprocess = OutputfromProcess()
-        executemonitornetworkconnection()
     }
 
     deinit {
-        self.monitor?.stopMonitoring()
-        self.monitor = nil
         SharedReference.shared.process = nil
         Logger.process.info("RsyncProcessFilehandler: DEINIT")
     }

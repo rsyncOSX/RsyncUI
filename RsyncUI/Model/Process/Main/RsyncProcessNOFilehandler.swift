@@ -14,37 +14,13 @@ import OSLog
 final class RsyncProcessNOFilehandler {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
-    // Verify network connection
     var config: SynchronizeConfiguration?
-    var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
     // Process termination
     var processtermination: ([String]?, Int?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
-
-    func executemonitornetworkconnection() {
-        guard config?.offsiteServer.isEmpty == false else { return }
-        guard SharedReference.shared.monitornetworkconnection == true else { return }
-        monitor = NetworkMonitor()
-        monitor?.netStatusChangeHandler = { [unowned self] in
-            do {
-                try statusDidChange()
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-            }
-        }
-    }
-
-    // Throws error
-    func statusDidChange() throws {
-        if monitor?.monitor?.currentPath.status != .satisfied {
-            _ = InterruptProcess()
-            throw Networkerror.networkdropped
-        }
-    }
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -149,7 +125,6 @@ final class RsyncProcessNOFilehandler {
         // a selected configuration
         if let config = config {
             self.config = config
-            executemonitornetworkconnection()
         }
     }
 
@@ -162,8 +137,6 @@ final class RsyncProcessNOFilehandler {
     }
 
     deinit {
-        self.monitor?.stopMonitoring()
-        self.monitor = nil
         SharedReference.shared.process = nil
         Logger.process.info("RsyncProcessNOFilehandler: DEINIT")
     }
