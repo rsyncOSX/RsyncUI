@@ -10,6 +10,7 @@ import Combine
 import Foundation
 import OSLog
 
+@MainActor
 final class ReadConfigurationJSON {
     var configurations: [SynchronizeConfiguration]?
     var filenamedatastore = [SharedReference.shared.fileconfigurationsjson]

@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 
+@MainActor
 class SingletaskPrimaryLogging {
     var structconfigurations: [SynchronizeConfiguration]?
     var logrecords: [LogRecords]?

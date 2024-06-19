@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
     func setCurrentDateonConfiguration(configrecords: [Typelogdata]) -> [SynchronizeConfiguration] {
         for i in 0 ..< configrecords.count {

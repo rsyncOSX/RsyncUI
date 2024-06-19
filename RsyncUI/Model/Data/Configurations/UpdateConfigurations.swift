@@ -6,6 +6,7 @@
 
 import Foundation
 
+@MainActor
 final class UpdateConfigurations {
     var configurations: [SynchronizeConfiguration]?
     private var localeprofile: String?

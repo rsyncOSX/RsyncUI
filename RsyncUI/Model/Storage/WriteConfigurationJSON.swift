@@ -10,7 +10,8 @@ import Combine
 import Foundation
 import OSLog
 
-final class WriteConfigurationJSON {
+@MainActor
+class WriteConfigurationJSON {
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
     var filename = SharedReference.shared.fileconfigurationsjson
