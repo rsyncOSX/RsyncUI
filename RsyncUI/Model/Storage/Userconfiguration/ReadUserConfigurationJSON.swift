@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import OSLog
 
-class ReadUserConfigurationJSON {
+final class ReadUserConfigurationJSON {
     var filenamedatastore = [SharedReference.shared.userconfigjson]
     var subscriptons = Set<AnyCancellable>()
     let path = Homepath()

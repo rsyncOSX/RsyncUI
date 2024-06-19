@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 @MainActor
-class WriteUserConfigurationJSON {
+final class WriteUserConfigurationJSON {
     // path without macserialnumber
     var fullpathnomacserial: String?
     // path with macserialnumber

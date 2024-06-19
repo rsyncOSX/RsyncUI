@@ -10,7 +10,7 @@ import Combine
 import Foundation
 import OSLog
 
-class ReadLogRecordsJSON {
+final class ReadLogRecordsJSON {
     var logrecords: [LogRecords]?
     // var logs: [Log]?
     var filenamedatastore = [SharedReference.shared.filenamelogrecordsjson]

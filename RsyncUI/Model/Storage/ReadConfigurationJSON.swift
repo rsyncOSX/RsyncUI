@@ -10,7 +10,7 @@ import Combine
 import Foundation
 import OSLog
 
-class ReadConfigurationJSON {
+final class ReadConfigurationJSON {
     var configurations: [SynchronizeConfiguration]?
     var filenamedatastore = [SharedReference.shared.fileconfigurationsjson]
     var subscriptons = Set<AnyCancellable>()
