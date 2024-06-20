@@ -87,11 +87,19 @@ struct SnapshotsView: View {
                     updateplansnapshot()
                 } label: {
                     Image(systemName: "return")
-                        .foregroundColor(Color(.blue))
                 }
                 .help("Update plan snapshot")
             }
 
+            ToolbarItem {
+                Button {
+                    tagsnapshots()
+                } label: {
+                    Image(systemName: "tag")
+                }
+                .help("Tag snapshots")
+            }
+            
             ToolbarItem {
                 Button {
                     focusaborttask = true
