@@ -22,6 +22,7 @@ enum Networkerror: LocalizedError {
     }
 }
 
+@MainActor
 final class TCPconnections {
     var indexBoolremoteserverOff: [Bool]?
 

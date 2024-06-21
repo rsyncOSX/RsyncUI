@@ -51,7 +51,7 @@ struct NavigationLogfileView: View {
     }
 }
 
-@Observable
+@Observable @MainActor
 final class Logfileview {
     var output = [Data]()
 

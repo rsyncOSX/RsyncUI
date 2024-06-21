@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 final class CatalogProfile {
     let path = Homepath()
 

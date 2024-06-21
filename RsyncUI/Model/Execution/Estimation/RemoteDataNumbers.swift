@@ -45,6 +45,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     // online.
     var confirmsynchronize: Bool
 
+    @MainActor
     init(outputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {

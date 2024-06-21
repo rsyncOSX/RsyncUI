@@ -10,6 +10,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 final class Backupconfigfiles {
     var usedpath: String?
     var backuppath: String?
@@ -40,7 +41,7 @@ final class Backupconfigfiles {
 }
 
 extension Backupconfigfiles {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

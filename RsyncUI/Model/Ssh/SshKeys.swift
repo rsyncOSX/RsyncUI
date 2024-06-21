@@ -26,6 +26,7 @@ enum SshError: LocalizedError {
     }
 }
 
+@MainActor
 final class SshKeys {
     // Process termination and filehandler closures
     var commandCopyPasteTerminal: String?

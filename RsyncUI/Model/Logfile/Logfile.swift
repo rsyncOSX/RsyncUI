@@ -40,6 +40,7 @@ enum FilesizeError: LocalizedError {
     }
 }
 
+@MainActor
 final class Logfile {
     private var logfile: String?
     private var preparedlogview = [String]()

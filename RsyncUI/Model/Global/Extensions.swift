@@ -22,10 +22,11 @@ extension Sequence {
 }
 
 protocol Connected {
-    func connected(config: SynchronizeConfiguration?) -> Bool
-    func connected(server: String?) -> Bool
+    @MainActor func connected(config: SynchronizeConfiguration?) -> Bool
+    @MainActor func connected(server: String?) -> Bool
 }
 
+@MainActor
 extension Connected {
     func connected(config: SynchronizeConfiguration?) -> Bool {
         var port = 22

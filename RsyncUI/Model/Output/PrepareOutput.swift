@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class PrepareOutput {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
@@ -59,7 +60,7 @@ final class PrepareOutput {
 }
 
 extension PrepareOutput {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

@@ -10,6 +10,7 @@ import Combine
 import Foundation
 import OSLog
 
+@MainActor
 final class WriteLogRecordsJSON {
     var profile: String?
     var subscriptons = Set<AnyCancellable>()

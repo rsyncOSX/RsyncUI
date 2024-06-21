@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class TrimThree {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
@@ -46,7 +47,7 @@ final class TrimThree {
 }
 
 extension TrimThree {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

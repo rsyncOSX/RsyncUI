@@ -135,7 +135,7 @@ final class RsyncProcessFilehandler {
 }
 
 extension RsyncProcessFilehandler {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

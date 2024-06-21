@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 struct Homepath {
     // path without macserialnumber
     var fullpathnomacserial: String?
@@ -103,7 +104,7 @@ struct Homepath {
 }
 
 extension Homepath {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

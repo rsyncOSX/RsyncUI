@@ -17,7 +17,7 @@ struct Profiles: Hashable, Identifiable {
     }
 }
 
-@Observable
+@Observable @MainActor
 final class Profilenames {
     var profiles: [Profiles] = .init()
 

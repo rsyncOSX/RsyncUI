@@ -24,6 +24,7 @@ enum EnumNumbers {
     case delete
 }
 
+@MainActor
 final class Numbers {
     // Second last String in Array rsync output of how much in what time
     private var resultRsync: String?

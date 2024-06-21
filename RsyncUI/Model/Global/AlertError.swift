@@ -9,14 +9,12 @@ import Foundation
 import Observation
 import SwiftUI
 
-@Observable
-final class AlertError: @unchecked Sendable {
+@Observable @MainActor
+final class AlertError {
     private(set) var activeError: Error?
 
     func alert(error: Error) {
-        DispatchQueue.main.async {
-            self.activeError = error
-        }
+        self.activeError = error
     }
 
     var presentalert: Binding<Bool> {

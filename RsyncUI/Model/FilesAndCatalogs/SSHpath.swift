@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 struct SSHpath {
     // path for sshkeys
     var fullpathsshkeys: String?
@@ -90,7 +91,7 @@ struct SSHpath {
 }
 
 extension SSHpath {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

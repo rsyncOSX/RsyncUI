@@ -19,6 +19,7 @@ enum Rsyncerror: LocalizedError {
     }
 }
 
+@MainActor
 final class TrimTwo {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
@@ -68,7 +69,7 @@ final class TrimTwo {
 }
 
 extension TrimTwo {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
