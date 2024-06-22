@@ -11,12 +11,11 @@ import Observation
 
 @Observable
 final class SharedReference: @unchecked Sendable {
-    // Creates a singelton of this class
-    class var shared: SharedReference {
-        struct Singleton {
-            static let instance = SharedReference()
-        }
-        return Singleton.instance
+    
+    static let shared = SharedReference()
+    private init() {
+        synctasks = Set<String>()
+        synctasks = [synchronize, snapshot, syncremote]
     }
 
     var settingsischanged: Bool = false
@@ -150,9 +149,4 @@ final class SharedReference: @unchecked Sendable {
     let defaultprofile = "Default profile"
     // If firstime use
     @ObservationIgnored var firsttime = false
-
-    private init() {
-        synctasks = Set<String>()
-        synctasks = [synchronize, snapshot, syncremote]
-    }
 }
