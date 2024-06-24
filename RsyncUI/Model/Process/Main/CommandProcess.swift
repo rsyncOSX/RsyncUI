@@ -61,6 +61,7 @@ final class CommandProcess {
             .sink { [self] _ in
                 self.processtermination(self.outputprocess?.getOutput())
                 SharedReference.shared.process = nil
+                Logger.process.info("CommandProcess: process = nil and termination discovered")
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)

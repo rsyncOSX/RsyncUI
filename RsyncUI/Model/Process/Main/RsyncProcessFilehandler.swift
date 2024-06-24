@@ -74,6 +74,7 @@ final class RsyncProcessFilehandler {
                     _ = Logfile(command: config.backupID, data: TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata)
                 }
                 SharedReference.shared.process = nil
+                Logger.process.info("RsyncProcessFilehandler: process = nil and termination discovered")
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
