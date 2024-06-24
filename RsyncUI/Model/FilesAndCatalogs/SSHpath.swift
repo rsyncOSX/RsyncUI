@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 @MainActor
 struct SSHpath {
@@ -54,11 +55,12 @@ struct SSHpath {
     }
 
     func getfullpathsshkeys() -> [String]? {
+        let fm = FileManager.default
         if let atpath = fullpathsshkeys {
+            var array = [String]()
             do {
-                var array = [String]()
-                for file in try Folder(path: atpath).files {
-                    array.append(file.name)
+                for files in try fm.contentsOfDirectory(atPath: atpath) {
+                    array.append(files)
                 }
                 return array
             } catch {
@@ -71,11 +73,17 @@ struct SSHpath {
     // Create SSH catalog
     // If ssh catalog exists - bail out, no need to create
     func createsshkeyrootpath() {
-        if let path = onlysshkeypath {
-            let root = Folder.home
-            guard root.containsSubfolder(named: path) == false else { return }
+        let fm = FileManager.default
+        if let onlysshkeypath = onlysshkeypath,
+        let userHomeDirectoryPath = userHomeDirectoryPath {
+            guard fm.locationExists(at: userHomeDirectoryPath + "/." + onlysshkeypath, kind: .folder) == false else {
+                Logger.process.info("SSHpath: ssh catalog exists")
+                return
+            }
+            let sshkeypathlURL = URL(fileURLWithPath: userHomeDirectoryPath + "/." + onlysshkeypath)
             do {
-                try root.createSubfolder(at: path)
+                try fm.createDirectory(at: sshkeypathlURL, withIntermediateDirectories: true)
+                Logger.process.info("SSHpath: creating ssh catalog")
             } catch let e {
                 let error = e
                 propogateerror(error: error)

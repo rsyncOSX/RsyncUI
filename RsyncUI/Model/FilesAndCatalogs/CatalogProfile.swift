@@ -7,41 +7,40 @@
 //
 
 import Foundation
+import OSLog
 
 @MainActor
-final class CatalogProfile {
+struct CatalogProfile {
     let path = Homepath()
 
     func createprofilecatalog(profile: String) {
-        var rootpath: Folder?
-        if let path = path.fullpathmacserial {
+        let fm = FileManager.default
+        // First check if profilecatalog exists, if yes bail out
+        if let fullpathmacserial = path.fullpathmacserial {
+            guard fm.locationExists(at: fullpathmacserial + "/" + profile, kind: .folder) == false else {
+                Logger.process.info("CatalogProfile: profile catalog exists")
+                return
+            }
+            let fullpathprofileURL = URL(fileURLWithPath: fullpathmacserial + "/" + profile)
             do {
-                rootpath = try Folder(path: path)
-                // check if profile exist
-                do {
-                    let profilepath = path + "/" + profile
-                    _ = try Folder(path: profilepath)
-
-                } catch {
-                    do {
-                        try rootpath?.createSubfolder(at: profile)
-                    } catch let e {
-                        let error = e
-                        self.path.propogateerror(error: error)
-                    }
-                }
-            } catch {}
+                try fm.createDirectory(at: fullpathprofileURL, withIntermediateDirectories: true)
+                Logger.process.info("CatalogProfile: creating profile catalog")
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
+                return
+            }
         }
     }
 
     // Function for deleting profile directory
     func deleteprofilecatalog(profileName: String) {
-        let fileManager = FileManager.default
+        let fm = FileManager.default
         if let path = path.fullpathmacserial {
             let profileDirectory = path + "/" + profileName
-            if fileManager.fileExists(atPath: profileDirectory) == true {
+            if fm.fileExists(atPath: profileDirectory) == true {
                 do {
-                    try fileManager.removeItem(atPath: profileDirectory)
+                    try fm.removeItem(atPath: profileDirectory)
                 } catch let e {
                     let error = e as NSError
                     self.path.propogateerror(error: error)
@@ -49,6 +48,10 @@ final class CatalogProfile {
             }
         }
     }
+}
 
-    init() {}
+extension CatalogProfile {
+    @MainActor func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
 }

@@ -12,19 +12,20 @@ import SwiftUI
 
 @MainActor
 final class Backupconfigfiles {
-    var usedpath: String?
+    var fullpathnomacserial: String?
     var backuppath: String?
 
     func backup() {
-        if let documentscatalog = backuppath,
-           let usedpath = usedpath
+        let fm = FileManager.default
+        if let backuppath = backuppath,
+           let fullpathnomacserial = fullpathnomacserial
         {
-            var originFolder: Folder?
+            let configurationsURL = URL(fileURLWithPath: fullpathnomacserial)
+            let targetpath = "RsyncUIcopy-" + Date().shortlocalized_string_from_date()
+            let backuppathURL = URL(fileURLWithPath: backuppath + "/" + targetpath)
             do {
-                originFolder = try Folder(path: usedpath)
-                let targetpath = "RsyncUIcopy-" + Date().shortlocalized_string_from_date()
-                let targetFolder = try Folder(path: documentscatalog).createSubfolder(at: targetpath)
-                try originFolder?.copy(to: targetFolder)
+                try fm.createDirectory(at: backuppathURL, withIntermediateDirectories: true)
+                try fm.copyItem(at: configurationsURL, to: backuppathURL)
             } catch let e {
                 let error = e
                 propogateerror(error: error)
@@ -33,9 +34,9 @@ final class Backupconfigfiles {
     }
 
     init() {
-        let path = Homepath()
-        usedpath = path.fullpathnomacserial
-        backuppath = path.documentscatalog
+        let homepath = Homepath()
+        fullpathnomacserial = homepath.fullpathnomacserial
+        backuppath = homepath.documentscatalog
         backup()
     }
 }

@@ -1,18 +1,18 @@
 //
-//  Homepath.swift
+//  HomepathNew.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 11/06/2024.
+//  Created by Thomas Evensen on 24/06/2024.
 //
 
-
 import Foundation
+import OSLog
 
 @MainActor
 struct Homepath {
-    // path without macserialnumber
+    // full path without macserialnumber
     var fullpathnomacserial: String?
-    // path with macserialnumber
+    // full path with macserialnumber
     var fullpathmacserial: String?
     // Documentscatalog
     var documentscatalog: String? {
@@ -39,12 +39,15 @@ struct Homepath {
     }
 
     func getcatalogsasstringnames() -> [String]? {
+        let fm = FileManager.default
         if let atpath = fullpathmacserial {
             var array = [String]()
             array.append(SharedReference.shared.defaultprofile)
             do {
-                for folders in try Folder(path: atpath).subfolders {
-                    array.append(folders.name)
+                for filesandfolders in try fm.contentsOfDirectory(atPath: atpath) {
+                    if fm.locationExists(at: atpath + "/" + filesandfolders, kind: .folder) {
+                        array.append(filesandfolders)
+                    }
                 }
                 return array
             } catch {
@@ -57,42 +60,41 @@ struct Homepath {
     // Create profile catalog at first start of RsyncOSX.
     // If profile catalog exists - bail out, no need to create
     func createrootprofilecatalog() {
-        var root: Folder?
-        var catalog: String?
+        let fm = FileManager.default
         // First check if profilecatalog exists, if yes bail out
-        if let macserialnumber = macserialnumber,
-           let fullrootnomacserial = fullpathnomacserial
+        if let fullpathmacserial = fullpathmacserial,
+           let fullpathnomacserial = fullpathnomacserial
         {
+            guard fm.locationExists(at: fullpathmacserial, kind: .folder) == false else {
+                Logger.process.info("Homepath: root catalog exists")
+                return
+            }
+            // if false then create profile catalogs
+            // Creating profile catalalog is a two step task
+            // step 1: create profilecatalog
+            // step 2: create profilecatalog/macserialnumber
+            // config path = /userHomeDirectoryPath/.rsyncosx/macserialnumber
+            
+            // Step 1
+            let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
             do {
-                let pathexists = try Folder(path: fullrootnomacserial).containsSubfolder(named: macserialnumber)
-                guard pathexists == false else { return }
-            } catch {
-                // if fails then create profile catalogs
-                // Creating profile catalalog is a two step task
-                // 1: create profilecatalog
-                // 2: create profilecatalog/macserialnumber
-                // config path (/.rsyncosx)
-                catalog = SharedReference.shared.configpath
-                root = Folder.home
-                do {
-                    try root?.createSubfolder(at: catalog ?? "")
-                } catch let e {
-                    let error = e
-                    propogateerror(error: error)
-                    return
-                }
-                // */
-                if let macserialnumber = self.macserialnumber,
-                   let fullrootnomacserial = fullpathnomacserial
-                {
-                    do {
-                        try Folder(path: fullrootnomacserial).createSubfolder(at: macserialnumber)
-                    } catch let e {
-                        let error = e
-                        propogateerror(error: error)
-                        return
-                    }
-                }
+                try fm.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true)
+                Logger.process.info("Homepath: creating root catalog step1")
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
+                return
+            }
+            
+            // Step 2
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            do {
+                try fm.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true)
+                Logger.process.info("Homepath: creating root catalog step2")
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
+                return
             }
         }
     }
@@ -109,3 +111,25 @@ extension Homepath {
     }
 }
 
+extension FileManager {
+    func locationExists(at path: String, kind: LocationKind) -> Bool {
+        var isFolder: ObjCBool = false
+
+        guard fileExists(atPath: path, isDirectory: &isFolder) else {
+            return false
+        }
+
+        switch kind {
+        case .file: return !isFolder.boolValue
+        case .folder: return isFolder.boolValue
+        }
+    }
+}
+
+/// Enum describing various kinds of locations that can be found on a file system.
+public enum LocationKind {
+    /// A file can be found at the location.
+    case file
+    /// A folder can be found at the location.
+    case folder
+}
