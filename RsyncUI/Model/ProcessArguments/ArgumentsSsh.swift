@@ -17,7 +17,7 @@ final class ArgumentsSsh {
     // Set parameters for ssh-copy-id for copy public ssh key to server
     // ssh-address = "backup@server.com"
     // ssh-copy-id -i $ssh-keypath -p port $ssh-address
-    func argumentssshcopyid() -> String? {
+    @MainActor func argumentssshcopyid() -> String? {
         guard myremote != nil else { return nil }
         guard (myremote?.offsiteServer?.isEmpty ?? true) == false else { return nil }
         args = [String]()
@@ -33,7 +33,7 @@ final class ArgumentsSsh {
 
     // Check if pub key exists on remote server
     // ssh -p port -i $ssh-keypath $ssh-address
-    func argumentscheckremotepubkey() -> String? {
+    @MainActor func argumentscheckremotepubkey() -> String? {
         guard myremote != nil else { return nil }
         guard (myremote?.offsiteServer?.isEmpty ?? true) == false else { return nil }
         args = [String]()
@@ -47,7 +47,7 @@ final class ArgumentsSsh {
         return args?.joined(separator: " ")
     }
 
-    private func sshport() {
+    @MainActor private func sshport() {
         args?.append("-p")
         args?.append(String(SharedReference.shared.sshport ?? 22))
     }

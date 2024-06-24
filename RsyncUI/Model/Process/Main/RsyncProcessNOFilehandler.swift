@@ -71,6 +71,7 @@ final class RsyncProcessNOFilehandler {
                 {
                     _ = Logfile(command: config.backupID, data: TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata)
                 }
+                SharedReference.shared.process = nil
                 // Release Combine subscribers
                 self.subscriptons.removeAll()
             }.store(in: &subscriptons)
@@ -137,7 +138,6 @@ final class RsyncProcessNOFilehandler {
     }
 
     deinit {
-        SharedReference.shared.process = nil
         Logger.process.info("RsyncProcessNOFilehandler: DEINIT")
     }
 }

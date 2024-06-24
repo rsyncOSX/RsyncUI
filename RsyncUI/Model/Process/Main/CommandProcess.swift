@@ -60,6 +60,7 @@ final class CommandProcess {
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink { [self] _ in
                 self.processtermination(self.outputprocess?.getOutput())
+                SharedReference.shared.process = nil
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
@@ -87,7 +88,6 @@ final class CommandProcess {
     }
 
     deinit {
-        SharedReference.shared.process = nil
         Logger.process.info("CommandProcess: DEINIT")
     }
 }

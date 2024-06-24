@@ -22,6 +22,7 @@ enum Validatedrsync: LocalizedError {
     }
 }
 
+@MainActor
 struct SetandValidatepathforrsync {
     func validateandrsyncpath() throws -> Bool {
         // Set default that rsync path is validated

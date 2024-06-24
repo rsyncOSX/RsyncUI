@@ -10,9 +10,9 @@ import Foundation
 import Observation
 
 @Observable
-final class SharedReference: @unchecked Sendable {
+final class SharedReference {
     
-    static let shared = SharedReference()
+    @MainActor static let shared = SharedReference()
     private init() {
         synctasks = Set<String>()
         synctasks = [synchronize, snapshot, syncremote]

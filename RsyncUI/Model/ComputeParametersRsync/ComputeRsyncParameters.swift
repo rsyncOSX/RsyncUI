@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 class ComputeRsyncParameters {
     var stats: Bool?
     var arguments: [String]?

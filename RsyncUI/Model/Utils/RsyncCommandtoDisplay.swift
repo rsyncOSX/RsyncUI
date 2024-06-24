@@ -22,6 +22,7 @@ enum RsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
     var description: String { rawValue.localizedCapitalized }
 }
 
+@MainActor
 struct RsyncCommandtoDisplay {
     var rsynccommand: String?
 
