@@ -77,13 +77,15 @@ struct SSHpath {
         if let onlysshkeypath = onlysshkeypath,
            let userHomeDirectoryPath = userHomeDirectoryPath
         {
-            guard fm.locationExists(at: userHomeDirectoryPath + "/." + onlysshkeypath, kind: .folder) == false else {
+            let sshkeypathString = userHomeDirectoryPath + "/." + onlysshkeypath
+            guard fm.locationExists(at: sshkeypathString, kind: .folder) == false else {
                 Logger.process.info("SSHpath: ssh catalog exists")
                 return
             }
-            let sshkeypathlURL = URL(fileURLWithPath: userHomeDirectoryPath + "/." + onlysshkeypath)
+            let userHomeDirectoryPathURL = URL(fileURLWithPath: userHomeDirectoryPath)
+            let sshkeypathlURL = userHomeDirectoryPathURL.appendingPathComponent("/." + onlysshkeypath)
             do {
-                try fm.createDirectory(at: sshkeypathlURL, withIntermediateDirectories: true)
+                try fm.createDirectory(at: sshkeypathlURL, withIntermediateDirectories: true, attributes: nil)
                 Logger.process.info("SSHpath: creating ssh catalog")
             } catch let e {
                 let error = e
