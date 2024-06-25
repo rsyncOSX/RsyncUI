@@ -16,7 +16,7 @@ final class WriteLogRecordsJSON {
     var subscriptons = Set<AnyCancellable>()
     let path = Homepath()
 
-    private func writeJSONToPersistentStore(_ data: String?) {
+    private func writeJSONToPersistentStore(jsonString: String?) {
         if let fullpathmacserial = path.fullpathmacserial {
             var logrecordfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -26,7 +26,7 @@ final class WriteLogRecordsJSON {
             } else {
                 logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
             }
-            if let dataString = data, let configurationfileURL = logrecordfileURL {
+            if let dataString = jsonString, let configurationfileURL = logrecordfileURL {
                 if let configurationdata = dataString.data(using: .utf8) {
                     do {
                         try configurationdata.write(to: configurationfileURL)
@@ -68,7 +68,7 @@ final class WriteLogRecordsJSON {
                 }
             }, receiveValue: { [unowned self] result in
                 let jsonfile = String(data: result, encoding: .utf8)
-                writeJSONToPersistentStore(jsonfile)
+                writeJSONToPersistentStore(jsonString: jsonfile)
                 subscriptons.removeAll()
             })
             .store(in: &subscriptons)

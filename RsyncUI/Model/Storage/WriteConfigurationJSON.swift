@@ -18,7 +18,7 @@ class WriteConfigurationJSON {
     var profile: String?
     let path = Homepath()
 
-    private func writeJSONToPersistentStore(_ data: String?) {
+    private func writeJSONToPersistentStore(jsonString: String?) {
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -29,7 +29,7 @@ class WriteConfigurationJSON {
             } else {
                 configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
             }
-            if let dataString = data, let configurationfileURL = configurationfileURL {
+            if let dataString = jsonString, let configurationfileURL = configurationfileURL {
                 if let configurationdata = dataString.data(using: .utf8) {
                     do {
                         try configurationdata.write(to: configurationfileURL)
@@ -72,7 +72,7 @@ class WriteConfigurationJSON {
                 }
             }, receiveValue: { [unowned self] result in
                 let jsonfile = String(data: result, encoding: .utf8)
-                writeJSONToPersistentStore(jsonfile)
+                writeJSONToPersistentStore(jsonString: jsonfile)
                 subscriptons.removeAll()
             })
             .store(in: &subscriptons)
