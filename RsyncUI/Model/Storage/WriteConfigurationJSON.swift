@@ -17,19 +17,19 @@ class WriteConfigurationJSON {
     var filename = SharedReference.shared.fileconfigurationsjson
     var profile: String?
     let path = Homepath()
-    
+
     private func writeJSONToPersistentStore(_ data: String?) {
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            if let profile = profile  {
+            if let profile = profile {
                 let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
                 configurationfileURL = tempURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
-                
+
             } else {
                 configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
             }
-            if let dataString = data, let  configurationfileURL = configurationfileURL {
+            if let dataString = data, let configurationfileURL = configurationfileURL {
                 if let configurationdata = dataString.data(using: .utf8) {
                     do {
                         try configurationdata.write(to: configurationfileURL)

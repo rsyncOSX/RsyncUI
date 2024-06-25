@@ -15,18 +15,18 @@ final class WriteLogRecordsJSON {
     var profile: String?
     var subscriptons = Set<AnyCancellable>()
     let path = Homepath()
-    
+
     private func writeJSONToPersistentStore(_ data: String?) {
         if let fullpathmacserial = path.fullpathmacserial {
             var logrecordfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            if let profile = profile  {
+            if let profile = profile {
                 let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
                 logrecordfileURL = tempURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
             } else {
                 logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
             }
-            if let dataString = data, let  configurationfileURL = logrecordfileURL {
+            if let dataString = data, let configurationfileURL = logrecordfileURL {
                 if let configurationdata = dataString.data(using: .utf8) {
                     do {
                         try configurationdata.write(to: configurationfileURL)
@@ -40,7 +40,6 @@ final class WriteLogRecordsJSON {
             }
         }
     }
-
 
     // We have to remove UUID and computed properties ahead of writing JSON file
     // done in the .map operator
