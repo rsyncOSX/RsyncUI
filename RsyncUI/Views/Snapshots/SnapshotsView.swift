@@ -99,7 +99,7 @@ struct SnapshotsView: View {
                 }
                 .help("Tag snapshots")
             }
-            
+
             ToolbarItem {
                 Button {
                     focusaborttask = true

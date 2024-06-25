@@ -93,7 +93,6 @@
      typealias Value = Binding<Bool>
  }
 
-
  extension FocusedValues {
      var startestimation: FocusedEstimateBinding.Value? {
          get { self[FocusedEstimateBinding.self] }

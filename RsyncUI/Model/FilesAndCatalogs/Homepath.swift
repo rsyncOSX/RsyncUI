@@ -1,5 +1,5 @@
 //
-//  HomepathNew.swift
+//  Homepath.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 24/06/2024.
@@ -74,7 +74,7 @@ struct Homepath {
             // step 1: create profilecatalog
             // step 2: create profilecatalog/macserialnumber
             // config path = /userHomeDirectoryPath/.rsyncosx/macserialnumber
-            
+
             // Step 1
             let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
             do {
@@ -85,7 +85,7 @@ struct Homepath {
                 propogateerror(error: error)
                 return
             }
-            
+
             // Step 2
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             do {

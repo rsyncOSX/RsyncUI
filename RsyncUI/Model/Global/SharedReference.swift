@@ -11,7 +11,6 @@ import Observation
 
 @Observable
 final class SharedReference {
-    
     @MainActor static let shared = SharedReference()
     private init() {
         synctasks = Set<String>()

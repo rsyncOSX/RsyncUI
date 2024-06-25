@@ -75,7 +75,8 @@ struct SSHpath {
     func createsshkeyrootpath() {
         let fm = FileManager.default
         if let onlysshkeypath = onlysshkeypath,
-        let userHomeDirectoryPath = userHomeDirectoryPath {
+           let userHomeDirectoryPath = userHomeDirectoryPath
+        {
             guard fm.locationExists(at: userHomeDirectoryPath + "/." + onlysshkeypath, kind: .folder) == false else {
                 Logger.process.info("SSHpath: ssh catalog exists")
                 return

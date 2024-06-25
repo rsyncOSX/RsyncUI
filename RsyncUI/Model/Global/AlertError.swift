@@ -14,7 +14,7 @@ final class AlertError {
     private(set) var activeError: Error?
 
     func alert(error: Error) {
-        self.activeError = error
+        activeError = error
     }
 
     var presentalert: Binding<Bool> {
