@@ -51,30 +51,32 @@ final class Logfile {
     }
 
     func writeloggfile() {
-        if let atpath = path.fullpathmacserial {
-            do {
-                let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: SharedReference.shared.logname)
-                if let data = logfile {
-                    try file.write(data)
-                    filesize { [weak self] result in
-                        switch result {
-                        case let .success(size):
-                            if Int(truncating: size) > SharedReference.shared.logfilesize {
-                                let size = Int(truncating: size)
-                                if size > SharedReference.shared.logfilesize {
-                                    throw FilesizeError.toobig
+        if let fullpathmacserial = path.fullpathmacserial {
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
+            if let logfiledata = logfile {
+                if let data = logfiledata.data(using: .utf8) {
+                    do {
+                        try data.write(to: logfileURL)
+                        filesize { [weak self] result in
+                            switch result {
+                            case let .success(size):
+                                if Int(truncating: size) > SharedReference.shared.logfilesize {
+                                    let size = Int(truncating: size)
+                                    if size > SharedReference.shared.logfilesize {
+                                        throw FilesizeError.toobig
+                                    }
                                 }
+                                return
+                            case let .failure(error):
+                                self?.path.propogateerror(error: error)
                             }
-                            return
-                        case let .failure(error):
-                            self?.path.propogateerror(error: error)
                         }
+                    } catch let e {
+                        let error = e
+                        path.propogateerror(error: error)
                     }
                 }
-            } catch let e {
-                let error = e
-                path.propogateerror(error: error)
             }
         }
     }
@@ -104,36 +106,22 @@ final class Logfile {
     }
 
     func readloggfile() {
-        if var atpath = path.fullpathmacserial {
+        let fm = FileManager.default
+        if let fullpathmacserial = path.fullpathmacserial {
+            let logfileString = fullpathmacserial + "/" + SharedReference.shared.logname
+            guard fm.locationExists(at: logfileString, kind: .file) == true else { return }
+
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
+
             do {
-                // check if file exists ahead of reading, if not bail out
-                guard try Folder(path: atpath).containsFile(named: SharedReference.shared.logname) else { return }
-                atpath += "/" + SharedReference.shared.logname
-                let file = try File(path: atpath)
-                logfile = try file.readAsString()
+                let data = try Data(contentsOf: logfileURL)
+                logfile = String(data: data, encoding: .utf8)
             } catch let e {
                 let error = e
                 path.propogateerror(error: error)
             }
         }
-    }
-
-    private func minimumlogging(_ data: [String]) {
-        let date = Date().localized_string_from_date()
-        readloggfile()
-        var tmplogg = [String]()
-        var startindex = data.count - 8
-        if startindex < 0 { startindex = 0 }
-        tmplogg.append("\n" + date + "\n")
-        for i in startindex ..< data.count {
-            tmplogg.append(data[i])
-        }
-        if logfile == nil {
-            logfile = tmplogg.joined(separator: "\n")
-        } else {
-            logfile! += tmplogg.joined(separator: "\n")
-        }
-        writeloggfile()
     }
 
     private func minimumloggingwithcommand(command: String, data: [String]) {
