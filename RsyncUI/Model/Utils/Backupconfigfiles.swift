@@ -24,13 +24,6 @@ final class Backupconfigfiles {
             let targetpath = "RsyncUIcopy-" + Date().shortlocalized_string_from_date()
             let documentsURL = URL(fileURLWithPath: backuppath)
             let documentsbackuppathURL = documentsURL.appendingPathComponent(targetpath)
-
-            do {
-                try fm.createDirectory(at: documentsbackuppathURL, withIntermediateDirectories: true, attributes: nil)
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-            }
             do {
                 try fm.copyItem(at: fullpathnomacserialURL, to: documentsbackuppathURL)
             } catch let e {
