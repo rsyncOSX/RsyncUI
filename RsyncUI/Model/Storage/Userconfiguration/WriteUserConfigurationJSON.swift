@@ -12,8 +12,6 @@ import OSLog
 
 @MainActor
 final class WriteUserConfigurationJSON {
-    // path without macserialnumber
-    var fullpathnomacserial: String?
     // path with macserialnumber
     var fullpathmacserial: String?
 
@@ -36,20 +34,20 @@ final class WriteUserConfigurationJSON {
     }
 
     var subscriptons = Set<AnyCancellable>()
-    // Filename for JSON file
-    var filename = SharedReference.shared.userconfigjson
 
     private func writeJSONToPersistentStore(_ data: String?) {
-        if let atpath = fullpathmacserial {
-            do {
-                let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: filename)
-                if let data = data {
-                    try file.write(data)
+        if let fullpathmacserial = fullpathmacserial {
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let usercongigfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.userconfigjson)
+            if let dataString = data {
+                if let userconfigdata = dataString.data(using: .utf8) {
+                    do {
+                        try userconfigdata.write(to: usercongigfileURL)
+                    } catch let e {
+                        let error = e
+                        propogateerror(error: error)
+                    }
                 }
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
             }
         }
     }
@@ -59,8 +57,6 @@ final class WriteUserConfigurationJSON {
     @discardableResult
     init(_ userconfiguration: UserConfiguration?) {
         fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
-        fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
-
         userconfiguration.publisher
             .map { userconfiguration in
                 userconfiguration

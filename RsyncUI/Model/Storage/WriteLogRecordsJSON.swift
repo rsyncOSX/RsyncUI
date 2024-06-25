@@ -14,28 +14,33 @@ import OSLog
 final class WriteLogRecordsJSON {
     var profile: String?
     var subscriptons = Set<AnyCancellable>()
-    // Filename for JSON file
-    var filename = SharedReference.shared.filenamelogrecordsjson
     let path = Homepath()
-
+    
     private func writeJSONToPersistentStore(_ data: String?) {
-        if var atpath = path.fullpathmacserial {
-            do {
-                if profile != nil {
-                    atpath += "/" + (profile ?? "")
+        if let fullpathmacserial = path.fullpathmacserial {
+            var logrecordfileURL: URL?
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            if let profile = profile  {
+                let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
+                logrecordfileURL = tempURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
+            } else {
+                logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
+            }
+            if let dataString = data, let  configurationfileURL = logrecordfileURL {
+                if let configurationdata = dataString.data(using: .utf8) {
+                    do {
+                        try configurationdata.write(to: configurationfileURL)
+                        let myprofile = profile
+                        Logger.process.info("WriteLogRecordsJSON - \(myprofile ?? "default profile", privacy: .public): write logrecords to permanent storage")
+                    } catch let e {
+                        let error = e
+                        path.propogateerror(error: error)
+                    }
                 }
-                let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: filename)
-                if let data = data {
-                    try file.write(data)
-                    Logger.process.info("WriteLogRecordsJSON: write logrecords to permanent storage")
-                }
-            } catch let e {
-                let error = e
-                path.propogateerror(error: error)
             }
         }
     }
+
 
     // We have to remove UUID and computed properties ahead of writing JSON file
     // done in the .map operator

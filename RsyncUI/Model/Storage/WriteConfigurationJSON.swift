@@ -17,23 +17,29 @@ class WriteConfigurationJSON {
     var filename = SharedReference.shared.fileconfigurationsjson
     var profile: String?
     let path = Homepath()
-
+    
     private func writeJSONToPersistentStore(_ data: String?) {
-        if var atpath = path.fullpathmacserial {
-            do {
-                if profile != nil {
-                    atpath += "/" + (profile ?? "")
+        if let fullpathmacserial = path.fullpathmacserial {
+            var configurationfileURL: URL?
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            if let profile = profile  {
+                let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
+                configurationfileURL = tempURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
+                
+            } else {
+                configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
+            }
+            if let dataString = data, let  configurationfileURL = configurationfileURL {
+                if let configurationdata = dataString.data(using: .utf8) {
+                    do {
+                        try configurationdata.write(to: configurationfileURL)
+                        let myprofile = profile
+                        Logger.process.info("WriteConfigurationJSON - \(myprofile ?? "default profile", privacy: .public): write configurations to permanent storage")
+                    } catch let e {
+                        let error = e
+                        path.propogateerror(error: error)
+                    }
                 }
-                let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: filename)
-                if let data = data {
-                    try file.write(data)
-                    let myprofile = profile
-                    Logger.process.info("WriteConfigurationJSON - \(myprofile ?? "default profile", privacy: .public): write configurations to permanent storage")
-                }
-            } catch let e {
-                let error = e
-                path.propogateerror(error: error)
             }
         }
     }
