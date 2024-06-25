@@ -35,18 +35,16 @@ final class WriteUserConfigurationJSON {
 
     var subscriptons = Set<AnyCancellable>()
 
-    private func writeJSONToPersistentStore(jsonString: String?) {
+    private func writeJSONToPersistentStore(jsonData: Data?) {
         if let fullpathmacserial = fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let usercongigfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.userconfigjson)
-            if let dataString = jsonString {
-                if let userconfigdata = dataString.data(using: .utf8) {
-                    do {
-                        try userconfigdata.write(to: usercongigfileURL)
-                    } catch let e {
-                        let error = e
-                        propogateerror(error: error)
-                    }
+            if let jsonData = jsonData {
+                do {
+                    try jsonData.write(to: usercongigfileURL)
+                } catch let e {
+                    let error = e
+                    propogateerror(error: error)
                 }
             }
         }
@@ -70,8 +68,7 @@ final class WriteUserConfigurationJSON {
                     self.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
-                let jsonfile = String(data: result, encoding: .utf8)
-                writeJSONToPersistentStore(jsonString: jsonfile)
+                writeJSONToPersistentStore(jsonData: result)
                 Logger.process.info("WriteUserConfigurationJSON: Writing user configurations to permanent storage")
                 subscriptons.removeAll()
             })

@@ -16,7 +16,7 @@ final class WriteLogRecordsJSON {
     var subscriptons = Set<AnyCancellable>()
     let path = Homepath()
 
-    private func writeJSONToPersistentStore(jsonString: String?) {
+    private func writeJSONToPersistentStore(jsonData: Data?) {
         if let fullpathmacserial = path.fullpathmacserial {
             var logrecordfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -26,16 +26,14 @@ final class WriteLogRecordsJSON {
             } else {
                 logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
             }
-            if let dataString = jsonString, let configurationfileURL = logrecordfileURL {
-                if let configurationdata = dataString.data(using: .utf8) {
-                    do {
-                        try configurationdata.write(to: configurationfileURL)
-                        let myprofile = profile
-                        Logger.process.info("WriteLogRecordsJSON - \(myprofile ?? "default profile", privacy: .public): write logrecords to permanent storage")
-                    } catch let e {
-                        let error = e
-                        path.propogateerror(error: error)
-                    }
+            if let jsonData = jsonData, let configurationfileURL = logrecordfileURL {
+                do {
+                    try jsonData.write(to: configurationfileURL)
+                    let myprofile = profile
+                    Logger.process.info("WriteLogRecordsJSON - \(myprofile ?? "default profile", privacy: .public): write logrecords to permanent storage")
+                } catch let e {
+                    let error = e
+                    path.propogateerror(error: error)
                 }
             }
         }
@@ -67,8 +65,7 @@ final class WriteLogRecordsJSON {
                     self.path.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
-                let jsonfile = String(data: result, encoding: .utf8)
-                writeJSONToPersistentStore(jsonString: jsonfile)
+                writeJSONToPersistentStore(jsonData: result)
                 subscriptons.removeAll()
             })
             .store(in: &subscriptons)
