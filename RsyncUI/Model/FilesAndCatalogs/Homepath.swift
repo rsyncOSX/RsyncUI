@@ -45,7 +45,8 @@ struct Homepath {
             array.append(SharedReference.shared.defaultprofile)
             do {
                 for filesandfolders in try fm.contentsOfDirectory(atPath: atpath) {
-                    if fm.locationExists(at: atpath + "/" + filesandfolders, kind: .folder) {
+                    let names = atpath + "/" + filesandfolders
+                    if fm.locationExists(at: names, kind: .folder) {
                         array.append(filesandfolders)
                     }
                 }
@@ -78,7 +79,7 @@ struct Homepath {
             // Step 1
             let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
             do {
-                try fm.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true)
+                try fm.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true, attributes: nil)
                 Logger.process.info("Homepath: creating root catalog step1")
             } catch let e {
                 let error = e
@@ -89,7 +90,7 @@ struct Homepath {
             // Step 2
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             do {
-                try fm.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true)
+                try fm.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true, attributes: nil)
                 Logger.process.info("Homepath: creating root catalog step2")
             } catch let e {
                 let error = e
