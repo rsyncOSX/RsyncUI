@@ -191,11 +191,15 @@ struct AddTaskView: View {
             HomeCatalogsView(newdata: newdata,
                              path: $path,
                              homecatalogs: {
+                                let fm = FileManager.default
                                  if let atpath = Homepath().userHomeDirectoryPath {
                                      var catalogs = [Catalognames]()
                                      do {
-                                         for folders in try Folder(path: atpath).subfolders {
-                                             catalogs.append(Catalognames(folders.name))
+                                         for filesandfolders in try fm.contentsOfDirectory(atPath: atpath) {
+                                             let names = atpath + "/" + filesandfolders
+                                             if fm.locationExists(at: names, kind: .folder) {
+                                                 catalogs.append(Catalognames(filesandfolders))
+                                             }
                                          }
                                          return catalogs
                                      } catch {

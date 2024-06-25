@@ -83,24 +83,22 @@ final class Logfile {
 
     //  typealias HandlerNSNumber = (Result<NSNumber, Error>) -> Void
     func filesize(then handler: @escaping HandlerNSNumber) {
-        if var atpath = path.fullpathmacserial {
+        let fm = FileManager.default
+        if let fullpathmacserial = path.fullpathmacserial {
+            let logfileString = fullpathmacserial + "/" + SharedReference.shared.logname
+            guard fm.locationExists(at: logfileString, kind: .file) == true else { return }
+
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
+
             do {
-                // check if file exists befor reading, if not bail out
-                let fileexists = try Folder(path: atpath).containsFile(named: SharedReference.shared.logname)
-                atpath += "/" + SharedReference.shared.logname
-                if fileexists {
-                    do {
-                        // Return filesize
-                        let file = try File(path: atpath).url
-                        if let filesize = try FileManager.default.attributesOfItem(atPath: file.path)[FileAttributeKey.size] as? NSNumber {
-                            try handler(.success(filesize))
-                        }
-                    } catch {
-                        try handler(.failure(error))
-                    }
+                // Return filesize
+                if let filesize = try fm.attributesOfItem(atPath: logfileURL.path)[FileAttributeKey.size] as? NSNumber {
+                    try handler(.success(filesize))
                 }
-            } catch {
-                // try handler(.failure(error))
+            } catch let e {
+                let error = e
+                path.propogateerror(error: error)
             }
         }
     }

@@ -181,12 +181,8 @@ final class ObservableAddConfigurations {
     }
 
     func verifyremotestorageislocal() -> Bool {
-        do {
-            _ = try Folder(path: remotecatalog)
-            return true
-        } catch {
-            return false
-        }
+        let fm = FileManager.default
+        return fm.locationExists(at: remotecatalog, kind: .folder)
     }
 
     func assistfuncremoteuser(_ remoteuser: String) {
