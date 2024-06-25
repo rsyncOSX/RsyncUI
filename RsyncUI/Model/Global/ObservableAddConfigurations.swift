@@ -109,7 +109,7 @@ final class ObservableAddConfigurations {
     func createprofile(newprofile: String) {
         guard newprofile.isEmpty == false else { return }
         let catalogprofile = CatalogProfile()
-        catalogprofile.createprofilecatalog(profile: newprofile)
+        catalogprofile.createprofilecatalog(newprofile)
         selectedprofile = newprofile
         created = true
     }
@@ -125,7 +125,7 @@ final class ObservableAddConfigurations {
                 }
                 return
             }
-            CatalogProfile().deleteprofilecatalog(profileName: profile)
+            CatalogProfile().deleteprofilecatalog(profile)
             selectedprofile = nil
             deleted = true
         } else {

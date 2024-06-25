@@ -13,17 +13,22 @@ import OSLog
 struct CatalogProfile {
     let path = Homepath()
 
-    func createprofilecatalog(profile: String) {
+    func createprofilecatalog(_ profile: String) {
         let fm = FileManager.default
         // First check if profilecatalog exists, if yes bail out
         if let fullpathmacserial = path.fullpathmacserial {
-            guard fm.locationExists(at: fullpathmacserial + "/" + profile, kind: .folder) == false else {
+            
+            let fullpathprofileString = fullpathmacserial + "/" + profile
+            guard fm.locationExists(at: fullpathprofileString , kind: .folder) == false else {
                 Logger.process.info("CatalogProfile: profile catalog exists")
                 return
             }
-            let fullpathprofileURL = URL(fileURLWithPath: fullpathmacserial + "/" + profile)
+            
+            let fullpathprofileURL = URL(fileURLWithPath: fullpathmacserial)
+            let profileURL = fullpathprofileURL.appendingPathComponent(profile)
+            
             do {
-                try fm.createDirectory(at: fullpathprofileURL, withIntermediateDirectories: true)
+                try fm.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
                 Logger.process.info("CatalogProfile: creating profile catalog")
             } catch let e {
                 let error = e
@@ -34,13 +39,16 @@ struct CatalogProfile {
     }
 
     // Function for deleting profile directory
-    func deleteprofilecatalog(profileName: String) {
+    func deleteprofilecatalog(_ profile: String) {
         let fm = FileManager.default
-        if let path = path.fullpathmacserial {
-            let profileDirectory = path + "/" + profileName
-            if fm.fileExists(atPath: profileDirectory) == true {
+        if let fullpathmacserial = path.fullpathmacserial {
+            let fullpathprofileString = fullpathmacserial + "/" + profile
+            let fullpathprofileURL = URL(fileURLWithPath: fullpathmacserial)
+            let profileURL = fullpathprofileURL.appendingPathComponent(profile)
+            if fm.locationExists(at: fullpathprofileString , kind: .folder) == true {
                 do {
-                    try fm.removeItem(atPath: profileDirectory)
+                    try fm.removeItem(at: profileURL)
+                    Logger.process.info("CatalogProfile: remove profile catalog")
                 } catch let e {
                     let error = e as NSError
                     self.path.propogateerror(error: error)
