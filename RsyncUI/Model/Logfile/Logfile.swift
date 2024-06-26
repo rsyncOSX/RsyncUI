@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 20.11.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
 
 import Foundation
 
@@ -193,5 +192,3 @@ final class Logfile {
         }
     }
 }
-
-// swiftlint:enable line_length

@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
-// swiftlint: disable non_optional_string_data_conversion
 
 import Combine
 import Foundation
@@ -81,5 +80,3 @@ extension WriteUserConfigurationJSON {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
-
-// swiftlint: enable non_optional_string_data_conversion

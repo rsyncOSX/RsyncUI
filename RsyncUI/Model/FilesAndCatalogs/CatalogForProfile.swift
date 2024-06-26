@@ -1,6 +1,6 @@
 //
-//  CatalogProfile.swift
-//  RsyncOSX
+//  CatalogForProfile.swift
+//  RsyncUI
 //
 //  Created by Thomas Evensen on 17/10/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-struct CatalogProfile {
+struct CatalogForProfile {
     let path = Homepath()
 
     func createprofilecatalog(_ profile: String) {
@@ -59,7 +59,7 @@ struct CatalogProfile {
     }
 }
 
-extension CatalogProfile {
+extension CatalogForProfile {
     @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
