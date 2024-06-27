@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 struct Keypathidentityfile {
     var fullsshkeypath: String?
     // If global keypath and identityfile is set must split keypath and identifile
@@ -15,7 +16,6 @@ struct Keypathidentityfile {
     var identityfile: String?
     var onlysshkeypath: String?
 
-    @MainActor
     init(sshkeypathandidentityfile: String) {
         if sshkeypathandidentityfile.first == "~" {
             // must drop identityfile and then set rootpath

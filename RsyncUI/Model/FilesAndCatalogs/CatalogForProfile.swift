@@ -23,8 +23,8 @@ struct CatalogForProfile {
                 return
             }
 
-            let fullpathprofileURL = URL(fileURLWithPath: fullpathmacserial)
-            let profileURL = fullpathprofileURL.appendingPathComponent(profile)
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
             do {
                 try fm.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
@@ -42,8 +42,9 @@ struct CatalogForProfile {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathprofileString = fullpathmacserial + "/" + profile
-            let fullpathprofileURL = URL(fileURLWithPath: fullpathmacserial)
-            let profileURL = fullpathprofileURL.appendingPathComponent(profile)
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
+
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == true else {
                 Logger.process.info("CatalogProfile: profile catalog does not exist")
                 return

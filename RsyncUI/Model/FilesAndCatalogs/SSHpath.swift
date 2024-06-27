@@ -82,8 +82,10 @@ struct SSHpath {
                 Logger.process.info("SSHpath: ssh catalog exists")
                 return
             }
+
             let userHomeDirectoryPathURL = URL(fileURLWithPath: userHomeDirectoryPath)
             let sshkeypathlURL = userHomeDirectoryPathURL.appendingPathComponent("/." + onlysshkeypath)
+
             do {
                 try fm.createDirectory(at: sshkeypathlURL, withIntermediateDirectories: true, attributes: nil)
                 Logger.process.info("SSHpath: creating ssh catalog")
