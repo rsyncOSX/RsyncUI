@@ -148,7 +148,10 @@ struct Sshsettings: View {
 extension Sshsettings {
     func createkeys() {
         if SshKeys().createPublicPrivateRSAKeyPair() {
-            localsshkeys = SshKeys().validatepublickeypresent()
+            Task {
+                try await Task.sleep(seconds: 3)
+                localsshkeys = SshKeys().validatepublickeypresent()
+            }
         }
     }
 }
