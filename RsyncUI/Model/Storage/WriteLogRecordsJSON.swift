@@ -26,9 +26,9 @@ final class WriteLogRecordsJSON {
             } else {
                 logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
             }
-            if let jsonData = jsonData, let configurationfileURL = logrecordfileURL {
+            if let jsonData = jsonData, let logrecordfileURL = logrecordfileURL {
                 do {
-                    try jsonData.write(to: configurationfileURL)
+                    try jsonData.write(to: logrecordfileURL)
                     let myprofile = profile
                     Logger.process.info("WriteLogRecordsJSON - \(myprofile ?? "default profile", privacy: .public): write logrecords to permanent storage")
                 } catch let e {
