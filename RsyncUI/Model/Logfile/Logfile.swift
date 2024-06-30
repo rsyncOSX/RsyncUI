@@ -8,22 +8,6 @@
 
 import Foundation
 
-enum Result<Value, Error: Swift.Error> {
-    case success(Value)
-    case failure(Error)
-}
-
-extension Result {
-    func get() throws -> Value {
-        switch self {
-        case let .success(value):
-            return value
-        case let .failure(error):
-            throw error
-        }
-    }
-}
-
 enum FilesizeError: LocalizedError {
     case toobig
 
@@ -47,8 +31,10 @@ final class Logfile {
 
     func writeloggfile() {
         if let fullpathmacserial = path.fullpathmacserial {
+            
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
+            
             if let logfiledata = logfile {
                 if let data = logfiledata.data(using: .utf8) {
                     do {
