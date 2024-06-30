@@ -37,7 +37,7 @@ struct Homepath {
             return nil
         }
     }
-    
+
     var userHomeDirectoryURLPath: URL? {
         let pw = getpwuid(getuid())
         if let home = pw?.pointee.pw_dir {
@@ -48,16 +48,18 @@ struct Homepath {
         }
     }
 
-    func getcatalogsasstringnames() -> [String]? {
+    func getfullpathmacserialcatalogsasstringnames() -> [String]? {
         let fm = FileManager.default
-        if let atpath = fullpathmacserial {
+        if let fullpathmacserial = fullpathmacserial {
             var array = [String]()
             array.append(SharedReference.shared.defaultprofile)
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             do {
-                for filesandfolders in try fm.contentsOfDirectory(atPath: atpath) {
-                    let names = atpath + "/" + filesandfolders
-                    if fm.locationExists(at: names, kind: .folder) {
-                        array.append(filesandfolders)
+                for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,
+                                                                  includingPropertiesForKeys: nil)
+                {
+                    if filesandfolders.hasDirectoryPath {
+                        array.append(filesandfolders.lastPathComponent)
                     }
                 }
                 return array

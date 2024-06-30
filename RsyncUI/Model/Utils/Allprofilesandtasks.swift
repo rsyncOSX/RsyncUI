@@ -12,7 +12,7 @@ final class Allprofilesandtasks {
     var allprofiles: [String]?
 
     private func getprofilenames() {
-        allprofiles = Homepath().getcatalogsasstringnames()
+        allprofiles = Homepath().getfullpathmacserialcatalogsasstringnames()
     }
 
     private func readalltasks() {

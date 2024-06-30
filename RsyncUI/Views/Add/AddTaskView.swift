@@ -192,10 +192,9 @@ struct AddTaskView: View {
                              path: $path,
                              homecatalogs: {
                                  let fm = FileManager.default
-                                if let atpathURL = Homepath().userHomeDirectoryURLPath {
+                                 if let atpathURL = Homepath().userHomeDirectoryURLPath {
                                      var catalogs = [Catalognames]()
                                      do {
-                                         
                                          for filesandfolders in try fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil) {
                                              if filesandfolders.hasDirectoryPath {
                                                  catalogs.append(Catalognames(filesandfolders.lastPathComponent))

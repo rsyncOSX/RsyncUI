@@ -26,7 +26,7 @@ final class Profilenames {
     }
 
     func setprofilenames() {
-        let names = Homepath().getcatalogsasstringnames()
+        let names = Homepath().getfullpathmacserialcatalogsasstringnames()
         for i in 0 ..< (names?.count ?? 0) {
             profiles.append(ProfilesnamesRecord(names?[i] ?? ""))
         }
