@@ -37,6 +37,16 @@ struct Homepath {
             return nil
         }
     }
+    
+    var userHomeDirectoryURLPath: URL? {
+        let pw = getpwuid(getuid())
+        if let home = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+            return URL(fileURLWithPath: homePath)
+        } else {
+            return nil
+        }
+    }
 
     func getcatalogsasstringnames() -> [String]? {
         let fm = FileManager.default
