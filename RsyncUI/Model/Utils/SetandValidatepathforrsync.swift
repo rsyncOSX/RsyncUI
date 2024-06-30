@@ -25,6 +25,7 @@ enum Validatedrsync: LocalizedError {
 @MainActor
 struct SetandValidatepathforrsync {
     func validateandrsyncpath() throws -> Bool {
+        let fm = FileManager.default
         // Set default that rsync path is validated
         SharedReference.shared.norsync = false
         var rsyncpath: String?
@@ -38,7 +39,7 @@ struct SetandValidatepathforrsync {
                 guard SharedReference.shared.localrsyncpath != (SharedReference.shared.usrbin + "/") else {
                     throw Validatedrsync.noversion3inusrbin
                 }
-                if FileManager.default.isExecutableFile(atPath: rsyncpath ?? "") == false {
+                if fm.isExecutableFile(atPath: rsyncpath ?? "") == false {
                     SharedReference.shared.norsync = true
                     // Throwing no valid rsync in path
                     throw Validatedrsync.norsync

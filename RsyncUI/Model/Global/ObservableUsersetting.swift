@@ -83,7 +83,8 @@ final class ObservableUsersetting {
     }
 
     private func validatepath(_ path: String) throws -> Bool {
-        if FileManager.default.fileExists(atPath: path, isDirectory: nil) == false {
+        let fm = FileManager.default
+        if fm.fileExists(atPath: path, isDirectory: nil) == false {
             throw Validatedpath.nopath
         }
         return true
