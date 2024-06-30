@@ -13,10 +13,6 @@ enum Result<Value, Error: Swift.Error> {
     case failure(Error)
 }
 
-// typealias HandlerRsyncOSX = (Result<Data, RsyncOSXTypeErrors>) -> Void
-// typealias Handler = (Result<Data, Error>) -> Void
-typealias HandlerNSNumber = (Result<NSNumber, Error>) throws -> Void
-
 extension Result {
     func get() throws -> Value {
         switch self {
@@ -80,8 +76,7 @@ final class Logfile {
         }
     }
 
-    //  typealias HandlerNSNumber = (Result<NSNumber, Error>) -> Void
-    func filesize(then handler: @escaping HandlerNSNumber) {
+    func filesize(then handler: @escaping (Result<NSNumber, Error>) throws -> Void) {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let logfileString = fullpathmacserial + "/" + SharedReference.shared.logname
