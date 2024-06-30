@@ -31,10 +31,9 @@ final class Logfile {
 
     func writeloggfile() {
         if let fullpathmacserial = path.fullpathmacserial {
-            
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
-            
+
             if let logfiledata = logfile {
                 if let data = logfiledata.data(using: .utf8) {
                     do {
