@@ -106,6 +106,22 @@ struct RsyncParametersView: View {
                             }
                         }
                     }
+                    .onChange(of: rsyncUIdata.profile) {
+                        if let configurations = rsyncUIdata.configurations {
+                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                selectedconfig = configurations[index]
+                                parameters.setvalues(configurations[index])
+                                if configurations[index].parameter12 != "--backup" {
+                                    backup = false
+                                }
+                            } else {
+                                selectedconfig = nil
+                                selecteduuids.removeAll()
+                                parameters.setvalues(selectedconfig)
+                                backup = false
+                            }
+                        }
+                    }
 
                 if focusaborttask { labelaborttask }
             }
