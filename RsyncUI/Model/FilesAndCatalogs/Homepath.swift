@@ -57,10 +57,9 @@ struct Homepath {
             do {
                 for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,
                                                                   includingPropertiesForKeys: nil)
+                    where filesandfolders.hasDirectoryPath
                 {
-                    if filesandfolders.hasDirectoryPath {
-                        array.append(filesandfolders.lastPathComponent)
-                    }
+                    array.append(filesandfolders.lastPathComponent)
                 }
                 return array
             } catch {

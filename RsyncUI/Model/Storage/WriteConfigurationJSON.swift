@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 27/04/2021.
 //
-// swiftlint:disable line_length non_optional_string_data_conversion
+// swiftlint:disable line_length
 
 import Combine
 import Foundation
@@ -76,4 +76,4 @@ class WriteConfigurationJSON {
     }
 }
 
-// swiftlint:enable line_length non_optional_string_data_conversion
+// swiftlint:enable line_length
