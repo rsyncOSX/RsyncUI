@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 11/12/2023.
 //
-// swiftlint:disable file_length type_body_length line_length cyclomatic_complexity
+// swiftlint:disable file_length type_body_length line_length
 
 import SwiftUI
 
@@ -195,10 +195,11 @@ struct AddTaskView: View {
                                  if let atpathURL = Homepath().userHomeDirectoryURLPath {
                                      var catalogs = [Catalognames]()
                                      do {
-                                         for filesandfolders in try fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil) {
-                                             if filesandfolders.hasDirectoryPath {
-                                                 catalogs.append(Catalognames(filesandfolders.lastPathComponent))
-                                             }
+                                         for filesandfolders in try
+                                             fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
+                                             where filesandfolders.hasDirectoryPath
+                                         {
+                                             catalogs.append(Catalognames(filesandfolders.lastPathComponent))
                                          }
                                          return catalogs
                                      } catch {
@@ -467,4 +468,4 @@ extension AddTaskView {
     }
 }
 
-// swiftlint:enable file_length type_body_length line_length cyclomatic_complexity
+// swiftlint:enable file_length type_body_length line_length
