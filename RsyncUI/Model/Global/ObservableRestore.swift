@@ -25,25 +25,12 @@ final class ObservableRestore {
     var datalist: [RestoreFileRecord] = []
     var filestorestore: String = ""
     @ObservationIgnored var rsyncdata: [String]?
-    @ObservationIgnored var arguments: [String]?
     var selectedconfig: SynchronizeConfiguration?
-
-    var rsync: String {
-        return GetfullpathforRsync().rsyncpath ?? ""
-    }
 
     func processtermination(data: [String]?, hiddenID _: Int?) {
         rsyncdata = data
         restorefilesinprogress = false
         presentsheetrsync = true
-    }
-
-    private func validatetask(_ config: SynchronizeConfiguration) throws -> Bool {
-        if config.task != SharedReference.shared.syncremote {
-            return true
-        } else {
-            throw RestoreError.notvalidtaskforrestore
-        }
     }
 
     // Validate path for restore

@@ -111,11 +111,6 @@ final class RsyncProcessNOFilehandler {
         }
     }
 
-    // Terminate Process, used when user Aborts task.
-    func abortProcess() {
-        _ = InterruptProcess()
-    }
-
     init(arguments: [String]?,
          config: SynchronizeConfiguration?,
          processtermination: @escaping ([String]?, Int?) -> Void)

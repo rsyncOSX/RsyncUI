@@ -23,10 +23,6 @@ final class RsyncProcessFilehandler {
     // Output
     var outputprocess: OutputfromProcess?
 
-    private func localfilehandler() -> Int {
-        return outputprocess?.getOutput()?.count ?? 0
-    }
-
     func executeProcess() {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
@@ -111,11 +107,6 @@ final class RsyncProcessFilehandler {
                 }
             }
         }
-    }
-
-    // Terminate Process, used when user Aborts task.
-    func abortProcess() {
-        _ = InterruptProcess()
     }
 
     init(arguments: [String]?,
