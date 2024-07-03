@@ -13,7 +13,6 @@ class SingletaskPrimaryLogging {
     var structconfigurations: [SynchronizeConfiguration]?
     var logrecords: [LogRecords]?
     var localeprofile: String?
-    var localehiddenID: Int?
 
     func increasesnapshotnum(index: Int) {
         if let num = structconfigurations?[index].snapshotnum {
@@ -66,11 +65,9 @@ class SingletaskPrimaryLogging {
     }
 
     init(profile: String?,
-         hiddenID: Int?,
          configurations: [SynchronizeConfiguration]?)
     {
         localeprofile = profile
-        localehiddenID = hiddenID
         structconfigurations = configurations
         var validhiddenIDs = Set<Int>()
         if let configurations = configurations {

@@ -101,7 +101,6 @@ extension ExecuteMultipleTasks {
         schedulerecords.append((hiddenID ?? -1, Numbers(data ?? []).stats()))
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
-                                                     hiddenID: hiddenID,
                                                      configurations: localconfigurations)
             let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
             // Send date stamped configurations back to caller

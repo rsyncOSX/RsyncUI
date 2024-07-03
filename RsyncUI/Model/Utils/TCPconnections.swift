@@ -24,9 +24,6 @@ enum Networkerror: LocalizedError {
 
 @MainActor
 final class TCPconnections {
-    var indexBoolremoteserverOff: [Bool]?
-
-    // Test for TCP connection
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
         let client = TCPClient(address: host, port: Int32(port))
         switch client.connect(timeout: timeout) {
