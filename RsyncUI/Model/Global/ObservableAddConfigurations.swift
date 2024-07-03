@@ -185,16 +185,6 @@ final class ObservableAddConfigurations {
         return fm.locationExists(at: remotecatalog, kind: .folder)
     }
 
-    func assistfuncremoteuser(_ remoteuser: String) {
-        guard remoteuser.isEmpty == false else { return }
-        self.remoteuser = remoteuser
-    }
-
-    func assistfuncremoteserver(_ remoteserver: String) {
-        guard remoteserver.isEmpty == false else { return }
-        self.remoteserver = remoteserver
-    }
-
     // Prepare for Copy and Paste tasks
     func preparecopyandpastetasks(_ items: [CopyItem], _ configurations: [SynchronizeConfiguration]) {
         copyandpasteconfigurations = nil
