@@ -38,7 +38,6 @@ extension SnapshotLogRecords: Hashable, Equatable {
 
 final class SnapshotRecords {
     var loggrecordssnapshots: [SnapshotLogRecords]?
-    private var localehiddenID: Int?
 
     private func readandsortallloggdata(_ config: SynchronizeConfiguration,
                                         _ logrecords: [LogRecords])
