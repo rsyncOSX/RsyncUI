@@ -1,5 +1,5 @@
 //
-//  TrimTwo.swift
+//  TrimOutputFromRsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 05/05/2021.
@@ -20,7 +20,7 @@ enum Rsyncerror: LocalizedError {
 }
 
 @MainActor
-final class TrimTwo {
+final class TrimOutputFromRsync {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
     var maxnumber: Int = 0
@@ -68,7 +68,7 @@ final class TrimTwo {
     }
 }
 
-extension TrimTwo {
+extension TrimOutputFromRsync {
     @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }

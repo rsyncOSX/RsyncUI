@@ -108,7 +108,7 @@ final class SshKeys {
     }
 
     func processtermination(data: [String]?) {
-        _ = Logfile(TrimTwo(data ?? []).trimmeddata, error: false)
+        Logfile(TrimOutputFromRsync(data ?? []).trimmeddata, error: false)
     }
 
     init() {

@@ -206,7 +206,7 @@ final class Numbers {
     init(_ myoutput: [String]) {
         guard myoutput.count > 0 else { return }
         // output = outputprocess?.trimoutput(trim: .two)
-        output = TrimTwo(myoutput).trimmeddata
+        output = TrimOutputFromRsync(myoutput).trimmeddata
         // Getting the summarized output from output.
         if (output?.count ?? 0) > 2 {
             resultRsync = output?[(output?.count ?? 0) - 2]

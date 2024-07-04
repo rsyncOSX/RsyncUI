@@ -157,6 +157,7 @@ final class Logfile {
         }
     }
 
+    @discardableResult
     init(_ data: [String]?, error: Bool) {
         if error {
             if let data = data {
@@ -165,11 +166,10 @@ final class Logfile {
         }
     }
 
+    @discardableResult
     init(command: String, data: [String]?) {
-        if SharedReference.shared.logtofile {
-            if let data = data {
-                minimumloggingwithcommand(command: command, data: data)
-            }
+        if let data = data {
+            minimumloggingwithcommand(command: command, data: data)
         }
     }
 }

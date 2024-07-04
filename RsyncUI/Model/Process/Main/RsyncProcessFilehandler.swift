@@ -67,7 +67,9 @@ final class RsyncProcessFilehandler {
                    arguments?.contains("--version") == false,
                    let config = self.config
                 {
-                    _ = Logfile(command: config.backupID, data: TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata)
+                    if SharedReference.shared.logtofile {
+                        Logfile(command: config.backupID, data: TrimOutputFromRsync(outputprocess?.getOutput() ?? []).trimmeddata)
+                    }
                 }
                 SharedReference.shared.process = nil
                 Logger.process.info("RsyncProcessFilehandler: process = nil and termination discovered")
