@@ -1054,6 +1054,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		E985C7A825F3B0E200CB895C /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 12;
 			files = (
 			);
