@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 struct MyEnvironment {
     var environment: [String: String]?
 

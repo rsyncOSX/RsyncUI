@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class UpdateLogs {
     private var logrecords: [LogRecords]?
     private var localeprofile: String?

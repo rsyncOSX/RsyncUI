@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-@Observable
+@Observable @MainActor
 final class Rsyncversion {
     func getrsyncversion() {
         if SharedReference.shared.norsync == false {

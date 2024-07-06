@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 struct InterruptProcess {
     init() {
         guard SharedReference.shared.process != nil else { return }

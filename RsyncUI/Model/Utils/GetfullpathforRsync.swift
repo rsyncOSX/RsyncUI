@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 struct GetfullpathforRsync {
     var rsyncpath: String?
 

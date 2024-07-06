@@ -10,45 +10,18 @@ import Combine
 import Foundation
 import OSLog
 
-final class RsyncProcessFilehandler: @unchecked Sendable {
+@MainActor
+final class RsyncProcessFilehandler {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
-    // Verify network connection
     var config: SynchronizeConfiguration?
-    var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
     // Output
     var outputprocess: OutputfromProcess?
-
-    func executemonitornetworkconnection() {
-        guard config?.offsiteServer.isEmpty == false else { return }
-        guard SharedReference.shared.monitornetworkconnection == true else { return }
-        monitor = NetworkMonitor()
-        monitor?.netStatusChangeHandler = { [unowned self] in
-            do {
-                try statusDidChange()
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-            }
-        }
-    }
-
-    // Throws error
-    func statusDidChange() throws {
-        if monitor?.monitor?.currentPath.status != .satisfied {
-            _ = InterruptProcess()
-            throw Networkerror.networkdropped
-        }
-    }
-
-    private func localfilehandler() -> Int {
-        return outputprocess?.getOutput()?.count ?? 0
-    }
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -94,8 +67,12 @@ final class RsyncProcessFilehandler: @unchecked Sendable {
                    arguments?.contains("--version") == false,
                    let config = self.config
                 {
-                    _ = Logfile(command: config.backupID, data: TrimTwo(outputprocess?.getOutput() ?? []).trimmeddata)
+                    if SharedReference.shared.logtofile {
+                        Logfile(command: config.backupID, data: TrimOutputFromRsync(outputprocess?.getOutput() ?? []).trimmeddata)
+                    }
                 }
+                SharedReference.shared.process = nil
+                Logger.process.info("RsyncProcessFilehandler: process = nil and termination discovered")
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
@@ -134,11 +111,6 @@ final class RsyncProcessFilehandler: @unchecked Sendable {
         }
     }
 
-    // Terminate Process, used when user Aborts task.
-    func abortProcess() {
-        _ = InterruptProcess()
-    }
-
     init(arguments: [String]?,
          config: SynchronizeConfiguration?,
          processtermination: @escaping ([String]?, Int?) -> Void,
@@ -149,19 +121,15 @@ final class RsyncProcessFilehandler: @unchecked Sendable {
         self.filehandler = filehandler
         self.config = config
         outputprocess = OutputfromProcess()
-        executemonitornetworkconnection()
     }
 
     deinit {
-        self.monitor?.stopMonitoring()
-        self.monitor = nil
-        SharedReference.shared.process = nil
         Logger.process.info("RsyncProcessFilehandler: DEINIT")
     }
 }
 
 extension RsyncProcessFilehandler {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

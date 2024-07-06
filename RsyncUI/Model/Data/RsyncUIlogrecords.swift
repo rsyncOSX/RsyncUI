@@ -8,7 +8,7 @@
 import Observation
 import OSLog
 
-@Observable
+@Observable @MainActor
 final class RsyncUIlogrecords {
     var profile: String?
     var logrecords: [LogRecords]?

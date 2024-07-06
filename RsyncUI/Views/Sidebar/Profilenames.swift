@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-struct Profiles: Hashable, Identifiable {
+struct ProfilesnamesRecord: Hashable, Identifiable {
     var profile: String?
     let id = UUID()
 
@@ -17,18 +17,18 @@ struct Profiles: Hashable, Identifiable {
     }
 }
 
-@Observable
+@Observable @MainActor
 final class Profilenames {
-    var profiles: [Profiles] = .init()
+    var profiles: [ProfilesnamesRecord] = .init()
 
     func update() {
         setprofilenames()
     }
 
     func setprofilenames() {
-        let names = Catalogsandfiles(.configurations).getcatalogsasstringnames()
+        let names = Homepath().getfullpathmacserialcatalogsasstringnames()
         for i in 0 ..< (names?.count ?? 0) {
-            profiles.append(Profiles(names?[i] ?? ""))
+            profiles.append(ProfilesnamesRecord(names?[i] ?? ""))
         }
     }
 

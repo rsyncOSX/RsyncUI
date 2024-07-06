@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-@Observable
+@Observable @MainActor
 final class ObservableUsersetting {
     // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
     var rsyncversion3: Bool = SharedReference.shared.rsyncversion3
@@ -83,7 +83,8 @@ final class ObservableUsersetting {
     }
 
     private func validatepath(_ path: String) throws -> Bool {
-        if FileManager.default.fileExists(atPath: path, isDirectory: nil) == false {
+        let fm = FileManager.default
+        if fm.fileExists(atPath: path, isDirectory: nil) == false {
             throw Validatedpath.nopath
         }
         return true

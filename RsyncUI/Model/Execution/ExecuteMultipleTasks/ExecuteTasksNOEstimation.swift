@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 
+@MainActor
 final class ExecuteTasksNOEstimation {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
@@ -30,7 +31,6 @@ final class ExecuteTasksNOEstimation {
     func startexecution() {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             let update = MultipletasksPrimaryLogging(profile: structprofile,
-                                                     hiddenID: -1,
                                                      configurations: localconfigurations)
             let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
             // Send date stamped configurations back to caller

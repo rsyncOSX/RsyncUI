@@ -41,10 +41,6 @@ final class EstimateProgressDetails {
         return (answer?.count ?? 0 == 1) && (estimatedlist?.count ?? 0 == 1)
     }
 
-    func getprofile() -> String {
-        return profile ?? "Default profile"
-    }
-
     func setprofileandnumberofconfigurations(_ profilename: String, _ num: Int) {
         profile = profilename
         numberofconfigurations = num
@@ -81,10 +77,6 @@ final class EstimateProgressDetails {
         numberofconfigurations = 0
         numberofconfigurationsestimated = 0
         configurationtobestimated = nil
-    }
-
-    func setestimatedlist(_ argestimatedlist: [RemoteDataNumbers]?) {
-        estimatedlist = argestimatedlist
     }
 
     func appendrecordestimatedlist(_ record: RemoteDataNumbers) {

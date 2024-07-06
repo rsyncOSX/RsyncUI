@@ -17,16 +17,16 @@ struct RsyncUIApp: App {
         Window("RsyncUI", id: "main") {
             RsyncUIView(selectedprofile: $selectedprofile)
                 .task {
-                    CatalogProfile().createrootprofilecatalog()
+                    Homepath().createrootprofilecatalog()
                 }
                 .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
         }
         .commands {
             SidebarCommands()
 
-            ExecuteCommands()
+            // ExecuteCommands()
 
-            SnapshotCommands()
+            // SnapshotCommands()
 
             CommandGroup(replacing: .help) {
                 Button(action: {
@@ -54,7 +54,7 @@ struct RsyncUIApp: App {
     }
 }
 
-extension Logger: @unchecked Sendable {
+extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier!
     static let process = Logger(subsystem: subsystem, category: "process")
 }

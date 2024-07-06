@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 struct Keypathidentityfile {
     var fullsshkeypath: String?
     // If global keypath and identityfile is set must split keypath and identifile

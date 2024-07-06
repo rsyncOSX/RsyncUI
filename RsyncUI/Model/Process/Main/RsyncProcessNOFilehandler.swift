@@ -10,40 +10,17 @@ import Combine
 import Foundation
 import OSLog
 
-final class RsyncProcessNOFilehandler: @unchecked Sendable {
+@MainActor
+final class RsyncProcessNOFilehandler {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
-    // Verify network connection
     var config: SynchronizeConfiguration?
-    var monitor: NetworkMonitor?
     // Arguments to command
     var arguments: [String]?
     // Process termination
     var processtermination: ([String]?, Int?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
-
-    func executemonitornetworkconnection() {
-        guard config?.offsiteServer.isEmpty == false else { return }
-        guard SharedReference.shared.monitornetworkconnection == true else { return }
-        monitor = NetworkMonitor()
-        monitor?.netStatusChangeHandler = { [unowned self] in
-            do {
-                try statusDidChange()
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-            }
-        }
-    }
-
-    // Throws error
-    func statusDidChange() throws {
-        if monitor?.monitor?.currentPath.status != .satisfied {
-            _ = InterruptProcess()
-            throw Networkerror.networkdropped
-        }
-    }
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -92,8 +69,12 @@ final class RsyncProcessNOFilehandler: @unchecked Sendable {
                    self.arguments?.contains("--version") == false,
                    let config = self.config
                 {
-                    _ = Logfile(command: config.backupID, data: TrimTwo(self.outputprocess?.getOutput() ?? []).trimmeddata)
+                    if SharedReference.shared.logtofile {
+                        Logfile(command: config.backupID, data: TrimOutputFromRsync(self.outputprocess?.getOutput() ?? []).trimmeddata)
+                    }
                 }
+                SharedReference.shared.process = nil
+                Logger.process.info("RsyncProcessNOFilehandler: process = nil and termination discovered")
                 // Release Combine subscribers
                 self.subscriptons.removeAll()
             }.store(in: &subscriptons)
@@ -132,11 +113,6 @@ final class RsyncProcessNOFilehandler: @unchecked Sendable {
         }
     }
 
-    // Terminate Process, used when user Aborts task.
-    func abortProcess() {
-        _ = InterruptProcess()
-    }
-
     init(arguments: [String]?,
          config: SynchronizeConfiguration?,
          processtermination: @escaping ([String]?, Int?) -> Void)
@@ -148,7 +124,6 @@ final class RsyncProcessNOFilehandler: @unchecked Sendable {
         // a selected configuration
         if let config = config {
             self.config = config
-            executemonitornetworkconnection()
         }
     }
 
@@ -161,15 +136,12 @@ final class RsyncProcessNOFilehandler: @unchecked Sendable {
     }
 
     deinit {
-        self.monitor?.stopMonitoring()
-        self.monitor = nil
-        SharedReference.shared.process = nil
         Logger.process.info("RsyncProcessNOFilehandler: DEINIT")
     }
 }
 
 extension RsyncProcessNOFilehandler {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

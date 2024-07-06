@@ -79,17 +79,25 @@ struct SnapshotsView: View {
                 Spacer()
             }
         }
-        .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
-        .focusedSceneValue(\.aborttask, $focusaborttask)
+        // .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
+        // .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
                 Button {
                     updateplansnapshot()
                 } label: {
                     Image(systemName: "return")
-                        .foregroundColor(Color(.blue))
                 }
                 .help("Update plan snapshot")
+            }
+
+            ToolbarItem {
+                Button {
+                    tagsnapshots()
+                } label: {
+                    Image(systemName: "tag")
+                }
+                .help("Tag snapshots")
             }
 
             ToolbarItem {
@@ -174,7 +182,7 @@ struct SnapshotsView: View {
     }
 }
 
-extension SnapshotsView: @unchecked Sendable {
+extension SnapshotsView {
     func abort() {
         snapshotdata.setsnapshotdata(nil)
         snapshotdata.delete?.snapshotcatalogstodelete = nil

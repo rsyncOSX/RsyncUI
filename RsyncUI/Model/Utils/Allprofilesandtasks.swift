@@ -5,13 +5,14 @@
 //  Created by Thomas Evensen on 21/03/2023.
 //
 
-class Allprofilesandtasks {
+@MainActor
+final class Allprofilesandtasks {
     // Configurations object
     var alltasks: [SynchronizeConfiguration]?
     var allprofiles: [String]?
 
     private func getprofilenames() {
-        allprofiles = Catalogsandfiles(.configurations).getcatalogsasstringnames()
+        allprofiles = Homepath().getfullpathmacserialcatalogsasstringnames()
     }
 
     private func readalltasks() {

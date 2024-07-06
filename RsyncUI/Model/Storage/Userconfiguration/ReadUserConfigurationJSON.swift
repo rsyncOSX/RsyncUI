@@ -9,17 +9,18 @@ import Combine
 import Foundation
 import OSLog
 
-class ReadUserConfigurationJSON: NamesandPaths {
+@MainActor
+final class ReadUserConfigurationJSON {
     var filenamedatastore = [SharedReference.shared.userconfigjson]
     var subscriptons = Set<AnyCancellable>()
+    let path = Homepath()
 
     @discardableResult
     init() {
-        super.init(.configurations)
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
-                if let path = fullpathmacserial {
+                if let path = path.fullpathmacserial {
                     filename = path + "/" + filenamejson
                 }
                 return URL(fileURLWithPath: filename)
@@ -35,9 +36,7 @@ class ReadUserConfigurationJSON: NamesandPaths {
                 case .failure:
                     // No file, write new file with default values
                     Logger.process.info("ReadUserConfigurationJSON: Creating default file for user configurations")
-                    Task {
-                        await WriteUserConfigurationJSON(UserConfiguration())
-                    }
+                    WriteUserConfigurationJSON(UserConfiguration())
                 }
             } receiveValue: { [unowned self] data in
                 UserConfiguration(data)

@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 struct Argumentsforrsync {
     // Function return arguments for rsync, either arguments for
     // real runn or arguments for --dry-run for Configuration at selected index

@@ -22,26 +22,11 @@ extension Sequence {
 }
 
 protocol Connected {
-    func connected(config: SynchronizeConfiguration?) -> Bool
-    func connected(server: String?) -> Bool
+    @MainActor func connected(server: String?) -> Bool
 }
 
+@MainActor
 extension Connected {
-    func connected(config: SynchronizeConfiguration?) -> Bool {
-        var port = 22
-        if let config = config {
-            if config.offsiteServer.isEmpty == false {
-                if let sshport: Int = config.sshport { port = sshport }
-                let tcpconnection = TCPconnections()
-                let success = tcpconnection.verifyTCPconnection(config.offsiteServer, port: port, timeout: 1)
-                return success
-            } else {
-                return true
-            }
-        }
-        return false
-    }
-
     func connected(server: String?) -> Bool {
         if let server = server {
             let port = 22

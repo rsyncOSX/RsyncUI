@@ -84,6 +84,7 @@ struct AppendTask {
     }
 }
 
+@MainActor
 final class VerifyConfiguration: Connected {
     let archive: String = "--archive"
     let verbose: String = "--verbose"
@@ -215,7 +216,7 @@ extension VerifyConfiguration {
 }
 
 extension VerifyConfiguration {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

@@ -31,7 +31,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var task: String
     var localCatalog: String
     var offsiteCatalog: String
-    var offsiteUsername: String
     var offsiteServer: String
     var backupID: String
 
@@ -45,6 +44,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     // online.
     var confirmsynchronize: Bool
 
+    @MainActor
     init(outputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
@@ -53,7 +53,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         task = config?.task ?? ""
         localCatalog = config?.localCatalog ?? ""
         offsiteServer = config?.offsiteServer ?? "localhost"
-        offsiteUsername = config?.offsiteUsername ?? "localuser"
         offsiteCatalog = config?.offsiteCatalog ?? ""
         backupID = config?.backupID ?? "Synchronize ID"
         let number = Numbers(outputfromrsync ?? [])

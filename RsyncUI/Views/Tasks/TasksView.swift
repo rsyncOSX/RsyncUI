@@ -33,7 +33,6 @@ final class Selectedconfig {
     var config: SynchronizeConfiguration?
 }
 
-@MainActor
 struct TasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
@@ -103,8 +102,8 @@ struct TasksView: View {
                 if doubleclick { doubleclickaction }
             }
         }
-        .focusedSceneValue(\.startestimation, $focusstartestimation)
-        .focusedSceneValue(\.startexecution, $focusstartexecution)
+        // .focusedSceneValue(\.startestimation, $focusstartestimation)
+        // .focusedSceneValue(\.startexecution, $focusstartexecution)
         .toolbar(content: {
             ToolbarItem {
                 Button {

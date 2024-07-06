@@ -20,8 +20,8 @@ enum CannotUpdateSnaphotsError: LocalizedError {
     }
 }
 
-@Observable
-final class ObservableAddConfigurations: @unchecked Sendable {
+@Observable @MainActor
+final class ObservableAddConfigurations {
     var localcatalog: String = ""
     var remotecatalog: String = ""
     var donotaddtrailingslash: Bool = false
@@ -49,7 +49,7 @@ final class ObservableAddConfigurations: @unchecked Sendable {
     var remotestorageislocal: Bool = false
     var selectedconfig: SynchronizeConfiguration?
     var localhome: String {
-        return NamesandPaths(.configurations).userHomeDirectoryPath ?? ""
+        return Homepath().userHomeDirectoryPath ?? ""
     }
 
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
@@ -108,8 +108,8 @@ final class ObservableAddConfigurations: @unchecked Sendable {
 
     func createprofile(newprofile: String) {
         guard newprofile.isEmpty == false else { return }
-        let catalogprofile = CatalogProfile()
-        catalogprofile.createprofilecatalog(profile: newprofile)
+        let catalogprofile = CatalogForProfile()
+        catalogprofile.createprofilecatalog(newprofile)
         selectedprofile = newprofile
         created = true
     }
@@ -125,7 +125,7 @@ final class ObservableAddConfigurations: @unchecked Sendable {
                 }
                 return
             }
-            CatalogProfile().deleteprofilecatalog(profileName: profile)
+            CatalogForProfile().deleteprofilecatalog(profile)
             selectedprofile = nil
             deleted = true
         } else {
@@ -181,22 +181,8 @@ final class ObservableAddConfigurations: @unchecked Sendable {
     }
 
     func verifyremotestorageislocal() -> Bool {
-        do {
-            _ = try Folder(path: remotecatalog)
-            return true
-        } catch {
-            return false
-        }
-    }
-
-    func assistfuncremoteuser(_ remoteuser: String) {
-        guard remoteuser.isEmpty == false else { return }
-        self.remoteuser = remoteuser
-    }
-
-    func assistfuncremoteserver(_ remoteserver: String) {
-        guard remoteserver.isEmpty == false else { return }
-        self.remoteserver = remoteserver
+        let fm = FileManager.default
+        return fm.locationExists(at: remotecatalog, kind: .folder)
     }
 
     // Prepare for Copy and Paste tasks

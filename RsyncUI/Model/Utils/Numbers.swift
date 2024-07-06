@@ -24,6 +24,7 @@ enum EnumNumbers {
     case delete
 }
 
+@MainActor
 final class Numbers {
     // Second last String in Array rsync output of how much in what time
     private var resultRsync: String?
@@ -205,7 +206,7 @@ final class Numbers {
     init(_ myoutput: [String]) {
         guard myoutput.count > 0 else { return }
         // output = outputprocess?.trimoutput(trim: .two)
-        output = TrimTwo(myoutput).trimmeddata
+        output = TrimOutputFromRsync(myoutput).trimmeddata
         // Getting the summarized output from output.
         if (output?.count ?? 0) > 2 {
             resultRsync = output?[(output?.count ?? 0) - 2]

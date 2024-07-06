@@ -56,6 +56,10 @@ struct RsyncDefaultParametersView: View {
                             }
                         }
                     }
+                    .onChange(of: rsyncUIdata.profile) {
+                        parameters.setvalues(nil)
+                        selecteduuids.removeAll()
+                    }
             }
 
             Spacer()

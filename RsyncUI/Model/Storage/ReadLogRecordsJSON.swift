@@ -10,21 +10,22 @@ import Combine
 import Foundation
 import OSLog
 
-class ReadLogRecordsJSON: NamesandPaths {
+@MainActor
+final class ReadLogRecordsJSON {
     var logrecords: [LogRecords]?
     // var logs: [Log]?
     var filenamedatastore = [SharedReference.shared.filenamelogrecordsjson]
     var subscriptons = Set<AnyCancellable>()
+    let path = Homepath()
 
     init(_ profile: String?, _ validhiddenID: Set<Int>) {
-        super.init(.configurations)
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
-                if let profile = profile, let path = fullpathmacserial {
+                if let profile = profile, let path = path.fullpathmacserial {
                     filename = path + "/" + profile + "/" + filenamejson
                 } else {
-                    if let path = fullpathmacserial {
+                    if let path = path.fullpathmacserial {
                         filename = path + "/" + filenamejson
                     }
                 }

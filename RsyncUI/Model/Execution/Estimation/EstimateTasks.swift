@@ -8,7 +8,8 @@
 
 import Foundation
 
-class EstimateTasks {
+@MainActor
+final class EstimateTasks {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?

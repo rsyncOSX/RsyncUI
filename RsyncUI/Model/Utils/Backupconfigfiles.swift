@@ -10,20 +10,22 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 final class Backupconfigfiles {
-    var usedpath: String?
+    var fullpathnomacserial: String?
     var backuppath: String?
 
     func backup() {
-        if let documentscatalog = backuppath,
-           let usedpath = usedpath
+        let fm = FileManager.default
+        if let backuppath = backuppath,
+           let fullpathnomacserial = fullpathnomacserial
         {
-            var originFolder: Folder?
+            let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
+            let targetpath = "RsyncUIcopy-" + Date().shortlocalized_string_from_date()
+            let documentsURL = URL(fileURLWithPath: backuppath)
+            let documentsbackuppathURL = documentsURL.appendingPathComponent(targetpath)
             do {
-                originFolder = try Folder(path: usedpath)
-                let targetpath = "RsyncUIcopy-" + Date().shortlocalized_string_from_date()
-                let targetFolder = try Folder(path: documentscatalog).createSubfolder(at: targetpath)
-                try originFolder?.copy(to: targetFolder)
+                try fm.copyItem(at: fullpathnomacserialURL, to: documentsbackuppathURL)
             } catch let e {
                 let error = e
                 propogateerror(error: error)
@@ -32,15 +34,15 @@ final class Backupconfigfiles {
     }
 
     init() {
-        let path = NamesandPaths(.configurations)
-        usedpath = path.fullpathnomacserial
-        backuppath = path.documentscatalog
+        let homepath = Homepath()
+        fullpathnomacserial = homepath.fullpathnomacserial
+        backuppath = homepath.documentscatalog
         backup()
     }
 }
 
 extension Backupconfigfiles {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

@@ -33,7 +33,7 @@ struct UserConfiguration: Codable {
     // Automatic execution
     var confirmexecute: Int?
 
-    private func setuserconfigdata() {
+    @MainActor private func setuserconfigdata() {
         if rsyncversion3 == 1 {
             SharedReference.shared.rsyncversion3 = true
         } else {
@@ -93,7 +93,7 @@ struct UserConfiguration: Codable {
 
     // Used when reading JSON data from store
     @discardableResult
-    init(_ data: DecodeUserConfiguration) {
+    @MainActor init(_ data: DecodeUserConfiguration) {
         rsyncversion3 = data.rsyncversion3 ?? -1
         addsummarylogrecord = data.addsummarylogrecord ?? 1
         logtofile = data.logtofile ?? 0
@@ -113,7 +113,7 @@ struct UserConfiguration: Codable {
 
     // Default values user configuration
     @discardableResult
-    init() {
+    @MainActor init() {
         if SharedReference.shared.rsyncversion3 {
             rsyncversion3 = 1
         } else {

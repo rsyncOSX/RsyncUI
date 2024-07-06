@@ -104,7 +104,7 @@ struct Sshsettings: View {
     }
 
     var setsshpath: some View {
-        EditValue(300, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile)
+        EditValue(400, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile)
             .onAppear(perform: {
                 if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
                     usersettings.sshkeypathandidentityfile = sshkeypath
@@ -124,7 +124,7 @@ struct Sshsettings: View {
     }
 
     var setsshport: some View {
-        EditValue(150, NSLocalizedString("Global ssh port", comment: ""),
+        EditValue(400, NSLocalizedString("Global ssh port", comment: ""),
                   $usersettings.sshportnumber)
             .onAppear(perform: {
                 if let sshport = SharedReference.shared.sshport {
@@ -148,7 +148,10 @@ struct Sshsettings: View {
 extension Sshsettings {
     func createkeys() {
         if SshKeys().createPublicPrivateRSAKeyPair() {
-            localsshkeys = SshKeys().validatepublickeypresent()
+            Task {
+                try await Task.sleep(seconds: 1)
+                localsshkeys = SshKeys().validatepublickeypresent()
+            }
         }
     }
 }

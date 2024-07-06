@@ -9,25 +9,35 @@ import Foundation
 
 struct SnapshotLogRecords: Identifiable {
     var id = UUID()
-    var hiddenID: Int
-    var localCatalog: String
-    var remoteCatalog: String
-    var offsiteServer: String
-    var task: String
-    var backupID: String
-    var dateExecuted: String
     var date: Date
+    var dateExecuted: String
     var resultExecuted: String
-    // Snapshots
     var period: String?
-    var days: String?
     var snapshotCatalog: String?
+    var days: String?
     var seconds: Int = 0
+}
+
+extension SnapshotLogRecords: Hashable, Equatable {
+    static func == (lhs: SnapshotLogRecords, rhs: SnapshotLogRecords) -> Bool {
+        return lhs.dateExecuted == rhs.dateExecuted &&
+            lhs.resultExecuted == rhs.resultExecuted &&
+            lhs.snapshotCatalog == rhs.snapshotCatalog &&
+            lhs.period == rhs.period &&
+            lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(dateExecuted)
+        hasher.combine(resultExecuted)
+        hasher.combine(id)
+        hasher.combine(snapshotCatalog)
+        hasher.combine(period)
+    }
 }
 
 final class SnapshotRecords {
     var loggrecordssnapshots: [SnapshotLogRecords]?
-    private var localehiddenID: Int?
 
     private func readandsortallloggdata(_ config: SynchronizeConfiguration,
                                         _ logrecords: [LogRecords])
@@ -46,14 +56,8 @@ final class SnapshotRecords {
             }
             let record =
                 SnapshotLogRecords(
-                    hiddenID: config.hiddenID,
-                    localCatalog: config.localCatalog,
-                    remoteCatalog: config.offsiteCatalog,
-                    offsiteServer: config.offsiteServer,
-                    task: config.task,
-                    backupID: config.backupID,
-                    dateExecuted: datestring ?? "",
                     date: date ?? Date(),
+                    dateExecuted: datestring ?? "",
                     resultExecuted: localrecords[0].logrecords?[i].resultExecuted ?? ""
                 )
             data.append(record)
@@ -67,23 +71,5 @@ final class SnapshotRecords {
         if loggrecordssnapshots == nil {
             readandsortallloggdata(config, logrecords)
         }
-    }
-}
-
-extension SnapshotLogRecords: Hashable, Equatable {
-    static func == (lhs: SnapshotLogRecords, rhs: SnapshotLogRecords) -> Bool {
-        return lhs.dateExecuted == rhs.dateExecuted &&
-            lhs.resultExecuted == rhs.resultExecuted &&
-            lhs.snapshotCatalog == rhs.snapshotCatalog &&
-            lhs.period == rhs.period &&
-            lhs.id == rhs.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(dateExecuted)
-        hasher.combine(resultExecuted)
-        hasher.combine(id)
-        hasher.combine(snapshotCatalog)
-        hasher.combine(period)
     }
 }

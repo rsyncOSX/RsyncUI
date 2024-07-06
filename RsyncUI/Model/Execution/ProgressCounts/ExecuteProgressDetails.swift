@@ -14,13 +14,6 @@ final class ExecuteProgressDetails {
     var hiddenIDatwork: Int = -1
     @ObservationIgnored var estimatedlist: [RemoteDataNumbers]?
 
-    func taskisestimatedbyUUID(_ uuid: UUID) -> Bool {
-        let answer = estimatedlist?.contains(where: { task in
-            task.id == uuid
-        }) ?? false ? true : false
-        return answer
-    }
-
     func getmaxcountbytask() -> Double {
         let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
         if (max?.count ?? 0) == 1 {

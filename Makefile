@@ -10,3 +10,4 @@ clean:
 	rm -Rf Logs
 	rm -rf SourcePackages
 	rm -rf SDKStatCaches.noindex
+	rm -rf Index.noindex

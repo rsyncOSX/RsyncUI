@@ -4,34 +4,40 @@
 //
 //  Created by Thomas Evensen on 27/04/2021.
 //
-// swiftlint:disable line_length non_optional_string_data_conversion
+// swiftlint:disable line_length
 
 import Combine
 import Foundation
 import OSLog
 
-class WriteConfigurationJSON: NamesandPaths {
+@MainActor
+class WriteConfigurationJSON {
     var subscriptons = Set<AnyCancellable>()
     // Filename for JSON file
     var filename = SharedReference.shared.fileconfigurationsjson
     var profile: String?
+    let path = Homepath()
 
-    private func writeJSONToPersistentStore(_ data: String?) {
-        if var atpath = fullpathmacserial {
-            do {
-                if profile != nil {
-                    atpath += "/" + (profile ?? "")
-                }
-                let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: filename)
-                if let data = data {
-                    try file.write(data)
+    private func writeJSONToPersistentStore(jsonData: Data?) {
+        if let fullpathmacserial = path.fullpathmacserial {
+            var configurationfileURL: URL?
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            if let profile = profile {
+                let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
+                configurationfileURL = tempURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
+
+            } else {
+                configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
+            }
+            if let jsonData = jsonData, let configurationfileURL = configurationfileURL {
+                do {
+                    try jsonData.write(to: configurationfileURL)
                     let myprofile = profile
                     Logger.process.info("WriteConfigurationJSON - \(myprofile ?? "default profile", privacy: .public): write configurations to permanent storage")
+                } catch let e {
+                    let error = e
+                    path.propogateerror(error: error)
                 }
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
             }
         }
     }
@@ -40,7 +46,6 @@ class WriteConfigurationJSON: NamesandPaths {
     // done in the .map operator
     @discardableResult
     init(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) {
-        super.init(.configurations)
         SharedReference.shared.firsttime = false
         if profile == SharedReference.shared.defaultprofile {
             self.profile = nil
@@ -61,15 +66,14 @@ class WriteConfigurationJSON: NamesandPaths {
                 case .finished:
                     return
                 case let .failure(error):
-                    self.propogateerror(error: error)
+                    self.path.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
-                let jsonfile = String(data: result, encoding: .utf8)
-                writeJSONToPersistentStore(jsonfile)
+                writeJSONToPersistentStore(jsonData: result)
                 subscriptons.removeAll()
             })
             .store(in: &subscriptons)
     }
 }
 
-// swiftlint:enable line_length non_optional_string_data_conversion
+// swiftlint:enable line_length

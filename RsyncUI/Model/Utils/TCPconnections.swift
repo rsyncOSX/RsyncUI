@@ -8,10 +8,22 @@
 
 import Foundation
 
-final class TCPconnections {
-    var indexBoolremoteserverOff: [Bool]?
+enum Networkerror: LocalizedError {
+    case networkdropped
+    case noconnection
 
-    // Test for TCP connection
+    var errorDescription: String? {
+        switch self {
+        case .networkdropped:
+            return "Network connection is dropped"
+        case .noconnection:
+            return "No connection to server"
+        }
+    }
+}
+
+@MainActor
+final class TCPconnections {
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
         let client = TCPClient(address: host, port: Int32(port))
         switch client.connect(timeout: timeout) {
@@ -19,25 +31,6 @@ final class TCPconnections {
             return true
         default:
             return false
-        }
-    }
-
-    // Testing all remote servers.
-    // Adding connection true or false in array[bool]
-    func verifyallremoteserverTCPconnections(configurations: [SynchronizeConfiguration]?) {
-        indexBoolremoteserverOff = [Bool]()
-        guard (configurations?.count ?? 0) > 0 else { return }
-        var port = 22
-        for i in 0 ..< (configurations?.count ?? 0) {
-            if let config = configurations?[i] {
-                if config.offsiteServer.isEmpty == false {
-                    if let sshport: Int = config.sshport { port = sshport }
-                    let success = verifyTCPconnection(config.offsiteServer, port: port, timeout: 1)
-                    indexBoolremoteserverOff?.append(success)
-                } else {
-                    indexBoolremoteserverOff?.append(false)
-                }
-            }
         }
     }
 

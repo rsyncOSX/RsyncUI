@@ -7,7 +7,7 @@
 import Foundation
 import Observation
 
-@Observable
+@Observable @MainActor
 final class ObservableParametersDefault {
     // Selected configuration
     var configuration: SynchronizeConfiguration?

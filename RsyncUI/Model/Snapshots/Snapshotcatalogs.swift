@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 
+@MainActor
 class Snapshotcatalogs {
     var mysnapshotdata: SnapshotData?
     var catalogsanddates: [Catalogsanddates]?
@@ -30,16 +31,12 @@ class Snapshotcatalogs {
         // Check for split lines and merge lines if true
         let data = PrepareOutput(data ?? [])
         if data.splitlines { data.alignsplitlines() }
-        var catalogs = TrimOne(data.trimmeddata).trimmeddata
-        // var datescatalogs = TrimFour(data.trimmeddata).trimmeddata
+        var catalogs = TrimOutputForRestore(data.trimmeddata).trimmeddata
         // drop index where row = "./."
         if let index = catalogs.firstIndex(where: { $0 == "./." }) {
             catalogs.remove(at: index)
-            // datescatalogs.remove(at: index)
         }
         catalogsanddates = [Catalogsanddates]()
-        // let dateformatter = DateFormatter()
-        // dateformatter.dateFormat = "YYYY/mm/dd"
         for i in 0 ..< catalogs.count {
             let item = Catalogsanddates(catalog: catalogs[i])
             catalogsanddates?.append(item)

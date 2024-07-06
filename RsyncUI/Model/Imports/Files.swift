@@ -4,14 +4,15 @@ import Foundation
 
 // MARK: - Locations
 
-/// Enum describing various kinds of locations that can be found on a file system.
-public enum LocationKind {
-    /// A file can be found at the location.
-    case file
-    /// A folder can be found at the location.
-    case folder
-}
-
+/*
+ /// Enum describing various kinds of locations that can be found on a file system.
+ public enum LocationKind {
+     /// A file can be found at the location.
+     case file
+     /// A folder can be found at the location.
+     case folder
+ }
+ */
 /// Protocol adopted by types that represent locations on a file system.
 public protocol Location: Equatable, CustomStringConvertible {
     /// The kind of location that is being represented (see `LocationKind`).

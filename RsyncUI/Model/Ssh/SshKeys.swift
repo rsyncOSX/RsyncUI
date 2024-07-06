@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 23.04.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import Cocoa
 import Foundation
@@ -26,15 +27,16 @@ enum SshError: LocalizedError {
     }
 }
 
-final class SshKeys: Catalogsandfiles {
-    // Process termination and filehandler closures
-    var commandCopyPasteTerminal: String?
+@MainActor
+final class SshKeys {
     var rsaStringPath: String?
     // Arrays listing all key files
     var keyFileStrings: [String]?
     var argumentsssh: ArgumentsSsh?
     var command: String?
     var arguments: [String]?
+    // All paths for ssh
+    let sshpath = SSHpath()
 
     // Create rsa keypair
     func createPublicPrivateRSAKeyPair() -> Bool {
@@ -42,10 +44,10 @@ final class SshKeys: Catalogsandfiles {
             let present = try islocalpublicrsakeypresent()
             if present == false {
                 // If new keypath is set create it
-                createsshkeyrootpath()
+                sshpath.createsshkeyrootpath()
                 // Create keys
-                argumentsssh = ArgumentsSsh(remote: nil, sshkeypathandidentityfile: (fullpathsshkeys ?? "") +
-                    "/" + (identityfile ?? ""))
+                argumentsssh = ArgumentsSsh(remote: nil, sshkeypathandidentityfile: (sshpath.fullpathsshkeys ?? "") +
+                    "/" + (sshpath.identityfile ?? ""))
                 arguments = argumentsssh?.argumentscreatekey()
                 command = argumentsssh?.getCommand()
                 executesshcreatekeys()
@@ -53,7 +55,7 @@ final class SshKeys: Catalogsandfiles {
             }
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            sshpath.propogateerror(error: error)
             return false
         }
         return false
@@ -62,38 +64,37 @@ final class SshKeys: Catalogsandfiles {
     // Check if rsa pub key exists
     func islocalpublicrsakeypresent() throws -> Bool {
         guard keyFileStrings != nil else { return false }
-        guard keyFileStrings?.filter({ $0.contains(self.identityfile ?? "") }).count ?? 0 > 0 else { return false }
-        guard keyFileStrings?.filter({ $0.contains((self.identityfile ?? "") + ".pub") }).count ?? 0 > 0 else {
+        guard keyFileStrings?.filter({ $0.contains(self.sshpath.identityfile ?? "") }).count ?? 0 > 0 else { return false }
+        guard keyFileStrings?.filter({ $0.contains((self.sshpath.identityfile ?? "") + ".pub") }).count ?? 0 > 0 else {
             throw SshError.sshkeys
         }
-        rsaStringPath = keyFileStrings?.filter { $0.contains((self.identityfile ?? "") + ".pub") }[0]
+        rsaStringPath = keyFileStrings?.filter { $0.contains((self.sshpath.identityfile ?? "") + ".pub") }[0]
         guard rsaStringPath?.count ?? 0 > 0 else { return false }
         throw SshError.sshkeys
     }
 
-    nonisolated
     func validatepublickeypresent() -> Bool {
         guard keyFileStrings != nil else { return false }
-        guard keyFileStrings?.filter({ $0.contains(self.identityfile ?? "") }).count ?? 0 > 0 else { return false }
-        guard keyFileStrings?.filter({ $0.contains((self.identityfile ?? "") + ".pub") }).count ?? 0 > 0 else {
+        guard keyFileStrings?.filter({ $0.contains(self.sshpath.identityfile ?? "") }).count ?? 0 > 0 else { return false }
+        guard keyFileStrings?.filter({ $0.contains((self.sshpath.identityfile ?? "") + ".pub") }).count ?? 0 > 0 else {
             return true
         }
-        rsaStringPath = keyFileStrings?.filter { $0.contains((self.identityfile ?? "") + ".pub") }[0]
+        rsaStringPath = keyFileStrings?.filter { $0.contains((self.sshpath.identityfile ?? "") + ".pub") }[0]
         guard rsaStringPath?.count ?? 0 > 0 else { return false }
         return true
     }
 
     // Secure copy of public key from local to remote catalog
     func copylocalpubrsakeyfile(remote: UniqueserversandLogins?) -> String {
-        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (fullpathsshkeys ?? "") +
-            "/" + (identityfile ?? ""))
+        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (sshpath.fullpathsshkeys ?? "") +
+            "/" + (sshpath.identityfile ?? ""))
         return argumentsssh.argumentssshcopyid() ?? ""
     }
 
     // Check for remote pub keys
     func verifyremotekey(remote: UniqueserversandLogins?) -> String {
-        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (fullpathsshkeys ?? "") +
-            "/" + (identityfile ?? ""))
+        let argumentsssh = ArgumentsSsh(remote: remote, sshkeypathandidentityfile: (sshpath.fullpathsshkeys ?? "") +
+            "/" + (sshpath.identityfile ?? ""))
         return argumentsssh.argumentscheckremotepubkey() ?? ""
     }
 
@@ -107,11 +108,12 @@ final class SshKeys: Catalogsandfiles {
     }
 
     func processtermination(data: [String]?) {
-        _ = Logfile(TrimTwo(data ?? []).trimmeddata, error: false)
+        Logfile(TrimOutputFromRsync(data ?? []).trimmeddata, error: false)
     }
 
     init() {
-        super.init(.ssh)
-        keyFileStrings = getfullpathsshkeys()
+        keyFileStrings = sshpath.getfullpathsshkeys()
     }
 }
+
+// swiftlint:enable line_length

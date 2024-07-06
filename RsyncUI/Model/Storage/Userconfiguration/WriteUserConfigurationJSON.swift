@@ -4,21 +4,17 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
-// swiftlint: disable non_optional_string_data_conversion
 
 import Combine
 import Foundation
 import OSLog
 
 @MainActor
-class WriteUserConfigurationJSON {
-    // path without macserialnumber
-    var fullpathnomacserial: String?
+final class WriteUserConfigurationJSON {
     // path with macserialnumber
     var fullpathmacserial: String?
 
     // Mac serialnumber
-    nonisolated
     var macserialnumber: String? {
         if SharedReference.shared.macserialnumber == nil {
             SharedReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber() ?? ""
@@ -26,7 +22,6 @@ class WriteUserConfigurationJSON {
         return SharedReference.shared.macserialnumber
     }
 
-    nonisolated
     var userHomeDirectoryPath: String? {
         let pw = getpwuid(getuid())
         if let home = pw?.pointee.pw_dir {
@@ -38,20 +33,18 @@ class WriteUserConfigurationJSON {
     }
 
     var subscriptons = Set<AnyCancellable>()
-    // Filename for JSON file
-    var filename = SharedReference.shared.userconfigjson
 
-    private func writeJSONToPersistentStore(_ data: String?) {
-        if let atpath = fullpathmacserial {
-            do {
-                let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: filename)
-                if let data = data {
-                    try file.write(data)
+    private func writeJSONToPersistentStore(jsonData: Data?) {
+        if let fullpathmacserial = fullpathmacserial {
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let usercongigfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.userconfigjson)
+            if let jsonData = jsonData {
+                do {
+                    try jsonData.write(to: usercongigfileURL)
+                } catch let e {
+                    let error = e
+                    propogateerror(error: error)
                 }
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
             }
         }
     }
@@ -61,8 +54,6 @@ class WriteUserConfigurationJSON {
     @discardableResult
     init(_ userconfiguration: UserConfiguration?) {
         fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
-        fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
-
         userconfiguration.publisher
             .map { userconfiguration in
                 userconfiguration
@@ -76,8 +67,7 @@ class WriteUserConfigurationJSON {
                     self.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
-                let jsonfile = String(data: result, encoding: .utf8)
-                writeJSONToPersistentStore(jsonfile)
+                writeJSONToPersistentStore(jsonData: result)
                 Logger.process.info("WriteUserConfigurationJSON: Writing user configurations to permanent storage")
                 subscriptons.removeAll()
             })
@@ -86,9 +76,7 @@ class WriteUserConfigurationJSON {
 }
 
 extension WriteUserConfigurationJSON {
-    func propogateerror(error: Error) {
+    @MainActor func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
-
-// swiftlint: enable non_optional_string_data_conversion

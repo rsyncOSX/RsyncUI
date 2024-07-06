@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-@Observable
+@Observable @MainActor
 final class ObservableParametersRsync {
     // Set the current value as placeholder text
     var sshport: String = ""

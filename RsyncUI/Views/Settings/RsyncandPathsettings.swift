@@ -115,21 +115,21 @@ struct RsyncandPathsettings: View {
     }
 
     var setrsyncpathlocalpath: some View {
-        EditValue(300, nil, $usersettings.localrsyncpath)
+        EditValue(400, nil, $usersettings.localrsyncpath)
             .onAppear(perform: {
                 usersettings.localrsyncpath = SetandValidatepathforrsync().getpathforrsync()
             })
     }
 
     var setrsyncpathdefault: some View {
-        EditValue(300, defaultpathrsync, $usersettings.localrsyncpath)
+        EditValue(400, defaultpathrsync, $usersettings.localrsyncpath)
             .onChange(of: usersettings.localrsyncpath) {
                 usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
             }
     }
 
     var setpathforrestore: some View {
-        EditValue(300, NSLocalizedString("Path for restore", comment: ""),
+        EditValue(400, NSLocalizedString("Path for restore", comment: ""),
                   $usersettings.temporarypathforrestore)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
@@ -142,7 +142,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setmarkdays: some View {
-        EditValue(150, NSLocalizedString("", comment: ""),
+        EditValue(400, NSLocalizedString("", comment: ""),
                   $usersettings.marknumberofdayssince)
             .onChange(of: usersettings.marknumberofdayssince) {
                 usersettings.markdays(days: usersettings.marknumberofdayssince)

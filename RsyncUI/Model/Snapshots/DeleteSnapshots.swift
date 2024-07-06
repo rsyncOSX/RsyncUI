@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class DeleteSnapshots {
     var localeconfig: SynchronizeConfiguration?
     var snapshotcatalogstodelete: [String]?

@@ -9,7 +9,7 @@
 import Foundation
 import Observation
 
-@Observable
+@Observable @MainActor
 final class ObservableRestore {
     var pathforrestore: String = ""
     var restorefilesinprogress: Bool = false
@@ -25,25 +25,12 @@ final class ObservableRestore {
     var datalist: [RestoreFileRecord] = []
     var filestorestore: String = ""
     @ObservationIgnored var rsyncdata: [String]?
-    @ObservationIgnored var arguments: [String]?
     var selectedconfig: SynchronizeConfiguration?
-
-    var rsync: String {
-        return GetfullpathforRsync().rsyncpath ?? ""
-    }
 
     func processtermination(data: [String]?, hiddenID _: Int?) {
         rsyncdata = data
         restorefilesinprogress = false
         presentsheetrsync = true
-    }
-
-    private func validatetask(_ config: SynchronizeConfiguration) throws -> Bool {
-        if config.task != SharedReference.shared.syncremote {
-            return true
-        } else {
-            throw RestoreError.notvalidtaskforrestore
-        }
     }
 
     // Validate path for restore
@@ -61,7 +48,8 @@ final class ObservableRestore {
     }
 
     private func validatepath(_ path: String) throws -> Bool {
-        if FileManager.default.fileExists(atPath: path, isDirectory: nil) == false {
+        let fm = FileManager.default
+        if fm.fileExists(atPath: path, isDirectory: nil) == false {
             throw Validatedpath.nopath
         }
         return true

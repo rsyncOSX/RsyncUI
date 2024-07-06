@@ -4,33 +4,37 @@
 //
 //  Created by Thomas Evensen on 27/04/2021.
 //
-// swiftlint: disable non_optional_string_data_conversion
+// swiftlint:disable line_length
 
 import Combine
 import Foundation
 import OSLog
 
-class WriteLogRecordsJSON: NamesandPaths {
+@MainActor
+final class WriteLogRecordsJSON {
     var profile: String?
     var subscriptons = Set<AnyCancellable>()
-    // Filename for JSON file
-    var filename = SharedReference.shared.filenamelogrecordsjson
+    let path = Homepath()
 
-    private func writeJSONToPersistentStore(_ data: String?) {
-        if var atpath = fullpathmacserial {
-            do {
-                if profile != nil {
-                    atpath += "/" + (profile ?? "")
+    private func writeJSONToPersistentStore(jsonData: Data?) {
+        if let fullpathmacserial = path.fullpathmacserial {
+            var logrecordfileURL: URL?
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            if let profile = profile {
+                let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
+                logrecordfileURL = tempURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
+            } else {
+                logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
+            }
+            if let jsonData = jsonData, let logrecordfileURL = logrecordfileURL {
+                do {
+                    try jsonData.write(to: logrecordfileURL)
+                    let myprofile = profile
+                    Logger.process.info("WriteLogRecordsJSON - \(myprofile ?? "default profile", privacy: .public): write logrecords to permanent storage")
+                } catch let e {
+                    let error = e
+                    path.propogateerror(error: error)
                 }
-                let folder = try Folder(path: atpath)
-                let file = try folder.createFile(named: filename)
-                if let data = data {
-                    try file.write(data)
-                    Logger.process.info("WriteLogRecordsJSON: write logrecords to permanent storage")
-                }
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
             }
         }
     }
@@ -39,7 +43,6 @@ class WriteLogRecordsJSON: NamesandPaths {
     // done in the .map operator
     @discardableResult
     init(_ profile: String?, _ logrecords: [LogRecords]?) {
-        super.init(.configurations)
         if profile == SharedReference.shared.defaultprofile {
             self.profile = nil
         } else {
@@ -59,15 +62,14 @@ class WriteLogRecordsJSON: NamesandPaths {
                 case .finished:
                     return
                 case let .failure(error):
-                    self.propogateerror(error: error)
+                    self.path.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
-                let jsonfile = String(data: result, encoding: .utf8)
-                writeJSONToPersistentStore(jsonfile)
+                writeJSONToPersistentStore(jsonData: result)
                 subscriptons.removeAll()
             })
             .store(in: &subscriptons)
     }
 }
 
-// swiftlint: enable non_optional_string_data_conversion
+// swiftlint:enable line_length

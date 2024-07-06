@@ -90,7 +90,7 @@ struct RestoreTableView: View {
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
             }
-            .focusedSceneValue(\.aborttask, $focusaborttask)
+            // .focusedSceneValue(\.aborttask, $focusaborttask)
             .searchable(text: $filterstring)
             .onChange(of: filterstring) {
                 showindebounce = true
@@ -237,7 +237,7 @@ extension RestoreTableView {
 
     func processtermination(data: [String]?, hiddenID _: Int?) {
         gettingfilelist = false
-        restore.rsyncdata = TrimOne(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        restore.rsyncdata = TrimOutputForRestore(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         restore.datalist = restore.rsyncdata?.map { filename in
             RestoreFileRecord(filename: filename)
         } ?? []

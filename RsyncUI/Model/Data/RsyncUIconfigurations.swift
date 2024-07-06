@@ -9,7 +9,7 @@
 import Observation
 import SwiftUI
 
-@Observable
+@Observable @MainActor
 final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?
     var profile: String?
