@@ -198,7 +198,6 @@ class ComputeRsyncParameters {
         if forDisplay { arguments?.append(" ") }
     }
 
-    
     func dryrunparameter(config _: SynchronizeConfiguration, forDisplay: Bool) {
         let dryrun = "--dry-run"
         arguments?.append(dryrun)
