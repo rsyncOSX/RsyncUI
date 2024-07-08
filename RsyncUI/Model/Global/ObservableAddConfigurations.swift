@@ -202,7 +202,6 @@ final class ObservableAddConfigurations {
             copy?.dateRun = nil
             copy?.hiddenID = existingmaxhiddenID + 1 + i
             copy?.id = UUID()
-            copy?.dayssincelastbackup = nil
             if let copy = copy {
                 copyandpasteconfigurations?.append(copy)
             }

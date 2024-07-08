@@ -63,20 +63,4 @@ struct DecodeUserConfiguration: Codable {
         checkforerrorinrsyncoutput = try values.decodeIfPresent(Int.self, forKey: .checkforerrorinrsyncoutput)
         confirmexecute = try values.decodeIfPresent(Int.self, forKey: .confirmexecute)
     }
-
-    init(_ userconfiguration: UserConfiguration) {
-        rsyncversion3 = userconfiguration.rsyncversion3
-        addsummarylogrecord = userconfiguration.addsummarylogrecord
-        logtofile = userconfiguration.logtofile
-        monitornetworkconnection = userconfiguration.monitornetworkconnection
-        localrsyncpath = userconfiguration.localrsyncpath
-        pathforrestore = userconfiguration.pathforrestore
-        marknumberofdayssince = userconfiguration.marknumberofdayssince
-        sshkeypathandidentityfile = userconfiguration.sshkeypathandidentityfile
-        sshport = userconfiguration.sshport
-        environment = userconfiguration.environment
-        environmentvalue = userconfiguration.environmentvalue
-        checkforerrorinrsyncoutput = userconfiguration.checkforerrorinrsyncoutput
-        confirmexecute = userconfiguration.confirmexecute
-    }
 }

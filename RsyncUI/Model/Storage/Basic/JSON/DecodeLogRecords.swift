@@ -13,14 +13,12 @@ struct DecodeLogRecords: Codable {
     let hiddenID: Int?
     var logrecords: [DecodeLog]?
     let offsiteserver: String?
-    let profilename: String?
 
     enum CodingKeys: String, CodingKey {
         case dateStart
         case hiddenID
         case logrecords
         case offsiteserver
-        case profilename
     }
 
     init(from decoder: Decoder) throws {
@@ -29,14 +27,13 @@ struct DecodeLogRecords: Codable {
         hiddenID = try values.decodeIfPresent(Int.self, forKey: .hiddenID)
         logrecords = try values.decodeIfPresent([DecodeLog].self, forKey: .logrecords)
         offsiteserver = try values.decodeIfPresent(String.self, forKey: .offsiteserver)
-        profilename = try values.decodeIfPresent(String.self, forKey: .profilename)
     }
 
     init(_ data: LogRecords) {
         dateStart = data.dateStart
         hiddenID = data.hiddenID
         offsiteserver = data.offsiteserver
-        profilename = data.profilename
+        // profilename = data.profilename
         for i in 0 ..< (data.logrecords?.count ?? 0) {
             if i == 0 { logrecords = [DecodeLog]() }
             var log = DecodeLog()
