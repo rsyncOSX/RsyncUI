@@ -49,7 +49,7 @@ struct ExecuteEstimatedTasksView: View {
                 _ = InterruptProcess()
             }
         })
-        // .focusedSceneValue(\.aborttask, $focusaborttask)
+        .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
                 Button {

@@ -166,7 +166,7 @@ struct SummarizedAllDetailsView: View {
                     }
                 }
             })
-            // .focusedSceneValue(\.startexecution, $focusstartexecution)
+            .focusedSceneValue(\.startexecution, $focusstartexecution)
             .onAppear {
                 guard estimateprogressdetails.estimatealltasksinprogress == false else {
                     Logger.process.warning("TasksView: estimate already in progress")
