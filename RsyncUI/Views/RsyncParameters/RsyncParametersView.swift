@@ -119,7 +119,7 @@ struct RsyncParametersView: View {
             RsyncCommandView(config: $parameters.configuration,
                              selectedrsynccommand: $selectedrsynccommand)
         }
-        // .focusedSceneValue(\.aborttask, $focusaborttask)
+        .focusedSceneValue(\.aborttask, $focusaborttask)
         .alert(isPresented: $parameters.alerterror,
                content: { Alert(localizedError: parameters.error)
                })
