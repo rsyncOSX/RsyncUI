@@ -9,10 +9,6 @@
 
 import Foundation
 
-protocol Setinfoaboutrsync: AnyObject {
-    func setinfoaboutrsync()
-}
-
 enum RsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
     case restore
