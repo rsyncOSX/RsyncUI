@@ -69,8 +69,4 @@ struct ListofTasksMainView: View {
             rsyncUIdata.configurations = deleteconfigurations.configurations
         }
     }
-
-    func markconfig(_ seconds: Double) -> Bool {
-        return seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
-    }
 }
