@@ -47,10 +47,6 @@ final class ObservableParametersRsync {
         }
     }
 
-    func verifybackupison(_ config: SynchronizeConfiguration) -> Bool {
-        return config.parameter12 == RsyncArguments().backupstrings[0]
-    }
-
     func setbackup() {
         if let config = configuration {
             let localcatalog = config.localCatalog
