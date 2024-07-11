@@ -11,8 +11,6 @@ import Foundation
 final class Snapshotlogsandcatalogs: Snapshotcatalogs {
     // Number of local logrecords
     var logrecordssnapshot: [SnapshotLogRecords]?
-    var firstsnapshotctalogNOdelete: String?
-    var lastsnapshotctalogNOdelete: String?
 
     // Calculating days since snaphot was executed
     private func calculateddayssincesynchronize() {
@@ -65,8 +63,6 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
         // Add records for use in the View
         mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
         guard logrecordssnapshot?.count ?? 0 > 0 else { return }
-        firstsnapshotctalogNOdelete = logrecordssnapshot?[(logrecordssnapshot?.count ?? 0) - 1].snapshotCatalog
-        lastsnapshotctalogNOdelete = logrecordssnapshot?[0].snapshotCatalog
     }
 
     func calculatedays(datestringlocalized: String) -> Double? {

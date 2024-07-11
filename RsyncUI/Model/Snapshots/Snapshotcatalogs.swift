@@ -58,6 +58,4 @@ class Snapshotcatalogs {
         prepareremotesnapshotcatalogs(data: data)
         mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
     }
-
-    func filehandler() {}
 }
