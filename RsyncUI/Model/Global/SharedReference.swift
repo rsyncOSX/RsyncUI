@@ -126,8 +126,6 @@ final class SharedReference {
     let snapshot: String = "snapshot"
     let syncremote: String = "syncremote"
     @ObservationIgnored var synctasks: Set<String>
-    // rsync version string
-    @ObservationIgnored var rsyncversionstring: String?
     // rsync short version
     var rsyncversionshort: String?
     // filsize logfile warning

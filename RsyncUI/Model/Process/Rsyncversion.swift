@@ -37,7 +37,6 @@ extension Rsyncversion {
         {
             SharedReference.shared.rsyncversionshort =
                 rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
-            SharedReference.shared.rsyncversionstring = rsyncversionstring
         }
     }
 }
