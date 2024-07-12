@@ -57,14 +57,6 @@ final class ObservableUsersetting {
         }
     }
 
-    // Set default version 2 of rsync values
-    private func setdefaultvaulesrsync() {
-        let validate = SetandValidatepathforrsync()
-        validate.setdefaultvaluesver2rsync()
-        rsyncversion3 = false
-        localrsyncpath = ""
-    }
-
     func setandvalidapathforrestore(_ atpath: String) {
         guard atpath.isEmpty == false else {
             // Delete path

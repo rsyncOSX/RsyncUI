@@ -84,11 +84,6 @@ final class ExecuteMultipleTasks {
     deinit {
         self.stackoftasktobeexecuted = nil
     }
-
-    func abort() {
-        stackoftasktobeexecuted = nil
-        setabort = true
-    }
 }
 
 extension ExecuteMultipleTasks {
