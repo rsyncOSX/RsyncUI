@@ -50,19 +50,6 @@ struct StartexecuteButton: View {
     }
 }
 
-struct SelectTask: View {
-    @Binding var selecttask: Bool?
-
-    var body: some View {
-        Button {
-            selecttask = true
-        } label: {
-            Label("Select task", systemImage: "play.fill")
-        }
-        .keyboardShortcut("s", modifiers: [.command])
-    }
-}
-
 struct Abborttask: View {
     @Binding var aborttask: Bool?
 
@@ -81,10 +68,6 @@ struct FocusedEstimateBinding: FocusedValueKey {
 }
 
 struct FocusedExecuteBinding: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
-
-struct FocusedFirsttaskInfo: FocusedValueKey {
     typealias Value = Binding<Bool>
 }
 
