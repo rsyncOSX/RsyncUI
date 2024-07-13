@@ -11,7 +11,6 @@ import SwiftUI
 
 struct CopyItem: Identifiable, Codable, Transferable {
     let id: UUID
-    let hiddenID: Int
     let task: String
 
     static var transferRepresentation: some TransferRepresentation {
@@ -56,8 +55,6 @@ struct TasksView: View {
     @State private var showingAlert = false
     // Progress synchronizing
     @State private var progress: Double = 0
-    // Show completed
-    @State private var completedmessage: Bool = false
     // Not used, only for parameter
     @State private var maxcount: Double = 0
     // For estimates is true

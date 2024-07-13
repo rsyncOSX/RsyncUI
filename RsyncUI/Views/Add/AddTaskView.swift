@@ -450,7 +450,6 @@ struct AddTaskView: View {
         var items = [CopyItem]()
         for i in 0 ..< (rsyncUIdata.configurations?.count ?? 0) {
             let item = CopyItem(id: rsyncUIdata.configurations?[i].id ?? UUID(),
-                                hiddenID: rsyncUIdata.configurations?[i].hiddenID ?? -1,
                                 task: rsyncUIdata.configurations?[i].task ?? "")
             items.append(item)
         }
