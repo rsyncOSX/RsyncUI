@@ -11,7 +11,6 @@ import Foundation
 
 final class TagSnapshots {
     var day: NumDayofweek = .Monday
-    var nameofday: StringDayofweek = .Monday
     var daylocalized = ["Sunday",
                         "Monday",
                         "Tuesday",
@@ -20,7 +19,6 @@ final class TagSnapshots {
                         "Friday",
                         "Saturday"]
     var logrecordssnapshot: [SnapshotLogRecords]?
-    private var numberoflogs: Int?
     private var keepallselcteddayofweek: Bool = true
     var now: String?
 
@@ -148,28 +146,20 @@ final class TagSnapshots {
         switch snapdayoffweek {
         case StringDayofweek.Monday.rawValue:
             day = .Monday
-            nameofday = .Monday
         case StringDayofweek.Tuesday.rawValue:
             day = .Tuesday
-            nameofday = .Tuesday
         case StringDayofweek.Wednesday.rawValue:
             day = .Wednesday
-            nameofday = .Wednesday
         case StringDayofweek.Thursday.rawValue:
             day = .Thursday
-            nameofday = .Thursday
         case StringDayofweek.Friday.rawValue:
             day = .Friday
-            nameofday = .Friday
         case StringDayofweek.Saturday.rawValue:
             day = .Saturday
-            nameofday = .Saturday
         case StringDayofweek.Sunday.rawValue:
             day = .Sunday
-            nameofday = .Sunday
         default:
             day = .Sunday
-            nameofday = .Sunday
         }
     }
 
@@ -186,7 +176,6 @@ final class TagSnapshots {
         setweekdaytokeep(snapdayoffweek: snapdayoffweek)
         logrecordssnapshot = data
         guard logrecordssnapshot != nil else { return }
-        numberoflogs = logrecordssnapshot?.count ?? 0
         now = Date().localized_string_from_date()
         markfordelete()
     }

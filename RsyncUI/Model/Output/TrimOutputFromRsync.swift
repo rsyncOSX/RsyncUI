@@ -23,7 +23,6 @@ enum Rsyncerror: LocalizedError {
 final class TrimOutputFromRsync {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
-    var maxnumber: Int = 0
     var errordiscovered: Bool = false
 
     // Error handling
@@ -53,7 +52,6 @@ final class TrimOutputFromRsync {
                             // Only want one notification about error, not multiple
                             // Multiple can be a kind of race situation
                             if errordiscovered == false {
-                                maxnumber = trimmeddata.count
                                 let error = e
                                 _ = Logfile(data, error: true)
                                 propogateerror(error: error)
@@ -62,7 +60,6 @@ final class TrimOutputFromRsync {
                         }
                     }
                 }
-                maxnumber = trimmeddata.count
             })
             .store(in: &subscriptions)
     }
