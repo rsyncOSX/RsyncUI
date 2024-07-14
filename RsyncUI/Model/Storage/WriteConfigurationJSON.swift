@@ -13,8 +13,6 @@ import OSLog
 @MainActor
 class WriteConfigurationJSON {
     var subscriptons = Set<AnyCancellable>()
-    // Filename for JSON file
-    var filename = SharedReference.shared.fileconfigurationsjson
     var profile: String?
     let path = Homepath()
 
