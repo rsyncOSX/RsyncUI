@@ -18,7 +18,6 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
             if let dateRun = logrecordssnapshot?[i].dateExecuted {
                 if let secondssince = calculatedays(datestringlocalized: dateRun) {
                     logrecordssnapshot?[i].days = String(format: "%.2f", secondssince / (60 * 60 * 24))
-                    logrecordssnapshot?[i].seconds = Int(secondssince)
                 }
             }
         }
@@ -70,19 +69,6 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
         let lastbackup = datestringlocalized.localized_date_from_string()
         let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
         return seconds * -1
-    }
-
-    func countbydays(num: Double) -> Int {
-        guard logrecordssnapshot?.count ?? 0 > 0 else { return 0 }
-        var j = 0
-        for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
-            if let days: String = logrecordssnapshot?[i].days {
-                if Double(days) ?? 0 >= num {
-                    j += 1
-                }
-            }
-        }
-        return j - 1
     }
 
     init(config: SynchronizeConfiguration,

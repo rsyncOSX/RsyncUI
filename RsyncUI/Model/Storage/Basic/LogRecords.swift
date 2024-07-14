@@ -25,7 +25,6 @@ struct LogRecords: Identifiable, Codable {
     var offsiteserver: String?
     var dateStart: String
     var logrecords: [Log]?
-    var profilename: String?
 
     // Used when reading JSON data from store
     init(_ data: DecodeLogRecords) {

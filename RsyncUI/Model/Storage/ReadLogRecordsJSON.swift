@@ -46,8 +46,7 @@ final class ReadLogRecordsJSON {
             } receiveValue: { [unowned self] data in
                 logrecords = [LogRecords]()
                 for i in 0 ..< data.count {
-                    var onerecords = LogRecords(data[i])
-                    onerecords.profilename = profile
+                    let onerecords = LogRecords(data[i])
                     if validhiddenID.contains(onerecords.hiddenID) {
                         logrecords?.append(onerecords)
                     }
