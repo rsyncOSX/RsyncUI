@@ -1,6 +1,6 @@
 ## Hi there 👋
 
-RsyncUI and RsyncOSX are GUI´s on the Apple macOS platform for the command line tool [rsync](https://github.com/WayneD/rsync). The main difference between the two apps is how the User Interface (UI) is built. It is `rsync` which executes the synchronize data tasks in both apps. The GUI´s are only for organizing tasks, setting parameters to `rsync` and make it easier to use `rsync`. If you are on *macOS Sonoma* use RsyncUI. RsyncUI is under active development.
+RsyncUI and RsyncOSX are GUI´s on the Apple macOS platform for the command line tool [rsync](https://github.com/WayneD/rsync). The main difference between the two apps is how the User Interface (UI) is built. It is `rsync` which executes the synchronize data tasks in both apps. The GUI´s are only for organizing tasks, setting parameters to `rsync` and make it easier to use `rsync`. If you are on *macOS Sonoma or later* use RsyncUI.
 
 ### Install by Homebrew
 
@@ -8,12 +8,12 @@ Both apps might be installed by Homebrew or by direct Download. The apps are sig
 
 | App      | Homebrew | macOS |  Documentation |
 | ----------- | ----------- |   ----------- |  ----------- |
-| RsyncUI   | `brew install --cask rsyncui`    | macOS Sonoma   |   [rsyncui.netlify.app](https://rsyncui.netlify.app/post/rsyncuidocs/) |
+| RsyncUI   | `brew install --cask rsyncui`    | macOS Sonoma and later |   [rsyncui.netlify.app](https://rsyncui.netlify.app/post/rsyncuidocs/) |
 | RsyncOSX   | `brew install --cask rsyncosx`  |  macOS Big Sur and later   |  [rsyncosx.netlify.app](https://rsyncosx.netlify.app/post/rsyncosxdocs/) |
 
 ### Why two apps and latest versions
 
-The development of RsyncOSX commenced in *2015* as a private project to learn Swift. In *2019*, Apple released SwiftUI, which is a development framework for building user interfaces for iOS, iPadOS, watchOS, TVOS, and macOS. SwiftUI quickly became very popular and I commence another private project to learn SwiftUI. The model part of RsyncOSX was at that time quite stable, and I decided to refactor the GUI by SwiftUI. And that is the short story behind the two applications.
+The development of RsyncOSX commenced in *2015* as a private project to learn Swift. In *2019*, Apple released SwiftUI, which is a development framework for building user interfaces for iOS, iPadOS, watchOS, TVOS, and macOS. SwiftUI quickly became very popular and I commence another private project to learn SwiftUI.
 
 | App      | Storage  | #lines  | #files | UI | Latest version  |  Version 1.0.0 |
 | ----------- | ----------- |   ----------- | -------- |  -------- | -------- | -------- |
@@ -22,7 +22,7 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 
 ### Important to verify new tasks
 
-The UI of RsyncUI and RsyncOSX can for users who dont know `rsync` be difficult and complex to understand. Setting wrong parameters to `rsync` can result in deleted data.RsyncUI nor RsyncOSX will not stop you for doing so. That is why it is *very* important to execute a simulated run, a `--dry-run`, and verify the result before the real run.
+The UI of RsyncUI and RsyncOSX can for users who dont know `rsync` be difficult and complex to understand. Setting wrong parameters to `rsync` can result in deleted data. *For your own safety* it is important to execute a simulated run, a `--dry-run`, and verify the result before the real run.
 
 ### External task executing rsync
 
@@ -32,7 +32,7 @@ Please be aware it is an external task *not controlled* by RsyncUI or RsyncOSX, 
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.9.2/total)  [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
-**RsyncUI** is released for **macOS Sonoma**. Latest build is [11 June 2024](https://github.com/rsyncOSX/RsyncUI/releases).
+**RsyncUI** is released for **macOS Sonoma and later**. Latest build is [11 June 2024](https://github.com/rsyncOSX/RsyncUI/releases).
 
 - the [user guide for RsyncUI](https://rsyncui.netlify.app/)
 - the [changelog](https://rsyncui.netlify.app/post/changelog/)
