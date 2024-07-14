@@ -15,23 +15,24 @@ struct AboutView: View {
     let germanstring: String = NSLocalizedString("German translation by: Andre Voigtmann", comment: "")
     let changelog: String = "https://rsyncui.netlify.app/post/changelog/"
 
-    var appName: String {
-        (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "RsyncUI"
-    }
+    /*
+     var appName: String {
+         (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "RsyncUI"
+     }
 
-    var appVersion: String {
-        (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "1.0"
-    }
+     var appVersion: String {
+         (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "1.0"
+     }
 
-    var appBuild: String {
-        (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? "1.0"
-    }
+     var appBuild: String {
+         (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? "1.0"
+     }
 
-    var copyright: String {
-        let copyright = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String
-        return copyright ?? NSLocalizedString("Copyright ©2023 Thomas Evensen", comment: "")
-    }
-
+     var copyright: String {
+         let copyright = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String
+         return copyright ?? NSLocalizedString("Copyright ©2023 Thomas Evensen", comment: "")
+     }
+     */
     var configpath: String {
         return Homepath().fullpathmacserial ?? ""
     }
@@ -40,10 +41,14 @@ struct AboutView: View {
         Form {
             Section {
                 HStack {
-                    Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
-                        .resizable()
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .frame(width: 64, height: 64)
+                    VStack(alignment: .leading) {
+                        Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
+                            .resizable()
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(width: 64, height: 64)
+
+                        appicon
+                    }
 
                     translations
                 }
@@ -104,6 +109,12 @@ struct AboutView: View {
                 .font(.caption)
         }
         .padding(3)
+    }
+
+    var appicon: some View {
+        Text(iconbystring)
+            .font(.caption)
+            .padding(3)
     }
 
     var notifynewversion: some View {

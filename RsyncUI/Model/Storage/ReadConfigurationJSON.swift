@@ -17,13 +17,6 @@ final class ReadConfigurationJSON {
     var subscriptons = Set<AnyCancellable>()
     let path = Homepath()
 
-    private func createdefaultfileconfigurations(_ profile: String?) {
-        // No file, write new file with default values
-        Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): Creating default file for Configurations")
-        let defaultconfiguration = [SynchronizeConfiguration()]
-        WriteConfigurationJSON(profile, defaultconfiguration)
-    }
-
     private func createdefaultfilelogrecords(_ profile: String?) {
         var defaultlogrecords = [LogRecords()]
         guard defaultlogrecords.count == 1 else { return }
@@ -55,7 +48,6 @@ final class ReadConfigurationJSON {
                 case .finished:
                     return
                 case .failure:
-                    // self.createdefaultfileconfigurations(profile)
                     self.createdefaultfilelogrecords(profile)
                     // Mark first time used, only for default profile
                     if profile == nil {
