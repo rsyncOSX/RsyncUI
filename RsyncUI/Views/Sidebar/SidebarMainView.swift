@@ -58,8 +58,7 @@ struct SidebarMainView: View {
         switch view {
         case .tasks:
             AddTaskView(rsyncUIdata: rsyncUIdata,
-                        selectedprofile: $selectedprofile,
-                        profilenames: profilenames)
+                        selectedprofile: $selectedprofile)
         case .log_listings:
             if let configurations = rsyncUIdata.configurations {
                 SidebarLogsView(configurations: configurations,
