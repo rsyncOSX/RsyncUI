@@ -57,10 +57,8 @@ final class PrepareOutput {
             })
             .store(in: &subscriptions)
     }
-}
 
-extension PrepareOutput {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

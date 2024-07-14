@@ -115,10 +115,8 @@ struct Homepath {
         fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
         fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
     }
-}
 
-extension Homepath {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

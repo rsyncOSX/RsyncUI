@@ -138,10 +138,8 @@ final class RsyncProcessNOFilehandler {
     deinit {
         Logger.process.info("RsyncProcessNOFilehandler: DEINIT")
     }
-}
 
-extension RsyncProcessNOFilehandler {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

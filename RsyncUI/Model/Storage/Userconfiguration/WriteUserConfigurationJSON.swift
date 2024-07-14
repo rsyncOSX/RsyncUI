@@ -73,10 +73,8 @@ final class WriteUserConfigurationJSON {
             })
             .store(in: &subscriptons)
     }
-}
 
-extension WriteUserConfigurationJSON {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

@@ -34,10 +34,8 @@ final class TrimOutputForRestore {
             })
             .store(in: &subscriptions)
     }
-}
 
-extension TrimOutputForRestore {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

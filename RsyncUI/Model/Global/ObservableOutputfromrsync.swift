@@ -47,10 +47,8 @@ final class ObservableOutputfromrsync {
             }
         }
     }
-}
 
-extension ObservableOutputfromrsync {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

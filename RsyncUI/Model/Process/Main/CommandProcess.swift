@@ -91,10 +91,8 @@ final class CommandProcess {
     deinit {
         Logger.process.info("CommandProcess: DEINIT")
     }
-}
 
-extension CommandProcess {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

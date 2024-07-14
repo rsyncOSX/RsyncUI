@@ -101,10 +101,8 @@ struct SSHpath {
         fullpathsshkeys = sshkeypath
         identityfile = sshkeypathandidentityfile
     }
-}
 
-extension SSHpath {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

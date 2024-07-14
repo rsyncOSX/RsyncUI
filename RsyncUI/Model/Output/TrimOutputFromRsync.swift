@@ -63,10 +63,8 @@ final class TrimOutputFromRsync {
             })
             .store(in: &subscriptions)
     }
-}
 
-extension TrimOutputFromRsync {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

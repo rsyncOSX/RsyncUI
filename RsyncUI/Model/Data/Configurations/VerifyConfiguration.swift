@@ -209,16 +209,12 @@ final class VerifyConfiguration: Connected {
         }
         return true
     }
-}
 
-extension VerifyConfiguration {
-    func processtermination(data _: [String]?) {}
-}
-
-extension VerifyConfiguration {
-    @MainActor func propogateerror(error: Error) {
+    func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
+
+    func processtermination(data _: [String]?) {}
 }
 
 // swiftlint:enable cyclomatic_complexity function_body_length
