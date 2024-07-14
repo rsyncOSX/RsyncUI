@@ -18,7 +18,6 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
             if let dateRun = logrecordssnapshot?[i].dateExecuted {
                 if let secondssince = calculatedays(datestringlocalized: dateRun) {
                     logrecordssnapshot?[i].days = String(format: "%.2f", secondssince / (60 * 60 * 24))
-                    logrecordssnapshot?[i].seconds = Int(secondssince)
                 }
             }
         }

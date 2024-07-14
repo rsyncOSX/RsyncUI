@@ -15,7 +15,6 @@ struct SnapshotLogRecords: Identifiable {
     var period: String?
     var snapshotCatalog: String?
     var days: String?
-    var seconds: Int = 0
 }
 
 extension SnapshotLogRecords: Hashable, Equatable {
