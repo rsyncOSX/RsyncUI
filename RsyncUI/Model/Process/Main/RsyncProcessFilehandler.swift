@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class RsyncProcessFilehandler {
+final class RsyncProcessFilehandler: PropogateError {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -125,12 +125,6 @@ final class RsyncProcessFilehandler {
 
     deinit {
         Logger.process.info("RsyncProcessFilehandler: DEINIT")
-    }
-}
-
-extension RsyncProcessFilehandler {
-    @MainActor func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 

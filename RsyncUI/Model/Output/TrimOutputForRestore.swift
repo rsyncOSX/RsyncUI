@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 @MainActor
-final class TrimOutputForRestore {
+final class TrimOutputForRestore: PropogateError {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
 
@@ -33,11 +33,5 @@ final class TrimOutputForRestore {
                 }
             })
             .store(in: &subscriptions)
-    }
-}
-
-extension TrimOutputForRestore {
-    @MainActor func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

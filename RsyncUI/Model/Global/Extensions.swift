@@ -42,6 +42,17 @@ extension Connected {
     }
 }
 
+protocol PropogateError {
+    @MainActor func propogateerror(error: Error)
+}
+
+@MainActor
+extension PropogateError {
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
+}
+
 // Enum which resource to return
 enum ResourceInConfiguration {
     case remoteCatalog

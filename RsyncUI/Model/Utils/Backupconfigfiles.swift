@@ -11,7 +11,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class Backupconfigfiles {
+final class Backupconfigfiles: PropogateError {
     var fullpathnomacserial: String?
     var backuppath: String?
 
@@ -38,12 +38,6 @@ final class Backupconfigfiles {
         fullpathnomacserial = homepath.fullpathnomacserial
         backuppath = homepath.documentscatalog
         backup()
-    }
-}
-
-extension Backupconfigfiles {
-    @MainActor func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 

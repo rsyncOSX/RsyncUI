@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-struct CatalogForProfile {
+struct CatalogForProfile: PropogateError {
     let path = Homepath()
 
     func createprofilecatalog(_ profile: String) {
@@ -57,11 +57,5 @@ struct CatalogForProfile {
                 self.path.propogateerror(error: error)
             }
         }
-    }
-}
-
-extension CatalogForProfile {
-    @MainActor func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

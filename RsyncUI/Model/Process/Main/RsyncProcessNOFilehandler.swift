@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class RsyncProcessNOFilehandler {
+final class RsyncProcessNOFilehandler: PropogateError {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     var config: SynchronizeConfiguration?
@@ -137,12 +137,6 @@ final class RsyncProcessNOFilehandler {
 
     deinit {
         Logger.process.info("RsyncProcessNOFilehandler: DEINIT")
-    }
-}
-
-extension RsyncProcessNOFilehandler {
-    @MainActor func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 
