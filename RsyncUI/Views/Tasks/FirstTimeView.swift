@@ -19,8 +19,6 @@ struct FirstTimeView: View {
             Text("Welcome to RsyncUI")
                 .font(.title)
 
-            imagersyncosx
-
             Text("")
             Text("Please read and understand the information below. There is more info")
             Text("selecting Important. Setting the wrong parameters to rsync can result in")
@@ -39,13 +37,6 @@ struct FirstTimeView: View {
         .onDisappear {
             SharedReference.shared.firsttime = false
         }
-    }
-
-    var imagersyncosx: some View {
-        Image("rsyncosx")
-            .resizable()
-            .aspectRatio(1.0, contentMode: .fit)
-            .frame(maxWidth: 64)
     }
 
     func openimportantinfo() {
