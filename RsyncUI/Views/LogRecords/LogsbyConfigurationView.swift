@@ -117,8 +117,14 @@ struct LogsbyConfigurationView: View {
         ) { filter in
             showindebounce = false
             debouncefilterstring = filter
-            Task {
-                await updatelogsbyfilter()
+            if debouncefilterstring.isEmpty == false {
+                Task {
+                    await updatelogsbyfilter()
+                }
+            } else {
+                Task {
+                    await updatelogsbyhiddenID()
+                }
             }
         }
         .toolbar(content: {
