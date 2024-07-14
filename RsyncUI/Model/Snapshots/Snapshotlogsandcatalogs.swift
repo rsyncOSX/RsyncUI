@@ -71,19 +71,6 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
         return seconds * -1
     }
 
-    func countbydays(num: Double) -> Int {
-        guard logrecordssnapshot?.count ?? 0 > 0 else { return 0 }
-        var j = 0
-        for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
-            if let days: String = logrecordssnapshot?[i].days {
-                if Double(days) ?? 0 >= num {
-                    j += 1
-                }
-            }
-        }
-        return j - 1
-    }
-
     init(config: SynchronizeConfiguration,
          logrecords: [LogRecords],
          snapshotdata: SnapshotData)
