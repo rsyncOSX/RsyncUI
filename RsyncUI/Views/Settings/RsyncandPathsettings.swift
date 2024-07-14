@@ -9,7 +9,6 @@ import OSLog
 import SwiftUI
 
 struct RsyncandPathsettings: View {
-    @Environment(AlertError.self) private var alerterror
     @State private var usersettings = ObservableUsersetting()
     @State private var rsyncversion = Rsyncversion()
     @State private var configurationsarebackedup: Bool = false

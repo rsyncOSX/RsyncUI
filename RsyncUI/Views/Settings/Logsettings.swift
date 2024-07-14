@@ -10,7 +10,6 @@ import OSLog
 import SwiftUI
 
 struct Logsettings: View {
-    @Environment(AlertError.self) private var alerterror
     @State private var usersettings = ObservableUsersetting()
 
     var body: some View {
