@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class WriteUserConfigurationJSON {
+final class WriteUserConfigurationJSON: PropogateError {
     // path with macserialnumber
     var fullpathmacserial: String?
 
@@ -72,9 +72,5 @@ final class WriteUserConfigurationJSON {
                 subscriptons.removeAll()
             })
             .store(in: &subscriptons)
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

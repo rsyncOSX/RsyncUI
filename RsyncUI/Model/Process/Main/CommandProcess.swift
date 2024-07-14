@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class CommandProcess {
+final class CommandProcess: PropogateError {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -90,9 +90,5 @@ final class CommandProcess {
 
     deinit {
         Logger.process.info("CommandProcess: DEINIT")
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

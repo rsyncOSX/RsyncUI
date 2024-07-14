@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 @MainActor
-struct SSHpath {
+struct SSHpath: PropogateError {
     // path for sshkeys
     var fullpathsshkeys: String?
     // If global keypath and identityfile is set must split keypath and identifile
@@ -100,9 +100,5 @@ struct SSHpath {
     init() {
         fullpathsshkeys = sshkeypath
         identityfile = sshkeypathandidentityfile
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

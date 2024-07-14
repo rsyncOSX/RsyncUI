@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 @MainActor
-final class PrepareOutput {
+final class PrepareOutput: PropogateError {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
     var splitlines: Bool = false
@@ -56,9 +56,5 @@ final class PrepareOutput {
                 trimmeddata.append(line)
             })
             .store(in: &subscriptions)
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

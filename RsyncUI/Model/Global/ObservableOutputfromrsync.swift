@@ -8,7 +8,7 @@
 import SwiftUI
 
 @Observable @MainActor
-final class ObservableOutputfromrsync {
+final class ObservableOutputfromrsync: PropogateError {
     var output = [Data]()
 
     struct Data: Identifiable {
@@ -46,10 +46,6 @@ final class ObservableOutputfromrsync {
                 }
             }
         }
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 

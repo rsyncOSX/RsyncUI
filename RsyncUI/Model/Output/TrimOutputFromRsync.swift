@@ -20,7 +20,7 @@ enum Rsyncerror: LocalizedError {
 }
 
 @MainActor
-final class TrimOutputFromRsync {
+final class TrimOutputFromRsync: PropogateError {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
     var errordiscovered: Bool = false
@@ -62,9 +62,5 @@ final class TrimOutputFromRsync {
                 }
             })
             .store(in: &subscriptions)
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
