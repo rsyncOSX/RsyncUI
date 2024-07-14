@@ -24,7 +24,6 @@ struct LogsbyConfigurationView: View {
     @State private var debouncefilterstring: String = ""
     @State private var showindebounce: Bool = false
 
-    @State private var sortOrder = [KeyPathComparator(\Log.resultExecuted, order: .reverse)]
     @State private var logs: [Log] = []
 
     let profile: String?
