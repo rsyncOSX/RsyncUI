@@ -11,8 +11,6 @@ import OSLog
 import SwiftUI
 
 struct Sshsettings: View {
-    @Environment(AlertError.self) private var alerterror
-
     @State private var usersettings = ObservableSSH()
     @State private var localsshkeys: Bool = false
     @State private var showcopykeys: Bool = false
