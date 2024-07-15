@@ -15,7 +15,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var hiddenID: Int
     var transferredNumber: String
     var transferredNumber_Int: Int
-    var transferredNumberSizebytes: String
     var transferredNumberSizebytes_Int: Int
     var totalNumber: String
     var totalNumberSizebytes: String
@@ -59,7 +58,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         transferredNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.none)
         transferredNumber_Int = number.getTransferredNumbers(numbers: .transferredNumber)
         totalDirs_Int = number.getTransferredNumbers(numbers: .totalDirs)
-        transferredNumberSizebytes = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal)
         transferredNumberSizebytes_Int = number.getTransferredNumbers(numbers: .transferredNumberSizebytes)
         totalNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber)), number: NumberFormatter.Style.decimal)
         totalNumberSizebytes = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumberSizebytes)), number: NumberFormatter.Style.decimal)
