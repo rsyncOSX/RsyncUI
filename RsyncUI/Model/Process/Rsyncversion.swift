@@ -32,9 +32,7 @@ final class Rsyncversion {
 extension Rsyncversion {
     func processtermination(data: [String]?, hiddenID _: Int?) {
         guard data?.count ?? 0 > 0 else { return }
-        if let rsyncversionshort = data?[0],
-           let rsyncversionstring = data?.joined(separator: "\n")
-        {
+        if let rsyncversionshort = data?[0] {
             SharedReference.shared.rsyncversionshort =
                 rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
         }
