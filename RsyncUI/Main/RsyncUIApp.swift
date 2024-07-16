@@ -42,16 +42,6 @@ struct RsyncUIApp: App {
             SidebarSettingsView()
         }
     }
-
-    func setusernotifications() {
-        let center = UNUserNotificationCenter.current()
-        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
-        center.requestAuthorization(options: options) { granted, _ in
-            if granted {
-                // application.registerForRemoteNotifications()
-            }
-        }
-    }
 }
 
 extension Logger {

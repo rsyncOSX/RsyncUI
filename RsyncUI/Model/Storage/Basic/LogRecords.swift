@@ -15,8 +15,6 @@ struct Log: Identifiable, Codable {
     var date: Date {
         return dateExecuted?.en_us_date_from_string() ?? Date()
     }
-
-    var hiddenID: Int?
 }
 
 struct LogRecords: Identifiable, Codable {
@@ -36,7 +34,6 @@ struct LogRecords: Identifiable, Codable {
             var log = Log()
             log.dateExecuted = data.logrecords?[i].dateExecuted
             log.resultExecuted = data.logrecords?[i].resultExecuted
-            log.hiddenID = hiddenID
             logrecords?.append(log)
         }
     }
