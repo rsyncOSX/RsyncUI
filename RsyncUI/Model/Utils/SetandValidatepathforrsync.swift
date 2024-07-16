@@ -68,11 +68,6 @@ struct SetandValidatepathforrsync {
         }
     }
 
-    func setdefaultvaluesver2rsync() {
-        SharedReference.shared.localrsyncpath = nil
-        SharedReference.shared.rsyncversion3 = false
-    }
-
     func getpathforrsync() -> String {
         if SharedReference.shared.rsyncversion3 == true {
             if SharedReference.shared.macosarm {
