@@ -47,6 +47,7 @@ struct ProfileView: View {
         .toolbar {
             ToolbarItem {
                 Button {
+                    guard newprofile.isEmpty == false else { return }
                     createprofile()
                 } label: {
                     Image(systemName: "return")
@@ -57,6 +58,7 @@ struct ProfileView: View {
 
             ToolbarItem {
                 Button {
+                    guard localselectedprofile?.isEmpty == false else { return }
                     newdata.showAlertfordelete = true
                 } label: {
                     Image(systemName: "trash.fill")
@@ -76,11 +78,11 @@ struct ProfileView: View {
 
 extension ProfileView {
     func createprofile() {
-        guard newprofile.isEmpty == false else { return }
         newdata.createprofile(newprofile: newprofile)
         profilenames.update()
         selectedprofile = newdata.selectedprofile
         rsyncUIdata.profile = selectedprofile
+        newprofile = ""
     }
 
     func deleteprofile() {
