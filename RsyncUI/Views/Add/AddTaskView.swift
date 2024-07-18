@@ -137,6 +137,8 @@ struct AddTaskView: View {
                })
         .onChange(of: rsyncUIdata.profile) {
             newdata.resetform()
+            selecteduuids.removeAll()
+            selectedconfig = nil
         }
         .toolbar {
             if newdata.selectedconfig != nil {
