@@ -106,18 +106,18 @@ struct RsyncParametersView: View {
                             }
                         }
                     }
-                    .onChange(of: rsyncUIdata.profile) {
-                        selectedconfig = nil
-                        selecteduuids.removeAll()
-                        parameters.setvalues(selectedconfig)
-                        backup = false
-                    }
 
                 if focusaborttask { labelaborttask }
             }
 
             RsyncCommandView(config: $parameters.configuration,
                              selectedrsynccommand: $selectedrsynccommand)
+        }
+        .onChange(of: rsyncUIdata.profile) {
+            selectedconfig = nil
+            selecteduuids.removeAll()
+            parameters.setvalues(selectedconfig)
+            backup = false
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .alert(isPresented: $parameters.alerterror,
