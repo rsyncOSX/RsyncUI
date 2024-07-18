@@ -135,6 +135,9 @@ struct AddTaskView: View {
         .alert(isPresented: $newdata.alerterror,
                content: { Alert(localizedError: newdata.error)
                })
+        .onChange(of: rsyncUIdata.profile) {
+            newdata.resetform()
+        }
         .toolbar {
             if newdata.selectedconfig != nil {
                 ToolbarItem {
