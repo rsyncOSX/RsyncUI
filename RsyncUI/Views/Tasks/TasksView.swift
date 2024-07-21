@@ -46,6 +46,10 @@ struct TasksView: View {
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
+    // Focus export and import
+    @State private var focusexport: Bool = false
+    @State private var focusimport: Bool = false
+    @State private var importorexport: Bool = false
     // Filterstring
     @State private var filterstring: String = ""
     // Local data for present local and remote info about task
@@ -92,6 +96,12 @@ struct TasksView: View {
                     thereareestimates = true
                 }
             }
+            .onChange(of: focusexport) {
+                importorexport = focusexport
+            }
+            .onChange(of: focusimport) {
+                importorexport = focusimport
+            }
 
             Group {
                 if focusstartestimation { labelstartestimation }
@@ -101,6 +111,8 @@ struct TasksView: View {
         }
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
+        .focusedSceneValue(\.exporttasks, $focusexport)
+        .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
             ToolbarItem {
                 Button {
@@ -190,6 +202,13 @@ struct TasksView: View {
                 },
                 secondaryButton: .cancel()
             )
+        }
+        .sheet(isPresented: $importorexport) {
+            if focusexport {
+                ExportView(focusexport: $focusexport)
+            } else {
+                ImportView(focusimport: $focusimport)
+            }
         }
     }
 
