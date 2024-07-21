@@ -26,6 +26,8 @@ struct RsyncUIApp: App {
         .commands {
             SidebarCommands()
 
+            ImportExportCommands()
+
             ExecuteCommands()
 
             SnapshotCommands()
@@ -36,17 +38,6 @@ struct RsyncUIApp: App {
                     NSWorkspace.shared.open(URL(string: documents)!)
                 }) {
                     Text("RsyncUI help")
-                }
-            }
-
-            CommandGroup(replacing: CommandGroupPlacement.importExport) {
-                Menu("Import/export") {
-                    Button("Import") {
-                        print("import")
-                    }
-                    Button("Export") {
-                        print("export")
-                    }
                 }
             }
         }

@@ -20,6 +20,7 @@
 		E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */; };
 		E93878C32B27355A009574CD /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93878C22B27355A009574CD /* AddTaskView.swift */; };
 		E93CC3FF2A68218200DB02EB /* ListofTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */; };
+		E93CC5732C4D4974000F8963 /* ImportExportCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC5722C4D4974000F8963 /* ImportExportCommands.swift */; };
 		E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */; };
 		E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */; };
 		E943B0A925FFC22200A4F30D /* RsyncProcessFilehandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943B0A825FFC22200A4F30D /* RsyncProcessFilehandler.swift */; };
@@ -190,6 +191,7 @@
 		E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableAddConfigurations.swift; sourceTree = "<group>"; };
 		E93878C22B27355A009574CD /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksView.swift; sourceTree = "<group>"; };
+		E93CC5722C4D4974000F8963 /* ImportExportCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportCommands.swift; sourceTree = "<group>"; };
 		E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsbyConfigurationView.swift; sourceTree = "<group>"; };
 		E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersDefault.swift; sourceTree = "<group>"; };
 		E943B0A825FFC22200A4F30D /* RsyncProcessFilehandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncProcessFilehandler.swift; sourceTree = "<group>"; };
@@ -905,6 +907,7 @@
 			children = (
 				E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */,
 				E9FBF40C291AFB7000AAAC40 /* SnapshotCommands.swift */,
+				E93CC5722C4D4974000F8963 /* ImportExportCommands.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -1197,6 +1200,7 @@
 				E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */,
 				E98C7AB5262D662200555977 /* ReadLogRecordsJSON.swift in Sources */,
 				E985C75125F3AD9700CB895C /* DecodeConfiguration.swift in Sources */,
+				E93CC5732C4D4974000F8963 /* ImportExportCommands.swift in Sources */,
 				E985C68725F3AD8400CB895C /* EditValue.swift in Sources */,
 				E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */,
 				E985C77125F3AD9700CB895C /* ExecuteProgressDetails.swift in Sources */,
