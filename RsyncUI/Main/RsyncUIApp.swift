@@ -12,6 +12,8 @@ import UserNotifications
 @main
 struct RsyncUIApp: App {
     @State private var selectedprofile: String? = SharedReference.shared.defaultprofile
+    @State private var importtasks: Bool = false
+    @State private var exporttasks: Bool = false
 
     var body: some Scene {
         Window("RsyncUI", id: "main") {
@@ -34,6 +36,17 @@ struct RsyncUIApp: App {
                     NSWorkspace.shared.open(URL(string: documents)!)
                 }) {
                     Text("RsyncUI help")
+                }
+            }
+
+            CommandGroup(replacing: CommandGroupPlacement.importExport) {
+                Menu("Import/export") {
+                    Button("Import") {
+                        print("import")
+                    }
+                    Button("Export") {
+                        print("export")
+                    }
                 }
             }
         }
