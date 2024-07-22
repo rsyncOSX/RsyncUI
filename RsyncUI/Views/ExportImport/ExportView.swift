@@ -11,6 +11,7 @@ struct ExportView: View {
     @Binding var focusexport: Bool
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var exportcatalog: String = ""
+    @State var filenameexport: String = ""
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
@@ -21,8 +22,8 @@ struct ExportView: View {
 
             HStack {
                 Button {
-                    let path = exportcatalog + "/export.json"
-                    guard exportcatalog.isEmpty == false else {
+                    let path = exportcatalog + "/" + filenameexport
+                    guard exportcatalog.isEmpty == false && filenameexport.isEmpty == false else {
                         focusexport = false
                         return
                     }
@@ -33,9 +34,18 @@ struct ExportView: View {
                 }
 
                 OpencatalogView(catalog: $exportcatalog, choosecatalog: true)
+
+                setfilename
             }
         }
         .padding()
         .frame(minWidth: 600, minHeight: 500)
+    }
+
+    var setfilename: some View {
+        EditValue(300, NSLocalizedString("Filename export", comment: ""),
+                  $filenameexport)
+            .textContentType(.none)
+            .submitLabel(.continue)
     }
 }

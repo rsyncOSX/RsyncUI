@@ -23,7 +23,7 @@ class WriteExportConfigurationsJSON: PropogateError {
             if let jsonData = jsonData {
                 do {
                     try jsonData.write(to: exportconfigurationfileURL)
-                    Logger.process.info("WriteExportConfigurationsJSON - \(exportpath), privacy: .public): write export configurations to permanent storage")
+                    Logger.process.info("WriteExportConfigurationsJSON - \(exportpath, privacy: .public): write export configurations to permanent storage")
                 } catch let e {
                     let error = e
                     propogateerror(error: error)
