@@ -9,12 +9,24 @@ import SwiftUI
 
 struct ExportView: View {
     @Binding var focusexport: Bool
+    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
+
+    let configurations: [SynchronizeConfiguration]
+    let profile: String?
+
     var body: some View {
-        Button {
-            focusexport = false
-        } label: {
-            Image(systemName: "return")
-                .foregroundColor(Color(.blue))
+        VStack {
+            ListofTasksLightView(selecteduuids: $selecteduuids, profile: profile, configurations: configurations)
+
+            Button {
+                let path = "/Users/thomas/tmp/export.json"
+                _ = WriteExportConfigurationsJSON(path, configurations)
+                focusexport = false
+            } label: {
+                Image(systemName: "square.and.arrow.up")
+            }
         }
+        .padding()
+        .frame(minWidth: 600, minHeight: 500)
     }
 }

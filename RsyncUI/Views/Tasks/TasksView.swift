@@ -205,7 +205,10 @@ struct TasksView: View {
         }
         .sheet(isPresented: $importorexport) {
             if focusexport {
-                ExportView(focusexport: $focusexport)
+                if let configurations = rsyncUIdata.configurations {
+                    ExportView(focusexport: $focusexport, configurations: configurations, profile: rsyncUIdata.profile)
+                }
+
             } else {
                 ImportView(focusimport: $focusimport)
             }
