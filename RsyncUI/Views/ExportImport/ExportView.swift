@@ -76,9 +76,9 @@ struct ExportView: View {
 
     func selectedconfigurations() -> [SynchronizeConfiguration] {
         if selecteduuids.count > 0 {
-            return configurations.filter { selecteduuids.contains($0.id) }
+            return configurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.snapshot }
         } else {
-            return configurations
+            return configurations.filter { $0.task != SharedReference.shared.snapshot }
         }
     }
 }
