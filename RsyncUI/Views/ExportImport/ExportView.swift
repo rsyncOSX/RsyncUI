@@ -27,7 +27,7 @@ struct ExportView: View {
                         focusexport = false
                         return
                     }
-                    _ = WriteExportConfigurationsJSON(path, configurations)
+                    _ = WriteExportConfigurationsJSON(path, selectedconfigurations())
                     focusexport = false
                 } label: {
                     Image(systemName: "square.and.arrow.up")
@@ -47,5 +47,13 @@ struct ExportView: View {
                   $filenameexport)
             .textContentType(.none)
             .submitLabel(.continue)
+    }
+
+    func selectedconfigurations() -> [SynchronizeConfiguration] {
+        if selecteduuids.count > 0 {
+            return configurations.filter { selecteduuids.contains($0.id) }
+        } else {
+            return []
+        }
     }
 }
