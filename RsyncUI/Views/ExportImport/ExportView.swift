@@ -11,7 +11,7 @@ struct ExportView: View {
     @Binding var focusexport: Bool
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var exportcatalog: String = Homepath().userHomeDirectoryPath ?? ""
-    @State var filenameexport: String = ""
+    @State var filenameexport: String = "export"
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
@@ -21,7 +21,7 @@ struct ExportView: View {
             ListofTasksLightView(selecteduuids: $selecteduuids, profile: profile, configurations: configurations)
 
             HStack {
-                Text(exportcatalog + "/")
+                Text(exportcatalog)
                     .foregroundColor(.secondary)
 
                 setfilename
@@ -32,7 +32,12 @@ struct ExportView: View {
                 OpencatalogView(catalog: $exportcatalog, choosecatalog: true)
 
                 Button {
-                    let path = exportcatalog + "/" + filenameexport + ".json"
+                    var path = ""
+                    if exportcatalog.hasSuffix("/") == true {
+                        path = exportcatalog + filenameexport + ".json"
+                    } else {
+                        path = exportcatalog + "/" + filenameexport + ".json"
+                    }
                     guard exportcatalog.isEmpty == false && filenameexport.isEmpty == false else {
                         focusexport = false
                         return
@@ -54,6 +59,13 @@ struct ExportView: View {
         }
         .padding()
         .frame(minWidth: 600, minHeight: 500)
+        .onAppear {
+            if FileManager.default.locationExists(at: exportcatalog + "/" + "tmp", kind: .folder) {
+                exportcatalog += "/" + "tmp" + "/"
+            } else {
+                exportcatalog += "/"
+            }
+        }
     }
 
     var setfilename: some View {
