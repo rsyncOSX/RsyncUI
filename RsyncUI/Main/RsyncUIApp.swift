@@ -12,8 +12,6 @@ import UserNotifications
 @main
 struct RsyncUIApp: App {
     @State private var selectedprofile: String? = SharedReference.shared.defaultprofile
-    @State private var importtasks: Bool = false
-    @State private var exporttasks: Bool = false
 
     var body: some Scene {
         Window("RsyncUI", id: "main") {
