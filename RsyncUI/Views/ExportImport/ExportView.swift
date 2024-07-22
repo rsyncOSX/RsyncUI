@@ -21,7 +21,13 @@ struct ExportView: View {
             ListofTasksLightView(selecteduuids: $selecteduuids, profile: profile, configurations: configurations)
 
             HStack {
+                Text(exportcatalog + "/")
+                    .foregroundColor(.secondary)
+
                 setfilename
+
+                Text(".json")
+                    .foregroundColor(.secondary)
 
                 OpencatalogView(catalog: $exportcatalog, choosecatalog: true)
 
@@ -37,23 +43,12 @@ struct ExportView: View {
                     Image(systemName: "square.and.arrow.up")
                 }
 
+                Spacer()
+
                 Button {
                     focusexport = false
                 } label: {
                     Image(systemName: "xmark.circle")
-                }
-            }
-
-            if exportcatalog.isEmpty == true && filenameexport.isEmpty == true {
-                Text("Select catalog and add filename for export")
-                    .labelStyle(.titleOnly)
-            } else {
-                if filenameexport.isEmpty == false {
-                    Text(exportcatalog + "/" + filenameexport + ".json")
-                        .foregroundColor(.secondary)
-                } else {
-                    Text(exportcatalog + "/")
-                        .foregroundColor(.secondary)
                 }
             }
         }
@@ -62,10 +57,9 @@ struct ExportView: View {
     }
 
     var setfilename: some View {
-        EditValue(300, NSLocalizedString("Filename export", comment: ""),
+        EditValue(150, NSLocalizedString("Filename export", comment: ""),
                   $filenameexport)
             .textContentType(.none)
-            .submitLabel(.continue)
     }
 
     func selectedconfigurations() -> [SynchronizeConfiguration] {
