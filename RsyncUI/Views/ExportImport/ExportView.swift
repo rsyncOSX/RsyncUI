@@ -10,7 +10,7 @@ import SwiftUI
 struct ExportView: View {
     @Binding var focusexport: Bool
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    @State var exportcatalog: String = ""
+    @State var exportcatalog: String = Homepath().userHomeDirectoryPath ?? ""
     @State var filenameexport: String = ""
 
     let configurations: [SynchronizeConfiguration]
@@ -21,12 +21,12 @@ struct ExportView: View {
             ListofTasksLightView(selecteduuids: $selecteduuids, profile: profile, configurations: configurations)
 
             HStack {
-                OpencatalogView(catalog: $exportcatalog, choosecatalog: true)
-
                 setfilename
 
+                OpencatalogView(catalog: $exportcatalog, choosecatalog: true)
+
                 Button {
-                    let path = exportcatalog + "/" + filenameexport
+                    let path = exportcatalog + "/" + filenameexport + ".json"
                     guard exportcatalog.isEmpty == false && filenameexport.isEmpty == false else {
                         focusexport = false
                         return
@@ -48,7 +48,13 @@ struct ExportView: View {
                 Text("Select catalog and add filename for export")
                     .labelStyle(.titleOnly)
             } else {
-                Text(exportcatalog + "/" + filenameexport)
+                if filenameexport.isEmpty == false {
+                    Text(exportcatalog + "/" + filenameexport + ".json")
+                        .foregroundColor(.secondary)
+                } else {
+                    Text(exportcatalog + "/")
+                        .foregroundColor(.secondary)
+                }
             }
         }
         .padding()
