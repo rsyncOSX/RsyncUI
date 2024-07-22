@@ -21,6 +21,10 @@ struct ExportView: View {
             ListofTasksLightView(selecteduuids: $selecteduuids, profile: profile, configurations: configurations)
 
             HStack {
+                OpencatalogView(catalog: $exportcatalog, choosecatalog: true)
+
+                setfilename
+
                 Button {
                     let path = exportcatalog + "/" + filenameexport
                     guard exportcatalog.isEmpty == false && filenameexport.isEmpty == false else {
@@ -33,9 +37,18 @@ struct ExportView: View {
                     Image(systemName: "square.and.arrow.up")
                 }
 
-                OpencatalogView(catalog: $exportcatalog, choosecatalog: true)
+                Button {
+                    focusexport = false
+                } label: {
+                    Image(systemName: "xmark.circle")
+                }
+            }
 
-                setfilename
+            if exportcatalog.isEmpty == true && filenameexport.isEmpty == true {
+                Text("Select catalog and add filename for export")
+                    .labelStyle(.titleOnly)
+            } else {
+                Text(exportcatalog + "/" + filenameexport)
             }
         }
         .padding()
@@ -53,7 +66,7 @@ struct ExportView: View {
         if selecteduuids.count > 0 {
             return configurations.filter { selecteduuids.contains($0.id) }
         } else {
-            return []
+            return configurations
         }
     }
 }
