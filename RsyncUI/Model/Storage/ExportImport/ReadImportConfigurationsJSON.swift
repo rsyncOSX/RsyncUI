@@ -16,7 +16,7 @@ final class ReadImportConfigurationsJSON {
     var filenamedatastore = [String]()
     var subscriptons = Set<AnyCancellable>()
 
-    init(_ filenameimport: String) {
+    init(_ filenameimport: String, maxhiddenid: Int) {
         filenamedatastore.append(filenameimport)
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
@@ -35,11 +35,9 @@ final class ReadImportConfigurationsJSON {
                 }
             } receiveValue: { [unowned self] data in
                 var configurations = [SynchronizeConfiguration]()
-                // let existingmaxhiddenID = MaxhiddenID().computemaxhiddenID(configurations)
                 for i in 0 ..< data.count {
                     var configuration = SynchronizeConfiguration(data[i])
-                    // configuration.hiddenID = existingmaxhiddenID + 1 + i
-                    configuration.hiddenID = -1
+                    configuration.hiddenID = maxhiddenid + 1 + i
                     configuration.dateRun = nil
                     configurations.append(configuration)
                 }

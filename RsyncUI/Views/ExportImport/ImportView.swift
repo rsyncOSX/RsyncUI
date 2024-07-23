@@ -13,6 +13,8 @@ struct ImportView: View {
     @State private var filenameimport: String = ""
     @State private var configurations = [SynchronizeConfiguration]()
 
+    let maxhiddenID: Int
+
     var body: some View {
         VStack {
             if configurations.isEmpty == false {
@@ -33,7 +35,7 @@ struct ImportView: View {
                 // Reset hiddenID if import
                 Button {
                     guard filenameimport.isEmpty == false else { return }
-                    if let importconfigurations = ReadImportConfigurationsJSON(filenameimport).importconfigurations {
+                    if let importconfigurations = ReadImportConfigurationsJSON(filenameimport, maxhiddenid: maxhiddenID).importconfigurations {
                         configurations = importconfigurations
                     }
                 } label: {
