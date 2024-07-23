@@ -12,7 +12,7 @@ import OSLog
 
 @MainActor
 final class ReadImportConfigurationsJSON {
-    var configurations: [SynchronizeConfiguration]?
+    var importconfigurations: [SynchronizeConfiguration]?
     var filenamedatastore = [String]()
     var subscriptons = Set<AnyCancellable>()
 
@@ -35,11 +35,15 @@ final class ReadImportConfigurationsJSON {
                 }
             } receiveValue: { [unowned self] data in
                 var configurations = [SynchronizeConfiguration]()
+                // let existingmaxhiddenID = MaxhiddenID().computemaxhiddenID(configurations)
                 for i in 0 ..< data.count {
-                    let configuration = SynchronizeConfiguration(data[i])
+                    var configuration = SynchronizeConfiguration(data[i])
+                    // configuration.hiddenID = existingmaxhiddenID + 1 + i
+                    configuration.hiddenID = -1
+                    configuration.dateRun = nil
                     configurations.append(configuration)
                 }
-                self.configurations = configurations
+                self.importconfigurations = configurations
                 subscriptons.removeAll()
                 Logger.process.info("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): read configurations from permanent storage")
             }.store(in: &subscriptons)

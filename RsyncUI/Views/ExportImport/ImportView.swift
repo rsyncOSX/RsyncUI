@@ -17,15 +17,23 @@ struct ImportView: View {
         VStack {
             if configurations.isEmpty == false {
                 ListofTasksLightView(selecteduuids: $selecteduuids, profile: nil, configurations: configurations)
+            } else {
+                Text("Select a file for import")
             }
 
+            Spacer()
+
             HStack {
+                if filenameimport.isEmpty == false {
+                    Text(filenameimport)
+                }
+
                 OpencatalogView(catalog: $filenameimport, choosecatalog: false)
 
                 // Reset hiddenID if import
                 Button {
                     guard filenameimport.isEmpty == false else { return }
-                    if let importconfigurations = ReadImportConfigurationsJSON(filenameimport).configurations {
+                    if let importconfigurations = ReadImportConfigurationsJSON(filenameimport).importconfigurations {
                         configurations = importconfigurations
                     }
                 } label: {
