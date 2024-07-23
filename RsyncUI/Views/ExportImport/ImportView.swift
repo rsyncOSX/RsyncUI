@@ -15,6 +15,7 @@ struct ImportView: View {
         VStack {
             OpencatalogView(catalog: $filenameimport, choosecatalog: false)
 
+            // Reset hiddenID if import
             Button {
                 guard filenameimport.isEmpty == false else { return }
                 _ = ReadImportConfigurationsJSON(filenameimport)
