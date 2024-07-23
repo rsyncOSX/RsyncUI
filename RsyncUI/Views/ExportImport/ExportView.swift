@@ -21,8 +21,13 @@ struct ExportView: View {
             ListofTasksLightView(selecteduuids: $selecteduuids, profile: profile, configurations: configurations)
 
             HStack {
-                Text(exportcatalog)
-                    .foregroundColor(.secondary)
+                if exportcatalog.hasSuffix("/") {
+                    Text(exportcatalog)
+                        .foregroundColor(.secondary)
+                } else {
+                    Text(exportcatalog + "/")
+                        .foregroundColor(.secondary)
+                }
 
                 setfilename
 
@@ -46,15 +51,18 @@ struct ExportView: View {
                     focusexport = false
                 } label: {
                     Image(systemName: "square.and.arrow.up")
+                        .foregroundColor(Color(.blue))
                 }
+                .help("Export tasks")
 
                 Spacer()
 
                 Button {
                     focusexport = false
                 } label: {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "clear")
                 }
+                .help("Exit")
             }
         }
         .padding()
