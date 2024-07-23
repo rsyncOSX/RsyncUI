@@ -9,28 +9,37 @@ import SwiftUI
 
 struct ImportView: View {
     @Binding var focusimport: Bool
-    @State var filenameimport: String = ""
+    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @State private var filenameimport: String = ""
+    @State private var configurations = [SynchronizeConfiguration]()
 
     var body: some View {
         VStack {
-            OpencatalogView(catalog: $filenameimport, choosecatalog: false)
-
-            // Reset hiddenID if import
-            Button {
-                guard filenameimport.isEmpty == false else { return }
-                _ = ReadImportConfigurationsJSON(filenameimport)
-                focusimport = false
-            } label: {
-                Image(systemName: "square.and.arrow.down")
-                    .foregroundColor(Color(.blue))
+            if configurations.isEmpty == false {
+                ListofTasksLightView(selecteduuids: $selecteduuids, profile: nil, configurations: configurations)
             }
-            .help("Import tasks")
 
-            Button {
-                focusimport = false
-            } label: {
-                Image(systemName: "clear")
-                    .foregroundColor(Color(.blue))
+            HStack {
+                OpencatalogView(catalog: $filenameimport, choosecatalog: false)
+
+                // Reset hiddenID if import
+                Button {
+                    guard filenameimport.isEmpty == false else { return }
+                    if let importconfigurations = ReadImportConfigurationsJSON(filenameimport).configurations {
+                        configurations = importconfigurations
+                    }
+                } label: {
+                    Image(systemName: "square.and.arrow.down")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Import tasks")
+
+                Button {
+                    focusimport = false
+                } label: {
+                    Image(systemName: "clear")
+                        .foregroundColor(Color(.blue))
+                }
             }
         }
         .padding()
