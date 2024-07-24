@@ -44,7 +44,6 @@ class WriteConfigurationJSON {
     // done in the .map operator
     @discardableResult
     init(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) {
-        SharedReference.shared.firsttime = false
         if profile == SharedReference.shared.defaultprofile {
             self.profile = nil
         } else {

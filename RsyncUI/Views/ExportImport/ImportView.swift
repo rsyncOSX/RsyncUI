@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 21/07/2024.
 //
+// swiftlint:disable line_length
 
 import SwiftUI
 
@@ -56,3 +57,5 @@ struct ImportView: View {
         .frame(minWidth: 600, minHeight: 500)
     }
 }
+
+// swiftlint:enable line_length
