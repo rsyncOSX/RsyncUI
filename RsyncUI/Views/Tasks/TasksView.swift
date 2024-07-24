@@ -210,7 +210,8 @@ struct TasksView: View {
                 }
 
             } else {
-                ImportView(focusimport: $focusimport)
+                ImportView(focusimport: $focusimport,
+                           maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
             }
         }
     }

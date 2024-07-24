@@ -49,10 +49,6 @@ final class ReadConfigurationJSON {
                     return
                 case .failure:
                     self.createdefaultfilelogrecords(profile)
-                    // Mark first time used, only for default profile
-                    if profile == nil {
-                        SharedReference.shared.firsttime = true
-                    }
                 }
             } receiveValue: { [unowned self] data in
                 var configurations = [SynchronizeConfiguration]()

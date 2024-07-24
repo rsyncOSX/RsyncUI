@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 10/11/2023.
 //
-// swiftlint:disable cyclomatic_complexity function_body_length
+// swiftlint:disable cyclomatic_complexity
 
 import OSLog
 import SwiftUI
@@ -28,11 +28,6 @@ struct SidebarTasksView: View {
                       path: $path)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
-                }
-                .task {
-                    if SharedReference.shared.firsttime {
-                        path.append(Tasks(task: .firsttime))
-                    }
                 }
         }
         .onChange(of: path) {
@@ -62,8 +57,6 @@ struct SidebarTasksView: View {
                                          configurations: configurations,
                                          profile: rsyncUIdata.profile)
             }
-        case .firsttime:
-            FirstTimeView()
         case .dryrunonetask:
             if let configurations = rsyncUIdata.configurations {
                 DetailsOneTaskEstimatingView(estimateprogressdetails: estimateprogressdetails,
@@ -104,7 +97,7 @@ struct SidebarTasksView: View {
 
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
-         estimatedview, firsttime, dryrunonetask, alltasksview,
+         estimatedview, dryrunonetask, alltasksview,
          dryrunonetaskalreadyestimated, quick_synchronize,
          completedview, viewlogfile
     var id: String { rawValue }
@@ -115,4 +108,4 @@ struct Tasks: Hashable, Identifiable {
     var task: DestinationView
 }
 
-// swiftlint:enable cyclomatic_complexity function_body_length
+// swiftlint:enable cyclomatic_complexity

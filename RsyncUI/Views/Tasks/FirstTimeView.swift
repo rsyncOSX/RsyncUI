@@ -34,9 +34,6 @@ struct FirstTimeView: View {
             }
         }
         .padding()
-        .onDisappear {
-            SharedReference.shared.firsttime = false
-        }
     }
 
     func openimportantinfo() {
