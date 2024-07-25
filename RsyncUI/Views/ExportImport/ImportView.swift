@@ -21,24 +21,17 @@ struct ImportView: View {
             if configurations.isEmpty == false {
                 ListofTasksLightView(selecteduuids: $selecteduuids, profile: nil, configurations: configurations)
             } else {
-                Text("Select a file for import")
+                HStack {
+                    Text("Select a file for import")
+                    OpencatalogView(catalog: $filenameimport, choosecatalog: false)
+                }
             }
 
             Spacer()
 
             HStack {
-                if filenameimport.isEmpty == false {
-                    Text(filenameimport)
-                }
-
-                OpencatalogView(catalog: $filenameimport, choosecatalog: false)
-
-                // Reset hiddenID if import
                 Button {
-                    guard filenameimport.isEmpty == false else { return }
-                    if let importconfigurations = ReadImportConfigurationsJSON(filenameimport, maxhiddenid: maxhiddenID).importconfigurations {
-                        configurations = importconfigurations
-                    }
+                    focusimport = false
                 } label: {
                     Image(systemName: "square.and.arrow.down")
                         .foregroundColor(Color(.blue))
@@ -55,6 +48,12 @@ struct ImportView: View {
         }
         .padding()
         .frame(minWidth: 600, minHeight: 500)
+        .onChange(of: filenameimport) {
+            guard filenameimport.isEmpty == false else { return }
+            if let importconfigurations = ReadImportConfigurationsJSON(filenameimport, maxhiddenid: maxhiddenID).importconfigurations {
+                configurations = importconfigurations
+            }
+        }
     }
 }
 
