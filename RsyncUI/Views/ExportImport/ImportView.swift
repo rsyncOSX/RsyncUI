@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ImportView: View {
     @Binding var focusimport: Bool
+    // @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var filenameimport: String = ""
     @State private var configurations = [SynchronizeConfiguration]()
@@ -31,6 +32,12 @@ struct ImportView: View {
 
             HStack {
                 Button {
+                    /*
+                     let updateconfigurations =
+                     UpdateConfigurations(profile: rsyncUIdata.profile,
+                                          configurations: rsyncUIdata.configurations)
+                     updateconfigurations.addimportconfigurations(configurations)
+                      */
                     focusimport = false
                 } label: {
                     Image(systemName: "square.and.arrow.down")

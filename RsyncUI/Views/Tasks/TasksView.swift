@@ -211,6 +211,7 @@ struct TasksView: View {
 
             } else {
                 ImportView(focusimport: $focusimport,
+                           // rsyncUIdata: $rsyncUIdata,
                            maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
             }
         }
