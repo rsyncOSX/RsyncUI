@@ -14,6 +14,7 @@ struct ImportView: View {
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var filenameimport: String = ""
     @State private var configurations = [SynchronizeConfiguration]()
+    @State private var isShowingDialog: Bool = false
 
     let maxhiddenID: Int
 
@@ -31,24 +32,28 @@ struct ImportView: View {
             Spacer()
 
             HStack {
-                Button {
-                    let updateconfigurations =
-                        UpdateConfigurations(profile: rsyncUIdata.profile,
-                                             configurations: rsyncUIdata.configurations)
-                    updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
-                    focusimport = false
-                } label: {
-                    Image(systemName: "square.and.arrow.down")
-                        .foregroundColor(Color(.blue))
+                Button("Import tasks") {
+                    isShowingDialog = true
                 }
-                .help("Import tasks")
+                .buttonStyle(ColorfulButtonStyle())
+                .confirmationDialog(
+                    Text("Import selected tasks?"),
+                    isPresented: $isShowingDialog
+                ) {
+                    Button("Import", role: .none) {
+                        let updateconfigurations =
+                            UpdateConfigurations(profile: rsyncUIdata.profile,
+                                                 configurations: rsyncUIdata.configurations)
+                        updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
+                        focusimport = false
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
+                }
 
-                Button {
+                Button("Dismiss") {
                     focusimport = false
-                } label: {
-                    Image(systemName: "clear")
-                        .foregroundColor(Color(.blue))
                 }
+                .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()

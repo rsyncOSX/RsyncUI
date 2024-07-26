@@ -36,7 +36,7 @@ struct ExportView: View {
 
                 OpencatalogView(catalog: $exportcatalog, choosecatalog: true)
 
-                Button {
+                Button("Export") {
                     var path = ""
                     if exportcatalog.hasSuffix("/") == true {
                         path = exportcatalog + filenameexport + ".json"
@@ -49,20 +49,17 @@ struct ExportView: View {
                     }
                     _ = WriteExportConfigurationsJSON(path, selectedconfigurations())
                     focusexport = false
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundColor(Color(.blue))
                 }
                 .help("Export tasks")
+                .buttonStyle(ColorfulButtonStyle())
 
                 Spacer()
 
-                Button {
+                Button("Dismiss") {
                     focusexport = false
-                } label: {
-                    Image(systemName: "clear")
                 }
                 .help("Exit")
+                .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding()

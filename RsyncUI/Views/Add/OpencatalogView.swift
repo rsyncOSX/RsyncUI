@@ -25,6 +25,7 @@ struct OpencatalogView: View {
             } label: {
                 Image(systemName: "folder")
             }
+            .buttonStyle(ColorfulButtonStyle())
         }
     }
 }
