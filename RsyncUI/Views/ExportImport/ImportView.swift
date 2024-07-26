@@ -35,7 +35,7 @@ struct ImportView: View {
                     let updateconfigurations =
                         UpdateConfigurations(profile: rsyncUIdata.profile,
                                              configurations: rsyncUIdata.configurations)
-                    updateconfigurations.addimportconfigurations(configurations)
+                    updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
                     focusimport = false
                 } label: {
                     Image(systemName: "square.and.arrow.down")

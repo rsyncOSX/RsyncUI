@@ -37,6 +37,7 @@ final class ReadImportConfigurationsJSON {
                 var configurations = [SynchronizeConfiguration]()
                 for i in 0 ..< data.count {
                     var configuration = SynchronizeConfiguration(data[i])
+                    configuration.id = UUID()
                     configuration.hiddenID = maxhiddenid + 1 + i
                     configuration.dateRun = nil
                     configurations.append(configuration)
