@@ -97,6 +97,15 @@ final class UpdateConfigurations {
         }
     }
 
+    func addimportconfigurations(_ configurations: [SynchronizeConfiguration]) {
+        for i in 0 ..< configurations.count {
+            self.configurations?.append(configurations[i])
+        }
+        if configurations.count > 0 {
+            WriteConfigurationJSON(localeprofile, self.configurations)
+        }
+    }
+
     // Write Copy and Paste tasks
     func writecopyandpastetask(_ copyandpastetasks: [SynchronizeConfiguration]?) {
         if let copyandpastetasks = copyandpastetasks {
