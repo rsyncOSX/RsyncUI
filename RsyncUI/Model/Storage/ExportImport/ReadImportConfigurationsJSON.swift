@@ -37,14 +37,15 @@ final class ReadImportConfigurationsJSON {
                 var configurations = [SynchronizeConfiguration]()
                 for i in 0 ..< data.count {
                     var configuration = SynchronizeConfiguration(data[i])
-                    configuration.id = UUID()
                     configuration.hiddenID = maxhiddenid + 1 + i
                     configuration.dateRun = nil
+                    configuration.backupID = "IMPORT: " + (data[i].backupID ?? "")
+                    configuration.id = UUID()
                     configurations.append(configuration)
                 }
                 self.importconfigurations = configurations
                 subscriptons.removeAll()
-                Logger.process.info("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): read configurations from permanent storage")
+                Logger.process.info("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): read import configurations from permanent storage")
             }.store(in: &subscriptons)
     }
 }

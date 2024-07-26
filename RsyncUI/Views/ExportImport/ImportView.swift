@@ -37,14 +37,25 @@ struct ImportView: View {
                 }
                 .buttonStyle(ColorfulButtonStyle())
                 .confirmationDialog(
-                    Text("Import selected tasks?"),
+                    Text("Import selected or all tasks?"),
                     isPresented: $isShowingDialog
                 ) {
                     Button("Import", role: .none) {
                         let updateconfigurations =
                             UpdateConfigurations(profile: rsyncUIdata.profile,
                                                  configurations: rsyncUIdata.configurations)
-                        updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
+                        if selecteduuids.isEmpty == true {
+                            updateconfigurations.addimportconfigurations(configurations)
+                            for i in 0 ..< configurations.count {
+                                rsyncUIdata.configurations?.append(configurations[i])
+                            }
+                        } else {
+                            updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
+                            let importconfigurations = configurations.filter { selecteduuids.contains($0.id) }
+                            for i in 0 ..< importconfigurations.count {
+                                rsyncUIdata.configurations?.append(importconfigurations[i])
+                            }
+                        }
                         focusimport = false
                     }
                     .buttonStyle(ColorfulButtonStyle())
