@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ImportView: View {
     @Binding var focusimport: Bool
-    // @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var filenameimport: String = ""
     @State private var configurations = [SynchronizeConfiguration]()
