@@ -198,7 +198,7 @@ final class ObservableAddConfigurations {
         for i in 0 ..< copyitems.count {
             var copy: SynchronizeConfiguration?
             copy = copyitems[i]
-            copy?.backupID = "COPY " + copyitems[i].backupID
+            copy?.backupID = "COPY: " + copyitems[i].backupID
             copy?.dateRun = nil
             copy?.hiddenID = existingmaxhiddenID + 1 + i
             copy?.id = UUID()

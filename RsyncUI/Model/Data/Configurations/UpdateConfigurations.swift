@@ -97,12 +97,12 @@ final class UpdateConfigurations {
         }
     }
 
-    func addimportconfigurations(_ configurations: [SynchronizeConfiguration]) {
-        for i in 0 ..< configurations.count {
-            self.configurations?.append(configurations[i])
+    func addimportconfigurations(_ importconfigurations: [SynchronizeConfiguration]) {
+        for i in 0 ..< importconfigurations.count {
+            configurations?.append(importconfigurations[i])
         }
-        if configurations.count > 0 {
-            WriteConfigurationJSON(localeprofile, self.configurations)
+        if importconfigurations.count > 0 {
+            WriteConfigurationJSON(localeprofile, configurations)
         }
     }
 
