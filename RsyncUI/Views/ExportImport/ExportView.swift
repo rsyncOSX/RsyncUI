@@ -58,7 +58,7 @@ struct ExportView: View {
                 Button("Dismiss") {
                     focusexport = false
                 }
-                .help("Exit")
+                .help("Dismiss view")
                 .buttonStyle(ColorfulButtonStyle())
             }
         }

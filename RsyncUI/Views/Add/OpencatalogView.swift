@@ -26,6 +26,7 @@ struct OpencatalogView: View {
                 Image(systemName: "folder")
             }
             .buttonStyle(ColorfulButtonStyle())
+            .help("Select catalog or file")
         }
     }
 }
