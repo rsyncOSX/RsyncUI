@@ -101,7 +101,7 @@ final class UpdateConfigurations {
         for i in 0 ..< configurations.count {
             self.configurations?.append(configurations[i])
         }
-        if self.configurations?.count != configurations.count {
+        if configurations.count > 0 {
             WriteConfigurationJSON(localeprofile, self.configurations)
         }
     }
