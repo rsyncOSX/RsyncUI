@@ -32,12 +32,10 @@ struct ImportView: View {
 
             HStack {
                 Button {
-                    /*
-                     let updateconfigurations =
-                     UpdateConfigurations(profile: rsyncUIdata.profile,
-                                          configurations: rsyncUIdata.configurations)
-                     updateconfigurations.addimportconfigurations(configurations)
-                      */
+                    let updateconfigurations =
+                        UpdateConfigurations(profile: rsyncUIdata.profile,
+                                             configurations: rsyncUIdata.configurations)
+                    updateconfigurations.addimportconfigurations(configurations)
                     focusimport = false
                 } label: {
                     Image(systemName: "square.and.arrow.down")
