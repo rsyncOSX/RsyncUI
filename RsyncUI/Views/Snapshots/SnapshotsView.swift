@@ -97,7 +97,7 @@ struct SnapshotsView: View {
                 } label: {
                     Image(systemName: "tag")
                 }
-                .help("Tag snapshots")
+                .help("Tag snapshot")
             }
 
             ToolbarItem {

@@ -2,6 +2,9 @@
 "--dry-run" = "--dry-run";
 
 /* No comment provided by engineer. */
+".json" = ".json";
+
+/* No comment provided by engineer. */
 "%" = "%";
 
 /* No comment provided by engineer. */
@@ -62,9 +65,6 @@
 "Add task" = "Aufgabe hinzufügen";
 
 /* No comment provided by engineer. */
-"Add tasks" = "Aufgaben hinzufügen";
-
-/* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
@@ -90,9 +90,6 @@
 
 /* No comment provided by engineer. */
 "Changelog" = "Änderungsprotokoll";
-
-/* No comment provided by engineer. */
-"Changelog and download new version" = "Changelog und Download der neuen Version";
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
@@ -143,19 +140,16 @@
 "Delete profile" = "Profil löschen";
 
 /* No comment provided by engineer. */
-"deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "gelöschte Daten. RsyncUI wird Sie NICHT davon abhalten. Deshalb ist es sehr";
+"Deleting snapshots" = "Schnappschüsse löschen";
 
 /* No comment provided by engineer. */
-"Deleting snapshots" = "Schnappschüsse löschen";
+"Dismiss" = "Schließen";
 
 /* No comment provided by engineer. */
 "Don´t add /" = "Nicht hinzufügen/";
 
 /* No comment provided by engineer. */
 "Download new version" = "Neue Version herunterladen";
-
-/* No comment provided by engineer. */
-"Either select a task or the task is not estimated" = "Wählen Sie entweder eine Aufgabe aus oder die Aufgabe wird nicht geschätzt";
 
 /* No comment provided by engineer. */
 "Enable rsync daemon" = "Rsync daemon aktivieren";
@@ -174,6 +168,18 @@
 
 /* No comment provided by engineer. */
 "Estimating now" = "Jetzt schätzen";
+
+/* No comment provided by engineer. */
+"Export" = "Export";
+
+/* No comment provided by engineer. */
+"Export and import" = "Export und Import";
+
+/* No comment provided by engineer. */
+"Export tasks" = "Exportaufgaben";
+
+/* No comment provided by engineer. */
+"Filename export" = "Filnavn-Exsport";
 
 /* No comment provided by engineer. */
 "Filenames" = "Filnamen";
@@ -203,10 +209,13 @@
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
 /* No comment provided by engineer. */
-"Important" = "Wichtig";
+"Import" = "Importieren";
 
 /* No comment provided by engineer. */
-"important to execute a simulated run and inspect what happens before a real run." = "wichtig, einen simulierten Lauf durchzuführen und zu überprüfen, was vor einem echten Lauf passiert.";
+"Import selected or all tasks?" = "Ausgewählte oder alle Aufgaben importieren?";
+
+/* No comment provided by engineer. */
+"Import tasks" = "Aufgaben importieren?";
 
 /* No comment provided by engineer. */
 "kB" = "kB";
@@ -281,9 +290,6 @@
 "Path rsync" = "Pfad rsync";
 
 /* No comment provided by engineer. */
-"Please read and understand the information below. There is more info" = "Bitte lesen und verstehen Sie die nachstehenden Informationen. Es gibt mehr Informationen";
-
-/* No comment provided by engineer. */
 "Profile" = "Profil";
 
 /* No comment provided by engineer. */
@@ -338,16 +344,16 @@
 "RsyncUI help" = "RsyncUI Hilfe";
 
 /* No comment provided by engineer. */
+"Select a file for import" = "Wählen Sie eine Datei zum Importieren aus";
+
+/* No comment provided by engineer. */
+"Select catalog or file" = "Katalog oder Datei auswählen";
+
+/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
 "Select profile" = "Profil auswählen";
-
-/* No comment provided by engineer. */
-"Select task" = "Aufgabe auswählen";
-
-/* No comment provided by engineer. */
-"selecting Important. Setting the wrong parameters to rsync can result in" = "wählen Sie Wichtig aus. Das Einstellen der falschen Parameter für rsync kann dazu führen";
 
 /* No comment provided by engineer. */
 "Server" = "Server";
@@ -462,7 +468,4 @@
 
 /* No comment provided by engineer. */
 "View logfile" = "Logdatei anzeigen";
-
-/* No comment provided by engineer. */
-"Welcome to RsyncUI" = "Willkommen bei RsyncUI";
 
