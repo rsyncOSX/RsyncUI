@@ -64,7 +64,6 @@ struct ImportView: View {
                 Button("Dismiss") {
                     focusimport = false
                 }
-                .help("Dismiss view")
                 .buttonStyle(ColorfulButtonStyle())
             }
         }

@@ -2,6 +2,9 @@
 "--dry-run" = "--dry-run";
 
 /* No comment provided by engineer. */
+".json" = ".json";
+
+/* No comment provided by engineer. */
 "%" = "%";
 
 /* No comment provided by engineer. */
@@ -62,9 +65,6 @@
 "Add task" = "Legg til oppgave";
 
 /* No comment provided by engineer. */
-"Add tasks" = "Legg til oppgaver";
-
-/* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
@@ -90,9 +90,6 @@
 
 /* No comment provided by engineer. */
 "Changelog" = "Endringslogg";
-
-/* No comment provided by engineer. */
-"Changelog and download new version" = "Endringslogg og last ned ny versjon";
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Sjekk for feil i utdata";
@@ -143,19 +140,16 @@
 "Delete profile" = "Slett profil";
 
 /* No comment provided by engineer. */
-"deleted data. RsyncUI will NOT stop you from doing so. That is why it is very" = "i sletting av data. Og RsyncUI vil ikke hindre deg i det. Derfor er det";
+"Deleting snapshots" = "Slette snapshots";
 
 /* No comment provided by engineer. */
-"Deleting snapshots" = "Slette snapshots";
+"Dismiss" = "Lukk";
 
 /* No comment provided by engineer. */
 "Don´t add /" = "Ikke legg til /";
 
 /* No comment provided by engineer. */
 "Download new version" = "Last ned ny versjon";
-
-/* No comment provided by engineer. */
-"Either select a task or the task is not estimated" = "Enten velg oppgave eller den er ikke estimert";
 
 /* No comment provided by engineer. */
 "Enable rsync daemon" = "Aktiver rsync daemon";
@@ -174,6 +168,18 @@
 
 /* No comment provided by engineer. */
 "Estimating now" = "Estimerer nå";
+
+/* No comment provided by engineer. */
+"Export" = "Eksporter";
+
+/* No comment provided by engineer. */
+"Export and import" = "Eksporter og importer";
+
+/* No comment provided by engineer. */
+"Export tasks" = "Eksporter oppgaver";
+
+/* No comment provided by engineer. */
+"Filename export" = "Filnavn eksport";
 
 /* No comment provided by engineer. */
 "Filenames" = "Filnavn";
@@ -203,10 +209,13 @@
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
 
 /* No comment provided by engineer. */
-"Important" = "Viktig";
+"Import" = "Importer";
 
 /* No comment provided by engineer. */
-"important to execute a simulated run and inspect what happens before a real run." = "viktig å utføre en simulert kjøring og inspisere resultatet før synkronisering";
+"Import selected or all tasks?" = "Importer valgte aller alle oppgaver";
+
+/* No comment provided by engineer. */
+"Import tasks" = "Importer oppgaver";
 
 /* No comment provided by engineer. */
 "kB" = "kB";
@@ -281,9 +290,6 @@
 "Path rsync" = "Sti rsync";
 
 /* No comment provided by engineer. */
-"Please read and understand the information below. There is more info" = "Les og forstå informasjonen under. Det er mer info";
-
-/* No comment provided by engineer. */
 "Profile" = "Profil";
 
 /* No comment provided by engineer. */
@@ -338,16 +344,16 @@
 "RsyncUI help" = "RsyncUI hjelp";
 
 /* No comment provided by engineer. */
+"Select a file for import" = "Velg fil for import";
+
+/* No comment provided by engineer. */
+"Select catalog or file" = "Velg katalog eller fil";
+
+/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
 
 /* No comment provided by engineer. */
 "Select profile" = "Velg profil";
-
-/* No comment provided by engineer. */
-"Select task" = "Velg oppgave";
-
-/* No comment provided by engineer. */
-"selecting Important. Setting the wrong parameters to rsync can result in" = "under Viktig. Sette gale parametre til rsync kan resultere i";
 
 /* No comment provided by engineer. */
 "Server" = "Tjener";
@@ -462,7 +468,4 @@
 
 /* No comment provided by engineer. */
 "View logfile" = "Se loggfil";
-
-/* No comment provided by engineer. */
-"Welcome to RsyncUI" = "Velkommen til RsyncUI";
 
