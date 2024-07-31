@@ -1,10 +1,12 @@
 ## Hi there 👋
 
-RsyncUI and RsyncOSX are GUI´s on the Apple macOS platform for the command line tool [rsync](https://github.com/WayneD/rsync). The main difference between the two apps is how the User Interface (UI) is built. It is `rsync` which executes the synchronize data tasks in both apps. The GUI´s are only for organizing tasks, setting parameters to `rsync` and make it easier to use `rsync`. If you are on *macOS Sonoma or later* use RsyncUI.
+RsyncUI and RsyncOSX are GUI´s on the Apple macOS platform for the command line tool [rsync](https://github.com/WayneD/rsync). The main difference between the two apps is how the User Interface (UI) is built. It is `rsync` which executes the synchronize data tasks. The GUI´s are only for organizing tasks, setting parameters to `rsync` and make it easier to use `rsync`. 
+
+If you are on *macOS Sonoma* use RsyncUI.
 
 ### Install by Homebrew
 
-Both apps might be installed by Homebrew or by direct Download. The apps are signed and notarized by Apple.
+The apps might be installed by Homebrew or by direct Download. The apps are signed and notarized by Apple.
 
 | App      | Homebrew | macOS |  Documentation |
 | ----------- | ----------- |   ----------- |  ----------- |
@@ -13,7 +15,7 @@ Both apps might be installed by Homebrew or by direct Download. The apps are sig
 
 ### Why two apps and latest versions
 
-The development of RsyncOSX commenced in *2015* as a private project to learn Swift. In *2019*, Apple released SwiftUI, which is a development framework for building user interfaces for iOS, iPadOS, watchOS, TVOS, and macOS. SwiftUI quickly became very popular and I commence another private project to learn SwiftUI.
+The development of RsyncOSX commenced in *2015* as a private project to learn Swift. In *2019*, Apple released SwiftUI. SwiftUI quickly became very popular and I commenced another private project, RsyncUI, to learn SwiftUI.
 
 | App      | Storage  | #lines  | #files | UI | Latest version  |  Version 1.0.0 |
 | ----------- | ----------- |   ----------- | -------- |  -------- | -------- | -------- |
@@ -22,7 +24,9 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 
 ### Important to verify new tasks
 
-The UI of RsyncUI and RsyncOSX can for users who dont know `rsync` be difficult and complex to understand. Setting wrong parameters to `rsync` can result in deleted data. *For your own safety* it is important to execute a simulated run, a `--dry-run`, and verify the result before the real run.
+The UI of RsyncUI and RsyncOSX can for users who dont know `rsync` be difficult and complex to understand. 
+
+Setting wrong parameters to `rsync` can result in deleted data. *For your own safety* it is important to execute a simulated run, a `--dry-run`, and verify the result before the real run.
 
 ### External task executing rsync
 
