@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 22/07/2024.
 //
+// swiftlint:disable line_length
 
 import Combine
 import Foundation
@@ -12,9 +13,26 @@ import OSLog
 @MainActor
 class WriteExportConfigurationsJSON: PropogateError {
     var subscriptons = Set<AnyCancellable>()
+    var exportpath: String?
+
+    private func writeJSONToPersistentStore(jsonData: Data?) {
+        if let exportpath = exportpath {
+            let exportconfigurationfileURL = URL(fileURLWithPath: exportpath)
+
+            if let jsonData = jsonData {
+                do {
+                    try jsonData.write(to: exportconfigurationfileURL)
+                    Logger.process.info("WriteExportConfigurationsJSON - \(exportpath, privacy: .public): write export configurations to permanent storage")
+                } catch let e {
+                    let error = e
+                    propogateerror(error: error)
+                }
+            }
+        }
+    }
 
     @discardableResult
-    init(_ path: String?, _ configurations: [SynchronizeConfiguration]?) {
+    init(_: String?, _ configurations: [SynchronizeConfiguration]?) {
         configurations.publisher
             .map { configurations -> [DecodeConfiguration] in
                 var data = [DecodeConfiguration]()
@@ -32,9 +50,11 @@ class WriteExportConfigurationsJSON: PropogateError {
                     self.propogateerror(error: error)
                 }
             }, receiveValue: { [unowned self] result in
-                WriteStorageJSON(path, result)
+                writeJSONToPersistentStore(jsonData: result)
                 subscriptons.removeAll()
             })
             .store(in: &subscriptons)
     }
 }
+
+// swiftlint:enable line_length

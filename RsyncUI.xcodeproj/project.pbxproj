@@ -28,7 +28,6 @@
 		E9493E4B2BF4DB1000512A8A /* DetailsOneTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493E4A2BF4DB1000512A8A /* DetailsOneTaskView.swift */; };
 		E9493E4D2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */; };
 		E94E1E1C2A2DAA3E00011FED /* RestoreFilesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */; };
-		E9531DFC2C5A4DC100AC5B66 /* WriteStorageJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9531DFB2C5A4DC100AC5B66 /* WriteStorageJSON.swift */; };
 		E954AD3F2AFE8F3800F3EA63 /* SidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */; };
 		E954AD412AFE8FBB00F3EA63 /* DetailsSummarizedTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD402AFE8FBB00F3EA63 /* DetailsSummarizedTasksView.swift */; };
 		E954AD432AFE901200F3EA63 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD422AFE901200F3EA63 /* TasksView.swift */; };
@@ -204,7 +203,6 @@
 		E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableOutputfromrsync.swift; sourceTree = "<group>"; };
 		E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFilesTableView.swift; sourceTree = "<group>"; };
 		E94F8337272E7ABA00D3924B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E9531DFB2C5A4DC100AC5B66 /* WriteStorageJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteStorageJSON.swift; sourceTree = "<group>"; };
 		E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTasksView.swift; sourceTree = "<group>"; };
 		E954AD402AFE8FBB00F3EA63 /* DetailsSummarizedTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsSummarizedTasksView.swift; sourceTree = "<group>"; };
 		E954AD422AFE901200F3EA63 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
@@ -705,7 +703,6 @@
 				E98C7AB4262D662200555977 /* ReadLogRecordsJSON.swift */,
 				E9011D43262EBFE600ECC9B8 /* Userconfiguration */,
 				E985C6C725F3AD9600CB895C /* Basic */,
-				E9531DFB2C5A4DC100AC5B66 /* WriteStorageJSON.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -1233,7 +1230,6 @@
 				E93CC5732C4D4974000F8963 /* ImportExportCommands.swift in Sources */,
 				E985C68725F3AD8400CB895C /* EditValue.swift in Sources */,
 				E965D9B827E1C2E8005EFDBB /* UpdateLogs.swift in Sources */,
-				E9531DFC2C5A4DC100AC5B66 /* WriteStorageJSON.swift in Sources */,
 				E99BE2342C4E677700BFE83F /* WriteExportConfigurationsJSON.swift in Sources */,
 				E985C77125F3AD9700CB895C /* ExecuteProgressDetails.swift in Sources */,
 				E902346B2C4F7AA100595967 /* ReadImportConfigurationsJSON.swift in Sources */,
