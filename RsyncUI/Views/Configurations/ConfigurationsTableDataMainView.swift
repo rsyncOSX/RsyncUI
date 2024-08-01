@@ -62,6 +62,7 @@ struct ConfigurationsTableDataMainView: View {
                     }
                 }
                 Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
             }
             .width(max: 50)
             TableColumn("Last") { data in
