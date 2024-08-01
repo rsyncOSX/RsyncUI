@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 22/07/2024.
 //
-
 // swiftlint:disable line_length
 
 import Combine
@@ -32,12 +31,8 @@ class WriteExportConfigurationsJSON: PropogateError {
         }
     }
 
-    // We have to remove UUID and computed properties ahead of writing JSON file
-    // done in the .map operator
     @discardableResult
-    init(_ path: String?, _ configurations: [SynchronizeConfiguration]?) {
-        exportpath = path
-
+    init(_: String?, _ configurations: [SynchronizeConfiguration]?) {
         configurations.publisher
             .map { configurations -> [DecodeConfiguration] in
                 var data = [DecodeConfiguration]()

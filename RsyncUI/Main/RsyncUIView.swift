@@ -14,7 +14,6 @@ struct RsyncUIView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
     @State private var rsyncversion = Rsyncversion()
     @State private var start: Bool = true
-    // @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     var body: some View {
         VStack {

@@ -120,8 +120,6 @@ final class RsyncProcessNOFilehandler: PropogateError {
         self.arguments = arguments
         self.processtermination = processtermination
         outputprocess = OutputfromProcess()
-        // Only execute montornetwork connection if
-        // a selected configuration
         if let config = config {
             self.config = config
         }
