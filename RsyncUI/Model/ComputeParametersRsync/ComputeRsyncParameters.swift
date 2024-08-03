@@ -20,7 +20,7 @@ class ComputeRsyncParameters {
     var linkdestparam: String?
 
     func setParameters1To6(config: SynchronizeConfiguration, dryRun _: Bool, forDisplay: Bool, verify: Bool) {
-        var parameter1: String? = if verify { "--checksum" } else
+        let parameter1: String? = if verify { "--checksum" } else
         { config.parameter1 }
         let parameter2: String = config.parameter2
         let parameter3: String = config.parameter3
@@ -308,7 +308,7 @@ class ComputeRsyncParameters {
         }
     }
 
-    func argumentsforsynchronize(dryRun _: Bool, forDisplay: Bool) {
+    func argumentsforsynchronize(forDisplay: Bool) {
         arguments?.append(localCatalog ?? "")
         guard offsiteCatalog != nil else { return }
         if (offsiteServer ?? "").isEmpty {
@@ -322,7 +322,7 @@ class ComputeRsyncParameters {
         }
     }
 
-    func argumentsforsynchronizeremote(dryRun _: Bool, forDisplay: Bool) {
+    func argumentsforsynchronizeremote(forDisplay: Bool) {
         guard offsiteCatalog != nil else { return }
         if forDisplay { arguments?.append(" ") }
         arguments?.append(remoteargs ?? "")
@@ -331,7 +331,7 @@ class ComputeRsyncParameters {
         if forDisplay { arguments?.append(" ") }
     }
 
-    func argumentsforsynchronizesnapshot(dryRun _: Bool, forDisplay: Bool) {
+    func argumentsforsynchronizesnapshot(forDisplay: Bool) {
         guard linkdestparam != nil else {
             arguments?.append(localCatalog ?? "")
             return
@@ -350,7 +350,7 @@ class ComputeRsyncParameters {
         }
     }
 
-    func argumentsforrestore(dryRun _: Bool, forDisplay: Bool, tmprestore: Bool) {
+    func argumentsforrestore(forDisplay: Bool, tmprestore: Bool) {
         if (offsiteServer ?? "").isEmpty {
             arguments?.append(offsiteCatalog ?? "")
             if forDisplay { arguments?.append(" ") }

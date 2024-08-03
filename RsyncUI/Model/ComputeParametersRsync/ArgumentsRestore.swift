@@ -41,7 +41,7 @@ final class ArgumentsRestore: ComputeRsyncParameters {
             }
             setParameters1To6(config: config, dryRun: dryRun, forDisplay: forDisplay, verify: false)
             setParameters8To14(config: config, dryRun: dryRun, forDisplay: forDisplay)
-            argumentsforrestore(dryRun: dryRun, forDisplay: forDisplay, tmprestore: tmprestore)
+            argumentsforrestore(forDisplay: forDisplay, tmprestore: tmprestore)
             return arguments
         }
         return nil
