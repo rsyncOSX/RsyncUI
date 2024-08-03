@@ -15,7 +15,7 @@ final class ArgumentsVerify: ComputeRsyncParameters {
         if let config {
             localCatalog = config.localCatalog
             remoteargs(config: config)
-            setParameters1To6(config: config, dryRun: true, forDisplay: forDisplay, verify: true)
+            setParameters1To6(config: config, forDisplay: forDisplay, verify: true)
             setParameters8To14(config: config, dryRun: true, forDisplay: forDisplay)
             switch config.task {
             case SharedReference.shared.synchronize:

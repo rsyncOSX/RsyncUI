@@ -19,7 +19,7 @@ class ComputeRsyncParameters {
     var remoteargs: String?
     var linkdestparam: String?
 
-    func setParameters1To6(config: SynchronizeConfiguration, dryRun _: Bool, forDisplay: Bool, verify: Bool) {
+    func setParameters1To6(config: SynchronizeConfiguration, forDisplay: Bool, verify: Bool) {
         let parameter1: String? = if verify { "--checksum" } else
         { config.parameter1 }
         let parameter2: String = config.parameter2

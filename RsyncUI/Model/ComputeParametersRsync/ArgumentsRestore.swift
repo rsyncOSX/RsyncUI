@@ -39,7 +39,7 @@ final class ArgumentsRestore: ComputeRsyncParameters {
                 // Users/thomas/tmp
                 remoteargs(config: config)
             }
-            setParameters1To6(config: config, dryRun: dryRun, forDisplay: forDisplay, verify: false)
+            setParameters1To6(config: config, forDisplay: forDisplay, verify: false)
             setParameters8To14(config: config, dryRun: dryRun, forDisplay: forDisplay)
             argumentsforrestore(forDisplay: forDisplay, tmprestore: tmprestore)
             return arguments

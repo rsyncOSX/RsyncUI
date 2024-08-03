@@ -14,7 +14,7 @@ final class ArgumentsLocalcatalogInfo: ComputeRsyncParameters {
     func argumentslocalcataloginfo(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config {
             localCatalog = config.localCatalog
-            setParameters1To6(config: config, dryRun: dryRun, forDisplay: forDisplay, verify: false)
+            setParameters1To6(config: config, forDisplay: forDisplay, verify: false)
             setParameters8To14(config: config, dryRun: dryRun, forDisplay: forDisplay)
             switch config.task {
             case SharedReference.shared.synchronize:
