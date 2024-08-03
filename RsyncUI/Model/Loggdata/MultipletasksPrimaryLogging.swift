@@ -36,7 +36,7 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
                 let currendate = Date()
                 let date = currendate.en_us_string_from_date()
                 if let config = getconfig(hiddenID: hiddenID) {
-                    var resultannotaded: String? = if config.task == SharedReference.shared.snapshot {
+                    let resultannotaded: String? = if config.task == SharedReference.shared.snapshot {
                         if let snapshotnum = config.snapshotnum {
                             "(" + String(snapshotnum - 1) + ") " + stats
                         } else {

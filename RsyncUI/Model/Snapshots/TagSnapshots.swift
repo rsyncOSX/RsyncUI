@@ -90,7 +90,7 @@ final class TagSnapshots {
     typealias Keepallorlastdayinperiodfunc = (Date) -> Bool
 
     func keepallorlastdayinperiod(index: Int) -> Bool {
-        var check: Keepallorlastdayinperiodfunc? = if keepallselcteddayofweek {
+        let check: Keepallorlastdayinperiodfunc? = if keepallselcteddayofweek {
             isselectedDayinWeek
         } else {
             islastSelectedDayinMonth

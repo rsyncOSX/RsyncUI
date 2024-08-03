@@ -18,9 +18,9 @@ final class ArgumentsLocalcatalogInfo: ComputeRsyncParameters {
             setParameters8To14(config: config, dryRun: dryRun, forDisplay: forDisplay)
             switch config.task {
             case SharedReference.shared.synchronize:
-                argumentsforsynchronize(dryRun: dryRun, forDisplay: forDisplay)
+                argumentsforsynchronize(forDisplay: forDisplay)
             case SharedReference.shared.snapshot:
-                argumentsforsynchronizesnapshot(dryRun: dryRun, forDisplay: forDisplay)
+                argumentsforsynchronizesnapshot(forDisplay: forDisplay)
             case SharedReference.shared.syncremote:
                 return []
             default:

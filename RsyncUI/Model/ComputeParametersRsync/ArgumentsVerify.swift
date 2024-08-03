@@ -19,10 +19,10 @@ final class ArgumentsVerify: ComputeRsyncParameters {
             setParameters8To14(config: config, dryRun: true, forDisplay: forDisplay)
             switch config.task {
             case SharedReference.shared.synchronize:
-                argumentsforsynchronize(dryRun: true, forDisplay: forDisplay)
+                argumentsforsynchronize(forDisplay: forDisplay)
             case SharedReference.shared.snapshot:
                 linkdestparameter(config: config, verify: true)
-                argumentsforsynchronizesnapshot(dryRun: true, forDisplay: forDisplay)
+                argumentsforsynchronizesnapshot(forDisplay: forDisplay)
             case SharedReference.shared.syncremote:
                 return []
             default:
