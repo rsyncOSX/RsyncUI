@@ -40,7 +40,7 @@ struct Logsettings: View {
                         }
                 }
 
-                if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
+                if SharedReference.shared.settingsischanged, usersettings.ready { thumbsupgreen }
 
             } header: {
                 Text("Monitor network, error and log settings")

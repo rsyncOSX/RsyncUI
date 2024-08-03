@@ -15,7 +15,7 @@ enum CannotUpdateSnaphotsError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .cannotupdate:
-            return "Only synchronize ID can be changed on a Snapshot task"
+            "Only synchronize ID can be changed on a Snapshot task"
         }
     }
 }
@@ -49,7 +49,7 @@ final class ObservableAddConfigurations {
     var remotestorageislocal: Bool = false
     var selectedconfig: SynchronizeConfiguration?
     var localhome: String {
-        return Homepath().userHomeDirectoryPath ?? ""
+        Homepath().userHomeDirectoryPath ?? ""
     }
 
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
@@ -116,7 +116,7 @@ final class ObservableAddConfigurations {
 
     func deleteprofile(_ profile: String?) {
         guard confirmdeleteselectedprofile == true else { return }
-        if let profile = profile {
+        if let profile {
             guard profile != SharedReference.shared.defaultprofile else {
                 deletedefaultprofile = true
                 Task {
@@ -202,7 +202,7 @@ final class ObservableAddConfigurations {
             copy?.dateRun = nil
             copy?.hiddenID = existingmaxhiddenID + 1 + i
             copy?.id = UUID()
-            if let copy = copy {
+            if let copy {
                 copyandpasteconfigurations?.append(copy)
             }
         }

@@ -27,7 +27,7 @@ final class CommandProcess: PropogateError {
         // Process
         let task = Process()
         // If self.command != nil either alternativ path for rsync or other command than rsync to be executed
-        if let command = command {
+        if let command {
             task.launchPath = command
         }
         task.arguments = arguments
@@ -59,7 +59,7 @@ final class CommandProcess: PropogateError {
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink { [self] _ in
-                self.processtermination(self.outputprocess?.getOutput())
+                processtermination(outputprocess?.getOutput())
                 SharedReference.shared.process = nil
                 Logger.process.info("CommandProcess: process = nil and termination discovered")
                 // Release Combine subscribers

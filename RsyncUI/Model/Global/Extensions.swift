@@ -28,7 +28,7 @@ protocol Connected {
 @MainActor
 extension Connected {
     func connected(server: String?) -> Bool {
-        if let server = server {
+        if let server {
             let port = 22
             if server.isEmpty == false {
                 let tcpconnection = TCPconnections()

@@ -193,11 +193,11 @@ final class Numbers {
     private func formatresult(numberOfFiles: String?, bytesTotal: Double, seconds: Double) -> String {
         // Dont have numbers of file as input
         if numberOfFiles == nil {
-            return String(output?.count ?? 0) + " files : " +
+            String(output?.count ?? 0) + " files : " +
                 String(format: "%.2f", (bytesTotal / 1000) / 1000) +
                 " MB in " + String(format: "%.2f", seconds) + " seconds"
         } else {
-            return numberOfFiles! + " files : " +
+            numberOfFiles! + " files : " +
                 String(format: "%.2f", (bytesTotal / 1000) / 1000) +
                 " MB in " + String(format: "%.2f", seconds) + " seconds"
         }

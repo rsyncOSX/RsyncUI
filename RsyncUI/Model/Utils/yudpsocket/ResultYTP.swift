@@ -7,22 +7,22 @@ public enum ResultYTP {
     public var isSuccess: Bool {
         switch self {
         case .success:
-            return true
+            true
         case .failure:
-            return false
+            false
         }
     }
 
     public var isFailure: Bool {
-        return !isSuccess
+        !isSuccess
     }
 
     public var error: Error? {
         switch self {
         case .success:
-            return nil
+            nil
         case let .failure(error):
-            return error
+            error
         }
     }
 }

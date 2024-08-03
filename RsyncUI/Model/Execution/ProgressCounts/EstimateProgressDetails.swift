@@ -47,20 +47,20 @@ final class EstimateProgressDetails {
     }
 
     func executeanotherdryrun(_ profilename: String) -> Bool {
-        return estimatealltasksinprogress == false &&
+        estimatealltasksinprogress == false &&
             onetaskisestimated == true &&
             estimatedlist?.count != numberofconfigurations &&
             profile == profilename
     }
 
     func alltasksestimated(_ profilename: String) -> Bool {
-        return estimatealltasksinprogress == false &&
+        estimatealltasksinprogress == false &&
             estimatedlist?.count == numberofconfigurations &&
             profile == profilename
     }
 
     func getuuids() -> Set<UUID> {
-        return uuids
+        uuids
     }
 
     func appenduuid(_ id: UUID) {
@@ -97,7 +97,7 @@ final class EstimateProgressDetails {
     }
 
     func getestimatedlist() -> [RemoteDataNumbers]? {
-        return estimatedlist
+        estimatedlist
     }
 
     func confirmexecutetasks() -> Bool {

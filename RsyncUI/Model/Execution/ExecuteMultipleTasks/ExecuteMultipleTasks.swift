@@ -30,7 +30,7 @@ final class ExecuteMultipleTasks {
 
     private func prepareandstartexecutetasks(configurations: [SynchronizeConfiguration]?) {
         stackoftasktobeexecuted = [Int]()
-        if let configurations = configurations {
+        if let configurations {
             for i in 0 ..< configurations.count {
                 stackoftasktobeexecuted?.append(configurations[i].hiddenID)
             }

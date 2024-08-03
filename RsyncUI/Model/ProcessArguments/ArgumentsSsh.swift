@@ -67,7 +67,7 @@ final class ArgumentsSsh {
     }
 
     func getCommand() -> String? {
-        return "/usr/bin/ssh-keygen"
+        "/usr/bin/ssh-keygen"
     }
 
     init(remote: UniqueserversandLogins?, sshkeypathandidentityfile: String?) {

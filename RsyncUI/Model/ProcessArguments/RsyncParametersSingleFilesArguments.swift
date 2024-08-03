@@ -22,7 +22,7 @@ final class RsyncParametersSingleFilesArguments {
 
     // Set parameters for rsync
     private func arguments(remoteFile: String?, localCatalog: String?, drynrun: Bool?) {
-        if let config = config {
+        if let config {
             // Drop the two first characeters ("./") as result from the find . -name
             let remote_with_whitespace = String(remoteFile!.dropFirst(2))
             // Replace remote for white spaces
@@ -59,11 +59,11 @@ final class RsyncParametersSingleFilesArguments {
     }
 
     func getArguments() -> [String]? {
-        return args
+        args
     }
 
     init(config: SynchronizeConfiguration?, remoteFile: String?, localCatalog: String?, drynrun: Bool?) {
-        if let config = config {
+        if let config {
             self.config = config
             args = [String]()
             arguments(remoteFile: remoteFile, localCatalog: localCatalog, drynrun: drynrun)

@@ -127,7 +127,7 @@ struct SynchronizeConfiguration: Identifiable, Codable {
 
 extension SynchronizeConfiguration: Hashable, Equatable {
     static func == (lhs: SynchronizeConfiguration, rhs: SynchronizeConfiguration) -> Bool {
-        return lhs.localCatalog == rhs.localCatalog &&
+        lhs.localCatalog == rhs.localCatalog &&
             lhs.offsiteCatalog == rhs.offsiteCatalog &&
             lhs.offsiteUsername == rhs.offsiteUsername &&
             lhs.offsiteServer == rhs.offsiteServer &&

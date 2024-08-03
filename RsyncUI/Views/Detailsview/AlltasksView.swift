@@ -53,7 +53,7 @@ struct AlltasksView: View {
     }
 
     var data: [SynchronizeConfiguration] {
-        return Allprofilesandtasks().alltasks?.sorted(by: { conf1, conf2 in
+        Allprofilesandtasks().alltasks?.sorted(by: { conf1, conf2 in
             if let date1 = conf1.dateRun, let date2 = conf2.dateRun {
                 if date1.en_us_date_from_string() > date2.en_us_date_from_string() {
                     return true
@@ -66,6 +66,6 @@ struct AlltasksView: View {
     }
 
     func markconfig(_ seconds: Double) -> Bool {
-        return seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
+        seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 }

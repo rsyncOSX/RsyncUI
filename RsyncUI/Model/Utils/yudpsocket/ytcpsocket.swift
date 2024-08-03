@@ -69,7 +69,7 @@ open class TCPClient: Socket {
      * return success or fail with message
      */
     open func close() {
-        guard let fd = fd else { return }
+        guard let fd else { return }
 
         _ = c_ytcpsocket_close(fd)
         self.fd = nil
@@ -80,7 +80,7 @@ open class TCPClient: Socket {
      * return success or fail with message
      */
     open func send(data: [Byte]) -> ResultYTP {
-        guard let fd = fd else { return .failure(SocketError.connectionClosed) }
+        guard let fd else { return .failure(SocketError.connectionClosed) }
 
         let sendsize: Int32 = c_ytcpsocket_send(fd, buff: data, len: Int32(data.count))
         if Int(sendsize) == data.count {
@@ -95,7 +95,7 @@ open class TCPClient: Socket {
      * return success or fail with message
      */
     open func send(string: String) -> ResultYTP {
-        guard let fd = fd else { return .failure(SocketError.connectionClosed) }
+        guard let fd else { return .failure(SocketError.connectionClosed) }
 
         let sendsize = c_ytcpsocket_send(fd, buff: string, len: Int32(strlen(string)))
         if sendsize == Int32(strlen(string)) {
@@ -110,7 +110,7 @@ open class TCPClient: Socket {
      * send nsdata
      */
     open func send(data: Data) -> ResultYTP {
-        guard let fd = fd else { return .failure(SocketError.connectionClosed) }
+        guard let fd else { return .failure(SocketError.connectionClosed) }
 
         var buff = [Byte](repeating: 0x0, count: data.count)
         (data as NSData).getBytes(&buff, length: data.count)

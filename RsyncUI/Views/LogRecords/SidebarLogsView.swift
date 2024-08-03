@@ -19,7 +19,7 @@ struct SidebarLogsView: View {
     }
 
     var rsyncUIlogrecords: RsyncUIlogrecords {
-        return RsyncUIlogrecords(profile, validhiddenIDs)
+        RsyncUIlogrecords(profile, validhiddenIDs)
     }
 
     var validhiddenIDs: Set<Int> {

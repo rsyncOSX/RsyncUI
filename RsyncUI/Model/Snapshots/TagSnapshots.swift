@@ -90,11 +90,10 @@ final class TagSnapshots {
     typealias Keepallorlastdayinperiodfunc = (Date) -> Bool
 
     func keepallorlastdayinperiod(index: Int) -> Bool {
-        var check: Keepallorlastdayinperiodfunc?
-        if keepallselcteddayofweek {
-            check = isselectedDayinWeek
+        var check: Keepallorlastdayinperiodfunc? = if keepallselcteddayofweek {
+            isselectedDayinWeek
         } else {
-            check = islastSelectedDayinMonth
+            islastSelectedDayinMonth
         }
         if let datesnapshotstring = logrecordssnapshot?[index].dateExecuted {
             let month = datefromstring(datestringlocalized: datesnapshotstring).monthNameShort()
@@ -132,14 +131,14 @@ final class TagSnapshots {
 
     func islastSelectedDayinMonth(_ date: Date) -> Bool {
         if date.isSelectedDayofWeek(day: day), date.daymonth() > 24 {
-            return true
+            true
         } else {
-            return false
+            false
         }
     }
 
     func isselectedDayinWeek(_ date: Date) -> Bool {
-        return day.rawValue == date.getWeekday()
+        day.rawValue == date.getWeekday()
     }
 
     private func setweekdaytokeep(snapdayoffweek: String) {

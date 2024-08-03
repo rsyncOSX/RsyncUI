@@ -16,10 +16,10 @@ class WriteExportConfigurationsJSON: PropogateError {
     var exportpath: String?
 
     private func writeJSONToPersistentStore(jsonData: Data?) {
-        if let exportpath = exportpath {
+        if let exportpath {
             let exportconfigurationfileURL = URL(fileURLWithPath: exportpath)
 
-            if let jsonData = jsonData {
+            if let jsonData {
                 do {
                     try jsonData.write(to: exportconfigurationfileURL)
                     Logger.process.info("WriteExportConfigurationsJSON - \(exportpath, privacy: .public): write export configurations to permanent storage")

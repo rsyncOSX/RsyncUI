@@ -34,7 +34,7 @@ struct AboutView: View {
      }
      */
     var configpath: String {
-        return Homepath().fullpathmacserial ?? ""
+        Homepath().fullpathmacserial ?? ""
     }
 
     var body: some View {

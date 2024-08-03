@@ -31,7 +31,7 @@ final class SnapshotData {
     }
 
     func getsnapshotdata() -> [SnapshotLogRecords]? {
-        return logrecordssnapshot?.sorted(by: \.date, using: >)
+        logrecordssnapshot?.sorted(by: \.date, using: >)
     }
 }
 

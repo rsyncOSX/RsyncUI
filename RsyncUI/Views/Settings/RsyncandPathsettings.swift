@@ -75,7 +75,7 @@ struct RsyncandPathsettings: View {
                     }
                     .buttonStyle(ColorfulButtonStyle())
 
-                    if SharedReference.shared.settingsischanged && usersettings.ready { thumbsupgreen }
+                    if SharedReference.shared.settingsischanged, usersettings.ready { thumbsupgreen }
                     if configurationsarebackedup { thumbsupgreen }
                 }
 

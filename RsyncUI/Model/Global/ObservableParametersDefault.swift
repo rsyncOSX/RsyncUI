@@ -28,7 +28,7 @@ final class ObservableParametersDefault {
     var error: Error = Validatedpath.noerror
 
     func setvalues(_ config: SynchronizeConfiguration?) {
-        if let config = config {
+        if let config {
             configuration = config
             // --compress parameter3
             // --delete parameter4
@@ -80,7 +80,7 @@ final class ObservableParametersDefault {
 
     // Return the updated configuration
     func updatersyncparameters() -> SynchronizeConfiguration? {
-        if var configuration = configuration {
+        if var configuration {
             if sshport.isEmpty {
                 configuration.sshport = nil
             } else {

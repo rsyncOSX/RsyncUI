@@ -78,9 +78,9 @@ struct SnapshotListView: View {
 
     var logrecords: [SnapshotLogRecords] {
         if filterstring.isEmpty {
-            return snapshotdata.getsnapshotdata() ?? []
+            snapshotdata.getsnapshotdata() ?? []
         } else {
-            return snapshotdata.getsnapshotdata()?.filter { ($0.dateExecuted).contains(filterstring) ||
+            snapshotdata.getsnapshotdata()?.filter { ($0.dateExecuted).contains(filterstring) ||
                 ($0.period ?? "").contains(filterstring)
             } ?? []
         }

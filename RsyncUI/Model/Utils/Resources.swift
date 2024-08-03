@@ -25,11 +25,11 @@ struct Resources {
     func getResource(resource: ResourceType) -> String {
         switch resource {
         case .changelog:
-            return changelog
+            changelog
         case .documents:
-            return documents
+            documents
         case .urlJSON:
-            return urlJSON
+            urlJSON
         }
     }
 }

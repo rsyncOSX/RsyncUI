@@ -19,7 +19,7 @@ struct OutputRsyncVerifyView: View {
             if progress {
                 ProgressView()
             } else {
-                if let estimatedtask = estimatedtask {
+                if let estimatedtask {
                     DetailsView(estimatedtask: estimatedtask, outputfromrsync: outputfromrsync)
                 }
             }

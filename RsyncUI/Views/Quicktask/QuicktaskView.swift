@@ -283,6 +283,6 @@ final class ObservableRsyncOutput {
     }
 
     func getoutput() -> [String]? {
-        return output
+        output
     }
 }

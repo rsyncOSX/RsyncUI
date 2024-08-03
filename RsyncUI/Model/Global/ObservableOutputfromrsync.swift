@@ -55,7 +55,7 @@ enum OutputIsTruncated: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .istruncated:
-            return "Output from rsync was truncated"
+            "Output from rsync was truncated"
         }
     }
 }

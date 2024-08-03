@@ -20,9 +20,8 @@ class ComputeRsyncParameters {
     var linkdestparam: String?
 
     func setParameters1To6(config: SynchronizeConfiguration, dryRun _: Bool, forDisplay: Bool, verify: Bool) {
-        var parameter1: String?
-        if verify { parameter1 = "--checksum" } else
-        { parameter1 = config.parameter1 }
+        var parameter1: String? = if verify { "--checksum" } else
+        { config.parameter1 }
         let parameter2: String = config.parameter2
         let parameter3: String = config.parameter3
         let parameter4: String = config.parameter4
@@ -225,10 +224,10 @@ class ComputeRsyncParameters {
         offsiteUsername = config.offsiteUsername
         offsiteServer = config.offsiteServer
         if (offsiteServer ?? "").isEmpty == false {
-            if let offsiteUsername = offsiteUsername,
-               let offsiteServer = offsiteServer,
+            if let offsiteUsername,
+               let offsiteServer,
                // NB: offsiteCatalog
-               let offsiteCatalog = offsiteCatalog
+               let offsiteCatalog
             {
                 if config.rsyncdaemon != nil {
                     if config.rsyncdaemon == 1 {
@@ -249,10 +248,10 @@ class ComputeRsyncParameters {
         offsiteUsername = config.offsiteUsername
         offsiteServer = config.offsiteServer
         if (offsiteServer ?? "").isEmpty == false {
-            if let offsiteUsername = offsiteUsername,
-               let offsiteServer = offsiteServer,
+            if let offsiteUsername,
+               let offsiteServer,
                // NB: locaCatalog
-               let localCatalog = localCatalog
+               let localCatalog
             {
                 if config.rsyncdaemon != nil {
                     if config.rsyncdaemon == 1 {
@@ -273,10 +272,10 @@ class ComputeRsyncParameters {
         offsiteUsername = config.offsiteUsername
         offsiteServer = config.offsiteServer
         if (offsiteServer ?? "").isEmpty == false {
-            if let offsiteUsername = offsiteUsername,
-               let offsiteServer = offsiteServer,
+            if let offsiteUsername,
+               let offsiteServer,
                // NB: offsiteCatalog
-               let offsiteCatalog = offsiteCatalog
+               let offsiteCatalog
             {
                 if config.rsyncdaemon != nil {
                     if config.rsyncdaemon == 1 {

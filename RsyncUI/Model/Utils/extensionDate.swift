@@ -21,7 +21,7 @@ extension Date {
     }
 
     func isSelectedDayofWeek(day: NumDayofweek) -> Bool {
-        return getWeekday() == day.rawValue
+        getWeekday() == day.rawValue
     }
 
     func monthNameShort() -> String {
@@ -37,7 +37,7 @@ extension Date {
     }
 
     static func > (lhs: Date, rhs: Date) -> Bool {
-        return rhs.compare(lhs) == ComparisonResult.orderedAscending
+        rhs.compare(lhs) == ComparisonResult.orderedAscending
     }
 
     var ispreviousmont: Bool {

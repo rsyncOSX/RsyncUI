@@ -43,7 +43,7 @@ struct ExportView: View {
                     } else {
                         path = exportcatalog + "/" + filenameexport + ".json"
                     }
-                    guard exportcatalog.isEmpty == false && filenameexport.isEmpty == false else {
+                    guard exportcatalog.isEmpty == false, filenameexport.isEmpty == false else {
                         focusexport = false
                         return
                     }
@@ -80,9 +80,9 @@ struct ExportView: View {
 
     func selectedconfigurations() -> [SynchronizeConfiguration] {
         if selecteduuids.count > 0 {
-            return configurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.snapshot }
+            configurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.snapshot }
         } else {
-            return configurations.filter { $0.task != SharedReference.shared.snapshot }
+            configurations.filter { $0.task != SharedReference.shared.snapshot }
         }
     }
 }

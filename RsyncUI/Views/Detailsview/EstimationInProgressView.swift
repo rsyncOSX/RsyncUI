@@ -52,15 +52,13 @@ struct EstimationInProgressView: View {
             .onDisappear {
                 executeprogressdetails.estimatedlist = nil
                 executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
-                nodatatosynchronize = {
-                    if let data = estimateprogressdetails.getestimatedlist()?.filter({
-                        $0.datatosynchronize == true })
-                    {
-                        return data.isEmpty
-                    } else {
-                        return false
-                    }
-                }()
+                nodatatosynchronize = if let data = estimateprogressdetails.getestimatedlist()?.filter({
+                    $0.datatosynchronize == true })
+                {
+                    data.isEmpty
+                } else {
+                    false
+                }
             }
             .progressViewStyle(.circular)
     }

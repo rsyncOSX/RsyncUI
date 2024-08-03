@@ -19,7 +19,7 @@ struct SnapshotLogRecords: Identifiable {
 
 extension SnapshotLogRecords: Hashable, Equatable {
     static func == (lhs: SnapshotLogRecords, rhs: SnapshotLogRecords) -> Bool {
-        return lhs.dateExecuted == rhs.dateExecuted &&
+        lhs.dateExecuted == rhs.dateExecuted &&
             lhs.resultExecuted == rhs.resultExecuted &&
             lhs.snapshotCatalog == rhs.snapshotCatalog &&
             lhs.period == rhs.period &&

@@ -120,7 +120,7 @@ final class RsyncProcessNOFilehandler: PropogateError {
         self.arguments = arguments
         self.processtermination = processtermination
         outputprocess = OutputfromProcess()
-        if let config = config {
+        if let config {
             self.config = config
         }
     }

@@ -30,7 +30,7 @@ final class ReadConfigurationJSON {
         filenamedatastore.publisher
             .compactMap { filenamejson -> URL in
                 var filename = ""
-                if let profile = profile, let path = path.fullpathmacserial {
+                if let profile, let path = path.fullpathmacserial {
                     filename = path + "/" + profile + "/" + filenamejson
                 } else {
                     if let path = path.fullpathmacserial {

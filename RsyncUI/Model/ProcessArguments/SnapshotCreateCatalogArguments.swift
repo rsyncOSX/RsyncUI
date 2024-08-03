@@ -29,11 +29,11 @@ final class SnapshotCreateCatalogArguments {
     }
 
     func getArguments() -> [String]? {
-        return args
+        args
     }
 
     func getCommand() -> String? {
-        return command
+        command
     }
 
     init(config: SynchronizeConfiguration?) {

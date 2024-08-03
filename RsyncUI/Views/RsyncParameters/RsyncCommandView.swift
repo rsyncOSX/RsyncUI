@@ -38,11 +38,11 @@ struct RsyncCommandView: View {
     }
 
     var commandstring: String? {
-        if let config = config {
-            return RsyncCommandtoDisplay(display: selectedrsynccommand,
-                                         config: config).rsynccommand
+        if let config {
+            RsyncCommandtoDisplay(display: selectedrsynccommand,
+                                  config: config).rsynccommand
         } else {
-            return nil
+            nil
         }
     }
 }

@@ -90,7 +90,7 @@ extension ExecuteEstimatedTasksView {
         if selecteduuids.count > 0 {
             uuids = selecteduuids
         } else if executeprogressdetails.estimatedlist?.count ?? 0 > 0 {
-            let uuidcount = executeprogressdetails.estimatedlist?.compactMap { $0.id }
+            let uuidcount = executeprogressdetails.estimatedlist?.compactMap(\.id)
             uuids = Set<SynchronizeConfiguration.ID>()
             for i in 0 ..< (uuidcount?.count ?? 0) where
                 executeprogressdetails.estimatedlist?[i].datatosynchronize == true
@@ -103,7 +103,7 @@ extension ExecuteEstimatedTasksView {
             path.removeAll()
             return
         }
-        if let uuids = uuids {
+        if let uuids {
             if let configurations = rsyncUIdata.configurations {
                 multipletaskstate.updatestate(state: .execute)
                 ExecuteMultipleTasks(uuids: uuids,

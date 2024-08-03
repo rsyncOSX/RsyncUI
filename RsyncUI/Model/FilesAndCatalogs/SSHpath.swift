@@ -19,18 +19,18 @@ struct SSHpath: PropogateError {
     // Path to ssh keypath
     var sshkeypath: String? {
         if let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile {
-            return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).fullsshkeypath
+            Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).fullsshkeypath
         } else {
-            return NSHomeDirectory() + "/.ssh"
+            NSHomeDirectory() + "/.ssh"
         }
     }
 
     // Used when creating ssh keypath
     var onlysshkeypath: String? {
         if let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile {
-            return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).onlysshkeypath
+            Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).onlysshkeypath
         } else {
-            return NSHomeDirectory()
+            NSHomeDirectory()
         }
     }
 
@@ -38,9 +38,9 @@ struct SSHpath: PropogateError {
     // If default, only return defalt value
     var sshkeypathandidentityfile: String? {
         if let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile {
-            return Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).identityfile
+            Keypathidentityfile(sshkeypathandidentityfile: sshkeypathandidentityfile).identityfile
         } else {
-            return "id_rsa"
+            "id_rsa"
         }
     }
 
@@ -74,8 +74,8 @@ struct SSHpath: PropogateError {
     // If ssh catalog exists - bail out, no need to create
     func createsshkeyrootpath() {
         let fm = FileManager.default
-        if let onlysshkeypath = onlysshkeypath,
-           let userHomeDirectoryPath = userHomeDirectoryPath
+        if let onlysshkeypath,
+           let userHomeDirectoryPath
         {
             let sshkeypathString = userHomeDirectoryPath + "/." + onlysshkeypath
             guard fm.locationExists(at: sshkeypathString, kind: .folder) == false else {

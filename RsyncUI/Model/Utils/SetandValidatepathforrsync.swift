@@ -15,9 +15,9 @@ enum Validatedrsync: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .norsync:
-            return "No rsync in path"
+            "No rsync in path"
         case .noversion3inusrbin:
-            return "No ver3 of rsync in /usr/bin"
+            "No ver3 of rsync in /usr/bin"
         }
     }
 }
@@ -71,12 +71,12 @@ struct SetandValidatepathforrsync {
     func getpathforrsync() -> String {
         if SharedReference.shared.rsyncversion3 == true {
             if SharedReference.shared.macosarm {
-                return SharedReference.shared.localrsyncpath ?? SharedReference.shared.usrlocalbinarm
+                SharedReference.shared.localrsyncpath ?? SharedReference.shared.usrlocalbinarm
             } else {
-                return SharedReference.shared.localrsyncpath ?? SharedReference.shared.usrlocalbin
+                SharedReference.shared.localrsyncpath ?? SharedReference.shared.usrlocalbin
             }
         } else {
-            return SharedReference.shared.usrbin
+            SharedReference.shared.usrbin
         }
     }
 }

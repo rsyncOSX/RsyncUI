@@ -29,7 +29,7 @@ struct ShowSSHCopyKeysView: View {
     }
 
     var profilenames: Profilenames {
-        return Profilenames()
+        Profilenames()
     }
 
     var profilepicker: some View {
@@ -56,7 +56,7 @@ struct ShowSSHCopyKeysView: View {
 
     func getuniqueserversandlogins() -> [UniqueserversandLogins]? {
         var uniqueserversandlogins = [UniqueserversandLogins]()
-        if let configurations = configurations {
+        if let configurations {
             for i in 0 ..< configurations.count {
                 let config = configurations[i]
                 if config.offsiteUsername.isEmpty == false, config.offsiteServer.isEmpty == false {

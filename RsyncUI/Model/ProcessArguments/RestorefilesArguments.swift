@@ -18,14 +18,14 @@ final class RestorefilesArguments {
     private var arguments: [String]?
 
     func getArguments() -> [String]? {
-        return arguments
+        arguments
     }
 
     init(task: Enumrestorefiles, config: SynchronizeConfiguration?,
          remoteFile: String?, localCatalog: String?, drynrun: Bool?,
          snapshot _: Bool)
     {
-        if let config = config {
+        if let config {
             arguments = [String]()
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
             switch task {

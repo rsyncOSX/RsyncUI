@@ -71,15 +71,15 @@ struct SidebarSettingsRow: View {
     func systemimage(_ view: SideSettingsbaritems) -> String {
         switch view {
         case .rsync_and_path:
-            return "gear"
+            "gear"
         case .monitor_and_log:
-            return "network"
+            "network"
         case .ssh:
-            return "terminal"
+            "terminal"
         case .environment:
-            return "gear"
+            "gear"
         case .info:
-            return "info.circle.fill"
+            "info.circle.fill"
         }
     }
 }

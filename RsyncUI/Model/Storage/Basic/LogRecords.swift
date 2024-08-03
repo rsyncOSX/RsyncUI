@@ -13,7 +13,7 @@ struct Log: Identifiable, Codable {
     var dateExecuted: String?
     var resultExecuted: String?
     var date: Date {
-        return dateExecuted?.en_us_date_from_string() ?? Date()
+        dateExecuted?.en_us_date_from_string() ?? Date()
     }
 }
 
@@ -47,7 +47,7 @@ struct LogRecords: Identifiable, Codable {
 
 extension LogRecords: Hashable, Equatable {
     static func == (lhs: LogRecords, rhs: LogRecords) -> Bool {
-        return lhs.hiddenID == rhs.hiddenID &&
+        lhs.hiddenID == rhs.hiddenID &&
             lhs.dateStart == rhs.dateStart &&
             lhs.offsiteserver == rhs.offsiteserver
     }
@@ -61,7 +61,7 @@ extension LogRecords: Hashable, Equatable {
 
 extension Log: Hashable, Equatable {
     static func == (lhs: Log, rhs: Log) -> Bool {
-        return lhs.dateExecuted == rhs.dateExecuted &&
+        lhs.dateExecuted == rhs.dateExecuted &&
             lhs.resultExecuted == rhs.resultExecuted &&
             lhs.id == rhs.id
     }

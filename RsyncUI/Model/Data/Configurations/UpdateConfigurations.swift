@@ -108,7 +108,7 @@ final class UpdateConfigurations {
 
     // Write Copy and Paste tasks
     func writecopyandpastetask(_ copyandpastetasks: [SynchronizeConfiguration]?) {
-        if let copyandpastetasks = copyandpastetasks {
+        if let copyandpastetasks {
             for i in 0 ..< copyandpastetasks.count {
                 configurations?.append(copyandpastetasks[i])
             }

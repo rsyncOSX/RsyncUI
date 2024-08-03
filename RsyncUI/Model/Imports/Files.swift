@@ -28,7 +28,7 @@ public protocol Location: Equatable, CustomStringConvertible {
 
 public extension Location {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.storage.path == rhs.storage.path
+        lhs.storage.path == rhs.storage.path
     }
 
     var description: String {
@@ -38,17 +38,17 @@ public extension Location {
 
     /// The path of this location, relative to the root of the file system.
     var path: String {
-        return storage.path
+        storage.path
     }
 
     /// A URL representation of the location's `path`.
     var url: URL {
-        return URL(fileURLWithPath: path)
+        URL(fileURLWithPath: path)
     }
 
     /// The name of the location, including any `extension`.
     var name: String {
-        return url.pathComponents.last!
+        url.pathComponents.last!
     }
 
     /// The name of the location, excluding its `extension`.
@@ -67,7 +67,7 @@ public extension Location {
 
     /// The parent folder that this location is contained within.
     var parent: Folder? {
-        return storage.makeParentPath(for: path).flatMap {
+        storage.makeParentPath(for: path).flatMap {
             try? Folder(path: $0)
         }
     }
@@ -75,13 +75,13 @@ public extension Location {
     /// The date when the item at this location was created.
     /// Only returns `nil` in case the item has now been deleted.
     var creationDate: Date? {
-        return storage.attributes[.creationDate] as? Date
+        storage.attributes[.creationDate] as? Date
     }
 
     /// The date when the item at this location was last modified.
     /// Only returns `nil` in case the item has now been deleted.
     var modificationDate: Date? {
-        return storage.attributes[.modificationDate] as? Date
+        storage.attributes[.modificationDate] as? Date
     }
 
     /// Initialize an instance of an existing location at a given path.
@@ -115,7 +115,7 @@ public extension Location {
     ///   remain unmodified (default: `true`).
     /// - throws: `LocationError` if the item couldn't be renamed.
     func rename(to newName: String, keepExtension: Bool = true) throws {
-        guard let parent = parent else {
+        guard let parent else {
             throw LocationError(path: path, reason: .cannotRenameRoot)
         }
 
@@ -166,7 +166,7 @@ public extension Location {
     /// - parameter manager: The new file manager that should manage this location.
     /// - throws: `LocationError` if the change couldn't be completed.
     func managedBy(_ manager: FileManager) throws -> Self {
-        return try Self(storage: Storage(
+        try Self(storage: Storage(
             path: path,
             fileManager: manager
         ))
@@ -223,7 +223,7 @@ public final class Storage<LocationType: Location> {
 
 private extension Storage {
     var attributes: [FileAttributeKey: Any] {
-        return (try? fileManager.attributesOfItem(atPath: path)) ?? [:]
+        (try? fileManager.attributesOfItem(atPath: path)) ?? [:]
     }
 
     func makeParentPath(for path: String) -> String? {
@@ -270,7 +270,7 @@ private extension Storage {
 
 private extension Storage where LocationType == Folder {
     func makeChildSequence<T: Location>() -> Folder.ChildSequence<T> {
-        return Folder.ChildSequence(
+        Folder.ChildSequence(
             folder: Folder(storage: self),
             fileManager: fileManager,
             isRecursive: false,
@@ -353,7 +353,7 @@ public struct File: Location {
 
 public extension File {
     static var kind: LocationKind {
-        return .file
+        .file
     }
 
     /// Write a new set of binary data into the file, replacing its current contents.
@@ -477,7 +477,7 @@ public extension Folder {
         fileprivate var includeHidden: Bool
 
         public func makeIterator() -> ChildIterator<Child> {
-            return ChildIterator(
+            ChildIterator(
                 folder: folder,
                 fileManager: fileManager,
                 isRecursive: isRecursive,
@@ -543,7 +543,7 @@ public extension Folder {
                     storage: Storage(path: childPath, fileManager: fileManager)
                 ))
 
-                if let childFolder = childFolder {
+                if let childFolder {
                     let nested = ChildIterator(
                         folder: childFolder,
                         fileManager: fileManager,
@@ -569,7 +569,7 @@ public extension Folder {
 
 extension Folder.ChildSequence: CustomStringConvertible {
     public var description: String {
-        return lazy.map { $0.description }.joined(separator: "\n")
+        lazy.map(\.description).joined(separator: "\n")
     }
 }
 
@@ -593,13 +593,13 @@ public extension Folder.ChildSequence {
     /// Count the number of locations contained within this sequence.
     /// Complexity: `O(N)`.
     func count() -> Int {
-        return reduce(0) { count, _ in count + 1 }
+        reduce(0) { count, _ in count + 1 }
     }
 
     /// Gather the names of all of the locations contained within this sequence.
     /// Complexity: `O(N)`.
     func names() -> [String] {
-        return map { $0.name }
+        map(\.name)
     }
 
     /// Return the last location contained within this sequence.
@@ -649,65 +649,65 @@ public extension Folder.ChildSequence {
 
 public extension Folder {
     static var kind: LocationKind {
-        return .folder
+        .folder
     }
 
     /// The folder that the program is currently operating in.
     static var current: Folder {
-        return try! Folder(path: "")
+        try! Folder(path: "")
     }
 
     /// The root folder of the file system.
     static var root: Folder {
-        return try! Folder(path: "/")
+        try! Folder(path: "/")
     }
 
     /// The current user's Home folder.
     static var home: Folder {
-        return try! Folder(path: "~")
+        try! Folder(path: "~")
     }
 
     /// The system's temporary folder.
     static var temporary: Folder {
-        return try! Folder(path: NSTemporaryDirectory())
+        try! Folder(path: NSTemporaryDirectory())
     }
 
     /// A sequence containing all of this folder's subfolders. Initially
     /// non-recursive, use `recursive` on the returned sequence to change that.
     var subfolders: ChildSequence<Folder> {
-        return storage.makeChildSequence()
+        storage.makeChildSequence()
     }
 
     /// A sequence containing all of this folder's files. Initially
     /// non-recursive, use `recursive` on the returned sequence to change that.
     var files: ChildSequence<File> {
-        return storage.makeChildSequence()
+        storage.makeChildSequence()
     }
 
     /// Return a subfolder at a given path within this folder.
     /// - parameter path: A relative path within this folder.
     /// - throws: `LocationError` if the subfolder couldn't be found.
     func subfolder(at path: String) throws -> Folder {
-        return try storage.subfolder(at: path)
+        try storage.subfolder(at: path)
     }
 
     /// Return a subfolder with a given name.
     /// - parameter name: The name of the subfolder to return.
     /// - throws: `LocationError` if the subfolder couldn't be found.
     func subfolder(named name: String) throws -> Folder {
-        return try storage.subfolder(at: name)
+        try storage.subfolder(at: name)
     }
 
     /// Return whether this folder contains a subfolder at a given path.
     /// - parameter path: The relative path of the subfolder to look for.
     func containsSubfolder(at path: String) -> Bool {
-        return (try? subfolder(at: path)) != nil
+        (try? subfolder(at: path)) != nil
     }
 
     /// Return whether this folder contains a subfolder with a given name.
     /// - parameter name: The name of the subfolder to look for.
     func containsSubfolder(named name: String) -> Bool {
-        return (try? subfolder(named: name)) != nil
+        (try? subfolder(named: name)) != nil
     }
 
     /// Create a new subfolder at a given path within this folder. In case
@@ -718,7 +718,7 @@ public extension Folder {
     /// - throws: `WriteError` if the operation couldn't be completed.
     @discardableResult
     func createSubfolder(at path: String) throws -> Folder {
-        return try storage.createSubfolder(at: path)
+        try storage.createSubfolder(at: path)
     }
 
     /// Create a new subfolder with a given name. This method throws an error
@@ -727,7 +727,7 @@ public extension Folder {
     /// - throws: `WriteError` if the operation couldn't be completed.
     @discardableResult
     func createSubfolder(named name: String) throws -> Folder {
-        return try storage.createSubfolder(at: name)
+        try storage.createSubfolder(at: name)
     }
 
     /// Create a new subfolder at a given path within this folder. In case
@@ -738,7 +738,7 @@ public extension Folder {
     /// - throws: `WriteError` if a new folder couldn't be created.
     @discardableResult
     func createSubfolderIfNeeded(at path: String) throws -> Folder {
-        return try (try? subfolder(at: path)) ?? createSubfolder(at: path)
+        try (try? subfolder(at: path)) ?? createSubfolder(at: path)
     }
 
     /// Create a new subfolder with a given name. If a subfolder with the given
@@ -747,33 +747,33 @@ public extension Folder {
     /// - throws: `WriteError` if a new folder couldn't be created.
     @discardableResult
     func createSubfolderIfNeeded(withName name: String) throws -> Folder {
-        return try (try? subfolder(named: name)) ?? createSubfolder(named: name)
+        try (try? subfolder(named: name)) ?? createSubfolder(named: name)
     }
 
     /// Return a file at a given path within this folder.
     /// - parameter path: A relative path within this folder.
     /// - throws: `LocationError` if the file couldn't be found.
     func file(at path: String) throws -> File {
-        return try storage.file(at: path)
+        try storage.file(at: path)
     }
 
     /// Return a file within this folder with a given name.
     /// - parameter name: The name of the file to return.
     /// - throws: `LocationError` if the file couldn't be found.
     func file(named name: String) throws -> File {
-        return try storage.file(at: name)
+        try storage.file(at: name)
     }
 
     /// Return whether this folder contains a file at a given path.
     /// - parameter path: The relative path of the file to look for.
     func containsFile(at path: String) -> Bool {
-        return (try? file(at: path)) != nil
+        (try? file(at: path)) != nil
     }
 
     /// Return whether this folder contains a file with a given name.
     /// - parameter name: The name of the file to look for.
     func containsFile(named name: String) -> Bool {
-        return (try? file(named: name)) != nil
+        (try? file(named: name)) != nil
     }
 
     /// Create a new file at a given path within this folder. In case
@@ -785,7 +785,7 @@ public extension Folder {
     /// - throws: `WriteError` if the operation couldn't be completed.
     @discardableResult
     func createFile(at path: String, contents: Data? = nil) throws -> File {
-        return try storage.createFile(at: path, contents: contents)
+        try storage.createFile(at: path, contents: contents)
     }
 
     /// Create a new file with a given name. This method throws an error
@@ -795,7 +795,7 @@ public extension Folder {
     /// - throws: `WriteError` if the operation couldn't be completed.
     @discardableResult
     func createFile(named fileName: String, contents: Data? = nil) throws -> File {
-        return try storage.createFile(at: fileName, contents: contents)
+        try storage.createFile(at: fileName, contents: contents)
     }
 
     /// Create a new file at a given path within this folder. In case
@@ -810,7 +810,7 @@ public extension Folder {
     func createFileIfNeeded(at path: String,
                             contents: @autoclosure () -> Data? = nil) throws -> File
     {
-        return try (try? file(at: path)) ?? createFile(at: path, contents: contents())
+        try (try? file(at: path)) ?? createFile(at: path, contents: contents())
     }
 
     /// Create a new file with a given name. If a file with the given
@@ -823,15 +823,15 @@ public extension Folder {
     func createFileIfNeeded(withName name: String,
                             contents: @autoclosure () -> Data? = nil) throws -> File
     {
-        return try (try? file(named: name)) ?? createFile(named: name, contents: contents())
+        try (try? file(named: name)) ?? createFile(named: name, contents: contents())
     }
 
     /// Return whether this folder contains a given location as a direct child.
     /// - parameter location: The location to find.
     func contains<T: Location>(_ location: T) -> Bool {
         switch T.kind {
-        case .file: return containsFile(named: location.name)
-        case .folder: return containsSubfolder(named: location.name)
+        case .file: containsFile(named: location.name)
+        case .folder: containsSubfolder(named: location.name)
         }
     }
 
@@ -840,7 +840,7 @@ public extension Folder {
     /// - parameter includeHidden: Whether hidden files should be included (default: `false`).
     /// - throws: `LocationError` if the operation couldn't be completed.
     func moveContents(to folder: Folder, includeHidden: Bool = false) throws {
-        var files = self.files
+        var files = files
         files.includeHidden = includeHidden
         try files.move(to: folder)
 
@@ -853,7 +853,7 @@ public extension Folder {
     /// - parameter includeHidden: Whether hidden files should also be deleted (default: `false`).
     /// - throws: `LocationError` if the operation couldn't be completed.
     func empty(includingHidden includeHidden: Bool = false) throws {
-        var files = self.files
+        var files = files
         files.includeHidden = includeHidden
         try files.delete()
 
@@ -863,7 +863,7 @@ public extension Folder {
     }
 
     func isEmpty(includingHidden includeHidden: Bool = false) -> Bool {
-        var files = self.files
+        var files = files
         files.includeHidden = includeHidden
 
         if files.first != nil {
@@ -935,7 +935,7 @@ public struct FilesError<Reason>: @unchecked Sendable, Error {
 
 extension FilesError: CustomStringConvertible {
     public var description: String {
-        return """
+        """
         Files encountered an error at '\(path)'.
         Reason: \(reason)
         """
