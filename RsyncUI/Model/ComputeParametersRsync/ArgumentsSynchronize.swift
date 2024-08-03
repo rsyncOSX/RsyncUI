@@ -19,7 +19,7 @@ final class ArgumentsSynchronize: ComputeRsyncParameters {
             } else {
                 remoteargs(config: config)
             }
-            setParameters1To6(config: config, dryRun: dryRun, forDisplay: forDisplay, verify: false)
+            setParameters1To6(config: config, forDisplay: forDisplay, verify: false)
             setParameters8To14(config: config, dryRun: dryRun, forDisplay: forDisplay)
             switch config.task {
             case SharedReference.shared.synchronize:
