@@ -102,7 +102,7 @@ class ComputeRsyncParameters {
         }
         // Append --stats parameter to collect info about run
         if dryRun {
-            dryrunparameter(config: config, forDisplay: forDisplay)
+            dryrunparameter(forDisplay: forDisplay)
         } else {
             if stats == false {
                 appendParameter(parameter: "--stats", forDisplay: forDisplay)
@@ -198,7 +198,7 @@ class ComputeRsyncParameters {
         if forDisplay { arguments?.append(" ") }
     }
 
-    func dryrunparameter(config _: SynchronizeConfiguration, forDisplay: Bool) {
+    func dryrunparameter(forDisplay: Bool) {
         let dryrun = "--dry-run"
         arguments?.append(dryrun)
         if forDisplay { arguments?.append(" ") }
