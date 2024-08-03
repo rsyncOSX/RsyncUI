@@ -49,9 +49,9 @@ final class RsyncProcessFilehandler: PropogateError {
                 let data = outHandle.availableData
                 if data.count > 0 {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                        self.outputprocess?.addlinefromoutput(str: str as String)
+                        outputprocess?.addlinefromoutput(str: str as String)
                         // Send message about files
-                        self.filehandler(self.outputprocess?.getOutput()?.count ?? 0)
+                        filehandler(outputprocess?.getOutput()?.count ?? 0)
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
@@ -61,11 +61,11 @@ final class RsyncProcessFilehandler: PropogateError {
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink { [self] _ in
-                self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
+                processtermination(outputprocess?.getOutput(), config?.hiddenID)
                 // Logg to file
                 if arguments?.contains("--dry-run") == false,
                    arguments?.contains("--version") == false,
-                   let config = self.config
+                   let config
                 {
                     if SharedReference.shared.logtofile {
                         Logfile(command: config.backupID, data: TrimOutputFromRsync(outputprocess?.getOutput() ?? []).trimmeddata)

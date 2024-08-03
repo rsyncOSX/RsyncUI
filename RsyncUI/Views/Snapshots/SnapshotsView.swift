@@ -261,7 +261,7 @@ extension SnapshotsView {
     }
 
     func updateplansnapshot() {
-        if var selectedconfig = selectedconfig {
+        if var selectedconfig {
             guard selectedconfig.task == SharedReference.shared.snapshot else { return }
             switch snaplast {
             case PlanSnapshots.Last.rawValue:

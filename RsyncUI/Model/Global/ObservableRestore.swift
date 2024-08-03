@@ -61,7 +61,7 @@ final class ObservableRestore {
             let ok = try validateforrestore()
             if ok {
                 arguments = computerestorearguments(forDisplay: false)
-                if let arguments = arguments {
+                if let arguments {
                     restorefilesinprogress = true
                     let command = RsyncProcessNOFilehandler(arguments: arguments,
                                                             processtermination: processtermination)
@@ -90,9 +90,9 @@ final class ObservableRestore {
         // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
         // Restore arguments
         if config.offsiteCatalog.hasSuffix("/") {
-            return config.offsiteCatalog + filestorestore.dropFirst(2) // drop first "./"
+            config.offsiteCatalog + filestorestore.dropFirst(2) // drop first "./"
         } else {
-            return config.offsiteCatalog + "/" + filestorestore.dropFirst(2) // drop first "./"
+            config.offsiteCatalog + "/" + filestorestore.dropFirst(2) // drop first "./"
         }
     }
 
@@ -106,15 +106,15 @@ final class ObservableRestore {
         // Restore arguments
         if config.offsiteCatalog.hasSuffix("/") {
             if let snapshotnum = selectedconfig?.snapshotnum {
-                return config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2)
+                config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2)
             } else {
-                return ""
+                ""
             }
         } else {
             if let snapshotnum = selectedconfig?.snapshotnum {
-                return config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2) // drop first "./"
+                config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2) // drop first "./"
             } else {
-                return ""
+                ""
             }
         }
     }
@@ -156,9 +156,9 @@ enum RestoreError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidtaskforrestore:
-            return "Restore not allowed for syncremote task"
+            "Restore not allowed for syncremote task"
         case .notvalidrestore:
-            return "Either is path for restore or file to restore empty"
+            "Either is path for restore or file to restore empty"
         }
     }
 }

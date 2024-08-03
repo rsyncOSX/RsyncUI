@@ -30,7 +30,7 @@ final class ObservableParametersRsync {
     var error: Error = Validatedpath.noerror
 
     func setvalues(_ config: SynchronizeConfiguration?) {
-        if let config = config {
+        if let config {
             configuration = config
             parameter8 = configuration?.parameter8 ?? ""
             parameter9 = configuration?.parameter9 ?? ""
@@ -79,7 +79,7 @@ final class ObservableParametersRsync {
 
     // Return the updated configuration
     func updatersyncparameters() -> SynchronizeConfiguration? {
-        if var configuration = configuration {
+        if var configuration {
             if parameter8.isEmpty { configuration.parameter8 = nil } else { configuration.parameter8 = parameter8 }
             if parameter9.isEmpty { configuration.parameter9 = nil } else { configuration.parameter9 = parameter9 }
             if parameter10.isEmpty { configuration.parameter10 = nil } else { configuration.parameter10 = parameter10 }

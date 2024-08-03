@@ -18,7 +18,7 @@ final class AlertError {
     }
 
     var presentalert: Binding<Bool> {
-        return Binding<Bool>(
+        Binding<Bool>(
             get: { self.activeError != nil },
             set: { value in
                 guard !value else { return }

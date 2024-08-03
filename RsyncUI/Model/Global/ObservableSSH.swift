@@ -89,9 +89,9 @@ enum InputError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidDouble:
-            return "Not a valid number (Double)"
+            "Not a valid number (Double)"
         case .notvalidInt:
-            return "Not a valid number (Int)"
+            "Not a valid number (Int)"
         }
     }
 }

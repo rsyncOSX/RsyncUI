@@ -17,8 +17,8 @@ final class Backupconfigfiles: PropogateError {
 
     func backup() {
         let fm = FileManager.default
-        if let backuppath = backuppath,
-           let fullpathnomacserial = fullpathnomacserial
+        if let backuppath,
+           let fullpathnomacserial
         {
             let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
             let targetpath = "RsyncUIcopy-" + Date().shortlocalized_string_from_date()

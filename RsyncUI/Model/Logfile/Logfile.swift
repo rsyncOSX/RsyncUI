@@ -15,7 +15,7 @@ enum FilesizeError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .toobig:
-            return "Too big logfile"
+            "Too big logfile"
         }
     }
 }
@@ -27,7 +27,7 @@ final class Logfile {
     let path = Homepath()
 
     func getlogfile() -> [String] {
-        return preparedlogview
+        preparedlogview
     }
 
     func writeloggfile() {
@@ -160,7 +160,7 @@ final class Logfile {
     @discardableResult
     init(_ data: [String]?, error: Bool) {
         if error {
-            if let data = data {
+            if let data {
                 fulllogging(data)
             }
         }
@@ -168,7 +168,7 @@ final class Logfile {
 
     @discardableResult
     init(command: String, data: [String]?) {
-        if let data = data {
+        if let data {
             minimumloggingwithcommand(command: command, data: data)
         }
     }

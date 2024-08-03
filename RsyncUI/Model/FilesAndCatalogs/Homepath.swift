@@ -50,7 +50,7 @@ struct Homepath: PropogateError {
 
     func getfullpathmacserialcatalogsasstringnames() -> [String]? {
         let fm = FileManager.default
-        if let fullpathmacserial = fullpathmacserial {
+        if let fullpathmacserial {
             var array = [String]()
             array.append(SharedReference.shared.defaultprofile)
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -74,8 +74,8 @@ struct Homepath: PropogateError {
     func createrootprofilecatalog() {
         let fm = FileManager.default
         // First check if profilecatalog exists, if yes bail out
-        if let fullpathmacserial = fullpathmacserial,
-           let fullpathnomacserial = fullpathnomacserial
+        if let fullpathmacserial,
+           let fullpathnomacserial
         {
             guard fm.locationExists(at: fullpathmacserial, kind: .folder) == false else {
                 Logger.process.info("Homepath: root catalog exists")

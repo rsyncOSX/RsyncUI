@@ -112,9 +112,9 @@ enum Validatedpath: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .nopath:
-            return "No such path"
+            "No such path"
         case .noerror:
-            return ""
+            ""
         }
     }
 }

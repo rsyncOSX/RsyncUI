@@ -36,15 +36,14 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
                 let currendate = Date()
                 let date = currendate.en_us_string_from_date()
                 if let config = getconfig(hiddenID: hiddenID) {
-                    var resultannotaded: String?
-                    if config.task == SharedReference.shared.snapshot {
+                    var resultannotaded: String? = if config.task == SharedReference.shared.snapshot {
                         if let snapshotnum = config.snapshotnum {
-                            resultannotaded = "(" + String(snapshotnum - 1) + ") " + stats
+                            "(" + String(snapshotnum - 1) + ") " + stats
                         } else {
-                            resultannotaded = "(" + "1" + ") " + stats
+                            "(" + "1" + ") " + stats
                         }
                     } else {
-                        resultannotaded = stats
+                        stats
                     }
                     var inserted: Bool = addlogexisting(hiddenID: hiddenID,
                                                         result: resultannotaded ?? "",

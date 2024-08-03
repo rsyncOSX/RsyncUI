@@ -12,7 +12,7 @@ final class ArgumentsVerify: ComputeRsyncParameters {
     var config: SynchronizeConfiguration?
 
     func argumentsverify(forDisplay: Bool) -> [String]? {
-        if let config = config {
+        if let config {
             localCatalog = config.localCatalog
             remoteargs(config: config)
             setParameters1To6(config: config, dryRun: true, forDisplay: forDisplay, verify: true)

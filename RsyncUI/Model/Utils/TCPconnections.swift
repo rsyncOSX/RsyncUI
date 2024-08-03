@@ -15,9 +15,9 @@ enum Networkerror: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .networkdropped:
-            return "Network connection is dropped"
+            "Network connection is dropped"
         case .noconnection:
-            return "No connection to server"
+            "No connection to server"
         }
     }
 }

@@ -101,7 +101,7 @@ struct SidebarMainView: View {
     }
 
     var profilenames: Profilenames {
-        return Profilenames()
+        Profilenames()
     }
 }
 
@@ -116,19 +116,19 @@ struct SidebarRow: View {
     func systemimage(_ view: Sidebaritems) -> String {
         switch view {
         case .tasks:
-            return "text.badge.plus"
+            "text.badge.plus"
         case .log_listings:
-            return "text.alignleft"
+            "text.alignleft"
         case .rsync_parameters:
-            return "command.circle.fill"
+            "command.circle.fill"
         case .restore:
-            return "arrowshape.turn.up.forward"
+            "arrowshape.turn.up.forward"
         case .snapshots:
-            return "text.badge.plus"
+            "text.badge.plus"
         case .synchronize:
-            return "arrowshape.turn.up.backward"
+            "arrowshape.turn.up.backward"
         case .profiles:
-            return "arrow.triangle.branch"
+            "arrow.triangle.branch"
         }
     }
 }

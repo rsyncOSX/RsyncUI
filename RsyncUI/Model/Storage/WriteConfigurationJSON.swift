@@ -20,14 +20,14 @@ class WriteConfigurationJSON {
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            if let profile = profile {
+            if let profile {
                 let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
                 configurationfileURL = tempURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
 
             } else {
                 configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
             }
-            if let jsonData = jsonData, let configurationfileURL = configurationfileURL {
+            if let jsonData, let configurationfileURL {
                 do {
                     try jsonData.write(to: configurationfileURL)
                     let myprofile = profile

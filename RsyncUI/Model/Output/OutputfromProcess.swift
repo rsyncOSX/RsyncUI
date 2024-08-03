@@ -12,7 +12,7 @@ class OutputfromProcess {
     var startindex: Int?
 
     func getOutput() -> [String]? {
-        return output
+        output
     }
 
     func addlinefromoutput(str: String) {

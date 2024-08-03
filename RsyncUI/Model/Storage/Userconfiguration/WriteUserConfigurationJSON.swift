@@ -35,10 +35,10 @@ final class WriteUserConfigurationJSON: PropogateError {
     var subscriptons = Set<AnyCancellable>()
 
     private func writeJSONToPersistentStore(jsonData: Data?) {
-        if let fullpathmacserial = fullpathmacserial {
+        if let fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let usercongigfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.userconfigjson)
-            if let jsonData = jsonData {
+            if let jsonData {
                 do {
                     try jsonData.write(to: usercongigfileURL)
                 } catch let e {

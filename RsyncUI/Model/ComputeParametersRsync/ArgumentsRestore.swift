@@ -13,7 +13,7 @@ final class ArgumentsRestore: ComputeRsyncParameters {
     var restoresnapshotbyfiles: Bool = false
 
     func argumentsrestore(dryRun: Bool, forDisplay: Bool, tmprestore: Bool) -> [String]? {
-        if let config = config {
+        if let config {
             // Restore arguments
             localCatalog = config.localCatalog
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false

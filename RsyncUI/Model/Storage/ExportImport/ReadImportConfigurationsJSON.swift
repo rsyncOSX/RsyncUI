@@ -43,7 +43,7 @@ final class ReadImportConfigurationsJSON {
                     configuration.id = UUID()
                     configurations.append(configuration)
                 }
-                self.importconfigurations = configurations
+                importconfigurations = configurations
                 subscriptons.removeAll()
                 Logger.process.info("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): read import configurations from permanent storage")
             }.store(in: &subscriptons)

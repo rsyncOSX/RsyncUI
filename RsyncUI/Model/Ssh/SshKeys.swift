@@ -18,11 +18,11 @@ enum SshError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidpath:
-            return "SSH keypath is not valid"
+            "SSH keypath is not valid"
         case .sshkeys:
-            return "SSH RSA keys exist, cannot create"
+            "SSH RSA keys exist, cannot create"
         case .noslash:
-            return "SSH keypath must be like ~/.ssh_keypath/identityfile"
+            "SSH keypath must be like ~/.ssh_keypath/identityfile"
         }
     }
 }

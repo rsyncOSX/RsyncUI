@@ -74,17 +74,17 @@ struct ConfigurationsTableDataMainView: View {
 
     var visible_progress: Visibility {
         if max == 0 {
-            return .hidden
+            .hidden
         } else {
-            return .visible
+            .visible
         }
     }
 
     var visible_not_progress: Visibility {
         if max == 0 {
-            return .visible
+            .visible
         } else {
-            return .hidden
+            .hidden
         }
     }
 }

@@ -31,17 +31,17 @@ final class SnapshotDeleteCatalogsArguments {
 
     private func localarguments() {
         guard config != nil else { return }
-        let remotecatalog = self.remotecatalog!
+        let remotecatalog = remotecatalog!
         args?.append("-rf")
         args?.append(remotecatalog)
     }
 
     func getArguments() -> [String]? {
-        return args
+        args
     }
 
     func getCommand() -> String? {
-        return command
+        command
     }
 
     init(config: SynchronizeConfiguration, remotecatalog: String) {

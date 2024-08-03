@@ -425,13 +425,13 @@ struct AddTaskView: View {
     var selectpickervalue: TypeofTask {
         switch newdata.selectedconfig?.task {
         case SharedReference.shared.synchronize:
-            return .synchronize
+            .synchronize
         case SharedReference.shared.syncremote:
-            return .syncremote
+            .syncremote
         case SharedReference.shared.snapshot:
-            return .snapshot
+            .snapshot
         default:
-            return .synchronize
+            .synchronize
         }
     }
 

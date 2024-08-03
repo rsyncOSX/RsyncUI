@@ -22,7 +22,7 @@ final class ExecuteOneTask {
     }
 
     func startexecution() {
-        if let arguments = arguments {
+        if let arguments {
             let process = RsyncProcessFilehandler(arguments: arguments,
                                                   config: config,
                                                   processtermination: termination,
@@ -39,7 +39,7 @@ final class ExecuteOneTask {
         self.termination = termination
         self.filehandler = filehandler
         config = getconfig(hiddenID, configurations)
-        if let config = config {
+        if let config {
             arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
         }
     }
