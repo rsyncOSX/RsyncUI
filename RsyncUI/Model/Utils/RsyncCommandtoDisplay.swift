@@ -26,26 +26,18 @@ struct RsyncCommandtoDisplay {
          config: SynchronizeConfiguration)
     {
         var str = ""
-        str = GetfullpathforRsync().rsyncpath ?? ""
-        str += " "
         switch display {
         case .synchronize:
             if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: true) {
-                for i in 0 ..< arguments.count {
-                    str += arguments[i]
-                }
+                str = (GetfullpathforRsync().rsyncpath ?? "") + " " + arguments.joined()
             }
         case .restore:
             if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true, tmprestore: false) {
-                for i in 0 ..< arguments.count {
-                    str += arguments[i]
-                }
+                str = (GetfullpathforRsync().rsyncpath ?? "") + " " + arguments.joined()
             }
         case .verify:
             if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: true) {
-                for i in 0 ..< arguments.count {
-                    str += arguments[i]
-                }
+                str = (GetfullpathforRsync().rsyncpath ?? "") + " " + arguments.joined()
             }
         }
         rsynccommand = str
