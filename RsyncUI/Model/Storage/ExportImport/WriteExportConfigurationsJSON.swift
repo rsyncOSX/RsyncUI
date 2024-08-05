@@ -32,7 +32,8 @@ class WriteExportConfigurationsJSON: PropogateError {
     }
 
     @discardableResult
-    init(_: String?, _ configurations: [SynchronizeConfiguration]?) {
+    init(_ path: String?, _ configurations: [SynchronizeConfiguration]?) {
+        exportpath = path
         configurations.publisher
             .map { configurations -> [DecodeConfiguration] in
                 var data = [DecodeConfiguration]()
