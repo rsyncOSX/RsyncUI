@@ -51,7 +51,10 @@ class ComputeRsyncParameters {
             // either set global or local, parameter5 = remote server
             // ssh params only apply if remote server
             if parameter5.isEmpty == false {
-                if config.sshport != nil || config.sshkeypathandidentityfile != nil {
+                if let sshport = config.sshport, sshport != -1,
+                   let sshkeypathandidentityfile = config.sshkeypathandidentityfile,
+                   sshkeypathandidentityfile.isEmpty == false
+                {
                     sshparameterslocal(config: config, forDisplay: forDisplay)
                 } else if SharedReference.shared.sshkeypathandidentityfile != nil ||
                     SharedReference.shared.sshport != nil
