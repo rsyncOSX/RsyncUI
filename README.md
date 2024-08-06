@@ -22,6 +22,12 @@ The development of RsyncOSX commenced in *2015* as a private project to learn Sw
 | RsyncUI   | JSON  | about 11.7k | 150  | SwiftUI, declarativ     | v1.9.2 - [11 June 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  |
 | RsyncOSX  | JSON | about 11K | 121  | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 |
 
+#### RsyncUI, Xcode 16, Swift Package Manager and testing
+
+By Using Swift Package Manager (SPM), source code for e.g. creating parameters to `rsync` from configurations, are made as packages. The old code, the base for packages, is deleted and RsyncUI imports the new packages. By Xcode 16 there is also a new module, Swift Testing, for testing. By creating packages, by Swift Testing, important code is isolated and tested to verify it is working as expected. By SPM and Swift Testing, the code for RsyncUI is modularized, isolated, and tested before committing changes. One such package is [RsyncArguments](https://github.com/rsyncOSX/RsyncArguments).
+
+This is *work in progress*. I am learning every day and developing new code. There will be a new release sometime later in 2024 included the above changes.
+
 ### Important to verify new tasks
 
 The UI of RsyncUI and RsyncOSX can for users who dont know `rsync` be difficult and complex to understand. 
