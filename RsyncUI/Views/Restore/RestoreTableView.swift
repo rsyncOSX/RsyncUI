@@ -113,13 +113,14 @@ struct RestoreTableView: View {
             }
             .toolbar(content: {
                 ToolbarItem {
-                    Button {
-                        executerestore()
-                    } label: {
-                        Image(systemName: "return")
-                            .foregroundColor(Color(.blue))
+                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false {
+                        Button {
+                            getlistoffilesforrestore()
+                        } label: {
+                            Image(systemName: "square.and.arrow.down.fill")
+                        }
+                        .help("Get list of files for restore")
                     }
-                    .help("Restore files")
                 }
 
                 ToolbarItem {
@@ -130,11 +131,12 @@ struct RestoreTableView: View {
 
                 ToolbarItem {
                     Button {
-                        getlistoffilesforrestore()
+                        executerestore()
                     } label: {
-                        Image(systemName: "square.and.arrow.down.fill")
+                        Image(systemName: "return")
+                            .foregroundColor(Color(.blue))
                     }
-                    .help("Get list of files for restore")
+                    .help("Restore files")
                 }
 
                 ToolbarItem {
@@ -226,6 +228,7 @@ extension RestoreTableView {
     func getlistoffilesforrestore() {
         if let config = restore.selectedconfig {
             guard config.task != SharedReference.shared.syncremote else { return }
+            guard config.offsiteServer.isEmpty == false else { return }
             gettingfilelist = true
             getfilelist()
         }
