@@ -93,7 +93,7 @@ final class RsyncProcessNOFilehandler: PropogateError {
         if SharedReference.shared.monitornetworkconnection {
             Task {
                 var sshport = 22
-                if let port = config?.sshport {
+                if let port = config?.sshport, port != -1 {
                     sshport = port
                 } else if let port = SharedReference.shared.sshport {
                     sshport = port
