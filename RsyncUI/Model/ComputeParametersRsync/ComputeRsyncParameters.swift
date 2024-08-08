@@ -130,7 +130,7 @@ class ComputeRsyncParameters {
             sshkeypathandidentityfileadded = true
             if forDisplay { arguments?.append(" \"") }
             // Then check if ssh port is set also
-            if let sshport = config.sshport {
+            if let sshport = config.sshport, sshport != -1 {
                 sshportadded = true
                 // "ssh -i ~/sshkeypath/sshidentityfile -p portnumber"
                 arguments?.append("ssh -i " + sshkeypathandidentityfile + " " + "-p " + String(sshport))
@@ -174,7 +174,7 @@ class ComputeRsyncParameters {
             sshkeypathandidentityfileadded = true
             if forDisplay { arguments?.append(" \"") }
             // Then check if ssh port is set also
-            if let sshport = SharedReference.shared.sshport {
+            if let sshport = SharedReference.shared.sshport, sshport != -1 {
                 sshportadded = true
                 // "ssh -i ~/sshkeypath/sshidentityfile -p portnumber"
                 arguments?.append("ssh -i " + sshkeypathandidentityfile + " " + "-p " + String(sshport))

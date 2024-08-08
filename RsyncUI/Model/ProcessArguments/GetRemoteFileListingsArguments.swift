@@ -14,14 +14,14 @@ final class GetRemoteFileListingsArguments {
 
     private func remotearguments(recursive: Bool) {
         if let config {
-            if config.sshport != nil {
+            if let sshport = config.sshport, sshport != -1 {
                 let eparam = "-e"
                 let sshp = "ssh -p"
                 args?.append(eparam)
-                args?.append(sshp + String(config.sshport!))
+                args?.append(sshp + String(sshport))
             } else {
-                let eparam: String = "-e"
-                let ssh: String = "ssh"
+                let eparam = "-e"
+                let ssh = "ssh"
                 args?.append(eparam)
                 args?.append(ssh)
             }
@@ -40,14 +40,14 @@ final class GetRemoteFileListingsArguments {
 
     private func remoteargumentssnapshot(recursive: Bool) {
         if let config {
-            if config.sshport != nil {
+            if let sshport = config.sshport, sshport != -1 {
                 let eparam = "-e"
                 let sshp = "ssh -p"
                 args?.append(eparam)
-                args?.append(sshp + String(config.sshport!))
+                args?.append(sshp + String(sshport))
             } else {
-                let eparam: String = "-e"
-                let ssh: String = "ssh"
+                let eparam = "-e"
+                let ssh = "ssh"
                 args?.append(eparam)
                 args?.append(ssh)
             }
