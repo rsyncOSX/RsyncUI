@@ -65,6 +65,10 @@ struct RestoreTableView: View {
 
                     if gettingfilelist { ProgressView() }
                     if restore.restorefilesinprogress { ProgressView() }
+                    
+                    if restore.selectedconfig?.offsiteServer.isEmpty == true {
+                        notifymacOSFinder
+                    }
                 }
 
                 Spacer()
@@ -164,6 +168,17 @@ struct RestoreTableView: View {
             OutputRsyncView(output: restore.rsyncdata ?? [])
         }
         .padding()
+    }
+    
+    var notifymacOSFinder: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text("Use macOS Finder to restore files from attached discs.")
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 450, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 
     var labelaborttask: some View {
