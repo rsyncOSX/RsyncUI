@@ -30,14 +30,17 @@ final class EstimateTasks {
         let localhiddenID = stackoftasktobeestimated?.removeLast()
         guard localhiddenID != nil else { return }
         if let config = getconfig(localhiddenID ?? -1) {
-            let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .argdryRun)
-            guard arguments.count > 0 else { return }
-            // Used to display details of configuration in estimation
-            localestimateprogressdetails?.configurationtobestimated = config.id
-            let process = RsyncProcessNOFilehandler(arguments: arguments,
-                                                    config: config,
-                                                    processtermination: processtermination)
-            process.executeProcess()
+            if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+                                                                                         forDisplay: false)
+            {
+                guard arguments.count > 0 else { return }
+                // Used to display details of configuration in estimation
+                localestimateprogressdetails?.configurationtobestimated = config.id
+                let process = RsyncProcessNOFilehandler(arguments: arguments,
+                                                        config: config,
+                                                        processtermination: processtermination)
+                process.executeProcess()
+            }
         }
     }
 

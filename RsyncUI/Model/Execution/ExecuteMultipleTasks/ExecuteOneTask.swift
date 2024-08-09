@@ -40,7 +40,8 @@ final class ExecuteOneTask {
         self.filehandler = filehandler
         config = getconfig(hiddenID, configurations)
         if let config {
-            arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
+            arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
+                                                                                  forDisplay: false)
         }
     }
 }
