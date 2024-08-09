@@ -43,12 +43,15 @@ final class ExecuteTasksNOEstimation {
         }
         if let localhiddenID = stackoftasktobeestimated?.removeLast() {
             if let config = getconfig(localhiddenID) {
-                let arguments = Argumentsforrsync().argumentsforrsync(config: config, argtype: .arg)
-                guard arguments.count > 0 else { return }
-                let process = RsyncProcessNOFilehandler(arguments: arguments,
-                                                        config: config,
-                                                        processtermination: processtermination)
-                process.executeProcess()
+                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
+                                                                                             forDisplay: false)
+                {
+                    guard arguments.count > 0 else { return }
+                    let process = RsyncProcessNOFilehandler(arguments: arguments,
+                                                            config: config,
+                                                            processtermination: processtermination)
+                    process.executeProcess()
+                }
             }
         }
     }
