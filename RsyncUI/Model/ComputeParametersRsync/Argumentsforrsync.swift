@@ -14,15 +14,11 @@ struct Argumentsforrsync {
     func argumentsforrsync(config: SynchronizeConfiguration, argtype: ArgumentsRsync) -> [String] {
         switch argtype {
         case .arg:
-            return ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
-                                                                             forDisplay: false) ?? []
+            ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
+                                                                      forDisplay: false) ?? []
         case .argdryRun:
-            return ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
-                                                                             forDisplay: false) ?? []
-        case .argdryRunlocalcataloginfo:
-            guard config.task != SharedReference.shared.syncremote else { return [] }
-            return ArgumentsLocalcatalogInfo(config: config).argumentslocalcataloginfo(dryRun: true,
-                                                                                       forDisplay: false) ?? []
+            ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+                                                                      forDisplay: false) ?? []
         }
     }
 }
@@ -31,5 +27,4 @@ struct Argumentsforrsync {
 enum ArgumentsRsync {
     case arg
     case argdryRun
-    case argdryRunlocalcataloginfo
 }

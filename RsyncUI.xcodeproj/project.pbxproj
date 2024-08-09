@@ -97,7 +97,6 @@
 		E985C77225F3AD9700CB895C /* Logfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F425F3AD9700CB895C /* Logfile.swift */; };
 		E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */; };
 		E985C77425F3AD9700CB895C /* ComputeRsyncParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */; };
-		E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F825F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift */; };
 		E985C77625F3AD9700CB895C /* ArgumentsSynchronize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F925F3AD9700CB895C /* ArgumentsSynchronize.swift */; };
 		E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */; };
 		E985C77825F3AD9700CB895C /* GetRemoteFileListingsArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6FC25F3AD9700CB895C /* GetRemoteFileListingsArguments.swift */; };
@@ -279,7 +278,6 @@
 		E985C6F425F3AD9700CB895C /* Logfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logfile.swift; sourceTree = "<group>"; };
 		E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsVerify.swift; sourceTree = "<group>"; };
 		E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputeRsyncParameters.swift; sourceTree = "<group>"; };
-		E985C6F825F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsLocalcatalogInfo.swift; sourceTree = "<group>"; };
 		E985C6F925F3AD9700CB895C /* ArgumentsSynchronize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsSynchronize.swift; sourceTree = "<group>"; };
 		E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsRestore.swift; sourceTree = "<group>"; };
 		E985C6FC25F3AD9700CB895C /* GetRemoteFileListingsArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRemoteFileListingsArguments.swift; sourceTree = "<group>"; };
@@ -780,7 +778,6 @@
 			children = (
 				E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */,
 				E985C6F725F3AD9700CB895C /* ComputeRsyncParameters.swift */,
-				E985C6F825F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift */,
 				E985C6F925F3AD9700CB895C /* ArgumentsSynchronize.swift */,
 				E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */,
 				E91FDCA02A5173860087B4CE /* Argumentsforrsync.swift */,
@@ -1181,7 +1178,6 @@
 				E9A7F7142C0F6784001AC38F /* Logsettings.swift in Sources */,
 				E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */,
 				E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */,
-				E985C77525F3AD9700CB895C /* ArgumentsLocalcatalogInfo.swift in Sources */,
 				E985C77225F3AD9700CB895C /* Logfile.swift in Sources */,
 				E969669E2B49AEA90054E6C6 /* ExecuteAsyncNoEstimation.swift in Sources */,
 				E9C8E0CC2B2D9BB50083D1CC /* SidebarLogsView.swift in Sources */,
