@@ -65,7 +65,7 @@ struct RestoreTableView: View {
 
                     if gettingfilelist { ProgressView() }
                     if restore.restorefilesinprogress { ProgressView() }
-                    
+
                     if restore.selectedconfig?.offsiteServer.isEmpty == true {
                         notifymacOSFinder
                     }
@@ -169,7 +169,7 @@ struct RestoreTableView: View {
         }
         .padding()
     }
-    
+
     var notifymacOSFinder: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
