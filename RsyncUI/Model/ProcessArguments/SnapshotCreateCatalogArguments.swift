@@ -15,9 +15,9 @@ final class SnapshotCreateCatalogArguments {
 
     private func remotearguments() {
         var remotearg: String?
-        if config?.sshport != nil {
+        if let sshport = config?.sshport, sshport != -1 {
             args?.append("-p")
-            args?.append(String(config!.sshport!))
+            args?.append(String(sshport))
         }
         if (config?.offsiteServer.isEmpty ?? true) == false {
             remotearg = (config?.offsiteUsername ?? "") + "@" + (config?.offsiteServer ?? "")
