@@ -36,6 +36,7 @@ struct SnapshotsView: View {
                                          profile: rsyncUIdata.profile,
                                          configurations: rsyncUIdata.configurations ?? [])
                         .onChange(of: selectedconfiguuid) {
+                            guard SharedReference.shared.rsyncversion3 == true else { return }
                             if let configurations = rsyncUIdata.configurations {
                                 if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
                                     selectedconfig = configurations[index]

@@ -80,6 +80,12 @@ struct TasksView: View {
                 if let configurations = rsyncUIdata.configurations {
                     if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                         selectedconfig.config = configurations[index]
+                        // Must check if rsync version and snapshot
+                        if configurations[index].task == SharedReference.shared.snapshot,
+                           SharedReference.shared.rsyncversion3 == false
+                        {
+                            selecteduuids.removeAll()
+                        }
                     } else {
                         selectedconfig.config = nil
                     }
