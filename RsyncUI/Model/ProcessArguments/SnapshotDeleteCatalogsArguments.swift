@@ -17,9 +17,9 @@ final class SnapshotDeleteCatalogsArguments {
     private func remotearguments() {
         var remotearg: String?
         guard config != nil else { return }
-        if config?.sshport != nil {
+        if let sshport = config?.sshport, sshport != -1 {
             args?.append("-p")
-            args?.append(String(config!.sshport!))
+            args?.append(String(sshport))
         }
         if config?.offsiteServer.isEmpty == false {
             remotearg = (config?.offsiteUsername ?? "") + "@" + (config?.offsiteServer ?? "")
