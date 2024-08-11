@@ -122,6 +122,7 @@ struct TasksView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
+                    guard SharedReference.shared.norsync == false else { return }
                     path.append(Tasks(task: .estimatedview))
                 } label: {
                     Image(systemName: "wand.and.stars")
@@ -132,6 +133,7 @@ struct TasksView: View {
 
             ToolbarItem {
                 Button {
+                    guard SharedReference.shared.norsync == false else { return }
                     execute()
                 } label: {
                     Image(systemName: "arrowshape.turn.up.left.fill")
@@ -253,6 +255,7 @@ struct TasksView: View {
 
 extension TasksView {
     func doubleclickactionfunction() {
+        guard SharedReference.shared.norsync == false else { return }
         if estimateprogressdetails.getestimatedlist() == nil {
             dryrun()
         } else if estimateprogressdetails.onlyselectedtaskisestimated(selecteduuids) {

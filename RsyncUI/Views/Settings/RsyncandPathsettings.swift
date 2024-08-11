@@ -24,7 +24,14 @@ struct RsyncandPathsettings: View {
                         .onChange(of: usersettings.rsyncversion3) {
                             Task {
                                 try await Task.sleep(seconds: 2)
-                                SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
+                                if SharedReference.shared.norsync {
+                                    SharedReference.shared.localrsyncpath = nil
+                                    SharedReference.shared.rsyncversion3 = false
+                                    usersettings.localrsyncpath = ""
+                                } else {
+                                    SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
+                                    SharedReference.shared.localrsyncpath = nil
+                                }
                                 defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
                                 rsyncversion.getrsyncversion()
                             }
@@ -34,7 +41,6 @@ struct RsyncandPathsettings: View {
                                 try await Task.sleep(seconds: 2)
                                 SharedReference.shared.localrsyncpath = usersettings.localrsyncpath
                                 usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
-                                defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
                                 rsyncversion.getrsyncversion()
                             }
                         }

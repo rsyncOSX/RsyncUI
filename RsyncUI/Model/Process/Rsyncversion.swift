@@ -15,6 +15,7 @@ final class Rsyncversion {
             _ = try SetandValidatepathforrsync().validateandrsyncpath()
         } catch {
             SharedReference.shared.norsync = true
+            SharedReference.shared.rsyncversionshort = "No valid rsync deteced"
         }
         if SharedReference.shared.norsync == false {
             let command = RsyncProcessNOFilehandler(arguments: ["--version"],

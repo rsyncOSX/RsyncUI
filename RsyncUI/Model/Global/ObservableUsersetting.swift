@@ -52,6 +52,7 @@ final class ObservableUsersetting {
         do {
             _ = try validate.validateandrsyncpath()
         } catch let e {
+            SharedReference.shared.rsyncversionshort = "No valid rsync detected"
             error = e
             alerterror = true
         }
