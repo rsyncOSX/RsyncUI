@@ -11,6 +11,11 @@ import Observation
 @Observable @MainActor
 final class Rsyncversion {
     func getrsyncversion() {
+        do {
+            _ = try SetandValidatepathforrsync().validateandrsyncpath()
+        } catch {
+            SharedReference.shared.norsync = true
+        }
         if SharedReference.shared.norsync == false {
             let command = RsyncProcessNOFilehandler(arguments: ["--version"],
                                                     processtermination: processtermination)

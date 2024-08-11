@@ -22,9 +22,21 @@ struct RsyncandPathsettings: View {
                     ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""),
                                       $usersettings.rsyncversion3)
                         .onChange(of: usersettings.rsyncversion3) {
-                            SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
-                            rsyncversion.getrsyncversion()
-                            defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
+                            Task {
+                                try await Task.sleep(seconds: 2)
+                                SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
+                                defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
+                                rsyncversion.getrsyncversion()
+                            }
+                        }
+                        .onChange(of: usersettings.localrsyncpath) {
+                            Task {
+                                try await Task.sleep(seconds: 2)
+                                SharedReference.shared.localrsyncpath = usersettings.localrsyncpath
+                                usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
+                                defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
+                                rsyncversion.getrsyncversion()
+                            }
                         }
 
                     ToggleViewDefault(NSLocalizedString("Apple Silicon", comment: ""),
@@ -115,16 +127,10 @@ struct RsyncandPathsettings: View {
 
     var setrsyncpathlocalpath: some View {
         EditValue(400, nil, $usersettings.localrsyncpath)
-            .onAppear(perform: {
-                usersettings.localrsyncpath = SetandValidatepathforrsync().getpathforrsync()
-            })
     }
 
     var setrsyncpathdefault: some View {
         EditValue(400, defaultpathrsync, $usersettings.localrsyncpath)
-            .onChange(of: usersettings.localrsyncpath) {
-                usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
-            }
     }
 
     var setpathforrestore: some View {
