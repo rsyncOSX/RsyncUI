@@ -12,10 +12,7 @@ import Observation
 @Observable
 final class SharedReference {
     @MainActor static let shared = SharedReference()
-    private init() {
-        synctasks = Set<String>()
-        synctasks = [synchronize, snapshot, syncremote]
-    }
+    private init() {}
 
     var settingsischanged: Bool = false
 
@@ -125,7 +122,6 @@ final class SharedReference {
     let synchronize: String = "synchronize"
     let snapshot: String = "snapshot"
     let syncremote: String = "syncremote"
-    @ObservationIgnored var synctasks: Set<String>
     // rsync short version
     var rsyncversionshort: String?
     // filsize logfile warning

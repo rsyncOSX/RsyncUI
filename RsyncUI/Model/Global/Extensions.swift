@@ -52,14 +52,3 @@ extension PropogateError {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }
-
-// Enum which resource to return
-enum ResourceInConfiguration {
-    case remoteCatalog
-    case localCatalog
-    case offsiteServer
-    case task
-    case backupid
-    case offsiteusername
-    case sshport
-}
