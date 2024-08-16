@@ -27,7 +27,8 @@ final class TrimOutputForRestore: PropogateError {
                 let str = substr.components(separatedBy: " ").dropFirst(3).joined(separator: " ")
                 if str.isEmpty == false,
                    str.contains(".DS_Store") == false,
-                   str.contains("./.") == false
+                   str.contains("bytes") == false,
+                   str.contains("speedup") == false
                 {
                     trimmeddata.append("./" + str)
                 }

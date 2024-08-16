@@ -1,0 +1,24 @@
+{
+  "originHash" : "0efd9c8779032c34ea3a1643055f94896717f92f0ace0f471706750071f2c2e9",
+  "pins" : [
+    {
+      "identity" : "rsyncarguments",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rsyncOSX/RsyncArguments.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1f288b185637d3f93018a9ed77f4a5ede89d3181"
+      }
+    },
+    {
+      "identity" : "sshcreatekey",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rsyncOSX/SSHCreateKey.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "aad4b92cb22d9d718e3f120455e5eca2d42633c6"
+      }
+    }
+  ],
+  "version" : 3
+}

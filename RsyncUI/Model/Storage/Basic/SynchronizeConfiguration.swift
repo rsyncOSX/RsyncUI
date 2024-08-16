@@ -95,7 +95,7 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         parameter9 = data.parameter9
         rsyncdaemon = data.rsyncdaemon
         sshkeypathandidentityfile = data.sshkeypathandidentityfile
-        sshport = data.sshport
+        sshport = data.sshport ?? -1
         task = data.task ?? ""
         // For snapshots
         if let snapshotnum = data.snapshotnum {

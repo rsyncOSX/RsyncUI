@@ -29,15 +29,15 @@ struct RsyncCommandtoDisplay {
         switch display {
         case .synchronize:
             if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: true) {
-                str = (GetfullpathforRsync().rsyncpath ?? "") + " " + arguments.joined()
+                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
             }
         case .restore:
-            if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true, tmprestore: false) {
-                str = (GetfullpathforRsync().rsyncpath ?? "") + " " + arguments.joined()
+            if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true) {
+                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
             }
         case .verify:
             if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: true) {
-                str = (GetfullpathforRsync().rsyncpath ?? "") + " " + arguments.joined()
+                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
             }
         }
         rsynccommand = str

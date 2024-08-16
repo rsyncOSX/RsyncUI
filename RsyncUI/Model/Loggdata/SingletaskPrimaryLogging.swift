@@ -21,40 +21,34 @@ class SingletaskPrimaryLogging {
     }
 
     func addlogexisting(hiddenID: Int, result: String, date: String) -> Bool {
-        let configdata = GetConfigurationData(configurations: structconfigurations)
-        if SharedReference.shared.synctasks.contains(configdata.getconfigurationdata(hiddenID, resource: .task) ?? "") {
-            if let index = logrecords?.firstIndex(where: { $0.hiddenID == hiddenID }) {
-                var log = Log()
-                log.dateExecuted = date
-                log.resultExecuted = result
-                if logrecords?[index].logrecords == nil {
-                    logrecords?[index].logrecords = [Log]()
-                }
-                logrecords?[index].logrecords?.append(log)
-                Logger.process.info("SingletaskPrimaryLogging: added log existing task")
-                return true
-            }
-        }
-        return false
-    }
-
-    func addlognew(hiddenID: Int, result: String, date: String) -> Bool {
-        let configdata = GetConfigurationData(configurations: structconfigurations)
-        if SharedReference.shared.synctasks.contains(configdata.getconfigurationdata(hiddenID, resource: .task) ?? "") {
-            var newrecord = LogRecords()
-            newrecord.hiddenID = hiddenID
-            let currendate = Date()
-            newrecord.dateStart = currendate.en_us_string_from_date()
+        if let index = logrecords?.firstIndex(where: { $0.hiddenID == hiddenID }) {
             var log = Log()
             log.dateExecuted = date
             log.resultExecuted = result
-            newrecord.logrecords = [Log]()
-            newrecord.logrecords?.append(log)
-            logrecords?.append(newrecord)
-            Logger.process.info("SingletaskPrimaryLogging: added log new task")
+            if logrecords?[index].logrecords == nil {
+                logrecords?[index].logrecords = [Log]()
+            }
+            logrecords?[index].logrecords?.append(log)
+            Logger.process.info("SingletaskPrimaryLogging: added log existing task")
             return true
+        } else {
+            return false
         }
-        return false
+    }
+
+    func addlognew(hiddenID: Int, result: String, date: String) -> Bool {
+        var newrecord = LogRecords()
+        newrecord.hiddenID = hiddenID
+        let currendate = Date()
+        newrecord.dateStart = currendate.en_us_string_from_date()
+        var log = Log()
+        log.dateExecuted = date
+        log.resultExecuted = result
+        newrecord.logrecords = [Log]()
+        newrecord.logrecords?.append(log)
+        logrecords?.append(newrecord)
+        Logger.process.info("SingletaskPrimaryLogging: added log new task")
+        return true
     }
 
     func getconfig(hiddenID: Int) -> SynchronizeConfiguration? {

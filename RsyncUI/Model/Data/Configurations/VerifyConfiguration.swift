@@ -159,7 +159,7 @@ final class VerifyConfiguration: Connected, PropogateError {
     // Create remote snapshot catalog
     private func snapshotcreateremotecatalog(config: SynchronizeConfiguration) {
         guard config.offsiteServer.isEmpty == false else { return }
-        let args = SnapshotCreateCatalogArguments(config: config)
+        let args = ArgumentsSnapshotCreateCatalog(config: config)
         let updatecurrent = CommandProcess(command: args.getCommand(),
                                            arguments: args.getArguments(),
                                            processtermination: processtermination)
