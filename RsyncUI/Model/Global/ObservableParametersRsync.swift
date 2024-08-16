@@ -54,21 +54,21 @@ final class ObservableParametersRsync {
             if parameter12.isEmpty == false {
                 parameter12 = ""
             } else {
-                parameter12 = RsyncArguments().backupstrings[0]
+                parameter12 = ArgumentsRsyncUserSelect().backupstrings[0]
             }
             guard localcatalogparts.count > 2 else { return }
             if config.offsiteCatalog.contains("~") {
                 if parameter13.isEmpty == false {
                     parameter13 = ""
                 } else {
-                    parameter13 = RsyncArguments().backupstrings[1] + "_"
+                    parameter13 = ArgumentsRsyncUserSelect().backupstrings[1] + "_"
                         + localcatalogparts[localcatalogparts.count - 2]
                 }
             } else {
                 if parameter13.isEmpty == false {
                     parameter13 = ""
                 } else {
-                    parameter13 = RsyncArguments().backupstrings[2] + "_"
+                    parameter13 = ArgumentsRsyncUserSelect().backupstrings[2] + "_"
                         + localcatalogparts[localcatalogparts.count - 2]
                 }
             }

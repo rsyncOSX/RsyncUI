@@ -17,6 +17,8 @@ struct Sshsettings: View {
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
+    // Show keys are created
+    @State private var showsshkeyiscreated: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -36,7 +38,7 @@ struct Sshsettings: View {
                     setsshport
 
                 } header: {
-                    Text("SSH path and port")
+                    Text("SSH-keypath and SSH-port")
                 }
 
                 Section {
@@ -65,6 +67,8 @@ struct Sshsettings: View {
                 } header: {
                     Text("SSH keys")
                 }
+
+                if showsshkeyiscreated { sshkeyiscreated }
             }
             .formStyle(.grouped)
             .onAppear(perform: {
@@ -99,6 +103,23 @@ struct Sshsettings: View {
         Label("", systemImage: "hand.thumbsup")
             .foregroundColor(Color(.green))
             .padding()
+    }
+
+    var sshkeyiscreated: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+            Text("SSH key is created, see logfile")
+                .font(.title3)
+                .foregroundColor(Color.blue)
+        }
+        .frame(width: 300, height: 20, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        .onAppear(perform: {
+            Task {
+                try await Task.sleep(seconds: 3)
+                showsshkeyiscreated = false
+            }
+        })
     }
 
     var setsshpath: some View {
@@ -149,6 +170,7 @@ extension Sshsettings {
             Task {
                 try await Task.sleep(seconds: 1)
                 localsshkeys = SshKeys().validatepublickeypresent()
+                showsshkeyiscreated = true
             }
         }
     }

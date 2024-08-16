@@ -10,22 +10,26 @@ import Foundation
 
 @MainActor
 struct GetfullpathforRsync {
-    var rsyncpath: String?
-
-    init() {
+    func rsyncpath() -> String? {
+        guard SharedReference.shared.norsync == false else { return nil }
         if SharedReference.shared.rsyncversion3 {
-            if let localrsyncpath = SharedReference.shared.localrsyncpath {
-                // localrsyncpath is set with trailing "/"
-                rsyncpath = localrsyncpath + SharedReference.shared.rsync
+            if let localrsyncpath = SharedReference.shared.localrsyncpath,
+               localrsyncpath.isEmpty == false
+            {
+                if localrsyncpath.hasPrefix("/") {
+                    return localrsyncpath + SharedReference.shared.rsync
+                } else {
+                    return localrsyncpath + "/" + SharedReference.shared.rsync
+                }
             } else {
                 if SharedReference.shared.macosarm {
-                    rsyncpath = SharedReference.shared.usrlocalbinarm + "/" + SharedReference.shared.rsync
+                    return SharedReference.shared.usrlocalbinarm + "/" + SharedReference.shared.rsync
                 } else {
-                    rsyncpath = SharedReference.shared.usrlocalbin + "/" + SharedReference.shared.rsync
+                    return SharedReference.shared.usrlocalbin + "/" + SharedReference.shared.rsync
                 }
             }
         } else {
-            rsyncpath = SharedReference.shared.usrbin + "/" + SharedReference.shared.rsync
+            return SharedReference.shared.usrbin + "/" + SharedReference.shared.rsync
         }
     }
 }

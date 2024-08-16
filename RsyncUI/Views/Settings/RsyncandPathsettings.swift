@@ -1,10 +1,3 @@
-//
-//  RsyncandPathsettings.swift
-//  RsyncSwiftUI
-//
-//  Created by Thomas Evensen on 10/02/2021.
-//
-
 import OSLog
 import SwiftUI
 

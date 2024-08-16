@@ -39,10 +39,11 @@ struct RestoreTableView: View {
                                     if configurations[index].task == SharedReference.shared.snapshot {
                                         getsnapshotlogsandcatalogs()
                                     }
+                                    restore.datalist.removeAll()
                                 } else {
                                     restore.selectedconfig = nil
                                     restore.filestorestore = ""
-                                    restore.datalist = []
+                                    restore.datalist.removeAll()
                                     snapshotdata.catalogsanddates.removeAll()
                                     filterstring = ""
                                     restore.rsyncdata = nil
@@ -273,20 +274,10 @@ extension RestoreTableView {
                     // config stores next to use snapshotnum and the comnpute
                     // arguments for restore reduce the snapshotnum by 1
                     tempconfig.snapshotnum = snapshotnum + 1
-                    arguments = RestorefilesArguments(task: .rsyncfilelistings,
-                                                      config: tempconfig,
-                                                      remoteFile: nil,
-                                                      localCatalog: nil,
-                                                      drynrun: nil,
-                                                      snapshot: snapshot).getArguments()
+                    arguments = ArgumentsRemoteFileList(config: tempconfig, filelisttask: .rsyncfilelistings).remotefilelistarguments()
                 }
             } else {
-                arguments = RestorefilesArguments(task: .rsyncfilelistings,
-                                                  config: config,
-                                                  remoteFile: nil,
-                                                  localCatalog: nil,
-                                                  drynrun: nil,
-                                                  snapshot: snapshot).getArguments()
+                arguments = ArgumentsRemoteFileList(config: config, filelisttask: .rsyncfilelistings).remotefilelistarguments()
             }
             guard arguments?.isEmpty == false else { return }
             let command = RsyncProcessNOFilehandler(arguments: arguments,

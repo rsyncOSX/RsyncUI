@@ -12,6 +12,8 @@ struct ShowSSHCopyKeysView: View {
     @State private var selectedprofile: String?
     @State private var configurations: [SynchronizeConfiguration]?
 
+    @State private var expandText = false
+
     var body: some View {
         VStack(alignment: .center) {
             profilepicker
@@ -23,8 +25,11 @@ struct ShowSSHCopyKeysView: View {
                 }
             }
             .frame(width: 250, height: 50)
+            .onChange(of: selectedprofile) {
+                selectedlogin = nil
+            }
 
-            strings
+            if selectedlogin != nil { strings }
         }
     }
 
@@ -48,8 +53,8 @@ struct ShowSSHCopyKeysView: View {
     // Copy strings
     var strings: some View {
         VStack(alignment: .leading) {
-            Text("Copy public SSH key:\n" + SshKeys().copylocalpubrsakeyfile(remote: selectedlogin))
-            Text("Test SSH connection:\n" + SshKeys().verifyremotekey(remote: selectedlogin))
+            Text("Copy public SSH key:\n" + SshKeys().copylocalpubrsakeyfile(selectedlogin))
+            Text("Test SSH connection:\n" + SshKeys().verifyremotekey(selectedlogin))
         }
         .textSelection(.enabled)
     }

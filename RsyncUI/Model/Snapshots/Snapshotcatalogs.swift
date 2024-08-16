@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 19/09/2023.
 //
+// swiftlint: disable line_length
 
 import Foundation
 import OSLog
@@ -14,13 +15,8 @@ class Snapshotcatalogs {
     var catalogsanddates: [Catalogsanddates]?
 
     func getremotecataloginfo(_ config: SynchronizeConfiguration) {
-        let arguments = RestorefilesArguments(task: .snapshotcatalogsonly,
-                                              config: config,
-                                              remoteFile: nil,
-                                              localCatalog: nil,
-                                              drynrun: nil,
-                                              snapshot: true)
-        let command = RsyncProcessNOFilehandler(arguments: arguments.getArguments(),
+        let arguments = ArgumentsRemoteFileList(config: config, filelisttask: .snapshotcatalogsonly).remotefilelistarguments()
+        let command = RsyncProcessNOFilehandler(arguments: arguments,
                                                 processtermination: processtermination)
         command.executeProcess()
     }
@@ -32,7 +28,11 @@ class Snapshotcatalogs {
         let data = PrepareOutput(data ?? [])
         if data.splitlines { data.alignsplitlines() }
         var catalogs = TrimOutputForRestore(data.trimmeddata).trimmeddata
+        // A few more cleanups after rimming dats
         // drop index where row = "./."
+        if let index = catalogs.firstIndex(where: { $0 == "./done" }) {
+            catalogs.remove(at: index)
+        }
         if let index = catalogs.firstIndex(where: { $0 == "./." }) {
             catalogs.remove(at: index)
         }
@@ -59,3 +59,5 @@ class Snapshotcatalogs {
         mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
     }
 }
+
+// swiftlint: enable line_length
