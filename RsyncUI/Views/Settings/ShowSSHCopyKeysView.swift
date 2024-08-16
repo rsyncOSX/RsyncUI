@@ -12,8 +12,6 @@ struct ShowSSHCopyKeysView: View {
     @State private var selectedprofile: String?
     @State private var configurations: [SynchronizeConfiguration]?
 
-    @State private var expandText = false
-
     var body: some View {
         VStack(alignment: .center) {
             profilepicker
