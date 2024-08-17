@@ -45,3 +45,36 @@ struct ToggleViewDefault: View {
         mybinding = binding
     }
 }
+
+struct MessageView: View {
+    private var dismissafter: Double
+    private var mytext: String
+    private var width: CGFloat
+
+    @State private var showtext: Bool = true
+
+    var body: some View {
+        if showtext {
+            ZStack {
+                RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+                Text(mytext)
+                    .font(.title3)
+                    .foregroundColor(Color.blue)
+            }
+            .frame(width: width, height: 20, alignment: .center)
+            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+            .onAppear(perform: {
+                Task {
+                    try await Task.sleep(seconds: dismissafter)
+                    showtext = false
+                }
+            })
+        }
+    }
+
+    init(dismissafter: Double, mytext: String, width: CGFloat) {
+        self.dismissafter = dismissafter
+        self.mytext = mytext
+        self.width = width
+    }
+}

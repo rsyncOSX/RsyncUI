@@ -68,7 +68,7 @@ struct Sshsettings: View {
                     Text("SSH keys")
                 }
 
-                if showsshkeyiscreated { sshkeyiscreated }
+                if showsshkeyiscreated { MessageView(dismissafter: 3, mytext: "SSH key is created, see logfile.", width: 300) }
             }
             .formStyle(.grouped)
             .onAppear(perform: {
@@ -103,23 +103,6 @@ struct Sshsettings: View {
         Label("", systemImage: "hand.thumbsup")
             .foregroundColor(Color(.green))
             .padding()
-    }
-
-    var sshkeyiscreated: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("SSH key is created, see logfile")
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 300, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-        .onAppear(perform: {
-            Task {
-                try await Task.sleep(seconds: 3)
-                showsshkeyiscreated = false
-            }
-        })
     }
 
     var setsshpath: some View {
