@@ -7,7 +7,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncArguments.git",
       "state" : {
         "branch" : "main",
-        "revision" : "1f288b185637d3f93018a9ed77f4a5ede89d3181"
+        "revision" : "258fc45c41f34fc96f1242dfb28ddea9e52d507d"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/rsyncOSX/SSHCreateKey.git",
       "state" : {
         "branch" : "main",
-        "revision" : "aad4b92cb22d9d718e3f120455e5eca2d42633c6"
+        "revision" : "8a6e2d5a2f5cde73b0252ae0197dfecea253109a"
       }
     }
   ],
