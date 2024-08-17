@@ -54,8 +54,8 @@ struct ShowSSHCopyKeysView: View {
     // Copy strings
     var strings: some View {
         VStack(alignment: .leading) {
-            Text("Copy public SSH key:\n" + SshKeys().copylocalpubrsakeyfile(selectedlogin))
-            Text("Test SSH connection:\n" + SshKeys().verifyremotekey(selectedlogin))
+            Text(SshKeys().copylocalpubrsakeyfile(selectedlogin))
+            Text(SshKeys().verifyremotekey(selectedlogin))
         }
         .textSelection(.enabled)
     }
