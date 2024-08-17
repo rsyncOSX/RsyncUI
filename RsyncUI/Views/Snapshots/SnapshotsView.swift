@@ -50,11 +50,11 @@ struct SnapshotsView: View {
                         }
 
                     if snapshotdata.inprogressofdelete == true { progressdelete }
-                    if notsnapshot == true { notasnapshottask }
+                    if notsnapshot == true { MessageView(dismissafter: 2, mytext: "Not a snapshot task", width: 200) }
                     if snapshotdata.snapshotlist { ProgressView() }
 
                     if SharedReference.shared.rsyncversion3 == false, notsnapshot == false {
-                        notifyNOrsyncver3
+                        MessageView(dismissafter: 3, mytext: "Only rsync version 3.x supports snapshots.", width: 450)
                     }
                 }
 
@@ -123,28 +123,6 @@ struct SnapshotsView: View {
             Text("There is ^[\(snapshotdata.logrecordssnapshot?.count ?? 0) snapshot](inflect: true)")
             Text("Marked ^[\(snapshotdata.snapshotuuidsfordelete.count) snapshot](inflect: true) for delete")
         }
-    }
-
-    var notasnapshottask: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Not a snapshot task")
-                .font(.title3)
-                .foregroundColor(Color.accentColor)
-        }
-        .frame(width: 200, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-    }
-
-    var notifyNOrsyncver3: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("Only rsync version 3.x supports snapshots.")
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 450, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
     }
 
     var pickersnapdayoffweek: some View {
