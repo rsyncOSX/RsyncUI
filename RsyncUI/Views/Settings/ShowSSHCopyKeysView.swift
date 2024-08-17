@@ -15,6 +15,7 @@ struct ShowSSHCopyKeysView: View {
     var body: some View {
         VStack(alignment: .center) {
             profilepicker
+                .padding()
 
             List(selection: $selectedlogin) {
                 ForEach(getuniqueserversandlogins() ?? []) { record in
@@ -22,13 +23,15 @@ struct ShowSSHCopyKeysView: View {
                         .tag(record)
                 }
             }
-            .frame(width: 250, height: 50)
             .onChange(of: selectedprofile) {
                 selectedlogin = nil
             }
 
-            if selectedlogin != nil { strings }
+            if selectedlogin != nil { strings } else {
+                Text("Select a profile, then user and server")
+            }
         }
+        .padding()
     }
 
     var profilenames: Profilenames {
