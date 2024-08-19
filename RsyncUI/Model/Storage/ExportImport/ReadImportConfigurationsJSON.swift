@@ -6,47 +6,43 @@
 //
 // swiftlint:disable line_length
 
-import Combine
+import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
 @MainActor
-final class ReadImportConfigurationsJSON {
+final class ReadImportConfigurationsJSON: PropogateError {
     var importconfigurations: [SynchronizeConfiguration]?
-    var filenamedatastore = [String]()
-    var subscriptons = Set<AnyCancellable>()
+    var maxhiddenID: Int = -1
 
-    init(_ filenameimport: String, maxhiddenid: Int) {
-        filenamedatastore.append(filenameimport)
-        filenamedatastore.publisher
-            .compactMap { filenamejson -> URL in
-                return URL(fileURLWithPath: filenamejson)
-            }
-            .tryMap { url -> Data in
-                try Data(contentsOf: url)
-            }
-            .decode(type: [DecodeConfiguration].self, decoder: JSONDecoder())
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    return
-                case .failure:
-                    return
+    private func importjsonfile(_ filenameimport: String) {
+        let decodeimport = DecodeGeneric()
+        do {
+            if let importeddata = try
+                decodeimport.decodearraydatafileURL(DecodeConfiguration.self, fromwhere: filenameimport)
+            {
+                var importconfigurations = [SynchronizeConfiguration]()
+                for i in 0 ..< importeddata.count {
+                    var element = SynchronizeConfiguration(importeddata[i])
+                    element.hiddenID = maxhiddenID + 1 + i
+                    element.dateRun = nil
+                    element.backupID = "IMPORT: " + (importeddata[i].backupID ?? "")
+                    element.id = UUID()
+                    importconfigurations.append(element)
                 }
-            } receiveValue: { [unowned self] data in
-                var configurations = [SynchronizeConfiguration]()
-                for i in 0 ..< data.count {
-                    var configuration = SynchronizeConfiguration(data[i])
-                    configuration.hiddenID = maxhiddenid + 1 + i
-                    configuration.dateRun = nil
-                    configuration.backupID = "IMPORT: " + (data[i].backupID ?? "")
-                    configuration.id = UUID()
-                    configurations.append(configuration)
-                }
-                importconfigurations = configurations
-                subscriptons.removeAll()
+                self.importconfigurations = importconfigurations
                 Logger.process.info("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): read import configurations from permanent storage")
-            }.store(in: &subscriptons)
+            }
+
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
+        }
+    }
+
+    init(_ filenameimport: String, maxhiddenId: Int) {
+        maxhiddenID = maxhiddenId
+        importjsonfile(filenameimport)
     }
 }
 
