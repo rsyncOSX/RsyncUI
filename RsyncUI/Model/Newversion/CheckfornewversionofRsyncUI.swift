@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 07/12/2022.
 //
 
+import DecodeEncodeGeneric
 import Foundation
 import Observation
 import OSLog
@@ -25,20 +26,6 @@ struct VersionsofRsyncUI: Codable {
     }
 }
 
-struct GetversionsofRsyncUI {
-    let urlSession = URLSession.shared
-    let jsonDecoder = JSONDecoder()
-
-    func getversionsofrsyncuibyurl() async throws -> [VersionsofRsyncUI]? {
-        if let url = URL(string: Resources().getResource(resource: .urlJSON)) {
-            let (data, _) = try await urlSession.getData(for: url)
-            return try jsonDecoder.decode([VersionsofRsyncUI].self, from: data)
-        } else {
-            return nil
-        }
-    }
-}
-
 @Observable @MainActor
 final class CheckfornewversionofRsyncUI {
     var notifynewversion: Bool = false
@@ -53,8 +40,11 @@ final class CheckfornewversionofRsyncUI {
 
     func getversionsofrsyncui() async {
         do {
-            let versions = GetversionsofRsyncUI()
-            if let versionsofrsyncui = try await versions.getversionsofrsyncuibyurl() {
+            let versions = DecodeGeneric()
+            if let versionsofrsyncui =
+                try await versions.decodearraydata(VersionsofRsyncUI.self,
+                                                   fromwhere: Resources().getResource(resource: .urlJSON))
+            {
                 Logger.process.info("CheckfornewversionofRsyncUI: \(versionsofrsyncui, privacy: .public)")
                 let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
                 let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
@@ -70,15 +60,5 @@ final class CheckfornewversionofRsyncUI {
             Logger.process.warning("CheckfornewversionofRsyncUI: loading data failed)")
             notifynewversion = false
         }
-    }
-}
-
-public extension URLSession {
-    func getData(for request: URLRequest) async throws -> (Data, URLResponse) {
-        try await data(for: request)
-    }
-
-    func getData(for url: URL) async throws -> (Data, URLResponse) {
-        try await data(from: url)
     }
 }

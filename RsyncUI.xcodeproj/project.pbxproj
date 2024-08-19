@@ -36,6 +36,7 @@
 		E9569EAD27B80C220038799C /* DecodeUserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EAC27B80C220038799C /* DecodeUserConfiguration.swift */; };
 		E956D3782B0C88B9008B190F /* RestoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956D3772B0C88B9008B190F /* RestoreTableView.swift */; };
 		E95BD4632C29A9AA00E1C175 /* Homepath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BD4622C29A9AA00E1C175 /* Homepath.swift */; };
+		E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */; };
 		E95DD7F428EC738B007654BC /* RsyncProcessNOFilehandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95DD7F328EC738B007654BC /* RsyncProcessNOFilehandler.swift */; };
 		E95EDC7F26063CAA000018DE /* EditRsyncParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */; };
 		E95EDC8A26063EAA000018DE /* ObservableParametersRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95EDC8926063EAA000018DE /* ObservableParametersRsync.swift */; };
@@ -334,6 +335,7 @@
 			files = (
 				E987648D2ADAD938001B4B7E /* Metal.framework in Frameworks */,
 				E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */,
+				E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */,
 				E911E85E2C6BCD9D00152CD6 /* SSHCreateKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -923,6 +925,7 @@
 			packageProductDependencies = (
 				E9BAB99C2C60A611008A1707 /* RsyncArguments */,
 				E911E85D2C6BCD9D00152CD6 /* SSHCreateKey */,
+				E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */,
 			);
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
@@ -1000,6 +1003,7 @@
 			packageReferences = (
 				E9BAB99B2C60A611008A1707 /* XCRemoteSwiftPackageReference "RsyncArguments" */,
 				E911E85C2C6BCD9D00152CD6 /* XCRemoteSwiftPackageReference "SSHCreateKey" */,
+				E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */,
 			);
 			productRefGroup = E985C5C425F3AC0700CB895C /* Products */;
 			projectDirPath = "";
@@ -1568,6 +1572,14 @@
 				kind = branch;
 			};
 		};
+		E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rsyncOSX/DecodeEncodeGeneric.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		E9BAB99B2C60A611008A1707 /* XCRemoteSwiftPackageReference "RsyncArguments" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncArguments.git";
@@ -1583,6 +1595,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E911E85C2C6BCD9D00152CD6 /* XCRemoteSwiftPackageReference "SSHCreateKey" */;
 			productName = SSHCreateKey;
+		};
+		E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */;
+			productName = DecodeEncodeGeneric;
 		};
 		E9BAB99C2C60A611008A1707 /* RsyncArguments */ = {
 			isa = XCSwiftPackageProductDependency;
