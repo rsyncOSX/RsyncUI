@@ -71,7 +71,9 @@ struct ImportView: View {
         .frame(minWidth: 600, minHeight: 500)
         .onChange(of: filenameimport) {
             guard filenameimport.isEmpty == false else { return }
-            if let importconfigurations = ReadImportConfigurationsJSON(filenameimport, maxhiddenid: maxhiddenID).importconfigurations {
+            if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
+                                                                       maxhiddenId: maxhiddenID).importconfigurations
+            {
                 configurations = importconfigurations
             }
         }
