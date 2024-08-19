@@ -1,6 +1,15 @@
 {
-  "originHash" : "0efd9c8779032c34ea3a1643055f94896717f92f0ace0f471706750071f2c2e9",
+  "originHash" : "f53f57514286d5e475e5e64aa9a850680fd7b3580681f88a87bc5c5b0ac303db",
   "pins" : [
+    {
+      "identity" : "decodeencodegeneric",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rsyncOSX/DecodeEncodeGeneric.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "0f75dfb76cdc45f437bdbc0f3768fbe5142acf15"
+      }
+    },
     {
       "identity" : "rsyncarguments",
       "kind" : "remoteSourceControl",
