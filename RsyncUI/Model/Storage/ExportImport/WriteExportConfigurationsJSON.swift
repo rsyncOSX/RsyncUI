@@ -6,13 +6,12 @@
 //
 // swiftlint:disable line_length
 
-import Combine
+import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
 @MainActor
 class WriteExportConfigurationsJSON: PropogateError {
-    var subscriptons = Set<AnyCancellable>()
     var exportpath: String?
 
     private func writeJSONToPersistentStore(jsonData: Data?) {
@@ -31,30 +30,24 @@ class WriteExportConfigurationsJSON: PropogateError {
         }
     }
 
+    private func encodeJSONData(_ configurations: [SynchronizeConfiguration]) {
+        let encodejsondata = EncodeGeneric()
+        do {
+            if let encodeddata = try encodejsondata.encodedata(data: configurations) {
+                writeJSONToPersistentStore(jsonData: encodeddata)
+            }
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
+        }
+    }
+
     @discardableResult
     init(_ path: String?, _ configurations: [SynchronizeConfiguration]?) {
         exportpath = path
-        configurations.publisher
-            .map { configurations -> [DecodeConfiguration] in
-                var data = [DecodeConfiguration]()
-                for i in 0 ..< configurations.count {
-                    data.append(DecodeConfiguration(configurations[i]))
-                }
-                return data
-            }
-            .encode(encoder: JSONEncoder())
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    return
-                case let .failure(error):
-                    self.propogateerror(error: error)
-                }
-            }, receiveValue: { [unowned self] result in
-                writeJSONToPersistentStore(jsonData: result)
-                subscriptons.removeAll()
-            })
-            .store(in: &subscriptons)
+        if let configurations {
+            encodeJSONData(configurations)
+        }
     }
 }
 
