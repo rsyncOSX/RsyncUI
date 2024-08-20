@@ -14,14 +14,14 @@ final class ReadUserConfigurationJSON: PropogateError {
     let path = Homepath()
 
     func readuserconfiguration() {
-        let decodeimport = DecodeGeneric()
+        let decodeuserconfiguration = DecodeGeneric()
         var userconfigurationfile = ""
         if let path = path.fullpathmacserial {
             userconfigurationfile = path + "/" + SharedReference.shared.userconfigjson
         }
         do {
             if let importeddata = try
-                decodeimport.decodestringdatafileURL(DecodeUserConfiguration.self, fromwhere: userconfigurationfile)
+                decodeuserconfiguration.decodestringdatafileURL(DecodeUserConfiguration.self, fromwhere: userconfigurationfile)
             {
                 UserConfiguration(importeddata)
                 Logger.process.info("ReadUserConfigurationJSON: Reading user configurations from permanent storage")
