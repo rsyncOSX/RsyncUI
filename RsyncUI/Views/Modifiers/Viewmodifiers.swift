@@ -61,8 +61,8 @@ struct MessageView: View {
                     .font(.title3)
                     .foregroundColor(Color.blue)
             }
-            .frame(width: width, height: 20, alignment: .center)
-            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+            .frame(width: width, height: 50, alignment: .center)
+            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4))
             .onAppear(perform: {
                 Task {
                     try await Task.sleep(seconds: dismissafter)
