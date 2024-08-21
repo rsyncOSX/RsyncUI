@@ -6,16 +6,38 @@
 //
 // swiftlint:disable line_length
 
-import Combine
+import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
 @MainActor
-final class ReadConfigurationJSON {
+final class ReadConfigurationJSON: PropogateError {
     var configurations: [SynchronizeConfiguration]?
-    var filenamedatastore = [SharedReference.shared.fileconfigurationsjson]
-    var subscriptons = Set<AnyCancellable>()
     let path = Homepath()
+
+    private func importjsonfile(_ filenamedatastore: String, profile: String?) {
+        let decodeimport = DecodeGeneric()
+        do {
+            if let data = try
+                decodeimport.decodearraydatafileURL(DecodeConfiguration.self, fromwhere: filenamedatastore)
+            {
+                var configurations = [SynchronizeConfiguration]()
+                for i in 0 ..< data.count {
+                    var configuration = SynchronizeConfiguration(data[i])
+                    configuration.profile = profile
+                    configurations.append(configuration)
+                }
+                self.configurations = configurations
+                Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
+            } else {
+                createdefaultfilelogrecords(profile)
+            }
+
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
+        }
+    }
 
     private func createdefaultfilelogrecords(_ profile: String?) {
         var defaultlogrecords = [LogRecords()]
@@ -27,40 +49,15 @@ final class ReadConfigurationJSON {
     }
 
     init(_ profile: String?) {
-        filenamedatastore.publisher
-            .compactMap { filenamejson -> URL in
-                var filename = ""
-                if let profile, let path = path.fullpathmacserial {
-                    filename = path + "/" + profile + "/" + filenamejson
-                } else {
-                    if let path = path.fullpathmacserial {
-                        filename = path + "/" + filenamejson
-                    }
-                }
-                return URL(fileURLWithPath: filename)
+        var filename = ""
+        if let profile, let path = path.fullpathmacserial {
+            filename = path + "/" + profile + "/" + SharedReference.shared.fileconfigurationsjson
+        } else {
+            if let path = path.fullpathmacserial {
+                filename = path + "/" + SharedReference.shared.fileconfigurationsjson
             }
-            .tryMap { url -> Data in
-                try Data(contentsOf: url)
-            }
-            .decode(type: [DecodeConfiguration].self, decoder: JSONDecoder())
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    return
-                case .failure:
-                    self.createdefaultfilelogrecords(profile)
-                }
-            } receiveValue: { [unowned self] data in
-                var configurations = [SynchronizeConfiguration]()
-                for i in 0 ..< data.count {
-                    var configuration = SynchronizeConfiguration(data[i])
-                    configuration.profile = profile
-                    configurations.append(configuration)
-                }
-                self.configurations = configurations
-                subscriptons.removeAll()
-                Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
-            }.store(in: &subscriptons)
+        }
+        importjsonfile(filename, profile: profile)
     }
 }
 
