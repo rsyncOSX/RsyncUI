@@ -6,44 +6,24 @@
 //
 // swiftlint:disable line_length
 
-import Combine
+import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
 @MainActor
-final class ReadLogRecordsJSON {
+final class ReadLogRecordsJSON: PropogateError {
     var logrecords: [LogRecords]?
-    // var logs: [Log]?
-    var filenamedatastore = [SharedReference.shared.filenamelogrecordsjson]
-    var subscriptons = Set<AnyCancellable>()
     let path = Homepath()
 
-    init(_ profile: String?, _ validhiddenID: Set<Int>) {
-        filenamedatastore.publisher
-            .compactMap { filenamejson -> URL in
-                var filename = ""
-                if let profile, let path = path.fullpathmacserial {
-                    filename = path + "/" + profile + "/" + filenamejson
-                } else {
-                    if let path = path.fullpathmacserial {
-                        filename = path + "/" + filenamejson
-                    }
-                }
-                return URL(fileURLWithPath: filename)
-            }
-            .tryMap { url -> Data in
-                try Data(contentsOf: url)
-            }
-            .decode(type: [DecodeLogRecords].self, decoder: JSONDecoder())
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    return
-                case .failure:
-                    Logger.process.warning("ReadLogRecordsJSON: something is wrong, could not read logdata from permanent storage")
-                    return
-                }
-            } receiveValue: { [unowned self] data in
+    private func importjsonfile(_ filenamedatastore: String,
+                                profile _: String?,
+                                validhiddenID: Set<Int>)
+    {
+        let decodeimport = DecodeGeneric()
+        do {
+            if let data = try
+                decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filenamedatastore)
+            {
                 logrecords = [LogRecords]()
                 for i in 0 ..< data.count {
                     let onerecords = LogRecords(data[i])
@@ -52,8 +32,26 @@ final class ReadLogRecordsJSON {
                     }
                 }
                 Logger.process.info("ReadLogRecordsJSON: read logrecords from permanent storage")
-                subscriptons.removeAll()
-            }.store(in: &subscriptons)
+            }
+
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
+        }
+    }
+
+    init(_ profile: String?, _ validhiddenID: Set<Int>) {
+        var filename = ""
+        if let profile, let path = path.fullpathmacserial {
+            filename = path + "/" + profile + "/" + SharedReference.shared.filenamelogrecordsjson
+        } else {
+            if let path = path.fullpathmacserial {
+                filename = path + "/" + SharedReference.shared.filenamelogrecordsjson
+            }
+        }
+        importjsonfile(filename,
+                       profile: profile,
+                       validhiddenID: validhiddenID)
     }
 }
 
