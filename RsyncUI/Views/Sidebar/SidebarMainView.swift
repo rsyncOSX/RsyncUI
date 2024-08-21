@@ -63,6 +63,8 @@ struct SidebarMainView: View {
             if let configurations = rsyncUIdata.configurations {
                 SidebarLogsView(configurations: configurations,
                                 profile: rsyncUIdata.profile)
+            } else {
+                MessageView(dismissafter: 3, mytext: "There are no log records yet.", width: 450)
             }
         case .rsync_parameters:
             RsyncParametersView(rsyncUIdata: rsyncUIdata)
@@ -71,6 +73,8 @@ struct SidebarMainView: View {
                 if let configurations = rsyncUIdata.configurations {
                     RestoreTableView(profile: $rsyncUIdata.profile,
                                      configurations: configurations)
+                } else {
+                    MessageView(dismissafter: 3, mytext: "There are no configurations yet.", width: 450)
                 }
             }
         case .snapshots:
