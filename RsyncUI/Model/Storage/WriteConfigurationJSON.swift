@@ -6,17 +6,16 @@
 //
 // swiftlint:disable line_length
 
-import Combine
+import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
 @MainActor
-class WriteConfigurationJSON {
-    var subscriptons = Set<AnyCancellable>()
+class WriteConfigurationJSON: PropogateError {
     var profile: String?
-    let path = Homepath()
 
     private func writeJSONToPersistentStore(jsonData: Data?) {
+        let path = Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -40,8 +39,18 @@ class WriteConfigurationJSON {
         }
     }
 
-    // We have to remove UUID and computed properties ahead of writing JSON file
-    // done in the .map operator
+    private func encodeJSONData(_ configurations: [SynchronizeConfiguration]) {
+        let encodejsondata = EncodeGeneric()
+        do {
+            if let encodeddata = try encodejsondata.encodedata(data: configurations) {
+                writeJSONToPersistentStore(jsonData: encodeddata)
+            }
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
+        }
+    }
+
     @discardableResult
     init(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) {
         if profile == SharedReference.shared.defaultprofile {
@@ -49,27 +58,9 @@ class WriteConfigurationJSON {
         } else {
             self.profile = profile
         }
-        configurations.publisher
-            .map { configurations -> [DecodeConfiguration] in
-                var data = [DecodeConfiguration]()
-                for i in 0 ..< configurations.count {
-                    data.append(DecodeConfiguration(configurations[i]))
-                }
-                return data
-            }
-            .encode(encoder: JSONEncoder())
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    return
-                case let .failure(error):
-                    self.path.propogateerror(error: error)
-                }
-            }, receiveValue: { [unowned self] result in
-                writeJSONToPersistentStore(jsonData: result)
-                subscriptons.removeAll()
-            })
-            .store(in: &subscriptons)
+        if let configurations {
+            encodeJSONData(configurations)
+        }
     }
 }
 
