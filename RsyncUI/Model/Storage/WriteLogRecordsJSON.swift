@@ -6,17 +6,16 @@
 //
 // swiftlint:disable line_length
 
-import Combine
+import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
 @MainActor
-final class WriteLogRecordsJSON {
+final class WriteLogRecordsJSON: PropogateError {
     var profile: String?
-    var subscriptons = Set<AnyCancellable>()
-    let path = Homepath()
 
     private func writeJSONToPersistentStore(jsonData: Data?) {
+        let path = Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
             var logrecordfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -39,6 +38,18 @@ final class WriteLogRecordsJSON {
         }
     }
 
+    private func encodeJSONData(_ logrecords: [LogRecords]) {
+        let encodejsondata = EncodeGeneric()
+        do {
+            if let encodeddata = try encodejsondata.encodedata(data: logrecords) {
+                writeJSONToPersistentStore(jsonData: encodeddata)
+            }
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
+        }
+    }
+
     // We have to remove UUID and computed properties ahead of writing JSON file
     // done in the .map operator
     @discardableResult
@@ -48,27 +59,9 @@ final class WriteLogRecordsJSON {
         } else {
             self.profile = profile
         }
-        logrecords.publisher
-            .map { logrecords -> [DecodeLogRecords] in
-                var data = [DecodeLogRecords]()
-                for i in 0 ..< logrecords.count {
-                    data.append(DecodeLogRecords(logrecords[i]))
-                }
-                return data
-            }
-            .encode(encoder: JSONEncoder())
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    return
-                case let .failure(error):
-                    self.path.propogateerror(error: error)
-                }
-            }, receiveValue: { [unowned self] result in
-                writeJSONToPersistentStore(jsonData: result)
-                subscriptons.removeAll()
-            })
-            .store(in: &subscriptons)
+        if let logrecords {
+            encodeJSONData(logrecords)
+        }
     }
 }
 
