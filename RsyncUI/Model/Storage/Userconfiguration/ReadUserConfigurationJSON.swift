@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
+// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -33,3 +34,5 @@ final class ReadUserConfigurationJSON: PropogateError {
         }
     }
 }
+
+// swiftlint:enable line_length
