@@ -97,35 +97,4 @@ struct DecodeConfiguration: Codable {
         snaplast = try values.decodeIfPresent(Int.self, forKey: .snaplast)
         snapshotnum = try values.decodeIfPresent(Int.self, forKey: .snapshotnum)
     }
-
-    // This init is used in WriteConfigurationJSON
-    init(_ data: SynchronizeConfiguration) {
-        backupID = data.backupID
-        dateRun = data.dateRun
-        hiddenID = data.hiddenID
-        localCatalog = data.localCatalog
-        offsiteCatalog = data.offsiteCatalog
-        offsiteServer = data.offsiteServer
-        offsiteUsername = data.offsiteUsername
-        parameter1 = data.parameter1
-        parameter10 = data.parameter10
-        parameter11 = data.parameter11
-        parameter12 = data.parameter12
-        parameter13 = data.parameter13
-        parameter14 = data.parameter14
-        parameter2 = data.parameter2
-        parameter3 = data.parameter3
-        parameter4 = data.parameter4
-        parameter5 = data.parameter5
-        parameter6 = data.parameter6
-        parameter8 = data.parameter8
-        parameter9 = data.parameter9
-        rsyncdaemon = data.rsyncdaemon
-        sshkeypathandidentityfile = data.sshkeypathandidentityfile
-        sshport = data.sshport
-        task = data.task
-        snapdayoffweek = data.snapdayoffweek
-        snaplast = data.snaplast
-        snapshotnum = data.snapshotnum
-    }
 }

@@ -28,20 +28,6 @@ struct DecodeLogRecords: Codable {
         logrecords = try values.decodeIfPresent([DecodeLog].self, forKey: .logrecords)
         offsiteserver = try values.decodeIfPresent(String.self, forKey: .offsiteserver)
     }
-
-    init(_ data: LogRecords) {
-        dateStart = data.dateStart
-        hiddenID = data.hiddenID
-        offsiteserver = data.offsiteserver
-        // profilename = data.profilename
-        for i in 0 ..< (data.logrecords?.count ?? 0) {
-            if i == 0 { logrecords = [DecodeLog]() }
-            var log = DecodeLog()
-            log.dateExecuted = data.logrecords?[i].dateExecuted
-            log.resultExecuted = data.logrecords?[i].resultExecuted
-            logrecords?.append(log)
-        }
-    }
 }
 
 struct DecodeLog: Codable, Hashable {
