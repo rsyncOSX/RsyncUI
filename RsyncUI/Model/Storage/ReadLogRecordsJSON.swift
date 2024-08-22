@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 19/04/2021.
 //
-// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -54,5 +53,3 @@ final class ReadLogRecordsJSON: PropogateError {
                        validhiddenID: validhiddenID)
     }
 }
-
-// swiftlint:enable line_length
