@@ -9,18 +9,12 @@ import Foundation
 
 class OutputfromProcess {
     var output: [String]?
-    var startindex: Int?
 
     func getOutput() -> [String]? {
         output
     }
 
     func addlinefromoutput(str: String) {
-        if startindex == nil {
-            startindex = 0
-        } else {
-            startindex = output?.count ?? 0 + 1
-        }
         str.enumerateLines { line, _ in
             self.output?.append(line)
         }
