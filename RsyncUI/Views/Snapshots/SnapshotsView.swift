@@ -50,7 +50,7 @@ struct SnapshotsView: View {
                         }
 
                     if snapshotdata.inprogressofdelete == true { progressdelete }
-                    if notsnapshot == true { MessageView(dismissafter: 2, mytext: "Not a snapshot task", width: 200) }
+                    if notsnapshot == true { MessageView(dismissafter: 3, mytext: "Not a snapshot task", width: 200) }
                     if snapshotdata.snapshotlist { ProgressView() }
 
                     if SharedReference.shared.rsyncversion3 == false, notsnapshot == false {
