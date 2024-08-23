@@ -56,7 +56,7 @@ struct MessageView: View {
     var body: some View {
         if showtext {
             ZStack {
-                RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+                RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.5))
                 Text(mytext)
                     .font(.title3)
                     .foregroundColor(Color.blue)
