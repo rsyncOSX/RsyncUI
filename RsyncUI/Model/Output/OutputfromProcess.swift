@@ -7,8 +7,8 @@
 
 import Foundation
 
-class OutputfromProcess {
-    var output: [String]?
+final class OutputfromProcess {
+    private var output: [String]?
 
     func getOutput() -> [String]? {
         output
