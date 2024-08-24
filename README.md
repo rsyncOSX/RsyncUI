@@ -45,7 +45,7 @@ Please be aware it is an external task *not controlled* by RsyncUI, which execut
 
 ### RsyncOSX (Swift, Storyboard) - archived, not maintained
 
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncOSX)](https://github.com/rsyncOSX/RsyncOSX/blob/master/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncOSX/v6.8.0/total)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncOSX_archived)](https://github.com/rsyncOSX/RsyncOSX/blob/master/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncOSX_archived/v6.8.0/total)
 
 **RsyncOSX** was released for *macOS Big Sur* and later. Please be aware of the repository for RsyncOSX is archived and not maintained.
 
