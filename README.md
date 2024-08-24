@@ -50,5 +50,3 @@ Please be aware it is an external task *not controlled* by RsyncUI, which execut
 **RsyncOSX** was released for *macOS Big Sur* and later. Please be aware of the repository for RsyncOSX is archived and not maintained.
 
 - the [user guide for RsyncOSX](https://rsyncosx.netlify.app/)
-
-![My github stats](https://github-readme-stats.vercel.app/api?username=rsyncOSX&show_icons=true&hide_border=true&theme=dark)
