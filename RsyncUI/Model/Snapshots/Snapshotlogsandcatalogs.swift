@@ -27,7 +27,7 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
     private func mergeremotecatalogsandlogs() {
         var adjustedlogrecords = [SnapshotLogRecords]()
         let mycatalogs = catalogsanddates
-        var mylogrecords = logrecordssnapshot
+        let mylogrecords = logrecordssnapshot
         // Loop through all real catalogs, find the corresponding logrecord if any
         // and add the adjusted record
         for i in 0 ..< (mycatalogs?.count ?? 0) {
@@ -40,15 +40,20 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
                 if var record = record?[0] {
                     let catalogelementlog = record.resultExecuted.split(separator: " ")[0]
                     let snapshotcatalogfromschedulelog = "./" + catalogelementlog.dropFirst().dropLast()
-                    let uuid = record.id
+                    // let uuid = record.id
                     record.period = "... no tag ..."
                     record.snapshotCatalog = snapshotcatalogfromschedulelog
                     adjustedlogrecords.append(record)
                     // Remove that record
-                    if let index = mylogrecords?.firstIndex(where: { $0.id == uuid }) {
-                        mylogrecords?.remove(at: index)
-                    }
+                    // if let index = mylogrecords?.firstIndex(where: { $0.id == uuid }) {
+                    //     mylogrecords?.remove(at: index)
+                    // }
                 }
+            } else {
+                var record = SnapshotLogRecords(date: Date(), dateExecuted: "no record", resultExecuted: "no record")
+                let snapshotcatalogfromschedulelog = "./" + realsnapshotcatalog.dropFirst().dropLast()
+                record.snapshotCatalog = snapshotcatalogfromschedulelog
+                adjustedlogrecords.append(record)
             }
         }
         logrecordssnapshot = adjustedlogrecords.sorted { cat1, cat2 -> Bool in
