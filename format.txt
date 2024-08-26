@@ -1,6 +1,6 @@
 # Type a script or drag a script file from your workspace to insert its path.
 if which /opt/homebrew/bin/swiftlint >/dev/null; then
-    /opt/homebrew/bin/swiftlint
+    /opt/homebrew/bin/swiftlint --fix
 else
 echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
 fi
