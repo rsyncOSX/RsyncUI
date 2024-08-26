@@ -915,7 +915,6 @@
 				E985C5BF25F3AC0700CB895C /* Sources */,
 				E985C5C025F3AC0700CB895C /* Frameworks */,
 				E985C5C125F3AC0700CB895C /* Resources */,
-				E985C7A825F3B0E200CB895C /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -1043,28 +1042,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E985C7A825F3B0E200CB895C /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which /opt/homebrew/bin/swiftlint >/dev/null; then\n    /opt/homebrew/bin/swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\nif which /opt/homebrew/bin/swiftformat >/dev/null; then\n    /opt/homebrew/bin/swiftformat --swiftversion 6 --disable enumNamespaces .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E985C5BF25F3AC0700CB895C /* Sources */ = {
