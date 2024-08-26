@@ -60,7 +60,7 @@ final class UpdateConfigurations {
                 configurations?[index].snaplast = config.snaplast
                 configurations?[index].snapdayoffweek = config.snapdayoffweek
             }
-            WriteConfigurationJSON(localeprofile, configurations)
+            WriteSynchronizeConfigurationJSON(localeprofile, configurations)
         }
     }
 
@@ -78,7 +78,7 @@ final class UpdateConfigurations {
             // No need for deleting the logs, only valid hiddenIDs are
             // loaded next time configurations are read from
             // permanent store
-            WriteConfigurationJSON(localeprofile, configurations)
+            WriteSynchronizeConfigurationJSON(localeprofile, configurations)
         }
     }
 
@@ -89,7 +89,7 @@ final class UpdateConfigurations {
         newconfig.hiddenID = maxhiddenID + 1
         configurations?.append(newconfig)
         let aftercount = (configurations?.count ?? 0)
-        WriteConfigurationJSON(localeprofile, configurations)
+        WriteSynchronizeConfigurationJSON(localeprofile, configurations)
         if aftercount > beforecount {
             return true
         } else {
@@ -102,7 +102,7 @@ final class UpdateConfigurations {
             configurations?.append(importconfigurations[i])
         }
         if importconfigurations.count > 0 {
-            WriteConfigurationJSON(localeprofile, configurations)
+            WriteSynchronizeConfigurationJSON(localeprofile, configurations)
         }
     }
 
@@ -113,7 +113,7 @@ final class UpdateConfigurations {
                 configurations?.append(copyandpastetasks[i])
             }
         }
-        WriteConfigurationJSON(localeprofile, configurations)
+        WriteSynchronizeConfigurationJSON(localeprofile, configurations)
     }
 
     init(profile: String?, configurations: [SynchronizeConfiguration]?) {

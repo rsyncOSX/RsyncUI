@@ -1,5 +1,5 @@
 //
-//  WriteConfigurationJSON.swift
+//  WriteSynchronizeConfigurationJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 27/04/2021.
@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 @MainActor
-class WriteConfigurationJSON: PropogateError {
+class WriteSynchronizeConfigurationJSON: PropogateError {
     var profile: String?
 
     private func writeJSONToPersistentStore(jsonData: Data?) {

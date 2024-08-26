@@ -1,5 +1,5 @@
 //
-//  DecodeConfiguration.swift
+//  DecodeSynchronizeConfiguration.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 17/10/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DecodeConfiguration: Codable {
+struct DecodeSynchronizeConfiguration: Codable {
     let backupID: String?
     let dateRun: String?
     let hiddenID: Int?

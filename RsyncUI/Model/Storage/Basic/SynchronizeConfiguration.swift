@@ -73,7 +73,7 @@ struct SynchronizeConfiguration: Identifiable, Codable {
 
     // Used when reading JSON data from store
     // see in ReadConfigurationJSON
-    init(_ data: DecodeConfiguration) {
+    init(_ data: DecodeSynchronizeConfiguration) {
         backupID = data.backupID ?? ""
         hiddenID = data.hiddenID ?? -1
         localCatalog = data.localCatalog ?? ""

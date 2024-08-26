@@ -21,9 +21,9 @@ final class Allprofilesandtasks {
             let profilename = allprofiles?[i]
             if alltasks == nil { alltasks = [] }
             if profilename == "Default profile" {
-                configurations = ReadConfigurationJSON(nil).configurations
+                configurations = ReadSynchronizeConfigurationJSON(nil).configurations
             } else {
-                configurations = ReadConfigurationJSON(profilename).configurations
+                configurations = ReadSynchronizeConfigurationJSON(profilename).configurations
             }
             for j in 0 ..< (configurations?.count ?? 0) {
                 configurations?[j].profile = profilename
