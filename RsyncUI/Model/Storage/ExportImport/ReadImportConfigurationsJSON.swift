@@ -19,7 +19,7 @@ final class ReadImportConfigurationsJSON: PropogateError {
         let decodeimport = DecodeGeneric()
         do {
             if let importeddata = try
-                decodeimport.decodearraydatafileURL(DecodeConfiguration.self, fromwhere: filenameimport)
+                decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filenameimport)
             {
                 var importconfigurations = [SynchronizeConfiguration]()
                 for i in 0 ..< importeddata.count {
