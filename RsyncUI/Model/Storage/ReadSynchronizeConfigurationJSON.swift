@@ -1,5 +1,5 @@
 //
-//  ReadConfigurationJSON.swift
+//  ReadSynchronizeConfigurationJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/04/2021.
@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ReadConfigurationJSON: PropogateError {
+final class ReadSynchronizeConfigurationJSON: PropogateError {
     var configurations: [SynchronizeConfiguration]?
     let path = Homepath()
 

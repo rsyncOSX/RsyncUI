@@ -21,7 +21,7 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
                 structconfigurations?[index].dateRun = date
             }
         }
-        WriteConfigurationJSON(localeprofile, structconfigurations)
+        WriteSynchronizeConfigurationJSON(localeprofile, structconfigurations)
         return structconfigurations ?? []
     }
 
