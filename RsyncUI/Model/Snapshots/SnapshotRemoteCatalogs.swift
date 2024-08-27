@@ -1,21 +1,21 @@
 //
-//  Snapshotcatalogs.swift
+//  SnapshotRemoteCatalogs.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/09/2023.
 //
-// swiftlint: disable line_length
 
 import Foundation
 import OSLog
 
 @MainActor
-class Snapshotcatalogs {
+class SnapshotRemoteCatalogs {
     var mysnapshotdata: SnapshotData?
     var catalogsanddates: [Catalogsanddates]?
 
     func getremotecataloginfo(_ config: SynchronizeConfiguration) {
-        let arguments = ArgumentsRemoteFileList(config: config, filelisttask: .snapshotcatalogsonly).remotefilelistarguments()
+        let arguments = ArgumentsRemoteFileList(config: config,
+                                                filelisttask: .snapshotcatalogsonly).remotefilelistarguments()
         let command = RsyncProcessNOFilehandler(arguments: arguments,
                                                 processtermination: processtermination)
         command.executeProcess()
@@ -59,5 +59,3 @@ class Snapshotcatalogs {
         mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
     }
 }
-
-// swiftlint: enable line_length

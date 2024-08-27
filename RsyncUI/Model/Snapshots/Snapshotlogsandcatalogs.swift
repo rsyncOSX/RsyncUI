@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class Snapshotlogsandcatalogs: Snapshotcatalogs {
+final class Snapshotlogsandcatalogs: SnapshotRemoteCatalogs {
     // Number of local logrecords
     var logrecordssnapshot: [LogRecordSnapshot]?
 

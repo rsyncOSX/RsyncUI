@@ -298,7 +298,7 @@ extension RestoreTableView {
         guard SharedReference.shared.process == nil else { return }
         if let config = restore.selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }
-            _ = Snapshotcatalogs(
+            _ = SnapshotRemoteCatalogs(
                 config: config,
                 snapshotdata: snapshotdata
             )
