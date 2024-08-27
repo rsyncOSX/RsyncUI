@@ -263,10 +263,10 @@ extension RestoreTableView {
                     // config stores next to use snapshotnum and the comnpute
                     // arguments for restore reduce the snapshotnum by 1
                     tempconfig.snapshotnum = snapshotnum + 1
-                    arguments = ArgumentsRemoteFileList(config: tempconfig, filelisttask: .rsyncfilelistings).remotefilelistarguments()
+                    arguments = ArgumentsRemoteFileList(config: tempconfig).remotefilelistarguments()
                 }
             } else {
-                arguments = ArgumentsRemoteFileList(config: config, filelisttask: .rsyncfilelistings).remotefilelistarguments()
+                arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments()
             }
             guard arguments?.isEmpty == false else { return }
             let command = RsyncProcessNOFilehandler(arguments: arguments,
