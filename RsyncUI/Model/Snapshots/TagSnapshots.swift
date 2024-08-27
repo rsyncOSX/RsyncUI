@@ -10,38 +10,11 @@
 import Foundation
 
 final class TagSnapshots {
-    var day2: Int = 0
-    
+
     var day: NumDayofweek = .Monday
-    
-    var daylocalized = ["Sunday",
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday",
-                        "Saturday"]
-    
     var logrecordssnapshot: [LogRecordSnapshot]?
     private var keepallselcteddayofweek: Bool = true
-    var now: String?
-
-    private func datefromstring(datestringlocalized: String) -> Date {
-        guard datestringlocalized != "no log" else { return Date() }
-        return datestringlocalized.localized_date_from_string()
-    }
-
-    private func datecomponentsfromstring(datestringlocalized: String?) -> DateComponents {
-        var date: Date?
-        if datestringlocalized != nil {
-            date = datefromstring(datestringlocalized: datestringlocalized!)
-        }
-        let calendar = Calendar.current
-        return calendar.dateComponents([.calendar, .timeZone,
-                                        .year, .month, .day,
-                                        .hour, .minute,
-                                        .weekday, .weekOfYear, .year], from: date ?? Date())
-    }
+    
 
     private func markfordelete() {
         for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
@@ -85,7 +58,7 @@ final class TagSnapshots {
                     return true
                 } else {
                     let tag = "Keep" + " " + datesnapshot.localized_weekday_from_date() + ", "
-                    + datesnapshot.localized_month_from_date() + " " + "this month"
+                        + datesnapshot.localized_month_from_date() + " " + "this month"
 
                     logrecordssnapshot?[index].period = tag
                     return false
@@ -104,59 +77,55 @@ final class TagSnapshots {
                                         .weekday, .weekOfYear, .year], from: localizeddate)
     }
 
-
-    typealias Keepallorlastdayinperiodfunc = (Date) -> Bool
-
     func keepallorlastdayinperiod(index: Int) -> Bool {
-        let check: Keepallorlastdayinperiodfunc? = if keepallselcteddayofweek {
-            isselectedDayinWeek
-        } else {
-            islastSelectedDayinMonth
-        }
-        if let datesnapshotstring = logrecordssnapshot?[index].dateExecuted {
-            let month = datefromstring(datestringlocalized: datesnapshotstring).monthNameShort()
-            let day = datefromstring(datestringlocalized: datesnapshotstring).dayNameShort()
-            if datecomponentsfromstring(datestringlocalized: datesnapshotstring).month !=
-                datecomponentsfromstring(datestringlocalized: now).month ||
-                datecomponentsfromstring(datestringlocalized: datesnapshotstring).year! <
-                datecomponentsfromstring(datestringlocalized: now).year!
+        if let datesnapshot = logrecordssnapshot?[index].dateExecuted.localized_date_from_string() {
+            if let year = datecomponentsfromdate(localizeddate: datesnapshot).year,
+               let month = datecomponentsfromdate(localizeddate: datesnapshot).month,
+               let monthToday = datecomponentsfromdate(localizeddate: Date()).month,
+               let yearToday = datecomponentsfromdate(localizeddate: Date()).year
             {
-                if check!(datefromstring(datestringlocalized: datesnapshotstring)) == true {
-                    if datecomponentsfromstring(datestringlocalized: datesnapshotstring).month == datecomponentsfromstring(datestringlocalized: now).month! - 1 {
-                        let tag = "Keep" + " " + day + ", " + month + " " + "previous month"
-                        logrecordssnapshot?[index].period = tag
+                if month != monthToday || year < yearToday {
+                    if checkdaytookeepinmonth(datesnapshot) == true {
+                        if month == monthToday - 1 {
+                            let tag = "Keep" + " " + datesnapshot.localized_weekday_from_date() + ", "
+                                + datesnapshot.localized_month_from_date() + "previous month"
+                            logrecordssnapshot?[index].period = tag
+                        } else {
+                            let tag = "Keep" + " " + datesnapshot.localized_weekday_from_date() + ", "
+                                + datesnapshot.localized_month_from_date() + "earlier months"
+                            logrecordssnapshot?[index].period = tag
+                        }
+                        return false
                     } else {
-                        let tag = "Keep" + " " + day + ", " + month + " " + "earlier months"
-                        logrecordssnapshot?[index].period = tag
+                        if datesnapshot.ispreviousmont {
+                            let tag = "Delete" + " " + datesnapshot.localized_weekday_from_date() + ", "
+                                + datesnapshot.localized_month_from_date() + " " + "previous month"
+                            logrecordssnapshot?[index].period = tag
+                        } else {
+                            let tag = "Delete" + " " + datesnapshot.localized_weekday_from_date() + ", "
+                                + datesnapshot.localized_month_from_date() + " " + "earlier months"
+                            logrecordssnapshot?[index].period = tag
+                        }
+                        return true
                     }
-                    return false
-                } else {
-                    let date = datefromstring(datestringlocalized: datesnapshotstring)
-                    if date.ispreviousmont {
-                        let tag = "Delete" + " " + day + ", " + month + " " + "previous month"
-                        logrecordssnapshot?[index].period = tag
-                    } else {
-                        let tag = "Delete" + " " + day + ", " + month + " " + "earlier months"
-                        logrecordssnapshot?[index].period = tag
-                    }
-                    return true
                 }
             }
+
             return false
         }
         return false
     }
 
-    func islastSelectedDayinMonth(_ date: Date) -> Bool {
-        if date.isSelectedDayofWeek(day: day), date.daymonth() > 24 {
-            true
+    func checkdaytookeepinmonth(_ date: Date) -> Bool {
+        if keepallselcteddayofweek {
+            day.rawValue == date.getWeekday()
         } else {
-            false
+            if date.isSelectedDayofWeek(day: day), date.daymonth() > 24 {
+                true
+            } else {
+                false
+            }
         }
-    }
-
-    func isselectedDayinWeek(_ date: Date) -> Bool {
-        day.rawValue == date.getWeekday()
     }
 
     private func setweekdaytokeep(snapdayoffweek: String) {
@@ -190,20 +159,37 @@ final class TagSnapshots {
         } else {
             keepallselcteddayofweek = false
         }
-        
         setweekdaytokeep(snapdayoffweek: snapdayoffweek)
-        
         logrecordssnapshot = data
         guard logrecordssnapshot != nil else { return }
-        now = Date().localized_string_from_date()
+       
         markfordelete()
     }
 }
 
 // swiftlint:enable line_length
 
-
 /*
+ 
+ var now: String?
+
+ private func datefromstring(datestringlocalized: String) -> Date {
+     guard datestringlocalized != "no log" else { return Date() }
+     return datestringlocalized.localized_date_from_string()
+ }
+
+ private func datecomponentsfromstring(datestringlocalized: String?) -> DateComponents {
+     var date: Date?
+     if datestringlocalized != nil {
+         date = datefromstring(datestringlocalized: datestringlocalized!)
+     }
+     let calendar = Calendar.current
+     return calendar.dateComponents([.calendar, .timeZone,
+                                     .year, .month, .day,
+                                     .hour, .minute,
+                                     .weekday, .weekOfYear, .year], from: date ?? Date())
+ }
+ 
     // Keep all snapshots current week.
     private func currentweek(index: Int) -> Bool {
         let datesnapshotstring = logrecordssnapshot?[index].dateExecuted
@@ -242,4 +228,66 @@ final class TagSnapshots {
         }
         return false
     }
+
+ typealias Keepallorlastdayinperiodfunc = (Date) -> Bool
+
+ func keepallorlastdayinperiod(index: Int) -> Bool {
+     let check: Keepallorlastdayinperiodfunc? = if keepallselcteddayofweek {
+         isselectedDayinWeek
+     } else {
+         islastSelectedDayinMonth
+     }
+     if let datesnapshotstring = logrecordssnapshot?[index].dateExecuted {
+         let month = datefromstring(datestringlocalized: datesnapshotstring).monthNameShort()
+         let day = datefromstring(datestringlocalized: datesnapshotstring).dayNameShort()
+         if datecomponentsfromstring(datestringlocalized: datesnapshotstring).month !=
+             datecomponentsfromstring(datestringlocalized: now).month ||
+             datecomponentsfromstring(datestringlocalized: datesnapshotstring).year! <
+             datecomponentsfromstring(datestringlocalized: now).year!
+         {
+             if check!(datefromstring(datestringlocalized: datesnapshotstring)) == true {
+                 if datecomponentsfromstring(datestringlocalized: datesnapshotstring).month == datecomponentsfromstring(datestringlocalized: now).month! - 1 {
+                     let tag = "Keep" + " " + day + ", " + month + " " + "previous month"
+                     logrecordssnapshot?[index].period = tag
+                 } else {
+                     let tag = "Keep" + " " + day + ", " + month + " " + "earlier months"
+                     logrecordssnapshot?[index].period = tag
+                 }
+                 return false
+             } else {
+                 let date = datefromstring(datestringlocalized: datesnapshotstring)
+                 if date.ispreviousmont {
+                     let tag = "Delete" + " " + day + ", " + month + " " + "previous month"
+                     logrecordssnapshot?[index].period = tag
+                 } else {
+                     let tag = "Delete" + " " + day + ", " + month + " " + "earlier months"
+                     logrecordssnapshot?[index].period = tag
+                 }
+                 return true
+             }
+         }
+         return false
+     }
+     return false
+ }
+
+ func islastSelectedDayinMonth(_ date: Date) -> Bool {
+     if date.isSelectedDayofWeek(day: day), date.daymonth() > 24 {
+         true
+     } else {
+         false
+     }
+ }
+
+ func isselectedDayinWeek(_ date: Date) -> Bool {
+     day.rawValue == date.getWeekday()
+ }
+ 
+ init() {
+ 
+ 
+ now = Date().localized_string_from_date()
+ 
+ }
+
  */

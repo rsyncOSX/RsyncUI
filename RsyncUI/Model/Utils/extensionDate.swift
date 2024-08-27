@@ -24,18 +24,6 @@ extension Date {
         getWeekday() == day.rawValue
     }
 
-    func monthNameShort() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM"
-        return dateFormatter.string(from: self)
-    }
-
-    func dayNameShort() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self)
-    }
-
     static func > (lhs: Date, rhs: Date) -> Bool {
         rhs.compare(lhs) == ComparisonResult.orderedAscending
     }
@@ -129,6 +117,18 @@ extension String {
 }
 
 /*
+ 
+ func monthNameShort() -> String {
+     let dateFormatter = DateFormatter()
+     dateFormatter.dateFormat = "MMM"
+     return dateFormatter.string(from: self)
+ }
+
+ func dayNameShort() -> String {
+     let dateFormatter = DateFormatter()
+     dateFormatter.dateFormat = "EEEE"
+     return dateFormatter.string(from: self)
+ }
 
  func monthNameFull() -> String {
      let dateFormatter = DateFormatter()
