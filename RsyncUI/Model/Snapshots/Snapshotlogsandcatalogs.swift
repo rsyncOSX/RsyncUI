@@ -62,7 +62,7 @@ final class Snapshotlogsandcatalogs: SnapshotRemoteCatalogs {
         let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
         return seconds * -1
     }
-    
+
     init(config: SynchronizeConfiguration,
          logrecords: [LogRecords],
          snapshotdata: SnapshotData)

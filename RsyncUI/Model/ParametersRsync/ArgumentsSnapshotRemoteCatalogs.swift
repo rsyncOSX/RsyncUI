@@ -58,4 +58,3 @@ final class ArgumentsSnapshotRemoteCatalogs {
 }
 
 // swiftlint:enable line_length
-

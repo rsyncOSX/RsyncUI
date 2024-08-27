@@ -30,45 +30,47 @@ struct SnapshotsView: View {
 
     var body: some View {
         VStack {
-            HStack {
-                ZStack {
-                    ListofTasksLightView(selecteduuids: $selectedconfiguuid,
-                                         profile: rsyncUIdata.profile,
-                                         configurations: rsyncUIdata.configurations ?? [])
-                        .onChange(of: selectedconfiguuid) {
-                            guard SharedReference.shared.rsyncversion3 == true else { return }
-                            if let configurations = rsyncUIdata.configurations {
-                                if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
-                                    selectedconfig = configurations[index]
-                                    getdata()
-                                } else {
-                                    selectedconfig = nil
-                                    snapshotdata.setsnapshotdata(nil)
-                                    filterstring = ""
+            ZStack {
+                HStack {
+                    ZStack {
+                        ListofTasksLightView(selecteduuids: $selectedconfiguuid,
+                                             profile: rsyncUIdata.profile,
+                                             configurations: rsyncUIdata.configurations ?? [])
+                            .onChange(of: selectedconfiguuid) {
+                                guard SharedReference.shared.rsyncversion3 == true else { return }
+                                if let configurations = rsyncUIdata.configurations {
+                                    if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
+                                        selectedconfig = configurations[index]
+                                        getdata()
+                                    } else {
+                                        selectedconfig = nil
+                                        snapshotdata.setsnapshotdata(nil)
+                                        filterstring = ""
+                                    }
                                 }
                             }
-                        }
 
-                    if snapshotdata.inprogressofdelete == true { progressdelete }
-                    if notsnapshot == true { MessageView(dismissafter: 3, mytext: "Not a snapshot task", width: 200) }
-                    if snapshotdata.snapshotlist { ProgressView() }
-
-                    if SharedReference.shared.rsyncversion3 == false, notsnapshot == false {
-                        MessageView(dismissafter: 3, mytext: "Only rsync version 3.x supports snapshots.", width: 450)
+                        if snapshotdata.inprogressofdelete == true { progressdelete }
+                        if snapshotdata.snapshotlist { ProgressView() }
                     }
+
+                    SnapshotListView(snapshotdata: $snapshotdata,
+                                     filterstring: $filterstring,
+                                     selectedconfig: $selectedconfig)
+                        .onChange(of: deleteiscompleted) {
+                            if deleteiscompleted == true {
+                                getdata()
+                                deleteiscompleted = false
+                            }
+                        }
                 }
 
-                SnapshotListView(snapshotdata: $snapshotdata,
-                                 filterstring: $filterstring,
-                                 selectedconfig: $selectedconfig)
-                    .onChange(of: deleteiscompleted) {
-                        if deleteiscompleted == true {
-                            getdata()
-                            deleteiscompleted = false
-                        }
-                    }
-            }
+                if notsnapshot == true { MessageView(dismissafter: 3, mytext: "Not a snapshot task", width: 200) }
 
+                if SharedReference.shared.rsyncversion3 == false, notsnapshot == false {
+                    MessageView(dismissafter: 3, mytext: "Only rsync version 3.x supports snapshots.", width: 450)
+                }
+            }
             if focustagsnapshot == true { labeltagsnapshot }
             if focusaborttask { labelaborttask }
 
