@@ -24,18 +24,6 @@ extension Date {
         getWeekday() == day.rawValue
     }
 
-    func monthNameShort() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM"
-        return dateFormatter.string(from: self)
-    }
-
-    func dayNameShort() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self)
-    }
-
     static func > (lhs: Date, rhs: Date) -> Bool {
         rhs.compare(lhs) == ComparisonResult.orderedAscending
     }
@@ -89,6 +77,24 @@ extension Date {
         dateformatter.dateFormat = "MM-dd-yyyy:HH:mm"
         return dateformatter.string(from: self)
     }
+
+    func localized_weekday_from_date() -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.formatterBehavior = .behavior10_4
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .short
+        dateformatter.dateFormat = "EEEE"
+        return dateformatter.string(from: self)
+    }
+
+    func localized_month_from_date() -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.formatterBehavior = .behavior10_4
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .short
+        dateformatter.dateFormat = "MMMM"
+        return dateformatter.string(from: self)
+    }
 }
 
 extension String {
@@ -111,6 +117,18 @@ extension String {
 }
 
 /*
+ 
+ func monthNameShort() -> String {
+     let dateFormatter = DateFormatter()
+     dateFormatter.dateFormat = "MMM"
+     return dateFormatter.string(from: self)
+ }
+
+ func dayNameShort() -> String {
+     let dateFormatter = DateFormatter()
+     dateFormatter.dateFormat = "EEEE"
+     return dateFormatter.string(from: self)
+ }
 
  func monthNameFull() -> String {
      let dateFormatter = DateFormatter()
@@ -144,7 +162,7 @@ extension String {
      return (calendar as NSCalendar).date(byAdding: dateComponent, to: self, options: NSCalendar.Options.matchNextTime)!
  }
 
- func weekday(date _: Date) -> Int? {
+ func weekday() -> Int? {
      let calendar = Calendar.current
      let dateComponent = (calendar as NSCalendar).components(.weekday, from: self)
      return dateComponent.weekday
