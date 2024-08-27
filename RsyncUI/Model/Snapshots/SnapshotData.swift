@@ -21,7 +21,7 @@ final class SnapshotData {
     var snapshotuuidsfordelete = Set<LogRecordSnapshot.ID>()
     var catalogsanddates: [Catalogsanddates] = []
     var logrecordssnapshot: [LogRecordSnapshot]?
-    
+
     func setsnapshotdata(_ data: [LogRecordSnapshot]?) {
         logrecordssnapshot = data
         inprogressofdelete = false
@@ -29,7 +29,7 @@ final class SnapshotData {
         maxnumbertodelete = 0
         remainingsnapshotstodelete = 0
     }
-    
+
     func getsnapshotdata() -> [LogRecordSnapshot]? {
         if let logrecordssnapshot {
             return logrecordssnapshot.sorted { cat1, cat2 -> Bool in
@@ -39,7 +39,7 @@ final class SnapshotData {
                     return (Int(cat1.dropFirst(2)) ?? 0) > (Int(cat2.dropFirst(2)) ?? 0)
                 }
                 return false
-            }            
+            }
         }
         return nil
     }

@@ -74,9 +74,7 @@ struct RestoreTableView: View {
 
                 Spacer()
 
-                ZStack {
-                    if focusaborttask { labelaborttask }
-                }
+                if focusaborttask { labelaborttask }
             }
 
             HStack {
