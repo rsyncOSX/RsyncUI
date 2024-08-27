@@ -10,7 +10,10 @@
 import Foundation
 
 final class TagSnapshots {
+    var day2: Int = 0
+    
     var day: NumDayofweek = .Monday
+    
     var daylocalized = ["Sunday",
                         "Monday",
                         "Tuesday",
@@ -18,6 +21,7 @@ final class TagSnapshots {
                         "Thursday",
                         "Friday",
                         "Saturday"]
+    
     var logrecordssnapshot: [LogRecordSnapshot]?
     private var keepallselcteddayofweek: Bool = true
     var now: String?
@@ -48,36 +52,41 @@ final class TagSnapshots {
         }
     }
 
-    // Keep all snapshots current week.
     private func currentweek(index: Int) -> Bool {
-        let datesnapshotstring = logrecordssnapshot?[index].dateExecuted
-        if datecomponentsfromstring(datestringlocalized: datesnapshotstring).weekOfYear ==
-            datecomponentsfromstring(datestringlocalized: now).weekOfYear,
-            datecomponentsfromstring(datestringlocalized: datesnapshotstring).year ==
-            datecomponentsfromstring(datestringlocalized: now).year
-        {
-            let tag = "Keep" + " " + "this week"
-            logrecordssnapshot?[index].period = tag
-            return true
+        if let datesnapshot = logrecordssnapshot?[index].dateExecuted.localized_date_from_string() {
+            if datecomponentsfromdate(localizeddate: datesnapshot).weekOfYear ==
+                datecomponentsfromdate(localizeddate: Date()).weekOfYear,
+                datecomponentsfromdate(localizeddate: datesnapshot).year ==
+                datecomponentsfromdate(localizeddate: Date()).year
+            {
+                logrecordssnapshot?[index].period = "Keep" + " " + "this week"
+                return true
+            }
+            return false
         }
         return false
     }
 
     // Keep snapshots every choosen day this month ex current week
     private func currentdaymonth(index: Int) -> Bool {
-        if let datesnapshotstring = logrecordssnapshot?[index].dateExecuted {
-            let month = datefromstring(datestringlocalized: datesnapshotstring).monthNameShort()
-            let day = datefromstring(datestringlocalized: datesnapshotstring).dayNameShort()
-            if datecomponentsfromstring(datestringlocalized: datesnapshotstring).month ==
-                datecomponentsfromstring(datestringlocalized: now).month,
-                datecomponentsfromstring(datestringlocalized: datesnapshotstring).year == datecomponentsfromstring(datestringlocalized: now).year
-            {
-                if datefromstring(datestringlocalized: datesnapshotstring).isSelectedDayofWeek(day: self.day) == false {
-                    let tag = "Delete" + " " + day + ", " + month + " " + "this month"
+        if let datesnapshot = logrecordssnapshot?[index].dateExecuted.localized_date_from_string() {
+            let year = datecomponentsfromdate(localizeddate: datesnapshot).year
+            let month = datecomponentsfromdate(localizeddate: datesnapshot).month
+
+            let monthToday = datecomponentsfromdate(localizeddate: Date()).month
+            let yearToday = datecomponentsfromdate(localizeddate: Date()).year
+
+            if month == monthToday, year == yearToday {
+                if datesnapshot.isSelectedDayofWeek(day: day) == false {
+                    let tag = "Delete" + " " + datesnapshot.localized_weekday_from_date() + ", "
+                        + datesnapshot.localized_month_from_date() + " " + "this month"
+
                     logrecordssnapshot?[index].period = tag
                     return true
                 } else {
-                    let tag = "Keep" + " " + month + " " + daylocalized[self.day.rawValue - 1] + " " + "this month"
+                    let tag = "Keep" + " " + datesnapshot.localized_weekday_from_date() + ", "
+                    + datesnapshot.localized_month_from_date() + " " + "this month"
+
                     logrecordssnapshot?[index].period = tag
                     return false
                 }
@@ -86,6 +95,15 @@ final class TagSnapshots {
         }
         return false
     }
+
+    private func datecomponentsfromdate(localizeddate: Date) -> DateComponents {
+        let calendar = Calendar.current
+        return calendar.dateComponents([.calendar, .timeZone,
+                                        .year, .month, .day,
+                                        .hour, .minute,
+                                        .weekday, .weekOfYear, .year], from: localizeddate)
+    }
+
 
     typealias Keepallorlastdayinperiodfunc = (Date) -> Bool
 
@@ -172,7 +190,9 @@ final class TagSnapshots {
         } else {
             keepallselcteddayofweek = false
         }
+        
         setweekdaytokeep(snapdayoffweek: snapdayoffweek)
+        
         logrecordssnapshot = data
         guard logrecordssnapshot != nil else { return }
         now = Date().localized_string_from_date()
@@ -181,3 +201,45 @@ final class TagSnapshots {
 }
 
 // swiftlint:enable line_length
+
+
+/*
+    // Keep all snapshots current week.
+    private func currentweek(index: Int) -> Bool {
+        let datesnapshotstring = logrecordssnapshot?[index].dateExecuted
+        if datecomponentsfromstring(datestringlocalized: datesnapshotstring).weekOfYear ==
+            datecomponentsfromstring(datestringlocalized: now).weekOfYear,
+            datecomponentsfromstring(datestringlocalized: datesnapshotstring).year ==
+            datecomponentsfromstring(datestringlocalized: now).year
+        {
+            let tag = "Keep" + " " + "this week"
+            logrecordssnapshot?[index].period = tag
+            return true
+        }
+        return false
+    }
+
+    // Keep snapshots every choosen day this month ex current week
+    private func currentdaymonth(index: Int) -> Bool {
+        if let datesnapshotstring = logrecordssnapshot?[index].dateExecuted {
+            let month = datefromstring(datestringlocalized: datesnapshotstring).monthNameShort()
+            let day = datefromstring(datestringlocalized: datesnapshotstring).dayNameShort()
+            if datecomponentsfromstring(datestringlocalized: datesnapshotstring).month ==
+                datecomponentsfromstring(datestringlocalized: now).month,
+                datecomponentsfromstring(datestringlocalized: datesnapshotstring).year == datecomponentsfromstring(datestringlocalized: now).year
+            {
+                if datefromstring(datestringlocalized: datesnapshotstring).isSelectedDayofWeek(day: self.day) == false {
+                    let tag = "Delete" + " " + day + ", " + month + " " + "this month"
+                    logrecordssnapshot?[index].period = tag
+                    return true
+                } else {
+                    let tag = "Keep" + " " + month + " " + daylocalized[self.day.rawValue - 1] + " " + "this month"
+                    logrecordssnapshot?[index].period = tag
+                    return false
+                }
+            }
+            return false
+        }
+        return false
+    }
+ */
