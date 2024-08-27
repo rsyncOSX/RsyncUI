@@ -44,29 +44,16 @@ final class Snapshotlogsandcatalogs: SnapshotRemoteCatalogs {
                     record.period = "... no tag ..."
                     record.snapshotCatalog = snapshotcatalogfromschedulelog
                     adjustedlogrecords.append(record)
-                    // Remove that record
-                    // if let index = mylogrecords?.firstIndex(where: { $0.id == uuid }) {
-                    //     mylogrecords?.remove(at: index)
-                    // }
                 }
             } else {
                 var record = LogRecordSnapshot(date: Date(), dateExecuted: "no record", resultExecuted: "no record")
                 let snapshotcatalogfromschedulelog = "./" + realsnapshotcatalog.dropFirst().dropLast()
+                record.period = "... no tag ..."
                 record.snapshotCatalog = snapshotcatalogfromschedulelog
                 adjustedlogrecords.append(record)
             }
         }
-        logrecordssnapshot = adjustedlogrecords.sorted { cat1, cat2 -> Bool in
-            if let cat1 = cat1.snapshotCatalog,
-               let cat2 = cat2.snapshotCatalog
-            {
-                return (Int(cat1.dropFirst(2)) ?? 0) > (Int(cat2.dropFirst(2)) ?? 0)
-            }
-            return false
-        }
-        // Add records for use in the View
-        mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
-        guard logrecordssnapshot?.count ?? 0 > 0 else { return }
+        mysnapshotdata?.setsnapshotdata(adjustedlogrecords)
     }
 
     func calculatedays(datestringlocalized: String) -> Double? {
@@ -75,7 +62,7 @@ final class Snapshotlogsandcatalogs: SnapshotRemoteCatalogs {
         let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
         return seconds * -1
     }
-
+    
     init(config: SynchronizeConfiguration,
          logrecords: [LogRecords],
          snapshotdata: SnapshotData)
