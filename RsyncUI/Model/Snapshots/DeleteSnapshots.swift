@@ -13,7 +13,7 @@ final class DeleteSnapshots {
     var snapshotcatalogstodelete: [String]?
     var mysnapshotdata: SnapshotData?
 
-    private func preparesnapshotcatalogsfordelete(logrecordssnapshot: [SnapshotLogRecords]?) {
+    private func preparesnapshotcatalogsfordelete(logrecordssnapshot: [LogRecordSnapshot]?) {
         if snapshotcatalogstodelete == nil { snapshotcatalogstodelete = [] }
         if let uuidsfordelete = mysnapshotdata?.snapshotuuidsfordelete {
             for i in 0 ..< ((logrecordssnapshot?.count ?? 0) - 1) {
@@ -56,7 +56,7 @@ final class DeleteSnapshots {
 
     init(config: SynchronizeConfiguration,
          snapshotdata: SnapshotData,
-         logrecordssnapshot: [SnapshotLogRecords]?)
+         logrecordssnapshot: [LogRecordSnapshot]?)
     {
         guard config.task == SharedReference.shared.snapshot else { return }
         localeconfig = config

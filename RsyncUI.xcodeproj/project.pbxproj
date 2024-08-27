@@ -146,11 +146,12 @@
 		E9D1AFE62A2E49B600AD8125 /* ListofTasksLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */; };
 		E9D317D02B3C09B9000B8FC9 /* HomeCatalogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D317CF2B3C09B9000B8FC9 /* HomeCatalogsView.swift */; };
 		E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */; };
+		E9DE0EFA2C7D98E100836EA3 /* RecordsSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE0EF92C7D98E100836EA3 /* RecordsSnapshot.swift */; };
 		E9E9CD2526779E2600EB377B /* ExecuteCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */; };
 		E9ED8A5E2C4D6CEF00D3B2DD /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED8A5D2C4D6CEF00D3B2DD /* ExportView.swift */; };
 		E9ED8A602C4D6D0D00D3B2DD /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED8A5F2C4D6D0D00D3B2DD /* ImportView.swift */; };
 		E9F5354C290185AA007EFAE7 /* EstimateTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F5354B290185AA007EFAE7 /* EstimateTasks.swift */; };
-		E9FBE7912A51C5CA0038B82D /* SnapshotLogRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBE7902A51C5CA0038B82D /* SnapshotLogRecords.swift */; };
+		E9FBE7912A51C5CA0038B82D /* LogRecordSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBE7902A51C5CA0038B82D /* LogRecordSnapshot.swift */; };
 		E9FBF40D291AFB7000AAAC40 /* SnapshotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBF40C291AFB7000AAAC40 /* SnapshotCommands.swift */; };
 		E9FDDD4925F3D0610050718C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FDDD4825F3D0610050718C /* Assets.xcassets */; };
 		E9FF19022BBD272900534DF2 /* ConfigurationsTableDataMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FF19012BBD272900534DF2 /* ConfigurationsTableDataMainView.swift */; };
@@ -318,11 +319,12 @@
 		E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksLightView.swift; sourceTree = "<group>"; };
 		E9D317CF2B3C09B9000B8FC9 /* HomeCatalogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCatalogsView.swift; sourceTree = "<group>"; };
 		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
+		E9DE0EF92C7D98E100836EA3 /* RecordsSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsSnapshot.swift; sourceTree = "<group>"; };
 		E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteCommands.swift; sourceTree = "<group>"; };
 		E9ED8A5D2C4D6CEF00D3B2DD /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		E9ED8A5F2C4D6D0D00D3B2DD /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		E9F5354B290185AA007EFAE7 /* EstimateTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTasks.swift; sourceTree = "<group>"; };
-		E9FBE7902A51C5CA0038B82D /* SnapshotLogRecords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotLogRecords.swift; sourceTree = "<group>"; };
+		E9FBE7902A51C5CA0038B82D /* LogRecordSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogRecordSnapshot.swift; sourceTree = "<group>"; };
 		E9FBF40C291AFB7000AAAC40 /* SnapshotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCommands.swift; sourceTree = "<group>"; };
 		E9FDDD4825F3D0610050718C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9FF19012BBD272900534DF2 /* ConfigurationsTableDataMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsTableDataMainView.swift; sourceTree = "<group>"; };
@@ -622,12 +624,13 @@
 		E985C69A25F3AD9600CB895C /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
-				E9FBE7902A51C5CA0038B82D /* SnapshotLogRecords.swift */,
 				E985C69B25F3AD9600CB895C /* TagSnapshots.swift */,
 				E985C69C25F3AD9600CB895C /* SnapshotData.swift */,
 				E985C69D25F3AD9600CB895C /* Snapshotlogsandcatalogs.swift */,
 				E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */,
 				E9B008DC2ABB427A006E333D /* Snapshotcatalogs.swift */,
+				E9FBE7902A51C5CA0038B82D /* LogRecordSnapshot.swift */,
+				E9DE0EF92C7D98E100836EA3 /* RecordsSnapshot.swift */,
 			);
 			path = Snapshots;
 			sourceTree = "<group>";
@@ -1089,7 +1092,7 @@
 				E9ED8A5E2C4D6CEF00D3B2DD /* ExportView.swift in Sources */,
 				E9E9CD2526779E2600EB377B /* ExecuteCommands.swift in Sources */,
 				E985C74625F3AD9700CB895C /* Numbers.swift in Sources */,
-				E9FBE7912A51C5CA0038B82D /* SnapshotLogRecords.swift in Sources */,
+				E9FBE7912A51C5CA0038B82D /* LogRecordSnapshot.swift in Sources */,
 				E985C74225F3AD9700CB895C /* Macserialnumber.swift in Sources */,
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,
 				E956D3782B0C88B9008B190F /* RestoreTableView.swift in Sources */,
@@ -1098,6 +1101,7 @@
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
 				E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */,
+				E9DE0EFA2C7D98E100836EA3 /* RecordsSnapshot.swift in Sources */,
 				E985C73725F3AD9700CB895C /* extensionDate.swift in Sources */,
 				E9F5354C290185AA007EFAE7 /* EstimateTasks.swift in Sources */,
 				E985C77625F3AD9700CB895C /* ArgumentsSynchronize.swift in Sources */,

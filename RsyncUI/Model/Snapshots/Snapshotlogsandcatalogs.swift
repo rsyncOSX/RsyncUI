@@ -10,7 +10,7 @@ import Foundation
 
 final class Snapshotlogsandcatalogs: Snapshotcatalogs {
     // Number of local logrecords
-    var logrecordssnapshot: [SnapshotLogRecords]?
+    var logrecordssnapshot: [LogRecordSnapshot]?
 
     // Calculating days since snaphot was executed
     private func calculateddayssincesynchronize() {
@@ -25,7 +25,7 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
 
     // Merging remote snaphotcatalogs and existing logs
     private func mergeremotecatalogsandlogs() {
-        var adjustedlogrecords = [SnapshotLogRecords]()
+        var adjustedlogrecords = [LogRecordSnapshot]()
         let mycatalogs = catalogsanddates
         let mylogrecords = logrecordssnapshot
         // Loop through all real catalogs, find the corresponding logrecord if any
@@ -50,7 +50,7 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
                     // }
                 }
             } else {
-                var record = SnapshotLogRecords(date: Date(), dateExecuted: "no record", resultExecuted: "no record")
+                var record = LogRecordSnapshot(date: Date(), dateExecuted: "no record", resultExecuted: "no record")
                 let snapshotcatalogfromschedulelog = "./" + realsnapshotcatalog.dropFirst().dropLast()
                 record.snapshotCatalog = snapshotcatalogfromschedulelog
                 adjustedlogrecords.append(record)
@@ -82,7 +82,7 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
     {
         super.init(config: config, snapshotdata: snapshotdata)
         // Getting log records, sorted after date
-        logrecordssnapshot = SnapshotRecords(config: config, logrecords: logrecords).loggrecordssnapshots
+        logrecordssnapshot = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots
     }
 
     override func processtermination(data: [String]?, hiddenID _: Int?) {
