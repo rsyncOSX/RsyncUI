@@ -1,47 +1,19 @@
 //
-//  SnapshotLogRecords.swift
-//  RsyncSwiftUI
+//  RecordsSnapshot.swift
+//  RsyncUI
 //
-//  Created by Thomas Evensen on 23/02/2021.
+//  Created by Thomas Evensen on 27/08/2024.
 //
 
 import Foundation
 
-struct SnapshotLogRecords: Identifiable {
-    var id = UUID()
-    var date: Date
-    var dateExecuted: String
-    var resultExecuted: String
-    var period: String?
-    var snapshotCatalog: String?
-    var days: String?
-}
-
-extension SnapshotLogRecords: Hashable, Equatable {
-    static func == (lhs: SnapshotLogRecords, rhs: SnapshotLogRecords) -> Bool {
-        lhs.dateExecuted == rhs.dateExecuted &&
-            lhs.resultExecuted == rhs.resultExecuted &&
-            lhs.snapshotCatalog == rhs.snapshotCatalog &&
-            lhs.period == rhs.period &&
-            lhs.id == rhs.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(dateExecuted)
-        hasher.combine(resultExecuted)
-        hasher.combine(id)
-        hasher.combine(snapshotCatalog)
-        hasher.combine(period)
-    }
-}
-
-final class SnapshotRecords {
-    var loggrecordssnapshots: [SnapshotLogRecords]?
+final class RecordsSnapshot {
+    var loggrecordssnapshots: [LogRecordSnapshot]?
 
     private func readandsortallloggdata(_ config: SynchronizeConfiguration,
                                         _ logrecords: [LogRecords])
     {
-        var data = [SnapshotLogRecords]()
+        var data = [LogRecordSnapshot]()
         let localrecords = logrecords.filter { $0.hiddenID == config.hiddenID }
         guard localrecords.count == 1 else { return }
         for i in 0 ..< (localrecords[0].logrecords?.count ?? 0) {
@@ -54,7 +26,7 @@ final class SnapshotRecords {
                 }
             }
             let record =
-                SnapshotLogRecords(
+                LogRecordSnapshot(
                     date: date ?? Date(),
                     dateExecuted: datestring ?? "",
                     resultExecuted: localrecords[0].logrecords?[i].resultExecuted ?? ""

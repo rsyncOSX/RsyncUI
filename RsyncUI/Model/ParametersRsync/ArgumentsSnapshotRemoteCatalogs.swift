@@ -1,9 +1,10 @@
 //
-//  ArgumentsRemoteFileList.swift
+//  ArgumentsSnapshotRemoteCatalogs.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 07/08/2024.
+//  Created by Thomas Evensen on 27/08/2024.
 //
+
 // swiftlint:disable line_length
 
 import Foundation
@@ -11,7 +12,7 @@ import OSLog
 import RsyncArguments
 
 @MainActor
-final class ArgumentsRemoteFileList {
+final class ArgumentsSnapshotRemoteCatalogs {
     var config: SynchronizeConfiguration?
 
     func remotefilelistarguments() -> [String]? {
@@ -44,19 +45,17 @@ final class ArgumentsRemoteFileList {
                                        snapshotnum: config.snapshotnum ?? -1,
                                        rsyncdaemon: config.rsyncdaemon ?? -1,
                                        rsyncversion3: SharedReference.shared.rsyncversion3)
-            if config.task == SharedReference.shared.synchronize {
-                rsyncparametersrestore.remoteargumentsfilelist()
-            } else if config.task == SharedReference.shared.snapshot {
-                rsyncparametersrestore.remoteargumentssnapshotfilelist()
-            }
+            rsyncparametersrestore.remoteargumentssnapshotcataloglist()
             return rsyncparametersrestore.computedarguments
         }
         return nil
     }
 
     init(config: SynchronizeConfiguration) {
+        guard config.task == SharedReference.shared.snapshot else { return }
         self.config = config
     }
 }
 
 // swiftlint:enable line_length
+

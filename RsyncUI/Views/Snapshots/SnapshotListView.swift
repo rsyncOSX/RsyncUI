@@ -76,7 +76,7 @@ struct SnapshotListView: View {
         }
     }
 
-    var logrecords: [SnapshotLogRecords] {
+    var logrecords: [LogRecordSnapshot] {
         if filterstring.isEmpty {
             snapshotdata.getsnapshotdata() ?? []
         } else {

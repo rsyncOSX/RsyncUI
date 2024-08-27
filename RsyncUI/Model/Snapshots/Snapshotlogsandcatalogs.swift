@@ -8,9 +8,9 @@
 
 import Foundation
 
-final class Snapshotlogsandcatalogs: Snapshotcatalogs {
+final class Snapshotlogsandcatalogs: SnapshotRemoteCatalogs {
     // Number of local logrecords
-    var logrecordssnapshot: [SnapshotLogRecords]?
+    var logrecordssnapshot: [LogRecordSnapshot]?
 
     // Calculating days since snaphot was executed
     private func calculateddayssincesynchronize() {
@@ -25,9 +25,9 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
 
     // Merging remote snaphotcatalogs and existing logs
     private func mergeremotecatalogsandlogs() {
-        var adjustedlogrecords = [SnapshotLogRecords]()
+        var adjustedlogrecords = [LogRecordSnapshot]()
         let mycatalogs = catalogsanddates
-        var mylogrecords = logrecordssnapshot
+        let mylogrecords = logrecordssnapshot
         // Loop through all real catalogs, find the corresponding logrecord if any
         // and add the adjusted record
         for i in 0 ..< (mycatalogs?.count ?? 0) {
@@ -40,28 +40,20 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
                 if var record = record?[0] {
                     let catalogelementlog = record.resultExecuted.split(separator: " ")[0]
                     let snapshotcatalogfromschedulelog = "./" + catalogelementlog.dropFirst().dropLast()
-                    let uuid = record.id
+                    // let uuid = record.id
                     record.period = "... no tag ..."
                     record.snapshotCatalog = snapshotcatalogfromschedulelog
                     adjustedlogrecords.append(record)
-                    // Remove that record
-                    if let index = mylogrecords?.firstIndex(where: { $0.id == uuid }) {
-                        mylogrecords?.remove(at: index)
-                    }
                 }
+            } else {
+                var record = LogRecordSnapshot(date: Date(), dateExecuted: "no record", resultExecuted: "no record")
+                let snapshotcatalogfromschedulelog = "./" + realsnapshotcatalog.dropFirst().dropLast()
+                record.period = "... no tag ..."
+                record.snapshotCatalog = snapshotcatalogfromschedulelog
+                adjustedlogrecords.append(record)
             }
         }
-        logrecordssnapshot = adjustedlogrecords.sorted { cat1, cat2 -> Bool in
-            if let cat1 = cat1.snapshotCatalog,
-               let cat2 = cat2.snapshotCatalog
-            {
-                return (Int(cat1.dropFirst(2)) ?? 0) > (Int(cat2.dropFirst(2)) ?? 0)
-            }
-            return false
-        }
-        // Add records for use in the View
-        mysnapshotdata?.setsnapshotdata(logrecordssnapshot)
-        guard logrecordssnapshot?.count ?? 0 > 0 else { return }
+        mysnapshotdata?.setsnapshotdata(adjustedlogrecords)
     }
 
     func calculatedays(datestringlocalized: String) -> Double? {
@@ -70,14 +62,14 @@ final class Snapshotlogsandcatalogs: Snapshotcatalogs {
         let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
         return seconds * -1
     }
-
+    
     init(config: SynchronizeConfiguration,
          logrecords: [LogRecords],
          snapshotdata: SnapshotData)
     {
         super.init(config: config, snapshotdata: snapshotdata)
         // Getting log records, sorted after date
-        logrecordssnapshot = SnapshotRecords(config: config, logrecords: logrecords).loggrecordssnapshots
+        logrecordssnapshot = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots
     }
 
     override func processtermination(data: [String]?, hiddenID _: Int?) {
