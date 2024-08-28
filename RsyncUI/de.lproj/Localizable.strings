@@ -275,9 +275,6 @@
 "Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
 
 /* No comment provided by engineer. */
-"Not a snapshot task" = "Keine Snapshot-Aufgabe";
-
-/* No comment provided by engineer. */
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
@@ -347,6 +344,9 @@
 "Select a file for import" = "Wählen Sie eine Datei zum Importieren aus";
 
 /* No comment provided by engineer. */
+"Select a profile, then user and server" = "Wählen Sie ein Profil, dann Benutzer und Server aus";
+
+/* No comment provided by engineer. */
 "Select catalog or file" = "Katalog oder Datei auswählen";
 
 /* No comment provided by engineer. */
@@ -377,7 +377,7 @@
 "SSH keys" = "SSH-Schlüssel";
 
 /* No comment provided by engineer. */
-"SSH path and port" = "SSH-Pfad und -Port";
+"SSH-keypath and SSH-port" = "SSH-Schlüssel und SSH-Port";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synchronisieren";
@@ -387,9 +387,6 @@
 
 /* No comment provided by engineer. */
 "Synchronize all tasks with NO estimating first?" = "Alle Aufgaben ohne vorherige Schätzung synchronisieren?";
-
-/* No comment provided by engineer. */
-"Synchronize data is completed" = "Die Synchronisierung der Daten ist abgeschlossen";
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";
