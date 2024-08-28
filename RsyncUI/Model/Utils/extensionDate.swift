@@ -12,12 +12,12 @@ extension Date {
     func daymonth() -> Int {
         let calendar = Calendar.current
         let dateComponent = (calendar as NSCalendar).components(.day, from: self)
-        return dateComponent.day!
+        return dateComponent.day ?? 1
     }
 
     func getWeekday() -> Int {
         let calendar = Calendar.current
-        return (calendar as NSCalendar).components(.weekday, from: self).weekday!
+        return (calendar as NSCalendar).components(.weekday, from: self).weekday ?? 1
     }
 
     func isSelectedDayofWeek(day: NumDayofweek) -> Bool {
@@ -117,7 +117,7 @@ extension String {
 }
 
 /*
- 
+
  func monthNameShort() -> String {
      let dateFormatter = DateFormatter()
      dateFormatter.dateFormat = "MMM"
