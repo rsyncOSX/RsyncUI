@@ -40,7 +40,6 @@ final class Snapshotlogsandcatalogs: SnapshotRemoteCatalogs {
                 if var record = record?[0] {
                     let catalogelementlog = record.resultExecuted.split(separator: " ")[0]
                     let snapshotcatalogfromschedulelog = "./" + catalogelementlog.dropFirst().dropLast()
-                    // let uuid = record.id
                     record.period = "... no tag ..."
                     record.snapshotCatalog = snapshotcatalogfromschedulelog
                     adjustedlogrecords.append(record)

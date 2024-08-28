@@ -17,12 +17,14 @@ final class TagSnapshots {
     
 
     private func markfordelete() {
-        for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
-            let index = (logrecordssnapshot?.count ?? 0) - 1 - i
-            if currentweek(index: index) {
-            } else if currentdaymonth(index: index) {
-            } else { if keepallorlastdayinperiod(index: index) {} }
-        }
+        let count = (logrecordssnapshot?.count ?? 0) - 1
+        for i in 0 ..< count  {
+                let index = count - 1 - i
+                if currentweek(index: index) {
+                } else if currentdaymonth(index: index) {
+                } else { if keepallorlastdayinperiod(index: index) {} }
+            }
+        
     }
 
     private func currentweek(index: Int) -> Bool {
@@ -32,7 +34,9 @@ final class TagSnapshots {
                 datecomponentsfromdate(localizeddate: datesnapshot).year ==
                 datecomponentsfromdate(localizeddate: Date()).year
             {
-                logrecordssnapshot?[index].period = "Keep" + " " + "this week"
+                if logrecordssnapshot?[index].resultExecuted != "no record" {
+                    logrecordssnapshot?[index].period = "Keep" + " " + "this week"
+                }
                 return true
             }
             return false
@@ -59,7 +63,6 @@ final class TagSnapshots {
                 } else {
                     let tag = "Keep" + " " + datesnapshot.localized_weekday_from_date() + ", "
                         + datesnapshot.localized_month_from_date() + " " + "this month"
-
                     logrecordssnapshot?[index].period = tag
                     return false
                 }
