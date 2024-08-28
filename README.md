@@ -2,7 +2,7 @@
 
 RsyncUI is a GUI on the Apple macOS platform for the command line tool [rsync](https://github.com/WayneD/rsync). It is `rsync` which executes the synchronize data tasks. The GUI is only for organizing tasks, setting parameters to `rsync` and make it easier to use `rsync`. 
 
-If you are on macOS Sonoma and later **use RsyncUI**.
+If you are on macOS Sonoma and later, *use RsyncUI*.
 
 
 ### Install by Homebrew
@@ -12,17 +12,17 @@ The apps might be installed by Homebrew or by direct Download. The apps are sign
 | App      | Homebrew | macOS |  Documentation |
 | ----------- | ----------- |   ----------- |  ----------- |
 | RsyncUI   | `brew install --cask rsyncui`    | macOS Sonoma and later |   [rsyncui.netlify.app](https://rsyncui.netlify.app/post/rsyncuidocs/) |
-| RsyncOSX   | `brew install --cask rsyncosx`  |  macOS Big Sur and later, *not maintained, repository is  archived and readonly*  |  [rsyncosx.netlify.app](https://rsyncosx.netlify.app/post/rsyncosxdocs/) |
+| RsyncOSX   | `brew install --cask rsyncosx`  |  macOS Big Sur and later - *not maintained, repository is  archived and readonly*  |  [rsyncosx.netlify.app](https://rsyncosx.netlify.app/post/rsyncosxdocs/) |
 
 
 ### Why two apps 
 
-The development of RsyncOSX commenced in *2015* as a project to learn Swift. In *2019*, Apple released SwiftUI. SwiftUI quickly became very popular and I commenced another project, RsyncUI, to learn SwiftUI.
+The development of RsyncOSX commenced in *2015* as a project to learn Swift. In *2019*, Apple released SwiftUI. SwiftUI quickly became popular and I commenced another project, RsyncUI, to learn SwiftUI.
 
 | App      | Storage  | UI | Latest version  |  Version 1.0.0 |
 | ----------- | ----------- |   -------- | -------- | -------- |
-| RsyncUI   | JSON  | SwiftUI, declarativ     | v1.9.2 - [11 June 2024](https://github.com/rsyncOSX/RsyncUI/releases)  | 6 May 2021  |
-| RsyncOSX  | JSON | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX/releases) |	14 March 2016 |
+| RsyncUI   | JSON  | SwiftUI, declarativ     | v1.9.2 - [11 June 2024](https://github.com/rsyncOSX/RsyncUI/releases) - active development and maintenance | 6 May 2021  |
+| RsyncOSX  | JSON | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - *not maintained, repository is  archived and readonly* |	14 March 2016 |
 
 ### Important to verify new tasks
 
