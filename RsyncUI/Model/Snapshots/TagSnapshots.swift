@@ -10,21 +10,18 @@
 import Foundation
 
 final class TagSnapshots {
-
     var day: NumDayofweek = .Monday
     var logrecordssnapshot: [LogRecordSnapshot]?
     private var keepallselcteddayofweek: Bool = true
-    
 
     private func markfordelete() {
         let count = (logrecordssnapshot?.count ?? 0) - 1
-        for i in 0 ..< count  {
-                let index = count - 1 - i
-                if currentweek(index: index) {
-                } else if currentdaymonth(index: index) {
-                } else { if keepallorlastdayinperiod(index: index) {} }
-            }
-        
+        for i in 0 ..< count {
+            let index = count - 1 - i
+            if currentweek(index: index) {
+            } else if currentdaymonth(index: index) {
+            } else { if keepallorlastdayinperiod(index: index) {} }
+        }
     }
 
     private func currentweek(index: Int) -> Bool {
@@ -165,7 +162,7 @@ final class TagSnapshots {
         setweekdaytokeep(snapdayoffweek: snapdayoffweek)
         logrecordssnapshot = data
         guard logrecordssnapshot != nil else { return }
-       
+
         markfordelete()
     }
 }
@@ -173,7 +170,7 @@ final class TagSnapshots {
 // swiftlint:enable line_length
 
 /*
- 
+
  var now: String?
 
  private func datefromstring(datestringlocalized: String) -> Date {
@@ -192,7 +189,7 @@ final class TagSnapshots {
                                      .hour, .minute,
                                      .weekday, .weekOfYear, .year], from: date ?? Date())
  }
- 
+
     // Keep all snapshots current week.
     private func currentweek(index: Int) -> Bool {
         let datesnapshotstring = logrecordssnapshot?[index].dateExecuted
@@ -285,12 +282,11 @@ final class TagSnapshots {
  func isselectedDayinWeek(_ date: Date) -> Bool {
      day.rawValue == date.getWeekday()
  }
- 
+
  init() {
- 
- 
+
  now = Date().localized_string_from_date()
- 
+
  }
 
  */
