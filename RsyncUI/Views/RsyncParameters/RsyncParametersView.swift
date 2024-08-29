@@ -34,6 +34,8 @@ struct RsyncParametersView: View {
     @State var publisherkeypath = PassthroughSubject<String, Never>()
     // Backup switch
     @State var backup: Bool = false
+    // Update pressed
+    @State var updated: Bool = false
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -103,6 +105,7 @@ struct RsyncParametersView: View {
                                 selectedconfig = nil
                                 parameters.setvalues(selectedconfig)
                                 backup = false
+                                updated = false
                             }
                         }
                     }
@@ -128,8 +131,13 @@ struct RsyncParametersView: View {
                 Button {
                     saversyncparameters()
                 } label: {
-                    Image(systemName: "return")
-                        .foregroundColor(Color(.blue))
+                    if updated == false {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color(.blue))
+                    } else {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    }
                 }
                 .help("Update task")
             }
@@ -224,6 +232,7 @@ extension RsyncParametersView {
             rsyncUIdata.configurations = updateconfigurations.configurations
             parameters.reset()
             selectedconfig = nil
+            updated = true
         }
     }
 }
