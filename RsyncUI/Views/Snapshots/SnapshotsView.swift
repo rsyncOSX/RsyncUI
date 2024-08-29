@@ -65,10 +65,10 @@ struct SnapshotsView: View {
                         }
                 }
 
-                if notsnapshot == true { MessageView(dismissafter: 2, mytext: "Not a snapshot task", width: 200) }
+                if notsnapshot == true { MessageView(dismissafter: 2, mytext: NSLocalizedString("Not a snapshot task.", comment: ""), width: 200) }
 
                 if SharedReference.shared.rsyncversion3 == false, notsnapshot == false {
-                    MessageView(dismissafter: 2, mytext: "Only rsync version 3.x supports snapshots.", width: 450)
+                    MessageView(dismissafter: 2, mytext: NSLocalizedString("Only rsync version 3.x supports snapshots.", comment: ""), width: 450)
                 }
             }
             if focustagsnapshot == true { labeltagsnapshot }
