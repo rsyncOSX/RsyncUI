@@ -61,9 +61,9 @@ struct MessageView: View {
                     .font(.title3)
                     .foregroundColor(Color.blue)
                     .multilineTextAlignment(.center)
-                            .lineLimit(1)
-                            .allowsTightening(true)
-                            .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .allowsTightening(true)
+                    .minimumScaleFactor(0.5)
             }
             .frame(height: 30, alignment: .center)
             .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4))

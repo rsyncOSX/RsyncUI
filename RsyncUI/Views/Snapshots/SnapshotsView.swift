@@ -82,8 +82,6 @@ struct SnapshotsView: View {
                 }
 
                 labelnumberoflogs
-                
-                
 
                 Spacer()
             }
