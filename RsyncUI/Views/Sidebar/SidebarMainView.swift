@@ -64,7 +64,7 @@ struct SidebarMainView: View {
                 SidebarLogsView(configurations: configurations,
                                 profile: rsyncUIdata.profile)
             } else {
-                MessageView(dismissafter: 2, mytext: NSLocalizedString("No log records yet.", comment: ""), width: 350)
+                MessageView(dismissafter: 2, mytext: NSLocalizedString("No log records yet.", comment: ""))
             }
         case .rsync_parameters:
             RsyncParametersView(rsyncUIdata: rsyncUIdata)
@@ -74,7 +74,7 @@ struct SidebarMainView: View {
                     RestoreTableView(profile: $rsyncUIdata.profile,
                                      configurations: configurations)
                 } else {
-                    MessageView(dismissafter: 2, mytext: NSLocalizedString("No configurations yet.", comment: ""), width: 350)
+                    MessageView(dismissafter: 2, mytext: NSLocalizedString("No configurations yet.", comment: ""))
                 }
             }
         case .snapshots:
