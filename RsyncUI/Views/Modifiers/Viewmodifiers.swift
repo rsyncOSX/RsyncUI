@@ -49,7 +49,7 @@ struct ToggleViewDefault: View {
 struct MessageView: View {
     private var dismissafter: Double
     private var mytext: String
-    private var width: CGFloat
+    // private var width: CGFloat
 
     @State private var showtext: Bool = true
 
@@ -60,8 +60,12 @@ struct MessageView: View {
                 Text(mytext)
                     .font(.title3)
                     .foregroundColor(Color.blue)
+                    .multilineTextAlignment(.center)
+                            .lineLimit(1)
+                            .allowsTightening(true)
+                            .minimumScaleFactor(0.5)
             }
-            .frame(width: width, height: 30, alignment: .center)
+            .frame(height: 30, alignment: .center)
             .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4))
             .onAppear(perform: {
                 Task {
@@ -72,9 +76,9 @@ struct MessageView: View {
         }
     }
 
-    init(dismissafter: Double, mytext: String, width: CGFloat) {
+    init(dismissafter: Double, mytext: String) {
         self.dismissafter = dismissafter
         self.mytext = mytext
-        self.width = width
+        // self.width = width
     }
 }
