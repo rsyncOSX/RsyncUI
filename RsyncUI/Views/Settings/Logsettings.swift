@@ -15,26 +15,26 @@ struct Logsettings: View {
     var body: some View {
         Form {
             Section {
-                ToggleViewDefault(NSLocalizedString("Monitor network", comment: ""), $usersettings.monitornetworkconnection)
+                ToggleViewDefault(text: NSLocalizedString("Monitor network", comment: ""), binding: $usersettings.monitornetworkconnection)
                     .onChange(of: usersettings.monitornetworkconnection) {
                         SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
                     }
-                ToggleViewDefault(NSLocalizedString("Check for error in output", comment: ""), $usersettings.checkforerrorinrsyncoutput)
+                ToggleViewDefault(text: NSLocalizedString("Check for error in output", comment: ""), binding: $usersettings.checkforerrorinrsyncoutput)
                     .onChange(of: usersettings.checkforerrorinrsyncoutput) {
                         SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
                     }
-                ToggleViewDefault(NSLocalizedString("Add summary logrecord", comment: ""), $usersettings.addsummarylogrecord)
+                ToggleViewDefault(text: NSLocalizedString("Add summary logrecord", comment: ""), binding: $usersettings.addsummarylogrecord)
                     .onChange(of: usersettings.addsummarylogrecord) {
                         SharedReference.shared.addsummarylogrecord = usersettings.addsummarylogrecord
                     }
-                ToggleViewDefault(NSLocalizedString("Log summary logfile", comment: ""),
-                                  $usersettings.logtofile)
+                ToggleViewDefault(text: NSLocalizedString("Log summary logfile", comment: ""),
+                                  binding: $usersettings.logtofile)
                     .onChange(of: usersettings.logtofile) {
                         SharedReference.shared.logtofile = usersettings.logtofile
                     }
 
                 if SharedReference.shared.rsyncversion3 {
-                    ToggleViewDefault(NSLocalizedString("Confirm execute", comment: ""), $usersettings.confirmexecute)
+                    ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $usersettings.confirmexecute)
                         .onChange(of: usersettings.confirmexecute) {
                             SharedReference.shared.confirmexecute = usersettings.confirmexecute
                         }

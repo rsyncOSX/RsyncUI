@@ -21,15 +21,15 @@ struct RsyncDefaultParametersView: View {
                 VStack(alignment: .leading) {
                     Section(header: headerremove) {
                         VStack(alignment: .leading) {
-                            ToggleViewDefault("-e ssh", $parameters.removessh)
+                            ToggleViewDefault(text: "-e ssh", binding: $parameters.removessh)
                                 .onChange(of: parameters.removessh) {
                                     parameters.deletessh(parameters.removessh)
                                 }
-                            ToggleViewDefault("--compress", $parameters.removecompress)
+                            ToggleViewDefault(text: "--compress", binding: $parameters.removecompress)
                                 .onChange(of: parameters.removecompress) {
                                     parameters.deletecompress(parameters.removecompress)
                                 }
-                            ToggleViewDefault("--delete", $parameters.removedelete)
+                            ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
                                 .onChange(of: parameters.removedelete) {
                                     parameters.deletedelete(parameters.removedelete)
                                 }
@@ -37,7 +37,7 @@ struct RsyncDefaultParametersView: View {
                     }
 
                     Section(header: headerdaemon) {
-                        ToggleViewDefault("daemon", $parameters.daemon)
+                        ToggleViewDefault(text: "daemon", binding: $parameters.daemon)
                     }
 
                     Spacer()

@@ -40,7 +40,7 @@ struct ToggleViewDefault: View {
         }
     }
 
-    init(_ text: String, _ binding: Binding<Bool>) {
+    init(text: String, binding: Binding<Bool>) {
         mytext = text
         mybinding = binding
     }
@@ -61,7 +61,7 @@ struct MessageView: View {
                     .font(.title3)
                     .foregroundColor(Color.blue)
             }
-            .frame(width: width, height: 50, alignment: .center)
+            .frame(width: width, height: 30, alignment: .center)
             .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4))
             .onAppear(perform: {
                 Task {

@@ -25,7 +25,7 @@ struct Sshsettings: View {
             Form {
                 Section {
                     VStack(alignment: .leading) {
-                        ToggleViewDefault(NSLocalizedString("Local ssh keys are present", comment: ""), $localsshkeys)
+                        ToggleViewDefault(text: NSLocalizedString("Local ssh keys are present", comment: ""), binding: $localsshkeys)
                             .disabled(true)
                     }
                 } header: {
@@ -68,7 +68,7 @@ struct Sshsettings: View {
                     Text("SSH keys")
                 }
 
-                if showsshkeyiscreated { MessageView(dismissafter: 3, mytext: "SSH key is created, see logfile.", width: 300) }
+                if showsshkeyiscreated { MessageView(dismissafter: 2, mytext: NSLocalizedString("SSH key is created, see logfile.", comment: ""), width: 300) }
             }
             .formStyle(.grouped)
             .onAppear(perform: {

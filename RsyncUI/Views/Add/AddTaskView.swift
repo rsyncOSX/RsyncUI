@@ -57,8 +57,8 @@ struct AddTaskView: View {
                     }
 
                     VStack(alignment: .leading) {
-                        ToggleViewDefault(NSLocalizedString("Don´t add /", comment: ""),
-                                          $newdata.donotaddtrailingslash)
+                        ToggleViewDefault(text: NSLocalizedString("Don´t add /", comment: ""),
+                                          binding: $newdata.donotaddtrailingslash)
                     }
 
                     VStack(alignment: .leading) { synchronizeID }
