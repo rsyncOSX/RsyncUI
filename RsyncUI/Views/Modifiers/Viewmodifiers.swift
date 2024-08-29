@@ -49,7 +49,6 @@ struct ToggleViewDefault: View {
 struct MessageView: View {
     private var dismissafter: Double
     private var mytext: String
-    // private var width: CGFloat
 
     @State private var showtext: Bool = true
 
@@ -73,12 +72,12 @@ struct MessageView: View {
                     showtext = false
                 }
             })
+            .padding(100)
         }
     }
 
     init(dismissafter: Double, mytext: String) {
         self.dismissafter = dismissafter
         self.mytext = mytext
-        // self.width = width
     }
 }
