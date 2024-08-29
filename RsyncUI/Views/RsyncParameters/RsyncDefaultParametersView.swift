@@ -14,6 +14,8 @@ struct RsyncDefaultParametersView: View {
     @State private var parameters = ObservableParametersDefault()
     @State private var selectedrsynccommand = RsyncCommand.synchronize
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    // Update pressed
+    @State var updated: Bool = false
 
     var body: some View {
         VStack {
@@ -53,12 +55,14 @@ struct RsyncDefaultParametersView: View {
                                 parameters.setvalues(configurations[index])
                             } else {
                                 parameters.setvalues(nil)
+                                updated = false
                             }
                         }
                     }
                     .onChange(of: rsyncUIdata.profile) {
                         parameters.setvalues(nil)
                         selecteduuids.removeAll()
+                        updated = false
                     }
             }
 
@@ -70,10 +74,14 @@ struct RsyncDefaultParametersView: View {
             ToolbarItem {
                 Button {
                     saversyncparameters()
-                    path.removeAll()
                 } label: {
-                    Image(systemName: "return")
-                        .foregroundColor(Color(.blue))
+                    if updated == false {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color(.blue))
+                    } else {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    }
                 }
                 .help("Update task")
             }
@@ -103,6 +111,11 @@ extension RsyncDefaultParametersView {
             updateconfigurations.updateconfiguration(updatedconfiguration, true)
             rsyncUIdata.configurations = updateconfigurations.configurations
             parameters.reset()
+            updated = true
+            Task {
+                try await Task.sleep(seconds: 2)
+                path.removeAll()
+            }
         }
     }
 }
