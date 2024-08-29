@@ -12,8 +12,8 @@ struct RsyncandPathsettings: View {
         Form {
             Section {
                 HStack {
-                    ToggleViewDefault(NSLocalizedString("Rsync v3.x", comment: ""),
-                                      $usersettings.rsyncversion3)
+                    ToggleViewDefault(text: NSLocalizedString("Rsync v3.x", comment: ""),
+                                      binding: $usersettings.rsyncversion3)
                         .onChange(of: usersettings.rsyncversion3) {
                             Task {
                                 try await Task.sleep(seconds: 2)
@@ -38,8 +38,8 @@ struct RsyncandPathsettings: View {
                             }
                         }
 
-                    ToggleViewDefault(NSLocalizedString("Apple Silicon", comment: ""),
-                                      $usersettings.macosarm)
+                    ToggleViewDefault(text: NSLocalizedString("Apple Silicon", comment: ""),
+                                      binding: $usersettings.macosarm)
                         .onChange(of: usersettings.macosarm) {
                             SharedReference.shared.macosarm = usersettings.macosarm
                         }
