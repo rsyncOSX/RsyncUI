@@ -23,6 +23,9 @@ struct RestoreTableView: View {
     @State private var showindebounce: Bool = false
 
     @Binding var profile: String?
+    // Update pressed
+    @State var updated: Bool = false
+
     let configurations: [SynchronizeConfiguration]
 
     var body: some View {
@@ -136,8 +139,13 @@ struct RestoreTableView: View {
                     Button {
                         executerestore()
                     } label: {
-                        Image(systemName: "return")
-                            .foregroundColor(Color(.blue))
+                        if updated == false {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(Color(.blue))
+                        } else {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(Color(.blue))
+                        }
                     }
                     .help("Restore files")
                 }
@@ -243,6 +251,7 @@ extension RestoreTableView {
 
     func processtermination(data: [String]?, hiddenID _: Int?) {
         gettingfilelist = false
+        updated = false
         restore.rsyncdata = TrimOutputForRestore(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         restore.datalist = restore.rsyncdata?.map { filename in
             RestoreFileRecord(filename: filename)
@@ -270,11 +279,13 @@ extension RestoreTableView {
             let command = RsyncProcessNOFilehandler(arguments: arguments,
                                                     processtermination: processtermination)
             command.executeProcess()
+            updated = true
         }
     }
 
     func executerestore() {
         if let config = restore.selectedconfig {
+            updated = true
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
             if snapshot, snapshotcatalog.isEmpty == false {
                 var tempconfig = config

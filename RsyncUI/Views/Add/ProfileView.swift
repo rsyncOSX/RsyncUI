@@ -16,6 +16,8 @@ struct ProfileView: View {
     @State private var uuidprofile = Set<ProfilesnamesRecord.ID>()
     @State private var localselectedprofile: String?
     @State private var newprofile: String = ""
+    // Update pressed
+    @State var updated: Bool = false
 
     var body: some View {
         VStack {
@@ -31,6 +33,7 @@ struct ProfileView: View {
                 if profile.count == 1 {
                     localselectedprofile = profile[0].profile
                 }
+                updated = false
             }
 
             Spacer()
@@ -50,8 +53,13 @@ struct ProfileView: View {
                     guard newprofile.isEmpty == false else { return }
                     createprofile()
                 } label: {
-                    Image(systemName: "return")
-                        .foregroundColor(Color(.blue))
+                    if updated == false {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color(.blue))
+                    } else {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    }
                 }
                 .help("Add profile")
             }
@@ -83,6 +91,7 @@ extension ProfileView {
         selectedprofile = newdata.selectedprofile
         rsyncUIdata.profile = selectedprofile
         newprofile = ""
+        updated = true
     }
 
     func deleteprofile() {
