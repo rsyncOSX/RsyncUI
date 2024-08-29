@@ -32,6 +32,8 @@ struct QuicktaskView: View {
     @State private var focusstartexecution: Bool = false
     // Completed task
     @State private var completed: Bool = false
+    // Update pressed
+    @State var updated: Bool = false
 
     var choosecatalog = true
 
@@ -103,8 +105,13 @@ struct QuicktaskView: View {
                 Button {
                     getconfigandexecute()
                 } label: {
-                    Image(systemName: "return")
-                        .foregroundColor(Color(.blue))
+                    if updated == false {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color(.blue))
+                    } else {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    }
                 }
                 .help("Synchronize (⌘R)")
             }
@@ -239,6 +246,7 @@ extension QuicktaskView {
     }
 
     func getconfigandexecute() {
+        updated = true
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
@@ -271,6 +279,7 @@ extension QuicktaskView {
         showprogressview = false
         rsyncoutput?.setoutput(outputfromrsync)
         completed = true
+        updated = false
     }
 }
 

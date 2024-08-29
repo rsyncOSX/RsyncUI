@@ -27,6 +27,9 @@ struct SnapshotsView: View {
     @State private var deleteiscompleted: Bool = false
     // Filter
     @State private var filterstring: String = ""
+    // Update pressed
+    @State var updatebutton: Bool = false
+    
 
     var body: some View {
         VStack {
@@ -93,7 +96,13 @@ struct SnapshotsView: View {
                 Button {
                     updateplansnapshot()
                 } label: {
-                    Image(systemName: "return")
+                    if updatebutton == false {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color(.blue))
+                    } else {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    }
                 }
                 .help("Update plan snapshot")
             }
@@ -257,8 +266,12 @@ extension SnapshotsView {
     }
 
     func updateplansnapshot() {
+        updatebutton = true
         if var selectedconfig {
-            guard selectedconfig.task == SharedReference.shared.snapshot else { return }
+            guard selectedconfig.task == SharedReference.shared.snapshot else {
+                updatebutton = false
+                return
+            }
             switch snaplast {
             case PlanSnapshots.Last.rawValue:
                 selectedconfig.snaplast = 0
@@ -273,6 +286,11 @@ extension SnapshotsView {
                                      configurations: rsyncUIdata.configurations)
             updateconfiguration.updateconfiguration(selectedconfig, false)
             updated = true
+            
+        }
+        Task {
+            try await Task.sleep(seconds: 2)
+            updatebutton = false
         }
     }
 }
