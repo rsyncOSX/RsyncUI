@@ -173,6 +173,9 @@ struct RestoreTableView: View {
         }
         .navigationDestination(isPresented: $restore.presentsheetrsync) {
             OutputRsyncView(output: restore.rsyncdata ?? [])
+                .onAppear {
+                    updated = false
+                }
         }
         .padding()
     }
@@ -251,7 +254,6 @@ extension RestoreTableView {
 
     func processtermination(data: [String]?, hiddenID _: Int?) {
         gettingfilelist = false
-        updated = false
         restore.rsyncdata = TrimOutputForRestore(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         restore.datalist = restore.rsyncdata?.map { filename in
             RestoreFileRecord(filename: filename)
@@ -279,12 +281,11 @@ extension RestoreTableView {
             let command = RsyncProcessNOFilehandler(arguments: arguments,
                                                     processtermination: processtermination)
             command.executeProcess()
-            updated = true
         }
     }
 
     func executerestore() {
-        if let config = restore.selectedconfig {
+        if let config = restore.selectedconfig, restore.filestorestore.isEmpty == false {
             updated = true
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
             if snapshot, snapshotcatalog.isEmpty == false {
