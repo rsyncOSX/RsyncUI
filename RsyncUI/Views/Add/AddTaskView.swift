@@ -487,6 +487,10 @@ extension AddTaskView {
     func validateandupdate() {
         rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
         updated = true
+        Task {
+            try await Task.sleep(seconds: 2)
+            updated = false
+        }
     }
 }
 
