@@ -102,6 +102,7 @@ struct RsyncDefaultParametersView: View {
 
 extension RsyncDefaultParametersView {
     func saversyncparameters() {
+        updated = true
         if let updatedconfiguration = parameters.updatersyncparameters(),
            let configurations = rsyncUIdata.configurations
         {
@@ -111,11 +112,11 @@ extension RsyncDefaultParametersView {
             updateconfigurations.updateconfiguration(updatedconfiguration, true)
             rsyncUIdata.configurations = updateconfigurations.configurations
             parameters.reset()
-            updated = true
-            Task {
-                try await Task.sleep(seconds: 2)
-                path.removeAll()
-            }
+        }
+        Task {
+            try await Task.sleep(seconds: 2)
+            updated = false
+            path.removeAll()
         }
     }
 }
