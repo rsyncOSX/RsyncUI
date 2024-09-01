@@ -15,9 +15,15 @@ struct OutputRsyncVerifyView: View {
     let config: SynchronizeConfiguration
 
     var body: some View {
-        ZStack {
+        HStack {
             if progress {
+                
+                Spacer()
+                
                 ProgressView()
+                
+                Spacer()
+                
             } else {
                 if let estimatedtask {
                     DetailsView(estimatedtask: estimatedtask, outputfromrsync: outputfromrsync)
