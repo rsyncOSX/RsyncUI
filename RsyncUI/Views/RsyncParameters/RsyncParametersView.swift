@@ -153,6 +153,7 @@ struct RsyncParametersView: View {
 
             ToolbarItem {
                 Button {
+                    guard selecteduuids.isEmpty == false else { return }
                     path.append(ParametersTasks(task: .verify))
                 } label: {
                     Image(systemName: "flag.checkered")
