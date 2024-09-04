@@ -36,7 +36,7 @@ Please be aware it is an external task *not controlled* by RsyncUI, which execut
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.9.2/total)  [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
-**RsyncUI** is released for *macOS Sonoma and later*. Latest build is [11 June 2024](https://github.com/rsyncOSX/RsyncUI/releases) and release candidate version 2.1.0 (b110) was released 21 August 2024.
+**RsyncUI** is released for *macOS Sonoma and later*. Latest build is [11 June 2024](https://github.com/rsyncOSX/RsyncUI/releases) and release candidate version 2.1.0 (b110) was released 4 September 2024.
 
 - the [user guide for RsyncUI](https://rsyncui.netlify.app/)
 - the [changelog](https://rsyncui.netlify.app/post/changelog/)
