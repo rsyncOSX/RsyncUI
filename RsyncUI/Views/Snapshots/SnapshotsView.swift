@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct SnapshotsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -28,8 +29,9 @@ struct SnapshotsView: View {
     // Filter
     @State private var filterstring: String = ""
     // Update pressed
-    @State var updatebutton: Bool = false
-    
+    @State private var updatebutton: Bool = false
+    //
+    @State private var isdisabled: Bool = true
 
     var body: some View {
         VStack {
@@ -45,10 +47,12 @@ struct SnapshotsView: View {
                                     if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
                                         selectedconfig = configurations[index]
                                         getdata()
+                                        isdisabled = false
                                     } else {
                                         selectedconfig = nil
                                         snapshotdata.setsnapshotdata(nil)
                                         filterstring = ""
+                                        isdisabled = true
                                     }
                                 }
                             }
@@ -78,38 +82,36 @@ struct SnapshotsView: View {
             if focusaborttask { labelaborttask }
 
             HStack {
-                
-                if selectedconfig != nil {
-                    VStack(alignment: .leading) {
-                        pickersnaplast
+                VStack(alignment: .leading) {
+                    pickersnaplast
+                        .disabled(isdisabled)
 
-                        pickersnapdayoffweek
-                    }
-
-                    labelnumberoflogs
-
-                    Spacer()
+                    pickersnapdayoffweek
+                        .disabled(isdisabled)
                 }
+
+                labelnumberoflogs
+
+                Spacer()
             }
         }
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
-                if selectedconfig != nil {
-                    Button {
-                        updateplansnapshot()
-                    } label: {
-                        if updatebutton == false {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(Color(.blue))
-                        } else {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color(.blue))
-                        }
+                Button {
+                    updateplansnapshot()
+                } label: {
+                    if updatebutton == false {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color(.blue))
+                    } else {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
                     }
-                    .help("Update plan snapshot")
                 }
+                .help("Update plan snapshot")
+                .disabled(isdisabled)
             }
 
             ToolbarItem {
@@ -283,15 +285,21 @@ extension SnapshotsView {
             case PlanSnapshots.Every.rawValue:
                 selectedconfig.snaplast = 1
             default:
-                return
+                selectedconfig.snaplast = 0
             }
+            
             selectedconfig.snapdayoffweek = snapdayofweek
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.configurations)
             updateconfiguration.updateconfiguration(selectedconfig, false)
+            rsyncUIdata.configurations = updateconfiguration.configurations
             updated = true
-            
+            if selectedconfig.snaplast == 1 {
+                Logger.process.info("SnapshotsView: saved EVERY day in month for \(snapdayofweek, privacy: .public)")
+            } else {
+                Logger.process.info("SnapshotsView: saved LAST day in month for \(snapdayofweek, privacy: .public)")
+            }
         }
         Task {
             try await Task.sleep(seconds: 2)
