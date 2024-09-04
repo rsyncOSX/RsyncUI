@@ -17,13 +17,12 @@ struct OutputRsyncVerifyView: View {
     var body: some View {
         HStack {
             if progress {
-                
                 Spacer()
-                
+
                 ProgressView()
-                
+
                 Spacer()
-                
+
             } else {
                 if let estimatedtask {
                     DetailsView(estimatedtask: estimatedtask, outputfromrsync: outputfromrsync)
