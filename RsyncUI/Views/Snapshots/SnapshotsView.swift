@@ -78,33 +78,38 @@ struct SnapshotsView: View {
             if focusaborttask { labelaborttask }
 
             HStack {
-                VStack(alignment: .leading) {
-                    pickersnaplast
+                
+                if selectedconfig != nil {
+                    VStack(alignment: .leading) {
+                        pickersnaplast
 
-                    pickersnapdayoffweek
+                        pickersnapdayoffweek
+                    }
+
+                    labelnumberoflogs
+
+                    Spacer()
                 }
-
-                labelnumberoflogs
-
-                Spacer()
             }
         }
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
-                Button {
-                    updateplansnapshot()
-                } label: {
-                    if updatebutton == false {
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(Color(.blue))
-                    } else {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
+                if selectedconfig != nil {
+                    Button {
+                        updateplansnapshot()
+                    } label: {
+                        if updatebutton == false {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(Color(.blue))
+                        } else {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(Color(.blue))
+                        }
                     }
+                    .help("Update plan snapshot")
                 }
-                .help("Update plan snapshot")
             }
 
             ToolbarItem {
@@ -209,11 +214,11 @@ extension SnapshotsView {
                 return
             }
             // Setting values for tagging snapshots
-            if let snaplast = config.snaplast {
-                if snaplast == 0 {
-                    self.snaplast = PlanSnapshots.Last.rawValue
+            if let mysnaplast = config.snaplast {
+                if mysnaplast == 0 {
+                    snaplast = PlanSnapshots.Last.rawValue
                 } else {
-                    self.snaplast = PlanSnapshots.Every.rawValue
+                    snaplast = PlanSnapshots.Every.rawValue
                 }
             }
             if let snapdayofweek = config.snapdayoffweek {
