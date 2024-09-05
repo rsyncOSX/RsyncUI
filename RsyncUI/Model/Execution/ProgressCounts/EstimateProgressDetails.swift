@@ -88,11 +88,11 @@ final class EstimateProgressDetails {
         onetaskisestimated = true
     }
 
-    func asyncestimationcomplete() {
+    func estimationcomplete() {
         estimatealltasksinprogress = false
     }
 
-    func startestimateasync() {
+    func startestimation() {
         estimatealltasksinprogress = true
     }
 

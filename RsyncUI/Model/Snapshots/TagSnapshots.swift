@@ -85,7 +85,7 @@ final class TagSnapshots {
                let yearToday = datecomponentsfromdate(localizeddate: Date()).year
             {
                 if month != monthToday || year < yearToday {
-                    if checkdaytookeepinmonth(datesnapshot) == true {
+                    if verifydaytokeepinmonth(datesnapshot) == true {
                         if month == monthToday - 1 {
                             let tag = "Keep" + " " + datesnapshot.localized_weekday_from_date() + ", "
                                 + datesnapshot.localized_month_from_date() + "previous month"
@@ -116,7 +116,7 @@ final class TagSnapshots {
         return false
     }
 
-    func checkdaytookeepinmonth(_ date: Date) -> Bool {
+    func verifydaytokeepinmonth(_ date: Date) -> Bool {
         if keepallselcteddayofweek {
             day.rawValue == date.getWeekday()
         } else {
