@@ -46,7 +46,9 @@ final class ArgumentsRestore {
                                        snapshotnum: config.snapshotnum ?? -1,
                                        rsyncdaemon: config.rsyncdaemon ?? -1,
                                        rsyncversion3: SharedReference.shared.rsyncversion3)
-            rsyncparametersrestore.argumentsrestore(forDisplay: forDisplay, verify: false, dryrun: dryRun, restoresnapshotbyfiles: restoresnapshotbyfiles)
+            rsyncparametersrestore.argumentsrestore(forDisplay: forDisplay,
+                                                    verify: false, dryrun: dryRun,
+                                                    restoresnapshotbyfiles: restoresnapshotbyfiles)
             return rsyncparametersrestore.computedarguments
         }
 
