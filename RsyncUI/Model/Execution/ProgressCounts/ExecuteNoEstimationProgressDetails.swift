@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class ExecuteNoEstimation {
+final class ExecuteNoEstimationProgressDetails {
     var executenoestimationcompleted: Bool = false
     var executelist: [RemoteDataNumbers]?
     // set uuid if data to be transferred

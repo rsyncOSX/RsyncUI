@@ -14,7 +14,7 @@ struct ExecuteNoestimatedTasksView: View {
     @Binding var path: [Tasks]
 
     // Must be stateobject
-    @State private var executenoestimation = ExecuteNoEstimation()
+    @State private var executenoestimationprogressdetails = ExecuteNoEstimationProgressDetails()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executetasks: ExecuteTasksNOEstimation?
@@ -67,17 +67,17 @@ extension ExecuteNoestimatedTasksView {
         selecteduuids.removeAll()
         _ = InterruptProcess()
         progressviewshowinfo = false
-        executenoestimation.reset()
+        executenoestimationprogressdetails.reset()
     }
 
     func executeallnoestimationtasks() {
         Logger.process.info("executeallnoestimationtasks(): \(selecteduuids, privacy: .public)")
-        executenoestimation.startexecutealltasksnoestimation()
+        executenoestimationprogressdetails.startexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
             executetasks =
                 ExecuteTasksNOEstimation(profile: rsyncUIdata.profile,
                                          rsyncuiconfigurations: configurations,
-                                         executenoestimation: executenoestimation,
+                                         executenoestimationprogressdetails: executenoestimationprogressdetails,
                                          uuids: selecteduuids,
                                          filter: filterstring,
                                          updateconfigurations: updateconfigurations)
@@ -89,7 +89,7 @@ extension ExecuteNoestimatedTasksView {
         Logger.process.info("Updateconfigurations() in memory\nReset data and return to main task view")
         rsyncUIdata.configurations = configurations
         progressviewshowinfo = false
-        executenoestimation.reset()
+        executenoestimationprogressdetails.reset()
         path.append(Tasks(task: .completedview))
     }
 }
