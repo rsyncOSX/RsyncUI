@@ -123,9 +123,6 @@ struct RsyncParametersView: View {
             backup = false
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
-        .alert(isPresented: $parameters.alerterror,
-               content: { Alert(localizedError: parameters.error)
-               })
         .toolbar(content: {
             ToolbarItem {
                 Button {

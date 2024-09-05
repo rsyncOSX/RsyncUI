@@ -135,9 +135,6 @@ struct AddTaskView: View {
                 return
             }
         }
-        .alert(isPresented: $newdata.alerterror,
-               content: { Alert(localizedError: newdata.error)
-               })
         .onChange(of: rsyncUIdata.profile) {
             newdata.resetform()
             selecteduuids.removeAll()

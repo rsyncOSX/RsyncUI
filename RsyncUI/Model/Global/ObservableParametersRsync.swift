@@ -7,9 +7,10 @@
 
 import Foundation
 import Observation
+import SSHCreateKey
 
 @Observable @MainActor
-final class ObservableParametersRsync {
+final class ObservableParametersRsync: PropogateError {
     // Set the current value as placeholder text
     var sshport: String = ""
     // SSH keypath and identityfile, the settings View is picking up the current value
@@ -25,9 +26,8 @@ final class ObservableParametersRsync {
     var parameter14: String = ""
     // Selected configuration
     var configuration: SynchronizeConfiguration?
-    // Alerts
-    var alerterror: Bool = false
-    var error: Error = Validatedpath.noerror
+
+    var sshcreatekey: SSHCreateKey?
 
     func setvalues(_ config: SynchronizeConfiguration?) {
         if let config {
@@ -115,17 +115,6 @@ final class ObservableParametersRsync {
         sshkeypathandidentityfile = ""
     }
 
-    // SSH identityfile
-    private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
-        if keypath.first != "~" { throw SshError.noslash }
-        let tempsshkeypath = keypath
-        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
-        guard sshkeypathandidentityfilesplit.count > 2 else { throw SshError.noslash }
-        guard sshkeypathandidentityfilesplit[1].count > 1 else { throw SshError.notvalidpath }
-        guard sshkeypathandidentityfilesplit[2].count > 1 else { throw SshError.notvalidpath }
-        return true
-    }
-
     func sshkeypath(_ keypath: String) {
         guard configuration != nil else { return }
         guard keypath.isEmpty == false else {
@@ -133,23 +122,14 @@ final class ObservableParametersRsync {
             return
         }
         do {
-            let verified = try checksshkeypathbeforesaving(keypath)
-            if verified {
+            let verified = try sshcreatekey?.verifysshkeypath(keypath)
+            if let verified {
                 configuration?.sshkeypathandidentityfile = keypath
             }
         } catch let e {
-            error = e
-            alerterror = true
-        }
-    }
-
-    // SSH port number
-    private func checksshport(_ port: String) throws -> Bool {
-        guard port.isEmpty == false else { return false }
-        if Int(port) != nil {
-            return true
-        } else {
-            throw InputError.notvalidInt
+            let error = e
+            propogateerror(error: error)
+            return
         }
     }
 
@@ -160,13 +140,19 @@ final class ObservableParametersRsync {
             return
         }
         do {
-            let verified = try checksshport(port)
-            if verified {
+            let verified = try sshcreatekey?.verifysshport(port)
+            if let verified {
                 configuration?.sshport = Int(port)
             }
         } catch let e {
-            error = e
-            alerterror = true
+            let error = e
+            propogateerror(error: error)
+            return
         }
+    }
+
+    init() {
+        sshcreatekey = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
+                                    sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
     }
 }

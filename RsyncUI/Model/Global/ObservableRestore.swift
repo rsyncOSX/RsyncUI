@@ -10,7 +10,7 @@ import Foundation
 import Observation
 
 @Observable @MainActor
-final class ObservableRestore {
+final class ObservableRestore: PropogateError {
     var pathforrestore: String = ""
     var restorefilesinprogress: Bool = false
     var numberoffiles: Int = 0
@@ -18,9 +18,6 @@ final class ObservableRestore {
     var presentsheetrsync = false
     // Value to check if input field is changed by user
     var inputchangedbyuser: Bool = false
-    // Alerts
-    var alerterror: Bool = false
-    var error: Error = Validatedpath.noerror
     // Filenames in restore
     var datalist: [RestoreFileRecord] = []
     var filestorestore: String = ""
@@ -42,8 +39,9 @@ final class ObservableRestore {
                 SharedReference.shared.pathforrestore = atpath
             }
         } catch let e {
-            error = e
-            alerterror = true
+            let error = e
+            propogateerror(error: error)
+            return
         }
     }
 
@@ -69,8 +67,9 @@ final class ObservableRestore {
                 }
             }
         } catch let e {
-            error = e
-            alerterror = true
+            let error = e
+            propogateerror(error: error)
+            return
         }
     }
 

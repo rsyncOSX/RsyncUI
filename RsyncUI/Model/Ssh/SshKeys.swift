@@ -10,23 +10,6 @@ import Cocoa
 import Foundation
 import SSHCreateKey
 
-enum SshError: LocalizedError {
-    case notvalidpath
-    case sshkeys
-    case noslash
-
-    var errorDescription: String? {
-        switch self {
-        case .notvalidpath:
-            "SSH keypath is not valid"
-        case .sshkeys:
-            "SSH RSA keys exist, cannot create"
-        case .noslash:
-            "SSH keypath must be like ~/.ssh_keypath/identityfile"
-        }
-    }
-}
-
 @MainActor
 final class SshKeys: PropogateError {
     var command: String?
@@ -43,7 +26,8 @@ final class SshKeys: PropogateError {
                 sshcreatekey?.createsshkeyrootpath()
                 // Create keys
                 arguments = sshcreatekey?.argumentscreatekey()
-                command = "/usr/bin/ssh-keygen"
+                // command = "/usr/bin/ssh-keygen"
+                command = sshcreatekey?.createkeycommand
                 executesshcreatekeys()
                 return true
             }

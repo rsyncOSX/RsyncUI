@@ -44,9 +44,6 @@ struct ProfileView: View {
         .onSubmit {
             createprofile()
         }
-        .alert(isPresented: $newdata.alerterror,
-               content: { Alert(localizedError: newdata.error)
-               })
         .toolbar {
             ToolbarItem {
                 Button {

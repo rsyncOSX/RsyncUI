@@ -7,9 +7,10 @@
 
 import Foundation
 import Observation
+import SSHCreateKey
 
 @Observable @MainActor
-final class ObservableSSH {
+final class ObservableSSH: PropogateError {
     // Global SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
@@ -17,11 +18,10 @@ final class ObservableSSH {
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
     var sshkeypathandidentityfile: String = ""
-    // Alerts
-    var alerterror: Bool = false
-    var error: Error = Validatedpath.noerror
     // For updating settings
     @ObservationIgnored var ready: Bool = false
+
+    var sshcreatekey: SSHCreateKey?
 
     // SSH identityfile
     private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
@@ -49,18 +49,9 @@ final class ObservableSSH {
                 }
             }
         } catch let e {
-            error = e
-            alerterror = true
-        }
-    }
-
-    // SSH port number
-    private func checksshport(_ port: String) throws -> Bool {
-        guard port.isEmpty == false else { return false }
-        if Int(port) != nil {
-            return true
-        } else {
-            throw InputError.notvalidInt
+            let error = e
+            propogateerror(error: error)
+            return
         }
     }
 
@@ -70,28 +61,20 @@ final class ObservableSSH {
             return
         }
         do {
-            let verified = try checksshport(port)
-            if verified {
+            let verified = try sshcreatekey?.verifysshport(port)
+            if let verified {
                 SharedReference.shared.sshport = Int(port)
                 SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
             }
         } catch let e {
-            error = e
-            alerterror = true
+            let error = e
+            propogateerror(error: error)
+            return
         }
     }
-}
 
-enum InputError: LocalizedError {
-    case notvalidDouble
-    case notvalidInt
-
-    var errorDescription: String? {
-        switch self {
-        case .notvalidDouble:
-            "Not a valid number (Double)"
-        case .notvalidInt:
-            "Not a valid number (Int)"
-        }
+    init() {
+        sshcreatekey = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
+                                    sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable @MainActor
-final class ObservableUsersetting {
+final class ObservableUsersetting: PropogateError {
     // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
     var rsyncversion3: Bool = SharedReference.shared.rsyncversion3
     // Optional path to rsync, the settings View is picking up the current value
@@ -33,9 +33,6 @@ final class ObservableUsersetting {
     var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Automatic execution of estimated tasks
     var confirmexecute: Bool = SharedReference.shared.confirmexecute
-    // alert about error
-    var error: Error = Validatedpath.noerror
-    var alerterror: Bool = false
     // For updating settings
     @ObservationIgnored var ready: Bool = false
 
@@ -53,8 +50,9 @@ final class ObservableUsersetting {
             _ = try validate.validateandrsyncpath()
         } catch let e {
             SharedReference.shared.rsyncversionshort = "No valid rsync detected"
-            error = e
-            alerterror = true
+            let error = e
+            propogateerror(error: error)
+            return
         }
     }
 
@@ -70,8 +68,9 @@ final class ObservableUsersetting {
                 SharedReference.shared.pathforrestore = atpath
             }
         } catch let e {
-            error = e
-            alerterror = true
+            let error = e
+            propogateerror(error: error)
+            return
         }
     }
 
@@ -100,22 +99,32 @@ final class ObservableUsersetting {
                 SharedReference.shared.marknumberofdayssince = Int(days) ?? 5
             }
         } catch let e {
-            error = e
-            alerterror = true
+            let error = e
+            propogateerror(error: error)
+            return
         }
     }
 }
 
 enum Validatedpath: LocalizedError {
     case nopath
-    case noerror
+    // case noerror
 
     var errorDescription: String? {
         switch self {
         case .nopath:
             "No such path"
-        case .noerror:
-            ""
+        }
+    }
+}
+
+enum InputError: LocalizedError {
+    case notvalidInt
+
+    var errorDescription: String? {
+        switch self {
+        case .notvalidInt:
+            "Not a valid number (Int)"
         }
     }
 }
