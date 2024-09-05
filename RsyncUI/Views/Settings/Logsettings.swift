@@ -47,9 +47,6 @@ struct Logsettings: View {
             }
         }
         .formStyle(.grouped)
-        .alert(isPresented: $usersettings.alerterror,
-               content: { Alert(localizedError: usersettings.error)
-               })
         .onAppear(perform: {
             Task {
                 try await Task.sleep(seconds: 1)
@@ -71,7 +68,7 @@ struct Logsettings: View {
     }
 
     var thumbsupgreen: some View {
-        Label("", systemImage: "hand.thumbsup")
+        Label("", systemImage: "hand.thumbsup.fill")
             .foregroundColor(Color(.green))
             .padding()
     }

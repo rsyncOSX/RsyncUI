@@ -23,9 +23,6 @@ final class ObservableParametersDefault {
     var removecompress: Bool = false
     var removedelete: Bool = false
     var daemon: Bool = false
-    // Alerts
-    var alerterror: Bool = false
-    var error: Error = Validatedpath.noerror
 
     func setvalues(_ config: SynchronizeConfiguration?) {
         if let config {

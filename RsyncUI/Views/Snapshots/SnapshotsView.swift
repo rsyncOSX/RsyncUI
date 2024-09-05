@@ -5,8 +5,8 @@
 //  Created by Thomas Evensen on 23/02/2021.
 //
 
-import SwiftUI
 import OSLog
+import SwiftUI
 
 struct SnapshotsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -287,7 +287,7 @@ extension SnapshotsView {
             default:
                 selectedconfig.snaplast = 0
             }
-            
+
             selectedconfig.snapdayoffweek = snapdayofweek
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncUIdata.profile,

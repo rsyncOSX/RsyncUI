@@ -90,9 +90,6 @@ struct Sshsettings: View {
                     Logger.process.info("Usersettings is SAVED")
                 }
             }
-            .alert(isPresented: $usersettings.alerterror,
-                   content: { Alert(localizedError: usersettings.error)
-                   })
         }
         .navigationDestination(isPresented: $showcopykeys) {
             ShowSSHCopyKeysView()
@@ -100,7 +97,7 @@ struct Sshsettings: View {
     }
 
     var thumbsupgreen: some View {
-        Label("", systemImage: "hand.thumbsup")
+        Label("", systemImage: "hand.thumbsup.fill")
             .foregroundColor(Color(.green))
             .padding()
     }

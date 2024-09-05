@@ -48,7 +48,7 @@ struct Environmentsettings: View {
     }
 
     var thumbsupgreen: some View {
-        Label("", systemImage: "hand.thumbsup")
+        Label("", systemImage: "hand.thumbsup.fill")
             .foregroundColor(Color(.green))
             .padding()
     }

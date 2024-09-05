@@ -14,7 +14,6 @@ enum SideSettingsbaritems: String, Identifiable, CaseIterable {
 }
 
 struct SidebarSettingsView: View {
-    @State private var alerterror = AlertError()
     @State private var selectedsetting: SideSettingsbaritems = .rsync_and_path
 
     var body: some View {
@@ -43,14 +42,11 @@ struct SidebarSettingsView: View {
         switch view {
         case .rsync_and_path:
             RsyncandPathsettings()
-                .environment(alerterror)
         case .monitor_and_log:
             Logsettings()
-                .environment(alerterror)
         case .ssh:
             NavigationStack {
                 Sshsettings()
-                    .environment(alerterror)
             }
         case .environment:
             Environmentsettings()

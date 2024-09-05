@@ -95,9 +95,6 @@ struct RsyncandPathsettings: View {
             }
         }
         .formStyle(.grouped)
-        .alert(isPresented: $usersettings.alerterror,
-               content: { Alert(localizedError: usersettings.error)
-               })
         .onAppear(perform: {
             Task {
                 try await Task.sleep(seconds: 1)
@@ -119,7 +116,7 @@ struct RsyncandPathsettings: View {
     }
 
     var thumbsupgreen: some View {
-        Label("", systemImage: "hand.thumbsup")
+        Label("", systemImage: "hand.thumbsup.fill")
             .foregroundColor(Color(.green))
             .imageScale(.large)
     }
@@ -141,7 +138,10 @@ struct RsyncandPathsettings: View {
                 }
             })
             .onChange(of: usersettings.temporarypathforrestore) {
-                usersettings.setandvalidapathforrestore(usersettings.temporarypathforrestore)
+                Task {
+                    try await Task.sleep(seconds: 1)
+                    usersettings.setandvalidapathforrestore(usersettings.temporarypathforrestore)
+                }
             }
     }
 
@@ -149,7 +149,10 @@ struct RsyncandPathsettings: View {
         EditValue(400, NSLocalizedString("", comment: ""),
                   $usersettings.marknumberofdayssince)
             .onChange(of: usersettings.marknumberofdayssince) {
-                usersettings.markdays(days: usersettings.marknumberofdayssince)
+                Task {
+                    try await Task.sleep(seconds: 1)
+                    usersettings.markdays(days: usersettings.marknumberofdayssince)
+                }
             }
     }
 }

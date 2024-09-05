@@ -21,7 +21,7 @@ enum CannotUpdateSnaphotsError: LocalizedError {
 }
 
 @Observable @MainActor
-final class ObservableAddConfigurations {
+final class ObservableAddConfigurations: PropogateError {
     var localcatalog: String = ""
     var remotecatalog: String = ""
     var donotaddtrailingslash: Bool = false
@@ -40,10 +40,6 @@ final class ObservableAddConfigurations {
 
     var assistremoteuser: String = ""
     var assistremoteserver: String = ""
-
-    // alert about error
-    var error: Error = Validatedpath.noerror
-    var alerterror: Bool = false
 
     // Set true if remote storage is a local attached Volume
     var remotestorageislocal: Bool = false
@@ -145,8 +141,9 @@ final class ObservableAddConfigurations {
                 return updateconfig(profile, configurations)
             }
         } catch let e {
-            error = e
-            alerterror = true
+            let error = e
+            propogateerror(error: error)
+            return nil
         }
         return configurations
     }
