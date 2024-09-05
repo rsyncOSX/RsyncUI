@@ -141,7 +141,7 @@ final class ObservableParametersRsync: PropogateError {
         }
         do {
             let verified = try sshcreatekey?.verifysshport(port)
-            if verified  == true {
+            if verified == true {
                 configuration?.sshport = Int(port)
             }
         } catch let e {

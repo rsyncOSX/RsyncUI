@@ -47,11 +47,14 @@ final class ArgumentsSynchronize {
                                            rsyncversion3: SharedReference.shared.rsyncversion3)
             switch config.task {
             case SharedReference.shared.synchronize:
-                rsyncparameterssynchronize.argumentsforsynchronize(forDisplay: forDisplay, verify: false, dryrun: dryRun)
+                rsyncparameterssynchronize.argumentsforsynchronize(forDisplay: forDisplay,
+                                                                   verify: false, dryrun: dryRun)
             case SharedReference.shared.snapshot:
-                rsyncparameterssynchronize.argumentsforsynchronizesnapshot(forDisplay: forDisplay, verify: false, dryrun: dryRun)
+                rsyncparameterssynchronize.argumentsforsynchronizesnapshot(forDisplay: forDisplay,
+                                                                           verify: false, dryrun: dryRun)
             case SharedReference.shared.syncremote:
-                rsyncparameterssynchronize.argumentsforsynchronizeremote(forDisplay: forDisplay, verify: false, dryrun: dryRun)
+                rsyncparameterssynchronize.argumentsforsynchronizeremote(forDisplay: forDisplay,
+                                                                         verify: false, dryrun: dryRun)
             default:
                 break
             }
