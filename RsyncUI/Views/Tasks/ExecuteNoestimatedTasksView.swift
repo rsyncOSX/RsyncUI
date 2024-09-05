@@ -14,7 +14,7 @@ struct ExecuteNoestimatedTasksView: View {
     @Binding var path: [Tasks]
 
     // Must be stateobject
-    @State private var executeasyncnoestimation = ExecuteAsyncNoEstimation()
+    @State private var executeasyncnoestimation = ExecuteNoEstimation()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executetasks: ExecuteTasksNOEstimation?
@@ -72,7 +72,7 @@ extension ExecuteNoestimatedTasksView {
 
     func executeallnoestimationtasks() {
         Logger.process.info("executeallnoestimationtasks(): \(selecteduuids, privacy: .public)")
-        executeasyncnoestimation.startasyncexecutealltasksnoestimation()
+        executeasyncnoestimation.startexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
             executetasks =
                 ExecuteTasksNOEstimation(profile: rsyncUIdata.profile,

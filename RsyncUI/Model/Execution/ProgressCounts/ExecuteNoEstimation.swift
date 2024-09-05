@@ -9,18 +9,18 @@ import Foundation
 import Observation
 
 @Observable
-final class ExecuteAsyncNoEstimation {
-    var executeasyncnoestimationcompleted: Bool = false
+final class ExecuteNoEstimation {
+    var executenoestimationcompleted: Bool = false
     var executelist: [RemoteDataNumbers]?
     // set uuid if data to be transferred
     var uuids = Set<UUID>()
 
-    func asyncexecutealltasksnoestiamtioncomplete() {
-        executeasyncnoestimationcompleted = true
+    func executealltasksnoestiamtioncomplete() {
+        executenoestimationcompleted = true
     }
 
-    func startasyncexecutealltasksnoestimation() {
-        executeasyncnoestimationcompleted = false
+    func startexecutealltasksnoestimation() {
+        executenoestimationcompleted = false
     }
 
     func appendrecordexecutedlist(_ record: RemoteDataNumbers) {

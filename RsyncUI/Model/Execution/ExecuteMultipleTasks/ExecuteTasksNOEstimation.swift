@@ -13,7 +13,7 @@ final class ExecuteTasksNOEstimation {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
-    weak var localexecuteasyncnoestimation: ExecuteAsyncNoEstimation?
+    weak var localexecuteasyncnoestimation: ExecuteNoEstimation?
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
@@ -37,7 +37,7 @@ final class ExecuteTasksNOEstimation {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            localexecuteasyncnoestimation?.asyncexecutealltasksnoestiamtioncomplete()
+            localexecuteasyncnoestimation?.executealltasksnoestiamtioncomplete()
             Logger.process.info("class ExecuteTasks: execution is completed")
             return
         }
@@ -58,7 +58,7 @@ final class ExecuteTasksNOEstimation {
 
     init(profile: String?,
          rsyncuiconfigurations: [SynchronizeConfiguration],
-         executeasyncnoestimation: ExecuteAsyncNoEstimation?,
+         executeasyncnoestimation: ExecuteNoEstimation?,
          uuids: Set<UUID>,
          filter: String,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
