@@ -25,17 +25,17 @@ struct EstimationInProgressView: View {
                 }
             }
 
-            progressviewestimateasync
+            progressviewestimation
         }
         .onAppear {
             estimateprogressdetails.resetcounts()
             executeprogressdetails.estimatedlist = nil
-            estimateprogressdetails.startestimateasync()
+            estimateprogressdetails.startestimation()
         }
         .padding()
     }
 
-    var progressviewestimateasync: some View {
+    var progressviewestimation: some View {
         ProgressView("",
                      value: estimateprogressdetails.numberofconfigurationsestimated,
                      total: Double(configurations.count))
