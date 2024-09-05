@@ -23,25 +23,14 @@ final class ObservableSSH: PropogateError {
 
     var sshcreatekey: SSHCreateKey?
 
-    // SSH identityfile
-    private func checksshkeypathbeforesaving(_ keypath: String) throws -> Bool {
-        if keypath.first != "~" { throw SshError.noslash }
-        let tempsshkeypath = keypath
-        let sshkeypathandidentityfilesplit = tempsshkeypath.split(separator: "/")
-        guard sshkeypathandidentityfilesplit.count > 2 else { throw SshError.noslash }
-        guard sshkeypathandidentityfilesplit[1].count > 1 else { throw SshError.notvalidpath }
-        guard sshkeypathandidentityfilesplit[2].count > 1 else { throw SshError.notvalidpath }
-        return true
-    }
-
     func sshkeypath(_ keypath: String) {
         guard keypath.isEmpty == false else {
             SharedReference.shared.sshkeypathandidentityfile = nil
             return
         }
         do {
-            let verified = try checksshkeypathbeforesaving(keypath)
-            if verified {
+            let verified = try sshcreatekey?.verifysshkeypath(keypath)
+            if verified == true {
                 SharedReference.shared.sshkeypathandidentityfile = keypath
                 // Save port number also
                 if let port = Int(sshportnumber) {
@@ -62,7 +51,7 @@ final class ObservableSSH: PropogateError {
         }
         do {
             let verified = try sshcreatekey?.verifysshport(port)
-            if let verified {
+            if verified == true {
                 SharedReference.shared.sshport = Int(port)
                 SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
             }

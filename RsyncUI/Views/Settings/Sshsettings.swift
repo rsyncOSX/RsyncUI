@@ -11,7 +11,7 @@ import OSLog
 import SwiftUI
 
 struct Sshsettings: View {
-    @State private var usersettings = ObservableSSH()
+    @State private var sshsettings = ObservableSSH()
     @State private var localsshkeys: Bool = false
     @State private var showcopykeys: Bool = false
     // Combine for debounce of sshport and keypath
@@ -61,7 +61,7 @@ struct Sshsettings: View {
                             .buttonStyle(ColorfulButtonStyle())
                         }
 
-                        if SharedReference.shared.settingsischanged, usersettings.ready { thumbsupgreen }
+                        if SharedReference.shared.settingsischanged, sshsettings.ready { thumbsupgreen }
                     }
 
                 } header: {
@@ -77,12 +77,12 @@ struct Sshsettings: View {
                     try await Task.sleep(seconds: 3)
                     Logger.process.info("SSH settings is DEFAULT")
                     SharedReference.shared.settingsischanged = false
-                    usersettings.ready = true
+                    sshsettings.ready = true
                 }
             })
             .onChange(of: SharedReference.shared.settingsischanged) {
                 guard SharedReference.shared.settingsischanged == true,
-                      usersettings.ready == true else { return }
+                      sshsettings.ready == true else { return }
                 Task {
                     try await Task.sleep(seconds: 3)
                     _ = WriteUserConfigurationJSON(UserConfiguration())
@@ -103,14 +103,14 @@ struct Sshsettings: View {
     }
 
     var setsshpath: some View {
-        EditValue(400, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $usersettings.sshkeypathandidentityfile)
+        EditValue(400, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
             .onAppear(perform: {
                 if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
-                    usersettings.sshkeypathandidentityfile = sshkeypath
+                    sshsettings.sshkeypathandidentityfile = sshkeypath
                 }
             })
-            .onChange(of: usersettings.sshkeypathandidentityfile) {
-                publisherkeypath.send(usersettings.sshkeypathandidentityfile)
+            .onChange(of: sshsettings.sshkeypathandidentityfile) {
+                publisherkeypath.send(sshsettings.sshkeypathandidentityfile)
             }
             .onReceive(
                 publisherkeypath.debounce(
@@ -118,20 +118,20 @@ struct Sshsettings: View {
                     scheduler: DispatchQueue.main
                 )
             ) { _ in
-                usersettings.sshkeypath(usersettings.sshkeypathandidentityfile)
+                sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile)
             }
     }
 
     var setsshport: some View {
         EditValue(400, NSLocalizedString("Global ssh port", comment: ""),
-                  $usersettings.sshportnumber)
+                  $sshsettings.sshportnumber)
             .onAppear(perform: {
                 if let sshport = SharedReference.shared.sshport {
-                    usersettings.sshportnumber = String(sshport)
+                    sshsettings.sshportnumber = String(sshport)
                 }
             })
-            .onChange(of: usersettings.sshportnumber) {
-                publisherport.send(usersettings.sshportnumber)
+            .onChange(of: sshsettings.sshportnumber) {
+                publisherport.send(sshsettings.sshportnumber)
             }
             .onReceive(
                 publisherport.debounce(
@@ -139,7 +139,7 @@ struct Sshsettings: View {
                     scheduler: DispatchQueue.main
                 )
             ) { _ in
-                usersettings.sshport(usersettings.sshportnumber)
+                sshsettings.sshport(sshsettings.sshportnumber)
             }
     }
 }
