@@ -123,7 +123,7 @@ final class ObservableParametersRsync: PropogateError {
         }
         do {
             let verified = try sshcreatekey?.verifysshkeypath(keypath)
-            if let verified {
+            if verified == true {
                 configuration?.sshkeypathandidentityfile = keypath
             }
         } catch let e {
@@ -141,7 +141,7 @@ final class ObservableParametersRsync: PropogateError {
         }
         do {
             let verified = try sshcreatekey?.verifysshport(port)
-            if let verified {
+            if verified  == true {
                 configuration?.sshport = Int(port)
             }
         } catch let e {
