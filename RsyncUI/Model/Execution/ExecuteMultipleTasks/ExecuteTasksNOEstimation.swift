@@ -13,7 +13,7 @@ final class ExecuteTasksNOEstimation {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
-    weak var localexecuteasyncnoestimation: ExecuteNoEstimation?
+    weak var localexecutenoestimation: ExecuteNoEstimation?
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
@@ -37,7 +37,7 @@ final class ExecuteTasksNOEstimation {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            localexecuteasyncnoestimation?.executealltasksnoestiamtioncomplete()
+            localexecutenoestimation?.executealltasksnoestiamtioncomplete()
             Logger.process.info("class ExecuteTasks: execution is completed")
             return
         }
@@ -58,14 +58,14 @@ final class ExecuteTasksNOEstimation {
 
     init(profile: String?,
          rsyncuiconfigurations: [SynchronizeConfiguration],
-         executeasyncnoestimation: ExecuteNoEstimation?,
+         executenoestimation: ExecuteNoEstimation?,
          uuids: Set<UUID>,
          filter: String,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         structprofile = profile
         localconfigurations = rsyncuiconfigurations
-        localexecuteasyncnoestimation = executeasyncnoestimation
+        localexecutenoestimation = executenoestimation
         localupdateconfigurations = updateconfigurations
         let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         stackoftasktobeestimated = [Int]()
@@ -94,8 +94,8 @@ extension ExecuteTasksNOEstimation {
         if let config = getconfig(hiddenID ?? -1) {
             let record = RemoteDataNumbers(outputfromrsync: outputfromrsync,
                                            config: config)
-            localexecuteasyncnoestimation?.appendrecordexecutedlist(record)
-            localexecuteasyncnoestimation?.appenduuid(config.id)
+            localexecutenoestimation?.appendrecordexecutedlist(record)
+            localexecutenoestimation?.appenduuid(config.id)
             startexecution()
         }
     }

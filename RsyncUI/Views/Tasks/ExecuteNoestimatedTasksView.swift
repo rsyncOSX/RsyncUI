@@ -14,7 +14,7 @@ struct ExecuteNoestimatedTasksView: View {
     @Binding var path: [Tasks]
 
     // Must be stateobject
-    @State private var executeasyncnoestimation = ExecuteNoEstimation()
+    @State private var executenoestimation = ExecuteNoEstimation()
     @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executetasks: ExecuteTasksNOEstimation?
@@ -67,17 +67,17 @@ extension ExecuteNoestimatedTasksView {
         selecteduuids.removeAll()
         _ = InterruptProcess()
         progressviewshowinfo = false
-        executeasyncnoestimation.reset()
+        executenoestimation.reset()
     }
 
     func executeallnoestimationtasks() {
         Logger.process.info("executeallnoestimationtasks(): \(selecteduuids, privacy: .public)")
-        executeasyncnoestimation.startexecutealltasksnoestimation()
+        executenoestimation.startexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
             executetasks =
                 ExecuteTasksNOEstimation(profile: rsyncUIdata.profile,
                                          rsyncuiconfigurations: configurations,
-                                         executeasyncnoestimation: executeasyncnoestimation,
+                                         executenoestimation: executenoestimation,
                                          uuids: selecteduuids,
                                          filter: filterstring,
                                          updateconfigurations: updateconfigurations)
@@ -89,7 +89,7 @@ extension ExecuteNoestimatedTasksView {
         Logger.process.info("Updateconfigurations() in memory\nReset data and return to main task view")
         rsyncUIdata.configurations = configurations
         progressviewshowinfo = false
-        executeasyncnoestimation.reset()
+        executenoestimation.reset()
         path.append(Tasks(task: .completedview))
     }
 }
