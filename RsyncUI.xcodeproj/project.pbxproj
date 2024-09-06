@@ -19,6 +19,7 @@
 		E927447529407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */; };
 		E931ED962B0C82BB000BEF56 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931ED952B0C82BB000BEF56 /* QuicktaskView.swift */; };
 		E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */; };
+		E936D6002C8ACABC00428191 /* ObservableProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E936D5FF2C8ACABC00428191 /* ObservableProfiles.swift */; };
 		E93878C32B27355A009574CD /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93878C22B27355A009574CD /* AddTaskView.swift */; };
 		E93CC3FF2A68218200DB02EB /* ListofTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */; };
 		E93CC5732C4D4974000F8963 /* ImportExportCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC5722C4D4974000F8963 /* ImportExportCommands.swift */; };
@@ -187,6 +188,7 @@
 		E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckfornewversionofRsyncUI.swift; sourceTree = "<group>"; };
 		E931ED952B0C82BB000BEF56 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
 		E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableAddConfigurations.swift; sourceTree = "<group>"; };
+		E936D5FF2C8ACABC00428191 /* ObservableProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableProfiles.swift; sourceTree = "<group>"; };
 		E93878C22B27355A009574CD /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksView.swift; sourceTree = "<group>"; };
 		E93CC5722C4D4974000F8963 /* ImportExportCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportCommands.swift; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 				E985C71C25F3AD9700CB895C /* ObservableUsersetting.swift */,
 				E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */,
 				E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */,
+				E936D5FF2C8ACABC00428191 /* ObservableProfiles.swift */,
 				E99C23FF261C322E009D4DBF /* ObservableRestore.swift */,
 				E9A38E2B2B32CA8700D8445E /* AlertError.swift */,
 				E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */,
@@ -1106,6 +1109,7 @@
 				E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */,
 				E9DE0EFA2C7D98E100836EA3 /* RecordsSnapshot.swift in Sources */,
 				E985C73725F3AD9700CB895C /* extensionDate.swift in Sources */,
+				E936D6002C8ACABC00428191 /* ObservableProfiles.swift in Sources */,
 				E9F5354C290185AA007EFAE7 /* EstimateTasks.swift in Sources */,
 				E985C77625F3AD9700CB895C /* ArgumentsSynchronize.swift in Sources */,
 				E986073B2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift in Sources */,

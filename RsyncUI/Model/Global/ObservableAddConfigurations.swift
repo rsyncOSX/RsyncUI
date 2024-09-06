@@ -30,12 +30,10 @@ final class ObservableAddConfigurations: PropogateError {
     var backupID: String = ""
     var selectedrsynccommand = TypeofTask.synchronize
     var selectedprofile: String?
-    var deletedefaultprofile: Bool = false
 
     var deleted: Bool = false
     var created: Bool = false
 
-    var confirmdeleteselectedprofile: Bool = false
     var showAlertfordelete: Bool = false
 
     var assistremoteuser: String = ""
@@ -100,37 +98,6 @@ final class ObservableAddConfigurations: PropogateError {
         remoteserver = ""
         backupID = ""
         selectedconfig = nil
-    }
-
-    func createprofile(newprofile: String) {
-        guard newprofile.isEmpty == false else { return }
-        let catalogprofile = CatalogForProfile()
-        catalogprofile.createprofilecatalog(newprofile)
-        selectedprofile = newprofile
-        created = true
-    }
-
-    func deleteprofile(_ profile: String?) {
-        guard confirmdeleteselectedprofile == true else { return }
-        if let profile {
-            guard profile != SharedReference.shared.defaultprofile else {
-                deletedefaultprofile = true
-                Task {
-                    try await Task.sleep(seconds: 1)
-                    deletedefaultprofile = false
-                }
-                return
-            }
-            CatalogForProfile().deleteprofilecatalog(profile)
-            selectedprofile = nil
-            deleted = true
-        } else {
-            deletedefaultprofile = true
-            Task {
-                try await Task.sleep(seconds: 1)
-                deletedefaultprofile = false
-            }
-        }
     }
 
     func validateandupdate(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {

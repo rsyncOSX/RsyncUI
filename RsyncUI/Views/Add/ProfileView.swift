@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @State private var newdata = ObservableAddConfigurations()
+    @State private var newdata = ObservableProfiles()
     @Bindable var profilenames: Profilenames
     @Binding var selectedprofile: String?
 
