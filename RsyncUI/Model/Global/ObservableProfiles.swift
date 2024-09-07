@@ -19,8 +19,6 @@ final class ObservableProfiles: PropogateError {
     var confirmdeleteselectedprofile: Bool = false
     var showAlertfordelete: Bool = false
 
-    var selectedconfig: SynchronizeConfiguration?
-
     func createprofile(newprofile: String) {
         guard newprofile.isEmpty == false else { return }
         let catalogprofile = CatalogForProfile()
@@ -52,5 +50,3 @@ final class ObservableProfiles: PropogateError {
         }
     }
 }
-
-// swiftlint:enable line_length

@@ -156,33 +156,35 @@ final class Numbers {
             let size = numberOfFiles + " files :" + sizeOfFiles + " KB" + " in just a few seconds"
             return size
         }
-        if SharedReference.shared.rsyncversion3 {
+        if SharedReference.shared.rsyncversion3, let resultRsync {
             // ["sent", "409687", "bytes", "", "received", "5331", "bytes", "", "830036.00", "bytes/sec"]
-            let newmessage = resultRsync!.replacingOccurrences(of: ",", with: "")
+            let newmessage = resultRsync.replacingOccurrences(of: ",", with: "")
             parts = newmessage.components(separatedBy: " ")
         } else {
             // ["sent", "262826", "bytes", "", "received", "2248", "bytes", "", "58905.33", "bytes/sec"]
-            parts = resultRsync!.components(separatedBy: " ")
+            if let resultRsync {
+                parts = resultRsync.components(separatedBy: " ")
+            }
         }
         var bytesTotalsent: Double = 0
         var bytesTotalreceived: Double = 0
         var bytesTotal: Double = 0
         var bytesSec: Double = 0
         var seconds: Double = 0
-        guard parts!.count > 9 else { return "0" }
+        guard (parts?.count ?? 0) > 9 else { return "0" }
         // Sent and received
         bytesTotalsent = Double(parts?[1] ?? "0") ?? 0
         bytesTotalreceived = Double(parts?[5] ?? "0") ?? 0
         if bytesTotalsent > bytesTotalreceived {
             // backup task
             // let result = resultsent! + parts![8] + " b/sec"
-            bytesSec = Double(parts![8])!
+            bytesSec = Double(parts?[8] ?? "0") ?? 0
             seconds = bytesTotalsent / bytesSec
             bytesTotal = bytesTotalsent
         } else {
             // restore task
             // let result = resultreceived! + parts![8] + " b/sec"
-            bytesSec = Double(parts![8]) ?? 1
+            bytesSec = Double(parts?[8] ?? "0") ?? 0
             seconds = bytesTotalreceived / bytesSec
             bytesTotal = bytesTotalreceived
         }
