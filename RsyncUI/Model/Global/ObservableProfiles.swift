@@ -10,7 +10,6 @@ import Observation
 
 @Observable @MainActor
 final class ObservableProfiles: PropogateError {
-    
     var selectedprofile: String?
     var deletedefaultprofile: Bool = false
 
@@ -53,5 +52,5 @@ final class ObservableProfiles: PropogateError {
         }
     }
 }
-// swiftlint:enable line_length
 
+// swiftlint:enable line_length
