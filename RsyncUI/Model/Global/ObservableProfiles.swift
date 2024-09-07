@@ -10,7 +10,6 @@ import Observation
 
 @Observable @MainActor
 final class ObservableProfiles: PropogateError {
-    
     var selectedprofile: String?
     var deletedefaultprofile: Bool = false
 
@@ -19,8 +18,6 @@ final class ObservableProfiles: PropogateError {
 
     var confirmdeleteselectedprofile: Bool = false
     var showAlertfordelete: Bool = false
-
-    var selectedconfig: SynchronizeConfiguration?
 
     func createprofile(newprofile: String) {
         guard newprofile.isEmpty == false else { return }
@@ -53,5 +50,3 @@ final class ObservableProfiles: PropogateError {
         }
     }
 }
-// swiftlint:enable line_length
-
