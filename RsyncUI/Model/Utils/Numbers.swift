@@ -210,8 +210,11 @@ final class Numbers {
         // output = outputprocess?.trimoutput(trim: .two)
         output = TrimOutputFromRsync(myoutput).trimmeddata
         // Getting the summarized output from output.
-        if (output?.count ?? 0) > 2 {
-            resultRsync = output?[(output?.count ?? 0) - 2]
+        let result = output?.filter { $0.contains("sent") && $0.contains("received") && $0.contains("bytes/sec") }
+        if result?.count == 1 {
+            resultRsync = result?[0] ?? ""
+        } else {
+            resultRsync = "Could not set total"
         }
         files = output?.filter { $0.contains("files transferred:") }
         // ver 3.x - [Number of regular files transferred: 24]
