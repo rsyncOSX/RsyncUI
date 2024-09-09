@@ -12,6 +12,8 @@ struct ExportView: View {
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var exportcatalog: String = Homepath().userHomeDirectoryPath ?? ""
     @State var filenameexport: String = "export"
+    
+    @State var somesnapshottask: Bool = false
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
@@ -19,6 +21,19 @@ struct ExportView: View {
     var body: some View {
         VStack {
             ListofTasksLightView(selecteduuids: $selecteduuids, profile: profile, configurations: configurations)
+                .onChange(of: selecteduuids) {
+                    let snapshottasks = configurations.filter { $0.task == SharedReference.shared.snapshot }
+                    if snapshottasks.count > 0 {
+                        somesnapshottask = true
+                    }
+                }
+            
+            if somesnapshottask {
+                MessageView(dismissafter: 2, mytext: "Some tasks are snapshots, cannot be exported")
+                    .onDisappear {
+                        somesnapshottask = false
+                    }
+            }
 
             HStack {
                 if exportcatalog.hasSuffix("/") {
@@ -68,6 +83,10 @@ struct ExportView: View {
                 exportcatalog += "/" + "tmp" + "/"
             } else {
                 exportcatalog += "/"
+            }
+            let snapshottasks = configurations.filter { $0.task == SharedReference.shared.snapshot }
+            if snapshottasks.count > 0 {
+                somesnapshottask = true
             }
         }
     }
