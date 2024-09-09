@@ -46,6 +46,8 @@ struct AppendTask: PropogateError {
     var newbackupID: String?
     // Use hiddenID for update
     var hiddenID: Int?
+    // For snapshottask, snapshotnum might be reset
+    var snapshotnum: Int?
 
     init(_ task: String,
          _ localCatalog: String,
@@ -71,7 +73,8 @@ struct AppendTask: PropogateError {
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
          _ backupID: String?,
-         _ updatedhiddenID: Int)
+         _ updatedhiddenID: Int,
+         _ updatesnapshotnum: Int?)
     {
         newtask = task
         newlocalCatalog = localCatalog
@@ -81,6 +84,7 @@ struct AppendTask: PropogateError {
         newoffsiteServer = offsiteServer
         newbackupID = backupID
         hiddenID = updatedhiddenID
+        snapshotnum = updatesnapshotnum
     }
 }
 
@@ -110,6 +114,11 @@ final class VerifyConfiguration: Connected, PropogateError {
         newconfig.parameter6 = ssh
         newconfig.dateRun = ""
         newconfig.hiddenID = data.hiddenID ?? -1
+        
+        if data.snapshotnum != nil {
+            newconfig.snapshotnum = data.snapshotnum
+        }
+        
 
         if data.newlocalCatalog.hasSuffix("/") == false, data.newdontaddtrailingbackslash == false {
             var catalog = data.newlocalCatalog
@@ -131,7 +140,8 @@ final class VerifyConfiguration: Connected, PropogateError {
             catalog += "/"
             newconfig.offsiteCatalog = catalog
         }
-        if data.newtask == SharedReference.shared.snapshot {
+        // New snapshot task
+        if data.newtask == SharedReference.shared.snapshot, newconfig.snapshotnum == nil {
             newconfig.task = SharedReference.shared.snapshot
             newconfig.snapshotnum = 1
         }
@@ -148,7 +158,7 @@ final class VerifyConfiguration: Connected, PropogateError {
         }
         // If validated and snapshottask create remote snapshotcatalog
         // Must be connected to create base remote snapshot catalog
-        if data.newtask == SharedReference.shared.snapshot {
+        if data.newtask == SharedReference.shared.snapshot, newconfig.snapshotnum == 1 {
             // If connected create base remote snapshotcatalog
             snapshotcreateremotecatalog(config: newconfig)
         }
@@ -191,8 +201,8 @@ final class VerifyConfiguration: Connected, PropogateError {
                     throw ValidateInputError.rsyncversion2
                 }
             }
-            guard config.snapshotnum == 1 else {
-                Logger.process.warning("VerifyConfiguration: snapshotnum not 1 (initial value).")
+            guard config.snapshotnum != nil else {
+                Logger.process.warning("VerifyConfiguration: snapshotnum not set.")
                 throw ValidateInputError.snapshotnum
             }
             // also check if connected because creating base remote catalog if remote server

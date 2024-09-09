@@ -80,7 +80,8 @@ final class ObservableAddConfigurations: PropogateError {
                                      remoteuser,
                                      remoteserver,
                                      backupID,
-                                     selectedconfig?.hiddenID ?? -1)
+                                     selectedconfig?.hiddenID ?? -1,
+                                     Int(snapshotnum))
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
@@ -101,21 +102,6 @@ final class ObservableAddConfigurations: PropogateError {
         backupID = ""
         selectedconfig = nil
         snapshotnum = ""
-    }
-
-    func validateandupdate(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
-        do {
-            // Validate not a snapshot task
-            let validated = try validatenotsnapshottask()
-            if validated {
-                return updateconfig(profile, configurations)
-            }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-            return nil
-        }
-        return configurations
     }
 
     func updateview(_ config: SynchronizeConfiguration?) {
@@ -140,17 +126,6 @@ final class ObservableAddConfigurations: PropogateError {
             backupID = ""
             snapshotnum = ""
         }
-    }
-
-    private func validatenotsnapshottask() throws -> Bool {
-        if let config = selectedconfig {
-            if config.task == SharedReference.shared.snapshot {
-                throw CannotUpdateSnaphotsError.cannotupdate
-            } else {
-                return true
-            }
-        }
-        return false
     }
 
     func verifyremotestorageislocal() -> Bool {

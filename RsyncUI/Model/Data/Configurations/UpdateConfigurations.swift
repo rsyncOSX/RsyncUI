@@ -59,6 +59,7 @@ final class UpdateConfigurations {
                 configurations?[index].backupID = config.backupID
                 configurations?[index].snaplast = config.snaplast
                 configurations?[index].snapdayoffweek = config.snapdayoffweek
+                configurations?[index].snapshotnum = config.snapshotnum
             }
             WriteSynchronizeConfigurationJSON(localeprofile, configurations)
         }

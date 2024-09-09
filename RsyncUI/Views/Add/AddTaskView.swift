@@ -57,6 +57,7 @@ struct AddTaskView: View {
 
                     } else {
                         VStack(alignment: .leading) { localandremotecatalog }
+                            .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
                     }
 
                     VStack(alignment: .leading) {
@@ -67,6 +68,7 @@ struct AddTaskView: View {
                     VStack(alignment: .leading) { synchronizeID }
 
                     VStack(alignment: .leading) { remoteuserandserver }
+                        .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
 
                     if selectedconfig?.task == SharedReference.shared.snapshot {
                         VStack(alignment: .leading) { snapshotnum }
@@ -505,8 +507,9 @@ extension AddTaskView {
     }
 
     func validateandupdate() {
-        rsyncUIdata.configurations = newdata.validateandupdate(selectedprofile, rsyncUIdata.configurations)
+        rsyncUIdata.configurations = newdata.updateconfig(selectedprofile, rsyncUIdata.configurations)
         updated = true
+        selecteduuids.removeAll()
         Task {
             try await Task.sleep(seconds: 2)
             updated = false
