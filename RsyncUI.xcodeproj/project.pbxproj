@@ -141,6 +141,7 @@
 		E9BD14BD2642FDC200E29347 /* TrimOutputForRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BC2642FDC200E29347 /* TrimOutputForRestore.swift */; };
 		E9BD14BF2642FE6300E29347 /* TrimOutputFromRsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BE2642FE6300E29347 /* TrimOutputFromRsync.swift */; };
 		E9C029292BFB872E00461AD3 /* CompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C029282BFB872E00461AD3 /* CompletedView.swift */; };
+		E9C077762C8CCA65005F8669 /* ParseRsyncOutput in Frameworks */ = {isa = PBXBuildFile; productRef = E9C077752C8CCA65005F8669 /* ParseRsyncOutput */; };
 		E9C1113A2BBD8DE30041CEA0 /* ConfigurationsTableDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C111392BBD8DE30041CEA0 /* ConfigurationsTableDataView.swift */; };
 		E9C8E0CC2B2D9BB50083D1CC /* SidebarLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */; };
@@ -339,6 +340,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9C077762C8CCA65005F8669 /* ParseRsyncOutput in Frameworks */,
 				E987648D2ADAD938001B4B7E /* Metal.framework in Frameworks */,
 				E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */,
 				E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */,
@@ -934,6 +936,7 @@
 				E9BAB99C2C60A611008A1707 /* RsyncArguments */,
 				E911E85D2C6BCD9D00152CD6 /* SSHCreateKey */,
 				E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */,
+				E9C077752C8CCA65005F8669 /* ParseRsyncOutput */,
 			);
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
@@ -1012,6 +1015,7 @@
 				E9BAB99B2C60A611008A1707 /* XCRemoteSwiftPackageReference "RsyncArguments" */,
 				E911E85C2C6BCD9D00152CD6 /* XCRemoteSwiftPackageReference "SSHCreateKey" */,
 				E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */,
+				E9C077742C8CCA65005F8669 /* XCRemoteSwiftPackageReference "ParseRsyncOutput" */,
 			);
 			productRefGroup = E985C5C425F3AC0700CB895C /* Products */;
 			projectDirPath = "";
@@ -1577,6 +1581,14 @@
 				kind = branch;
 			};
 		};
+		E9C077742C8CCA65005F8669 /* XCRemoteSwiftPackageReference "ParseRsyncOutput" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rsyncOSX/ParseRsyncOutput";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1594,6 +1606,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E9BAB99B2C60A611008A1707 /* XCRemoteSwiftPackageReference "RsyncArguments" */;
 			productName = RsyncArguments;
+		};
+		E9C077752C8CCA65005F8669 /* ParseRsyncOutput */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9C077742C8CCA65005F8669 /* XCRemoteSwiftPackageReference "ParseRsyncOutput" */;
+			productName = ParseRsyncOutput;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,5 +1,5 @@
 {
-  "originHash" : "f53f57514286d5e475e5e64aa9a850680fd7b3580681f88a87bc5c5b0ac303db",
+  "originHash" : "dec2e31572d04135a1e36abd2ea80bddcdbe12b202eccb668440405dab6452e8",
   "pins" : [
     {
       "identity" : "decodeencodegeneric",
@@ -7,7 +7,16 @@
       "location" : "https://github.com/rsyncOSX/DecodeEncodeGeneric.git",
       "state" : {
         "branch" : "main",
-        "revision" : "636199a00cfafc59a0cca4942ae6885b34ab88ef"
+        "revision" : "f1b226356b314ff4b1a2c0fb312240f4bfc984ae"
+      }
+    },
+    {
+      "identity" : "parsersyncoutput",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
+      "state" : {
+        "branch" : "main",
+        "revision" : "2b00af1767729c8f5f285ba8f02b76f545913213"
       }
     },
     {
@@ -25,7 +34,7 @@
       "location" : "https://github.com/rsyncOSX/SSHCreateKey.git",
       "state" : {
         "branch" : "main",
-        "revision" : "a7fda85ef81a0719f190f6701a2430490c8816c6"
+        "revision" : "205f0c849369eb55d6b7c0efc9e1f9f4b8907cb6"
       }
     }
   ],

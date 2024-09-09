@@ -38,6 +38,7 @@ struct AddTaskView: View {
         case remoteuserField
         case remoteserverField
         case synchronizeIDField
+        case snapshotnumField
     }
 
     @FocusState private var focusField: AddConfigurationField?
@@ -66,6 +67,10 @@ struct AddTaskView: View {
                     VStack(alignment: .leading) { synchronizeID }
 
                     VStack(alignment: .leading) { remoteuserandserver }
+                    
+                    if selectedconfig?.task == SharedReference.shared.snapshot {
+                        VStack(alignment: .leading) { snapshotnum }
+                    }
 
                     Spacer()
                 }
@@ -131,6 +136,9 @@ struct AddTaskView: View {
                 } else {
                     focusField = .remoteuserField
                 }
+            case .snapshotnumField:
+                validateandupdate()
+                focusField = nil
             default:
                 return
             }
@@ -379,6 +387,21 @@ struct AddTaskView: View {
                         }
                     })
             }
+        }
+    }
+    
+    var snapshotnumheader: some View {
+        Text("Change snapshotnum")
+            .modifier(FixedTag(200, .leading))
+    }
+    
+    var snapshotnum: some View {
+        Section(header: snapshotnumheader) {
+            // Reset snapshotnum
+            EditValue(300, nil, $newdata.snapshotnum)
+                .focused($focusField, equals: .snapshotnumField)
+                .textContentType(.none)
+                .submitLabel(.return)
         }
     }
 

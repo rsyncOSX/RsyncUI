@@ -45,6 +45,8 @@ final class ObservableAddConfigurations: PropogateError {
     var localhome: String {
         Homepath().userHomeDirectoryPath ?? ""
     }
+    
+    var snapshotnum: String = ""
 
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
 
@@ -98,6 +100,7 @@ final class ObservableAddConfigurations: PropogateError {
         remoteserver = ""
         backupID = ""
         selectedconfig = nil
+        snapshotnum = ""
     }
 
     func validateandupdate(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
@@ -123,6 +126,11 @@ final class ObservableAddConfigurations: PropogateError {
             remoteuser = config.offsiteUsername
             remoteserver = config.offsiteServer
             backupID = config.backupID
+            if config.task == SharedReference.shared.snapshot {
+                if let num = config.snapshotnum {
+                    snapshotnum = String(num)
+                }
+            }
         } else {
             selectedconfig = nil
             localcatalog = ""
@@ -130,6 +138,7 @@ final class ObservableAddConfigurations: PropogateError {
             remoteuser = ""
             remoteserver = ""
             backupID = ""
+            snapshotnum = ""
         }
     }
 
