@@ -67,7 +67,7 @@ struct AddTaskView: View {
                     VStack(alignment: .leading) { synchronizeID }
 
                     VStack(alignment: .leading) { remoteuserandserver }
-                    
+
                     if selectedconfig?.task == SharedReference.shared.snapshot {
                         VStack(alignment: .leading) { snapshotnum }
                     }
@@ -389,12 +389,12 @@ struct AddTaskView: View {
             }
         }
     }
-    
+
     var snapshotnumheader: some View {
         Text("Change snapshotnum")
             .modifier(FixedTag(200, .leading))
     }
-    
+
     var snapshotnum: some View {
         Section(header: snapshotnumheader) {
             // Reset snapshotnum

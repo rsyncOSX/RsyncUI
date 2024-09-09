@@ -45,7 +45,7 @@ final class ObservableAddConfigurations: PropogateError {
     var localhome: String {
         Homepath().userHomeDirectoryPath ?? ""
     }
-    
+
     var snapshotnum: String = ""
 
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
