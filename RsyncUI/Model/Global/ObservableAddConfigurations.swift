@@ -9,17 +9,6 @@
 import Foundation
 import Observation
 
-enum CannotUpdateSnaphotsError: LocalizedError {
-    case cannotupdate
-
-    var errorDescription: String? {
-        switch self {
-        case .cannotupdate:
-            "Only synchronize ID can be changed on a Snapshot task"
-        }
-    }
-}
-
 @Observable @MainActor
 final class ObservableAddConfigurations: PropogateError {
     var localcatalog: String = ""
