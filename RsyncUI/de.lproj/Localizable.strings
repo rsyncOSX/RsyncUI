@@ -89,7 +89,7 @@
 "Change search string to filter records" = "Ändern Sie die Suchzeichenfolge, um Datensätze zu filtern";
 
 /* No comment provided by engineer. */
-"Change snapshotnum" = "Snapshotnummer ändern";
+"Change snapshotnumber" = "Snapshotnummer ändern";
 
 /* No comment provided by engineer. */
 "Changelog" = "Änderungsprotokoll";
@@ -384,6 +384,9 @@
 
 /* No comment provided by engineer. */
 "Snap" = "Snap";
+
+/* No comment provided by engineer. */
+"Snapshotnumber" = "Snapshotnummer ";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";

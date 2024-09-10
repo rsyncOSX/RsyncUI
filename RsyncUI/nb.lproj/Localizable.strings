@@ -89,7 +89,7 @@
 "Change search string to filter records" = "Endre søkestreng";
 
 /* No comment provided by engineer. */
-"Change snapshotnum" = "Endre snapshotnummer";
+"Change snapshotnumber" = "Endre snapshot nummer";
 
 /* No comment provided by engineer. */
 "Changelog" = "Endringslogg";
@@ -384,6 +384,9 @@
 
 /* No comment provided by engineer. */
 "Snap" = "Snap";
+
+/* No comment provided by engineer. */
+"Snapshotnumber" = "Snapshot nummer";
 
 /* No comment provided by engineer. */
 "Snapshots" = "Snapshots";
