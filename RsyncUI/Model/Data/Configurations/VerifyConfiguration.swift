@@ -115,8 +115,10 @@ final class VerifyConfiguration: Connected, PropogateError {
         newconfig.dateRun = ""
         newconfig.hiddenID = data.hiddenID ?? -1
         
-        if data.snapshotnum != nil {
+        if (data.snapshotnum  ?? 0) > 0  {
             newconfig.snapshotnum = data.snapshotnum
+        } else {
+            newconfig.snapshotnum = nil
         }
         
 

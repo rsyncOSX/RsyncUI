@@ -62,6 +62,15 @@ final class ObservableAddConfigurations: PropogateError {
     }
 
     func updateconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
+        
+        var mysnapshotnum: Int = 0
+        
+        if snapshotnum.isEmpty == false {
+            if Int(snapshotnum) != nil {
+                mysnapshotnum = Int(snapshotnum) ?? 1
+            }
+        }
+        
         let updateddata = AppendTask(selectedrsynccommand.rawValue,
                                      localcatalog,
                                      remotecatalog,
@@ -70,7 +79,7 @@ final class ObservableAddConfigurations: PropogateError {
                                      remoteserver,
                                      backupID,
                                      selectedconfig?.hiddenID ?? -1,
-                                     Int(snapshotnum))
+                                     Int(mysnapshotnum))
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
@@ -81,7 +90,7 @@ final class ObservableAddConfigurations: PropogateError {
         }
         return configurations
     }
-
+        
     func resetform() {
         localcatalog = ""
         remotecatalog = ""

@@ -26,9 +26,11 @@ struct AddTaskView: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     // Which view to show
-    @State var path: [AddTasks] = []
+    @State private var path: [AddTasks] = []
     // Update pressed
-    @State var updated: Bool = false
+    @State private var updated: Bool = false
+    // Enable change snapshotnum
+    @State private var changesnapshotnum: Bool = false
 
     var choosecatalog = true
 
@@ -393,7 +395,7 @@ struct AddTaskView: View {
     }
 
     var snapshotnumheader: some View {
-        Text("Change snapshotnum")
+        Text("Snapshotnumber")
             .modifier(FixedTag(200, .leading))
     }
 
@@ -404,6 +406,10 @@ struct AddTaskView: View {
                 .focused($focusField, equals: .snapshotnumField)
                 .textContentType(.none)
                 .submitLabel(.return)
+                .disabled(!changesnapshotnum)
+            
+            ToggleViewDefault(text: NSLocalizedString("Change snapshotnumber", comment: ""),
+                              binding: $changesnapshotnum)
         }
     }
 
