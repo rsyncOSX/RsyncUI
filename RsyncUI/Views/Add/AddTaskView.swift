@@ -53,6 +53,7 @@ struct AddTaskView: View {
                 // Column 1
                 VStack(alignment: .leading) {
                     pickerselecttypeoftask
+                        .disabled(selectedconfig != nil)
 
                     if newdata.selectedrsynccommand == .syncremote {
                         VStack(alignment: .leading) { localandremotecatalogsyncremote }
