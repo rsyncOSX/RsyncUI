@@ -12,7 +12,7 @@ struct ExportView: View {
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var exportcatalog: String = Homepath().userHomeDirectoryPath ?? ""
     @State var filenameexport: String = "export"
-    
+
     @State var somesnapshottask: Bool = false
 
     let configurations: [SynchronizeConfiguration]
@@ -27,7 +27,7 @@ struct ExportView: View {
                         somesnapshottask = true
                     }
                 }
-            
+
             if somesnapshottask {
                 MessageView(dismissafter: 2, mytext: "Some tasks are snapshots, cannot be exported")
                     .onDisappear {

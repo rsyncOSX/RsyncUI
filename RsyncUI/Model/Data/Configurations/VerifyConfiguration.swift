@@ -114,13 +114,12 @@ final class VerifyConfiguration: Connected, PropogateError {
         newconfig.parameter6 = ssh
         newconfig.dateRun = ""
         newconfig.hiddenID = data.hiddenID ?? -1
-        
-        if (data.snapshotnum  ?? 0) > 0  {
+
+        if (data.snapshotnum ?? 0) > 0 {
             newconfig.snapshotnum = data.snapshotnum
         } else {
             newconfig.snapshotnum = nil
         }
-        
 
         if data.newlocalCatalog.hasSuffix("/") == false, data.newdontaddtrailingbackslash == false {
             var catalog = data.newlocalCatalog

@@ -408,7 +408,7 @@ struct AddTaskView: View {
                 .textContentType(.none)
                 .submitLabel(.return)
                 .disabled(!changesnapshotnum)
-            
+
             ToggleViewDefault(text: NSLocalizedString("Change snapshotnumber", comment: ""),
                               binding: $changesnapshotnum)
         }
