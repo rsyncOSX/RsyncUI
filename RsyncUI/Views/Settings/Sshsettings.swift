@@ -12,7 +12,7 @@ import SwiftUI
 
 struct Sshsettings: View {
     @State private var sshsettings = ObservableSSH()
-    @State private var localsshkeys: Bool = false
+    @State private var localsshkeys: Bool = SshKeys().validatepublickeypresent()
     @State private var showcopykeys: Bool = false
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
@@ -28,7 +28,8 @@ struct Sshsettings: View {
             Form {
                 Section {
                     VStack(alignment: .leading) {
-                        ToggleViewDefault(text: NSLocalizedString("Local ssh keys are present", comment: ""), binding: $localsshkeys)
+                        ToggleViewDefault(text: NSLocalizedString("Local ssh keys are present", comment: ""),
+                                          binding: $localsshkeys)
                             .disabled(true)
                     }
                 } header: {
@@ -74,13 +75,10 @@ struct Sshsettings: View {
                 if showsshkeyiscreated { MessageView(dismissafter: 2, mytext: NSLocalizedString("SSH key is created, see logfile.", comment: "")) }
             }
             .formStyle(.grouped)
-            .onAppear(perform: {
-                localsshkeys = SshKeys().validatepublickeypresent()
-            })
             .onChange(of: settingsischanged) {
                 guard settingsischanged == true else { return }
                 Task {
-                    try await Task.sleep(seconds: 3)
+                    try await Task.sleep(seconds: 1)
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("Usersettings is SAVED")
                 }
