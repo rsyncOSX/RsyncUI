@@ -41,6 +41,12 @@ extension Rsyncversion {
         if let rsyncversionshort = data?[0] {
             SharedReference.shared.rsyncversionshort =
                 rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
+            
+            if rsyncversionshort.contains("version 3.3") {
+                SharedReference.shared.rsyncversion3 = true
+            } else {
+                SharedReference.shared.rsyncversion3 = false
+            }
         }
     }
 }

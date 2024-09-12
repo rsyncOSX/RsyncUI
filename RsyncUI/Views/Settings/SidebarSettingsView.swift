@@ -31,9 +31,6 @@ struct SidebarSettingsView: View {
             settingsView(selectedsetting)
         }
         .frame(minWidth: 600, minHeight: 500)
-        .onAppear {
-            Rsyncversion().getrsyncversion()
-        }
         .navigationTitle("Settings")
     }
 

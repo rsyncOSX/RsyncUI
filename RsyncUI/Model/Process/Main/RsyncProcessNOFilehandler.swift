@@ -98,10 +98,9 @@ final class RsyncProcessNOFilehandler: PropogateError {
                 } else if let port = SharedReference.shared.sshport {
                     sshport = port
                 }
-                Logger.process.info("RsyncProcessNOFilehandler prepare checking networkconnection port: \(sshport, privacy: .public)")
                 do {
                     if let server = config?.offsiteServer, server.isEmpty == false {
-                        Logger.process.info("RsyncProcessNOFilehandler checking networkconnection server: \(server, privacy: .public)")
+                        Logger.process.info("RsyncProcessNOFilehandler checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
                         _ = try await TCPconnections().asyncverifyTCPconnection(config?.offsiteServer ?? "", port: sshport)
                     }
 

@@ -3,10 +3,7 @@ import SwiftUI
 
 struct RsyncandPathsettings: View {
     @State private var usersettings = ObservableUsersetting()
-    @State private var rsyncversion = Rsyncversion()
     @State private var configurationsarebackedup: Bool = false
-    // Rsync paths
-    @State private var defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
 
     var body: some View {
         Form {
@@ -25,8 +22,7 @@ struct RsyncandPathsettings: View {
                                     SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
                                     SharedReference.shared.localrsyncpath = nil
                                 }
-                                defaultpathrsync = SetandValidatepathforrsync().getpathforrsync()
-                                rsyncversion.getrsyncversion()
+                                Rsyncversion().getrsyncversion()
                             }
                         }
                         .onChange(of: usersettings.localrsyncpath) {
@@ -34,7 +30,7 @@ struct RsyncandPathsettings: View {
                                 try await Task.sleep(seconds: 2)
                                 SharedReference.shared.localrsyncpath = usersettings.localrsyncpath
                                 usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
-                                rsyncversion.getrsyncversion()
+                                Rsyncversion().getrsyncversion()
                             }
                         }
 
@@ -97,7 +93,7 @@ struct RsyncandPathsettings: View {
         .formStyle(.grouped)
         .onAppear(perform: {
             Task {
-                try await Task.sleep(seconds: 1)
+                // try await Task.sleep(seconds: 1)
                 Logger.process.info("RsyncAndPath settings is DEFAULT")
                 SharedReference.shared.settingsischanged = false
                 usersettings.ready = true
@@ -126,7 +122,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setrsyncpathdefault: some View {
-        EditValue(400, defaultpathrsync, $usersettings.localrsyncpath)
+        EditValue(400, SetandValidatepathforrsync().getpathforrsync(), $usersettings.localrsyncpath)
     }
 
     var setpathforrestore: some View {
