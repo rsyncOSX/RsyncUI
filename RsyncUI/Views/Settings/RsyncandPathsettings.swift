@@ -89,14 +89,6 @@ struct RsyncandPathsettings: View {
             }
         }
         .formStyle(.grouped)
-        .onAppear(perform: {
-            Task {
-                // try await Task.sleep(seconds: 1)
-                Logger.process.info("RsyncAndPath settings is DEFAULT")
-                SharedReference.shared.settingsischanged = false
-                usersettings.ready = true
-            }
-        })
         .onChange(of: settingsischanged) {
             guard settingsischanged == true else { return }
             Task {
