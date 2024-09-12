@@ -18,8 +18,6 @@ final class ObservableSSH: PropogateError {
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
     var sshkeypathandidentityfile: String = ""
-    // For updating settings
-    @ObservationIgnored var ready: Bool = false
 
     var sshcreatekey: SSHCreateKey?
 

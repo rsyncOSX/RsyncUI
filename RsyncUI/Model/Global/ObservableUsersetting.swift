@@ -33,8 +33,6 @@ final class ObservableUsersetting: PropogateError {
     var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Automatic execution of estimated tasks
     var confirmexecute: Bool = SharedReference.shared.confirmexecute
-    // For updating settings
-    @ObservationIgnored var ready: Bool = false
 
     // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) {

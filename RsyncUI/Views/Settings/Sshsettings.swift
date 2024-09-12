@@ -19,6 +19,9 @@ struct Sshsettings: View {
     @State var publisherkeypath = PassthroughSubject<String, Never>()
     // Show keys are created
     @State private var showsshkeyiscreated: Bool = false
+    // Settings are changed
+    @State private var showthumbsup: Bool = false
+    @State private var settingsischanged: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -61,7 +64,7 @@ struct Sshsettings: View {
                             .buttonStyle(ColorfulButtonStyle())
                         }
 
-                        if SharedReference.shared.settingsischanged, sshsettings.ready { thumbsupgreen }
+                        if settingsischanged { thumbsupgreen }
                     }
 
                 } header: {
@@ -73,20 +76,12 @@ struct Sshsettings: View {
             .formStyle(.grouped)
             .onAppear(perform: {
                 localsshkeys = SshKeys().validatepublickeypresent()
-                Task {
-                    try await Task.sleep(seconds: 3)
-                    Logger.process.info("SSH settings is DEFAULT")
-                    SharedReference.shared.settingsischanged = false
-                    sshsettings.ready = true
-                }
             })
-            .onChange(of: SharedReference.shared.settingsischanged) {
-                guard SharedReference.shared.settingsischanged == true,
-                      sshsettings.ready == true else { return }
+            .onChange(of: settingsischanged) {
+                guard settingsischanged == true else { return }
                 Task {
                     try await Task.sleep(seconds: 3)
                     _ = WriteUserConfigurationJSON(UserConfiguration())
-                    SharedReference.shared.settingsischanged = false
                     Logger.process.info("Usersettings is SAVED")
                 }
             }
@@ -99,7 +94,14 @@ struct Sshsettings: View {
     var thumbsupgreen: some View {
         Label("", systemImage: "hand.thumbsup.fill")
             .foregroundColor(Color(.green))
-            .padding()
+            .imageScale(.large)
+            .onAppear {
+                Task {
+                    try await Task.sleep(seconds: 2)
+                    showthumbsup = false
+                    settingsischanged = false
+                }
+            }
     }
 
     var setsshpath: some View {
@@ -119,6 +121,7 @@ struct Sshsettings: View {
                 )
             ) { _ in
                 sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile)
+                settingsischanged = true
             }
     }
 
@@ -140,6 +143,7 @@ struct Sshsettings: View {
                 )
             ) { _ in
                 sshsettings.sshport(sshsettings.sshportnumber)
+                settingsischanged = true
             }
     }
 }

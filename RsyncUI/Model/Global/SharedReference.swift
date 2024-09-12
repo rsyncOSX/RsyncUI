@@ -14,96 +14,32 @@ final class SharedReference {
     @MainActor static let shared = SharedReference()
     private init() {}
 
-    var settingsischanged: Bool = false
-
-    @ObservationIgnored var rsyncversion3: Bool = false {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
+    // Version 3.x of rsync
+    @ObservationIgnored var rsyncversion3: Bool = false
     // Optional path to rsync
-    @ObservationIgnored var localrsyncpath: String? {
-        didSet {
-            settingsischanged = true
-        }
-    }
+    @ObservationIgnored var localrsyncpath: String?
 
     // No valid rsyncPath - true if no valid rsync is found
     @ObservationIgnored var norsync: Bool = false
     // Path for restore
-    @ObservationIgnored var pathforrestore: String? {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
+    @ObservationIgnored var pathforrestore: String?
     // Add summary to logrecords
-    @ObservationIgnored var addsummarylogrecord: Bool = true {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
-    @ObservationIgnored var logtofile: Bool = false {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
+    @ObservationIgnored var addsummarylogrecord: Bool = true
+    @ObservationIgnored var logtofile: Bool = false
     // Mark number of days since last backup
-    @ObservationIgnored var marknumberofdayssince: Int = 5 {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
-    @ObservationIgnored var environment: String? {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
-    @ObservationIgnored var environmentvalue: String? {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
+    @ObservationIgnored var marknumberofdayssince: Int = 5
+    @ObservationIgnored var environment: String?
+    @ObservationIgnored var environmentvalue: String?
     // Global SSH parameters
-    @ObservationIgnored var sshport: Int? {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
-    @ObservationIgnored var sshkeypathandidentityfile: String? {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
+    @ObservationIgnored var sshport: Int?
+    @ObservationIgnored var sshkeypathandidentityfile: String?
     // Check for error in output from rsync
-    @ObservationIgnored var checkforerrorinrsyncoutput: Bool = false {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
+    @ObservationIgnored var checkforerrorinrsyncoutput: Bool = false
     // Check for network changes
-    @ObservationIgnored var monitornetworkconnection: Bool = false {
-        didSet {
-            settingsischanged = true
-        }
-    }
-
+    @ObservationIgnored var monitornetworkconnection: Bool = false
     // Confirm execution
     // A safety rule
-    @ObservationIgnored var confirmexecute: Bool = false {
-        didSet {
-            settingsischanged = true
-        }
-    }
+    @ObservationIgnored var confirmexecute: Bool = false
 
     // Download URL if new version is avaliable
     @ObservationIgnored var URLnewVersion: String?

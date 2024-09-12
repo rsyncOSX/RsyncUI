@@ -12,7 +12,8 @@ struct Environmentsettings: View {
     @State private var environmentvalue: String = ""
     @State private var environment: String = ""
     // Settings are changed
-    @State var settings: Bool = false
+    @State private var showthumbsup: Bool = false
+    @State private var settingsischanged: Bool = false
 
     var body: some View {
         Form {
@@ -21,28 +22,20 @@ struct Environmentsettings: View {
 
                 setenvironmenvariable
 
-                if SharedReference.shared.settingsischanged { thumbsupgreen }
+                if settingsischanged { thumbsupgreen }
 
             } header: {
                 Text("Rsync environment")
             }
         }
         .formStyle(.grouped)
-        .onAppear(perform: {
-            Task {
-                try await Task.sleep(seconds: 1)
-                Logger.process.info("Environmentsettings is DEFAULT")
-                SharedReference.shared.settingsischanged = false
-                settings = true
-            }
-        })
-        .onChange(of: SharedReference.shared.settingsischanged) {
-            guard SharedReference.shared.settingsischanged == true else { return }
+        .onChange(of: settingsischanged) {
+            guard settingsischanged == true else { return }
             Task {
                 try await Task.sleep(seconds: 1)
                 _ = WriteUserConfigurationJSON(UserConfiguration())
-                SharedReference.shared.settingsischanged = false
                 Logger.process.info("Environmentsettings is SAVED")
+                showthumbsup = true
             }
         }
     }
@@ -50,7 +43,14 @@ struct Environmentsettings: View {
     var thumbsupgreen: some View {
         Label("", systemImage: "hand.thumbsup.fill")
             .foregroundColor(Color(.green))
-            .padding()
+            .imageScale(.large)
+            .onAppear {
+                Task {
+                    try await Task.sleep(seconds: 2)
+                    showthumbsup = false
+                    settingsischanged = false
+                }
+            }
     }
 
     var setenvironment: some View {
