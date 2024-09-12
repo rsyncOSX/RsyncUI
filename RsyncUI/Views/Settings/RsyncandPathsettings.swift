@@ -3,7 +3,8 @@ import SwiftUI
 
 struct RsyncandPathsettings: View {
     @State private var usersettings = ObservableUsersetting()
-    @State private var configurationsarebackedup: Bool = false
+    @State private var showthumbsup: Bool = false
+    @State private var settingsischanged: Bool = false
 
     var body: some View {
         Form {
@@ -23,6 +24,7 @@ struct RsyncandPathsettings: View {
                                     SharedReference.shared.localrsyncpath = nil
                                 }
                                 Rsyncversion().getrsyncversion()
+                                settingsischanged = true
                             }
                         }
                         .onChange(of: usersettings.localrsyncpath) {
@@ -31,6 +33,7 @@ struct RsyncandPathsettings: View {
                                 SharedReference.shared.localrsyncpath = usersettings.localrsyncpath
                                 usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
                                 Rsyncversion().getrsyncversion()
+                                settingsischanged = true
                             }
                         }
 
@@ -71,19 +74,14 @@ struct RsyncandPathsettings: View {
                 HStack {
                     Button {
                         _ = Backupconfigfiles()
-                        configurationsarebackedup = true
-                        Task {
-                            try await Task.sleep(seconds: 2)
-                            configurationsarebackedup = false
-                        }
+                        showthumbsup = true
 
                     } label: {
                         Image(systemName: "wrench.adjustable.fill")
                     }
                     .buttonStyle(ColorfulButtonStyle())
 
-                    if SharedReference.shared.settingsischanged, usersettings.ready { thumbsupgreen }
-                    if configurationsarebackedup { thumbsupgreen }
+                    if showthumbsup { thumbsupgreen }
                 }
 
             } header: {
@@ -99,14 +97,13 @@ struct RsyncandPathsettings: View {
                 usersettings.ready = true
             }
         })
-        .onChange(of: SharedReference.shared.settingsischanged) {
-            guard SharedReference.shared.settingsischanged == true,
-                  usersettings.ready == true else { return }
+        .onChange(of: settingsischanged) {
+            guard settingsischanged == true else { return }
             Task {
                 try await Task.sleep(seconds: 1)
                 _ = WriteUserConfigurationJSON(UserConfiguration())
-                SharedReference.shared.settingsischanged = false
                 Logger.process.info("RsyncAndPath is SAVED")
+                showthumbsup = true
             }
         }
     }
@@ -115,6 +112,13 @@ struct RsyncandPathsettings: View {
         Label("", systemImage: "hand.thumbsup.fill")
             .foregroundColor(Color(.green))
             .imageScale(.large)
+            .onAppear {
+                Task {
+                    try await Task.sleep(seconds: 2)
+                    showthumbsup = false
+                    settingsischanged = false
+                }
+            }
     }
 
     var setrsyncpathlocalpath: some View {
