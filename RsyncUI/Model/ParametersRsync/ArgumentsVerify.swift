@@ -25,7 +25,6 @@ final class ArgumentsVerify {
                                            parameter3: config.parameter3,
                                            parameter4: config.parameter4,
                                            parameter5: config.parameter5,
-                                           parameter6: config.parameter5,
                                            parameter8: config.parameter8,
                                            parameter9: config.parameter9,
                                            parameter10: config.parameter10,
