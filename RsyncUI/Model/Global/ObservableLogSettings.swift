@@ -15,11 +15,8 @@ final class ObservableLogSettings: PropogateError {
     var logtofile: Bool = SharedReference.shared.logtofile
     // Check for network changes
     var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
-    // True if on ARM based Mac
-    var macosarm: Bool = SharedReference.shared.macosarm
     // Check for "error" in output from rsync
     var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Automatic execution of estimated tasks
     var confirmexecute: Bool = SharedReference.shared.confirmexecute
-
 }

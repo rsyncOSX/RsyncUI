@@ -1,5 +1,5 @@
 //
-//  ObservableUsersetting.swift
+//  ObservableRsyncPathSetting.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 16/02/2021.
@@ -20,19 +20,10 @@ final class ObservableRsyncPathSetting: PropogateError {
     // Temporary path for restore, the settings View is picking up the current value
     // Set the current value as placeholder text
     var temporarypathforrestore: String = ""
-    // Detailed logging
-    var addsummarylogrecord: Bool = SharedReference.shared.addsummarylogrecord
-    var logtofile: Bool = SharedReference.shared.logtofile
     // Mark number of days since last backup
     var marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
-    // Check for network changes
-    var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // True if on ARM based Mac
     var macosarm: Bool = SharedReference.shared.macosarm
-    // Check for "error" in output from rsync
-    var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
-    // Automatic execution of estimated tasks
-    var confirmexecute: Bool = SharedReference.shared.confirmexecute
 
     // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) {

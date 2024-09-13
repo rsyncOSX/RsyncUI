@@ -5,12 +5,11 @@
 //  Created by Thomas Evensen on 13/09/2024.
 //
 
-
 import OSLog
 import SwiftUI
 
 struct RsyncandPathsettings: View {
-    @State private var usersettings = ObservableRsyncPathSetting()
+    @State private var rsyncpathsettings = ObservableRsyncPathSetting()
     @State private var showthumbsup: Bool = false
     @State private var settingsischanged: Bool = false
 
@@ -19,36 +18,36 @@ struct RsyncandPathsettings: View {
             Section {
                 HStack {
                     ToggleViewDefault(text: NSLocalizedString("Rsync v3.x", comment: ""),
-                                      binding: $usersettings.rsyncversion3)
-                        .onChange(of: usersettings.rsyncversion3) {
+                                      binding: $rsyncpathsettings.rsyncversion3)
+                        .onChange(of: rsyncpathsettings.rsyncversion3) {
                             Task {
                                 try await Task.sleep(seconds: 2)
                                 if SharedReference.shared.norsync {
                                     SharedReference.shared.localrsyncpath = nil
                                     SharedReference.shared.rsyncversion3 = false
-                                    usersettings.localrsyncpath = ""
+                                    rsyncpathsettings.localrsyncpath = ""
                                 } else {
-                                    SharedReference.shared.rsyncversion3 = usersettings.rsyncversion3
+                                    SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
                                     SharedReference.shared.localrsyncpath = nil
                                 }
                                 Rsyncversion().getrsyncversion()
                                 settingsischanged = true
                             }
                         }
-                        .onChange(of: usersettings.localrsyncpath) {
+                        .onChange(of: rsyncpathsettings.localrsyncpath) {
                             Task {
                                 try await Task.sleep(seconds: 2)
-                                SharedReference.shared.localrsyncpath = usersettings.localrsyncpath
-                                usersettings.setandvalidatepathforrsync(usersettings.localrsyncpath)
+                                SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
+                                rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath)
                                 Rsyncversion().getrsyncversion()
                                 settingsischanged = true
                             }
                         }
 
                     ToggleViewDefault(text: NSLocalizedString("Apple Silicon", comment: ""),
-                                      binding: $usersettings.macosarm)
-                        .onChange(of: usersettings.macosarm) {
-                            SharedReference.shared.macosarm = usersettings.macosarm
+                                      binding: $rsyncpathsettings.macosarm)
+                        .onChange(of: rsyncpathsettings.macosarm) {
+                            SharedReference.shared.macosarm = rsyncpathsettings.macosarm
                         }
                         .disabled(true)
                 }
@@ -57,7 +56,7 @@ struct RsyncandPathsettings: View {
             }
 
             Section {
-                if usersettings.localrsyncpath.isEmpty == true {
+                if rsyncpathsettings.localrsyncpath.isEmpty == true {
                     setrsyncpathdefault
                 } else {
                     setrsyncpathlocalpath
@@ -122,36 +121,36 @@ struct RsyncandPathsettings: View {
     }
 
     var setrsyncpathlocalpath: some View {
-        EditValue(400, nil, $usersettings.localrsyncpath)
+        EditValue(400, nil, $rsyncpathsettings.localrsyncpath)
     }
 
     var setrsyncpathdefault: some View {
-        EditValue(400, SetandValidatepathforrsync().getpathforrsync(), $usersettings.localrsyncpath)
+        EditValue(400, SetandValidatepathforrsync().getpathforrsync(), $rsyncpathsettings.localrsyncpath)
     }
 
     var setpathforrestore: some View {
         EditValue(400, NSLocalizedString("Path for restore", comment: ""),
-                  $usersettings.temporarypathforrestore)
+                  $rsyncpathsettings.temporarypathforrestore)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
-                    usersettings.temporarypathforrestore = pathforrestore
+                    rsyncpathsettings.temporarypathforrestore = pathforrestore
                 }
             })
-            .onChange(of: usersettings.temporarypathforrestore) {
+            .onChange(of: rsyncpathsettings.temporarypathforrestore) {
                 Task {
                     try await Task.sleep(seconds: 1)
-                    usersettings.setandvalidapathforrestore(usersettings.temporarypathforrestore)
+                    rsyncpathsettings.setandvalidapathforrestore(rsyncpathsettings.temporarypathforrestore)
                 }
             }
     }
 
     var setmarkdays: some View {
         EditValue(400, NSLocalizedString("", comment: ""),
-                  $usersettings.marknumberofdayssince)
-            .onChange(of: usersettings.marknumberofdayssince) {
+                  $rsyncpathsettings.marknumberofdayssince)
+            .onChange(of: rsyncpathsettings.marknumberofdayssince) {
                 Task {
                     try await Task.sleep(seconds: 1)
-                    usersettings.markdays(days: usersettings.marknumberofdayssince)
+                    rsyncpathsettings.markdays(days: rsyncpathsettings.marknumberofdayssince)
                 }
             }
     }

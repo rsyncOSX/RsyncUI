@@ -10,39 +10,39 @@ import OSLog
 import SwiftUI
 
 struct Logsettings: View {
-    @State private var usersettings = ObservableLogSettings()
+    @State private var logsettings = ObservableLogSettings()
     @State private var showthumbsup: Bool = false
     @State private var settingsischanged: Bool = false
 
     var body: some View {
         Form {
             Section {
-                ToggleViewDefault(text: NSLocalizedString("Monitor network", comment: ""), binding: $usersettings.monitornetworkconnection)
-                    .onChange(of: usersettings.monitornetworkconnection) {
-                        SharedReference.shared.monitornetworkconnection = usersettings.monitornetworkconnection
+                ToggleViewDefault(text: NSLocalizedString("Monitor network", comment: ""), binding: $logsettings.monitornetworkconnection)
+                    .onChange(of: logsettings.monitornetworkconnection) {
+                        SharedReference.shared.monitornetworkconnection = logsettings.monitornetworkconnection
                         settingsischanged = true
                     }
-                ToggleViewDefault(text: NSLocalizedString("Check for error in output", comment: ""), binding: $usersettings.checkforerrorinrsyncoutput)
-                    .onChange(of: usersettings.checkforerrorinrsyncoutput) {
-                        SharedReference.shared.checkforerrorinrsyncoutput = usersettings.checkforerrorinrsyncoutput
+                ToggleViewDefault(text: NSLocalizedString("Check for error in output", comment: ""), binding: $logsettings.checkforerrorinrsyncoutput)
+                    .onChange(of: logsettings.checkforerrorinrsyncoutput) {
+                        SharedReference.shared.checkforerrorinrsyncoutput = logsettings.checkforerrorinrsyncoutput
                         settingsischanged = true
                     }
-                ToggleViewDefault(text: NSLocalizedString("Add summary logrecord", comment: ""), binding: $usersettings.addsummarylogrecord)
-                    .onChange(of: usersettings.addsummarylogrecord) {
-                        SharedReference.shared.addsummarylogrecord = usersettings.addsummarylogrecord
+                ToggleViewDefault(text: NSLocalizedString("Add summary logrecord", comment: ""), binding: $logsettings.addsummarylogrecord)
+                    .onChange(of: logsettings.addsummarylogrecord) {
+                        SharedReference.shared.addsummarylogrecord = logsettings.addsummarylogrecord
                         settingsischanged = true
                     }
                 ToggleViewDefault(text: NSLocalizedString("Log summary logfile", comment: ""),
-                                  binding: $usersettings.logtofile)
-                    .onChange(of: usersettings.logtofile) {
-                        SharedReference.shared.logtofile = usersettings.logtofile
+                                  binding: $logsettings.logtofile)
+                    .onChange(of: logsettings.logtofile) {
+                        SharedReference.shared.logtofile = logsettings.logtofile
                         settingsischanged = true
                     }
 
                 if SharedReference.shared.rsyncversion3 {
-                    ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $usersettings.confirmexecute)
-                        .onChange(of: usersettings.confirmexecute) {
-                            SharedReference.shared.confirmexecute = usersettings.confirmexecute
+                    ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
+                        .onChange(of: logsettings.confirmexecute) {
+                            SharedReference.shared.confirmexecute = logsettings.confirmexecute
                             settingsischanged = true
                         }
                 }
