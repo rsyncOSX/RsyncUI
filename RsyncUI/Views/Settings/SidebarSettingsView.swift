@@ -42,9 +42,7 @@ struct SidebarSettingsView: View {
         case .monitor_and_log:
             Logsettings()
         case .ssh:
-            NavigationStack {
-                Sshsettings()
-            }
+            Sshsettings()
         case .environment:
             Environmentsettings()
         case .info:
