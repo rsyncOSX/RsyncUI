@@ -33,7 +33,6 @@ final class ObservableParametersDefault {
             // set delete toggles
             if (configuration?.parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
             if (configuration?.parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
-            if (configuration?.parameter5 ?? "").isEmpty { removessh = true } else { removessh = false }
             // Rsync daemon
             // configuration?.rsyncdaemon = config.rsyncdaemon
             if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
@@ -42,16 +41,6 @@ final class ObservableParametersDefault {
             sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
         } else {
             reset()
-        }
-    }
-
-    // parameter5 -e ssh
-    func deletessh(_ delete: Bool) {
-        guard configuration != nil else { return }
-        if delete {
-            configuration?.parameter5 = ""
-        } else {
-            configuration?.parameter5 = "-e"
         }
     }
 

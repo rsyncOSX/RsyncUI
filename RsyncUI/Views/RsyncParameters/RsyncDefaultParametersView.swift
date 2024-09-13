@@ -23,10 +23,6 @@ struct RsyncDefaultParametersView: View {
                 VStack(alignment: .leading) {
                     Section(header: headerremove) {
                         VStack(alignment: .leading) {
-                            ToggleViewDefault(text: "-e ssh", binding: $parameters.removessh)
-                                .onChange(of: parameters.removessh) {
-                                    parameters.deletessh(parameters.removessh)
-                                }
                             ToggleViewDefault(text: "--compress", binding: $parameters.removecompress)
                                 .onChange(of: parameters.removecompress) {
                                     parameters.deletecompress(parameters.removecompress)

@@ -94,8 +94,6 @@ final class VerifyConfiguration: Connected, PropogateError {
     let verbose: String = "--verbose"
     let compress: String = "--compress"
     let delete: String = "--delete"
-    let eparam: String = "-e"
-    let ssh: String = "ssh"
 
     // Verify parameters for new config.
     func verify(_ data: AppendTask) -> SynchronizeConfiguration? {
@@ -110,7 +108,6 @@ final class VerifyConfiguration: Connected, PropogateError {
         newconfig.parameter2 = verbose
         newconfig.parameter3 = compress
         newconfig.parameter4 = delete
-        newconfig.parameter5 = eparam
         newconfig.dateRun = ""
         newconfig.hiddenID = data.hiddenID ?? -1
 
