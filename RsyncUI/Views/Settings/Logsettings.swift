@@ -10,7 +10,7 @@ import OSLog
 import SwiftUI
 
 struct Logsettings: View {
-    @State private var usersettings = ObservableUsersetting()
+    @State private var usersettings = ObservableLogSettings()
     @State private var showthumbsup: Bool = false
     @State private var settingsischanged: Bool = false
 

@@ -1,8 +1,16 @@
+//
+//  RsyncandPathsettings 2.swift
+//  RsyncUI
+//
+//  Created by Thomas Evensen on 13/09/2024.
+//
+
+
 import OSLog
 import SwiftUI
 
 struct RsyncandPathsettings: View {
-    @State private var usersettings = ObservableUsersetting()
+    @State private var usersettings = ObservableRsyncPathSetting()
     @State private var showthumbsup: Bool = false
     @State private var settingsischanged: Bool = false
 
