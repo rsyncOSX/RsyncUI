@@ -26,7 +26,6 @@ struct DecodeSynchronizeConfiguration: Codable {
     let parameter3: String?
     let parameter4: String?
     let parameter5: String?
-    let parameter6: String?
     let parameter8: String?
     let parameter9: String?
     let rsyncdaemon: Int?
@@ -55,7 +54,6 @@ struct DecodeSynchronizeConfiguration: Codable {
         case parameter3
         case parameter4
         case parameter5
-        case parameter6
         case parameter8
         case parameter9
         case rsyncdaemon
@@ -86,7 +84,6 @@ struct DecodeSynchronizeConfiguration: Codable {
         parameter3 = try values.decodeIfPresent(String.self, forKey: .parameter3)
         parameter4 = try values.decodeIfPresent(String.self, forKey: .parameter4)
         parameter5 = try values.decodeIfPresent(String.self, forKey: .parameter5)
-        parameter6 = try values.decodeIfPresent(String.self, forKey: .parameter6)
         parameter8 = try values.decodeIfPresent(String.self, forKey: .parameter8)
         parameter9 = try values.decodeIfPresent(String.self, forKey: .parameter9)
         rsyncdaemon = try values.decodeIfPresent(Int.self, forKey: .rsyncdaemon)

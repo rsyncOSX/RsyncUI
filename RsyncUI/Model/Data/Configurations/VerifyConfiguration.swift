@@ -111,7 +111,6 @@ final class VerifyConfiguration: Connected, PropogateError {
         newconfig.parameter3 = compress
         newconfig.parameter4 = delete
         newconfig.parameter5 = eparam
-        newconfig.parameter6 = ssh
         newconfig.dateRun = ""
         newconfig.hiddenID = data.hiddenID ?? -1
 

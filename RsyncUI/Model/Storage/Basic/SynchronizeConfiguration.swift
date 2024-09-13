@@ -48,7 +48,6 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     var parameter3: String
     var parameter4: String
     var parameter5: String
-    var parameter6: String
     var offsiteServer: String
     var backupID: String
     var dateRun: String?
@@ -90,7 +89,6 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         parameter3 = data.parameter3 ?? ""
         parameter4 = data.parameter4 ?? ""
         parameter5 = data.parameter5 ?? ""
-        parameter6 = data.parameter6 ?? ""
         parameter8 = data.parameter8
         parameter9 = data.parameter9
         rsyncdaemon = data.rsyncdaemon
@@ -119,7 +117,6 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         parameter3 = ""
         parameter4 = ""
         parameter5 = ""
-        parameter6 = ""
         offsiteServer = ""
         backupID = ""
     }
@@ -138,7 +135,6 @@ extension SynchronizeConfiguration: Hashable, Equatable {
             lhs.parameter3 == rhs.parameter3 &&
             lhs.parameter4 == rhs.parameter4 &&
             lhs.parameter5 == rhs.parameter5 &&
-            lhs.parameter6 == rhs.parameter6 &&
             lhs.parameter8 == rhs.parameter8 &&
             lhs.parameter9 == rhs.parameter9 &&
             lhs.parameter10 == rhs.parameter10 &&
@@ -160,7 +156,6 @@ extension SynchronizeConfiguration: Hashable, Equatable {
         hasher.combine(parameter3)
         hasher.combine(parameter4)
         hasher.combine(parameter5)
-        hasher.combine(parameter6)
         hasher.combine(parameter8)
         hasher.combine(parameter9)
         hasher.combine(parameter10)

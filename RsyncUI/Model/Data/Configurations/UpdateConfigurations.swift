@@ -38,7 +38,6 @@ final class UpdateConfigurations {
                 configurations?[index].parameter3 = config.parameter3
                 configurations?[index].parameter4 = config.parameter4
                 configurations?[index].parameter5 = config.parameter5
-                configurations?[index].parameter6 = config.parameter6
                 configurations?[index].parameter8 = config.parameter8
                 configurations?[index].parameter9 = config.parameter9
                 configurations?[index].parameter10 = config.parameter10
