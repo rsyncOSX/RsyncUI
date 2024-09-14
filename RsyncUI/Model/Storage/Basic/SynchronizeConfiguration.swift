@@ -160,5 +160,6 @@ extension SynchronizeConfiguration: Hashable, Equatable {
         hasher.combine(parameter13)
         hasher.combine(parameter14)
         hasher.combine(dateRun)
+        hasher.combine(backupID)
     }
 }
