@@ -95,7 +95,7 @@ final class RsyncProcessFilehandler: PropogateError {
                 var sshport = 22
                 if let port = config?.sshport, port != -1 {
                     sshport = port
-                } else if let port = SharedReference.shared.sshport {
+                } else if let port = SharedReference.shared.sshport, port != -1 {
                     sshport = port
                 }
                 do {
