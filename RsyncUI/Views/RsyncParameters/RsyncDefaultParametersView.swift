@@ -27,15 +27,18 @@ struct RsyncDefaultParametersView: View {
                                 .onChange(of: parameters.removecompress) {
                                     parameters.deletecompress(parameters.removecompress)
                                 }
+                                .disabled(selecteduuids.isEmpty == true)
                             ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
                                 .onChange(of: parameters.removedelete) {
                                     parameters.deletedelete(parameters.removedelete)
                                 }
+                                .disabled(selecteduuids.isEmpty == true)
                         }
                     }
 
                     Section(header: headerdaemon) {
                         ToggleViewDefault(text: "daemon", binding: $parameters.daemon)
+                            .disabled(selecteduuids.isEmpty == true)
                     }
 
                     Spacer()
