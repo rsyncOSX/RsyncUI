@@ -18,6 +18,9 @@ final class ObservableSSH: PropogateError {
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
     var sshkeypathandidentityfile: String = ""
+    // Default RSA sshkeypath og port
+    let defaultsshkeypathandidentityfile = "~/.ssh/id_rsa"
+    let defaultsshport = "22"
 
     var sshcreatekey: SSHCreateKey?
 

@@ -28,6 +28,10 @@ final class ObservableParametersRsync: PropogateError {
     var configuration: SynchronizeConfiguration?
 
     var sshcreatekey: SSHCreateKey?
+    
+    // Default RSA sshkeypath og port
+    let defaultsshkeypathandidentityfile = "~/.ssh/id_rsa"
+    let defaultsshport = "22"
 
     func setvalues(_ config: SynchronizeConfiguration?) {
         if let config {
