@@ -136,29 +136,34 @@ struct RestoreTableView: View {
                 }
 
                 ToolbarItem {
-                    Button {
-                        executerestore()
-                    } label: {
-                        if updated == false {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(Color(.blue))
-                        } else {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color(.blue))
+                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false {
+                        Button {
+                            executerestore()
+                        } label: {
+                            if updated == false {
+                                Image(systemName: "checkmark.circle")
+                                    .foregroundColor(Color(.blue))
+                            } else {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(Color(.blue))
+                            }
                         }
+                        .help("Restore files")
                     }
-                    .help("Restore files")
                 }
 
                 ToolbarItem {
-                    Button {
-                        guard SharedReference.shared.process == nil else { return }
-                        guard restore.selectedconfig != nil else { return }
-                        restore.presentsheetrsync = true
-                    } label: {
-                        Image(systemName: "doc.plaintext")
+                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false {
+                        Button {
+                            guard SharedReference.shared.process == nil else { return }
+                            guard restore.selectedconfig != nil else { return }
+                            guard (restore.rsyncdata?.count ?? 0) > 0 else { return }
+                            restore.presentsheetrsync = true
+                        } label: {
+                            Image(systemName: "doc.plaintext")
+                        }
+                        .help("Output from rsync")
                     }
-                    .help("Output from rsync")
                 }
 
                 ToolbarItem {
