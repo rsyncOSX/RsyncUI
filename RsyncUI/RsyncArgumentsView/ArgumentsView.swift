@@ -12,6 +12,7 @@ struct ArgumentsView: View {
    
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedrsynccommand = RsyncCommand.synchronize
+    @State private var otherselectedrsynccommand  = OtherRsyncCommand.listfiles
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     
     var body: some View {
@@ -37,7 +38,7 @@ struct ArgumentsView: View {
 
                 RsyncCommandView(config: $selectedconfig, selectedrsynccommand: $selectedrsynccommand)
                 
-                OtherRsyncCommandsView(config: $selectedconfig, selectedrsynccommand: $selectedrsynccommand)
+                OtherRsyncCommandsView(config: $selectedconfig, otherselectedrsynccommand: $otherselectedrsynccommand)
             }
         .padding()
     }

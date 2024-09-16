@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OtherRsyncCommandsView: View {
     @Binding var config: SynchronizeConfiguration?
-    @Binding var selectedrsynccommand: RsyncCommand
+    @Binding var otherselectedrsynccommand: OtherRsyncCommand
 
     var body: some View {
         HStack {
@@ -20,8 +20,8 @@ struct OtherRsyncCommandsView: View {
     }
 
     var pickerselectcommand: some View {
-        Picker("", selection: $selectedrsynccommand) {
-            ForEach(RsyncCommand.allCases) { Text($0.description)
+        Picker("", selection: $otherselectedrsynccommand) {
+            ForEach(OtherRsyncCommand.allCases) { Text($0.description)
                 .tag($0)
             }
         }
@@ -38,8 +38,8 @@ struct OtherRsyncCommandsView: View {
 
     var commandstring: String? {
         if let config {
-            RsyncCommandtoDisplay(display: selectedrsynccommand,
-                                  config: config).rsynccommand
+            OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
+                                  config: config).command
         } else {
             nil
         }
