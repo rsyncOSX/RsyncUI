@@ -15,8 +15,8 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case restore
     case verify
     case listfiles
-    case create_ssh_keys
-    case arguments_check_remotepubkey
+    case create_sshkeys
+    case check_remotepubkey
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized }
@@ -50,7 +50,7 @@ struct OtherRsyncCommandtoDisplay {
                     str += arguments[i] + " "
                 }
             }
-        case .create_ssh_keys:
+        case .create_sshkeys:
             let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
                                              sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
             if let arguments = createsshkeys.argumentscreatekey() {
@@ -59,7 +59,7 @@ struct OtherRsyncCommandtoDisplay {
                     str += arguments[i] + " "
                 }
             }
-        case .arguments_check_remotepubkey:
+        case .check_remotepubkey:
             let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
                                              sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
             str = createsshkeys.argumentscheckremotepubkey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)

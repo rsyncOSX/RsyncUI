@@ -14,8 +14,12 @@ struct OtherRsyncCommandsView: View {
     var body: some View {
         HStack {
             pickerselectcommand
-
-            showcommand
+            
+            Spacer()
+            
+            if config != nil {
+                showcommand
+            }
         }
     }
 
@@ -34,6 +38,11 @@ struct OtherRsyncCommandsView: View {
             .lineLimit(nil)
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity)
+            .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(.blue, lineWidth: 4)
+                )
     }
 
     var commandstring: String? {
