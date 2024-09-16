@@ -14,12 +14,13 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case synchronize
     case restore
     case verify
-    case listfiles
-    case create_sshkeys
-    case check_remotepubkey
+    case list_remote_files
+    case create_sshkeypath_and_identityfile
+    case test_remote_public_key
+    case copy_sshid
 
     var id: String { rawValue }
-    var description: String { rawValue.localizedCapitalized }
+    var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
 }
 
 @MainActor
@@ -43,14 +44,14 @@ struct OtherRsyncCommandtoDisplay {
             if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: true) {
                 str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
             }
-        case .listfiles:
+        case .list_remote_files:
             str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " "
             if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
                 for i in 0 ..< arguments.count {
                     str += arguments[i] + " "
                 }
             }
-        case .create_sshkeys:
+        case .create_sshkeypath_and_identityfile:
             let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
                                              sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
             if let arguments = createsshkeys.argumentscreatekey() {
@@ -59,10 +60,14 @@ struct OtherRsyncCommandtoDisplay {
                     str += arguments[i] + " "
                 }
             }
-        case .check_remotepubkey:
+        case .test_remote_public_key:
             let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
                                              sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
             str = createsshkeys.argumentscheckremotepubkey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+        case .copy_sshid:
+            let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
+                                             sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
+            str = createsshkeys.argumentssshcopyid(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
         }
         command = str
     }
