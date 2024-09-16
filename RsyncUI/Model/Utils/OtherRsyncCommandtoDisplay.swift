@@ -11,8 +11,12 @@ import Foundation
 import SSHCreateKey
 
 enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case synchronize
+    case restore
+    case verify
     case listfiles
     case create_ssh_keys
+    case arguments_check_remotepubkey
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized }
@@ -27,6 +31,18 @@ struct OtherRsyncCommandtoDisplay {
     {
         var str = ""
         switch display {
+        case .synchronize:
+            if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: true) {
+                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+            }
+        case .restore:
+            if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true) {
+                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+            }
+        case .verify:
+            if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: true) {
+                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+            }
         case .listfiles:
             str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " "
             if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
@@ -43,6 +59,10 @@ struct OtherRsyncCommandtoDisplay {
                     str += arguments[i] + " "
                 }
             }
+        case .arguments_check_remotepubkey:
+            let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
+                                             sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
+            str = createsshkeys.argumentscheckremotepubkey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
         }
         command = str
     }
