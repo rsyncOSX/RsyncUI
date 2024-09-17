@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 enum ParametersDestinationView: String, Identifiable {
-    case defaultparameters, verify
+    case defaultparameters, verify, arguments
     var id: String { rawValue }
 }
 
@@ -167,6 +167,15 @@ struct RsyncParametersView: View {
                 }
                 .help("Verify task")
             }
+            
+            ToolbarItem {
+                Button {
+                    path.append(ParametersTasks(task: .arguments))
+                } label: {
+                    Image(systemName: "command")
+                }
+                .help("Show arguments")
+            }
         })
         .navigationDestination(for: ParametersTasks.self) { which in
             makeView(view: which.task)
@@ -183,6 +192,8 @@ struct RsyncParametersView: View {
             if let config = parameters.configuration {
                 OutputRsyncVerifyView(config: config)
             }
+        case .arguments:
+            ArgumentsView(rsyncUIdata: rsyncUIdata)
         }
     }
 
