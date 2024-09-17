@@ -12,7 +12,7 @@ struct RsyncDefaultParametersView: View {
     @Binding var path: [ParametersTasks]
 
     @State private var parameters = ObservableParametersDefault()
-    @State private var selectedrsynccommand = RsyncCommand.synchronize
+    @State private var selectedrsynccommand = RsyncCommand.synchronize_data
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     // Update pressed
     @State var updated: Bool = false
