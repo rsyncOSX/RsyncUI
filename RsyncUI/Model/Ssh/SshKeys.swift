@@ -19,24 +19,19 @@ final class SshKeys: PropogateError {
 
     // Create rsa keypair
     func createPublicPrivateRSAKeyPair() -> Bool {
-        do {
-            let present = try sshcreatekey?.islocalpublicrsakeypresent()
-            if present == false {
-                // If new keypath is set create it
-                sshcreatekey?.createsshkeyrootpath()
-                // Create keys
-                arguments = sshcreatekey?.argumentscreatekey()
-                // command = "/usr/bin/ssh-keygen"
-                command = sshcreatekey?.createkeycommand
-                executesshcreatekeys()
-                return true
-            }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
+        let present = sshcreatekey?.validatepublickeypresent()
+        if present == false {
+            // If new keypath is set create it
+            sshcreatekey?.createsshkeyrootpath()
+            // Create keys
+            arguments = sshcreatekey?.argumentscreatekey()
+            // command = "/usr/bin/ssh-keygen"
+            command = sshcreatekey?.createkeycommand
+            executesshcreatekeys()
+            return true
+        } else{
             return false
         }
-        return false
     }
 
     // Secure copy of public key from local to remote catalog
