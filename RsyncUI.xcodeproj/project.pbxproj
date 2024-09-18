@@ -357,14 +357,6 @@
 			path = Userconfiguration;
 			sourceTree = "<group>";
 		};
-		E90B5FAB2C981BA200C744DB /* RsyncArgumentsView */ = {
-			isa = PBXGroup;
-			children = (
-				E90B5FAC2C981BDC00C744DB /* ArgumentsView.swift */,
-			);
-			path = RsyncArgumentsView;
-			sourceTree = "<group>";
-		};
 		E927AAD12616E23100DC27A3 /* Quicktask */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +393,7 @@
 				E985C63925F3AD8400CB895C /* RsyncCommandView.swift */,
 				E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */,
 				E90B5FAE2C981FA600C744DB /* OtherRsyncCommandsView.swift */,
+				E90B5FAC2C981BDC00C744DB /* ArgumentsView.swift */,
 			);
 			path = RsyncParameters;
 			sourceTree = "<group>";
@@ -432,7 +425,6 @@
 				E985C5D325F3AC0800CB895C /* RsyncUI.entitlements */,
 				E92A71432943755700A5C734 /* Main */,
 				E985C60925F3AD8400CB895C /* Views */,
-				E90B5FAB2C981BA200C744DB /* RsyncArgumentsView */,
 				E985C69225F3AD9600CB895C /* Model */,
 				E985C5CC25F3AC0800CB895C /* Preview Content */,
 			);
