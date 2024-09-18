@@ -64,7 +64,7 @@ struct OtherRsyncCommandtoDisplay {
         case .verify_public_SSHkey:
             let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
                                              sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
-            str = createsshkeys.argumentscheckremotepubkey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+            str = createsshkeys.argumentsverifyremotepublicsshkey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
         case .copy_public_SSHkey:
             let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
                                              sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)

@@ -51,7 +51,7 @@ final class SshKeys: PropogateError {
     func verifyremotekey(_ remote: UniqueserversandLogins?) -> String {
         let offsiteServer = remote?.offsiteServer ?? ""
         let offsiteUsername = remote?.offsiteUsername ?? ""
-        return sshcreatekey?.argumentscheckremotepubkey(offsiteServer: offsiteServer,
+        return sshcreatekey?.argumentsverifyremotepublicsshkey(offsiteServer: offsiteServer,
                                                         offsiteUsername: offsiteUsername) ?? ""
     }
 
