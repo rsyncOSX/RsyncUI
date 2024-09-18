@@ -69,14 +69,12 @@ struct SidebarMainView: View {
         case .rsync_parameters:
             RsyncParametersView(rsyncUIdata: rsyncUIdata)
         case .restore:
-            NavigationStack {
                 if let configurations = rsyncUIdata.configurations {
                     RestoreTableView(profile: $rsyncUIdata.profile,
                                      configurations: configurations)
                 } else {
                     MessageView(dismissafter: 2, mytext: NSLocalizedString("No configurations yet.", comment: ""))
                 }
-            }
         case .snapshots:
             SnapshotsView(rsyncUIdata: rsyncUIdata)
         case .synchronize:
