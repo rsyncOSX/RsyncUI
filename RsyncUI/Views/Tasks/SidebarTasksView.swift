@@ -9,29 +9,41 @@
 import OSLog
 import SwiftUI
 
+enum DestinationView: String, Identifiable {
+    case executestimatedview, executenoestimatetasksview,
+         estimatedview, dryrunonetask, alltasksview,
+         dryrunonetaskalreadyestimated, quick_synchronize,
+         completedview, viewlogfile
+    var id: String { rawValue }
+}
+
+struct Tasks: Hashable, Identifiable {
+    let id = UUID()
+    var task: DestinationView
+}
+
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Bindable var estimateprogressdetails: EstimateProgressDetails
+    @Binding var executetasknavigation: [Tasks]
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
-    // @State private var estimateprogressdetails = EstimateProgressDetails()
-    // Which view to show
-    @State var path: [Tasks] = []
+    
 
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $executetasknavigation) {
             TasksView(rsyncUIdata: rsyncUIdata,
                       executeprogressdetails: executeprogressdetails,
                       estimateprogressdetails: estimateprogressdetails,
                       selecteduuids: $selecteduuids,
-                      path: $path)
+                      path: $executetasknavigation)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
                 }
         }
-        .onChange(of: path) {
-            Logger.process.info("Path : \(path, privacy: .public)")
+        .onChange(of: executetasknavigation) {
+            Logger.process.info("Path : \(executetasknavigation, privacy: .public)")
         }
     }
 
@@ -43,17 +55,17 @@ struct SidebarTasksView: View {
                                       executeprogressdetails: executeprogressdetails,
                                       selecteduuids: $selecteduuids,
 
-                                      path: $path)
+                                      path: $executetasknavigation)
         case .executenoestimatetasksview:
             ExecuteNoestimatedTasksView(rsyncUIdata: rsyncUIdata,
                                         selecteduuids: $selecteduuids,
-                                        path: $path)
+                                        path: $executetasknavigation)
         case .estimatedview:
             if let configurations = rsyncUIdata.configurations {
                 SummarizedAllDetailsView(executeprogressdetails: executeprogressdetails,
                                          estimateprogressdetails: estimateprogressdetails,
                                          selecteduuids: $selecteduuids,
-                                         path: $path,
+                                         path: $executetasknavigation,
                                          configurations: configurations,
                                          profile: rsyncUIdata.profile)
             }
@@ -80,7 +92,7 @@ struct SidebarTasksView: View {
         case .quick_synchronize:
             QuicktaskView()
         case .completedview:
-            CompletedView(path: $path)
+            CompletedView(path: $executetasknavigation)
                 .onAppear {
                     reset()
                 }
@@ -95,17 +107,6 @@ struct SidebarTasksView: View {
     }
 }
 
-enum DestinationView: String, Identifiable {
-    case executestimatedview, executenoestimatetasksview,
-         estimatedview, dryrunonetask, alltasksview,
-         dryrunonetaskalreadyestimated, quick_synchronize,
-         completedview, viewlogfile
-    var id: String { rawValue }
-}
 
-struct Tasks: Hashable, Identifiable {
-    let id = UUID()
-    var task: DestinationView
-}
 
 // swiftlint:enable cyclomatic_complexity

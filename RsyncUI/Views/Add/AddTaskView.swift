@@ -22,11 +22,11 @@ struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
+    @Binding var addtasknavigation: [AddTasks]
 
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    // Which view to show
-    @State private var path: [AddTasks] = []
+    
     // Update pressed
     @State private var updated: Bool = false
     // Enable change snapshotnum
@@ -48,7 +48,7 @@ struct AddTaskView: View {
     @State private var confirmcopyandpaste: Bool = false
 
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $addtasknavigation) {
             HStack {
                 // Column 1
                 VStack(alignment: .leading) {
@@ -188,7 +188,7 @@ struct AddTaskView: View {
 
             ToolbarItem {
                 Button {
-                    path.append(AddTasks(task: .homecatalogs))
+                    addtasknavigation.append(AddTasks(task: .homecatalogs))
                 } label: {
                     Image(systemName: "house.fill")
                 }
@@ -198,7 +198,7 @@ struct AddTaskView: View {
             ToolbarItem {
                 Button {
                     guard selectedconfig != nil else { return }
-                    path.append(AddTasks(task: .verify))
+                    addtasknavigation.append(AddTasks(task: .verify))
                 } label: {
                     Image(systemName: "flag.checkered")
                 }
@@ -216,7 +216,7 @@ struct AddTaskView: View {
         switch view {
         case .homecatalogs:
             HomeCatalogsView(newdata: newdata,
-                             path: $path,
+                             path: $addtasknavigation,
                              homecatalogs: {
                                  let fm = FileManager.default
                                  if let atpathURL = Homepath().userHomeDirectoryURLPath {

@@ -20,6 +20,7 @@ struct ParametersTasks: Hashable, Identifiable {
 
 struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var rsyncnavigation: [ParametersTasks]
 
     @State private var parameters = ObservableParametersRsync()
     @State private var selectedconfig: SynchronizeConfiguration?
@@ -27,8 +28,7 @@ struct RsyncParametersView: View {
     @State private var selectedrsynccommand = RsyncCommand.synchronize_data
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
-    // Which view to show
-    @State var path: [ParametersTasks] = []
+    
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
@@ -38,7 +38,7 @@ struct RsyncParametersView: View {
     @State var updated: Bool = false
 
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $rsyncnavigation) {
             HStack {
                 VStack(alignment: .leading) {
                     HStack {
@@ -151,7 +151,7 @@ struct RsyncParametersView: View {
 
             ToolbarItem {
                 Button {
-                    path.append(ParametersTasks(task: .defaultparameters))
+                    rsyncnavigation.append(ParametersTasks(task: .defaultparameters))
                 } label: {
                     Image(systemName: "house.fill")
                 }
@@ -161,7 +161,7 @@ struct RsyncParametersView: View {
             ToolbarItem {
                 Button {
                     guard selecteduuids.isEmpty == false else { return }
-                    path.append(ParametersTasks(task: .verify))
+                    rsyncnavigation.append(ParametersTasks(task: .verify))
                 } label: {
                     Image(systemName: "flag.checkered")
                 }
@@ -170,7 +170,7 @@ struct RsyncParametersView: View {
             
             ToolbarItem {
                 Button {
-                    path.append(ParametersTasks(task: .arguments))
+                    rsyncnavigation.append(ParametersTasks(task: .arguments))
                 } label: {
                     Image(systemName: "command")
                 }
@@ -187,7 +187,7 @@ struct RsyncParametersView: View {
     func makeView(view: ParametersDestinationView) -> some View {
         switch view {
         case .defaultparameters:
-            RsyncDefaultParametersView(rsyncUIdata: rsyncUIdata, path: $path)
+            RsyncDefaultParametersView(rsyncUIdata: rsyncUIdata, path: $rsyncnavigation)
         case .verify:
             if let config = parameters.configuration {
                 OutputRsyncVerifyView(config: config)

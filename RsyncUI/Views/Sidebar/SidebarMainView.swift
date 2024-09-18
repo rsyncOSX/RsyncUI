@@ -19,7 +19,13 @@ struct SidebarMainView: View {
 
     @State private var estimateprogressdetails = EstimateProgressDetails()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    @State private var selectedview: Sidebaritems = .synchronize
+    @State private var selectedview: Sidebaritems = .synchronize    
+    // Navigation rsyncparameters
+    @State var rsyncnavigation: [ParametersTasks] = []
+    // Navigation executetasks
+    @State var executetasknavigation: [Tasks] = []
+    // Navigation addtasks
+    @State private var addtasknavigation: [AddTasks] = []
 
     var body: some View {
         NavigationSplitView {
@@ -36,6 +42,7 @@ struct SidebarMainView: View {
                 if selectedview == .tasks || selectedview == .snapshots || selectedview == .restore { Divider() }
             }
             .listStyle(.sidebar)
+            .disabled(disablesidebarmeny)
 
             Text(SharedReference.shared.rsyncversionshort ?? "")
                 .padding()
@@ -58,7 +65,7 @@ struct SidebarMainView: View {
         switch view {
         case .tasks:
             AddTaskView(rsyncUIdata: rsyncUIdata,
-                        selectedprofile: $selectedprofile)
+                        selectedprofile: $selectedprofile, addtasknavigation: $addtasknavigation)
         case .log_listings:
             if let configurations = rsyncUIdata.configurations {
                 SidebarLogsView(configurations: configurations,
@@ -67,7 +74,7 @@ struct SidebarMainView: View {
                 MessageView(dismissafter: 2, mytext: NSLocalizedString("No log records yet.", comment: ""))
             }
         case .rsync_parameters:
-                RsyncParametersView(rsyncUIdata: rsyncUIdata)
+            RsyncParametersView(rsyncUIdata: rsyncUIdata, rsyncnavigation: $rsyncnavigation)
         case .restore:
                 if let configurations = rsyncUIdata.configurations {
                     NavigationStack {
@@ -82,7 +89,7 @@ struct SidebarMainView: View {
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
                              selecteduuids: $selecteduuids,
-                             estimateprogressdetails: estimateprogressdetails)
+                             estimateprogressdetails: estimateprogressdetails, executetasknavigation: $executetasknavigation)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         }
@@ -106,6 +113,12 @@ struct SidebarMainView: View {
 
     var profilenames: Profilenames {
         Profilenames()
+    }
+    
+    var disablesidebarmeny: Bool {
+        return (rsyncnavigation.isEmpty == false ||
+                executetasknavigation.isEmpty == false ||
+                addtasknavigation.isEmpty == false )
     }
 }
 
