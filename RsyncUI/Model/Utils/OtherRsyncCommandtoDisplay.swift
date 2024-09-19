@@ -38,37 +38,59 @@ struct OtherRsyncCommandtoDisplay {
                 str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
             }
         case .restore_data:
-            if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true) {
-                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+            if config.offsiteServer.isEmpty == false {
+                if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true) {
+                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+                }
+            } else {
+                str = NSLocalizedString("Use macOS Finder", comment: "")
             }
+            
         case .verify_synchronized_data:
             if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: true) {
                 str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
             }
         case .list_remote_files:
-            str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " "
-            if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
-                for i in 0 ..< arguments.count {
-                    str += arguments[i] + " "
+            if config.offsiteServer.isEmpty == false {
+                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " "
+                if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
+                    for i in 0 ..< arguments.count {
+                        str += arguments[i] + " "
+                    }
                 }
+            } else {
+                str = NSLocalizedString("Use macOS Finder", comment: "")
             }
+            
         case .create_public_SSHkey:
-            let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                                             sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
-            if let arguments = createsshkeys.argumentscreatekey() {
-                str = createsshkeys.createkeycommand + " "
-                for i in 0 ..< arguments.count {
-                    str += arguments[i] + " "
+            if config.offsiteServer.isEmpty == false {
+                let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
+                                                 sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
+                if let arguments = createsshkeys.argumentscreatekey() {
+                    str = createsshkeys.createkeycommand + " "
+                    for i in 0 ..< arguments.count {
+                        str += arguments[i] + " "
+                    }
                 }
+            } else {
+                str = NSLocalizedString("No remote server on task", comment: "")
             }
         case .verify_public_SSHkey:
-            let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                                             sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
-            str = createsshkeys.argumentsverifyremotepublicsshkey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+            if config.offsiteServer.isEmpty == false {
+                let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
+                                                 sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
+                str = createsshkeys.argumentsverifyremotepublicsshkey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+            } else {
+                str = NSLocalizedString("No remote server on task", comment: "")
+            }
         case .copy_public_SSHkey:
-            let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                                             sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
-            str = createsshkeys.argumentssshcopyid(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+            if config.offsiteServer.isEmpty == false {
+                let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
+                                                 sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
+                str = createsshkeys.argumentssshcopyid(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+            } else {
+                str = NSLocalizedString("No remote server on task", comment: "")
+            }
         }
         command = str
     }
