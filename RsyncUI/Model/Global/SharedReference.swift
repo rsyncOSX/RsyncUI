@@ -67,7 +67,7 @@ final class SharedReference {
     // True if menuapp is running
     // var menuappisrunning: Bool = false
     // Reference to the active process
-    @ObservationIgnored var process: Process?
+    var process: Process?
     // JSON names
     let filenamelogrecordsjson = "logrecords.json"
     let fileconfigurationsjson = "configurations.json"

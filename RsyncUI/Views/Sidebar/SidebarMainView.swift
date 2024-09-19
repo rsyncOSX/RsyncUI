@@ -118,7 +118,8 @@ struct SidebarMainView: View {
     var disablesidebarmeny: Bool {
         return rsyncnavigation.isEmpty == false ||
             executetasknavigation.isEmpty == false ||
-            addtasknavigation.isEmpty == false
+            addtasknavigation.isEmpty == false ||
+        SharedReference.shared.process != nil
     }
 }
 
