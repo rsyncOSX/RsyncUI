@@ -31,6 +31,7 @@ struct SidebarMainView: View {
         NavigationSplitView {
             profilepicker
                 .padding([.bottom, .top], 5)
+                .disabled(disablesidebarmeny)
 
             Divider()
 
