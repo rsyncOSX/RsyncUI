@@ -22,9 +22,6 @@ struct Sshsettings: View {
     // Settings are changed
     @State private var showthumbsup: Bool = false
     @State private var settingsischanged: Bool = false
-    // Startup view, set to false after 2 sec
-    // Used for not writing userconfig at startup of view
-    @State private var startup: Bool = true
 
     var body: some View {
         NavigationStack {
@@ -68,7 +65,7 @@ struct Sshsettings: View {
                             .buttonStyle(ColorfulButtonStyle())
                         }
 
-                        if settingsischanged, startup == false { thumbsupgreen }
+                        if settingsischanged  { thumbsupgreen }
                     }
 
                 } header: {
@@ -79,23 +76,15 @@ struct Sshsettings: View {
             }
             .formStyle(.grouped)
             .onChange(of: settingsischanged) {
-                guard settingsischanged == true, startup == false else { return }
+                guard settingsischanged == true else { return }
                 Task {
                     try await Task.sleep(seconds: 1)
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("Usersettings is SAVED")
                 }
             }
-        }
-        .navigationDestination(isPresented: $showcopykeys) {
-            ShowSSHCopyKeysView()
-        }
-        .onAppear {
-            startup = true
-            Task {
-                try await Task.sleep(seconds: 2)
-                startup = false
-                Logger.process.info("Startup is finished")
+            .navigationDestination(isPresented: $showcopykeys) {
+                ShowSSHCopyKeysView()
             }
         }
     }
