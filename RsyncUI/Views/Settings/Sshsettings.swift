@@ -13,7 +13,6 @@ import SwiftUI
 struct Sshsettings: View {
     @State private var sshsettings = ObservableSSH()
     @State private var localsshkeys: Bool = SshKeys().validatepublickeypresent()
-    @State private var showcopykeys: Bool = false
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
@@ -24,67 +23,54 @@ struct Sshsettings: View {
     @State private var settingsischanged: Bool = false
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section {
-                    VStack(alignment: .leading) {
-                        ToggleViewDefault(text: NSLocalizedString("Local ssh keys are present", comment: ""),
-                                          binding: $localsshkeys)
-                            .disabled(true)
-                    }
-                } header: {
-                    Text("SSH keys")
+        Form {
+            Section {
+                VStack(alignment: .leading) {
+                    ToggleViewDefault(text: NSLocalizedString("Local ssh keys are present", comment: ""),
+                                      binding: $localsshkeys)
+                        .disabled(true)
                 }
+            } header: {
+                Text("SSH keys")
+            }
 
-                Section {
-                    setsshpath
+            Section {
+                setsshpath
 
-                    setsshport
+                setsshport
 
-                } header: {
-                    Text("SSH-keypath and SSH-port")
-                }
+            } header: {
+                Text("SSH-keypath and SSH-port")
+            }
 
+            if localsshkeys == false {
                 Section {
                     HStack {
                         Button {
-                            showcopykeys = true
+                            createkeys()
                         } label: {
-                            Image(systemName: "arrow.forward.circle")
+                            Image(systemName: "key")
                         }
-                        .help("Show copy keys")
+                        .help("Create keys")
                         .buttonStyle(ColorfulButtonStyle())
 
-                        if localsshkeys == false {
-                            Button {
-                                createkeys()
-                            } label: {
-                                Image(systemName: "key")
-                            }
-                            .help("Create keys")
-                            .buttonStyle(ColorfulButtonStyle())
-                        }
-
-                        if settingsischanged  { thumbsupgreen }
+                        if settingsischanged { thumbsupgreen }
                     }
 
                 } header: {
                     Text("SSH keys")
                 }
+            }
 
-                if showsshkeyiscreated { MessageView(dismissafter: 2, mytext: NSLocalizedString("SSH key is created, see logfile.", comment: "")) }
-            }
-            .formStyle(.grouped)
-            .onChange(of: settingsischanged) {
-                guard settingsischanged == true else { return }
-                Task {
-                    try await Task.sleep(seconds: 1)
-                    _ = WriteUserConfigurationJSON(UserConfiguration())
-                    Logger.process.info("Usersettings is SAVED")
-                }
-            }
-            .navigationDestination(isPresented: $showcopykeys) {
-                ShowSSHCopyKeysView()
+            if showsshkeyiscreated { MessageView(dismissafter: 2, mytext: NSLocalizedString("SSH key is created, see logfile.", comment: "")) }
+        }
+        .formStyle(.grouped)
+        .onChange(of: settingsischanged) {
+            guard settingsischanged == true else { return }
+            Task {
+                try await Task.sleep(seconds: 1)
+                _ = WriteUserConfigurationJSON(UserConfiguration())
+                Logger.process.info("Usersettings is SAVED")
             }
         }
     }

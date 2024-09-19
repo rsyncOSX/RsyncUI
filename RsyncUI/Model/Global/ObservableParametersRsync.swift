@@ -27,7 +27,7 @@ final class ObservableParametersRsync: PropogateError {
     // Selected configuration
     var configuration: SynchronizeConfiguration?
     var sshcreatekey: SSHCreateKey?
-    
+
     func setvalues(_ config: SynchronizeConfiguration?) {
         if let config {
             configuration = config

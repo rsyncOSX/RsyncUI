@@ -28,7 +28,7 @@ struct RsyncParametersView: View {
     @State private var selectedrsynccommand = RsyncCommand.synchronize_data
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
-    
+
     // Combine for debounce of sshport and keypath
     @State var publisherport = PassthroughSubject<String, Never>()
     @State var publisherkeypath = PassthroughSubject<String, Never>()
@@ -167,7 +167,7 @@ struct RsyncParametersView: View {
                 }
                 .help("Verify task")
             }
-            
+
             ToolbarItem {
                 Button {
                     rsyncnavigation.append(ParametersTasks(task: .arguments))

@@ -26,7 +26,7 @@ struct AddTaskView: View {
 
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    
+
     // Update pressed
     @State private var updated: Bool = false
     // Enable change snapshotnum

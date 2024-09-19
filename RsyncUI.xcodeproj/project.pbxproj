@@ -112,7 +112,6 @@
 		E985C79225F3AD9700CB895C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71D25F3AD9700CB895C /* Extensions.swift */; };
 		E985C79325F3AD9700CB895C /* Rsyncversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71F25F3AD9700CB895C /* Rsyncversion.swift */; };
 		E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C72425F3AD9700CB895C /* InterruptProcess.swift */; };
-		E986073B2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E986073A2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift */; };
 		E98722202C1365F9006112CD /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E987221F2C1365F8006112CD /* DetailsView.swift */; };
 		E987648D2ADAD938001B4B7E /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E987648C2ADAD938001B4B7E /* Metal.framework */; };
 		E987CAA32C94057800C265D5 /* RsyncandPathsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E987CAA22C94057800C265D5 /* RsyncandPathsettings.swift */; };
@@ -274,7 +273,6 @@
 		E985C71D25F3AD9700CB895C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E985C71F25F3AD9700CB895C /* Rsyncversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rsyncversion.swift; sourceTree = "<group>"; };
 		E985C72425F3AD9700CB895C /* InterruptProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptProcess.swift; sourceTree = "<group>"; };
-		E986073A2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSSHCopyKeysView.swift; sourceTree = "<group>"; };
 		E987221F2C1365F8006112CD /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		E987648C2ADAD938001B4B7E /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		E987CAA22C94057800C265D5 /* RsyncandPathsettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncandPathsettings.swift; sourceTree = "<group>"; };
@@ -493,7 +491,6 @@
 				E9A7F7132C0F6784001AC38F /* Logsettings.swift */,
 				E985C61D25F3AD8400CB895C /* Environmentsettings.swift */,
 				E985C61B25F3AD8400CB895C /* Sshsettings.swift */,
-				E986073A2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1034,7 +1031,6 @@
 				E936D6002C8ACABC00428191 /* ObservableProfiles.swift in Sources */,
 				E9F5354C290185AA007EFAE7 /* EstimateTasks.swift in Sources */,
 				E985C77625F3AD9700CB895C /* ArgumentsSynchronize.swift in Sources */,
-				E986073B2B617D4D002FC2BA /* ShowSSHCopyKeysView.swift in Sources */,
 				E985C76725F3AD9700CB895C /* ExecuteOneTask.swift in Sources */,
 				E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */,
 				E905DFCB2B00CECD00FEFF3A /* AlltasksView.swift in Sources */,

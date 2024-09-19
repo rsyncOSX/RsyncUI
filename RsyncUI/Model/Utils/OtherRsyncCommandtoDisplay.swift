@@ -18,7 +18,6 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case create_public_SSHkey
     case copy_public_SSHkey
     case verify_public_SSHkey
-    
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
@@ -45,7 +44,6 @@ struct OtherRsyncCommandtoDisplay {
             } else {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
             }
-            
         case .verify_synchronized_data:
             if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: true) {
                 str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
@@ -61,7 +59,6 @@ struct OtherRsyncCommandtoDisplay {
             } else {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
             }
-            
         case .create_public_SSHkey:
             if config.offsiteServer.isEmpty == false {
                 let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
@@ -97,4 +94,3 @@ struct OtherRsyncCommandtoDisplay {
 }
 
 // swiftlint:enable line_length opening_brace
-

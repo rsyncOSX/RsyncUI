@@ -19,7 +19,7 @@ struct SidebarMainView: View {
 
     @State private var estimateprogressdetails = EstimateProgressDetails()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    @State private var selectedview: Sidebaritems = .synchronize    
+    @State private var selectedview: Sidebaritems = .synchronize
     // Navigation rsyncparameters
     @State var rsyncnavigation: [ParametersTasks] = []
     // Navigation executetasks
@@ -76,14 +76,14 @@ struct SidebarMainView: View {
         case .rsync_parameters:
             RsyncParametersView(rsyncUIdata: rsyncUIdata, rsyncnavigation: $rsyncnavigation)
         case .restore:
-                if let configurations = rsyncUIdata.configurations {
-                    NavigationStack {
-                        RestoreTableView(profile: $rsyncUIdata.profile,
-                                         configurations: configurations)
-                    }
-                } else {
-                    MessageView(dismissafter: 2, mytext: NSLocalizedString("No configurations yet.", comment: ""))
+            if let configurations = rsyncUIdata.configurations {
+                NavigationStack {
+                    RestoreTableView(profile: $rsyncUIdata.profile,
+                                     configurations: configurations)
                 }
+            } else {
+                MessageView(dismissafter: 2, mytext: NSLocalizedString("No configurations yet.", comment: ""))
+            }
         case .snapshots:
             SnapshotsView(rsyncUIdata: rsyncUIdata)
         case .synchronize:
@@ -114,11 +114,11 @@ struct SidebarMainView: View {
     var profilenames: Profilenames {
         Profilenames()
     }
-    
+
     var disablesidebarmeny: Bool {
-        return (rsyncnavigation.isEmpty == false ||
-                executetasknavigation.isEmpty == false ||
-                addtasknavigation.isEmpty == false )
+        return rsyncnavigation.isEmpty == false ||
+            executetasknavigation.isEmpty == false ||
+            addtasknavigation.isEmpty == false
     }
 }
 

@@ -29,7 +29,6 @@ struct SidebarTasksView: View {
     @Binding var executetasknavigation: [Tasks]
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
-    
 
     var body: some View {
         NavigationStack(path: $executetasknavigation) {
@@ -106,7 +105,5 @@ struct SidebarTasksView: View {
         estimateprogressdetails.resetcounts()
     }
 }
-
-
 
 // swiftlint:enable cyclomatic_complexity

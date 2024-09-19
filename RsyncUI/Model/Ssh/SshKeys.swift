@@ -29,25 +29,9 @@ final class SshKeys: PropogateError {
             command = sshcreatekey?.createkeycommand
             executesshcreatekeys()
             return true
-        } else{
+        } else {
             return false
         }
-    }
-
-    // Secure copy of public key from local to remote catalog
-    func copylocalpubrsakeyfile(_ remote: UniqueserversandLogins?) -> String {
-        let offsiteServer = remote?.offsiteServer ?? ""
-        let offsiteUsername = remote?.offsiteUsername ?? ""
-        return sshcreatekey?.argumentssshcopyid(offsiteServer: offsiteServer,
-                                                offsiteUsername: offsiteUsername) ?? ""
-    }
-
-    // Check for remote pub keys
-    func verifyremotekey(_ remote: UniqueserversandLogins?) -> String {
-        let offsiteServer = remote?.offsiteServer ?? ""
-        let offsiteUsername = remote?.offsiteUsername ?? ""
-        return sshcreatekey?.argumentsverifyremotepublicsshkey(offsiteServer: offsiteServer,
-                                                        offsiteUsername: offsiteUsername) ?? ""
     }
 
     func validatepublickeypresent() -> Bool {
