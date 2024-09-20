@@ -45,10 +45,10 @@ struct OtherRsyncCommandsView: View {
 
     var commandstring: String {
         if let config {
-            return OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
+            OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
                                        config: config).command
         } else {
-            return NSLocalizedString("Select a task", comment: "")
+            NSLocalizedString("Select a task", comment: "")
         }
     }
 }

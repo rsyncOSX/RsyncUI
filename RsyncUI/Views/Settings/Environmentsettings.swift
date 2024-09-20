@@ -22,10 +22,12 @@ struct Environmentsettings: View {
 
                 setenvironmenvariable
 
-                if settingsischanged { thumbsupgreen }
-
             } header: {
                 Text("Rsync environment")
+            }
+
+            Section {
+                if settingsischanged { thumbsupgreen }
             }
         }
         .formStyle(.grouped)
