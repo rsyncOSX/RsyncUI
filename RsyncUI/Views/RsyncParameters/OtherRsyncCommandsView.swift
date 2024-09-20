@@ -17,9 +17,7 @@ struct OtherRsyncCommandsView: View {
 
             Spacer()
 
-            if config != nil {
-                showcommand
-            }
+            showcommand
         }
     }
 
@@ -33,7 +31,7 @@ struct OtherRsyncCommandsView: View {
     }
 
     var showcommand: some View {
-        Text(commandstring ?? "")
+        Text(commandstring)
             .textSelection(.enabled)
             .lineLimit(nil)
             .multilineTextAlignment(.leading)
@@ -45,12 +43,12 @@ struct OtherRsyncCommandsView: View {
             )
     }
 
-    var commandstring: String? {
+    var commandstring: String {
         if let config {
-            OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
+            return OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
                                        config: config).command
         } else {
-            nil
+            return NSLocalizedString("Select a task", comment: "")
         }
     }
 }

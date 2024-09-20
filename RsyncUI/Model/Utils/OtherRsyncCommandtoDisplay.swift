@@ -25,7 +25,7 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
 
 @MainActor
 struct OtherRsyncCommandtoDisplay {
-    var command: String?
+    var command: String
 
     init(display: OtherRsyncCommand,
          config: SynchronizeConfiguration)

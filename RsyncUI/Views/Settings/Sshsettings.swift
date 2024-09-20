@@ -21,6 +21,8 @@ struct Sshsettings: View {
     // Settings are changed
     @State private var showthumbsup: Bool = false
     @State private var settingsischanged: Bool = false
+    // Startup
+    @State private var isstarting: Bool = false
 
     var body: some View {
         Form {
@@ -67,10 +69,16 @@ struct Sshsettings: View {
         .formStyle(.grouped)
         .onChange(of: settingsischanged) {
             guard settingsischanged == true else { return }
+            _ = WriteUserConfigurationJSON(UserConfiguration())
+            Logger.process.info("Usersettings is SAVED")
+        }
+        .onAppear {
+            isstarting = true
+            Logger.process.info("SSH seetingsview isstarting = TRUE")
             Task {
-                try await Task.sleep(seconds: 1)
-                _ = WriteUserConfigurationJSON(UserConfiguration())
-                Logger.process.info("Usersettings is SAVED")
+                try await Task.sleep(seconds: 3)
+                isstarting = false
+                Logger.process.info("SSH seetingsview isstarting = FALSE")
             }
         }
     }
@@ -96,7 +104,9 @@ struct Sshsettings: View {
                 }
             })
             .onChange(of: sshsettings.sshkeypathandidentityfile) {
-                publisherkeypath.send(sshsettings.sshkeypathandidentityfile)
+                if isstarting == false {
+                    publisherkeypath.send(sshsettings.sshkeypathandidentityfile)
+                }
             }
             .onReceive(
                 publisherkeypath.debounce(
@@ -118,7 +128,9 @@ struct Sshsettings: View {
                 }
             })
             .onChange(of: sshsettings.sshportnumber) {
-                publisherport.send(sshsettings.sshportnumber)
+                if isstarting == false {
+                    publisherport.send(sshsettings.sshportnumber)
+                }
             }
             .onReceive(
                 publisherport.debounce(
