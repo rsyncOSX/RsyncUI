@@ -40,6 +40,8 @@ struct Sshsettings: View {
                 setsshpath
 
                 setsshport
+                
+                if settingsischanged { thumbsupgreen }
 
             } header: {
                 Text("SSH-keypath and SSH-port")
@@ -55,13 +57,11 @@ struct Sshsettings: View {
                         }
                         .help("Create keys")
                         .buttonStyle(ColorfulButtonStyle())
-
-                        if settingsischanged { thumbsupgreen }
                     }
 
                 } header: {
                     Text("SSH keys")
-                }
+                }                
             }
 
             if showsshkeyiscreated { MessageView(dismissafter: 2, mytext: NSLocalizedString("SSH key is created, see logfile.", comment: "")) }
