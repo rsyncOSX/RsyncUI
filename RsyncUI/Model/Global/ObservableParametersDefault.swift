@@ -19,7 +19,6 @@ final class ObservableParametersDefault {
     // Set the current value as placeholder text
     var sshkeypathandidentityfile: String = ""
     // Remove parameters
-    var removessh: Bool = false
     var removecompress: Bool = false
     var removedelete: Bool = false
     var daemon: Bool = false
@@ -29,8 +28,6 @@ final class ObservableParametersDefault {
             configuration = config
             // --compress parameter3
             // --delete parameter4
-            // -e (parameter 6 = "ssh"
-            // set delete toggles
             if (configuration?.parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
             if (configuration?.parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
             // Rsync daemon
@@ -86,7 +83,6 @@ final class ObservableParametersDefault {
         configuration = nil
         sshport = ""
         sshkeypathandidentityfile = ""
-        removessh = false
         removecompress = false
         removedelete = false
         daemon = false
