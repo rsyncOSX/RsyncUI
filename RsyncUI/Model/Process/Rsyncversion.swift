@@ -18,9 +18,13 @@ final class Rsyncversion {
             SharedReference.shared.rsyncversionshort = "No valid rsync deteced"
         }
         if SharedReference.shared.norsync == false {
+            /*
             let command = RsyncProcessNOFilehandler(arguments: ["--version"],
                                                     processtermination: processtermination)
+             */
 
+            let command = MainProcess(arguments: ["--version"],
+                                      processtermination_noInt: processtermination)
             command.executeProcess()
         }
     }
@@ -36,7 +40,7 @@ final class Rsyncversion {
 }
 
 extension Rsyncversion {
-    func processtermination(data: [String]?, hiddenID _: Int?) {
+    func processtermination(data: [String]?) {
         guard data?.count ?? 0 > 0 else { return }
         if let rsyncversionshort = data?[0] {
             SharedReference.shared.rsyncversionshort =

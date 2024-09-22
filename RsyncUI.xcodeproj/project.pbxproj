@@ -139,6 +139,7 @@
 		E9B6BD352B120B840084BC8B /* NavigationLogfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B6BD342B120B840084BC8B /* NavigationLogfileView.swift */; };
 		E9B6DE0C2647AF810093A6D2 /* ConfirmDeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */; };
 		E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9BAB99C2C60A611008A1707 /* RsyncArguments */; };
+		E9BB4B0A2CA08DF800C4AFEB /* MainProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB4B092CA08DF800C4AFEB /* MainProcess.swift */; };
 		E9BB4F562903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB4F552903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift */; };
 		E9BC17EA2BD8042C0049641B /* OutputRsyncVerifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */; };
 		E9BD14BD2642FDC200E29347 /* TrimOutputForRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD14BC2642FDC200E29347 /* TrimOutputForRestore.swift */; };
@@ -299,6 +300,7 @@
 		E9B6B3E22AFFDE7500E12EB2 /* ListofTasksMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksMainView.swift; sourceTree = "<group>"; };
 		E9B6BD342B120B840084BC8B /* NavigationLogfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLogfileView.swift; sourceTree = "<group>"; };
 		E9B6DE0B2647AF810093A6D2 /* ConfirmDeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteProfileView.swift; sourceTree = "<group>"; };
+		E9BB4B092CA08DF800C4AFEB /* MainProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProcess.swift; sourceTree = "<group>"; };
 		E9BB4F552903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteTasksNOEstimation.swift; sourceTree = "<group>"; };
 		E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputRsyncVerifyView.swift; sourceTree = "<group>"; };
 		E9BD14BC2642FDC200E29347 /* TrimOutputForRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimOutputForRestore.swift; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 			isa = PBXGroup;
 			children = (
 				E95DD7F328EC738B007654BC /* RsyncProcessNOFilehandler.swift */,
+				E9BB4B092CA08DF800C4AFEB /* MainProcess.swift */,
 				E943B0A825FFC22200A4F30D /* RsyncProcessFilehandler.swift */,
 				E98F608C290D034300952149 /* CommandProcess.swift */,
 			);
@@ -1084,6 +1087,7 @@
 				E985C73B25F3AD9700CB895C /* yudpsocket.c in Sources */,
 				E997613B271998BD007153DD /* RsyncUIlogrecords.swift in Sources */,
 				E985C79025F3AD9700CB895C /* SharedReference.swift in Sources */,
+				E9BB4B0A2CA08DF800C4AFEB /* MainProcess.swift in Sources */,
 				E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */,
 				E9A2AA7D2B31D0E800916896 /* EstimationInProgressView.swift in Sources */,
 				E985C79725F3AD9700CB895C /* InterruptProcess.swift in Sources */,
