@@ -120,10 +120,24 @@ final class RsyncProcessFilehandler: PropogateError {
         self.arguments = arguments
         self.processtermination = processtermination
         self.filehandler = filehandler
-        self.config = config
+        if let config {
+            self.config = config
+        }
         outputprocess = OutputfromProcess()
     }
 
+    convenience init(arguments: [String]?,
+                     processtermination: @escaping ([String]?, Int?) -> Void)
+    {
+        // To satisfy arguments
+        let filehandler: (Int) -> Void = { _ in }
+        self.init(arguments: arguments,
+                  config: nil,
+                  processtermination: processtermination,
+                  filehandler: filehandler)
+    }
+    
+    
     deinit {
         Logger.process.info("RsyncProcessFilehandler: DEINIT")
     }
