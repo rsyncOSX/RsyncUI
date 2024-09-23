@@ -48,9 +48,9 @@ struct OutputRsyncVerifyView: View {
         var arguments: [String]?
         arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
                                                                               forDisplay: false)
-        let process = RsyncProcessNOFilehandler(arguments: arguments,
-                                                config: config,
-                                                processtermination: processtermination)
+        let process = ProcessRsync(arguments: arguments,
+                                   config: config,
+                                   processtermination: processtermination)
         process.executeProcess()
     }
 

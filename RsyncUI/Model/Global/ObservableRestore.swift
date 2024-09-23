@@ -61,8 +61,8 @@ final class ObservableRestore: PropogateError {
                 arguments = computerestorearguments(forDisplay: false)
                 if let arguments {
                     restorefilesinprogress = true
-                    let command = RsyncProcessNOFilehandler(arguments: arguments,
-                                                            processtermination: processtermination)
+                    let command = ProcessRsync(arguments: arguments,
+                                               processtermination: processtermination)
                     command.executeProcess()
                 }
             }

@@ -47,9 +47,9 @@ final class ExecuteTasksNOEstimation {
                                                                                              forDisplay: false)
                 {
                     guard arguments.count > 0 else { return }
-                    let process = RsyncProcessNOFilehandler(arguments: arguments,
-                                                            config: config,
-                                                            processtermination: processtermination)
+                    let process = ProcessRsync(arguments: arguments,
+                                               config: config,
+                                               processtermination: processtermination)
                     process.executeProcess()
                 }
             }

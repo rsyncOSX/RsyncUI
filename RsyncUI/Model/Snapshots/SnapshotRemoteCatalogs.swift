@@ -15,8 +15,8 @@ class SnapshotRemoteCatalogs {
 
     func getremotecataloginfo(_ config: SynchronizeConfiguration) {
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
-        let command = RsyncProcessNOFilehandler(arguments: arguments,
-                                                processtermination: processtermination)
+        let command = ProcessRsync(arguments: arguments,
+                                   processtermination: processtermination)
         command.executeProcess()
     }
 

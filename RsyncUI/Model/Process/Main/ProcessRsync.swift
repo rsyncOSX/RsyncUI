@@ -1,5 +1,5 @@
 //
-//  RsyncProcessNOFilehandler.swift
+//  ProcessRsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 15/03/2021.
@@ -11,16 +11,19 @@ import Foundation
 import OSLog
 
 @MainActor
-final class RsyncProcessNOFilehandler: PropogateError {
+final class ProcessRsync: PropogateError {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
+    // Process termination and filehandler closures
+    var processtermination: ([String]?, Int?) -> Void
+    var filehandler: (Int) -> Void
     var config: SynchronizeConfiguration?
     // Arguments to command
     var arguments: [String]?
-    // Process termination
-    var processtermination: ([String]?, Int?) -> Void
     // Output
     var outputprocess: OutputfromProcess?
+    // Use filehandler
+    var usefilehandler: Bool = false
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -45,11 +48,15 @@ final class RsyncProcessNOFilehandler: PropogateError {
         // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
         NotificationCenter.default.publisher(
             for: NSNotification.Name.NSFileHandleDataAvailable)
-            .sink { _ in
+            .sink { [self] _ in
                 let data = outHandle.availableData
                 if data.count > 0 {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                        self.outputprocess?.addlinefromoutput(str: str as String)
+                        outputprocess?.addlinefromoutput(str: str as String)
+                        // Send message about files
+                        if usefilehandler {
+                            filehandler(outputprocess?.getOutput()?.count ?? 0)
+                        }
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
                 }
@@ -58,27 +65,23 @@ final class RsyncProcessNOFilehandler: PropogateError {
         NotificationCenter.default.publisher(
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
-            .sink { _ in
-                // Process termination and Log to file
-                if self.config == nil {
-                    self.processtermination(self.outputprocess?.getOutput(), -1)
-                } else {
-                    self.processtermination(self.outputprocess?.getOutput(), self.config?.hiddenID)
-                }
+            .sink { [self] _ in
+                processtermination(outputprocess?.getOutput(), config?.hiddenID)
                 // Logg to file
-                if self.arguments?.contains("--dry-run") == false,
-                   self.arguments?.contains("--version") == false,
-                   let config = self.config
+                if arguments?.contains("--dry-run") == false,
+                   arguments?.contains("--version") == false,
+                   let config
                 {
                     if SharedReference.shared.logtofile {
-                        Logfile(command: config.backupID, data: TrimOutputFromRsync(self.outputprocess?.getOutput() ?? []).trimmeddata)
+                        Logfile(command: config.backupID, data: TrimOutputFromRsync(outputprocess?.getOutput() ?? []).trimmeddata)
                     }
                 }
                 SharedReference.shared.process = nil
-                Logger.process.info("RsyncProcessNOFilehandler: process = nil and termination discovered")
+                Logger.process.info("ProcessRsync: process = nil and termination discovered")
                 // Release Combine subscribers
-                self.subscriptons.removeAll()
+                subscriptons.removeAll()
             }.store(in: &subscriptons)
+
         SharedReference.shared.process = task
         do {
             try task.run()
@@ -87,9 +90,10 @@ final class RsyncProcessNOFilehandler: PropogateError {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.process.info("RsyncProcessNOFilehandler: \(launchPath, privacy: .public)")
-            Logger.process.info("RsyncProcessNOFilehandler: \(arguments.joined(separator: "\n"), privacy: .public)")
+            Logger.process.info("ProcessRsync: \(launchPath, privacy: .public)")
+            Logger.process.info("ProcessRsync: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
+
         if SharedReference.shared.monitornetworkconnection {
             Task {
                 var sshport = 22
@@ -99,11 +103,11 @@ final class RsyncProcessNOFilehandler: PropogateError {
                     sshport = port
                 }
                 do {
-                    if let server = config?.offsiteServer, server.isEmpty == false {
-                        Logger.process.info("RsyncProcessNOFilehandler checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
+                    let server = config?.offsiteServer ?? ""
+                    if server.isEmpty == false {
+                        Logger.process.info("ProcessRsync checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
                         _ = try await TCPconnections().asyncverifyTCPconnection(config?.offsiteServer ?? "", port: sshport)
                     }
-
                 } catch let e {
                     let error = e
                     propogateerror(error: error)
@@ -114,26 +118,63 @@ final class RsyncProcessNOFilehandler: PropogateError {
 
     init(arguments: [String]?,
          config: SynchronizeConfiguration?,
-         processtermination: @escaping ([String]?, Int?) -> Void)
+         processtermination: @escaping ([String]?, Int?) -> Void,
+         filehandler: @escaping (Int) -> Void,
+         usefilehandler: Bool)
     {
         self.arguments = arguments
         self.processtermination = processtermination
-        outputprocess = OutputfromProcess()
+        self.filehandler = filehandler
+        self.usefilehandler = usefilehandler
         if let config {
             self.config = config
         }
+        outputprocess = OutputfromProcess()
+    }
+
+    convenience init(arguments: [String]?,
+                     config: SynchronizeConfiguration?,
+                     processtermination: @escaping ([String]?, Int?) -> Void,
+                     filehandler: @escaping (Int) -> Void)
+    {
+        self.init(arguments: arguments,
+                  config: config,
+                  processtermination: processtermination,
+                  filehandler: filehandler,
+                  usefilehandler: true)
     }
 
     convenience init(arguments: [String]?,
                      processtermination: @escaping ([String]?, Int?) -> Void)
     {
+        // To satisfy arguments
+        let filehandler: (Int) -> Void = { _ in
+            Logger.process.info("ProcessRsync: You should not SEE this message")
+        }
         self.init(arguments: arguments,
                   config: nil,
-                  processtermination: processtermination)
+                  processtermination: processtermination,
+                  filehandler: filehandler,
+                  usefilehandler: false)
+    }
+
+    convenience init(arguments: [String]?,
+                     config: SynchronizeConfiguration?,
+                     processtermination: @escaping ([String]?, Int?) -> Void)
+    {
+        // To satisfy arguments
+        let filehandler: (Int) -> Void = { _ in
+            Logger.process.info("ProcessRsync: You should NOT SEE this message")
+        }
+        self.init(arguments: arguments,
+                  config: config,
+                  processtermination: processtermination,
+                  filehandler: filehandler,
+                  usefilehandler: false)
     }
 
     deinit {
-        Logger.process.info("RsyncProcessNOFilehandler: DEINIT")
+        Logger.process.info("ProcessRsync: DEINIT")
     }
 }
 
