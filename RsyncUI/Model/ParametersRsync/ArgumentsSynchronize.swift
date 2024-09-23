@@ -20,7 +20,7 @@ final class ArgumentsSynchronize {
             Logger.process.info("ArgumentsSynchronize: using RsyncParametersSynchronize() from RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparameterssynchronize =
-                RsyncParametersSynchronize(parameters: parameters)
+                    RsyncParametersSynchronize(parameters: parameters)
                 switch config.task {
                 case SharedReference.shared.synchronize:
                     rsyncparameterssynchronize.argumentsforsynchronize(forDisplay: forDisplay,

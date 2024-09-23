@@ -21,7 +21,7 @@ final class ArgumentsRestore {
             Logger.process.info("ArgumentsRestore: using RsyncParametersRestore() from RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparametersrestore =
-                RsyncParametersRestore(parameters: parameters)
+                    RsyncParametersRestore(parameters: parameters)
                 rsyncparametersrestore.argumentsrestore(forDisplay: forDisplay,
                                                         verify: false, dryrun: dryRun,
                                                         restoresnapshotbyfiles: restoresnapshotbyfiles)

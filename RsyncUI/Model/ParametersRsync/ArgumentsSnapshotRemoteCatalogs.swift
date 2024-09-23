@@ -20,7 +20,7 @@ final class ArgumentsSnapshotRemoteCatalogs {
             Logger.process.info("RemoteFileListArguments: using RsyncParametersRestore() from RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparametersrestore =
-                RsyncParametersRestore(parameters: parameters)
+                    RsyncParametersRestore(parameters: parameters)
                 rsyncparametersrestore.remoteargumentssnapshotcataloglist()
                 return rsyncparametersrestore.computedarguments
             }

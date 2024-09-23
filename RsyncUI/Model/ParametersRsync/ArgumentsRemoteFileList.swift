@@ -19,7 +19,7 @@ final class ArgumentsRemoteFileList {
             Logger.process.info("RemoteFileListArguments: using RsyncParametersRestore() from RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparametersrestore =
-                RsyncParametersRestore(parameters: parameters)
+                    RsyncParametersRestore(parameters: parameters)
                 if config.task == SharedReference.shared.synchronize {
                     rsyncparametersrestore.remoteargumentsfilelist()
                 } else if config.task == SharedReference.shared.snapshot {

@@ -10,9 +10,8 @@ import RsyncArguments
 
 @MainActor
 final class PrepareParameters {
-    
     var parameters: Parameters?
-    
+
     init(config: SynchronizeConfiguration) {
         parameters = Parameters(task: config.task,
                                 parameter1: config.parameter1,
@@ -40,4 +39,3 @@ final class PrepareParameters {
                                 rsyncversion3: SharedReference.shared.rsyncversion3)
     }
 }
-
