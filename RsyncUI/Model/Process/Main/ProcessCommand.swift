@@ -1,5 +1,5 @@
 //
-//  CommandProcess.swift
+//  ProcessCommand.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 15/03/2021.
@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class CommandProcess: PropogateError {
+final class ProcessCommand: PropogateError {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures

@@ -24,9 +24,9 @@ final class ExecuteOneTask {
     func startexecution() {
         if let arguments {
             let process = ProcessRsync(arguments: arguments,
-                                                  config: config,
-                                                  processtermination: termination,
-                                                  filehandler: filehandler)
+                                       config: config,
+                                       processtermination: termination,
+                                       filehandler: filehandler)
             process.executeProcess()
         }
     }

@@ -41,7 +41,7 @@ final class SshKeys: PropogateError {
     // Execute command
     func executesshcreatekeys() {
         guard arguments != nil else { return }
-        let process = CommandProcess(command: command,
+        let process = ProcessCommand(command: command,
                                      arguments: arguments,
                                      processtermination: processtermination)
         process.executeProcess()
