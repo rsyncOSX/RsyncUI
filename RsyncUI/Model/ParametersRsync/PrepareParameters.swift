@@ -16,7 +16,7 @@ final class PrepareParameters {
     init(config: SynchronizeConfiguration) {
         parameters = Parameters(task: config.task,
                                 parameter1: config.parameter1,
-                                parameter2: config.parameter3,
+                                parameter2: config.parameter2,
                                 parameter3: config.parameter3,
                                 parameter4: config.parameter4,
                                 parameter8: config.parameter8,
