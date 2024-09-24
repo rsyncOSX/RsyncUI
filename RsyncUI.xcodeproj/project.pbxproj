@@ -126,6 +126,7 @@
 		E99B56302AFFAD1800D4AA5A /* DetailsOneTaskEstimatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B562F2AFFAD1800D4AA5A /* DetailsOneTaskEstimatingView.swift */; };
 		E99BE2342C4E677700BFE83F /* WriteExportConfigurationsJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99BE2332C4E677700BFE83F /* WriteExportConfigurationsJSON.swift */; };
 		E99C2400261C322E009D4DBF /* ObservableRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C23FF261C322E009D4DBF /* ObservableRestore.swift */; };
+		E99CA2862CA2962A000C3A23 /* SSHPrepareParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99CA2852CA2961A000C3A23 /* SSHPrepareParameters.swift */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E9A2AA7D2B31D0E800916896 /* EstimationInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */; };
 		E9A38E2C2B32CA8700D8445E /* AlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A38E2B2B32CA8700D8445E /* AlertError.swift */; };
@@ -287,6 +288,7 @@
 		E99B562F2AFFAD1800D4AA5A /* DetailsOneTaskEstimatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOneTaskEstimatingView.swift; sourceTree = "<group>"; };
 		E99BE2332C4E677700BFE83F /* WriteExportConfigurationsJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteExportConfigurationsJSON.swift; sourceTree = "<group>"; };
 		E99C23FF261C322E009D4DBF /* ObservableRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRestore.swift; sourceTree = "<group>"; };
+		E99CA2852CA2961A000C3A23 /* SSHPrepareParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSHPrepareParameters.swift; sourceTree = "<group>"; };
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimationInProgressView.swift; sourceTree = "<group>"; };
 		E9A38E2B2B32CA8700D8445E /* AlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertError.swift; sourceTree = "<group>"; };
@@ -742,6 +744,7 @@
 		E985C6FB25F3AD9700CB895C /* ProcessArguments */ = {
 			isa = PBXGroup;
 			children = (
+				E99CA2852CA2961A000C3A23 /* SSHPrepareParameters.swift */,
 				E985C6FD25F3AD9700CB895C /* ArgumentsSnapshotDeleteCatalogs.swift */,
 				E985C70225F3AD9700CB895C /* ArgumentsSnapshotCreateCatalog.swift */,
 			);
@@ -1055,6 +1058,7 @@
 				E98F608D290D034300952149 /* ProcessCommand.swift in Sources */,
 				E985C77025F3AD9700CB895C /* EstimateProgressDetails.swift in Sources */,
 				E9569EAB27B80BEB0038799C /* UserConfiguration.swift in Sources */,
+				E99CA2862CA2962A000C3A23 /* SSHPrepareParameters.swift in Sources */,
 				E96F24552CA1CB5E00CF63EC /* PrepareParameters.swift in Sources */,
 				E90B5FAD2C981BDC00C744DB /* ArgumentsView.swift in Sources */,
 				E9A7F7142C0F6784001AC38F /* Logsettings.swift in Sources */,

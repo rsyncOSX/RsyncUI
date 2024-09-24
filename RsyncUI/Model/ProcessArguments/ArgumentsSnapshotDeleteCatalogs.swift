@@ -21,15 +21,8 @@ final class ArgumentsSnapshotDeleteCatalogs {
     func argumentssshcommands() -> [String]? {
         if let config {
             Logger.process.info("ArgumentsSnapshotDeleteCatalogs: using RsyncParametersSynchronize() from RsyncArguments")
-            let snapshotdelete = SnapshotDelete(
-                offsiteServer: config.offsiteServer,
-                offsiteUsername: config.offsiteUsername,
-                sshport: String(config.sshport ?? -1),
-                sshkeypathandidentityfile: config.sshkeypathandidentityfile ?? "",
-                sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile,
-                rsyncversion3: SharedReference.shared.rsyncversion3
-            )
+            let sshparameter = SSHPrepareParameters(config: config).sshparameters
+            let snapshotdelete = SnapshotDelete(sshparameters: sshparameter)
 
             snapshotdelete.initialise_setsshidentityfileandsshport()
 

@@ -20,16 +20,9 @@ final class ArgumentsSnapshotCreateCatalog {
     func argumentssshcommands() -> [String]? {
         if let config {
             Logger.process.info("ArgumentsSnapshotCreateCatalog: using RsyncParametersSynchronize() from RsyncArguments")
-            let snapshotcreatecatalog = SnapshotCreateRootCatalog(
-                offsiteServer: config.offsiteServer,
-                offsiteUsername: config.offsiteUsername,
-                sshport: String(config.sshport ?? -1),
-                sshkeypathandidentityfile: config.sshkeypathandidentityfile ?? "",
-                sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile,
-                rsyncversion3: SharedReference.shared.rsyncversion3
-            )
-
+            let sshparameter = SSHPrepareParameters(config: config).sshparameters
+            let snapshotcreatecatalog = SnapshotCreateRootCatalog(sshparameters: sshparameter)
+            
             snapshotcreatecatalog.initialise_setsshidentityfileandsshport()
             command = snapshotcreatecatalog.remotecommand
             return snapshotcreatecatalog.snapshotcreaterootcatalog(offsiteCatalog: config.offsiteCatalog)
