@@ -20,7 +20,7 @@ enum RsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
 
 @MainActor
 struct RsyncCommandtoDisplay {
-    var rsynccommand: String?
+    var rsynccommand: String
 
     init(display: RsyncCommand,
          config: SynchronizeConfiguration)
