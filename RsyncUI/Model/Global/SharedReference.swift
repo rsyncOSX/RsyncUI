@@ -18,7 +18,6 @@ final class SharedReference {
     @ObservationIgnored var rsyncversion3: Bool = false
     // Optional path to rsync
     @ObservationIgnored var localrsyncpath: String?
-
     // No valid rsyncPath - true if no valid rsync is found
     @ObservationIgnored var norsync: Bool = false
     // Path for restore
@@ -40,7 +39,6 @@ final class SharedReference {
     // Confirm execution
     // A safety rule
     @ObservationIgnored var confirmexecute: Bool = false
-
     // Download URL if new version is avaliable
     @ObservationIgnored var URLnewVersion: String?
     // rsync command
@@ -64,8 +62,6 @@ final class SharedReference {
     let logfilesize: Int = 100_000
     // Mac serialnumer
     @ObservationIgnored var macserialnumber: String?
-    // True if menuapp is running
-    // var menuappisrunning: Bool = false
     // Reference to the active process
     var process: Process?
     // JSON names
