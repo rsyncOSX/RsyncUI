@@ -36,7 +36,7 @@ final class ObservableRsyncPathSetting: PropogateError {
         let validate = SetandValidatepathforrsync()
         validate.setlocalrsyncpath(path)
         do {
-            _ = try validate.validateandrsyncpath()
+            try validate.validateandrsyncpath()
         } catch let e {
             SharedReference.shared.rsyncversionshort = "No valid rsync detected"
             let error = e
