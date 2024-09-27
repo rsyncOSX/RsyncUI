@@ -21,7 +21,7 @@ The development of RsyncOSX commenced in *2015* as a project to learn Swift. In 
 
 | App      | Storage  | UI | Latest version  |  Version 1.0.0 |
 | ----------- | ----------- |   -------- | -------- | -------- |
-| RsyncUI   | JSON  | SwiftUI, declarativ     | v2.1.3 - [16 September 2024](https://github.com/rsyncOSX/RsyncUI/releases) - active development and maintenance | 6 May 2021  |
+| RsyncUI   | JSON  | SwiftUI, declarativ     | v2.1.4 - [27 September 2024](https://github.com/rsyncOSX/RsyncUI/releases) - active development and maintenance | 6 May 2021  |
 | RsyncOSX  | JSON | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - *not maintained, repository is  archived and readonly* |	14 March 2016 |
 
 ### Important to verify new tasks
@@ -34,9 +34,9 @@ Please be aware it is an external task *not controlled* by RsyncUI, which execut
 
 ### RsyncUI (Swift, SwiftUI)
 
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.3/total) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v1.9.2/total)  [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.4/total) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.3/total)  [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
-**RsyncUI** is released for *macOS Sonoma and later*. Latest build is [16 September 2024](https://github.com/rsyncOSX/RsyncUI/releases).
+**RsyncUI** is released for *macOS Sonoma and later*. Latest build is [27 September 2024](https://github.com/rsyncOSX/RsyncUI/releases).
 
 - the [user guide for RsyncUI](https://rsyncui.netlify.app/)
 - the [changelog](https://rsyncui.netlify.app/post/changelog/)
