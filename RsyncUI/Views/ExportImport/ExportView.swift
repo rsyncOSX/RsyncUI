@@ -17,6 +17,7 @@ struct ExportView: View {
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
+    let preselectedtasks: Set<SynchronizeConfiguration.ID>
 
     var body: some View {
         VStack {
@@ -87,6 +88,10 @@ struct ExportView: View {
             let snapshottasks = configurations.filter { $0.task == SharedReference.shared.snapshot }
             if snapshottasks.count > 0 {
                 somesnapshottask = true
+            }
+            if preselectedtasks.count > 0 {
+                selecteduuids.removeAll()
+                selecteduuids = preselectedtasks
             }
         }
     }

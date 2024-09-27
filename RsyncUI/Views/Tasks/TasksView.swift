@@ -214,7 +214,13 @@ struct TasksView: View {
         .sheet(isPresented: $importorexport) {
             if focusexport {
                 if let configurations = rsyncUIdata.configurations {
-                    ExportView(focusexport: $focusexport, configurations: configurations, profile: rsyncUIdata.profile)
+                    ExportView(focusexport: $focusexport,
+                               configurations: configurations,
+                               profile: rsyncUIdata.profile,
+                               preselectedtasks: selecteduuids)
+                    .onDisappear {
+                        selecteduuids.removeAll()
+                    }
                 }
 
             } else {
