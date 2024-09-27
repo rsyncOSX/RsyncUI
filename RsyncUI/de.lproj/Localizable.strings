@@ -281,6 +281,9 @@
 "No log records yet." = "Noch keine Protokolldatensätze.";
 
 /* No comment provided by engineer. */
+"No remote server on task" = "Kein Remote-Server für die Aufgabe";
+
+/* No comment provided by engineer. */
 "Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
 
 /* No comment provided by engineer. */
@@ -359,16 +362,13 @@
 "Select a file for import" = "Wählen Sie eine Datei zum Importieren aus";
 
 /* No comment provided by engineer. */
-"Select a profile, then user and server" = "Wählen Sie ein Profil, dann Benutzer und Server aus";
+"Select a task" = "Wählen Sie eine Aufgabe aus";
 
 /* No comment provided by engineer. */
 "Select catalog or file" = "Katalog oder Datei auswählen";
 
 /* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
-
-/* No comment provided by engineer. */
-"Select profile" = "Profil auswählen";
 
 /* No comment provided by engineer. */
 "Server" = "Server";
@@ -380,7 +380,7 @@
 "Settings" = "Einstellungen";
 
 /* No comment provided by engineer. */
-"Show copy keys" = "Kopierschlüssel anzeigen";
+"Show arguments" = "Argumente anzeigen";
 
 /* No comment provided by engineer. */
 "Snap" = "Snap";
@@ -480,6 +480,9 @@
 
 /* No comment provided by engineer. */
 "Update task" = "Aufgabe aktualisieren";
+
+/* No comment provided by engineer. */
+"Use macOS Finder" = "macOS Finder verwenden";
 
 /* No comment provided by engineer. */
 "Use macOS Finder to restore files from attached discs." = "Verwenden Sie den macOS Finder, um Dateien von angeschlossenen Datenträgern wiederherzustellen.";
