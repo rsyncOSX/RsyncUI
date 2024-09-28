@@ -24,7 +24,7 @@ enum Validatedrsync: LocalizedError {
 
 @MainActor
 struct SetandValidatepathforrsync {
-    func validateandrsyncpath() throws  {
+    func validateandrsyncpath() throws {
         let fm = FileManager.default
         // Set default that rsync path is validated
         SharedReference.shared.norsync = false

@@ -119,7 +119,9 @@ struct RestoreTableView: View {
             }
             .toolbar(content: {
                 ToolbarItem {
-                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false {
+                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+                       restore.datalist.count == 0
+                    {
                         Button {
                             getlistoffilesforrestore()
                         } label: {
@@ -136,7 +138,9 @@ struct RestoreTableView: View {
                 }
 
                 ToolbarItem {
-                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false {
+                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+                       restore.datalist.count > 0
+                    {
                         Button {
                             executerestore()
                         } label: {
@@ -153,7 +157,9 @@ struct RestoreTableView: View {
                 }
 
                 ToolbarItem {
-                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false {
+                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+                       restore.rsyncdata?.count ?? 0 > 0
+                    {
                         Button {
                             guard SharedReference.shared.process == nil else { return }
                             guard restore.selectedconfig != nil else { return }

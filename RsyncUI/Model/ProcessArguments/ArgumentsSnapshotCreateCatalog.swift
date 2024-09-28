@@ -22,7 +22,7 @@ final class ArgumentsSnapshotCreateCatalog {
             Logger.process.info("ArgumentsSnapshotCreateCatalog: using RsyncParametersSynchronize() from RsyncArguments")
             let sshparameter = SSHPrepareParameters(config: config).sshparameters
             let snapshotcreatecatalog = SnapshotCreateRootCatalog(sshparameters: sshparameter)
-            
+
             snapshotcreatecatalog.initialise_setsshidentityfileandsshport()
             command = snapshotcreatecatalog.remotecommand
             return snapshotcreatecatalog.snapshotcreaterootcatalog(offsiteCatalog: config.offsiteCatalog)

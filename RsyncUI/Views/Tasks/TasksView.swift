@@ -218,9 +218,9 @@ struct TasksView: View {
                                configurations: configurations,
                                profile: rsyncUIdata.profile,
                                preselectedtasks: selecteduuids)
-                    .onDisappear {
-                        selecteduuids.removeAll()
-                    }
+                        .onDisappear {
+                            selecteduuids.removeAll()
+                        }
                 }
 
             } else {
