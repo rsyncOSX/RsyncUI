@@ -140,7 +140,8 @@ struct RestoreTableView: View {
 
                 ToolbarItem {
                     if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
-                       restore.datalist.count > 0
+                        restore.rsyncdata?.count ?? 0 > 0,
+                        restore.filestorestore.isEmpty == false
                     {
                         Button {
                             executerestore()
