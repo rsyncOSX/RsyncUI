@@ -38,10 +38,19 @@ struct SummarizedDetailsView: View {
                     {
                         TableColumn("Synchronize ID") { data in
                             if data.datatosynchronize {
-                                Text(data.backupID)
-                                    .foregroundColor(.blue)
+                                if data.backupID.isEmpty == true {
+                                    Text("Synchronize ID")
+                                        .foregroundColor(.blue)
+                                } else {
+                                    Text(data.backupID)
+                                        .foregroundColor(.blue)
+                                }
                             } else {
-                                Text(data.backupID)
+                                if data.backupID.isEmpty == true {
+                                    Text("Synchronize ID")
+                                } else {
+                                    Text(data.backupID)
+                                }
                             }
                         }
                         .width(min: 40, max: 80)
@@ -131,6 +140,11 @@ struct SummarizedDetailsView: View {
                 }
             }
             .toolbar(content: {
+                
+                let datatosynchronize = estimateprogressdetails.estimatedlist?.filter({ $0.datatosynchronize == true
+                })
+                if (datatosynchronize?.count ?? 0) > 0 {
+                    
                 if SharedReference.shared.confirmexecute {
                     ToolbarItem {
                         Button {
@@ -164,6 +178,8 @@ struct SummarizedDetailsView: View {
                         }
                         .help("Synchronize (⌘R)")
                     }
+                }
+                    
                 }
             })
             .focusedSceneValue(\.startexecution, $focusstartexecution)
