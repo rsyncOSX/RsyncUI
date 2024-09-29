@@ -123,7 +123,7 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
-                    path.append(Tasks(task: .estimatedview))
+                    path.append(Tasks(task: .summarizedestimatedview))
                 } label: {
                     Image(systemName: "wand.and.stars")
                         .foregroundColor(Color(.blue))
@@ -170,7 +170,7 @@ struct TasksView: View {
                 Button {
                     guard selecteduuids.count > 0 else { return }
                     guard selecteduuids.count == 1 else {
-                        path.append(Tasks(task: .estimatedview))
+                        path.append(Tasks(task: .summarizedestimatedview))
                         return
                     }
                     if estimateprogressdetails.tasksareestimated(selecteduuids) {
@@ -244,7 +244,7 @@ struct TasksView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                path.append(Tasks(task: .estimatedview))
+                path.append(Tasks(task: .summarizedestimatedview))
                 focusstartestimation = false
             })
     }

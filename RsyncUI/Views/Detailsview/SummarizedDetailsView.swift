@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-struct SummarizedAllDetailsView: View {
+struct SummarizedDetailsView: View {
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>

@@ -11,7 +11,7 @@ import SwiftUI
 
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
-         estimatedview, dryrunonetask, alltasksview,
+         summarizedestimatedview, dryrunonetask, alltasksview,
          dryrunonetaskalreadyestimated, quick_synchronize,
          completedview, viewlogfile
     var id: String { rawValue }
@@ -58,9 +58,9 @@ struct SidebarTasksView: View {
             ExecuteNoestimatedTasksView(rsyncUIdata: rsyncUIdata,
                                         selecteduuids: $selecteduuids,
                                         path: $executetasknavigation)
-        case .estimatedview:
+        case .summarizedestimatedview:
             if let configurations = rsyncUIdata.configurations {
-                SummarizedAllDetailsView(executeprogressdetails: executeprogressdetails,
+                SummarizedDetailsView(executeprogressdetails: executeprogressdetails,
                                          estimateprogressdetails: estimateprogressdetails,
                                          selecteduuids: $selecteduuids,
                                          path: $executetasknavigation,
