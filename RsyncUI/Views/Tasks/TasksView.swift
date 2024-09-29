@@ -123,7 +123,7 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
-                    path.append(Tasks(task: .summarizedestimatedview))
+                    path.append(Tasks(task: .summarizeddetailsview))
                 } label: {
                     Image(systemName: "wand.and.stars")
                         .foregroundColor(Color(.blue))
@@ -170,13 +170,13 @@ struct TasksView: View {
                 Button {
                     guard selecteduuids.count > 0 else { return }
                     guard selecteduuids.count == 1 else {
-                        path.append(Tasks(task: .summarizedestimatedview))
+                        path.append(Tasks(task: .summarizeddetailsview))
                         return
                     }
                     if estimateprogressdetails.tasksareestimated(selecteduuids) {
                         path.append(Tasks(task: .dryrunonetaskalreadyestimated))
                     } else {
-                        path.append(Tasks(task: .dryrunonetask))
+                        path.append(Tasks(task: .onetaskdetailsview))
                     }
                 } label: {
                     Image(systemName: "text.magnifyingglass")
@@ -244,7 +244,7 @@ struct TasksView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                path.append(Tasks(task: .summarizedestimatedview))
+                path.append(Tasks(task: .summarizeddetailsview))
                 focusstartestimation = false
             })
     }
@@ -280,20 +280,20 @@ extension TasksView {
         {
             Logger.process.info("DryRun: execute a dryrun for one task only")
             doubleclick = false
-            path.append(Tasks(task: .dryrunonetask))
+            path.append(Tasks(task: .onetaskdetailsview))
         } else if selectedconfig.config != nil,
                   estimateprogressdetails.executeanotherdryrun(rsyncUIdata.profile ?? "Default profile") == true
         {
             Logger.process.info("DryRun: new task same profile selected, execute a dryrun")
             doubleclick = false
-            path.append(Tasks(task: .dryrunonetask))
+            path.append(Tasks(task: .onetaskdetailsview))
 
         } else if selectedconfig.config != nil,
                   estimateprogressdetails.alltasksestimated(rsyncUIdata.profile ?? "Default profile") == false
         {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
             doubleclick = false
-            path.append(Tasks(task: .dryrunonetask))
+            path.append(Tasks(task: .onetaskdetailsview))
         }
     }
 

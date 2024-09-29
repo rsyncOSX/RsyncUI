@@ -11,7 +11,7 @@ import SwiftUI
 
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
-         summarizedestimatedview, dryrunonetask, alltasksview,
+         summarizeddetailsview, onetaskdetailsview, alltasksview,
          dryrunonetaskalreadyestimated, quick_synchronize,
          completedview, viewlogfile
     var id: String { rawValue }
@@ -58,26 +58,28 @@ struct SidebarTasksView: View {
             ExecuteNoestimatedTasksView(rsyncUIdata: rsyncUIdata,
                                         selecteduuids: $selecteduuids,
                                         path: $executetasknavigation)
-        case .summarizedestimatedview:
+        case .summarizeddetailsview:
+            // After a complete estimation all tasks
             if let configurations = rsyncUIdata.configurations {
                 SummarizedDetailsView(executeprogressdetails: executeprogressdetails,
-                                         estimateprogressdetails: estimateprogressdetails,
-                                         selecteduuids: $selecteduuids,
-                                         path: $executetasknavigation,
-                                         configurations: configurations,
-                                         profile: rsyncUIdata.profile)
-                .onDisappear {
-                    executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
-                }
+                                      estimateprogressdetails: estimateprogressdetails,
+                                      selecteduuids: $selecteduuids,
+                                      path: $executetasknavigation,
+                                      configurations: configurations,
+                                      profile: rsyncUIdata.profile)
+                    .onDisappear {
+                        executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
+                    }
             }
-        case .dryrunonetask:
+        case .onetaskdetailsview:
+            // Dry run one task
             if let configurations = rsyncUIdata.configurations {
-                DetailsOneTaskEstimatingView(estimateprogressdetails: estimateprogressdetails,
-                                             selecteduuids: selecteduuids,
-                                             configurations: configurations)
-                .onDisappear {
-                    executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
-                }
+                OneTaskDetailsView(estimateprogressdetails: estimateprogressdetails,
+                                   selecteduuids: selecteduuids,
+                                   configurations: configurations)
+                    .onDisappear {
+                        executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
+                    }
             }
         case .dryrunonetaskalreadyestimated:
             if let estimates = estimateprogressdetails.getestimatedlist()?.filter({ $0.id == selecteduuids.first }) {

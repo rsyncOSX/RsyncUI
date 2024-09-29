@@ -1,5 +1,5 @@
 //
-//  DetailsSummarizedTasksView.swift
+//  SummarizedDetailsView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/11/2023.
@@ -140,46 +140,43 @@ struct SummarizedDetailsView: View {
                 }
             }
             .toolbar(content: {
-                
-                let datatosynchronize = estimateprogressdetails.estimatedlist?.filter({ $0.datatosynchronize == true
-                })
-                if (datatosynchronize?.count ?? 0) > 0 {
-                    
-                if SharedReference.shared.confirmexecute {
-                    ToolbarItem {
-                        Button {
-                            isPresentingConfirm = estimateprogressdetails.confirmexecutetasks()
-                            if isPresentingConfirm == false {
-                                path.removeAll()
-                                path.append(Tasks(task: .executestimatedview))
-                            }
-                        } label: {
-                            Image(systemName: "arrowshape.turn.up.left")
-                                .foregroundColor(Color(.blue))
-                        }
-                        .help("Synchronize (⌘R)")
-                        .confirmationDialog("Synchronize tasks?",
-                                            isPresented: $isPresentingConfirm)
-                        {
-                            Button("Synchronize", role: .destructive) {
-                                path.removeAll()
-                                path.append(Tasks(task: .executestimatedview))
-                            }
-                        }
-                    }
-                } else {
-                    ToolbarItem {
-                        Button {
-                            path.removeAll()
-                            path.append(Tasks(task: .executestimatedview))
-                        } label: {
-                            Image(systemName: "arrowshape.turn.up.left.fill")
-                                .foregroundColor(Color(.blue))
-                        }
-                        .help("Synchronize (⌘R)")
-                    }
+                let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true
                 }
-                    
+                if (datatosynchronize?.count ?? 0) > 0 {
+                    if SharedReference.shared.confirmexecute {
+                        ToolbarItem {
+                            Button {
+                                isPresentingConfirm = estimateprogressdetails.confirmexecutetasks()
+                                if isPresentingConfirm == false {
+                                    path.removeAll()
+                                    path.append(Tasks(task: .executestimatedview))
+                                }
+                            } label: {
+                                Image(systemName: "arrowshape.turn.up.left")
+                                    .foregroundColor(Color(.blue))
+                            }
+                            .help("Synchronize (⌘R)")
+                            .confirmationDialog("Synchronize tasks?",
+                                                isPresented: $isPresentingConfirm)
+                            {
+                                Button("Synchronize", role: .destructive) {
+                                    path.removeAll()
+                                    path.append(Tasks(task: .executestimatedview))
+                                }
+                            }
+                        }
+                    } else {
+                        ToolbarItem {
+                            Button {
+                                path.removeAll()
+                                path.append(Tasks(task: .executestimatedview))
+                            } label: {
+                                Image(systemName: "arrowshape.turn.up.left.fill")
+                                    .foregroundColor(Color(.blue))
+                            }
+                            .help("Synchronize (⌘R)")
+                        }
+                    }
                 }
             })
             .focusedSceneValue(\.startexecution, $focusstartexecution)

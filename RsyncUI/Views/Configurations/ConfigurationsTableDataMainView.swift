@@ -37,21 +37,21 @@ struct ConfigurationsTableDataMainView: View {
             .width(min: 50, max: 100)
             .defaultVisibility(visible_not_progress)
             TableColumn("Synchronize ID") { data in
-                if (executeprogressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id})) != nil {
+                if (executeprogressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id })) != nil {
                     if data.backupID.isEmpty == true {
-                        Text( "Synchronize ID")
+                        Text("Synchronize ID")
                             .foregroundColor(.red)
-                            
+
                     } else {
-                        Text(data.backupID )
+                        Text(data.backupID)
                             .foregroundColor(.red)
                     }
                 } else {
                     if data.backupID.isEmpty == true {
-                        Text( "Synchronize ID")
-                            
+                        Text("Synchronize ID")
+
                     } else {
-                        Text(data.backupID )
+                        Text(data.backupID)
                     }
                 }
             }

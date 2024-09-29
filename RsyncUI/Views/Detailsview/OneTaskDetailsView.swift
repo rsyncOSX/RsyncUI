@@ -1,5 +1,5 @@
 //
-//  DetailsOneTaskEstimatingView.swift
+//  OneTaskDetailsView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/11/2023.
@@ -9,7 +9,7 @@ import Foundation
 import Observation
 import SwiftUI
 
-struct DetailsOneTaskEstimatingView: View {
+struct OneTaskDetailsView: View {
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @State private var estimateiscompleted = false
     @State private var estimatedtask: RemoteDataNumbers?
@@ -63,7 +63,7 @@ struct DetailsOneTaskEstimatingView: View {
     }
 }
 
-extension DetailsOneTaskEstimatingView {
+extension OneTaskDetailsView {
     func processtermination(data: [String]?, hiddenID _: Int?) {
         var selectedconfig: SynchronizeConfiguration?
         let selected = configurations.filter { config in
@@ -74,10 +74,10 @@ extension DetailsOneTaskEstimatingView {
         }
         estimatedtask = RemoteDataNumbers(outputfromrsync: data,
                                           config: selectedconfig)
-        if let estimatedtask = estimatedtask {
+        if let estimatedtask {
             estimateprogressdetails.appendrecordestimatedlist(estimatedtask)
         }
-        
+
         estimateiscompleted = true
     }
 }
