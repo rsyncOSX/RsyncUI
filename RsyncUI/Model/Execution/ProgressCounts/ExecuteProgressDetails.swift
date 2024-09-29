@@ -12,7 +12,7 @@ import OSLog
 @Observable
 final class ExecuteProgressDetails {
     var hiddenIDatwork: Int = -1
-    @ObservationIgnored var estimatedlist: [RemoteDataNumbers]?
+    var estimatedlist: [RemoteDataNumbers]?
 
     func getmaxcountbytask() -> Double {
         let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }

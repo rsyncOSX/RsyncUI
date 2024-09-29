@@ -50,7 +50,6 @@ struct ListofTasksMainView: View {
                 }
             }
             .contextMenu(forSelectionType: SynchronizeConfiguration.ID.self) { _ in
-                // ...
             } primaryAction: { _ in
                 doubleclick = true
             }

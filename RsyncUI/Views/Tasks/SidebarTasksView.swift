@@ -53,7 +53,6 @@ struct SidebarTasksView: View {
             ExecuteEstimatedTasksView(rsyncUIdata: rsyncUIdata,
                                       executeprogressdetails: executeprogressdetails,
                                       selecteduuids: $selecteduuids,
-
                                       path: $executetasknavigation)
         case .executenoestimatetasksview:
             ExecuteNoestimatedTasksView(rsyncUIdata: rsyncUIdata,
@@ -67,15 +66,18 @@ struct SidebarTasksView: View {
                                          path: $executetasknavigation,
                                          configurations: configurations,
                                          profile: rsyncUIdata.profile)
+                .onDisappear {
+                    executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
+                }
             }
         case .dryrunonetask:
             if let configurations = rsyncUIdata.configurations {
                 DetailsOneTaskEstimatingView(estimateprogressdetails: estimateprogressdetails,
                                              selecteduuids: selecteduuids,
                                              configurations: configurations)
-                    .onDisappear {
-                        executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
-                    }
+                .onDisappear {
+                    executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
+                }
             }
         case .dryrunonetaskalreadyestimated:
             if let estimates = estimateprogressdetails.getestimatedlist()?.filter({ $0.id == selecteduuids.first }) {
