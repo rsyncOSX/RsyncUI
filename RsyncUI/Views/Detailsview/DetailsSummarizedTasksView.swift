@@ -173,7 +173,7 @@ struct SummarizedAllDetailsView: View {
                     return
                 }
                 estimateprogressdetails.resetcounts()
-                executeprogressdetails.estimatedlist = nil
+                // executeprogressdetails.estimatedlist = nil
                 estimateprogressdetails.startestimation()
             }
         }
