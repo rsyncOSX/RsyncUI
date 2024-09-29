@@ -72,7 +72,7 @@ struct SidebarTasksView: View {
                     }
             }
         case .onetaskdetailsview:
-            // Dry run one task
+            // After dry-run one task
             if let configurations = rsyncUIdata.configurations {
                 OneTaskDetailsView(estimateprogressdetails: estimateprogressdetails,
                                    selecteduuids: selecteduuids,

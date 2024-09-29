@@ -57,15 +57,16 @@ struct OneTaskDetailsView: View {
     }
 
     func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
-        let configuration = configurations.filter { $0.id == uuid }
-        guard configuration.count == 1 else { return nil }
-        return configuration[0]
+        if let index = configurations.firstIndex(where: { $0.id == uuid }) {
+            return configurations[index]
+        }
+        return nil
     }
 }
 
 extension OneTaskDetailsView {
     func processtermination(data: [String]?, hiddenID _: Int?) {
-        var selectedconfig: SynchronizeConfiguration?
+        var selectedconfig: SynchronizeConfiguration?        
         let selected = configurations.filter { config in
             selecteduuids.contains(config.id)
         }

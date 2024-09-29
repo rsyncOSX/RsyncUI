@@ -21,7 +21,12 @@ struct EstimationInProgressView: View {
             if let config = getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
                 VStack {
                     Text("Estimating now")
-                    Text("\(config.backupID)")
+                    if config.backupID.isEmpty == true {
+                        Text("Synchronize ID")
+                    } else {
+                        Text("\(config.backupID)")
+                    }
+                    
                 }
             }
 
@@ -64,8 +69,9 @@ struct EstimationInProgressView: View {
     }
 
     func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
-        let configuration = configurations.filter { $0.id == uuid }
-        guard configuration.count == 1 else { return nil }
-        return configuration[0]
+        if let index = configurations.firstIndex(where: { $0.id == uuid }) {
+            return configurations[index]
+        }
+        return nil
     }
 }
