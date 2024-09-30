@@ -125,6 +125,7 @@ struct RsyncParametersView: View {
 
             RsyncCommandView(config: $parameters.configuration,
                              selectedrsynccommand: $selectedrsynccommand)
+            .disabled(parameters.configuration == nil)
         }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil

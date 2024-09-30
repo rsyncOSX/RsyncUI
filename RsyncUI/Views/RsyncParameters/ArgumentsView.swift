@@ -36,6 +36,7 @@ struct ArgumentsView: View {
             Spacer()
 
             OtherRsyncCommandsView(config: $selectedconfig, otherselectedrsynccommand: $otherselectedrsynccommand)
+                .disabled(selectedconfig == nil)
         }
         .padding()
     }
