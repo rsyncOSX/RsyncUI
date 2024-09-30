@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 final class ExecuteOneTask {
     var arguments: [String]?
-    var termination: ([String]?, Int?) -> Void
+    var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
     var config: SynchronizeConfiguration?
 
@@ -25,7 +25,7 @@ final class ExecuteOneTask {
         if let arguments {
             let process = ProcessRsync(arguments: arguments,
                                        config: config,
-                                       processtermination: termination,
+                                       processtermination: processtermination,
                                        filehandler: filehandler)
             process.executeProcess()
         }
@@ -33,10 +33,10 @@ final class ExecuteOneTask {
 
     init(hiddenID: Int,
          configurations: [SynchronizeConfiguration],
-         termination: @escaping ([String]?, Int?) -> Void,
+         processtermination: @escaping ([String]?, Int?) -> Void,
          filehandler: @escaping (Int) -> Void)
     {
-        self.termination = termination
+        self.processtermination = processtermination
         self.filehandler = filehandler
         config = getconfig(hiddenID, configurations)
         if let config {

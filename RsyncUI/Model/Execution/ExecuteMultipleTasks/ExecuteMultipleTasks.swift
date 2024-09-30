@@ -43,7 +43,7 @@ final class ExecuteMultipleTasks {
             executeprogressdetails?.hiddenIDatwork = hiddenID
             let execute = ExecuteOneTask(hiddenID: hiddenID,
                                          configurations: localconfigurations,
-                                         termination: processtermination,
+                                         processtermination: processtermination,
                                          filehandler: localfilehandler)
             execute.startexecution()
         }
@@ -111,7 +111,7 @@ extension ExecuteMultipleTasks {
             executeprogressdetails?.hiddenIDatwork = hiddenID
             let execution = ExecuteOneTask(hiddenID: hiddenID,
                                            configurations: localconfigurations,
-                                           termination: processtermination,
+                                           processtermination: processtermination,
                                            filehandler: localfilehandler)
             execution.startexecution()
         }
