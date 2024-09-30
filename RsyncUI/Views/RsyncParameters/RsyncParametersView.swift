@@ -134,6 +134,19 @@ struct RsyncParametersView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
+            
+            if selectedconfig != nil {
+                ToolbarItem {
+                    Button {
+                        guard selecteduuids.isEmpty == false else { return }
+                        rsyncnavigation.append(ParametersTasks(task: .verify))
+                    } label: {
+                        Image(systemName: "flag.checkered")
+                    }
+                    .help("Verify task")
+                }
+            }
+            
             ToolbarItem {
                 Button {
                     saversyncparameters()
@@ -156,16 +169,6 @@ struct RsyncParametersView: View {
                     Image(systemName: "house.fill")
                 }
                 .help("Default rsync parameters")
-            }
-
-            ToolbarItem {
-                Button {
-                    guard selecteduuids.isEmpty == false else { return }
-                    rsyncnavigation.append(ParametersTasks(task: .verify))
-                } label: {
-                    Image(systemName: "flag.checkered")
-                }
-                .help("Verify task")
             }
 
             ToolbarItem {

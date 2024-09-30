@@ -157,6 +157,17 @@ struct AddTaskView: View {
             if newdata.selectedconfig != nil {
                 ToolbarItem {
                     Button {
+                        addtasknavigation.append(AddTasks(task: .verify))
+                    } label: {
+                        Image(systemName: "flag.checkered")
+                    }
+                    .help("Verify task")
+                }
+            }
+            
+            if newdata.selectedconfig != nil {
+                ToolbarItem {
+                    Button {
                         validateandupdate()
                     } label: {
                         if updated == false {
@@ -193,16 +204,6 @@ struct AddTaskView: View {
                     Image(systemName: "house.fill")
                 }
                 .help("Home catalogs")
-            }
-
-            ToolbarItem {
-                Button {
-                    guard selectedconfig != nil else { return }
-                    addtasknavigation.append(AddTasks(task: .verify))
-                } label: {
-                    Image(systemName: "flag.checkered")
-                }
-                .help("Verify task")
             }
         }
         .navigationDestination(for: AddTasks.self) { which in
