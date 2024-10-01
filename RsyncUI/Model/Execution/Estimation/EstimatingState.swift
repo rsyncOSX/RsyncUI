@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertible {
+enum EstimateWorkState: String, CaseIterable, Identifiable, CustomStringConvertible {
     case start
     case estimate
     case completed
@@ -19,9 +19,9 @@ enum EstimatetaskWork: String, CaseIterable, Identifiable, CustomStringConvertib
 
 @Observable
 final class EstimatingState {
-    var estimationstate: EstimatetaskWork = .start
+    var estimatestate: EstimateWorkState = .start
 
-    func updatestate(state: EstimatetaskWork) {
-        estimationstate = state
+    func updateestimatestate(state: EstimateWorkState) {
+        estimatestate = state
     }
 }

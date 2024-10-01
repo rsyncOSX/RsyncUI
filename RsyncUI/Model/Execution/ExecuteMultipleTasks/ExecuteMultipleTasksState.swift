@@ -8,7 +8,10 @@
 import Foundation
 import Observation
 
-enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertible {
+import Foundation
+import Observation
+
+enum ExecuteWorkState: String, CaseIterable, Identifiable, CustomStringConvertible {
     case start
     case execute
     case completed
@@ -19,9 +22,9 @@ enum ExecutetaskWork: String, CaseIterable, Identifiable, CustomStringConvertibl
 
 @Observable
 final class ExecuteMultipleTasksState {
-    var executionstate: ExecutetaskWork = .start
+    var executestate: ExecuteWorkState = .start
 
-    func updatestate(state: ExecutetaskWork) {
-        executionstate = state
+    func updateexecutestate(state: ExecuteWorkState) {
+        executestate = state
     }
 }

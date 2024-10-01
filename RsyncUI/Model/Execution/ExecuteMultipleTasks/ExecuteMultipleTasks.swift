@@ -67,13 +67,13 @@ final class ExecuteMultipleTasks {
 
         guard uuids.count > 0 else {
             Logger.process.warning("class ExecuteMultipleTasks, guard uuids.count > 0: \(uuids.count, privacy: .public)")
-            multipletaskstate?.updatestate(state: .completed)
+            multipletaskstate?.updateexecutestate(state: .completed)
             return
         }
         let taskstosynchronize = localconfigurations.filter { uuids.contains($0.id) }
         guard taskstosynchronize.count > 0 else {
             Logger.process.warning("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(uuids.count, privacy: .public)")
-            multipletaskstate?.updatestate(state: .completed)
+            multipletaskstate?.updateexecutestate(state: .completed)
             return
         }
 
@@ -104,7 +104,7 @@ extension ExecuteMultipleTasks {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            multipletaskstate?.updatestate(state: .completed)
+            multipletaskstate?.updateexecutestate(state: .completed)
             return
         }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {

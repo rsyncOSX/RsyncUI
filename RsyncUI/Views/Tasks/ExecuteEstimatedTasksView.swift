@@ -37,7 +37,7 @@ struct ExecuteEstimatedTasksView: View {
                 maxcount = executeprogressdetails.getmaxcountbytask()
             }
 
-            if multipletaskstate.executionstate == .execute { ProgressView() }
+            if multipletaskstate.executestate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
         }
         .onAppear(perform: {
@@ -78,7 +78,7 @@ extension ExecuteEstimatedTasksView {
 
     func abort() {
         executeprogressdetails.hiddenIDatwork = -1
-        multipletaskstate.updatestate(state: .start)
+        multipletaskstate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
         _ = InterruptProcess()
         path.removeAll()
@@ -105,7 +105,7 @@ extension ExecuteEstimatedTasksView {
         }
         if let uuids {
             if let configurations = rsyncUIdata.configurations {
-                multipletaskstate.updatestate(state: .execute)
+                multipletaskstate.updateexecutestate(state: .execute)
                 ExecuteMultipleTasks(uuids: uuids,
                                      profile: rsyncUIdata.profile,
                                      rsyncuiconfigurations: configurations,
@@ -122,7 +122,7 @@ extension ExecuteEstimatedTasksView {
         rsyncUIdata.configurations = configurations
         executeprogressdetails.hiddenIDatwork = -1
         executeprogressdetails.estimatedlist = nil
-        multipletaskstate.updatestate(state: .start)
+        multipletaskstate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
         path.append(Tasks(task: .completedview))
     }

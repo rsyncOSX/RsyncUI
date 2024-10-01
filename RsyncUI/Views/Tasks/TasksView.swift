@@ -306,7 +306,7 @@ extension TasksView {
             Logger.process.info("Execute() all estimated tasks")
             // Execute all estimated tasks
             selecteduuids = estimateprogressdetails.getuuids()
-            estimatingstate.updatestate(state: .start)
+            estimatingstate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))
 
@@ -319,7 +319,7 @@ extension TasksView {
             // Execute estimated tasks only
             // Execute all estimated tasks
             selecteduuids = estimateprogressdetails.getuuids()
-            estimatingstate.updatestate(state: .start)
+            estimatingstate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))
         } else {
@@ -333,7 +333,7 @@ extension TasksView {
     func reset() {
         executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
-        estimatingstate.updatestate(state: .start)
+        estimatingstate.updateestimatestate(state: .start)
         selectedconfig.config = nil
         thereareestimates = false
     }
