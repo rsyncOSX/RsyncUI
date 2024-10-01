@@ -42,7 +42,7 @@ struct TasksView: View {
     // Navigation path
     @Binding var path: [Tasks]
 
-    @State private var estimatingstate = EstimateState()
+    @State private var estimatestate = EstimateState()
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
@@ -306,7 +306,7 @@ extension TasksView {
             Logger.process.info("Execute() all estimated tasks")
             // Execute all estimated tasks
             selecteduuids = estimateprogressdetails.getuuids()
-            estimatingstate.updateestimatestate(state: .start)
+            estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))
 
@@ -319,7 +319,7 @@ extension TasksView {
             // Execute estimated tasks only
             // Execute all estimated tasks
             selecteduuids = estimateprogressdetails.getuuids()
-            estimatingstate.updateestimatestate(state: .start)
+            estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))
         } else {
@@ -333,7 +333,7 @@ extension TasksView {
     func reset() {
         executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
-        estimatingstate.updateestimatestate(state: .start)
+        estimatestate.updateestimatestate(state: .start)
         selectedconfig.config = nil
         thereareestimates = false
     }
