@@ -14,7 +14,7 @@ struct ExecuteEstimatedTasksView: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
 
-    @State private var multipletaskstate = ExecuteState()
+    @State private var executestate = ExecuteState()
     @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false
@@ -37,7 +37,7 @@ struct ExecuteEstimatedTasksView: View {
                 maxcount = executeprogressdetails.getmaxcountbytask()
             }
 
-            if multipletaskstate.executestate == .execute { ProgressView() }
+            if executestate.executestate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
         }
         .onAppear(perform: {
@@ -78,14 +78,13 @@ extension ExecuteEstimatedTasksView {
 
     func abort() {
         executeprogressdetails.hiddenIDatwork = -1
-        multipletaskstate.updateexecutestate(state: .start)
+        executestate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
         _ = InterruptProcess()
         path.removeAll()
     }
 
     func executemultipleestimatedtasks() {
-        Logger.process.info("executemultipleestimatedtasks(): \(selecteduuids, privacy: .public)")
         var uuids: Set<SynchronizeConfiguration.ID>?
         if selecteduuids.count > 0 {
             uuids = selecteduuids
@@ -104,12 +103,13 @@ extension ExecuteEstimatedTasksView {
             return
         }
         if let uuids {
+            Logger.process.info("ExecuteEstimatedTasksView: executemultipleestimatedtasks(): \(uuids, privacy: .public)")
             if let configurations = rsyncUIdata.configurations {
-                multipletaskstate.updateexecutestate(state: .execute)
+                executestate.updateexecutestate(state: .execute)
                 ExecuteMultipleTasks(uuids: uuids,
                                      profile: rsyncUIdata.profile,
                                      rsyncuiconfigurations: configurations,
-                                     multipletaskstateDelegate: multipletaskstate,
+                                     executestateDelegate: executestate,
                                      executeprogressdetailsDelegate: executeprogressdetails,
                                      filehandler: filehandler,
                                      updateconfigurations: updateconfigurations)
@@ -118,11 +118,11 @@ extension ExecuteEstimatedTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
-        Logger.process.info("Updateconfigurations() in memory\nReset data and return to main task view")
+        Logger.process.info("ExecuteEstimatedTasksView: updateconfigurations() in memory\nReset data and return to main task view")
         rsyncUIdata.configurations = configurations
         executeprogressdetails.hiddenIDatwork = -1
         executeprogressdetails.estimatedlist = nil
-        multipletaskstate.updateexecutestate(state: .start)
+        executestate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
         path.append(Tasks(task: .completedview))
     }
