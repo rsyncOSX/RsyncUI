@@ -90,7 +90,7 @@ struct TasksView: View {
                         selectedconfig.config = nil
                     }
                 }
-                estimateprogressdetails.uuids = selecteduuids
+                estimateprogressdetails.uuidswithdatatosynchronize = selecteduuids
             }
             .onChange(of: rsyncUIdata.profile) {
                 reset()
@@ -305,7 +305,7 @@ extension TasksView {
         {
             Logger.process.info("Execute() all estimated tasks")
             // Execute all estimated tasks
-            selecteduuids = estimateprogressdetails.getuuids()
+            selecteduuids = estimateprogressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))
@@ -318,7 +318,7 @@ extension TasksView {
             Logger.process.info("Execute() estimated tasks only")
             // Execute estimated tasks only
             // Execute all estimated tasks
-            selecteduuids = estimateprogressdetails.getuuids()
+            selecteduuids = estimateprogressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))

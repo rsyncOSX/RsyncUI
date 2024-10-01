@@ -12,7 +12,7 @@ import Observation
 final class EstimateProgressDetails {
     var estimatedlist: [RemoteDataNumbers]?
     // set uuid if data to be transferred
-    var uuids = Set<UUID>()
+    var uuidswithdatatosynchronize = Set<UUID>()
     // Estimate async
     var estimatealltasksinprogress: Bool = false
     // Estimate on task, same profile
@@ -59,17 +59,17 @@ final class EstimateProgressDetails {
             profile == profilename
     }
 
-    func getuuids() -> Set<UUID> {
-        uuids
+    func getuuidswithdatatosynchronize() -> Set<UUID> {
+        uuidswithdatatosynchronize
     }
 
-    func appenduuid(_ id: UUID) {
-        uuids.insert(id)
+    func appenduuidwithdatatosynchronize(_ id: UUID) {
+        uuidswithdatatosynchronize.insert(id)
     }
 
     func resetcounts() {
         numberofconfigurations = -1
-        uuids.removeAll()
+        uuidswithdatatosynchronize.removeAll()
         estimatedlist = nil
         profile = nil
         onetaskisestimated = false
