@@ -97,7 +97,7 @@ extension ExecuteTasksNOEstimation {
             let record = RemoteDataNumbers(outputfromrsync: outputfromrsync,
                                            config: config)
             localexecutenoestimationprogressdetails?.appendrecordexecutedlist(record)
-            localexecutenoestimationprogressdetails?.appenduuid(config.id)
+            localexecutenoestimationprogressdetails?.appenduuidwithdatatosynchronize(config.id)
             startexecution()
         }
     }

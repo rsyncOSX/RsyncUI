@@ -11,7 +11,7 @@ import Observation
 @Observable
 final class EstimateProgressDetails {
     var estimatedlist: [RemoteDataNumbers]?
-    // set uuid if data to be transferred
+    // UUIDs with data to be transferred
     var uuidswithdatatosynchronize = Set<UUID>()
     // Estimate async
     var estimatealltasksinprogress: Bool = false

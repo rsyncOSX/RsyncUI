@@ -12,8 +12,8 @@ import Observation
 final class ExecuteNoEstimationProgressDetails {
     var executenoestimationcompleted: Bool = false
     var executelist: [RemoteDataNumbers]?
-    // set uuid if data to be transferred
-    var uuids = Set<UUID>()
+    // UUIDs with data to be transferred
+    var uuidswithdatatosynchronize = Set<UUID>()
 
     func executealltasksnoestiamtioncomplete() {
         executenoestimationcompleted = true
@@ -30,12 +30,12 @@ final class ExecuteNoEstimationProgressDetails {
         executelist?.append(record)
     }
 
-    func appenduuid(_ id: UUID) {
-        uuids.insert(id)
+    func appenduuidwithdatatosynchronize(_ id: UUID) {
+        uuidswithdatatosynchronize.insert(id)
     }
 
     func reset() {
-        uuids.removeAll()
+        uuidswithdatatosynchronize.removeAll()
         executelist = nil
     }
 }
