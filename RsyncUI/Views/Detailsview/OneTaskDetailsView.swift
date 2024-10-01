@@ -66,7 +66,7 @@ struct OneTaskDetailsView: View {
 
 extension OneTaskDetailsView {
     func processtermination(data: [String]?, hiddenID _: Int?) {
-        var selectedconfig: SynchronizeConfiguration?        
+        var selectedconfig: SynchronizeConfiguration?
         let selected = configurations.filter { config in
             selecteduuids.contains(config.id)
         }

@@ -48,7 +48,7 @@ struct OtherRsyncCommandsView: View {
     var commandstring: String? {
         if let config {
             return OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
-                                       config: config).command
+                                              config: config).command
         }
         return nil
     }

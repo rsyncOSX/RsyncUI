@@ -14,7 +14,7 @@ struct ExecuteEstimatedTasksView: View {
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
 
-    @State private var multipletaskstate = ExecuteMultipleTasksState()
+    @State private var multipletaskstate = ExecuteState()
     @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false

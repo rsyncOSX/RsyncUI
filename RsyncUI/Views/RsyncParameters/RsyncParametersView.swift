@@ -125,7 +125,7 @@ struct RsyncParametersView: View {
 
             RsyncCommandView(config: $parameters.configuration,
                              selectedrsynccommand: $selectedrsynccommand)
-            .disabled(parameters.configuration == nil)
+                .disabled(parameters.configuration == nil)
         }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil
@@ -135,7 +135,6 @@ struct RsyncParametersView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
-            
             if selectedconfig != nil {
                 ToolbarItem {
                     Button {
@@ -147,7 +146,7 @@ struct RsyncParametersView: View {
                     .help("Verify task")
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     saversyncparameters()

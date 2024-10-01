@@ -164,7 +164,7 @@ struct AddTaskView: View {
                     .help("Verify task")
                 }
             }
-            
+
             if newdata.selectedconfig != nil {
                 ToolbarItem {
                     Button {

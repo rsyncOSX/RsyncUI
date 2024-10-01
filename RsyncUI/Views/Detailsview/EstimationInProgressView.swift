@@ -26,7 +26,6 @@ struct EstimationInProgressView: View {
                     } else {
                         Text("\(config.backupID)")
                     }
-                    
                 }
             }
 

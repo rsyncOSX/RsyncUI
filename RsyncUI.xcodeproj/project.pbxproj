@@ -89,10 +89,10 @@
 		E985C75925F3AD9700CB895C /* SynchronizeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6D125F3AD9600CB895C /* SynchronizeConfiguration.swift */; };
 		E985C76225F3AD9700CB895C /* SshKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6DD25F3AD9600CB895C /* SshKeys.swift */; };
 		E985C76525F3AD9700CB895C /* ExecuteMultipleTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */; };
-		E985C76625F3AD9700CB895C /* ExecuteMultipleTasksState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E425F3AD9600CB895C /* ExecuteMultipleTasksState.swift */; };
+		E985C76625F3AD9700CB895C /* ExecuteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E425F3AD9600CB895C /* ExecuteState.swift */; };
 		E985C76725F3AD9700CB895C /* ExecuteOneTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */; };
 		E985C76C25F3AD9700CB895C /* RemoteDataNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EC25F3AD9600CB895C /* RemoteDataNumbers.swift */; };
-		E985C76E25F3AD9700CB895C /* EstimatingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EE25F3AD9600CB895C /* EstimatingState.swift */; };
+		E985C76E25F3AD9700CB895C /* EstimateState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6EE25F3AD9600CB895C /* EstimateState.swift */; };
 		E985C77025F3AD9700CB895C /* EstimateProgressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F125F3AD9600CB895C /* EstimateProgressDetails.swift */; };
 		E985C77125F3AD9700CB895C /* ExecuteProgressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F225F3AD9700CB895C /* ExecuteProgressDetails.swift */; };
 		E985C77225F3AD9700CB895C /* Logfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6F425F3AD9700CB895C /* Logfile.swift */; };
@@ -251,10 +251,10 @@
 		E985C6D125F3AD9600CB895C /* SynchronizeConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizeConfiguration.swift; sourceTree = "<group>"; };
 		E985C6DD25F3AD9600CB895C /* SshKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SshKeys.swift; sourceTree = "<group>"; };
 		E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteMultipleTasks.swift; sourceTree = "<group>"; };
-		E985C6E425F3AD9600CB895C /* ExecuteMultipleTasksState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteMultipleTasksState.swift; sourceTree = "<group>"; };
+		E985C6E425F3AD9600CB895C /* ExecuteState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteState.swift; sourceTree = "<group>"; };
 		E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteOneTask.swift; sourceTree = "<group>"; };
 		E985C6EC25F3AD9600CB895C /* RemoteDataNumbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteDataNumbers.swift; sourceTree = "<group>"; };
-		E985C6EE25F3AD9600CB895C /* EstimatingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatingState.swift; sourceTree = "<group>"; };
+		E985C6EE25F3AD9600CB895C /* EstimateState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateState.swift; sourceTree = "<group>"; };
 		E985C6F125F3AD9600CB895C /* EstimateProgressDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateProgressDetails.swift; sourceTree = "<group>"; };
 		E985C6F225F3AD9700CB895C /* ExecuteProgressDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteProgressDetails.swift; sourceTree = "<group>"; };
 		E985C6F425F3AD9700CB895C /* Logfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logfile.swift; sourceTree = "<group>"; };
@@ -695,6 +695,7 @@
 		E985C6DE25F3AD9600CB895C /* Execution */ = {
 			isa = PBXGroup;
 			children = (
+				E9A214D92CAC2FC000445FCD /* State */,
 				E985C6E225F3AD9600CB895C /* ExecuteMultipleTasks */,
 				E985C6EA25F3AD9600CB895C /* Estimation */,
 				E985C6EF25F3AD9600CB895C /* ProgressCounts */,
@@ -707,7 +708,6 @@
 			children = (
 				E9BB4F552903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift */,
 				E985C6E325F3AD9600CB895C /* ExecuteMultipleTasks.swift */,
-				E985C6E425F3AD9600CB895C /* ExecuteMultipleTasksState.swift */,
 				E985C6E525F3AD9600CB895C /* ExecuteOneTask.swift */,
 			);
 			path = ExecuteMultipleTasks;
@@ -718,7 +718,6 @@
 			children = (
 				E9F5354B290185AA007EFAE7 /* EstimateTasks.swift */,
 				E985C6EC25F3AD9600CB895C /* RemoteDataNumbers.swift */,
-				E985C6EE25F3AD9600CB895C /* EstimatingState.swift */,
 			);
 			path = Estimation;
 			sourceTree = "<group>";
@@ -856,6 +855,15 @@
 			path = Restore;
 			sourceTree = "<group>";
 		};
+		E9A214D92CAC2FC000445FCD /* State */ = {
+			isa = PBXGroup;
+			children = (
+				E985C6EE25F3AD9600CB895C /* EstimateState.swift */,
+				E985C6E425F3AD9600CB895C /* ExecuteState.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
 		E9AA5400262EEB2E0009DF32 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -987,7 +995,7 @@
 				E90B5FB12C98202100C744DB /* OtherRsyncCommandtoDisplay.swift in Sources */,
 				E9BB4F562903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift in Sources */,
 				E9493E4D2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift in Sources */,
-				E985C76E25F3AD9700CB895C /* EstimatingState.swift in Sources */,
+				E985C76E25F3AD9700CB895C /* EstimateState.swift in Sources */,
 				E985C66B25F3AD8400CB895C /* SnapshotListView.swift in Sources */,
 				E985C73225F3AD9700CB895C /* GetfullpathforRsync.swift in Sources */,
 				E985C76C25F3AD9700CB895C /* RemoteDataNumbers.swift in Sources */,
@@ -995,7 +1003,7 @@
 				E95EDC8A26063EAA000018DE /* ObservableParametersRsync.swift in Sources */,
 				E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */,
 				E94E1E1C2A2DAA3E00011FED /* RestoreFilesTableView.swift in Sources */,
-				E985C76625F3AD9700CB895C /* ExecuteMultipleTasksState.swift in Sources */,
+				E985C76625F3AD9700CB895C /* ExecuteState.swift in Sources */,
 				E985C78425F3AD9700CB895C /* UpdateConfigurations.swift in Sources */,
 				E9BD14BD2642FDC200E29347 /* TrimOutputForRestore.swift in Sources */,
 				E989EDC52CA13BD2002CC640 /* ProcessRsync.swift in Sources */,

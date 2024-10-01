@@ -18,7 +18,7 @@ final class ExecuteMultipleTasks {
     private var stackoftasktobeexecuted: [Int]?
     private var setabort = false
 
-    weak var multipletaskstate: ExecuteMultipleTasksState?
+    weak var multipletaskstate: ExecuteState?
     weak var executeprogressdetails: ExecuteProgressDetails?
     // Collect loggdata for later save to permanent storage (hiddenID, log)
     private var configrecords = [Typelogdata]()
@@ -53,7 +53,7 @@ final class ExecuteMultipleTasks {
     init(uuids: Set<UUID>,
          profile: String?,
          rsyncuiconfigurations: [SynchronizeConfiguration],
-         multipletaskstateDelegate: ExecuteMultipleTasksState?,
+         multipletaskstateDelegate: ExecuteState?,
          executeprogressdetailsDelegate: ExecuteProgressDetails?,
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)

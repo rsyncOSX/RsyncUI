@@ -42,7 +42,7 @@ struct TasksView: View {
     // Navigation path
     @Binding var path: [Tasks]
 
-    @State private var estimatingstate = EstimatingState()
+    @State private var estimatingstate = EstimateState()
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false

@@ -17,7 +17,7 @@ struct RsyncCommandView: View {
             pickerselectcommand
 
             Spacer()
-            
+
             if config != nil {
                 showcommand
             }
@@ -49,7 +49,7 @@ struct RsyncCommandView: View {
     var commandstring: String? {
         if let config {
             return RsyncCommandtoDisplay(display: selectedrsynccommand,
-                                  config: config).rsynccommand
+                                         config: config).rsynccommand
         }
         return nil
     }

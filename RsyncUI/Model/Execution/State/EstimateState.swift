@@ -1,5 +1,5 @@
 //
-//  EstimatingState.swift
+//  EstimateState.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 19/01/2021.
@@ -18,7 +18,7 @@ enum EstimateWorkState: String, CaseIterable, Identifiable, CustomStringConverti
 }
 
 @Observable
-final class EstimatingState {
+final class EstimateState {
     var estimatestate: EstimateWorkState = .start
 
     func updateestimatestate(state: EstimateWorkState) {
