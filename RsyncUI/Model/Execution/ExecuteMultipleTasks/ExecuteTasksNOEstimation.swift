@@ -7,6 +7,7 @@
 
 import Foundation
 import OSLog
+import ParseRsyncOutput
 
 @MainActor
 final class ExecuteTasksNOEstimation {
@@ -90,7 +91,8 @@ extension ExecuteTasksNOEstimation {
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
         configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
-        if let stats = Numbers(outputfromrsync).stats {
+        if let stats = ParseRsyncOutput(outputfromrsync ?? [],
+                                        SharedReference.shared.rsyncversion3).stats {
             schedulerecords.append((hiddenID ?? -1, stats))
         }
         if let config = getconfig(hiddenID ?? -1) {

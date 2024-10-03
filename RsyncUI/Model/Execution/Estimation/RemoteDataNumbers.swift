@@ -60,9 +60,8 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         id = config?.id ?? UUID()
 
         if let outputfromrsync, outputfromrsync.count > 0 {
-            let trimmedoutputfromrsync = TrimOutputFromRsync(outputfromrsync).trimmeddata
-            let parsersyncoutput = ParseRsyncOutput(trimmedoutputfromrsync, SharedReference.shared.rsyncversion3)
-
+            let parsersyncoutput = ParseRsyncOutput(outputfromrsync,
+                                                    SharedReference.shared.rsyncversion3)
             stats = parsersyncoutput.stats
             transferredNumber = parsersyncoutput.formatted_transferredNumber
             transferredNumber_Int = parsersyncoutput.numbersonly?.transferNum ?? 0
