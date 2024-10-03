@@ -50,8 +50,6 @@ final class WriteLogRecordsJSON: PropogateError {
         }
     }
 
-    // We have to remove UUID and computed properties ahead of writing JSON file
-    // done in the .map operator
     @discardableResult
     init(_ profile: String?, _ logrecords: [LogRecords]?) {
         if profile == SharedReference.shared.defaultprofile {

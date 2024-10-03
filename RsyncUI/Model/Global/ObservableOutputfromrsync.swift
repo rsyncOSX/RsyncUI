@@ -7,43 +7,40 @@
 
 import SwiftUI
 
+struct RsyncOutputData: Identifiable, Equatable, Hashable {
+    let id = UUID()
+    var line: String
+}
+
 @Observable @MainActor
 final class ObservableOutputfromrsync: PropogateError {
-    var output = [Data]()
+    var output = [RsyncOutputData]()
+    let maxcount = 10000
 
-    struct Data: Identifiable {
-        let id = UUID()
-        var line: String
-    }
-
-    func outputistruncated(_ number: Int) -> Bool {
+    func outputistruncated(_ number: Int) throws {
         do {
-            if number > 10000 { throw OutputIsTruncated.istruncated }
+            if number > maxcount { throw OutputIsTruncated.istruncated }
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return true
+            return
         }
-        return false
     }
 
     func generateoutput(_ data: [String]?) {
-        var count = data?.count
-        if count ?? 0 > 10000 { count = 10000 }
-        // Show the 20,000 first lines
-        for i in 0 ..< (count ?? 0) {
-            if let line = data?[i] {
-                output.append(Data(line: line))
-            }
-        }
-        if outputistruncated(data?.count ?? 0) {
-            output.append(Data(line: ""))
-            output.append(Data(line: "**** Summary *****"))
-            output.append(Data(line: ""))
-            for i in ((data?.count ?? 0) - 20) ..< (data?.count ?? 0) - 1 {
-                if let line = data?[i] {
-                    output.append(Data(line: line))
-                }
+        if let count = data?.count, count < maxcount {
+            self.output = data?.map({ line in
+                RsyncOutputData(line: line)
+            }) ?? []
+        } else if let data = data {
+            let suboutput = Array(data[0 ..< maxcount]) + Array(data[data.count - 20 ..< data.count])
+            self.output = suboutput.map({ line in
+                RsyncOutputData(line: line)
+            })
+            do {
+                try outputistruncated(data.count)
+            } catch {
+                
             }
         }
     }

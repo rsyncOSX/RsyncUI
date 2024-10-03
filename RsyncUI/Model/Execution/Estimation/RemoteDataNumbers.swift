@@ -36,7 +36,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var backupID: String = ""
 
     // Detailed output
-    var outputfromrsync: [String]?
+    var outputfromrsync: [RsyncOutputData]?
     // True if data to synchronize
     var datatosynchronize: Bool = false
     // Ask if synchronizing so much data
@@ -50,7 +50,15 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     init(outputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
-        self.outputfromrsync = outputfromrsync
+        /*
+        self.outputfromrsync = outputfromrsync?.map({ line in
+            RsyncOutputData(line: line)
+        })
+        */
+        let generatedoutputfromrsync = ObservableOutputfromrsync()
+        generatedoutputfromrsync.generateoutput(outputfromrsync)
+        self.outputfromrsync = generatedoutputfromrsync.output
+        
         hiddenID = config?.hiddenID ?? -1
         task = config?.task ?? ""
         localCatalog = config?.localCatalog ?? ""

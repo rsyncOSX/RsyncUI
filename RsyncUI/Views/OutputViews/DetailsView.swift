@@ -8,48 +8,47 @@
 import SwiftUI
 
 struct DetailsView: View {
-    let estimatedtask: RemoteDataNumbers
-    let outputfromrsync: ObservableOutputfromrsync
+    let remotedatanumbers: RemoteDataNumbers
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
                     LabeledContent("Synchronize ID: ") {
-                        if estimatedtask.backupID.count == 0 {
+                        if remotedatanumbers.backupID.count == 0 {
                             Text("Synchronize ID")
                                 .foregroundColor(.blue)
                         } else {
-                            Text(estimatedtask.backupID)
+                            Text(remotedatanumbers.backupID)
                                 .foregroundColor(.blue)
                         }
                     }
                     .padding(-3)
 
                     LabeledContent("Task: ") {
-                        Text(estimatedtask.task)
+                        Text(remotedatanumbers.task)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Local catalog: ") {
-                        Text(estimatedtask.localCatalog)
+                        Text(remotedatanumbers.localCatalog)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Remote catalog: ") {
-                        Text(estimatedtask.offsiteCatalog)
+                        Text(remotedatanumbers.offsiteCatalog)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Server: ") {
-                        if estimatedtask.offsiteServer.count == 0 {
+                        if remotedatanumbers.offsiteServer.count == 0 {
                             Text("localhost")
                                 .foregroundColor(.blue)
                         } else {
-                            Text(estimatedtask.offsiteServer)
+                            Text(remotedatanumbers.offsiteServer)
                                 .foregroundColor(.blue)
                         }
                     }
@@ -59,25 +58,25 @@ struct DetailsView: View {
 
                 VStack(alignment: .leading) {
                     LabeledContent("Total number of files: ") {
-                        Text(estimatedtask.totalNumber)
+                        Text(remotedatanumbers.totalNumber)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Total number of catalogs: ") {
-                        Text(estimatedtask.totalDirs)
+                        Text(remotedatanumbers.totalDirs)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Total numbers: ") {
-                        Text(estimatedtask.totalNumber_totalDirs)
+                        Text(remotedatanumbers.totalNumber_totalDirs)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Total bytes: ") {
-                        Text(estimatedtask.totalNumberSizebytes)
+                        Text(remotedatanumbers.totalNumberSizebytes)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
@@ -86,12 +85,12 @@ struct DetailsView: View {
 
                 Spacer()
 
-                if estimatedtask.datatosynchronize {
+                if remotedatanumbers.datatosynchronize {
                     VStack(alignment: .leading) {
-                        Text("^[\(estimatedtask.newfiles_Int) file](inflect: true) new")
-                        Text("^[\(estimatedtask.deletefiles_Int) file](inflect: true) for delete")
-                        Text("^[\(estimatedtask.transferredNumber_Int) file](inflect: true) changed")
-                        Text("^[\(estimatedtask.transferredNumberSizebytes_Int) byte](inflect: true) for transfer")
+                        Text("^[\(remotedatanumbers.newfiles_Int) file](inflect: true) new")
+                        Text("^[\(remotedatanumbers.deletefiles_Int) file](inflect: true) for delete")
+                        Text("^[\(remotedatanumbers.transferredNumber_Int) file](inflect: true) changed")
+                        Text("^[\(remotedatanumbers.transferredNumberSizebytes_Int) byte](inflect: true) for transfer")
                     }
                     .padding()
                     .foregroundStyle(.white)
@@ -114,7 +113,7 @@ struct DetailsView: View {
                 }
             }
 
-            Table(outputfromrsync.output) {
+            Table(remotedatanumbers.outputfromrsync ?? []) {
                 TableColumn("Output from rsync") { data in
                     Text(data.line)
                 }
