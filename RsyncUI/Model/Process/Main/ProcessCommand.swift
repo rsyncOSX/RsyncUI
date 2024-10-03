@@ -55,7 +55,7 @@ final class ProcessCommand: PropogateError {
                 for: Process.didTerminateNotification)
                 .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
                 .sink { [self] _ in
-                    processtermination(outputprocess?.getOutput())
+                    processtermination(outputprocess?.output)
                     SharedReference.shared.process = nil
                     Logger.process.info("CommandProcess: process = nil and termination discovered")
                     // Release Combine subscribers

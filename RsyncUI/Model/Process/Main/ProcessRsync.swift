@@ -55,7 +55,7 @@ final class ProcessRsync: PropogateError {
                         outputprocess?.addlinefromoutput(str: str as String)
                         // Send message about files
                         if usefilehandler {
-                            filehandler(outputprocess?.getOutput()?.count ?? 0)
+                            filehandler(outputprocess?.output?.count ?? 0)
                         }
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
@@ -66,14 +66,15 @@ final class ProcessRsync: PropogateError {
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink { [self] _ in
-                processtermination(outputprocess?.getOutput(), config?.hiddenID)
+                processtermination(outputprocess?.output, config?.hiddenID)
                 // Logg to file
                 if arguments?.contains("--dry-run") == false,
                    arguments?.contains("--version") == false,
                    let config
                 {
                     if SharedReference.shared.logtofile {
-                        Logfile(command: config.backupID, data: TrimOutputFromRsync(outputprocess?.getOutput() ?? []).trimmeddata)
+                        Logfile(command: config.backupID,
+                                data: TrimOutputFromRsync(outputprocess?.output ?? []).trimmeddata)
                     }
                 }
                 SharedReference.shared.process = nil

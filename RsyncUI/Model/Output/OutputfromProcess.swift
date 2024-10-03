@@ -8,11 +8,7 @@
 import Foundation
 
 final class OutputfromProcess {
-    private var output: [String]?
-
-    func getOutput() -> [String]? {
-        output
-    }
+    var output: [String]?
 
     func addlinefromoutput(str: String) {
         str.enumerateLines { line, _ in
