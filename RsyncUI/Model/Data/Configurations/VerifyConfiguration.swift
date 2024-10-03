@@ -168,8 +168,7 @@ final class VerifyConfiguration: Connected, PropogateError {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = ArgumentsSnapshotCreateCatalog(config: config)
         let updatecurrent = ProcessCommand(command: args.getCommand(),
-                                           arguments: args.getArguments(),
-                                           processtermination: processtermination)
+                                           arguments: args.getArguments())
         updatecurrent.executeProcess()
     }
 
@@ -216,8 +215,6 @@ final class VerifyConfiguration: Connected, PropogateError {
         }
         return true
     }
-
-    func processtermination(data _: [String]?) {}
 }
 
 // swiftlint:enable cyclomatic_complexity function_body_length
