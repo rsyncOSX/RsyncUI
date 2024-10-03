@@ -35,7 +35,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var offsiteServer: String = ""
     var backupID: String = ""
 
-    // Detailed output
+    // Detailed output used in Views
     var outputfromrsync: [RsyncOutputData]?
     // True if data to synchronize
     var datatosynchronize: Bool = false
@@ -50,11 +50,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     init(outputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
-        /*
-        self.outputfromrsync = outputfromrsync?.map({ line in
-            RsyncOutputData(line: line)
-        })
-        */
+
         let generatedoutputfromrsync = ObservableOutputfromrsync()
         generatedoutputfromrsync.generateoutput(outputfromrsync)
         self.outputfromrsync = generatedoutputfromrsync.output

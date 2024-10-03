@@ -18,20 +18,16 @@ final class ObservableOutputfromrsync: PropogateError {
     let maxcount = 10000
 
     func outputistruncated(_ number: Int) throws {
-        do {
-            if number > maxcount { throw OutputIsTruncated.istruncated }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-            return
+        guard number < maxcount else {
+            throw OutputIsTruncated.istruncated
         }
     }
 
     func generateoutput(_ data: [String]?) {
-        if let count = data?.count, count < maxcount {
-            self.output = data?.map({ line in
+        if let data = data, data.count < maxcount {
+            self.output = data.map({ line in
                 RsyncOutputData(line: line)
-            }) ?? []
+            })
         } else if let data = data {
             let suboutput = Array(data[0 ..< maxcount]) + Array(data[data.count - 20 ..< data.count])
             self.output = suboutput.map({ line in
@@ -39,8 +35,10 @@ final class ObservableOutputfromrsync: PropogateError {
             })
             do {
                 try outputistruncated(data.count)
-            } catch {
-                
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
+                return
             }
         }
     }
