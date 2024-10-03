@@ -14,7 +14,7 @@ import ParseRsyncOutput
 @MainActor
 struct RemoteDataNumbers: Identifiable, Hashable {
     var id: SynchronizeConfiguration.ID
-    var hiddenID: Int
+    var hiddenID: Int = -1
     var transferredNumber: String = ""
     var transferredNumber_Int: Int = 0
     var transferredNumberSizebytes_Int: Int = 0
