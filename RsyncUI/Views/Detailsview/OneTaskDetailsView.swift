@@ -12,7 +12,7 @@ import SwiftUI
 struct OneTaskDetailsView: View {
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @State private var estimateiscompleted = false
-    @State private var estimatedtask: RemoteDataNumbers?
+    @State private var remotedatanumbers: RemoteDataNumbers?
 
     let selecteduuids: Set<SynchronizeConfiguration.ID>
     let configurations: [SynchronizeConfiguration]
@@ -21,8 +21,8 @@ struct OneTaskDetailsView: View {
         VStack(alignment: .leading) {
             ZStack {
                 if estimateiscompleted == true {
-                    if let estimatedtask {
-                        DetailsOneTaskView(estimatedtask: estimatedtask)
+                    if let remotedatanumbers {
+                        DetailsOneTaskView(remotedatanumbers: remotedatanumbers)
                     }
                 } else {
                     VStack {
@@ -73,10 +73,10 @@ extension OneTaskDetailsView {
         if selected.count == 1 {
             selectedconfig = selected[0]
         }
-        estimatedtask = RemoteDataNumbers(outputfromrsync: data,
-                                          config: selectedconfig)
-        if let estimatedtask {
-            estimateprogressdetails.appendrecordestimatedlist(estimatedtask)
+        remotedatanumbers = RemoteDataNumbers(outputfromrsync: data,
+                                              config: selectedconfig)
+        if let remotedatanumbers {
+            estimateprogressdetails.appendrecordestimatedlist(remotedatanumbers)
         }
 
         estimateiscompleted = true

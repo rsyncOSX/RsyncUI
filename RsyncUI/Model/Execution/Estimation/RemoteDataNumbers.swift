@@ -9,41 +9,44 @@
 
 import Foundation
 import OSLog
+import ParseRsyncOutput
 
+@MainActor
 struct RemoteDataNumbers: Identifiable, Hashable {
     var id: SynchronizeConfiguration.ID
     var hiddenID: Int
-    var transferredNumber: String
-    var transferredNumber_Int: Int
-    var transferredNumberSizebytes_Int: Int
-    var totalNumber: String
-    var totalNumberSizebytes: String
-    var totalNumberSizebytes_Int: Int
-    var totalDirs: String
-    var totalDirs_Int: Int
-    var newfiles: String
-    var newfiles_Int: Int
-    var deletefiles: String
-    var deletefiles_Int: Int
-    var totalNumber_totalDirs: String
+    var transferredNumber: String = ""
+    var transferredNumber_Int: Int = 0
+    var transferredNumberSizebytes_Int: Int = 0
+    var totalNumber: String = ""
+    var totalNumberSizebytes: String = ""
+    var totalNumberSizebytes_Int: Int = 0
+    var totalDirs: String = ""
+    var totalDirs_Int: Int = 0
+    var newfiles: String = ""
+    var newfiles_Int: Int = 0
+    var deletefiles: String = ""
+    var deletefiles_Int: Int = 0
+    var totalNumber_totalDirs: String = ""
 
-    var task: String
-    var localCatalog: String
-    var offsiteCatalog: String
-    var offsiteServer: String
-    var backupID: String
+    var task: String = ""
+    var localCatalog: String = ""
+    var offsiteCatalog: String = ""
+    var offsiteServer: String = ""
+    var backupID: String = ""
 
     // Detailed output
     var outputfromrsync: [String]?
     // True if data to synchronize
-    var datatosynchronize: Bool
+    var datatosynchronize: Bool = false
     // Ask if synchronizing so much data
     // is true or not. If not either yes,
     // new task or no if like server is not
     // online.
-    var confirmsynchronize: Bool
+    var confirmsynchronize: Bool = false
+    // Summarized stats
+    var stats: String?
 
-    @MainActor
     init(outputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
@@ -54,34 +57,40 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         offsiteServer = config?.offsiteServer ?? "localhost"
         offsiteCatalog = config?.offsiteCatalog ?? ""
         backupID = config?.backupID ?? "Synchronize ID"
-        let number = Numbers(outputfromrsync ?? [])
-        transferredNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.none)
-        transferredNumber_Int = number.getTransferredNumbers(numbers: .transferredNumber)
-        totalDirs_Int = number.getTransferredNumbers(numbers: .totalDirs)
-        transferredNumberSizebytes_Int = number.getTransferredNumbers(numbers: .transferredNumberSizebytes)
-        totalNumber = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber)), number: NumberFormatter.Style.decimal)
-        totalNumberSizebytes = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumberSizebytes)), number: NumberFormatter.Style.decimal)
-        totalNumberSizebytes_Int = number.getTransferredNumbers(numbers: .totalNumberSizebytes)
-        totalDirs = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalDirs)), number: NumberFormatter.Style.decimal)
-        totalNumber_totalDirs = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber_totalDirs)), number: NumberFormatter.Style.decimal)
-        newfiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .new)), number: NumberFormatter.Style.none)
-        newfiles_Int = number.getTransferredNumbers(numbers: .new)
-        deletefiles = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .delete)), number: NumberFormatter.Style.none)
-        deletefiles_Int = number.getTransferredNumbers(numbers: .delete)
         id = config?.id ?? UUID()
-        if Int(transferredNumber) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
-            datatosynchronize = true
-        } else {
-            datatosynchronize = false
-        }
-        if SharedReference.shared.rsyncversion3,
-           transferredNumber_Int + totalDirs_Int == newfiles_Int
-        {
-            confirmsynchronize = true
-            Logger.process.info("RemoteDataNumbers: confirmsynchronize - TRUE")
-        } else {
-            confirmsynchronize = false
-            Logger.process.info("RemoteDataNumbers: confirmsynchronize - FALSE")
+
+        if let outputfromrsync, outputfromrsync.count > 0 {
+            let trimmedoutputfromrsync = TrimOutputFromRsync(outputfromrsync).trimmeddata
+            let parsersyncoutput = ParseRsyncOutput(trimmedoutputfromrsync, SharedReference.shared.rsyncversion3)
+
+            stats = parsersyncoutput.stats
+            transferredNumber = parsersyncoutput.formatted_transferredNumber
+            transferredNumber_Int = parsersyncoutput.numbersonly?.transferNum ?? 0
+            totalDirs_Int = parsersyncoutput.numbersonly?.totDir ?? 0
+            transferredNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.transferNumSize ?? 0)
+            totalNumber = parsersyncoutput.formatted_totalNumber
+            totalNumberSizebytes = parsersyncoutput.formatted_totalNumberSizebytes
+            totalNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.transferNumSize ?? 0)
+            totalDirs = parsersyncoutput.formatted_totalDirs
+            totalNumber_totalDirs = parsersyncoutput.formatted_totalNumber
+            newfiles = parsersyncoutput.formatted_newfiles
+            newfiles_Int = parsersyncoutput.numbersonly?.newfiles ?? 0
+            deletefiles = parsersyncoutput.formatted_deletefiles
+            deletefiles_Int = parsersyncoutput.numbersonly?.deletefiles ?? 0
+
+            if Int(transferredNumber) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
+                datatosynchronize = true
+            } else {
+                datatosynchronize = false
+            }
+            if SharedReference.shared.rsyncversion3,
+               transferredNumber_Int + totalDirs_Int == newfiles_Int
+            {
+                confirmsynchronize = true
+                Logger.process.info("RemoteDataNumbers: confirmsynchronize - TRUE")
+            } else {
+                Logger.process.info("RemoteDataNumbers: confirmsynchronize - FALSE")
+            }
         }
     }
 }
