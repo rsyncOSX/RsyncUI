@@ -19,7 +19,7 @@ final class ObservableRestore: PropogateError {
     // Value to check if input field is changed by user
     var inputchangedbyuser: Bool = false
     // Filenames in restore
-    var datalist: [RestoreFileRecord] = []
+    var datalist: [RsyncOutputData] = []
     var filestorestore: String = ""
     @ObservationIgnored var rsyncdata: [String]?
     var selectedconfig: SynchronizeConfiguration?

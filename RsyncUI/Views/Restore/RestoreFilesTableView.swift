@@ -8,21 +8,19 @@
 import SwiftUI
 
 struct RestoreFilesTableView: View {
-    @State private var selectedid: RestoreFileRecord.ID?
+    @State private var selectedid: RsyncOutputData.ID?
     @Binding var filestorestore: String
 
-    var datalist: [RestoreFileRecord]
+    var datalist: [RsyncOutputData]
 
     var body: some View {
-        ZStack {
             Table(datalist, selection: $selectedid) {
-                TableColumn("Filenames", value: \.filename)
+                TableColumn("Filenames", value: \.line)
             }
             .onChange(of: selectedid) {
                 let record = datalist.filter { $0.id == selectedid }
                 guard record.count > 0 else { return }
-                filestorestore = record[0].filename
+                filestorestore = record[0].line
             }
         }
-    }
 }

@@ -114,7 +114,7 @@ struct RestoreTableView: View {
                     filterrestorefilelist()
                 } else {
                     restore.datalist = restore.rsyncdata?.map { filename in
-                        RestoreFileRecord(filename: filename)
+                        RsyncOutputData(line: filename)
                     } ?? []
                 }
             }
@@ -269,7 +269,7 @@ extension RestoreTableView {
         gettingfilelist = false
         restore.rsyncdata = TrimOutputForRestore(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         restore.datalist = restore.rsyncdata?.map { filename in
-            RestoreFileRecord(filename: filename)
+            RsyncOutputData(line: filename)
         } ?? []
     }
 
@@ -331,15 +331,10 @@ extension RestoreTableView {
     func filterrestorefilelist() {
         if let data = restore.rsyncdata?.filter({ $0.contains(filterstring) }) {
             restore.datalist = data.map { filename in
-                RestoreFileRecord(filename: filename)
+                RsyncOutputData(line: filename)
             }
         }
     }
-}
-
-struct RestoreFileRecord: Identifiable {
-    let id = UUID()
-    var filename: String
 }
 
 // swiftlint:enable line_length
