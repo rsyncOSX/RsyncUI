@@ -71,8 +71,8 @@ final class Snapshotlogsandcatalogs: SnapshotRemoteCatalogs {
         logrecordssnapshot = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots
     }
 
-    override func processtermination(data: [String]?, hiddenID _: Int?) {
-        prepareremotesnapshotcatalogs(data: data)
+    override func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+        prepareremotesnapshotcatalogs(stringoutputfromrsync: stringoutputfromrsync)
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         // Getting data is completed

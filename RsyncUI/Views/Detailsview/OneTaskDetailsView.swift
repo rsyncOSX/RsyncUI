@@ -65,7 +65,7 @@ struct OneTaskDetailsView: View {
 }
 
 extension OneTaskDetailsView {
-    func processtermination(data: [String]?, hiddenID _: Int?) {
+    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         var selectedconfig: SynchronizeConfiguration?
         let selected = configurations.filter { config in
             selecteduuids.contains(config.id)
@@ -73,7 +73,7 @@ extension OneTaskDetailsView {
         if selected.count == 1 {
             selectedconfig = selected[0]
         }
-        remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: data,
+        remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                               config: selectedconfig)
         if let remotedatanumbers {
             estimateprogressdetails.appendrecordestimatedlist(remotedatanumbers)

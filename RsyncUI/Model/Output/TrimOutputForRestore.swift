@@ -13,8 +13,8 @@ final class TrimOutputForRestore: PropogateError {
     var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
 
-    init(_ data: [String]) {
-        data.publisher
+    init(_ stringoutputfromrsync: [String]) {
+        stringoutputfromrsync.publisher
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

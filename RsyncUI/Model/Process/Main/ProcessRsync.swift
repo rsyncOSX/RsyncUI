@@ -74,7 +74,7 @@ final class ProcessRsync: PropogateError {
                 {
                     if SharedReference.shared.logtofile {
                         Logfile(command: config.backupID,
-                                data: TrimOutputFromRsync(outputprocess?.output ?? []).trimmeddata)
+                                stringoutputfromrsync: TrimOutputFromRsync(outputprocess?.output ?? []).trimmeddata)
                     }
                 }
                 SharedReference.shared.process = nil

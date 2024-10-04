@@ -23,12 +23,12 @@ final class ObservableOutputfromrsync: PropogateError {
         }
     }
 
-    func generateoutput(_ data: [String]?) {
-        if let data = data, data.count < maxcount {
+    func generateoutput(_ stringoutputfromrsync: [String]?) {
+        if let data = stringoutputfromrsync, data.count < maxcount {
             self.output = data.map({ line in
                 RsyncOutputData(line: line)
             })
-        } else if let data = data {
+        } else if let data = stringoutputfromrsync {
             let suboutput = Array(data[0 ..< maxcount]) + Array(data[data.count - 20 ..< data.count])
             self.output = suboutput.map({ line in
                 RsyncOutputData(line: line)

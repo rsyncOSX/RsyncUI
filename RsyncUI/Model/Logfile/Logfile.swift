@@ -102,18 +102,18 @@ final class Logfile {
         }
     }
 
-    private func minimumloggingwithcommand(command: String, data: [String]) {
+    private func minimumloggingwithcommand(command: String, stringoutputfromrsync: [String]) {
         let date = Date().localized_string_from_date()
         readloggfile()
         var tmplogg = [String]()
 
-        var startindex = data.count - 20
+        var startindex = stringoutputfromrsync.count - 20
         if startindex < 0 { startindex = 0 }
         tmplogg.append("\n" + date)
         tmplogg.append(command)
         tmplogg.append("Last twenty records from rsync output\n")
-        for i in startindex ..< data.count {
-            tmplogg.append(data[i])
+        for i in startindex ..< stringoutputfromrsync.count {
+            tmplogg.append(stringoutputfromrsync[i])
         }
         tmplogg.append("\n")
         if logfile == nil {
@@ -124,14 +124,14 @@ final class Logfile {
         writeloggfile()
     }
 
-    private func fulllogging(_ data: [String]) {
+    private func fulllogging(_ stringoutputfromrsync: [String]) {
         let date = Date().localized_string_from_date()
         readloggfile()
         let tmplogg = "\n" + date + ": "
         if logfile == nil {
-            logfile = tmplogg + data.joined(separator: "\n")
+            logfile = tmplogg + stringoutputfromrsync.joined(separator: "\n")
         } else {
-            logfile! += tmplogg + data.joined(separator: "\n")
+            logfile! += tmplogg + stringoutputfromrsync.joined(separator: "\n")
         }
         writeloggfile()
     }
@@ -158,18 +158,18 @@ final class Logfile {
     }
 
     @discardableResult
-    init(_ data: [String]?, error: Bool) {
+    init(_ stringoutputfromrsync: [String]?, error: Bool) {
         if error {
-            if let data {
-                fulllogging(data)
+            if let stringoutputfromrsync {
+                fulllogging(stringoutputfromrsync)
             }
         }
     }
 
     @discardableResult
-    init(command: String, data: [String]?) {
-        if let data {
-            minimumloggingwithcommand(command: command, data: data)
+    init(command: String, stringoutputfromrsync: [String]?) {
+        if let stringoutputfromrsync {
+            minimumloggingwithcommand(command: command, stringoutputfromrsync: stringoutputfromrsync)
         }
     }
 }

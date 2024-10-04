@@ -22,9 +22,9 @@ class SnapshotRemoteCatalogs {
 
     // Getting, from process, remote snapshotcatalogs
     // sort snapshotcatalogs
-    func prepareremotesnapshotcatalogs(data: [String]?) {
+    func prepareremotesnapshotcatalogs(stringoutputfromrsync: [String]?) {
         // Check for split lines and merge lines if true
-        let data = PrepareOutput(data ?? [])
+        let data = PrepareOutput(stringoutputfromrsync ?? [])
         if data.splitlines { data.alignsplitlines() }
         var catalogs = TrimOutputForRestore(data.trimmeddata).trimmeddata
         // A few more cleanups after rimming dats
@@ -53,8 +53,8 @@ class SnapshotRemoteCatalogs {
         getremotecataloginfo(config)
     }
 
-    func processtermination(data: [String]?, hiddenID _: Int?) {
-        prepareremotesnapshotcatalogs(data: data)
+    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+        prepareremotesnapshotcatalogs(stringoutputfromrsync: stringoutputfromrsync)
         mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
     }
 }

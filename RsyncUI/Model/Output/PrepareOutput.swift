@@ -40,8 +40,8 @@ final class PrepareOutput: PropogateError {
         }
     }
 
-    init(_ data: [String]) {
-        data.publisher
+    init(_ stringoutputfromrsync: [String]) {
+        stringoutputfromrsync.publisher
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

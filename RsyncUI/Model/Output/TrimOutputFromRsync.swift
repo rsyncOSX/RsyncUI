@@ -33,8 +33,8 @@ final class TrimOutputFromRsync: PropogateError {
         }
     }
 
-    init(_ data: [String]) {
-        data.publisher
+    init(_ stringoutputfromrsync: [String]) {
+        stringoutputfromrsync.publisher
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
@@ -53,7 +53,7 @@ final class TrimOutputFromRsync: PropogateError {
                             // Multiple can be a kind of race situation
                             if errordiscovered == false {
                                 let error = e
-                                _ = Logfile(data, error: true)
+                                _ = Logfile(stringoutputfromrsync, error: true)
                                 propogateerror(error: error)
                                 errordiscovered = true
                             }

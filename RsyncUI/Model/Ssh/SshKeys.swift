@@ -47,8 +47,8 @@ final class SshKeys: PropogateError {
         process.executeProcess()
     }
 
-    func processtermination(data: [String]?) {
-        Logfile(TrimOutputFromRsync(data ?? []).trimmeddata, error: true)
+    func processtermination(stringoutputfromrsync: [String]?) {
+        Logfile(TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata, error: true)
     }
 
     init() {

@@ -260,10 +260,10 @@ extension RestoreTableView {
         _ = InterruptProcess()
     }
 
-    func processtermination(data: [String]?, hiddenID _: Int?) {
+    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         gettingfilelist = false
         restore.restorefilelist.removeAll()
-        let trimmeddata = TrimOutputForRestore(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        let trimmeddata = TrimOutputForRestore(stringoutputfromrsync ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
         restore.restorefilelist = trimmeddata.map { filename in
             RsyncOutputData(line: filename)
         }

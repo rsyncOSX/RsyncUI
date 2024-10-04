@@ -23,8 +23,8 @@ final class ObservableRestore: PropogateError {
     var filestorestore: String = ""
     var selectedconfig: SynchronizeConfiguration?
 
-    func processtermination(data: [String]?, hiddenID _: Int?) {        
-        if let data = data {
+    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {        
+        if let data = stringoutputfromrsync {
             // let trimmeddata = TrimOutputForRestore(data).trimmeddata
             restorefilelist = data.map { filename in
                 RsyncOutputData(line: filename)
