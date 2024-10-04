@@ -47,12 +47,12 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     // Summarized stats
     var stats: String?
 
-    init(outputfromrsync: [String]?,
+    init(stringoutputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
 
         let generatedoutputfromrsync = ObservableOutputfromrsync()
-        generatedoutputfromrsync.generateoutput(outputfromrsync)
+        generatedoutputfromrsync.generateoutput(stringoutputfromrsync)
         self.outputfromrsync = generatedoutputfromrsync.output
         
         hiddenID = config?.hiddenID ?? -1
@@ -63,8 +63,8 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         backupID = config?.backupID ?? "Synchronize ID"
         id = config?.id ?? UUID()
 
-        if let outputfromrsync, outputfromrsync.count > 0 {
-            let parsersyncoutput = ParseRsyncOutput(outputfromrsync,
+        if let stringoutputfromrsync, stringoutputfromrsync.count > 0 {
+            let parsersyncoutput = ParseRsyncOutput(stringoutputfromrsync,
                                                     SharedReference.shared.rsyncversion3)
             stats = parsersyncoutput.stats
             transferredNumber = parsersyncoutput.formatted_transferredNumber

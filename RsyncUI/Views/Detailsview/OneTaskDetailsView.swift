@@ -73,7 +73,7 @@ extension OneTaskDetailsView {
         if selected.count == 1 {
             selectedconfig = selected[0]
         }
-        remotedatanumbers = RemoteDataNumbers(outputfromrsync: data,
+        remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: data,
                                               config: selectedconfig)
         if let remotedatanumbers {
             estimateprogressdetails.appendrecordestimatedlist(remotedatanumbers)

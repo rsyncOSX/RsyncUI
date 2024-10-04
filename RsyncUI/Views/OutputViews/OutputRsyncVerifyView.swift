@@ -57,7 +57,7 @@ struct OutputRsyncVerifyView: View {
     func processtermination(data: [String]?, hiddenID _: Int?) {
         progress = false
         outputfromrsync.generateoutput(data)
-        remotedatanumbers = RemoteDataNumbers(outputfromrsync: data,
+        remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: data,
                                           config: config)
     }
 
