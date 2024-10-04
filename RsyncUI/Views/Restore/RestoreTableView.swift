@@ -42,26 +42,23 @@ struct RestoreTableView: View {
                                     if configurations[index].task == SharedReference.shared.snapshot {
                                         getsnapshotlogsandcatalogs()
                                     }
-                                    restore.datalist.removeAll()
-                                    restore.rsyncdata = nil
+                                    restore.restorefilelist.removeAll()
                                 } else {
                                     restore.selectedconfig = nil
                                     restore.filestorestore = ""
-                                    restore.datalist.removeAll()
+                                    restore.restorefilelist.removeAll()
                                     snapshotdata.catalogsanddates.removeAll()
                                     filterstring = ""
-                                    restore.rsyncdata = nil
                                 }
                             }
 
                         RestoreFilesTableView(filestorestore: $restore.filestorestore,
-                                              datalist: restore.datalist)
+                                              datalist: restore.restorefilelist)
                             .onChange(of: profile) {
-                                restore.datalist.removeAll()
+                                restore.restorefilelist.removeAll()
                             }
                             .overlay { if filterstring.count > 0,
-                                          restore.rsyncdata?.count ?? 0 > 0,
-                                          restore.datalist.count == 0
+                                          restore.restorefilelist.count == 0
                                 {
                                     ContentUnavailableView.search
                                 }
@@ -110,18 +107,16 @@ struct RestoreTableView: View {
                 )
             ) { filter in
                 showindebounce = false
-                if restore.rsyncdata?.count ?? 0 > 0, filter.isEmpty == false {
+                if restore.restorefilelist.count > 0, filter.isEmpty == false {
                     filterrestorefilelist()
                 } else {
-                    restore.datalist = restore.rsyncdata?.map { filename in
-                        RsyncOutputData(line: filename)
-                    } ?? []
+                    getlistoffilesforrestore()
                 }
             }
             .toolbar(content: {
                 ToolbarItem {
                     if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
-                       restore.datalist.count == 0
+                       restore.restorefilelist.count == 0
                     {
                         Button {
                             getlistoffilesforrestore()
@@ -140,7 +135,7 @@ struct RestoreTableView: View {
 
                 ToolbarItem {
                     if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
-                       restore.rsyncdata?.count ?? 0 > 0,
+                       restore.restorefilelist.count > 0,
                        restore.filestorestore.isEmpty == false
                     {
                         Button {
@@ -160,7 +155,7 @@ struct RestoreTableView: View {
 
                 ToolbarItem {
                     if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
-                       restore.rsyncdata?.count ?? 0 > 0,
+                       restore.restorefilelist.count > 0,
                        restore.filestorestore.isEmpty == false
                     {
                         Button {
@@ -185,7 +180,7 @@ struct RestoreTableView: View {
             })
         }
         .navigationDestination(isPresented: $restore.presentsheetrsync) {
-            OutputRsyncView(output: restore.rsyncdata ?? [])
+            OutputRsyncView(output: restore.restorefilelist)
                 .onAppear {
                     updated = false
                 }
@@ -240,7 +235,7 @@ struct RestoreTableView: View {
             snapshotdata.catalogsanddates.removeAll()
         }
         .onChange(of: snapshotcatalog) {
-            restore.datalist.removeAll()
+            restore.restorefilelist.removeAll()
             restore.filestorestore = ""
         }
     }
@@ -267,10 +262,11 @@ extension RestoreTableView {
 
     func processtermination(data: [String]?, hiddenID _: Int?) {
         gettingfilelist = false
-        restore.rsyncdata = TrimOutputForRestore(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        restore.datalist = restore.rsyncdata?.map { filename in
+        restore.restorefilelist.removeAll()
+        let trimmeddata = TrimOutputForRestore(data ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+        restore.restorefilelist = trimmeddata.map { filename in
             RsyncOutputData(line: filename)
-        } ?? []
+        }
     }
 
     func getfilelist() {
@@ -329,11 +325,18 @@ extension RestoreTableView {
     }
 
     func filterrestorefilelist() {
+        let filterdatalist = restore.restorefilelist.filter({ $0.line.contains(filterstring) })
+        restore.restorefilelist.removeAll()
+        restore.restorefilelist = filterdatalist
+        /*
+        restore.datalist = restore.datalist.filter(.contains(filterstring) })
+        
         if let data = restore.rsyncdata?.filter({ $0.contains(filterstring) }) {
             restore.datalist = data.map { filename in
                 RsyncOutputData(line: filename)
             }
         }
+         */
     }
 }
 

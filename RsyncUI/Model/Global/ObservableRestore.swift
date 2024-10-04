@@ -19,13 +19,17 @@ final class ObservableRestore: PropogateError {
     // Value to check if input field is changed by user
     var inputchangedbyuser: Bool = false
     // Filenames in restore
-    var datalist: [RsyncOutputData] = []
+    var restorefilelist: [RsyncOutputData] = []
     var filestorestore: String = ""
-    @ObservationIgnored var rsyncdata: [String]?
     var selectedconfig: SynchronizeConfiguration?
 
-    func processtermination(data: [String]?, hiddenID _: Int?) {
-        rsyncdata = data
+    func processtermination(data: [String]?, hiddenID _: Int?) {        
+        if let data = data {
+            // let trimmeddata = TrimOutputForRestore(data).trimmeddata
+            restorefilelist = data.map { filename in
+                RsyncOutputData(line: filename)
+            }
+        }
         restorefilesinprogress = false
         presentsheetrsync = true
     }

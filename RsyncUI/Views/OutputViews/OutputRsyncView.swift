@@ -10,19 +10,16 @@ import SwiftUI
 struct OutputRsyncView: View {
     @State private var outputfromrsync = ObservableOutputfromrsync()
 
-    var output: [String]
+    var output: [RsyncOutputData]
 
     var body: some View {
         VStack {
-            Table(outputfromrsync.output) {
+            Table(output) {
                 TableColumn("Output from rsync") { data in
                     Text(data.line)
                 }
             }
         }
         .padding()
-        .onAppear {
-            outputfromrsync.generateoutput(output)
-        }
     }
 }
