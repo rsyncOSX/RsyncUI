@@ -45,8 +45,7 @@ struct OutputRsyncVerifyView: View {
     }
 
     func verify(config: SynchronizeConfiguration) {
-        var arguments: [String]?
-        arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+        let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
                                                                               forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
