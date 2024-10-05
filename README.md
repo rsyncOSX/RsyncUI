@@ -39,7 +39,7 @@ Please be aware it is an external task *not controlled* by RsyncUI, which execut
 **RsyncUI** is released for *macOS Sonoma and later*. Latest build is [27 September 2024](https://github.com/rsyncOSX/RsyncUI/releases).
 
 - the [user guide for RsyncUI](https://rsyncui.netlify.app/)
-- the [changelog](https://rsyncui.netlify.app/post/changelog/)
+- the [changelog](https://rsyncui.netlify.app/docs/changelog/)
 
 ![](images/rsyncui.png)
 
