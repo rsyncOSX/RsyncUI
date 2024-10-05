@@ -95,7 +95,8 @@ extension ExecuteMultipleTasks {
         // When creating the logrecord, decrease the snapshotum by 1
         configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
         if let stats = ParseRsyncOutput(stringoutputfromrsync ?? [],
-                                                       SharedReference.shared.rsyncversion3).stats  {
+                                        SharedReference.shared.rsyncversion3).stats
+        {
             schedulerecords.append((hiddenID ?? -1, stats))
         }
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {

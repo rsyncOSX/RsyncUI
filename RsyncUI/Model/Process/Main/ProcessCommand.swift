@@ -86,9 +86,10 @@ final class ProcessCommand: PropogateError {
         self.processtermination = processtermination
         outputprocess = OutputfromProcess()
     }
-    
+
     convenience init(command: String?,
-                     arguments: [String]?) {
+                     arguments: [String]?)
+    {
         let processtermination: ([String]?) -> Void = { _ in
             Logger.process.info("ProcessCommand: You SEE this message only when Process() is terminated")
         }

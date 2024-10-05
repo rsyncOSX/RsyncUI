@@ -7,7 +7,6 @@
 
 import Observation
 
-
 @Observable
 final class ObservableRsyncOutput {
     var output = [RsyncOutputData]()

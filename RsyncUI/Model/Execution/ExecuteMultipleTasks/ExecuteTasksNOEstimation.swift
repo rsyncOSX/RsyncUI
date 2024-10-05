@@ -99,7 +99,6 @@ extension ExecuteTasksNOEstimation {
                 localexecutenoestimationprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                 startexecution()
             }
-            
         }
     }
 }

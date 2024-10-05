@@ -46,7 +46,7 @@ struct OutputRsyncVerifyView: View {
 
     func verify(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
-                                                                              forDisplay: false)
+                                                                                  forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)
@@ -57,7 +57,7 @@ struct OutputRsyncVerifyView: View {
         progress = false
         outputfromrsync.generateoutput(stringoutputfromrsync)
         remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                          config: config)
+                                              config: config)
     }
 
     func abort() {

@@ -13,11 +13,9 @@ struct OutputRsyncView: View {
     var output: [RsyncOutputData]
 
     var body: some View {
-        VStack {
-            Table(output) {
-                TableColumn("Output from rsync") { data in
-                    Text(data.line)
-                }
+        Table(output) {
+            TableColumn("Output from rsync") { data in
+                Text(data.line)
             }
         }
         .padding()

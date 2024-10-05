@@ -14,13 +14,13 @@ struct RestoreFilesTableView: View {
     var datalist: [RsyncOutputData]
 
     var body: some View {
-            Table(datalist, selection: $selectedid) {
-                TableColumn("Filenames", value: \.line)
-            }
-            .onChange(of: selectedid) {
-                let record = datalist.filter { $0.id == selectedid }
-                guard record.count > 0 else { return }
-                filestorestore = record[0].line
-            }
+        Table(datalist, selection: $selectedid) {
+            TableColumn("Filenames", value: \.line)
         }
+        .onChange(of: selectedid) {
+            let record = datalist.filter { $0.id == selectedid }
+            guard record.count > 0 else { return }
+            filestorestore = record[0].line
+        }
+    }
 }

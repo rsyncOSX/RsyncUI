@@ -282,4 +282,3 @@ extension QuicktaskView {
         updated = false
     }
 }
-

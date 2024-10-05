@@ -50,11 +50,10 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     init(stringoutputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
-
         let generatedoutputfromrsync = ObservableOutputfromrsync()
         generatedoutputfromrsync.generateoutput(stringoutputfromrsync)
-        self.outputfromrsync = generatedoutputfromrsync.output
-        
+        outputfromrsync = generatedoutputfromrsync.output
+
         hiddenID = config?.hiddenID ?? -1
         task = config?.task ?? ""
         localCatalog = config?.localCatalog ?? ""
