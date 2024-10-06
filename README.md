@@ -34,11 +34,11 @@ Please be aware it is an external task *not controlled* by RsyncUI, which execut
 
 ### RsyncUI (Swift, SwiftUI)
 
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.4/total) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.3/total)  [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.4/total) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 **RsyncUI** is released for *macOS Sonoma and later*. Latest build is [27 September 2024](https://github.com/rsyncOSX/RsyncUI/releases).
 
-- the [user guide for RsyncUI](https://rsyncui.netlify.app/)
+- the [user guide for RsyncUI](https://rsyncui.netlify.app/docs/)
 - the [changelog](https://rsyncui.netlify.app/docs/changelog/)
 
 ![](images/rsyncui.png)
@@ -47,6 +47,4 @@ Please be aware it is an external task *not controlled* by RsyncUI, which execut
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncOSX_archived)](https://github.com/rsyncOSX/RsyncOSX/blob/master/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncOSX_archived/v6.8.0/total)
 
-**RsyncOSX** was released for *macOS Big Sur* and later. Please be aware of the repository for RsyncOSX is archived and not maintained.
-
-- the [user guide for RsyncOSX](https://rsyncosx.netlify.app/)
+**RsyncOSX** was released for *macOS Big Sur* and later. Please be aware of the repository for RsyncOSX is archived and not maintained. The [user guide for RsyncOSX](https://rsyncosx.netlify.app/).
