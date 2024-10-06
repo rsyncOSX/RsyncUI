@@ -28,12 +28,12 @@ struct Sshsettings: View {
         Form {
             Section {
                 VStack(alignment: .leading) {
-                    ToggleViewDefault(text: NSLocalizedString("Local ssh keys are present", comment: ""),
+                    ToggleViewDefault(text: NSLocalizedString("Local ssh-key is present", comment: ""),
                                       binding: $localsshkeys)
                         .disabled(true)
                 }
             } header: {
-                Text("SSH keys")
+                Text("ssh-keys")
             }
 
             Section {
@@ -42,7 +42,7 @@ struct Sshsettings: View {
                 setsshport
 
             } header: {
-                Text("SSH-keypath and SSH-port")
+                Text("ssh-keypath and ssh-port")
             }
 
             Section {
@@ -66,7 +66,7 @@ struct Sshsettings: View {
                 }
             }
 
-            if showsshkeyiscreated { MessageView(dismissafter: 2, mytext: NSLocalizedString("SSH key is created, see logfile.", comment: "")) }
+            if showsshkeyiscreated { MessageView(dismissafter: 2, mytext: NSLocalizedString("ssh-key is created, see logfile.", comment: "")) }
         }
         .formStyle(.grouped)
         .onChange(of: settingsischanged) {
@@ -99,7 +99,7 @@ struct Sshsettings: View {
     }
 
     var setsshpath: some View {
-        EditValue(400, NSLocalizedString("Global ssh keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
+        EditValue(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
             .onAppear(perform: {
                 if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
                     sshsettings.sshkeypathandidentityfile = sshkeypath
@@ -122,7 +122,7 @@ struct Sshsettings: View {
     }
 
     var setsshport: some View {
-        EditValue(400, NSLocalizedString("Global ssh port", comment: ""),
+        EditValue(400, NSLocalizedString("Global ssh-port", comment: ""),
                   $sshsettings.sshportnumber)
             .onAppear(perform: {
                 if let sshport = SharedReference.shared.sshport {

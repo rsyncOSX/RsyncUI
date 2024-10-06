@@ -209,7 +209,7 @@ struct RsyncParametersView: View {
     }
 
     var setsshpath: some View {
-        EditValue(300, "Ssh keypath and identityfile",
+        EditValue(300, "ssh-keypath and identityfile",
                   $parameters.sshkeypathandidentityfile)
             .onChange(of: parameters.sshkeypathandidentityfile) {
                 publisherkeypath.send(parameters.sshkeypathandidentityfile)
@@ -226,7 +226,7 @@ struct RsyncParametersView: View {
     }
 
     var setsshport: some View {
-        EditValue(150, "Ssh port", $parameters.sshport)
+        EditValue(150, "ssh-port", $parameters.sshport)
             .onChange(of: parameters.sshport) {
                 publisherport.send(parameters.sshport)
             }
