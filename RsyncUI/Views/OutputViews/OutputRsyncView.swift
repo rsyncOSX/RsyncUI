@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct OutputRsyncView: View {
-    
     var output: [RsyncOutputData]
 
     var body: some View {

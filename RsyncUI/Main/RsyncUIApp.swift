@@ -32,10 +32,10 @@ struct RsyncUIApp: App {
 
             CommandGroup(replacing: .help) {
                 Button(action: {
-                    let documents = "https://rsyncui.netlify.app/"
+                    let documents = "https://rsyncui.netlify.app/docs/"
                     NSWorkspace.shared.open(URL(string: documents)!)
                 }) {
-                    Text("RsyncUI help")
+                    Text("RsyncUI documentation")
                 }
             }
         }
