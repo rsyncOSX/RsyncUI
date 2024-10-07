@@ -21,6 +21,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filenamedatastore)
             {
+                /*
                 var configurations = [SynchronizeConfiguration]()
                 for i in 0 ..< data.count {
                     var configuration = SynchronizeConfiguration(data[i])
@@ -28,6 +29,12 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                     configurations.append(configuration)
                 }
                 self.configurations = configurations
+                */
+                
+                self.configurations = data.map({ element in
+                    SynchronizeConfiguration(element)
+                })
+                
                 Logger.process.info("ReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
             } else {
                 createdefaultfilelogrecords(profile)

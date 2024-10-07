@@ -34,7 +34,7 @@ struct UserConfiguration: Codable {
     // Automatic execution
     var confirmexecute: Int?
 
-    @MainActor private func setuserconfigdata() {
+    private func setuserconfigdata() {
         if rsyncversion3 == 1 {
             SharedReference.shared.rsyncversion3 = true
         } else {
@@ -114,7 +114,7 @@ struct UserConfiguration: Codable {
 
     // Default values user configuration
     @discardableResult
-    @MainActor init() {
+    init() {
         if SharedReference.shared.rsyncversion3 {
             rsyncversion3 = 1
         } else {

@@ -22,7 +22,8 @@ final class ReadUserConfigurationJSON: PropogateError {
         }
         do {
             if let importeddata = try
-                decodeuserconfiguration.decodestringdatafileURL(DecodeUserConfiguration.self, fromwhere: userconfigurationfile)
+                decodeuserconfiguration.decodestringdatafileURL(DecodeUserConfiguration.self,
+                                                                fromwhere: userconfigurationfile)
             {
                 UserConfiguration(importeddata)
                 Logger.process.info("ReadUserConfigurationJSON: Reading user configurations from permanent storage")

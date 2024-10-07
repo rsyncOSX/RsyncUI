@@ -31,6 +31,16 @@ final class ReadImportConfigurationsJSON: PropogateError {
                     importconfigurations.append(element)
                 }
                 self.importconfigurations = importconfigurations
+                /*
+                self.importconfigurations = importeddata.map({ element in
+                    element.hiddenID = maxhiddenID + 1 + i
+                    element.dateRun = nil
+                    element.backupID = "IMPORT: " + (importeddata[i].backupID ?? "")
+                    element.id = UUID()
+                    SynchronizeConfiguration(element)
+                })
+                */
+                
                 Logger.process.info("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): read import configurations from permanent storage")
             }
 

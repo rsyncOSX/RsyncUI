@@ -23,6 +23,7 @@ final class ReadLogRecordsJSON: PropogateError {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filenamedatastore)
             {
+                /*
                 logrecords = [LogRecords]()
                 for i in 0 ..< data.count {
                     let onerecords = LogRecords(data[i])
@@ -30,6 +31,11 @@ final class ReadLogRecordsJSON: PropogateError {
                         logrecords?.append(onerecords)
                     }
                 }
+                */
+                self.logrecords = data.map({ element in
+                    LogRecords(element)
+                })
+                
                 Logger.process.info("ReadLogRecordsJSON: read logrecords from permanent storage")
             }
 
