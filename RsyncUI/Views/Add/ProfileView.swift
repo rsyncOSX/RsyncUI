@@ -21,17 +21,17 @@ struct ProfileView: View {
 
     var body: some View {
         VStack {
-            Table(profilenames.profiles, selection: $uuidprofile) {
+            Table(profilenames.profiles ?? [], selection: $uuidprofile) {
                 TableColumn("Profiles") { name in
                     Text(name.profile ?? "Default profile")
                 }
             }
             .onChange(of: uuidprofile) {
-                let profile = profilenames.profiles.filter { profiles in
+                let profile = profilenames.profiles?.filter { profiles in
                     uuidprofile.contains(profiles.id)
                 }
-                if profile.count == 1 {
-                    localselectedprofile = profile[0].profile
+                if profile?.count == 1 {
+                    localselectedprofile = profile?[0].profile
                 }
                 updated = false
             }
@@ -82,7 +82,7 @@ struct ProfileView: View {
             }
         }
     }
-    
+/*
     var allprofiles: [String]? {
         Homepath().getfullpathmacserialcatalogsasstringnames()
     }
@@ -125,6 +125,7 @@ struct ProfileView: View {
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
+ */
 }
 
 extension ProfileView {

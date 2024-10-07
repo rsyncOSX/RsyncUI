@@ -48,7 +48,7 @@ struct Homepath: PropogateError {
         }
     }
 
-    func getfullpathmacserialcatalogsasstringnames() -> [String]? {
+    func getfullpathmacserialcatalogsasstringnames() -> [String] {
         let fm = FileManager.default
         if let fullpathmacserial {
             var array = [String]()
@@ -63,10 +63,10 @@ struct Homepath: PropogateError {
                 }
                 return array
             } catch {
-                return nil
+                return []
             }
         }
-        return nil
+        return []
     }
 
     // Create profile catalog at first start of RsyncOSX.

@@ -19,20 +19,21 @@ struct ProfilesnamesRecord: Hashable, Identifiable {
 
 @Observable @MainActor
 final class Profilenames {
-    var profiles: [ProfilesnamesRecord] = .init()
-
-    func update() {
-        setprofilenames()
+    var profiles: [ProfilesnamesRecord]?
+    
+    var allprofiles: [String] {
+        Homepath().getfullpathmacserialcatalogsasstringnames()
     }
 
-    func setprofilenames() {
-        let names = Homepath().getfullpathmacserialcatalogsasstringnames()
-        for i in 0 ..< (names?.count ?? 0) {
-            profiles.append(ProfilesnamesRecord(names?[i] ?? ""))
+    func update() {
+        profiles = allprofiles.map { profile in
+            ProfilesnamesRecord(profile)
         }
     }
 
     init() {
-        setprofilenames()
+        profiles = allprofiles.map { profile in
+            ProfilesnamesRecord(profile)
+        }
     }
 }

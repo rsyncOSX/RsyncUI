@@ -90,7 +90,8 @@ struct SidebarMainView: View {
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
                              selecteduuids: $selecteduuids,
-                             estimateprogressdetails: estimateprogressdetails, executetasknavigation: $executetasknavigation)
+                             estimateprogressdetails: estimateprogressdetails,
+                             executetasknavigation: $executetasknavigation)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         }
@@ -99,7 +100,7 @@ struct SidebarMainView: View {
     var profilepicker: some View {
         HStack {
             Picker("", selection: $selectedprofile) {
-                ForEach(profilenames.profiles, id: \.self) { profile in
+                ForEach(profilenames.profiles ?? [], id: \.self) { profile in
                     Text(profile.profile ?? "")
                         .tag(profile.profile)
                 }
@@ -111,6 +112,7 @@ struct SidebarMainView: View {
             Spacer()
         }
     }
+
 
     var profilenames: Profilenames {
         Profilenames()
