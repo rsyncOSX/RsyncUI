@@ -27,7 +27,7 @@ struct LogRecords: Identifiable, Codable {
     // Used when reading JSON data from store
     init(_ data: DecodeLogRecords, validhiddeDs:Set<Int>) {
         dateStart = data.dateStart ?? ""
-        self.hiddenID = data.hiddenID ?? -1
+        hiddenID = data.hiddenID ?? -1
         offsiteserver = data.offsiteserver
         for i in 0 ..< (data.logrecords?.count ?? 0) {
             if i == 0 { logrecords = [Log]() }
