@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 @MainActor
-class WriteExportConfigurationsJSON: PropogateError {
+final class WriteExportConfigurationsJSON: PropogateError {
     var exportpath: String?
 
     private func writeJSONToPersistentStore(jsonData: Data?) {

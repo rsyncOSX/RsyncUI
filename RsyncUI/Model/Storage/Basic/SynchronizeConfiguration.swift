@@ -70,7 +70,7 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     var snaplast: Int?
 
     // Used when reading JSON data from store
-    // see in ReadConfigurationJSON
+    // see in ReadSynchronizeConfigurationJSON
     init(_ data: DecodeSynchronizeConfiguration) {
         backupID = data.backupID ?? ""
         hiddenID = data.hiddenID ?? -1

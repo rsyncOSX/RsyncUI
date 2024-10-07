@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 @MainActor
-class WriteSynchronizeConfigurationJSON: PropogateError {
+final class WriteSynchronizeConfigurationJSON: PropogateError {
     var profile: String?
 
     private func writeJSONToPersistentStore(jsonData: Data?) {
@@ -30,7 +30,7 @@ class WriteSynchronizeConfigurationJSON: PropogateError {
                 do {
                     try jsonData.write(to: configurationfileURL)
                     let myprofile = profile
-                    Logger.process.info("WriteConfigurationJSON - \(myprofile ?? "default profile", privacy: .public): write configurations to permanent storage")
+                    Logger.process.info("WriteSynchronizeConfigurationJSON - \(myprofile ?? "default profile", privacy: .public): write configurations to permanent storage")
                 } catch let e {
                     let error = e
                     path.propogateerror(error: error)

@@ -28,7 +28,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                     configurations.append(configuration)
                 }
                 self.configurations = configurations
-                Logger.process.info("ReadConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
+                Logger.process.info("ReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
             } else {
                 createdefaultfilelogrecords(profile)
             }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor 
 struct UserConfiguration: Codable {
     var rsyncversion3: Int = -1
     // Detailed logging
@@ -93,7 +94,7 @@ struct UserConfiguration: Codable {
 
     // Used when reading JSON data from store
     @discardableResult
-    @MainActor init(_ data: DecodeUserConfiguration) {
+    init(_ data: DecodeUserConfiguration) {
         rsyncversion3 = data.rsyncversion3 ?? -1
         addsummarylogrecord = data.addsummarylogrecord ?? 1
         logtofile = data.logtofile ?? 0
