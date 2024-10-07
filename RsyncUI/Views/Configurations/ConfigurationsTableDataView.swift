@@ -22,7 +22,14 @@ struct ConfigurationsTableDataView: View {
                 Text(profile ?? "Default profile")
             }
             .width(min: 50, max: 200)
-            TableColumn("Synchronize ID", value: \.backupID)
+            TableColumn("Synchronize ID") { data in
+                    if data.backupID.isEmpty == true {
+                        Text("Synchronize ID")
+
+                    } else {
+                        Text(data.backupID)
+                    }
+                }
                 .width(min: 50, max: 200)
             TableColumn("Task", value: \.task)
                 .width(max: 80)
