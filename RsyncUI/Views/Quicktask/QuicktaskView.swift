@@ -262,7 +262,6 @@ extension QuicktaskView {
 
     func execute(config: SynchronizeConfiguration, dryrun: Bool) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
-        rsyncoutput = ObservableRsyncOutput()
         // Start progressview
         showprogressview = true
         let process = ProcessRsync(arguments: arguments,
@@ -277,6 +276,7 @@ extension QuicktaskView {
 
     func processtermination(_ stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
+        rsyncoutput = ObservableRsyncOutput()
         rsyncoutput?.setoutput(stringoutputfromrsync)
         completed = true
         updated = false

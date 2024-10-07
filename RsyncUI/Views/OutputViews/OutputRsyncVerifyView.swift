@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct OutputRsyncVerifyView: View {
-    @State private var outputfromrsync = ObservableOutputfromrsync()
     @State private var progress = true
     @State private var remotedatanumbers: RemoteDataNumbers?
 
@@ -55,7 +54,6 @@ struct OutputRsyncVerifyView: View {
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         progress = false
-        outputfromrsync.generateoutput(stringoutputfromrsync)
         remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                               config: config)
     }

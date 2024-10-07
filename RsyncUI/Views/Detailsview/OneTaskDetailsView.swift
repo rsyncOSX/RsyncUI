@@ -62,9 +62,7 @@ struct OneTaskDetailsView: View {
         }
         return nil
     }
-}
-
-extension OneTaskDetailsView {
+    
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         var selectedconfig: SynchronizeConfiguration?
         let selected = configurations.filter { config in
@@ -82,3 +80,4 @@ extension OneTaskDetailsView {
         estimateiscompleted = true
     }
 }
+
