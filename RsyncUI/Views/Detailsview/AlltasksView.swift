@@ -13,7 +13,8 @@ struct AlltasksView: View {
         VStack {
             Table(data) {
                 TableColumn("Profile") { data in
-                    Text(data.profile ?? "")
+                    // Text(data.profile ?? "")
+                    Text("profile")
                 }
                 .width(min: 100, max: 200)
                 TableColumn("Synchronize ID", value: \.backupID)

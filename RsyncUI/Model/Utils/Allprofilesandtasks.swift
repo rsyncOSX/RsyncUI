@@ -26,7 +26,7 @@ final class Allprofilesandtasks {
                 configurations = ReadSynchronizeConfigurationJSON(profilename).configurations
             }
             for j in 0 ..< (configurations?.count ?? 0) {
-                configurations?[j].profile = profilename
+                // configurations?[j].profile = profilename
                 if let configuration = configurations?[j] {
                     alltasks?.append(configuration)
                 }

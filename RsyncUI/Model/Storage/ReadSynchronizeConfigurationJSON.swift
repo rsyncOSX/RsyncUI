@@ -21,16 +21,6 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filenamedatastore)
             {
-                /*
-                var configurations = [SynchronizeConfiguration]()
-                for i in 0 ..< data.count {
-                    var configuration = SynchronizeConfiguration(data[i])
-                    configuration.profile = profile
-                    configurations.append(configuration)
-                }
-                self.configurations = configurations
-                */
-                
                 self.configurations = data.map({ element in
                     SynchronizeConfiguration(element)
                 })

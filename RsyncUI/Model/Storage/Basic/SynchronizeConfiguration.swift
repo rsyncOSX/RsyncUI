@@ -63,8 +63,6 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     // SSH parameters
     var sshport: Int?
     var sshkeypathandidentityfile: String?
-
-    var profile: String?
     // Snapshots, day to save and last = 1 or every last=0
     var snapdayoffweek: String?
     var snaplast: Int?

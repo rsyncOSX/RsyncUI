@@ -14,24 +14,13 @@ final class ReadLogRecordsJSON: PropogateError {
     var logrecords: [LogRecords]?
     let path = Homepath()
 
-    private func importjsonfile(_ filenamedatastore: String,
-                                profile _: String?,
-                                validhiddenID: Set<Int>)
+    private func importjsonfile(_ filenamedatastore: String)
     {
         let decodeimport = DecodeGeneric()
         do {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filenamedatastore)
             {
-                /*
-                logrecords = [LogRecords]()
-                for i in 0 ..< data.count {
-                    let onerecords = LogRecords(data[i])
-                    if validhiddenID.contains(onerecords.hiddenID) {
-                        logrecords?.append(onerecords)
-                    }
-                }
-                */
                 self.logrecords = data.map({ element in
                     LogRecords(element)
                 })
@@ -54,8 +43,6 @@ final class ReadLogRecordsJSON: PropogateError {
                 filename = path + "/" + SharedReference.shared.filenamelogrecordsjson
             }
         }
-        importjsonfile(filename,
-                       profile: profile,
-                       validhiddenID: validhiddenID)
+        importjsonfile(filename)
     }
 }

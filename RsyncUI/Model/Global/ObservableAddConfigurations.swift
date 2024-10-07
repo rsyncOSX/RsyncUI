@@ -48,11 +48,10 @@ final class ObservableAddConfigurations: PropogateError {
                                  remoteserver,
                                  backupID)
         // If newconfig is verified add it
-        if var newconfig = VerifyConfiguration().verify(getdata) {
+        if let newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
-            newconfig.profile = selectedprofile
             if updateconfigurations.addconfiguration(newconfig) == true {
                 resetform()
                 return updateconfigurations.configurations
