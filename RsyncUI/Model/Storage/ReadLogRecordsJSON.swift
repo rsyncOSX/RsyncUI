@@ -23,10 +23,11 @@ final class ReadLogRecordsJSON: PropogateError {
                 decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filenamedatastore)
             {
                 // let temp = data.map { validhiddenIDs?.contains($0.hiddenID ?? -1) }
-                
-                self.logrecords = data.map({ element in
-                    LogRecords(element)
-                })
+                if let validhiddenIDs {
+                    self.logrecords = data.map({ element in
+                        LogRecords(element, validhiddeDs: validhiddenIDs)
+                    })
+                }
                 
                 Logger.process.info("ReadLogRecordsJSON: read logrecords from permanent storage")
             }
