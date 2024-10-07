@@ -34,7 +34,7 @@ final class ReadLogRecordsJSON: PropogateError {
         }
     }
 
-    init(_ profile: String?, _ validhiddenID: Set<Int>) {
+    init(_ profile: String?) {
         var filename = ""
         if let profile, let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + SharedReference.shared.filenamelogrecordsjson

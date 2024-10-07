@@ -19,14 +19,6 @@ struct SidebarLogsView: View {
     }
 
     var rsyncUIlogrecords: RsyncUIlogrecords {
-        RsyncUIlogrecords(profile, validhiddenIDs)
-    }
-
-    var validhiddenIDs: Set<Int> {
-        var temp = Set<Int>()
-        for i in 0 ..< configurations.count {
-            temp.insert(configurations[i].hiddenID)
-        }
-        return temp
+        RsyncUIlogrecords(profile)
     }
 }

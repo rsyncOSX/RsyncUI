@@ -238,7 +238,7 @@ extension SnapshotsView {
                 }
             }
             if let config = selectedconfig,
-               let logrecords = ReadLogRecordsJSON(profile, validhiddenIDs).logrecords
+               let logrecords = ReadLogRecordsJSON(profile).logrecords
             {
                 _ = Snapshotlogsandcatalogs(config: config,
                                             logrecords: logrecords,

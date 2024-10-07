@@ -63,13 +63,7 @@ class SingletaskPrimaryLogging {
     {
         localeprofile = profile
         structconfigurations = configurations
-        var validhiddenIDs = Set<Int>()
-        if let configurations {
-            for i in 0 ..< configurations.count {
-                validhiddenIDs.insert(configurations[i].hiddenID)
-            }
-        }
-        logrecords = RsyncUIlogrecords(profile, validhiddenIDs).logrecords
+        logrecords = RsyncUIlogrecords(profile).logrecords
         if logrecords == nil {
             logrecords = [LogRecords]()
         }
