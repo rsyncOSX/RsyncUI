@@ -10,15 +10,23 @@ import SwiftUI
 struct SidebarLogsView: View {
     let configurations: [SynchronizeConfiguration]
     let profile: String?
-
+    
     var body: some View {
         LogsbyConfigurationView(rsyncUIlogrecords: rsyncUIlogrecords,
                                 profile: profile,
                                 configurations: configurations)
-            .padding()
+        .padding()
     }
-
+    
     var rsyncUIlogrecords: RsyncUIlogrecords {
-        RsyncUIlogrecords(profile)
+        RsyncUIlogrecords(profile, validhiddenIDs)
+    }
+    
+    var validhiddenIDs: Set<Int> {
+        var temp = Set<Int>()
+        for i in 0 ..< configurations.count {
+            temp.insert(configurations[i].hiddenID)
+        }
+        return temp
     }
 }

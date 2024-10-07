@@ -13,6 +13,14 @@ class SingletaskPrimaryLogging {
     var structconfigurations: [SynchronizeConfiguration]?
     var logrecords: [LogRecords]?
     var localeprofile: String?
+    
+    var validhiddenIDs: Set<Int> {
+        var temp = Set<Int>()
+        for i in 0 ..< (structconfigurations?.count ?? 0) {
+            temp.insert(structconfigurations?[i].hiddenID ?? -1)
+        }
+        return temp
+    }
 
     func increasesnapshotnum(index: Int) {
         if let num = structconfigurations?[index].snapshotnum {
@@ -63,7 +71,7 @@ class SingletaskPrimaryLogging {
     {
         localeprofile = profile
         structconfigurations = configurations
-        logrecords = RsyncUIlogrecords(profile).logrecords
+        logrecords = RsyncUIlogrecords(profile, validhiddenIDs).logrecords
         if logrecords == nil {
             logrecords = [LogRecords]()
         }

@@ -13,6 +13,7 @@ import OSLog
 final class ReadLogRecordsJSON: PropogateError {
     var logrecords: [LogRecords]?
     let path = Homepath()
+    var validhiddenIDs: Set<Int>?
 
     private func importjsonfile(_ filenamedatastore: String)
     {
@@ -21,6 +22,8 @@ final class ReadLogRecordsJSON: PropogateError {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filenamedatastore)
             {
+                // let temp = data.map { validhiddenIDs?.contains($0.hiddenID ?? -1) }
+                
                 self.logrecords = data.map({ element in
                     LogRecords(element)
                 })
@@ -34,8 +37,10 @@ final class ReadLogRecordsJSON: PropogateError {
         }
     }
 
-    init(_ profile: String?) {
+    init(_ profile: String?,
+         _ validhiddenIDs: Set<Int>?) {
         var filename = ""
+        self.validhiddenIDs = validhiddenIDs
         if let profile, let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + SharedReference.shared.filenamelogrecordsjson
         } else {
