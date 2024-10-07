@@ -62,6 +62,10 @@ final class WriteSynchronizeConfigurationJSON: PropogateError {
             encodeJSONData(configurations)
         }
     }
+    
+    deinit {
+        Logger.process.info("WriteSynchronizeConfigurationJSON deinit")
+    }
 }
 
 // swiftlint:enable line_length

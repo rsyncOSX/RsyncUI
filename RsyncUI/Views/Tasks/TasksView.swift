@@ -159,15 +159,6 @@ struct TasksView: View {
 
             ToolbarItem {
                 Button {
-                    path.append(Tasks(task: .alltasksview))
-                } label: {
-                    Image(systemName: "list.bullet")
-                }
-                .help("List tasks all profiles")
-            }
-
-            ToolbarItem {
-                Button {
                     guard selecteduuids.count > 0 else { return }
                     guard selecteduuids.count == 1 else {
                         path.append(Tasks(task: .summarizeddetailsview))

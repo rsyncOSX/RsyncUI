@@ -56,6 +56,10 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
         }
         importjsonfile(filename, profile: profile)
     }
+    
+    deinit {
+        Logger.process.info("ReadSynchronizeConfigurationJSON: deinit")
+    }
 }
 
 // swiftlint:enable line_length

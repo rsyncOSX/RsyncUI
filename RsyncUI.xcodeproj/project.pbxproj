@@ -13,7 +13,6 @@
 		E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8944891267B2CB0009F9C4A /* RsyncUIView.swift */; };
 		E902346B2C4F7AA100595967 /* ReadImportConfigurationsJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902346A2C4F7AA100595967 /* ReadImportConfigurationsJSON.swift */; };
 		E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902C10E27B836CC00A75D7A /* WriteUserConfigurationJSON.swift */; };
-		E905DFCB2B00CECD00FEFF3A /* AlltasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905DFCA2B00CECD00FEFF3A /* AlltasksView.swift */; };
 		E90B19042C63B40700B3FC35 /* ArgumentsRemoteFileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B19032C63B40700B3FC35 /* ArgumentsRemoteFileList.swift */; };
 		E90B5FAD2C981BDC00C744DB /* ArgumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B5FAC2C981BDC00C744DB /* ArgumentsView.swift */; };
 		E90B5FAF2C981FA600C744DB /* OtherRsyncCommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B5FAE2C981FA600C744DB /* OtherRsyncCommandsView.swift */; };
@@ -170,7 +169,6 @@
 		E8944891267B2CB0009F9C4A /* RsyncUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIView.swift; sourceTree = "<group>"; };
 		E902346A2C4F7AA100595967 /* ReadImportConfigurationsJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadImportConfigurationsJSON.swift; sourceTree = "<group>"; };
 		E902C10E27B836CC00A75D7A /* WriteUserConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteUserConfigurationJSON.swift; sourceTree = "<group>"; };
-		E905DFCA2B00CECD00FEFF3A /* AlltasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlltasksView.swift; sourceTree = "<group>"; };
 		E90B19032C63B40700B3FC35 /* ArgumentsRemoteFileList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentsRemoteFileList.swift; sourceTree = "<group>"; };
 		E90B5FAC2C981BDC00C744DB /* ArgumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentsView.swift; sourceTree = "<group>"; };
 		E90B5FAE2C981FA600C744DB /* OtherRsyncCommandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRsyncCommandsView.swift; sourceTree = "<group>"; };
@@ -515,7 +513,6 @@
 		E985C62325F3AD8400CB895C /* Detailsview */ = {
 			isa = PBXGroup;
 			children = (
-				E905DFCA2B00CECD00FEFF3A /* AlltasksView.swift */,
 				E99B562F2AFFAD1800D4AA5A /* OneTaskDetailsView.swift */,
 				E954AD402AFE8FBB00F3EA63 /* SummarizedDetailsView.swift */,
 				E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */,
@@ -1042,7 +1039,6 @@
 				E985C77625F3AD9700CB895C /* ArgumentsSynchronize.swift in Sources */,
 				E985C76725F3AD9700CB895C /* ExecuteOneTask.swift in Sources */,
 				E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */,
-				E905DFCB2B00CECD00FEFF3A /* AlltasksView.swift in Sources */,
 				E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */,
 				E985C73F25F3AD9700CB895C /* Socket.swift in Sources */,
 				E98A7E2929C9BB64000C8607 /* Allprofilesandtasks.swift in Sources */,

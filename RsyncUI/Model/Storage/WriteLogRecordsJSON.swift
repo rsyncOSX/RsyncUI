@@ -61,6 +61,10 @@ final class WriteLogRecordsJSON: PropogateError {
             encodeJSONData(logrecords)
         }
     }
+    
+    deinit {
+        Logger.process.info("WriteLogRecordsJSON deinit")
+    }
 }
 
 // swiftlint:enable line_length

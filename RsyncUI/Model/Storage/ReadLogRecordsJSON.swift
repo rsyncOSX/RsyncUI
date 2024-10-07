@@ -45,4 +45,8 @@ final class ReadLogRecordsJSON: PropogateError {
         }
         importjsonfile(filename)
     }
+    
+    deinit {
+        Logger.process.info("ReadLogRecordsJSON: deinit")
+    }
 }

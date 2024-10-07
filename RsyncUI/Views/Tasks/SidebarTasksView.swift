@@ -11,7 +11,7 @@ import SwiftUI
 
 enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
-         summarizeddetailsview, onetaskdetailsview, alltasksview,
+         summarizeddetailsview, onetaskdetailsview,
          dryrunonetaskalreadyestimated, quick_synchronize,
          completedview, viewlogfile
     var id: String { rawValue }
@@ -90,8 +90,6 @@ struct SidebarTasksView: View {
                         })
                 }
             }
-        case .alltasksview:
-            AlltasksView()
         case .quick_synchronize:
             QuicktaskView()
         case .completedview:
