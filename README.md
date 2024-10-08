@@ -12,7 +12,7 @@ The apps might be installed by Homebrew or by direct Download. The apps are sign
 | App      | Homebrew | macOS |  Documentation |
 | ----------- | ----------- |   ----------- |  ----------- |
 | RsyncUI   | `brew install --cask rsyncui`    | macOS Sonoma and later |   [rsyncui.netlify.app](https://rsyncui.netlify.app/post/rsyncuidocs/) |
-| RsyncOSX   | `brew install --cask rsyncosx`  |  macOS Big Sur and later - *not maintained, repository is  archived and readonly*  |  [rsyncosx.netlify.app](https://rsyncosx.netlify.app/post/rsyncosxdocs/) |
+| RsyncOSX   | `brew install --cask rsyncosx`  |  macOS Big Sur and later - *not maintained, archived and readonly*  | Removed because not maintained  |
 
 
 ### Why two apps 
