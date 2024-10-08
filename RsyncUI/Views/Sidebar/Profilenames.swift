@@ -20,7 +20,7 @@ struct ProfilesnamesRecord: Hashable, Identifiable {
 @Observable @MainActor
 final class Profilenames {
     var profiles: [ProfilesnamesRecord]?
-    
+
     var allprofiles: [String] {
         Homepath().getfullpathmacserialcatalogsasstringnames()
     }

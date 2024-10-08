@@ -34,7 +34,7 @@ final class ReadUserConfigurationJSON: PropogateError {
             propogateerror(error: error)
         }
     }
-    
+
     deinit {
         Logger.process.info("ReadUserConfigurationJSON: Deinitialized")
     }

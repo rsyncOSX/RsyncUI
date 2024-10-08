@@ -15,20 +15,19 @@ final class ReadLogRecordsJSON: PropogateError {
     let path = Homepath()
     var validhiddenIDs: Set<Int>?
 
-    private func importjsonfile(_ filenamedatastore: String)
-    {
+    private func importjsonfile(_ filenamedatastore: String) {
         let decodeimport = DecodeGeneric()
         do {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filenamedatastore)
             {
-                // let temp = data.map { validhiddenIDs?.contains($0.hiddenID ?? -1) }
                 if let validhiddenIDs {
-                    self.logrecords = data.map({ element in
-                        LogRecords(element, validhiddeDs: validhiddenIDs)
-                    })
+                    logrecords = data.compactMap { element in
+                        let item = LogRecords(element)
+                        return validhiddenIDs.contains(item.hiddenID) ? item : nil
+                    }
                 }
-                
+
                 Logger.process.info("ReadLogRecordsJSON: read logrecords from permanent storage")
             }
 
@@ -39,7 +38,8 @@ final class ReadLogRecordsJSON: PropogateError {
     }
 
     init(_ profile: String?,
-         _ validhiddenIDs: Set<Int>?) {
+         _ validhiddenIDs: Set<Int>?)
+    {
         var filename = ""
         self.validhiddenIDs = validhiddenIDs
         if let profile, let path = path.fullpathmacserial {
@@ -51,7 +51,7 @@ final class ReadLogRecordsJSON: PropogateError {
         }
         importjsonfile(filename)
     }
-    
+
     deinit {
         Logger.process.info("ReadLogRecordsJSON: deinit")
     }

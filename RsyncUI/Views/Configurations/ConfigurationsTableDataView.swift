@@ -23,14 +23,14 @@ struct ConfigurationsTableDataView: View {
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID") { data in
-                    if data.backupID.isEmpty == true {
-                        Text("Synchronize ID")
+                if data.backupID.isEmpty == true {
+                    Text("Synchronize ID")
 
-                    } else {
-                        Text(data.backupID)
-                    }
+                } else {
+                    Text(data.backupID)
                 }
-                .width(min: 50, max: 200)
+            }
+            .width(min: 50, max: 200)
             TableColumn("Task", value: \.task)
                 .width(max: 80)
             TableColumn("Local catalog", value: \.localCatalog)

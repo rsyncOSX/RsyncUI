@@ -12,7 +12,7 @@ import OSLog
 @MainActor
 final class WriteUserConfigurationJSON: PropogateError {
     let path = Homepath()
-    
+
     private func writeJSONToPersistentStore(jsonData: Data?) {
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -27,7 +27,7 @@ final class WriteUserConfigurationJSON: PropogateError {
             }
         }
     }
-    
+
     private func encodeJSONData(_ userconfiguration: UserConfiguration) {
         let encodejsondata = EncodeGeneric()
         do {
@@ -40,15 +40,15 @@ final class WriteUserConfigurationJSON: PropogateError {
             propogateerror(error: error)
         }
     }
-    
+
     @discardableResult
     init(_ userconfiguration: UserConfiguration?) {
         if let userconfiguration {
             encodeJSONData(userconfiguration)
         }
     }
-    
-        deinit {
+
+    deinit {
         Logger.process.info("WriteUserConfigurationJSON: Deinitializing")
     }
 }

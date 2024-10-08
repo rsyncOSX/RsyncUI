@@ -62,7 +62,7 @@ final class WriteSynchronizeConfigurationJSON: PropogateError {
             encodeJSONData(configurations)
         }
     }
-    
+
     deinit {
         Logger.process.info("WriteSynchronizeConfigurationJSON deinit")
     }

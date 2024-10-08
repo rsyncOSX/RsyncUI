@@ -195,7 +195,6 @@ struct SnapshotsView: View {
 }
 
 extension SnapshotsView {
-    
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
         for i in 0 ..< (rsyncUIdata.configurations?.count ?? 0) {
@@ -203,7 +202,7 @@ extension SnapshotsView {
         }
         return temp
     }
-    
+
     func abort() {
         snapshotdata.setsnapshotdata(nil)
         snapshotdata.delete?.snapshotcatalogstodelete = nil
@@ -240,7 +239,7 @@ extension SnapshotsView {
             if profile == SharedReference.shared.defaultprofile || profile == nil {
                 profile = nil
             }
-            
+
             if let config = selectedconfig,
                let logrecords = ReadLogRecordsJSON(profile, validhiddenIDs).logrecords
             {

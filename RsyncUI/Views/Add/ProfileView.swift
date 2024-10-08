@@ -82,50 +82,50 @@ struct ProfileView: View {
             }
         }
     }
-/*
-    var allprofiles: [String]? {
-        Homepath().getfullpathmacserialcatalogsasstringnames()
-    }
+    /*
+        var allprofiles: [String]? {
+            Homepath().getfullpathmacserialcatalogsasstringnames()
+        }
 
-    private func readalltasks() {
-        for i in 0 ..< (allprofiles?.count ?? 0) {
-            let profilename = allprofiles?[i]
-            if profilename == "Default profile" {
-                let configurations = ReadSynchronizeConfigurationJSON(nil).configurations
-                let old = configurations?.filter({ element in
-                    var seconds: Double {
-                        if let date = element.dateRun {
-                            let lastbackup = date.en_us_date_from_string()
-                            return lastbackup.timeIntervalSinceNow * -1
-                        } else {
-                            return 0
+        private func readalltasks() {
+            for i in 0 ..< (allprofiles?.count ?? 0) {
+                let profilename = allprofiles?[i]
+                if profilename == "Default profile" {
+                    let configurations = ReadSynchronizeConfigurationJSON(nil).configurations
+                    let old = configurations?.filter({ element in
+                        var seconds: Double {
+                            if let date = element.dateRun {
+                                let lastbackup = date.en_us_date_from_string()
+                                return lastbackup.timeIntervalSinceNow * -1
+                            } else {
+                                return 0
+                            }
                         }
-                    }
-                    return markconfig(seconds) == true
-                })
-                print(old?.count ?? 0)
-            } else {
-                let configurations = ReadSynchronizeConfigurationJSON(profilename).configurations
-                let old = configurations?.filter({ element in
-                    var seconds: Double {
-                        if let date = element.dateRun {
-                            let lastbackup = date.en_us_date_from_string()
-                            return lastbackup.timeIntervalSinceNow * -1
-                        } else {
-                            return 0
+                        return markconfig(seconds) == true
+                    })
+                    print(old?.count ?? 0)
+                } else {
+                    let configurations = ReadSynchronizeConfigurationJSON(profilename).configurations
+                    let old = configurations?.filter({ element in
+                        var seconds: Double {
+                            if let date = element.dateRun {
+                                let lastbackup = date.en_us_date_from_string()
+                                return lastbackup.timeIntervalSinceNow * -1
+                            } else {
+                                return 0
+                            }
                         }
-                    }
-                    return markconfig(seconds) == true
-                })
-                print(old?.count ?? 0)
+                        return markconfig(seconds) == true
+                    })
+                    print(old?.count ?? 0)
+                }
             }
         }
-    }
-    
-    private func markconfig(_ seconds: Double) -> Bool {
-        seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
-    }
- */
+
+        private func markconfig(_ seconds: Double) -> Bool {
+            seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
+        }
+     */
 }
 
 extension ProfileView {

@@ -113,7 +113,6 @@ struct SidebarMainView: View {
         }
     }
 
-
     var profilenames: Profilenames {
         Profilenames()
     }

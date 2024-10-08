@@ -31,7 +31,7 @@ final class ReadImportConfigurationsJSON: PropogateError {
                     importconfigurations.append(element)
                 }
                 self.importconfigurations = importconfigurations
-                
+
                 Logger.process.info("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): read import configurations from permanent storage")
             }
 
