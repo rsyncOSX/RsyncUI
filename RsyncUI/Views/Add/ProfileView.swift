@@ -18,6 +18,8 @@ struct ProfileView: View {
     @State private var newprofile: String = ""
     // Update pressed
     @State var updated: Bool = false
+    // Some not updated profiles
+    @State private var notupdatedprofiles: Bool = false
 
     var body: some View {
         VStack {
@@ -37,12 +39,16 @@ struct ProfileView: View {
             }
 
             Spacer()
+            
+            if notupdatedprofiles {
+                Text("Some old profiles")
+            }
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
                       $newprofile)
         }
         .onAppear(perform: {
-            // readalltasks()
+            readalltasks()
         })
         .onSubmit {
             createprofile()
@@ -82,7 +88,7 @@ struct ProfileView: View {
             }
         }
     }
-    /*
+    
         var allprofiles: [String]? {
             Homepath().getfullpathmacserialcatalogsasstringnames()
         }
@@ -104,6 +110,7 @@ struct ProfileView: View {
                         return markconfig(seconds) == true
                     })
                     print(old?.count ?? 0)
+                    notupdatedprofiles = (old?.count ?? 0) > 0 ? false : true
                 } else {
                     let configurations = ReadSynchronizeConfigurationJSON(profilename).configurations
                     let old = configurations?.filter({ element in
@@ -117,7 +124,7 @@ struct ProfileView: View {
                         }
                         return markconfig(seconds) == true
                     })
-                    print(old?.count ?? 0)
+                    notupdatedprofiles = (old?.count ?? 0) > 0 ? false : true
                 }
             }
         }
@@ -125,7 +132,6 @@ struct ProfileView: View {
         private func markconfig(_ seconds: Double) -> Bool {
             seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
         }
-     */
 }
 
 extension ProfileView {
