@@ -18,38 +18,36 @@ struct ProfileView: View {
     @State private var newprofile: String = ""
     // Update pressed
     @State var updated: Bool = false
-    // Some not updated profiles
-    @State private var notupdatedprofiles: Bool = false
-
+    
     var body: some View {
         VStack {
-            Table(profilenames.profiles ?? [], selection: $uuidprofile) {
-                TableColumn("Profiles") { name in
-                    Text(name.profile ?? "Default profile")
+            
+            HStack {
+                Table(profilenames.profiles ?? [], selection: $uuidprofile) {
+                    TableColumn("Profiles") { name in
+                        Text(name.profile ?? "Default profile")
+                    }
                 }
-            }
-            .onChange(of: uuidprofile) {
-                let profile = profilenames.profiles?.filter { profiles in
-                    uuidprofile.contains(profiles.id)
+                .onChange(of: uuidprofile) {
+                    let profile = profilenames.profiles?.filter { profiles in
+                        uuidprofile.contains(profiles.id)
+                    }
+                    if profile?.count == 1 {
+                        localselectedprofile = profile?[0].profile
+                    }
+                    updated = false
                 }
-                if profile?.count == 1 {
-                    localselectedprofile = profile?[0].profile
-                }
-                updated = false
-            }
 
-            Spacer()
-
-            if notupdatedprofiles {
-                Text("Some old profiles")
+                if let alltasks = readalltasks() {
+                    ConfigurationsTableDataViewNoselection(profile: nil, configurations: alltasks)
+                }
             }
+            
+            
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
                       $newprofile)
         }
-        .onAppear(perform: {
-            readalltasks()
-        })
         .onSubmit {
             createprofile()
         }
@@ -93,14 +91,15 @@ struct ProfileView: View {
         Homepath().getfullpathmacserialcatalogsasstringnames()
     }
 
-    private func readalltasks() {
+    private func readalltasks() -> [SynchronizeConfiguration]? {
+        var old: [SynchronizeConfiguration]?
         for i in 0 ..< (allprofiles?.count ?? 0) {
             var profilename = allprofiles?[i]
             if profilename == "Default profile" {
                 profilename = nil
             }
             let configurations = ReadSynchronizeConfigurationJSON(profilename).configurations
-            let old = configurations?.filter { element in
+            let profileold = configurations?.filter { element in
                 var seconds: Double {
                     if let date = element.dateRun {
                         let lastbackup = date.en_us_date_from_string()
@@ -111,8 +110,16 @@ struct ProfileView: View {
                 }
                 return markconfig(seconds) == true
             }
-            notupdatedprofiles = (old?.count ?? 0) > 0 ? false : true
+            if old == nil, let profileold {
+                old = profileold
+            } else {
+                if let profileold  {
+                    old?.append(contentsOf: profileold)
+                }
+            }
+            
         }
+        return old
     }
 
     private func markconfig(_ seconds: Double) -> Bool {
