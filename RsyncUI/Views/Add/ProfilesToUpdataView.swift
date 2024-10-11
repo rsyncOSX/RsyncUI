@@ -1,5 +1,5 @@
 //
-//  ConfigurationsTableDataViewNoselection.swift
+//  ProfilesToUpdataView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/10/2024.
@@ -7,18 +7,14 @@
 
 import SwiftUI
 
-struct ConfigurationsTableDataViewNoselection: View {
+struct ProfilesToUpdataView: View {
 
     let profile: String?
     let configurations: [SynchronizeConfiguration]
 
     var body: some View {
         Table(configurations) {
-            TableColumn("Profile") { _ in
-                Text(profile ?? "Default profile")
-            }
-            .width(min: 50, max: 200)
-            TableColumn("Synchronize ID") { data in
+            TableColumn("Synchronize ID : profilename") { data in
                 if data.backupID.isEmpty == true {
                     Text("Synchronize ID")
 
@@ -26,21 +22,9 @@ struct ConfigurationsTableDataViewNoselection: View {
                     Text(data.backupID)
                 }
             }
-            .width(min: 50, max: 200)
+            .width(min: 150, max: 300)
             TableColumn("Task", value: \.task)
                 .width(max: 80)
-            TableColumn("Local catalog", value: \.localCatalog)
-                .width(min: 80, max: 300)
-            TableColumn("Remote catalog", value: \.offsiteCatalog)
-                .width(min: 80, max: 300)
-            TableColumn("Server") { data in
-                if data.offsiteServer.count > 0 {
-                    Text(data.offsiteServer)
-                } else {
-                    Text("localhost")
-                }
-            }
-            .width(min: 50, max: 90)
             TableColumn("Days") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
@@ -50,8 +34,10 @@ struct ConfigurationsTableDataViewNoselection: View {
                         return 0
                     }
                 }
+                let color: Color = markconfig(seconds) == true ? .red : .white
                 Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+                    .foregroundColor(color)
             }
             .width(max: 50)
             TableColumn("Last") { data in
@@ -60,5 +46,8 @@ struct ConfigurationsTableDataViewNoselection: View {
             .width(max: 120)
         }
     }
+    
+    private func markconfig(_ seconds: Double) -> Bool {
+        seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
+    }
 }
-

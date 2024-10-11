@@ -140,6 +140,7 @@ struct RsyncandPathsettings: View {
                 Task {
                     try await Task.sleep(seconds: 1)
                     rsyncpathsettings.setandvalidapathforrestore(rsyncpathsettings.temporarypathforrestore)
+                    settingsischanged = true
                 }
             }
     }
@@ -151,6 +152,7 @@ struct RsyncandPathsettings: View {
                 Task {
                     try await Task.sleep(seconds: 1)
                     rsyncpathsettings.markdays(days: rsyncpathsettings.marknumberofdayssince)
+                    settingsischanged = true
                 }
             }
     }

@@ -18,10 +18,10 @@ struct ProfileView: View {
     @State private var newprofile: String = ""
     // Update pressed
     @State var updated: Bool = false
-    
+
     var body: some View {
         VStack {
-            
+
             HStack {
                 Table(profilenames.profiles ?? [], selection: $uuidprofile) {
                     TableColumn("Profiles") { name in
@@ -39,11 +39,11 @@ struct ProfileView: View {
                 }
 
                 if let alltasks = readalltasks() {
-                    ConfigurationsTableDataViewNoselection(profile: nil, configurations: alltasks)
+                    ProfilesToUpdataView(profile: nil, configurations: alltasks)
+                } else {
+                    MessageView(dismissafter: 4, mytext: "All tasks are updates since \(SharedReference.shared.marknumberofdayssince)")
                 }
             }
-            
-            
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
                       $newprofile)
@@ -111,16 +111,28 @@ struct ProfileView: View {
                 return markconfig(seconds) == true
             }
             if old == nil, let profileold {
-                old = profileold
+                old = profileold.map({ element in
+                    var newelement = element
+                    newelement.backupID += profilename ?? "Default profile"
+                    return newelement
+                })
             } else {
                 if let profileold  {
+                    let profileold = profileold.map({ element in
+                        var newelement = element
+                        newelement.backupID += " : " + (profilename ?? "Default profile")
+                        return newelement
+                    })
                     old?.append(contentsOf: profileold)
+                    }
                 }
             }
-            
+        if old?.count == 0 {
+            return nil
+        } else {
+            return old
         }
-        return old
-    }
+        }
 
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)

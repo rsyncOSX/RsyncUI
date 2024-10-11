@@ -88,6 +88,8 @@ final class ObservableRsyncPathSetting: PropogateError {
                 SharedReference.shared.marknumberofdayssince = Int(days) ?? 5
             }
         } catch let e {
+            SharedReference.shared.marknumberofdayssince = 5
+            marknumberofdayssince = "5"
             let error = e
             propogateerror(error: error)
             return
@@ -113,7 +115,7 @@ enum InputError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidInt:
-            "Not a valid number (Int)"
+            "Not a valid number (Int)\n Setting default value"
         }
     }
 }
