@@ -12,6 +12,8 @@ struct RsyncandPathsettings: View {
     @State private var rsyncpathsettings = ObservableRsyncPathSetting()
     @State private var showthumbsup: Bool = false
     @State private var settingsischanged: Bool = false
+    // Startup
+    @State private var isstarting: Bool = false
 
     var body: some View {
         Form {
@@ -96,6 +98,15 @@ struct RsyncandPathsettings: View {
             }
         }
         .formStyle(.grouped)
+        .onAppear {
+            isstarting = true
+            Logger.process.info("RsyncAndPath seetingsview isstarting = TRUE")
+            Task {
+                try await Task.sleep(seconds: 3)
+                isstarting = false
+                Logger.process.info("RsyncAndPath seetingsview isstarting = FALSE")
+            }
+        }
         .onChange(of: settingsischanged) {
             guard settingsischanged == true else { return }
             Task {
@@ -137,6 +148,7 @@ struct RsyncandPathsettings: View {
                 }
             })
             .onChange(of: rsyncpathsettings.temporarypathforrestore) {
+                guard isstarting == false else { return }
                 Task {
                     try await Task.sleep(seconds: 1)
                     rsyncpathsettings.setandvalidapathforrestore(rsyncpathsettings.temporarypathforrestore)
@@ -149,6 +161,7 @@ struct RsyncandPathsettings: View {
         EditValue(400, NSLocalizedString("", comment: ""),
                   $rsyncpathsettings.marknumberofdayssince)
             .onChange(of: rsyncpathsettings.marknumberofdayssince) {
+                guard isstarting == false else { return }
                 Task {
                     try await Task.sleep(seconds: 1)
                     rsyncpathsettings.markdays(days: rsyncpathsettings.marknumberofdayssince)
