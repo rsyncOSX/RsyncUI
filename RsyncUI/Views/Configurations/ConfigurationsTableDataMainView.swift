@@ -37,10 +37,9 @@ struct ConfigurationsTableDataMainView: View {
             .width(min: 50, max: 100)
             .defaultVisibility(visible_not_progress)
             TableColumn("Synchronize ID") { data in
-                if let index = executeprogressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id })
-                {
+                if let index = executeprogressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
                     let color: Color = executeprogressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
-                    
+
                     if data.backupID.isEmpty == true {
                         Text("Synchronize ID")
                             .foregroundColor(color)

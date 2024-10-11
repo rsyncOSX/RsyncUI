@@ -13,7 +13,7 @@ final class ObservableRsyncOutput {
 
     func setoutput(_ stringoutputfromrsync: [String]?) {
         output.removeAll()
-        if let stringoutputfromrsync = stringoutputfromrsync {
+        if let stringoutputfromrsync {
             output = stringoutputfromrsync.map { filename in
                 RsyncOutputData(line: filename)
             }
