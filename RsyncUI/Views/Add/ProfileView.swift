@@ -38,11 +38,8 @@ struct ProfileView: View {
                     updated = false
                 }
 
-                if let alltasks = readalltasks() {
-                    ProfilesToUpdataView(profile: nil, configurations: alltasks)
-                } else {
-                    MessageView(dismissafter: 4, mytext: "All tasks are updates since \(SharedReference.shared.marknumberofdayssince)")
-                }
+                ProfilesToUpdataView(profile: nil, configurations: readalltasks())
+
             }
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
@@ -91,7 +88,7 @@ struct ProfileView: View {
         Homepath().getfullpathmacserialcatalogsasstringnames()
     }
 
-    private func readalltasks() -> [SynchronizeConfiguration]? {
+    private func readalltasks() -> [SynchronizeConfiguration] {
         var old: [SynchronizeConfiguration]?
         for i in 0 ..< (allprofiles?.count ?? 0) {
             var profilename = allprofiles?[i]
@@ -128,9 +125,9 @@ struct ProfileView: View {
                 }
             }
         if old?.count == 0 {
-            return nil
+            return []
         } else {
-            return old
+            return old ?? []
         }
         }
 

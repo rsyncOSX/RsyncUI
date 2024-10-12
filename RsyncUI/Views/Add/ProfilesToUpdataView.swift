@@ -45,6 +45,16 @@ struct ProfilesToUpdataView: View {
             }
             .width(max: 120)
         }
+        .overlay {
+            if configurations.count == 0 {
+                ContentUnavailableView {
+                    Label("All tasks has been synchronized in the past \(SharedReference.shared.marknumberofdayssince) days",
+                          systemImage: "doc.richtext.fill")
+                } description: {
+                    Text("This is only due to Marknumberofdayssince set in the settings.")
+                }
+            }
+        }
     }
     
     private func markconfig(_ seconds: Double) -> Bool {
