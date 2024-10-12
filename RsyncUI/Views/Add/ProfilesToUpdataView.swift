@@ -49,7 +49,7 @@ struct ProfilesToUpdataView: View {
             if configurations.count == 0 {
                 ContentUnavailableView {
                     Label("All tasks has been synchronized in the past \(SharedReference.shared.marknumberofdayssince) days",
-                          systemImage: "doc.richtext.fill")
+                          systemImage: "arrowshape.turn.up.left.fill")
                 } description: {
                     Text("This is only due to Marknumberofdayssince set in the settings.")
                 }

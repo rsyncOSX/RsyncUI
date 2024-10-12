@@ -15,18 +15,6 @@ struct SnapshotListView: View {
     @State private var confirmdelete: Bool = false
 
     var body: some View {
-        if logrecords.count == 0,
-           selectedconfig != nil,
-           selectedconfig?.task == SharedReference.shared.snapshot,
-           snapshotdata.snapshotlist == false
-        {
-            ContentUnavailableView {
-                Label("There are no snapshot records by this search string in Date or Tag.",
-                      systemImage: "doc.richtext.fill")
-            } description: {
-                Text("Change search string to filter records")
-            }
-        } else {
             Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete) {
                 TableColumn("Snap") { data in
                     if let snapshotCatalog = data.snapshotCatalog {
@@ -73,7 +61,19 @@ struct SnapshotListView: View {
             .onDeleteCommand {
                 confirmdelete = true
             }
-        }
+            .overlay {
+                if logrecords.count == 0,
+                   selectedconfig != nil,
+                   selectedconfig?.task == SharedReference.shared.snapshot,
+                   snapshotdata.snapshotlist == false {
+                    ContentUnavailableView {
+                        Label("There are no snapshot records by this search string in Date or Tag.",
+                              systemImage: "doc.richtext.fill")
+                    } description: {
+                        Text("Change search string to filter records")
+                    }
+                }
+            }
     }
 
     var logrecords: [LogRecordSnapshot] {
