@@ -33,7 +33,7 @@ Please be aware it is an external task *not controlled* by RsyncUI, which execut
 
 ### RsyncUI (Swift, SwiftUI)
 
-[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.4/total) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
+[![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.5/total) ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.4/total) [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 **RsyncUI** is released for *macOS Sonoma and later*. Latest build is [13 October 2024](https://github.com/rsyncOSX/RsyncUI/releases).
 
