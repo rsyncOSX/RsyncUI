@@ -21,7 +21,6 @@ struct ProfileView: View {
 
     var body: some View {
         VStack {
-
             HStack {
                 Table(profilenames.profiles ?? [], selection: $uuidprofile) {
                     TableColumn("Profiles") { name in
@@ -39,7 +38,6 @@ struct ProfileView: View {
                 }
 
                 ProfilesToUpdataView(profile: nil, configurations: readalltasks())
-
             }
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
@@ -108,28 +106,28 @@ struct ProfileView: View {
                 return markconfig(seconds) == true
             }
             if old == nil, let profileold {
-                old = profileold.map({ element in
+                old = profileold.map { element in
                     var newelement = element
                     newelement.backupID += profilename ?? "Default profile"
                     return newelement
-                })
+                }
             } else {
-                if let profileold  {
-                    let profileold = profileold.map({ element in
+                if let profileold {
+                    let profileold = profileold.map { element in
                         var newelement = element
                         newelement.backupID += " : " + (profilename ?? "Default profile")
                         return newelement
-                    })
-                    old?.append(contentsOf: profileold)
                     }
+                    old?.append(contentsOf: profileold)
                 }
             }
+        }
         if old?.count == 0 {
             return []
         } else {
             return old ?? []
         }
-        }
+    }
 
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)

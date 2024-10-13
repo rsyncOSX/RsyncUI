@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProfilesToUpdataView: View {
-
     let profile: String?
     let configurations: [SynchronizeConfiguration]
 
@@ -56,7 +55,7 @@ struct ProfilesToUpdataView: View {
             }
         }
     }
-    
+
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }

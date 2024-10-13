@@ -81,7 +81,7 @@ struct ConfigurationsTableDataMainView: View {
                     }
                 }
                 let color: Color = markconfig(seconds) == true ? .red : .white
-                
+
                 Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                     .foregroundColor(color)
@@ -109,7 +109,7 @@ struct ConfigurationsTableDataMainView: View {
             .hidden
         }
     }
-    
+
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
