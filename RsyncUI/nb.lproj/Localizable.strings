@@ -65,6 +65,9 @@
 "Add task" = "Legg til oppgave";
 
 /* No comment provided by engineer. */
+"All tasks has been synchronized in the past %lld days" = "Alle oppgaver er synkronisert de siste %lld dager";
+
+/* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
@@ -197,10 +200,10 @@
 "Get list of files for restore" = "Hent filenavn for opprett";
 
 /* No comment provided by engineer. */
-"Global ssh keypath and identityfile" = "Global ssh keypath og identifikasjonsfil";
+"Global ssh-keypath and identityfile" = "Global ssh-keypath og identitetsfil";
 
 /* No comment provided by engineer. */
-"Global ssh port" = "Global ssh port";
+"Global ssh-port" = "Global ssh-port";
 
 /* No comment provided by engineer. */
 "Home catalogs" = "Hjemmekataloger";
@@ -227,16 +230,13 @@
 "Last" = "Siste";
 
 /* No comment provided by engineer. */
-"List tasks all profiles" = "Liste oppgaver alle profiler";
-
-/* No comment provided by engineer. */
 "Local catalog" = "Lokal katalog";
 
 /* No comment provided by engineer. */
 "Local catalog: " = "Lokal katalog:";
 
 /* No comment provided by engineer. */
-"Local ssh keys are present" = "Lokale ssh nøkler funnet";
+"Local ssh-key is present" = "Lokal ssh-nøkkel er oppdaget";
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
@@ -356,13 +356,10 @@
 "RsyncUI a GUI for rsync" = "RsyncUI et GUI for rsync";
 
 /* No comment provided by engineer. */
-"RsyncUI help" = "RsyncUI hjelp";
+"RsyncUI documentation" = "RsyncUI dokumentasjon";
 
 /* No comment provided by engineer. */
 "Select a file for import" = "Velg fil for import";
-
-/* No comment provided by engineer. */
-"Select a task" = "Velg en oppgave";
 
 /* No comment provided by engineer. */
 "Select catalog or file" = "Velg katalog eller fil";
@@ -392,13 +389,16 @@
 "Snapshots" = "Snapshots";
 
 /* No comment provided by engineer. */
-"SSH key is created, see logfile." = "SSK nøkkel er opprettet, se logfil.";
-
-/* No comment provided by engineer. */
 "SSH keys" = "SSH nøkkel";
 
 /* No comment provided by engineer. */
-"SSH-keypath and SSH-port" = "SSH-keypath og SSH-port";
+"ssh-key is created, see logfile." = "ssh-nøkkel er opprettet, se loggfil.";
+
+/* No comment provided by engineer. */
+"ssh-keypath and ssh-port" = "ssh-keypath og ssh-port";
+
+/* No comment provided by engineer. */
+"ssh-keys" = "ssh-nøkkel";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synkronisere";
@@ -414,6 +414,9 @@
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synkroniserings ID";
+
+/* No comment provided by engineer. */
+"Synchronize ID : profilename" = "Synkroniserings ID : profilnavn";
 
 /* No comment provided by engineer. */
 "Synchronize ID: " = "Synkroniserings ID:";
@@ -447,6 +450,9 @@
 
 /* No comment provided by engineer. */
 "There is ^[%lld snapshot](inflect: true)" = "Det er ^[%lld snapshot](inflect: true)";
+
+/* No comment provided by engineer. */
+"This is only due to Marknumberofdayssince set in the settings." = "Dette er kun ift Marknumberofdayssince i settings";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Tot dir";

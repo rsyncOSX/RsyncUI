@@ -65,6 +65,9 @@
 "Add task" = "Aufgabe hinzufügen";
 
 /* No comment provided by engineer. */
+"All tasks has been synchronized in the past %lld days" = "Alle Aufgaben wurden am letzten %lld Tage synchronisiertt";
+
+/* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
@@ -197,10 +200,10 @@
 "Get list of files for restore" = "Rufen Sie eine Liste der wiederherzustellenden Dateien ab";
 
 /* No comment provided by engineer. */
-"Global ssh keypath and identityfile" = "Globale SSH-Tastatur und Identitätsdatei";
+"Global ssh-keypath and identityfile" = "Globaler SSH-Schlüsselpfad und Identitätsdatei";
 
 /* No comment provided by engineer. */
-"Global ssh port" = "Globaler SSH-Port";
+"Global ssh-port" = "Globaler SSH-Port";
 
 /* No comment provided by engineer. */
 "Home catalogs" = "Hauskataloge";
@@ -227,16 +230,13 @@
 "Last" = "Letzte";
 
 /* No comment provided by engineer. */
-"List tasks all profiles" = "Aufgaben aller Profile auflisten";
-
-/* No comment provided by engineer. */
 "Local catalog" = "Lokaler Katalog";
 
 /* No comment provided by engineer. */
 "Local catalog: " = "Lokaler Katalog:";
 
 /* No comment provided by engineer. */
-"Local ssh keys are present" = "Lokale ssh schlüssel sind vorhanden";
+"Local ssh-key is present" = "Lokaler SSH-Schlüssel ist vorhanden";
 
 /* No comment provided by engineer. */
 "localhost" = "localhost";
@@ -356,13 +356,10 @@
 "RsyncUI a GUI for rsync" = "RsyncUI eine GUI für rsync";
 
 /* No comment provided by engineer. */
-"RsyncUI help" = "RsyncUI Hilfe";
+"RsyncUI documentation" = "RsyncUI-Dokumentation";
 
 /* No comment provided by engineer. */
 "Select a file for import" = "Wählen Sie eine Datei zum Importieren aus";
-
-/* No comment provided by engineer. */
-"Select a task" = "Wählen Sie eine Aufgabe aus";
 
 /* No comment provided by engineer. */
 "Select catalog or file" = "Katalog oder Datei auswählen";
@@ -392,13 +389,16 @@
 "Snapshots" = "Snapshots";
 
 /* No comment provided by engineer. */
-"SSH key is created, see logfile." = "SSH-Schlüssel wird erstellt, siehe Logdatei.";
-
-/* No comment provided by engineer. */
 "SSH keys" = "SSH-Schlüssel";
 
 /* No comment provided by engineer. */
-"SSH-keypath and SSH-port" = "SSH-Schlüssel und SSH-Port";
+"ssh-key is created, see logfile." = "SSH-Schlüssel wird erstellt, siehe Logdatei.";
+
+/* No comment provided by engineer. */
+"ssh-keypath and ssh-port" = "ssh-keypath und ssh-port";
+
+/* No comment provided by engineer. */
+"ssh-keys" = "SSH-Schlüssel";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synchronisieren";
@@ -414,6 +414,9 @@
 
 /* No comment provided by engineer. */
 "Synchronize ID" = "Synchronisierungs-ID";
+
+/* No comment provided by engineer. */
+"Synchronize ID : profilename" = "Synchronisierungs-ID : Profilname";
 
 /* No comment provided by engineer. */
 "Synchronize ID: " = "Synchronisierungs-ID:";
@@ -447,6 +450,9 @@
 
 /* No comment provided by engineer. */
 "There is ^[%lld snapshot](inflect: true)" = "Es gibt  ^[%lld snapshot](inflect: true)";
+
+/* No comment provided by engineer. */
+"This is only due to Marknumberofdayssince set in the settings." = "Dies liegt ausschließlich an der in den Einstellungen festgelegten Markierung „AnzahlderTagesseit“.";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Verzeichnisse Gesamt";
