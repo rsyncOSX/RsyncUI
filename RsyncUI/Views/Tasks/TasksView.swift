@@ -123,6 +123,10 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
+                    guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                        Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
+                        return
+                    }
                     path.append(Tasks(task: .summarizeddetailsview))
                 } label: {
                     Image(systemName: "wand.and.stars")
@@ -134,6 +138,10 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
+                    guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                        Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
+                        return
+                    }
                     execute()
                 } label: {
                     Image(systemName: "arrowshape.turn.up.left.fill")
