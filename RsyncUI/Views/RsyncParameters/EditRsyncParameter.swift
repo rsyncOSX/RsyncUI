@@ -11,45 +11,41 @@ struct EditRsyncParameter: View {
     @State private var selectedparameter = EnumRsyncArguments.select
     var myvalue: Binding<String>
     var mywidth: CGFloat?
-
+    
     var body: some View {
         HStack {
             dropdownrsyncparameter
-
+            
             TextField("rsync parameter", text: myvalue)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(width: mywidth)
                 .lineLimit(1)
                 .onChange(of: selectedparameter) {
-                    Task {
-                        try await Task.sleep(seconds: 2)
-                        let argument = selectedparameter.rawValue
-                        let value = parameter(myvalue.wrappedValue)
-                        myvalue.wrappedValue = argument + value
-                        // selectedparameter = EnumRsyncArguments.select
-                    }
+                    guard selectedparameter.rawValue != EnumRsyncArguments.select.rawValue else { return }
+                    let argument = selectedparameter.rawValue
+                    let value = parameter(myvalue.wrappedValue)
+                    myvalue.wrappedValue = argument + value
+                    selectedparameter = EnumRsyncArguments.select
                 }
         }
     }
-
+    
     init(_ width: CGFloat, _ value: Binding<String>) {
         mywidth = width
         myvalue = value
     }
-
+    
     var dropdownrsyncparameter: some View {
         Picker("", selection: $selectedparameter) {
             ForEach(EnumRsyncArguments.allCases) { Text($0.description)
-                .tag($0)
+                    .tag($0)
             }
         }
         .pickerStyle(MenuPickerStyle())
         .frame(width: 120)
     }
-}
-
-extension EditRsyncParameter {
-    func parameter(_ value: String) -> String {
+    
+    private func parameter(_ value: String) -> String {
         if value.isEmpty {
             return "="
         } else {
@@ -62,7 +58,7 @@ extension EditRsyncParameter {
         }
         return ""
     }
-
+    
     // Split an Rsync argument into argument and value
     private func split(_ str: String) -> [String]? {
         let argument: String?
@@ -82,7 +78,6 @@ extension EditRsyncParameter {
         }
         return nil
     }
-    
 }
 
 enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvertible {
