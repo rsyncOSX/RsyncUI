@@ -16,10 +16,19 @@ struct EditRsyncParameter: View {
         HStack {
             dropdownrsyncparameter
 
-            TextField(text, text: myvalue)
+            TextField("rsync parameter", text: myvalue)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(width: mywidth)
                 .lineLimit(1)
+                .onChange(of: selectedparameter) {
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        let argument = selectedparameter.rawValue
+                        let value = parameter(myvalue.wrappedValue)
+                        myvalue.wrappedValue = argument + value
+                        // selectedparameter = EnumRsyncArguments.select
+                    }
+                }
         }
     }
 
@@ -36,26 +45,19 @@ struct EditRsyncParameter: View {
         }
         .pickerStyle(MenuPickerStyle())
         .frame(width: 120)
-        .onChange(of: selectedparameter) {
-            myvalue.wrappedValue = parameter()
-        }
-    }
-
-    var text: String {
-        "rsync parameter"
     }
 }
 
 extension EditRsyncParameter {
-    func parameter() -> String {
-        if myvalue.wrappedValue.isEmpty {
-            return selectedparameter.rawValue + "="
+    func parameter(_ value: String) -> String {
+        if value.isEmpty {
+            return "="
         } else {
-            if let splitparameter = split(myvalue.wrappedValue) {
+            if let splitparameter = split(value) {
                 guard splitparameter.count > 1 else {
-                    return selectedparameter.rawValue + "="
+                    return "="
                 }
-                return selectedparameter.rawValue + "=" + splitparameter[1]
+                return "=" + splitparameter[1]
             }
         }
         return ""
@@ -65,16 +67,13 @@ extension EditRsyncParameter {
     private func split(_ str: String) -> [String]? {
         let argument: String?
         let value: String?
-        var split = str.components(separatedBy: "=")
+        // Remove any spaces
+        let correctedstring = str.replacingOccurrences(of: " ", with: "")
+        let split = correctedstring.components(separatedBy: "=")
         guard split.count > 0 else { return nil }
         argument = String(split[0])
         if split.count > 1 {
-            if split.count > 2 {
-                split.remove(at: 0)
-                value = split.joined(separator: "=")
-            } else {
-                value = String(split[1])
-            }
+            value = String(split[1])
         } else {
             value = argument
         }
