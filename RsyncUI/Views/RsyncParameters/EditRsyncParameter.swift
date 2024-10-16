@@ -51,19 +51,22 @@ extension EditRsyncParameter {
         if myvalue.wrappedValue.isEmpty {
             return selectedparameter.rawValue + "="
         } else {
-            let splitparameter = split(myvalue.wrappedValue)
-            guard splitparameter.count > 1 else {
-                return selectedparameter.rawValue + "="
+            if let splitparameter = split(myvalue.wrappedValue) {
+                guard splitparameter.count > 1 else {
+                    return selectedparameter.rawValue + "="
+                }
+                return selectedparameter.rawValue + "=" + splitparameter[1]
             }
-            return selectedparameter.rawValue + "=" + splitparameter[1]
         }
+        return ""
     }
 
     // Split an Rsync argument into argument and value
-    private func split(_ str: String) -> [String] {
+    private func split(_ str: String) -> [String]? {
         let argument: String?
         let value: String?
         var split = str.components(separatedBy: "=")
+        guard split.count > 0 else { return nil }
         argument = String(split[0])
         if split.count > 1 {
             if split.count > 2 {
@@ -75,8 +78,12 @@ extension EditRsyncParameter {
         } else {
             value = argument
         }
-        return [argument ?? "", value ?? ""]
+        if let argument, let value {
+            return [argument, value]
+        }
+        return nil
     }
+    
 }
 
 enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvertible {
