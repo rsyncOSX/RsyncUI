@@ -38,7 +38,7 @@ struct EditRsyncParameter: View {
     var dropdownrsyncparameter: some View {
         Picker("", selection: $selectedparameter) {
             ForEach(EnumRsyncArguments.allCases) { Text($0.description)
-                    .tag($0)
+                .tag($0)
             }
         }
         .pickerStyle(MenuPickerStyle())
