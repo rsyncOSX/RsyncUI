@@ -11,11 +11,11 @@ struct EditRsyncParameter: View {
     @State private var selectedparameter = EnumRsyncArguments.select
     var myvalue: Binding<String>
     var mywidth: CGFloat?
-    
+
     var body: some View {
         HStack {
             dropdownrsyncparameter
-            
+
             TextField("rsync parameter", text: myvalue)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(width: mywidth)
@@ -29,12 +29,12 @@ struct EditRsyncParameter: View {
                 }
         }
     }
-    
+
     init(_ width: CGFloat, _ value: Binding<String>) {
         mywidth = width
         myvalue = value
     }
-    
+
     var dropdownrsyncparameter: some View {
         Picker("", selection: $selectedparameter) {
             ForEach(EnumRsyncArguments.allCases) { Text($0.description)
@@ -44,7 +44,7 @@ struct EditRsyncParameter: View {
         .pickerStyle(MenuPickerStyle())
         .frame(width: 120)
     }
-    
+
     private func parameter(_ value: String) -> String {
         if value.isEmpty {
             return "="
@@ -58,7 +58,7 @@ struct EditRsyncParameter: View {
         }
         return ""
     }
-    
+
     // Split an Rsync argument into argument and value
     private func split(_ str: String) -> [String]? {
         let argument: String?
