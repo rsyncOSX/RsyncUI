@@ -108,6 +108,9 @@ struct ProfileView: View {
             if old == nil, let profileold {
                 old = profileold.map { element in
                     var newelement = element
+                    if newelement.backupID.isEmpty {
+                        newelement.backupID = "Synchronize ID"
+                    }
                     newelement.backupID += profilename ?? "Default profile"
                     return newelement
                 }
@@ -115,6 +118,9 @@ struct ProfileView: View {
                 if let profileold {
                     let profileold = profileold.map { element in
                         var newelement = element
+                        if newelement.backupID.isEmpty {
+                            newelement.backupID = "Synchronize ID"
+                        }
                         newelement.backupID += " : " + (profilename ?? "Default profile")
                         return newelement
                     }

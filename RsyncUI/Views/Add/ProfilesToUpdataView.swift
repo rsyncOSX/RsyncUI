@@ -13,9 +13,9 @@ struct ProfilesToUpdataView: View {
     var body: some View {
         Table(configurations) {
             TableColumn("Synchronize ID : profilename") { data in
-                if data.backupID.isEmpty == true {
-                    Text("Synchronize ID")
-
+                let split = data.backupID.split(separator: " : ")
+                if split.count > 1 {
+                    Text(split[0]) + Text(" : ") + Text(split[1]).foregroundColor(.blue)
                 } else {
                     Text(data.backupID)
                 }
