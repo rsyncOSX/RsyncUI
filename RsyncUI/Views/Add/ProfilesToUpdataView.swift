@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProfilesToUpdataView: View {
-    let profile: String?
     let configurations: [SynchronizeConfiguration]
 
     var body: some View {

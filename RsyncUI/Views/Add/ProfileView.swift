@@ -37,7 +37,7 @@ struct ProfileView: View {
                     updated = false
                 }
 
-                ProfilesToUpdataView(profile: nil, configurations: readalltasks())
+                ProfilesToUpdataView(configurations: readalltasks())
             }
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
