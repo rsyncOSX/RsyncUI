@@ -7,7 +7,6 @@
 //
 // swiftlint: disable line_length
 
-import Combine
 import SwiftUI
 
 struct LogsbyConfigurationView: View {
@@ -20,7 +19,6 @@ struct LogsbyConfigurationView: View {
     @State private var showAlertfordelete = false
     // Filterstring
     @State private var filterstring: String = ""
-    @State var publisher = PassthroughSubject<String, Never>()
     @State private var debouncefilterstring: String = ""
     @State private var showindebounce: Bool = false
 
@@ -107,23 +105,17 @@ struct LogsbyConfigurationView: View {
         }
         .onChange(of: filterstring) {
             showindebounce = true
-            publisher.send(filterstring)
-        }
-        .onReceive(
-            publisher.debounce(
-                for: .seconds(1),
-                scheduler: DispatchQueue.main
-            )
-        ) { filter in
-            showindebounce = false
-            debouncefilterstring = filter
-            if debouncefilterstring.isEmpty == false {
-                Task {
-                    await updatelogsbyfilter()
-                }
-            } else {
-                Task {
-                    await updatelogsbyhiddenID()
+            Task {
+                try await Task.sleep(seconds: 1)
+                showindebounce = false
+                if debouncefilterstring.isEmpty == false {
+                    Task {
+                        await updatelogsbyfilter()
+                    }
+                } else {
+                    Task {
+                        await updatelogsbyhiddenID()
+                    }
                 }
             }
         }
