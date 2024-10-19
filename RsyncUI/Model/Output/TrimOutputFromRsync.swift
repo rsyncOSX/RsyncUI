@@ -32,7 +32,7 @@ final class TrimOutputFromRsync: PropogateError {
     }
 
     init(_ stringoutputfromrsync: [String]) {
-        trimmeddata = stringoutputfromrsync.map({ line in
+        trimmeddata = stringoutputfromrsync.map { line in
             if line.last != "/" {
                 if SharedReference.shared.checkforerrorinrsyncoutput {
                     do {
@@ -50,6 +50,6 @@ final class TrimOutputFromRsync: PropogateError {
                 }
             }
             return line
-        })
+        }
     }
 }

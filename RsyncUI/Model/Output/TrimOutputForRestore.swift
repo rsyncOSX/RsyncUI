@@ -12,7 +12,7 @@ final class TrimOutputForRestore: PropogateError {
     var trimmeddata = [String]()
 
     init(_ stringoutputfromrsync: [String]) {
-        trimmeddata = stringoutputfromrsync.map({ line in
+        trimmeddata = stringoutputfromrsync.map { line in
             let substr = line.dropFirst(10).trimmingCharacters(in: .whitespacesAndNewlines)
             let str = substr.components(separatedBy: " ").dropFirst(3).joined(separator: " ")
             if str.isEmpty == false,
@@ -25,6 +25,6 @@ final class TrimOutputForRestore: PropogateError {
                 return augmentetline
             }
             return str
-        })
+        }
     }
 }

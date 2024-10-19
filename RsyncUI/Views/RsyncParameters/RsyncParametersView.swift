@@ -212,7 +212,6 @@ struct RsyncParametersView: View {
                     guard selectedconfig != nil else { return }
                     parameters.sshkeypath(parameters.sshkeypathandidentityfile)
                 }
-                
             }
     }
 

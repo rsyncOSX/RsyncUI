@@ -39,11 +39,11 @@ final class PrepareOutput: PropogateError {
     }
 
     init(_ stringoutputfromrsync: [String]) {
-        trimmeddata = stringoutputfromrsync.map({ line in
+        trimmeddata = stringoutputfromrsync.map { line in
             if line.count < 40, splitlines == false {
                 splitlines = true
             }
             return line
-        })
+        }
     }
 }

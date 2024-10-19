@@ -6,16 +6,12 @@
 //
 // swiftlint:disable line_length
 
-import Combine
 import OSLog
 import SwiftUI
 
 struct Sshsettings: View {
     @State private var sshsettings = ObservableSSH()
     @State private var localsshkeys: Bool = SshKeys().validatepublickeypresent()
-    // Combine for debounce of sshport and keypath
-    @State var publisherport = PassthroughSubject<String, Never>()
-    @State var publisherkeypath = PassthroughSubject<String, Never>()
     // Show keys are created
     @State private var showsshkeyiscreated: Bool = false
     // Settings are changed
@@ -107,17 +103,12 @@ struct Sshsettings: View {
             })
             .onChange(of: sshsettings.sshkeypathandidentityfile) {
                 if isstarting == false {
-                    publisherkeypath.send(sshsettings.sshkeypathandidentityfile)
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile)
+                        settingsischanged = true
+                    }
                 }
-            }
-            .onReceive(
-                publisherkeypath.debounce(
-                    for: .seconds(2),
-                    scheduler: DispatchQueue.main
-                )
-            ) { _ in
-                sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile)
-                settingsischanged = true
             }
     }
 
@@ -131,17 +122,12 @@ struct Sshsettings: View {
             })
             .onChange(of: sshsettings.sshportnumber) {
                 if isstarting == false {
-                    publisherport.send(sshsettings.sshportnumber)
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        sshsettings.sshport(sshsettings.sshportnumber)
+                        settingsischanged = true
+                    }
                 }
-            }
-            .onReceive(
-                publisherport.debounce(
-                    for: .seconds(1),
-                    scheduler: DispatchQueue.main
-                )
-            ) { _ in
-                sshsettings.sshport(sshsettings.sshportnumber)
-                settingsischanged = true
             }
     }
 }
