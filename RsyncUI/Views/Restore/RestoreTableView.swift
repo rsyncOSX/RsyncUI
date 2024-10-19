@@ -6,7 +6,6 @@
 //
 // swiftlint:disable line_length
 
-import Combine
 import SwiftUI
 
 struct RestoreTableView: View {
@@ -19,9 +18,7 @@ struct RestoreTableView: View {
     @State private var snapshotcatalog: String = ""
     // Filterstring
     @State private var filterstring: String = ""
-    @State var publisher = PassthroughSubject<String, Never>()
     @State private var showindebounce: Bool = false
-
     @Binding var profile: String?
     // Update pressed
     @State var updated: Bool = false
@@ -98,19 +95,14 @@ struct RestoreTableView: View {
             .searchable(text: $filterstring)
             .onChange(of: filterstring) {
                 showindebounce = true
-                publisher.send(filterstring)
-            }
-            .onReceive(
-                publisher.debounce(
-                    for: .seconds(1),
-                    scheduler: DispatchQueue.main
-                )
-            ) { filter in
-                showindebounce = false
-                if restore.restorefilelist.count > 0, filter.isEmpty == false {
-                    filterrestorefilelist()
-                } else {
-                    getlistoffilesforrestore()
+                Task {
+                    try await Task.sleep(seconds: 1)
+                    showindebounce = false
+                    if restore.restorefilelist.count > 0, filterstring.isEmpty == false {
+                        filterrestorefilelist()
+                    } else {
+                        getlistoffilesforrestore()
+                    }
                 }
             }
             .toolbar(content: {
