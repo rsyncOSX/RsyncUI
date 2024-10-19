@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 20/11/2023.
 //
 
-import Combine
 import SwiftUI
 
 enum ParametersDestinationView: String, Identifiable {
@@ -28,10 +27,6 @@ struct RsyncParametersView: View {
     @State private var selectedrsynccommand = RsyncCommand.synchronize_data
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
-
-    // Combine for debounce of sshport and keypath
-    @State var publisherport = PassthroughSubject<String, Never>()
-    @State var publisherkeypath = PassthroughSubject<String, Never>()
     // Backup switch
     @State var backup: Bool = false
     // Update pressed
@@ -212,32 +207,23 @@ struct RsyncParametersView: View {
         EditValue(300, "ssh-keypath and identityfile",
                   $parameters.sshkeypathandidentityfile)
             .onChange(of: parameters.sshkeypathandidentityfile) {
-                publisherkeypath.send(parameters.sshkeypathandidentityfile)
-            }
-            .onReceive(
-                publisherkeypath.debounce(
-                    for: .seconds(3),
-                    scheduler: DispatchQueue.main
-                )
-            ) { _ in
-                guard selectedconfig != nil else { return }
-                parameters.sshkeypath(parameters.sshkeypathandidentityfile)
+                Task {
+                    try await Task.sleep(seconds: 1)
+                    guard selectedconfig != nil else { return }
+                    parameters.sshkeypath(parameters.sshkeypathandidentityfile)
+                }
+                
             }
     }
 
     var setsshport: some View {
         EditValue(150, "ssh-port", $parameters.sshport)
             .onChange(of: parameters.sshport) {
-                publisherport.send(parameters.sshport)
-            }
-            .onReceive(
-                publisherport.debounce(
-                    for: .seconds(1),
-                    scheduler: DispatchQueue.main
-                )
-            ) { _ in
-                guard selectedconfig != nil else { return }
-                parameters.setsshport(parameters.sshport)
+                Task {
+                    try await Task.sleep(seconds: 1)
+                    guard selectedconfig != nil else { return }
+                    parameters.setsshport(parameters.sshport)
+                }
             }
     }
 }
