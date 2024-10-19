@@ -10,7 +10,6 @@ import Foundation
 
 @MainActor
 final class PrepareOutput: PropogateError {
-    var subscriptions = Set<AnyCancellable>()
     var trimmeddata = [String]()
     var splitlines: Bool = false
 
@@ -41,20 +40,11 @@ final class PrepareOutput: PropogateError {
     }
 
     init(_ stringoutputfromrsync: [String]) {
-        stringoutputfromrsync.publisher
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    return
-                case let .failure(error):
-                    self.propogateerror(error: error)
-                }
-            }, receiveValue: { [unowned self] line in
-                if line.count < 40, splitlines == false {
-                    splitlines = true
-                }
-                trimmeddata.append(line)
-            })
-            .store(in: &subscriptions)
+        trimmeddata = stringoutputfromrsync.map({ line in
+            if line.count < 40, splitlines == false {
+                splitlines = true
+            }
+            return line
+        })
     }
 }
