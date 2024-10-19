@@ -21,7 +21,7 @@ final class ProcessRsync: PropogateError {
     // Arguments to command
     var arguments: [String]?
     // Output
-    var outputprocess: OutputfromProcess?
+    var output = [String]()
     // Use filehandler
     var usefilehandler: Bool = false
 
@@ -52,10 +52,12 @@ final class ProcessRsync: PropogateError {
                 let data = outHandle.availableData
                 if data.count > 0 {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                        outputprocess?.addlinefromoutput(str: str as String)
+                        str.enumerateLines { line, _ in
+                            self.output.append(line)
+                        }
                         // Send message about files
                         if usefilehandler {
-                            filehandler(outputprocess?.output?.count ?? 0)
+                            filehandler(output.count)
                         }
                     }
                     outHandle.waitForDataInBackgroundAndNotify()
@@ -66,7 +68,7 @@ final class ProcessRsync: PropogateError {
             for: Process.didTerminateNotification)
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink { [self] _ in
-                processtermination(outputprocess?.output, config?.hiddenID)
+                processtermination(output, config?.hiddenID)
                 // Logg to file
                 if arguments?.contains("--dry-run") == false,
                    arguments?.contains("--version") == false,
@@ -74,7 +76,7 @@ final class ProcessRsync: PropogateError {
                 {
                     if SharedReference.shared.logtofile {
                         Logfile(command: config.backupID,
-                                stringoutputfromrsync: TrimOutputFromRsync(outputprocess?.output ?? []).trimmeddata)
+                                stringoutputfromrsync: TrimOutputFromRsync(output).trimmeddata)
                     }
                 }
                 SharedReference.shared.process = nil
@@ -130,7 +132,6 @@ final class ProcessRsync: PropogateError {
         if let config {
             self.config = config
         }
-        outputprocess = OutputfromProcess()
     }
 
     convenience init(arguments: [String]?,

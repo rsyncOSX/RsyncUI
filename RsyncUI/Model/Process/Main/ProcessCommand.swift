@@ -16,7 +16,7 @@ final class ProcessCommand: PropogateError {
     // Process termination and filehandler closures
     var processtermination: ([String]?) -> Void
     // Output
-    var outputprocess: OutputfromProcess?
+    var output = [String]()
     // Command to be executed, normally rsync
     var command: String?
     // Arguments to command
@@ -45,7 +45,9 @@ final class ProcessCommand: PropogateError {
                     let data = outHandle.availableData
                     if data.count > 0 {
                         if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                            self.outputprocess?.addlinefromoutput(str: str as String)
+                            str.enumerateLines { line, _ in
+                                self.output.append(line)
+                            }
                         }
                         outHandle.waitForDataInBackgroundAndNotify()
                     }
@@ -55,7 +57,7 @@ final class ProcessCommand: PropogateError {
                 for: Process.didTerminateNotification)
                 .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
                 .sink { [self] _ in
-                    processtermination(outputprocess?.output)
+                    processtermination(output)
                     SharedReference.shared.process = nil
                     Logger.process.info("CommandProcess: process = nil and termination discovered")
                     // Release Combine subscribers
@@ -84,7 +86,6 @@ final class ProcessCommand: PropogateError {
         self.command = command
         self.arguments = arguments
         self.processtermination = processtermination
-        outputprocess = OutputfromProcess()
     }
 
     convenience init(command: String?,
