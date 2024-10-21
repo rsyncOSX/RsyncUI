@@ -6,15 +6,11 @@ If you are on macOS Sonoma and later, *use RsyncUI*.
 
 ### Install by Homebrew
 
-The apps might be installed by Homebrew or by direct Download. The apps are signed and notarized by Apple.
+RsyncUI might be installed by Homebrew or by direct Download. It is signed and notarized by Apple.
 
 | App      | Homebrew | macOS |  Documentation |
 | ----------- | ----------- |   ----------- |  ----------- |
 | RsyncUI   | `brew install --cask rsyncui`    | macOS Sonoma and later |   [rsyncui.netlify.app](https://rsyncui.netlify.app/docs/) |
-| RsyncOSX   | `brew install --cask rsyncosx`  |  macOS Big Sur and later - *not maintained, archived and readonly*  | Removed because not maintained  |
-
-
-### Why two apps
 
 The development of RsyncOSX commenced in *2015* as a project to learn Swift. In *2019*, Apple released SwiftUI.
 SwiftUI quickly became popular and I commenced another project, RsyncUI, to learn SwiftUI.
