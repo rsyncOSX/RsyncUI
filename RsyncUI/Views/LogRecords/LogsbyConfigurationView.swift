@@ -9,6 +9,7 @@
 
 import SwiftUI
 
+@MainActor
 struct LogsbyConfigurationView: View {
     @Bindable var rsyncUIlogrecords: RsyncUIlogrecords
 
@@ -19,7 +20,6 @@ struct LogsbyConfigurationView: View {
     @State private var showAlertfordelete = false
     // Filterstring
     @State private var filterstring: String = ""
-    @State private var debouncefilterstring: String = ""
     @State private var showindebounce: Bool = false
 
     @State private var logs: [Log] = []
@@ -41,7 +41,7 @@ struct LogsbyConfigurationView: View {
                                 hiddenID = -1
                             }
                             Task {
-                                if debouncefilterstring != "" {
+                                if filterstring != "" {
                                     await updatelogsbyfilter()
                                 } else {
                                     await updatelogsbyhiddenID()
@@ -63,20 +63,6 @@ struct LogsbyConfigurationView: View {
                 }
                 .onDeleteCommand {
                     showAlertfordelete = true
-                }
-                .onChange(of: selectedloguuids) {
-                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                        hiddenID = configurations[index].hiddenID
-                    } else {
-                        hiddenID = -1
-                    }
-                    Task {
-                        if debouncefilterstring != "" {
-                            await updatelogsbyfilter()
-                        } else {
-                            await updatelogsbyhiddenID()
-                        }
-                    }
                 }
                 .overlay { if logs.count == 0 {
                     ContentUnavailableView {
@@ -108,7 +94,7 @@ struct LogsbyConfigurationView: View {
             Task {
                 try await Task.sleep(seconds: 1)
                 showindebounce = false
-                if debouncefilterstring.isEmpty == false {
+                if filterstring.isEmpty == false {
                     Task {
                         await updatelogsbyfilter()
                     }
@@ -155,36 +141,38 @@ struct LogsbyConfigurationView: View {
             .controlSize(.small)
     }
 
-    @MainActor
     func updatelogsbyfilter() async {
-        guard debouncefilterstring != "" else { return }
+        guard filterstring != "" else { return }
         if let logrecords = rsyncUIlogrecords.logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
                 for i in 0 ..< logrecords.count {
-                    merged += [logrecords[i].logrecords ?? []].flatMap { $0 }
+                    if let logrecords = logrecords[i].logrecords {
+                        merged += [logrecords].flatMap { $0 }
+                    }
                 }
                 // return merged.sorted(by: \.date, using: >)
                 let records = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring)) ?? false || ($0.resultExecuted?.contains(debouncefilterstring) ?? false)
+                logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
                 }
             } else {
                 if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }) {
                     let records = (logrecords[index].logrecords ?? []).sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                    logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(debouncefilterstring)) ?? false || ($0.resultExecuted?.contains(debouncefilterstring) ?? false)
+                    logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
                     }
                 }
             }
         }
     }
 
-    @MainActor
     func updatelogsbyhiddenID() async {
         if let logrecords = rsyncUIlogrecords.logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
                 for i in 0 ..< logrecords.count {
-                    merged += [logrecords[i].logrecords ?? []].flatMap { $0 }
+                    if let logrecords = logrecords[i].logrecords {
+                        merged += [logrecords].flatMap { $0 }
+                    }
                 }
                 // return merged.sorted(by: \.date, using: >)
                 logs = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
