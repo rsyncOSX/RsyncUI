@@ -30,16 +30,14 @@ class SnapshotRemoteCatalogs {
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if let stringoutputfromrsync {
-            var catalogs = TrimOutputForRestore(stringoutputfromrsync).trimmeddata
+            let catalogs = TrimOutputForRestore(stringoutputfromrsync).trimmeddata
 
-            if let index = catalogs.firstIndex(where: { $0 == "./done" }) {
-                catalogs.remove(at: index)
-            }
-            if let index = catalogs.firstIndex(where: { $0 == "./." }) {
-                catalogs.remove(at: index)
-            }
-            catalogsanddates = catalogs.map { line in
-                Catalogsanddates(catalog: line)
+            catalogsanddates = catalogs.compactMap { line in
+                let item = Catalogsanddates(catalog: line)
+                return (line.contains("done") == false && line.contains("receiving") == false &&
+                        line.contains("sent") == false && line.contains("total") == false &&
+                        line.contains("./.") == false && line.isEmpty == false &&
+                        line.contains("speedup") == false && line.contains("bytes") == false) ? item : nil
             }.sorted { cat1, cat2 in
                 (Int(cat1.catalog.dropFirst(2)) ?? 0) > (Int(cat2.catalog.dropFirst(2)) ?? 0)
             }
