@@ -20,31 +20,6 @@ class SnapshotRemoteCatalogs {
         command.executeProcess()
     }
 
-    // Getting, from process, remote snapshotcatalogs
-    // sort snapshotcatalogs
-    func prepareremotesnapshotcatalogs(stringoutputfromrsync: [String]?) {
-        // Check for split lines and merge lines if true
-        let data = PrepareOutput(stringoutputfromrsync ?? [])
-        if data.splitlines { data.alignsplitlines() }
-        var catalogs = TrimOutputForRestore(data.trimmeddata).trimmeddata
-        // A few more cleanups after rimming dats
-        // drop index where row = "./."
-        if let index = catalogs.firstIndex(where: { $0 == "./done" }) {
-            catalogs.remove(at: index)
-        }
-        if let index = catalogs.firstIndex(where: { $0 == "./." }) {
-            catalogs.remove(at: index)
-        }
-        catalogsanddates = [Catalogsanddates]()
-        for i in 0 ..< catalogs.count {
-            let item = Catalogsanddates(catalog: catalogs[i])
-            catalogsanddates?.append(item)
-        }
-        catalogsanddates = catalogsanddates?.sorted { cat1, cat2 in
-            (Int(cat1.catalog.dropFirst(2)) ?? 0) > (Int(cat2.catalog.dropFirst(2)) ?? 0)
-        }
-    }
-
     init(config: SynchronizeConfiguration,
          snapshotdata: SnapshotData)
     {
@@ -54,7 +29,21 @@ class SnapshotRemoteCatalogs {
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        prepareremotesnapshotcatalogs(stringoutputfromrsync: stringoutputfromrsync)
+        if let stringoutputfromrsync {
+            var catalogs = TrimOutputForRestore(stringoutputfromrsync).trimmeddata
+
+            if let index = catalogs.firstIndex(where: { $0 == "./done" }) {
+                catalogs.remove(at: index)
+            }
+            if let index = catalogs.firstIndex(where: { $0 == "./." }) {
+                catalogs.remove(at: index)
+            }
+            catalogsanddates = catalogs.map { line in
+                Catalogsanddates(catalog: line)
+            }.sorted { cat1, cat2 in
+                (Int(cat1.catalog.dropFirst(2)) ?? 0) > (Int(cat2.catalog.dropFirst(2)) ?? 0)
+            }
+        }
         mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
     }
 }

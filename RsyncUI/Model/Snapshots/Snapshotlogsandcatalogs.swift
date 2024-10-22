@@ -8,9 +8,19 @@
 
 import Foundation
 
-final class Snapshotlogsandcatalogs: SnapshotRemoteCatalogs {
+@MainActor
+final class Snapshotlogsandcatalogs {
     // Number of local logrecords
     var logrecordssnapshot: [LogRecordSnapshot]?
+    var catalogsanddates: [Catalogsanddates]?
+    var mysnapshotdata: SnapshotData?
+
+    func getremotecataloginfo(_ config: SynchronizeConfiguration) {
+        let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
+        let command = ProcessRsync(arguments: arguments,
+                                   processtermination: processtermination)
+        command.executeProcess()
+    }
 
     // Calculating days since snaphot was executed
     private func calculateddayssincesynchronize() {
@@ -66,16 +76,62 @@ final class Snapshotlogsandcatalogs: SnapshotRemoteCatalogs {
          logrecords: [LogRecords],
          snapshotdata: SnapshotData)
     {
-        super.init(config: config, snapshotdata: snapshotdata)
+        guard config.task == SharedReference.shared.snapshot else { return }
+        mysnapshotdata = snapshotdata
+        getremotecataloginfo(config)
         // Getting log records, sorted after date
         logrecordssnapshot = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots
     }
 
-    override func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        prepareremotesnapshotcatalogs(stringoutputfromrsync: stringoutputfromrsync)
+    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+        if let stringoutputfromrsync {
+            var catalogs = TrimOutputForRestore(stringoutputfromrsync).trimmeddata
+
+            if let index = catalogs.firstIndex(where: { $0 == "./done" }) {
+                catalogs.remove(at: index)
+            }
+            if let index = catalogs.firstIndex(where: { $0 == "./." }) {
+                catalogs.remove(at: index)
+            }
+
+            catalogsanddates = catalogs.map { line in
+                Catalogsanddates(catalog: line)
+            }.sorted { cat1, cat2 in
+                (Int(cat1.catalog.dropFirst(2)) ?? 0) > (Int(cat2.catalog.dropFirst(2)) ?? 0)
+            }
+        }
+        mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         // Getting data is completed
         mysnapshotdata?.snapshotlist = false
     }
 }
+
+/*
+ // A split of lines are always after each other.
+ // Line length is about 48/49 characters, a split might be like
+ // drwx------             71 2019/07/02 07:53:37 300
+ // drwx------             71 2019/07/02 07:53:37 30
+ // 1
+ // drwx------             72 2019/07/05 09:35:31 302
+ //
+ func alignsplitlines() {
+     for i in 0 ..< trimmeddata.count - 1 {
+         guard i < (trimmeddata.count - 1) else { return }
+         if trimmeddata[i].count < 40, i > 0 {
+             // Must decide which two lines to merge
+             if trimmeddata[i - 1].count > trimmeddata[i + 1].count {
+                 // Merge i and i+1, remove i+1
+                 let newline = trimmeddata[i] + trimmeddata[i + 1]
+                 trimmeddata[i] = newline
+                 trimmeddata.remove(at: i + 1)
+             } else {
+                 let newline = trimmeddata[i - 1] + trimmeddata[i]
+                 trimmeddata[i - 1] = newline
+                 trimmeddata.remove(at: i)
+             }
+         }
+     }
+ }
+ */
