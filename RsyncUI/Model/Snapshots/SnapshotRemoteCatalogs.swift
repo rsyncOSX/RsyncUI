@@ -31,7 +31,7 @@ final class SnapshotRemoteCatalogs {
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if let stringoutputfromrsync {
             let catalogs = TrimOutputForRestore(stringoutputfromrsync).trimmeddata
-            catalogsanddates = catalogs.compactMap { line in
+            catalogsanddates = catalogs?.compactMap { line in
                 let item = Catalogsanddates(catalog: line)
                 return (line.contains("done") == false && line.contains("receiving") == false &&
                         line.contains("sent") == false && line.contains("total") == false &&

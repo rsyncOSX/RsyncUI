@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class TrimOutputForRestore: PropogateError {
-    var trimmeddata = [String]()
+    var trimmeddata: [String]?
 
     init(_ stringoutputfromrsync: [String]) {
         trimmeddata = stringoutputfromrsync.compactMap { line in
