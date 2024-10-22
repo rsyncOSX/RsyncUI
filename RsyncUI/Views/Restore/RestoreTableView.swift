@@ -255,9 +255,11 @@ extension RestoreTableView {
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         gettingfilelist = false
         restore.restorefilelist.removeAll()
-        let trimmeddata = TrimOutputForRestore(stringoutputfromrsync ?? []).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-        restore.restorefilelist = trimmeddata.map { filename in
-            RsyncOutputData(line: filename)
+        if let stringoutputfromrsync {
+            let trimmeddata = TrimOutputForRestore(stringoutputfromrsync).trimmeddata.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+            restore.restorefilelist = trimmeddata.map { filename in
+                RsyncOutputData(line: filename)
+            }
         }
     }
 
@@ -309,7 +311,7 @@ extension RestoreTableView {
         guard SharedReference.shared.process == nil else { return }
         if let config = restore.selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }
-            _ = SnapshotRemoteCatalogs(
+            SnapshotRemoteCatalogs(
                 config: config,
                 snapshotdata: snapshotdata
             )

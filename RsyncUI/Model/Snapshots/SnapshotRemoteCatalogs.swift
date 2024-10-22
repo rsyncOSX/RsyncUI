@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import OSLog
 
 @MainActor
-class SnapshotRemoteCatalogs {
+final class SnapshotRemoteCatalogs {
     var mysnapshotdata: SnapshotData?
     var catalogsanddates: [Catalogsanddates]?
 
@@ -20,6 +19,7 @@ class SnapshotRemoteCatalogs {
         command.executeProcess()
     }
 
+    @discardableResult
     init(config: SynchronizeConfiguration,
          snapshotdata: SnapshotData)
     {
@@ -31,7 +31,6 @@ class SnapshotRemoteCatalogs {
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if let stringoutputfromrsync {
             let catalogs = TrimOutputForRestore(stringoutputfromrsync).trimmeddata
-
             catalogsanddates = catalogs.compactMap { line in
                 let item = Catalogsanddates(catalog: line)
                 return (line.contains("done") == false && line.contains("receiving") == false &&

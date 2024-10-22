@@ -8,7 +8,7 @@
 
 import Foundation
 
-@MainActor
+@MainActor 
 final class Snapshotlogsandcatalogs {
     // Number of local logrecords
     var logrecordssnapshot: [LogRecordSnapshot]?
@@ -77,6 +77,7 @@ final class Snapshotlogsandcatalogs {
          snapshotdata: SnapshotData)
     {
         guard config.task == SharedReference.shared.snapshot else { return }
+        
         mysnapshotdata = snapshotdata
         getremotecataloginfo(config)
         // Getting log records, sorted after date
@@ -97,6 +98,8 @@ final class Snapshotlogsandcatalogs {
             }
         }
         mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
+        
+        
         calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         // Getting data is completed
