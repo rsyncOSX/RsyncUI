@@ -91,8 +91,8 @@ struct RestoreTableView: View {
             .onChange(of: filterstring) {
                 Task {
                     try await Task.sleep(seconds: 1)
-                    if restore.restorefilelist.count > 0, filterstring.isEmpty == false {
-                        filterrestorefilelist()
+                    if filterstring.isEmpty == false {
+                        restore.restorefilelist = restore.restorefilelist.filter{ $0.record.contains(filterstring) }
                     } else {
                         getlistoffilesforrestore()
                     }
@@ -246,7 +246,7 @@ extension RestoreTableView {
         if let stringoutputfromrsync {
             let trimmeddata = TrimOutputForRestore(stringoutputfromrsync).trimmeddata?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
             restore.restorefilelist = trimmeddata?.map { filename in
-                RsyncOutputData(line: filename)
+                RsyncOutputData(record: filename)
             } ?? []
         }
     }
@@ -304,12 +304,6 @@ extension RestoreTableView {
                 snapshotdata: snapshotdata
             )
         }
-    }
-
-    func filterrestorefilelist() {
-        let filterdatalist = restore.restorefilelist.filter { $0.line.contains(filterstring) }
-        restore.restorefilelist.removeAll()
-        restore.restorefilelist = filterdatalist
     }
 }
 

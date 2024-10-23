@@ -115,7 +115,7 @@ struct DetailsView: View {
 
             Table(remotedatanumbers.outputfromrsync ?? []) {
                 TableColumn("Output from rsync") { data in
-                    Text(data.line)
+                    Text(data.record)
                 }
             }
         }

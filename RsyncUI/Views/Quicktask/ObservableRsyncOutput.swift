@@ -15,7 +15,7 @@ final class ObservableRsyncOutput {
         output.removeAll()
         if let stringoutputfromrsync {
             output = stringoutputfromrsync.map { filename in
-                RsyncOutputData(line: filename)
+                RsyncOutputData(record: filename)
             }
         }
     }

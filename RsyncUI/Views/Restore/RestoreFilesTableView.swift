@@ -15,12 +15,12 @@ struct RestoreFilesTableView: View {
 
     var body: some View {
         Table(datalist, selection: $selectedid) {
-            TableColumn("Filenames", value: \.line)
+            TableColumn("Filenames", value: \.record)
         }
         .onChange(of: selectedid) {
             let record = datalist.filter { $0.id == selectedid }
             guard record.count > 0 else { return }
-            filestorestore = record[0].line
+            filestorestore = record[0].record
         }
     }
 }

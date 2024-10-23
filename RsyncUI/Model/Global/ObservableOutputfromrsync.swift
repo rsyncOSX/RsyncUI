@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RsyncOutputData: Identifiable, Equatable, Hashable {
     let id = UUID()
-    var line: String
+    var record: String
 }
 
 @Observable @MainActor
@@ -26,12 +26,12 @@ final class ObservableOutputfromrsync: PropogateError {
     func generateoutput(_ stringoutputfromrsync: [String]?) {
         if let data = stringoutputfromrsync, data.count < maxcount {
             output = data.map { line in
-                RsyncOutputData(line: line)
+                RsyncOutputData(record: line)
             }
         } else if let data = stringoutputfromrsync {
             let suboutput = Array(data[0 ..< maxcount]) + Array(data[data.count - 20 ..< data.count])
             output = suboutput.map { line in
-                RsyncOutputData(line: line)
+                RsyncOutputData(record: line)
             }
             do {
                 try outputistruncated(data.count)

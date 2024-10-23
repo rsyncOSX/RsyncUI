@@ -26,7 +26,7 @@ final class ObservableRestore: PropogateError {
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if let data = stringoutputfromrsync {
             restorefilelist = data.map { filename in
-                RsyncOutputData(line: filename)
+                RsyncOutputData(record: filename)
             }
         }
         restorefilesinprogress = false
