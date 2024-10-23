@@ -15,7 +15,7 @@ struct NavigationLogfileView: View {
 
     var body: some View {
         VStack {
-            Table(logfileview.output) {
+            Table(logfileview.output ?? []) {
                 TableColumn("Logfile") { data in
                     Text(data.line)
                 }
@@ -52,24 +52,46 @@ struct NavigationLogfileView: View {
 }
 
 @Observable @MainActor
-final class Logfileview {
-    var output = [Data]()
+final class Logfileview: PropogateError {
+    var output: [LogfileRecords]?
+    let maxcount = 10000
 
-    struct Data: Identifiable {
+    struct LogfileRecords: Identifiable {
         let id = UUID()
         var line: String
     }
 
+    func validatesizelogfile(data: [String]) throws {
+        guard data.count < maxcount else {
+            throw LogfileError.toobig
+        }
+    }
+    
+    
     func generatedata() {
-        output = [Data]()
         let data = Logfile(false).getlogfile()
-        guard data.count < 10000 else {
-            output.append(Data(line: "Logfile is to big (more than 10000 lines)"))
-            output.append(Data(line: "Please reset logfile"))
+        do {
+            try validatesizelogfile(data: data)
+            output = data.map({ record in
+                LogfileRecords(line: record)
+            })
+            
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
             return
         }
-        for i in 0 ..< data.count {
-            output.append(Data(line: data[i]))
+    }
+}
+
+
+enum LogfileError: LocalizedError {
+    case toobig
+
+    var errorDescription: String? {
+        switch self {
+        case .toobig:
+            "Logfile is to big, more than 10000 lines\n Please reset logfile"
         }
     }
 }
