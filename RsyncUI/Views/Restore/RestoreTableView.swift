@@ -18,7 +18,6 @@ struct RestoreTableView: View {
     @State private var snapshotcatalog: String = ""
     // Filterstring
     @State private var filterstring: String = ""
-    @State private var showindebounce: Bool = false
     @Binding var profile: String?
     // Update pressed
     @State var updated: Bool = false
@@ -84,20 +83,14 @@ struct RestoreTableView: View {
 
                 Spacer()
 
-                if showindebounce { indebounce }
-
-                Spacer()
-
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
             }
             .focusedSceneValue(\.aborttask, $focusaborttask)
             .searchable(text: $filterstring)
             .onChange(of: filterstring) {
-                showindebounce = true
                 Task {
                     try await Task.sleep(seconds: 1)
-                    showindebounce = false
                     if restore.restorefilelist.count > 0, filterstring.isEmpty == false {
                         filterrestorefilelist()
                     } else {
@@ -230,11 +223,6 @@ struct RestoreTableView: View {
             restore.restorefilelist.removeAll()
             restore.filestorestore = ""
         }
-    }
-
-    var indebounce: some View {
-        ProgressView()
-            .controlSize(.small)
     }
 }
 
