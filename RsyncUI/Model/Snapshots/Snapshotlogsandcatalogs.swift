@@ -44,22 +44,19 @@ final class Snapshotlogsandcatalogs {
             // Real snapshotcatalog collected from remote and
             // drop the "./" and add "(" and ")" before filter
             let realsnapshotcatalog = "(" + (mycatalogs?[i].catalog ?? "").dropFirst(2) + ")"
-            let record = mylogrecords?.filter { $0.resultExecuted.contains(realsnapshotcatalog) }
-            // Found one record
-            if record?.count ?? 0 > 0 {
-                if var record = record?[0] {
-                    let catalogelementlog = record.resultExecuted.split(separator: " ")[0]
-                    let snapshotcatalogfromschedulelog = "./" + catalogelementlog.dropFirst().dropLast()
-                    record.period = "... no tag ..."
-                    record.snapshotCatalog = snapshotcatalogfromschedulelog
-                    adjustedlogrecords.append(record)
-                }
+            if let record = mylogrecords?.filter({ $0.resultExecuted.contains(realsnapshotcatalog) }), record.count == 1 {
+                let catalogelementlog = record[0].resultExecuted.split(separator: " ")[0]
+                let snapshotcatalogfromschedulelog = "./" + catalogelementlog.dropFirst().dropLast()
+                var item = record[0]
+                item.period = "... no tag ..."
+                item.snapshotCatalog = snapshotcatalogfromschedulelog
+                adjustedlogrecords.append(item)
             } else {
-                var record = LogRecordSnapshot(date: Date(), dateExecuted: "no record", resultExecuted: "no record")
+                var item = LogRecordSnapshot(date: Date(), dateExecuted: "no record", resultExecuted: "no record")
                 let snapshotcatalogfromschedulelog = "./" + realsnapshotcatalog.dropFirst().dropLast()
-                record.period = "... no tag ..."
-                record.snapshotCatalog = snapshotcatalogfromschedulelog
-                adjustedlogrecords.append(record)
+                item.period = "... no tag ..."
+                item.snapshotCatalog = snapshotcatalogfromschedulelog
+                adjustedlogrecords.append(item)
             }
         }
         mysnapshotdata?.setsnapshotdata(adjustedlogrecords)
