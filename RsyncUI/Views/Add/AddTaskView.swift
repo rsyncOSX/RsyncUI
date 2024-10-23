@@ -494,13 +494,14 @@ struct AddTaskView: View {
     }
 
     var copyitems: [CopyItem] {
-        var items = [CopyItem]()
-        for i in 0 ..< (rsyncUIdata.configurations?.count ?? 0) {
-            let item = CopyItem(id: rsyncUIdata.configurations?[i].id ?? UUID(),
-                                task: rsyncUIdata.configurations?[i].task ?? "")
-            items.append(item)
+        if let configurations = rsyncUIdata.configurations {
+            let copyitems = configurations.map({ record in
+                CopyItem(id: record.id,
+                         task: record.task)
+            })
+            return copyitems
         }
-        return items
+        return []
     }
 }
 
