@@ -29,12 +29,8 @@ struct LogRecords: Identifiable, Codable {
         dateStart = data.dateStart ?? ""
         hiddenID = data.hiddenID ?? -1
         offsiteserver = data.offsiteserver
-        for i in 0 ..< (data.logrecords?.count ?? 0) {
-            if i == 0 { logrecords = [Log]() }
-            var log = Log()
-            log.dateExecuted = data.logrecords?[i].dateExecuted
-            log.resultExecuted = data.logrecords?[i].resultExecuted
-            logrecords?.append(log)
+        logrecords = data.logrecords?.map { record in
+            Log(dateExecuted: record.dateExecuted, resultExecuted: record.resultExecuted)
         }
     }
 
