@@ -146,7 +146,7 @@ struct RestoreTableView: View {
                         Button {
                             guard SharedReference.shared.process == nil else { return }
                             guard restore.selectedconfig != nil else { return }
-                            restore.presentsheetrsync = true
+                            restore.presentrestorelist = true
                         } label: {
                             Image(systemName: "doc.plaintext")
                         }
@@ -164,7 +164,7 @@ struct RestoreTableView: View {
                 }
             })
         }
-        .navigationDestination(isPresented: $restore.presentsheetrsync) {
+        .navigationDestination(isPresented: $restore.presentrestorelist) {
             OutputRsyncView(output: restore.restorefilelist)
                 .onAppear {
                     updated = false

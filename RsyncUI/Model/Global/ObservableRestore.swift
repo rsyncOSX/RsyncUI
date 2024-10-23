@@ -15,9 +15,7 @@ final class ObservableRestore: PropogateError {
     var restorefilesinprogress: Bool = false
     var numberoffiles: Int = 0
     var dryrun: Bool = true
-    var presentsheetrsync = false
-    // Value to check if input field is changed by user
-    var inputchangedbyuser: Bool = false
+    var presentrestorelist = false
     // Filenames in restore
     var restorefilelist: [RsyncOutputData] = []
     var filestorestore: String = ""
@@ -30,7 +28,7 @@ final class ObservableRestore: PropogateError {
             }
         }
         restorefilesinprogress = false
-        presentsheetrsync = true
+        presentrestorelist = true
     }
 
     // Validate path for restore
