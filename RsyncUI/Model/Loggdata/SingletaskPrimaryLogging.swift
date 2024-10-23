@@ -13,11 +13,13 @@ class SingletaskPrimaryLogging {
     var structconfigurations: [SynchronizeConfiguration]?
     var logrecords: [LogRecords]?
     var localeprofile: String?
-
+    
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
-        for i in 0 ..< (structconfigurations?.count ?? 0) {
-            temp.insert(structconfigurations?[i].hiddenID ?? -1)
+        if let configurations = structconfigurations {
+            _ = configurations.map { record in
+                temp.insert(record.hiddenID)
+            }
         }
         return temp
     }

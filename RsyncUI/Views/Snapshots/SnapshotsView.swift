@@ -197,8 +197,10 @@ struct SnapshotsView: View {
 extension SnapshotsView {
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
-        for i in 0 ..< (rsyncUIdata.configurations?.count ?? 0) {
-            temp.insert(rsyncUIdata.configurations?[i].hiddenID ?? -1)
+        if let configurations = rsyncUIdata.configurations {
+            _ = configurations.map { record in
+                temp.insert(record.hiddenID)
+            }
         }
         return temp
     }

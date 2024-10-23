@@ -46,12 +46,14 @@ struct ImportView: View {
                                                  configurations: rsyncUIdata.configurations)
                         if selecteduuids.isEmpty == true {
                             updateconfigurations.addimportconfigurations(configurations)
+                            // Update view
                             for i in 0 ..< configurations.count {
                                 rsyncUIdata.configurations?.append(configurations[i])
                             }
                         } else {
                             updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
                             let importconfigurations = configurations.filter { selecteduuids.contains($0.id) }
+                            // Update view
                             for i in 0 ..< importconfigurations.count {
                                 rsyncUIdata.configurations?.append(importconfigurations[i])
                             }

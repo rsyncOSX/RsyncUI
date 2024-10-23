@@ -24,8 +24,8 @@ struct SidebarLogsView: View {
 
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
-        for i in 0 ..< configurations.count {
-            temp.insert(configurations[i].hiddenID)
+        _ = configurations.map { record in
+            temp.insert(record.hiddenID)
         }
         return temp
     }
