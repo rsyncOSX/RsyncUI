@@ -244,10 +244,12 @@ extension RestoreTableView {
         gettingfilelist = false
         restore.restorefilelist.removeAll()
         if let stringoutputfromrsync {
-            let trimmeddata = TrimOutputForRestore(stringoutputfromrsync).trimmeddata?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-            restore.restorefilelist = trimmeddata?.map { filename in
-                RsyncOutputData(record: filename)
-            } ?? []
+            // let trimmeddata = TrimOutputForRestore(stringoutputfromrsync).trimmeddata?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
+            if let trimmeddata = TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
+                restore.restorefilelist = trimmeddata.map { filename in
+                    RsyncOutputData(record: filename)
+                }
+            }
         }
     }
 
