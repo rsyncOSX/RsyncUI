@@ -11,35 +11,30 @@ import Foundation
 @MainActor 
 final class Snapshotlogsandcatalogs {
     // Number of local logrecords
-    var logrecordssnapshot: [LogRecordSnapshot]?
+    // var logrecordssnapshot: [LogRecordSnapshot]?
     var catalogsanddates: [Catalogsanddates]?
     var mysnapshotdata: SnapshotData?
+    var config: SynchronizeConfiguration
+    var logrecords: [LogRecords]
 
-    func getremotecataloginfo(_ config: SynchronizeConfiguration) {
+    func getremotecataloginfo() {
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         let command = ProcessRsync(arguments: arguments,
                                    processtermination: processtermination)
         command.executeProcess()
     }
 
-    // Calculating days since snaphot was executed
-    private func calculateddayssincesynchronize() {
-        for i in 0 ..< (logrecordssnapshot?.count ?? 0) {
-            if let dateRun = logrecordssnapshot?[i].dateExecuted {
-                if let secondssince = calculatedays(datestringlocalized: dateRun) {
-                    logrecordssnapshot?[i].days = String(format: "%.2f", secondssince / (60 * 60 * 24))
-                }
-            }
-        }
-    }
-
     // Merging remote snaphotcatalogs and existing logs
     private func mergeremotecatalogsandlogs() {
         var adjustedlogrecords: [LogRecordSnapshot]?
         let mycatalogs = catalogsanddates
-        let mylogrecords = logrecordssnapshot
-        // Loop through all real catalogs, find the corresponding logrecord if any
-        // and add the adjusted record
+        let mylogrecords = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots?.map({ record in
+            var item = record
+            if let secondssince = calculatedays(datestringlocalized: item.dateExecuted) {
+                item.days = String(format: "%.2f", secondssince / (60 * 60 * 24))
+            }
+            return item
+        })
         adjustedlogrecords = mycatalogs?.map({ record in
             let realsnapshotcatalog = "(" + record.catalog.dropFirst(2) + ")"
             if let record = mylogrecords?.filter({ $0.resultExecuted.contains(realsnapshotcatalog) }), record.count == 1 {
@@ -60,7 +55,7 @@ final class Snapshotlogsandcatalogs {
         mysnapshotdata?.setsnapshotdata(adjustedlogrecords)
     }
 
-    func calculatedays(datestringlocalized: String) -> Double? {
+    private func calculatedays(datestringlocalized: String) -> Double? {
         guard datestringlocalized != "" else { return nil }
         let lastbackup = datestringlocalized.localized_date_from_string()
         let seconds: TimeInterval = lastbackup.timeIntervalSinceNow
@@ -71,12 +66,12 @@ final class Snapshotlogsandcatalogs {
          logrecords: [LogRecords],
          snapshotdata: SnapshotData)
     {
+        self.config = config
+        self.logrecords = logrecords
         guard config.task == SharedReference.shared.snapshot else { return }
         
         mysnapshotdata = snapshotdata
-        getremotecataloginfo(config)
-        // Getting log records, sorted after date
-        logrecordssnapshot = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots
+        getremotecataloginfo()
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
@@ -93,39 +88,9 @@ final class Snapshotlogsandcatalogs {
             }
         }
         mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
-        
-        
-        calculateddayssincesynchronize()
         mergeremotecatalogsandlogs()
         // Getting data is completed
         mysnapshotdata?.snapshotlist = false
     }
 }
 
-/*
- // A split of lines are always after each other.
- // Line length is about 48/49 characters, a split might be like
- // drwx------             71 2019/07/02 07:53:37 300
- // drwx------             71 2019/07/02 07:53:37 30
- // 1
- // drwx------             72 2019/07/05 09:35:31 302
- //
- func alignsplitlines() {
-     for i in 0 ..< trimmeddata.count - 1 {
-         guard i < (trimmeddata.count - 1) else { return }
-         if trimmeddata[i].count < 40, i > 0 {
-             // Must decide which two lines to merge
-             if trimmeddata[i - 1].count > trimmeddata[i + 1].count {
-                 // Merge i and i+1, remove i+1
-                 let newline = trimmeddata[i] + trimmeddata[i + 1]
-                 trimmeddata[i] = newline
-                 trimmeddata.remove(at: i + 1)
-             } else {
-                 let newline = trimmeddata[i - 1] + trimmeddata[i]
-                 trimmeddata[i - 1] = newline
-                 trimmeddata.remove(at: i)
-             }
-         }
-     }
- }
- */
