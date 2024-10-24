@@ -15,12 +15,25 @@ final class TagSnapshots {
     private var keepallselcteddayofweek: Bool = true
 
     private func markfordelete() {
-        let count = (logrecordssnapshot?.count ?? 0) - 1
-        for i in 0 ..< count {
-            let index = count - 1 - i
-            if currentweek(index: index) {
-            } else if currentdaymonth(index: index) {
-            } else { if keepallorlastdayinperiod(index: index) {} }
+        /*
+         let count = (logrecordssnapshot?.count ?? 0) - 1
+         for i in 0 ..< count {
+             let index = count - 1 - i
+             if currentweek(index: index) {
+             } else if currentdaymonth(index: index) {
+             } else { if keepallorlastdayinperiod(index: index) {} }
+         }
+         */
+        if var index = logrecordssnapshot?.count, let logrecordssnapshot {
+            index -= 1
+            _ = logrecordssnapshot.map { _ in
+                index -= 1
+                guard index >= 0 else { return }
+                if currentweek(index: index) {
+                } else if currentdaymonth(index: index) {
+                } else { if keepallorlastdayinperiod(index: index) {} }
+               
+            }
         }
     }
 

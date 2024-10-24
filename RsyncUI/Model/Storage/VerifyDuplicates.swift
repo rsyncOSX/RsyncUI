@@ -12,10 +12,10 @@ import OSLog
 final class VerifyDuplicates: PropogateError {
     var configurations: [SynchronizeConfiguration]
     private var arrayofhiddenIDs = [Int]()
-    
-    private func checkforduplicates () throws {
+
+    private func checkforduplicates() throws {
         let uniqueIDs = Set(arrayofhiddenIDs)
-        guard arrayofhiddenIDs.count == uniqueIDs.count else{
+        guard arrayofhiddenIDs.count == uniqueIDs.count else {
             throw DuplicateError.duplicate
         }
     }
@@ -34,7 +34,6 @@ final class VerifyDuplicates: PropogateError {
             propogateerror(error: error)
         }
     }
-
 }
 
 enum DuplicateError: LocalizedError {

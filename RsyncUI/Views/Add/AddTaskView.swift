@@ -524,7 +524,6 @@ extension AddTaskView {
             }
         }
     }
-        
 
     func validateandupdate() {
         rsyncUIdata.configurations = newdata.updateconfig(selectedprofile, rsyncUIdata.configurations)

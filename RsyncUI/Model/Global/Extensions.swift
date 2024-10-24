@@ -21,7 +21,7 @@ extension Sequence {
     }
 }
 
-@MainActor 
+@MainActor
 protocol Connected {
     func connected(server: String?) -> Bool
 }
