@@ -19,6 +19,7 @@ final class VerifyDuplicates: PropogateError {
         }
     }
 
+    @discardableResult
     init(_ configurations: [SynchronizeConfiguration]) {
         self.configurations = configurations
         _ = configurations.map { record in

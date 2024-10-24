@@ -513,7 +513,13 @@ extension AddTaskView {
             try await Task.sleep(seconds: 2)
             updated = false
         }
+        /*
+        if let configurations = rsyncUIdata.configurations {
+            VerifyDuplicates(configurations)
+        }
+         */
     }
+        
 
     func validateandupdate() {
         rsyncUIdata.configurations = newdata.updateconfig(selectedprofile, rsyncUIdata.configurations)
