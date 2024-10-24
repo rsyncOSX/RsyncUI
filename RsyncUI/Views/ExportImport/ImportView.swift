@@ -58,6 +58,11 @@ struct ImportView: View {
                                 rsyncUIdata.configurations?.append(importconfigurations[i])
                             }
                         }
+                        if SharedReference.shared.duplicatecheck {
+                            if let configurations = rsyncUIdata.configurations {
+                                VerifyDuplicates(configurations)
+                            }
+                        }
                         focusimport = false
                     }
                     .buttonStyle(ColorfulButtonStyle())

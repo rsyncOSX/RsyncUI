@@ -113,6 +113,11 @@ struct AddTaskView: View {
                                 rsyncUIdata.configurations =
                                     newdata.writecopyandpastetasks(rsyncUIdata.profile,
                                                                    rsyncUIdata.configurations ?? [])
+                                if SharedReference.shared.duplicatecheck {
+                                    if let configurations = rsyncUIdata.configurations {
+                                        VerifyDuplicates(configurations)
+                                    }
+                                }
                             }
                         }
                 }
@@ -513,11 +518,11 @@ extension AddTaskView {
             try await Task.sleep(seconds: 2)
             updated = false
         }
-        /*
-        if let configurations = rsyncUIdata.configurations {
-            VerifyDuplicates(configurations)
+        if SharedReference.shared.duplicatecheck {
+            if let configurations = rsyncUIdata.configurations {
+                VerifyDuplicates(configurations)
+            }
         }
-         */
     }
         
 
