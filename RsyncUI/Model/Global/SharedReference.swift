@@ -59,7 +59,7 @@ final class SharedReference {
     // rsync short version
     var rsyncversionshort: String?
     // filsize logfile warning
-    let logfilesize: Int = 100_000
+    let logfilesize: Int = 10000
     // Mac serialnumer
     @ObservationIgnored var macserialnumber: String?
     // Reference to the active process

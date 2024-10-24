@@ -21,8 +21,9 @@ extension Sequence {
     }
 }
 
+@MainActor 
 protocol Connected {
-    @MainActor func connected(server: String?) -> Bool
+    func connected(server: String?) -> Bool
 }
 
 @MainActor
@@ -42,8 +43,9 @@ extension Connected {
     }
 }
 
+@MainActor
 protocol PropogateError {
-    @MainActor func propogateerror(error: Error)
+    func propogateerror(error: Error)
 }
 
 @MainActor
