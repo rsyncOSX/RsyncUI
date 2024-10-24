@@ -138,18 +138,17 @@ final class ObservableAddConfigurations: PropogateError {
                 item.id == config.id
             }
         }
-        let existingmaxhiddenID = MaxhiddenID().computemaxhiddenID(configurations)
-        for i in 0 ..< copyitems.count {
-            var copy: SynchronizeConfiguration?
-            copy = copyitems[i]
-            copy?.backupID = "COPY: " + copyitems[i].backupID
-            copy?.dateRun = nil
-            copy?.hiddenID = existingmaxhiddenID + 1 + i
-            copy?.id = UUID()
-            if let copy {
-                copyandpasteconfigurations?.append(copy)
-            }
-        }
+        var existingmaxhiddenID = MaxhiddenID().computemaxhiddenID(configurations)
+        copyandpasteconfigurations = copyitems.map({ record in
+            var copy: SynchronizeConfiguration
+            copy = record
+            copy.backupID = "COPY: " + record.backupID
+            copy.dateRun = nil
+            copy.hiddenID = existingmaxhiddenID + 1
+            copy.id = UUID()
+            existingmaxhiddenID += 1
+            return copy
+        })
     }
 
     // After accept of Copy and Paste a write operation is performed
