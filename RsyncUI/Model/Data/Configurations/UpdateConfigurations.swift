@@ -11,15 +11,12 @@ final class UpdateConfigurations {
     var configurations: [SynchronizeConfiguration]?
     private var localeprofile: String?
 
-    // Variable computes max hiddenID used
     // MaxhiddenID is used when new configurations are added.
     var maxhiddenID: Int {
-        // Reading Configurations from memory
         if let configs = configurations {
             var setofhiddenIDs = Set<Int>()
-            // Fill set with existing hiddenIDS
-            for i in 0 ..< configs.count {
-                setofhiddenIDs.insert(configs[i].hiddenID)
+            _ = configs.map { record in
+                setofhiddenIDs.insert(record.hiddenID)
             }
             return setofhiddenIDs.max() ?? 0
         }

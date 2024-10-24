@@ -165,12 +165,10 @@ final class ObservableAddConfigurations: PropogateError {
 // Compute max hiddenID as part of copy and paste function..
 struct MaxhiddenID {
     func computemaxhiddenID(_ configurations: [SynchronizeConfiguration]?) -> Int {
-        // Reading Configurations from memory
         if let configs = configurations {
             var setofhiddenIDs = Set<Int>()
-            // Fill set with existing hiddenIDS
-            for i in 0 ..< configs.count {
-                setofhiddenIDs.insert(configs[i].hiddenID)
+            _ = configs.map { record in
+                setofhiddenIDs.insert(record.hiddenID)
             }
             return setofhiddenIDs.max() ?? 0
         }
