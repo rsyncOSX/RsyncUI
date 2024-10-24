@@ -92,7 +92,7 @@ struct RestoreTableView: View {
                 Task {
                     try await Task.sleep(seconds: 1)
                     if filterstring.isEmpty == false {
-                        restore.restorefilelist = restore.restorefilelist.filter{ $0.record.contains(filterstring) }
+                        restore.restorefilelist = restore.restorefilelist.filter { $0.record.contains(filterstring) }
                     } else {
                         getlistoffilesforrestore()
                     }

@@ -16,9 +16,9 @@ final class TrimOutputForRestore: PropogateError {
             let substr = line.dropFirst(10).trimmingCharacters(in: .whitespacesAndNewlines)
             let str = substr.components(separatedBy: " ").dropFirst(3).joined(separator: " ")
             return (str.isEmpty == false &&
-                    str.contains(".DS_Store") == false &&
-                    str.contains("bytes") == false &&
-                    str.contains("speedup") == false) ? ("./" + str) : nil
+                str.contains(".DS_Store") == false &&
+                str.contains("bytes") == false &&
+                str.contains("speedup") == false) ? ("./" + str) : nil
         }
     }
 }

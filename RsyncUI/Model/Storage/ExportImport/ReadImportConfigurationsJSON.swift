@@ -21,7 +21,7 @@ final class ReadImportConfigurationsJSON: PropogateError {
             if let importeddata = try
                 decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filenameimport)
             {
-                self.importconfigurations = importeddata.map({ importrecord in
+                importconfigurations = importeddata.map { importrecord in
                     var element = SynchronizeConfiguration(importrecord)
                     element.hiddenID = maxhiddenID + 1
                     element.dateRun = nil
@@ -29,7 +29,7 @@ final class ReadImportConfigurationsJSON: PropogateError {
                     element.id = UUID()
                     maxhiddenID += 1
                     return element
-                })
+                }
                 Logger.process.info("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): read import configurations from permanent storage")
             }
 

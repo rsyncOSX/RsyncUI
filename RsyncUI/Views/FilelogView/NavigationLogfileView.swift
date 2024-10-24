@@ -66,16 +66,15 @@ final class Logfileview: PropogateError {
             throw LogfileError.toobig
         }
     }
-    
-    
+
     func generatedata() {
         let data = Logfile(false).getlogfile()
         do {
             try validatesizelogfile(data: data)
-            output = data.map({ record in
+            output = data.map { record in
                 LogfileRecords(line: record)
-            })
-            
+            }
+
         } catch let e {
             let error = e
             propogateerror(error: error)
@@ -83,7 +82,6 @@ final class Logfileview: PropogateError {
         }
     }
 }
-
 
 enum LogfileError: LocalizedError {
     case toobig

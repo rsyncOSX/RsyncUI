@@ -8,7 +8,7 @@
 
 import Foundation
 
-@MainActor 
+@MainActor
 final class Snapshotlogsandcatalogs {
     // Number of local logrecords
     // var logrecordssnapshot: [LogRecordSnapshot]?
@@ -28,14 +28,14 @@ final class Snapshotlogsandcatalogs {
     private func mergeremotecatalogsandlogs() {
         var adjustedlogrecords: [LogRecordSnapshot]?
         let mycatalogs = catalogsanddates
-        let mylogrecords = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots?.map({ record in
+        let mylogrecords = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots?.map { record in
             var item = record
             if let secondssince = calculatedays(datestringlocalized: item.dateExecuted) {
                 item.days = String(format: "%.2f", secondssince / (60 * 60 * 24))
             }
             return item
-        })
-        adjustedlogrecords = mycatalogs?.map({ record in
+        }
+        adjustedlogrecords = mycatalogs?.map { record in
             let realsnapshotcatalog = "(" + record.catalog.dropFirst(2) + ")"
             if let record = mylogrecords?.filter({ $0.resultExecuted.contains(realsnapshotcatalog) }), record.count == 1 {
                 let catalogelementlog = record[0].resultExecuted.split(separator: " ")[0]
@@ -51,7 +51,7 @@ final class Snapshotlogsandcatalogs {
                 item.snapshotCatalog = snapshotcatalogfromschedulelog
                 return item
             }
-        })
+        }
         mysnapshotdata?.setsnapshotdata(adjustedlogrecords)
     }
 
@@ -69,7 +69,7 @@ final class Snapshotlogsandcatalogs {
         self.config = config
         self.logrecords = logrecords
         guard config.task == SharedReference.shared.snapshot else { return }
-        
+
         mysnapshotdata = snapshotdata
         getremotecataloginfo()
     }
@@ -80,9 +80,9 @@ final class Snapshotlogsandcatalogs {
             catalogsanddates = catalogs?.compactMap { line in
                 let item = Catalogsanddates(catalog: line)
                 return (line.contains("done") == false && line.contains("receiving") == false &&
-                        line.contains("sent") == false && line.contains("total") == false &&
-                        line.contains("./.") == false && line.isEmpty == false &&
-                        line.contains("speedup") == false && line.contains("bytes") == false) ? item : nil
+                    line.contains("sent") == false && line.contains("total") == false &&
+                    line.contains("./.") == false && line.isEmpty == false &&
+                    line.contains("speedup") == false && line.contains("bytes") == false) ? item : nil
             }.sorted { cat1, cat2 in
                 (Int(cat1.catalog.dropFirst(2)) ?? 0) > (Int(cat2.catalog.dropFirst(2)) ?? 0)
             }
@@ -93,4 +93,3 @@ final class Snapshotlogsandcatalogs {
         mysnapshotdata?.snapshotlist = false
     }
 }
-

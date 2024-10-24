@@ -139,7 +139,7 @@ final class ObservableAddConfigurations: PropogateError {
             }
         }
         var existingmaxhiddenID = MaxhiddenID().computemaxhiddenID(configurations)
-        copyandpasteconfigurations = copyitems.map({ record in
+        copyandpasteconfigurations = copyitems.map { record in
             var copy: SynchronizeConfiguration
             copy = record
             copy.backupID = "COPY: " + record.backupID
@@ -148,7 +148,7 @@ final class ObservableAddConfigurations: PropogateError {
             copy.id = UUID()
             existingmaxhiddenID += 1
             return copy
-        })
+        }
     }
 
     // After accept of Copy and Paste a write operation is performed

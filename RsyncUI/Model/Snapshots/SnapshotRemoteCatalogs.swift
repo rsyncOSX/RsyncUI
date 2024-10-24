@@ -34,9 +34,9 @@ final class SnapshotRemoteCatalogs {
             catalogsanddates = catalogs?.compactMap { line in
                 let item = Catalogsanddates(catalog: line)
                 return (line.contains("done") == false && line.contains("receiving") == false &&
-                        line.contains("sent") == false && line.contains("total") == false &&
-                        line.contains("./.") == false && line.isEmpty == false &&
-                        line.contains("speedup") == false && line.contains("bytes") == false) ? item : nil
+                    line.contains("sent") == false && line.contains("total") == false &&
+                    line.contains("./.") == false && line.isEmpty == false &&
+                    line.contains("speedup") == false && line.contains("bytes") == false) ? item : nil
             }.sorted { cat1, cat2 in
                 (Int(cat1.catalog.dropFirst(2)) ?? 0) > (Int(cat2.catalog.dropFirst(2)) ?? 0)
             }
