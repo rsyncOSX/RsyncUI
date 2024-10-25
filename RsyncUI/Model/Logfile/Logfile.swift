@@ -23,11 +23,12 @@ enum FilesizeError: LocalizedError {
 @MainActor
 final class Logfile {
     private var logfile: String?
-    private var preparedlogview = [String]()
     let path = Homepath()
 
     func getlogfile() -> [String] {
-        preparedlogview
+        return logfile.map({ line in
+            return logfile?.components(separatedBy: .newlines) ?? [""]
+        }) ?? [""]
     }
 
     func writeloggfile() {
@@ -136,14 +137,6 @@ final class Logfile {
         writeloggfile()
     }
 
-    private func preparelogfile() {
-        if let data = logfile?.components(separatedBy: .newlines) {
-            for i in 0 ..< data.count {
-                preparedlogview.append(data[i])
-            }
-        }
-    }
-
     init(_ reset: Bool) {
         if reset {
             // Reset loggfile
@@ -153,7 +146,6 @@ final class Logfile {
         } else {
             // Read the logfile
             readloggfile()
-            preparelogfile()
         }
     }
 
