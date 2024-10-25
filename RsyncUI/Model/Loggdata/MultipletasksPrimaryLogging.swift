@@ -9,10 +9,11 @@ import Foundation
 
 @MainActor
 final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
+    
     func setCurrentDateonConfiguration(configrecords: [Typelogdata]) -> [SynchronizeConfiguration] {
-        for i in 0 ..< configrecords.count {
-            let hiddenID = configrecords[i].0
-            let date = configrecords[i].1
+        _ = configrecords.map { logdata in
+            let hiddenID = logdata.0
+            let date = logdata.1
             if let index = structconfigurations?.firstIndex(where: { $0.hiddenID == hiddenID }) {
                 // Caution, snapshotnum already increased before logrecord
                 if structconfigurations?[index].task == SharedReference.shared.snapshot {
@@ -24,6 +25,7 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
         WriteSynchronizeConfigurationJSON(localeprofile, structconfigurations)
         return structconfigurations ?? []
     }
+    
 
     // Caution, the snapshotnum is alrady increased in
     // setCurrentDateonConfiguration(configrecords: [Typelogdata]).
