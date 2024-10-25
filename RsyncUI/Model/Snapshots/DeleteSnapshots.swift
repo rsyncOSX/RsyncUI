@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 @MainActor
 final class DeleteSnapshots {
@@ -34,6 +35,7 @@ final class DeleteSnapshots {
             return
         }
         if let remotecatalog = snapshotcatalogstodelete?[0] {
+            Logger.process.info("DeleteSnapshots: deleting snapshot catalog \(remotecatalog)")
             snapshotcatalogstodelete?.remove(at: 0)
             if (snapshotcatalogstodelete?.count ?? 0) == 0 {
                 snapshotcatalogstodelete = nil
