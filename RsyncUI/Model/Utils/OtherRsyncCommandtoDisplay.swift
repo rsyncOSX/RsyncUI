@@ -50,11 +50,8 @@ struct OtherRsyncCommandtoDisplay {
             }
         case .list_remote_files:
             if config.offsiteServer.isEmpty == false {
-                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " "
                 if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
-                    for i in 0 ..< arguments.count {
-                        str += arguments[i] + " "
-                    }
+                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined(separator: " ")
                 }
             } else {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
@@ -64,10 +61,7 @@ struct OtherRsyncCommandtoDisplay {
                 let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
                                                  sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
                 if let arguments = createsshkeys.argumentscreatekey() {
-                    str = createsshkeys.createkeycommand + " "
-                    for i in 0 ..< arguments.count {
-                        str += arguments[i] + " "
-                    }
+                    str = createsshkeys.createkeycommand + " " + arguments.joined(separator: " ")
                 }
             } else {
                 str = NSLocalizedString("No remote server on task", comment: "")
