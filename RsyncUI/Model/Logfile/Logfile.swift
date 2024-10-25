@@ -110,17 +110,21 @@ final class Logfile {
 
         var startindex = stringoutputfromrsync.count - 20
         if startindex < 0 { startindex = 0 }
+        
         tmplogg.append("\n" + date)
         tmplogg.append(command)
         tmplogg.append("Last twenty records from rsync output\n")
-        for i in startindex ..< stringoutputfromrsync.count {
-            tmplogg.append(stringoutputfromrsync[i])
+        
+        var count = 0
+        let tmploggrsync = stringoutputfromrsync.compactMap { line in
+            count += 1
+            return startindex >= count ? nil : line
         }
-        tmplogg.append("\n")
+        
         if logfile == nil {
-            logfile = tmplogg.joined(separator: "\n")
+            logfile = tmplogg.joined(separator: "\n") + tmploggrsync.joined(separator: "\n")
         } else {
-            logfile! += tmplogg.joined(separator: "\n")
+            logfile! += tmplogg.joined(separator: "\n") + tmploggrsync.joined(separator: "\n")
         }
         writeloggfile()
     }
