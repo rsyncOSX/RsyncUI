@@ -32,9 +32,9 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
     // Must set -1 to get correct num in log
     func addlogpermanentstore(schedulerecords: [Typelogdata]) {
         if SharedReference.shared.addsummarylogrecord {
-            for i in 0 ..< schedulerecords.count {
-                let hiddenID = schedulerecords[i].0
-                let stats = schedulerecords[i].1
+            _ =  schedulerecords.map { logdata in
+                let hiddenID = logdata.0
+                let stats = logdata.1
                 let currendate = Date()
                 let date = currendate.en_us_string_from_date()
                 if let config = getconfig(hiddenID: hiddenID) {
