@@ -68,17 +68,15 @@ final class ExecuteTasksNOEstimation {
         localexecutenoestimationprogressdetails = executenoestimationprogressdetails
         localupdateconfigurations = updateconfigurations
         let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
-        stackoftasktobeestimated = [Int]()
         // Estimate selected configurations
         if uuids.count > 0 {
             let configurations = filteredconfigurations.filter { uuids.contains($0.id) }
-            for i in 0 ..< configurations.count {
-                stackoftasktobeestimated?.append(configurations[i].hiddenID)
+            stackoftasktobeestimated = configurations.map {
+                $0.hiddenID
             }
         } else {
-            // Or estimate all tasks
-            for i in 0 ..< filteredconfigurations.count {
-                stackoftasktobeestimated?.append(filteredconfigurations[i].hiddenID)
+            stackoftasktobeestimated = filteredconfigurations.map {
+                $0.hiddenID
             }
         }
     }

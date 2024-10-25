@@ -30,10 +30,9 @@ final class ExecuteMultipleTasks {
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
 
     private func prepareandstartexecutetasks(configurations: [SynchronizeConfiguration]?) {
-        stackoftasktobeexecuted = [Int]()
         if let configurations {
-            for i in 0 ..< configurations.count {
-                stackoftasktobeexecuted?.append(configurations[i].hiddenID)
+            stackoftasktobeexecuted = configurations.map {
+                $0.hiddenID
             }
         }
     }
