@@ -13,16 +13,15 @@ final class DeleteSnapshots {
     var localeconfig: SynchronizeConfiguration?
     var snapshotcatalogstodelete: [String]?
     var mysnapshotdata: SnapshotData?
-    
+
     private func preparesnapshotcatalogsfordelete(logrecordssnapshot: [LogRecordSnapshot]?) {
-        
         if let uuidsfordelete = mysnapshotdata?.snapshotuuidsfordelete, let logrecordssnapshot {
-            snapshotcatalogstodelete = logrecordssnapshot.compactMap({ record in
+            snapshotcatalogstodelete = logrecordssnapshot.compactMap { record in
                 let snaproot = localeconfig?.offsiteCatalog
                 let snapcatalog = record.snapshotCatalog
                 let pathfordelete = (snaproot ?? "") + (snapcatalog ?? "").dropFirst(2)
                 return (uuidsfordelete.contains(record.id)) ? pathfordelete : nil
-            })
+            }
         }
         // Set maxnumber and remaining to delete
         mysnapshotdata?.maxnumbertodelete = snapshotcatalogstodelete?.count ?? 0

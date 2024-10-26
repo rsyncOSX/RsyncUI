@@ -9,7 +9,6 @@ import Foundation
 
 @MainActor
 final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
-    
     func setCurrentDateonConfiguration(configrecords: [Typelogdata]) -> [SynchronizeConfiguration] {
         _ = configrecords.map { logdata in
             let hiddenID = logdata.0
@@ -25,14 +24,13 @@ final class MultipletasksPrimaryLogging: SingletaskPrimaryLogging {
         WriteSynchronizeConfigurationJSON(localeprofile, structconfigurations)
         return structconfigurations ?? []
     }
-    
 
     // Caution, the snapshotnum is alrady increased in
     // setCurrentDateonConfiguration(configrecords: [Typelogdata]).
     // Must set -1 to get correct num in log
     func addlogpermanentstore(schedulerecords: [Typelogdata]) {
         if SharedReference.shared.addsummarylogrecord {
-            _ =  schedulerecords.map { logdata in
+            _ = schedulerecords.map { logdata in
                 let hiddenID = logdata.0
                 let stats = logdata.1
                 let currendate = Date()

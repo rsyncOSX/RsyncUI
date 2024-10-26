@@ -71,13 +71,9 @@ final class ExecuteTasksNOEstimation {
         // Estimate selected configurations
         if uuids.count > 0 {
             let configurations = filteredconfigurations.filter { uuids.contains($0.id) }
-            stackoftasktobeestimated = configurations.map {
-                $0.hiddenID
-            }
+            stackoftasktobeestimated = configurations.map(\.hiddenID)
         } else {
-            stackoftasktobeestimated = filteredconfigurations.map {
-                $0.hiddenID
-            }
+            stackoftasktobeestimated = filteredconfigurations.map(\.hiddenID)
         }
     }
 }

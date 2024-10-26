@@ -31,9 +31,7 @@ final class ExecuteMultipleTasks {
 
     private func prepareandstartexecutetasks(configurations: [SynchronizeConfiguration]?) {
         if let configurations {
-            stackoftasktobeexecuted = configurations.map {
-                $0.hiddenID
-            }
+            stackoftasktobeexecuted = configurations.map(\.hiddenID)
         }
     }
 

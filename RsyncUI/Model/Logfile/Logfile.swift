@@ -15,20 +15,20 @@ enum FilesizeError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .toobig:
-            "Too big logfile"
+            "Big logfile\n Please reset file"
         }
     }
 }
 
 @MainActor
-final class Logfile {
+final class Logfile: PropogateError {
     private var logfile: String?
     let path = Homepath()
 
     func getlogfile() -> [String] {
-        return logfile.map({ line in
-            return logfile?.components(separatedBy: .newlines) ?? [""]
-        }) ?? [""]
+        logfile.map { _ in
+            logfile?.components(separatedBy: .newlines) ?? [""]
+        } ?? [""]
     }
 
     func writeloggfile() {
@@ -51,12 +51,12 @@ final class Logfile {
                                 }
                                 return
                             case let .failure(error):
-                                self?.path.propogateerror(error: error)
+                                self?.propogateerror(error: error)
                             }
                         }
                     } catch let e {
                         let error = e
-                        path.propogateerror(error: error)
+                        propogateerror(error: error)
                     }
                 }
             }
@@ -79,7 +79,7 @@ final class Logfile {
                 }
             } catch let e {
                 let error = e
-                path.propogateerror(error: error)
+                propogateerror(error: error)
             }
         }
     }
@@ -98,7 +98,7 @@ final class Logfile {
                 logfile = String(data: data, encoding: .utf8)
             } catch let e {
                 let error = e
-                path.propogateerror(error: error)
+                propogateerror(error: error)
             }
         }
     }
@@ -110,17 +110,17 @@ final class Logfile {
 
         var startindex = stringoutputfromrsync.count - 20
         if startindex < 0 { startindex = 0 }
-        
+
         tmplogg.append("\n" + date)
         tmplogg.append(command)
         tmplogg.append("Last twenty records from rsync output\n")
-        
+
         var count = 0
         let tmploggrsync = stringoutputfromrsync.compactMap { line in
             count += 1
             return startindex >= count ? nil : line
         }
-        
+
         if logfile == nil {
             logfile = tmplogg.joined(separator: "\n") + tmploggrsync.joined(separator: "\n")
         } else {

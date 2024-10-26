@@ -9,7 +9,7 @@ import Foundation
 
 final class RecordsSnapshot {
     var loggrecordssnapshots: [LogRecordSnapshot]?
-    
+
     private func readandsortallloggdata(_ config: SynchronizeConfiguration,
                                         _ logrecords: [LogRecords])
     {
