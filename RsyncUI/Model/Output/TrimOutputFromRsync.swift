@@ -20,7 +20,7 @@ enum Rsyncerror: LocalizedError {
 
 @MainActor
 final class TrimOutputFromRsync: PropogateError {
-    var trimmeddata = [String]()
+    var trimmeddata: [String]?
     var errordiscovered: Bool = false
 
     // Error handling
@@ -32,24 +32,20 @@ final class TrimOutputFromRsync: PropogateError {
     }
 
     init(_ stringoutputfromrsync: [String]) {
-        trimmeddata = stringoutputfromrsync.map { line in
-            if line.last != "/" {
-                if SharedReference.shared.checkforerrorinrsyncoutput {
-                    do {
-                        try checkforrsyncerror(line)
-                    } catch let e {
-                        // Only want one notification about error, not multiple
-                        // Multiple can be a kind of race situation
-                        if errordiscovered == false {
-                            let error = e
-                            _ = Logfile(stringoutputfromrsync, error: true)
-                            propogateerror(error: error)
-                            errordiscovered = true
-                        }
-                    }
+        trimmeddata = stringoutputfromrsync.compactMap { line in
+            do {
+                try checkforrsyncerror(line)
+            } catch let e {
+                // Only want one notification about error, not multiple
+                // Multiple can be a kind of race situation
+                if errordiscovered == false {
+                    let error = e
+                    _ = Logfile(stringoutputfromrsync, error: true)
+                    propogateerror(error: error)
+                    errordiscovered = true
                 }
             }
-            return line
+            return (line.last != "/") ? line : nil
         }
     }
 }

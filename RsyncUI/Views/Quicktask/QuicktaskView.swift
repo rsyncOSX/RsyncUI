@@ -57,7 +57,7 @@ struct QuicktaskView: View {
                     VStack(alignment: .trailing) {
                         Toggle("--dry-run", isOn: $dryrun)
                             .toggleStyle(.switch)
-                        
+
                         Toggle("Catalog or file", isOn: $catalogorfile)
                             .toggleStyle(.switch)
                             .onChange(of: catalogorfile) {
@@ -67,10 +67,9 @@ struct QuicktaskView: View {
                                     donotaddtrailingslash = true
                                 }
                             }
-                        
+
                         Toggle("Don´t add /", isOn: $donotaddtrailingslash)
                             .toggleStyle(.switch)
-                        
                     }
                     .padding()
                 }
