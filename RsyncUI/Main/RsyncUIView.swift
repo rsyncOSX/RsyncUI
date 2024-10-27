@@ -89,15 +89,3 @@ extension Task where Success == Never, Failure == Never {
     }
 }
 
-/*
- extension EnvironmentValues {
-     var ConfigurationsData: Readconfigurationsfromstore {
-         get { self[ConfigurationsDataKey.self] }
-         set { self[ConfigurationsDataKey.self] = newValue }
-     }
- }
-
- private struct ConfigurationsDataKey: EnvironmentKey {
-     static var defaultValue: Readconfigurationsfromstore = .init(profile: nil)
- }
- */
