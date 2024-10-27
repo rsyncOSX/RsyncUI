@@ -23,6 +23,7 @@ struct QuicktaskView: View {
     @State private var remoteserver: String = ""
     @State private var donotaddtrailingslash: Bool = false
     @State private var dryrun: Bool = true
+    @State private var catalogorfile: Bool = true
 
     // Executed labels
     @State private var showprogressview = false
@@ -34,8 +35,6 @@ struct QuicktaskView: View {
     @State private var completed: Bool = false
     // Update pressed
     @State var updated: Bool = false
-
-    var choosecatalog = true
 
     enum QuicktaskField: Hashable {
         case localcatalogField
@@ -58,9 +57,20 @@ struct QuicktaskView: View {
                     VStack(alignment: .trailing) {
                         Toggle("--dry-run", isOn: $dryrun)
                             .toggleStyle(.switch)
-
+                        
+                        Toggle("Catalog or file", isOn: $catalogorfile)
+                            .toggleStyle(.switch)
+                            .onChange(of: catalogorfile) {
+                                if catalogorfile {
+                                    donotaddtrailingslash = false
+                                } else {
+                                    donotaddtrailingslash = true
+                                }
+                            }
+                        
                         Toggle("Don´t add /", isOn: $donotaddtrailingslash)
                             .toggleStyle(.switch)
+                        
                     }
                     .padding()
                 }
@@ -177,7 +187,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(catalog: $localcatalog, choosecatalog: choosecatalog)
+                OpencatalogView(catalog: $localcatalog, choosecatalog: catalogorfile)
             }
 
             // remotecatalog
@@ -187,7 +197,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(catalog: $remotecatalog, choosecatalog: choosecatalog)
+                OpencatalogView(catalog: $remotecatalog, choosecatalog: catalogorfile)
             }
         }
     }
@@ -201,7 +211,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(catalog: $localcatalog, choosecatalog: choosecatalog)
+                OpencatalogView(catalog: $localcatalog, choosecatalog: catalogorfile)
             }
 
             // remotecatalog
@@ -211,7 +221,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(catalog: $remotecatalog, choosecatalog: choosecatalog)
+                OpencatalogView(catalog: $remotecatalog, choosecatalog: catalogorfile)
             }
         }
     }
