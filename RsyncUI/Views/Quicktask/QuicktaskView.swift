@@ -58,7 +58,7 @@ struct QuicktaskView: View {
                         Toggle("--dry-run", isOn: $dryrun)
                             .toggleStyle(.switch)
 
-                        Toggle("Catalog or file", isOn: $catalogorfile)
+                        Toggle("File or Catalog", isOn: $catalogorfile)
                             .toggleStyle(.switch)
                             .onChange(of: catalogorfile) {
                                 if catalogorfile {
