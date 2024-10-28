@@ -106,6 +106,10 @@ struct QuicktaskView: View {
         }
         .onAppear {
             focusField = .localcatalogField
+            if let configfile = ReadSynchronizeQuicktaskJSON().configuration {
+                
+                print(configfile)
+            }
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
