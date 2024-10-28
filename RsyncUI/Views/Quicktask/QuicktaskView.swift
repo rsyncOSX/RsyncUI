@@ -265,6 +265,7 @@ extension QuicktaskView {
                                  "")
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
+            WriteSynchronizeQuicktaskJSON(newconfig)
             execute(config: newconfig, dryrun: dryrun)
         }
     }
