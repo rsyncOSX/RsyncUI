@@ -51,7 +51,28 @@ struct CatalogForProfile: PropogateError {
             }
             do {
                 try fm.removeItem(at: profileURL)
-                Logger.process.info("CatalogProfile: remove profile catalog")
+                Logger.process.info("CatalogProfile: deleted profile catalog")
+            } catch let e {
+                let error = e as NSError
+                self.path.propogateerror(error: error)
+            }
+        }
+    }
+
+    // Function for delete file, used in QuickTask
+    func deletefile() {
+        let fm = FileManager.default
+        if let fullpathmacserial = path.fullpathmacserial {
+            let fullpathString = fullpathmacserial + "/" + "quicktask.json"
+            let fullpathStringlURL = URL(fileURLWithPath: fullpathString)
+
+            guard fm.locationExists(at: fullpathString, kind: .file) == true else {
+                Logger.process.info("CatalogProfile: quicktask.json file does not exist")
+                return
+            }
+            do {
+                try fm.removeItem(at: fullpathStringlURL)
+                Logger.process.info("CatalogProfile: deleted quicktask.json file")
             } catch let e {
                 let error = e as NSError
                 self.path.propogateerror(error: error)

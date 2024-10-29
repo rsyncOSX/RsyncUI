@@ -37,7 +37,7 @@ final class ReadSynchronizeQuicktaskJSON: PropogateError {
             let filename = path + "/" + "quicktask.json"
             importjsonfile(filename)
         }
-        
+
     }
 
     deinit {

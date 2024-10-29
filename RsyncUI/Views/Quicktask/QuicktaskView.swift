@@ -107,7 +107,7 @@ struct QuicktaskView: View {
         .onAppear {
             focusField = .localcatalogField
             if let configfile = ReadSynchronizeQuicktaskJSON().configuration {
-                
+
                 localcatalog = configfile.localCatalog
                 remotecatalog = configfile.offsiteCatalog
                 remoteuser = configfile.offsiteUsername
@@ -134,6 +134,21 @@ struct QuicktaskView: View {
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    resetform()
+                    CatalogForProfile().deletefile()
+                } label: {
+                    if localcatalog.isEmpty == false {
+                        Image(systemName: "clear")
+                            .foregroundColor(Color(.red))
+                    } else {
+                        Image(systemName: "clear")
+                    }
+                }
+                .help("Reset estimates")
+            }
+
             ToolbarItem {
                 Button {
                     getconfigandexecute()
@@ -291,7 +306,7 @@ extension QuicktaskView {
         }
         WriteSynchronizeQuicktaskJSON(newconfig)
     }
-    
+
     func getconfigandexecute() {
         updated = true
         let getdata = AppendTask(selectedrsynccommand.rawValue,

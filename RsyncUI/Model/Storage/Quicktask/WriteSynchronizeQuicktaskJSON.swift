@@ -12,7 +12,7 @@ import OSLog
 
 @MainActor
 final class WriteSynchronizeQuicktaskJSON: PropogateError {
-    
+
     private func writeJSONToPersistentStore(jsonData: Data?) {
         let path = Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
