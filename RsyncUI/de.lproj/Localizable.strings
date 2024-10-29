@@ -1,4 +1,7 @@
 /* No comment provided by engineer. */
+" : " = ":";
+
+/* No comment provided by engineer. */
 "--dry-run" = "--dry-run";
 
 /* No comment provided by engineer. */
@@ -101,6 +104,9 @@
 "Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
 
 /* No comment provided by engineer. */
+"Clear saved quicktask" = "Gespeicherte Quicktask löschen";
+
+/* No comment provided by engineer. */
 "Confirm execute" = "Bestätigen Sie die Ausführung";
 
 /* No comment provided by engineer. */
@@ -183,6 +189,9 @@
 
 /* No comment provided by engineer. */
 "Export tasks" = "Exportaufgaben";
+
+/* No comment provided by engineer. */
+"File or Catalog" = "Datei oder Katalog";
 
 /* No comment provided by engineer. */
 "Filename export" = "Filnavn-Exsport";
@@ -345,6 +354,9 @@
 
 /* No comment provided by engineer. */
 "Rsync output estimated task" = "Geschätzte Rsync-Ausgabeaufgabe";
+
+/* No comment provided by engineer. */
+"rsync parameter" = "rsync parameter";
 
 /* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";

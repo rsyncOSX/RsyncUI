@@ -101,6 +101,9 @@
 "Check for error in output" = "Sjekk for feil i utdata";
 
 /* No comment provided by engineer. */
+"Clear saved quicktask" = "Reset lagret quicktask";
+
+/* No comment provided by engineer. */
 "Confirm execute" = "Bekreft synkroniser";
 
 /* No comment provided by engineer. */
@@ -183,6 +186,9 @@
 
 /* No comment provided by engineer. */
 "Export tasks" = "Eksporter oppgaver";
+
+/* No comment provided by engineer. */
+"File or Catalog" = "Fil eller katalog";
 
 /* No comment provided by engineer. */
 "Filename export" = "Filnavn eksport";
@@ -345,6 +351,9 @@
 
 /* No comment provided by engineer. */
 "Rsync output estimated task" = "Rsync logg estimert oppgave";
+
+/* No comment provided by engineer. */
+"rsync parameter" = "rsync parameter";
 
 /* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
