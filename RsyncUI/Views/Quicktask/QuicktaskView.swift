@@ -107,7 +107,6 @@ struct QuicktaskView: View {
         .onAppear {
             focusField = .localcatalogField
             if let configfile = ReadSynchronizeQuicktaskJSON().configuration {
-
                 localcatalog = configfile.localCatalog
                 remotecatalog = configfile.offsiteCatalog
                 remoteuser = configfile.offsiteUsername
@@ -136,7 +135,7 @@ struct QuicktaskView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    resetform()
+                    resetform(true)
                     CatalogForProfile().deletefile()
                 } label: {
                     if localcatalog.isEmpty == false {
@@ -206,7 +205,7 @@ struct QuicktaskView: View {
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
         .onChange(of: selectedrsynccommand) {
-            resetform()
+            resetform(false)
         }
     }
 
@@ -286,8 +285,10 @@ struct QuicktaskView: View {
 }
 
 extension QuicktaskView {
-    func resetform() {
-        selectedrsynccommand = .synchronize
+    func resetform(_ resetcommand: Bool) {
+        if resetcommand {
+            selectedrsynccommand = .synchronize
+        }
         donotaddtrailingslash = false
         dryrun = true
         catalogorfile = true
