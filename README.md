@@ -33,6 +33,7 @@ It might take a few seconds. If not, the apps might become unresponsive.
 ### RsyncUI (Swift, SwiftUI)
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
+![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.6/total)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.5/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
