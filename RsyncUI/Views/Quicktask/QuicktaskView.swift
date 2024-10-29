@@ -58,7 +58,7 @@ struct QuicktaskView: View {
                         Toggle("--dry-run", isOn: $dryrun)
                             .toggleStyle(.switch)
 
-                        Toggle("File or Catalog", isOn: $catalogorfile)
+                        Toggle("File(off) or Catalog(on)", isOn: $catalogorfile)
                             .toggleStyle(.switch)
                             .onChange(of: catalogorfile) {
                                 if catalogorfile {
@@ -287,6 +287,10 @@ struct QuicktaskView: View {
 
 extension QuicktaskView {
     func resetform() {
+        selectedrsynccommand = .synchronize
+        donotaddtrailingslash = false
+        dryrun = true
+        catalogorfile = true
         localcatalog = ""
         remotecatalog = ""
         remoteuser = ""

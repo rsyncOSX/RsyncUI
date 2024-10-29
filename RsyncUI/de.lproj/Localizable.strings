@@ -191,7 +191,7 @@
 "Export tasks" = "Exportaufgaben";
 
 /* No comment provided by engineer. */
-"File or Catalog" = "Datei oder Katalog";
+"File(off) or Catalog(on)" = "Datei(aus) oder Katalog(an)";
 
 /* No comment provided by engineer. */
 "Filename export" = "Filnavn-Exsport";
