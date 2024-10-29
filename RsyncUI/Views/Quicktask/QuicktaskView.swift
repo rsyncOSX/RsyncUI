@@ -146,7 +146,7 @@ struct QuicktaskView: View {
                         Image(systemName: "clear")
                     }
                 }
-                .help("Reset estimates")
+                .help("Clear saved quicktask")
             }
 
             ToolbarItem {
