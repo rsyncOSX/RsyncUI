@@ -108,7 +108,27 @@ struct QuicktaskView: View {
             focusField = .localcatalogField
             if let configfile = ReadSynchronizeQuicktaskJSON().configuration {
                 
-                print(configfile)
+                localcatalog = configfile.localCatalog
+                remotecatalog = configfile.offsiteCatalog
+                remoteuser = configfile.offsiteUsername
+                remoteserver = configfile.offsiteServer
+                if configfile.backupID == "1" {
+                    selectedrsynccommand = .synchronize
+                    donotaddtrailingslash = true
+                    catalogorfile = false
+                } else if configfile.backupID == "2" {
+                    selectedrsynccommand = .syncremote
+                    donotaddtrailingslash = true
+                    catalogorfile = false
+                } else if configfile.backupID == "3" {
+                    selectedrsynccommand = .synchronize
+                    donotaddtrailingslash = false
+                    catalogorfile = true
+                } else if configfile.backupID == "4" {
+                    selectedrsynccommand = .syncremote
+                    donotaddtrailingslash = false
+                    catalogorfile = true
+                }
             }
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
@@ -258,6 +278,20 @@ extension QuicktaskView {
         remoteserver = ""
     }
 
+    func updatesavedtask(_ config: SynchronizeConfiguration) {
+        var newconfig = config
+        if selectedrsynccommand == .synchronize, donotaddtrailingslash == true {
+            newconfig.backupID = "1"
+        } else if selectedrsynccommand == .syncremote, donotaddtrailingslash == true {
+            newconfig.backupID = "2"
+        } else if selectedrsynccommand == .synchronize, donotaddtrailingslash == false {
+            newconfig.backupID = "3"
+        } else if selectedrsynccommand == .syncremote, donotaddtrailingslash == false {
+            newconfig.backupID = "4"
+        }
+        WriteSynchronizeQuicktaskJSON(newconfig)
+    }
+    
     func getconfigandexecute() {
         updated = true
         let getdata = AppendTask(selectedrsynccommand.rawValue,
@@ -269,8 +303,8 @@ extension QuicktaskView {
                                  "")
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
-            WriteSynchronizeQuicktaskJSON(newconfig)
             execute(config: newconfig, dryrun: dryrun)
+            updatesavedtask(newconfig)
         }
     }
 
