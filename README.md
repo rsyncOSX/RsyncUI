@@ -16,7 +16,7 @@ SwiftUI quickly became popular and I commenced another project, RsyncUI, to lear
 
 | App      | Storage  | UI | Latest version  |  Version 1.0.0 |
 | ----------- | ----------- |   -------- | -------- | -------- |
-| RsyncUI   | JSON  | SwiftUI, declarativ     | v2.1.5 - [13 October 2024](https://github.com/rsyncOSX/RsyncUI/releases) - active development and maintenance | 6 May 2021  |
+| RsyncUI   | JSON  | SwiftUI, declarativ     | v2.1.6 - [29 October 2024](https://github.com/rsyncOSX/RsyncUI/releases) - active development and maintenance | 6 May 2021  |
 | RsyncOSX  | JSON | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - *not maintained, repository is  archived and readonly* |	14 March 2016 |
 
 ### Important to verify new tasks
@@ -36,7 +36,7 @@ It might take a few seconds. If not, the apps might become unresponsive.
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.5/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
-**RsyncUI** is released for *macOS Sonoma and later*. Latest build is [13 October 2024](https://github.com/rsyncOSX/RsyncUI/releases).
+**RsyncUI** is released for *macOS Sonoma and later*. Latest build is [29 October 2024](https://github.com/rsyncOSX/RsyncUI/releases).
 
 - the [user guide for RsyncUI](https://rsyncui.netlify.app/docs/)
 - the [changelog](https://rsyncui.netlify.app/docs/changelog/)
