@@ -135,7 +135,7 @@ struct QuicktaskView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    resetform(true)
+                    resetform()
                     CatalogForProfile().deletefile()
                 } label: {
                     if localcatalog.isEmpty == false {
@@ -204,9 +204,6 @@ struct QuicktaskView: View {
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
-        .onChange(of: selectedrsynccommand) {
-            resetform(false)
-        }
     }
 
     // Headers (in sections)
@@ -285,10 +282,8 @@ struct QuicktaskView: View {
 }
 
 extension QuicktaskView {
-    func resetform(_ resetcommand: Bool) {
-        if resetcommand {
-            selectedrsynccommand = .synchronize
-        }
+    func resetform() {
+        selectedrsynccommand = .synchronize
         donotaddtrailingslash = false
         dryrun = true
         catalogorfile = true
