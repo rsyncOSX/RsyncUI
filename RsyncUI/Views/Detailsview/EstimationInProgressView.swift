@@ -13,8 +13,6 @@ struct EstimationInProgressView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var nodatatosynchronize: Bool
 
-    @State private var estimatinguuid: SynchronizeConfiguration.ID?
-
     let profile: String?
     let configurations: [SynchronizeConfiguration]
 

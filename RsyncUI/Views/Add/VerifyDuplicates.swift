@@ -10,7 +10,6 @@ import OSLog
 
 @MainActor
 final class VerifyDuplicates: PropogateError {
-    var configurations: [SynchronizeConfiguration]
     private var arrayofhiddenIDs = [Int]()
 
     private func checkforduplicates() throws {
@@ -22,7 +21,6 @@ final class VerifyDuplicates: PropogateError {
 
     @discardableResult
     init(_ configurations: [SynchronizeConfiguration]) {
-        self.configurations = configurations
         _ = configurations.map { record in
             arrayofhiddenIDs.append(record.hiddenID)
         }
