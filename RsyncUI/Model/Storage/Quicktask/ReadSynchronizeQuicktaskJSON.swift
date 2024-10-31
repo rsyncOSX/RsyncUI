@@ -1,5 +1,5 @@
 //
-//  ReadSynchronizeConfigurationJSON.swift
+//  ReadSynchronizeQuicktaskJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/04/2021.
@@ -37,7 +37,6 @@ final class ReadSynchronizeQuicktaskJSON: PropogateError {
             let filename = path + "/" + "quicktask.json"
             importjsonfile(filename)
         }
-
     }
 
     deinit {

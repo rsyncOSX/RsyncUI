@@ -12,7 +12,7 @@ struct EstimationInProgressView: View {
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var nodatatosynchronize: Bool
-    
+
     @State private var estimatinguuid: SynchronizeConfiguration.ID?
 
     let profile: String?
@@ -20,11 +20,12 @@ struct EstimationInProgressView: View {
 
     var body: some View {
         VStack {
-            
             if let uuid = getuuid(uuid: estimateprogressdetails.configurationtobestimated) {
-                EstimateView(estimatinguuid: uuid, configurations: configurations)
+                EstimateView(estimateprogressdetails: estimateprogressdetails,
+                             estimatinguuid: uuid,
+                             configurations: configurations)
             }
-            
+
             progressviewestimation
         }
         .onAppear {
@@ -62,7 +63,7 @@ struct EstimationInProgressView: View {
             }
             .progressViewStyle(.circular)
     }
-    
+
     func getuuid(uuid: UUID?) -> SynchronizeConfiguration.ID? {
         if let index = configurations.firstIndex(where: { $0.id == uuid }) {
             return configurations[index].id
@@ -71,8 +72,8 @@ struct EstimationInProgressView: View {
     }
 }
 
-
 struct EstimateView: View {
+    @Bindable var estimateprogressdetails: EstimateProgressDetails
     let estimatinguuid: SynchronizeConfiguration.ID
     let configurations: [SynchronizeConfiguration]
 
@@ -88,9 +89,11 @@ struct EstimateView: View {
             TableColumn("Synchronize ID") { data in
                 if data.backupID.isEmpty == true {
                     Text("Synchronize ID")
+                        .foregroundColor(color(uuid: data.id))
 
                 } else {
                     Text(data.backupID)
+                        .foregroundColor(color(uuid: data.id))
                 }
             }
             .width(min: 50, max: 200)
@@ -109,5 +112,12 @@ struct EstimateView: View {
             }
             .width(min: 50, max: 90)
         }
+    }
+
+    func color(uuid: UUID) -> Color {
+        let filter = estimateprogressdetails.estimatedlist?.filter {
+            $0.id == uuid
+        }
+        return filter?.isEmpty == false ? .blue : .white
     }
 }
