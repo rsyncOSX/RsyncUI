@@ -12,23 +12,19 @@ struct EstimationInProgressView: View {
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var nodatatosynchronize: Bool
+    
+    @State private var estimatinguuid: SynchronizeConfiguration.ID?
 
     let profile: String?
     let configurations: [SynchronizeConfiguration]
 
     var body: some View {
         VStack {
-            if let config = getconfig(uuid: estimateprogressdetails.configurationtobestimated) {
-                VStack {
-                    Text("Estimating now")
-                    if config.backupID.isEmpty == true {
-                        Text("Synchronize ID")
-                    } else {
-                        Text("\(config.backupID)")
-                    }
-                }
+            
+            if let uuid = getuuid(uuid: estimateprogressdetails.configurationtobestimated) {
+                EstimateView(estimatinguuid: uuid, configurations: configurations)
             }
-
+            
             progressviewestimation
         }
         .onAppear {
@@ -66,11 +62,70 @@ struct EstimationInProgressView: View {
             }
             .progressViewStyle(.circular)
     }
-
-    func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
+    
+    func getuuid(uuid: UUID?) -> SynchronizeConfiguration.ID? {
         if let index = configurations.firstIndex(where: { $0.id == uuid }) {
-            return configurations[index]
+            return configurations[index].id
         }
         return nil
+    }
+}
+
+
+struct EstimateView: View {
+    let estimatinguuid: SynchronizeConfiguration.ID
+    let configurations: [SynchronizeConfiguration]
+
+    var body: some View {
+        Table(configurations) {
+            TableColumn("") { data in
+                if data.id == estimatinguuid {
+                    ProgressView()
+                        .frame(alignment: .center)
+                        .controlSize(.small)
+                }
+            }
+            .width(min: 25, max: 25)
+            TableColumn("Synchronize ID") { data in
+                if data.backupID.isEmpty == true {
+                    Text("Synchronize ID")
+
+                } else {
+                    Text(data.backupID)
+                }
+            }
+            .width(min: 50, max: 200)
+            TableColumn("Task", value: \.task)
+                .width(max: 80)
+            TableColumn("Local catalog", value: \.localCatalog)
+                .width(min: 80, max: 300)
+            TableColumn("Remote catalog", value: \.offsiteCatalog)
+                .width(min: 80, max: 300)
+            TableColumn("Server") { data in
+                if data.offsiteServer.count > 0 {
+                    Text(data.offsiteServer)
+                } else {
+                    Text("localhost")
+                }
+            }
+            .width(min: 50, max: 90)
+            TableColumn("Days") { data in
+                var seconds: Double {
+                    if let date = data.dateRun {
+                        let lastbackup = date.en_us_date_from_string()
+                        return lastbackup.timeIntervalSinceNow * -1
+                    } else {
+                        return 0
+                    }
+                }
+                Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+            }
+            .width(max: 50)
+            TableColumn("Last") { data in
+                Text(data.dateRun ?? "")
+            }
+            .width(max: 120)
+        }
     }
 }
