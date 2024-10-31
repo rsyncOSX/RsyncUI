@@ -1298,7 +1298,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.1.6;
+				MARKETING_VERSION = 2.1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_STRICT_CONCURRENCY = complete;
@@ -1328,7 +1328,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.1.6;
+				MARKETING_VERSION = 2.1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
