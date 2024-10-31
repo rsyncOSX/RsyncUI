@@ -9,11 +9,24 @@ import SwiftUI
 
 struct CompletedView: View {
     @Binding var path: [Tasks]
+    @State var showtext: Bool = true
 
     var body: some View {
-        MessageView(dismissafter: 1, mytext: NSLocalizedString("Synchronize data is completed", comment: ""))
-            .onDisappear {
-                path.removeAll()
+        VStack {
+            if showtext {
+                Label(NSLocalizedString("Synchronize data is completed", comment: ""),
+                      systemImage: "hand.thumbsup.fill")
+                .foregroundColor(.yellow)
+                .onAppear(perform: {
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        showtext = false
+                    }
+                })
+                .onDisappear {
+                    path.removeAll()
+                }
             }
+        }
     }
 }
