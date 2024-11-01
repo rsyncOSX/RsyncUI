@@ -38,22 +38,41 @@ final class ObservableGlobalchangeConfigurations {
         occurence_remoteuser = ""
         occurence_remoteserver = ""
         occurence_backupID = ""
+        whatischanged.removeAll()
     }
     
     func replaceoccurenceof(_ string: String, with newString: String) -> String {
         return string.replacingOccurrences(of: "\\(newString)", with: "\\\\\(newString)")
     }
     
-    func updateglobalchangedconfigurations(newString: String) {
+    func updateglobalchangedconfigurations() {
         guard whatischanged.isEmpty == false else { return }
         
-        
-        globalchangedconfigurations = globalchangedconfigurations?.map { task in
-            let oldsstring = task.offsiteCatalog
-            let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: newString)
-            var newtask = task
-            newtask.offsiteCatalog = newstring
-            return newtask
+        for element in whatischanged {
+            switch element {
+            case .localcatalog: break
+            case .remotecatalog: break
+            case .remoteuser:
+                globalchangedconfigurations = globalchangedconfigurations?.map { task in
+                    let oldsstring = task.offsiteUsername
+                    if occurence_remoteuser.contains("$") {
+                        let trimmed = occurence_remoteuser.replacingOccurrences(of: " ", with: "")
+                        let split = trimmed.split(separator: "$")
+                        guard split.count == 2 else { return task }
+                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
+                        var newtask = task
+                        newtask.offsiteUsername = newstring
+                        return newtask
+                    } else {
+                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remoteuser)
+                        var newtask = task
+                        newtask.offsiteUsername = newstring
+                        return newtask
+                    }
+                }
+            case .remoteserver: break
+            case .backupID: break
+            }
         }
         
         resetform()

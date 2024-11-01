@@ -10,6 +10,7 @@ import SwiftUI
 struct GlobalChangeTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservableGlobalchangeConfigurations()
+    @State private var updated: Bool = false
 
     var body: some View {
         HStack {
@@ -45,11 +46,30 @@ struct GlobalChangeTaskView: View {
                 }
             }
         }
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    newdata.updateglobalchangedconfigurations()
+                } label: {
+                    if updated == false {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color(.blue))
+                    } else {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    }
+                }
+                .help("Update task")
+            }
+        })
         .padding()
         .onAppear {
             newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap({ task in
                 return (task.task != SharedReference.shared.snapshot) ? task : nil
             })
+        }
+        .onChange(of: newdata.whatischanged) {
+            updated = !newdata.whatischanged.isEmpty
         }
     }
 
@@ -69,13 +89,13 @@ struct GlobalChangeTaskView: View {
                     Task {
                         try await Task.sleep(seconds: 2)
                         if newdata.occurence_remoteuser.isEmpty {
-                            // $newdata.whatischanged.
-                            // find if Set contains .remoteuser
-                            // if delete it
+                            if newdata.whatischanged.contains(.remoteuser) {
+                                newdata.whatischanged.remove(.remoteuser)
+                            }
                         } else {
-                            // Check if Set contains .remotesuer
-                            // if not add it
-                            // else dont do anything
+                            if newdata.whatischanged.contains(.remoteuser) == false {
+                                newdata.whatischanged.insert(.remoteuser)
+                            }
                         }
                     }
                 }

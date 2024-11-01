@@ -798,7 +798,6 @@
 		E985C71A25F3AD9700CB895C /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				E9E2232F2CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift */,
 				E985C71D25F3AD9700CB895C /* Extensions.swift */,
 				E985C71B25F3AD9700CB895C /* SharedReference.swift */,
 				E95EDC8926063EAA000018DE /* ObservableParametersRsync.swift */,
@@ -806,6 +805,7 @@
 				E985C71C25F3AD9700CB895C /* ObservableRsyncPathSetting.swift */,
 				E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */,
 				E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */,
+				E9E2232F2CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift */,
 				E936D5FF2C8ACABC00428191 /* ObservableProfiles.swift */,
 				E99C23FF261C322E009D4DBF /* ObservableRestore.swift */,
 				E9A38E2B2B32CA8700D8445E /* AlertError.swift */,
