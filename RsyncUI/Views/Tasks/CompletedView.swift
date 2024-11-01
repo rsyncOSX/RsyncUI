@@ -22,7 +22,6 @@ struct CompletedView: View {
                     Text("Synchronize data is completed")
                         .foregroundColor(.yellow)
                         .font(.title)
-                    
                 }
                 .onAppear(perform: {
                     Task {

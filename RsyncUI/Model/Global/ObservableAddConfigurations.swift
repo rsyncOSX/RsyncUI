@@ -22,11 +22,7 @@ final class ObservableAddConfigurations: PropogateError {
 
     var deleted: Bool = false
     var created: Bool = false
-
     var showAlertfordelete: Bool = false
-
-    var assistremoteuser: String = ""
-    var assistremoteserver: String = ""
 
     // Set true if remote storage is a local attached Volume
     var remotestorageislocal: Bool = false

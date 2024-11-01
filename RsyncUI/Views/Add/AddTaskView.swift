@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case homecatalogs, verify
+    case homecatalogs, verify, global
     var id: String { rawValue }
 }
 
@@ -159,6 +159,15 @@ struct AddTaskView: View {
             selectedconfig = nil
         }
         .toolbar {
+            ToolbarItem {
+                Button {
+                    addtasknavigation.append(AddTasks(task: .global))
+                } label: {
+                    Image(systemName: "globe")
+                }
+                .help("Global change")
+            }
+
             if newdata.selectedconfig != nil {
                 ToolbarItem {
                     Button {
@@ -268,6 +277,8 @@ struct AddTaskView: View {
             if let config = selectedconfig {
                 OutputRsyncVerifyView(config: config)
             }
+        case .global:
+            GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
         }
     }
 

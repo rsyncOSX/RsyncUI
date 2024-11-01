@@ -20,8 +20,8 @@ struct EstimationInProgressView: View {
         VStack {
             if let uuid = getuuid(uuid: estimateprogressdetails.configurationtobestimated) {
                 EstimateTableView(estimateprogressdetails: estimateprogressdetails,
-                             estimatinguuid: uuid,
-                             configurations: configurations)
+                                  estimatinguuid: uuid,
+                                  configurations: configurations)
             }
 
             progressviewestimation
