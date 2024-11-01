@@ -49,6 +49,7 @@ final class ObservableGlobalchangeConfigurations {
         guard whatischanged.isEmpty == false else { return }
         
         for element in whatischanged {
+            print(element)
             switch element {
             case .localcatalog: break
             case .remotecatalog: break
@@ -70,11 +71,27 @@ final class ObservableGlobalchangeConfigurations {
                         return newtask
                     }
                 }
-            case .remoteserver: break
+            case .remoteserver:
+                globalchangedconfigurations = globalchangedconfigurations?.map { task in
+                    let oldsstring = task.offsiteServer
+                    if occurence_remoteserver.contains("$") {
+                        let trimmed = occurence_remoteserver.replacingOccurrences(of: " ", with: "")
+                        let split = trimmed.split(separator: "$")
+                        guard split.count == 2 else { return task }
+                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
+                        var newtask = task
+                        newtask.offsiteServer = newstring
+                        return newtask
+                    } else {
+                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remoteserver)
+                        var newtask = task
+                        newtask.offsiteServer = newstring
+                        return newtask
+                    }
+                }
             case .backupID: break
             }
         }
-        
         resetform()
     }
 }

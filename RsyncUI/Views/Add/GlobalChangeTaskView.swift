@@ -11,6 +11,8 @@ struct GlobalChangeTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservableGlobalchangeConfigurations()
     @State private var updated: Bool = false
+    // Alert button
+    @State private var showingAlert = false
 
     var body: some View {
         HStack {
@@ -46,10 +48,23 @@ struct GlobalChangeTaskView: View {
                 }
             }
         }
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Update all configurations?"),
+                primaryButton: .default(Text("Update")) {
+                    rsyncUIdata.configurations = newdata.globalchangedconfigurations
+                    // Writeupdate to store
+                },
+                secondaryButton: .cancel() {
+                    newdata.globalchangedconfigurations = rsyncUIdata.configurations
+                }
+            )
+        }
         .toolbar(content: {
             ToolbarItem {
                 Button {
                     newdata.updateglobalchangedconfigurations()
+                    showingAlert = true
                 } label: {
                     if updated == false {
                         Image(systemName: "checkmark.circle")
@@ -101,6 +116,20 @@ struct GlobalChangeTaskView: View {
                 }
             // Remote server
             EditValue(300, NSLocalizedString("Global change remote server", comment: ""), $newdata.occurence_remoteserver)
+                .onChange(of: newdata.occurence_remoteserver) {
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        if newdata.occurence_remoteserver.isEmpty {
+                            if newdata.whatischanged.contains(.remoteserver) {
+                                newdata.whatischanged.remove(.remoteserver)
+                            }
+                        } else {
+                            if newdata.whatischanged.contains(.remoteserver) == false {
+                                newdata.whatischanged.insert(.remoteserver)
+                            }
+                        }
+                    }
+                }
         }
     }
 
