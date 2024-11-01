@@ -65,6 +65,20 @@ struct GlobalChangeTaskView: View {
         Section(header: headerremote) {
             // Remote user
             EditValue(300, NSLocalizedString("Global change remote user", comment: ""), $newdata.occurence_remoteuser)
+                .onChange(of: newdata.occurence_remoteuser) {
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        if newdata.occurence_remoteuser.isEmpty {
+                            // $newdata.whatischanged.
+                            // find if Set contains .remoteuser
+                            // if delete it
+                        } else {
+                            // Check if Set contains .remotesuer
+                            // if not add it
+                            // else dont do anything
+                        }
+                    }
+                }
             // Remote server
             EditValue(300, NSLocalizedString("Global change remote server", comment: ""), $newdata.occurence_remoteserver)
         }
