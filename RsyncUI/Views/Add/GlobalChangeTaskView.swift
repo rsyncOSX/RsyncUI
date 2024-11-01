@@ -56,24 +56,24 @@ struct GlobalChangeTaskView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, NSLocalizedString("Global change local catalog", comment: ""), $newdata.localcatalog)
-            EditValue(300, NSLocalizedString("Global change remote catalog", comment: ""), $newdata.remotecatalog)
+            EditValue(300, NSLocalizedString("Global change local catalog", comment: ""), $newdata.occurence_localcatalog)
+            EditValue(300, NSLocalizedString("Global change remote catalog", comment: ""), $newdata.occurence_remotecatalog)
         }
     }
 
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
-            EditValue(300, NSLocalizedString("Global change remote user", comment: ""), $newdata.remoteuser)
+            EditValue(300, NSLocalizedString("Global change remote user", comment: ""), $newdata.occurence_remoteuser)
             // Remote server
-            EditValue(300, NSLocalizedString("Global change remote server", comment: ""), $newdata.remoteserver)
+            EditValue(300, NSLocalizedString("Global change remote server", comment: ""), $newdata.occurence_remoteserver)
         }
     }
 
     var synchronizeID: some View {
         Section(header: headerID) {
             // Synchronize ID
-            EditValue(300, NSLocalizedString("Global change Synchronize ID", comment: ""), $newdata.backupID)
+            EditValue(300, NSLocalizedString("Global change Synchronize ID", comment: ""), $newdata.occurence_backupID)
         }
     }
 
