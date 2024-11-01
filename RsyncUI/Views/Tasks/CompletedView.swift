@@ -14,9 +14,16 @@ struct CompletedView: View {
     var body: some View {
         VStack {
             if showtext {
-                Label(NSLocalizedString("Synchronize data is completed", comment: ""),
-                      systemImage: "hand.thumbsup.fill")
-                .foregroundColor(.yellow)
+                HStack {
+                    Image(systemName: "hand.thumbsup.fill")
+                        .font(.title)
+                        .imageScale(.large)
+                        .foregroundColor(.yellow)
+                    Text("Synchronize data is completed")
+                        .foregroundColor(.yellow)
+                        .font(.title)
+                    
+                }
                 .onAppear(perform: {
                     Task {
                         try await Task.sleep(seconds: 2)

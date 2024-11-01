@@ -29,6 +29,7 @@
 		E93CC5732C4D4974000F8963 /* ImportExportCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC5722C4D4974000F8963 /* ImportExportCommands.swift */; };
 		E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */; };
 		E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */; };
+		E941A3852CD4ACEB0024EAC0 /* EstimateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E941A3842CD4ACEB0024EAC0 /* EstimateTableView.swift */; };
 		E9493E4D2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */; };
 		E94E1E1C2A2DAA3E00011FED /* RestoreFilesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */; };
 		E954AD3F2AFE8F3800F3EA63 /* SidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */; };
@@ -185,6 +186,7 @@
 		E93CC5722C4D4974000F8963 /* ImportExportCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportCommands.swift; sourceTree = "<group>"; };
 		E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsbyConfigurationView.swift; sourceTree = "<group>"; };
 		E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersDefault.swift; sourceTree = "<group>"; };
+		E941A3842CD4ACEB0024EAC0 /* EstimateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTableView.swift; sourceTree = "<group>"; };
 		E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableOutputfromrsync.swift; sourceTree = "<group>"; };
 		E94E1E1B2A2DAA3E00011FED /* RestoreFilesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFilesTableView.swift; sourceTree = "<group>"; };
 		E94F8337272E7ABA00D3924B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 		E985C62325F3AD8400CB895C /* Detailsview */ = {
 			isa = PBXGroup;
 			children = (
+				E941A3842CD4ACEB0024EAC0 /* EstimateTableView.swift */,
 				E99B562F2AFFAD1800D4AA5A /* OneTaskDetailsView.swift */,
 				E954AD402AFE8FBB00F3EA63 /* SummarizedDetailsView.swift */,
 				E9A2AA7C2B31D0E800916896 /* EstimationInProgressView.swift */,
@@ -1041,6 +1044,7 @@
 				E956D3782B0C88B9008B190F /* RestoreTableView.swift in Sources */,
 				E9BD14BF2642FE6300E29347 /* TrimOutputFromRsync.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
+				E941A3852CD4ACEB0024EAC0 /* EstimateTableView.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
 				E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */,
