@@ -52,7 +52,13 @@ struct GlobalChangeTaskView: View {
             Alert(
                 title: Text("Update all configurations?"),
                 primaryButton: .default(Text("Update")) {
-                    rsyncUIdata.configurations = newdata.globalchangedconfigurations
+                    // any snapshotstasks
+                    if let snapshotstask = newdata.notchangedsnapshotconfigurations,
+                       let globalupdate = newdata.globalchangedconfigurations {
+                        rsyncUIdata.configurations = globalupdate + snapshotstask
+                    } else {
+                        rsyncUIdata.configurations = newdata.globalchangedconfigurations
+                    }
                     // Writeupdate to store
                 },
                 secondaryButton: .cancel {
@@ -79,8 +85,13 @@ struct GlobalChangeTaskView: View {
         })
         .padding()
         .onAppear {
+            // Synchronize and syncremote
             newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap { task in
                 (task.task != SharedReference.shared.snapshot) ? task : nil
+            }
+            // Snapshottask
+            newdata.notchangedsnapshotconfigurations = rsyncUIdata.configurations?.compactMap { task in
+                (task.task == SharedReference.shared.snapshot) ? task : nil
             }
         }
         .onChange(of: newdata.whatischanged) {

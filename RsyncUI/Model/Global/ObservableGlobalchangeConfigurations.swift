@@ -30,6 +30,8 @@ final class ObservableGlobalchangeConfigurations {
     var whatischanged: Set<GlobalchangeConfiguration> = []
 
     var globalchangedconfigurations: [SynchronizeConfiguration]?
+    // Not changed snapshots, but if snapshots then merge with globalchangedconfigurations
+    var notchangedsnapshotconfigurations: [SynchronizeConfiguration]?
 
     func resetform() {
         occurence_localcatalog = ""
