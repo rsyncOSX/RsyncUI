@@ -9,7 +9,6 @@
 import Foundation
 import Observation
 
-
 enum GlobalchangeConfiguration: String, Codable {
     case localcatalog
     case remotecatalog
@@ -27,7 +26,7 @@ final class ObservableGlobalchangeConfigurations {
     var occurence_backupID: String = ""
 
     var showAlertforupdate: Bool = false
-    
+
     var whatischanged: Set<GlobalchangeConfiguration> = []
 
     var globalchangedconfigurations: [SynchronizeConfiguration]?
@@ -40,19 +39,52 @@ final class ObservableGlobalchangeConfigurations {
         occurence_backupID = ""
         whatischanged.removeAll()
     }
-    
+
     func replaceoccurenceof(_ string: String, with newString: String) -> String {
-        return string.replacingOccurrences(of: "\\(newString)", with: "\\\\\(newString)")
+        string.replacingOccurrences(of: "\\(newString)", with: "\\\\\(newString)")
     }
-    
+
     func updateglobalchangedconfigurations() {
         guard whatischanged.isEmpty == false else { return }
-        
+
         for element in whatischanged {
-            print(element)
             switch element {
-            case .localcatalog: break
-            case .remotecatalog: break
+            case .localcatalog:
+                globalchangedconfigurations = globalchangedconfigurations?.map { task in
+                    let oldsstring = task.localCatalog
+                    if occurence_localcatalog.contains("$") {
+                        let trimmed = occurence_localcatalog.replacingOccurrences(of: " ", with: "")
+                        let split = trimmed.split(separator: "$")
+                        guard split.count == 2 else { return task }
+                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
+                        var newtask = task
+                        newtask.localCatalog = newstring
+                        return newtask
+                    } else {
+                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_localcatalog)
+                        var newtask = task
+                        newtask.localCatalog = newstring
+                        return newtask
+                    }
+                }
+            case .remotecatalog:
+                globalchangedconfigurations = globalchangedconfigurations?.map { task in
+                    let oldsstring = task.offsiteCatalog
+                    if occurence_remotecatalog.contains("$") {
+                        let trimmed = occurence_remotecatalog.replacingOccurrences(of: " ", with: "")
+                        let split = trimmed.split(separator: "$")
+                        guard split.count == 2 else { return task }
+                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
+                        var newtask = task
+                        newtask.offsiteCatalog = newstring
+                        return newtask
+                    } else {
+                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remotecatalog)
+                        var newtask = task
+                        newtask.offsiteCatalog = newstring
+                        return newtask
+                    }
+                }
             case .remoteuser:
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
                     let oldsstring = task.offsiteUsername

@@ -55,7 +55,7 @@ struct GlobalChangeTaskView: View {
                     rsyncUIdata.configurations = newdata.globalchangedconfigurations
                     // Writeupdate to store
                 },
-                secondaryButton: .cancel() {
+                secondaryButton: .cancel {
                     newdata.globalchangedconfigurations = rsyncUIdata.configurations
                 }
             )
@@ -79,9 +79,9 @@ struct GlobalChangeTaskView: View {
         })
         .padding()
         .onAppear {
-            newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap({ task in
-                return (task.task != SharedReference.shared.snapshot) ? task : nil
-            })
+            newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap { task in
+                (task.task != SharedReference.shared.snapshot) ? task : nil
+            }
         }
         .onChange(of: newdata.whatischanged) {
             updated = !newdata.whatischanged.isEmpty
@@ -92,7 +92,35 @@ struct GlobalChangeTaskView: View {
         Section(header: headerlocalremote) {
             // localcatalog
             EditValue(300, NSLocalizedString("Global change local catalog", comment: ""), $newdata.occurence_localcatalog)
+                .onChange(of: newdata.occurence_localcatalog) {
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        if newdata.occurence_localcatalog.isEmpty {
+                            if newdata.whatischanged.contains(.localcatalog) {
+                                newdata.whatischanged.remove(.localcatalog)
+                            }
+                        } else {
+                            if newdata.whatischanged.contains(.localcatalog) == false {
+                                newdata.whatischanged.insert(.localcatalog)
+                            }
+                        }
+                    }
+                }
             EditValue(300, NSLocalizedString("Global change remote catalog", comment: ""), $newdata.occurence_remotecatalog)
+                .onChange(of: newdata.occurence_remotecatalog) {
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        if newdata.occurence_remotecatalog.isEmpty {
+                            if newdata.whatischanged.contains(.remotecatalog) {
+                                newdata.whatischanged.remove(.remotecatalog)
+                            }
+                        } else {
+                            if newdata.whatischanged.contains(.remotecatalog) == false {
+                                newdata.whatischanged.insert(.remotecatalog)
+                            }
+                        }
+                    }
+                }
         }
     }
 
@@ -137,6 +165,20 @@ struct GlobalChangeTaskView: View {
         Section(header: headerID) {
             // Synchronize ID
             EditValue(300, NSLocalizedString("Global change Synchronize ID", comment: ""), $newdata.occurence_backupID)
+                .onChange(of: newdata.occurence_backupID) {
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        if newdata.occurence_backupID.isEmpty {
+                            if newdata.whatischanged.contains(.backupID) {
+                                newdata.whatischanged.remove(.backupID)
+                            }
+                        } else {
+                            if newdata.whatischanged.contains(.backupID) == false {
+                                newdata.whatischanged.insert(.backupID)
+                            }
+                        }
+                    }
+                }
         }
     }
 
