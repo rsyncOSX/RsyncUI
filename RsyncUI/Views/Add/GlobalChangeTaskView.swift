@@ -31,7 +31,7 @@ struct GlobalChangeTaskView: View {
             // Column 2
             VStack(alignment: .leading) {
                 Table(configurations) {
-                    TableColumn("Synchronize ID") { data in
+                    TableColumn("Synchronize ID (1)") { data in
                         if data.backupID.isEmpty == true {
                             Text("Synchronize ID")
 
@@ -40,13 +40,13 @@ struct GlobalChangeTaskView: View {
                         }
                     }
                     .width(min: 50, max: 150)
-                    TableColumn("Local catalog", value: \.localCatalog)
+                    TableColumn("Local catalog (2)", value: \.localCatalog)
                         .width(min: 180, max: 300)
-                    TableColumn("Remote catalog", value: \.offsiteCatalog)
+                    TableColumn("Remote catalog (3)", value: \.offsiteCatalog)
                         .width(min: 180, max: 300)
-                    TableColumn("Remote user", value: \.offsiteUsername)
+                    TableColumn("Remote user (4)", value: \.offsiteUsername)
                         .width(min: 100, max: 150)
-                    TableColumn("Server", value: \.offsiteServer)
+                    TableColumn("Server (5)", value: \.offsiteServer)
                 }
                 .overlay {
                     if configurations.isEmpty {
@@ -116,7 +116,7 @@ struct GlobalChangeTaskView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, NSLocalizedString("Global change local catalog", comment: ""), $newdata.occurence_localcatalog)
+            EditValue(300, NSLocalizedString("Global change local catalog (2)", comment: ""), $newdata.occurence_localcatalog)
                 .onChange(of: newdata.occurence_localcatalog) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -133,7 +133,7 @@ struct GlobalChangeTaskView: View {
                 }
                 .disabled(configurations.isEmpty)
             
-            EditValue(300, NSLocalizedString("Global change remote catalog", comment: ""), $newdata.occurence_remotecatalog)
+            EditValue(300, NSLocalizedString("Global change remote catalog (3)", comment: ""), $newdata.occurence_remotecatalog)
                 .onChange(of: newdata.occurence_remotecatalog) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -155,7 +155,7 @@ struct GlobalChangeTaskView: View {
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
-            EditValue(300, NSLocalizedString("Global change remote user", comment: ""), $newdata.occurence_remoteuser)
+            EditValue(300, NSLocalizedString("Global change remote user (4)", comment: ""), $newdata.occurence_remoteuser)
                 .onChange(of: newdata.occurence_remoteuser) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -173,7 +173,7 @@ struct GlobalChangeTaskView: View {
                 .disabled(configurations.isEmpty)
             
             // Remote server
-            EditValue(300, NSLocalizedString("Global change remote server", comment: ""), $newdata.occurence_remoteserver)
+            EditValue(300, NSLocalizedString("Global change remote server (5)", comment: ""), $newdata.occurence_remoteserver)
                 .onChange(of: newdata.occurence_remoteserver) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -195,7 +195,7 @@ struct GlobalChangeTaskView: View {
     var synchronizeID: some View {
         Section(header: headerID) {
             // Synchronize ID
-            EditValue(300, NSLocalizedString("Global change Synchronize ID", comment: ""), $newdata.occurence_backupID)
+            EditValue(300, NSLocalizedString("Global change Synchronize ID (1)", comment: ""), $newdata.occurence_backupID)
                 .onChange(of: newdata.occurence_backupID) {
                     Task {
                         try await Task.sleep(seconds: 2)
