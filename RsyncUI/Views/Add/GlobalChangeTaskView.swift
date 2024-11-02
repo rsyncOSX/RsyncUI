@@ -85,11 +85,11 @@ struct GlobalChangeTaskView: View {
         })
         .padding()
         .onAppear {
-            // Synchronize and syncremote
+            // Synchronize and syncremote tasks
             newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap { task in
                 (task.task != SharedReference.shared.snapshot) ? task : nil
             }
-            // Snapshottask
+            // Snapshot tasks
             newdata.notchangedsnapshotconfigurations = rsyncUIdata.configurations?.compactMap { task in
                 (task.task == SharedReference.shared.snapshot) ? task : nil
             }
@@ -117,6 +117,8 @@ struct GlobalChangeTaskView: View {
                         }
                     }
                 }
+                .disabled(configurations.isEmpty)
+            
             EditValue(300, NSLocalizedString("Global change remote catalog", comment: ""), $newdata.occurence_remotecatalog)
                 .onChange(of: newdata.occurence_remotecatalog) {
                     Task {
@@ -132,6 +134,7 @@ struct GlobalChangeTaskView: View {
                         }
                     }
                 }
+                .disabled(configurations.isEmpty)
         }
     }
 
@@ -153,6 +156,8 @@ struct GlobalChangeTaskView: View {
                         }
                     }
                 }
+                .disabled(configurations.isEmpty)
+            
             // Remote server
             EditValue(300, NSLocalizedString("Global change remote server", comment: ""), $newdata.occurence_remoteserver)
                 .onChange(of: newdata.occurence_remoteserver) {
@@ -169,6 +174,7 @@ struct GlobalChangeTaskView: View {
                         }
                     }
                 }
+                .disabled(configurations.isEmpty)
         }
     }
 
@@ -190,6 +196,7 @@ struct GlobalChangeTaskView: View {
                         }
                     }
                 }
+                .disabled(configurations.isEmpty)
         }
     }
 
