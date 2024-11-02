@@ -159,15 +159,7 @@ struct AddTaskView: View {
             selectedconfig = nil
         }
         .toolbar {
-            ToolbarItem {
-                Button {
-                    addtasknavigation.append(AddTasks(task: .global))
-                } label: {
-                    Image(systemName: "globe")
-                }
-                .help("Global change")
-            }
-
+            
             if newdata.selectedconfig != nil {
                 ToolbarItem {
                     Button {
@@ -209,6 +201,15 @@ struct AddTaskView: View {
                     }
                     .help("Add task")
                 }
+            }
+
+            ToolbarItem {
+                Button {
+                    addtasknavigation.append(AddTasks(task: .global))
+                } label: {
+                    Image(systemName: "globe")
+                }
+                .help("Global change and update")
             }
 
             ToolbarItem {
