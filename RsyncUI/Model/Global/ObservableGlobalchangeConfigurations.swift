@@ -40,10 +40,6 @@ final class ObservableGlobalchangeConfigurations {
         whatischanged.removeAll()
     }
 
-    func replaceoccurenceof(_ string: String, with newString: String) -> String {
-        string.replacingOccurrences(of: "\\(newString)", with: "\\\\\(newString)")
-    }
-
     func updateglobalchangedconfigurations() {
         guard whatischanged.isEmpty == false else { return }
 
@@ -121,7 +117,24 @@ final class ObservableGlobalchangeConfigurations {
                         return newtask
                     }
                 }
-            case .backupID: break
+            case .backupID:
+                globalchangedconfigurations = globalchangedconfigurations?.map { task in
+                    let oldsstring = task.backupID
+                    if occurence_backupID.contains("$") {
+                        let trimmed = occurence_backupID.replacingOccurrences(of: " ", with: "")
+                        let split = trimmed.split(separator: "$")
+                        guard split.count == 2 else { return task }
+                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
+                        var newtask = task
+                        newtask.backupID = newstring
+                        return newtask
+                    } else {
+                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_backupID)
+                        var newtask = task
+                        newtask.backupID = newstring
+                        return newtask
+                    }
+                }
             }
         }
         resetform()
