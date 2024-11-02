@@ -23,6 +23,8 @@ struct GlobalChangeTaskView: View {
                 VStack(alignment: .leading) { localandremotecatalog }
 
                 VStack(alignment: .leading) { remoteuserandserver }
+                
+                Spacer()
             }
             .padding()
 
@@ -45,6 +47,16 @@ struct GlobalChangeTaskView: View {
                     TableColumn("Remote user", value: \.offsiteUsername)
                         .width(min: 100, max: 150)
                     TableColumn("Server", value: \.offsiteServer)
+                }
+                .overlay {
+                    if configurations.isEmpty {
+                        ContentUnavailableView {
+                            Label("Most likely, you try to update snapshot tasks, not allowed.",
+                                  systemImage: "doc.richtext.fill")
+                        } description: {
+                            Text("Or there are no tasks to update.")
+                        }
+                    }
                 }
             }
         }
@@ -69,6 +81,7 @@ struct GlobalChangeTaskView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
+                    guard newdata.whatischanged.isEmpty == false else { return }
                     newdata.updateglobalchangedconfigurations()
                     showingAlert = true
                 } label: {
@@ -81,6 +94,7 @@ struct GlobalChangeTaskView: View {
                     }
                 }
                 .help("Update task")
+                .disabled(configurations.isEmpty)
             }
         })
         .padding()
