@@ -27,7 +27,7 @@ final class EstimateTasks {
             localestimateprogressdetails?.estimationcomplete()
             return
         }
-        let localhiddenID = stackoftasktobeestimated?.removeLast()
+        let localhiddenID = stackoftasktobeestimated?.removeFirst()
         guard localhiddenID != nil else { return }
         if let config = getconfig(localhiddenID ?? -1) {
             if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
