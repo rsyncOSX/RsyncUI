@@ -44,6 +44,6 @@ It might take a few seconds. If not, the apps might become unresponsive.
 
 **RsyncOSX** was released for *macOS Big Sur* and later. Please be aware of the repository for RsyncOSX is archived and not maintained.
 
-| App      | Storage  | UI | Latest version  |
-| ----------- | ----------- |   -------- | -------- |
-| RsyncOSX  | JSON | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - *not maintained, repository is  archived and readonly* |
+| App        | UI | Latest version  |
+| -----------  |   -------- | -------- |
+| RsyncOSX   | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - *not maintained, repository is  archived and readonly* |
