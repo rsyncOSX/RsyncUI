@@ -11,12 +11,9 @@ RsyncUI might be installed by Homebrew or by direct Download. It is signed and n
 | ----------- | ----------- |   ----------- |  ----------- |
 | RsyncUI   | `brew install --cask rsyncui`    | macOS Sonoma and later |   [rsyncui.netlify.app](https://rsyncui.netlify.app/docs/) |
 
-The development of RsyncOSX commenced in *2015* as a project to learn Swift. In *2019*, Apple released SwiftUI.
-SwiftUI quickly became popular and I commenced another project, RsyncUI, to learn SwiftUI.
-
-| App      | Storage  | UI | Latest version  |  Version 1.0.0 |
-| ----------- | ----------- |   -------- | -------- | -------- |
-| RsyncUI   | JSON  | SwiftUI, declarativ     | v2.1.6 - [29 October 2024](https://github.com/rsyncOSX/RsyncUI/releases) - active development and maintenance | 6 May 2021  |
+| App      | Storage  | UI | Latest version  |
+| ----------- | ----------- |   -------- | -------- |
+| RsyncUI   | JSON  | SwiftUI, declarativ     | v2.1.6 - [29 October 2024](https://github.com/rsyncOSX/RsyncUI/releases) |
 
 ### External task executing rsync
 
