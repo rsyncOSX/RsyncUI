@@ -71,7 +71,7 @@ struct GlobalChangeTaskView: View {
                     } else {
                         rsyncUIdata.configurations = newdata.globalchangedconfigurations
                     }
-                    // Writeupdate to store
+                    WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
                 },
                 secondaryButton: .cancel {
                     newdata.globalchangedconfigurations = rsyncUIdata.configurations
