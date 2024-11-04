@@ -17,12 +17,6 @@ SwiftUI quickly became popular and I commenced another project, RsyncUI, to lear
 | App      | Storage  | UI | Latest version  |  Version 1.0.0 |
 | ----------- | ----------- |   -------- | -------- | -------- |
 | RsyncUI   | JSON  | SwiftUI, declarativ     | v2.1.6 - [29 October 2024](https://github.com/rsyncOSX/RsyncUI/releases) - active development and maintenance | 6 May 2021  |
-| RsyncOSX  | JSON | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - *not maintained, repository is  archived and readonly* |	14 March 2016 |
-
-### Important to verify new tasks
-
-The UI of RsyncUI can for users who dont know `rsync` be difficult and complex to understand. Setting wrong parameters to `rsync` can result in deleted data.
-*For your own safety* it is important to execute a simulated run, a `--dry-run`, and verify the result before the real run.
 
 ### External task executing rsync
 
@@ -34,7 +28,6 @@ It might take a few seconds. If not, the apps might become unresponsive.
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.6/total)
-![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.5/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 **RsyncUI** is released for *macOS Sonoma and later*. Latest build is [29 October 2024](https://github.com/rsyncOSX/RsyncUI/releases).
@@ -50,3 +43,7 @@ It might take a few seconds. If not, the apps might become unresponsive.
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncOSX_archived/v6.8.0/total)
 
 **RsyncOSX** was released for *macOS Big Sur* and later. Please be aware of the repository for RsyncOSX is archived and not maintained.
+
+| App      | Storage  | UI | Latest version  |
+| ----------- | ----------- |   -------- | -------- |
+| RsyncOSX  | JSON | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - *not maintained, repository is  archived and readonly* |
