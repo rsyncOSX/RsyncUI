@@ -59,23 +59,23 @@ final class UpdateConfigurations {
             WriteSynchronizeConfigurationJSON(localeprofile, configurations)
         }
     }
-
+    
     func deleteconfigurations(uuids: Set<UUID>) {
-        if let configs = configurations {
-            var indexset = IndexSet()
-            for i in 0 ..< uuids.count {
-                if let index = configs.firstIndex(
-                    where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: i)] })
+        var indexset = IndexSet()
+        if let configurations = configurations {
+            _ = configurations.map({ configuration in
+                if let index = configurations.firstIndex(of: configuration)
                 {
-                    indexset.insert(index)
+                    if uuids.contains(configuration.id) {
+                        indexset.insert(index)
+                    }
                 }
-            }
-            configurations?.remove(atOffsets: indexset)
-            // No need for deleting the logs, only valid hiddenIDs are
-            // loaded next time configurations are read from
-            // permanent store
-            WriteSynchronizeConfigurationJSON(localeprofile, configurations)
+            })
         }
+        // Remove all marked configurations in one go by IndexSet
+        configurations?.remove(atOffsets: indexset)
+        // No need for deleting the logs, only logrecords with valid hiddenIDs are loaded
+        WriteSynchronizeConfigurationJSON(localeprofile, configurations)
     }
 
     // Add new configurations
@@ -94,22 +94,18 @@ final class UpdateConfigurations {
     }
 
     func addimportconfigurations(_ importconfigurations: [SynchronizeConfiguration]) {
-        for i in 0 ..< importconfigurations.count {
-            configurations?.append(importconfigurations[i])
-        }
-        if importconfigurations.count > 0 {
+        if importconfigurations.count > 0, var configurations {
+            configurations += importconfigurations
             WriteSynchronizeConfigurationJSON(localeprofile, configurations)
         }
     }
 
     // Write Copy and Paste tasks
     func writecopyandpastetask(_ copyandpastetasks: [SynchronizeConfiguration]?) {
-        if let copyandpastetasks {
-            for i in 0 ..< copyandpastetasks.count {
-                configurations?.append(copyandpastetasks[i])
-            }
+        if let copyandpastetasks, var configurations {
+            configurations += copyandpastetasks
+            WriteSynchronizeConfigurationJSON(localeprofile, configurations)
         }
-        WriteSynchronizeConfigurationJSON(localeprofile, configurations)
     }
 
     init(profile: String?, configurations: [SynchronizeConfiguration]?) {
