@@ -45,18 +45,9 @@ struct ImportView: View {
                             UpdateConfigurations(profile: rsyncUIdata.profile,
                                                  configurations: rsyncUIdata.configurations)
                         if selecteduuids.isEmpty == true {
-                            updateconfigurations.addimportconfigurations(configurations)
-                            // Update view
-                            for i in 0 ..< configurations.count {
-                                rsyncUIdata.configurations?.append(configurations[i])
-                            }
+                            rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
                         } else {
-                            updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
-                            let importconfigurations = configurations.filter { selecteduuids.contains($0.id) }
-                            // Update view
-                            for i in 0 ..< importconfigurations.count {
-                                rsyncUIdata.configurations?.append(importconfigurations[i])
-                            }
+                            rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
                         }
                         if SharedReference.shared.duplicatecheck {
                             if let configurations = rsyncUIdata.configurations {

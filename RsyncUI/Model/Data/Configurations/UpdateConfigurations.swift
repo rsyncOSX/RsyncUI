@@ -93,11 +93,13 @@ final class UpdateConfigurations {
         }
     }
 
-    func addimportconfigurations(_ importconfigurations: [SynchronizeConfiguration]) {
+    func addimportconfigurations(_ importconfigurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
         if importconfigurations.count > 0, var configurations {
             configurations += importconfigurations
             WriteSynchronizeConfigurationJSON(localeprofile, configurations)
+            return configurations
         }
+        return nil
     }
 
     // Write Copy and Paste tasks
