@@ -27,7 +27,7 @@ It might take a few seconds. If not, the apps might become unresponsive.
 
 | App        | UI | Latest version  |
 | ----------- |   -------- | -------- |
-| RsyncUI     | SwiftUI, declarativ     | v2.1.6 - [29 October 2024](https://github.com/rsyncOSX/RsyncUI/releases) - maintained and in active development|
+| RsyncUI     | SwiftUI, declarativ     | v2.1.6 - [29 October 2024](https://github.com/rsyncOSX/RsyncUI/releases) -**maintained** and in **active development**|
 
 - the [user guide for RsyncUI](https://rsyncui.netlify.app/docs/)
 - the [changelog](https://rsyncui.netlify.app/docs/changelog/)
@@ -39,8 +39,9 @@ It might take a few seconds. If not, the apps might become unresponsive.
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncOSX_archived)](https://github.com/rsyncOSX/RsyncOSX/blob/master/Licence.MD)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncOSX_archived/v6.8.0/total)
 
-**RsyncOSX** was released for *macOS Big Sur* and later. Please be aware of the repository for RsyncOSX is archived and not maintained.
+**RsyncOSX** was released for *macOS Big Sur* and later.
 
 | App        | UI | Latest version  |
 | -----------  |   -------- | -------- |
-| RsyncOSX   | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - *not maintained, repository is  archived and readonly* |
+| RsyncOSX   | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - **not maintained**,
+repository is  **archived** and readonly |
