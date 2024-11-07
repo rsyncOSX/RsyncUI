@@ -43,5 +43,4 @@ It might take a few seconds. If not, the apps might become unresponsive.
 
 | App        | UI | Latest version  |
 | -----------  |   -------- | -------- |
-| RsyncOSX   | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - **not maintained**,
-repository is  **archived** and readonly |
+| RsyncOSX   | Storyboard, imperativ   | v6.8.0 - [13 April 2023](https://github.com/rsyncOSX/RsyncOSX_archived/releases) - **not maintained**, repository is  **archived** and readonly |
