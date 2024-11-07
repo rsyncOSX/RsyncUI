@@ -101,11 +101,13 @@ final class UpdateConfigurations {
     }
 
     // Write Copy and Paste tasks
-    func writecopyandpastetask(_ copyandpastetasks: [SynchronizeConfiguration]?) {
+    func writecopyandpastetask(_ copyandpastetasks: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         if let copyandpastetasks, var configurations {
             configurations += copyandpastetasks
             WriteSynchronizeConfigurationJSON(localeprofile, configurations)
+            return configurations
         }
+        return nil
     }
 
     init(profile: String?, configurations: [SynchronizeConfiguration]?) {

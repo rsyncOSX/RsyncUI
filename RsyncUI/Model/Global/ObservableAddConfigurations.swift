@@ -152,8 +152,7 @@ final class ObservableAddConfigurations: PropogateError {
         let updateconfigurations =
             UpdateConfigurations(profile: profile,
                                  configurations: configurations)
-        updateconfigurations.writecopyandpastetask(copyandpasteconfigurations)
-        return updateconfigurations.configurations
+        return updateconfigurations.writecopyandpastetask(copyandpasteconfigurations)
     }
 }
 
