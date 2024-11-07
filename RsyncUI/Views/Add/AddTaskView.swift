@@ -512,11 +512,11 @@ struct AddTaskView: View {
 
     var copyitems: [CopyItem] {
         if let configurations = rsyncUIdata.configurations {
-            let copyitems = configurations.map { record in
+            let copy = configurations.map { record in
                 CopyItem(id: record.id,
                          task: record.task)
             }
-            return copyitems
+            return copy
         }
         return []
     }
