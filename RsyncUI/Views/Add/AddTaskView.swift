@@ -159,7 +159,6 @@ struct AddTaskView: View {
             selectedconfig = nil
         }
         .toolbar {
-            
             if newdata.selectedconfig != nil {
                 ToolbarItem {
                     Button {

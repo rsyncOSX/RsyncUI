@@ -59,18 +59,18 @@ final class UpdateConfigurations {
             WriteSynchronizeConfigurationJSON(localeprofile, configurations)
         }
     }
-    
+
+    // Delete by IndexSet
     func deleteconfigurations(uuids: Set<UUID>) {
         var indexset = IndexSet()
-        if let configurations = configurations {
-            _ = configurations.map({ configuration in
-                if let index = configurations.firstIndex(of: configuration)
-                {
+        if let configurations {
+            _ = configurations.map { configuration in
+                if let index = configurations.firstIndex(of: configuration) {
                     if uuids.contains(configuration.id) {
                         indexset.insert(index)
                     }
                 }
-            })
+            }
         }
         // Remove all marked configurations in one go by IndexSet
         configurations?.remove(atOffsets: indexset)
@@ -93,6 +93,7 @@ final class UpdateConfigurations {
         }
     }
 
+    // Write Import configurations
     func addimportconfigurations(_ importconfigurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
         if importconfigurations.count > 0, var configurations {
             configurations += importconfigurations

@@ -156,7 +156,8 @@ struct LogsbyConfigurationView: View {
                 }
             } else {
                 if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }),
-                   let logrecords = logrecords[index].logrecords {
+                   let logrecords = logrecords[index].logrecords
+                {
                     let records = logrecords.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
                     logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
                     }
@@ -178,7 +179,8 @@ struct LogsbyConfigurationView: View {
                 logs = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
             } else {
                 if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }),
-                    let logrecords = logrecords[index].logrecords {
+                   let logrecords = logrecords[index].logrecords
+                {
                     logs = logrecords.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
                 }
             }

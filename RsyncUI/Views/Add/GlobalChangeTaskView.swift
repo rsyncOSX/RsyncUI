@@ -23,7 +23,7 @@ struct GlobalChangeTaskView: View {
                 VStack(alignment: .leading) { localandremotecatalog }
 
                 VStack(alignment: .leading) { remoteuserandserver }
-                
+
                 Spacer()
             }
             .padding()
@@ -66,7 +66,8 @@ struct GlobalChangeTaskView: View {
                 primaryButton: .default(Text("Update")) {
                     // any snapshotstasks
                     if let snapshotstask = newdata.notchangedsnapshotconfigurations,
-                       let globalupdate = newdata.globalchangedconfigurations {
+                       let globalupdate = newdata.globalchangedconfigurations
+                    {
                         rsyncUIdata.configurations = globalupdate + snapshotstask
                     } else {
                         rsyncUIdata.configurations = newdata.globalchangedconfigurations
@@ -132,7 +133,7 @@ struct GlobalChangeTaskView: View {
                     }
                 }
                 .disabled(configurations.isEmpty)
-            
+
             EditValue(300, NSLocalizedString("Global change remote catalog (3)", comment: ""), $newdata.occurence_remotecatalog)
                 .onChange(of: newdata.occurence_remotecatalog) {
                     Task {
@@ -171,7 +172,7 @@ struct GlobalChangeTaskView: View {
                     }
                 }
                 .disabled(configurations.isEmpty)
-            
+
             // Remote server
             EditValue(300, NSLocalizedString("Global change remote server (5)", comment: ""), $newdata.occurence_remoteserver)
                 .onChange(of: newdata.occurence_remoteserver) {
