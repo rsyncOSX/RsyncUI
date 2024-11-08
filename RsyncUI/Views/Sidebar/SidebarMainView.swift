@@ -48,7 +48,7 @@ struct SidebarMainView: View {
             .disabled(disablesidebarmeny)
             
             if newversion.notifynewversion {
-                Text("New version available")
+                Text("There is a new version\navailable for download")
                     .font(.caption2)
                     .foregroundColor(.green)
             }
@@ -67,8 +67,11 @@ struct SidebarMainView: View {
                 Alert(title: Text("No error"))
             }
         })
-        .task {
-            await newversion.getversionsofrsyncui()
+        .onAppear {
+            Task {
+                await newversion.getversionsofrsyncui()
+            }
+            
         }
     }
 

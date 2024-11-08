@@ -75,14 +75,12 @@ struct AboutView: View {
                     } label: {
                         Image(systemName: "square.and.arrow.down.fill")
                     }
-                    .help("Download new version")
+                    .help("Download")
                     .buttonStyle(ColorfulButtonStyle())
 
                 } header: {
-                    Text("New version")
+                    Text("There is a new version avaliable for download")
                 }
-
-                if newversion.notifynewversion { notifynewversion }
             }
         }
         .task {
