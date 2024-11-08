@@ -26,6 +26,8 @@ struct SidebarMainView: View {
     @State var executetasknavigation: [Tasks] = []
     // Navigation addtasks
     @State private var addtasknavigation: [AddTasks] = []
+    // Check if new version
+    @State private var newversion = CheckfornewversionofRsyncUI()
 
     var body: some View {
         NavigationSplitView {
@@ -44,7 +46,13 @@ struct SidebarMainView: View {
             }
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
-
+            
+            if newversion.notifynewversion {
+                Text("New version available")
+                    .font(.caption2)
+                    .foregroundColor(.green)
+            }
+            
             Text(SharedReference.shared.rsyncversionshort ?? "")
                 .padding()
                 .font(.footnote)
@@ -59,6 +67,9 @@ struct SidebarMainView: View {
                 Alert(title: Text("No error"))
             }
         })
+        .task {
+            await newversion.getversionsofrsyncui()
+        }
     }
 
     @MainActor @ViewBuilder
