@@ -68,7 +68,7 @@ struct AboutView: View {
                 Text("Changelog")
             }
 
-            if newversion.downloadavaliable {
+            if newversion.notifynewversion || SharedReference.shared.newversion {
                 Section {
                     Button {
                         opendownload()

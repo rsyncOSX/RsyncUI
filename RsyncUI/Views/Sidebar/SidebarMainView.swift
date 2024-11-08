@@ -47,7 +47,7 @@ struct SidebarMainView: View {
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
             
-            if newversion.notifynewversion {
+            if newversion.notifynewversion || SharedReference.shared.newversion {
                 Text("There is a new version\navailable for download")
                     .font(.caption2)
                     .foregroundColor(.green)

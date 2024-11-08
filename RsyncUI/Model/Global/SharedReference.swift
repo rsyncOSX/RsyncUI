@@ -43,6 +43,8 @@ final class SharedReference {
     @ObservationIgnored var URLnewVersion: String?
     // Duplicatecheck
     @ObservationIgnored var duplicatecheck: Bool = true
+    // new version, used if test
+    @ObservationIgnored var newversion: Bool = false
     // rsync command
     let rsync: String = "rsync"
     let usrbin: String = "/usr/bin"
