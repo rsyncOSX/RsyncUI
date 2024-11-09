@@ -48,14 +48,35 @@ struct SidebarMainView: View {
             .disabled(disablesidebarmeny)
             
             if newversion.notifynewversion || SharedReference.shared.newversion {
-                Text("There is a new version\navailable for download")
-                    .font(.caption2)
-                    .foregroundColor(.green)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
+                    Text("There is a new version\navailable for download")
+                        .font(.caption2)
+                        .foregroundColor(Color.green)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                        .allowsTightening(false)
+                        .minimumScaleFactor(0.5)
+                }
+                .frame(height: 30, alignment: .center)
+                .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
+                .padding()
+                
             }
             
-            Text(SharedReference.shared.rsyncversionshort ?? "")
-                .padding()
-                .font(.footnote)
+            ZStack {
+                RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
+                Text(SharedReference.shared.rsyncversionshort ?? "")
+                    .font(.caption2)
+                    .foregroundColor(Color.green)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .allowsTightening(false)
+                    .minimumScaleFactor(0.5)
+            }
+            .frame(height: 30, alignment: .center)
+            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
+            .padding()
 
         } detail: {
             selectView(selectedview)
