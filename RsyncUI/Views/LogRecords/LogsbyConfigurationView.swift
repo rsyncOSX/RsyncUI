@@ -146,11 +146,11 @@ struct LogsbyConfigurationView: View {
         if let logrecords = rsyncUIlogrecords.logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
-                _ = logrecords.map({ logrecord in
+                _ = logrecords.map { logrecord in
                     if let logrecords = logrecord.logrecords {
                         merged += [logrecords].flatMap { $0 }
                     }
-                })
+                }
                 let records = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
                 logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
                 }
@@ -170,11 +170,11 @@ struct LogsbyConfigurationView: View {
         if let logrecords = rsyncUIlogrecords.logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
-                _ = logrecords.map({ logrecord in
+                _ = logrecords.map { logrecord in
                     if let logrecords = logrecord.logrecords {
                         merged += [logrecords].flatMap { $0 }
                     }
-                })
+                }
                 // return merged.sorted(by: \.date, using: >)
                 logs = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
             } else {

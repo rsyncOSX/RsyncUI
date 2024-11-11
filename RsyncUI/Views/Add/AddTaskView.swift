@@ -78,6 +78,21 @@ struct AddTaskView: View {
                     }
 
                     Spacer()
+
+                    if notifydataisupdated {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
+                            Text("Data is changed, please update")
+                                .font(.caption2)
+                                .foregroundColor(Color.green)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
+                                .allowsTightening(false)
+                                .minimumScaleFactor(0.5)
+                        }
+                        .frame(width: 200, height: 30, alignment: .center)
+                        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
+                    }
                 }
                 // Column 2
                 VStack(alignment: .leading) {
@@ -518,6 +533,20 @@ struct AddTaskView: View {
             return copy
         }
         return []
+    }
+
+    var notifydataisupdated: Bool {
+        guard selectedconfig != nil else { return false }
+
+        if newdata.localcatalog.isEmpty == false ||
+            newdata.remotecatalog.isEmpty == false ||
+            newdata.remoteuser.isEmpty == false ||
+            newdata.remoteserver.isEmpty == false ||
+            newdata.backupID.isEmpty == false
+        {
+            return true
+        }
+        return false
     }
 }
 

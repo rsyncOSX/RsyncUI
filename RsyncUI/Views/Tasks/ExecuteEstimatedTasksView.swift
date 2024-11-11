@@ -89,7 +89,7 @@ extension ExecuteEstimatedTasksView {
         if selecteduuids.count > 0 {
             uuids = selecteduuids
         } else {
-            if let estimatedlist  =  executeprogressdetails.estimatedlist {
+            if let estimatedlist = executeprogressdetails.estimatedlist {
                 uuids = Set<SynchronizeConfiguration.ID>()
                 _ = estimatedlist.map { estimate in
                     if estimate.datatosynchronize == true {

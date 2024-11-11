@@ -46,7 +46,7 @@ struct SidebarMainView: View {
             }
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
-            
+
             if newversion.notifynewversion || SharedReference.shared.newversion {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
@@ -61,9 +61,8 @@ struct SidebarMainView: View {
                 .frame(height: 30, alignment: .center)
                 .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
                 .padding()
-                
             }
-            
+
             ZStack {
                 RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
                 Text(SharedReference.shared.rsyncversionshort ?? "")
@@ -92,7 +91,6 @@ struct SidebarMainView: View {
             Task {
                 await newversion.getversionsofrsyncui()
             }
-            
         }
     }
 
