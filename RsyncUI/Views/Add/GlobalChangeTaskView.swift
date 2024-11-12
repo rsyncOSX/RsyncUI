@@ -119,23 +119,18 @@ struct GlobalChangeTaskView: View {
             case .localcatalogField:
                 newdata.updateglobalchangedconfigurations()
                 showingAlert = true
-                focusField = nil
             case .remotecatalogField:
                 newdata.updateglobalchangedconfigurations()
                 showingAlert = true
-                focusField = nil
             case .remoteuserField:
                 newdata.updateglobalchangedconfigurations()
                 showingAlert = true
-                focusField = nil
             case .remoteserverField:
                 newdata.updateglobalchangedconfigurations()
                 showingAlert = true
-                focusField = nil
             case .synchronizeIDField:
                 newdata.updateglobalchangedconfigurations()
                 showingAlert = true
-                focusField = nil
             default:
                 return
             }

@@ -23,9 +23,6 @@ final class ObservableAddConfigurations: PropogateError {
     var deleted: Bool = false
     var created: Bool = false
     var showAlertfordelete: Bool = false
-
-    // Set true if remote storage is a local attached Volume
-    var remotestorageislocal: Bool = false
     var selectedconfig: SynchronizeConfiguration?
     var localhome: String {
         Homepath().userHomeDirectoryPath ?? ""

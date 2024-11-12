@@ -154,7 +154,7 @@ struct AddTaskView: View {
                 }
                 focusField = nil
             case .synchronizeIDField:
-                if newdata.remotestorageislocal == true,
+                if newdata.verifyremotestorageislocal() == true,
                    newdata.selectedconfig == nil
                 {
                     addconfig()
@@ -163,7 +163,6 @@ struct AddTaskView: View {
                 }
             case .snapshotnumField:
                 validateandupdate()
-                focusField = nil
             default:
                 return
             }
@@ -306,9 +305,6 @@ struct AddTaskView: View {
     var setremotecatalogsyncremote: some View {
         EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""),
                   $newdata.remotecatalog)
-            .onChange(of: newdata.remotecatalog) {
-                newdata.remotestorageislocal = newdata.verifyremotestorageislocal()
-            }
     }
 
     var setlocalcatalog: some View {
