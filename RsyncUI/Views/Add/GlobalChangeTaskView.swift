@@ -15,7 +15,7 @@ struct GlobalChangeTaskView: View {
     @State private var showingAlert = false
     // Focusfield
     @FocusState private var focusField: AddConfigurationField?
-
+    
     var body: some View {
         HStack {
             // Column 1
