@@ -13,6 +13,8 @@ struct GlobalChangeTaskView: View {
     @State private var updated: Bool = false
     // Alert button
     @State private var showingAlert = false
+    // Focusfield
+    @FocusState private var focusField: AddConfigurationField?
 
     var body: some View {
         HStack {
@@ -112,6 +114,32 @@ struct GlobalChangeTaskView: View {
         .onChange(of: newdata.whatischanged) {
             updated = !newdata.whatischanged.isEmpty
         }
+        .onSubmit {
+            switch focusField {
+            case .localcatalogField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+                focusField = nil
+            case .remotecatalogField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+                focusField = nil
+            case .remoteuserField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+                focusField = nil
+            case .remoteserverField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+                focusField = nil
+            case .synchronizeIDField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+                focusField = nil
+            default:
+                return
+            }
+        }
     }
 
     var localandremotecatalog: some View {
@@ -133,6 +161,7 @@ struct GlobalChangeTaskView: View {
                     }
                 }
                 .disabled(configurations.isEmpty)
+                .focused($focusField, equals: .localcatalogField)
 
             EditValue(300, NSLocalizedString("Global change remote catalog (3)", comment: ""), $newdata.occurence_remotecatalog)
                 .onChange(of: newdata.occurence_remotecatalog) {
@@ -150,6 +179,7 @@ struct GlobalChangeTaskView: View {
                     }
                 }
                 .disabled(configurations.isEmpty)
+                .focused($focusField, equals: .remotecatalogField)
         }
     }
 
@@ -172,6 +202,7 @@ struct GlobalChangeTaskView: View {
                     }
                 }
                 .disabled(configurations.isEmpty)
+                .focused($focusField, equals: .remoteuserField)
 
             // Remote server
             EditValue(300, NSLocalizedString("Global change remote server (5)", comment: ""), $newdata.occurence_remoteserver)
@@ -190,6 +221,7 @@ struct GlobalChangeTaskView: View {
                     }
                 }
                 .disabled(configurations.isEmpty)
+                .focused($focusField, equals: .remoteserverField)
         }
     }
 
@@ -212,6 +244,7 @@ struct GlobalChangeTaskView: View {
                     }
                 }
                 .disabled(configurations.isEmpty)
+                .focused($focusField, equals: .synchronizeIDField)
         }
     }
 

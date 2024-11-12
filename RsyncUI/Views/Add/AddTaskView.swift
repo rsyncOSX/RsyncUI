@@ -18,6 +18,15 @@ struct AddTasks: Hashable, Identifiable {
     var task: AddTaskDestinationView
 }
 
+enum AddConfigurationField: Hashable {
+    case localcatalogField
+    case remotecatalogField
+    case remoteuserField
+    case remoteserverField
+    case synchronizeIDField
+    case snapshotnumField
+}
+
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservableAddConfigurations()
@@ -33,15 +42,6 @@ struct AddTaskView: View {
     @State private var changesnapshotnum: Bool = false
 
     var choosecatalog = true
-
-    enum AddConfigurationField: Hashable {
-        case localcatalogField
-        case remotecatalogField
-        case remoteuserField
-        case remoteserverField
-        case synchronizeIDField
-        case snapshotnumField
-    }
 
     @FocusState private var focusField: AddConfigurationField?
     // Reload and show table data
