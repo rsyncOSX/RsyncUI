@@ -36,13 +36,18 @@ struct GlobalChangeTaskView: View {
                     TableColumn("Synchronize ID (1)") { data in
                         if data.backupID.isEmpty == true {
                             Text("Synchronize ID")
-
                         } else {
                             Text(data.backupID)
                         }
                     }
                     .width(min: 50, max: 150)
-                    TableColumn("Local catalog (2)", value: \.localCatalog)
+                    TableColumn("Local catalog (2)") { data in
+                        if newdata.occurence_localcatalog.isEmpty == false && newdata.occurence_localcatalog.contains("$") {
+                            Text(newdata.splitinput(input: newdata.occurence_localcatalog, original: data.localCatalog))
+                        } else {
+                            Text(data.localCatalog)
+                        }
+                    }
                         .width(min: 180, max: 300)
                     TableColumn("Remote catalog (3)", value: \.offsiteCatalog)
                         .width(min: 180, max: 300)

@@ -41,6 +41,14 @@ final class ObservableGlobalchangeConfigurations {
         occurence_backupID = ""
         whatischanged.removeAll()
     }
+    
+    func splitinput(input: String, original: String) -> String {
+        guard input.contains("$") else { return original }
+        let trimmed = input.replacingOccurrences(of: " ", with: "")
+        let split = trimmed.split(separator: "$")
+        guard split.count == 2 else { return original }
+        return original.replacingOccurrences(of: String(split[0]), with: String(split[1]))
+    }
 
     func updateglobalchangedconfigurations() {
         guard whatischanged.isEmpty == false else { return }
