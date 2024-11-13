@@ -269,17 +269,17 @@ struct GlobalChangeTaskView: View {
 
     // Headers (in sections)
     var headerlocalremote: some View {
-        Text("Catalog parameters - split characther $")
+        Text("Catalog parameters - split character $")
             .modifier(FixedTag(300, .leading))
     }
 
     var headerremote: some View {
-        Text("Remote parameters - replace")
+        Text("Remote parameters - replace string")
             .modifier(FixedTag(300, .leading))
     }
 
     var headerID: some View {
-        Text("Synchronize ID - split characther $")
+        Text("Synchronize ID - split character $")
             .modifier(FixedTag(300, .leading))
     }
 
