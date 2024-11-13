@@ -33,7 +33,7 @@ struct GlobalChangeTaskView: View {
             // Column 2
             VStack(alignment: .leading) {
                 Table(configurations) {
-                    TableColumn("Synchronize ID (1)") { data in
+                    TableColumn("Synchronize ID") { data in
                         if newdata.occurence_backupID.isEmpty == false, newdata.occurence_backupID.contains("$") {
                             Text(newdata.splitinput(input: newdata.occurence_backupID, original: data.backupID))
                         } else {
@@ -41,7 +41,7 @@ struct GlobalChangeTaskView: View {
                         }
                     }
                     .width(min: 50, max: 150)
-                    TableColumn("Local catalog (2)") { data in
+                    TableColumn("Local catalog") { data in
                         if newdata.occurence_localcatalog.isEmpty == false, newdata.occurence_localcatalog.contains("$") {
                             Text(newdata.splitinput(input: newdata.occurence_localcatalog, original: data.localCatalog))
                         } else {
@@ -49,7 +49,7 @@ struct GlobalChangeTaskView: View {
                         }
                     }
                     .width(min: 180, max: 300)
-                    TableColumn("Remote catalog (3)") { data in
+                    TableColumn("Remote catalog") { data in
                         if newdata.occurence_remotecatalog.isEmpty == false, newdata.occurence_remotecatalog.contains("$") {
                             Text(newdata.splitinput(input: newdata.occurence_remotecatalog, original: data.offsiteCatalog))
                         } else {
@@ -57,17 +57,17 @@ struct GlobalChangeTaskView: View {
                         }
                     }
                     .width(min: 180, max: 300)
-                    TableColumn("Remote user (4))") { data in
-                        if newdata.occurence_remoteuser.isEmpty == false, newdata.occurence_remoteuser.contains("$") {
-                            Text(newdata.splitinput(input: newdata.occurence_remoteuser, original: data.offsiteUsername))
+                    TableColumn("Remote user") { data in
+                        if newdata.occurence_remoteuser.isEmpty == false {
+                            Text(newdata.occurence_remoteuser)
                         } else {
                             Text(data.offsiteUsername)
                         }
                     }
                     .width(min: 100, max: 150)
-                    TableColumn("Server (5)") { data in
-                        if newdata.occurence_remoteserver.isEmpty == false, newdata.occurence_remoteserver.contains("$") {
-                            Text(newdata.splitinput(input: newdata.occurence_remoteserver, original: data.offsiteServer))
+                    TableColumn("Remote server") { data in
+                        if newdata.occurence_remoteserver.isEmpty == false {
+                            Text(newdata.occurence_remoteserver)
                         } else {
                             Text(data.offsiteServer)
                         }
@@ -164,7 +164,7 @@ struct GlobalChangeTaskView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, NSLocalizedString("Global change local catalog (2)", comment: ""), $newdata.occurence_localcatalog)
+            EditValue(300, NSLocalizedString("Local catalog", comment: ""), $newdata.occurence_localcatalog)
                 .onChange(of: newdata.occurence_localcatalog) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -182,7 +182,7 @@ struct GlobalChangeTaskView: View {
                 .disabled(configurations.isEmpty)
                 .focused($focusField, equals: .localcatalogField)
 
-            EditValue(300, NSLocalizedString("Global change remote catalog (3)", comment: ""), $newdata.occurence_remotecatalog)
+            EditValue(300, NSLocalizedString("Remote catalog", comment: ""), $newdata.occurence_remotecatalog)
                 .onChange(of: newdata.occurence_remotecatalog) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -205,7 +205,7 @@ struct GlobalChangeTaskView: View {
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
-            EditValue(300, NSLocalizedString("Global change remote user (4)", comment: ""), $newdata.occurence_remoteuser)
+            EditValue(300, NSLocalizedString("Remote user", comment: ""), $newdata.occurence_remoteuser)
                 .onChange(of: newdata.occurence_remoteuser) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -224,7 +224,7 @@ struct GlobalChangeTaskView: View {
                 .focused($focusField, equals: .remoteuserField)
 
             // Remote server
-            EditValue(300, NSLocalizedString("Global change remote server (5)", comment: ""), $newdata.occurence_remoteserver)
+            EditValue(300, NSLocalizedString("Remote server", comment: ""), $newdata.occurence_remoteserver)
                 .onChange(of: newdata.occurence_remoteserver) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -247,7 +247,7 @@ struct GlobalChangeTaskView: View {
     var synchronizeID: some View {
         Section(header: headerID) {
             // Synchronize ID
-            EditValue(300, NSLocalizedString("Global change Synchronize ID (1)", comment: ""), $newdata.occurence_backupID)
+            EditValue(300, NSLocalizedString("Synchronize ID", comment: ""), $newdata.occurence_backupID)
                 .onChange(of: newdata.occurence_backupID) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -269,18 +269,18 @@ struct GlobalChangeTaskView: View {
 
     // Headers (in sections)
     var headerlocalremote: some View {
-        Text("Catalog parameters")
-            .modifier(FixedTag(200, .leading))
+        Text("Catalog parameters - split characther $")
+            .modifier(FixedTag(300, .leading))
     }
 
     var headerremote: some View {
-        Text("Remote parameters")
-            .modifier(FixedTag(200, .leading))
+        Text("Remote parameters - replace")
+            .modifier(FixedTag(300, .leading))
     }
 
     var headerID: some View {
-        Text("Synchronize ID")
-            .modifier(FixedTag(200, .leading))
+        Text("Synchronize ID - split characther $")
+            .modifier(FixedTag(300, .leading))
     }
 
     var configurations: [SynchronizeConfiguration] {
