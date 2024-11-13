@@ -13,6 +13,7 @@ import SSHCreateKey
 enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize_data
     case restore_data
+    case verify_a_remote
     case verify_synchronized_data
     case list_remote_files
     case create_public_SSHkey
@@ -81,6 +82,14 @@ struct OtherRsyncCommandtoDisplay {
                 str = createsshkeys.argumentssshcopyid(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
             } else {
                 str = NSLocalizedString("No remote server on task", comment: "")
+            }
+        case .verify_a_remote:
+            if config.offsiteServer.isEmpty == false {
+                if let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremote(dryRun: true, forDisplay: true) {
+                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+                }
+            } else {
+                str = NSLocalizedString("Use macOS Finder", comment: "")
             }
         }
         command = str
