@@ -68,7 +68,11 @@ struct RsyncandPathsettings: View {
             }
 
             Section {
-                setpathforrestore
+                HStack {
+                    setpathforrestore
+                    
+                    OpencatalogView(catalog: $rsyncpathsettings.temporarypathforrestore, choosecatalog: true)
+                }
             } header: {
                 Text("Path for restore")
             }
@@ -151,6 +155,9 @@ struct RsyncandPathsettings: View {
                 guard isstarting == false else { return }
                 Task {
                     try await Task.sleep(seconds: 1)
+                    if rsyncpathsettings.temporarypathforrestore.hasSuffix("/") == false {
+                        rsyncpathsettings.temporarypathforrestore.append("/")
+                    }
                     rsyncpathsettings.setandvalidapathforrestore(rsyncpathsettings.temporarypathforrestore)
                     settingsischanged = true
                 }
