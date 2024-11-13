@@ -537,7 +537,8 @@ struct AddTaskView: View {
             newdata.remotecatalog != selectedconfig.offsiteCatalog ||
             newdata.backupID != selectedconfig.backupID ||
             newdata.remoteuser != selectedconfig.offsiteUsername ||
-            newdata.remoteserver != selectedconfig.offsiteServer {
+            newdata.remoteserver != selectedconfig.offsiteServer
+        {
             return true
         }
         return false

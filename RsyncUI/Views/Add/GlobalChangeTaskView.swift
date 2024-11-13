@@ -15,7 +15,7 @@ struct GlobalChangeTaskView: View {
     @State private var showingAlert = false
     // Focusfield
     @FocusState private var focusField: AddConfigurationField?
-    
+
     var body: some View {
         HStack {
             // Column 1
@@ -34,26 +34,45 @@ struct GlobalChangeTaskView: View {
             VStack(alignment: .leading) {
                 Table(configurations) {
                     TableColumn("Synchronize ID (1)") { data in
-                        if data.backupID.isEmpty == true {
-                            Text("Synchronize ID")
+                        if newdata.occurence_backupID.isEmpty == false, newdata.occurence_backupID.contains("$") {
+                            Text(newdata.splitinput(input: newdata.occurence_backupID, original: data.backupID))
                         } else {
                             Text(data.backupID)
                         }
                     }
                     .width(min: 50, max: 150)
                     TableColumn("Local catalog (2)") { data in
-                        if newdata.occurence_localcatalog.isEmpty == false && newdata.occurence_localcatalog.contains("$") {
+                        if newdata.occurence_localcatalog.isEmpty == false, newdata.occurence_localcatalog.contains("$") {
                             Text(newdata.splitinput(input: newdata.occurence_localcatalog, original: data.localCatalog))
                         } else {
                             Text(data.localCatalog)
                         }
                     }
-                        .width(min: 180, max: 300)
-                    TableColumn("Remote catalog (3)", value: \.offsiteCatalog)
-                        .width(min: 180, max: 300)
-                    TableColumn("Remote user (4)", value: \.offsiteUsername)
-                        .width(min: 100, max: 150)
-                    TableColumn("Server (5)", value: \.offsiteServer)
+                    .width(min: 180, max: 300)
+                    TableColumn("Remote catalog (3)") { data in
+                        if newdata.occurence_remotecatalog.isEmpty == false, newdata.occurence_remotecatalog.contains("$") {
+                            Text(newdata.splitinput(input: newdata.occurence_remotecatalog, original: data.offsiteCatalog))
+                        } else {
+                            Text(data.offsiteCatalog)
+                        }
+                    }
+                    .width(min: 180, max: 300)
+                    TableColumn("Remote user (4))") { data in
+                        if newdata.occurence_remoteuser.isEmpty == false, newdata.occurence_remoteuser.contains("$") {
+                            Text(newdata.splitinput(input: newdata.occurence_remoteuser, original: data.offsiteUsername))
+                        } else {
+                            Text(data.offsiteUsername)
+                        }
+                    }
+                    .width(min: 100, max: 150)
+                    TableColumn("Server (5)") { data in
+                        if newdata.occurence_remoteserver.isEmpty == false, newdata.occurence_remoteserver.contains("$") {
+                            Text(newdata.splitinput(input: newdata.occurence_remoteserver, original: data.offsiteServer))
+                        } else {
+                            Text(data.offsiteServer)
+                        }
+                    }
+                    .width(min: 100, max: 150)
                 }
                 .overlay {
                     if configurations.isEmpty {
