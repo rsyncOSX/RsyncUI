@@ -8,9 +8,6 @@
 "%" = "%";
 
 /* No comment provided by engineer. */
-"%@" = "%@";
-
-/* No comment provided by engineer. */
 "%lld" = "%lld";
 
 /* No comment provided by engineer. */
@@ -86,6 +83,9 @@
 "Catalog parameters" = "Katalog parametre";
 
 /* No comment provided by engineer. */
+"Catalog parameters - split character $" = "Katalog parameter - split $";
+
+/* No comment provided by engineer. */
 "Catalogs" = "Kataloger";
 
 /* No comment provided by engineer. */
@@ -125,6 +125,9 @@
 "Create profile" = "Opprett profil";
 
 /* No comment provided by engineer. */
+"Data is changed, please update" = "Data er endret, oppdater";
+
+/* No comment provided by engineer. */
 "Date" = "Dato";
 
 /* No comment provided by engineer. */
@@ -158,7 +161,7 @@
 "Don´t add /" = "Ikke legg til /";
 
 /* No comment provided by engineer. */
-"Download new version" = "Last ned ny versjon";
+"Download" = "Last ned";
 
 /* No comment provided by engineer. */
 "Enable rsync daemon" = "Aktiver rsync daemon";
@@ -174,9 +177,6 @@
 
 /* No comment provided by engineer. */
 "Estimate (⌘E)" = "Estimer (⌘E)";
-
-/* No comment provided by engineer. */
-"Estimating now" = "Estimerer nå";
 
 /* No comment provided by engineer. */
 "Export" = "Eksporter";
@@ -204,6 +204,9 @@
 
 /* No comment provided by engineer. */
 "Get list of files for restore" = "Hent filenavn for opprett";
+
+/* No comment provided by engineer. */
+"Global change and update" = "Global endring og oppdatering";
 
 /* No comment provided by engineer. */
 "Global ssh-keypath and identityfile" = "Global ssh-keypath og identitetsfil";
@@ -266,13 +269,13 @@
 "Monitor network, error and log settings" = "Monitorer nettverk, feil og logg setting";
 
 /* No comment provided by engineer. */
+"Most likely, you try to update snapshot tasks, not allowed." = "Ser ut som du prøver å oppdatere en snapshot oppgave, det er ikke tillatt";
+
+/* No comment provided by engineer. */
 "New" = "Ny";
 
 /* No comment provided by engineer. */
 "New version" = "Ny versjon";
-
-/* No comment provided by engineer. */
-"New version is available" = "Ny versjon er tilgjengelig";
 
 /* No comment provided by engineer. */
 "No configurations yet." = "Ingen oppgaver.";
@@ -302,6 +305,9 @@
 "Only rsync version 3.x supports snapshots." = "Kun rsync versjon 3 støtter snapshot.";
 
 /* No comment provided by engineer. */
+"Or there are no tasks to update." = "Eller det er ingen oppgaver å oppdatere";
+
+/* No comment provided by engineer. */
 "Output from rsync" = "Utdata fra rsync";
 
 /* No comment provided by engineer. */
@@ -327,6 +333,15 @@
 
 /* No comment provided by engineer. */
 "Remote parameters" = "Eksterne parametere";
+
+/* No comment provided by engineer. */
+"Remote parameters - replace string" = "Eksterne parameter - erstatt";
+
+/* No comment provided by engineer. */
+"Remote server" = "Ekstern tjener";
+
+/* No comment provided by engineer. */
+"Remote user" = "Ekstern bruker";
 
 /* No comment provided by engineer. */
 "Remove default rsync parameters" = "Slett standard rsync parametre";
@@ -425,6 +440,9 @@
 "Synchronize ID" = "Synkroniserings ID";
 
 /* No comment provided by engineer. */
+"Synchronize ID - split character $" = "Synkroniserings ID - spilt $";
+
+/* No comment provided by engineer. */
 "Synchronize ID : profilename" = "Synkroniserings ID : profilnavn";
 
 /* No comment provided by engineer. */
@@ -459,6 +477,9 @@
 
 /* No comment provided by engineer. */
 "There is ^[%lld snapshot](inflect: true)" = "Det er ^[%lld snapshot](inflect: true)";
+
+/* No comment provided by engineer. */
+"There is a new version\navailable for download" = "Ny versjon er tilgjengelig for nedlasting";
 
 /* No comment provided by engineer. */
 "This is only due to Marknumberofdayssince set in the settings." = "Dette er kun ift Marknumberofdayssince i settings";
