@@ -94,38 +94,18 @@ final class ObservableGlobalchangeConfigurations {
             case .remoteuser:
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
                     let oldsstring = task.offsiteUsername
-                    if occurence_remoteuser.contains("$") {
-                        let trimmed = occurence_remoteuser.replacingOccurrences(of: " ", with: "")
-                        let split = trimmed.split(separator: "$")
-                        guard split.count == 2 else { return task }
-                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
-                        var newtask = task
-                        newtask.offsiteUsername = newstring
-                        return newtask
-                    } else {
-                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remoteuser)
-                        var newtask = task
-                        newtask.offsiteUsername = newstring
-                        return newtask
-                    }
+                    let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remoteuser)
+                    var newtask = task
+                    newtask.offsiteUsername = newstring
+                    return newtask
                 }
             case .remoteserver:
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
                     let oldsstring = task.offsiteServer
-                    if occurence_remoteserver.contains("$") {
-                        let trimmed = occurence_remoteserver.replacingOccurrences(of: " ", with: "")
-                        let split = trimmed.split(separator: "$")
-                        guard split.count == 2 else { return task }
-                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
-                        var newtask = task
-                        newtask.offsiteServer = newstring
-                        return newtask
-                    } else {
-                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remoteserver)
-                        var newtask = task
-                        newtask.offsiteServer = newstring
-                        return newtask
-                    }
+                    let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remoteserver)
+                    var newtask = task
+                    newtask.offsiteServer = newstring
+                    return newtask
                 }
             case .backupID:
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
