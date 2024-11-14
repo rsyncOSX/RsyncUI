@@ -11,9 +11,6 @@
 "%" = "%";
 
 /* No comment provided by engineer. */
-"%@" = "%@";
-
-/* No comment provided by engineer. */
 "%lld" = "%lld";
 
 /* No comment provided by engineer. */
@@ -89,6 +86,9 @@
 "Catalog parameters" = "Katalogparameter";
 
 /* No comment provided by engineer. */
+"Catalog parameters - split character $" = "Katalogparameter - split $";
+
+/* No comment provided by engineer. */
 "Catalogs" = "Katalog";
 
 /* No comment provided by engineer. */
@@ -128,6 +128,9 @@
 "Create profile" = "Profil erstellen";
 
 /* No comment provided by engineer. */
+"Data is changed, please update" = "Daten haben sich geändert, bitte aktualisieren";
+
+/* No comment provided by engineer. */
 "Date" = "Datum";
 
 /* No comment provided by engineer. */
@@ -161,7 +164,7 @@
 "Don´t add /" = "Nicht hinzufügen/";
 
 /* No comment provided by engineer. */
-"Download new version" = "Neue Version herunterladen";
+"Download" = "Herunterladen";
 
 /* No comment provided by engineer. */
 "Enable rsync daemon" = "Rsync daemon aktivieren";
@@ -177,9 +180,6 @@
 
 /* No comment provided by engineer. */
 "Estimate (⌘E)" = "Schätzung (⌘E)";
-
-/* No comment provided by engineer. */
-"Estimating now" = "Jetzt schätzen";
 
 /* No comment provided by engineer. */
 "Export" = "Export";
@@ -207,6 +207,9 @@
 
 /* No comment provided by engineer. */
 "Get list of files for restore" = "Rufen Sie eine Liste der wiederherzustellenden Dateien ab";
+
+/* No comment provided by engineer. */
+"Global change and update" = "Globale Änderungen und Aktualisierungen";
 
 /* No comment provided by engineer. */
 "Global ssh-keypath and identityfile" = "Globaler SSH-Schlüsselpfad und Identitätsdatei";
@@ -269,13 +272,13 @@
 "Monitor network, error and log settings" = "Überwachen Sie Netzwerk-, Fehler- und Protokolleinstellungen";
 
 /* No comment provided by engineer. */
+"Most likely, you try to update snapshot tasks, not allowed." = "Höchstwahrscheinlich versuchen Sie, Snapshot-Aufgaben zu aktualisieren, was nicht zulässig ist.";
+
+/* No comment provided by engineer. */
 "New" = "Neu";
 
 /* No comment provided by engineer. */
 "New version" = "Neue Version";
-
-/* No comment provided by engineer. */
-"New version is available" = "Neue Version ist verfügbar";
 
 /* No comment provided by engineer. */
 "No configurations yet." = "Noch keine Konfigurationen.";
@@ -305,6 +308,9 @@
 "Only rsync version 3.x supports snapshots." = "Nur rsync Version 3.x unterstützt Snapshots.";
 
 /* No comment provided by engineer. */
+"Or there are no tasks to update." = "Oder es sind keine Aufgaben zum Aktualisieren vorhanden.";
+
+/* No comment provided by engineer. */
 "Output from rsync" = "Ausgabe von rsync";
 
 /* No comment provided by engineer. */
@@ -329,7 +335,16 @@
 "Remote catalog: " = "Remote Katalog:";
 
 /* No comment provided by engineer. */
-"Remote parameters" = "Remote Parameter";
+"Remote parameters" = "Remote-Parameter";
+
+/* No comment provided by engineer. */
+"Remote parameters - replace string" = "Remote-Parameter - Zeichenfolge ersetzen";
+
+/* No comment provided by engineer. */
+"Remote server" = "Remote-Server";
+
+/* No comment provided by engineer. */
+"Remote user" = "Remote-Benutzer";
 
 /* No comment provided by engineer. */
 "Remove default rsync parameters" = "Entfernen Sie die Standard-rsync-Parameter";
@@ -428,6 +443,9 @@
 "Synchronize ID" = "Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
+"Synchronize ID - split character $" = "Synchronisierungs-ID - split $";
+
+/* No comment provided by engineer. */
 "Synchronize ID : profilename" = "Synchronisierungs-ID : Profilname";
 
 /* No comment provided by engineer. */
@@ -464,6 +482,12 @@
 "There is ^[%lld snapshot](inflect: true)" = "Es gibt  ^[%lld snapshot](inflect: true)";
 
 /* No comment provided by engineer. */
+"There is a new version\navailable for download" = "Es steht eine neue Version\nzum Download bereit";
+
+/* No comment provided by engineer. */
+"There is a new version available for download" = "Es steht eine neue Version zum Download bereit";
+
+/* No comment provided by engineer. */
 "This is only due to Marknumberofdayssince set in the settings." = "Dies liegt ausschließlich an der in den Einstellungen festgelegten Markierung „AnzahlderTagesseit“.";
 
 /* No comment provided by engineer. */
@@ -492,6 +516,12 @@
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Synchronize ID or \n If new user, add Tasks." = "Versuchen Sie, in Synchronize ID oder nach einem anderen Filter zu suchen\n Wenn Sie ein neuer Benutzer sind, fügen Sie Aufgaben hinzu.";
+
+/* No comment provided by engineer. */
+"Update" = "Aktualisieren";
+
+/* No comment provided by engineer. */
+"Update all configurations?" = "Alle Konfigurationen aktualisieren?";
 
 /* No comment provided by engineer. */
 "Update plan snapshot" = "Plan-Snapshot aktualisieren";

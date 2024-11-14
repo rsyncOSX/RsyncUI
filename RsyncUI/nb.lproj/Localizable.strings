@@ -482,6 +482,9 @@
 "There is a new version\navailable for download" = "Ny versjon er tilgjengelig for nedlasting";
 
 /* No comment provided by engineer. */
+"There is a new version available for download" = "Ny versjon er tilgjengelig for nedlasting";
+
+/* No comment provided by engineer. */
 "This is only due to Marknumberofdayssince set in the settings." = "Dette er kun ift Marknumberofdayssince i settings";
 
 /* No comment provided by engineer. */
@@ -510,6 +513,12 @@
 
 /* No comment provided by engineer. */
 "Try to search for other filter in Synchronize ID or \n If new user, add Tasks." = "Endre søke filter for Synchronize ID eller hvis ny bruker, opprett oppgave";
+
+/* No comment provided by engineer. */
+"Update" = "Oppdater";
+
+/* No comment provided by engineer. */
+"Update all configurations?" = "Oppdatere alle oppgaver?";
 
 /* No comment provided by engineer. */
 "Update plan snapshot" = "Oppdater plan snapshot";
