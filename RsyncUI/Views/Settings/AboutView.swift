@@ -79,7 +79,7 @@ struct AboutView: View {
                     .buttonStyle(ColorfulButtonStyle())
 
                 } header: {
-                    Text("There is a new version avaliable for download")
+                    Text("There is a new version available for download")
                 }
             }
         }
