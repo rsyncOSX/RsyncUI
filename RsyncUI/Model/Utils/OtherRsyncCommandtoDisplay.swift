@@ -14,6 +14,7 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case synchronize_data
     case restore_data
     case check_a_remote
+    case check_a_remote_with_parameters
     case verify_synchronized_data
     case list_remote_files
     case create_public_SSHkey
@@ -86,6 +87,14 @@ struct OtherRsyncCommandtoDisplay {
         case .check_a_remote:
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremote(dryRun: true, forDisplay: true) {
+                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+                }
+            } else {
+                str = NSLocalizedString("Use macOS Finder", comment: "")
+            }
+        case .check_a_remote_with_parameters:
+            if config.offsiteServer.isEmpty == false {
+                if let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremotewithparameters(dryRun: true, forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
                 }
             } else {

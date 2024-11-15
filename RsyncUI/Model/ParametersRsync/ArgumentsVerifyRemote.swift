@@ -28,6 +28,21 @@ final class ArgumentsVerifyRemote {
         }
         return nil
     }
+    
+    func argumentsverifyremotewithparameters(dryRun: Bool, forDisplay: Bool) -> [String]? {
+        if let config {
+            Logger.process.info("ArgumentsVerifyRemoteWithParameters: using RsyncParametersVerifyRemote() from RsyncArguments")
+            if let parameters = PrepareParameters(config: config).parameters {
+                let rsyncparametersrestore =
+                RsyncParametersVerifyRemote(parameters: parameters)
+                rsyncparametersrestore.argumentsverifyremotewithparameters (forDisplay: forDisplay,
+                                                                            verify: false, dryrun: dryRun, nodelete: true)
+                return rsyncparametersrestore.computedarguments
+            }
+        }
+        return nil
+    }
+    
     init(config: SynchronizeConfiguration?) {
         self.config = config
     }
