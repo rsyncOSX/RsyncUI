@@ -90,8 +90,26 @@ struct RsyncParametersView: View {
                             parameters.setbackup()
                         }
                         .disabled(selectedconfig == nil)
-
+                    
                     Spacer()
+                    
+                    if notifydataisupdated {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
+                            Text("Data is changed, please update")
+                                .font(.caption2)
+                                .foregroundColor(Color.green)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
+                                .allowsTightening(false)
+                                .minimumScaleFactor(0.5)
+                        }
+                        .frame(width: 200, height: 30, alignment: .center)
+                        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
+                        .padding()
+                    }
+
+                   
                 }
 
                 ListofTasksLightView(selecteduuids: $selecteduuids,
@@ -117,7 +135,6 @@ struct RsyncParametersView: View {
 
                 if focusaborttask { labelaborttask }
             }
-
             RsyncCommandView(config: $parameters.configuration,
                              selectedrsynccommand: $selectedrsynccommand)
                 .disabled(parameters.configuration == nil)
@@ -224,6 +241,22 @@ struct RsyncParametersView: View {
                     parameters.setsshport(parameters.sshport)
                 }
             }
+    }
+    
+    var notifydataisupdated: Bool {
+        guard let selectedconfig else { return false }
+        if parameters.parameter8 != (selectedconfig.parameter8 ?? "") ||
+            parameters.parameter9 != (selectedconfig.parameter9 ?? "") ||
+            parameters.parameter10 != (selectedconfig.parameter10 ?? "") ||
+            parameters.parameter11 != (selectedconfig.parameter11 ?? "") ||
+            parameters.parameter12 != (selectedconfig.parameter12 ?? "") ||
+            parameters.parameter13 != (selectedconfig.parameter13 ?? "") ||
+            parameters.parameter14 != (selectedconfig.parameter14 ?? "")
+            
+        {
+            return true
+        }
+        return false
     }
 }
 
