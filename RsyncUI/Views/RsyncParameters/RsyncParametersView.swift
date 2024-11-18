@@ -162,8 +162,13 @@ struct RsyncParametersView: View {
                 Button {
                     saversyncparameters()
                 } label: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.blue))
+                    if notifydataisupdated {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    } else {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color(.blue))
+                    }
                 }
                 .help("Update task")
             }
