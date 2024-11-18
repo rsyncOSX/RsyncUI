@@ -14,8 +14,6 @@ struct RsyncDefaultParametersView: View {
     @State private var parameters = ObservableParametersDefault()
     @State private var selectedrsynccommand = RsyncCommand.synchronize_data
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    // Update pressed
-    @State var updated: Bool = false
 
     var body: some View {
         VStack {
@@ -54,14 +52,12 @@ struct RsyncDefaultParametersView: View {
                                 parameters.setvalues(configurations[index])
                             } else {
                                 parameters.setvalues(nil)
-                                updated = false
                             }
                         }
                     }
                     .onChange(of: rsyncUIdata.profile) {
                         parameters.setvalues(nil)
                         selecteduuids.removeAll()
-                        updated = false
                     }
             }
 
@@ -74,13 +70,8 @@ struct RsyncDefaultParametersView: View {
                 Button {
                     saversyncparameters()
                 } label: {
-                    if updated == false {
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(Color(.blue))
-                    } else {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Update task")
             }
@@ -101,7 +92,6 @@ struct RsyncDefaultParametersView: View {
 
 extension RsyncDefaultParametersView {
     func saversyncparameters() {
-        updated = true
         if let updatedconfiguration = parameters.updatersyncparameters(),
            let configurations = rsyncUIdata.configurations
         {
@@ -114,7 +104,6 @@ extension RsyncDefaultParametersView {
         }
         Task {
             try await Task.sleep(seconds: 2)
-            updated = false
             path.removeAll()
         }
     }

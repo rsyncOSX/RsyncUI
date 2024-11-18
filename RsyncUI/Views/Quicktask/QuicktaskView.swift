@@ -33,8 +33,6 @@ struct QuicktaskView: View {
     @State private var focusstartexecution: Bool = false
     // Completed task
     @State private var completed: Bool = false
-    // Update pressed
-    @State var updated: Bool = false
 
     enum QuicktaskField: Hashable {
         case localcatalogField
@@ -152,13 +150,8 @@ struct QuicktaskView: View {
                 Button {
                     getconfigandexecute()
                 } label: {
-                    if updated == false {
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(Color(.blue))
-                    } else {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Synchronize (⌘R)")
             }
@@ -308,7 +301,6 @@ extension QuicktaskView {
     }
 
     func getconfigandexecute() {
-        updated = true
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
@@ -342,6 +334,5 @@ extension QuicktaskView {
         rsyncoutput = ObservableRsyncOutput()
         rsyncoutput?.setoutput(stringoutputfromrsync)
         completed = true
-        updated = false
     }
 }

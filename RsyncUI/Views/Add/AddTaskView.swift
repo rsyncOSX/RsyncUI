@@ -36,8 +36,6 @@ struct AddTaskView: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
-    // Update pressed
-    @State private var updated: Bool = false
     // Enable change snapshotnum
     @State private var changesnapshotnum: Bool = false
 
@@ -92,7 +90,6 @@ struct AddTaskView: View {
                                 } else {
                                     selectedconfig = nil
                                     newdata.updateview(nil)
-                                    updated = false
                                 }
                             }
                         }
@@ -194,11 +191,11 @@ struct AddTaskView: View {
                     Button {
                         validateandupdate()
                     } label: {
-                        if updated == false {
-                            Image(systemName: "checkmark.circle")
+                        if notifydataisupdated {
+                            Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(Color(.blue))
                         } else {
-                            Image(systemName: "checkmark.circle.fill")
+                            Image(systemName: "checkmark.circle")
                                 .foregroundColor(Color(.blue))
                         }
                     }
@@ -209,13 +206,8 @@ struct AddTaskView: View {
                     Button {
                         addconfig()
                     } label: {
-                        if updated == false {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(Color(.blue))
-                        } else {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color(.blue))
-                        }
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
                     }
                     .help("Add task")
                 }
@@ -553,11 +545,6 @@ struct AddTaskView: View {
 extension AddTaskView {
     func addconfig() {
         rsyncUIdata.configurations = newdata.addconfig(selectedprofile, rsyncUIdata.configurations)
-        updated = true
-        Task {
-            try await Task.sleep(seconds: 2)
-            updated = false
-        }
         if SharedReference.shared.duplicatecheck {
             if let configurations = rsyncUIdata.configurations {
                 VerifyDuplicates(configurations)
@@ -567,12 +554,7 @@ extension AddTaskView {
 
     func validateandupdate() {
         rsyncUIdata.configurations = newdata.updateconfig(selectedprofile, rsyncUIdata.configurations)
-        updated = true
         selecteduuids.removeAll()
-        Task {
-            try await Task.sleep(seconds: 2)
-            updated = false
-        }
     }
 }
 

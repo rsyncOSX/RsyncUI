@@ -10,7 +10,6 @@ import SwiftUI
 struct GlobalChangeTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var newdata = ObservableGlobalchangeConfigurations()
-    @State private var updated: Bool = false
     // Alert button
     @State private var showingAlert = false
     // Focusfield
@@ -112,13 +111,8 @@ struct GlobalChangeTaskView: View {
                     newdata.updateglobalchangedconfigurations()
                     showingAlert = true
                 } label: {
-                    if updated == false {
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(Color(.blue))
-                    } else {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Update task")
                 .disabled(configurations.isEmpty)
@@ -134,9 +128,6 @@ struct GlobalChangeTaskView: View {
             newdata.notchangedsnapshotconfigurations = rsyncUIdata.configurations?.compactMap { task in
                 (task.task == SharedReference.shared.snapshot) ? task : nil
             }
-        }
-        .onChange(of: newdata.whatischanged) {
-            updated = !newdata.whatischanged.isEmpty
         }
         .onSubmit {
             switch focusField {

@@ -19,8 +19,6 @@ struct RestoreTableView: View {
     // Filterstring
     @State private var filterstring: String = ""
     @Binding var profile: String?
-    // Update pressed
-    @State var updated: Bool = false
 
     let configurations: [SynchronizeConfiguration]
 
@@ -126,13 +124,8 @@ struct RestoreTableView: View {
                         Button {
                             executerestore()
                         } label: {
-                            if updated == false {
-                                Image(systemName: "checkmark.circle")
-                                    .foregroundColor(Color(.blue))
-                            } else {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(Color(.blue))
-                            }
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(Color(.blue))
                         }
                         .help("Restore files")
                     }
@@ -166,9 +159,6 @@ struct RestoreTableView: View {
         }
         .navigationDestination(isPresented: $restore.presentrestorelist) {
             OutputRsyncView(output: restore.restorefilelist)
-                .onAppear {
-                    updated = false
-                }
         }
         .padding()
     }
@@ -279,7 +269,6 @@ extension RestoreTableView {
 
     func executerestore() {
         if let config = restore.selectedconfig, restore.filestorestore.isEmpty == false {
-            updated = true
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
             if snapshot, snapshotcatalog.isEmpty == false {
                 var tempconfig = config

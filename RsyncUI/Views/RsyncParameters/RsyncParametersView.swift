@@ -29,8 +29,6 @@ struct RsyncParametersView: View {
     @State private var focusaborttask: Bool = false
     // Backup switch
     @State var backup: Bool = false
-    // Update pressed
-    @State var updated: Bool = false
 
     var body: some View {
         NavigationStack(path: $rsyncnavigation) {
@@ -111,7 +109,6 @@ struct RsyncParametersView: View {
                                 selectedconfig = nil
                                 parameters.setvalues(selectedconfig)
                                 backup = false
-                                updated = false
                             }
                         }
                     }
@@ -165,13 +162,8 @@ struct RsyncParametersView: View {
                 Button {
                     saversyncparameters()
                 } label: {
-                    if updated == false {
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(Color(.blue))
-                    } else {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Update task")
             }
@@ -264,7 +256,6 @@ struct RsyncParametersView: View {
 
 extension RsyncParametersView {
     func saversyncparameters() {
-        updated = true
         if let updatedconfiguration = parameters.updatersyncparameters(),
            let configurations = rsyncUIdata.configurations
         {
@@ -278,7 +269,6 @@ extension RsyncParametersView {
         }
         Task {
             try await Task.sleep(seconds: 2)
-            updated = false
         }
     }
 }

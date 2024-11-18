@@ -28,8 +28,6 @@ struct SnapshotsView: View {
     @State private var deleteiscompleted: Bool = false
     // Filter
     @State private var filterstring: String = ""
-    // Update pressed
-    @State private var updatebutton: Bool = false
     //
     @State private var isdisabled: Bool = true
 
@@ -102,13 +100,8 @@ struct SnapshotsView: View {
                 Button {
                     updateplansnapshot()
                 } label: {
-                    if updatebutton == false {
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(Color(.blue))
-                    } else {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Update plan snapshot")
                 .disabled(isdisabled)
@@ -278,10 +271,8 @@ extension SnapshotsView {
     }
 
     func updateplansnapshot() {
-        updatebutton = true
         if var selectedconfig {
             guard selectedconfig.task == SharedReference.shared.snapshot else {
-                updatebutton = false
                 return
             }
             switch snaplast {
@@ -308,7 +299,6 @@ extension SnapshotsView {
         }
         Task {
             try await Task.sleep(seconds: 2)
-            updatebutton = false
         }
     }
 }
