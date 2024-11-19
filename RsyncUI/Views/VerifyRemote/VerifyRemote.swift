@@ -34,7 +34,7 @@ struct VerifyRemote: View {
                     }
                 }
         }
-        .navigationTitle("Verify Remote")
+        .navigationTitle("Verify remote")
         .navigationDestination(isPresented: $showdetails) {
             if let selectedconfig {
                 OutputRsyncVerifyView(config: selectedconfig, checkremote: true)

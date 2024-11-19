@@ -115,7 +115,7 @@ struct TasksView: View {
                 if doubleclick { doubleclickaction }
             }
         }
-        .navigationTitle("Synchronize")
+        .navigationTitle("Synchronize tasks")
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.exporttasks, $focusexport)

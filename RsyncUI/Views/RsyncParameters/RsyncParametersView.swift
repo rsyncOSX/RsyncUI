@@ -189,7 +189,7 @@ struct RsyncParametersView: View {
                 .help("Show arguments")
             }
         })
-        .navigationTitle("Rsync Parameters")
+        .navigationTitle("Rsync parameters")
         .navigationDestination(for: ParametersTasks.self) { which in
             makeView(view: which.task)
         }

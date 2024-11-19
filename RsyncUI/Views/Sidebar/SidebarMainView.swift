@@ -187,7 +187,7 @@ struct SidebarRow: View {
         case .profiles:
             "arrow.triangle.branch"
         case .verify_remote:
-            "arrowshape.turn.up.right"
+            "arrow.down.circle.fill"
         }
     }
 }
