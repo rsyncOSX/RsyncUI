@@ -229,6 +229,7 @@ struct AddTaskView: View {
                 .help("Home catalogs")
             }
         }
+        .navigationTitle("Add tasks")
         .navigationDestination(for: AddTasks.self) { which in
             makeView(view: which.task)
         }

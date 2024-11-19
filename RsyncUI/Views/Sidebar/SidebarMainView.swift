@@ -128,7 +128,9 @@ struct SidebarMainView: View {
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         case .verify_remote:
-            VerifyRemote(rsyncUIdata: rsyncUIdata)
+            NavigationStack {
+                VerifyRemote(rsyncUIdata: rsyncUIdata)
+            }
         }
     }
 

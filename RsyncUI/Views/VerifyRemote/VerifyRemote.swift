@@ -14,9 +14,10 @@ struct VerifyRemote: View {
     @State private var snapshotdata = SnapshotData()
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
+    @State private var showdetails: Bool = false
 
     var body: some View {
-        HStack {
+        NavigationStack  {
             ListofTasksLightView(selecteduuids: $selectedconfiguuid,
                                  profile: rsyncUIdata.profile,
                                  configurations: rsyncUIdata.configurations ?? [])
@@ -24,13 +25,17 @@ struct VerifyRemote: View {
                     if let configurations = rsyncUIdata.configurations {
                         if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
                             selectedconfig = configurations[index]
+                            showdetails = true
 
                         } else {
                             selectedconfig = nil
+                            showdetails = false
                         }
                     }
                 }
-
+        }
+        .navigationTitle("Verify Remote")
+        .navigationDestination(isPresented: $showdetails) {
             if let selectedconfig {
                 OutputRsyncVerifyView(config: selectedconfig, checkremote: true)
             }

@@ -166,6 +166,7 @@ struct QuicktaskView: View {
             }
         })
         .padding()
+        .navigationTitle("Quicktask")
         .navigationDestination(isPresented: $completed) {
             OutputRsyncView(output: rsyncoutput?.output ?? [])
         }

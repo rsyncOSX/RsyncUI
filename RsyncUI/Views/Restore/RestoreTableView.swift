@@ -157,6 +157,7 @@ struct RestoreTableView: View {
                 }
             })
         }
+        .navigationTitle("Restore")
         .navigationDestination(isPresented: $restore.presentrestorelist) {
             OutputRsyncView(output: restore.restorefilelist)
         }
