@@ -203,7 +203,7 @@ struct RsyncParametersView: View {
             RsyncDefaultParametersView(rsyncUIdata: rsyncUIdata, path: $rsyncnavigation)
         case .verify:
             if let config = parameters.configuration {
-                OutputRsyncVerifyView(config: config, checkremote: false)
+                OutputRsyncVerifyView(config: config)
             }
         case .arguments:
             ArgumentsView(rsyncUIdata: rsyncUIdata)

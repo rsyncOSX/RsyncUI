@@ -17,7 +17,7 @@ struct VerifyRemote: View {
     @State private var showdetails: Bool = false
 
     var body: some View {
-        NavigationStack  {
+        NavigationStack {
             ListofTasksLightView(selecteduuids: $selectedconfiguuid,
                                  profile: rsyncUIdata.profile,
                                  configurations: rsyncUIdata.configurations ?? [])
@@ -34,14 +34,13 @@ struct VerifyRemote: View {
         .navigationTitle("Verify remote")
         .navigationDestination(isPresented: $showdetails) {
             if let selectedconfig {
-                OutputRsyncVerifyView(config: selectedconfig, checkremote: true)
+                OutputRsyncCheckeRemoteView(config: selectedconfig)
             }
         }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil
         }
         .toolbar(content: {
-            
             ToolbarItem {
                 Button {
                     showdetails = true
@@ -51,7 +50,7 @@ struct VerifyRemote: View {
                 }
                 .help("Check remote")
             }
-            
+
             ToolbarItem {
                 Button {
                     abort()

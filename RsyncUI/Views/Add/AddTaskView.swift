@@ -285,7 +285,7 @@ struct AddTaskView: View {
                              }())
         case .verify:
             if let config = selectedconfig {
-                OutputRsyncVerifyView(config: config, checkremote: false)
+                OutputRsyncVerifyView(config: config)
             }
         case .global:
             GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)

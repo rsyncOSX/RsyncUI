@@ -57,6 +57,7 @@
 		E96AA40D2A9923F40031B1C3 /* ListofTasksAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96AA40C2A9923F40031B1C3 /* ListofTasksAddView.swift */; };
 		E96F24552CA1CB5E00CF63EC /* PrepareParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96F24542CA1CB5100CF63EC /* PrepareParameters.swift */; };
 		E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9712FBB2602465D003842FD /* DeleteLogsView.swift */; };
+		E98295BD2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98295BC2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift */; };
 		E985C5C725F3AC0700CB895C /* RsyncUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */; };
 		E985C5CE25F3AC0800CB895C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */; };
 		E985C65825F3AD8400CB895C /* SidebarSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C60F25F3AD8400CB895C /* SidebarSettingsView.swift */; };
@@ -219,6 +220,7 @@
 		E96AA40C2A9923F40031B1C3 /* ListofTasksAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksAddView.swift; sourceTree = "<group>"; };
 		E96F24542CA1CB5100CF63EC /* PrepareParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareParameters.swift; sourceTree = "<group>"; };
 		E9712FBB2602465D003842FD /* DeleteLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLogsView.swift; sourceTree = "<group>"; };
+		E98295BC2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputRsyncCheckeRemoteView.swift; sourceTree = "<group>"; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E985C5C625F3AC0700CB895C /* RsyncUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RsyncUIApp.swift; sourceTree = "<group>"; };
 		E985C5CD25F3AC0800CB895C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 		E9541A5A2BFF896100638B2E /* OutputViews */ = {
 			isa = PBXGroup;
 			children = (
+				E98295BC2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift */,
 				E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */,
 				E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */,
 				E987221F2C1365F8006112CD /* DetailsView.swift */,
@@ -1116,6 +1119,7 @@
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
 				E954AD3F2AFE8F3800F3EA63 /* SidebarTasksView.swift in Sources */,
 				E931ED962B0C82BB000BEF56 /* QuicktaskView.swift in Sources */,
+				E98295BD2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift in Sources */,
 				E985C77F25F3AD9700CB895C /* MultipletasksPrimaryLogging.swift in Sources */,
 				E985C73E25F3AD9700CB895C /* ytcpsocket.swift in Sources */,
 				E985C72C25F3AD9700CB895C /* SnapshotData.swift in Sources */,

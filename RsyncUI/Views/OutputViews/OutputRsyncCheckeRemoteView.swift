@@ -1,5 +1,5 @@
 //
-//  OutputRsyncVerifyView.swift
+//  OutputRsyncCheckeRemoteView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 23/04/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OutputRsyncVerifyView: View {
+struct OutputRsyncCheckeRemoteView: View {
     @State private var progress = true
     @State private var remotedatanumbers: RemoteDataNumbers?
 
@@ -24,12 +24,15 @@ struct OutputRsyncVerifyView: View {
 
             } else {
                 if let remotedatanumbers {
-                    DetailsView(remotedatanumbers: remotedatanumbers)
+                    HStack {
+                        DetailsView(remotedatanumbers: remotedatanumbers)
+                        DetailsView(remotedatanumbers: remotedatanumbers)
+                    }
                 }
             }
         }
         .onAppear {
-            verify(config: config)
+            getremote(config: config)
         }
         .toolbar(content: {
             ToolbarItem {
@@ -43,10 +46,10 @@ struct OutputRsyncVerifyView: View {
         })
     }
 
-    // For a verify run, --dry-run
-    func verify(config: SynchronizeConfiguration) {
-        let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
-                                                                                  forDisplay: false)
+    // For check remote, pull remote data
+    func getremote(config: SynchronizeConfiguration) {
+        let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremotewithparameters(dryRun: true,
+                                                                                                  forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)
