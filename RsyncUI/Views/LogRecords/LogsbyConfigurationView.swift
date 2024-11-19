@@ -83,6 +83,7 @@ struct LogsbyConfigurationView: View {
                 Spacer()
             }
         }
+        .navigationTitle("Log listing")
         .searchable(text: $filterstring)
         .onAppear {
             Task {

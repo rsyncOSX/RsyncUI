@@ -93,6 +93,7 @@ struct SnapshotsView: View {
                 Spacer()
             }
         }
+        .navigationTitle("Snapshots")
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {

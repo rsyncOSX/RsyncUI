@@ -43,6 +43,7 @@ struct ProfileView: View {
         .onSubmit {
             createprofile()
         }
+        .navigationTitle("Profiles create or delete")
         .toolbar {
             ToolbarItem {
                 Button {
