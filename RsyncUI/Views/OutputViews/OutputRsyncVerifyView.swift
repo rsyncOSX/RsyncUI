@@ -24,14 +24,21 @@ struct OutputRsyncVerifyView: View {
                 Spacer()
 
             } else {
-                if let remotedatanumbers {
+                if let remotedatanumbers, checkremote == false{
                     DetailsView(remotedatanumbers: remotedatanumbers, checkremote: checkremote)
+                } else {
+                    HStack {
+                        if let remotedatanumbers {
+                            DetailsView(remotedatanumbers: remotedatanumbers, checkremote: checkremote)
+                            DetailsView(remotedatanumbers: remotedatanumbers, checkremote: checkremote)
+                        }
+                    }
                 }
             }
         }
         .onAppear {
             if checkremote {
-                remote(config: config)
+                getremote(config: config)
             } else {
                 verify(config: config)
             }
@@ -48,6 +55,7 @@ struct OutputRsyncVerifyView: View {
         })
     }
 
+    // For a verify run, --dry-run
     func verify(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
                                                                                   forDisplay: false)
@@ -57,7 +65,8 @@ struct OutputRsyncVerifyView: View {
         process.executeProcess()
     }
 
-    func remote(config: SynchronizeConfiguration) {
+    // For check remote, pull remote data
+    func getremote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremotewithparameters(dryRun: true,
                                                                                                   forDisplay: false)
         let process = ProcessRsync(arguments: arguments,

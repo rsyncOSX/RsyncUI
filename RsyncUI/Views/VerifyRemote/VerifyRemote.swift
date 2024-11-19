@@ -25,11 +25,8 @@ struct VerifyRemote: View {
                     if let configurations = rsyncUIdata.configurations {
                         if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
                             selectedconfig = configurations[index]
-                            showdetails = true
-
                         } else {
                             selectedconfig = nil
-                            showdetails = false
                         }
                     }
                 }
@@ -44,6 +41,17 @@ struct VerifyRemote: View {
             selectedconfig = nil
         }
         .toolbar(content: {
+            
+            ToolbarItem {
+                Button {
+                    showdetails = true
+                } label: {
+                    Image(systemName: "play.fill")
+                        .foregroundColor(.blue)
+                }
+                .help("Check remote")
+            }
+            
             ToolbarItem {
                 Button {
                     abort()
