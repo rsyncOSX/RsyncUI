@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailsView: View {
     let remotedatanumbers: RemoteDataNumbers
+    let checkremote: Bool
 
     var body: some View {
         HStack {
@@ -85,7 +86,34 @@ struct DetailsView: View {
 
                 Spacer()
 
-                if remotedatanumbers.datatosynchronize {
+                if checkremote == false {
+                    if remotedatanumbers.datatosynchronize {
+                        VStack(alignment: .leading) {
+                            Text("^[\(remotedatanumbers.newfiles_Int) file](inflect: true) new")
+                            Text("^[\(remotedatanumbers.deletefiles_Int) file](inflect: true) for delete")
+                            Text("^[\(remotedatanumbers.transferredNumber_Int) file](inflect: true) changed")
+                            Text("^[\(remotedatanumbers.transferredNumberSizebytes_Int) byte](inflect: true) for transfer")
+                        }
+                        .padding()
+                        .foregroundStyle(.white)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(.blue.gradient)
+                        }
+                        .padding()
+
+                    } else {
+                        Text("No data to synchronize")
+                            .font(.title2)
+                            .padding()
+                            .foregroundStyle(.white)
+                            .background {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(.blue.gradient)
+                            }
+                            .padding()
+                    }
+                } else {
                     VStack(alignment: .leading) {
                         Text("^[\(remotedatanumbers.newfiles_Int) file](inflect: true) new")
                         Text("^[\(remotedatanumbers.deletefiles_Int) file](inflect: true) for delete")
@@ -99,17 +127,6 @@ struct DetailsView: View {
                             .fill(.blue.gradient)
                     }
                     .padding()
-
-                } else {
-                    Text("No data to synchronize")
-                        .font(.title2)
-                        .padding()
-                        .foregroundStyle(.white)
-                        .background {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(.blue.gradient)
-                        }
-                        .padding()
                 }
             }
 

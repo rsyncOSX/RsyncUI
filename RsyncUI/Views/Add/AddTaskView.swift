@@ -76,7 +76,6 @@ struct AddTaskView: View {
                     }
 
                     Spacer()
-
                 }
                 // Column 2
                 VStack(alignment: .leading) {
@@ -156,7 +155,6 @@ struct AddTaskView: View {
             selectedconfig = nil
         }
         .toolbar {
-            
             if notifydataisupdated {
                 ToolbarItem {
                     ZStack {
@@ -174,7 +172,7 @@ struct AddTaskView: View {
                     .padding()
                 }
             }
-            
+
             if newdata.selectedconfig != nil {
                 ToolbarItem {
                     Button {

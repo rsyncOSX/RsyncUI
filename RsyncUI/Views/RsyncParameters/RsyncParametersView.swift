@@ -88,9 +88,8 @@ struct RsyncParametersView: View {
                             parameters.setbackup()
                         }
                         .disabled(selectedconfig == nil)
-                    
+
                     Spacer()
-                    
                 }
 
                 ListofTasksLightView(selecteduuids: $selecteduuids,
@@ -127,7 +126,6 @@ struct RsyncParametersView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
-            
             if notifydataisupdated {
                 ToolbarItem {
                     ZStack {
@@ -145,7 +143,7 @@ struct RsyncParametersView: View {
                     .padding()
                 }
             }
-            
+
             if selectedconfig != nil {
                 ToolbarItem {
                     Button {
@@ -241,7 +239,7 @@ struct RsyncParametersView: View {
                 }
             }
     }
-    
+
     var notifydataisupdated: Bool {
         guard let selectedconfig else { return false }
         if parameters.parameter8 != (selectedconfig.parameter8 ?? "") ||
@@ -251,7 +249,7 @@ struct RsyncParametersView: View {
             parameters.parameter12 != (selectedconfig.parameter12 ?? "") ||
             parameters.parameter13 != (selectedconfig.parameter13 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "")
-            
+
         {
             return true
         }

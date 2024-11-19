@@ -25,7 +25,7 @@ struct OutputRsyncVerifyView: View {
 
             } else {
                 if let remotedatanumbers {
-                    DetailsView(remotedatanumbers: remotedatanumbers)
+                    DetailsView(remotedatanumbers: remotedatanumbers, checkremote: checkremote)
                 }
             }
         }
@@ -35,7 +35,6 @@ struct OutputRsyncVerifyView: View {
             } else {
                 verify(config: config)
             }
-            
         }
         .toolbar(content: {
             ToolbarItem {
@@ -57,10 +56,10 @@ struct OutputRsyncVerifyView: View {
                                    processtermination: processtermination)
         process.executeProcess()
     }
-    
+
     func remote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremotewithparameters(dryRun: true,
-                                                                                  forDisplay: false)
+                                                                                                  forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)

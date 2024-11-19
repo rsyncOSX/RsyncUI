@@ -70,7 +70,7 @@ struct RsyncandPathsettings: View {
             Section {
                 HStack {
                     setpathforrestore
-                    
+
                     OpencatalogView(catalog: $rsyncpathsettings.temporarypathforrestore, choosecatalog: true)
                 }
             } header: {
