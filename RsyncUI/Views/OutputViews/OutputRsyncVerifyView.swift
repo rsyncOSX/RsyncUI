@@ -12,6 +12,7 @@ struct OutputRsyncVerifyView: View {
     @State private var remotedatanumbers: RemoteDataNumbers?
 
     let config: SynchronizeConfiguration
+    let checkremote: Bool
 
     var body: some View {
         HStack {
@@ -29,7 +30,12 @@ struct OutputRsyncVerifyView: View {
             }
         }
         .onAppear {
-            verify(config: config)
+            if checkremote {
+                remote(config: config)
+            } else {
+                verify(config: config)
+            }
+            
         }
         .toolbar(content: {
             ToolbarItem {
@@ -45,6 +51,15 @@ struct OutputRsyncVerifyView: View {
 
     func verify(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+                                                                                  forDisplay: false)
+        let process = ProcessRsync(arguments: arguments,
+                                   config: config,
+                                   processtermination: processtermination)
+        process.executeProcess()
+    }
+    
+    func remote(config: SynchronizeConfiguration) {
+        let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremotewithparameters(dryRun: true,
                                                                                   forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
