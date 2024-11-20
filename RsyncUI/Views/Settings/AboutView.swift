@@ -116,23 +116,6 @@ struct AboutView: View {
             .font(.caption)
             .padding(3)
     }
-
-    var notifynewversion: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
-            Text("New version")
-                .font(.title3)
-                .foregroundColor(Color.blue)
-        }
-        .frame(width: 200, height: 20, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
-        .onAppear(perform: {
-            Task {
-                newversion.dismissnotify()
-            }
-
-        })
-    }
 }
 
 extension AboutView {

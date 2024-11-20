@@ -31,13 +31,6 @@ final class CheckfornewversionofRsyncUI {
     var notifynewversion: Bool = false
     var downloadavaliable: Bool = false
 
-    func dismissnotify() {
-        Task {
-            try await Task.sleep(seconds: 2)
-            self.notifynewversion = false
-        }
-    }
-
     func getversionsofrsyncui() async {
         do {
             let versions = DecodeGeneric()

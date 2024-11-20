@@ -11,7 +11,6 @@ import SwiftUI
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
-    @State private var snapshotdata = SnapshotData()
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     @State private var showdetails: Bool = false
