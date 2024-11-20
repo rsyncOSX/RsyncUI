@@ -26,10 +26,10 @@ struct OutputRsyncCheckeRemoteView: View {
                 Spacer()
 
             } else {
-                if let pullremotedatanumbers {
+                if let pullremotedatanumbers, let pushremotedatanumbers {
                     HStack {
                         DetailsView(remotedatanumbers: pullremotedatanumbers)
-                        DetailsView(remotedatanumbers: pullremotedatanumbers)
+                        DetailsView(remotedatanumbers: pushremotedatanumbers)
                     }
                 }
             }
@@ -52,16 +52,35 @@ struct OutputRsyncCheckeRemoteView: View {
     // For check remote, pull remote data
     func pullremote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
-                                                                                                  forDisplay: false)
+                                                                                              forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
-                                   processtermination: processtermination)
+                                   processtermination: pullprocesstermination)
+        process.executeProcess()
+    }
+    
+    // For check remote, pull remote data
+    func pushremote(config: SynchronizeConfiguration) {
+        let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+                                                                                  forDisplay: false)
+        let process = ProcessRsync(arguments: arguments,
+                                   config: config,
+                                   processtermination: pushprocesstermination)
         process.executeProcess()
     }
 
-    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        progress = false
+    func pullprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
+                                              config: config)
+        // Then do a normal synchronize task
+        
+        pushremote(config: config)
+    }
+    
+    // This is a normal synchronize task, dry-run = true
+    func pushprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+        progress = false
+        pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                               config: config)
     }
 
