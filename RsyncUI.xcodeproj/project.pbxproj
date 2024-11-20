@@ -43,6 +43,8 @@
 		E956D3782B0C88B9008B190F /* RestoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956D3772B0C88B9008B190F /* RestoreTableView.swift */; };
 		E9585F842CAFB60E00D037DA /* ObservableRsyncOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9585F832CAFB60E00D037DA /* ObservableRsyncOutput.swift */; };
 		E95964D32CCA6FDB009145E3 /* VerifyDuplicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95964D22CCA6FC4009145E3 /* VerifyDuplicates.swift */; };
+		E95A1D9E2CEDD15300C7D992 /* DetailsViewHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95A1D9D2CEDD14500C7D992 /* DetailsViewHeading.swift */; };
+		E95A1DA02CEDD33300C7D992 /* DetailsPullPushView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95A1D9F2CEDD32100C7D992 /* DetailsPullPushView.swift */; };
 		E95BD4632C29A9AA00E1C175 /* Homepath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BD4622C29A9AA00E1C175 /* Homepath.swift */; };
 		E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */; };
 		E95D8B0E2CD5058E00093549 /* GlobalChangeTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D8B0D2CD5058E00093549 /* GlobalChangeTaskView.swift */; };
@@ -206,6 +208,8 @@
 		E956D3772B0C88B9008B190F /* RestoreTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreTableView.swift; sourceTree = "<group>"; };
 		E9585F832CAFB60E00D037DA /* ObservableRsyncOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRsyncOutput.swift; sourceTree = "<group>"; };
 		E95964D22CCA6FC4009145E3 /* VerifyDuplicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyDuplicates.swift; sourceTree = "<group>"; };
+		E95A1D9D2CEDD14500C7D992 /* DetailsViewHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewHeading.swift; sourceTree = "<group>"; };
+		E95A1D9F2CEDD32100C7D992 /* DetailsPullPushView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPullPushView.swift; sourceTree = "<group>"; };
 		E95BD4622C29A9AA00E1C175 /* Homepath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homepath.swift; sourceTree = "<group>"; };
 		E95D8B0D2CD5058E00093549 /* GlobalChangeTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalChangeTaskView.swift; sourceTree = "<group>"; };
 		E95EDC7E26063CAA000018DE /* EditRsyncParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRsyncParameter.swift; sourceTree = "<group>"; };
@@ -396,10 +400,12 @@
 		E9541A5A2BFF896100638B2E /* OutputViews */ = {
 			isa = PBXGroup;
 			children = (
+				E95A1D9D2CEDD14500C7D992 /* DetailsViewHeading.swift */,
 				E98295BC2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift */,
 				E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */,
 				E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */,
 				E987221F2C1365F8006112CD /* DetailsView.swift */,
+				E95A1D9F2CEDD32100C7D992 /* DetailsPullPushView.swift */,
 			);
 			path = OutputViews;
 			sourceTree = "<group>";
@@ -1022,6 +1028,7 @@
 				E985C65825F3AD8400CB895C /* SidebarSettingsView.swift in Sources */,
 				E96223952B0BDA7E00C40578 /* OutputRsyncView.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* ArgumentsSnapshotCreateCatalog.swift in Sources */,
+				E95A1D9E2CEDD15300C7D992 /* DetailsViewHeading.swift in Sources */,
 				E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */,
 				E909C3B02CE4D820009B373B /* ArgumentsPullRemote.swift in Sources */,
 				E90B5FB12C98202100C744DB /* OtherRsyncCommandtoDisplay.swift in Sources */,
@@ -1067,6 +1074,7 @@
 				E9E223302CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift in Sources */,
 				E985C74325F3AD9700CB895C /* Resources.swift in Sources */,
 				E956D3782B0C88B9008B190F /* RestoreTableView.swift in Sources */,
+				E95A1DA02CEDD33300C7D992 /* DetailsPullPushView.swift in Sources */,
 				E9BD14BF2642FE6300E29347 /* TrimOutputFromRsync.swift in Sources */,
 				E985C77325F3AD9700CB895C /* ArgumentsVerify.swift in Sources */,
 				E941A3852CD4ACEB0024EAC0 /* EstimateTableView.swift in Sources */,

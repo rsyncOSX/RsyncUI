@@ -14,7 +14,7 @@ struct AboutView: View {
     let norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "")
     let germanstring: String = NSLocalizedString("German translation by: Andre Voigtmann", comment: "")
     var changelog: String {
-        return Resources().getResource(resource: .changelog)
+        Resources().getResource(resource: .changelog)
     }
 
     /*

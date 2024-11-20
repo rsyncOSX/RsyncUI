@@ -28,8 +28,10 @@ struct OutputRsyncCheckeRemoteView: View {
             } else {
                 if let pullremotedatanumbers, let pushremotedatanumbers {
                     HStack {
-                        DetailsView(remotedatanumbers: pullremotedatanumbers)
-                        DetailsView(remotedatanumbers: pushremotedatanumbers)
+                        DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
+                                            text: "Pull from remote")
+                        DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
+                                            text: "Push to remote")
                     }
                 }
             }
@@ -58,7 +60,7 @@ struct OutputRsyncCheckeRemoteView: View {
                                    processtermination: pullprocesstermination)
         process.executeProcess()
     }
-    
+
     // For check remote, pull remote data
     func pushremote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
@@ -71,17 +73,17 @@ struct OutputRsyncCheckeRemoteView: View {
 
     func pullprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                              config: config)
+                                                  config: config)
         // Then do a normal synchronize task
-        
+
         pushremote(config: config)
     }
-    
+
     // This is a normal synchronize task, dry-run = true
     func pushprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         progress = false
         pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                              config: config)
+                                                  config: config)
     }
 
     func abort() {

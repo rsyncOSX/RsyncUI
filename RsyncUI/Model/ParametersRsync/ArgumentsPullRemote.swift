@@ -1,5 +1,5 @@
 //
-//  ArgumentsVerifyRemote.swift
+//  ArgumentsPullRemote.swift
 //  RsyncOSX
 //
 //  Created by Thomas Evensen on 13/10/2019.
@@ -22,7 +22,7 @@ final class ArgumentsPullRemote {
                 let rsyncparameterspull =
                     RsyncParametersPullRemote(parameters: parameters)
                 rsyncparameterspull.argumentspullremote(forDisplay: forDisplay,
-                                                             verify: false, dryrun: dryRun)
+                                                        verify: false, dryrun: dryRun)
                 return rsyncparameterspull.computedarguments
             }
         }
@@ -34,9 +34,9 @@ final class ArgumentsPullRemote {
             Logger.process.info("ArgumentsVerifyRemoteWithParameters: using RsyncParametersVerifyRemote() from RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparameterspull =
-                RsyncParametersPullRemote(parameters: parameters)
+                    RsyncParametersPullRemote(parameters: parameters)
                 rsyncparameterspull.argumentspullremotewithparameters(forDisplay: forDisplay,
-                                                                           verify: false, dryrun: dryRun, nodelete: true)
+                                                                      verify: false, dryrun: dryRun, nodelete: true)
                 return rsyncparameterspull.computedarguments
             }
         }
