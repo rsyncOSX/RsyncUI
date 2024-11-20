@@ -157,19 +157,7 @@ struct AddTaskView: View {
         .toolbar {
             if notifydataisupdated {
                 ToolbarItem {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
-                        Text("Data is changed, please update")
-                            .font(.caption2)
-                            .foregroundColor(Color.green)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(2)
-                            .allowsTightening(false)
-                            .minimumScaleFactor(0.5)
-                    }
-                    .frame(width: 200, height: 30, alignment: .center)
-                    .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
-                    .padding()
+                    MessageView(mytext: "Data is changed, please update")
                 }
             }
 

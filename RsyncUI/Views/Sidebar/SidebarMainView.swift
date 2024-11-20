@@ -48,34 +48,10 @@ struct SidebarMainView: View {
             .disabled(disablesidebarmeny)
 
             if newversion.notifynewversion || SharedReference.shared.newversion {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
-                    Text("There is a new version\navailable for download")
-                        .font(.caption2)
-                        .foregroundColor(Color.green)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(2)
-                        .allowsTightening(false)
-                        .minimumScaleFactor(0.5)
-                }
-                .frame(height: 30, alignment: .center)
-                .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
-                .padding()
+                MessageView(mytext: "There is a new version\navailable for download")
             }
 
-            ZStack {
-                RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
-                Text(SharedReference.shared.rsyncversionshort ?? "")
-                    .font(.caption2)
-                    .foregroundColor(Color.green)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .allowsTightening(false)
-                    .minimumScaleFactor(0.5)
-            }
-            .frame(height: 30, alignment: .center)
-            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
-            .padding()
+            MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "")
 
         } detail: {
             selectView(selectedview)
@@ -105,7 +81,7 @@ struct SidebarMainView: View {
                 SidebarLogsView(configurations: configurations,
                                 profile: rsyncUIdata.profile)
             } else {
-                MessageView(dismissafter: 2, mytext: NSLocalizedString("No log records yet.", comment: ""))
+                DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("No log records yet.", comment: ""))
             }
         case .rsync_parameters:
             RsyncParametersView(rsyncUIdata: rsyncUIdata, rsyncnavigation: $rsyncnavigation)
@@ -116,7 +92,7 @@ struct SidebarMainView: View {
                                      configurations: configurations)
                 }
             } else {
-                MessageView(dismissafter: 2, mytext: NSLocalizedString("No configurations yet.", comment: ""))
+                DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("No configurations yet.", comment: ""))
             }
         case .snapshots:
             SnapshotsView(rsyncUIdata: rsyncUIdata)

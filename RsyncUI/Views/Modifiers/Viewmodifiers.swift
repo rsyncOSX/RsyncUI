@@ -46,7 +46,7 @@ struct ToggleViewDefault: View {
     }
 }
 
-struct MessageView: View {
+struct DismissafterMessageView: View {
     private var dismissafter: Double
     private var mytext: String
 
@@ -78,6 +78,30 @@ struct MessageView: View {
 
     init(dismissafter: Double, mytext: String) {
         self.dismissafter = dismissafter
+        self.mytext = mytext
+    }
+}
+
+struct MessageView: View {
+    private var mytext: String
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
+            Text(mytext)
+                .font(.caption2)
+                .foregroundColor(Color.green)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .allowsTightening(false)
+                .minimumScaleFactor(0.5)
+        }
+        .frame(height: 30, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
+        .padding()
+        }
+
+    init(mytext: String) {
         self.mytext = mytext
     }
 }

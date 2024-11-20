@@ -63,7 +63,7 @@ struct RestoreTableView: View {
                     if restore.restorefilesinprogress { ProgressView() }
 
                     if restore.selectedconfig?.offsiteServer.isEmpty == true {
-                        MessageView(dismissafter: 2, mytext: NSLocalizedString("Use macOS Finder to restore files from attached discs.", comment: ""))
+                        DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Use macOS Finder to restore files from attached discs.", comment: ""))
                     }
                 }
 

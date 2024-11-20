@@ -30,7 +30,7 @@ struct ExportView: View {
                 }
 
             if somesnapshottask {
-                MessageView(dismissafter: 2, mytext: "Some tasks are snapshots, cannot be exported")
+                DismissafterMessageView(dismissafter: 2, mytext: "Some tasks are snapshots, cannot be exported")
                     .onDisappear {
                         somesnapshottask = false
                     }

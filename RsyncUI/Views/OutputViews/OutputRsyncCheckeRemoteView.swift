@@ -17,22 +17,35 @@ struct OutputRsyncCheckeRemoteView: View {
     let config: SynchronizeConfiguration
 
     var body: some View {
-        HStack {
-            if progress {
-                Spacer()
+        VStack {
+            HStack {
+                if progress {
+                    Spacer()
 
-                ProgressView()
+                    ProgressView()
 
-                Spacer()
+                    Spacer()
 
-            } else {
-                if let pullremotedatanumbers, let pushremotedatanumbers {
-                    HStack {
-                        DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
-                                            text: "PULL remote")
-                        DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
-                                            text: "PUSH local")
+                } else {
+                    if let pullremotedatanumbers, let pushremotedatanumbers {
+                        HStack {
+                            DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
+                                                text: "PULL remote")
+                            DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
+                                                text: "PUSH local")
+                        }
                     }
+                }
+            }
+            
+            if let pullremote = pullremotedatanumbers?.outputfromrsync,
+               let pushremote = pushremotedatanumbers?.outputfromrsync {
+                if pullremote.count > pushremote.count {
+                    MessageView(mytext: "Seems to be more data in remote VS local.")
+                } else if pullremote.count < pushremote.count {
+                    MessageView(mytext: "Seems to be more data in local VS remote.")
+                } else if pullremote.count == pushremote.count {
+                    MessageView(mytext: "Seems to be same amount of data in local VS remote.")
                 }
             }
         }
