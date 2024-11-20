@@ -13,7 +13,9 @@ struct AboutView: View {
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
     let norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "")
     let germanstring: String = NSLocalizedString("German translation by: Andre Voigtmann", comment: "")
-    let changelog: String = "https://rsyncui.netlify.app/docs/changelog/"
+    var changelog: String {
+        return Resources().getResource(resource: .changelog)
+    }
 
     /*
      var appName: String {
