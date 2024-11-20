@@ -86,7 +86,7 @@ struct OtherRsyncCommandtoDisplay {
             }
         case .check_a_remote:
             if config.offsiteServer.isEmpty == false {
-                if let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremote(dryRun: true, forDisplay: true) {
+                if let arguments = ArgumentsPullRemote(config: config).argumentspullremote(dryRun: true, forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
                 }
             } else {
@@ -94,7 +94,7 @@ struct OtherRsyncCommandtoDisplay {
             }
         case .check_a_remote_with_parameters:
             if config.offsiteServer.isEmpty == false {
-                if let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremotewithparameters(dryRun: true, forDisplay: true) {
+                if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true, forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
                 }
             } else {

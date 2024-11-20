@@ -12,32 +12,32 @@ import OSLog
 import RsyncArguments
 
 @MainActor
-final class ArgumentsVerifyRemote {
+final class ArgumentsPullRemote {
     var config: SynchronizeConfiguration?
 
-    func argumentsverifyremote(dryRun: Bool, forDisplay: Bool) -> [String]? {
+    func argumentspullremote(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config {
             Logger.process.info("ArgumentsVerifyRemote: using RsyncParametersVerifyRemote() from RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
-                let rsyncparametersrestore =
-                    RsyncParametersVerifyRemote(parameters: parameters)
-                rsyncparametersrestore.argumentsverifyremote(forDisplay: forDisplay,
+                let rsyncparameterspull =
+                    RsyncParametersPullRemote(parameters: parameters)
+                rsyncparameterspull.argumentspullremote(forDisplay: forDisplay,
                                                              verify: false, dryrun: dryRun)
-                return rsyncparametersrestore.computedarguments
+                return rsyncparameterspull.computedarguments
             }
         }
         return nil
     }
 
-    func argumentsverifyremotewithparameters(dryRun: Bool, forDisplay: Bool) -> [String]? {
+    func argumentspullremotewithparameters(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config {
             Logger.process.info("ArgumentsVerifyRemoteWithParameters: using RsyncParametersVerifyRemote() from RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
-                let rsyncparametersrestore =
-                    RsyncParametersVerifyRemote(parameters: parameters)
-                rsyncparametersrestore.argumentsverifyremotewithparameters(forDisplay: forDisplay,
+                let rsyncparameterspull =
+                RsyncParametersPullRemote(parameters: parameters)
+                rsyncparameterspull.argumentspullremotewithparameters(forDisplay: forDisplay,
                                                                            verify: false, dryrun: dryRun, nodelete: true)
-                return rsyncparametersrestore.computedarguments
+                return rsyncparameterspull.computedarguments
             }
         }
         return nil

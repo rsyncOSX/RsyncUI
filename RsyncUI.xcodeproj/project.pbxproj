@@ -15,7 +15,7 @@
 		E902C10F27B836CC00A75D7A /* WriteUserConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902C10E27B836CC00A75D7A /* WriteUserConfigurationJSON.swift */; };
 		E903840A2CEC8E8100C696AE /* VerifyRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90384092CEC8E7600C696AE /* VerifyRemote.swift */; };
 		E904C0D32CB9106100B69D94 /* ProfilesToUpdataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904C0D22CB9104200B69D94 /* ProfilesToUpdataView.swift */; };
-		E909C3B02CE4D820009B373B /* ArgumentsVerifyRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E909C3AF2CE4D820009B373B /* ArgumentsVerifyRemote.swift */; };
+		E909C3B02CE4D820009B373B /* ArgumentsPullRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E909C3AF2CE4D820009B373B /* ArgumentsPullRemote.swift */; };
 		E90B19042C63B40700B3FC35 /* ArgumentsRemoteFileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B19032C63B40700B3FC35 /* ArgumentsRemoteFileList.swift */; };
 		E90B5FAD2C981BDC00C744DB /* ArgumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B5FAC2C981BDC00C744DB /* ArgumentsView.swift */; };
 		E90B5FAF2C981FA600C744DB /* OtherRsyncCommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B5FAE2C981FA600C744DB /* OtherRsyncCommandsView.swift */; };
@@ -178,7 +178,7 @@
 		E902C10E27B836CC00A75D7A /* WriteUserConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteUserConfigurationJSON.swift; sourceTree = "<group>"; };
 		E90384092CEC8E7600C696AE /* VerifyRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyRemote.swift; sourceTree = "<group>"; };
 		E904C0D22CB9104200B69D94 /* ProfilesToUpdataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesToUpdataView.swift; sourceTree = "<group>"; };
-		E909C3AF2CE4D820009B373B /* ArgumentsVerifyRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentsVerifyRemote.swift; sourceTree = "<group>"; };
+		E909C3AF2CE4D820009B373B /* ArgumentsPullRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentsPullRemote.swift; sourceTree = "<group>"; };
 		E90B19032C63B40700B3FC35 /* ArgumentsRemoteFileList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentsRemoteFileList.swift; sourceTree = "<group>"; };
 		E90B5FAC2C981BDC00C744DB /* ArgumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentsView.swift; sourceTree = "<group>"; };
 		E90B5FAE2C981FA600C744DB /* OtherRsyncCommandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRsyncCommandsView.swift; sourceTree = "<group>"; };
@@ -805,7 +805,7 @@
 				E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */,
 				E985C6F925F3AD9700CB895C /* ArgumentsSynchronize.swift */,
 				E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */,
-				E909C3AF2CE4D820009B373B /* ArgumentsVerifyRemote.swift */,
+				E909C3AF2CE4D820009B373B /* ArgumentsPullRemote.swift */,
 				E90B19032C63B40700B3FC35 /* ArgumentsRemoteFileList.swift */,
 				E9DE0EFB2C7D9F0F00836EA3 /* ArgumentsSnapshotRemoteCatalogs.swift */,
 			);
@@ -1023,7 +1023,7 @@
 				E96223952B0BDA7E00C40578 /* OutputRsyncView.swift in Sources */,
 				E985C77E25F3AD9700CB895C /* ArgumentsSnapshotCreateCatalog.swift in Sources */,
 				E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */,
-				E909C3B02CE4D820009B373B /* ArgumentsVerifyRemote.swift in Sources */,
+				E909C3B02CE4D820009B373B /* ArgumentsPullRemote.swift in Sources */,
 				E90B5FB12C98202100C744DB /* OtherRsyncCommandtoDisplay.swift in Sources */,
 				E9BB4F562903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift in Sources */,
 				E9493E4D2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift in Sources */,

@@ -9,7 +9,10 @@ import SwiftUI
 
 struct OutputRsyncCheckeRemoteView: View {
     @State private var progress = true
-    @State private var remotedatanumbers: RemoteDataNumbers?
+    // Pull data fraom remote
+    @State private var pullremotedatanumbers: RemoteDataNumbers?
+    // Push data from local to remote
+    @State private var pushremotedatanumbers: RemoteDataNumbers?
 
     let config: SynchronizeConfiguration
 
@@ -23,16 +26,16 @@ struct OutputRsyncCheckeRemoteView: View {
                 Spacer()
 
             } else {
-                if let remotedatanumbers {
+                if let pullremotedatanumbers {
                     HStack {
-                        DetailsView(remotedatanumbers: remotedatanumbers)
-                        DetailsView(remotedatanumbers: remotedatanumbers)
+                        DetailsView(remotedatanumbers: pullremotedatanumbers)
+                        DetailsView(remotedatanumbers: pullremotedatanumbers)
                     }
                 }
             }
         }
         .onAppear {
-            getremote(config: config)
+            pullremote(config: config)
         }
         .toolbar(content: {
             ToolbarItem {
@@ -47,8 +50,8 @@ struct OutputRsyncCheckeRemoteView: View {
     }
 
     // For check remote, pull remote data
-    func getremote(config: SynchronizeConfiguration) {
-        let arguments = ArgumentsVerifyRemote(config: config).argumentsverifyremotewithparameters(dryRun: true,
+    func pullremote(config: SynchronizeConfiguration) {
+        let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
                                                                                                   forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
@@ -58,7 +61,7 @@ struct OutputRsyncCheckeRemoteView: View {
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         progress = false
-        remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
+        pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                               config: config)
     }
 
