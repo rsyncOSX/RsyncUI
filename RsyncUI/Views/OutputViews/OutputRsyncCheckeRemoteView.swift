@@ -114,11 +114,26 @@ struct OutputRsyncCheckeRemoteView: View {
     var decideremoteVSlocal: RemoteVSlocal {
         if let pullremote = pullremotedatanumbers?.outputfromrsync,
            let pushremote = pushremotedatanumbers?.outputfromrsync {
-            if pullremote.count > pushremote.count {
+            
+            let countpullremote = pullremote.count - 15
+            var i = 0
+            let countpushremote = pushremote.count - 15
+            var j = 0
+            
+            let trimmedpullremote = pullremote.compactMap {
+                i += 1
+                return i < countpullremote ? $0 : nil
+            }
+            let trimmedpushremote = pullremote.compactMap {
+                j += 1
+                return j < countpushremote ? $0 : nil
+            }
+            
+            if trimmedpullremote.count > trimmedpushremote.count {
                 return .remotemoredata
-            } else if pullremote.count < pushremote.count {
+            } else if trimmedpullremote.count < trimmedpushremote.count {
                 return .localmoredata
-            } else if pullremote.count == pushremote.count {
+            } else if trimmedpullremote.count == trimmedpushremote.count {
                 return .evenamountadata
             }
         }
