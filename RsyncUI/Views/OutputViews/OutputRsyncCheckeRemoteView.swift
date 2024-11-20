@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+enum RemoteVSlocal {
+    case remotemoredata
+    case localmoredata
+    case evenamountadata
+    case noevaluation
+}
+
 struct OutputRsyncCheckeRemoteView: View {
     @State private var progress = true
     // Pull data fraom remote
@@ -37,17 +44,19 @@ struct OutputRsyncCheckeRemoteView: View {
                     }
                 }
             }
-            
-            if let pullremote = pullremotedatanumbers?.outputfromrsync,
-               let pushremote = pushremotedatanumbers?.outputfromrsync {
-                if pullremote.count > pushremote.count {
+            if progress == false {
+                switch decideremoteVSlocal {
+                case .remotemoredata:
                     MessageView(mytext: "Seems to be more data in remote VS local.")
-                } else if pullremote.count < pushremote.count {
+                case .localmoredata:
                     MessageView(mytext: "Seems to be more data in local VS remote.")
-                } else if pullremote.count == pushremote.count {
-                    MessageView(mytext: "Seems to be same amount of data in local VS remote.")
+                case .evenamountadata:
+                    MessageView(mytext: "Seems to even amount of data in local VS remote.")
+                case .noevaluation:
+                    MessageView(mytext: "Could not decide local VS remote.")
                 }
             }
+            
         }
         .onAppear {
             pullremote(config: config)
@@ -100,5 +109,19 @@ struct OutputRsyncCheckeRemoteView: View {
 
     func abort() {
         _ = InterruptProcess()
+    }
+    
+    var decideremoteVSlocal: RemoteVSlocal {
+        if let pullremote = pullremotedatanumbers?.outputfromrsync,
+           let pushremote = pushremotedatanumbers?.outputfromrsync {
+            if pullremote.count > pushremote.count {
+                return .remotemoredata
+            } else if pullremote.count < pushremote.count {
+                return .localmoredata
+            } else if pullremote.count == pushremote.count {
+                return .evenamountadata
+            }
+        }
+        return .noevaluation
     }
 }
