@@ -29,9 +29,9 @@ struct OutputRsyncCheckeRemoteView: View {
                 if let pullremotedatanumbers, let pushremotedatanumbers {
                     HStack {
                         DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
-                                            text: "Pull from remote")
+                                            text: "PULL remote")
                         DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
-                                            text: "Push to remote")
+                                            text: "PUSH local")
                     }
                 }
             }

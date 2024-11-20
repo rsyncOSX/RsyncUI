@@ -41,16 +41,18 @@ struct VerifyRemote: View {
             selectedconfig = nil
         }
         .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    showdetails = true
-                } label: {
-                    Image(systemName: "play.fill")
-                        .foregroundColor(.blue)
+            if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false, SharedReference.shared.rsyncversion3 {
+                ToolbarItem {
+                    Button {
+                        showdetails = true
+                    } label: {
+                        Image(systemName: "play.fill")
+                            .foregroundColor(.blue)
+                    }
+                    .help("Check remote")
                 }
-                .help("Check remote")
             }
-
+            
             ToolbarItem {
                 Button {
                     abort()
