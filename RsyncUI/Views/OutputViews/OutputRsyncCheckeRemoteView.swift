@@ -54,7 +54,7 @@ struct OutputRsyncCheckeRemoteView: View {
     // For check remote, pull remote data
     func pullremote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
-                                                                                              forDisplay: false)
+                                                                                forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: pullprocesstermination)
@@ -63,7 +63,7 @@ struct OutputRsyncCheckeRemoteView: View {
 
     // For check remote, pull remote data
     func pushremote(config: SynchronizeConfiguration) {
-        let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+        let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true,
                                                                                   forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
@@ -75,7 +75,6 @@ struct OutputRsyncCheckeRemoteView: View {
         pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: config)
         // Then do a normal synchronize task
-
         pushremote(config: config)
     }
 

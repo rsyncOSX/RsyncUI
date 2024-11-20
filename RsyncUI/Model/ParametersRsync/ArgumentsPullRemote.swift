@@ -36,7 +36,7 @@ final class ArgumentsPullRemote {
                 let rsyncparameterspull =
                     RsyncParametersPullRemote(parameters: parameters)
                 rsyncparameterspull.argumentspullremotewithparameters(forDisplay: forDisplay,
-                                                                      verify: false, dryrun: dryRun, nodelete: true)
+                                                                      verify: false, dryrun: dryRun)
                 return rsyncparameterspull.computedarguments
             }
         }
