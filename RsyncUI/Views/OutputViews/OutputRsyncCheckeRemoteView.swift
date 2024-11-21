@@ -128,12 +128,20 @@ struct OutputRsyncCheckeRemoteView: View {
                 j += 1
                 return j < countpushremote ? $0 : nil
             }
+            // <-- pull data from remote
+            let pull = zip(trimmedpullremote, trimmedpushremote).compactMap {
+                return $0.0 != $0.1 ? $0.0 : nil
+            }
+            // --> push data to remote
+            let push = zip(trimmedpullremote, trimmedpushremote).compactMap {
+                return $0.0 != $0.1 ? $0.1 : nil
+            }
             
-            if trimmedpullremote.count > trimmedpushremote.count {
+            if pull.count > push.count {
                 return .remotemoredata
-            } else if trimmedpullremote.count < trimmedpushremote.count {
+            } else if pull.count < push.count {
                 return .localmoredata
-            } else if trimmedpullremote.count == trimmedpushremote.count {
+            } else if pull.count == push.count {
                 return .evenamountadata
             }
         }
