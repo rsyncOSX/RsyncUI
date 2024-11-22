@@ -48,4 +48,6 @@ final class TrimOutputFromRsync: PropogateError {
             return (line.last != "/") ? line : nil
         }
     }
+    
+    init() {}
 }

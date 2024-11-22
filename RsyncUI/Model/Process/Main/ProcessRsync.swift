@@ -24,6 +24,9 @@ final class ProcessRsync: PropogateError {
     var output = [String]()
     // Use filehandler
     var usefilehandler: Bool = false
+    // Check for error
+    var checklineforerror: TrimOutputFromRsync?
+    var errordiscovered: Bool = false
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -54,6 +57,16 @@ final class ProcessRsync: PropogateError {
                     if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                         str.enumerateLines { line, _ in
                             self.output.append(line)
+                            if SharedReference.shared.checkforerrorinrsyncoutput,
+                                self.errordiscovered == false {
+                                do {
+                                    try self.checklineforerror?.checkforrsyncerror(line)
+                                } catch let e {
+                                    self.errordiscovered = true
+                                    let error = e
+                                    self.propogateerror(error: error)
+                                }
+                            }
                         }
                         // Send message about files
                         if usefilehandler {
@@ -131,6 +144,9 @@ final class ProcessRsync: PropogateError {
         self.usefilehandler = usefilehandler
         if let config {
             self.config = config
+        }
+        if SharedReference.shared.checkforerrorinrsyncoutput {
+            checklineforerror = TrimOutputFromRsync()
         }
     }
 
