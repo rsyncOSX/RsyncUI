@@ -83,16 +83,7 @@ final class ProcessRsync: PropogateError {
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink { [self] _ in
                 processtermination(output, config?.hiddenID)
-                // Logg to file
-                if arguments?.contains("--dry-run") == false,
-                   arguments?.contains("--version") == false,
-                   let config
-                {
-                    if SharedReference.shared.logtofile {
-                        Logfile(command: config.backupID,
-                                stringoutputfromrsync: TrimOutputFromRsync(output).trimmeddata)
-                    }
-                }
+                // Log error in rsync output to file
                 if errordiscovered, let config {
                     Logfile(command: config.backupID,
                             stringoutputfromrsync: output)

@@ -24,7 +24,6 @@ final class SharedReference {
     @ObservationIgnored var pathforrestore: String?
     // Add summary to logrecords
     @ObservationIgnored var addsummarylogrecord: Bool = true
-    @ObservationIgnored var logtofile: Bool = false
     // Mark number of days since last backup
     @ObservationIgnored var marknumberofdayssince: Int = 5
     @ObservationIgnored var environment: String?

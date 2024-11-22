@@ -12,7 +12,6 @@ import Observation
 final class ObservableLogSettings: PropogateError {
     // Detailed logging
     var addsummarylogrecord: Bool = SharedReference.shared.addsummarylogrecord
-    var logtofile: Bool = SharedReference.shared.logtofile
     // Check for network changes
     var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // Check for "error" in output from rsync
