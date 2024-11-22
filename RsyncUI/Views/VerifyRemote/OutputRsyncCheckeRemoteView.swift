@@ -7,19 +7,14 @@
 
 import SwiftUI
 
-enum RemoteVSlocal {
-    case remotemoredata
-    case localmoredata
-    case evenamountadata
-    case noevaluation
-}
-
 struct OutputRsyncCheckeRemoteView: View {
     @State private var progress = true
     // Pull data fraom remote
     @State private var pullremotedatanumbers: RemoteDataNumbers?
     // Push data from local to remote
     @State private var pushremotedatanumbers: RemoteDataNumbers?
+    //
+    @State private var pushVSremote = ObservableRemoteVSlocal()
 
     let config: SynchronizeConfiguration
 
@@ -45,7 +40,8 @@ struct OutputRsyncCheckeRemoteView: View {
                 }
             }
             if progress == false {
-                switch decideremoteVSlocal {
+                switch pushVSremote.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
+                                                        pushremotedatanumbers: pushremotedatanumbers) {
                 case .remotemoredata:
                     MessageView(mytext: "Seems to be more data in remote VS local.")
                 case .localmoredata:
@@ -109,28 +105,5 @@ struct OutputRsyncCheckeRemoteView: View {
 
     func abort() {
         _ = InterruptProcess()
-    }
-    
-    var decideremoteVSlocal: RemoteVSlocal {
-        if var pullremote = pullremotedatanumbers?.outputfromrsync,
-           var pushremote = pushremotedatanumbers?.outputfromrsync {
-            
-            guard pullremote.count > 15, pushremote.count > 15 else { return .noevaluation }
-            
-            pullremote.removeLast(15)
-            pushremote.removeLast(15)
-            
-            var setpullremote = Set(pullremote)
-            setpullremote.subtract(pushremote)
-            
-            if setpullremote.count > pushremote.count {
-                return .remotemoredata
-            } else if setpullremote.count < pushremote.count {
-                return .localmoredata
-            } else if setpullremote.count == pushremote.count {
-                return .evenamountadata
-            }
-        }
-        return .noevaluation
     }
 }
