@@ -30,17 +30,17 @@ final class ObservableRemoteVSlocal {
             pushremote.removeLast(15)
             // Pull data <<--
             var setpullremote = Set(pullremote.map { row in
-                return row.record
+                row.record.hasSuffix("/") == false ? row.record : nil
             })
             setpullremote.subtract(pushremote.map { row in
-                return row.record
+                row.record.hasSuffix("/") == false ? row.record : nil
             })
             // Push data -->>
             var setpushremote = Set(pushremote.map { row in
-                return row.record
+                row.record.hasSuffix("/") == false ? row.record : nil
             })
             setpushremote.subtract(pullremote.map { row in
-                return row.record
+                row.record.hasSuffix("/") == false ? row.record : nil
             })
             
             
