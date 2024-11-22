@@ -375,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				E90384092CEC8E7600C696AE /* VerifyRemote.swift */,
+				E98295BC2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift */,
 			);
 			path = VerifyRemote;
 			sourceTree = "<group>";
@@ -401,7 +402,6 @@
 			isa = PBXGroup;
 			children = (
 				E95A1D9D2CEDD14500C7D992 /* DetailsViewHeading.swift */,
-				E98295BC2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift */,
 				E9BC17E92BD8042C0049641B /* OutputRsyncVerifyView.swift */,
 				E96223942B0BDA7E00C40578 /* OutputRsyncView.swift */,
 				E987221F2C1365F8006112CD /* DetailsView.swift */,
