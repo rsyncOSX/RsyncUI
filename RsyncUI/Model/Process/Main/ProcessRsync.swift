@@ -92,6 +92,10 @@ final class ProcessRsync: PropogateError {
                                 stringoutputfromrsync: TrimOutputFromRsync(output).trimmeddata)
                     }
                 }
+                if errordiscovered, let config{
+                    Logfile(command: config.backupID,
+                            stringoutputfromrsync: self.output)
+                }
                 SharedReference.shared.process = nil
                 Logger.process.info("ProcessRsync: process = nil and termination discovered")
                 // Release Combine subscribers
