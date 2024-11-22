@@ -58,7 +58,8 @@ final class ProcessRsync: PropogateError {
                         str.enumerateLines { line, _ in
                             self.output.append(line)
                             if SharedReference.shared.checkforerrorinrsyncoutput,
-                                self.errordiscovered == false {
+                               self.errordiscovered == false
+                            {
                                 do {
                                     try self.checklineforerror?.checkforrsyncerror(line)
                                 } catch let e {
@@ -92,9 +93,9 @@ final class ProcessRsync: PropogateError {
                                 stringoutputfromrsync: TrimOutputFromRsync(output).trimmeddata)
                     }
                 }
-                if errordiscovered, let config{
+                if errordiscovered, let config {
                     Logfile(command: config.backupID,
-                            stringoutputfromrsync: self.output)
+                            stringoutputfromrsync: output)
                 }
                 SharedReference.shared.process = nil
                 Logger.process.info("ProcessRsync: process = nil and termination discovered")

@@ -18,14 +18,14 @@ enum RemoteVSlocal {
 
 @Observable @MainActor
 final class ObservableRemoteVSlocal {
-    
-    func  decideremoteVSlocal(pullremotedatanumbers: RemoteDataNumbers?,
-                              pushremotedatanumbers: RemoteDataNumbers?) -> RemoteVSlocal {
+    func decideremoteVSlocal(pullremotedatanumbers: RemoteDataNumbers?,
+                             pushremotedatanumbers: RemoteDataNumbers?) -> RemoteVSlocal
+    {
         if var pullremote = pullremotedatanumbers?.outputfromrsync,
-           var pushremote = pushremotedatanumbers?.outputfromrsync {
-            
+           var pushremote = pushremotedatanumbers?.outputfromrsync
+        {
             guard pullremote.count > 15, pushremote.count > 15 else { return .noevaluation }
-            
+
             pullremote.removeLast(15)
             pushremote.removeLast(15)
             // Pull data <<--
@@ -42,8 +42,7 @@ final class ObservableRemoteVSlocal {
             setpushremote.subtract(pullremote.map { row in
                 row.record.hasSuffix("/") == false ? row.record : nil
             })
-            
-            
+
             if setpullremote.count > setpushremote.count {
                 return .remotemoredata
             } else if setpullremote.count < setpushremote.count {
@@ -54,7 +53,7 @@ final class ObservableRemoteVSlocal {
         }
         return .noevaluation
     }
-    
+
     deinit {
         Logger.process.info("ObservableRemoteVSlocal: deinit")
     }

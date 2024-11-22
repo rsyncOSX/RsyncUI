@@ -51,7 +51,7 @@ struct VerifyRemote: View {
                     .help("Check remote")
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     abort()

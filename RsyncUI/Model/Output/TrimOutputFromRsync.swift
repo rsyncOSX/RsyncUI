@@ -19,11 +19,10 @@ enum Rsyncerror: LocalizedError {
 }
 
 @MainActor
-final class TrimOutputFromRsync: PropogateError {
+final class TrimOutputFromRsync {
     var trimmeddata: [String]?
-    var errordiscovered: Bool = false
 
-    // Error handling
+    // Check for error in output form rsync
     func checkforrsyncerror(_ line: String) throws {
         let error = line.contains("rsync error:")
         if error {
@@ -33,21 +32,9 @@ final class TrimOutputFromRsync: PropogateError {
 
     init(_ stringoutputfromrsync: [String]) {
         trimmeddata = stringoutputfromrsync.compactMap { line in
-            do {
-                try checkforrsyncerror(line)
-            } catch let e {
-                // Only want one notification about error, not multiple
-                // Multiple can be a kind of race situation
-                if errordiscovered == false {
-                    let error = e
-                    _ = Logfile(stringoutputfromrsync, error: true)
-                    propogateerror(error: error)
-                    errordiscovered = true
-                }
-            }
-            return (line.last != "/") ? line : nil
+            line.hasSuffix("/") == false ? line : nil
         }
     }
-    
+
     init() {}
 }

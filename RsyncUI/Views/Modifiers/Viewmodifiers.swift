@@ -99,7 +99,7 @@ struct MessageView: View {
         .frame(height: 30, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
         .padding()
-        }
+    }
 
     init(mytext: String) {
         self.mytext = mytext

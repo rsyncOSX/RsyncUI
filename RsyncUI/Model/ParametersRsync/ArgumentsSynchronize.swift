@@ -14,14 +14,14 @@ import RsyncArguments
 @MainActor
 final class ArgumentsSynchronize {
     var config: SynchronizeConfiguration?
-    
+
     func argumentsforpushlocaltoremote(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config {
             Logger.process.info("ArgumentsSynchronize: using argumentsforpushlocaltoremote() - RsyncArguments")
             Logger.process.info("ArgumentsSynchronize: using argumentsforpushlocaltoremote() --delete is removed")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparameterssynchronize =
-                RsyncParametersSynchronize(parameters: parameters)
+                    RsyncParametersSynchronize(parameters: parameters)
                 rsyncparameterssynchronize.argumentsforpushlocaltoremote(forDisplay: forDisplay, verify: false, dryrun: dryRun)
                 return rsyncparameterssynchronize.computedarguments
             }

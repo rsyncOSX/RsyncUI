@@ -41,7 +41,8 @@ struct OutputRsyncCheckeRemoteView: View {
             }
             if progress == false {
                 switch pushVSremote.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
-                                                        pushremotedatanumbers: pushremotedatanumbers) {
+                                                        pushremotedatanumbers: pushremotedatanumbers)
+                {
                 case .remotemoredata:
                     MessageView(mytext: "Seems to be more data in remote VS local, a PULL from remote MAY be next action.")
                 case .localmoredata:
@@ -52,7 +53,6 @@ struct OutputRsyncCheckeRemoteView: View {
                     MessageView(mytext: "Could not decide local VS remote.")
                 }
             }
-            
         }
         .onAppear {
             pullremote(config: config)
@@ -72,7 +72,7 @@ struct OutputRsyncCheckeRemoteView: View {
     // For check remote, pull remote data
     func pullremote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
-                                                                                forDisplay: false)
+                                                                                              forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: pullprocesstermination)
@@ -82,7 +82,7 @@ struct OutputRsyncCheckeRemoteView: View {
     // For check remote, pull remote data
     func pushremote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true,
-                                                                                  forDisplay: false)
+                                                                                           forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: pushprocesstermination)

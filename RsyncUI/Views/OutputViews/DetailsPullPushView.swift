@@ -17,11 +17,11 @@ struct DetailsPullPushView: View {
                 Text(text)
                     .font(.title2)
                     .padding()
-                
+
                 DetailsViewHeading(remotedatanumbers: remotedatanumbers)
 
                 Spacer()
-                
+
                 VStack(alignment: .leading) {
                     Text("^[\(remotedatanumbers.newfiles_Int) file](inflect: true) new")
                     Text("^[\(remotedatanumbers.deletefiles_Int) file](inflect: true) for delete")
@@ -35,7 +35,6 @@ struct DetailsPullPushView: View {
                         .fill(.blue.gradient)
                 }
                 .padding()
-
             }
 
             Table(remotedatanumbers.outputfromrsync ?? []) {
