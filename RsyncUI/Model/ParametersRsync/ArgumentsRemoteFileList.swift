@@ -16,7 +16,7 @@ final class ArgumentsRemoteFileList {
 
     func remotefilelistarguments() -> [String]? {
         if let config {
-            Logger.process.info("RemoteFileListArguments: using RsyncParametersRestore() from RsyncArguments")
+            Logger.process.info("ArgumentsRemoteFileList: using remotefilelistarguments() - RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparametersrestore =
                     RsyncParametersRestore(parameters: parameters)

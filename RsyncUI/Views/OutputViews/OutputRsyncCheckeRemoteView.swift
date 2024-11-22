@@ -112,36 +112,22 @@ struct OutputRsyncCheckeRemoteView: View {
     }
     
     var decideremoteVSlocal: RemoteVSlocal {
-        if let pullremote = pullremotedatanumbers?.outputfromrsync,
-           let pushremote = pushremotedatanumbers?.outputfromrsync {
+        if var pullremote = pullremotedatanumbers?.outputfromrsync,
+           var pushremote = pushremotedatanumbers?.outputfromrsync {
             
-            let countpullremote = pullremote.count - 15
-            var i = 0
-            let countpushremote = pushremote.count - 15
-            var j = 0
+            guard pullremote.count > 15, pushremote.count > 15 else { return .noevaluation }
             
-            let trimmedpullremote = pullremote.compactMap {
-                i += 1
-                return i < countpullremote ? $0 : nil
-            }
-            let trimmedpushremote = pullremote.compactMap {
-                j += 1
-                return j < countpushremote ? $0 : nil
-            }
-            // <-- pull data from remote
-            let pull = zip(trimmedpullremote, trimmedpushremote).compactMap {
-                return $0.0 != $0.1 ? $0.0 : nil
-            }
-            // --> push data to remote
-            let push = zip(trimmedpullremote, trimmedpushremote).compactMap {
-                return $0.0 != $0.1 ? $0.1 : nil
-            }
+            pullremote.removeLast(15)
+            pushremote.removeLast(15)
             
-            if pull.count > push.count {
+            var setpullremote = Set(pullremote)
+            setpullremote.subtract(pushremote)
+            
+            if setpullremote.count > pushremote.count {
                 return .remotemoredata
-            } else if pull.count < push.count {
+            } else if setpullremote.count < pushremote.count {
                 return .localmoredata
-            } else if pull.count == push.count {
+            } else if setpullremote.count == pushremote.count {
                 return .evenamountadata
             }
         }
