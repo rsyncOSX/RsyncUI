@@ -11,7 +11,7 @@ struct ArgumentsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     @State private var selectedconfig: SynchronizeConfiguration?
-    @State private var otherselectedrsynccommand = OtherRsyncCommand.synchronize_data
+    @State private var otherselectedrsynccommand = OtherRsyncCommand.push_local
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     var body: some View {

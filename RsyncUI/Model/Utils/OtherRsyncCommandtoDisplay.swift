@@ -11,11 +11,8 @@ import Foundation
 import SSHCreateKey
 
 enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case synchronize_data
-    case restore_data
-    case check_a_remote
-    case push_local_remote
-    case verify_synchronized_data
+    case pull_remote
+    case push_local
     case list_remote_files
     case create_public_SSHkey
     case copy_public_SSHkey
@@ -34,22 +31,6 @@ struct OtherRsyncCommandtoDisplay {
     {
         var str = ""
         switch display {
-        case .synchronize_data:
-            if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: true) {
-                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
-            }
-        case .restore_data:
-            if config.offsiteServer.isEmpty == false {
-                if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true) {
-                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
-                }
-            } else {
-                str = NSLocalizedString("Use macOS Finder", comment: "")
-            }
-        case .verify_synchronized_data:
-            if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: true) {
-                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
-            }
         case .list_remote_files:
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
@@ -84,7 +65,7 @@ struct OtherRsyncCommandtoDisplay {
             } else {
                 str = NSLocalizedString("No remote server on task", comment: "")
             }
-        case .check_a_remote:
+        case .pull_remote:
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true, forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
@@ -92,7 +73,7 @@ struct OtherRsyncCommandtoDisplay {
             } else {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
             }
-        case .push_local_remote:
+        case .push_local:
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true, forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
