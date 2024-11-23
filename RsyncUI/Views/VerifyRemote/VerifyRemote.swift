@@ -19,7 +19,7 @@ struct VerifyRemote: View {
         NavigationStack {
             ListofTasksLightView(selecteduuids: $selectedconfiguuid,
                                  profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata.configurations ?? [])
+                                 configurations: configurations)
                 .onChange(of: selectedconfiguuid) {
                     if let configurations = rsyncUIdata.configurations {
                         if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
@@ -28,6 +28,14 @@ struct VerifyRemote: View {
                             selectedconfig = nil
                         }
                     }
+                }
+                .overlay { if configurations.count == 0 {
+                    ContentUnavailableView {
+                        Label("The Verify remote is only for networked configurations", systemImage: "doc.richtext.fill")
+                    } description: {
+                        Text("A networked configuration is where destination is on a remote server.")
+                    }
+                }
                 }
         }
         .navigationTitle("Verify remote")
@@ -65,5 +73,11 @@ struct VerifyRemote: View {
 
     func abort() {
         _ = InterruptProcess()
+    }
+    
+    var configurations: [SynchronizeConfiguration] {
+        return rsyncUIdata.configurations?.filter({ configuration in
+            configuration.offsiteServer.isEmpty == false
+        }) ?? []
     }
 }
