@@ -47,7 +47,8 @@ final class ObservableRemoteVSlocal {
                 return .remotemoredata
             } else if setpullremote.count < setpushremote.count {
                 return .localmoredata
-            } else if setpullremote.count == setpushremote.count {
+            } else if setpullremote.count == setpushremote.count &&
+                        setpullremote.count <= 2 {
                 return .evenamountadata
             }
         }
