@@ -44,13 +44,13 @@ struct OutputRsyncCheckeRemoteView: View {
                                                         pushremotedatanumbers: pushremotedatanumbers)
                 {
                 case .remotemoredata:
-                    MessageView(mytext: "Seems to be more data in remote VS local, a PULL from remote MAY be next action.")
+                    MessageView(mytext: "Seems to be more data in remote VS local, a PULL from remote MAY be next action.", size: .title3)
                 case .localmoredata:
-                    MessageView(mytext: "Seems to be more data in local VS remote, a normal SYNCHRONIZE MAY be next action.")
+                    MessageView(mytext: "Seems to be more data in local VS remote, a normal SYNCHRONIZE MAY be next action.", size: .title3)
                 case .evenamountadata:
-                    MessageView(mytext: "Seems to even amount of data in local VS remote, a normal SYNCHRONIZE MAY be next action.")
+                    MessageView(mytext: "Seems to even amount of data in local VS remote, a normal SYNCHRONIZE MAY be next action.", size: .title3)
                 case .noevaluation:
-                    MessageView(mytext: "Could not decide local VS remote.")
+                    MessageView(mytext: "Could not decide local VS remote.", size: .title3)
                 }
             }
         }

@@ -84,12 +84,14 @@ struct DismissafterMessageView: View {
 
 struct MessageView: View {
     private var mytext: String
+    private var textsize: Font
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
             Text(mytext)
-                .font(.caption2)
+                // .font(.caption2)
+                .font(textsize)
                 .foregroundColor(Color.green)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
@@ -101,7 +103,8 @@ struct MessageView: View {
         .padding()
     }
 
-    init(mytext: String) {
+    init(mytext: String, size: Font) {
         self.mytext = mytext
+        self.textsize = size
     }
 }
