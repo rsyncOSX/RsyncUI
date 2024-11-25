@@ -54,7 +54,7 @@ struct NavigationLogfileView: View {
 @Observable @MainActor
 final class Logfileview: PropogateError {
     var output: [LogfileRecords]?
-    let maxcount = 10000
+    let maxcount = 20000
 
     struct LogfileRecords: Identifiable {
         let id = UUID()
@@ -89,7 +89,7 @@ enum LogfileError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .toobig:
-            "Logfile is to big, more than 10000 lines\n Please reset logfile"
+            "Logfile is to big, more than 20000 lines\n Please reset logfile"
         }
     }
 }

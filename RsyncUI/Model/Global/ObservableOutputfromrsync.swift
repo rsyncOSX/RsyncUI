@@ -15,7 +15,7 @@ struct RsyncOutputData: Identifiable, Equatable, Hashable {
 @Observable @MainActor
 final class ObservableOutputfromrsync: PropogateError {
     var output = [RsyncOutputData]()
-    let maxcount = 30000
+    let maxcount = 40000
 
     func outputistruncated(_ number: Int) throws {
         guard number < maxcount else {
@@ -50,7 +50,7 @@ enum OutputIsTruncated: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .istruncated:
-            "Output from rsync is truncated\n more than 30,000 rows\n last 20 rows are included in output"
+            "Output from rsync is truncated\n more than 40,000 rows\n last 20 rows are included in output"
         }
     }
 }
