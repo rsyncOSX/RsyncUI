@@ -77,13 +77,13 @@
 "Apple Silicon" = "Apple Silicon";
 
 /* No comment provided by engineer. */
-"Attached Volumes" = "Angehängte Bände";
+"Attached Volumes" = "Angehängte Volumes";
 
 /* No comment provided by engineer. */
 "Backup" = "Sichern";
 
 /* No comment provided by engineer. */
-"Backup configurations" = "Sichern datei";
+"Backup configurations" = "Konfiguration Sichern";
 
 /* No comment provided by engineer. */
 "Cancel" = "Abbrechen";
@@ -92,13 +92,13 @@
 "Catalog parameters" = "Katalogparameter";
 
 /* No comment provided by engineer. */
-"Catalog parameters - split character $" = "Katalogparameter - split $";
+"Catalog parameters - split character $" = "Katalogparameter - Trennzeichen $";
 
 /* No comment provided by engineer. */
 "Catalogs" = "Katalog";
 
 /* No comment provided by engineer. */
-"Change search string to filter records" = "Ändern Sie die Suchzeichenfolge, um Datensätze zu filtern";
+"Change search string to filter records" = "Suchzeichenfolge #ndern um Datensätze zu filtern";
 
 /* No comment provided by engineer. */
 "Change snapshotnumber" = "Snapshotnummer ändern";
@@ -110,25 +110,25 @@
 "Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
 
 /* No comment provided by engineer. */
-"Check remote" = "Fernbedienung überprüfen";
+"Check remote" = "Remote überprüfen";
 
 /* No comment provided by engineer. */
 "Clear saved quicktask" = "Gespeicherte Quicktask löschen";
 
 /* No comment provided by engineer. */
-"Confirm execute" = "Bestätigen Sie die Ausführung";
+"Confirm execute" = "Ausführung bestätigen";
 
 /* No comment provided by engineer. */
-"Copy" = "Kopi";
+"Copy" = "Kopieren";
 
 /* No comment provided by engineer. */
-"Copy ^[%lld configuration](inflect: true)" = "Kopi ^[%lld configuration](inflect: true)";
+"Copy ^[%lld configuration](inflect: true)" = "^[%lld configuration] kopieren(inflect: true)";
 
 /* No comment provided by engineer. */
 "Copyright ©2023 Thomas Evensen" = "Copyright ©2023 Thomas Evensen";
 
 /* No comment provided by engineer. */
-"Counting ^[%lld log](inflect: true)" = "Zählen ^[%lld log](inflect: true)";
+"Counting ^[%lld log](inflect: true)" = "Zähle ^[%lld log](inflect: true)";
 
 /* No comment provided by engineer. */
 "Create keys" = "Keys erstellen";
@@ -149,13 +149,13 @@
 "Delete" = "Löschen";
 
 /* No comment provided by engineer. */
-"Delete ^[%lld configuration](inflect: true)" = "Löschen ^[%lld configuration](inflect: true)";
+"Delete ^[%lld configuration](inflect: true)" = "Lösche ^[%lld configuration](inflect: true)";
 
 /* No comment provided by engineer. */
-"Delete ^[%lld log](inflect: true)" = "Löschen ^[%lld log](inflect: true)";
+"Delete ^[%lld log](inflect: true)" = "Lösche ^[%lld log](inflect: true)";
 
 /* No comment provided by engineer. */
-"Delete ^[%lld snapshot](inflect: true)" = "Löschen ^[%lld snapshot](inflect: true)";
+"Delete ^[%lld snapshot](inflect: true)" = "Lösche ^[%lld snapshot](inflect: true)";
 
 /* No comment provided by engineer. */
 "Delete profile" = "Profil löschen";
@@ -164,7 +164,7 @@
 "Deleting snapshots" = "Schnappschüsse löschen";
 
 /* No comment provided by engineer. */
-"Dismiss" = "Schließen";
+"Dismiss" = "Ignorieren";
 
 /* No comment provided by engineer. */
 "Don´t add /" = "Nicht hinzufügen/";
@@ -209,10 +209,10 @@
 "Files" = "Dateien";
 
 /* No comment provided by engineer. */
-"German translation by: Andre Voigtmann" = "Deutsche Übersetzung von: Andre Voigtmann";
+"German translation by: Andre Voigtmann" = "Deutsche Übersetzung von: andre68723";
 
 /* No comment provided by engineer. */
-"Get list of files for restore" = "Rufen Sie eine Liste der wiederherzustellenden Dateien ab";
+"Get list of files for restore" = "Liste der wiederherzustellenden Dateien abrufen";
 
 /* No comment provided by engineer. */
 "Global change and update" = "Globale Änderungen und Aktualisierungen";
@@ -224,7 +224,7 @@
 "Global ssh-port" = "Globaler SSH-Port";
 
 /* No comment provided by engineer. */
-"Home catalogs" = "Hauskataloge";
+"Home catalogs" = "Home-Kataloge";
 
 /* No comment provided by engineer. */
 "https://rsyncui.netlify.app" = "https://rsyncui.netlify.app";
@@ -266,7 +266,7 @@
 "Logfile" = "Protokolldatei";
 
 /* No comment provided by engineer. */
-"Mark days after" = "Markieren Sie Tage danach";
+"Mark days after" = "Tage nach markieren";
 
 /* No comment provided by engineer. */
 "Marked ^[%lld snapshot](inflect: true) for delete" = "^[%lld snapshot](inflect: true) zum Löschen markiert";
@@ -317,10 +317,10 @@
 "Output from rsync" = "Ausgabe von rsync";
 
 /* No comment provided by engineer. */
-"Path for restore" = "Pfad zum Wiederherstellen";
+"Path for restore" = "Wiederherstellungspfad";
 
 /* No comment provided by engineer. */
-"Path rsync" = "Pfad rsync";
+"Path rsync" = "rsync-Pfad";
 
 /* No comment provided by engineer. */
 "Profile" = "Profil";
@@ -356,7 +356,7 @@
 "Remote user" = "Remote-Benutzer";
 
 /* No comment provided by engineer. */
-"Remove default rsync parameters" = "Entfernen Sie die Standard-rsync-Parameter";
+"Remove default rsync parameters" = "Entferne Standard-rsync-Parameter";
 
 /* No comment provided by engineer. */
 "Reset estimates" = "Schätzungen zurücksetzen";
@@ -497,7 +497,7 @@
 "There are no snapshot records by this search string in Date or Tag." = "Für diese Suchzeichenfolge gibt es in „Datum“ oder „Tag“ keine Snapshot-Datensätze.";
 
 /* No comment provided by engineer. */
-"There are no tasks by this Synchronize ID" = "Es gibt keine Aufgaben dieser Synchronisierungs-ID";
+"There are no tasks by this Synchronize ID" = "Es gibt keine Aufgaben mit dieser Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
 "There is ^[%lld snapshot](inflect: true)" = "Es gibt  ^[%lld snapshot](inflect: true)";
@@ -533,7 +533,7 @@
 "Try to search for other filter in Date or Result" = "Versuchen Sie, in „Datum“ oder „Ergebnis“ nach einem anderen Filter zu suchen";
 
 /* No comment provided by engineer. */
-"Try to search for other filter in Synchronize ID or \n If new user, add Tasks." = "Versuchen Sie, in Synchronize ID oder nach einem anderen Filter zu suchen\n Wenn Sie ein neuer Benutzer sind, fügen Sie Aufgaben hinzu.";
+"Try to search for other filter in Synchronize ID or \n If new user, add Tasks." = "Versuchen Sie, in Synchronize ID oder nach einem anderen Filter zu suchen.\nWenn Sie ein neuer Benutzer sind, fügen Sie einen Aufgabe hinzu.";
 
 /* No comment provided by engineer. */
 "Update" = "Aktualisieren";
