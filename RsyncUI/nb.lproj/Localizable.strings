@@ -1,4 +1,7 @@
 /* No comment provided by engineer. */
+" : " = ":";
+
+/* No comment provided by engineer. */
 "--dry-run" = "--dry-run";
 
 /* No comment provided by engineer. */
@@ -22,6 +25,9 @@
 /* No comment provided by engineer. */
 "^[%lld file](inflect: true) new" = "^[%lld fil](inflect: true) nye";
 
+/* No comment provided by engineer. */
+"A networked configuration is where destination is on a remote server." = "En nettverkskonfigurasjon er der destinasjonen er på en ekstern server.";
+
 /* (No Comment) */
 "Abort" = "Avbryt";
 
@@ -30,6 +36,9 @@
 
 /* No comment provided by engineer. */
 "Abort task" = "Avbryt oppgave";
+
+/* No comment provided by engineer. */
+"Add and update tasks" = "Legg til og oppdater oppgaver";
 
 /* No comment provided by engineer. */
 "Add local as remote catalog - required" = "Legg til lokal som eksternkatalog - kreves";
@@ -101,6 +110,9 @@
 "Check for error in output" = "Sjekk for feil i utdata";
 
 /* No comment provided by engineer. */
+"Check remote" = "Sjekk ekstern";
+
+/* No comment provided by engineer. */
 "Clear saved quicktask" = "Reset lagret quicktask";
 
 /* No comment provided by engineer. */
@@ -123,9 +135,6 @@
 
 /* No comment provided by engineer. */
 "Create profile" = "Opprett profil";
-
-/* No comment provided by engineer. */
-"Data is changed, please update" = "Data er endret, oppdater";
 
 /* No comment provided by engineer. */
 "Date" = "Dato";
@@ -251,7 +260,7 @@
 "localhost" = "localhost";
 
 /* No comment provided by engineer. */
-"Log summary logfile" = "Logg oppsummering log fil";
+"Log listing" = "Logg lister";
 
 /* No comment provided by engineer. */
 "Logfile" = "Loggfil";
@@ -273,9 +282,6 @@
 
 /* No comment provided by engineer. */
 "New" = "Ny";
-
-/* No comment provided by engineer. */
-"New version" = "Ny versjon";
 
 /* No comment provided by engineer. */
 "No configurations yet." = "Ingen oppgaver.";
@@ -320,10 +326,16 @@
 "Profile" = "Profil";
 
 /* No comment provided by engineer. */
+"Profile create or delete" = "Profiler opprett eller slett";
+
+/* No comment provided by engineer. */
 "Profiles" = "Profiler";
 
 /* No comment provided by engineer. */
 "Quick synchronize" = "Rask synckronizering";
+
+/* No comment provided by engineer. */
+"Quicktask" = "Quicktask";
 
 /* No comment provided by engineer. */
 "Remote catalog" = "Ekstern katalog";
@@ -371,6 +383,9 @@
 "rsync parameter" = "rsync parameter";
 
 /* No comment provided by engineer. */
+"Rsync parameters" = "Rsync parametre";
+
+/* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
@@ -381,6 +396,9 @@
 
 /* No comment provided by engineer. */
 "RsyncUI documentation" = "RsyncUI dokumentasjon";
+
+/* No comment provided by engineer. */
+"RsyncUI settings" = "RsyncUI oppsett";
 
 /* No comment provided by engineer. */
 "Select a file for import" = "Velg fil for import";
@@ -398,13 +416,13 @@
 "Server: " = "Tjener:";
 
 /* No comment provided by engineer. */
-"Settings" = "Settinger";
-
-/* No comment provided by engineer. */
 "Show arguments" = "Vis argumenter";
 
 /* No comment provided by engineer. */
 "Snap" = "Snap";
+
+/* No comment provided by engineer. */
+"Snapshot tasks" = "Snapshot oppgaver";
 
 /* No comment provided by engineer. */
 "Snapshotnumber" = "Snapshot nummer";
@@ -449,6 +467,9 @@
 "Synchronize ID: " = "Synkroniserings ID:";
 
 /* No comment provided by engineer. */
+"Synchronize tasks" = "Synkronisere oppgaver";
+
+/* No comment provided by engineer. */
 "Synchronize tasks?" = "Synkronisere oppgaver?";
 
 /* No comment provided by engineer. */
@@ -467,6 +488,9 @@
 "Tasks" = "Oppgaver";
 
 /* No comment provided by engineer. */
+"The Verify remote is only for networked configurations" = "Verify kontrollen er bare for nettverkskonfigurasjoner";
+
+/* No comment provided by engineer. */
 "There are no logs by this filter" = "Det er ingen logger med dette søk";
 
 /* No comment provided by engineer. */
@@ -477,9 +501,6 @@
 
 /* No comment provided by engineer. */
 "There is ^[%lld snapshot](inflect: true)" = "Det er ^[%lld snapshot](inflect: true)";
-
-/* No comment provided by engineer. */
-"There is a new version\navailable for download" = "Ny versjon er tilgjengelig for nedlasting";
 
 /* No comment provided by engineer. */
 "There is a new version available for download" = "Ny versjon er tilgjengelig for nedlasting";
@@ -531,6 +552,9 @@
 
 /* No comment provided by engineer. */
 "Use macOS Finder to restore files from attached discs." = "Bruke macOS Finder for å kopiere filer fra ekstern disk.";
+
+/* No comment provided by engineer. */
+"Verify remote" = "Verifiser ekstern";
 
 /* No comment provided by engineer. */
 "Verify task" = "Verifiser oppgave";

@@ -25,6 +25,9 @@
 /* No comment provided by engineer. */
 "^[%lld file](inflect: true) new" = "^[%lld Datei](inflect: true) neu";
 
+/* No comment provided by engineer. */
+"A networked configuration is where destination is on a remote server." = "Bei einer Netzwerkkonfiguration befindet sich das Ziel auf einem Remote-Server.";
+
 /* (No Comment) */
 "Abort" = "Abbrechen";
 
@@ -33,6 +36,9 @@
 
 /* No comment provided by engineer. */
 "Abort task" = "Aufgabe abbrechen";
+
+/* No comment provided by engineer. */
+"Add and update tasks" = "Aufgaben hinzufügen und aktualisieren";
 
 /* No comment provided by engineer. */
 "Add local as remote catalog - required" = "Lokal als RemoteCatalog hinzufügen - erforderlich";
@@ -104,6 +110,9 @@
 "Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
 
 /* No comment provided by engineer. */
+"Check remote" = "Fernbedienung überprüfen";
+
+/* No comment provided by engineer. */
 "Clear saved quicktask" = "Gespeicherte Quicktask löschen";
 
 /* No comment provided by engineer. */
@@ -126,9 +135,6 @@
 
 /* No comment provided by engineer. */
 "Create profile" = "Profil erstellen";
-
-/* No comment provided by engineer. */
-"Data is changed, please update" = "Daten haben sich geändert, bitte aktualisieren";
 
 /* No comment provided by engineer. */
 "Date" = "Datum";
@@ -254,7 +260,7 @@
 "localhost" = "localhost";
 
 /* No comment provided by engineer. */
-"Log summary logfile" = "Protokollzusammenfassungs-Protokolldatei";
+"Log listing" = "Protokollliste";
 
 /* No comment provided by engineer. */
 "Logfile" = "Protokolldatei";
@@ -276,9 +282,6 @@
 
 /* No comment provided by engineer. */
 "New" = "Neu";
-
-/* No comment provided by engineer. */
-"New version" = "Neue Version";
 
 /* No comment provided by engineer. */
 "No configurations yet." = "Noch keine Konfigurationen.";
@@ -323,10 +326,16 @@
 "Profile" = "Profil";
 
 /* No comment provided by engineer. */
+"Profile create or delete" = "Profil erstellen oder löschen";
+
+/* No comment provided by engineer. */
 "Profiles" = "Profil";
 
 /* No comment provided by engineer. */
 "Quick synchronize" = "Schnelle Synchronisierung";
+
+/* No comment provided by engineer. */
+"Quicktask" = "Quicktask";
 
 /* No comment provided by engineer. */
 "Remote catalog" = "Remote Katalog";
@@ -374,6 +383,9 @@
 "rsync parameter" = "rsync parameter";
 
 /* No comment provided by engineer. */
+"Rsync parameters" = "Rsync parameter";
+
+/* No comment provided by engineer. */
 "Rsync v3.x" = "Rsync v3.x";
 
 /* No comment provided by engineer. */
@@ -384,6 +396,9 @@
 
 /* No comment provided by engineer. */
 "RsyncUI documentation" = "RsyncUI-Dokumentation";
+
+/* No comment provided by engineer. */
+"RsyncUI settings" = "RsyncUI-Einstellungen";
 
 /* No comment provided by engineer. */
 "Select a file for import" = "Wählen Sie eine Datei zum Importieren aus";
@@ -401,13 +416,13 @@
 "Server: " = "Server:";
 
 /* No comment provided by engineer. */
-"Settings" = "Einstellungen";
-
-/* No comment provided by engineer. */
 "Show arguments" = "Argumente anzeigen";
 
 /* No comment provided by engineer. */
 "Snap" = "Snap";
+
+/* No comment provided by engineer. */
+"Snapshot tasks" = "Snapshot-Aufgaben";
 
 /* No comment provided by engineer. */
 "Snapshotnumber" = "Snapshotnummer ";
@@ -452,6 +467,9 @@
 "Synchronize ID: " = "Synchronisierungs-ID:";
 
 /* No comment provided by engineer. */
+"Synchronize tasks" = "Aufgaben synchronisieren";
+
+/* No comment provided by engineer. */
 "Synchronize tasks?" = "Aufgaben synchronisieren?";
 
 /* No comment provided by engineer. */
@@ -470,6 +488,9 @@
 "Tasks" = "Aufgaben";
 
 /* No comment provided by engineer. */
+"The Verify remote is only for networked configurations" = "Die Verify ist nur für vernetzte Konfigurationen geeignet";
+
+/* No comment provided by engineer. */
 "There are no logs by this filter" = "Für diesen Filter sind keine Protokolle vorhanden";
 
 /* No comment provided by engineer. */
@@ -480,9 +501,6 @@
 
 /* No comment provided by engineer. */
 "There is ^[%lld snapshot](inflect: true)" = "Es gibt  ^[%lld snapshot](inflect: true)";
-
-/* No comment provided by engineer. */
-"There is a new version\navailable for download" = "Es steht eine neue Version\nzum Download bereit";
 
 /* No comment provided by engineer. */
 "There is a new version available for download" = "Es steht eine neue Version zum Download bereit";
@@ -534,6 +552,9 @@
 
 /* No comment provided by engineer. */
 "Use macOS Finder to restore files from attached discs." = "Verwenden Sie den macOS Finder, um Dateien von angeschlossenen Datenträgern wiederherzustellen.";
+
+/* No comment provided by engineer. */
+"Verify remote" = "Überprüfen der Fernbedienung";
 
 /* No comment provided by engineer. */
 "Verify task" = "Aufgabe verifizieren";
