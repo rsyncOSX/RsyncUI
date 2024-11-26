@@ -105,6 +105,6 @@ struct MessageView: View {
 
     init(mytext: String, size: Font) {
         self.mytext = mytext
-        self.textsize = size
+        textsize = size
     }
 }

@@ -32,7 +32,7 @@ struct Logsettings: View {
                         SharedReference.shared.addsummarylogrecord = logsettings.addsummarylogrecord
                         settingsischanged = true
                     }
-                
+
                 if SharedReference.shared.rsyncversion3 {
                     ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
                         .onChange(of: logsettings.confirmexecute) {

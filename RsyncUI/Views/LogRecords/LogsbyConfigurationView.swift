@@ -149,7 +149,7 @@ struct LogsbyConfigurationView: View {
                 var merged = [Log]()
                 _ = logrecords.map { logrecord in
                     if let logrecords = logrecord.logrecords {
-                        merged += [logrecords].flatMap { $0 }
+                        merged += [logrecords].flatMap(\.self)
                     }
                 }
                 let records = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
@@ -173,7 +173,7 @@ struct LogsbyConfigurationView: View {
                 var merged = [Log]()
                 _ = logrecords.map { logrecord in
                     if let logrecords = logrecord.logrecords {
-                        merged += [logrecords].flatMap { $0 }
+                        merged += [logrecords].flatMap(\.self)
                     }
                 }
                 // return merged.sorted(by: \.date, using: >)

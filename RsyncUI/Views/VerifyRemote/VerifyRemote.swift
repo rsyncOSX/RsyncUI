@@ -74,10 +74,10 @@ struct VerifyRemote: View {
     func abort() {
         _ = InterruptProcess()
     }
-    
+
     var configurations: [SynchronizeConfiguration] {
-        return rsyncUIdata.configurations?.filter({ configuration in
+        rsyncUIdata.configurations?.filter { configuration in
             configuration.offsiteServer.isEmpty == false
-        }) ?? []
+        } ?? []
     }
 }

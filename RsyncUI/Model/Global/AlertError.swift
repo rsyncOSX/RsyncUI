@@ -37,7 +37,7 @@ extension Alert {
         let message: Text? = {
             let message = [nsError.localizedFailureReason,
                            nsError.localizedRecoverySuggestion]
-                .compactMap { $0 }.joined(separator: "\n\n")
+                .compactMap(\.self).joined(separator: "\n\n")
             return message.isEmpty ? nil : Text(message)
         }()
         self = Alert(title: Text(nsError.localizedDescription),
