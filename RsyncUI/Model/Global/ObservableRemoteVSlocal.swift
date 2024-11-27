@@ -29,17 +29,17 @@ final class ObservableRemoteVSlocal {
             pullremote.removeLast(15)
             pushremote.removeLast(15)
             // Pull data <<--
-            var setpullremote = Set(pullremote.map { row in
+            var setpullremote = Set(pullremote.compactMap { row in
                 row.record.hasSuffix("/") == false ? row.record : nil
             })
-            setpullremote.subtract(pushremote.map { row in
+            setpullremote.subtract(pushremote.compactMap { row in
                 row.record.hasSuffix("/") == false ? row.record : nil
             })
             // Push data -->>
-            var setpushremote = Set(pushremote.map { row in
+            var setpushremote = Set(pushremote.compactMap { row in
                 row.record.hasSuffix("/") == false ? row.record : nil
             })
-            setpushremote.subtract(pullremote.map { row in
+            setpushremote.subtract(pullremote.compactMap { row in
                 row.record.hasSuffix("/") == false ? row.record : nil
             })
 
