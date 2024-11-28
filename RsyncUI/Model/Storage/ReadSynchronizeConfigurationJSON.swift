@@ -36,10 +36,11 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                     let server = config.offsiteServer
                     let itemforcheck = (server, sshport)
                     if checkedserverandport.contains(where: { $0 == itemforcheck }) == false {
+                        checkedserverandport.append(itemforcheck)
                         Logger.process.info("ReadSynchronizeConfigurationJSON checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
                         _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
                     }
-                    checkedserverandport.append(itemforcheck)
+                    
                     
                 } catch let e {
                     let error = e
@@ -64,7 +65,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                 
                 if SharedReference.shared.monitornetworkconnection {
                     Task {
-                        await verifyremoteconnection()
+                        await self.verifyremoteconnection()
                     }
                 }
             }
