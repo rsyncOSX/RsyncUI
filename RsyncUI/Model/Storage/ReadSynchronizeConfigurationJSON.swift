@@ -17,7 +17,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
     
     typealias TypeServerPort = (String, Int)
     
-    private func verifynetwork() async {
+    private func verifyremoteconnection() async {
         var checkedserverandport = Array<TypeServerPort>()
         
         if let networkscheck = configurations?.filter({ task in
@@ -35,7 +35,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                 do {
                     let server = config.offsiteServer
                     let itemforcheck = (server, sshport)
-                    if checkedserverandport.contains(where: {$0 == itemforcheck}) == false {
+                    if checkedserverandport.contains(where: { $0 == itemforcheck }) == false {
                         Logger.process.info("ReadSynchronizeConfigurationJSON checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
                         _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
                     }
@@ -64,7 +64,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                 
                 if SharedReference.shared.monitornetworkconnection {
                     Task {
-                        await verifynetwork()
+                        await verifyremoteconnection()
                     }
                 }
             }
