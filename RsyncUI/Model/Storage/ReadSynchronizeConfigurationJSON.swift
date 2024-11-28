@@ -34,11 +34,12 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                 }
                 do {
                     let server = config.offsiteServer
-                    checkedserverandport.append((server, sshport))
-                    if checkedserverandport.contains(where: { $0.0 != server && $0.1 != sshport }) == true {
+                    let itemforcheck = (server, sshport)
+                    if checkedserverandport.contains(where: {$0 == itemforcheck}) == false {
                         Logger.process.info("ReadSynchronizeConfigurationJSON checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
                         _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
                     }
+                    checkedserverandport.append(itemforcheck)
                     
                 } catch let e {
                     let error = e
