@@ -105,27 +105,6 @@ final class ProcessRsync: PropogateError {
             Logger.process.info("ProcessRsync: \(launchPath, privacy: .public)")
             Logger.process.info("ProcessRsync: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
-
-        if SharedReference.shared.monitornetworkconnection {
-            Task {
-                var sshport = 22
-                if let port = config?.sshport, port != -1 {
-                    sshport = port
-                } else if let port = SharedReference.shared.sshport, port != -1 {
-                    sshport = port
-                }
-                do {
-                    let server = config?.offsiteServer ?? ""
-                    if server.isEmpty == false {
-                        Logger.process.info("ProcessRsync checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
-                        _ = try await TCPconnections().asyncverifyTCPconnection(config?.offsiteServer ?? "", port: sshport)
-                    }
-                } catch let e {
-                    let error = e
-                    propogateerror(error: error)
-                }
-            }
-        }
     }
 
     init(arguments: [String]?,
