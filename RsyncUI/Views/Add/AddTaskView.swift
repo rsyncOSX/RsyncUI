@@ -167,7 +167,8 @@ struct AddTaskView: View {
                     Button {
                         addtasknavigation.append(AddTasks(task: .verify))
                     } label: {
-                        Image(systemName: "flag.checkered")
+                        Image(systemName: "play.fill")
+                            .foregroundColor(.blue)
                     }
                     .help("Verify task")
                 }

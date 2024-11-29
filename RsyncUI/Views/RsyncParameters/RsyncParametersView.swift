@@ -138,7 +138,8 @@ struct RsyncParametersView: View {
                         guard selecteduuids.isEmpty == false else { return }
                         rsyncnavigation.append(ParametersTasks(task: .verify))
                     } label: {
-                        Image(systemName: "flag.checkered")
+                        Image(systemName: "play.fill")
+                            .foregroundColor(.blue)
                     }
                     .help("Verify task")
                 }
