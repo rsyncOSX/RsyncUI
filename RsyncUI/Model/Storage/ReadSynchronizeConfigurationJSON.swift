@@ -14,6 +14,7 @@ import OSLog
 final class ReadSynchronizeConfigurationJSON: PropogateError {
     var configurations: [SynchronizeConfiguration]?
     let path = Homepath()
+    var donotverifyremoteconnection: Bool = true
     
     typealias TypeServerPort = (String, Int)
     
@@ -63,7 +64,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
 
                 Logger.process.info("ReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
                 
-                if SharedReference.shared.monitornetworkconnection {
+                if SharedReference.shared.monitornetworkconnection, donotverifyremoteconnection == false {
                     Task {
                         await self.verifyremoteconnection()
                     }
@@ -76,8 +77,9 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
         }
     }
 
-    init(_ profile: String?) {
+    init(_ profile: String?, _ donotverifyremoteconnection: Bool) {
         var filename = ""
+        self.donotverifyremoteconnection = donotverifyremoteconnection
         if let profile, let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + SharedReference.shared.fileconfigurationsjson
         } else {
