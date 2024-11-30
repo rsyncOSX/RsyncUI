@@ -28,7 +28,7 @@ It might take a few seconds. If not, RsyncUI might become unresponsive.
 
 | App        | UI | Latest version  |
 | ----------- |   -------- | -------- |
-| RsyncUI     | SwiftUI, declarativ     | v2.2.0 - [29 November 2024](https://github.com/rsyncOSX/RsyncUI/releases) - **maintained** and in **active development**|
+| RsyncUI     | SwiftUI, declarativ     | v2.2.1 - [30 November 2024](https://github.com/rsyncOSX/RsyncUI/releases) - **maintained** and in **active development**|
 
 - the [user guide for RsyncUI](https://rsyncui.netlify.app/docs/)
 - the [changelog](https://rsyncui.netlify.app/blog/)
