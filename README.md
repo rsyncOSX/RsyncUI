@@ -20,7 +20,7 @@ It might take a few seconds. If not, RsyncUI might become unresponsive.
 ### RsyncUI (Swift, SwiftUI)
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
-![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.2.0/total)
+![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.2.1/total)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.1.8/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
