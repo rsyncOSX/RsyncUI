@@ -17,9 +17,9 @@ final class RsyncUIconfigurations {
     init(_ profile: String?) {
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {
-            configurations = ReadSynchronizeConfigurationJSON(nil, false).configurations
+            configurations = ReadSynchronizeConfigurationJSON(nil).configurations
         } else {
-            configurations = ReadSynchronizeConfigurationJSON(profile, false).configurations
+            configurations = ReadSynchronizeConfigurationJSON(profile).configurations
         }
     }
 }

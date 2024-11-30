@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct ProfileView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -81,12 +82,18 @@ struct ProfileView: View {
 
     private func readalltasks() -> [SynchronizeConfiguration] {
         var old: [SynchronizeConfiguration]?
+        // Important: we must temporarly disable monitor network connection
+        if SharedReference.shared.monitornetworkconnection {
+            Logger.process.info("ProfileView: monitornetworkconnection is disabled")
+            SharedReference.shared.monitornetworkconnection = false
+        }
+        
         for i in 0 ..< (allprofiles?.count ?? 0) {
             var profilename = allprofiles?[i]
             if profilename == "Default profile" {
                 profilename = nil
             }
-            let configurations = ReadSynchronizeConfigurationJSON(profilename, true).configurations
+            let configurations = ReadSynchronizeConfigurationJSON(profilename).configurations
             let profileold = configurations?.filter { element in
                 var seconds: Double {
                     if let date = element.dateRun {
