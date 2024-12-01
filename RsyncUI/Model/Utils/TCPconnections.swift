@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OSLog
 
 enum Networkerror: LocalizedError {
     case networkdropped
@@ -25,7 +26,6 @@ enum Networkerror: LocalizedError {
 final class TCPconnections {
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
         let client = TCPClient(address: host, port: Int32(port))
-        print("Thread: ", Thread.current)
         switch client.connect(timeout: timeout) {
         case .success:
             return true
@@ -37,7 +37,7 @@ final class TCPconnections {
     // Async Test for TCP connection
     func asyncverifyTCPconnection(_ host: String, port: Int) async throws {
         let client = TCPClient(address: host, port: Int32(port))
-        // print("Thread: ", Thread.isMain)
+        Logger.process.info("asyncverifyTCPconnection(): on main thread: \(Thread.isMain)")
         switch client.connect(timeout: 5) {
         case .success:
             return

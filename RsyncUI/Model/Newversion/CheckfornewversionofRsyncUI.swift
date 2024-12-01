@@ -33,6 +33,7 @@ final class CheckfornewversionofRsyncUI {
 
     func getversionsofrsyncui() async {
         do {
+            Logger.process.info("getversionsofrsyncui(): on main thread: \(Thread.isMain)")
             let versions = DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,

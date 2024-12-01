@@ -62,7 +62,7 @@ final class ExecuteMultipleTasks {
         executeprogressdetails = executeprogressdetailsDelegate
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
-
+        Logger.process.info("ExecuteMultipleTasks.init: on main thread: \(Thread.isMain)")
         guard uuids.count > 0 else {
             Logger.process.warning("class ExecuteMultipleTasks, guard uuids.count > 0: \(uuids.count, privacy: .public)")
             executestate?.updateexecutestate(state: .completed)
