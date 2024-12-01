@@ -13,7 +13,7 @@ final class EstimateProgressDetails {
     var estimatedlist: [RemoteDataNumbers]?
     // UUIDs with data to be transferred
     var uuidswithdatatosynchronize = Set<UUID>()
-    // Estimate async
+    // Estimate
     var estimatealltasksinprogress: Bool = false
     // Estimate on task, same profile
     // If one task in profile is estimated, this is set true
