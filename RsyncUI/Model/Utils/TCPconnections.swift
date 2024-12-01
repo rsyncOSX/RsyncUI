@@ -37,7 +37,7 @@ final class TCPconnections {
     // Async Test for TCP connection
     func asyncverifyTCPconnection(_ host: String, port: Int) async throws {
         let client = TCPClient(address: host, port: Int32(port))
-        print("Thread: ", Thread.isMain)
+        // print("Thread: ", Thread.isMain)
         switch client.connect(timeout: 5) {
         case .success:
             return
