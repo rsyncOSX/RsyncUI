@@ -46,7 +46,7 @@ struct ExecuteEstimatedTasksView: View {
         .onDisappear(perform: {
             executeprogressdetails.estimatedlist = nil
             if SharedReference.shared.process != nil {
-                _ = InterruptProcess()
+                InterruptProcess()
             }
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
@@ -80,7 +80,7 @@ extension ExecuteEstimatedTasksView {
         executeprogressdetails.hiddenIDatwork = -1
         executestate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
-        _ = InterruptProcess()
+        InterruptProcess()
         path.removeAll()
     }
 

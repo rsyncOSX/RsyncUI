@@ -104,6 +104,6 @@ struct OutputRsyncCheckeRemoteView: View {
     }
 
     func abort() {
-        _ = InterruptProcess()
+        InterruptProcess()
     }
 }

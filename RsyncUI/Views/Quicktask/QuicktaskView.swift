@@ -327,7 +327,7 @@ extension QuicktaskView {
     }
 
     func abort() {
-        _ = InterruptProcess()
+        InterruptProcess()
     }
 
     func processtermination(_ stringoutputfromrsync: [String]?, hiddenID _: Int?) {

@@ -72,7 +72,7 @@ struct VerifyRemote: View {
     }
 
     func abort() {
-        _ = InterruptProcess()
+        InterruptProcess()
     }
 
     var configurations: [SynchronizeConfiguration] {

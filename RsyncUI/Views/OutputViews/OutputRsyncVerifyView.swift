@@ -60,6 +60,6 @@ struct OutputRsyncVerifyView: View {
     }
 
     func abort() {
-        _ = InterruptProcess()
+        InterruptProcess()
     }
 }

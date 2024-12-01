@@ -22,7 +22,6 @@ enum Networkerror: LocalizedError {
     }
 }
 
-@MainActor
 final class TCPconnections {
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
         let client = TCPClient(address: host, port: Int32(port))
@@ -41,7 +40,7 @@ final class TCPconnections {
         case .success:
             return
         default:
-            _ = InterruptProcess()
+            await InterruptProcess()
             throw Networkerror.noconnection
         }
     }

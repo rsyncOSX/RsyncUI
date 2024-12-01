@@ -203,7 +203,7 @@ extension SnapshotsView {
         snapshotdata.setsnapshotdata(nil)
         snapshotdata.delete?.snapshotcatalogstodelete = nil
         // kill any ongoing processes
-        _ = InterruptProcess()
+        InterruptProcess()
     }
 
     func getdata() {

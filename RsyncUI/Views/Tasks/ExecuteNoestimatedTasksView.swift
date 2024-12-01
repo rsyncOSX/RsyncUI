@@ -37,7 +37,7 @@ struct ExecuteNoestimatedTasksView: View {
         })
         .onDisappear(perform: {
             if SharedReference.shared.process != nil {
-                _ = InterruptProcess()
+                InterruptProcess()
             }
         })
         .focusedSceneValue(\.aborttask, $focusaborttask)
@@ -65,7 +65,7 @@ struct ExecuteNoestimatedTasksView: View {
 extension ExecuteNoestimatedTasksView {
     func abort() {
         selecteduuids.removeAll()
-        _ = InterruptProcess()
+        InterruptProcess()
         progressviewshowinfo = false
         executenoestimationprogressdetails.reset()
     }

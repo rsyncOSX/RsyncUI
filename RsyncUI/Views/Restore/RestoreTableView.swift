@@ -228,7 +228,7 @@ extension RestoreTableView {
     }
 
     func abort() {
-        _ = InterruptProcess()
+        InterruptProcess()
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
