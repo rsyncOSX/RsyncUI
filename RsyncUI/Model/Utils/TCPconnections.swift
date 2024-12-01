@@ -25,6 +25,7 @@ enum Networkerror: LocalizedError {
 final class TCPconnections {
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
         let client = TCPClient(address: host, port: Int32(port))
+        print("Thread: ", Thread.current)
         switch client.connect(timeout: timeout) {
         case .success:
             return true
@@ -36,6 +37,7 @@ final class TCPconnections {
     // Async Test for TCP connection
     func asyncverifyTCPconnection(_ host: String, port: Int) async throws {
         let client = TCPClient(address: host, port: Int32(port))
+        print("Thread: ", Thread.isMain)
         switch client.connect(timeout: 5) {
         case .success:
             return
@@ -44,4 +46,8 @@ final class TCPconnections {
             throw Networkerror.noconnection
         }
     }
+}
+
+extension Thread {
+    static var isMain: Bool { isMainThread }
 }
