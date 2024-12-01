@@ -21,10 +21,12 @@ extension Sequence {
     }
 }
 
+@MainActor
 protocol Connected {
     func connected(server: String?) -> Bool
 }
 
+@MainActor
 extension Connected {
     func connected(server: String?) -> Bool {
         if let server {
