@@ -26,7 +26,10 @@ final class ArgumentsRemoteDiskUsage {
                 return nil
             }
             
-            if let remotecatalog {
+            if var remotecatalog {
+                if remotecatalog.hasSuffix("/") {
+                    remotecatalog.removeLast()
+                }
                 return diskusage.remotedisksize(remotecatalog: remotecatalog)
             }
         }

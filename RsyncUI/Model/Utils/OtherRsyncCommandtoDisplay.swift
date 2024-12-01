@@ -87,7 +87,7 @@ struct OtherRsyncCommandtoDisplay {
                 let diskusage = ArgumentsRemoteDiskUsage(config: config,
                                                          remotecatalog: config.offsiteCatalog)
                 if let arguments = diskusage.argumentsremotediskusage() {
-                    str = (diskusage.getCommand() ?? "") + arguments.joined()
+                    str = (diskusage.getCommand() ?? "") + " " + arguments.joined(separator: " ")
                 }
             } else {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
