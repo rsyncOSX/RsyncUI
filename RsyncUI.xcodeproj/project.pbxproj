@@ -158,6 +158,7 @@
 		E9D1AFE62A2E49B600AD8125 /* ListofTasksLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */; };
 		E9D317D02B3C09B9000B8FC9 /* HomeCatalogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D317CF2B3C09B9000B8FC9 /* HomeCatalogsView.swift */; };
 		E9D5D196264A9E8600CCD8BB /* DeleteSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */; };
+		E9DD41782CFC8323002040BE /* ArgumentsRemoteDiskUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD41772CFC8312002040BE /* ArgumentsRemoteDiskUsage.swift */; };
 		E9DE0EFA2C7D98E100836EA3 /* RecordsSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE0EF92C7D98E100836EA3 /* RecordsSnapshot.swift */; };
 		E9DE0EFC2C7D9F0F00836EA3 /* ArgumentsSnapshotRemoteCatalogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE0EFB2C7D9F0F00836EA3 /* ArgumentsSnapshotRemoteCatalogs.swift */; };
 		E9E223302CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2232F2CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift */; };
@@ -326,6 +327,7 @@
 		E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksLightView.swift; sourceTree = "<group>"; };
 		E9D317CF2B3C09B9000B8FC9 /* HomeCatalogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCatalogsView.swift; sourceTree = "<group>"; };
 		E9D5D195264A9E8600CCD8BB /* DeleteSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSnapshots.swift; sourceTree = "<group>"; };
+		E9DD41772CFC8312002040BE /* ArgumentsRemoteDiskUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentsRemoteDiskUsage.swift; sourceTree = "<group>"; };
 		E9DE0EF92C7D98E100836EA3 /* RecordsSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsSnapshot.swift; sourceTree = "<group>"; };
 		E9DE0EFB2C7D9F0F00836EA3 /* ArgumentsSnapshotRemoteCatalogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentsSnapshotRemoteCatalogs.swift; sourceTree = "<group>"; };
 		E9E2232F2CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableGlobalchangeConfigurations.swift; sourceTree = "<group>"; };
@@ -809,6 +811,7 @@
 		E985C71725F3AD9700CB895C /* ParametersRsync */ = {
 			isa = PBXGroup;
 			children = (
+				E9DD41772CFC8312002040BE /* ArgumentsRemoteDiskUsage.swift */,
 				E96F24542CA1CB5100CF63EC /* PrepareParameters.swift */,
 				E985C6F625F3AD9700CB895C /* ArgumentsVerify.swift */,
 				E985C6F925F3AD9700CB895C /* ArgumentsSynchronize.swift */,
@@ -1034,6 +1037,7 @@
 				E95A1D9E2CEDD15300C7D992 /* DetailsViewHeading.swift in Sources */,
 				E8944892267B2CB0009F9C4A /* RsyncUIView.swift in Sources */,
 				E909C3B02CE4D820009B373B /* ArgumentsPullRemote.swift in Sources */,
+				E9DD41782CFC8323002040BE /* ArgumentsRemoteDiskUsage.swift in Sources */,
 				E90B5FB12C98202100C744DB /* OtherRsyncCommandtoDisplay.swift in Sources */,
 				E9BB4F562903C00A00FEEA0A /* ExecuteTasksNOEstimation.swift in Sources */,
 				E9493E4D2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift in Sources */,

@@ -17,6 +17,7 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case create_public_SSHkey
     case copy_public_SSHkey
     case verify_public_SSHkey
+    case remote_disk_usage
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
@@ -77,6 +78,16 @@ struct OtherRsyncCommandtoDisplay {
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true, forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+                }
+            } else {
+                str = NSLocalizedString("Use macOS Finder", comment: "")
+            }
+        case .remote_disk_usage:
+            if config.offsiteServer.isEmpty == false {
+                let diskusage = ArgumentsRemoteDiskUsage(config: config,
+                                                         remotecatalog: config.offsiteCatalog)
+                if let arguments = diskusage.argumentsremotediskusage() {
+                    str = (diskusage.getCommand() ?? "") + arguments.joined()
                 }
             } else {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
