@@ -54,7 +54,6 @@ final class EstimateTasks {
         structprofile = profile
         localconfigurations = configurations
         localestimateprogressdetails = estimateprogressdetails
-        Logger.process.info("EstimateTasks.init: on main thread: \(Thread.isMain)")
         let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         // Estimate selected configurations
         if uuids.count > 0 {

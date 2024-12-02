@@ -144,7 +144,6 @@ struct LogsbyConfigurationView: View {
     }
 
     func updatelogsbyfilter() async {
-        Logger.process.info("updatelogsbyfilter(): on main thread: \(Thread.isMain)")
         guard filterstring != "" else { return }
         if let logrecords = rsyncUIlogrecords.logrecords {
             if hiddenID == -1 {
@@ -170,7 +169,6 @@ struct LogsbyConfigurationView: View {
     }
 
     func updatelogsbyhiddenID() async {
-        Logger.process.info("updatelogsbyhiddenID(): on main thread: \(Thread.isMain)")
         if let logrecords = rsyncUIlogrecords.logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
