@@ -5,8 +5,8 @@
 //  Created by Thomas Evensen on 09/05/2024.
 //
 
-import SwiftUI
 import OSLog
+import SwiftUI
 
 struct ProfileView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -87,7 +87,7 @@ struct ProfileView: View {
             Logger.process.info("ProfileView: monitornetworkconnection is disabled")
             SharedReference.shared.monitornetworkconnection = false
         }
-        
+
         for i in 0 ..< (allprofiles?.count ?? 0) {
             var profilename = allprofiles?[i]
             if profilename == "Default profile" {

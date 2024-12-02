@@ -7,8 +7,8 @@
 //
 // swiftlint: disable line_length
 
-import SwiftUI
 import OSLog
+import SwiftUI
 
 @MainActor
 struct LogsbyConfigurationView: View {

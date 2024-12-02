@@ -14,18 +14,18 @@ import OSLog
 final class ReadSynchronizeConfigurationJSON: PropogateError {
     var configurations: [SynchronizeConfiguration]?
     let path = Homepath()
-    
+
     typealias TypeServerPort = (String, Int)
-    
+
     private func verifyremoteconnection() async {
-        var checkedserverandport = Array<TypeServerPort>()
+        var checkedserverandport = [TypeServerPort]()
         if let networkscheck = configurations?.filter({ task in
             task.offsiteServer.isEmpty == false
         }) {
             Logger.process.info("verifyremoteconnection(): on main thread: \(Thread.isMain)")
             for i in 0 ..< networkscheck.count {
                 let config = networkscheck[i]
-                
+
                 var sshport = 22
                 if let port = config.sshport, port != -1 {
                     sshport = port
@@ -40,13 +40,11 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                         Logger.process.info("ReadSynchronizeConfigurationJSON checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
                         _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
                     }
-                    
-                    
+
                 } catch let e {
                     let error = e
                     propogateerror(error: error)
                 }
-                
             }
         }
     }
@@ -62,7 +60,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                 }
 
                 Logger.process.info("ReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
-                
+
                 if SharedReference.shared.monitornetworkconnection {
                     Task {
                         await self.verifyremoteconnection()

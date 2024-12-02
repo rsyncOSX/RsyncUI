@@ -19,13 +19,13 @@ final class ArgumentsRemoteDiskUsage {
             let sshparameter = SSHPrepareParameters(config: config).sshparameters
             let diskusage = RemoteSize(sshparameters: sshparameter)
             diskusage.initialise_setsshidentityfileandsshport()
-            
+
             if config.offsiteServer.isEmpty == false {
                 command = diskusage.remotecommand
             } else {
                 return nil
             }
-            
+
             if var remotecatalog {
                 if remotecatalog.hasSuffix("/") {
                     remotecatalog.removeLast()
