@@ -22,7 +22,6 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
         if let networkscheck = configurations?.filter({ task in
             task.offsiteServer.isEmpty == false
         }) {
-            Logger.process.info("verifyremoteconnection(): on main thread: \(Thread.isMain)")
             for i in 0 ..< networkscheck.count {
                 let config = networkscheck[i]
 
