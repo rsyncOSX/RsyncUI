@@ -93,7 +93,7 @@ struct ProfileView: View {
             if profilename == "Default profile" {
                 profilename = nil
             }
-            let configurations = ReadSynchronizeConfigurationJSON(profilename).configurations
+            let configurations = ReadSynchronizeConfigurationJSON().readjsonfilesynchronizeconfigurations(profilename)
             let profileold = configurations?.filter { element in
                 var seconds: Double {
                     if let date = element.dateRun {

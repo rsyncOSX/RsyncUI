@@ -12,12 +12,10 @@ import OSLog
 
 @MainActor
 final class ReadSynchronizeConfigurationJSON: PropogateError {
-    var configurations: [SynchronizeConfiguration]?
     let path = Homepath()
-
     typealias TypeServerPort = (String, Int)
 
-    private func verifyremoteconnection() async {
+    func verifyremoteconnection(configurations: [SynchronizeConfiguration]?) async {
         var checkedserverandport = [TypeServerPort]()
         if let networkscheck = configurations?.filter({ task in
             task.offsiteServer.isEmpty == false
@@ -48,32 +46,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
         }
     }
 
-    private func importjsonfile(_ filenamedatastore: String, profile: String?) {
-        let decodeimport = DecodeGeneric()
-        do {
-            if let data = try
-                decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filenamedatastore)
-            {
-                configurations = data.map { element in
-                    SynchronizeConfiguration(element)
-                }
-
-                Logger.process.info("ReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
-
-                if SharedReference.shared.monitornetworkconnection {
-                    Task {
-                        await self.verifyremoteconnection()
-                    }
-                }
-            }
-
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-        }
-    }
-
-    init(_ profile: String?) {
+    func readjsonfilesynchronizeconfigurations(_ profile: String?) -> [SynchronizeConfiguration]? {
         var filename = ""
         if let profile, let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + SharedReference.shared.fileconfigurationsjson
@@ -82,7 +55,31 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                 filename = path + "/" + SharedReference.shared.fileconfigurationsjson
             }
         }
-        importjsonfile(filename, profile: profile)
+        let decodeimport = DecodeGeneric()
+        do {
+            if let data = try
+                decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filename)
+            {
+                Logger.process.info("ReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): read configurations from permanent storage")
+                let tasks = data.map { element in
+                    SynchronizeConfiguration(element)
+                }
+
+                if SharedReference.shared.monitornetworkconnection {
+                    Task {
+                        await self.verifyremoteconnection(configurations: tasks)
+                    }
+                }
+                
+                return tasks
+            }
+
+        } catch let e {
+            Logger.process.info("ReadSynchronizeConfigurationJSON: some ERROR reading synchronize configurations from permanent storage")
+            let error = e
+            propogateerror(error: error)
+        }
+        return nil
     }
 
     deinit {
