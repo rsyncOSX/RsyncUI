@@ -9,7 +9,6 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class WriteUserConfigurationJSON: PropogateError {
     let path = Homepath()
 
