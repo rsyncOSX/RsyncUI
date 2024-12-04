@@ -13,7 +13,7 @@ import OSLog
 final class WriteSynchronizeConfigurationJSON: PropogateError {
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
         let path = Homepath()
-        var localprofile: String? = if profile == SharedReference.shared.defaultprofile {
+        let localprofile: String? = if profile == SharedReference.shared.defaultprofile {
             nil
         } else {
             profile

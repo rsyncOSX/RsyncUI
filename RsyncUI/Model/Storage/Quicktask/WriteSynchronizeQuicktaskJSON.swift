@@ -11,6 +11,7 @@ import Foundation
 import OSLog
 
 actor WriteSynchronizeQuicktaskJSON {
+    
     private func writeJSONToPersistentStore(jsonData: Data?) async {
         let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
