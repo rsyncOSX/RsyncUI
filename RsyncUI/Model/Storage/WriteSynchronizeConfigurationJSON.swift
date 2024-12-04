@@ -11,12 +11,11 @@ import Foundation
 import OSLog
 
 final class WriteSynchronizeConfigurationJSON: PropogateError {
-
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
         let path = Homepath()
         var profile: String?
         if profile == SharedReference.shared.defaultprofile {
-           profile = nil
+            profile = nil
         }
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
