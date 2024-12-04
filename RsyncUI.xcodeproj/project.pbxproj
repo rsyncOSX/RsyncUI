@@ -22,6 +22,8 @@
 		E90B5FB12C98202100C744DB /* OtherRsyncCommandtoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B5FB02C98202100C744DB /* OtherRsyncCommandtoDisplay.swift */; };
 		E911E85E2C6BCD9D00152CD6 /* SSHCreateKey in Frameworks */ = {isa = PBXBuildFile; productRef = E911E85D2C6BCD9D00152CD6 /* SSHCreateKey */; };
 		E91CE3BE2CC7C684006A8498 /* SnapshotRemoteCatalogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91CE3BD2CC7C684006A8498 /* SnapshotRemoteCatalogs.swift */; };
+		E91E1AF52D00F41100819A2D /* ActorReadLogRecordsJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91E1AF42D00F3FC00819A2D /* ActorReadLogRecordsJSON.swift */; };
+		E91E1AF82D00F5AF00819A2D /* ActorsLogsbyConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91E1AF72D00F5AF00819A2D /* ActorsLogsbyConfigurationView.swift */; };
 		E927447529407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */; };
 		E931ED962B0C82BB000BEF56 /* QuicktaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931ED952B0C82BB000BEF56 /* QuicktaskView.swift */; };
 		E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */; };
@@ -187,6 +189,8 @@
 		E90B5FAE2C981FA600C744DB /* OtherRsyncCommandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRsyncCommandsView.swift; sourceTree = "<group>"; };
 		E90B5FB02C98202100C744DB /* OtherRsyncCommandtoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRsyncCommandtoDisplay.swift; sourceTree = "<group>"; };
 		E91CE3BD2CC7C684006A8498 /* SnapshotRemoteCatalogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotRemoteCatalogs.swift; sourceTree = "<group>"; };
+		E91E1AF42D00F3FC00819A2D /* ActorReadLogRecordsJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorReadLogRecordsJSON.swift; sourceTree = "<group>"; };
+		E91E1AF72D00F5AF00819A2D /* ActorsLogsbyConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsLogsbyConfigurationView.swift; sourceTree = "<group>"; };
 		E927447429407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckfornewversionofRsyncUI.swift; sourceTree = "<group>"; };
 		E931ED952B0C82BB000BEF56 /* QuicktaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktaskView.swift; sourceTree = "<group>"; };
 		E9359B9926691EFD00D40C43 /* ObservableAddConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableAddConfigurations.swift; sourceTree = "<group>"; };
@@ -382,6 +386,22 @@
 			path = VerifyRemote;
 			sourceTree = "<group>";
 		};
+		E91E1AF62D00F59C00819A2D /* Actors */ = {
+			isa = PBXGroup;
+			children = (
+				E91E1AF72D00F5AF00819A2D /* ActorsLogsbyConfigurationView.swift */,
+			);
+			path = Actors;
+			sourceTree = "<group>";
+		};
+		E91E1AF92D00F9E700819A2D /* Actors */ = {
+			isa = PBXGroup;
+			children = (
+				E91E1AF42D00F3FC00819A2D /* ActorReadLogRecordsJSON.swift */,
+			);
+			path = Actors;
+			sourceTree = "<group>";
+		};
 		E927AAD12616E23100DC27A3 /* Quicktask */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,6 +585,7 @@
 		E985C64125F3AD8400CB895C /* LogRecords */ = {
 			isa = PBXGroup;
 			children = (
+				E91E1AF62D00F59C00819A2D /* Actors */,
 				E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */,
 				E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */,
 				E9712FBB2602465D003842FD /* DeleteLogsView.swift */,
@@ -689,6 +710,7 @@
 		E985C6BF25F3AD9600CB895C /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				E91E1AF92D00F9E700819A2D /* Actors */,
 				E9A5DFE22CCFCB1B0035B759 /* Quicktask */,
 				E99BE2322C4E673800BFE83F /* ExportImport */,
 				E801DC652637FD990060723F /* WriteSynchronizeConfigurationJSON.swift */,
@@ -1114,6 +1136,7 @@
 				E96F24552CA1CB5E00CF63EC /* PrepareParameters.swift in Sources */,
 				E90B5FAD2C981BDC00C744DB /* ArgumentsView.swift in Sources */,
 				E9A7F7142C0F6784001AC38F /* Logsettings.swift in Sources */,
+				E91E1AF82D00F5AF00819A2D /* ActorsLogsbyConfigurationView.swift in Sources */,
 				E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */,
 				E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */,
 				E985C77225F3AD9700CB895C /* Logfile.swift in Sources */,
@@ -1130,6 +1153,7 @@
 				E985C73525F3AD9700CB895C /* Backupconfigfiles.swift in Sources */,
 				E9B6B3E32AFFDE7500E12EB2 /* ListofTasksMainView.swift in Sources */,
 				E8902993260B0EF700F4F0DC /* ButtonStyles.swift in Sources */,
+				E91E1AF52D00F41100819A2D /* ActorReadLogRecordsJSON.swift in Sources */,
 				E954AD3F2AFE8F3800F3EA63 /* SidebarTasksView.swift in Sources */,
 				E931ED962B0C82BB000BEF56 /* QuicktaskView.swift in Sources */,
 				E98295BD2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift in Sources */,

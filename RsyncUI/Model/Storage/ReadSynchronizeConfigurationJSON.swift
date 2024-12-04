@@ -74,7 +74,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
             }
 
         } catch let e {
-            Logger.process.info("ReadSynchronizeConfigurationJSON: some ERROR reading synchronize configurations from permanent storage")
+            Logger.process.info("ReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading synchronize configurations from permanent storage")
             let error = e
             propogateerror(error: error)
         }

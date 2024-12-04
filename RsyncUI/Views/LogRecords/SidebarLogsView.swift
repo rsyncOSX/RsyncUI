@@ -8,16 +8,24 @@
 import SwiftUI
 
 struct SidebarLogsView: View {
-    let configurations: [SynchronizeConfiguration]
-    let profile: String?
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    
 
     var body: some View {
-        LogsbyConfigurationView(rsyncUIlogrecords: rsyncUIlogrecords,
-                                profile: profile,
-                                configurations: configurations)
+        ActorsLogsbyConfigurationView( rsyncUIdata: rsyncUIdata)
             .padding()
     }
-
+/*
+ let configurations: [SynchronizeConfiguration]
+ let profile: String?
+ 
+ var body: some View {
+        LogsbyConfigurationView(rsyncUIlogrecords: rsyncUIlogrecords,
+                                 profile: profile,
+                             configurations: configurations)
+         .padding()
+ }
+ 
     var rsyncUIlogrecords: RsyncUIlogrecords {
         RsyncUIlogrecords(profile, validhiddenIDs)
     }
@@ -29,4 +37,5 @@ struct SidebarLogsView: View {
         }
         return temp
     }
+ */
 }

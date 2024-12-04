@@ -77,9 +77,13 @@ struct SidebarMainView: View {
             AddTaskView(rsyncUIdata: rsyncUIdata,
                         selectedprofile: $selectedprofile, addtasknavigation: $addtasknavigation)
         case .log_listings:
-            if let configurations = rsyncUIdata.configurations {
-                SidebarLogsView(configurations: configurations,
-                                profile: rsyncUIdata.profile)
+            /*
+             if let configurations = rsyncUIdata.configurations {
+                             SidebarLogsView(configurations: configurations,
+                                             profile: rsyncUIdata.profile)
+             */
+            if rsyncUIdata.configurations != nil {
+                SidebarLogsView(rsyncUIdata: rsyncUIdata)
             } else {
                 DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("No log records yet.", comment: ""))
             }

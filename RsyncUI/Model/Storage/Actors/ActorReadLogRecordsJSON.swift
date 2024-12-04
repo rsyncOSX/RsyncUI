@@ -1,30 +1,31 @@
 //
-//  ReadLogRecordsJSON.swift
+//  ActorReadLogRecordsJSON.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 19/04/2021.
+//  Created by Thomas Evensen on 04/12/2024.
 //
 
 import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-final class ReadLogRecordsJSON: PropogateError {
-    let path = Homepath()
+actor ActorReadLogRecordsJSON {
 
-    func readjsonfilelogrecords(_ profile: String?, _ validhiddenIDs: Set<Int>) -> [LogRecords]? {
+    func readjsonfilelogrecords(_ profile: String?, _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
+        let path = await Homepath()
         var filename = ""
-        if let profile, let path = path.fullpathmacserial {
-            filename = path + "/" + profile + "/" + SharedReference.shared.filenamelogrecordsjson
+        
+        if let profile, profile != "Default profile", let path = path.fullpathmacserial {
+            filename = path + "/" + profile + "/" + "logrecords.json"
         } else {
             if let path = path.fullpathmacserial {
-                filename = path + "/" + SharedReference.shared.filenamelogrecordsjson
+                filename = path + "/" + "logrecords.json"
             }
         }
-        let decodeimport = DecodeGeneric()
+        let decodeimport = await DecodeGeneric()
         do {
             if let data = try
-                decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
+                await decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
             {
                 Logger.process.info("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): read logrecords from permanent storage")
                 return data.compactMap { element in
@@ -33,10 +34,9 @@ final class ReadLogRecordsJSON: PropogateError {
                 }
             }
 
-        } catch let e {
+        } catch  {
             Logger.process.info("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
-            let error = e
-            propogateerror(error: error)
+            return nil
         }
         return nil
     }
