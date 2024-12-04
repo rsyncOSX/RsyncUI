@@ -10,12 +10,14 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class WriteLogRecordsJSON: PropogateError {
-    var profile: String?
 
-    private func writeJSONToPersistentStore(jsonData: Data?) {
+    private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
         let path = Homepath()
+        var profile: String?
+        if profile == SharedReference.shared.defaultprofile {
+           profile = nil
+        }
         if let fullpathmacserial = path.fullpathmacserial {
             var logrecordfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -28,8 +30,8 @@ final class WriteLogRecordsJSON: PropogateError {
             if let jsonData, let logrecordfileURL {
                 do {
                     try jsonData.write(to: logrecordfileURL)
-                    let myprofile = profile
-                    Logger.process.info("WriteLogRecordsJSON - \(myprofile ?? "default profile", privacy: .public): write logrecords to permanent storage")
+                    let myprofile = profile ?? "Default profile"
+                    Logger.process.info("WriteLogRecordsJSON - \(myprofile), privacy: .public): write logrecords to permanent storage")
                 } catch let e {
                     let error = e
                     path.propogateerror(error: error)
@@ -38,11 +40,11 @@ final class WriteLogRecordsJSON: PropogateError {
         }
     }
 
-    private func encodeJSONData(_ logrecords: [LogRecords]) {
+    private func encodeJSONData(_ logrecords: [LogRecords], _ profile: String?) {
         let encodejsondata = EncodeGeneric()
         do {
             if let encodeddata = try encodejsondata.encodedata(data: logrecords) {
-                writeJSONToPersistentStore(jsonData: encodeddata)
+                writeJSONToPersistentStore(jsonData: encodeddata, profile)
             }
         } catch let e {
             let error = e
@@ -52,13 +54,8 @@ final class WriteLogRecordsJSON: PropogateError {
 
     @discardableResult
     init(_ profile: String?, _ logrecords: [LogRecords]?) {
-        if profile == SharedReference.shared.defaultprofile {
-            self.profile = nil
-        } else {
-            self.profile = profile
-        }
         if let logrecords {
-            encodeJSONData(logrecords)
+            encodeJSONData(logrecords, profile)
         }
     }
 

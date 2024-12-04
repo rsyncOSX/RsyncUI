@@ -10,7 +10,6 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class ReadSynchronizeConfigurationJSON: PropogateError {
     let path = Homepath()
     typealias TypeServerPort = (String, Int)
@@ -70,7 +69,7 @@ final class ReadSynchronizeConfigurationJSON: PropogateError {
                         await self.verifyremoteconnection(configurations: tasks)
                     }
                 }
-                
+
                 return tasks
             }
 

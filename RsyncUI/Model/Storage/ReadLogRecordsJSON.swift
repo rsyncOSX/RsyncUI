@@ -9,7 +9,6 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class ReadLogRecordsJSON: PropogateError {
     let path = Homepath()
 

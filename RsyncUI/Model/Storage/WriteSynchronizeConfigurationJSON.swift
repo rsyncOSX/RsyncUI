@@ -10,12 +10,14 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class WriteSynchronizeConfigurationJSON: PropogateError {
-    var profile: String?
 
-    private func writeJSONToPersistentStore(jsonData: Data?) {
+    private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
         let path = Homepath()
+        var profile: String?
+        if profile == SharedReference.shared.defaultprofile {
+           profile = nil
+        }
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -39,11 +41,11 @@ final class WriteSynchronizeConfigurationJSON: PropogateError {
         }
     }
 
-    private func encodeJSONData(_ configurations: [SynchronizeConfiguration]) {
+    private func encodeJSONData(_ configurations: [SynchronizeConfiguration], _ profile: String?) {
         let encodejsondata = EncodeGeneric()
         do {
             if let encodeddata = try encodejsondata.encodedata(data: configurations) {
-                writeJSONToPersistentStore(jsonData: encodeddata)
+                writeJSONToPersistentStore(jsonData: encodeddata, profile)
             }
         } catch let e {
             let error = e
@@ -53,13 +55,8 @@ final class WriteSynchronizeConfigurationJSON: PropogateError {
 
     @discardableResult
     init(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) {
-        if profile == SharedReference.shared.defaultprofile {
-            self.profile = nil
-        } else {
-            self.profile = profile
-        }
         if let configurations {
-            encodeJSONData(configurations)
+            encodeJSONData(configurations, profile)
         }
     }
 

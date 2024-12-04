@@ -17,8 +17,9 @@ final class RsyncUIlogrecords {
          _ validhiddenIDs: Set<Int>?)
     {
         self.profile = profile
-        if profile == SharedReference.shared.defaultprofile || profile == nil ,
-           let validhiddenIDs {
+        if profile == SharedReference.shared.defaultprofile || profile == nil,
+           let validhiddenIDs
+        {
             logrecords = ReadLogRecordsJSON().readjsonfilelogrecords(nil, validhiddenIDs)
         } else if let validhiddenIDs {
             logrecords = ReadLogRecordsJSON().readjsonfilelogrecords(profile, validhiddenIDs)
