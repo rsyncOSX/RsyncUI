@@ -10,9 +10,9 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-final class WriteSynchronizeQuicktaskJSON: PropogateError {
-    private func writeJSONToPersistentStore(jsonData: Data?) {
-        let path = Homepath()
+actor WriteSynchronizeQuicktaskJSON {
+    private func writeJSONToPersistentStore(jsonData: Data?) async {
+        let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -23,27 +23,27 @@ final class WriteSynchronizeQuicktaskJSON: PropogateError {
                     Logger.process.info("WriteSynchronizeQuicktaskJSON - write Quicktask to permanent storage")
                 } catch let e {
                     let error = e
-                    path.propogateerror(error: error)
+                    await path.propogateerror(error: error)
                 }
             }
         }
     }
 
-    private func encodeJSONData(_ configuration: SynchronizeConfiguration) {
-        let encodejsondata = EncodeGeneric()
+    private func encodeJSONData(_ configuration: SynchronizeConfiguration) async {
+        let encodejsondata = await EncodeGeneric()
         do {
-            if let encodeddata = try encodejsondata.encodedata(data: configuration) {
-                writeJSONToPersistentStore(jsonData: encodeddata)
+            if let encodeddata = try await encodejsondata.encodedata(data: configuration) {
+                await writeJSONToPersistentStore(jsonData: encodeddata)
             }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
+        } catch {
+            Logger.process.info("WriteSynchronizeQuicktaskJSON some ERROR writing")
+            return
         }
     }
 
     @discardableResult
-    init(_ configurations: SynchronizeConfiguration) {
-        encodeJSONData(configurations)
+    init(_ configurations: SynchronizeConfiguration) async {
+        await encodeJSONData(configurations)
     }
 
     deinit {

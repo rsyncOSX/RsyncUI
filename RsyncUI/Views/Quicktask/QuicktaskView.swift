@@ -104,27 +104,29 @@ struct QuicktaskView: View {
         }
         .onAppear {
             focusField = .localcatalogField
-            if let configfile = ReadSynchronizeQuicktaskJSON().configuration {
-                localcatalog = configfile.localCatalog
-                remotecatalog = configfile.offsiteCatalog
-                remoteuser = configfile.offsiteUsername
-                remoteserver = configfile.offsiteServer
-                if configfile.backupID == "1" {
-                    selectedrsynccommand = .synchronize
-                    donotaddtrailingslash = true
-                    catalogorfile = false
-                } else if configfile.backupID == "2" {
-                    selectedrsynccommand = .syncremote
-                    donotaddtrailingslash = true
-                    catalogorfile = false
-                } else if configfile.backupID == "3" {
-                    selectedrsynccommand = .synchronize
-                    donotaddtrailingslash = false
-                    catalogorfile = true
-                } else if configfile.backupID == "4" {
-                    selectedrsynccommand = .syncremote
-                    donotaddtrailingslash = false
-                    catalogorfile = true
+            Task {
+                if let configfile = await ReadSynchronizeQuicktaskJSON().readjsonfilequicktask() {
+                    localcatalog = configfile.localCatalog
+                    remotecatalog = configfile.offsiteCatalog
+                    remoteuser = configfile.offsiteUsername
+                    remoteserver = configfile.offsiteServer
+                    if configfile.backupID == "1" {
+                        selectedrsynccommand = .synchronize
+                        donotaddtrailingslash = true
+                        catalogorfile = false
+                    } else if configfile.backupID == "2" {
+                        selectedrsynccommand = .syncremote
+                        donotaddtrailingslash = true
+                        catalogorfile = false
+                    } else if configfile.backupID == "3" {
+                        selectedrsynccommand = .synchronize
+                        donotaddtrailingslash = false
+                        catalogorfile = true
+                    } else if configfile.backupID == "4" {
+                        selectedrsynccommand = .syncremote
+                        donotaddtrailingslash = false
+                        catalogorfile = true
+                    }
                 }
             }
         }
@@ -298,7 +300,9 @@ extension QuicktaskView {
         } else if selectedrsynccommand == .syncremote, donotaddtrailingslash == false {
             newconfig.backupID = "4"
         }
-        WriteSynchronizeQuicktaskJSON(newconfig)
+        Task {
+            await WriteSynchronizeQuicktaskJSON(newconfig)
+        }
     }
 
     func getconfigandexecute() {
