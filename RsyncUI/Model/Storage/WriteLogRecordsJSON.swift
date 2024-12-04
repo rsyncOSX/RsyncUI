@@ -13,15 +13,17 @@ import OSLog
 final class WriteLogRecordsJSON: PropogateError {
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
         let path = Homepath()
-        var profile: String?
+        var localprofile: String?
         if profile == SharedReference.shared.defaultprofile {
-            profile = nil
+            localprofile = nil
+        } else {
+            localprofile = profile
         }
         if let fullpathmacserial = path.fullpathmacserial {
             var logrecordfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            if let profile {
-                let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
+            if let localprofile {
+                let tempURL = fullpathmacserialURL.appendingPathComponent(localprofile)
                 logrecordfileURL = tempURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
             } else {
                 logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)

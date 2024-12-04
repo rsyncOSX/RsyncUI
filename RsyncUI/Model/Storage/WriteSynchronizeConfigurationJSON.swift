@@ -13,15 +13,17 @@ import OSLog
 final class WriteSynchronizeConfigurationJSON: PropogateError {
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
         let path = Homepath()
-        var profile: String?
+        var localprofile: String?
         if profile == SharedReference.shared.defaultprofile {
-            profile = nil
+            localprofile = nil
+        } else {
+            localprofile = profile
         }
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            if let profile {
-                let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
+            if let localprofile {
+                let tempURL = fullpathmacserialURL.appendingPathComponent(localprofile)
                 configurationfileURL = tempURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
 
             } else {
