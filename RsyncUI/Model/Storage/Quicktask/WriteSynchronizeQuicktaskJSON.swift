@@ -10,7 +10,6 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class WriteSynchronizeQuicktaskJSON: PropogateError {
     private func writeJSONToPersistentStore(jsonData: Data?) {
         let path = Homepath()

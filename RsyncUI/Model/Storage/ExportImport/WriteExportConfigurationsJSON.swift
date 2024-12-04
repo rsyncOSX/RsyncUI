@@ -10,7 +10,6 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class WriteExportConfigurationsJSON: PropogateError {
     var exportpath: String?
 

@@ -10,7 +10,6 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class ReadImportConfigurationsJSON: PropogateError {
     var importconfigurations: [SynchronizeConfiguration]?
     var maxhiddenID: Int = -1

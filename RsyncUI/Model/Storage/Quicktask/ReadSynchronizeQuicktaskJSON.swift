@@ -10,7 +10,6 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class ReadSynchronizeQuicktaskJSON: PropogateError {
     var configuration: SynchronizeConfiguration?
     let path = Homepath()

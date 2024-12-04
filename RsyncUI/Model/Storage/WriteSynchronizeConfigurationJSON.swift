@@ -32,8 +32,8 @@ final class WriteSynchronizeConfigurationJSON: PropogateError {
             if let jsonData, let configurationfileURL {
                 do {
                     try jsonData.write(to: configurationfileURL)
-                    let myprofile = profile
-                    Logger.process.info("WriteSynchronizeConfigurationJSON - \(myprofile ?? "default profile", privacy: .public): write configurations to permanent storage")
+                    let myprofile = profile ?? "Default profile"
+                    Logger.process.info("WriteSynchronizeConfigurationJSON - \(myprofile), privacy: .public): write configurations to permanent storage")
                 } catch let e {
                     let error = e
                     path.propogateerror(error: error)
