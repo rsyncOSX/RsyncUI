@@ -108,8 +108,7 @@
 		E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */; };
 		E985C77925F3AD9700CB895C /* ArgumentsSnapshotDeleteCatalogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C6FD25F3AD9700CB895C /* ArgumentsSnapshotDeleteCatalogs.swift */; };
 		E985C77E25F3AD9700CB895C /* ArgumentsSnapshotCreateCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70225F3AD9700CB895C /* ArgumentsSnapshotCreateCatalog.swift */; };
-		E985C77F25F3AD9700CB895C /* MultipletasksPrimaryLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70425F3AD9700CB895C /* MultipletasksPrimaryLogging.swift */; };
-		E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70625F3AD9700CB895C /* SingletaskPrimaryLogging.swift */; };
+		E985C78125F3AD9700CB895C /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70625F3AD9700CB895C /* Logging.swift */; };
 		E985C78425F3AD9700CB895C /* UpdateConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70B25F3AD9700CB895C /* UpdateConfigurations.swift */; };
 		E985C78525F3AD9700CB895C /* VerifyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */; };
 		E985C78C25F3AD9700CB895C /* RsyncUIconfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */; };
@@ -279,8 +278,7 @@
 		E985C6FA25F3AD9700CB895C /* ArgumentsRestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsRestore.swift; sourceTree = "<group>"; };
 		E985C6FD25F3AD9700CB895C /* ArgumentsSnapshotDeleteCatalogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsSnapshotDeleteCatalogs.swift; sourceTree = "<group>"; };
 		E985C70225F3AD9700CB895C /* ArgumentsSnapshotCreateCatalog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsSnapshotCreateCatalog.swift; sourceTree = "<group>"; };
-		E985C70425F3AD9700CB895C /* MultipletasksPrimaryLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipletasksPrimaryLogging.swift; sourceTree = "<group>"; };
-		E985C70625F3AD9700CB895C /* SingletaskPrimaryLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingletaskPrimaryLogging.swift; sourceTree = "<group>"; };
+		E985C70625F3AD9700CB895C /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		E985C70B25F3AD9700CB895C /* UpdateConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateConfigurations.swift; sourceTree = "<group>"; };
 		E985C70C25F3AD9700CB895C /* VerifyConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyConfiguration.swift; sourceTree = "<group>"; };
 		E985C71525F3AD9700CB895C /* RsyncUIconfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RsyncUIconfigurations.swift; sourceTree = "<group>"; };
@@ -783,8 +781,7 @@
 		E985C70325F3AD9700CB895C /* Loggdata */ = {
 			isa = PBXGroup;
 			children = (
-				E985C70425F3AD9700CB895C /* MultipletasksPrimaryLogging.swift */,
-				E985C70625F3AD9700CB895C /* SingletaskPrimaryLogging.swift */,
+				E985C70625F3AD9700CB895C /* Logging.swift */,
 			);
 			path = Loggdata;
 			sourceTree = "<group>";
@@ -1048,7 +1045,7 @@
 				E985C76C25F3AD9700CB895C /* RemoteDataNumbers.swift in Sources */,
 				E927447529407F8C009DAC1C /* CheckfornewversionofRsyncUI.swift in Sources */,
 				E95EDC8A26063EAA000018DE /* ObservableParametersRsync.swift in Sources */,
-				E985C78125F3AD9700CB895C /* SingletaskPrimaryLogging.swift in Sources */,
+				E985C78125F3AD9700CB895C /* Logging.swift in Sources */,
 				E94E1E1C2A2DAA3E00011FED /* RestoreFilesTableView.swift in Sources */,
 				E985C76625F3AD9700CB895C /* ExecuteState.swift in Sources */,
 				E985C78425F3AD9700CB895C /* UpdateConfigurations.swift in Sources */,
@@ -1136,7 +1133,6 @@
 				E954AD3F2AFE8F3800F3EA63 /* SidebarTasksView.swift in Sources */,
 				E931ED962B0C82BB000BEF56 /* QuicktaskView.swift in Sources */,
 				E98295BD2CED194600484AB5 /* OutputRsyncCheckeRemoteView.swift in Sources */,
-				E985C77F25F3AD9700CB895C /* MultipletasksPrimaryLogging.swift in Sources */,
 				E985C73E25F3AD9700CB895C /* ytcpsocket.swift in Sources */,
 				E985C72C25F3AD9700CB895C /* SnapshotData.swift in Sources */,
 				E985C67A25F3AD8400CB895C /* RsyncCommandView.swift in Sources */,
