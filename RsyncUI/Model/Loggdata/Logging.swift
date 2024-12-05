@@ -122,7 +122,12 @@ final class Logging {
     {
         localeprofile = profile
         structconfigurations = configurations
-        logrecords = RsyncUIlogrecords(profile, validhiddenIDs).logrecords
+        if localeprofile == SharedReference.shared.defaultprofile || localeprofile == nil
+        {
+            logrecords = ReadLogRecordsJSON().readjsonfilelogrecords(nil, validhiddenIDs)
+        } else {
+            logrecords = ReadLogRecordsJSON().readjsonfilelogrecords(localeprofile, validhiddenIDs)
+        }
         if logrecords == nil {
             logrecords = [LogRecords]()
         }

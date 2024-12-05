@@ -10,10 +10,12 @@ import Foundation
 import OSLog
 
 final class ReadLogRecordsJSON: PropogateError {
-    let path = Homepath()
+    
 
     func readjsonfilelogrecords(_ profile: String?, _ validhiddenIDs: Set<Int>) -> [LogRecords]? {
         var filename = ""
+        let path = Homepath()
+        
         if let profile, let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + SharedReference.shared.filenamelogrecordsjson
         } else {

@@ -56,18 +56,22 @@ struct SnapshotsView: View {
                             }
 
                         if snapshotdata.inprogressofdelete == true { progressdelete }
-                        if snapshotdata.snapshotlist { ProgressView() }
                     }
 
-                    SnapshotListView(snapshotdata: $snapshotdata,
-                                     filterstring: $filterstring,
-                                     selectedconfig: $selectedconfig)
-                        .onChange(of: deleteiscompleted) {
-                            if deleteiscompleted == true {
-                                getdata()
-                                deleteiscompleted = false
+                    ZStack {
+                        SnapshotListView(snapshotdata: $snapshotdata,
+                                         filterstring: $filterstring,
+                                         selectedconfig: $selectedconfig)
+                            .onChange(of: deleteiscompleted) {
+                                if deleteiscompleted == true {
+                                    getdata()
+                                    deleteiscompleted = false
+                                }
                             }
-                        }
+                        
+                        if snapshotdata.snapshotlist { ProgressView() }
+                    }
+                    
                 }
 
                 if notsnapshot == true { DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Not a snapshot task.", comment: "")) }
@@ -236,12 +240,16 @@ extension SnapshotsView {
                 profile = nil
             }
 
-            if let config = selectedconfig,
-               let logrecords = ReadLogRecordsJSON().readjsonfilelogrecords(profile, validhiddenIDs)
+            if let config = selectedconfig
             {
-                _ = Snapshotlogsandcatalogs(config: config,
-                                            logrecords: logrecords,
-                                            snapshotdata: snapshotdata)
+                Task {
+                    let logrecords = await
+                        ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                    _ = Snapshotlogsandcatalogs(config: config,
+                                                logrecords: logrecords ?? [],
+                                                snapshotdata: snapshotdata)
+                }
+                
             }
         }
     }
