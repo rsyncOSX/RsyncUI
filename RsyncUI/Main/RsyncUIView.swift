@@ -47,7 +47,8 @@ struct RsyncUIView: View {
             rsyncUIdata.configurations =
                 await ActorReadSynchronizeConfigurationJSON().readjsonfilesynchronizeconfigurations(selectedprofile,
                                                                                                     SharedReference.shared.monitornetworkconnection,
-                                                                                                    SharedReference.shared.sshport)
+                                                                                                    SharedReference.shared.sshport,
+                                                                                                    SharedReference.shared.fileconfigurationsjson)
         }
         .onChange(of: selectedprofile) {
             Task {
@@ -55,7 +56,8 @@ struct RsyncUIView: View {
                 rsyncUIdata.configurations =
                     await ActorReadSynchronizeConfigurationJSON().readjsonfilesynchronizeconfigurations(selectedprofile,
                                                                                                         SharedReference.shared.monitornetworkconnection,
-                                                                                                        SharedReference.shared.sshport)
+                                                                                                        SharedReference.shared.sshport,
+                                                                                                        SharedReference.shared.fileconfigurationsjson)
             }
         }
     }

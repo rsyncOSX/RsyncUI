@@ -46,7 +46,8 @@ actor ActorReadSynchronizeConfigurationJSON {
 
     func readjsonfilesynchronizeconfigurations(_ profile: String?,
                                                _ monitornetworkconnection: Bool,
-                                               _ sharedsshport: Int?) async -> [SynchronizeConfiguration]?
+                                               _ sharedsshport: Int?,
+                                               _ filenameconfigurations: String) async -> [SynchronizeConfiguration]?
     {
         var filename = ""
         let path = await Homepath()
@@ -54,10 +55,10 @@ actor ActorReadSynchronizeConfigurationJSON {
         Logger.process.info("readjsonfilesynchronizeconfigurations(): on main thread: \(Thread.isMain)")
 
         if let profile, profile != "Default profile", let path = path.fullpathmacserial {
-            filename = path + "/" + profile + "/" + "configurations.json"
+            filename = path + "/" + profile + "/" + filenameconfigurations
         } else {
             if let path = path.fullpathmacserial {
-                filename = path + "/" + "configurations.json"
+                filename = path + "/" + filenameconfigurations
             }
         }
         let decodeimport = await DecodeGeneric()
