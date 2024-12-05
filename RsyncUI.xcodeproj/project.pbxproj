@@ -31,7 +31,6 @@
 		E93878C32B27355A009574CD /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93878C22B27355A009574CD /* AddTaskView.swift */; };
 		E93CC3FF2A68218200DB02EB /* ListofTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */; };
 		E93CC5732C4D4974000F8963 /* ImportExportCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CC5722C4D4974000F8963 /* ImportExportCommands.swift */; };
-		E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */; };
 		E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */; };
 		E941A3852CD4ACEB0024EAC0 /* EstimateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E941A3842CD4ACEB0024EAC0 /* EstimateTableView.swift */; };
 		E9493E4D2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */; };
@@ -198,7 +197,6 @@
 		E93878C22B27355A009574CD /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		E93CC3FE2A68218200DB02EB /* ListofTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksView.swift; sourceTree = "<group>"; };
 		E93CC5722C4D4974000F8963 /* ImportExportCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportCommands.swift; sourceTree = "<group>"; };
-		E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsbyConfigurationView.swift; sourceTree = "<group>"; };
 		E93D7B7C26CD920D00E290A1 /* ObservableParametersDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableParametersDefault.swift; sourceTree = "<group>"; };
 		E941A3842CD4ACEB0024EAC0 /* EstimateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTableView.swift; sourceTree = "<group>"; };
 		E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableOutputfromrsync.swift; sourceTree = "<group>"; };
@@ -589,7 +587,6 @@
 			children = (
 				E91E1AF62D00F59C00819A2D /* Actors */,
 				E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */,
-				E93D3B172AFA541D0056DC55 /* LogsbyConfigurationView.swift */,
 				E9712FBB2602465D003842FD /* DeleteLogsView.swift */,
 				E965D9B727E1C2E7005EFDBB /* UpdateLogs.swift */,
 			);
@@ -1130,7 +1127,6 @@
 				E9A7F7142C0F6784001AC38F /* Logsettings.swift in Sources */,
 				E91E1AF82D00F5AF00819A2D /* ActorsLogsbyConfigurationView.swift in Sources */,
 				E93D7B7D26CD920D00E290A1 /* ObservableParametersDefault.swift in Sources */,
-				E93D3B182AFA541D0056DC55 /* LogsbyConfigurationView.swift in Sources */,
 				E985C77225F3AD9700CB895C /* Logfile.swift in Sources */,
 				E969669E2B49AEA90054E6C6 /* ExecuteNoEstimationProgressDetails.swift in Sources */,
 				E9C8E0CC2B2D9BB50083D1CC /* SidebarLogsView.swift in Sources */,

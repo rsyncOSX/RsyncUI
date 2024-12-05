@@ -111,6 +111,12 @@ struct ActorsLogsbyConfigurationView: View {
                 await updatelogsbyhiddenID()
             }
         }
+        .onChange(of: logrecords) {
+            Task {
+                await logrecords = ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                await updatelogsbyhiddenID()
+            }
+        }
         .toolbar(content: {
             ToolbarItem {
                 Button {
@@ -128,17 +134,13 @@ struct ActorsLogsbyConfigurationView: View {
                 .help("Reset selections")
             }
         })
-        
-/*
         .sheet(isPresented: $showAlertfordelete) {
             DeleteLogsView(
-                rsyncUIlogrecords: rsyncUIlogrecords,
                 selectedloguuids: $selectedloguuids,
-                selectedprofile: profile
+                logrecords: $logrecords,
+                selectedprofile: rsyncUIdata.profile
             )
         }
-        
- */
     }
 
     var indebounce: some View {

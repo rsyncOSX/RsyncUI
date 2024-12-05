@@ -9,8 +9,8 @@ import SwiftUI
 
 struct DeleteLogsView: View {
     @Environment(\.dismiss) var dismiss
-    @Bindable var rsyncUIlogrecords: RsyncUIlogrecords
     @Binding var selectedloguuids: Set<UUID>
+    @Binding var logrecords: [LogRecords]?
 
     var selectedprofile: String?
 
@@ -35,8 +35,8 @@ struct DeleteLogsView: View {
 
     func delete() {
         let deletelogs = UpdateLogs(profile: selectedprofile,
-                                    logrecords: rsyncUIlogrecords.logrecords)
-        rsyncUIlogrecords.logrecords = deletelogs.deletelogs(uuids: selectedloguuids)
+                                    logrecords: logrecords)
+        logrecords = deletelogs.deletelogs(uuids: selectedloguuids)
         selectedloguuids.removeAll()
         dismiss()
     }
