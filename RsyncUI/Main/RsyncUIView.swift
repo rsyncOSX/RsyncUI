@@ -12,6 +12,8 @@ struct RsyncUIView: View {
     @Binding var selectedprofile: String?
     @State private var rsyncversion = Rsyncversion()
     @State private var start: Bool = true
+    
+    @State private var rsyncUIdata = RsyncUIconfigurations()
 
     var body: some View {
         VStack {
@@ -40,13 +42,26 @@ struct RsyncUIView: View {
             ReadUserConfigurationJSON().readuserconfiguration()
             // Get version of rsync
             rsyncversion.getrsyncversion()
+            
+            rsyncUIdata.profile = selectedprofile
+            rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON().readjsonfilesynchronizeconfigurations(selectedprofile,
+                                                                                                                             SharedReference.shared.monitornetworkconnection,
+                                                                                                                             SharedReference.shared.sshport)
+        }
+        .onChange(of: selectedprofile) {
+            Task {
+                rsyncUIdata.profile = selectedprofile
+                rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON().readjsonfilesynchronizeconfigurations(selectedprofile,
+                                                                                                                                 SharedReference.shared.monitornetworkconnection,
+                                                                                                                                 SharedReference.shared.sshport)
+            }
         }
     }
-
+/*
     var rsyncUIdata: RsyncUIconfigurations {
         RsyncUIconfigurations(selectedprofile)
     }
-
+*/
     var errorhandling: AlertError {
         SharedReference.shared.errorobject = AlertError()
         return SharedReference.shared.errorobject ?? AlertError()

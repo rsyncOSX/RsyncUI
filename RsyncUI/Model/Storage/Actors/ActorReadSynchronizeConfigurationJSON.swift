@@ -52,7 +52,7 @@ actor ActorReadSynchronizeConfigurationJSON {
         
         Logger.process.info("readjsonfilesynchronizeconfigurations(): on main thread: \(Thread.isMain)")
         
-        if let profile, let path = path.fullpathmacserial {
+        if let profile, profile != "Default profile", let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + "configurations.json"
         } else {
             if let path = path.fullpathmacserial {

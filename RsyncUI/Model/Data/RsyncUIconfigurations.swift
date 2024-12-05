@@ -13,7 +13,7 @@ import SwiftUI
 final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?
     var profile: String?
-
+/*
     init(_ profile: String?) {
         self.profile = profile
         if profile == SharedReference.shared.defaultprofile || profile == nil {
@@ -22,4 +22,6 @@ final class RsyncUIconfigurations {
             configurations = ReadSynchronizeConfigurationJSON().readjsonfilesynchronizeconfigurations(profile)
         }
     }
+ */
+    init() {}
 }
