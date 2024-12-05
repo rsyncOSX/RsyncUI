@@ -10,7 +10,7 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-actor ReadSynchronizeQuicktaskJSON {
+actor ActorReadSynchronizeQuicktaskJSON {
     
     func readjsonfilequicktask() async -> SynchronizeConfiguration? {
         var filename = ""

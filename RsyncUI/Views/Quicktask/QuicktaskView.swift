@@ -105,7 +105,7 @@ struct QuicktaskView: View {
         .onAppear {
             focusField = .localcatalogField
             Task {
-                if let configfile = await ReadSynchronizeQuicktaskJSON().readjsonfilequicktask() {
+                if let configfile = await ActorReadSynchronizeQuicktaskJSON().readjsonfilequicktask() {
                     localcatalog = configfile.localCatalog
                     remotecatalog = configfile.offsiteCatalog
                     remoteuser = configfile.offsiteUsername
@@ -301,7 +301,7 @@ extension QuicktaskView {
             newconfig.backupID = "4"
         }
         Task {
-            await WriteSynchronizeQuicktaskJSON(newconfig)
+            await ActorWriteSynchronizeQuicktaskJSON(newconfig)
         }
     }
 

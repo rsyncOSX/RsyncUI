@@ -10,7 +10,7 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-actor WriteSynchronizeQuicktaskJSON {
+actor ActorWriteSynchronizeQuicktaskJSON {
     
     private func writeJSONToPersistentStore(jsonData: Data?) async {
         let path = await Homepath()
