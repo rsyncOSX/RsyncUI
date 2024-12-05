@@ -15,6 +15,9 @@ actor ReadSynchronizeQuicktaskJSON {
     func readjsonfilequicktask() async -> SynchronizeConfiguration? {
         var filename = ""
         let path = await Homepath()
+        
+        Logger.process.info("readjsonfilequicktask(): on main thread: \(Thread.isMain)")
+        
         if let path = path.fullpathmacserial {
             filename = path + "/" + "quicktask.json"
         }

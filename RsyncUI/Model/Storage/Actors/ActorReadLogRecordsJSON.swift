@@ -15,6 +15,8 @@ actor ActorReadLogRecordsJSON {
         let path = await Homepath()
         var filename = ""
         
+        Logger.process.info("readjsonfilelogrecords(): on main thread: \(Thread.isMain)")
+        
         if let profile, profile != "Default profile", let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + "logrecords.json"
         } else {

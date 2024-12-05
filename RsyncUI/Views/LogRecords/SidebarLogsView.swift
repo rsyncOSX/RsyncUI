@@ -10,11 +10,12 @@ import SwiftUI
 struct SidebarLogsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     
-
     var body: some View {
-        ActorsLogsbyConfigurationView( rsyncUIdata: rsyncUIdata)
+        ActorsLogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
             .padding()
     }
+
+
 /*
  let configurations: [SynchronizeConfiguration]
  let profile: String?

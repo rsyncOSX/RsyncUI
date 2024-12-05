@@ -397,6 +397,8 @@
 		E91E1AF92D00F9E700819A2D /* Actors */ = {
 			isa = PBXGroup;
 			children = (
+				E9A5DFE32CCFCB2D0035B759 /* WriteSynchronizeQuicktaskJSON.swift */,
+				E9A5DFE52CCFCB500035B759 /* ReadSynchronizeQuicktaskJSON.swift */,
 				E91E1AF42D00F3FC00819A2D /* ActorReadLogRecordsJSON.swift */,
 			);
 			path = Actors;
@@ -711,7 +713,6 @@
 			isa = PBXGroup;
 			children = (
 				E91E1AF92D00F9E700819A2D /* Actors */,
-				E9A5DFE22CCFCB1B0035B759 /* Quicktask */,
 				E99BE2322C4E673800BFE83F /* ExportImport */,
 				E801DC652637FD990060723F /* WriteSynchronizeConfigurationJSON.swift */,
 				E8518C79263807F200128796 /* WriteLogRecordsJSON.swift */,
@@ -915,15 +916,6 @@
 				E985C6E425F3AD9600CB895C /* ExecuteState.swift */,
 			);
 			path = State;
-			sourceTree = "<group>";
-		};
-		E9A5DFE22CCFCB1B0035B759 /* Quicktask */ = {
-			isa = PBXGroup;
-			children = (
-				E9A5DFE52CCFCB500035B759 /* ReadSynchronizeQuicktaskJSON.swift */,
-				E9A5DFE32CCFCB2D0035B759 /* WriteSynchronizeQuicktaskJSON.swift */,
-			);
-			path = Quicktask;
 			sourceTree = "<group>";
 		};
 		E9AA5400262EEB2E0009DF32 /* JSON */ = {
