@@ -1,5 +1,5 @@
 //
-//  ReadSynchronizeConfigurationJSON.swift
+//  ActorReadSynchronizeConfigurationJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/04/2021.
@@ -46,12 +46,13 @@ actor ActorReadSynchronizeConfigurationJSON {
 
     func readjsonfilesynchronizeconfigurations(_ profile: String?,
                                                _ monitornetworkconnection: Bool,
-                                               _ sharedsshport: Int? ) async -> [SynchronizeConfiguration]? {
+                                               _ sharedsshport: Int?) async -> [SynchronizeConfiguration]?
+    {
         var filename = ""
         let path = await Homepath()
-        
+
         Logger.process.info("readjsonfilesynchronizeconfigurations(): on main thread: \(Thread.isMain)")
-        
+
         if let profile, profile != "Default profile", let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + "configurations.json"
         } else {
@@ -78,7 +79,7 @@ actor ActorReadSynchronizeConfigurationJSON {
                 return tasks
             }
 
-        } catch  {
+        } catch {
             Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading synchronize configurations from permanent storage")
             return nil
         }

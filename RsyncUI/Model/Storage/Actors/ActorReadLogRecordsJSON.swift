@@ -10,13 +10,12 @@ import Foundation
 import OSLog
 
 actor ActorReadLogRecordsJSON {
-
     func readjsonfilelogrecords(_ profile: String?, _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
         let path = await Homepath()
         var filename = ""
-        
+
         Logger.process.info("readjsonfilelogrecords(): on main thread: \(Thread.isMain)")
-        
+
         if let profile, profile != "Default profile", let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + "logrecords.json"
         } else {
@@ -36,7 +35,7 @@ actor ActorReadLogRecordsJSON {
                 }
             }
 
-        } catch  {
+        } catch {
             Logger.process.info("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
             return nil
         }

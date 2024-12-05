@@ -97,7 +97,7 @@ extension ExecuteMultipleTasks {
         }
         guard stackoftasktobeexecuted?.count ?? 0 > 0 else {
             let update = Logging(profile: structprofile,
-                                                     configurations: localconfigurations)
+                                 configurations: localconfigurations)
             let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
             // Send date stamped configurations back to caller
             localupdateconfigurations(updateconfigurations)

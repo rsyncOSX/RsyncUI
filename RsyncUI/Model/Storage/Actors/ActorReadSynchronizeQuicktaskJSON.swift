@@ -1,5 +1,5 @@
 //
-//  ReadSynchronizeQuicktaskJSON.swift
+//  ActorReadSynchronizeQuicktaskJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/04/2021.
@@ -11,13 +11,12 @@ import Foundation
 import OSLog
 
 actor ActorReadSynchronizeQuicktaskJSON {
-    
     func readjsonfilequicktask() async -> SynchronizeConfiguration? {
         var filename = ""
         let path = await Homepath()
-        
+
         Logger.process.info("readjsonfilequicktask(): on main thread: \(Thread.isMain)")
-        
+
         if let path = path.fullpathmacserial {
             filename = path + "/" + "quicktask.json"
         }

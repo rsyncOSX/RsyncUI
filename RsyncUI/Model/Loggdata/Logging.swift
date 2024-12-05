@@ -1,5 +1,5 @@
 //
-//  SingletaskPrimaryLogging.swift
+//  Logging.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 23/01/2021.
@@ -67,7 +67,7 @@ final class Logging {
         }
         return nil
     }
-    
+
     func setCurrentDateonConfiguration(configrecords: [Typelogdata]) -> [SynchronizeConfiguration] {
         _ = configrecords.map { logdata in
             let hiddenID = logdata.0

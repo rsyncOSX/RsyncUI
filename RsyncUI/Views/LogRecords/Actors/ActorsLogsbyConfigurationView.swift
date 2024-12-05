@@ -1,5 +1,5 @@
 //
-//  LogsbyConfigurationView.swift
+//  ActorsLogsbyConfigurationView.swift
 //  RsyncOSXSwiftUI
 //
 //  Created by Thomas Evensen on 04/01/2021.
@@ -147,7 +147,7 @@ struct ActorsLogsbyConfigurationView: View {
         ProgressView()
             .controlSize(.small)
     }
-    
+
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
         _ = configurations.map { record in
@@ -155,18 +155,18 @@ struct ActorsLogsbyConfigurationView: View {
         }
         return temp
     }
-    
+
     var configurations: [SynchronizeConfiguration] {
         if let configurations = rsyncUIdata.configurations {
-            return configurations
+            configurations
         } else {
-            return []
+            []
         }
     }
 
     func updatelogsbyfilter() async {
         guard filterstring != "" else { return }
-        if let logrecords = logrecords {
+        if let logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
                 _ = logrecords.map { logrecord in
@@ -190,7 +190,7 @@ struct ActorsLogsbyConfigurationView: View {
     }
 
     func updatelogsbyhiddenID() async {
-        if let logrecords = logrecords {
+        if let logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
                 _ = logrecords.map { logrecord in
