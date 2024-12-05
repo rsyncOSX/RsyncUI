@@ -5,13 +5,15 @@
 //  Created by Thomas Evensen on 11/10/2024.
 //
 
+import OSLog
 import SwiftUI
 
 struct ProfilesToUpdataView: View {
-    let configurations: [SynchronizeConfiguration]
+    let allprofiles: [String]?
+    @State private var configurations: [SynchronizeConfiguration]?
 
     var body: some View {
-        Table(configurations) {
+        Table(configurations ?? []) {
             TableColumn("Synchronize ID : profilename") { data in
                 let split = data.backupID.split(separator: " : ")
                 if split.count > 1 {
@@ -43,8 +45,9 @@ struct ProfilesToUpdataView: View {
             }
             .width(max: 120)
         }
+
         .overlay {
-            if configurations.count == 0 {
+            if let configurations, configurations.count == 0 {
                 ContentUnavailableView {
                     Label("All tasks has been synchronized in the past \(SharedReference.shared.marknumberofdayssince) days",
                           systemImage: "arrowshape.turn.up.left.fill")
@@ -52,6 +55,69 @@ struct ProfilesToUpdataView: View {
                     Text("This is only due to Marknumberofdayssince set in the settings.")
                 }
             }
+        }
+
+        .task {
+            configurations = await readalltasks(allprofiles: allprofiles)
+        }
+    }
+
+    private func readalltasks(allprofiles: [String]?) async -> [SynchronizeConfiguration] {
+        var old: [SynchronizeConfiguration]?
+        // Important: we must temporarly disable monitor network connection
+        if SharedReference.shared.monitornetworkconnection {
+            Logger.process.info("ProfileView: monitornetworkconnection is disabled")
+            SharedReference.shared.monitornetworkconnection = false
+        }
+
+        for i in 0 ..< (allprofiles?.count ?? 0) {
+            var profilename = allprofiles?[i]
+            if profilename == "Default profile" {
+                profilename = nil
+            }
+            let configurations = await ActorReadSynchronizeConfigurationJSON()
+                .readjsonfilesynchronizeconfigurations(profilename,
+                                                       SharedReference.shared.monitornetworkconnection,
+                                                       SharedReference.shared.sshport,
+                                                       SharedReference.shared.fileconfigurationsjson)
+            let profileold = configurations?.filter { element in
+                var seconds: Double {
+                    if let date = element.dateRun {
+                        let lastbackup = date.en_us_date_from_string()
+                        return lastbackup.timeIntervalSinceNow * -1
+                    } else {
+                        return 0
+                    }
+                }
+                return markconfig(seconds) == true
+            }
+            if old == nil, let profileold {
+                old = profileold.map { element in
+                    var newelement = element
+                    if newelement.backupID.isEmpty {
+                        newelement.backupID = "Synchronize ID"
+                    }
+                    newelement.backupID += profilename ?? "Default profile"
+                    return newelement
+                }
+            } else {
+                if let profileold {
+                    let profileold = profileold.map { element in
+                        var newelement = element
+                        if newelement.backupID.isEmpty {
+                            newelement.backupID = "Synchronize ID"
+                        }
+                        newelement.backupID += " : " + (profilename ?? "Default profile")
+                        return newelement
+                    }
+                    old?.append(contentsOf: profileold)
+                }
+            }
+        }
+        if old?.count == 0 {
+            return []
+        } else {
+            return old ?? []
         }
     }
 

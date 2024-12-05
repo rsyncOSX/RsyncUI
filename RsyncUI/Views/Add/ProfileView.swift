@@ -35,7 +35,7 @@ struct ProfileView: View {
                     }
                 }
 
-                ProfilesToUpdataView(configurations: readalltasks())
+                ProfilesToUpdataView(allprofiles: allprofiles)
             }
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
@@ -78,61 +78,6 @@ struct ProfileView: View {
 
     var allprofiles: [String]? {
         Homepath().getfullpathmacserialcatalogsasstringnames()
-    }
-
-    private func readalltasks() -> [SynchronizeConfiguration] {
-        var old: [SynchronizeConfiguration]?
-        // Important: we must temporarly disable monitor network connection
-        if SharedReference.shared.monitornetworkconnection {
-            Logger.process.info("ProfileView: monitornetworkconnection is disabled")
-            SharedReference.shared.monitornetworkconnection = false
-        }
-
-        for i in 0 ..< (allprofiles?.count ?? 0) {
-            var profilename = allprofiles?[i]
-            if profilename == "Default profile" {
-                profilename = nil
-            }
-            let configurations = ReadSynchronizeConfigurationJSON().readjsonfilesynchronizeconfigurations(profilename)
-            let profileold = configurations?.filter { element in
-                var seconds: Double {
-                    if let date = element.dateRun {
-                        let lastbackup = date.en_us_date_from_string()
-                        return lastbackup.timeIntervalSinceNow * -1
-                    } else {
-                        return 0
-                    }
-                }
-                return markconfig(seconds) == true
-            }
-            if old == nil, let profileold {
-                old = profileold.map { element in
-                    var newelement = element
-                    if newelement.backupID.isEmpty {
-                        newelement.backupID = "Synchronize ID"
-                    }
-                    newelement.backupID += profilename ?? "Default profile"
-                    return newelement
-                }
-            } else {
-                if let profileold {
-                    let profileold = profileold.map { element in
-                        var newelement = element
-                        if newelement.backupID.isEmpty {
-                            newelement.backupID = "Synchronize ID"
-                        }
-                        newelement.backupID += " : " + (profilename ?? "Default profile")
-                        return newelement
-                    }
-                    old?.append(contentsOf: profileold)
-                }
-            }
-        }
-        if old?.count == 0 {
-            return []
-        } else {
-            return old ?? []
-        }
     }
 
     private func markconfig(_ seconds: Double) -> Bool {

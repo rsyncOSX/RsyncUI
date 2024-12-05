@@ -86,7 +86,7 @@ struct ActorsLogsbyConfigurationView: View {
         .onAppear {
             Task {
                 await logrecords =
-                ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                    ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
                 await updatelogsbyhiddenID()
             }
         }
@@ -109,14 +109,14 @@ struct ActorsLogsbyConfigurationView: View {
         .onChange(of: rsyncUIdata.profile) {
             Task {
                 await logrecords =
-                ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                    ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
                 await updatelogsbyhiddenID()
             }
         }
         .onChange(of: logrecords) {
             Task {
                 await logrecords =
-                ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                    ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
                 await updatelogsbyhiddenID()
             }
         }

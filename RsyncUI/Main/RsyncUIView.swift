@@ -44,20 +44,20 @@ struct RsyncUIView: View {
             rsyncversion.getrsyncversion()
 
             rsyncUIdata.profile = selectedprofile
-            rsyncUIdata.configurations =
-                await ActorReadSynchronizeConfigurationJSON().readjsonfilesynchronizeconfigurations(selectedprofile,
-                                                                                                    SharedReference.shared.monitornetworkconnection,
-                                                                                                    SharedReference.shared.sshport,
-                                                                                                    SharedReference.shared.fileconfigurationsjson)
+            rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
+                .readjsonfilesynchronizeconfigurations(selectedprofile,
+                                                       SharedReference.shared.monitornetworkconnection,
+                                                       SharedReference.shared.sshport,
+                                                       SharedReference.shared.fileconfigurationsjson)
         }
         .onChange(of: selectedprofile) {
             Task {
                 rsyncUIdata.profile = selectedprofile
-                rsyncUIdata.configurations =
-                    await ActorReadSynchronizeConfigurationJSON().readjsonfilesynchronizeconfigurations(selectedprofile,
-                                                                                                        SharedReference.shared.monitornetworkconnection,
-                                                                                                        SharedReference.shared.sshport,
-                                                                                                        SharedReference.shared.fileconfigurationsjson)
+                rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
+                    .readjsonfilesynchronizeconfigurations(selectedprofile,
+                                                           SharedReference.shared.monitornetworkconnection,
+                                                           SharedReference.shared.sshport,
+                                                           SharedReference.shared.fileconfigurationsjson)
             }
         }
     }
