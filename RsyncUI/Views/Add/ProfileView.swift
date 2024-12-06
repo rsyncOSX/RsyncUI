@@ -80,9 +80,6 @@ struct ProfileView: View {
         Homepath().getfullpathmacserialcatalogsasstringnames()
     }
 
-    private func markconfig(_ seconds: Double) -> Bool {
-        seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
-    }
 }
 
 extension ProfileView {
