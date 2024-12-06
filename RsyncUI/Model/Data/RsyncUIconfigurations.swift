@@ -13,6 +13,6 @@ import SwiftUI
 final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?
     var profile: String?
-    
+
     init() {}
 }

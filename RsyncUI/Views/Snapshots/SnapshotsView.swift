@@ -68,10 +68,9 @@ struct SnapshotsView: View {
                                     deleteiscompleted = false
                                 }
                             }
-                        
+
                         if snapshotdata.snapshotlist { ProgressView() }
                     }
-                    
                 }
 
                 if notsnapshot == true { DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Not a snapshot task.", comment: "")) }
@@ -240,8 +239,7 @@ extension SnapshotsView {
                 profile = nil
             }
 
-            if let config = selectedconfig
-            {
+            if let config = selectedconfig {
                 Task {
                     let logrecords = await
                         ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
@@ -249,7 +247,6 @@ extension SnapshotsView {
                                                 logrecords: logrecords ?? [],
                                                 snapshotdata: snapshotdata)
                 }
-                
             }
         }
     }

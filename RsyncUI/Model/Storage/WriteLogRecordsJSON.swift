@@ -12,11 +12,9 @@ import OSLog
 
 @MainActor
 final class WriteLogRecordsJSON {
-    
     let path = Homepath()
-    
+
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
-        
         let localprofile: String? = if profile == SharedReference.shared.defaultprofile {
             nil
         } else {

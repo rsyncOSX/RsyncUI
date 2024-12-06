@@ -81,7 +81,6 @@ actor ActorReadSynchronizeConfigurationJSON {
             }
 
         } catch let e {
-            
             Logger.process.error("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading synchronize configurations from permanent storage")
             let error = e
             await path.propogateerror(error: error)

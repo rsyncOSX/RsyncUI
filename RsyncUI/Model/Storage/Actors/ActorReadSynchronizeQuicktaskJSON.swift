@@ -36,7 +36,7 @@ actor ActorReadSynchronizeQuicktaskJSON {
             let error = e
             await path.propogateerror(error: error)
         }
-        
+
         return nil
     }
 

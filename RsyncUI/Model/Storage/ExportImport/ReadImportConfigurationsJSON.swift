@@ -10,7 +10,8 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-final class ReadImportConfigurationsJSON: PropogateError {
+@MainActor
+final class ReadImportConfigurationsJSON {
     var importconfigurations: [SynchronizeConfiguration]?
     var maxhiddenID: Int = -1
 
@@ -32,10 +33,9 @@ final class ReadImportConfigurationsJSON: PropogateError {
                 Logger.process.info("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): read import configurations from permanent storage")
             }
 
-        } catch let e {
+        } catch {
             Logger.process.error("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): some ERROR read import configurations from permanent storage")
-            let error = e
-            propogateerror(error: error)
+            return
         }
     }
 
