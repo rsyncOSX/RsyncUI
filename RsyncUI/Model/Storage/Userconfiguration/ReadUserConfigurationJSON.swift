@@ -10,7 +10,8 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-final class ReadUserConfigurationJSON: PropogateError {
+@MainActor
+final class ReadUserConfigurationJSON {
     let path = Homepath()
 
     func readuserconfiguration() {
@@ -29,8 +30,9 @@ final class ReadUserConfigurationJSON: PropogateError {
             }
 
         } catch let e {
+            Logger.process.error("ReadUserConfigurationJSON: some ERROR reading user configurations from permanent storage")
             let error = e
-            propogateerror(error: error)
+            path.propogateerror(error: error)
         }
     }
 

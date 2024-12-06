@@ -9,9 +9,9 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-final class ReadLogRecordsJSON: PropogateError {
+@MainActor
+final class ReadLogRecordsJSON {
     
-
     func readjsonfilelogrecords(_ profile: String?, _ validhiddenIDs: Set<Int>) -> [LogRecords]? {
         var filename = ""
         let path = Homepath()
@@ -36,9 +36,9 @@ final class ReadLogRecordsJSON: PropogateError {
             }
 
         } catch let e {
-            Logger.process.info("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
+            Logger.process.error("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
             let error = e
-            propogateerror(error: error)
+            path.propogateerror(error: error)
         }
         return nil
     }

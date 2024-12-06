@@ -33,6 +33,7 @@ final class ReadImportConfigurationsJSON: PropogateError {
             }
 
         } catch let e {
+            Logger.process.error("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): some ERROR read import configurations from permanent storage")
             let error = e
             propogateerror(error: error)
         }

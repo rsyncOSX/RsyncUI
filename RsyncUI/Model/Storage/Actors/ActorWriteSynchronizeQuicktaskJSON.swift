@@ -25,6 +25,7 @@ actor ActorWriteSynchronizeQuicktaskJSON {
                     try jsonData.write(to: configurationfileURL)
                     Logger.process.info("WriteSynchronizeQuicktaskJSON - write Quicktask to permanent storage")
                 } catch let e {
+                    Logger.process.error("WriteSynchronizeQuicktaskJSON: some ERROR write Quicktask to permanent storage")
                     let error = e
                     await path.propogateerror(error: error)
                 }
@@ -39,7 +40,7 @@ actor ActorWriteSynchronizeQuicktaskJSON {
                 await writeJSONToPersistentStore(jsonData: encodeddata)
             }
         } catch {
-            Logger.process.info("WriteSynchronizeQuicktaskJSON some ERROR writing")
+            Logger.process.error("WriteSynchronizeQuicktaskJSON some ERROR writing")
             return
         }
     }

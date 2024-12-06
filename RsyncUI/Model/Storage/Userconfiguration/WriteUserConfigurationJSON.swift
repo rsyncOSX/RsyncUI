@@ -9,7 +9,8 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-final class WriteUserConfigurationJSON: PropogateError {
+@MainActor
+final class WriteUserConfigurationJSON {
     let path = Homepath()
 
     private func writeJSONToPersistentStore(jsonData: Data?) {
@@ -21,7 +22,7 @@ final class WriteUserConfigurationJSON: PropogateError {
                     try jsonData.write(to: usercongigfileURL)
                 } catch let e {
                     let error = e
-                    propogateerror(error: error)
+                    path.propogateerror(error: error)
                 }
             }
         }
@@ -35,8 +36,9 @@ final class WriteUserConfigurationJSON: PropogateError {
                 Logger.process.info("WriteUserConfigurationJSON: Writing user configurations to permanent storage")
             }
         } catch let e {
+            Logger.process.error("WriteUserConfigurationJSON: some ERROR writing user configurations from permanent storage")
             let error = e
-            propogateerror(error: error)
+            path.propogateerror(error: error)
         }
     }
 

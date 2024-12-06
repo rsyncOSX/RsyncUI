@@ -10,9 +10,13 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-final class WriteLogRecordsJSON: PropogateError {
+@MainActor
+final class WriteLogRecordsJSON {
+    
+    let path = Homepath()
+    
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
-        let path = Homepath()
+        
         let localprofile: String? = if profile == SharedReference.shared.defaultprofile {
             nil
         } else {
@@ -33,6 +37,7 @@ final class WriteLogRecordsJSON: PropogateError {
                     let myprofile = profile ?? "Default profile"
                     Logger.process.info("WriteLogRecordsJSON - \(myprofile), privacy: .public): write logrecords to permanent storage")
                 } catch let e {
+                    Logger.process.error("WriteLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR writing logrecords to permanent storage")
                     let error = e
                     path.propogateerror(error: error)
                 }
@@ -48,7 +53,7 @@ final class WriteLogRecordsJSON: PropogateError {
             }
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            path.propogateerror(error: error)
         }
     }
 

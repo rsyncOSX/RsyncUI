@@ -31,10 +31,12 @@ actor ActorReadSynchronizeQuicktaskJSON {
                 return SynchronizeConfiguration(data)
             }
 
-        } catch {
-            Logger.process.info("ReadSynchronizeQuicktaskJSON some ERROR reading")
-            return nil
+        } catch let e {
+            Logger.process.info("ReadSynchronizeQuicktaskJSON: some ERROR reading")
+            let error = e
+            await path.propogateerror(error: error)
         }
+        
         return nil
     }
 
