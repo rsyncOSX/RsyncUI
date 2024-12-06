@@ -43,7 +43,8 @@ struct ActorsLogsbyConfigurationView: View {
                                 if filterstring != "" {
                                     await updatelogsbyfilter()
                                 } else {
-                                    await updatelogsbyhiddenID()
+                                    let actorreadlogs = ActorReadLogRecordsJSON()
+                                    logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                                 }
                             }
                         }
@@ -86,9 +87,10 @@ struct ActorsLogsbyConfigurationView: View {
         .searchable(text: $filterstring)
         .onAppear {
             Task {
+                let actorreadlogs = ActorReadLogRecordsJSON()
                 await logrecords =
-                    ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
-                await updatelogsbyhiddenID()
+                actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
         .onChange(of: filterstring) {
@@ -102,23 +104,28 @@ struct ActorsLogsbyConfigurationView: View {
                     }
                 } else {
                     Task {
-                        await updatelogsbyhiddenID()
+                        let actorreadlogs = ActorReadLogRecordsJSON()
+                        logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                     }
                 }
             }
         }
         .onChange(of: rsyncUIdata.profile) {
             Task {
+                let actorreadlogs = ActorReadLogRecordsJSON()
+                
                 await logrecords =
-                    ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
-                await updatelogsbyhiddenID()
+                actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
         .onChange(of: logrecords) {
             Task {
+                let actorreadlogs = ActorReadLogRecordsJSON()
+                
                 await logrecords =
-                    ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
-                await updatelogsbyhiddenID()
+                actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
         .toolbar(content: {
@@ -194,6 +201,7 @@ struct ActorsLogsbyConfigurationView: View {
         }
     }
 
+/*
     func updatelogsbyhiddenID() async {
         Logger.process.info("updatelogsbyhiddenID(): on main thread: \(Thread.isMain)")
         if let logrecords {
@@ -215,6 +223,7 @@ struct ActorsLogsbyConfigurationView: View {
             }
         }
     }
+ */
 }
 
 // swiftlint: enable line_length
