@@ -40,10 +40,10 @@ struct ActorsLogsbyConfigurationView: View {
                                 hiddenID = -1
                             }
                             Task {
+                                let actorreadlogs = ActorReadLogRecordsJSON()
                                 if filterstring != "" {
-                                    await updatelogsbyfilter()
+                                    logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
                                 } else {
-                                    let actorreadlogs = ActorReadLogRecordsJSON()
                                     logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                                 }
                             }
@@ -99,8 +99,10 @@ struct ActorsLogsbyConfigurationView: View {
                 try await Task.sleep(seconds: 1)
                 showindebounce = false
                 if filterstring.isEmpty == false {
+                    
                     Task {
-                        await updatelogsbyfilter()
+                        let actorreadlogs = ActorReadLogRecordsJSON()
+                        logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
                     }
                 } else {
                     Task {
@@ -174,56 +176,6 @@ struct ActorsLogsbyConfigurationView: View {
             []
         }
     }
-
-    func updatelogsbyfilter() async {
-        Logger.process.info("updatelogsbyfilter(): on main thread: \(Thread.isMain)")
-        guard filterstring != "" else { return }
-        if let logrecords {
-            if hiddenID == -1 {
-                var merged = [Log]()
-                _ = logrecords.map { logrecord in
-                    if let logrecords = logrecord.logrecords {
-                        merged += [logrecords].flatMap(\.self)
-                    }
-                }
-                let records = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
-                }
-            } else {
-                if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }),
-                   let logrecords = logrecords[index].logrecords
-                {
-                    let records = logrecords.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                    logs = records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
-                    }
-                }
-            }
-        }
-    }
-
-/*
-    func updatelogsbyhiddenID() async {
-        Logger.process.info("updatelogsbyhiddenID(): on main thread: \(Thread.isMain)")
-        if let logrecords {
-            if hiddenID == -1 {
-                var merged = [Log]()
-                _ = logrecords.map { logrecord in
-                    if let logrecords = logrecord.logrecords {
-                        merged += [logrecords].flatMap(\.self)
-                    }
-                }
-                // return merged.sorted(by: \.date, using: >)
-                logs = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-            } else {
-                if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }),
-                   let logrecords = logrecords[index].logrecords
-                {
-                    logs = logrecords.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                }
-            }
-        }
-    }
- */
 }
 
 // swiftlint: enable line_length
