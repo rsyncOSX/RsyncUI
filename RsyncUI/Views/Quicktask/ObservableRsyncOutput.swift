@@ -9,14 +9,16 @@ import Observation
 
 @Observable
 final class ObservableRsyncOutput {
-    var output = [RsyncOutputData]()
+    var output: [RsyncOutputData]?
+}
 
-    func setoutput(_ stringoutputfromrsync: [String]?) {
-        output.removeAll()
+actor CreateOutputforview {
+    func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         if let stringoutputfromrsync {
-            output = stringoutputfromrsync.map { filename in
+            return stringoutputfromrsync.map { filename in
                 RsyncOutputData(record: filename)
             }
         }
+        return []
     }
 }

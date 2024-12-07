@@ -27,7 +27,7 @@ struct QuicktaskView: View {
 
     // Executed labels
     @State private var showprogressview = false
-    @State private var rsyncoutput: ObservableRsyncOutput?
+    @State private var rsyncoutput = ObservableRsyncOutput()
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
     @State private var focusstartexecution: Bool = false
@@ -170,7 +170,7 @@ struct QuicktaskView: View {
         .padding()
         .navigationTitle("Quicktask")
         .navigationDestination(isPresented: $completed) {
-            OutputRsyncView(output: rsyncoutput?.output ?? [])
+            OutputRsyncView(output: rsyncoutput.output ?? [])
         }
     }
 
@@ -336,8 +336,9 @@ extension QuicktaskView {
 
     func processtermination(_ stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
-        rsyncoutput = ObservableRsyncOutput()
-        rsyncoutput?.setoutput(stringoutputfromrsync)
-        completed = true
+        Task {
+            rsyncoutput.output = await CreateOutputforview().createaoutputforview(stringoutputfromrsync)
+            completed = true
+        }
     }
 }
