@@ -8,36 +8,31 @@
 import SwiftUI
 
 struct ArgumentsVerifyView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selectedconfig: SynchronizeConfiguration?
 
-    @State private var selectedconfig: SynchronizeConfiguration?
     @State private var otherselectedrsynccommand = OtherRsyncCommand.push_local
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @State private var configurations = [SynchronizeConfiguration]()
+    
+    let profile: String?
 
     var body: some View {
         VStack {
             ListofTasksLightView(selecteduuids: $selecteduuids,
-                                 profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata.configurations?.filter({ $0.offsiteServer.isEmpty == false }) ?? [])
+                                 profile: profile,
+                                 configurations: configurations)
                 .frame(maxWidth: .infinity)
-                .onChange(of: selecteduuids) {
-                    if let configurations = rsyncUIdata.configurations {
-                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                            selectedconfig = configurations[index]
-                        } else {
-                            selectedconfig = nil
-                        }
-                    }
-                }
-                .onChange(of: rsyncUIdata.profile) {
-                    selecteduuids.removeAll()
-                    selectedconfig = nil
-                }
+                
             Spacer()
 
             OtherRsyncCommandsView(config: $selectedconfig, otherselectedrsynccommand: $otherselectedrsynccommand)
                 .disabled(selectedconfig == nil)
         }
+        .onAppear(perform: {
+            if let selectedconfig {
+                configurations.append(selectedconfig)
+            }
+        })
         .padding()
     }
 }

@@ -101,7 +101,7 @@ struct VerifyRemote: View {
                             OutputRsyncCheckeRemoteView(config: selectedconfig)
                         }
         case .arguments:
-            ArgumentsVerifyView(rsyncUIdata: rsyncUIdata)
+            ArgumentsVerifyView(selectedconfig: $selectedconfig, profile: rsyncUIdata.profile)
         }
     }
 
