@@ -51,10 +51,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
          config: SynchronizeConfiguration?)
     {
         
-        let generatedoutputfromrsync = ObservableOutputfromrsync()
-        generatedoutputfromrsync.generateoutput(stringoutputfromrsync)
-        outputfromrsync = generatedoutputfromrsync.output
-
         hiddenID = config?.hiddenID ?? -1
         task = config?.task ?? ""
         localCatalog = config?.localCatalog ?? ""
