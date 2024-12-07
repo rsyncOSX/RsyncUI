@@ -11,11 +11,11 @@ import SwiftUI
 
 struct NavigationLogfileView: View {
     @State private var resetloggfile = false
-    @State private var logfileview = Logfileview()
+    @State private var logfilerecords: [LogfileRecords]?
 
     var body: some View {
         VStack {
-            Table(logfileview.output ?? []) {
+            Table(logfilerecords ?? []) {
                 TableColumn("Logfile") { data in
                     Text(data.line)
                 }
@@ -26,7 +26,9 @@ struct NavigationLogfileView: View {
         }
         .padding()
         .onAppear {
-            logfileview.generatedata()
+            Task {
+                logfilerecords = await GenerateLogfileforview().generatedata()
+            }
         }
         .toolbar {
             ToolbarItem {
@@ -43,7 +45,9 @@ struct NavigationLogfileView: View {
     func reset() {
         resetloggfile = true
         _ = Logfile(true)
-        logfileview.generatedata()
+        Task {
+            logfilerecords = await GenerateLogfileforview().generatedata()
+        }
     }
 
     func afterareload() {
@@ -51,45 +55,22 @@ struct NavigationLogfileView: View {
     }
 }
 
+struct LogfileRecords: Identifiable {
+    let id = UUID()
+    var line: String
+}
+
 @Observable @MainActor
 final class Logfileview: PropogateError {
     var output: [LogfileRecords]?
-    let maxcount = 20000
-
-    struct LogfileRecords: Identifiable {
-        let id = UUID()
-        var line: String
-    }
-
-    func validatesizelogfile(data: [String]) throws {
-        guard data.count < maxcount else {
-            throw LogfileError.toobig
-        }
-    }
-
-    func generatedata() {
-        let data = Logfile(false).getlogfile()
-        do {
-            try validatesizelogfile(data: data)
-            output = data.map { record in
-                LogfileRecords(line: record)
-            }
-
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-            return
-        }
-    }
 }
 
-enum LogfileError: LocalizedError {
-    case toobig
-
-    var errorDescription: String? {
-        switch self {
-        case .toobig:
-            "Logfile is to big, more than 20000 lines\n Please reset logfile"
+actor GenerateLogfileforview {
+    
+    func generatedata() async -> [LogfileRecords] {
+        let data = await Logfile(false).getlogfile()
+        return  data.map { record in
+            LogfileRecords(line: record)
         }
     }
 }

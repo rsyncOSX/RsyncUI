@@ -38,7 +38,7 @@ struct DetailsPullPushView: View {
             }
 
             Table(remotedatanumbers.outputfromrsync ?? []) {
-                TableColumn("Output from rsync"  + " \(remotedatanumbers.outputfromrsync?.count ?? 0) lines") { data in
+                TableColumn("Output from rsync"  + ": \(remotedatanumbers.outputfromrsync?.count ?? 0) rows") { data in
                     Text(data.record)
                 }
             }
