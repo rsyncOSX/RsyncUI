@@ -11,7 +11,7 @@ struct SidebarLogsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     var body: some View {
-        ActorsLogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
+        LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
             .padding()
     }
 }

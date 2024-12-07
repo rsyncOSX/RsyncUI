@@ -1,5 +1,5 @@
 //
-//  ActorsLogsbyConfigurationView.swift
+//  LogsbyConfigurationView.swift
 //  RsyncOSXSwiftUI
 //
 //  Created by Thomas Evensen on 04/01/2021.
@@ -11,7 +11,7 @@ import SwiftUI
 import OSLog
 
 @MainActor
-struct ActorsLogsbyConfigurationView: View {
+struct LogsbyConfigurationView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     @State private var hiddenID = -1
@@ -124,7 +124,6 @@ struct ActorsLogsbyConfigurationView: View {
         .onChange(of: logrecords) {
             Task {
                 let actorreadlogs = ActorReadLogRecordsJSON()
-                
                 await logrecords =
                 actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
