@@ -11,7 +11,7 @@ import SSHCreateKey
 enum PushPullCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
     case pull_remote
     case push_local
-    
+
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
 }
@@ -25,7 +25,6 @@ struct PushPullCommandtoDisplay {
     {
         var str = ""
         switch display {
-        
         case .pull_remote:
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true, forDisplay: true) {
@@ -48,4 +47,3 @@ struct PushPullCommandtoDisplay {
 }
 
 // swiftlint:enable line_length opening_brace
-

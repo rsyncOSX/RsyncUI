@@ -71,16 +71,16 @@ struct OneTaskDetailsView: View {
         if selected.count == 1 {
             selectedconfig = selected[0]
         }
-        
+
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
             let suboutput = Array(stringoutputfromrsync[stringoutputfromrsync.count - 20 ..< stringoutputfromrsync.count])
             remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                                      config: selectedconfig)
+                                                  config: selectedconfig)
         } else {
             remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: selectedconfig)
         }
-        
+
         Task {
             remotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
         }

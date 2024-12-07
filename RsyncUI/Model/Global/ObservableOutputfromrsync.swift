@@ -16,4 +16,3 @@ struct RsyncOutputData: Identifiable, Equatable, Hashable {
 final class ObservableOutputfromrsync {
     var output: [RsyncOutputData]?
 }
-

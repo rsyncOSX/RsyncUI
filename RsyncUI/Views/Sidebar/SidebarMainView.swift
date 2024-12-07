@@ -135,7 +135,7 @@ struct SidebarMainView: View {
         rsyncnavigation.isEmpty == false ||
             executetasknavigation.isEmpty == false ||
             addtasknavigation.isEmpty == false ||
-        verifynavigation.isEmpty == false ||
+            verifynavigation.isEmpty == false ||
             SharedReference.shared.process != nil
     }
 }
@@ -170,12 +170,3 @@ struct SidebarRow: View {
     }
 }
 
-/*
- case .log_listings:
-      if let configurations = rsyncUIdata.configurations {
-                      SidebarLogsView(configurations: configurations,
-                                      profile: rsyncUIdata.profile)
-     } else {
-         DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("No log records yet.", comment: ""))
-     }
- */

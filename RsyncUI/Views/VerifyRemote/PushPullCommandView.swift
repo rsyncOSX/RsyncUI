@@ -48,7 +48,7 @@ struct PushPullCommandView: View {
     var commandstring: String? {
         if let config {
             return PushPullCommandtoDisplay(display: pushpullcommand,
-                                              config: config).command
+                                            config: config).command
         }
         return nil
     }

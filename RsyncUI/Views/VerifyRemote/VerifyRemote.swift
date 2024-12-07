@@ -21,11 +21,11 @@ struct VerifyTasks: Hashable, Identifiable {
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var verifynavigation: [VerifyTasks]
-    
+
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     @State private var showdetails: Bool = false
-    
+
     var body: some View {
         NavigationStack(path: $verifynavigation) {
             ListofTasksLightView(selecteduuids: $selectedconfiguuid,
@@ -58,7 +58,8 @@ struct VerifyRemote: View {
         }
         .toolbar(content: {
             if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
-                SharedReference.shared.rsyncversion3 {
+               SharedReference.shared.rsyncversion3
+            {
                 ToolbarItem {
                     Button {
                         verifynavigation.append(VerifyTasks(task: .verify))
@@ -69,9 +70,10 @@ struct VerifyRemote: View {
                     .help("Check remote")
                 }
             }
-            
+
             if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
-               SharedReference.shared.rsyncversion3 {
+               SharedReference.shared.rsyncversion3
+            {
                 ToolbarItem {
                     Button {
                         verifynavigation.append(VerifyTasks(task: .arguments))
@@ -81,7 +83,7 @@ struct VerifyRemote: View {
                     .help("Pull or push")
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     abort()
@@ -92,16 +94,16 @@ struct VerifyRemote: View {
             }
         })
     }
-    
+
     @MainActor @ViewBuilder
     func makeView(view: VerifyDestinationView) -> some View {
         switch view {
         case .verify:
             if let selectedconfig {
-                            OutputRsyncCheckeRemoteView(config: selectedconfig)
-                        }
+                RsyncCheckRemoteView(config: selectedconfig)
+            }
         case .arguments:
-            ArgumentsVerifyView(selectedconfig: $selectedconfig, profile: rsyncUIdata.profile)
+            PushPullView(selectedconfig: $selectedconfig, profile: rsyncUIdata.profile)
         }
     }
 

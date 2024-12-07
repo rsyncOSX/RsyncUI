@@ -69,15 +69,14 @@ final class EstimateTasks {
 
 extension EstimateTasks {
     func processtermination(stringoutputfromrsync: [String]?, hiddenID: Int?) {
-        var adjustedoutputfromrsync: Bool = false
+        var adjustedoutputfromrsync = false
         var suboutput: [String]?
-        
+
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
             adjustedoutputfromrsync = true
             suboutput = Array(stringoutputfromrsync[stringoutputfromrsync.count - 20 ..< stringoutputfromrsync.count])
-            
         }
-        
+
         if adjustedoutputfromrsync {
             var record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                            config: getconfig(hiddenID ?? -1))
@@ -104,7 +103,7 @@ extension EstimateTasks {
                 }
             }
         }
-        
+
         startestimation()
     }
 }

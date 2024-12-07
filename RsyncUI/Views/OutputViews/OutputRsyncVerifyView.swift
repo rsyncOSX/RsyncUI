@@ -54,18 +54,17 @@ struct OutputRsyncVerifyView: View {
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        
         progress = false
-        
+
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
             let suboutput = Array(stringoutputfromrsync[stringoutputfromrsync.count - 20 ..< stringoutputfromrsync.count])
             remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                                      config: config)
+                                                  config: config)
         } else {
             remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: config)
         }
-        
+
         Task {
             remotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
         }
@@ -79,10 +78,9 @@ struct OutputRsyncVerifyView: View {
 import OSLog
 
 actor CreateOutputforviewOutputRsync {
-    
-    func createoutputforviewoutputrsync (_ stringoutputfromrsync: [String]?)  async -> [RsyncOutputData] {
+    func createoutputforviewoutputrsync(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("createoutputforviewoutputrsync(): on main thread: \(Thread.isMain)")
-        
+
         if let data = stringoutputfromrsync {
             return data.map { line in
                 RsyncOutputData(record: line)
@@ -90,6 +88,4 @@ actor CreateOutputforviewOutputRsync {
         }
         return []
     }
-    
 }
-

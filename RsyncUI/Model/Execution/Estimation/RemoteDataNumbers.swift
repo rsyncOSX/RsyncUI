@@ -50,7 +50,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     init(stringoutputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
-        
         hiddenID = config?.hiddenID ?? -1
         task = config?.task ?? ""
         localCatalog = config?.localCatalog ?? ""

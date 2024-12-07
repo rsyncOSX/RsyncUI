@@ -1,5 +1,5 @@
 //
-//  OutputRsyncCheckeRemoteView.swift
+//  RsyncCheckRemoteView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 23/04/2024.
@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-struct OutputRsyncCheckeRemoteView: View {
+struct RsyncCheckRemoteView: View {
     @State private var progress = true
-    // Pull data fraom remote
+    // Pull data from remote
     @State private var pullremotedatanumbers: RemoteDataNumbers?
-    // Push data from local to remote
+    // Push data to remote
     @State private var pushremotedatanumbers: RemoteDataNumbers?
-    //
     @State private var pushVSremote = ObservableRemoteVSlocal()
 
     let config: SynchronizeConfiguration
@@ -90,7 +89,6 @@ struct OutputRsyncCheckeRemoteView: View {
     }
 
     func pullprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
             let suboutput = Array(stringoutputfromrsync[stringoutputfromrsync.count - 20 ..< stringoutputfromrsync.count])
             pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
@@ -99,7 +97,7 @@ struct OutputRsyncCheckeRemoteView: View {
             pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                       config: config)
         }
-        
+
         pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: config)
         Task {
