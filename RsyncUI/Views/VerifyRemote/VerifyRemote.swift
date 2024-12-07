@@ -57,7 +57,8 @@ struct VerifyRemote: View {
             selectedconfig = nil
         }
         .toolbar(content: {
-            if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false, SharedReference.shared.rsyncversion3 {
+            if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
+                SharedReference.shared.rsyncversion3 {
                 ToolbarItem {
                     Button {
                         verifynavigation.append(VerifyTasks(task: .verify))
@@ -68,7 +69,19 @@ struct VerifyRemote: View {
                     .help("Check remote")
                 }
             }
-
+            
+            if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
+               SharedReference.shared.rsyncversion3 {
+                ToolbarItem {
+                    Button {
+                        verifynavigation.append(VerifyTasks(task: .arguments))
+                    } label: {
+                        Image(systemName: "arrowshape.turn.up.forward")
+                    }
+                    .help("Pull or push")
+                }
+            }
+            
             ToolbarItem {
                 Button {
                     abort()
@@ -88,7 +101,7 @@ struct VerifyRemote: View {
                             OutputRsyncCheckeRemoteView(config: selectedconfig)
                         }
         case .arguments:
-            ArgumentsView(rsyncUIdata: rsyncUIdata)
+            ArgumentsVerifyView(rsyncUIdata: rsyncUIdata)
         }
     }
 
