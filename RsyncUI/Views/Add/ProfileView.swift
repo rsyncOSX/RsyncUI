@@ -79,7 +79,6 @@ struct ProfileView: View {
     var allprofiles: [String]? {
         Homepath().getfullpathmacserialcatalogsasstringnames()
     }
-
 }
 
 extension ProfileView {

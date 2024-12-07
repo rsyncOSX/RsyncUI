@@ -234,13 +234,9 @@ extension RestoreTableView {
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         gettingfilelist = false
         restore.restorefilelist.removeAll()
-        if let stringoutputfromrsync {
-            // let trimmeddata = TrimOutputForRestore(stringoutputfromrsync).trimmeddata?.filter { filterstring.isEmpty ? true : $0.contains(filterstring) }
-            if let trimmeddata = TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
-                restore.restorefilelist = trimmeddata.map { filename in
-                    RsyncOutputData(record: filename)
-                }
-            }
+        Task {
+            restore.restorefilelist = await
+                CreateOutputforviewRestorefiles().createaoutputforview(stringoutputfromrsync)
         }
     }
 
@@ -300,3 +296,19 @@ extension RestoreTableView {
 }
 
 // swiftlint:enable line_length
+
+import OSLog
+
+actor CreateOutputforviewRestorefiles {
+    func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+        Logger.process.info("createaoutputforview(): on main thread: \(Thread.isMain)")
+        if let stringoutputfromrsync {
+            if let trimmeddata = await TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
+                return trimmeddata.map { filename in
+                    RsyncOutputData(record: filename)
+                }
+            }
+        }
+        return []
+    }
+}

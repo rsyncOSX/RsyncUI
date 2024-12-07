@@ -45,7 +45,7 @@ actor ActorReadLogRecordsJSON {
         }
         return nil
     }
-    
+
     func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
         Logger.process.info("updatelogsbyhiddenID(): on main thread: \(Thread.isMain)")
         if let logrecords {
@@ -69,7 +69,7 @@ actor ActorReadLogRecordsJSON {
         return nil
     }
 
-    func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String,_ hiddenID: Int) async -> [Log]? {
+    func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String, _ hiddenID: Int) async -> [Log]? {
         Logger.process.info("updatelogsbyfilter(): on main thread: \(Thread.isMain)")
         guard filterstring != "" else { return nil }
         if let logrecords {
@@ -95,7 +95,7 @@ actor ActorReadLogRecordsJSON {
         }
         return nil
     }
-    
+
     deinit {
         Logger.process.info("ActorReadLogRecordsJSON: deinit")
     }

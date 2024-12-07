@@ -7,8 +7,8 @@
 //
 // swiftlint: disable line_length
 
-import SwiftUI
 import OSLog
+import SwiftUI
 
 @MainActor
 struct LogsbyConfigurationView: View {
@@ -89,7 +89,7 @@ struct LogsbyConfigurationView: View {
             Task {
                 let actorreadlogs = ActorReadLogRecordsJSON()
                 await logrecords =
-                actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
@@ -99,7 +99,6 @@ struct LogsbyConfigurationView: View {
                 try await Task.sleep(seconds: 1)
                 showindebounce = false
                 if filterstring.isEmpty == false {
-                    
                     Task {
                         let actorreadlogs = ActorReadLogRecordsJSON()
                         logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
@@ -115,9 +114,9 @@ struct LogsbyConfigurationView: View {
         .onChange(of: rsyncUIdata.profile) {
             Task {
                 let actorreadlogs = ActorReadLogRecordsJSON()
-                
+
                 await logrecords =
-                actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
@@ -125,7 +124,7 @@ struct LogsbyConfigurationView: View {
             Task {
                 let actorreadlogs = ActorReadLogRecordsJSON()
                 await logrecords =
-                actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
