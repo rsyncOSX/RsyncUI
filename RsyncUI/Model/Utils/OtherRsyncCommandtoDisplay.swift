@@ -11,8 +11,6 @@ import Foundation
 import SSHCreateKey
 
 enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case pull_remote
-    case push_local
     case list_remote_files
     case create_public_SSHkey
     case copy_public_SSHkey
@@ -65,22 +63,6 @@ struct OtherRsyncCommandtoDisplay {
                 str = createsshkeys.argumentssshcopyid(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
             } else {
                 str = NSLocalizedString("No remote server on task", comment: "")
-            }
-        case .pull_remote:
-            if config.offsiteServer.isEmpty == false {
-                if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true, forDisplay: true) {
-                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
-                }
-            } else {
-                str = NSLocalizedString("Use macOS Finder", comment: "")
-            }
-        case .push_local:
-            if config.offsiteServer.isEmpty == false {
-                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true, forDisplay: true) {
-                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
-                }
-            } else {
-                str = NSLocalizedString("Use macOS Finder", comment: "")
             }
         case .remote_disk_usage:
             if config.offsiteServer.isEmpty == false {

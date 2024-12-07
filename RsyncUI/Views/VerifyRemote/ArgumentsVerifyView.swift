@@ -10,7 +10,7 @@ import SwiftUI
 struct ArgumentsVerifyView: View {
     @Binding var selectedconfig: SynchronizeConfiguration?
 
-    @State private var otherselectedrsynccommand = OtherRsyncCommand.push_local
+    @State private var pushpullcommand = PushPullCommand.push_local
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var configurations = [SynchronizeConfiguration]()
     
@@ -25,7 +25,7 @@ struct ArgumentsVerifyView: View {
                 
             Spacer()
 
-            OtherRsyncCommandsView(config: $selectedconfig, otherselectedrsynccommand: $otherselectedrsynccommand)
+            PushPullCommandView(config: $selectedconfig, pushpullcommand: $pushpullcommand)
                 .disabled(selectedconfig == nil)
         }
         .onAppear(perform: {
