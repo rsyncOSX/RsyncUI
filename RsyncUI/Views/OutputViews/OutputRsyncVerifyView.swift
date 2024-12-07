@@ -54,9 +54,18 @@ struct OutputRsyncVerifyView: View {
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+        
         progress = false
-        remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                              config: config)
+        
+        if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
+            let suboutput = Array(stringoutputfromrsync[stringoutputfromrsync.count - 20 ..< stringoutputfromrsync.count])
+            remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
+                                                      config: config)
+        } else {
+            remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
+                                                  config: config)
+        }
+        
         Task {
             remotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
         }
