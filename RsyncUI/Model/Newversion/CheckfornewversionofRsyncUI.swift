@@ -30,11 +30,14 @@ struct VersionsofRsyncUI: Codable {
 final class CheckfornewversionofRsyncUI {
     var notifynewversion: Bool = false
     var downloadavaliable: Bool = false
+}
 
-    func getversionsofrsyncui() async {
+actor Getversionofrsync {
+    
+    func getversionsofrsyncui() async -> Bool {
         do {
             Logger.process.info("getversionsofrsyncui(): on main thread: \(Thread.isMain)")
-            let versions = DecodeGeneric()
+            let versions = await DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,
                                                    fromwhere: Resources().getResource(resource: .urlJSON))
@@ -43,16 +46,33 @@ final class CheckfornewversionofRsyncUI {
                 let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
                 let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
                 if check.count > 0 {
-                    notifynewversion = true
-                    SharedReference.shared.URLnewVersion = check[0].url
+                    return  true
+                    // SharedReference.shared.URLnewVersion = check[0].url
                 } else {
-                    notifynewversion = false
+                    return false
                 }
-                downloadavaliable = notifynewversion
             }
         } catch {
             Logger.process.warning("CheckfornewversionofRsyncUI: loading data failed)")
-            notifynewversion = false
+            return false
         }
+        return false
+    }
+    
+    func downloadlinkofrsyncui() async throws -> String? {
+        let versions = await DecodeGeneric()
+        if let versionsofrsyncui =
+            try await versions.decodearraydata(VersionsofRsyncUI.self,
+                                               fromwhere: Resources().getResource(resource: .urlJSON))
+        {
+            let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+            let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
+            if check.count > 0 {
+                return  check[0].url
+            } else {
+                return nil
+            }
+        }
+        return nil
     }
 }

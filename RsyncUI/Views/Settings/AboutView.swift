@@ -86,7 +86,8 @@ struct AboutView: View {
             }
         }
         .task {
-            await newversion.getversionsofrsyncui()
+            newversion.notifynewversion = await Getversionofrsync().getversionsofrsyncui()
+            SharedReference.shared.newversion  = newversion.notifynewversion
         }
         .formStyle(.grouped)
     }
