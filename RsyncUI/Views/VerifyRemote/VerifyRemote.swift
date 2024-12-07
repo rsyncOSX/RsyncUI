@@ -8,15 +8,28 @@
 import OSLog
 import SwiftUI
 
+enum VerifyDestinationView: String, Identifiable {
+    case verify, arguments
+    var id: String { rawValue }
+}
+
+struct VerifyTasks: Hashable, Identifiable {
+    let id = UUID()
+    var task: VerifyDestinationView
+}
+
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-
+    
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     @State private var showdetails: Bool = false
+    
+    // Navigation
+    @State var verifynavigation: [VerifyTasks] = []
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $verifynavigation) {
             ListofTasksLightView(selecteduuids: $selectedconfiguuid,
                                  profile: rsyncUIdata.profile,
                                  configurations: configurations)
@@ -39,10 +52,8 @@ struct VerifyRemote: View {
                 }
         }
         .navigationTitle("Verify remote")
-        .navigationDestination(isPresented: $showdetails) {
-            if let selectedconfig {
-                OutputRsyncCheckeRemoteView(config: selectedconfig)
-            }
+        .navigationDestination(for: VerifyTasks.self) { which in
+            makeView(view: which.task)
         }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil
@@ -51,7 +62,7 @@ struct VerifyRemote: View {
             if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false, SharedReference.shared.rsyncversion3 {
                 ToolbarItem {
                     Button {
-                        showdetails = true
+                        verifynavigation.append(VerifyTasks(task: .verify))
                     } label: {
                         Image(systemName: "play.fill")
                             .foregroundColor(.blue)
@@ -69,6 +80,18 @@ struct VerifyRemote: View {
                 .help("Abort (⌘K)")
             }
         })
+    }
+    
+    @MainActor @ViewBuilder
+    func makeView(view: VerifyDestinationView) -> some View {
+        switch view {
+        case .verify:
+            if let selectedconfig {
+                            OutputRsyncCheckeRemoteView(config: selectedconfig)
+                        }
+        case .arguments:
+            ArgumentsView(rsyncUIdata: rsyncUIdata)
+        }
     }
 
     func abort() {
