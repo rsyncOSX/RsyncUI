@@ -12,6 +12,7 @@ import Observation
 @Observable
 final class SharedReference {
     @MainActor static let shared = SharedReference()
+    
     private init() {}
 
     // Version 3.x of rsync
@@ -38,8 +39,6 @@ final class SharedReference {
     // Confirm execution
     // A safety rule
     @ObservationIgnored var confirmexecute: Bool = false
-    // Download URL if new version is avaliable
-    @ObservationIgnored var URLnewVersion: String?
     // Duplicatecheck
     @ObservationIgnored var duplicatecheck: Bool = true
     // new version, used if test
