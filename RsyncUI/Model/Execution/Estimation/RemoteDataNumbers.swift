@@ -50,6 +50,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     init(stringoutputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
+        
         let generatedoutputfromrsync = ObservableOutputfromrsync()
         generatedoutputfromrsync.generateoutput(stringoutputfromrsync)
         outputfromrsync = generatedoutputfromrsync.output
