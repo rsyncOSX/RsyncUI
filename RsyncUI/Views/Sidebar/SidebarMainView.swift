@@ -49,7 +49,7 @@ struct SidebarMainView: View {
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
 
-            if newversion.notifynewversion || SharedReference.shared.newversion {
+            if SharedReference.shared.newversion {
                 MessageView(mytext: "There is a new version\navailable for download", size: .caption2)
             }
 

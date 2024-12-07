@@ -9,6 +9,9 @@ import SwiftUI
 
 struct AboutView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
+    @State private var stringurldownload: String?
+    @State private var newversionavailable: Bool = false
+    @State private var urlstring = ""
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
     let norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "")
@@ -70,7 +73,7 @@ struct AboutView: View {
                 Text("Changelog")
             }
 
-            if newversion.notifynewversion || SharedReference.shared.newversion {
+            if SharedReference.shared.newversion {
                 Section {
                     Button {
                         opendownload()
@@ -86,8 +89,8 @@ struct AboutView: View {
             }
         }
         .task {
-            newversion.notifynewversion = await Getversionofrsync().getversionsofrsyncui()
-            SharedReference.shared.newversion  = newversion.notifynewversion
+            urlstring = await Getversionofrsync().downloadlinkofrsyncui() ?? ""
+            
         }
         .formStyle(.grouped)
     }
@@ -125,8 +128,8 @@ extension AboutView {
     }
 
     func opendownload() {
-        if let url = SharedReference.shared.URLnewVersion {
-            NSWorkspace.shared.open(URL(string: url)!)
+        if urlstring.isEmpty == false {
+            NSWorkspace.shared.open(URL(string: urlstring)!)
         }
     }
 }

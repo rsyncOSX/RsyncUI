@@ -47,7 +47,6 @@ actor Getversionofrsync {
                 let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
                 if check.count > 0 {
                     return  true
-                    // SharedReference.shared.URLnewVersion = check[0].url
                 } else {
                     return false
                 }
@@ -59,20 +58,29 @@ actor Getversionofrsync {
         return false
     }
     
-    func downloadlinkofrsyncui() async throws -> String? {
-        let versions = await DecodeGeneric()
-        if let versionsofrsyncui =
-            try await versions.decodearraydata(VersionsofRsyncUI.self,
-                                               fromwhere: Resources().getResource(resource: .urlJSON))
-        {
-            let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-            let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
-            if check.count > 0 {
-                return  check[0].url
-            } else {
-                return nil
+    func downloadlinkofrsyncui() async -> String? {
+        do {
+            Logger.process.info("downloadlinkofrsyncui(): on main thread: \(Thread.isMain)")
+            let versions = await DecodeGeneric()
+            if let versionsofrsyncui =
+                try await versions.decodearraydata(VersionsofRsyncUI.self,
+                                                   fromwhere: Resources().getResource(resource: .urlJSON))
+            {
+                Logger.process.info("CheckfornewversionofRsyncUI: \(versionsofrsyncui, privacy: .public)")
+                let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+                let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
+                if check.count > 0 {
+                    return check[0].url
+                } else {
+                    return nil
+                }
             }
+        } catch {
+            Logger.process.warning("CheckfornewversionofRsyncUI: loading data failed)")
+            return nil
         }
         return nil
     }
 }
+
+// return  check[0].url
