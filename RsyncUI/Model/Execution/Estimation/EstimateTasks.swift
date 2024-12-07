@@ -74,13 +74,13 @@ extension EstimateTasks {
         Task {
             record.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
             localestimateprogressdetails?.appendrecordestimatedlist(record)
-        }
-        
-        if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
-            if let config = getconfig(hiddenID ?? -1) {
-                localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+            if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
+                if let config = getconfig(hiddenID ?? -1) {
+                    localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                }
             }
         }
+        
         startestimation()
     }
 }

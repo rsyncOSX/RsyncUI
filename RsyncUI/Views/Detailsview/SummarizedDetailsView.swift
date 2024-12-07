@@ -33,7 +33,7 @@ struct SummarizedDetailsView: View {
                                              configurations: configurations)
 
                 } else {
-                    Table(estimateprogressdetails.getestimatedlist() ?? [],
+                    Table(estimateprogressdetails.estimatedlist ?? [],
                           selection: $selecteduuids)
                     {
                         TableColumn("Synchronize ID") { data in
@@ -70,7 +70,7 @@ struct SummarizedDetailsView: View {
                         .width(max: 60)
                     }
 
-                    Table(estimateprogressdetails.getestimatedlist() ?? [],
+                    Table(estimateprogressdetails.estimatedlist ?? [],
                           selection: $selecteduuids)
                     {
                         TableColumn("New") { files in
@@ -148,6 +148,7 @@ struct SummarizedDetailsView: View {
                             Button {
                                 isPresentingConfirm = estimateprogressdetails.confirmexecutetasks()
                                 if isPresentingConfirm == false {
+                                    executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                                     path.removeAll()
                                     path.append(Tasks(task: .executestimatedview))
                                 }
@@ -160,6 +161,7 @@ struct SummarizedDetailsView: View {
                                                 isPresented: $isPresentingConfirm)
                             {
                                 Button("Synchronize", role: .destructive) {
+                                    executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                                     path.removeAll()
                                     path.append(Tasks(task: .executestimatedview))
                                 }
@@ -168,6 +170,7 @@ struct SummarizedDetailsView: View {
                     } else {
                         ToolbarItem {
                             Button {
+                                executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                                 path.removeAll()
                                 path.append(Tasks(task: .executestimatedview))
                             } label: {

@@ -68,7 +68,7 @@ struct SidebarTasksView: View {
                                       configurations: configurations,
                                       profile: rsyncUIdata.profile)
                     .onDisappear {
-                        executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
+                        executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                     }
             }
         case .onetaskdetailsview:
@@ -78,11 +78,11 @@ struct SidebarTasksView: View {
                                    selecteduuids: selecteduuids,
                                    configurations: configurations)
                     .onDisappear {
-                        executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
+                        executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                     }
             }
         case .dryrunonetaskalreadyestimated:
-            if let estimates = estimateprogressdetails.getestimatedlist()?.filter({ $0.id == selecteduuids.first }) {
+            if let estimates = estimateprogressdetails.estimatedlist?.filter({ $0.id == selecteduuids.first }) {
                 if estimates.count == 1 {
                     DetailsView(remotedatanumbers: estimates[0])
                         .onDisappear(perform: {

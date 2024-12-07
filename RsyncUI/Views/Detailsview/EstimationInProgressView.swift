@@ -49,9 +49,9 @@ struct EstimationInProgressView: View {
                 estimate.startestimation()
             }
             .onDisappear {
-                executeprogressdetails.estimatedlist = nil
-                executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
-                nodatatosynchronize = if let data = estimateprogressdetails.getestimatedlist()?.filter({
+                // executeprogressdetails.estimatedlist = nil
+                // executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
+                nodatatosynchronize = if let data = estimateprogressdetails.estimatedlist?.filter({
                     $0.datatosynchronize == true })
                 {
                     data.isEmpty

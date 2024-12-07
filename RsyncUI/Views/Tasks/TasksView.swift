@@ -262,12 +262,12 @@ struct TasksView: View {
 extension TasksView {
     func doubleclickactionfunction() {
         guard SharedReference.shared.norsync == false else { return }
-        if estimateprogressdetails.getestimatedlist() == nil {
+        if estimateprogressdetails.estimatedlist == nil {
             dryrun()
         } else if estimateprogressdetails.onlyselectedtaskisestimated(selecteduuids) {
             // Only execute task if this task only is estimated
             Logger.process.info("Doubleclick: execute a real run for one task only")
-            executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
+            executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
             execute()
         } else {
             dryrun()
@@ -276,7 +276,7 @@ extension TasksView {
 
     func dryrun() {
         if selectedconfig.config != nil,
-           estimateprogressdetails.getestimatedlist()?.count ?? 0 == 0
+           estimateprogressdetails.estimatedlist?.count ?? 0 == 0
         {
             Logger.process.info("DryRun: execute a dryrun for one task only")
             doubleclick = false
