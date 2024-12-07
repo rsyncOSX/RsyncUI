@@ -92,6 +92,9 @@ struct OutputRsyncCheckeRemoteView: View {
     func pullprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: config)
+        Task {
+            pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+        }
         // Then do a normal synchronize task
         pushremote(config: config)
     }
@@ -101,6 +104,9 @@ struct OutputRsyncCheckeRemoteView: View {
         progress = false
         pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: config)
+        Task {
+            pushremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+        }
     }
 
     func abort() {

@@ -73,6 +73,9 @@ struct OneTaskDetailsView: View {
         }
         remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                               config: selectedconfig)
+        Task {
+            remotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+        }
         if let remotedatanumbers {
             estimateprogressdetails.appendrecordestimatedlist(remotedatanumbers)
         }
