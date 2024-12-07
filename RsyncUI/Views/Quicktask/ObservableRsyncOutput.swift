@@ -13,6 +13,7 @@ final class ObservableRsyncOutput {
 }
 
 actor CreateOutputforview {
+    
     func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { filename in

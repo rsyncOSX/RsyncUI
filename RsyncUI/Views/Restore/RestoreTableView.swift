@@ -300,6 +300,7 @@ extension RestoreTableView {
 import OSLog
 
 actor CreateOutputforviewRestorefiles {
+    
     func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("createaoutputforview(): on main thread: \(Thread.isMain)")
         if let stringoutputfromrsync {

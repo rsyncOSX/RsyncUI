@@ -54,3 +54,27 @@ enum OutputIsTruncated: LocalizedError {
         }
     }
 }
+
+import OSLog
+
+actor CreateOutputforviewOutputRsync {
+    
+    let maxcount = 40000
+
+    func createoutputforviewoutputrsync (_ stringoutputfromrsync: [String]?)  async -> [RsyncOutputData] {
+        Logger.process.info("createoutputforviewoutputrsync(): on main thread: \(Thread.isMain)")
+
+        if let data = stringoutputfromrsync, data.count < maxcount {
+            return data.map { line in
+                RsyncOutputData(record: line)
+            }
+        } else if let data = stringoutputfromrsync {
+            let suboutput = Array(data[0 ..< maxcount]) + Array(data[data.count - 20 ..< data.count])
+            return  suboutput.map { line in
+                RsyncOutputData(record: line)
+            }
+        }
+        return []
+    }
+    
+}
