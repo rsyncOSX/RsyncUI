@@ -20,14 +20,12 @@ struct VerifyTasks: Hashable, Identifiable {
 
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var verifynavigation: [VerifyTasks]
     
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     @State private var showdetails: Bool = false
     
-    // Navigation
-    @State var verifynavigation: [VerifyTasks] = []
-
     var body: some View {
         NavigationStack(path: $verifynavigation) {
             ListofTasksLightView(selecteduuids: $selectedconfiguuid,
