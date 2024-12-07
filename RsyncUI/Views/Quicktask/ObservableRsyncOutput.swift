@@ -6,6 +6,7 @@
 //
 
 import Observation
+import OSLog
 
 @Observable
 final class ObservableRsyncOutput {
@@ -15,6 +16,7 @@ final class ObservableRsyncOutput {
 actor CreateOutputforview {
     
     func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+        Logger.process.info("createaoutputforview(): on main thread: \(Thread.isMain)")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { filename in
                 RsyncOutputData(record: filename)

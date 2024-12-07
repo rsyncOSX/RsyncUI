@@ -65,9 +65,12 @@ final class Logfileview: PropogateError {
     var output: [LogfileRecords]?
 }
 
+import OSLog
+
 actor GenerateLogfileforview {
     
     func generatedata() async -> [LogfileRecords] {
+        Logger.process.info("generatedata(): on main thread: \(Thread.isMain)")
         let data = await Logfile(false).getlogfile()
         return  data.map { record in
             LogfileRecords(line: record)
