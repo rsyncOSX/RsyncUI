@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct AboutView: View {
-    @State private var newversion = CheckfornewversionofRsyncUI()
-    @State private var stringurldownload: String?
-    @State private var newversionavailable: Bool = false
+    
     @State private var urlstring = ""
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
@@ -90,7 +88,6 @@ struct AboutView: View {
         }
         .task {
             urlstring = await Getversionofrsync().downloadlinkofrsyncui() ?? ""
-            
         }
         .formStyle(.grouped)
     }

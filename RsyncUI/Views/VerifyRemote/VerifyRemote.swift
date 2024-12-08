@@ -24,7 +24,6 @@ struct VerifyRemote: View {
 
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
-    @State private var showdetails: Bool = false
 
     var body: some View {
         NavigationStack(path: $verifynavigation) {
