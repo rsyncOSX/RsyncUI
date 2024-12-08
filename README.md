@@ -29,7 +29,7 @@ It might take a few seconds. If not, RsyncUI might become unresponsive.
 | ----------- |   -------- | -------- |
 | RsyncUI     | SwiftUI, declarativ     | v2.2.1 - [30 November 2024](https://github.com/rsyncOSX/RsyncUI/releases) - **maintained** and in **active development**|
 
-The [user guide](https://rsyncui.netlify.app/docs/) and the [changelog](https://rsyncui.netlify.app/blog/)
+The [user guide](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/)
 
 ![](images/rsyncui.png)
 
