@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-struct CatalogForProfile: PropogateError {
+struct CatalogForProfile {
     let path = Homepath()
 
     func createprofilecatalog(_ profile: String) {
@@ -31,7 +31,7 @@ struct CatalogForProfile: PropogateError {
                 Logger.process.info("CatalogProfile: creating profile catalog")
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                path.propogateerror(error: error)
                 return
             }
         }
@@ -54,7 +54,7 @@ struct CatalogForProfile: PropogateError {
                 Logger.process.info("CatalogProfile: deleted profile catalog")
             } catch let e {
                 let error = e as NSError
-                self.path.propogateerror(error: error)
+                path.propogateerror(error: error)
             }
         }
     }
@@ -75,7 +75,7 @@ struct CatalogForProfile: PropogateError {
                 Logger.process.info("CatalogProfile: deleted quicktask.json file")
             } catch let e {
                 let error = e as NSError
-                self.path.propogateerror(error: error)
+                path.propogateerror(error: error)
             }
         }
     }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AboutView: View {
-    
     @State private var urlstring = ""
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")

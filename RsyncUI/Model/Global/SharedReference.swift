@@ -12,7 +12,7 @@ import Observation
 @Observable
 final class SharedReference {
     @MainActor static let shared = SharedReference()
-    
+
     private init() {}
 
     // Version 3.x of rsync

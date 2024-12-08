@@ -33,7 +33,6 @@ final class CheckfornewversionofRsyncUI {
 }
 
 actor Getversionofrsync {
-    
     func getversionsofrsyncui() async -> Bool {
         do {
             Logger.process.info("getversionsofrsyncui(): on main thread: \(Thread.isMain)")
@@ -46,7 +45,7 @@ actor Getversionofrsync {
                 let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
                 let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
                 if check.count > 0 {
-                    return  true
+                    return true
                 } else {
                     return false
                 }
@@ -57,7 +56,7 @@ actor Getversionofrsync {
         }
         return false
     }
-    
+
     func downloadlinkofrsyncui() async -> String? {
         do {
             Logger.process.info("downloadlinkofrsyncui(): on main thread: \(Thread.isMain)")

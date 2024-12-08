@@ -10,9 +10,11 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-final class WriteSynchronizeConfigurationJSON: PropogateError {
+@MainActor
+final class WriteSynchronizeConfigurationJSON {
+    let path = Homepath()
+
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
-        let path = Homepath()
         let localprofile: String? = if profile == SharedReference.shared.defaultprofile {
             nil
         } else {
@@ -49,7 +51,7 @@ final class WriteSynchronizeConfigurationJSON: PropogateError {
             }
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            path.propogateerror(error: error)
         }
     }
 

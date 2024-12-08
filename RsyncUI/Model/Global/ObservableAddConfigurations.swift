@@ -10,7 +10,7 @@ import Foundation
 import Observation
 
 @Observable @MainActor
-final class ObservableAddConfigurations: PropogateError {
+final class ObservableAddConfigurations {
     var localcatalog: String = ""
     var remotecatalog: String = ""
     var donotaddtrailingslash: Bool = false

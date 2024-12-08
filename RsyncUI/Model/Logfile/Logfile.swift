@@ -21,7 +21,7 @@ enum FilesizeError: LocalizedError {
 }
 
 @MainActor
-final class Logfile: PropogateError {
+final class Logfile {
     private var logfile: String?
     let path = Homepath()
 
@@ -51,12 +51,12 @@ final class Logfile: PropogateError {
                                 }
                                 return
                             case let .failure(error):
-                                self?.propogateerror(error: error)
+                                self?.path.propogateerror(error: error)
                             }
                         }
                     } catch let e {
                         let error = e
-                        propogateerror(error: error)
+                        path.propogateerror(error: error)
                     }
                 }
             }
@@ -79,7 +79,7 @@ final class Logfile: PropogateError {
                 }
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                path.propogateerror(error: error)
             }
         }
     }
@@ -98,7 +98,7 @@ final class Logfile: PropogateError {
                 logfile = String(data: data, encoding: .utf8)
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                path.propogateerror(error: error)
             }
         }
     }

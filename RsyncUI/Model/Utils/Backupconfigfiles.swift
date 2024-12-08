@@ -11,7 +11,8 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class Backupconfigfiles: PropogateError {
+final class Backupconfigfiles {
+    let homepath = Homepath()
     var fullpathnomacserial: String?
     var backuppath: String?
 
@@ -28,13 +29,12 @@ final class Backupconfigfiles: PropogateError {
                 try fm.copyItem(at: fullpathnomacserialURL, to: documentsbackuppathURL)
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                homepath.propogateerror(error: error)
             }
         }
     }
 
     init() {
-        let homepath = Homepath()
         fullpathnomacserial = homepath.fullpathnomacserial
         backuppath = homepath.documentscatalog
         backup()

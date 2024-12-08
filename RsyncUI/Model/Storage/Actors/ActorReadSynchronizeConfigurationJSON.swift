@@ -14,8 +14,9 @@ actor ActorReadSynchronizeConfigurationJSON {
     typealias TypeServerPort = (String, Int)
 
     func verifyremoteconnection(configurations: [SynchronizeConfiguration]?, sharedsshport: Int?) async {
-        let reporterror =  ReportError()
+        let reporterror = ReportError()
         var checkedserverandport = [TypeServerPort]()
+
         if let networkscheck = configurations?.filter({ task in
             task.offsiteServer.isEmpty == false
         }) {
@@ -96,12 +97,7 @@ actor ActorReadSynchronizeConfigurationJSON {
     }
 }
 
-
 @MainActor
-struct ReportError: PropogateError {
-    
-}
+struct ReportError: PropogateError {}
 
 // swiftlint:enable line_length
-
-

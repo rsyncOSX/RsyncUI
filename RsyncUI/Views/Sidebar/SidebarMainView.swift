@@ -68,7 +68,7 @@ struct SidebarMainView: View {
         .onAppear {
             Task {
                 newversion.notifynewversion = await Getversionofrsync().getversionsofrsyncui()
-                SharedReference.shared.newversion  = newversion.notifynewversion
+                SharedReference.shared.newversion = newversion.notifynewversion
             }
         }
     }
@@ -170,4 +170,3 @@ struct SidebarRow: View {
         }
     }
 }
-
