@@ -14,6 +14,7 @@ actor ActorReadSynchronizeConfigurationJSON {
     typealias TypeServerPort = (String, Int)
 
     func verifyremoteconnection(configurations: [SynchronizeConfiguration]?, sharedsshport: Int?) async {
+        let reporterror =  ReportError()
         var checkedserverandport = [TypeServerPort]()
         if let networkscheck = configurations?.filter({ task in
             task.offsiteServer.isEmpty == false
@@ -36,9 +37,11 @@ actor ActorReadSynchronizeConfigurationJSON {
                         _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
                     }
 
-                } catch {
+                } catch let e {
                     let server = config.offsiteServer
                     Logger.process.info("ActorReadSynchronizeConfigurationJSON: some ERROR checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
+                    let error = e
+                    await reporterror.propogateerror(error: error)
                 }
             }
         }
@@ -93,4 +96,12 @@ actor ActorReadSynchronizeConfigurationJSON {
     }
 }
 
+
+@MainActor
+struct ReportError: PropogateError {
+    
+}
+
 // swiftlint:enable line_length
+
+
