@@ -78,6 +78,7 @@ struct VerifyRemote: View {
                         verifynavigation.append(VerifyTasks(task: .arguments))
                     } label: {
                         Image(systemName: "arrowshape.turn.up.forward")
+                            .foregroundColor(.blue)
                     }
                     .help("Pull or push")
                 }
