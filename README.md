@@ -1,6 +1,6 @@
 ## Hi there 👋
 
-Please be aware of the main repository is commited with the *latest development* the main repository. There might be
+Please be aware of the main repository is commited with the *latest development*. There might be
 some not yet known issues in code. Stable code might be downloaded from the latest release.
 
 RsyncUI is a GUI on the Apple macOS platform for the command line tool [rsync](https://github.com/WayneD/rsync). It is `rsync` which executes
