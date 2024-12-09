@@ -236,7 +236,7 @@ extension RestoreTableView {
         restore.restorefilelist.removeAll()
         Task {
             restore.restorefilelist = await
-                CreateOutputforviewRestorefiles().createaoutputforview(stringoutputfromrsync)
+                CreateOutputforviewRestorefiles().createoutputforview(stringoutputfromrsync)
         }
     }
 
@@ -300,13 +300,25 @@ extension RestoreTableView {
 import OSLog
 
 actor CreateOutputforviewRestorefiles {
-    func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        Logger.process.info("createaoutputforview(): on main thread: \(Thread.isMain)")
+    // Show filelist for Restore, the TrimOutputForRestore prepares list
+    func createoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+        Logger.process.info("createoutputforview(): on main thread: \(Thread.isMain)")
         if let stringoutputfromrsync {
             if let trimmeddata = await TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
                 return trimmeddata.map { filename in
                     RsyncOutputData(record: filename)
                 }
+            }
+        }
+        return []
+    }
+    
+    // After a restore, present files
+    func createrestoredfilesoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+        Logger.process.info("createrestoredfilesoutputforview(): on main thread: \(Thread.isMain)")
+        if let stringoutputfromrsync {
+            return stringoutputfromrsync.map { filename in
+                RsyncOutputData(record: filename)
             }
         }
         return []

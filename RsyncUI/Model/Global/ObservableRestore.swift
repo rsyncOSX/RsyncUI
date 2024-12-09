@@ -24,7 +24,7 @@ final class ObservableRestore: PropogateError {
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         Task {
             restorefilelist = await
-                CreateOutputforviewRestorefiles().createaoutputforview(stringoutputfromrsync)
+                CreateOutputforviewRestorefiles().createrestoredfilesoutputforview(stringoutputfromrsync)
         }
         restorefilesinprogress = false
         presentrestorelist = true
