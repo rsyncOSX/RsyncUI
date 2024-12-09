@@ -67,6 +67,7 @@ final class ObservableRsyncPathSetting: PropogateError {
         let fm = FileManager.default
         if fm.fileExists(atPath: path, isDirectory: nil) == false {
             throw Validatedpath.nopath
+            
         }
         return true
     }
@@ -99,12 +100,15 @@ final class ObservableRsyncPathSetting: PropogateError {
 
 enum Validatedpath: LocalizedError {
     case nopath
+    case notemporaryrestorepath
     // case noerror
 
     var errorDescription: String? {
         switch self {
         case .nopath:
             "No such path"
+        case .notemporaryrestorepath:
+            "No temporary restore path\nSet temporary restore path in Settings"
         }
     }
 }

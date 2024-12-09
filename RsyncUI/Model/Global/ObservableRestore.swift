@@ -22,10 +22,9 @@ final class ObservableRestore: PropogateError {
     var selectedconfig: SynchronizeConfiguration?
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        if let data = stringoutputfromrsync {
-            restorefilelist = data.map { filename in
-                RsyncOutputData(record: filename)
-            }
+        Task {
+            restorefilelist = await
+                CreateOutputforviewRestorefiles().createaoutputforview(stringoutputfromrsync)
         }
         restorefilesinprogress = false
         presentrestorelist = true
@@ -49,7 +48,7 @@ final class ObservableRestore: PropogateError {
     private func validatepath(_ path: String) throws -> Bool {
         let fm = FileManager.default
         if fm.fileExists(atPath: path, isDirectory: nil) == false {
-            throw Validatedpath.nopath
+            throw Validatedpath.notemporaryrestorepath
         }
         return true
     }
