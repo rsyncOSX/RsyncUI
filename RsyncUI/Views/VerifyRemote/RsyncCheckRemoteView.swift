@@ -43,13 +43,13 @@ struct RsyncCheckRemoteView: View {
                                                         pushremotedatanumbers: pushremotedatanumbers)
                 {
                 case .remotemoredata:
-                    MessageView(mytext: "Seems to be more data in remote VS local, a PULL from remote MAY be next action.", size: .title3)
+                    MessageView(mytext: "It seems that REMOTE is more updated than LOCAL. A PULL may be next.", size: .title3)
                 case .localmoredata:
-                    MessageView(mytext: "Seems to be more data in local VS remote, a SYNCHRONIZE MAY be next action.", size: .title3)
+                    MessageView(mytext: "It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", size: .title3)
                 case .evenamountadata:
-                    MessageView(mytext: "Seems to be even amount of data, either do a SYNCHRONIZE or a PULL from remote.", size: .title3)
+                    MessageView(mytext: "There’s an equal amount of data. Either do a SYNCHRONIZE or a PULL from remote.", size: .title3)
                 case .noevaluation:
-                    MessageView(mytext: "Could not decide local VS remote.", size: .title3)
+                    MessageView(mytext: "I couldn’t decide between LOCAL and REMOTE.", size: .title3)
                 }
             }
         }
