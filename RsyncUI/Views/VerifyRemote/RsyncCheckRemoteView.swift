@@ -33,7 +33,7 @@ struct RsyncCheckRemoteView: View {
                             DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
                                                 text: "PULL remote")
                             DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
-                                                text: "PUSH local")
+                                                text: "PUSH local (Synchronize)")
                         }
                     }
                 }
@@ -47,7 +47,7 @@ struct RsyncCheckRemoteView: View {
                 case .localmoredata:
                     MessageView(mytext: "It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", size: .title3)
                 case .evenamountadata:
-                    MessageView(mytext: "There’s an equal amount of data. Either do a SYNCHRONIZE or a PULL from remote.", size: .title3)
+                    MessageView(mytext: "There is an equal amount of data. You can either perform a SYNCHRONIZE operation or a PULL operation from the remote server.\nAlternatively, you can choose to do nothing.", size: .title3)
                 case .noevaluation:
                     MessageView(mytext: "I couldn’t decide between LOCAL and REMOTE.", size: .title3)
                 }
