@@ -46,7 +46,13 @@ struct VerifyRemote: View {
                         Text("A networked configuration is where destination is on a remote server.")
                     }
                 }
-                }
+            }
+            
+            if configurations.count > 0 {
+                
+                MessageView(mytext: "**Warning:** This function is advisory only. You are solely responsible for verifying\n the correctness of the subsequent action. Performing an incorrect operation may result in data loss.", size: .title2)
+                
+            }
         }
         .navigationTitle("Verify remote")
         .navigationDestination(for: VerifyTasks.self) { which in
