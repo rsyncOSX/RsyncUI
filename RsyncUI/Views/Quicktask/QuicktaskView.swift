@@ -152,7 +152,7 @@ struct QuicktaskView: View {
                 Button {
                     getconfigandexecute()
                 } label: {
-                    Image(systemName: "checkmark.circle.fill")
+                    Image(systemName: "play.fill")
                         .foregroundColor(Color(.blue))
                 }
                 .help("Synchronize (⌘R)")
