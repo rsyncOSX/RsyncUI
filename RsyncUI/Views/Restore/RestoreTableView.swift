@@ -124,7 +124,7 @@ struct RestoreTableView: View {
                         Button {
                             executerestore()
                         } label: {
-                            Image(systemName: "checkmark.circle.fill")
+                            Image(systemName: "play.fill")
                                 .foregroundColor(Color(.blue))
                         }
                         .help("Restore files")
