@@ -312,7 +312,7 @@ actor CreateOutputforviewRestorefiles {
         }
         return []
     }
-    
+
     // After a restore, present files
     func createrestoredfilesoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("createrestoredfilesoutputforview(): on main thread: \(Thread.isMain)")

@@ -67,7 +67,6 @@ final class ObservableRsyncPathSetting: PropogateError {
         let fm = FileManager.default
         if fm.fileExists(atPath: path, isDirectory: nil) == false {
             throw Validatedpath.nopath
-            
         }
         return true
     }

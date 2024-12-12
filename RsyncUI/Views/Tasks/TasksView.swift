@@ -145,7 +145,7 @@ struct TasksView: View {
                     }
                     execute()
                 } label: {
-                    Image(systemName: "arrowshape.turn.up.left.fill")
+                    Image(systemName: "play.fill")
                         .foregroundColor(Color(.blue))
                 }
                 .help("Synchronize (⌘R)")

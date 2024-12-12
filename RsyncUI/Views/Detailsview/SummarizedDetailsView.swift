@@ -153,7 +153,7 @@ struct SummarizedDetailsView: View {
                                     path.append(Tasks(task: .executestimatedview))
                                 }
                             } label: {
-                                Image(systemName: "arrowshape.turn.up.left")
+                                Image(systemName: "play")
                                     .foregroundColor(Color(.blue))
                             }
                             .help("Synchronize (⌘R)")
@@ -174,7 +174,7 @@ struct SummarizedDetailsView: View {
                                 path.removeAll()
                                 path.append(Tasks(task: .executestimatedview))
                             } label: {
-                                Image(systemName: "arrowshape.turn.up.left.fill")
+                                Image(systemName: "play.fill")
                                     .foregroundColor(Color(.blue))
                             }
                             .help("Synchronize (⌘R)")
