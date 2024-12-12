@@ -59,7 +59,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         id = config?.id ?? UUID()
 
         Logger.process.info("RemoteDataNumbers: adjusted output from rsync: \(stringoutputfromrsync?.count ?? 0) rows")
-        
+
         if let stringoutputfromrsync, stringoutputfromrsync.count > 0 {
             let parsersyncoutput = ParseRsyncOutput(stringoutputfromrsync,
                                                     SharedReference.shared.rsyncversion3)

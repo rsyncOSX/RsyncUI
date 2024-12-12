@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum VerifyDestinationView: String, Identifiable {
-    case verify, arguments
+    case verify, executepushpull
     var id: String { rawValue }
 }
 
@@ -79,9 +79,9 @@ struct VerifyRemote: View {
             {
                 ToolbarItem {
                     Button {
-                        verifynavigation.append(VerifyTasks(task: .arguments))
+                        verifynavigation.append(VerifyTasks(task: .executepushpull))
                     } label: {
-                        Image(systemName: "arrowshape.turn.up.forward")
+                        Image(systemName: "arrow.left.arrow.right.circle.fill")
                             .foregroundColor(.blue)
                     }
                     .help("Pull or push")
@@ -106,8 +106,11 @@ struct VerifyRemote: View {
             if let selectedconfig {
                 RsyncCheckRemoteView(config: selectedconfig)
             }
-        case .arguments:
-            PushPullView(selectedconfig: $selectedconfig, profile: rsyncUIdata.profile)
+        case .executepushpull:
+            if let selectedconfig {
+                OutputRsyncPushPullView(verifynavigation: $verifynavigation,
+                                        config: selectedconfig, profile: rsyncUIdata.profile)
+            }
         }
     }
 

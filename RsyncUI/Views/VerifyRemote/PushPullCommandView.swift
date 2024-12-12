@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct PushPullCommandView: View {
-    @Binding var config: SynchronizeConfiguration?
     @Binding var pushpullcommand: PushPullCommand
+
+    let config: SynchronizeConfiguration
 
     var body: some View {
         HStack {
@@ -17,9 +18,7 @@ struct PushPullCommandView: View {
 
             Spacer()
 
-            if config != nil {
-                showcommand
-            }
+            showcommand
         }
     }
 
@@ -46,10 +45,7 @@ struct PushPullCommandView: View {
     }
 
     var commandstring: String? {
-        if let config {
-            return PushPullCommandtoDisplay(display: pushpullcommand,
-                                            config: config).command
-        }
-        return nil
+        PushPullCommandtoDisplay(display: pushpullcommand,
+                                 config: config).command
     }
 }

@@ -154,6 +154,7 @@
 		E9C029292BFB872E00461AD3 /* CompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C029282BFB872E00461AD3 /* CompletedView.swift */; };
 		E9C077762C8CCA65005F8669 /* ParseRsyncOutput in Frameworks */ = {isa = PBXBuildFile; productRef = E9C077752C8CCA65005F8669 /* ParseRsyncOutput */; };
 		E9C1113A2BBD8DE30041CEA0 /* ConfigurationsTableDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C111392BBD8DE30041CEA0 /* ConfigurationsTableDataView.swift */; };
+		E9C4B18D2D0B4D18009FD8EA /* OutputRsyncPushPullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4B18C2D0B4D0F009FD8EA /* OutputRsyncPushPullView.swift */; };
 		E9C8E0CC2B2D9BB50083D1CC /* SidebarLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */; };
 		E9C9306725FEA1CF0049A76B /* ObservableSSH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */; };
 		E9D1AFE62A2E49B600AD8125 /* ListofTasksLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */; };
@@ -165,7 +166,6 @@
 		E9E223302CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2232F2CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift */; };
 		E9E8A36A2CF0C2DA00C8AEB1 /* ObservableRemoteVSlocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E8A3692CF0C2C900C8AEB1 /* ObservableRemoteVSlocal.swift */; };
 		E9E9CD2526779E2600EB377B /* ExecuteCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */; };
-		E9EB71D12D04A95C00633D14 /* PushPullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB71D02D04A95000633D14 /* PushPullView.swift */; };
 		E9ED8A5E2C4D6CEF00D3B2DD /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED8A5D2C4D6CEF00D3B2DD /* ExportView.swift */; };
 		E9ED8A602C4D6D0D00D3B2DD /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED8A5F2C4D6D0D00D3B2DD /* ImportView.swift */; };
 		E9F5354C290185AA007EFAE7 /* EstimateTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F5354B290185AA007EFAE7 /* EstimateTasks.swift */; };
@@ -325,6 +325,7 @@
 		E9BD14BE2642FE6300E29347 /* TrimOutputFromRsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimOutputFromRsync.swift; sourceTree = "<group>"; };
 		E9C029282BFB872E00461AD3 /* CompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedView.swift; sourceTree = "<group>"; };
 		E9C111392BBD8DE30041CEA0 /* ConfigurationsTableDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsTableDataView.swift; sourceTree = "<group>"; };
+		E9C4B18C2D0B4D0F009FD8EA /* OutputRsyncPushPullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputRsyncPushPullView.swift; sourceTree = "<group>"; };
 		E9C8E0CB2B2D9BB50083D1CC /* SidebarLogsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarLogsView.swift; sourceTree = "<group>"; };
 		E9C9306625FEA1CF0049A76B /* ObservableSSH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableSSH.swift; sourceTree = "<group>"; };
 		E9D1AFE52A2E49B600AD8125 /* ListofTasksLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListofTasksLightView.swift; sourceTree = "<group>"; };
@@ -336,7 +337,6 @@
 		E9E2232F2CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableGlobalchangeConfigurations.swift; sourceTree = "<group>"; };
 		E9E8A3692CF0C2C900C8AEB1 /* ObservableRemoteVSlocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRemoteVSlocal.swift; sourceTree = "<group>"; };
 		E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteCommands.swift; sourceTree = "<group>"; };
-		E9EB71D02D04A95000633D14 /* PushPullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushPullView.swift; sourceTree = "<group>"; };
 		E9ED8A5D2C4D6CEF00D3B2DD /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		E9ED8A5F2C4D6D0D00D3B2DD /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		E9F5354B290185AA007EFAE7 /* EstimateTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateTasks.swift; sourceTree = "<group>"; };
@@ -382,8 +382,8 @@
 		E90384082CEC8E4300C696AE /* VerifyRemote */ = {
 			isa = PBXGroup;
 			children = (
+				E9C4B18C2D0B4D0F009FD8EA /* OutputRsyncPushPullView.swift */,
 				E974D6122D04AF04008EA4B1 /* PushPullCommandView.swift */,
-				E9EB71D02D04A95000633D14 /* PushPullView.swift */,
 				E90384092CEC8E7600C696AE /* VerifyRemote.swift */,
 				E98295BC2CED194600484AB5 /* RsyncCheckRemoteView.swift */,
 			);
@@ -1094,6 +1094,7 @@
 				E941A3852CD4ACEB0024EAC0 /* EstimateTableView.swift in Sources */,
 				E985C67B25F3AD8400CB895C /* AboutView.swift in Sources */,
 				E985C72B25F3AD9700CB895C /* TagSnapshots.swift in Sources */,
+				E9C4B18D2D0B4D18009FD8EA /* OutputRsyncPushPullView.swift in Sources */,
 				E985C73C25F3AD9700CB895C /* ytcpsocket.c in Sources */,
 				E9DE0EFA2C7D98E100836EA3 /* RecordsSnapshot.swift in Sources */,
 				E985C73725F3AD9700CB895C /* extensionDate.swift in Sources */,
@@ -1191,7 +1192,6 @@
 				E985C79125F3AD9700CB895C /* ObservableRsyncPathSetting.swift in Sources */,
 				E9712FBC2602465D003842FD /* DeleteLogsView.swift in Sources */,
 				E9BC17EA2BD8042C0049641B /* OutputRsyncVerifyView.swift in Sources */,
-				E9EB71D12D04A95C00633D14 /* PushPullView.swift in Sources */,
 				E985C75025F3AD9700CB895C /* DecodeLogRecords.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
