@@ -33,19 +33,24 @@ struct OutputRsyncPushPullView: View {
 
                         Spacer()
 
-                        HStack {
+                        VStack {
                             if pushpullcommand == .push_local {
                                 Button("Push") {
                                     progress = true
                                     push(config: config)
                                 }
+                                .padding()
+                                .buttonStyle(ColorfulButtonStyle())
                             } else {
                                 Button("Pull") {
                                     progress = true
                                     pull(config: config)
                                 }
+                                .padding()
+                                .buttonStyle(ColorfulButtonStyle())
                             }
-
+                                
+                            
                             PushPullCommandView(pushpullcommand: $pushpullcommand, config: config)
                         }
                     }
