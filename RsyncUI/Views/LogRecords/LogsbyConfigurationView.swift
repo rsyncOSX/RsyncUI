@@ -122,10 +122,12 @@ struct LogsbyConfigurationView: View {
         }
         .onChange(of: logrecords) {
             Task {
+                selecteduuids.removeAll()
+                selectedloguuids.removeAll()
                 let actorreadlogs = ActorReadLogRecordsJSON()
                 await logrecords =
                     actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
-                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, -1) ?? []
             }
         }
         .toolbar(content: {
@@ -133,7 +135,6 @@ struct LogsbyConfigurationView: View {
                 Button {
                     selectedloguuids.removeAll()
                     selecteduuids.removeAll()
-
                 } label: {
                     if selectedloguuids.count == 0 {
                         Image(systemName: "clear")
@@ -151,7 +152,13 @@ struct LogsbyConfigurationView: View {
                 logrecords: $logrecords,
                 selectedprofile: rsyncUIdata.profile
             )
+            .onDisappear {
+                logs = []
+                logrecords = nil
+                hiddenID = -1
+            }
         }
+        .padding()
     }
 
     var indebounce: some View {
