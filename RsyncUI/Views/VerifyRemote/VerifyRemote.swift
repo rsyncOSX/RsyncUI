@@ -120,7 +120,8 @@ struct VerifyRemote: View {
 
     var configurations: [SynchronizeConfiguration] {
         rsyncUIdata.configurations?.filter { configuration in
-            configuration.offsiteServer.isEmpty == false
+            configuration.offsiteServer.isEmpty == false &&
+            configuration.task == SharedReference.shared.synchronize
         } ?? []
     }
 }

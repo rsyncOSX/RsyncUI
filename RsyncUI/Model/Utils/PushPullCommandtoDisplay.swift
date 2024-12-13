@@ -26,7 +26,7 @@ struct PushPullCommandtoDisplay {
         var str = ""
         switch display {
         case .pull_remote:
-            if config.offsiteServer.isEmpty == false {
+            if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
                 if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true, forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
                 }
@@ -34,7 +34,7 @@ struct PushPullCommandtoDisplay {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
             }
         case .push_local:
-            if config.offsiteServer.isEmpty == false {
+            if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
                 if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true, forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
                 }
