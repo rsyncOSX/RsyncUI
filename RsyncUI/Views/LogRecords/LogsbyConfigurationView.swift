@@ -113,7 +113,9 @@ struct LogsbyConfigurationView: View {
         }
         .onChange(of: rsyncUIdata.profile) {
             Task {
+                showindebounce = true
                 try await Task.sleep(seconds: 1)
+                showindebounce = false
                 selecteduuids.removeAll()
                 selectedloguuids.removeAll()
                 let actorreadlogs = ActorReadLogRecordsJSON()
