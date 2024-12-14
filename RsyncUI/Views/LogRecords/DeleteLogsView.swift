@@ -12,6 +12,7 @@ struct DeleteLogsView: View {
     
     @Binding var selectedloguuids: Set<UUID>
     @Binding var logrecords: [LogRecords]?
+    @Binding var logs: [Log]
 
     var selectedprofile: String?
 
@@ -51,6 +52,10 @@ struct DeleteLogsView: View {
             }
             WriteLogRecordsJSON(selectedprofile, records)
             selectedloguuids.removeAll()
+            Task {
+                let actorreadlogs = ActorReadLogRecordsJSON()
+                logs = await actorreadlogs.updatelogsbyhiddenID(records, -1) ?? []
+            }
             dismiss()
         }
     }

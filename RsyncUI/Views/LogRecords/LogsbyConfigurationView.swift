@@ -114,7 +114,6 @@ struct LogsbyConfigurationView: View {
         .onChange(of: rsyncUIdata.profile) {
             Task {
                 let actorreadlogs = ActorReadLogRecordsJSON()
-
                 await logrecords =
                     actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
@@ -150,13 +149,9 @@ struct LogsbyConfigurationView: View {
             DeleteLogsView(
                 selectedloguuids: $selectedloguuids,
                 logrecords: $logrecords,
+                logs: $logs,
                 selectedprofile: rsyncUIdata.profile
             )
-            .onDisappear {
-                logs = []
-                logrecords = nil
-                hiddenID = -1
-            }
         }
         .padding()
     }
