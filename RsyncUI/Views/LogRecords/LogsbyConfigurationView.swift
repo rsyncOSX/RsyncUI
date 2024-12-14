@@ -113,20 +113,13 @@ struct LogsbyConfigurationView: View {
         }
         .onChange(of: rsyncUIdata.profile) {
             Task {
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                await logrecords =
-                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
-                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-            }
-        }
-        .onChange(of: logrecords) {
-            Task {
+                try await Task.sleep(seconds: 1)
                 selecteduuids.removeAll()
                 selectedloguuids.removeAll()
                 let actorreadlogs = ActorReadLogRecordsJSON()
                 await logrecords =
                     actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
-                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, -1) ?? []
+                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
         .toolbar(content: {
@@ -163,8 +156,10 @@ struct LogsbyConfigurationView: View {
 
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
-        _ = configurations.map { record in
-            temp.insert(record.hiddenID)
+        if let configurations = rsyncUIdata.configurations {
+            _ = configurations.map { record in
+                temp.insert(record.hiddenID)
+            }
         }
         return temp
     }

@@ -14,7 +14,7 @@ actor ActorWriteSynchronizeQuicktaskJSON {
     private func writeJSONToPersistentStore(jsonData: Data?) async {
         let path = await Homepath()
 
-        Logger.process.info("ActorWriteSynchronizeQuicktaskJSON, writeJSONToPersistentStore(): on main thread: \(Thread.isMain)")
+        Logger.process.info("ActorWriteSynchronizeQuicktaskJSON: writeJSONToPersistentStore() on main thread \(Thread.isMain)")
 
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
@@ -23,7 +23,7 @@ actor ActorWriteSynchronizeQuicktaskJSON {
             if let jsonData, let configurationfileURL {
                 do {
                     try jsonData.write(to: configurationfileURL)
-                    Logger.process.info("ActorWriteSynchronizeQuicktaskJSON - write Quicktask to permanent storage")
+                    Logger.process.info("ActorWriteSynchronizeQuicktaskJSON: write Quicktask to permanent storage")
                 } catch let e {
                     Logger.process.error("ActorWriteSynchronizeQuicktaskJSON: some ERROR write Quicktask to permanent storage")
                     let error = e

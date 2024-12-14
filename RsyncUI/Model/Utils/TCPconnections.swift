@@ -37,7 +37,7 @@ final class TCPconnections: Sendable {
     // Async Test for TCP connection
     func asyncverifyTCPconnection(_ host: String, port: Int) async throws {
         let client = TCPClient(address: host, port: Int32(port))
-        Logger.process.info("asyncverifyTCPconnection(): on main thread: \(Thread.isMain)")
+        Logger.process.info("TCPconnections: asyncverifyTCPconnection() on main thread \(Thread.isMain)")
         switch client.connect(timeout: 5) {
         case .success:
             return

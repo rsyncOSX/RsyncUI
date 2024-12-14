@@ -34,7 +34,7 @@ actor ActorReadSynchronizeConfigurationJSON {
                     let itemforcheck = (server, sshport)
                     if checkedserverandport.contains(where: { $0 == itemforcheck }) == false {
                         checkedserverandport.append(itemforcheck)
-                        Logger.process.info("ActorReadSynchronizeConfigurationJSON checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
+                        Logger.process.info("ActorReadSynchronizeConfigurationJSON: checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
                         _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
                     }
 
@@ -56,7 +56,7 @@ actor ActorReadSynchronizeConfigurationJSON {
         var filename = ""
         let path = await Homepath()
 
-        Logger.process.info("readjsonfilesynchronizeconfigurations(): on main thread: \(Thread.isMain)")
+        Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() on main thread \(Thread.isMain)")
 
         if let profile, profile != "Default profile", let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + filenameconfigurations

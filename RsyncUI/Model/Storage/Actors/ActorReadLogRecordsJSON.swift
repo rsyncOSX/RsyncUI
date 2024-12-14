@@ -17,7 +17,7 @@ actor ActorReadLogRecordsJSON {
         let path = await Homepath()
         var filename = ""
 
-        Logger.process.info("readjsonfilelogrecords(): on main thread: \(Thread.isMain)")
+        Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords()  on main thread \(Thread.isMain)")
 
         if let profile, profile != "Default profile", let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + filenamelogrecords
@@ -47,7 +47,7 @@ actor ActorReadLogRecordsJSON {
     }
 
     func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.info("updatelogsbyhiddenID(): on main thread: \(Thread.isMain)")
+        Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyhiddenID()  on main thread \(Thread.isMain)")
         if let logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
@@ -70,7 +70,7 @@ actor ActorReadLogRecordsJSON {
     }
 
     func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.info("updatelogsbyfilter(): on main thread: \(Thread.isMain)")
+        Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyfilter()  on main thread \(Thread.isMain)")
         guard filterstring != "" else { return nil }
         if let logrecords {
             if hiddenID == -1 {
