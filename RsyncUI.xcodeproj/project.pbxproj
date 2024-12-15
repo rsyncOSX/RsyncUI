@@ -162,7 +162,6 @@
 		E9DE0EFA2C7D98E100836EA3 /* RecordsSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE0EF92C7D98E100836EA3 /* RecordsSnapshot.swift */; };
 		E9DE0EFC2C7D9F0F00836EA3 /* ArgumentsSnapshotRemoteCatalogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DE0EFB2C7D9F0F00836EA3 /* ArgumentsSnapshotRemoteCatalogs.swift */; };
 		E9E223302CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2232F2CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift */; };
-		E9E8A36A2CF0C2DA00C8AEB1 /* ObservableRemoteVSlocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E8A3692CF0C2C900C8AEB1 /* ObservableRemoteVSlocal.swift */; };
 		E9E9CD2526779E2600EB377B /* ExecuteCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */; };
 		E9ED8A5E2C4D6CEF00D3B2DD /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED8A5D2C4D6CEF00D3B2DD /* ExportView.swift */; };
 		E9ED8A602C4D6D0D00D3B2DD /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9ED8A5F2C4D6D0D00D3B2DD /* ImportView.swift */; };
@@ -331,7 +330,6 @@
 		E9DE0EF92C7D98E100836EA3 /* RecordsSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsSnapshot.swift; sourceTree = "<group>"; };
 		E9DE0EFB2C7D9F0F00836EA3 /* ArgumentsSnapshotRemoteCatalogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentsSnapshotRemoteCatalogs.swift; sourceTree = "<group>"; };
 		E9E2232F2CD5140800B6FD8D /* ObservableGlobalchangeConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableGlobalchangeConfigurations.swift; sourceTree = "<group>"; };
-		E9E8A3692CF0C2C900C8AEB1 /* ObservableRemoteVSlocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRemoteVSlocal.swift; sourceTree = "<group>"; };
 		E9E9CD2426779E2600EB377B /* ExecuteCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteCommands.swift; sourceTree = "<group>"; };
 		E9ED8A5D2C4D6CEF00D3B2DD /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		E9ED8A5F2C4D6D0D00D3B2DD /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
@@ -848,7 +846,6 @@
 				E9A38E2B2B32CA8700D8445E /* AlertError.swift */,
 				E9493E4C2BF4DB8B00512A8A /* ObservableOutputfromrsync.swift */,
 				E987CAA42C9405EC00C265D5 /* ObservableLogSettings.swift */,
-				E9E8A3692CF0C2C900C8AEB1 /* ObservableRemoteVSlocal.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1110,7 +1107,6 @@
 				E985C77725F3AD9700CB895C /* ArgumentsRestore.swift in Sources */,
 				E961D0512BEC8CE300CBF9B1 /* ProfileView.swift in Sources */,
 				E9DE0EFC2C7D9F0F00836EA3 /* ArgumentsSnapshotRemoteCatalogs.swift in Sources */,
-				E9E8A36A2CF0C2DA00C8AEB1 /* ObservableRemoteVSlocal.swift in Sources */,
 				E98722202C1365F9006112CD /* DetailsView.swift in Sources */,
 				E98F608D290D034300952149 /* ProcessCommand.swift in Sources */,
 				E985C77025F3AD9700CB895C /* EstimateProgressDetails.swift in Sources */,

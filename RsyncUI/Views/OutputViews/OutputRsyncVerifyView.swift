@@ -78,10 +78,23 @@ struct OutputRsyncVerifyView: View {
 import OSLog
 
 actor CreateOutputforviewOutputRsync {
+    // From Array[String]
     func createoutputforviewoutputrsync(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforviewOutputRsync: createoutputforviewoutputrsync()  on main thread \(Thread.isMain)")
 
         if let data = stringoutputfromrsync {
+            return data.map { line in
+                RsyncOutputData(record: line)
+            }
+        }
+        return []
+    }
+    
+    // From Set<String>
+    func createoutputforviewoutputrsync(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
+        Logger.process.info("CreateOutputforviewOutputRsync: createoutputforviewoutputrsync()  on main thread \(Thread.isMain)")
+
+        if let data = setoutputfromrsync {
             return data.map { line in
                 RsyncOutputData(record: line)
             }
