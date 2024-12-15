@@ -43,7 +43,12 @@ struct VerifyRemote: View {
                     ContentUnavailableView {
                         Label("The Verify remote is only for networked configurations", systemImage: "doc.richtext.fill")
                     } description: {
-                        Text("A networked configuration is where destination is on a remote server.")
+                        VStack {
+                            Text("Version 3.x of rsync must be installed and enabled to use this function.")
+                            Text("A networked configuration is where destination is on a remote server.")
+                            
+                        }
+                        
                     }
                 }
                 }
@@ -121,7 +126,8 @@ struct VerifyRemote: View {
     var configurations: [SynchronizeConfiguration] {
         rsyncUIdata.configurations?.filter { configuration in
             configuration.offsiteServer.isEmpty == false &&
-            configuration.task == SharedReference.shared.synchronize
+            configuration.task == SharedReference.shared.synchronize &&
+            SharedReference.shared.rsyncversion3 == true
         } ?? []
     }
 }
