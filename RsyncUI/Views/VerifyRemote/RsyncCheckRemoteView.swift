@@ -31,10 +31,12 @@ struct RsyncCheckRemoteView: View {
                 } else {
                     if let pullremotedatanumbers, let pushremotedatanumbers {
                         HStack {
-                            DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
-                                                text: "PULL remote")
+                            
                             DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
                                                 text: "PUSH local (Synchronize)")
+                            
+                            DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
+                                                text: "PULL remote")
                         }
                     }
                 }
