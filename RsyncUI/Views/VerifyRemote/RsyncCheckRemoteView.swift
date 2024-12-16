@@ -13,8 +13,8 @@ struct RsyncCheckRemoteView: View {
     @State private var pullremotedatanumbers: RemoteDataNumbers?
     // Push data to remote
     @State private var pushremotedatanumbers: RemoteDataNumbers?
-    // Temporary storage
-    @State private var temporarystorage = TemporaryStoreOutput()
+    // Decide push or pull
+    @State private var pushorpull = ObservablePushPull()
 
     let config: SynchronizeConfiguration
 
@@ -42,7 +42,7 @@ struct RsyncCheckRemoteView: View {
                 }
             }
             if progress == false {
-                switch temporarystorage.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
+                switch pushorpull.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
                                                         pushremotedatanumbers: pushremotedatanumbers)
                 {
                 case .remotemoredata:
@@ -50,7 +50,7 @@ struct RsyncCheckRemoteView: View {
                 case .localmoredata:
                     MessageView(mytext: "It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", size: .title3)
                 case .evenamountadata:
-                    MessageView(mytext: "There is an equal amount of data. You can either perform a SYNCHRONIZE operation or a PULL operation from the remote server.\nAlternatively, you can choose to do nothing.", size: .title3)
+                    MessageView(mytext: "There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation\n. Alternatively, you can choose to do nothing.", size: .title3)
                 case .noevaluation:
                     MessageView(mytext: "I couldn’t decide between LOCAL and REMOTE.", size: .title3)
                 }
@@ -101,7 +101,7 @@ struct RsyncCheckRemoteView: View {
                                                       config: config)
         }
         // Rsync output pull
-        temporarystorage.rsyncpull = stringoutputfromrsync
+        pushorpull.rsyncpull = stringoutputfromrsync
         // Then do a normal synchronize task
         pushremote(config: config)
     }
@@ -112,93 +112,18 @@ struct RsyncCheckRemoteView: View {
         pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: config)
         // Rsync output push
-        temporarystorage.rsyncpush = stringoutputfromrsync
+        pushorpull.rsyncpush = stringoutputfromrsync
         // Adjust both outputs
-        temporarystorage.adjustoutput()
+        pushorpull.adjustoutput()
         
         Task {
-            pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(temporarystorage.adjustedpull)
+            pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpull)
             
-            pushremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(temporarystorage.adjustedpush)
+            pushremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpush)
         }
     }
 
     func abort() {
         InterruptProcess()
-    }
-}
-
-import OSLog
-
-enum RemoteVSlocal {
-    case remotemoredata
-    case localmoredata
-    case evenamountadata
-    case noevaluation
-}
-
-@Observable
-final class TemporaryStoreOutput {
-    @ObservationIgnored var adjustedpull: Set<String>?
-    @ObservationIgnored var adjustedpush: Set<String>?
-    
-    @ObservationIgnored var rsyncpull: [String]?
-    @ObservationIgnored var rsyncpush: [String]?
-    
-    
-    func adjustoutput() {
-        if var pullremote = rsyncpull,
-           var pushremote = rsyncpush
-        {
-            guard pullremote.count > 17, pushremote.count > 17 else { return }
-            
-            pullremote.removeFirst()
-            pushremote.removeFirst()
-            
-            pullremote.removeLast(17)
-            pushremote.removeLast(17)
-            
-            // Pull data <<--
-            var setpullremote = Set(pullremote.compactMap { row in
-                row.hasSuffix("/") == false ? row : nil
-            })
-            setpullremote.subtract(pushremote.compactMap { row in
-                row.hasSuffix("/") == false ? row : nil
-            })
-            
-            adjustedpull = setpullremote
-            
-            // Push data -->>
-            var setpushremote = Set(pushremote.compactMap { row in
-                row.hasSuffix("/") == false ? row : nil
-            })
-            setpushremote.subtract(pullremote.compactMap { row in
-                row.hasSuffix("/") == false ? row : nil
-            })
-            
-            adjustedpush = setpushremote
-        }
-    }
-    
-    func decideremoteVSlocal(pullremotedatanumbers: RemoteDataNumbers?,
-                             pushremotedatanumbers: RemoteDataNumbers?) -> RemoteVSlocal
-    {
-        if let pullremote = pullremotedatanumbers?.outputfromrsync,
-           let pushremote = pushremotedatanumbers?.outputfromrsync
-        {
-            
-            if pullremote.count > pushremote.count {
-                return .remotemoredata
-            } else if pullremote.count < pushremote.count {
-                return .localmoredata
-            } else if pullremote.count == pushremote.count {
-                return .evenamountadata
-            }
-        }
-        return .noevaluation
-    }
-
-    deinit {
-        Logger.process.info("TemporaryStoreOutput: deinit")
     }
 }
