@@ -89,7 +89,7 @@ actor CreateOutputforviewOutputRsync {
         }
         return []
     }
-    
+
     // From Set<String>
     func createoutputforviewoutputrsync(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforviewOutputRsync: createoutputforviewoutputrsync()  on main thread \(Thread.isMain)")

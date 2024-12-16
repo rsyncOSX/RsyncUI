@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DeleteLogsView: View {
     @Environment(\.dismiss) var dismiss
-    
+
     @Binding var selectedloguuids: Set<UUID>
     @Binding var logrecords: [LogRecords]?
     @Binding var logs: [Log]
@@ -34,7 +34,7 @@ struct DeleteLogsView: View {
         }
         .padding()
     }
-    
+
     func deletelogs(_ uuids: Set<UUID>) {
         if var records = logrecords {
             var indexset = IndexSet()

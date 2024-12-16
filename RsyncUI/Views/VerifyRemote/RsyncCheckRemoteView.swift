@@ -31,10 +31,9 @@ struct RsyncCheckRemoteView: View {
                 } else {
                     if let pullremotedatanumbers, let pushremotedatanumbers {
                         HStack {
-                            
                             DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
                                                 text: "PUSH local (Synchronize)")
-                            
+
                             DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
                                                 text: "PULL remote")
                         }
@@ -43,7 +42,7 @@ struct RsyncCheckRemoteView: View {
             }
             if progress == false {
                 switch pushorpull.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
-                                                        pushremotedatanumbers: pushremotedatanumbers)
+                                                      pushremotedatanumbers: pushremotedatanumbers)
                 {
                 case .remotemoredata:
                     MessageView(mytext: "It seems that REMOTE is more updated than LOCAL. A PULL may be next.", size: .title3)
@@ -102,7 +101,7 @@ struct RsyncCheckRemoteView: View {
         }
         // Rsync output pull
         pushorpull.rsyncpull = stringoutputfromrsync
-        // Then do a normal synchronize task
+        // Then do a synchronize task, adjusted for push vs pull
         pushremote(config: config)
     }
 
@@ -115,10 +114,9 @@ struct RsyncCheckRemoteView: View {
         pushorpull.rsyncpush = stringoutputfromrsync
         // Adjust both outputs
         pushorpull.adjustoutput()
-        
+
         Task {
             pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpull)
-            
             pushremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpush)
         }
     }

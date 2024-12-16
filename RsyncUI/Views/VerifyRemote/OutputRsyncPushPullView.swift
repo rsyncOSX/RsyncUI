@@ -49,8 +49,7 @@ struct OutputRsyncPushPullView: View {
                                 .padding()
                                 .buttonStyle(ColorfulButtonStyle())
                             }
-                                
-                            
+
                             PushPullCommandView(pushpullcommand: $pushpullcommand, config: config)
                         }
                     }
