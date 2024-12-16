@@ -49,7 +49,7 @@ struct RsyncCheckRemoteView: View {
                 case .localmoredata:
                     MessageView(mytext: "It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", size: .title3)
                 case .evenamountadata:
-                    MessageView(mytext: "There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation\n. Alternatively, you can choose to do nothing.", size: .title3)
+                    MessageView(mytext: "There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation.\n Alternatively, you can choose to do nothing.", size: .title3)
                 case .noevaluation:
                     MessageView(mytext: "I couldn’t decide between LOCAL and REMOTE.", size: .title3)
                 }
