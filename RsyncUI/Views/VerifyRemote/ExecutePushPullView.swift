@@ -1,5 +1,5 @@
 //
-//  OutputRsyncPushPullView.swift
+//  ExecutePushPullView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 12/12/2024.
@@ -7,14 +7,18 @@
 
 import SwiftUI
 
-struct OutputRsyncPushPullView: View {
+struct ExecutePushPullView: View {
     @Binding var verifynavigation: [VerifyTasks]
 
     @State private var progress = false
     @State private var remotedatanumbers: RemoteDataNumbers?
 
-    @State private var pushpullcommand = PushPullCommand.push_local
+    @State private var pushpullcommand = PushPullCommand.none
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    
+    // Alert button
+    @State private var showingAlert = false
+    @State private var dryrun: Bool = true
 
     let config: SynchronizeConfiguration
     let profile: String?
@@ -34,23 +38,32 @@ struct OutputRsyncPushPullView: View {
                         Spacer()
 
                         VStack {
-                            if pushpullcommand == .push_local {
-                                Button("Push") {
-                                    progress = true
-                                    push(config: config)
+                            
+                            HStack {
+                                if pushpullcommand == .push_local {
+                                    Button("Push") {
+                                        progress = true
+                                        push(config: config)
+                                    }
+                                    .padding()
+                                    .buttonStyle(ColorfulButtonStyle())
+                                } else if pushpullcommand == .pull_remote{
+                                    Button("Pull") {
+                                        progress = true
+                                        pull(config: config)
+                                    }
+                                    .padding()
+                                    .buttonStyle(ColorfulButtonStyle())
                                 }
-                                .padding()
-                                .buttonStyle(ColorfulButtonStyle())
-                            } else {
-                                Button("Pull") {
-                                    progress = true
-                                    pull(config: config)
+                                
+                                if pushpullcommand != .none {
+                                    Toggle("--dry-run", isOn: $dryrun)
+                                        .toggleStyle(.switch)
                                 }
-                                .padding()
-                                .buttonStyle(ColorfulButtonStyle())
                             }
+                            
 
-                            PushPullCommandView(pushpullcommand: $pushpullcommand, config: config)
+                            PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, config: config)
                         }
                     }
 
@@ -74,6 +87,20 @@ struct OutputRsyncPushPullView: View {
                 .help("Abort (⌘K)")
             }
         })
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Switch dry-run mode?"),
+                primaryButton: .default(Text("ON")) {
+                    // path.append(Tasks(task: .executenoestimatetasksview))
+                },
+                secondaryButton: .cancel() {
+                    dryrun = true
+                }
+            )
+        }
+        .onChange(of: dryrun) {
+            showingAlert = !dryrun
+        }
     }
 
     var configurations: [SynchronizeConfiguration] {
@@ -84,7 +111,7 @@ struct OutputRsyncPushPullView: View {
 
     // For a verify run, --dry-run
     func push(config: SynchronizeConfiguration) {
-        let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true,
+        let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,
                                                                                            forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
@@ -93,7 +120,7 @@ struct OutputRsyncPushPullView: View {
     }
 
     func pull(config: SynchronizeConfiguration) {
-        let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
+        let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
