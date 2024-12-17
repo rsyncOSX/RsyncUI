@@ -1,5 +1,5 @@
 //
-//  RsyncCheckRemoteView.swift
+//  DetailsPushPullView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 23/04/2024.
@@ -7,7 +7,16 @@
 
 import SwiftUI
 
-struct RsyncCheckRemoteView: View {
+enum SwiftPushPullView: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case pull
+    case push
+    case both
+    
+    var id: String { rawValue }
+    var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
+}
+
+struct DetailsPushPullView: View {
     @State private var progress = true
     // Pull data from remote
     @State private var pullremotedatanumbers: RemoteDataNumbers?
@@ -15,6 +24,8 @@ struct RsyncCheckRemoteView: View {
     @State private var pushremotedatanumbers: RemoteDataNumbers?
     // Decide push or pull
     @State private var pushorpull = ObservablePushPull()
+    // Switch view
+    @State private var switchview: SwiftPushPullView = .both
 
     let config: SynchronizeConfiguration
 
@@ -30,10 +41,19 @@ struct RsyncCheckRemoteView: View {
 
                 } else {
                     if let pullremotedatanumbers, let pushremotedatanumbers {
-                        HStack {
+                        
+                        if switchview == .both {
+                            HStack {
+                                DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
+                                                    text: "PUSH local (Synchronize)")
+
+                                DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
+                                                    text: "PULL remote")
+                            }
+                        } else if switchview == .push {
                             DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
                                                 text: "PUSH local (Synchronize)")
-
+                        } else {
                             DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
                                                 text: "PULL remote")
                         }
@@ -59,6 +79,11 @@ struct RsyncCheckRemoteView: View {
             pullremote(config: config)
         }
         .toolbar(content: {
+            
+            ToolbarItem {
+                pickerselectview
+            }
+            
             ToolbarItem {
                 Button {
                     abort()
@@ -68,6 +93,14 @@ struct RsyncCheckRemoteView: View {
                 .help("Abort (⌘K)")
             }
         })
+    }
+    
+    var pickerselectview: some View {
+        Picker("", selection: $switchview) {
+            ForEach(SwiftPushPullView.allCases) { Text($0.description)
+                .tag($0)
+            }
+        }
     }
 
     // For check remote, pull remote data

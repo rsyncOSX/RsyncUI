@@ -107,7 +107,7 @@ struct VerifyRemote: View {
         switch view {
         case .verify:
             if let selectedconfig {
-                RsyncCheckRemoteView(config: selectedconfig)
+                DetailsPushPullView(config: selectedconfig)
             }
         case .executepushpull:
             if let selectedconfig {
