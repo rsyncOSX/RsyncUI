@@ -112,7 +112,7 @@ struct VerifyRemote: View {
         case .executepushpull:
             if let selectedconfig {
                 ExecutePushPullView(verifynavigation: $verifynavigation,
-                                        config: selectedconfig, profile: rsyncUIdata.profile)
+                                    config: selectedconfig, profile: rsyncUIdata.profile)
             }
         }
     }

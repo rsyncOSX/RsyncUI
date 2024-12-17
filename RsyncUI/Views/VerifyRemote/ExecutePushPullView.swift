@@ -15,7 +15,7 @@ struct ExecutePushPullView: View {
 
     @State private var pushpullcommand = PushPullCommand.none
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    
+
     // Alert button
     @State private var showingAlert = false
     @State private var dryrun: Bool = true
@@ -38,7 +38,6 @@ struct ExecutePushPullView: View {
                         Spacer()
 
                         VStack {
-                            
                             HStack {
                                 if pushpullcommand == .push_local {
                                     Button("Push") {
@@ -47,7 +46,7 @@ struct ExecutePushPullView: View {
                                     }
                                     .padding()
                                     .buttonStyle(ColorfulButtonStyle())
-                                } else if pushpullcommand == .pull_remote{
+                                } else if pushpullcommand == .pull_remote {
                                     Button("Pull") {
                                         progress = true
                                         pull(config: config)
@@ -55,13 +54,12 @@ struct ExecutePushPullView: View {
                                     .padding()
                                     .buttonStyle(ColorfulButtonStyle())
                                 }
-                                
+
                                 if pushpullcommand != .none {
                                     Toggle("--dry-run", isOn: $dryrun)
                                         .toggleStyle(.switch)
                                 }
                             }
-                            
 
                             PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, config: config)
                         }
@@ -93,7 +91,7 @@ struct ExecutePushPullView: View {
                 primaryButton: .default(Text("ON")) {
                     // path.append(Tasks(task: .executenoestimatetasksview))
                 },
-                secondaryButton: .cancel() {
+                secondaryButton: .cancel {
                     dryrun = true
                 }
             )
