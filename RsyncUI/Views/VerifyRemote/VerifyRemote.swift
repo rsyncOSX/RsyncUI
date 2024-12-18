@@ -107,7 +107,7 @@ struct VerifyRemote: View {
         switch view {
         case .verify:
             if let selectedconfig {
-                DetailsPushPullView(config: selectedconfig)
+                DetailsPushPullView(verifynavigation: $verifynavigation, config: selectedconfig)
             }
         case .executepushpull:
             if let selectedconfig {

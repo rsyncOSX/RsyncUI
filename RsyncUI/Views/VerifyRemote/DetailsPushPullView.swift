@@ -17,6 +17,8 @@ enum SwiftPushPullView: String, CaseIterable, Identifiable, CustomStringConverti
 }
 
 struct DetailsPushPullView: View {
+    @Binding var verifynavigation: [VerifyTasks]
+    
     @State private var progress = true
     // Pull data from remote
     @State private var pullremotedatanumbers: RemoteDataNumbers?
@@ -80,8 +82,21 @@ struct DetailsPushPullView: View {
         }
         .toolbar(content: {
             
-            ToolbarItem {
-                pickerselectview
+            if progress == false {
+                ToolbarItem {
+                    pickerselectview
+                }
+                
+                ToolbarItem {
+                    Button {
+                        verifynavigation.removeAll()
+                        verifynavigation.append(VerifyTasks(task: .executepushpull))
+                    } label: {
+                        Image(systemName: "arrow.left.arrow.right.circle.fill")
+                            .foregroundColor(.blue)
+                    }
+                    .help("Pull or push")
+                }
             }
             
             ToolbarItem {
