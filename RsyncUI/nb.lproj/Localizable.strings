@@ -308,6 +308,9 @@
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
+"ON" = "På";
+
+/* No comment provided by engineer. */
 "Only rsync version 3.x supports snapshots." = "Kun rsync versjon 3 støtter snapshot.";
 
 /* No comment provided by engineer. */
@@ -330,6 +333,15 @@
 
 /* No comment provided by engineer. */
 "Profiles" = "Profiler";
+
+/* No comment provided by engineer. */
+"Pull" = "Pull";
+
+/* No comment provided by engineer. */
+"Pull or push" = "Pull eller push";
+
+/* No comment provided by engineer. */
+"Push" = "Push";
 
 /* No comment provided by engineer. */
 "Quick synchronize" = "Rask synckronizering";
@@ -407,6 +419,9 @@
 "Select catalog or file" = "Velg katalog eller fil";
 
 /* No comment provided by engineer. */
+"Select either pull or push" = "Velg enten pull eller push";
+
+/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Velg filer for gjenoppretting, eller \"./.\" for full gjenoppretting";
 
 /* No comment provided by engineer. */
@@ -441,6 +456,9 @@
 
 /* No comment provided by engineer. */
 "ssh-keys" = "ssh-nøkkel";
+
+/* No comment provided by engineer. */
+"Switch dry-run mode?" = "Velg dry-run modus";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synkronisere";
@@ -488,7 +506,7 @@
 "Tasks" = "Oppgaver";
 
 /* No comment provided by engineer. */
-"The Verify remote is only for networked configurations" = "Verify kontrollen er bare for nettverkskonfigurasjoner";
+"The Verify remote is for networked configurations only." = "Verifiser er kun for konfigurasjoner med server konfigurasjon";
 
 /* No comment provided by engineer. */
 "There are no logs by this filter" = "Det er ingen logger med dette søk";
@@ -558,6 +576,9 @@
 
 /* No comment provided by engineer. */
 "Verify task" = "Verifiser oppgave";
+
+/* No comment provided by engineer. */
+"Version 3.x of rsync must be installed and enabled to use this function." = "Versjon 3.x må være installert og valgt for å bruke denne funksjonen.";
 
 /* No comment provided by engineer. */
 "Version rsync" = "Versjon rsync";

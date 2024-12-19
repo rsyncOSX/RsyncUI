@@ -308,6 +308,9 @@
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
+"ON" = "AN";
+
+/* No comment provided by engineer. */
 "Only rsync version 3.x supports snapshots." = "Nur rsync Version 3.x unterstützt Snapshots.";
 
 /* No comment provided by engineer. */
@@ -330,6 +333,15 @@
 
 /* No comment provided by engineer. */
 "Profiles" = "Profil";
+
+/* No comment provided by engineer. */
+"Pull" = "Pull";
+
+/* No comment provided by engineer. */
+"Pull or push" = "Pull oder push";
+
+/* No comment provided by engineer. */
+"Push" = "Push";
 
 /* No comment provided by engineer. */
 "Quick synchronize" = "Schnelle Synchronisierung";
@@ -407,6 +419,9 @@
 "Select catalog or file" = "Katalog oder Datei auswählen";
 
 /* No comment provided by engineer. */
+"Select either pull or push" = "Wählen Sie pull oder push";
+
+/* No comment provided by engineer. */
 "Select files to restore or \"./.\" for full restore" = "Dateien zum Wiederherstellen auswählen oder \"./\" für vollständige Wiederherstellung";
 
 /* No comment provided by engineer. */
@@ -441,6 +456,9 @@
 
 /* No comment provided by engineer. */
 "ssh-keys" = "SSH-Schlüssel";
+
+/* No comment provided by engineer. */
+"Switch dry-run mode?" = "Modus dry-run wechseln?";
 
 /* No comment provided by engineer. */
 "Synchronize" = "Synchronisieren";
@@ -488,7 +506,7 @@
 "Tasks" = "Aufgaben";
 
 /* No comment provided by engineer. */
-"The Verify remote is only for networked configurations" = "Die Verify ist nur für vernetzte Konfigurationen geeignet";
+"The Verify remote is for networked configurations only." = "Die Verify-Fernbedienung ist nur für Netzwerkkonfigurationen bestimmt.";
 
 /* No comment provided by engineer. */
 "There are no logs by this filter" = "Für diesen Filter sind keine Protokolle vorhanden";
