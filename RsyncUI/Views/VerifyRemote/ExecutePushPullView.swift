@@ -88,7 +88,7 @@ struct ExecutePushPullView: View {
         .alert(isPresented: $showingAlert) {
             Alert(
                 title: Text("Switch dry-run mode?"),
-                primaryButton: .default(Text("ON")) {
+                primaryButton: .default(Text("Off")) {
                     // path.append(Tasks(task: .executenoestimatetasksview))
                 },
                 secondaryButton: .cancel {

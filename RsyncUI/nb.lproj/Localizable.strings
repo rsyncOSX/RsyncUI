@@ -308,7 +308,7 @@
 "OK" = "Ok";
 
 /* No comment provided by engineer. */
-"ON" = "På";
+"Off" = "Av";
 
 /* No comment provided by engineer. */
 "Only rsync version 3.x supports snapshots." = "Kun rsync versjon 3 støtter snapshot.";
