@@ -11,14 +11,14 @@ enum SwiftPushPullView: String, CaseIterable, Identifiable, CustomStringConverti
     case pull
     case push
     case both
-    
+
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
 }
 
 struct DetailsPushPullView: View {
     @Binding var verifynavigation: [VerifyTasks]
-    
+
     @State private var progress = true
     // Pull data from remote
     @State private var pullremotedatanumbers: RemoteDataNumbers?
@@ -43,7 +43,6 @@ struct DetailsPushPullView: View {
 
                 } else {
                     if let pullremotedatanumbers, let pushremotedatanumbers {
-                        
                         if switchview == .both {
                             HStack {
                                 DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
@@ -81,12 +80,11 @@ struct DetailsPushPullView: View {
             pullremote(config: config)
         }
         .toolbar(content: {
-            
             if progress == false {
                 ToolbarItem {
                     pickerselectview
                 }
-                
+
                 ToolbarItem {
                     Button {
                         verifynavigation.removeAll()
@@ -98,7 +96,7 @@ struct DetailsPushPullView: View {
                     .help("Pull or push")
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     abort()
@@ -109,7 +107,7 @@ struct DetailsPushPullView: View {
             }
         })
     }
-    
+
     var pickerselectview: some View {
         Picker("", selection: $switchview) {
             ForEach(SwiftPushPullView.allCases) { Text($0.description)

@@ -83,6 +83,11 @@ struct RestoreTableView: View {
 
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
+                    .onTapGesture {
+                        withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                            restore.dryrun.toggle()
+                        }
+                    }
             }
             .focusedSceneValue(\.aborttask, $focusaborttask)
             .searchable(text: $filterstring)

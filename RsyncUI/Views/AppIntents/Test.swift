@@ -1,5 +1,5 @@
 //
-//  TestAppIntent.swift
+//  Test.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 22/12/2024.
@@ -8,15 +8,15 @@
 import AppIntents
 
 struct TestAppIntent: AppIntent {
-    static let title: LocalizedStringResource = "Create a Transfer"
-    static let description: LocalizedStringResource = "Starts a new File Transfer"
+    static let title: LocalizedStringResource = "Profiles"
+    static let description: LocalizedStringResource = "Show all profiles"
 
     /// Launch your app when the system triggers this intent.
     static let openAppWhenRun: Bool = true
 
     @Parameter(
-        title: "Files",
-        description: "Files to Transfer",
+        title: "Profiles",
+        description: "Show all profiles",
         supportedTypeIdentifiers: ["public.image"],
         inputConnectionBehavior: .connectToPreviousIntentResult
     )
@@ -25,10 +25,11 @@ struct TestAppIntent: AppIntent {
     /// Define the method that the system calls when it triggers this event.
     @MainActor
     func perform() async throws -> some IntentResult {
-        if let fileURLs = fileURLs?.compactMap({ $0.fileURL }), !fileURLs.isEmpty {
+        if let fileURLs = fileURLs?.compactMap(\.fileURL), !fileURLs.isEmpty {
+            print("test 1")
             /// Import and handle file URLs
         }
-
+        print("test 2")
         /// Deeplink into the Transfer Creation page
         // DeepLinkManager.handle(TransferURLScheme.createTransferFromShareExtension)
 
@@ -42,9 +43,9 @@ struct TransferAppShortcutsProvider: AppShortcutsProvider {
         AppShortcut(
             intent: TestAppIntent(),
             phrases: [
-                "Create a \(.applicationName) transfer"
+                "Show all profiles \(.applicationName)",
             ],
-            shortTitle: "Create a Transfer",
+            shortTitle: "Show profiles",
             systemImageName: "arrow.up.circle.fill"
         )
     }

@@ -87,6 +87,11 @@ struct RsyncParametersView: View {
                             }
                             parameters.setbackup()
                         }
+                        .onTapGesture {
+                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                backup.toggle()
+                            }
+                        }
                         .disabled(selectedconfig == nil)
 
                     Spacer()

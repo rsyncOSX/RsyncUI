@@ -55,6 +55,12 @@ struct QuicktaskView: View {
                     VStack(alignment: .trailing) {
                         Toggle("--dry-run", isOn: $dryrun)
                             .toggleStyle(.switch)
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                    dryrun.toggle()
+                                }
+                            }
+                        
 
                         Toggle("File(off) or Catalog(on)", isOn: $catalogorfile)
                             .toggleStyle(.switch)
@@ -65,9 +71,19 @@ struct QuicktaskView: View {
                                     donotaddtrailingslash = true
                                 }
                             }
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                    catalogorfile.toggle()
+                                }
+                            }
 
                         Toggle("Don´t add /", isOn: $donotaddtrailingslash)
                             .toggleStyle(.switch)
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                    donotaddtrailingslash.toggle()
+                                }
+                            }
                     }
                     .padding()
                 }

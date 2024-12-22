@@ -58,6 +58,11 @@ struct ExecutePushPullView: View {
                                 if pushpullcommand != .none {
                                     Toggle("--dry-run", isOn: $dryrun)
                                         .toggleStyle(.switch)
+                                        .onTapGesture {
+                                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                                dryrun.toggle()
+                                            }
+                                        }
                                 }
                             }
 

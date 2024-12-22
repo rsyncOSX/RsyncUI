@@ -5,8 +5,8 @@
 //  Created by Thomas Evensen on 12/12/2023.
 //
 
-import SwiftUI
 import OSLog
+import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
     case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles, verify_remote
@@ -74,8 +74,8 @@ struct SidebarMainView: View {
         }
         .onOpenURL { incomingURL in
             Logger.process.info("App was opened via URL: \(incomingURL)")
-                    handleIncomingURL(incomingURL)
-                }
+            handleIncomingURL(incomingURL)
+        }
     }
 
     @MainActor @ViewBuilder
@@ -116,17 +116,20 @@ struct SidebarMainView: View {
             }
         }
     }
-    
+
     // Handles the incoming URL and performs validations before acknowledging.
-        private func handleIncomingURL(_ url: URL) {
-            guard url.scheme == "rsyncuiapp" else { return }
-            guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-                Logger.process.warning("Invalid URL")
-                return
-            }
-            print(components)
-            // openedRecipeName = recipeName
+    private func handleIncomingURL(_ url: URL) {
+        guard url.scheme == "rsyncuiapp" else { return }
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            Logger.process.warning("Invalid URL")
+            return
         }
+        print(components)
+
+        // selectedview = .profiles
+
+        // openedRecipeName = recipeName
+    }
 
     var profilepicker: some View {
         HStack {
