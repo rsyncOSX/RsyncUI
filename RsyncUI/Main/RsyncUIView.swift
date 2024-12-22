@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 17/06/2021.
 //
 
-import OSLog
 import SwiftUI
 
 struct RsyncUIView: View {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
     case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles, verify_remote
@@ -71,6 +72,10 @@ struct SidebarMainView: View {
                 SharedReference.shared.newversion = newversion.notifynewversion
             }
         }
+        .onOpenURL { incomingURL in
+            Logger.process.info("App was opened via URL: \(incomingURL)")
+                    handleIncomingURL(incomingURL)
+                }
     }
 
     @MainActor @ViewBuilder
@@ -111,6 +116,17 @@ struct SidebarMainView: View {
             }
         }
     }
+    
+    // Handles the incoming URL and performs validations before acknowledging.
+        private func handleIncomingURL(_ url: URL) {
+            guard url.scheme == "rsyncuiapp" else { return }
+            guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+                Logger.process.warning("Invalid URL")
+                return
+            }
+            print(components)
+            // openedRecipeName = recipeName
+        }
 
     var profilepicker: some View {
         HStack {
