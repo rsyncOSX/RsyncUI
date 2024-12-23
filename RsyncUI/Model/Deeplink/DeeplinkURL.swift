@@ -35,16 +35,24 @@ struct DeeplinkURL {
                 return .invalidurl
             }
 
+            if let host = components.host {
+                Logger.process.info("Found host: \(host)")
+                // Found ... loadprofile
+            }
+            
             if let query = components.query {
                 Logger.process.info("Found query: \(query)")
+                // Found ... profile=test
             }
+            
             
             if let queryItems = components.queryItems {
                 // Iterate through the query items and store them in the dictionary
                 queryItems.forEach ({
-                    if let value = $0.value,
-                       let name: String? = $0.name {
-                        Logger.process.info("Found query item: \(name ?? "") with value: \(value)")
+                    if let value = $0.value {
+                       let name = $0.name
+                        Logger.process.info("Found query item: \(name) with value: \(value)")
+                        // Found ... profile ...value: test
                     }
                 })
             }
