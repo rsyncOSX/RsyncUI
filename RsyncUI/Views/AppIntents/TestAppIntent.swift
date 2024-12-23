@@ -1,5 +1,5 @@
 //
-//  Test.swift
+//  TestAppIntent.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 22/12/2024.
