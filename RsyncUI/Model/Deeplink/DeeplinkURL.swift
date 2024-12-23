@@ -15,16 +15,27 @@ enum Deeplinknavigation {
 }
 
 struct DeeplinkURL {
+    private func validateScheme(_ scheme: String) -> Bool {
+        guard scheme == "rsyncuiapp" else { return false }
+        return true
+    }
+    
     func handleURL(_ url: URL) -> Deeplinknavigation {
+        
         Logger.process.info("App was opened via URL: \(url)")
-        guard url.scheme == "rsyncuiapp" else { return .invalidscheme }
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            Logger.process.warning("Invalid URL")
-            return .invalidurl
-        }
+        
+        guard (url.scheme != nil) else { return .invalidurl }
+        if let scheme = url.scheme {
+            guard validateScheme(scheme) else { return .invalidscheme }
+            guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+                Logger.process.warning("Invalid URL")
+                return .invalidurl
+            }
 
-        print(components)
-        return .quicktask
+            print(components)
+            return .quicktask
+        }
+        return .invalidurl
     }
 }
 
