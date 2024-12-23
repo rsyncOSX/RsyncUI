@@ -126,6 +126,8 @@ struct SidebarMainView: View {
             return Logger.process.warning("Invalid URL")
         case .invalidscheme:
             return Logger.process.warning("Invalid URL scheme")
+        case .noaction:
+            return Logger.process.info("No action URL scheme")
         }
     }
 
