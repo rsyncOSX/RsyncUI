@@ -122,12 +122,10 @@ struct SidebarMainView: View {
         case .quicktask:
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
-        case .invalidurl:
-            return Logger.process.warning("Invalid URL")
-        case .invalidscheme:
-            return Logger.process.warning("Invalid URL scheme")
-        case .noaction:
-            return Logger.process.info("No action URL scheme")
+        case .none:
+            return
+        case .some(.noaction):
+            return
         }
     }
 
