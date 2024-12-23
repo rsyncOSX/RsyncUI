@@ -126,7 +126,9 @@ struct SidebarMainView: View {
         }
         print(components)
 
-        // selectedview = .profiles
+        selectedview = .synchronize
+        executetasknavigation.append(Tasks(task: .quick_synchronize))
+        
 
         // openedRecipeName = recipeName
     }
