@@ -43,7 +43,7 @@ struct TransferAppShortcutsProvider: AppShortcutsProvider {
         AppShortcut(
             intent: TestAppIntent(),
             phrases: [
-                "Show all profiles \(.applicationName)",
+                "Show all profiles \(.applicationName)"
             ],
             shortTitle: "Show profiles",
             systemImageName: "arrow.up.circle.fill"

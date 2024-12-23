@@ -73,8 +73,7 @@ struct SidebarMainView: View {
             }
         }
         .onOpenURL { incomingURL in
-            Logger.process.info("App was opened via URL: \(incomingURL)")
-            handleIncomingURL(incomingURL)
+            handleURL(incomingURL)
         }
     }
 
@@ -117,20 +116,17 @@ struct SidebarMainView: View {
         }
     }
 
-    // Handles the incoming URL and performs validations before acknowledging.
-    private func handleIncomingURL(_ url: URL) {
-        guard url.scheme == "rsyncuiapp" else { return }
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            Logger.process.warning("Invalid URL")
-            return
+    // Handles the incoming URL
+    private func handleURL(_ url: URL) {
+        switch DeeplinkURL().handleURL(url) {
+        case .quicktask:
+            selectedview = .synchronize
+            executetasknavigation.append(Tasks(task: .quick_synchronize))
+        case .invalidurl:
+            return Logger.process.warning("Invalid URL")
+        case .invalidscheme:
+            return Logger.process.warning("Invalid URL scheme")
         }
-        print(components)
-
-        selectedview = .synchronize
-        executetasknavigation.append(Tasks(task: .quick_synchronize))
-        
-
-        // openedRecipeName = recipeName
     }
 
     var profilepicker: some View {

@@ -60,7 +60,6 @@ struct QuicktaskView: View {
                                     dryrun.toggle()
                                 }
                             }
-                        
 
                         Toggle("File(off) or Catalog(on)", isOn: $catalogorfile)
                             .toggleStyle(.switch)

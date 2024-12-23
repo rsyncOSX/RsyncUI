@@ -38,6 +38,7 @@
 		E954AD3F2AFE8F3800F3EA63 /* SidebarTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */; };
 		E954AD412AFE8FBB00F3EA63 /* SummarizedDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD402AFE8FBB00F3EA63 /* SummarizedDetailsView.swift */; };
 		E954AD432AFE901200F3EA63 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954AD422AFE901200F3EA63 /* TasksView.swift */; };
+		E955F3CD2D1941AB00EA7840 /* DeeplinkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E955F3CC2D19419D00EA7840 /* DeeplinkURL.swift */; };
 		E9569EA927B809EE0038799C /* ReadUserConfigurationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */; };
 		E9569EAB27B80BEB0038799C /* UserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EAA27B80BEB0038799C /* UserConfiguration.swift */; };
 		E9569EAD27B80C220038799C /* DecodeUserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9569EAC27B80C220038799C /* DecodeUserConfiguration.swift */; };
@@ -206,6 +207,7 @@
 		E954AD3E2AFE8F3800F3EA63 /* SidebarTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTasksView.swift; sourceTree = "<group>"; };
 		E954AD402AFE8FBB00F3EA63 /* SummarizedDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummarizedDetailsView.swift; sourceTree = "<group>"; };
 		E954AD422AFE901200F3EA63 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
+		E955F3CC2D19419D00EA7840 /* DeeplinkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkURL.swift; sourceTree = "<group>"; };
 		E9569EA827B809EE0038799C /* ReadUserConfigurationJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUserConfigurationJSON.swift; sourceTree = "<group>"; };
 		E9569EAA27B80BEB0038799C /* UserConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfiguration.swift; sourceTree = "<group>"; };
 		E9569EAC27B80C220038799C /* DecodeUserConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeUserConfiguration.swift; sourceTree = "<group>"; };
@@ -429,6 +431,14 @@
 			path = OutputViews;
 			sourceTree = "<group>";
 		};
+		E955F3CB2D19418100EA7840 /* Deeplink */ = {
+			isa = PBXGroup;
+			children = (
+				E955F3CC2D19419D00EA7840 /* DeeplinkURL.swift */,
+			);
+			path = Deeplink;
+			sourceTree = "<group>";
+		};
 		E95EDC7D26063C7F000018DE /* RsyncParameters */ = {
 			isa = PBXGroup;
 			children = (
@@ -620,6 +630,7 @@
 		E985C69225F3AD9600CB895C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E955F3CB2D19418100EA7840 /* Deeplink */,
 				E9CCECD52643AD3A007BE237 /* Newversion */,
 				E985C69525F3AD9600CB895C /* FilesAndCatalogs */,
 				E985C69A25F3AD9600CB895C /* Snapshots */,
@@ -1172,6 +1183,7 @@
 				E9C1113A2BBD8DE30041CEA0 /* ConfigurationsTableDataView.swift in Sources */,
 				E985C75525F3AD9700CB895C /* LogRecords.swift in Sources */,
 				E985C73325F3AD9700CB895C /* MyEnvironment.swift in Sources */,
+				E955F3CD2D1941AB00EA7840 /* DeeplinkURL.swift in Sources */,
 				E985C79225F3AD9700CB895C /* Extensions.swift in Sources */,
 				E9359B9A26691EFD00D40C43 /* ObservableAddConfigurations.swift in Sources */,
 				E98C7AB5262D662200555977 /* ReadLogRecordsJSON.swift in Sources */,
