@@ -27,7 +27,6 @@ enum DeeplinknavigationError: LocalizedError {
 
 enum Deeplinknavigation {
     case quicktask
-    case noaction
 }
 
 struct DeeplinkURL: PropogateError {

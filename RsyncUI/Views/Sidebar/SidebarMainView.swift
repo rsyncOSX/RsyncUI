@@ -124,8 +124,6 @@ struct SidebarMainView: View {
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .none:
             return
-        case .some(.noaction):
-            return
         }
     }
 
