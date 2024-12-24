@@ -27,6 +27,12 @@ enum DeeplinknavigationError: LocalizedError {
 
 enum Deeplinknavigation {
     case quicktask
+    case loadprofile
+}
+
+struct DeeplinkQueryItem: Hashable {
+    let host: Deeplinknavigation
+    let queryItem: URLQueryItem?
 }
 
 struct DeeplinkURL: PropogateError {
@@ -44,8 +50,9 @@ struct DeeplinkURL: PropogateError {
         throw DeeplinknavigationError.noaction
     }
 
-    // rsyncuiapp://loadprofile?profile=test
-    func handleURL(_ url: URL) -> Deeplinknavigation? {
+    // rsyncuiapp://loadprofile?profile=Samsung
+    // rsyncuiapp://quicktask
+    func handleURL(_ url: URL) -> DeeplinkQueryItem? {
         Logger.process.info("App was opened via URL: \(url)")
 
         var components: URLComponents?
@@ -61,6 +68,7 @@ struct DeeplinkURL: PropogateError {
             if let host = components.host {
                 Logger.process.info("Found host: \(host)")
                 // Found ... loadprofile
+                // Found ... quicktask and no queryItems
             }
 
             if let query = components.query {
@@ -68,7 +76,8 @@ struct DeeplinkURL: PropogateError {
                 // Found ... profile=test
             }
 
-            if let queryItems = components.queryItems {
+            if let queryItems = components.queryItems,
+                queryItems.count == 1 {
                 // Iterate through the query items and store them in the dictionary
                 for queryItem in queryItems {
                     if let value = queryItem.value {
@@ -76,8 +85,16 @@ struct DeeplinkURL: PropogateError {
                         Logger.process.info("Found query item: \(name) with value: \(value)")
                         // Found ... profile ...value: test
                     }
+                    let deepLinkQueryItem = DeeplinkQueryItem(host: .loadprofile, queryItem: queryItem)
+                    return deepLinkQueryItem
                 }
+                
+            } else {
+                let deepLinkQueryItem = DeeplinkQueryItem(host: .quicktask, queryItem: nil)
+                return deepLinkQueryItem
             }
+            
+            
 
             // Must have a RETURN VALUE  here
 

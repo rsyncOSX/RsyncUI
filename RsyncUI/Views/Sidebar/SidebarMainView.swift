@@ -118,10 +118,18 @@ struct SidebarMainView: View {
 
     // Handles the incoming URL
     private func handleURL(_ url: URL) {
-        switch DeeplinkURL().handleURL(url) {
+        let query = DeeplinkURL().handleURL(url)
+        switch query?.host {
         case .quicktask:
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
+        case .loadprofile:
+            if let queryprofile = query?.queryItem?.value {
+                guard Homepath().getfullpathmacserialcatalogsasstringnames().contains(queryprofile) else { return }
+                selectedprofile = queryprofile
+            } else {
+                return
+            }
         case .none:
             return
         }
