@@ -132,8 +132,12 @@ struct SidebarMainView: View {
             }
         case .loadandestimateprofile:
             if let queryprofile = query?.queryItem?.value {
-                guard Homepath().getfullpathmacserialcatalogsasstringnames().contains(queryprofile) else { return }
-                selectedprofile = queryprofile
+                if queryprofile == "default" {
+                    selectedprofile = "Default profile"
+                } else {
+                    selectedprofile = queryprofile
+                }
+                guard Homepath().getfullpathmacserialcatalogsasstringnames().contains(selectedprofile ?? "") else { return }
                 selectedview = .synchronize
                 Task {
                     try await Task.sleep(seconds: 1)
