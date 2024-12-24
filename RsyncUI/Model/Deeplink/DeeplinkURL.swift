@@ -28,6 +28,7 @@ enum DeeplinknavigationError: LocalizedError {
 enum Deeplinknavigation {
     case quicktask
     case loadprofile
+    case loadandestimateprofile
 }
 
 struct DeeplinkQueryItem: Hashable {
@@ -52,6 +53,9 @@ struct DeeplinkURL: PropogateError {
 
     // rsyncuiapp://loadprofile?profile=Samsung
     // rsyncuiapp://quicktask
+    // rsyncuiapp://loadandestimateprofile?profile=Pictures
+    // rsyncuiapp://loadandestimateprofile?profile=Default profile
+    
     func handleURL(_ url: URL) -> DeeplinkQueryItem? {
         Logger.process.info("App was opened via URL: \(url)")
 
@@ -65,17 +69,8 @@ struct DeeplinkURL: PropogateError {
         }
 
         if let components {
-            if let host = components.host {
-                Logger.process.info("Found host: \(host)")
-                // Found ... loadprofile
-                // Found ... quicktask and no queryItems
-            }
-
-            if let query = components.query {
-                Logger.process.info("Found query: \(query)")
-                // Found ... profile=test
-            }
-
+            
+            // First check if there are queryItems
             if let queryItems = components.queryItems,
                 queryItems.count == 1 {
                 // Iterate through the query items and store them in the dictionary
@@ -85,19 +80,47 @@ struct DeeplinkURL: PropogateError {
                         Logger.process.info("Found query item: \(name) with value: \(value)")
                         // Found ... profile ...value: test
                     }
-                    let deepLinkQueryItem = DeeplinkQueryItem(host: .loadprofile, queryItem: queryItem)
-                    return deepLinkQueryItem
+                    
+                    if let host = components.host {
+                        switch host {
+                        case "loadprofile":
+                            Logger.process.info("Found host: \(host)")
+                            let deepLinkQueryItem = DeeplinkQueryItem(host: .loadprofile, queryItem: queryItem)
+                            return deepLinkQueryItem
+                        case "loadandestimateprofile":
+                            Logger.process.info("Found host: \(host)")
+                            let deepLinkQueryItem = DeeplinkQueryItem(host: .loadandestimateprofile, queryItem: queryItem)
+                            return deepLinkQueryItem
+                        default:
+                            Logger.process.info("No valid host, queryItems: nil")
+                            return nil
+                        }
+        
+                    } else {
+                        return nil
+                    }
                 }
                 
             } else {
-                let deepLinkQueryItem = DeeplinkQueryItem(host: .quicktask, queryItem: nil)
-                return deepLinkQueryItem
+               
+                if let host = components.host {
+                    switch host {
+                    case "quicktask":
+                        Logger.process.info("Found host: \(host)")
+                        let deepLinkQueryItem = DeeplinkQueryItem(host: .quicktask, queryItem: nil)
+                        return deepLinkQueryItem
+                    default:
+                        Logger.process.info("No valid host, queryItem: nil")
+                        return nil
+                    }
+                    
+                } else {
+                    return nil
+                }
+                
+                
             }
             
-            
-
-            // Must have a RETURN VALUE  here
-
             do {
                 try thrownoaction()
             } catch let e {

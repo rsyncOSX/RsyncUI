@@ -130,8 +130,21 @@ struct SidebarMainView: View {
             } else {
                 return
             }
+        case .loadandestimateprofile:
+            if let queryprofile = query?.queryItem?.value {
+                guard Homepath().getfullpathmacserialcatalogsasstringnames().contains(queryprofile) else { return }
+                selectedprofile = queryprofile
+                selectedview = .synchronize
+                Task {
+                    try await Task.sleep(seconds: 1)
+                    executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                }
+            } else {
+                return
+            }
         case .none:
             return
+        
         }
     }
 
