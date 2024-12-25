@@ -118,31 +118,35 @@ struct SidebarMainView: View {
 
     // Handles the incoming URL
     private func handleURL(_ url: URL) {
-        let query = DeeplinkURL().handleURL(url)
-        switch query?.host {
+        let deeplink = DeeplinkURL()
+
+        switch deeplink.handleURL(url)?.host {
         case .quicktask:
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
-            if let queryprofile = query?.queryItem?.value {
-                guard Homepath().getfullpathmacserialcatalogsasstringnames().contains(queryprofile) else { return }
-                selectedprofile = queryprofile
+            if let queryprofile = deeplink.handleURL(url)?.queryItem?.value {
+                if deeplink.validateprofile(queryprofile) {
+                    selectedprofile = queryprofile
+                }
             } else {
                 return
             }
         case .loadandestimateprofile:
-            if let queryprofile = query?.queryItem?.value {
+            if let queryprofile = deeplink.handleURL(url)?.queryItem?.value {
                 if queryprofile == "default" {
                     selectedprofile = "Default profile"
                 } else {
                     selectedprofile = queryprofile
                 }
-                guard Homepath().getfullpathmacserialcatalogsasstringnames().contains(selectedprofile ?? "") else { return }
-                selectedview = .synchronize
-                Task {
-                    try await Task.sleep(seconds: 1)
-                    executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                if deeplink.validateprofile(queryprofile) {
+                    selectedview = .synchronize
+                    Task {
+                        try await Task.sleep(seconds: 1)
+                        executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                    }
                 }
+
             } else {
                 return
             }

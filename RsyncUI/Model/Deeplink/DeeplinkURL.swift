@@ -11,8 +11,9 @@ import RsyncUIDeepLinks
 
 final class DeeplinkURL: PropogateError {
     let deeplinks = RsyncUIDeepLinks()
+    let validprofiles = Homepath().getfullpathmacserialcatalogsasstringnames()
 
-    public func handleURL(_ url: URL) -> DeeplinkQueryItem? {
+    func handleURL(_ url: URL) -> DeeplinkQueryItem? {
         do {
             if let components = try deeplinks.validateScheme(url) {
                 if let deepLinkQueryItem = deeplinks.handlevalidURL(components) {
@@ -31,7 +32,17 @@ final class DeeplinkURL: PropogateError {
             let error = e
             propogateerror(error: error)
         }
-
         return nil
+    }
+
+    func validateprofile(_ profile: String) -> Bool {
+        do {
+            try deeplinks.validateprofile(profile, validprofiles)
+            return true
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
+            return false
+        }
     }
 }
