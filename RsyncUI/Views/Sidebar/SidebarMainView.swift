@@ -148,7 +148,6 @@ struct SidebarMainView: View {
             }
         case .none:
             return
-        
         }
     }
 
