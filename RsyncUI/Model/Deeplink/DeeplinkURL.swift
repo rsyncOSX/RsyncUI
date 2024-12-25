@@ -10,11 +10,9 @@ import OSLog
 import RsyncUIDeepLinks
 
 final class DeeplinkURL: PropogateError {
-    
     let deeplinks = RsyncUIDeepLinks()
-        
+
     public func handleURL(_ url: URL) -> DeeplinkQueryItem? {
-        
         do {
             if let components = try deeplinks.validateScheme(url) {
                 if let deepLinkQueryItem = deeplinks.handlevalidURL(components) {
@@ -28,12 +26,12 @@ final class DeeplinkURL: PropogateError {
                     }
                 }
             }
-            
+
         } catch let e {
             let error = e
             propogateerror(error: error)
         }
-                
+
         return nil
     }
 }
