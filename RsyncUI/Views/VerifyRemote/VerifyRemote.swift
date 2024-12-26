@@ -21,6 +21,7 @@ struct VerifyTasks: Hashable, Identifiable {
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var verifynavigation: [VerifyTasks]
+    // For supporting URL links
     @Binding var queryitem: URLQueryItem?
 
     @State private var selectedconfig: SynchronizeConfiguration?

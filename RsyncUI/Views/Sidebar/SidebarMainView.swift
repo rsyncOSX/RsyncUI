@@ -118,73 +118,6 @@ struct SidebarMainView: View {
         }
     }
 
-    // Handles the incoming URL
-    private func handleURL(_ url: URL) {
-        let deeplink = DeeplinkURL()
-
-        switch deeplink.handleURL(url)?.host {
-        case .quicktask:
-            selectedview = .synchronize
-            executetasknavigation.append(Tasks(task: .quick_synchronize))
-        case .loadprofile:
-            if let queryprofile = deeplink.handleURL(url)?.queryItems, queryprofile.count == 1 {
-                if deeplink.validateprofile(queryprofile[0].value ?? "") {
-                    selectedprofile = queryprofile[0].value ?? ""
-                }
-            } else {
-                return
-            }
-        case .loadprofileandestimate:
-            if let queryprofile = deeplink.handleURL(url)?.queryItems, queryprofile.count == 1 {
-                if queryprofile[0].value == "default" {
-                    selectedview = .synchronize
-                    Task {
-                        try await Task.sleep(seconds: 1)
-                        executetasknavigation.append(Tasks(task: .summarizeddetailsview))
-                    }
-                } else {
-                    if deeplink.validateprofile(queryprofile[0].value ?? "") {
-                        selectedprofile = queryprofile[0].value ?? ""
-                        selectedview = .synchronize
-                        Task {
-                            try await Task.sleep(seconds: 1)
-                            executetasknavigation.append(Tasks(task: .summarizeddetailsview))
-                        }
-                    }
-                }
-                
-            } else {
-                return
-            }
-        case .loadprofileandverify:
-            if let queryprofile = deeplink.handleURL(url)?.queryItems, queryprofile.count == 2 {
-                if queryprofile[0].value == "default" {
-                    selectedview = .verify_remote
-                    Task {
-                        try await Task.sleep(seconds: 1)
-                        // Observe queryitem
-                        queryitem = queryprofile[1]
-                    }
-                } else {
-                    if deeplink.validateprofile(queryprofile[0].value ?? "") {
-                        selectedprofile = queryprofile[0].value ?? ""
-                        selectedview = .verify_remote
-                        Task {
-                            try await Task.sleep(seconds: 1)
-                            // Observe queryitem
-                            queryitem = queryprofile[1]
-                        }
-                    }
-                }
-                
-            } else {
-                return
-            }
-        default:
-            return
-        }
-    }
-
     var profilepicker: some View {
         HStack {
             Picker("", selection: $selectedprofile) {
@@ -211,6 +144,80 @@ struct SidebarMainView: View {
             addtasknavigation.isEmpty == false ||
             verifynavigation.isEmpty == false ||
             SharedReference.shared.process != nil
+    }
+}
+
+extension SidebarMainView {
+    // Handles the incoming URL
+    private func handleURL(_ url: URL) {
+        let deeplinkurl  = DeeplinkURL()
+
+        switch deeplinkurl .handleURL(url)?.host {
+        case .quicktask:
+            selectedview = .synchronize
+            executetasknavigation.append(Tasks(task: .quick_synchronize))
+        case .loadprofile:
+            if let queryitem = deeplinkurl .handleURL(url)?.queryItems, queryitem.count == 1 {
+                let profile = queryitem[0].value ?? ""
+                if deeplinkurl .validateprofile(profile) {
+                    selectedprofile = profile
+                }
+            } else {
+                return
+            }
+        case .loadprofileandestimate:
+            if let queryitem = deeplinkurl .handleURL(url)?.queryItems, queryitem.count == 1 {
+                let profile = queryitem[0].value ?? ""
+                
+                if profile == "default" {
+                    selectedview = .synchronize
+                    Task {
+                        try await Task.sleep(seconds: 1)
+                        executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                    }
+                } else {
+                    if deeplinkurl .validateprofile(profile) {
+                        selectedprofile = profile
+                        selectedview = .synchronize
+                        Task {
+                            try await Task.sleep(seconds: 1)
+                            executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                        }
+                    }
+                }
+                
+            } else {
+                return
+            }
+        case .loadprofileandverify:
+            if let queryitems = deeplinkurl .handleURL(url)?.queryItems, queryitems.count == 2 {
+                let profile = queryitems[0].value ?? ""
+                
+                if profile == "default" {
+                    selectedview = .verify_remote
+                    Task {
+                        try await Task.sleep(seconds: 1)
+                        // Observe queryitem
+                        queryitem = queryitems[1]
+                    }
+                } else {
+                    if deeplinkurl .validateprofile(profile) {
+                        selectedprofile = profile
+                        selectedview = .verify_remote
+                        Task {
+                            try await Task.sleep(seconds: 1)
+                            // Observe queryitem
+                            queryitem = queryitems[1]
+                        }
+                    }
+                }
+                
+            } else {
+                return
+            }
+        default:
+            return
+        }
     }
 }
 

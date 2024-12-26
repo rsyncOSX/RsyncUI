@@ -18,6 +18,7 @@ enum SwiftPushPullView: String, CaseIterable, Identifiable, CustomStringConverti
 
 struct DetailsPushPullView: View {
     @Binding var verifynavigation: [VerifyTasks]
+    // For supporting URL links
     @Binding var queryitem: URLQueryItem?
 
     @State private var progress = true
