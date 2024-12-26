@@ -31,6 +31,8 @@ struct SidebarMainView: View {
     @State var verifynavigation: [VerifyTasks] = []
     // Check if new version
     @State private var newversion = CheckfornewversionofRsyncUI()
+    // For automatically, by URL, start a remote verify
+    @State var queryitem: URLQueryItem?
 
     var body: some View {
         NavigationSplitView {
@@ -111,7 +113,7 @@ struct SidebarMainView: View {
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         case .verify_remote:
             NavigationStack {
-                VerifyRemote(rsyncUIdata: rsyncUIdata, verifynavigation: $verifynavigation)
+                VerifyRemote(rsyncUIdata: rsyncUIdata, verifynavigation: $verifynavigation, queryitem: $queryitem)
             }
         }
     }
@@ -125,28 +127,52 @@ struct SidebarMainView: View {
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
-            if let queryprofile = deeplink.handleURL(url)?.queryItem?.value {
-                if deeplink.validateprofile(queryprofile) {
-                    selectedprofile = queryprofile
+            if let queryprofile = deeplink.handleURL(url)?.queryItems, queryprofile.count == 1 {
+                if deeplink.validateprofile(queryprofile[0].value ?? "") {
+                    selectedprofile = queryprofile[0].value ?? ""
                 }
             } else {
                 return
             }
-        case .loadandestimateprofile:
-            if let queryprofile = deeplink.handleURL(url)?.queryItem?.value {
-                if queryprofile == "default" {
+        case .loadprofileandestimate:
+            if let queryprofile = deeplink.handleURL(url)?.queryItems, queryprofile.count == 1 {
+                if queryprofile[0].value == "default" {
                     selectedview = .synchronize
                     Task {
                         try await Task.sleep(seconds: 1)
-                        executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                        executetasknavigation.append(Tasks(task: .quick_synchronize))
                     }
                 } else {
-                    if deeplink.validateprofile(queryprofile) {
-                        selectedprofile = queryprofile
+                    if deeplink.validateprofile(queryprofile[0].value ?? "") {
+                        selectedprofile = queryprofile[0].value ?? ""
                         selectedview = .synchronize
                         Task {
                             try await Task.sleep(seconds: 1)
-                            executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                            executetasknavigation.append(Tasks(task: .quick_synchronize))
+                        }
+                    }
+                }
+                
+            } else {
+                return
+            }
+        case .loadprofileandverify:
+            if let queryprofile = deeplink.handleURL(url)?.queryItems, queryprofile.count == 2 {
+                if queryprofile[0].value == "default" {
+                    selectedview = .verify_remote
+                    Task {
+                        try await Task.sleep(seconds: 1)
+                        queryitem = queryprofile[1]
+                        verifynavigation.append(VerifyTasks(task: .verify))
+                    }
+                } else {
+                    if deeplink.validateprofile(queryprofile[0].value ?? "") {
+                        selectedprofile = queryprofile[0].value ?? ""
+                        selectedview = .verify_remote
+                        Task {
+                            try await Task.sleep(seconds: 1)
+                            queryitem = queryprofile[1]
+                            verifynavigation.append(VerifyTasks(task: .verify))
                         }
                     }
                 }

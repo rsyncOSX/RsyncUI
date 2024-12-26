@@ -21,6 +21,7 @@ struct VerifyTasks: Hashable, Identifiable {
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var verifynavigation: [VerifyTasks]
+    @Binding var queryitem: URLQueryItem?
 
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
@@ -107,7 +108,10 @@ struct VerifyRemote: View {
         switch view {
         case .verify:
             if let selectedconfig {
-                DetailsPushPullView(verifynavigation: $verifynavigation, config: selectedconfig)
+                DetailsPushPullView(rsyncUIdata: rsyncUIdata,
+                                    verifynavigation: $verifynavigation,
+                                    queryitem: $queryitem,
+                                    config: selectedconfig)
             }
         case .executepushpull:
             if let selectedconfig {

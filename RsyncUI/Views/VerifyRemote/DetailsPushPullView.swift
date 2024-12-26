@@ -17,7 +17,10 @@ enum SwiftPushPullView: String, CaseIterable, Identifiable, CustomStringConverti
 }
 
 struct DetailsPushPullView: View {
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    
     @Binding var verifynavigation: [VerifyTasks]
+    @Binding var queryitem: URLQueryItem?
 
     @State private var progress = true
     // Pull data from remote
@@ -77,7 +80,14 @@ struct DetailsPushPullView: View {
             }
         }
         .onAppear {
-            pullremote(config: config)
+            if queryitem != nil {
+                if let config = rsyncUIdata.configurations?[0] {
+                    pullremote(config: config)
+                }
+            } else {
+                pullremote(config: config)
+            }
+            
         }
         .toolbar(content: {
             if progress == false {
