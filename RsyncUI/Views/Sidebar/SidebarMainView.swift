@@ -146,11 +146,10 @@ struct SidebarMainView: View {
                         executetasknavigation.append(Tasks(task: .summarizeddetailsview))
                     }
                 }
-
             } else {
                 return
             }
-        case .none:
+        default:
             return
         }
     }
