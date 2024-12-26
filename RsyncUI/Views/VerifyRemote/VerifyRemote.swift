@@ -66,11 +66,13 @@ struct VerifyRemote: View {
         }
         .onChange(of: queryitem) {
             // This is from URL
-            let id = queryitem?.value
-            if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == id }) {
-                selectedconfig = config
-                // Set config and execute a Verify
-                verifynavigation.append(VerifyTasks(task: .verify))
+            let backupid = queryitem?.value
+            if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == backupid }),
+               config.offsiteServer.isEmpty == false,
+                SharedReference.shared.rsyncversion3 {
+                    selectedconfig = config
+                    // Set config and execute a Verify
+                    verifynavigation.append(VerifyTasks(task: .verify))
             }
         }
         .toolbar(content: {
