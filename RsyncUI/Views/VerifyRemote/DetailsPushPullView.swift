@@ -17,8 +17,6 @@ enum SwiftPushPullView: String, CaseIterable, Identifiable, CustomStringConverti
 }
 
 struct DetailsPushPullView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
-    
     @Binding var verifynavigation: [VerifyTasks]
     @Binding var queryitem: URLQueryItem?
 
@@ -80,13 +78,7 @@ struct DetailsPushPullView: View {
             }
         }
         .onAppear {
-            if queryitem != nil {
-                if let config = rsyncUIdata.configurations?[0] {
-                    pullremote(config: config)
-                }
-            } else {
-                pullremote(config: config)
-            }
+            pullremote(config: config)
             
         }
         .toolbar(content: {

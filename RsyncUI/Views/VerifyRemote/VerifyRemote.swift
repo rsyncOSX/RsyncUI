@@ -63,6 +63,14 @@ struct VerifyRemote: View {
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil
         }
+        .onChange(of: queryitem) {
+            // This is from URL
+            if let config = rsyncUIdata.configurations?[0] {
+                selectedconfig = config
+                // Set config and execute a Verify
+                verifynavigation.append(VerifyTasks(task: .verify))
+            }
+        }
         .toolbar(content: {
             if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
                SharedReference.shared.rsyncversion3
@@ -108,8 +116,7 @@ struct VerifyRemote: View {
         switch view {
         case .verify:
             if let selectedconfig {
-                DetailsPushPullView(rsyncUIdata: rsyncUIdata,
-                                    verifynavigation: $verifynavigation,
+                DetailsPushPullView(verifynavigation: $verifynavigation,
                                     queryitem: $queryitem,
                                     config: selectedconfig)
             }

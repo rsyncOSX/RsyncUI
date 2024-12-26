@@ -140,7 +140,7 @@ struct SidebarMainView: View {
                     selectedview = .synchronize
                     Task {
                         try await Task.sleep(seconds: 1)
-                        executetasknavigation.append(Tasks(task: .quick_synchronize))
+                        executetasknavigation.append(Tasks(task: .summarizeddetailsview))
                     }
                 } else {
                     if deeplink.validateprofile(queryprofile[0].value ?? "") {
@@ -148,7 +148,7 @@ struct SidebarMainView: View {
                         selectedview = .synchronize
                         Task {
                             try await Task.sleep(seconds: 1)
-                            executetasknavigation.append(Tasks(task: .quick_synchronize))
+                            executetasknavigation.append(Tasks(task: .summarizeddetailsview))
                         }
                     }
                 }
@@ -162,8 +162,8 @@ struct SidebarMainView: View {
                     selectedview = .verify_remote
                     Task {
                         try await Task.sleep(seconds: 1)
+                        // Observe queryitem
                         queryitem = queryprofile[1]
-                        verifynavigation.append(VerifyTasks(task: .verify))
                     }
                 } else {
                     if deeplink.validateprofile(queryprofile[0].value ?? "") {
@@ -171,8 +171,8 @@ struct SidebarMainView: View {
                         selectedview = .verify_remote
                         Task {
                             try await Task.sleep(seconds: 1)
+                            // Observe queryitem
                             queryitem = queryprofile[1]
-                            verifynavigation.append(VerifyTasks(task: .verify))
                         }
                     }
                 }
