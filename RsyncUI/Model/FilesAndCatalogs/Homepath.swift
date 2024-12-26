@@ -61,6 +61,7 @@ struct Homepath: PropogateError {
                 {
                     array.append(filesandfolders.lastPathComponent)
                 }
+                Logger.process.info("Homepath: the following folders were found in \(fullpathmacserial): \(array)")
                 return array
             } catch {
                 return []

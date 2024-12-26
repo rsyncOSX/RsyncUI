@@ -135,17 +135,22 @@ struct SidebarMainView: View {
         case .loadandestimateprofile:
             if let queryprofile = deeplink.handleURL(url)?.queryItem?.value {
                 if queryprofile == "default" {
-                    selectedprofile = "Default profile"
-                } else {
-                    selectedprofile = queryprofile
-                }
-                if deeplink.validateprofile(queryprofile) {
                     selectedview = .synchronize
                     Task {
                         try await Task.sleep(seconds: 1)
                         executetasknavigation.append(Tasks(task: .summarizeddetailsview))
                     }
+                } else {
+                    selectedprofile = queryprofile
+                    if deeplink.validateprofile(queryprofile) {
+                        selectedview = .synchronize
+                        Task {
+                            try await Task.sleep(seconds: 1)
+                            executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                        }
+                    }
                 }
+                
             } else {
                 return
             }
