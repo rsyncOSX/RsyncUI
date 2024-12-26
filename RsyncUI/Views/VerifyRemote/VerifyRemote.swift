@@ -66,7 +66,8 @@ struct VerifyRemote: View {
         }
         .onChange(of: queryitem) {
             // This is from URL
-            if let config = rsyncUIdata.configurations?[0] {
+            let id = queryitem?.value
+            if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == id }) {
                 selectedconfig = config
                 // Set config and execute a Verify
                 verifynavigation.append(VerifyTasks(task: .verify))
