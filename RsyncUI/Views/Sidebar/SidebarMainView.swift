@@ -141,8 +141,8 @@ struct SidebarMainView: View {
                         executetasknavigation.append(Tasks(task: .summarizeddetailsview))
                     }
                 } else {
-                    selectedprofile = queryprofile
                     if deeplink.validateprofile(queryprofile) {
+                        selectedprofile = queryprofile
                         selectedview = .synchronize
                         Task {
                             try await Task.sleep(seconds: 1)
