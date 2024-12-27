@@ -109,7 +109,7 @@ struct SidebarMainView: View {
                              selecteduuids: $selecteduuids,
                              estimateprogressdetails: estimateprogressdetails,
                              executetasknavigation: $executetasknavigation,
-                             queryitem: $queryitem )
+                             queryitem: $queryitem)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         case .verify_remote:

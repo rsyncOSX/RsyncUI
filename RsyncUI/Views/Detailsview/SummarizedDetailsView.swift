@@ -13,6 +13,8 @@ struct SummarizedDetailsView: View {
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var path: [Tasks]
+    // Timer when URL action
+    @Binding var showtimer: Bool
 
     @State private var focusstartexecution: Bool = false
     @State private var nodatatosynchronize: Bool = false
@@ -31,43 +33,52 @@ struct SummarizedDetailsView: View {
                                              nodatatosynchronize: $nodatatosynchronize,
                                              profile: profile,
                                              configurations: configurations)
-
                 } else {
-                    Table(estimateprogressdetails.estimatedlist ?? [],
-                          selection: $selecteduuids)
-                    {
-                        TableColumn("Synchronize ID") { data in
-                            if data.datatosynchronize {
-                                if data.backupID.isEmpty == true {
-                                    Text("Synchronize ID")
-                                        .foregroundColor(.blue)
+                    ZStack {
+                        Table(estimateprogressdetails.estimatedlist ?? [],
+                              selection: $selecteduuids)
+                        {
+                            TableColumn("Synchronize ID") { data in
+                                if data.datatosynchronize {
+                                    if data.backupID.isEmpty == true {
+                                        Text("Synchronize ID")
+                                            .foregroundColor(.blue)
+                                    } else {
+                                        Text(data.backupID)
+                                            .foregroundColor(.blue)
+                                    }
                                 } else {
-                                    Text(data.backupID)
-                                        .foregroundColor(.blue)
-                                }
-                            } else {
-                                if data.backupID.isEmpty == true {
-                                    Text("Synchronize ID")
-                                } else {
-                                    Text(data.backupID)
+                                    if data.backupID.isEmpty == true {
+                                        Text("Synchronize ID")
+                                    } else {
+                                        Text(data.backupID)
+                                    }
                                 }
                             }
-                        }
-                        .width(min: 40, max: 80)
-                        TableColumn("Task", value: \.task)
+                            .width(min: 40, max: 80)
+                            TableColumn("Task", value: \.task)
+                                .width(max: 60)
+                            TableColumn("Local catalog", value: \.localCatalog)
+                                .width(min: 100, max: 300)
+                            TableColumn("Remote catalog", value: \.offsiteCatalog)
+                                .width(min: 100, max: 300)
+                            TableColumn("Server") { data in
+                                if data.offsiteServer.count > 0 {
+                                    Text(data.offsiteServer)
+                                } else {
+                                    Text("localhost")
+                                }
+                            }
                             .width(max: 60)
-                        TableColumn("Local catalog", value: \.localCatalog)
-                            .width(min: 100, max: 300)
-                        TableColumn("Remote catalog", value: \.offsiteCatalog)
-                            .width(min: 100, max: 300)
-                        TableColumn("Server") { data in
-                            if data.offsiteServer.count > 0 {
-                                Text(data.offsiteServer)
-                            } else {
-                                Text("localhost")
-                            }
                         }
-                        .width(max: 60)
+                        if showtimer {
+                            TimerView()
+                                .onDisappear {
+                                    executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                                    path.removeAll()
+                                    path.append(Tasks(task: .executestimatedview))
+                                }
+                        }
                     }
 
                     Table(estimateprogressdetails.estimatedlist ?? [],
@@ -207,5 +218,21 @@ struct SummarizedDetailsView: View {
                 path.append(Tasks(task: .executestimatedview))
                 focusstartexecution = false
             })
+    }
+}
+
+struct TimerView: View {
+    @Environment(\.dismiss) var dismiss
+    @State var startDate = Date.now
+    @State var timeElapsed: Int = 0
+
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
+    var body: some View {
+        Text("Time elapsed: \(timeElapsed) sec")
+            .onReceive(timer) { firedDate in
+                timeElapsed = Int(firedDate.timeIntervalSince(startDate))
+            }
+            .font(.largeTitle)
     }
 }

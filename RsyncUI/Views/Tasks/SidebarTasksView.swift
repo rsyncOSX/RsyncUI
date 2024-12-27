@@ -27,11 +27,12 @@ struct SidebarTasksView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var executetasknavigation: [Tasks]
-    
+
     // For supporting URL links
     @Binding var queryitem: URLQueryItem?
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
+    @State private var showtimer: Bool = false
 
     var body: some View {
         NavigationStack(path: $executetasknavigation) {
@@ -48,6 +49,7 @@ struct SidebarTasksView: View {
             Logger.process.info("Path : \(executetasknavigation, privacy: .public)")
         }
         .onChange(of: queryitem) {
+            showtimer = true
             executetasknavigation.append(Tasks(task: .summarizeddetailsview))
         }
     }
@@ -71,6 +73,7 @@ struct SidebarTasksView: View {
                                       estimateprogressdetails: estimateprogressdetails,
                                       selecteduuids: $selecteduuids,
                                       path: $executetasknavigation,
+                                      showtimer: $showtimer,
                                       configurations: configurations,
                                       profile: rsyncUIdata.profile)
                     .onDisappear {
