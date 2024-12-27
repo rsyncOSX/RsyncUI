@@ -174,6 +174,7 @@ extension SidebarMainView {
                 let profile = queryitems[0].value ?? ""
 
                 if profile == "default" {
+                    selectedprofile = "Default profile"
                     selectedview = .synchronize
                     Task {
                         try await Task.sleep(seconds: 1)
@@ -199,6 +200,7 @@ extension SidebarMainView {
                 let profile = queryitems[0].value ?? ""
 
                 if profile == "default" {
+                    selectedprofile = "Default profile"
                     selectedview = .verify_remote
                     Task {
                         try await Task.sleep(seconds: 1)
