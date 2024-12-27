@@ -150,18 +150,18 @@ struct SidebarMainView: View {
 extension SidebarMainView {
     // Handles the incoming URL
     private func handleURLsidebarmainView(_ url: URL) {
-        let deeplinkurl  = DeeplinkURL()
+        let deeplinkurl = DeeplinkURL()
 
-        switch deeplinkurl .handleURL(url)?.host {
+        switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
-            if let queryitem = deeplinkurl .handleURL(url)?.queryItems, queryitem.count == 1 {
+            if let queryitem = deeplinkurl.handleURL(url)?.queryItems, queryitem.count == 1 {
                 let profile = queryitem[0].value ?? ""
-                if deeplinkurl .validateprofile(profile) {
+                if deeplinkurl.validateprofile(profile) {
                     selectedprofile = profile
                 }
             } else {
@@ -169,9 +169,9 @@ extension SidebarMainView {
             }
         case .loadprofileandestimate:
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Estimate - \(url)")
-            if let queryitem = deeplinkurl .handleURL(url)?.queryItems, queryitem.count == 1 {
+            if let queryitem = deeplinkurl.handleURL(url)?.queryItems, queryitem.count == 1 {
                 let profile = queryitem[0].value ?? ""
-                
+
                 if profile == "default" {
                     selectedview = .synchronize
                     Task {
@@ -179,7 +179,7 @@ extension SidebarMainView {
                         executetasknavigation.append(Tasks(task: .summarizeddetailsview))
                     }
                 } else {
-                    if deeplinkurl .validateprofile(profile) {
+                    if deeplinkurl.validateprofile(profile) {
                         selectedprofile = profile
                         selectedview = .synchronize
                         Task {
@@ -188,15 +188,15 @@ extension SidebarMainView {
                         }
                     }
                 }
-                
+
             } else {
                 return
             }
         case .loadprofileandverify:
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
-            if let queryitems = deeplinkurl .handleURL(url)?.queryItems, queryitems.count == 2 {
+            if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
-                
+
                 if profile == "default" {
                     selectedview = .verify_remote
                     Task {
@@ -205,7 +205,7 @@ extension SidebarMainView {
                         queryitem = queryitems[1]
                     }
                 } else {
-                    if deeplinkurl .validateprofile(profile) {
+                    if deeplinkurl.validateprofile(profile) {
                         selectedprofile = profile
                         selectedview = .verify_remote
                         Task {
@@ -215,7 +215,7 @@ extension SidebarMainView {
                         }
                     }
                 }
-                
+
             } else {
                 return
             }

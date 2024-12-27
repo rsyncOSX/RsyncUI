@@ -80,7 +80,6 @@ struct DetailsPushPullView: View {
         }
         .onAppear {
             pullremote(config: config)
-            
         }
         .toolbar(content: {
             if progress == false {

@@ -69,10 +69,11 @@ struct VerifyRemote: View {
             let backupid = queryitem?.value
             if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == backupid }),
                config.offsiteServer.isEmpty == false,
-                SharedReference.shared.rsyncversion3 {
-                    selectedconfig = config
-                    // Set config and execute a Verify
-                    verifynavigation.append(VerifyTasks(task: .verify))
+               SharedReference.shared.rsyncversion3
+            {
+                selectedconfig = config
+                // Set config and execute a Verify
+                verifynavigation.append(VerifyTasks(task: .verify))
             }
         }
         .toolbar(content: {
