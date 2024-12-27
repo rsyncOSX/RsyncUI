@@ -19,6 +19,7 @@ struct VerifyTasks: Hashable, Identifiable {
 }
 
 struct VerifyRemote: View {
+    @Environment(\.dismiss) var dismiss
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var verifynavigation: [VerifyTasks]
     // For supporting URL links
@@ -26,6 +27,7 @@ struct VerifyRemote: View {
 
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
+    @State private var showingAlert = false
 
     var body: some View {
         NavigationStack(path: $verifynavigation) {
@@ -74,7 +76,18 @@ struct VerifyRemote: View {
                 selectedconfig = config
                 // Set config and execute a Verify
                 verifynavigation.append(VerifyTasks(task: .verify))
+            } else {
+                showingAlert = true
             }
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("No profile with this name"),
+                primaryButton: .default(Text("Dismiss")) {
+                    dismiss()
+                },
+                secondaryButton: .cancel()
+            )
         }
         .toolbar(content: {
             if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
