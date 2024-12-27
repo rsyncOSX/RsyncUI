@@ -108,7 +108,8 @@ struct SidebarMainView: View {
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
                              selecteduuids: $selecteduuids,
                              estimateprogressdetails: estimateprogressdetails,
-                             executetasknavigation: $executetasknavigation)
+                             executetasknavigation: $executetasknavigation,
+                             queryitem: $queryitem )
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         case .verify_remote:
@@ -169,14 +170,14 @@ extension SidebarMainView {
             }
         case .loadprofileandestimate:
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Estimate - \(url)")
-            if let queryitem = deeplinkurl.handleURL(url)?.queryItems, queryitem.count == 1 {
-                let profile = queryitem[0].value ?? ""
+            if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
+                let profile = queryitems[0].value ?? ""
 
                 if profile == "default" {
                     selectedview = .synchronize
                     Task {
                         try await Task.sleep(seconds: 1)
-                        executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                        queryitem = queryitems[0]
                     }
                 } else {
                     if deeplinkurl.validateprofile(profile) {
@@ -184,7 +185,7 @@ extension SidebarMainView {
                         selectedview = .synchronize
                         Task {
                             try await Task.sleep(seconds: 1)
-                            executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+                            queryitem = queryitems[0]
                         }
                     }
                 }
