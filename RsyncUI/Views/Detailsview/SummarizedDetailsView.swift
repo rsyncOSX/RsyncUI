@@ -13,9 +13,7 @@ struct SummarizedDetailsView: View {
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var path: [Tasks]
-    // Timer when URL action
-    @Binding var showtimer: Bool
-
+    
     @State private var focusstartexecution: Bool = false
     @State private var nodatatosynchronize: Bool = false
     @State private var isPresentingConfirm: Bool = false
@@ -34,7 +32,7 @@ struct SummarizedDetailsView: View {
                                              profile: profile,
                                              configurations: configurations)
                 } else {
-                    ZStack {
+                   
                         Table(estimateprogressdetails.estimatedlist ?? [],
                               selection: $selecteduuids)
                         {
@@ -71,15 +69,6 @@ struct SummarizedDetailsView: View {
                             }
                             .width(max: 60)
                         }
-                        if showtimer {
-                            TimerView()
-                                .onDisappear {
-                                    executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
-                                    path.removeAll()
-                                    path.append(Tasks(task: .executestimatedview))
-                                }
-                        }
-                    }
 
                     Table(estimateprogressdetails.estimatedlist ?? [],
                           selection: $selecteduuids)

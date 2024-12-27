@@ -49,7 +49,6 @@ struct SidebarTasksView: View {
             Logger.process.info("Path : \(executetasknavigation, privacy: .public)")
         }
         .onChange(of: queryitem) {
-            showtimer = true
             executetasknavigation.append(Tasks(task: .summarizeddetailsview))
         }
     }
@@ -73,7 +72,6 @@ struct SidebarTasksView: View {
                                       estimateprogressdetails: estimateprogressdetails,
                                       selecteduuids: $selecteduuids,
                                       path: $executetasknavigation,
-                                      showtimer: $showtimer,
                                       configurations: configurations,
                                       profile: rsyncUIdata.profile)
                     .onDisappear {
