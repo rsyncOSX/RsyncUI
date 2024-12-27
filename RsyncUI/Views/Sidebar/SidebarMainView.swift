@@ -75,7 +75,7 @@ struct SidebarMainView: View {
             }
         }
         .onOpenURL { incomingURL in
-            handleURL(incomingURL)
+            handleURLsidebarmainView(incomingURL)
         }
     }
 
@@ -149,7 +149,7 @@ struct SidebarMainView: View {
 
 extension SidebarMainView {
     // Handles the incoming URL
-    private func handleURL(_ url: URL) {
+    private func handleURLsidebarmainView(_ url: URL) {
         let deeplinkurl  = DeeplinkURL()
 
         switch deeplinkurl .handleURL(url)?.host {
