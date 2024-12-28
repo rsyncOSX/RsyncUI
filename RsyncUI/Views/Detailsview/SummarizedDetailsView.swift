@@ -240,7 +240,6 @@ struct SummarizedDetailsView: View {
                          executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                          path.removeAll()
                          path.append(Tasks(task: .executestimatedview))
-                         dismiss()
                      }
                  }
                  .font(.largeTitle)
