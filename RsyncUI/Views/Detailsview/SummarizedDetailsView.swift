@@ -20,6 +20,8 @@ struct SummarizedDetailsView: View {
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
+    
+    let queryitem: URLQueryItem?
 
     var body: some View {
         VStack {
@@ -32,42 +34,47 @@ struct SummarizedDetailsView: View {
                                              profile: profile,
                                              configurations: configurations)
                 } else {
-                    Table(estimateprogressdetails.estimatedlist ?? [],
-                          selection: $selecteduuids)
-                    {
-                        TableColumn("Synchronize ID") { data in
-                            if data.datatosynchronize {
-                                if data.backupID.isEmpty == true {
-                                    Text("Synchronize ID")
-                                        .foregroundColor(.blue)
+                    ZStack {
+                        Table(estimateprogressdetails.estimatedlist ?? [],
+                              selection: $selecteduuids)
+                        {
+                            TableColumn("Synchronize ID") { data in
+                                if data.datatosynchronize {
+                                    if data.backupID.isEmpty == true {
+                                        Text("Synchronize ID")
+                                            .foregroundColor(.blue)
+                                    } else {
+                                        Text(data.backupID)
+                                            .foregroundColor(.blue)
+                                    }
                                 } else {
-                                    Text(data.backupID)
-                                        .foregroundColor(.blue)
-                                }
-                            } else {
-                                if data.backupID.isEmpty == true {
-                                    Text("Synchronize ID")
-                                } else {
-                                    Text(data.backupID)
+                                    if data.backupID.isEmpty == true {
+                                        Text("Synchronize ID")
+                                    } else {
+                                        Text(data.backupID)
+                                    }
                                 }
                             }
-                        }
-                        .width(min: 40, max: 80)
-                        TableColumn("Task", value: \.task)
+                            .width(min: 40, max: 80)
+                            TableColumn("Task", value: \.task)
+                                .width(max: 60)
+                            TableColumn("Local catalog", value: \.localCatalog)
+                                .width(min: 100, max: 300)
+                            TableColumn("Remote catalog", value: \.offsiteCatalog)
+                                .width(min: 100, max: 300)
+                            TableColumn("Server") { data in
+                                if data.offsiteServer.count > 0 {
+                                    Text(data.offsiteServer)
+                                } else {
+                                    Text("localhost")
+                                }
+                            }
                             .width(max: 60)
-                        TableColumn("Local catalog", value: \.localCatalog)
-                            .width(min: 100, max: 300)
-                        TableColumn("Remote catalog", value: \.offsiteCatalog)
-                            .width(min: 100, max: 300)
-                        TableColumn("Server") { data in
-                            if data.offsiteServer.count > 0 {
-                                Text(data.offsiteServer)
-                            } else {
-                                Text("localhost")
-                            }
                         }
-                        .width(max: 60)
+                        
+                        if queryitem != nil { TimerView() }
                     }
+                    
 
                     Table(estimateprogressdetails.estimatedlist ?? [],
                           selection: $selecteduuids)
@@ -209,12 +216,9 @@ struct SummarizedDetailsView: View {
     }
 }
 
-/*
+
  struct TimerView: View {
      @Environment(\.dismiss) var dismiss
-
-     @Binding var execute: Bool
-
      @State var startDate = Date.now
      @State var timeElapsed: Int = 0
 
@@ -226,7 +230,6 @@ struct SummarizedDetailsView: View {
                  .onReceive(timer) { firedDate in
                      timeElapsed = Int(firedDate.timeIntervalSince(startDate))
                      if timeElapsed >= 10 {
-                         execute = true
                          dismiss()
                      }
                  }
@@ -234,11 +237,10 @@ struct SummarizedDetailsView: View {
                  .padding()
 
              Button("Dismiss") {
-                 execute = false
                  dismiss()
              }
+             .buttonStyle(ColorfulButtonStyle())
          }
 
      }
  }
- */

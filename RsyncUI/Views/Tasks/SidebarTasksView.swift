@@ -50,6 +50,7 @@ struct SidebarTasksView: View {
         }
         .onChange(of: queryitem) {
             executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+            
         }
     }
 
@@ -73,7 +74,8 @@ struct SidebarTasksView: View {
                                       selecteduuids: $selecteduuids,
                                       path: $executetasknavigation,
                                       configurations: configurations,
-                                      profile: rsyncUIdata.profile)
+                                      profile: rsyncUIdata.profile,
+                                      queryitem: queryitem)
                     .onDisappear {
                         executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                     }
