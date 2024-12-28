@@ -72,7 +72,9 @@ struct SummarizedDetailsView: View {
                             .width(max: 60)
                         }
                         
-                        if queryitem != nil { TimerView() }
+                        if queryitem != nil { TimerView(executeprogressdetails: executeprogressdetails,
+                                                        estimateprogressdetails: estimateprogressdetails,
+                                                        path: $path) }
                     }
                     
 
@@ -219,6 +221,11 @@ struct SummarizedDetailsView: View {
 
  struct TimerView: View {
      @Environment(\.dismiss) var dismiss
+     
+     @Bindable var executeprogressdetails: ExecuteProgressDetails
+     @Bindable var estimateprogressdetails: EstimateProgressDetails
+     @Binding var path: [Tasks]
+     
      @State var startDate = Date.now
      @State var timeElapsed: Int = 0
 
@@ -230,6 +237,9 @@ struct SummarizedDetailsView: View {
                  .onReceive(timer) { firedDate in
                      timeElapsed = Int(firedDate.timeIntervalSince(startDate))
                      if timeElapsed >= 10 {
+                         executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                         path.removeAll()
+                         path.append(Tasks(task: .executestimatedview))
                          dismiss()
                      }
                  }
