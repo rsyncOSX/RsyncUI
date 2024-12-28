@@ -31,7 +31,7 @@ struct SidebarMainView: View {
     @State var verifynavigation: [VerifyTasks] = []
     // Check if new version
     @State private var newversion = CheckfornewversionofRsyncUI()
-    // For automatically, by URL, start a remote verify
+    // Actions by URLs
     @State var queryitem: URLQueryItem?
 
     var body: some View {
@@ -178,6 +178,7 @@ extension SidebarMainView {
                     selectedview = .synchronize
                     Task {
                         try await Task.sleep(seconds: 1)
+                        // Observe queryitem
                         queryitem = queryitems[0]
                     }
                 } else {
@@ -186,6 +187,7 @@ extension SidebarMainView {
                         selectedview = .synchronize
                         Task {
                             try await Task.sleep(seconds: 1)
+                            // Observe queryitem
                             queryitem = queryitems[0]
                         }
                     }

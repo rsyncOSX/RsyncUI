@@ -81,7 +81,8 @@ struct VerifyRemote: View {
             }
         }
         .alert(isPresented: $showingAlert) {
-            Alert(title: Text("No profile with this name"))}
+            Alert(title: Text("No profile with this name"))
+        }
         .toolbar(content: {
             if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
                SharedReference.shared.rsyncversion3
