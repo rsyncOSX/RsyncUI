@@ -45,4 +45,16 @@ final class DeeplinkURL: PropogateError {
             return false
         }
     }
+    
+    func validatenoaction(_ queryItem: URLQueryItem?) -> Bool {
+        do {
+            try deeplinks.validatenoongoingURLaction(queryItem)
+            return true
+        } catch let e {
+            let error = e
+            propogateerror(error: error)
+            return false
+        }
+    }
+    
 }

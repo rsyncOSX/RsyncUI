@@ -152,7 +152,9 @@ extension SidebarMainView {
     // Handles the incoming URL
     private func handleURLsidebarmainView(_ url: URL) {
         let deeplinkurl = DeeplinkURL()
-
+        
+        guard deeplinkurl.validatenoaction(queryitem) else { return }
+        
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
@@ -160,8 +162,8 @@ extension SidebarMainView {
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
-            if let queryitem = deeplinkurl.handleURL(url)?.queryItems, queryitem.count == 1 {
-                let profile = queryitem[0].value ?? ""
+            if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
+                let profile = queryitems[0].value ?? ""
                 if deeplinkurl.validateprofile(profile) {
                     selectedprofile = profile
                 }
