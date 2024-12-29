@@ -153,7 +153,11 @@ extension SidebarMainView {
     private func handleURLsidebarmainView(_ url: URL) {
         let deeplinkurl = DeeplinkURL()
 
-        guard deeplinkurl.validatenoaction(queryitem) else { return }
+        guard deeplinkurl.validatenoaction(queryitem) else {
+            queryitem = nil
+            selectedprofile = "Default profile"
+            return
+        }
 
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
