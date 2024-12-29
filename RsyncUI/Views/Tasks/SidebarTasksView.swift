@@ -49,10 +49,7 @@ struct SidebarTasksView: View {
             Logger.process.info("Path : \(executetasknavigation, privacy: .public)")
         }
         .onChange(of: queryitem) {
-            Logger.process.info("SidebarTasksView: Change on queryitem discovered")
-            if queryitem != nil {
-                executetasknavigation.append(Tasks(task: .summarizeddetailsview))
-            }
+            handlequeryitem()
         }
     }
 
@@ -117,6 +114,16 @@ struct SidebarTasksView: View {
     func reset() {
         executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
+    }
+}
+
+extension SidebarTasksView {
+    // URL code
+    private func handlequeryitem() {
+        Logger.process.info("SidebarTasksView: Change on queryitem discovered")
+        if queryitem != nil {
+            executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+        }
     }
 }
 

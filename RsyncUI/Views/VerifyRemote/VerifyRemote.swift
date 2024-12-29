@@ -67,22 +67,7 @@ struct VerifyRemote: View {
             selectedconfig = nil
         }
         .onChange(of: queryitem) {
-            Logger.process.info("VerifyRemote: Change on queryitem discovered")
-            // This is from URL
-            let backupid = queryitem?.value
-            if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == backupid }),
-               config.offsiteServer.isEmpty == false,
-               SharedReference.shared.rsyncversion3,
-                queryitem != nil
-            {
-                selectedconfig = config
-                // Set config and execute a Verify
-                verifynavigation.append(VerifyTasks(task: .verify))
-                queryitem = nil
-            } else {
-                if queryitem != nil { showingAlert = true } 
-                queryitem = nil
-            }
+            handlequeryitem()
         }
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("No profile with this name"))
@@ -154,5 +139,27 @@ struct VerifyRemote: View {
                 configuration.task == SharedReference.shared.synchronize &&
                 SharedReference.shared.rsyncversion3 == true
         } ?? []
+    }
+}
+
+extension VerifyRemote {
+    // URL code
+    private func handlequeryitem() {
+        Logger.process.info("VerifyRemote: Change on queryitem discovered")
+        // This is from URL
+        let backupid = queryitem?.value
+        if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == backupid }),
+           config.offsiteServer.isEmpty == false,
+           SharedReference.shared.rsyncversion3,
+            queryitem != nil
+        {
+            selectedconfig = config
+            // Set config and execute a Verify
+            verifynavigation.append(VerifyTasks(task: .verify))
+            queryitem = nil
+        } else {
+            if queryitem != nil { showingAlert = true }
+            queryitem = nil
+        }
     }
 }
