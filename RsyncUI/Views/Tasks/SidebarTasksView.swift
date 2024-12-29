@@ -49,7 +49,10 @@ struct SidebarTasksView: View {
             Logger.process.info("Path : \(executetasknavigation, privacy: .public)")
         }
         .onChange(of: queryitem) {
-            executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+            Logger.process.info("SidebarTasksView: Change on queryitem discovered")
+            if queryitem != nil {
+                executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+            }
         }
     }
 
@@ -77,6 +80,7 @@ struct SidebarTasksView: View {
                                       queryitem: queryitem)
                     .onDisappear {
                         executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        queryitem = nil
                     }
             }
         case .onetaskdetailsview:
