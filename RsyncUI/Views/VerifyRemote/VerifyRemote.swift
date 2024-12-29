@@ -67,17 +67,21 @@ struct VerifyRemote: View {
             selectedconfig = nil
         }
         .onChange(of: queryitem) {
+            Logger.process.info("VerifyRemote: Change on queryitem discovered")
             // This is from URL
             let backupid = queryitem?.value
             if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == backupid }),
                config.offsiteServer.isEmpty == false,
-               SharedReference.shared.rsyncversion3
+               SharedReference.shared.rsyncversion3,
+                queryitem != nil
             {
                 selectedconfig = config
                 // Set config and execute a Verify
                 verifynavigation.append(VerifyTasks(task: .verify))
+                queryitem = nil
             } else {
-                showingAlert = true
+                if queryitem != nil { showingAlert = true } 
+                queryitem = nil
             }
         }
         .alert(isPresented: $showingAlert) {

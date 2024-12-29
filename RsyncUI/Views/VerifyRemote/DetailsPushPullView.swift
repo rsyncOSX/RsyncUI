@@ -155,6 +155,7 @@ struct DetailsPushPullView: View {
 
     // This is a normal synchronize task, dry-run = true
     func pushprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+        
         progress = false
         pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: config)

@@ -154,7 +154,7 @@ extension SidebarMainView {
         let deeplinkurl = DeeplinkURL()
 
         guard deeplinkurl.validatenoaction(queryitem) else { return }
-
+        
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
@@ -200,6 +200,7 @@ extension SidebarMainView {
             }
         case .loadprofileandverify:
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
+            
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
 
@@ -217,12 +218,10 @@ extension SidebarMainView {
                         selectedview = .verify_remote
                         Task {
                             try await Task.sleep(seconds: 1)
-                            // Observe queryitem
                             queryitem = queryitems[1]
                         }
                     }
                 }
-
             } else {
                 return
             }
