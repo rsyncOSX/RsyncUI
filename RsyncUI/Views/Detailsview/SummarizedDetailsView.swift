@@ -73,9 +73,13 @@ struct SummarizedDetailsView: View {
                         }
                         
                         if queryitem != nil {
-                            TimerView(executeprogressdetails: executeprogressdetails,
-                                      estimateprogressdetails: estimateprogressdetails,
-                                      path: $path)
+                            let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true
+                            }
+                            if (datatosynchronize?.count ?? 0) > 0 {
+                                TimerView(executeprogressdetails: executeprogressdetails,
+                                          estimateprogressdetails: estimateprogressdetails,
+                                          path: $path)
+                            }
                         }
                     }
 
