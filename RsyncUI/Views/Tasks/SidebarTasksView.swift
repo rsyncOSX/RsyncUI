@@ -50,7 +50,6 @@ struct SidebarTasksView: View {
         }
         .onChange(of: queryitem) {
             executetasknavigation.append(Tasks(task: .summarizeddetailsview))
-            
         }
     }
 

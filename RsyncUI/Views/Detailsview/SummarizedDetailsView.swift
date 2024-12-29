@@ -20,7 +20,7 @@ struct SummarizedDetailsView: View {
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
-    
+
     let queryitem: URLQueryItem?
 
     var body: some View {
@@ -34,49 +34,42 @@ struct SummarizedDetailsView: View {
                                              profile: profile,
                                              configurations: configurations)
                 } else {
-                    ZStack {
-                        Table(estimateprogressdetails.estimatedlist ?? [],
-                              selection: $selecteduuids)
-                        {
-                            TableColumn("Synchronize ID") { data in
-                                if data.datatosynchronize {
-                                    if data.backupID.isEmpty == true {
-                                        Text("Synchronize ID")
-                                            .foregroundColor(.blue)
-                                    } else {
-                                        Text(data.backupID)
-                                            .foregroundColor(.blue)
-                                    }
+                    Table(estimateprogressdetails.estimatedlist ?? [],
+                          selection: $selecteduuids)
+                    {
+                        TableColumn("Synchronize ID") { data in
+                            if data.datatosynchronize {
+                                if data.backupID.isEmpty == true {
+                                    Text("Synchronize ID")
+                                        .foregroundColor(.blue)
                                 } else {
-                                    if data.backupID.isEmpty == true {
-                                        Text("Synchronize ID")
-                                    } else {
-                                        Text(data.backupID)
-                                    }
+                                    Text(data.backupID)
+                                        .foregroundColor(.blue)
+                                }
+                            } else {
+                                if data.backupID.isEmpty == true {
+                                    Text("Synchronize ID")
+                                } else {
+                                    Text(data.backupID)
                                 }
                             }
-                            .width(min: 40, max: 80)
-                            TableColumn("Task", value: \.task)
-                                .width(max: 60)
-                            TableColumn("Local catalog", value: \.localCatalog)
-                                .width(min: 100, max: 300)
-                            TableColumn("Remote catalog", value: \.offsiteCatalog)
-                                .width(min: 100, max: 300)
-                            TableColumn("Server") { data in
-                                if data.offsiteServer.count > 0 {
-                                    Text(data.offsiteServer)
-                                } else {
-                                    Text("localhost")
-                                }
-                            }
-                            .width(max: 60)
                         }
-                        
-                        if queryitem != nil { TimerView(executeprogressdetails: executeprogressdetails,
-                                                        estimateprogressdetails: estimateprogressdetails,
-                                                        path: $path) }
+                        .width(min: 40, max: 80)
+                        TableColumn("Task", value: \.task)
+                            .width(max: 60)
+                        TableColumn("Local catalog", value: \.localCatalog)
+                            .width(min: 100, max: 300)
+                        TableColumn("Remote catalog", value: \.offsiteCatalog)
+                            .width(min: 100, max: 300)
+                        TableColumn("Server") { data in
+                            if data.offsiteServer.count > 0 {
+                                Text(data.offsiteServer)
+                            } else {
+                                Text("localhost")
+                            }
+                        }
+                        .width(max: 60)
                     }
-                    
 
                     Table(estimateprogressdetails.estimatedlist ?? [],
                           selection: $selecteduuids)
@@ -148,6 +141,14 @@ struct SummarizedDetailsView: View {
                 }
             }
             .toolbar(content: {
+                if queryitem != nil {
+                    ToolbarItem {
+                        TimerView(executeprogressdetails: executeprogressdetails,
+                                  estimateprogressdetails: estimateprogressdetails,
+                                  path: $path)
+                    }
+                }
+
                 let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true
                 }
                 if (datatosynchronize?.count ?? 0) > 0 {
@@ -218,38 +219,35 @@ struct SummarizedDetailsView: View {
     }
 }
 
+struct TimerView: View {
+    @Environment(\.dismiss) var dismiss
 
- struct TimerView: View {
-     @Environment(\.dismiss) var dismiss
-     
-     @Bindable var executeprogressdetails: ExecuteProgressDetails
-     @Bindable var estimateprogressdetails: EstimateProgressDetails
-     @Binding var path: [Tasks]
-     
-     @State var startDate = Date.now
-     @State var timeElapsed: Int = 0
+    @Bindable var executeprogressdetails: ExecuteProgressDetails
+    @Bindable var estimateprogressdetails: EstimateProgressDetails
+    @Binding var path: [Tasks]
 
-     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var startDate = Date.now
+    @State var timeElapsed: Int = 0
 
-     var body: some View {
-         HStack {
-             Text("Time elapsed: \(timeElapsed) sec")
-                 .onReceive(timer) { firedDate in
-                     timeElapsed = Int(firedDate.timeIntervalSince(startDate))
-                     if timeElapsed >= 10 {
-                         executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
-                         path.removeAll()
-                         path.append(Tasks(task: .executestimatedview))
-                     }
-                 }
-                 .font(.largeTitle)
-                 .padding()
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-             Button("Dismiss") {
-                 dismiss()
-             }
-             .buttonStyle(ColorfulButtonStyle())
-         }
+    var body: some View {
+        HStack {
+            Text("Time elapsed: \(timeElapsed) sec")
+                .onReceive(timer) { firedDate in
+                    timeElapsed = Int(firedDate.timeIntervalSince(startDate))
+                    if timeElapsed >= 10 {
+                        executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        path.removeAll()
+                        path.append(Tasks(task: .executestimatedview))
+                    }
+                }
+                .padding()
 
-     }
- }
+            Button("Dismiss") {
+                dismiss()
+            }
+            .buttonStyle(ColorfulButtonStyle())
+        }
+    }
+}

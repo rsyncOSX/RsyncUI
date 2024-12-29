@@ -45,7 +45,7 @@ final class DeeplinkURL: PropogateError {
             return false
         }
     }
-    
+
     func validatenoaction(_ queryItem: URLQueryItem?) -> Bool {
         do {
             try deeplinks.validatenoongoingURLaction(queryItem)
@@ -56,5 +56,4 @@ final class DeeplinkURL: PropogateError {
             return false
         }
     }
-    
 }

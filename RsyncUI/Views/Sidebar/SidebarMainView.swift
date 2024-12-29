@@ -152,9 +152,9 @@ extension SidebarMainView {
     // Handles the incoming URL
     private func handleURLsidebarmainView(_ url: URL) {
         let deeplinkurl = DeeplinkURL()
-        
+
         guard deeplinkurl.validatenoaction(queryitem) else { return }
-        
+
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
