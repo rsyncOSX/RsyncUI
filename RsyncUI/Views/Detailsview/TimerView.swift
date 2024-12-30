@@ -15,16 +15,18 @@ struct TimerView: View {
     @Binding var path: [Tasks]
 
     @State var startDate = Date.now
-    @State var timeElapsed: Int = 0
+    // @State var timeElapsed: Int = 0
+    @State var timetosynchronize: Int = 5
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         HStack {
-            Text("Time elapsed: \(timeElapsed) sec")
+            Text("Counting down: \(timetosynchronize)")
                 .onReceive(timer) { firedDate in
-                    timeElapsed = Int(firedDate.timeIntervalSince(startDate))
-                    if timeElapsed >= 10 {
+                    // timeElapsed = Int(firedDate.timeIntervalSince(startDate))
+                    timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
+                    if timetosynchronize < 0 {
                         executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                         path.removeAll()
                         path.append(Tasks(task: .executestimatedview))
