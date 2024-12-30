@@ -27,12 +27,10 @@ struct SidebarTasksView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var executetasknavigation: [Tasks]
-
     // For supporting URL links
     @Binding var queryitem: URLQueryItem?
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
-    @State private var showtimer: Bool = false
 
     var body: some View {
         NavigationStack(path: $executetasknavigation) {
