@@ -13,7 +13,7 @@ struct ImportExportCommands: Commands {
 
     var body: some Commands {
         CommandGroup(replacing: CommandGroupPlacement.importExport) {
-            Menu("Export and import") {
+            Menu("Export & Import") {
                 ExporttasksButton(exporttasks: $exporttasks)
                 ImporttasksButton(importtasks: $importtasks)
             }

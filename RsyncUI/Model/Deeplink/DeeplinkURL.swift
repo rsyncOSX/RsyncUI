@@ -59,6 +59,23 @@ final class DeeplinkURL: PropogateError {
             return false
         }
     }
+    
+    
+    func createURLloadandverify(valueprofile: String, valueid: String) -> URL? {
+        let host = Deeplinknavigation.loadprofileandverify.rawValue
+        let adjustedvalueid = valueid.replacingOccurrences(of: " ", with: "_")
+        var adjustedvalueprofile = valueprofile
+        if valueprofile == "Default profile" {
+            adjustedvalueprofile = "default"
+        }
+        let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: adjustedvalueprofile),
+                                          URLQueryItem(name: "id", value: adjustedvalueid)]
+        if let url = deeplinks.createURL(host, queryitems) {
+            return url
+        } else {
+            return nil
+        }
+    }
 }
 
 /*
