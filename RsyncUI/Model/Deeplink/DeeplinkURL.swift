@@ -17,6 +17,9 @@ final class DeeplinkURL: PropogateError {
         do {
             if let components = try deeplinks.validateScheme(url) {
                 if let deepLinkQueryItem = deeplinks.handlevalidURL(components) {
+                    if deepLinkQueryItem.host == .loadprofileandverify {
+                        guard SharedReference.shared.rsyncversion3 else { return nil }
+                    }
                     return deepLinkQueryItem
                 } else {
                     do {
@@ -57,3 +60,10 @@ final class DeeplinkURL: PropogateError {
         }
     }
 }
+
+/*
+ let host = Deeplinknavigation.loadprofileandverify.rawValue
+ let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: "Pictures"),
+                                   URLQueryItem(name: "id", value: "Pictures_backup")]
+ if let url = await Deeplinknavigation.createURL(host, queryitems) {
+ */

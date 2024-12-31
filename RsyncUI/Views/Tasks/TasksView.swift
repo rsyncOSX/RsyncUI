@@ -8,7 +8,6 @@
 import Observation
 import OSLog
 import SwiftUI
-// import RsyncUIDeepLinks
 
 struct CopyItem: Identifiable, Codable, Transferable {
     let id: UUID
@@ -122,24 +121,7 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
-/*
-            ToolbarItem {
-                Button {
-                    guard SharedReference.shared.norsync == false else { return }
-                    let host = Deeplinknavigation.loadprofileandverify.rawValue
-                    let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: "Pictures"),
-                                                      URLQueryItem(name: "id", value: "Pictures_backup")]
-                    if let url = await Deeplinknavigation.createURL(host, queryitems) {
-                        // urlaction = url
-                    }
-                    
-                } label: {
-                    Image(systemName: "bolt.shield.fill")
-                        .foregroundColor(Color(.blue))
-                }
-                .help("Estimate and Execute")
-            }
-*/
+
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
@@ -202,7 +184,7 @@ struct TasksView: View {
                 }
                 .help("Rsync output estimated task")
             }
-
+            
             ToolbarItem {
                 Button {
                     path.append(Tasks(task: .viewlogfile))
@@ -211,7 +193,7 @@ struct TasksView: View {
                 }
                 .help("View logfile")
             }
-
+ 
             ToolbarItem {
                 Button {
                     path.append(Tasks(task: .quick_synchronize))
