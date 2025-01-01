@@ -82,18 +82,16 @@ struct SidebarMainView: View {
             handleURLsidebarmainView(incomingURL)
         }
         .onChange(of: urlcommand) {
-            guard urlcommand else { return }
             let valueprofile = rsyncUIdata.profile ?? ""
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
                 handleURLsidebarmainView(url)
             }
         }
         .onChange(of: urlcommandverify) {
-            guard urlcommandverify else { return }
+            let valueprofile = rsyncUIdata.profile ?? ""
             Task {
                 try await Task.sleep(seconds: 1)
             }
-            let valueprofile = rsyncUIdata.profile ?? ""
             var valueid = ""
             if let configurations = rsyncUIdata.configurations {
                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {

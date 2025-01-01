@@ -126,7 +126,11 @@ struct TasksView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    urlcommandverify = true
+                    if urlcommandverify {
+                        urlcommandverify = false
+                    } else {
+                        urlcommandverify = true
+                    }
                 } label: {
                     Image(systemName: "bolt.shield")
                         .foregroundColor(Color(.yellow))
@@ -136,7 +140,12 @@ struct TasksView: View {
 
             ToolbarItem {
                 Button {
-                    urlcommand = true
+                    if urlcommand {
+                        urlcommand = false
+                    } else {
+                        urlcommand = true
+                    }
+                    
                 } label: {
                     Image(systemName: "bolt.shield.fill")
                         .foregroundColor(Color(.yellow))
