@@ -131,7 +131,7 @@ struct TasksView: View {
                     Image(systemName: "bolt.shield")
                         .foregroundColor(Color(.yellow))
                 }
-                .help("Verify selected tasks")
+                .help("Verify Selected")
             }
 
             ToolbarItem {
