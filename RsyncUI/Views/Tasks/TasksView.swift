@@ -129,7 +129,7 @@ struct TasksView: View {
                     urlcommandverify = true
                 } label: {
                     Image(systemName: "bolt.shield")
-                        .foregroundColor(Color(.blue))
+                        .foregroundColor(Color(.yellow))
                 }
                 .help("Verify selected tasks")
             }
@@ -139,7 +139,7 @@ struct TasksView: View {
                     urlcommand = true
                 } label: {
                     Image(systemName: "bolt.shield.fill")
-                        .foregroundColor(Color(.blue))
+                        .foregroundColor(Color(.yellow))
                 }
                 .help("Estimate & Synchronize")
             }
