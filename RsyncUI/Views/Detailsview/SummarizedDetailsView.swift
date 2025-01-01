@@ -71,7 +71,7 @@ struct SummarizedDetailsView: View {
                             }
                             .width(max: 60)
                         }
-                        
+
                         // URL code
                         if queryitem != nil {
                             let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true

@@ -35,6 +35,7 @@ struct SidebarMainView: View {
     @State var queryitem: URLQueryItem?
     // For URL commands within RsyncUI
     @State var urlcommand = false
+    @State var urlcommandverify = false
 
     var body: some View {
         NavigationSplitView {
@@ -87,6 +88,24 @@ struct SidebarMainView: View {
                 handleURLsidebarmainView(url)
             }
         }
+        .onChange(of: urlcommandverify) {
+            guard urlcommandverify else { return }
+            Task {
+                try await Task.sleep(seconds: 1)
+            }
+            let valueprofile = rsyncUIdata.profile ?? ""
+            var valueid = ""
+            if let configurations = rsyncUIdata.configurations {
+                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                    valueid = configurations[index].backupID
+                    if let url = DeeplinkURL().createURLloadandverify(valueprofile: valueprofile,
+                                                                      valueid: valueid)
+                    {
+                        handleURLsidebarmainView(url)
+                    }
+                }
+            }
+        }
     }
 
     @MainActor @ViewBuilder
@@ -120,7 +139,8 @@ struct SidebarMainView: View {
                              estimateprogressdetails: estimateprogressdetails,
                              executetasknavigation: $executetasknavigation,
                              queryitem: $queryitem,
-                             urlcommand: $urlcommand)
+                             urlcommand: $urlcommand,
+                             urlcommandverify: $urlcommandverify)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         case .verify_remote:
@@ -165,7 +185,7 @@ extension SidebarMainView {
         let deeplinkurl = DeeplinkURL()
 
         guard deeplinkurl.validatenoaction(queryitem) else { return }
-        
+
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
@@ -211,7 +231,7 @@ extension SidebarMainView {
             }
         case .loadprofileandverify:
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
-            
+
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
 
@@ -273,13 +293,13 @@ struct SidebarRow: View {
 }
 
 /*
- Task {
-     try await Task.sleep(seconds: 1)
+  Task {
+      try await Task.sleep(seconds: 1)
+  }
+ var valueid = ""
+ if let configurations = rsyncUIdata.configurations {
+     if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+         valueid = configurations[index].backupID
+     }
  }
-var valueid = ""
-if let configurations = rsyncUIdata.configurations {
-    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-        valueid = configurations[index].backupID
-    }
-}
- */
+  */

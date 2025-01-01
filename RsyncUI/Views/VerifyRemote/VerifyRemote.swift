@@ -151,7 +151,7 @@ extension VerifyRemote {
         if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == backupid }),
            config.offsiteServer.isEmpty == false,
            SharedReference.shared.rsyncversion3,
-            queryitem != nil
+           queryitem != nil
         {
             selectedconfig = config
             // Set config and execute a Verify

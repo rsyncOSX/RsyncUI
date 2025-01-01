@@ -43,7 +43,8 @@ struct TasksView: View {
     @Binding var path: [Tasks]
     // For URL commands within RsyncUI
     @Binding var urlcommand: Bool
-    
+    @Binding var urlcommandverify: Bool
+
     @State private var estimatestate = EstimateState()
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
@@ -65,7 +66,7 @@ struct TasksView: View {
     @State private var maxcount: Double = 0
     // For estimates is true
     @State private var thereareestimates: Bool = false
-    
+
     var body: some View {
         ZStack {
             ListofTasksMainView(
@@ -123,17 +124,26 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
-
-                ToolbarItem {
-                    Button {
-                        urlcommand = true
-                    } label: {
-                        Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.blue))
-                    }
-                    .help("Estimate & Synchronize")
+            ToolbarItem {
+                Button {
+                    urlcommandverify = true
+                } label: {
+                    Image(systemName: "bolt.shield")
+                        .foregroundColor(Color(.blue))
                 }
-            
+                .help("Verify selected tasks")
+            }
+
+            ToolbarItem {
+                Button {
+                    urlcommand = true
+                } label: {
+                    Image(systemName: "bolt.shield.fill")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Estimate & Synchronize")
+            }
+
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
@@ -196,7 +206,7 @@ struct TasksView: View {
                 }
                 .help("Rsync output estimated task")
             }
-            
+
             ToolbarItem {
                 Button {
                     path.append(Tasks(task: .viewlogfile))
@@ -205,7 +215,7 @@ struct TasksView: View {
                 }
                 .help("View logfile")
             }
- 
+
             ToolbarItem {
                 Button {
                     path.append(Tasks(task: .quick_synchronize))

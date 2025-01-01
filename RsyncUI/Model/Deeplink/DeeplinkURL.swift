@@ -59,8 +59,7 @@ final class DeeplinkURL: PropogateError {
             return false
         }
     }
-    
-    
+
     func createURLloadandverify(valueprofile: String, valueid: String) -> URL? {
         let host = Deeplinknavigation.loadprofileandverify.rawValue
         let adjustedvalueid = valueid.replacingOccurrences(of: " ", with: "_")
@@ -76,7 +75,7 @@ final class DeeplinkURL: PropogateError {
             return nil
         }
     }
-    
+
     func createURLestimateandsynchronize(valueprofile: String) -> URL? {
         let host = Deeplinknavigation.loadprofileandestimate.rawValue
         var adjustedvalueprofile = valueprofile

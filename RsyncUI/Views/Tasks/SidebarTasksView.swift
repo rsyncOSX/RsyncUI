@@ -31,6 +31,7 @@ struct SidebarTasksView: View {
     @Binding var queryitem: URLQueryItem?
     // For URL commands within RsyncUI
     @Binding var urlcommand: Bool
+    @Binding var urlcommandverify: Bool
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
 
@@ -41,7 +42,8 @@ struct SidebarTasksView: View {
                       estimateprogressdetails: estimateprogressdetails,
                       selecteduuids: $selecteduuids,
                       path: $executetasknavigation,
-                      urlcommand: $urlcommand)
+                      urlcommand: $urlcommand,
+                      urlcommandverify: $urlcommandverify)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
                 }
