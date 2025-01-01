@@ -33,6 +33,8 @@ struct SidebarMainView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
     // Actions by URLs
     @State var queryitem: URLQueryItem?
+    // For URL commands within RsyncUI
+    @State var urlcommand: URL?
 
     var body: some View {
         NavigationSplitView {
@@ -78,6 +80,11 @@ struct SidebarMainView: View {
             // URL code
             handleURLsidebarmainView(incomingURL)
         }
+        .onChange(of: urlcommand) {
+            if let urlcommand {
+                handleURLsidebarmainView(urlcommand)
+            }
+        }
     }
 
     @MainActor @ViewBuilder
@@ -110,7 +117,8 @@ struct SidebarMainView: View {
                              selecteduuids: $selecteduuids,
                              estimateprogressdetails: estimateprogressdetails,
                              executetasknavigation: $executetasknavigation,
-                             queryitem: $queryitem)
+                             queryitem: $queryitem,
+                             urlcommand: $urlcommand)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         case .verify_remote:
