@@ -82,18 +82,8 @@ struct SidebarMainView: View {
         }
         .onChange(of: urlcommand) {
             guard urlcommand else { return }
-            Task {
-                try await Task.sleep(seconds: 1)
-            }
             let valueprofile = rsyncUIdata.profile ?? ""
-            var valueid = ""
-            if let configurations = rsyncUIdata.configurations {
-                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                    valueid = configurations[index].backupID
-                }
-            }
-            if let url = DeeplinkURL().createURLloadandverify(valueprofile: valueprofile,
-                                                              valueid: valueid) {
+            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
                 handleURLsidebarmainView(url)
             }
         }
@@ -281,3 +271,15 @@ struct SidebarRow: View {
         }
     }
 }
+
+/*
+ Task {
+     try await Task.sleep(seconds: 1)
+ }
+var valueid = ""
+if let configurations = rsyncUIdata.configurations {
+    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+        valueid = configurations[index].backupID
+    }
+}
+ */

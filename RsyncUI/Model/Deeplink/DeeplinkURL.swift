@@ -76,6 +76,20 @@ final class DeeplinkURL: PropogateError {
             return nil
         }
     }
+    
+    func createURLestimateandsynchronize(valueprofile: String) -> URL? {
+        let host = Deeplinknavigation.loadprofileandestimate.rawValue
+        var adjustedvalueprofile = valueprofile
+        if valueprofile == "Default profile" {
+            adjustedvalueprofile = "default"
+        }
+        let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: adjustedvalueprofile)]
+        if let url = deeplinks.createURL(host, queryitems) {
+            return url
+        } else {
+            return nil
+        }
+    }
 }
 
 /*
