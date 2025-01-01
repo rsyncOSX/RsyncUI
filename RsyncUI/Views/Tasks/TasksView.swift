@@ -42,7 +42,7 @@ struct TasksView: View {
     // Navigation path
     @Binding var path: [Tasks]
     // For URL commands within RsyncUI
-    @Binding var urlcommand: URL?
+    @Binding var urlcommand: Bool
     
     @State private var estimatestate = EstimateState()
     // Focus buttons from the menu
@@ -65,7 +65,7 @@ struct TasksView: View {
     @State private var maxcount: Double = 0
     // For estimates is true
     @State private var thereareestimates: Bool = false
-
+    
     var body: some View {
         ZStack {
             ListofTasksMainView(
@@ -124,19 +124,15 @@ struct TasksView: View {
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
 
-            ToolbarItem {
-                Button {
-                    if let url = DeeplinkURL().createURLloadandverify(valueprofile: "Pictures",
-                                                                      valueid: "Pictures backup") {
-                        urlcommand = url
+                ToolbarItem {
+                    Button {
+                        urlcommand = true
+                    } label: {
+                        Image(systemName: "bolt.shield.fill")
+                            .foregroundColor(Color(.blue))
                     }
-                    
-                } label: {
-                    Image(systemName: "bolt.shield.fill")
-                        .foregroundColor(Color(.blue))
+                    .help("Estimate & Synchronize")
                 }
-                .help("Estimate & Synchronize")
-            }
             
             ToolbarItem {
                 Button {

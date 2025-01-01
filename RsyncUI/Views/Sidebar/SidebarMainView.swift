@@ -34,7 +34,7 @@ struct SidebarMainView: View {
     // Actions by URLs
     @State var queryitem: URLQueryItem?
     // For URL commands within RsyncUI
-    @State var urlcommand: URL?
+    @State var urlcommand = false
 
     var body: some View {
         NavigationSplitView {
@@ -81,8 +81,20 @@ struct SidebarMainView: View {
             handleURLsidebarmainView(incomingURL)
         }
         .onChange(of: urlcommand) {
-            if let urlcommand {
-                handleURLsidebarmainView(urlcommand)
+            guard urlcommand else { return }
+            Task {
+                try await Task.sleep(seconds: 1)
+            }
+            let valueprofile = rsyncUIdata.profile ?? ""
+            var valueid = ""
+            if let configurations = rsyncUIdata.configurations {
+                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                    valueid = configurations[index].backupID
+                }
+            }
+            if let url = DeeplinkURL().createURLloadandverify(valueprofile: valueprofile,
+                                                              valueid: valueid) {
+                handleURLsidebarmainView(url)
             }
         }
     }

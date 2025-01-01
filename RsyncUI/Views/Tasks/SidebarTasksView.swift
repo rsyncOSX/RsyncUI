@@ -30,7 +30,7 @@ struct SidebarTasksView: View {
     // For supporting URL links
     @Binding var queryitem: URLQueryItem?
     // For URL commands within RsyncUI
-    @Binding var urlcommand: URL?
+    @Binding var urlcommand: Bool
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
 
