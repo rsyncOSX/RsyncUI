@@ -24,7 +24,6 @@ It might take a few seconds. If not, RsyncUI might become unresponsive.
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.2.3/total)
-![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.2.1/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 **RsyncUI** is released for *macOS Sonoma and later*.
@@ -42,7 +41,7 @@ The [user guide](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyn
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncOSX_archived)](https://github.com/rsyncOSX/RsyncOSX/blob/master/Licence.MD)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncOSX_archived/v6.8.0/total)
 
-**RsyncOSX** was released for *macOS Big Sur* and later.
+**RsyncOSX** is released for *macOS Big Sur* and later.
 
 | App        | UI | Latest version  |
 | -----------  |   -------- | -------- |
