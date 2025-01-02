@@ -208,7 +208,7 @@ extension SidebarMainView {
                     selectedprofile = "Default profile"
                     selectedview = .synchronize
                     Task {
-                        try await Task.sleep(seconds: 1)
+                        try await Task.sleep(seconds: 0.5)
                         // Observe queryitem
                         queryitem = queryitems[0]
                     }
@@ -217,7 +217,7 @@ extension SidebarMainView {
                         selectedprofile = profile
                         selectedview = .synchronize
                         Task {
-                            try await Task.sleep(seconds: 1)
+                            try await Task.sleep(seconds: 0.5)
                             // Observe queryitem
                             queryitem = queryitems[0]
                         }
@@ -237,7 +237,7 @@ extension SidebarMainView {
                     selectedprofile = "Default profile"
                     selectedview = .verify_remote
                     Task {
-                        try await Task.sleep(seconds: 1)
+                        try await Task.sleep(seconds: 0.5)
                         // Observe queryitem
                         queryitem = queryitems[1]
                     }
@@ -246,7 +246,7 @@ extension SidebarMainView {
                         selectedprofile = profile
                         selectedview = .verify_remote
                         Task {
-                            try await Task.sleep(seconds: 1)
+                            try await Task.sleep(seconds: 0.5)
                             queryitem = queryitems[1]
                         }
                     }
