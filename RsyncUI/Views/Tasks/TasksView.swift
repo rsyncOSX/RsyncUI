@@ -145,7 +145,7 @@ struct TasksView: View {
                     } else {
                         urlcommand = true
                     }
-                    
+
                 } label: {
                     Image(systemName: "bolt.shield.fill")
                         .foregroundColor(Color(.yellow))
@@ -156,8 +156,7 @@ struct TasksView: View {
             ToolbarItem {
                 Spacer()
             }
-            
-            
+
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
@@ -187,7 +186,7 @@ struct TasksView: View {
                 }
                 .help("Synchronize (⌘R)")
             }
-            
+
             ToolbarItem {
                 Spacer()
             }
