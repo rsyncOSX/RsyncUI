@@ -154,6 +154,11 @@ struct TasksView: View {
             }
 
             ToolbarItem {
+                Spacer()
+            }
+            
+            
+            ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
@@ -181,6 +186,10 @@ struct TasksView: View {
                         .foregroundColor(Color(.blue))
                 }
                 .help("Synchronize (⌘R)")
+            }
+            
+            ToolbarItem {
+                Spacer()
             }
 
             ToolbarItem {
