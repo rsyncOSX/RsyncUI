@@ -17,29 +17,25 @@ struct TimerView: View {
     @State var startDate = Date.now
     // @State var timeElapsed: Int = 0
     @State var timetosynchronize: Int = 5
+    @State var timeosynchronizestring: String = "5"
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        HStack {
-            Text("Counting down: \(timetosynchronize)")
-                .onReceive(timer) { firedDate in
-                    // timeElapsed = Int(firedDate.timeIntervalSince(startDate))
-                    timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
-                    if timetosynchronize < 0 {
-                        executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
-                        path.removeAll()
-                        path.append(Tasks(task: .executestimatedview))
-                    }
-                }
-                .padding()
-                .font(.largeTitle)
-                .foregroundColor(.blue)
+        Button(timeosynchronizestring) {
+            dismiss()
+        }
+        .buttonStyle(ColorfulButtonStyle())
+        .onReceive(timer) { firedDate in
+            // timeElapsed = Int(firedDate.timeIntervalSince(startDate))
+            timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
+            timeosynchronizestring = String(timetosynchronize)
 
-            Button("Dismiss") {
-                dismiss()
+            if timetosynchronize < 0 {
+                executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                path.removeAll()
+                path.append(Tasks(task: .executestimatedview))
             }
-            .buttonStyle(ColorfulButtonStyle())
         }
     }
 }

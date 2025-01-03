@@ -34,54 +34,41 @@ struct SummarizedDetailsView: View {
                                              profile: profile,
                                              configurations: configurations)
                 } else {
-                    ZStack {
-                        Table(estimateprogressdetails.estimatedlist ?? [],
-                              selection: $selecteduuids)
-                        {
-                            TableColumn("Synchronize ID") { data in
-                                if data.datatosynchronize {
-                                    if data.backupID.isEmpty == true {
-                                        Text("Synchronize ID")
-                                            .foregroundColor(.blue)
-                                    } else {
-                                        Text(data.backupID)
-                                            .foregroundColor(.blue)
-                                    }
+                    Table(estimateprogressdetails.estimatedlist ?? [],
+                          selection: $selecteduuids)
+                    {
+                        TableColumn("Synchronize ID") { data in
+                            if data.datatosynchronize {
+                                if data.backupID.isEmpty == true {
+                                    Text("Synchronize ID")
+                                        .foregroundColor(.blue)
                                 } else {
-                                    if data.backupID.isEmpty == true {
-                                        Text("Synchronize ID")
-                                    } else {
-                                        Text(data.backupID)
-                                    }
+                                    Text(data.backupID)
+                                        .foregroundColor(.blue)
+                                }
+                            } else {
+                                if data.backupID.isEmpty == true {
+                                    Text("Synchronize ID")
+                                } else {
+                                    Text(data.backupID)
                                 }
                             }
-                            .width(min: 40, max: 80)
-                            TableColumn("Task", value: \.task)
-                                .width(max: 60)
-                            TableColumn("Local catalog", value: \.localCatalog)
-                                .width(min: 100, max: 300)
-                            TableColumn("Remote catalog", value: \.offsiteCatalog)
-                                .width(min: 100, max: 300)
-                            TableColumn("Server") { data in
-                                if data.offsiteServer.count > 0 {
-                                    Text(data.offsiteServer)
-                                } else {
-                                    Text("localhost")
-                                }
-                            }
+                        }
+                        .width(min: 40, max: 80)
+                        TableColumn("Task", value: \.task)
                             .width(max: 60)
-                        }
-
-                        // URL code
-                        if queryitem != nil {
-                            let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true
+                        TableColumn("Local catalog", value: \.localCatalog)
+                            .width(min: 100, max: 300)
+                        TableColumn("Remote catalog", value: \.offsiteCatalog)
+                            .width(min: 100, max: 300)
+                        TableColumn("Server") { data in
+                            if data.offsiteServer.count > 0 {
+                                Text(data.offsiteServer)
+                            } else {
+                                Text("localhost")
                             }
-                            if (datatosynchronize?.count ?? 0) > 0 {
-                                TimerView(executeprogressdetails: executeprogressdetails,
-                                          estimateprogressdetails: estimateprogressdetails,
-                                          path: $path)
-                            }
                         }
+                        .width(max: 60)
                     }
 
                     Table(estimateprogressdetails.estimatedlist ?? [],
@@ -154,9 +141,19 @@ struct SummarizedDetailsView: View {
                 }
             }
             .toolbar(content: {
-                let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true
+                if datatosynchronizeURL {
+                    ToolbarItem {
+                        TimerView(executeprogressdetails: executeprogressdetails,
+                                  estimateprogressdetails: estimateprogressdetails,
+                                  path: $path)
+                    }
+
+                    ToolbarItem {
+                        Spacer()
+                    }
                 }
-                if (datatosynchronize?.count ?? 0) > 0 {
+
+                if datatosynchronize {
                     if SharedReference.shared.confirmexecute {
                         ToolbarItem {
                             Button {
@@ -194,6 +191,10 @@ struct SummarizedDetailsView: View {
                             .help("Synchronize (⌘R)")
                         }
                     }
+                    
+                    ToolbarItem {
+                        Spacer()
+                    }
                 }
             })
             .focusedSceneValue(\.startexecution, $focusstartexecution)
@@ -221,5 +222,29 @@ struct SummarizedDetailsView: View {
                 path.append(Tasks(task: .executestimatedview))
                 focusstartexecution = false
             })
+    }
+
+    var datatosynchronizeURL: Bool {
+        if queryitem != nil {
+            let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
+            if (datatosynchronize?.count ?? 0) > 0 {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
+
+    var datatosynchronize: Bool {
+        if queryitem == nil {
+            let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
+            if (datatosynchronize?.count ?? 0) > 0 {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
     }
 }

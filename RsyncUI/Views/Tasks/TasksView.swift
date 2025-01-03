@@ -69,7 +69,6 @@ struct TasksView: View {
     // If buttons are pressed
     @State private var ispressedverify: Bool = false
     @State private var ispressedestimate: Bool = false
-    
 
     var body: some View {
         ZStack {
@@ -148,7 +147,6 @@ struct TasksView: View {
                         Image(systemName: "bolt.shield")
                             .foregroundColor(Color(.yellow))
                     }
-                    
                 }
                 .help("Verify Selected")
             }
