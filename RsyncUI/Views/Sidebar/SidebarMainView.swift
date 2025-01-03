@@ -208,7 +208,8 @@ extension SidebarMainView {
                     selectedprofile = "Default profile"
                     selectedview = .synchronize
                     Task {
-                        try await Task.sleep(seconds: 0.5)
+                        try await Task.sleep(seconds: 1)
+                        guard rsyncUIdata.readdatafromstorecompleted else { return }
                         // Observe queryitem
                         queryitem = queryitems[0]
                     }
@@ -217,7 +218,8 @@ extension SidebarMainView {
                         selectedprofile = profile
                         selectedview = .synchronize
                         Task {
-                            try await Task.sleep(seconds: 0.5)
+                            try await Task.sleep(seconds: 1)
+                            guard rsyncUIdata.readdatafromstorecompleted else { return }
                             // Observe queryitem
                             queryitem = queryitems[0]
                         }
@@ -237,7 +239,8 @@ extension SidebarMainView {
                     selectedprofile = "Default profile"
                     selectedview = .verify_remote
                     Task {
-                        try await Task.sleep(seconds: 0.5)
+                        try await Task.sleep(seconds: 1)
+                        guard rsyncUIdata.readdatafromstorecompleted else { return }
                         // Observe queryitem
                         queryitem = queryitems[1]
                     }
@@ -246,7 +249,8 @@ extension SidebarMainView {
                         selectedprofile = profile
                         selectedview = .verify_remote
                         Task {
-                            try await Task.sleep(seconds: 0.5)
+                            try await Task.sleep(seconds: 1)
+                            guard rsyncUIdata.readdatafromstorecompleted else { return }
                             queryitem = queryitems[1]
                         }
                     }

@@ -13,6 +13,7 @@ import SwiftUI
 final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?
     var profile: String?
+    @ObservationIgnored var readdatafromstorecompleted: Bool = false
 
     init() {}
 }

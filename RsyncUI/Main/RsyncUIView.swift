@@ -41,22 +41,24 @@ struct RsyncUIView: View {
             ReadUserConfigurationJSON().readuserconfiguration()
             // Get version of rsync
             rsyncversion.getrsyncversion()
-
             rsyncUIdata.profile = selectedprofile
             rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                        SharedReference.shared.monitornetworkconnection,
                                                        SharedReference.shared.sshport,
                                                        SharedReference.shared.fileconfigurationsjson)
+            rsyncUIdata.readdatafromstorecompleted = true
         }
         .onChange(of: selectedprofile) {
             Task {
+                rsyncUIdata.readdatafromstorecompleted = false
                 rsyncUIdata.profile = selectedprofile
                 rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                     .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                            SharedReference.shared.monitornetworkconnection,
                                                            SharedReference.shared.sshport,
                                                            SharedReference.shared.fileconfigurationsjson)
+                rsyncUIdata.readdatafromstorecompleted = true
             }
         }
     }
