@@ -66,6 +66,10 @@ struct TasksView: View {
     @State private var maxcount: Double = 0
     // For estimates is true
     @State private var thereareestimates: Bool = false
+    // If buttons are pressed
+    @State private var ispressedverify: Bool = false
+    @State private var ispressedestimate: Bool = false
+    
 
     var body: some View {
         ZStack {
@@ -126,29 +130,49 @@ struct TasksView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
+                    ispressedverify = true
                     if urlcommandverify {
                         urlcommandverify = false
                     } else {
                         urlcommandverify = true
                     }
+                    Task {
+                        try await Task.sleep(seconds: 1)
+                        ispressedverify = false
+                    }
                 } label: {
-                    Image(systemName: "bolt.shield")
-                        .foregroundColor(Color(.yellow))
+                    if ispressedverify {
+                        Image(systemName: "bolt.shield")
+                            .foregroundColor(Color(.green))
+                    } else {
+                        Image(systemName: "bolt.shield")
+                            .foregroundColor(Color(.yellow))
+                    }
+                    
                 }
                 .help("Verify Selected")
             }
 
             ToolbarItem {
                 Button {
+                    ispressedestimate = true
                     if urlcommand {
                         urlcommand = false
                     } else {
                         urlcommand = true
                     }
-
+                    Task {
+                        try await Task.sleep(seconds: 1)
+                        ispressedestimate = false
+                    }
                 } label: {
-                    Image(systemName: "bolt.shield.fill")
-                        .foregroundColor(Color(.yellow))
+                    if ispressedestimate {
+                        Image(systemName: "bolt.shield.fill")
+                            .foregroundColor(Color(.green))
+                    } else {
+                        Image(systemName: "bolt.shield.fill")
+                            .foregroundColor(Color(.yellow))
+                    }
                 }
                 .help("Estimate & Synchronize")
             }
