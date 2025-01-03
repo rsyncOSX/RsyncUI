@@ -127,28 +127,30 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    ispressedverify = true
-                    if urlcommandverify {
-                        urlcommandverify = false
-                    } else {
-                        urlcommandverify = true
+            if remoteconfigurations {
+                ToolbarItem {
+                    Button {
+                        ispressedverify = true
+                        if urlcommandverify {
+                            urlcommandverify = false
+                        } else {
+                            urlcommandverify = true
+                        }
+                        Task {
+                            try await Task.sleep(seconds: 1)
+                            ispressedverify = false
+                        }
+                    } label: {
+                        if ispressedverify {
+                            Image(systemName: "bolt.shield")
+                                .foregroundColor(Color(.green))
+                        } else {
+                            Image(systemName: "bolt.shield")
+                                .foregroundColor(Color(.yellow))
+                        }
                     }
-                    Task {
-                        try await Task.sleep(seconds: 1)
-                        ispressedverify = false
-                    }
-                } label: {
-                    if ispressedverify {
-                        Image(systemName: "bolt.shield")
-                            .foregroundColor(Color(.green))
-                    } else {
-                        Image(systemName: "bolt.shield")
-                            .foregroundColor(Color(.yellow))
-                    }
+                    .help("Verify Selected")
                 }
-                .help("Verify Selected")
             }
 
             ToolbarItem {
@@ -318,6 +320,19 @@ struct TasksView: View {
                 execute()
                 focusstartexecution = false
             })
+    }
+
+    var remoteconfigurations: Bool {
+        let remotes = rsyncUIdata.configurations?.filter { configuration in
+            configuration.offsiteServer.isEmpty == false &&
+                configuration.task == SharedReference.shared.synchronize &&
+                SharedReference.shared.rsyncversion3 == true
+        } ?? []
+        if remotes.count > 0 {
+            return true
+        } else {
+            return false
+        }
     }
 }
 

@@ -191,7 +191,7 @@ struct SummarizedDetailsView: View {
                             .help("Synchronize (⌘R)")
                         }
                     }
-                    
+
                     ToolbarItem {
                         Spacer()
                     }
