@@ -43,6 +43,11 @@ struct URLView: View {
                             // Create estimate and synchronize URL
                             urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "default")
                             stringestimate = urlestimate?.absoluteString ?? ""
+                        } else {
+                            urlverify = nil
+                            urlestimate = nil
+                            stringverify = ""
+                            stringestimate = ""
                         }
                     } else {
                         urlverify = nil
@@ -53,7 +58,9 @@ struct URLView: View {
                 }
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
+                    Text("URL for Verify")
                     EditValue(500, nil, $stringverify )
+                    Text("URL for Estimate & Synchronize")
                     EditValue(500, nil, $stringestimate )
                 }
             }
