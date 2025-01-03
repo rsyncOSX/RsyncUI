@@ -22,6 +22,8 @@ struct URLView: View {
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var urlverify: URL?
     @State private var urlestimate: URL?
+    @State private var stringverify: String = ""
+    @State private var stringestimate: String = ""
 
     var body: some View {
         HStack {
@@ -36,18 +38,23 @@ struct URLView: View {
                             if selectedconfig?.offsiteServer.isEmpty == false {
                                 // Create verifyremote URL
                                 urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
+                                stringverify = urlverify?.absoluteString ?? ""
                             }
                             // Create estimate and synchronize URL
                             urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "default")
+                            stringestimate = urlestimate?.absoluteString ?? ""
                         }
+                    } else {
+                        urlverify = nil
+                        urlestimate = nil
+                        stringverify = ""
+                        stringestimate = ""
                     }
                 }
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    Text(urlverify?.description ?? "Select a task")
-                        .padding()
-                    Text(urlestimate?.description ?? "Select a task")
-                        .padding()
+                    EditValue(500, nil, $stringverify )
+                    EditValue(500, nil, $stringestimate )
                 }
             }
         }
@@ -56,6 +63,8 @@ struct URLView: View {
         .onChange(of: rsyncUIdata.profile) {
             urlverify = nil
             urlestimate = nil
+            stringverify = ""
+            stringestimate = ""
         }
     }
 }
