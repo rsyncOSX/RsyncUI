@@ -15,7 +15,6 @@ struct TimerView: View {
     @Binding var path: [Tasks]
 
     @State var startDate = Date.now
-    // @State var timeElapsed: Int = 0
     @State var timetosynchronize: Int = 5
     @State var timeosynchronizestring: String = "5"
 
@@ -27,7 +26,6 @@ struct TimerView: View {
         }
         .buttonStyle(ColorfulButtonStyle())
         .onReceive(timer) { firedDate in
-            // timeElapsed = Int(firedDate.timeIntervalSince(startDate))
             timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
             timeosynchronizestring = String(timetosynchronize)
 
