@@ -26,7 +26,7 @@ struct URLView: View {
     @State private var stringestimate: String = ""
 
     var body: some View {
-        HStack {
+        VStack(alignment: .leading) {
             ListofTasksLightView(selecteduuids: $selecteduuids,
                                  profile: rsyncUIdata.profile,
                                  configurations: rsyncUIdata.configurations ?? [])

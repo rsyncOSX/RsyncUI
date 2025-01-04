@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles, verify_remote, view_URLs
+    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles, verify_remote
     var id: String { rawValue }
 }
 
@@ -145,8 +145,6 @@ struct SidebarMainView: View {
             NavigationStack {
                 VerifyRemote(rsyncUIdata: rsyncUIdata, verifynavigation: $verifynavigation, queryitem: $queryitem)
             }
-        case .view_URLs:
-            URLView(rsyncUIdata: rsyncUIdata)
         }
     }
 
@@ -292,8 +290,6 @@ struct SidebarRow: View {
             "arrow.triangle.branch"
         case .verify_remote:
             "arrow.down.circle.fill"
-        case .view_URLs:
-            "curlybraces.square.fill"
         }
     }
 }

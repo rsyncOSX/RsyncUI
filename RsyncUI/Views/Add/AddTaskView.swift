@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case homecatalogs, verify, global
+    case homecatalogs, verify, global, URL_view
     var id: String { rawValue }
 }
 
@@ -200,6 +200,15 @@ struct AddTaskView: View {
                     .help("Add task")
                 }
             }
+            
+            ToolbarItem {
+                Button {
+                    addtasknavigation.append(AddTasks(task: .URL_view))
+                } label: {
+                    Image(systemName: "curlybraces.square")
+                }
+                .help("View URLs")
+            }
 
             ToolbarItem {
                 Button {
@@ -279,6 +288,8 @@ struct AddTaskView: View {
             }
         case .global:
             GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
+        case .URL_view:
+            URLView(rsyncUIdata: rsyncUIdata)
         }
     }
 
