@@ -27,9 +27,8 @@ struct SidebarTasksView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var executetasknavigation: [Tasks]
-    // For supporting URL links
+    // URL code
     @Binding var queryitem: URLQueryItem?
-    // For URL commands within RsyncUI
     @Binding var urlcommand: Bool
     @Binding var urlcommandverify: Bool
 
@@ -52,6 +51,7 @@ struct SidebarTasksView: View {
             Logger.process.info("Path : \(executetasknavigation, privacy: .public)")
         }
         .onChange(of: queryitem) {
+            // URL code
             handlequeryitem()
         }
     }

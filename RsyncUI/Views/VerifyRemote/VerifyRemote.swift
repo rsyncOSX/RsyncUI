@@ -67,6 +67,7 @@ struct VerifyRemote: View {
             selectedconfig = nil
         }
         .onChange(of: queryitem) {
+            // URL code
             handlequeryitem()
         }
         .alert(isPresented: $showingAlert) {

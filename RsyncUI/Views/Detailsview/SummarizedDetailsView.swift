@@ -20,7 +20,7 @@ struct SummarizedDetailsView: View {
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
-
+    // URL code
     let queryitem: URLQueryItem?
 
     var body: some View {
@@ -224,6 +224,7 @@ struct SummarizedDetailsView: View {
             })
     }
 
+    // URL code
     var datatosynchronizeURL: Bool {
         if queryitem != nil, estimateprogressdetails.estimatealltasksinprogress == false {
             let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true }

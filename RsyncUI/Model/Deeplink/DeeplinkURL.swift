@@ -9,6 +9,7 @@ import Foundation
 import OSLog
 import RsyncUIDeepLinks
 
+// URL code
 final class DeeplinkURL: PropogateError {
     let deeplinks = RsyncUIDeepLinks()
     let validprofiles = Homepath().getfullpathmacserialcatalogsasstringnames()

@@ -31,9 +31,8 @@ struct SidebarMainView: View {
     @State var verifynavigation: [VerifyTasks] = []
     // Check if new version
     @State private var newversion = CheckfornewversionofRsyncUI()
-    // Actions by URLs
+    // URL code
     @State var queryitem: URLQueryItem?
-    // For URL commands within RsyncUI
     @State var urlcommand = false
     @State var urlcommandverify = false
 
