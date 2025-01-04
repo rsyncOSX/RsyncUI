@@ -200,7 +200,7 @@ struct AddTaskView: View {
                     .help("Add task")
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     addtasknavigation.append(AddTasks(task: .URL_view))
