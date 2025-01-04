@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 @Observable
 final class EstimateProgressDetails {
@@ -88,12 +89,14 @@ final class EstimateProgressDetails {
         onetaskisestimated = true
     }
 
-    func estimationcomplete() {
+    func estimationiscomplete() {
         estimatealltasksinprogress = false
+        Logger.process.info("EstimateProgressDetails: estimation COMPLETED")
     }
 
     func startestimation() {
         estimatealltasksinprogress = true
+        Logger.process.info("EstimateProgressDetails: estimation STARTED")
     }
 
     func confirmexecutetasks() -> Bool {

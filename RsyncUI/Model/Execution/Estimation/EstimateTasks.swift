@@ -25,7 +25,7 @@ final class EstimateTasks {
 
     func startestimation() {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
-            localestimateprogressdetails?.estimationcomplete()
+            localestimateprogressdetails?.estimationiscomplete()
             return
         }
         let localhiddenID = stackoftasktobeestimated?.removeFirst()
