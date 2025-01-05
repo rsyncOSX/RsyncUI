@@ -205,7 +205,7 @@ struct AddTaskView: View {
                 Button {
                     addtasknavigation.append(AddTasks(task: .URL_view))
                 } label: {
-                    Image(systemName: "curlybraces.square")
+                    Image(systemName: "curlybraces.square.fill")
                 }
                 .help("View URLs")
             }

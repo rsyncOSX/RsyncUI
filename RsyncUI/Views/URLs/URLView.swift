@@ -61,10 +61,10 @@ struct URLView: View {
                 }
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    Text("URL for Verify")
-                    EditValue(500, nil, $stringverify)
                     Text("URL for Estimate & Synchronize")
                     EditValue(500, nil, $stringestimate)
+                    Text("URL for Verify")
+                    EditValue(500, nil, $stringverify)
                 }
             }
         }
