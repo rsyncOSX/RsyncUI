@@ -35,8 +35,9 @@ struct SummarizedDetailsView: View {
                                              configurations: configurations)
                 } else {
                     
-                    left
-                    right
+                    leftcolumndetails
+                    
+                    rightcolumndetails
                     
                 }
             }
@@ -149,7 +150,7 @@ struct SummarizedDetailsView: View {
         return false
     }
     
-    var left: some View {
+    var leftcolumndetails: some View {
         Table(estimateprogressdetails.estimatedlist ?? [],
               selection: $selecteduuids)
         {
@@ -188,7 +189,7 @@ struct SummarizedDetailsView: View {
         }
     }
     
-    var right: some View {
+    var rightcolumndetails: some View {
         Table(estimateprogressdetails.estimatedlist ?? [],
               selection: $selecteduuids)
         {
