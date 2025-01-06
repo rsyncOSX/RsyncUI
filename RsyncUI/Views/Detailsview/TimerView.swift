@@ -29,10 +29,19 @@ struct TimerView: View {
             timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
             timeosynchronizestring = String(timetosynchronize)
 
-            if timetosynchronize < 0 {
+            if timetosynchronize < -1 {
                 executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                 path.removeAll()
                 path.append(Tasks(task: .executestimatedview))
+            }
+        }
+        .onAppear {
+            if SharedReference.shared.synchronizewithouttimedelay  {
+                timetosynchronize = 1
+                timeosynchronizestring = "1"
+            } else {
+                timetosynchronize = 6
+                timeosynchronizestring = "6"
             }
         }
     }
