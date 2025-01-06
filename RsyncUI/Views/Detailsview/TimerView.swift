@@ -15,8 +15,8 @@ struct TimerView: View {
     @Binding var path: [Tasks]
 
     @State var startDate = Date.now
-    @State var timetosynchronize: Int = 5
-    @State var timeosynchronizestring: String = "5"
+    @State var timetosynchronize: Int = 6
+    @State var timeosynchronizestring: String = "6"
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -29,7 +29,7 @@ struct TimerView: View {
             timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
             timeosynchronizestring = String(timetosynchronize)
 
-            if timetosynchronize < -1 {
+            if timetosynchronize < 0 {
                 executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                 path.removeAll()
                 path.append(Tasks(task: .executestimatedview))
@@ -37,7 +37,7 @@ struct TimerView: View {
         }
         .onAppear {
             if SharedReference.shared.synchronizewithouttimedelay  {
-                timetosynchronize = 0
+                timetosynchronize = 1
                 timeosynchronizestring = "0"
             } else {
                 timetosynchronize = 6
