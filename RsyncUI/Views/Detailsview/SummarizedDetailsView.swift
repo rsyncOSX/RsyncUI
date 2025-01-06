@@ -141,7 +141,7 @@ struct SummarizedDetailsView: View {
                 }
             }
             .toolbar(content: {
-                if datatosynchronizeURL, SharedReference.shared.synchronizewithouttimedelay == false {
+                if datatosynchronizeURL {
                     ToolbarItem {
                         TimerView(executeprogressdetails: executeprogressdetails,
                                   estimateprogressdetails: estimateprogressdetails,
@@ -226,8 +226,7 @@ struct SummarizedDetailsView: View {
 
     // URL code
     var datatosynchronizeURL: Bool {
-        if queryitem != nil,
-            estimateprogressdetails.estimatealltasksinprogress == false {
+        if queryitem != nil, estimateprogressdetails.estimatealltasksinprogress == false  {
             let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
             if (datatosynchronize?.count ?? 0) > 0 {
                 return true
@@ -239,7 +238,7 @@ struct SummarizedDetailsView: View {
     }
 
     var datatosynchronize: Bool {
-        if queryitem == nil, estimateprogressdetails.estimatealltasksinprogress == false {
+        if queryitem == nil, estimateprogressdetails.estimatealltasksinprogress == false  {
             let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
             if (datatosynchronize?.count ?? 0) > 0 {
                 return true

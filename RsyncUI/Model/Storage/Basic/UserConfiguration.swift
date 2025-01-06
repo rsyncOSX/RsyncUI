@@ -107,6 +107,7 @@ struct UserConfiguration: Codable {
         environmentvalue = data.environmentvalue
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
         confirmexecute = data.confirmexecute ?? -1
+        synchronizewithouttimedelay = data.synchronizewithouttimedelay ?? -1
         // Set user configdata read from permanent store
         setuserconfigdata()
     }
@@ -161,6 +162,11 @@ struct UserConfiguration: Codable {
             confirmexecute = 1
         } else {
             confirmexecute = -1
+        }
+        if SharedReference.shared.synchronizewithouttimedelay == true {
+            synchronizewithouttimedelay = 1
+        } else {
+            synchronizewithouttimedelay = -1
         }
     }
 }
