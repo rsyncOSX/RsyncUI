@@ -34,6 +34,7 @@ struct SummarizedDetailsView: View {
                                              profile: profile,
                                              configurations: configurations)
                 } else {
+                    
                     Table(estimateprogressdetails.estimatedlist ?? [],
                           selection: $selecteduuids)
                     {
