@@ -37,8 +37,8 @@ struct TimerView: View {
         }
         .onAppear {
             if SharedReference.shared.synchronizewithouttimedelay  {
-                timetosynchronize = 1
-                timeosynchronizestring = "1"
+                timetosynchronize = 0
+                timeosynchronizestring = "0"
             } else {
                 timetosynchronize = 6
                 timeosynchronizestring = "6"
