@@ -101,7 +101,7 @@ struct SummarizedDetailsView: View {
             .focusedSceneValue(\.startexecution, $focusstartexecution)
             .onAppear {
                 guard estimateprogressdetails.estimatealltasksinprogress == false else {
-                    Logger.process.warning("TasksView: estimate already in progress")
+                    Logger.process.warning("SummarizedDetailsView: estimate already in progress")
                     return
                 }
                 estimateprogressdetails.resetcounts()
