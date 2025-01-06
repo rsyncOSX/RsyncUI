@@ -21,28 +21,32 @@ struct TimerView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        Button(timeosynchronizestring) {
-            dismiss()
-        }
-        .buttonStyle(ColorfulButtonStyle())
-        .onReceive(timer) { firedDate in
-            timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
-            timeosynchronizestring = String(timetosynchronize)
-
-            if timetosynchronize < 0 {
-                executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
-                path.removeAll()
-                path.append(Tasks(task: .executestimatedview))
+        if SharedReference.shared.synchronizewithouttimedelay {
+            Text("Synchronizing now")
+                .onReceive(timer) { firedDate in
+                    timetosynchronize = 1
+                    timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
+                    if timetosynchronize < 0 {
+                        executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        path.removeAll()
+                        path.append(Tasks(task: .executestimatedview))
+                    }
+                }
+        } else {
+            Button(timeosynchronizestring) {
+                dismiss()
+            }
+            .buttonStyle(ColorfulButtonStyle())
+            .onReceive(timer) { firedDate in
+                timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
+                timeosynchronizestring = String(timetosynchronize)
+                if timetosynchronize < 0 {
+                    executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                    path.removeAll()
+                    path.append(Tasks(task: .executestimatedview))
+                }
             }
         }
-        .onAppear {
-            if SharedReference.shared.synchronizewithouttimedelay  {
-                timetosynchronize = 1
-                timeosynchronizestring = "0"
-            } else {
-                timetosynchronize = 6
-                timeosynchronizestring = "6"
-            }
-        }
+        
     }
 }

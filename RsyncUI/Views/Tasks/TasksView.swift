@@ -143,7 +143,7 @@ struct TasksView: View {
                     } label: {
                         if ispressedverify {
                             Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.green))
+                                .foregroundColor(Color(.blue))
                         } else {
                             Image(systemName: "bolt.shield")
                                 .foregroundColor(Color(.yellow))
@@ -168,7 +168,7 @@ struct TasksView: View {
                 } label: {
                     if ispressedestimate {
                         Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.green))
+                            .foregroundColor(Color(.blue))
                     } else {
                         Image(systemName: "bolt.shield.fill")
                             .foregroundColor(Color(.yellow))
