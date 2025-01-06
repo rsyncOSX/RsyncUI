@@ -31,6 +31,8 @@ struct UserConfiguration: Codable {
     var checkforerrorinrsyncoutput: Int = -1
     // Automatic execution
     var confirmexecute: Int?
+    // Timedelay Syncjronize URL-actions
+    var synchronizewithouttimedelay: Int = -1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -82,6 +84,11 @@ struct UserConfiguration: Codable {
             SharedReference.shared.confirmexecute = true
         } else {
             SharedReference.shared.confirmexecute = false
+        }
+        if synchronizewithouttimedelay == 1 {
+            SharedReference.shared.synchronizewithouttimedelay = true
+        } else {
+            SharedReference.shared.synchronizewithouttimedelay = false
         }
     }
 

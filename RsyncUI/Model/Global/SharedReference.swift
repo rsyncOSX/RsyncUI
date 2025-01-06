@@ -41,8 +41,10 @@ final class SharedReference {
     @ObservationIgnored var confirmexecute: Bool = false
     // Duplicatecheck
     @ObservationIgnored var duplicatecheck: Bool = true
-    // new version, used if test
+    // New version of RsyncUI discovered
     @ObservationIgnored var newversion: Bool = false
+    // Synchronize without timedelay URL-actions
+    @ObservationIgnored var synchronizewithouttimedelay: Bool = false
     // rsync command
     let rsync: String = "rsync"
     let usrbin: String = "/usr/bin"

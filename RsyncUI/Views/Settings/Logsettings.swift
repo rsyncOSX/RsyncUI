@@ -32,6 +32,11 @@ struct Logsettings: View {
                         SharedReference.shared.addsummarylogrecord = logsettings.addsummarylogrecord
                         settingsischanged = true
                     }
+                ToggleViewDefault(text: NSLocalizedString("No time delay Synchronize URL-actions", comment: ""), binding: $logsettings.synchronizewithouttimedelay)
+                    .onChange(of: logsettings.synchronizewithouttimedelay) {
+                        SharedReference.shared.synchronizewithouttimedelay = logsettings.synchronizewithouttimedelay
+                        settingsischanged = true
+                    }
 
                 if SharedReference.shared.rsyncversion3 {
                     ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
@@ -40,7 +45,7 @@ struct Logsettings: View {
                             settingsischanged = true
                         }
                 }
-
+                
                 if showthumbsup { thumbsupgreen }
 
             } header: {

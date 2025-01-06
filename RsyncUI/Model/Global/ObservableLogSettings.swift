@@ -18,4 +18,6 @@ final class ObservableLogSettings: PropogateError {
     var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Automatic execution of estimated tasks
     var confirmexecute: Bool = SharedReference.shared.confirmexecute
+    // Synchronize without time delay URL actions
+    var synchronizewithouttimedelay: Bool = SharedReference.shared.synchronizewithouttimedelay
 }
