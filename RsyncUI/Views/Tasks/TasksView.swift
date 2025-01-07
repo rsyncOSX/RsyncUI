@@ -127,60 +127,7 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
-            if remoteconfigurations {
-                ToolbarItem {
-                    Button {
-                        ispressedverify = true
-                        if urlcommandverify {
-                            urlcommandverify = false
-                        } else {
-                            urlcommandverify = true
-                        }
-                        Task {
-                            try await Task.sleep(seconds: 1)
-                            ispressedverify = false
-                        }
-                    } label: {
-                        if ispressedverify {
-                            Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.blue))
-                        } else {
-                            Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.yellow))
-                        }
-                    }
-                    .help("Verify Selected")
-                }
-            }
-
-            ToolbarItem {
-                Button {
-                    ispressedestimate = true
-                    if urlcommand {
-                        urlcommand = false
-                    } else {
-                        urlcommand = true
-                    }
-                    Task {
-                        try await Task.sleep(seconds: 1)
-                        ispressedestimate = false
-                    }
-                } label: {
-                    if ispressedestimate {
-                        Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.blue))
-                    } else {
-                        Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.yellow))
-                    }
-                }
-                .help("Estimate & Synchronize")
-            }
-
-            ToolbarItem {
-                Spacer()
-            }
-
+            
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
@@ -264,6 +211,56 @@ struct TasksView: View {
                     Image(systemName: "hare")
                 }
                 .help("Quick synchronize")
+            }
+            
+            if remoteconfigurations {
+                ToolbarItem {
+                    Button {
+                        ispressedverify = true
+                        if urlcommandverify {
+                            urlcommandverify = false
+                        } else {
+                            urlcommandverify = true
+                        }
+                        Task {
+                            try await Task.sleep(seconds: 1)
+                            ispressedverify = false
+                        }
+                    } label: {
+                        if ispressedverify {
+                            Image(systemName: "bolt.shield")
+                                .foregroundColor(Color(.blue))
+                        } else {
+                            Image(systemName: "bolt.shield")
+                                .foregroundColor(Color(.yellow))
+                        }
+                    }
+                    .help("Verify Selected")
+                }
+            }
+
+            ToolbarItem {
+                Button {
+                    ispressedestimate = true
+                    if urlcommand {
+                        urlcommand = false
+                    } else {
+                        urlcommand = true
+                    }
+                    Task {
+                        try await Task.sleep(seconds: 1)
+                        ispressedestimate = false
+                    }
+                } label: {
+                    if ispressedestimate {
+                        Image(systemName: "bolt.shield.fill")
+                            .foregroundColor(Color(.blue))
+                    } else {
+                        Image(systemName: "bolt.shield.fill")
+                            .foregroundColor(Color(.yellow))
+                    }
+                }
+                .help("Estimate & Synchronize")
             }
         })
         .alert(isPresented: $showingAlert) {
