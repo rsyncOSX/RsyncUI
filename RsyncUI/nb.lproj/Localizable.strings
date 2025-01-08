@@ -188,10 +188,13 @@
 "Estimate (⌘E)" = "Estimer (⌘E)";
 
 /* No comment provided by engineer. */
+"Estimate & Synchronize" = "Estimer & synkroniser";
+
+/* No comment provided by engineer. */
 "Export" = "Eksporter";
 
 /* No comment provided by engineer. */
-"Export and import" = "Eksporter og importer";
+"Export & Import" = "Eksport & Import";
 
 /* No comment provided by engineer. */
 "Export tasks" = "Eksporter oppgaver";
@@ -296,7 +299,13 @@
 "No log records yet." = "Ingen logger.";
 
 /* No comment provided by engineer. */
+"No profile with this name" = "Inngen profil med dette navn";
+
+/* No comment provided by engineer. */
 "No remote server on task" = "Ingen ekstern tjener på oppgave";
+
+/* No comment provided by engineer. */
+"No time delay Synchronize URL-actions" = "Ingen tidsforsinkelse ved synkronisere URL-aksjoner";
 
 /* No comment provided by engineer. */
 "Norwegian translation by: Thomas Evensen" = "Norsk oversettelse av: Thomas Evensen";
@@ -305,10 +314,10 @@
 "Not a snapshot task." = "Ikke snapshot oppgave.";
 
 /* No comment provided by engineer. */
-"OK" = "Ok";
+"Off" = "Av";
 
 /* No comment provided by engineer. */
-"Off" = "Av";
+"OK" = "Ok";
 
 /* No comment provided by engineer. */
 "Only rsync version 3.x supports snapshots." = "Kun rsync versjon 3 støtter snapshot.";
@@ -491,6 +500,9 @@
 "Synchronize tasks?" = "Synkronisere oppgaver?";
 
 /* No comment provided by engineer. */
+"Synchronizing now" = "Synkroniserer nå";
+
+/* No comment provided by engineer. */
 "Tag" = "Tag";
 
 /* No comment provided by engineer. */
@@ -566,6 +578,12 @@
 "Update task" = "Oppdater oppgave";
 
 /* No comment provided by engineer. */
+"URL for Estimate & Synchronize" = "URL for å estimere & synkronisere";
+
+/* No comment provided by engineer. */
+"URL for Verify" = "URL for å verifisere";
+
+/* No comment provided by engineer. */
 "Use macOS Finder" = "Bruk macOS Finder";
 
 /* No comment provided by engineer. */
@@ -573,6 +591,9 @@
 
 /* No comment provided by engineer. */
 "Verify remote" = "Verifiser ekstern";
+
+/* No comment provided by engineer. */
+"Verify Selected" = "Verifiser valgt";
 
 /* No comment provided by engineer. */
 "Verify task" = "Verifiser oppgave";
@@ -585,4 +606,7 @@
 
 /* No comment provided by engineer. */
 "View logfile" = "Se loggfil";
+
+/* No comment provided by engineer. */
+"View URLs" = "Se URL";
 

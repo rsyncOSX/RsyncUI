@@ -188,10 +188,13 @@
 "Estimate (⌘E)" = "Schätzung (⌘E)";
 
 /* No comment provided by engineer. */
+"Estimate & Synchronize" = "Schätzung & Synchronisieren";
+
+/* No comment provided by engineer. */
 "Export" = "Export";
 
 /* No comment provided by engineer. */
-"Export and import" = "Export und Import";
+"Export & Import" = "Export & Import";
 
 /* No comment provided by engineer. */
 "Export tasks" = "Exportaufgaben";
@@ -296,7 +299,13 @@
 "No log records yet." = "Noch keine Protokolldatensätze.";
 
 /* No comment provided by engineer. */
+"No profile with this name" = "Keine Profil";
+
+/* No comment provided by engineer. */
 "No remote server on task" = "Kein Remote-Server für die Aufgabe";
+
+/* No comment provided by engineer. */
+"No time delay Synchronize URL-actions" = "Keine Zeitverzögerung Synchronisation von URL-Aktionen";
 
 /* No comment provided by engineer. */
 "Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
@@ -305,10 +314,10 @@
 "Not a snapshot task." = "Keine Snapshot-Aufgabe.";
 
 /* No comment provided by engineer. */
-"OK" = "Ok";
+"Off" = "Aus";
 
 /* No comment provided by engineer. */
-"Off" = "Aus";
+"OK" = "Ok";
 
 /* No comment provided by engineer. */
 "Only rsync version 3.x supports snapshots." = "Nur rsync Version 3.x unterstützt Snapshots.";
@@ -491,6 +500,9 @@
 "Synchronize tasks?" = "Aufgaben synchronisieren?";
 
 /* No comment provided by engineer. */
+"Synchronizing now" = "Wird jetzt synchronisiert";
+
+/* No comment provided by engineer. */
 "Tag" = "Tag";
 
 /* No comment provided by engineer. */
@@ -566,6 +578,12 @@
 "Update task" = "Aufgabe aktualisieren";
 
 /* No comment provided by engineer. */
+"URL for Estimate & Synchronize" = "URL für Schätzen und Synchronisieren";
+
+/* No comment provided by engineer. */
+"URL for Verify" = "URL für Verify";
+
+/* No comment provided by engineer. */
 "Use macOS Finder" = "macOS Finder verwenden";
 
 /* No comment provided by engineer. */
@@ -575,11 +593,20 @@
 "Verify remote" = "Überprüfen der Fernbedienung";
 
 /* No comment provided by engineer. */
+"Verify Selected" = "Auswahl überprüfen";
+
+/* No comment provided by engineer. */
 "Verify task" = "Aufgabe verifizieren";
+
+/* No comment provided by engineer. */
+"Version 3.x of rsync must be installed and enabled to use this function." = "Um diese Funktion zu nutzen, muss Version 3.x von rsync installiert und aktiviert sein.";
 
 /* No comment provided by engineer. */
 "Version rsync" = "Version rsync";
 
 /* No comment provided by engineer. */
 "View logfile" = "Logdatei anzeigen";
+
+/* No comment provided by engineer. */
+"View URLs" = "URLs anzeigen";
 
