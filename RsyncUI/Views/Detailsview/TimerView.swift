@@ -48,6 +48,5 @@ struct TimerView: View {
                 }
             }
         }
-        
     }
 }

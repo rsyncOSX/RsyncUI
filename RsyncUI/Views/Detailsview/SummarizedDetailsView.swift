@@ -34,11 +34,9 @@ struct SummarizedDetailsView: View {
                                              profile: profile,
                                              configurations: configurations)
                 } else {
-                    
                     leftcolumndetails
-                    
+
                     rightcolumndetails
-                    
                 }
             }
             .toolbar(content: {
@@ -127,7 +125,7 @@ struct SummarizedDetailsView: View {
 
     // URL code
     var datatosynchronizeURL: Bool {
-        if queryitem != nil, estimateprogressdetails.estimatealltasksinprogress == false  {
+        if queryitem != nil, estimateprogressdetails.estimatealltasksinprogress == false {
             let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
             if (datatosynchronize?.count ?? 0) > 0 {
                 return true
@@ -139,7 +137,7 @@ struct SummarizedDetailsView: View {
     }
 
     var datatosynchronize: Bool {
-        if queryitem == nil, estimateprogressdetails.estimatealltasksinprogress == false  {
+        if queryitem == nil, estimateprogressdetails.estimatealltasksinprogress == false {
             let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
             if (datatosynchronize?.count ?? 0) > 0 {
                 return true
@@ -149,7 +147,7 @@ struct SummarizedDetailsView: View {
         }
         return false
     }
-    
+
     var leftcolumndetails: some View {
         Table(estimateprogressdetails.estimatedlist ?? [],
               selection: $selecteduuids)
@@ -188,7 +186,7 @@ struct SummarizedDetailsView: View {
             .width(max: 60)
         }
     }
-    
+
     var rightcolumndetails: some View {
         Table(estimateprogressdetails.estimatedlist ?? [],
               selection: $selecteduuids)

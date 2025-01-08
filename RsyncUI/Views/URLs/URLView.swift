@@ -36,7 +36,8 @@ struct URLView: View {
                             selectedconfig = configurations[index]
                             let deeplinkurl = DeeplinkURL()
                             if selectedconfig?.offsiteServer.isEmpty == false,
-                               selectedconfig?.task == SharedReference.shared.synchronize {
+                               selectedconfig?.task == SharedReference.shared.synchronize
+                            {
                                 // Create verifyremote URL
                                 urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
                                 stringverify = urlverify?.absoluteString ?? ""

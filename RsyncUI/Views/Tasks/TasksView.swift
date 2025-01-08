@@ -127,7 +127,6 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
-            
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
@@ -212,7 +211,7 @@ struct TasksView: View {
                 }
                 .help("Quick synchronize")
             }
-            
+
             if remoteconfigurations {
                 ToolbarItem {
                     Button {

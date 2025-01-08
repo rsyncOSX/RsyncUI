@@ -45,7 +45,7 @@ struct Logsettings: View {
                             settingsischanged = true
                         }
                 }
-                
+
                 if showthumbsup { thumbsupgreen }
 
             } header: {
