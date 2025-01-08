@@ -1,8 +1,5 @@
 ## Hi there 👋
 
-Please be aware of the main repository is commited with the *latest development*. There might be
-some not yet known issues in code. Stable code might be downloaded from the latest release.
-
 RsyncUI is a GUI on the Apple macOS platform for the command line tool [rsync](https://github.com/WayneD/rsync). It is `rsync` which executes
 the synchronize data tasks. The GUI is *only* for organizing tasks, setting parameters to `rsync` and make it easier to use `rsync`.
 
