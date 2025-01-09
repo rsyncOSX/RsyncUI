@@ -68,13 +68,13 @@ struct DetailsPushPullView: View {
                                                       pushremotedatanumbers: pushremotedatanumbers)
                 {
                 case .remotemoredata:
-                    MessageView(mytext: "It seems that REMOTE is more updated than LOCAL. A PULL may be next.", size: .title3)
+                    MessageView(mytext: NSLocalizedString("It seems that REMOTE is more updated than LOCAL. A PULL may be next." , comment: ""), size: .title3)
                 case .localmoredata:
-                    MessageView(mytext: "It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", size: .title3)
+                    MessageView(mytext: NSLocalizedString("It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", comment: ""), size: .title3)
                 case .evenamountadata:
-                    MessageView(mytext: "There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation.\n Alternatively, you can choose to do nothing.", size: .title3)
+                    MessageView(mytext: NSLocalizedString("There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation.\n Alternatively, you can choose to do nothing.", comment: ""), size: .title3)
                 case .noevaluation:
-                    MessageView(mytext: "I couldn’t decide between LOCAL and REMOTE.", size: .title3)
+                    MessageView(mytext: NSLocalizedString("I couldn’t decide between LOCAL and REMOTE.", comment: ""), size: .title3)
                 }
             }
         }

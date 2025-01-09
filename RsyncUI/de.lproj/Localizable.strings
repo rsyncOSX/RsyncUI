@@ -233,6 +233,9 @@
 "https://rsyncui.netlify.app" = "https://rsyncui.netlify.app";
 
 /* No comment provided by engineer. */
+"I couldn’t decide between LOCAL and REMOTE." = "Fix";
+
+/* No comment provided by engineer. */
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
 /* No comment provided by engineer. */
@@ -243,6 +246,12 @@
 
 /* No comment provided by engineer. */
 "Import tasks" = "Aufgaben importieren?";
+
+/* No comment provided by engineer. */
+"It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next." = "Fix";
+
+/* No comment provided by engineer. */
+"It seems that REMOTE is more updated than LOCAL. A PULL may be next." = "Fix";
 
 /* No comment provided by engineer. */
 "kB" = "kB";
@@ -534,6 +543,9 @@
 
 /* No comment provided by engineer. */
 "There is a new version available for download" = "Es steht eine neue Version zum Download bereit";
+
+/* No comment provided by engineer. */
+"There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation.\n Alternatively, you can choose to do nothing." = "Fix";
 
 /* No comment provided by engineer. */
 "This is only due to Marknumberofdayssince set in the settings." = "Dies liegt ausschließlich an der in den Einstellungen festgelegten Markierung „AnzahlderTagesseit“.";
