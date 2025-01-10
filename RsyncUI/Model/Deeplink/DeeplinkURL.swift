@@ -10,8 +10,7 @@ import OSLog
 import RsyncUIDeepLinks
 
 // URL code
-@MainActor
-final class DeeplinkURL {
+struct DeeplinkURL: PropogateError {
     let deeplinks = RsyncUIDeepLinks()
     let validprofiles = Homepath().getfullpathmacserialcatalogsasstringnames()
 
@@ -28,14 +27,14 @@ final class DeeplinkURL {
                         try deeplinks.thrownoaction()
                     } catch let e {
                         let error = e
-                        // propogateerror(error: error)
+                        propogateerror(error: error)
                     }
                 }
             }
 
         } catch let e {
             let error = e
-            // propogateerror(error: error)
+            propogateerror(error: error)
         }
         return nil
     }
@@ -46,7 +45,7 @@ final class DeeplinkURL {
             return true
         } catch let e {
             let error = e
-            // propogateerror(error: error)
+            propogateerror(error: error)
             return false
         }
     }
@@ -57,7 +56,7 @@ final class DeeplinkURL {
             return true
         } catch let e {
             let error = e
-            // propogateerror(error: error)
+            propogateerror(error: error)
             return false
         }
     }
