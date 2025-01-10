@@ -8,43 +8,32 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+struct RsyncUIProvider: TimelineProvider {
+    func placeholder(in context: Context) -> RsyncUIStatusEntry {
+        RsyncUIStatusEntry(date: Date(), rsyncuistatus: "😀")
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+    func getSnapshot(in context: Context, completion: @escaping (RsyncUIStatusEntry) -> ()) {
+        let entry = RsyncUIStatusEntry(date: Date(), rsyncuistatus: "😀")
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
-            entries.append(entry)
-        }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+        let entryDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
+        let entry = RsyncUIStatusEntry(date: entryDate, rsyncuistatus: "😀")
+        let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
     }
-
-//    func relevances() async -> WidgetRelevances<Void> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct RsyncUIStatusEntry: TimelineEntry {
     let date: Date
-    let emoji: String
+    let rsyncuistatus: String
 }
 
 struct RsyncUIWidgetEntryView : View {
-    var entry: Provider.Entry
+    var entry: RsyncUIProvider.Entry
 
     var body: some View {
         VStack {
@@ -53,8 +42,11 @@ struct RsyncUIWidgetEntryView : View {
                 Text(entry.date, style: .time)
             }
 
-            Text("Emoji:")
-            Text(entry.emoji)
+            HStack {
+                Text("RsyncUI status:")
+                Text(entry.rsyncuistatus)
+            }
+            
         }
     }
 }
@@ -63,7 +55,7 @@ struct RsyncUIWidget: Widget {
     let kind: String = "RsyncUIWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: RsyncUIProvider()) { entry in
             if #available(macOS 14.0, *) {
                 RsyncUIWidgetEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
