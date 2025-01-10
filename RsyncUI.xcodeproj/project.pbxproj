@@ -16,6 +16,7 @@
 		E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9BAB99C2C60A611008A1707 /* RsyncArguments */; };
 		E9C077762C8CCA65005F8669 /* ParseRsyncOutput in Frameworks */ = {isa = PBXBuildFile; productRef = E9C077752C8CCA65005F8669 /* ParseRsyncOutput */; };
 		E9C566062D1BF046009C540F /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9C566052D1BF046009C540F /* RsyncUIDeepLinks */; };
+		E9E7CD2C2D319AA30027FE27 /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9E7CD2B2D319AA30027FE27 /* RsyncUIDeepLinks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9E7CD2C2D319AA30027FE27 /* RsyncUIDeepLinks in Frameworks */,
 				E9532FEE2D31177900D5B7A7 /* SwiftUI.framework in Frameworks */,
 				E9532FEC2D31177900D5B7A7 /* WidgetKit.framework in Frameworks */,
 			);
@@ -146,6 +148,7 @@
 			);
 			name = RsyncUIWidgetExtension;
 			packageProductDependencies = (
+				E9E7CD2B2D319AA30027FE27 /* RsyncUIDeepLinks */,
 			);
 			productName = RsyncUIWidgetExtension;
 			productReference = E9532FE92D31177800D5B7A7 /* RsyncUIWidgetExtension.appex */;
@@ -626,6 +629,11 @@
 			productName = ParseRsyncOutput;
 		};
 		E9C566052D1BF046009C540F /* RsyncUIDeepLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */;
+			productName = RsyncUIDeepLinks;
+		};
+		E9E7CD2B2D319AA30027FE27 /* RsyncUIDeepLinks */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */;
 			productName = RsyncUIDeepLinks;
