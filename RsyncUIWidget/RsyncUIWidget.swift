@@ -34,11 +34,12 @@ struct RsyncUIStatusEntry: TimelineEntry {
 
 struct RsyncUIWidgetEntryView : View {
     var entry: RsyncUIProvider.Entry
-    @State private var selectedprofile: String?
 
     var body: some View {
         VStack {
-           
+            
+            Button("Test") {}
+            
             HStack {
                 Text("Time:")
                 Text(entry.date, style: .time)
@@ -47,17 +48,6 @@ struct RsyncUIWidgetEntryView : View {
             HStack {
                 Text("RsyncUI status:")
                 Text(entry.rsyncuistatus)
-            }
-        }
-    }
-    
-    var profilepicker: some View {
-        HStack {
-            Picker("", selection: $selectedprofile) {
-                ForEach(profilenames.profiles ?? [], id: \.self) { profile in
-                    Text(profile.profile ?? "")
-                        .tag(profile.profile)
-                }
             }
         }
     }

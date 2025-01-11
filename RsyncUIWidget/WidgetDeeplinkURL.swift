@@ -32,17 +32,16 @@ struct WidgetDeeplinkURL {
                 } else {
                     do {
                         try deeplinks.thrownoaction()
-                    } catch let e {
-                        let error = e
-                        // propogateerror(error: error)
+                    } catch {
+                        return nil
                     }
                 }
             }
 
-        } catch let e {
-            let error = e
-            // propogateerror(error: error)
+        } catch {
+            return nil
         }
+        
         return nil
     }
 
@@ -50,9 +49,7 @@ struct WidgetDeeplinkURL {
         do {
             try deeplinks.validateprofile(profile, validprofiles)
             return true
-        } catch let e {
-            let error = e
-            // propogateerror(error: error)
+        } catch {
             return false
         }
     }
@@ -61,9 +58,7 @@ struct WidgetDeeplinkURL {
         do {
             try deeplinks.validatenoongoingURLaction(queryItem)
             return true
-        } catch let e {
-            let error = e
-            // propogateerror(error: error)
+        } catch {
             return false
         }
     }
