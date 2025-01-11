@@ -7,6 +7,7 @@
 
 import WidgetKit
 import SwiftUI
+import AppIntents
 
 struct RsyncUIProvider: TimelineProvider {
     func placeholder(in context: Context) -> RsyncUIStatusEntry {
@@ -38,7 +39,7 @@ struct RsyncUIWidgetEntryView : View {
     var body: some View {
         VStack {
             
-            Button("Test") {}
+            Button("Execute", intent: ExecuteTask())
             
             HStack {
                 Text("Time:")
@@ -73,5 +74,16 @@ struct RsyncUIWidget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+    }
+}
+
+struct ExecuteTask: AppIntent {
+    static var title: LocalizedStringResource = "Execute Task"
+    // let urlstring = "https://rsyncui.netlify.app/blog/"
+    
+    func perform() async throws -> some IntentResult {
+        print("Perform triggered")
+        // NSWorkspace.shared.open(URL(string: urlstring)!)
+        return .result()
     }
 }
