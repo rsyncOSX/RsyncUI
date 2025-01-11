@@ -35,11 +35,10 @@ struct RsyncUIStatusEntry: TimelineEntry {
 
 struct RsyncUIWidgetEntryView : View {
     var entry: RsyncUIProvider.Entry
+    let urlstring = URL(string: "rsyncuiapp://loadprofileandverify?profile=Pictures&id=Pictures_backup")
 
     var body: some View {
         VStack {
-            
-            Button("Execute", intent: ExecuteTask())
             
             HStack {
                 Text("Time:")
@@ -51,6 +50,7 @@ struct RsyncUIWidgetEntryView : View {
                 Text(entry.rsyncuistatus)
             }
         }
+        .widgetURL(urlstring)
     }
     
     var profilenames: WidgetProfilenames {
