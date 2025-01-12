@@ -2,7 +2,7 @@
 //  RsyncUIWidgetBundle.swift
 //  RsyncUIWidget
 //
-//  Created by Thomas Evensen on 12/01/2025.
+//  Created by Thomas Evensen on 10/01/2025.
 //
 
 import WidgetKit
