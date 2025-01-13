@@ -39,8 +39,8 @@ struct RsyncUIWidgetEstimateEntryView : View {
         HStack {
             Text("Estimate:")
             Text(entry.date, style: .time)
-            Image(systemName: "play.fill")
-                .foregroundColor(.yellow)
+            Image(systemName: "bolt.shield.fill")
+                .foregroundColor(Color(.yellow))
                 .widgetURL(urlstringestimate)
         }
     }
@@ -54,7 +54,7 @@ struct RsyncUIWidgetEstimate: Widget {
             RsyncUIWidgetEstimateEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Estimate")
+        .description("Estimate & Synchronize your files.")
     }
 }

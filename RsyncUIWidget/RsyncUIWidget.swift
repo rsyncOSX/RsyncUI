@@ -39,8 +39,8 @@ struct RsyncUIWidgetEntryView : View {
         HStack {
             Text("Verify:")
             Text(entry.date, style: .time)
-            Image(systemName: "play.fill")
-                .foregroundColor(.blue)
+            Image(systemName: "bolt.shield")
+                .foregroundColor(Color(.yellow))
                 .widgetURL(urlstringverify)
         }
     }
@@ -54,8 +54,8 @@ struct RsyncUIWidget: Widget {
             RsyncUIWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Verify")
+        .description("Verify Pictures")
     }
 }
 
